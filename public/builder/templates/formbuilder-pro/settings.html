@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - DocuClone</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .navbar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .settings-sidebar {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            min-height: 500px;
+        }
+        
+        .settings-content {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            min-height: 500px;
+        }
+        
+        .nav-pills .nav-link {
+            border-radius: 8px;
+            margin-bottom: 5px;
+            color: #6c757d;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-pills .nav-link.active {
+            background: #667eea;
+            color: white;
+        }
+        
+        .nav-pills .nav-link:hover {
+            background: #e9ecef;
+            color: #495057;
+        }
+        
+        .nav-pills .nav-link.active:hover {
+            background: #667eea;
+            color: white;
+        }
+        
+        .integration-card {
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .integration-card:hover {
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+        
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background-color: #667eea;
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        
+        .plan-card {
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .plan-card.current {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #667eea10, #764ba210);
+        }
+        
+        .api-key {
+            font-family: 'Courier New', monospace;
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #e9ecef;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="dashboard.html">
+                <i class="fas fa-signature me-2"></i>DocuClone
+            </a>
+            <div class="navbar-nav ms-auto">
+                <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="fas fa-user-circle me-2"></i>{{USER_NAME}}
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Settings</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#" onclick="logout()"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid p-4">
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h2><i class="fas fa-cog me-2"></i>Settings</h2>
+                <p class="text-muted">Manage your account, integrations, and preferences</p>
+            </div>
+            <a href="dashboard.html" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+            </a>
+        </div>
+
+        <div class="row">
+            <!-- Settings Sidebar -->
+            <div class="col-md-3">
+                <div class="settings-sidebar p-3">
+                    <ul class="nav nav-pills flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#" onclick="showSection('profile')">
+                                <i class="fas fa-user me-2"></i>Profile
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showSection('security')">
+                                <i class="fas fa-shield-alt me-2"></i>Security
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showSection('notifications')">
+                                <i class="fas fa-bell me-2"></i>Notifications
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showSection('integrations')">
+                                <i class="fas fa-puzzle-piece me-2"></i>Integrations
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showSection('billing')">
+                                <i class="fas fa-credit-card me-2"></i>Billing
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showSection('api')">
+                                <i class="fas fa-code me-2"></i>API Keys
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showSection('branding')">
+                                <i class="fas fa-palette me-2"></i>Branding
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showSection('team')">
+                                <i class="fas fa-users me-2"></i>Team
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Settings Content -->
+            <div class="col-md-9">
+                <div class="settings-content">
+                    <!-- Profile Section -->
+                    <div id="profileSection" class="p-4">
+                        <h4>Profile Information</h4>
+                        <p class="text-muted">Update your personal information and preferences</p>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Full Name</label>
+                                    <input type="text" class="form-control" value="{{USER_NAME}}">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Email Address</label>
+                                    <input type="email" class="form-control" value="{{USER_EMAIL}}">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Phone Number</label>
+                                    <input type="tel" class="form-control" placeholder="+1 (555) 123-4567">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Job Title</label>
+                                    <input type="text" class="form-control" placeholder="Director of Operations">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Company</label>
+                                    <input type="text" class="form-control" placeholder="Company Name">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Time Zone</label>
+                                    <select class="form-control">
+                                        <option>UTC-8 (Pacific Time)</option>
+                                        <option>UTC-5 (Eastern Time)</option>
+                                        <option>UTC+0 (GMT)</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Language</label>
+                                    <select class="form-control">
+                                        <option>English</option>
+                                        <option>Spanish</option>
+                                        <option>French</option>
+                                        <option>German</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Profile Picture</label>
+                                    <input type="file" class="form-control" accept="image/*">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button class="btn btn-primary">Save Changes</button>
+                    </div>
+
+                    <!-- Security Section -->
+                    <div id="securitySection" class="p-4 d-none">
+                        <h4>Security Settings</h4>
+                        <p class="text-muted">Manage your account security and authentication</p>
+                        
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h6>Change Password</h6>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <input type="password" class="form-control mb-2" placeholder="Current Password">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="password" class="form-control mb-2" placeholder="New Password">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="password" class="form-control mb-2" placeholder="Confirm Password">
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary btn-sm">Update Password</button>
+                            </div>
+                        </div>
+                        
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6>Two-Factor Authentication</h6>
+                                        <p class="text-muted mb-0">Add an extra layer of security to your account</p>
+                                    </div>
+                                    <label class="switch">
+                                        <input type="checkbox">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h6>Active Sessions</h6>
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <div>
+                                        <strong>Current Session</strong><br>
+                                        <small class="text-muted">Chrome on Windows • Last active now</small>
+                                    </div>
+                                    <span class="badge bg-success">Active</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <div>
+                                        <strong>Mobile App</strong><br>
+                                        <small class="text-muted">iPhone • Last active 2 hours ago</small>
+                                    </div>
+                                    <button class="btn btn-outline-danger btn-sm">Revoke</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notifications Section -->
+                    <div id="notificationsSection" class="p-4 d-none">
+                        <h4>Notification Preferences</h4>
+                        <p class="text-muted">Choose how you'd like to be notified</p>
+                        
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h6>Email Notifications</h6>
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span>Document signed</span>
+                                    <label class="switch">
+                                        <input type="checkbox" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span>Document declined</span>
+                                    <label class="switch">
+                                        <input type="checkbox" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span>Document reminder sent</span>
+                                    <label class="switch">
+                                        <input type="checkbox">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span>Weekly summary report</span>
+                                    <label class="switch">
+                                        <input type="checkbox" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-body">
+                                <h6>SMS Notifications</h6>
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span>Urgent document notifications</span>
+                                    <label class="switch">
+                                        <input type="checkbox">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span>Security alerts</span>
+                                    <label class="switch">
+                                        <input type="checkbox" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Integrations Section -->
+                    <div id="integrationsSection" class="p-4 d-none">
+                        <h4>Integrations</h4>
+                        <p class="text-muted">Connect with your favorite tools and services</p>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <div class="integration-card p-3">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="d-flex align-items-center">
+                                            <i class="fab fa-google fa-2x text-danger me-3"></i>
+                                            <div>
+                                                <h6 class="mb-0">Google Drive</h6>
+                                                <small class="text-muted">Store documents in Google Drive</small>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-outline-primary btn-sm">Connect</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="integration-card p-3">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="d-flex align-items-center">
+                                            <i class="fab fa-dropbox fa-2x text-primary me-3"></i>
+                                            <div>
+                                                <h6 class="mb-0">Dropbox</h6>
+                                                <small class="text-muted">Sync with Dropbox storage</small>
+                                            </div>
+                                        </div>
+                                        <span class="badge bg-success">Connected</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="integration-card p-3">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="d-flex align-items-center">
+                                            <i class="fab fa-slack fa-2x text-success me-3"></i>
+                                            <div>
+                                                <h6 class="mb-0">Slack</h6>
+                                                <small class="text-muted">Get notifications in Slack</small>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-outline-primary btn-sm">Connect</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="integration-card p-3">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="d-flex align-items-center">
+                                            <i class="fab fa-salesforce fa-2x text-info me-3"></i>
+                                            <div>
+                                                <h6 class="mb-0">Salesforce</h6>
+                                                <small class="text-muted">Sync with Salesforce CRM</small>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-outline-primary btn-sm">Connect</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Billing Section -->
+                    <div id="billingSection" class="p-4 d-none">
+                        <h4>Billing & Subscription</h4>
+                        <p class="text-muted">Manage your subscription and payment methods</p>
+                        
+                        <div class="row mb-4">
+                            <div class="col-md-4">
+                                <div class="plan-card p-3 current">
+                                    <h6>Professional Plan</h6>
+                                    <div class="h4 text-primary">$29/month</div>
+                                    <ul class="list-unstyled">
+                                        <li><i class="fas fa-check text-success me-2"></i>100 documents/month</li>
+                                        <li><i class="fas fa-check text-success me-2"></i>Advanced templates</li>
+                                        <li><i class="fas fa-check text-success me-2"></i>Team collaboration</li>
+                                    </ul>
+                                    <button class="btn btn-outline-primary w-100" disabled>Current Plan</button>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="plan-card p-3">
+                                    <h6>Enterprise Plan</h6>
+                                    <div class="h4">$99/month</div>
+                                    <ul class="list-unstyled">
+                                        <li><i class="fas fa-check text-success me-2"></i>Unlimited documents</li>
+                                        <li><i class="fas fa-check text-success me-2"></i>API access</li>
+                                        <li><i class="fas fa-check text-success me-2"></i>Priority support</li>
+                                    </ul>
+                                    <button class="btn btn-primary w-100">Upgrade</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-body">
+                                <h6>Payment Method</h6>
+                                <div class="d-flex align-items-center">
+                                    <i class="fab fa-cc-visa fa-2x text-primary me-3"></i>
+                                    <div>
+                                        <strong>•••• •••• •••• 4242</strong><br>
+                                        <small class="text-muted">Expires 12/2025</small>
+                                    </div>
+                                    <button class="btn btn-outline-secondary btn-sm ms-auto">Update</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- API Section -->
+                    <div id="apiSection" class="p-4 d-none">
+                        <h4>API Keys</h4>
+                        <p class="text-muted">Manage your API keys for integrations</p>
+                        
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h6>Production API Key</h6>
+                                    <button class="btn btn-outline-primary btn-sm">Generate New</button>
+                                </div>
+                                <div class="api-key">
+                                    dk_live_51HrQ2xKZ4kP8X2xK1b2Z3cV4d5E6f7G8h9I0j
+                                </div>
+                                <small class="text-muted">Created on January 15, 2024 • Last used 2 hours ago</small>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h6>Test API Key</h6>
+                                    <button class="btn btn-outline-secondary btn-sm">Regenerate</button>
+                                </div>
+                                <div class="api-key">
+                                    dk_test_51HrQ2xKZ4kP8X2xK1b2Z3cV4d5E6f7G8h9I0j
+                                </div>
+                                <small class="text-muted">For development and testing purposes</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Branding Section -->
+                    <div id="brandingSection" class="p-4 d-none">
+                        <h4>Branding</h4>
+                        <p class="text-muted">Customize the appearance of your documents and emails</p>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Company Logo</label>
+                                    <input type="file" class="form-control" accept="image/*">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Primary Color</label>
+                                    <input type="color" class="form-control" value="#667eea">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Email Header</label>
+                                    <textarea class="form-control" rows="3">Thank you for using DocuClone. Please find your document attached.</textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Email Footer</label>
+                                    <textarea class="form-control" rows="3">Best regards,
+{{USER_NAME}}
+{{USER_EMAIL}}</textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" checked>
+                                        <label class="form-check-label">
+                                            Show "Powered by DocuClone" in emails
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button class="btn btn-primary">Save Branding</button>
+                    </div>
+
+                    <!-- Team Section -->
+                    <div id="teamSection" class="p-4 d-none">
+                        <h4>Team Management</h4>
+                        <p class="text-muted">Manage team members and their permissions</p>
+                        
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h6>Team Members</h6>
+                            <button class="btn btn-primary">Invite Member</button>
+                        </div>
+                        
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Role</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{USER_NAME}}</td>
+                                        <td>{{USER_EMAIL}}</td>
+                                        <td><span class="badge bg-primary">Owner</span></td>
+                                        <td><span class="badge bg-success">Active</span></td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>John Smith</td>
+                                        <td>john@company.com</td>
+                                        <td><span class="badge bg-info">Admin</span></td>
+                                        <td><span class="badge bg-success">Active</span></td>
+                                        <td>
+                                            <button class="btn btn-outline-secondary btn-sm">Edit</button>
+                                            <button class="btn btn-outline-danger btn-sm">Remove</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sarah Johnson</td>
+                                        <td>sarah@company.com</td>
+                                        <td><span class="badge bg-secondary">Member</span></td>
+                                        <td><span class="badge bg-warning">Pending</span></td>
+                                        <td>
+                                            <button class="btn btn-outline-primary btn-sm">Resend</button>
+                                            <button class="btn btn-outline-danger btn-sm">Cancel</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="auth.js"></script>
+    <script>
+        // Check authentication (skip in editor mode)
+        if (!TemplateAuth.isLoggedIn() && window.self === window.top) {
+            window.location.href = 'login.html';
+        }
+
+        function showSection(section) {
+            // Hide all sections
+            document.querySelectorAll('[id$="Section"]').forEach(sec => {
+                sec.classList.add('d-none');
+            });
+            
+            // Show selected section
+            document.getElementById(section + 'Section').classList.remove('d-none');
+            
+            // Update active nav
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        function logout() {
+            TemplateAuth.logout();
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html> 

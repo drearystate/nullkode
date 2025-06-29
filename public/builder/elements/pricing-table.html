@@ -1,0 +1,181 @@
+<template>
+<div class="pricing-table">
+  <div class="pricing-card">
+    <div class="pricing-header">
+      <h3 class="pricing-title">Basic</h3>
+      <div class="pricing-price">
+        <span class="currency">$</span>
+        <span class="amount">9</span>
+        <span class="period">/month</span>
+      </div>
+    </div>
+    <div class="pricing-features">
+      <ul>
+        <li><i class="fa fa-check"></i> 5 Projects</li>
+        <li><i class="fa fa-check"></i> 10GB Storage</li>
+        <li><i class="fa fa-check"></i> Email Support</li>
+        <li><i class="fa fa-times"></i> Priority Support</li>
+        <li><i class="fa fa-times"></i> Advanced Features</li>
+      </ul>
+    </div>
+    <div class="pricing-footer">
+      <a href="#" class="btn btn-outline-primary">Choose Plan</a>
+    </div>
+  </div>
+</div>
+</template>
+
+<style>
+.pricing-table {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.pricing-table .pricing-card {
+  border: 2px solid #e9ecef;
+  border-radius: 10px;
+  padding: 30px 20px;
+  text-align: center;
+  position: relative;
+  transition: all 0.3s ease;
+  background: #fff;
+}
+
+.pricing-table .pricing-card:hover {
+  border-color: #0d6efd;
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(13, 110, 253, 0.1);
+}
+
+.pricing-table .pricing-header {
+  margin-bottom: 30px;
+}
+
+.pricing-table .pricing-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #212529;
+  margin-bottom: 20px;
+}
+
+.pricing-table .pricing-price {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.pricing-table .currency {
+  font-size: 20px;
+  font-weight: 500;
+  color: #6c757d;
+}
+
+.pricing-table .amount {
+  font-size: 48px;
+  font-weight: 700;
+  color: #0d6efd;
+  margin: 0 5px;
+}
+
+.pricing-table .period {
+  font-size: 16px;
+  color: #6c757d;
+}
+
+.pricing-table .pricing-features ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.pricing-table .pricing-features li {
+  padding: 10px 0;
+  border-bottom: 1px solid #f8f9fa;
+  color: #495057;
+}
+
+.pricing-table .pricing-features li:last-child {
+  border-bottom: none;
+}
+
+.pricing-table .pricing-features i {
+  margin-right: 10px;
+  width: 16px;
+}
+
+.pricing-table .pricing-features .fa-check {
+  color: #28a745;
+}
+
+.pricing-table .pricing-features .fa-times {
+  color: #dc3545;
+}
+
+.pricing-table .pricing-footer {
+  margin-top: 30px;
+}
+
+.pricing-table .btn {
+  padding: 12px 30px;
+  font-weight: 600;
+  border-radius: 25px;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+.pricing-table .btn-outline-primary {
+  color: #0d6efd;
+  border: 2px solid #0d6efd;
+  background: transparent;
+}
+
+.pricing-table .btn-outline-primary:hover {
+  color: #fff;
+  background: #0d6efd;
+  transform: translateY(-2px);
+}
+
+.pricing-table .pricing-card.featured {
+  border-color: #0d6efd;
+  transform: scale(1.05);
+}
+
+.pricing-table .pricing-card.featured::before {
+  content: "Most Popular";
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #0d6efd;
+  color: white;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+</style>
+
+<script>
+export class PricingTable extends ArchitectElement {
+  name = 'Pricing Table';
+  contentCategories = ['flow'];
+  allowedContent = ['flow'];
+  category = 'components';
+  icon = [
+    {
+      tag: 'path',
+      attr: {
+        d: 'M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 1H5C3.89 1 3 1.89 3 3V19C3 20.1 3.9 21 5 21H11V19H5V3H13V9H21ZM14 21V19H22V21H14ZM14 17V15H22V17H14ZM14 13V11H22V13H14Z'
+      }
+    }
+  ];
+  specificity = 3;
+  hiddenClasses = ['pricing-table'];
+  
+  matcher(node) {
+    return node.classList.contains('pricing-table');
+  }
+}
+</script> 

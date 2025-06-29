@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bulk Send - DocuClone</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .navbar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .step-indicator {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+        }
+        
+        .step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+        
+        .step::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            width: 100%;
+            height: 2px;
+            background: #e9ecef;
+            z-index: 1;
+        }
+        
+        .step:last-child::after {
+            display: none;
+        }
+        
+        .step.active .step-number {
+            background: #667eea;
+            color: white;
+        }
+        
+        .step.completed .step-number {
+            background: #28a745;
+            color: white;
+        }
+        
+        .step.completed::after {
+            background: #28a745;
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-weight: bold;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .recipient-row {
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: white;
+        }
+        
+        .drag-drop-area {
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+        }
+        
+        .drag-drop-area.dragover {
+            border-color: #667eea;
+            background: #e8f0fe;
+        }
+        
+        .csv-preview {
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            background: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="dashboard.html">
+                <i class="fas fa-signature me-2"></i>DocuClone
+            </a>
+            <div class="navbar-nav ms-auto">
+                <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="fas fa-user-circle me-2"></i>{{USER_NAME}}
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Settings</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#" onclick="logout()"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid p-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div>
+                        <h2><i class="fas fa-paper-plane me-2"></i>Bulk Send</h2>
+                        <p class="text-muted">Send documents to multiple recipients at once</p>
+                    </div>
+                    <a href="dashboard.html" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+                    </a>
+                </div>
+
+                <!-- Step Indicator -->
+                <div class="step-indicator">
+                    <div class="step active" id="step1">
+                        <div class="step-number">1</div>
+                        <div class="step-title">Select Document</div>
+                    </div>
+                    <div class="step" id="step2">
+                        <div class="step-number">2</div>
+                        <div class="step-title">Add Recipients</div>
+                    </div>
+                    <div class="step" id="step3">
+                        <div class="step-number">3</div>
+                        <div class="step-title">Configure</div>
+                    </div>
+                    <div class="step" id="step4">
+                        <div class="step-number">4</div>
+                        <div class="step-title">Send</div>
+                    </div>
+                </div>
+
+                <!-- Step 1: Select Document -->
+                <div id="step1Content" class="step-content">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5><i class="fas fa-file-alt me-2"></i>Select Document or Template</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6>Upload New Document</h6>
+                                    <div class="drag-drop-area" id="documentDropArea">
+                                        <i class="fas fa-cloud-upload-alt fa-3x text-muted mb-3"></i>
+                                        <p>Drag & drop your document here or click to browse</p>
+                                        <input type="file" id="documentFile" class="d-none" accept=".pdf,.doc,.docx">
+                                        <button class="btn btn-primary" onclick="document.getElementById('documentFile').click()">
+                                            <i class="fas fa-upload me-2"></i>Choose File
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6>Or Choose Existing Template</h6>
+                                    <div class="list-group" style="max-height: 300px; overflow-y: auto;">
+                                        <a href="#" class="list-group-item list-group-item-action" onclick="selectTemplate('employment')">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <h6 class="mb-1">Employment Contract</h6>
+                                                    <p class="mb-1 text-muted">Standard employment agreement</p>
+                                                </div>
+                                                <i class="fas fa-chevron-right"></i>
+                                            </div>
+                                        </a>
+                                        <a href="#" class="list-group-item list-group-item-action" onclick="selectTemplate('nda')">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <h6 class="mb-1">NDA Agreement</h6>
+                                                    <p class="mb-1 text-muted">Non-disclosure agreement</p>
+                                                </div>
+                                                <i class="fas fa-chevron-right"></i>
+                                            </div>
+                                        </a>
+                                        <a href="#" class="list-group-item list-group-item-action" onclick="selectTemplate('service')">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <h6 class="mb-1">Service Contract</h6>
+                                                    <p class="mb-1 text-muted">Professional services agreement</p>
+                                                </div>
+                                                <i class="fas fa-chevron-right"></i>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Add Recipients -->
+                <div id="step2Content" class="step-content d-none">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5><i class="fas fa-users me-2"></i>Add Recipients</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <h6>Import from CSV</h6>
+                                    <div class="drag-drop-area" id="csvDropArea">
+                                        <i class="fas fa-file-csv fa-3x text-muted mb-3"></i>
+                                        <p>Upload CSV file with recipient information</p>
+                                        <input type="file" id="csvFile" class="d-none" accept=".csv">
+                                        <button class="btn btn-outline-primary" onclick="document.getElementById('csvFile').click()">
+                                            <i class="fas fa-upload me-2"></i>Upload CSV
+                                        </button>
+                                        <br><small class="text-muted mt-2">Format: Name, Email, Role, Company</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6>Or Add Manually</h6>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <input type="text" class="form-control mb-2" id="recipientName" placeholder="Full Name">
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="email" class="form-control mb-2" id="recipientEmail" placeholder="Email">
+                                        </div>
+                                        <div class="col-6">
+                                            <select class="form-control mb-2" id="recipientRole">
+                                                <option value="signer">Signer</option>
+                                                <option value="reviewer">Reviewer</option>
+                                                <option value="cc">CC</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="text" class="form-control mb-2" id="recipientCompany" placeholder="Company (optional)">
+                                        </div>
+                                        <div class="col-12">
+                                            <button class="btn btn-primary w-100" onclick="addRecipient()">
+                                                <i class="fas fa-plus me-2"></i>Add Recipient
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h6>Recipients List</h6>
+                            <div id="recipientsList">
+                                <!-- Recipients will be added here -->
+                            </div>
+                            
+                            <div id="csvPreview" class="csv-preview d-none mt-3">
+                                <table class="table table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Role</th>
+                                            <th>Company</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="csvPreviewBody">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Configure -->
+                <div id="step3Content" class="step-content d-none">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5><i class="fas fa-cog me-2"></i>Configure Bulk Send</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Subject Line</label>
+                                        <input type="text" class="form-control" id="emailSubject" value="Please sign: {{DOCUMENT_NAME}}">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Email Message</label>
+                                        <textarea class="form-control" id="emailMessage" rows="5">Hello {{RECIPIENT_NAME}},
+
+Please review and sign the attached document. This document requires your electronic signature.
+
+Thank you,
+{{SENDER_NAME}}</textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="requireSigningOrder" checked>
+                                            <label class="form-check-label" for="requireSigningOrder">
+                                                Enforce signing order
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Expiration (days)</label>
+                                        <input type="number" class="form-control" id="expirationDays" value="30">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Reminder Frequency</label>
+                                        <select class="form-control" id="reminderFrequency">
+                                            <option value="none">No reminders</option>
+                                            <option value="daily">Daily</option>
+                                            <option value="weekly" selected>Weekly</option>
+                                            <option value="biweekly">Bi-weekly</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="requireAuth">
+                                            <label class="form-check-label" for="requireAuth">
+                                                Require recipient authentication
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="carbonCopy">
+                                            <label class="form-check-label" for="carbonCopy">
+                                                Send me a copy when completed
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 4: Send -->
+                <div id="step4Content" class="step-content d-none">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5><i class="fas fa-paper-plane me-2"></i>Review and Send</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <h6>Summary</h6>
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <tr>
+                                                <td><strong>Document:</strong></td>
+                                                <td id="summaryDocument">-</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Recipients:</strong></td>
+                                                <td id="summaryRecipients">0</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Expiration:</strong></td>
+                                                <td id="summaryExpiration">30 days</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Reminders:</strong></td>
+                                                <td id="summaryReminders">Weekly</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    
+                                    <div class="alert alert-info">
+                                        <i class="fas fa-info-circle me-2"></i>
+                                        Your bulk send will be processed and recipients will receive their documents shortly.
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card bg-light">
+                                        <div class="card-body text-center">
+                                            <h5>Ready to Send?</h5>
+                                            <p class="text-muted">All recipients will receive their documents immediately</p>
+                                            <button class="btn btn-success btn-lg" onclick="sendBulkDocuments()">
+                                                <i class="fas fa-paper-plane me-2"></i>Send Now
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Buttons -->
+                <div class="d-flex justify-content-between mt-4">
+                    <button class="btn btn-secondary" id="prevBtn" onclick="previousStep()" disabled>
+                        <i class="fas fa-arrow-left me-2"></i>Previous
+                    </button>
+                    <button class="btn btn-primary" id="nextBtn" onclick="nextStep()">
+                        Next<i class="fas fa-arrow-right ms-2"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="auth.js"></script>
+    <script>
+        // Check authentication (skip in editor mode)
+        if (!TemplateAuth.isLoggedIn() && window.self === window.top) {
+            window.location.href = 'login.html';
+        }
+
+        let currentStep = 1;
+        let recipients = [];
+        let selectedDocument = null;
+
+        function showStep(step) {
+            // Hide all steps
+            document.querySelectorAll('.step-content').forEach(content => {
+                content.classList.add('d-none');
+            });
+            
+            // Show current step
+            document.getElementById(`step${step}Content`).classList.remove('d-none');
+            
+            // Update step indicators
+            document.querySelectorAll('.step').forEach((stepEl, index) => {
+                stepEl.classList.remove('active', 'completed');
+                if (index + 1 < step) {
+                    stepEl.classList.add('completed');
+                } else if (index + 1 === step) {
+                    stepEl.classList.add('active');
+                }
+            });
+            
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = step === 1;
+            document.getElementById('nextBtn').textContent = step === 4 ? 'Complete' : 'Next';
+            document.getElementById('nextBtn').innerHTML = step === 4 ? 
+                '<i class="fas fa-check me-2"></i>Complete' : 
+                'Next<i class="fas fa-arrow-right ms-2"></i>';
+        }
+
+        function nextStep() {
+            if (currentStep < 4) {
+                currentStep++;
+                showStep(currentStep);
+                
+                if (currentStep === 4) {
+                    updateSummary();
+                }
+            } else {
+                sendBulkDocuments();
+            }
+        }
+
+        function previousStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                showStep(currentStep);
+            }
+        }
+
+        function selectTemplate(templateId) {
+            selectedDocument = templateId;
+            document.getElementById('summaryDocument').textContent = 
+                templateId.charAt(0).toUpperCase() + templateId.slice(1) + ' Template';
+            alert(`Selected ${templateId} template`);
+            nextStep();
+        }
+
+        function addRecipient() {
+            const name = document.getElementById('recipientName').value;
+            const email = document.getElementById('recipientEmail').value;
+            const role = document.getElementById('recipientRole').value;
+            const company = document.getElementById('recipientCompany').value;
+
+            if (name && email) {
+                recipients.push({ name, email, role, company });
+                updateRecipientsList();
+                
+                // Clear form
+                document.getElementById('recipientName').value = '';
+                document.getElementById('recipientEmail').value = '';
+                document.getElementById('recipientCompany').value = '';
+            } else {
+                alert('Please enter name and email');
+            }
+        }
+
+        function updateRecipientsList() {
+            const list = document.getElementById('recipientsList');
+            list.innerHTML = recipients.map((recipient, index) => `
+                <div class="recipient-row">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>${recipient.name}</strong> - ${recipient.email}
+                            <br><small class="text-muted">${recipient.role} ${recipient.company ? `at ${recipient.company}` : ''}</small>
+                        </div>
+                        <button class="btn btn-outline-danger btn-sm" onclick="removeRecipient(${index})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function removeRecipient(index) {
+            recipients.splice(index, 1);
+            updateRecipientsList();
+        }
+
+        function updateSummary() {
+            document.getElementById('summaryRecipients').textContent = recipients.length;
+            document.getElementById('summaryExpiration').textContent = 
+                document.getElementById('expirationDays').value + ' days';
+            document.getElementById('summaryReminders').textContent = 
+                document.getElementById('reminderFrequency').value;
+        }
+
+        function sendBulkDocuments() {
+            if (recipients.length === 0) {
+                alert('Please add at least one recipient');
+                return;
+            }
+
+            // Simulate sending
+            const loadingBtn = event.target;
+            loadingBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Sending...';
+            loadingBtn.disabled = true;
+
+            setTimeout(() => {
+                alert(`Bulk send completed! ${recipients.length} documents sent successfully.`);
+                window.location.href = 'dashboard.html';
+            }, 2000);
+        }
+
+        function logout() {
+            TemplateAuth.logout();
+            window.location.href = 'login.html';
+        }
+
+        // File upload handlers
+        document.getElementById('documentFile').addEventListener('change', function(e) {
+            if (e.target.files.length > 0) {
+                selectedDocument = e.target.files[0].name;
+                document.getElementById('summaryDocument').textContent = selectedDocument;
+                alert('Document uploaded successfully');
+                nextStep();
+            }
+        });
+
+        document.getElementById('csvFile').addEventListener('change', function(e) {
+            if (e.target.files.length > 0) {
+                // Simulate CSV parsing
+                const sampleData = [
+                    { name: 'John Doe', email: 'john@example.com', role: 'signer', company: 'Acme Corp' },
+                    { name: 'Jane Smith', email: 'jane@example.com', role: 'reviewer', company: 'Tech Inc' }
+                ];
+                
+                recipients = [...recipients, ...sampleData];
+                updateRecipientsList();
+                alert('CSV imported successfully');
+            }
+        });
+
+        // Initialize
+        showStep(1);
+    </script>
+</body>
+</html> 

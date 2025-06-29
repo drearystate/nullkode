@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Test - FormBuilder Pro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-flask me-2"></i>FormBuilder Pro - Library Test</h3>
+                    </div>
+                    <div class="card-body">
+                        <div id="test-results">
+                            <div class="alert alert-info">
+                                <i class="fas fa-spinner fa-spin me-2"></i>Testing libraries...
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <h5>Interactive Elements Test</h5>
+                            <div id="drag-test" class="border p-3 mb-3" style="height: 200px; position: relative;">
+                                <div id="draggable-element" class="bg-primary text-white p-2 rounded" style="width: 100px; cursor: move;">
+                                    Drag Me!
+                                </div>
+                            </div>
+                            
+                            <h5>Signature Pad Test</h5>
+                            <canvas id="signature-pad" class="border" width="400" height="200"></canvas>
+                            <br>
+                            <button id="clear-signature" class="btn btn-secondary mt-2">Clear Signature</button>
+                            
+                            <h5 class="mt-4">Payment Simulation Test</h5>
+                            <div id="stripe-element" class="mb-3"></div>
+                            <div id="paypal-element" class="mb-3"></div>
+                            
+                            <h5 class="mt-4">PDF Generation Test</h5>
+                            <button id="generate-pdf" class="btn btn-success">Generate Test PDF</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load Local Simulation Libraries -->
+    <script src="./assets/js/interact-simulation.js"></script>
+    <script src="./assets/js/pdflib-simulation.js"></script>
+    <script src="./assets/js/payment-simulation.js"></script>
+    <script src="./assets/js/signature-pad.min.js"></script>
+
+    <script>
+        // Test Results Array
+        const testResults = [];
+        
+        function addTestResult(name, success, message) {
+            testResults.push({ name, success, message });
+            updateTestDisplay();
+        }
+        
+        function updateTestDisplay() {
+            const container = document.getElementById('test-results');
+            let html = '<h5>Test Results:</h5>';
+            
+            testResults.forEach(result => {
+                const icon = result.success ? 'fas fa-check text-success' : 'fas fa-times text-danger';
+                const alertClass = result.success ? 'alert-success' : 'alert-danger';
+                html += `
+                    <div class="alert ${alertClass} py-2">
+                        <i class="${icon} me-2"></i>
+                        <strong>${result.name}:</strong> ${result.message}
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+        
+        // Test Libraries
+        function runTests() {
+            // Test Interact.js
+            try {
+                if (typeof interact === 'function') {
+                    // Test draggable functionality
+                    interact('#draggable-element').draggable({
+                        onmove: function(event) {
+                            const target = event.target;
+                            const x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
+                            const y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+                            
+                            target.style.transform = `translate(${x}px, ${y}px)`;
+                            target.setAttribute('data-x', x);
+                            target.setAttribute('data-y', y);
+                        }
+                    });
+                    
+                    addTestResult('Interact.js', true, 'Drag and drop functionality loaded successfully');
+                } else {
+                    addTestResult('Interact.js', false, 'Library not available');
+                }
+            } catch (error) {
+                addTestResult('Interact.js', false, `Error: ${error.message}`);
+            }
+            
+            // Test Signature Pad
+            try {
+                if (typeof SignaturePad === 'function') {
+                    const canvas = document.getElementById('signature-pad');
+                    const signaturePad = new SignaturePad(canvas);
+                    
+                    document.getElementById('clear-signature').addEventListener('click', () => {
+                        signaturePad.clear();
+                    });
+                    
+                    addTestResult('SignaturePad', true, 'Signature pad functionality loaded successfully');
+                } else {
+                    addTestResult('SignaturePad', false, 'Library not available');
+                }
+            } catch (error) {
+                addTestResult('SignaturePad', false, `Error: ${error.message}`);
+            }
+            
+            // Test Stripe
+            try {
+                if (typeof Stripe === 'function') {
+                    const stripe = Stripe('pk_test_simulation');
+                    const elements = stripe.elements();
+                    const cardElement = elements.create('card');
+                    cardElement.mount('#stripe-element');
+                    
+                    addTestResult('Stripe', true, 'Payment processing simulation loaded successfully');
+                } else {
+                    addTestResult('Stripe', false, 'Library not available');
+                }
+            } catch (error) {
+                addTestResult('Stripe', false, `Error: ${error.message}`);
+            }
+            
+            // Test PayPal
+            try {
+                if (typeof paypal === 'object' && paypal.Buttons) {
+                    const paypalButtons = paypal.Buttons({
+                        createOrder: function(data, actions) {
+                            return actions.order.create({
+                                purchase_units: [{
+                                    amount: { value: '20.00' }
+                                }]
+                            });
+                        }
+                    });
+                    paypalButtons.render('#paypal-element');
+                    
+                    addTestResult('PayPal', true, 'PayPal simulation loaded successfully');
+                } else {
+                    addTestResult('PayPal', false, 'Library not available');
+                }
+            } catch (error) {
+                addTestResult('PayPal', false, `Error: ${error.message}`);
+            }
+            
+            // Test PDFLib
+            try {
+                if (typeof PDFLib === 'object' && PDFLib.PDFDocument) {
+                    document.getElementById('generate-pdf').addEventListener('click', async () => {
+                        try {
+                            const pdfDoc = await PDFLib.PDFDocument.create();
+                            const page = pdfDoc.addPage();
+                            page.drawText('Test PDF Generation', { x: 50, y: 750 });
+                            
+                            downloadSimulatedPDF('test-pdf.pdf');
+                        } catch (error) {
+                            alert('PDF generation error: ' + error.message);
+                        }
+                    });
+                    
+                    addTestResult('PDFLib', true, 'PDF generation simulation loaded successfully');
+                } else {
+                    addTestResult('PDFLib', false, 'Library not available');
+                }
+            } catch (error) {
+                addTestResult('PDFLib', false, `Error: ${error.message}`);
+            }
+        }
+        
+        // Run tests when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(runTests, 100);
+        });
+    </script>
+</body>
+</html> 

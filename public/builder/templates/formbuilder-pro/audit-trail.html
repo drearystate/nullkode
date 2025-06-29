@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audit Trail - DocuClone</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .navbar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .audit-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #dee2e6;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-left: 20px;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -30px;
+            top: 20px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: white;
+            border: 3px solid #667eea;
+            z-index: 2;
+        }
+        
+        .timeline-item.critical::before {
+            border-color: #dc3545;
+        }
+        
+        .timeline-item.success::before {
+            border-color: #28a745;
+        }
+        
+        .timeline-item.warning::before {
+            border-color: #ffc107;
+        }
+        
+        .event-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .event-timestamp {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        
+        .event-details {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 10px;
+        }
+        
+        .certificate-badge {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .ip-location {
+            font-family: 'Courier New', monospace;
+            background: #e9ecef;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+        
+        .filter-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .document-info {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="dashboard.html">
+                <i class="fas fa-signature me-2"></i>DocuClone
+            </a>
+            <div class="navbar-nav ms-auto">
+                <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="fas fa-user-circle me-2"></i>{{USER_NAME}}
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Settings</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#" onclick="logout()"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid p-4">
+        <div class="audit-container">
+            <!-- Header -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h2><i class="fas fa-history me-2"></i>Audit Trail</h2>
+                    <p class="text-muted">Complete document history and compliance logs</p>
+                </div>
+                <div class="d-flex gap-2">
+                    <button class="btn btn-outline-primary" onclick="exportAuditLog()">
+                        <i class="fas fa-download me-2"></i>Export Log
+                    </button>
+                    <button class="btn btn-outline-success" onclick="generateCertificate()">
+                        <i class="fas fa-certificate me-2"></i>Generate Certificate
+                    </button>
+                    <a href="dashboard.html" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+                    </a>
+                </div>
+            </div>
+
+            <!-- Document Information -->
+            <div class="document-info p-4">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h5><i class="fas fa-file-contract me-2"></i>Employment Agreement - John Smith</h5>
+                        <div class="row mt-3">
+                            <div class="col-md-3">
+                                <strong>Document ID:</strong><br>
+                                <code>DOC-2024-001547</code>
+                            </div>
+                            <div class="col-md-3">
+                                <strong>Created:</strong><br>
+                                January 15, 2024 9:45 AM
+                            </div>
+                            <div class="col-md-3">
+                                <strong>Status:</strong><br>
+                                <span class="badge bg-success">Completed</span>
+                            </div>
+                            <div class="col-md-3">
+                                <strong>Signers:</strong><br>
+                                2 of 2 signed
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-end">
+                        <div class="certificate-badge">
+                            <i class="fas fa-shield-alt"></i>
+                            Legally Binding Certificate
+                        </div>
+                        <div class="mt-2 small text-muted">
+                            Certificate ID: CERT-2024-001547<br>
+                            SHA-256: a1b2c3d4e5f6...
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="filter-card p-3">
+                <div class="row align-items-center">
+                    <div class="col-md-3">
+                        <select class="form-select" id="eventTypeFilter">
+                            <option value="">All Events</option>
+                            <option value="document">Document Events</option>
+                            <option value="signature">Signature Events</option>
+                            <option value="access">Access Events</option>
+                            <option value="security">Security Events</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-select" id="userFilter">
+                            <option value="">All Users</option>
+                            <option value="creator">{{USER_NAME}} (Creator)</option>
+                            <option value="john">John Smith (Signer)</option>
+                            <option value="jane">Jane Doe (Company Rep)</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="date" class="form-control" id="dateFilter">
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-primary w-100" onclick="applyFilters()">
+                            <i class="fas fa-filter me-2"></i>Apply Filters
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Timeline -->
+            <div class="timeline">
+                <!-- Document Completed -->
+                <div class="timeline-item success">
+                    <div class="event-header">
+                        <div>
+                            <h6><i class="fas fa-check-circle text-success me-2"></i>Document Completed</h6>
+                            <div class="event-timestamp">January 15, 2024 at 3:45 PM UTC</div>
+                        </div>
+                        <span class="badge bg-success">Final</span>
+                    </div>
+                    <p>All required signatures have been collected. Document is now legally binding and complete.</p>
+                    <div class="event-details">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>Completion Method:</strong> Electronic Signature<br>
+                                <strong>Final Signer:</strong> John Smith<br>
+                                <strong>Completion Time:</strong> 5 hours 30 minutes
+                            </div>
+                            <div class="col-md-6">
+                                <strong>Digital Certificate:</strong> Generated<br>
+                                <strong>Audit Hash:</strong> <code>a1b2c3d4e5f6789...</code><br>
+                                <strong>Legal Status:</strong> <span class="badge bg-success">Binding</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Employee Signature -->
+                <div class="timeline-item success">
+                    <div class="event-header">
+                        <div>
+                            <h6><i class="fas fa-signature text-success me-2"></i>Employee Signature Added</h6>
+                            <div class="event-timestamp">January 15, 2024 at 3:42 PM UTC</div>
+                        </div>
+                        <span class="badge bg-primary">Signature</span>
+                    </div>
+                    <p><strong>John Smith</strong> signed the document using electronic signature.</p>
+                    <div class="event-details">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>Signer IP:</strong> <span class="ip-location">192.168.1.105</span><br>
+                                <strong>Location:</strong> San Francisco, CA, US<br>
+                                <strong>Device:</strong> Chrome on Windows 11
+                            </div>
+                            <div class="col-md-6">
+                                <strong>Authentication:</strong> Email verification<br>
+                                <strong>Signature Method:</strong> Mouse/Touch<br>
+                                <strong>Time to Sign:</strong> 2 minutes 15 seconds
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <strong>Digital Fingerprint:</strong> <code>e7f8g9h0i1j2k3l4m5n6o7p8q9r0s1t2</code>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Document Viewed -->
+                <div class="timeline-item">
+                    <div class="event-header">
+                        <div>
+                            <h6><i class="fas fa-eye text-info me-2"></i>Document Viewed</h6>
+                            <div class="event-timestamp">January 15, 2024 at 3:40 PM UTC</div>
+                        </div>
+                        <span class="badge bg-info">Access</span>
+                    </div>
+                    <p><strong>John Smith</strong> opened the document for review.</p>
+                    <div class="event-details">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>Access IP:</strong> <span class="ip-location">192.168.1.105</span><br>
+                                <strong>Session Duration:</strong> 2 minutes 35 seconds<br>
+                                <strong>Pages Viewed:</strong> 3 of 3
+                            </div>
+                            <div class="col-md-6">
+                                <strong>Browser:</strong> Chrome 120.0.6099.129<br>
+                                <strong>Screen Resolution:</strong> 1920x1080<br>
+                                <strong>Zoom Level:</strong> 100%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Email Notification -->
+                <div class="timeline-item">
+                    <div class="event-header">
+                        <div>
+                            <h6><i class="fas fa-envelope text-primary me-2"></i>Reminder Email Sent</h6>
+                            <div class="event-timestamp">January 15, 2024 at 1:00 PM UTC</div>
+                        </div>
+                        <span class="badge bg-secondary">Notification</span>
+                    </div>
+                    <p>Automatic reminder email sent to <strong>John Smith</strong> (john@company.com).</p>
+                    <div class="event-details">
+                        <strong>Email Status:</strong> Delivered<br>
+                        <strong>Delivery Time:</strong> 0.8 seconds<br>
+                        <strong>Email ID:</strong> <code>MSG-2024-001547-R1</code>
+                    </div>
+                </div>
+
+                <!-- Company Signature -->
+                <div class="timeline-item success">
+                    <div class="event-header">
+                        <div>
+                            <h6><i class="fas fa-signature text-success me-2"></i>Company Signature Added</h6>
+                            <div class="event-timestamp">January 15, 2024 at 10:30 AM UTC</div>
+                        </div>
+                        <span class="badge bg-primary">Signature</span>
+                    </div>
+                    <p><strong>Jane Doe</strong> (Company Representative) signed the document.</p>
+                    <div class="event-details">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>Signer IP:</strong> <span class="ip-location">10.0.0.45</span><br>
+                                <strong>Location:</strong> New York, NY, US<br>
+                                <strong>Device:</strong> Chrome on macOS 14
+                            </div>
+                            <div class="col-md-6">
+                                <strong>Authentication:</strong> 2FA + Email<br>
+                                <strong>Signature Method:</strong> Digital Pen<br>
+                                <strong>Time to Sign:</strong> 45 seconds
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <strong>Digital Fingerprint:</strong> <code>a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6</code>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Document Sent -->
+                <div class="timeline-item">
+                    <div class="event-header">
+                        <div>
+                            <h6><i class="fas fa-paper-plane text-primary me-2"></i>Document Sent for Signature</h6>
+                            <div class="event-timestamp">January 15, 2024 at 10:15 AM UTC</div>
+                        </div>
+                        <span class="badge bg-primary">Workflow</span>
+                    </div>
+                    <p>Document sent to <strong>John Smith</strong> (john@company.com) for electronic signature.</p>
+                    <div class="event-details">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>Sender:</strong> {{USER_NAME}}<br>
+                                <strong>Recipient Email:</strong> john@company.com<br>
+                                <strong>Email Status:</strong> Delivered
+                            </div>
+                            <div class="col-md-6">
+                                <strong>Expiration Date:</strong> February 14, 2024<br>
+                                <strong>Reminder Schedule:</strong> Weekly<br>
+                                <strong>Authentication Required:</strong> Yes
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Document Created -->
+                <div class="timeline-item">
+                    <div class="event-header">
+                        <div>
+                            <h6><i class="fas fa-file-plus text-success me-2"></i>Document Created</h6>
+                            <div class="event-timestamp">January 15, 2024 at 9:45 AM UTC</div>
+                        </div>
+                        <span class="badge bg-success">Creation</span>
+                    </div>
+                    <p>Document created from <strong>Employment Contract Template</strong> by {{USER_NAME}}.</p>
+                    <div class="event-details">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>Template Used:</strong> Employment Contract v2.1<br>
+                                <strong>Document Size:</strong> 247 KB<br>
+                                <strong>Pages:</strong> 3
+                            </div>
+                            <div class="col-md-6">
+                                <strong>Creator IP:</strong> <span class="ip-location">203.0.113.42</span><br>
+                                <strong>Location:</strong> Seattle, WA, US<br>
+                                <strong>Creation Method:</strong> Template
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <strong>Initial Hash:</strong> <code>d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Security Information -->
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h6><i class="fas fa-shield-alt me-2"></i>Security & Compliance</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <strong>Encryption:</strong> AES-256 encryption in transit and at rest<br>
+                                <strong>Digital Certificate:</strong> RSA 2048-bit signature<br>
+                                <strong>Compliance:</strong> SOC 2 Type II, ESIGN Act, UETA
+                            </div>
+                            <div class="mb-3">
+                                <strong>Tamper Seal:</strong> <span class="badge bg-success">Intact</span><br>
+                                <strong>Document Integrity:</strong> <span class="badge bg-success">Verified</span><br>
+                                <strong>Chain of Custody:</strong> <span class="badge bg-success">Complete</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h6><i class="fas fa-download me-2"></i>Download Options</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-outline-primary" onclick="downloadAuditLog()">
+                                    <i class="fas fa-file-pdf me-2"></i>Download Audit Log (PDF)
+                                </button>
+                                <button class="btn btn-outline-secondary" onclick="downloadCertificate()">
+                                    <i class="fas fa-certificate me-2"></i>Download Digital Certificate
+                                </button>
+                                <button class="btn btn-outline-info" onclick="downloadDocument()">
+                                    <i class="fas fa-file-contract me-2"></i>Download Signed Document
+                                </button>
+                                <button class="btn btn-outline-success" onclick="downloadBundle()">
+                                    <i class="fas fa-archive me-2"></i>Download Complete Bundle
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="auth.js"></script>
+    <script>
+        // Check authentication (skip in editor mode)
+        if (!TemplateAuth.isLoggedIn() && window.self === window.top) {
+            window.location.href = 'login.html';
+        }
+
+        function applyFilters() {
+            const eventType = document.getElementById('eventTypeFilter').value;
+            const user = document.getElementById('userFilter').value;
+            const date = document.getElementById('dateFilter').value;
+            
+            alert(`Filtering: Type=${eventType}, User=${user}, Date=${date}`);
+            // Implement filtering logic
+        }
+
+        function exportAuditLog() {
+            alert('Exporting complete audit log...');
+        }
+
+        function generateCertificate() {
+            alert('Generating digital certificate of completion...');
+        }
+
+        function downloadAuditLog() {
+            alert('Downloading audit log PDF...');
+        }
+
+        function downloadCertificate() {
+            alert('Downloading digital certificate...');
+        }
+
+        function downloadDocument() {
+            alert('Downloading signed document...');
+        }
+
+        function downloadBundle() {
+            alert('Downloading complete document bundle...');
+        }
+
+        function logout() {
+            TemplateAuth.logout();
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html> 

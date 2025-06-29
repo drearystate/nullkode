@@ -1,0 +1,207 @@
+<template>
+<div class="stats-counter">
+  <div class="stats-grid">
+    <div class="stat-item">
+      <div class="stat-icon">
+        <i class="fa fa-users"></i>
+      </div>
+      <div class="stat-number" data-target="1250">0</div>
+      <div class="stat-label">Happy Clients</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-icon">
+        <i class="fa fa-project-diagram"></i>
+      </div>
+      <div class="stat-number" data-target="450">0</div>
+      <div class="stat-label">Projects Completed</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-icon">
+        <i class="fa fa-award"></i>
+      </div>
+      <div class="stat-number" data-target="25">0</div>
+      <div class="stat-label">Awards Won</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-icon">
+        <i class="fa fa-clock"></i>
+      </div>
+      <div class="stat-number" data-target="5">0</div>
+      <div class="stat-label">Years Experience</div>
+    </div>
+  </div>
+</div>
+</template>
+
+<style>
+.stats-counter {
+  padding: 60px 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.stats-counter .stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.stats-counter .stat-item {
+  text-align: center;
+  padding: 30px 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.stats-counter .stat-item:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.stats-counter .stat-icon {
+  margin-bottom: 20px;
+}
+
+.stats-counter .stat-icon i {
+  font-size: 48px;
+  color: #fff;
+  opacity: 0.9;
+}
+
+.stats-counter .stat-number {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #fff;
+  font-family: 'Arial', sans-serif;
+}
+
+.stats-counter .stat-label {
+  font-size: 18px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+@media (max-width: 768px) {
+  .stats-counter .stats-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  
+  .stats-counter .stat-number {
+    font-size: 36px;
+  }
+  
+  .stats-counter .stat-icon i {
+    font-size: 36px;
+  }
+  
+  .stats-counter .stat-label {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .stats-counter .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Animation classes */
+.stats-counter .stat-number.counting {
+  animation: pulse 0.1s ease-in-out;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+</style>
+
+<script>
+export class StatsCounter extends ArchitectElement {
+  name = 'Stats Counter';
+  contentCategories = ['flow'];
+  allowedContent = ['flow'];
+  category = 'components';
+  icon = [
+    {
+      tag: 'path',
+      attr: {
+        d: 'M16,11V3H8v6H2v8h6v6h8v-6h6v-8H16z M10,5h4v14h-4V5z M4,11h4v4H4V11z M20,11v4h-4v-4H20z'
+      }
+    }
+  ];
+  specificity = 3;
+  hiddenClasses = ['stats-counter'];
+  
+  matcher(node) {
+    return node.classList.contains('stats-counter');
+  }
+}
+
+// Counter animation functionality
+function animateCounter(element) {
+  const target = parseInt(element.getAttribute('data-target'));
+  const increment = target / 100;
+  let current = 0;
+  
+  const updateCounter = () => {
+    if (current < target) {
+      current += increment;
+      element.textContent = Math.ceil(current);
+      element.classList.add('counting');
+      requestAnimationFrame(updateCounter);
+    } else {
+      element.textContent = target;
+      element.classList.remove('counting');
+    }
+  };
+  
+  updateCounter();
+}
+
+// Intersection Observer for triggering animation when in view
+function initStatsCounter() {
+  const statsCounters = document.querySelectorAll('.stats-counter');
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const statNumbers = entry.target.querySelectorAll('.stat-number');
+        statNumbers.forEach((statNumber, index) => {
+          setTimeout(() => {
+            animateCounter(statNumber);
+          }, index * 200); // Stagger the animations
+        });
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.5
+  });
+  
+  statsCounters.forEach(counter => {
+    observer.observe(counter);
+  });
+}
+
+// Initialize when DOM is loaded
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initStatsCounter);
+} else {
+  initStatsCounter();
+}
+
+// Re-initialize when new content is added (for editor environment)
+window.initStatsCounter = initStatsCounter;
+</script> 

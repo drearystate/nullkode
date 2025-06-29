@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Custom Elements</title>
+</head>
+<body>
+    <h1>Testing Custom Elements Order</h1>
+    <div id="output"></div>
+    
+    <script type="module">
+        async function testElementsOrder() {
+            try {
+                const module = await import('https://nullkode.com/api/v1/elements/custom');
+                const output = document.getElementById('output');
+                
+                // Get all keys
+                const allKeys = Object.keys(module);
+                output.innerHTML += '<h2>All Keys:</h2><ul>' + allKeys.map(key => `<li>${key}</li>`).join('') + '</ul>';
+                
+                // Get component keys
+                const componentKeys = allKeys.filter(key => !key.startsWith('style') && !key.startsWith('template'));
+                output.innerHTML += '<h2>Component Keys:</h2><ul>' + componentKeys.map(key => `<li>${key}</li>`).join('') + '</ul>';
+                
+                // Get template keys
+                const templateKeys = allKeys.filter(key => key.startsWith('template')).sort();
+                output.innerHTML += '<h2>Template Keys:</h2><ul>' + templateKeys.map(key => `<li>${key}</li>`).join('') + '</ul>';
+                
+                // Get style keys
+                const styleKeys = allKeys.filter(key => key.startsWith('style')).sort();
+                output.innerHTML += '<h2>Style Keys:</h2><ul>' + styleKeys.map(key => `<li>${key}</li>`).join('') + '</ul>';
+                
+                // Test mapping
+                output.innerHTML += '<h2>Mapping Test:</h2><ul>';
+                componentKeys.forEach((key, index) => {
+                    const templateKey = `template${index}`;
+                    const styleKey = `style${index}`;
+                    const hasTemplate = module[templateKey] ? 'YES' : 'NO';
+                    const hasStyle = module[styleKey] ? 'YES' : 'NO';
+                    output.innerHTML += `<li>${key} -> ${templateKey} (${hasTemplate}), ${styleKey} (${hasStyle})</li>`;
+                });
+                output.innerHTML += '</ul>';
+                
+            } catch (error) {
+                document.getElementById('output').innerHTML = `<p>Error: ${error.message}</p>`;
+            }
+        }
+        
+        testElementsOrder();
+    </script>
+</body>
+</html> 

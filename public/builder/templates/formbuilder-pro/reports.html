@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports & Analytics - DocuClone</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            background: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .navbar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .stats-card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .stats-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .stats-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        
+        .chart-card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .filter-pills {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .filter-pill {
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid #dee2e6;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-pill.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+        
+        .progress-stack {
+            height: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .export-btn {
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .export-btn:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="dashboard.html">
+                <i class="fas fa-signature me-2"></i>DocuClone
+            </a>
+            <div class="navbar-nav ms-auto">
+                <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="fas fa-user-circle me-2"></i>{{USER_NAME}}
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Settings</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#" onclick="logout()"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid p-4">
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h2><i class="fas fa-chart-bar me-2"></i>Reports & Analytics</h2>
+                <p class="text-muted">Comprehensive insights into your document workflow</p>
+            </div>
+            <div class="d-flex gap-2">
+                <button class="btn btn-outline-primary export-btn" onclick="exportReport('pdf')">
+                    <i class="fas fa-file-pdf me-2"></i>Export PDF
+                </button>
+                <button class="btn btn-outline-success export-btn" onclick="exportReport('excel')">
+                    <i class="fas fa-file-excel me-2"></i>Export Excel
+                </button>
+                <a href="dashboard.html" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+                </a>
+            </div>
+        </div>
+
+        <!-- Time Period Filter -->
+        <div class="filter-pills mb-4">
+            <div class="filter-pill active" onclick="setTimePeriod('7d')">Last 7 Days</div>
+            <div class="filter-pill" onclick="setTimePeriod('30d')">Last 30 Days</div>
+            <div class="filter-pill" onclick="setTimePeriod('90d')">Last 90 Days</div>
+            <div class="filter-pill" onclick="setTimePeriod('1y')">Last Year</div>
+            <div class="filter-pill" onclick="setTimePeriod('all')">All Time</div>
+        </div>
+
+        <!-- Key Metrics -->
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="card stats-card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-file-signature fa-2x text-primary mb-3"></i>
+                        <div class="stats-number text-primary">247</div>
+                        <div class="text-muted">Documents Sent</div>
+                        <div class="small text-success mt-2">
+                            <i class="fas fa-arrow-up"></i> +12% from last month
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card stats-card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-check-circle fa-2x text-success mb-3"></i>
+                        <div class="stats-number text-success">189</div>
+                        <div class="text-muted">Completed</div>
+                        <div class="small text-success mt-2">
+                            <i class="fas fa-arrow-up"></i> +8% completion rate
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card stats-card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-clock fa-2x text-warning mb-3"></i>
+                        <div class="stats-number text-warning">42</div>
+                        <div class="text-muted">Pending</div>
+                        <div class="small text-info mt-2">
+                            <i class="fas fa-clock"></i> Avg 2.3 days
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card stats-card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-times-circle fa-2x text-danger mb-3"></i>
+                        <div class="stats-number text-danger">16</div>
+                        <div class="text-muted">Declined/Expired</div>
+                        <div class="small text-danger mt-2">
+                            <i class="fas fa-arrow-down"></i> -3% decline rate
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Row -->
+        <div class="row mb-4">
+            <div class="col-md-8">
+                <div class="card chart-card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-chart-line me-2"></i>Document Activity Trends</h5>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="activityChart" height="300"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card chart-card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-chart-pie me-2"></i>Document Status</h5>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="statusChart" height="300"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Analytics -->
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div class="card chart-card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-users me-2"></i>Top Signers</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div>
+                                <strong>John Smith</strong><br>
+                                <small class="text-muted">john@company.com</small>
+                            </div>
+                            <div class="text-end">
+                                <div class="text-primary fw-bold">23 documents</div>
+                                <div class="progress progress-stack" style="width: 150px;">
+                                    <div class="progress-bar bg-success" style="width: 85%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div>
+                                <strong>Sarah Johnson</strong><br>
+                                <small class="text-muted">sarah@example.com</small>
+                            </div>
+                            <div class="text-end">
+                                <div class="text-primary fw-bold">19 documents</div>
+                                <div class="progress progress-stack" style="width: 150px;">
+                                    <div class="progress-bar bg-success" style="width: 70%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div>
+                                <strong>Mike Davis</strong><br>
+                                <small class="text-muted">mike@corp.com</small>
+                            </div>
+                            <div class="text-end">
+                                <div class="text-primary fw-bold">15 documents</div>
+                                <div class="progress progress-stack" style="width: 150px;">
+                                    <div class="progress-bar bg-success" style="width: 55%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card chart-card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-stopwatch me-2"></i>Average Completion Times</h5>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="completionChart" height="200"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Document Templates Performance -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card chart-card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-file-alt me-2"></i>Template Performance</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Template Name</th>
+                                        <th>Usage</th>
+                                        <th>Completion Rate</th>
+                                        <th>Avg Time</th>
+                                        <th>Revenue</th>
+                                        <th>Trend</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <i class="fas fa-file-contract me-2 text-primary"></i>
+                                            Employment Contract
+                                        </td>
+                                        <td><span class="badge bg-info">78 uses</span></td>
+                                        <td>
+                                            <div class="progress" style="height: 20px;">
+                                                <div class="progress-bar bg-success" style="width: 94%;">94%</div>
+                                            </div>
+                                        </td>
+                                        <td>2.1 days</td>
+                                        <td>$2,340</td>
+                                        <td><i class="fas fa-arrow-up text-success"></i></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <i class="fas fa-handshake me-2 text-success"></i>
+                                            NDA Agreement
+                                        </td>
+                                        <td><span class="badge bg-info">65 uses</span></td>
+                                        <td>
+                                            <div class="progress" style="height: 20px;">
+                                                <div class="progress-bar bg-success" style="width: 89%;">89%</div>
+                                            </div>
+                                        </td>
+                                        <td>1.8 days</td>
+                                        <td>$1,950</td>
+                                        <td><i class="fas fa-arrow-up text-success"></i></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <i class="fas fa-home me-2 text-warning"></i>
+                                            Real Estate Contract
+                                        </td>
+                                        <td><span class="badge bg-info">32 uses</span></td>
+                                        <td>
+                                            <div class="progress" style="height: 20px;">
+                                                <div class="progress-bar bg-warning" style="width: 76%;">76%</div>
+                                            </div>
+                                        </td>
+                                        <td>5.2 days</td>
+                                        <td>$4,800</td>
+                                        <td><i class="fas fa-arrow-down text-danger"></i></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Geographic Analytics -->
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card chart-card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-globe me-2"></i>Geographic Distribution</h5>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="geoChart" height="250"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card chart-card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-mobile-alt me-2"></i>Device Usage</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between">
+                                <span>Desktop</span>
+                                <span>67%</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar bg-primary" style="width: 67%;"></div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between">
+                                <span>Mobile</span>
+                                <span>28%</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar bg-success" style="width: 28%;"></div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between">
+                                <span>Tablet</span>
+                                <span>5%</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar bg-warning" style="width: 5%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="auth.js"></script>
+    <script>
+        // Check authentication (skip in editor mode)
+        if (!TemplateAuth.isLoggedIn() && window.self === window.top) {
+            window.location.href = 'login.html';
+        }
+
+        let currentPeriod = '7d';
+
+        // Initialize charts
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCharts();
+        });
+
+        function initializeCharts() {
+            // Activity Trend Chart
+            const activityCtx = document.getElementById('activityChart').getContext('2d');
+            new Chart(activityCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    datasets: [{
+                        label: 'Documents Sent',
+                        data: [12, 19, 8, 15, 28, 6, 10],
+                        borderColor: '#667eea',
+                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                        tension: 0.4
+                    }, {
+                        label: 'Documents Completed',
+                        data: [8, 15, 6, 12, 22, 4, 8],
+                        borderColor: '#28a745',
+                        backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // Status Pie Chart
+            const statusCtx = document.getElementById('statusChart').getContext('2d');
+            new Chart(statusCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Completed', 'Pending', 'Declined', 'Expired'],
+                    datasets: [{
+                        data: [189, 42, 10, 6],
+                        backgroundColor: ['#28a745', '#ffc107', '#dc3545', '#6c757d']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+
+            // Completion Time Chart
+            const completionCtx = document.getElementById('completionChart').getContext('2d');
+            new Chart(completionCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['< 1 day', '1-3 days', '3-7 days', '> 7 days'],
+                    datasets: [{
+                        label: 'Documents',
+                        data: [45, 89, 32, 23],
+                        backgroundColor: '#667eea'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // Geographic Chart
+            const geoCtx = document.getElementById('geoChart').getContext('2d');
+            new Chart(geoCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['United States', 'Canada', 'United Kingdom', 'Australia', 'Germany'],
+                    datasets: [{
+                        label: 'Documents Signed',
+                        data: [120, 45, 38, 25, 22],
+                        backgroundColor: '#667eea'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    scales: {
+                        x: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        function setTimePeriod(period) {
+            currentPeriod = period;
+            
+            // Update active filter
+            document.querySelectorAll('.filter-pill').forEach(pill => {
+                pill.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Update charts and data based on period
+            alert(`Filtering data for: ${period}`);
+        }
+
+        function exportReport(format) {
+            alert(`Exporting report as ${format.toUpperCase()}...`);
+            // Implement export functionality
+        }
+
+        function logout() {
+            TemplateAuth.logout();
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html> 

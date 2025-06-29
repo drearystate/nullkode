@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>3D Airplane Scene</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="world"></div>
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.158.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.158.0/examples/jsm/"
+      }
+    }
+  </script>
+
+  <script type="module">
+    import * as THREE from 'three';
+    import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+    
+    // Make THREE and GLTFLoader available globally
+    window.THREE = THREE;
+    window.GLTFLoader = GLTFLoader;
+    THREE.GLTFLoader = GLTFLoader;
+    
+    // Wait for DOM to load
+    document.addEventListener('DOMContentLoaded', function() {
+      // Load and initialize the game
+      import('./airplane.js').then(() => {
+        console.log('Game initialized');
+      }).catch(error => {
+        console.error('Error loading game:', error);
+        document.getElementById('world').innerHTML = '<div style="color: white; padding: 20px;">Error loading game: ' + error.message + '</div>';
+      });
+    });
+    
+    // Error checking
+    window.addEventListener('error', function(e) {
+      console.error('Error:', e.error);
+      document.getElementById('world').innerHTML = '<div style="color: white; padding: 20px;">Error loading game: ' + e.message + '</div>';
+    });
+  </script>
+</body>
+</html>

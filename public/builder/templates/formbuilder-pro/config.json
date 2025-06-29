@@ -1,0 +1,41 @@
+{
+    "name": "FormBuilder Pro",
+    "category": "Web App Templates",
+    "includeBootstrap": true,
+    "description": "Advanced form builder with PDF conversion, interactive drag-drop editing, Stripe/PayPal payments, SendGrid email integration, digital signatures, and enterprise document management.",
+    "features": [
+        "authentication",
+        "pdf to form conversion",
+        "interactive form builder",
+        "drag and drop editing", 
+        "digital signatures",
+        "stripe payments",
+        "paypal integration",
+        "sendgrid email automation",
+        "document tracking",
+        "bulk document sending",
+        "template management",
+        "compliance reporting",
+        "advanced analytics",
+        "multi-party workflows",
+        "responsive design",
+        "modern UI"
+    ],
+    "demo_url": "#",
+    "version": "2.0.0",
+    "author": "{{USER_NAME}}",
+    "type": "webapp",
+    "integrations": {
+        "stripe": "Payment processing with cards and ACH",
+        "paypal": "PayPal payment gateway integration", 
+        "sendgrid": "Automated email notifications and workflows",
+        "interact_js": "Drag and drop form element positioning",
+        "pdf_lib": "PDF parsing and form field conversion",
+        "signature_pad": "Digital signature capture"
+    },
+    "requirements": {
+        "stripe_keys": "Publishable and secret key required for payments",
+        "paypal_credentials": "Client ID and secret for PayPal integration",
+        "sendgrid_api": "API key required for email functionality"
+    }
+} 

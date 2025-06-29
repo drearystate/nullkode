@@ -1,0 +1,179 @@
+.container {
+  min-height: 50px;
+}
+
+.container:empty {
+  border: 1px dashed #d5dadf;
+  min-height: 200px;
+}
+
+.row {
+  min-height: 50px;
+}
+
+.row:empty {
+  border: 1px dashed #d5dadf;
+  min-height: 150px;
+  width: 100%;
+  min-width: 500px;
+}
+
+.dragging [class^='col-']{
+  outline: 1px dashed #555 !important;
+  outline-offset: -1px !important;
+  box-shadow: inset 0 0 0 4px rgb(0 0 0 / 10%),
+    inset 0 0 0 4px rgb(255 255 255 / 20%),
+    inset 0 0 0 1px rgb(255 255 255 / 30%);
+}
+
+[class^='col-']:empty:after {
+  pointer-events: none;
+  display: block;
+  width: 100%;
+  height: 100%;
+  content: '';
+  outline: 1px dashed #555;
+  outline-offset: -1px;
+  box-shadow:
+    inset 0 0 0 4px rgb(0 0 0 / 10%),
+    inset 0 0 0 4px rgb(255 255 255 / 20%),
+    inset 0 0 0 1px rgb(255 255 255 / 30%);
+}
+
+[class^='col-']:empty {
+  min-height: 75px;
+  min-width: 75px;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  user-select: none;
+  overflow-x: hidden;
+  min-height: 100%;
+}
+
+body > .row {
+  margin: 0;
+}
+
+form {
+  min-height: 50px;
+}
+
+form:empty:before {
+  pointer-events: none;
+  display: block;
+  width: 100%;
+  height: 100px;
+  content: 'Drag form elements here';
+  text-align: center;
+  background-color: #eee;
+  color: #d5dadf;
+  font-size: 22px;
+  border: 1px dashed #d5dadf;
+  padding-top: 33px;
+}
+
+[contenteditable='true'] {
+  outline: none;
+}
+
+.ar-drag-el {
+  opacity: 0.4 !important;
+}
+
+/* Fix for module CSS rendering in preview vs editor */
+.module, .module-item, .module-header, .module-content {
+  /* Reset any transform or positioning that might be applied in editor mode */
+  transform: none !important;
+  position: relative !important;
+  z-index: auto !important;
+}
+
+/* Ensure consistent Bootstrap accordion behavior */
+.accordion .module-item {
+  border: 1px solid rgba(0,0,0,.125);
+  border-radius: 0.25rem;
+  margin-bottom: 0;
+}
+
+.accordion .module-item:not(:first-child) {
+  border-top: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.accordion .module-item:not(:last-child) {
+  border-bottom: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+/* Fix collapsed/expanded states */
+.module-content.collapse:not(.show) {
+  display: none;
+}
+
+.module-content.collapse.show {
+  display: block;
+}
+
+.module-content.collapsing {
+  height: 0;
+  overflow: hidden;
+  transition: height 0.35s ease;
+}
+
+/* Ensure proper icon rotation for expand/collapse */
+.module-toggle .module-toggle-icon {
+  transition: transform 0.35s ease;
+}
+
+.module-toggle[aria-expanded="false"] .module-toggle-icon {
+  transform: rotate(-90deg);
+}
+
+.module-toggle[aria-expanded="true"] .module-toggle-icon {
+  transform: rotate(0deg);
+}
+
+/* Fix for any iframe-specific overrides that might conflict */
+iframe .module,
+iframe .accordion,
+iframe .collapse {
+  /* Reset any iframe-specific styles that might interfere */
+  box-sizing: border-box !important;
+  display: block !important;
+}
+
+/* Responsive fixes */
+@media (max-width: 768px) {
+  .module-item {
+    margin-bottom: 1rem;
+  }
+}
+
+/* Preview mode specific fixes */
+body.preview-mode .module,
+body.preview-mode .accordion {
+  /* Ensure modules render correctly in preview */
+  position: static !important;
+  transform: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Editor mode specific adjustments */
+body.editor-mode .module {
+  /* Maintain editor functionality while preserving appearance */
+  cursor: pointer;
+  user-select: none;
+}
+
+body.editor-mode .module:hover {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}

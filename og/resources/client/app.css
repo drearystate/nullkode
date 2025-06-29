@@ -1,0 +1,57 @@
+@import '../../common/resources/client/common.css';
+@import "editor/initial-loading-indicator/initial-loading-indicator.css";
+@import "landing/landing-page.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.drop-placeholder {
+  &.arrow-top:before {
+    border-bottom: 4px solid theme('colors.primary');
+    top: -6px;
+  }
+
+  &.arrow-bottom:after {
+    border-top: 4px solid theme('colors.primary');
+    top: 6px;
+  }
+
+  &:before,
+  &:after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    position: absolute;
+    left: calc(50% - 4px);
+  }
+}
+
+.transparent-texture {
+  background-image: url("data:image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' class='transparent-svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M4 0H0v4h4v4H0v4h4v4H0v4h4v4h4v-4h4v4h4v-4h4v4h4v-4h-4v-4h4v-4h-4V8h4V4h-4V0h-4v4h-4V0H8v4H4V0zm4 8V4h4v4H8zm0 4V8H4v4h4zm4 0V8h4v4h-4zm0 4v-4H8v4H4v4h4v-4h4zm4 0v4h-4v-4h4zm0 0v-4h4v4h-4zm0-8V4h4v4h-4z' fill='currentColor' fill-opacity='.1' %3E%3C/path%3E%3C/svg%3E%0A");
+}
+
+.breakpoint-wrapper {
+  &.breakpoint-active {
+    max-height: calc(100dvh - 40px);
+    margin-top: 20px;
+    margin-bottom: 20px;
+    iframe {
+      box-shadow: 0 0 3px rgba(0,0,0,.3), 0 0 20px rgba(0,0,0,.15);
+    }
+  }
+
+  &.breakpoint-mobile {
+    width: 480px;
+  }
+
+  &.breakpoint-tablet {
+    width: 768px;
+  }
+
+  &.breakpoint-laptop {
+    width: 992px;
+  }
+}

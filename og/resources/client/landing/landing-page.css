@@ -1,0 +1,21 @@
+.landing-container {
+  @apply px-24 mx-auto relative;
+}
+
+@media screen and (min-width: 768px) {
+  .landing-container {
+    max-width: 750px;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .landing-container {
+    max-width: 970px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .landing-container {
+    max-width: 1170px;
+  }
+}
