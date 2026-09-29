@@ -1,0 +1,47 @@
+{
+  "generatedAt": "2026-04-12T03:10:30.592Z",
+  "sets": [
+    {
+      "prefix": "lucide",
+      "label": "Lucide",
+      "iconCount": 1754
+    },
+    {
+      "prefix": "heroicons",
+      "label": "Heroicons",
+      "iconCount": 1288
+    },
+    {
+      "prefix": "tabler",
+      "label": "Tabler",
+      "iconCount": 6140
+    },
+    {
+      "prefix": "ph",
+      "label": "Phosphor",
+      "iconCount": 9161
+    },
+    {
+      "prefix": "mdi",
+      "label": "Material",
+      "iconCount": 7638
+    },
+    {
+      "prefix": "fa6-solid",
+      "label": "FA Solid",
+      "iconCount": 1407
+    },
+    {
+      "prefix": "fa6-brands",
+      "label": "FA Brands",
+      "iconCount": 495
+    },
+    {
+      "prefix": "simple-icons",
+      "label": "Simple Icons",
+      "iconCount": 3693
+    }
+  ],
+  "total": 31576,
+  "totalBytes": 16573439
+}

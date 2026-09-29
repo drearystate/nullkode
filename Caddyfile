@@ -1,0 +1,55 @@
+# Automatic HTTPS for Nullkode (Docker "HTTPS mode").
+#
+# The installer turns this on when you give it a domain name. Caddy answers
+# on ports 80 and 443 and passes every request to the app. The first time
+# someone opens an address, Caddy gets a free certificate for it from
+# Let's Encrypt, but only after the app says the address belongs here
+# (/api/internal/tls-allow): the studio's own address, verified custom
+# domains, verified reseller domains and published apps' addresses under
+# APPS_DOMAIN. Certificates renew by themselves and are kept in the
+# caddy_data volume.
+#
+# NK_TLS_EMAIL and NK_TLS_ASK_SECRET come from .env through
+# docker-compose.yml. To change the domain or the email, run the installer
+# again. After editing this file: docker compose up -d --force-recreate caddy
+{
+	# Optional. Let's Encrypt writes here if a certificate needs attention.
+	email "{$NK_TLS_EMAIL}"
+
+	on_demand_tls {
+		# Caddy adds &domain=<name>. Only Caddy and the app know the token.
+		ask http://app:3001/api/internal/tls-allow?token={$NK_TLS_ASK_SECRET}
+	}
+}
+
+https:// {
+	tls {
+		on_demand
+	}
+
+	# Only for Caddy and the app itself, never for visitors.
+	@internal path /api/internal/*
+	respond @internal "Not found" 404
+
+	# The biggest request the app accepts is a 20 MB file upload.
+	request_body {
+		max_size 100MB
+	}
+
+	# Keeps the visitor's Host header and adds X-Forwarded-For and
+	# X-Forwarded-Proto: https. No read, write or response timeout, so long AI
+	# builds and live progress streams stay open for as long as they run.
+	reverse_proxy app:3001 {
+		# The app reads the visitor's address from X-Real-IP (sign-up and
+		# rate limits), so never pass on one the visitor made up.
+		header_up X-Real-IP {remote_host}
+		# Send streamed responses on at once instead of buffering them.
+		flush_interval -1
+	}
+}
+
+# Plain http:// moves to the same address on https://. Caddy still answers
+# certificate checks on port 80 first.
+http:// {
+	redir https://{host}{uri} 308
+}

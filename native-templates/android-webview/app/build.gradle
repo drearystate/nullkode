@@ -1,0 +1,85 @@
+plugins {
+    id 'com.android.application'
+}
+
+// All app identity is injected at build time via -P properties (or the
+// matching ORG_GRADLE_PROJECT_<name> environment variables), so the template
+// itself never has to be edited. Defaults keep a bare `gradlew` build working.
+def cfgAppId       = project.findProperty('nkAppId')       ?: 'com.example.webapp'
+def cfgAppName     = project.findProperty('nkAppName')     ?: 'Web App'
+def cfgStartUrl    = project.findProperty('nkStartUrl')    ?: 'https://example.com'
+def cfgVersionName = project.findProperty('nkVersionName') ?: '1.0.0'
+def cfgVersionCode = (project.findProperty('nkVersionCode') ?: '1').toString().toInteger()
+def cfgOrientation = project.findProperty('nkOrientation') ?: 'unspecified'
+// Theme color: fills the space behind the status and navigation bars.
+def cfgThemeColor  = project.findProperty('nkThemeColor')  ?: '#0b0b0b'
+// Page background: shown while a page loads and behind the offline page.
+def cfgPageColor   = project.findProperty('nkBackgroundColor') ?: cfgThemeColor
+// Java package of MainActivity and the R class. src/lib/apk-build.ts moves
+// MainActivity into the app's own package and passes that package here.
+def cfgNamespace   = project.findProperty('nkNamespace')   ?: 'com.example.webapp'
+
+// Google Play builds are signed with the app's own upload key. src/lib/apk-build.ts
+// passes it as ORG_GRADLE_PROJECT_nkKeystore* environment variables, so the
+// passwords never appear on a command line. Without a keystore, release
+// outputs stay unsigned. Debug builds always use the standard debug key.
+def cfgKeystore    = project.findProperty('nkKeystoreFile')
+
+android {
+    namespace cfgNamespace
+    // Google Play requires targetSdk 36 for new apps and updates from 2026-08-31.
+    // Keep compileSdk, buildToolsVersion, src/lib/apk-build.ts and the
+    // Dockerfile's ANDROID_PACKAGES in step.
+    compileSdk 36
+    buildToolsVersion '36.0.0'
+
+    defaultConfig {
+        applicationId cfgAppId
+        minSdk 23
+        targetSdk 36
+        versionCode cfgVersionCode
+        versionName cfgVersionName
+
+        resValue "string", "app_name", cfgAppName
+        resValue "string", "start_url", cfgStartUrl
+        resValue "string", "theme_color", cfgThemeColor
+        resValue "string", "page_background", cfgPageColor
+        manifestPlaceholders = [screenOrientation: cfgOrientation]
+    }
+
+    signingConfigs {
+        if (cfgKeystore) {
+            upload {
+                storeFile file(cfgKeystore)
+                storePassword project.findProperty('nkKeystorePassword')
+                keyAlias project.findProperty('nkKeyAlias')
+                keyPassword project.findProperty('nkKeyPassword') ?: project.findProperty('nkKeystorePassword')
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            if (cfgKeystore) {
+                signingConfig signingConfigs.upload
+            }
+        }
+        debug {
+            // debug builds are auto-signed with the standard debug keystore,
+            // so the resulting APK installs directly on any device (sideload).
+        }
+    }
+
+    lint {
+        // Release builds would otherwise run lint first, which downloads
+        // extra tools. Builds must work offline, and this small template
+        // doesn't change per app, so skip it.
+        checkReleaseBuilds false
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}

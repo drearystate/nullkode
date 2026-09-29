@@ -1,0 +1,701 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
+  RESELLER
+}
+
+enum ResellerStatus {
+  ACTIVE
+  SUSPENDED
+}
+
+enum Plan {
+  FREE
+  STARTER
+  PRO
+  TEAM
+}
+
+enum SubscriptionStatus {
+  NONE
+  TRIALING
+  ACTIVE
+  PAST_DUE
+  CANCELED
+  UNPAID
+}
+
+enum ProjectVisibility {
+  PRIVATE
+  PUBLIC
+}
+
+enum DataSourceKind {
+  POSTGRES_INTERNAL
+  POSTGRES_EXTERNAL
+  GOOGLE_SHEETS
+}
+
+enum FlowTriggerKind {
+  HTTP
+  FORM_SUBMIT
+  SCHEDULE
+  EVENT
+}
+
+enum DomainStatus {
+  PENDING
+  VERIFIED
+  ACTIVE
+  FAILED
+}
+
+enum ProjectKind {
+  EDITOR
+  DESIGNER
+}
+
+// Open CoDesign types we need to encode in SQL. See LICENSE-THIRD-PARTY.
+
+enum DesignerSnapshotType {
+  INITIAL
+  EDIT
+  FORK
+}
+
+enum DesignerArtifactType {
+  HTML
+  REACT
+  SVG
+}
+
+enum DesignerChatKind {
+  USER
+  ASSISTANT_TEXT
+  TOOL_CALL
+  ARTIFACT_DELIVERED
+  ERROR
+}
+
+enum DesignerCommentKind {
+  NOTE
+  EDIT
+}
+
+enum DesignerCommentStatus {
+  PENDING
+  APPLIED
+  DISMISSED
+}
+
+enum DesignerCommentScope {
+  ELEMENT
+  GLOBAL
+}
+
+enum DesignerWorkspaceMode {
+  BLANK_CANVAS
+  WORK_ON_PROJECT
+}
+
+enum DesignerPreviewMode {
+  MANAGED_FILE
+  CONNECTED_URL
+  EXTERNAL_APP
+  NONE
+}
+
+enum DesignerFileKind {
+  HTML
+  JSX
+  TSX
+  CSS
+  JS
+  MARKDOWN
+  TEXT
+  IMAGE
+  VIDEO
+  AUDIO
+  PDF
+  DOCUMENT
+  DESIGN_SYSTEM
+  ASSET
+}
+
+model User {
+  id            String   @id @default(cuid())
+  email         String   @unique
+  passwordHash  String
+  name          String?
+  avatarUrl     String?
+  emailVerified DateTime?
+  // Canonical form of `email` (lowercased, gmail dots/+tags stripped). Used to
+  // stop one mailbox from farming accounts via address aliases. Deliberately
+  // NOT unique — historical rows contain aliases of each other.
+  emailNormalized String?
+  // Client IP at signup, for per-IP abuse limits. Null for pre-existing rows.
+  signupIp      String?
+  role          Role     @default(USER)
+  lastSeenAt    DateTime?
+  // Small per-user UI preferences (e.g. { "helpTips": false }). Kept as
+  // loose JSON so adding a preference doesn't need a schema change.
+  prefs         Json?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Set when the account belongs to a reseller's client list. Clients see
+  // their reseller's brand and billing instead of the platform's.
+  resellerId    String?
+  // Suspended accounts can't sign in (set by the operator or their reseller).
+  suspendedAt   DateTime?
+
+  plan                 Plan               @default(FREE)
+  subscriptionStatus   SubscriptionStatus @default(NONE)
+  stripeCustomerId     String?            @unique
+  stripeSubscriptionId String?            @unique
+  currentPeriodEnd     DateTime?
+
+  projects  Project[]
+  sessions  Session[]
+  accountTokens AccountToken[]
+  reseller      Reseller? @relation("ResellerClients", fields: [resellerId], references: [id], onDelete: SetNull)
+  ownedReseller Reseller? @relation("ResellerOwner")
+
+  designerDesigns      DesignerDesign[]
+  designerProviders    DesignerProvider[]
+  designerPreferences  DesignerPreferences?
+  designerMemory       DesignerMemory?
+  designerImageGen     DesignerImageGenSettings?
+  designerOAuthCodex   DesignerCodexOAuth?
+
+  @@index([stripeCustomerId])
+  @@index([emailNormalized])
+  @@index([signupIp, createdAt])
+  @@index([resellerId])
+  aiUsage AiUsage[]
+}
+
+/**
+ * An agency/partner that sells the platform under its own brand. The
+ * operator creates resellers and sets their quotas; each reseller brands its
+ * own dashboard (optionally on its own domain), invites clients, and bills
+ * them on its own Stripe account. Clients are ordinary users with resellerId.
+ */
+model Reseller {
+  id        String         @id @default(cuid())
+  ownerId   String         @unique
+  name      String
+  slug      String         @unique
+  status    ResellerStatus @default(ACTIVE)
+  // Dashboard host for the reseller's clients, e.g. "apps.agency.com".
+  domain           String?   @unique
+  domainToken      String?
+  domainVerifiedAt DateTime?
+  // Brand overrides: tagline, logo/favicon data URLs, colours, support email.
+  brand      Json?
+  // Stripe account used to bill this reseller's clients (secrets encrypted).
+  billing    Json?
+  // Plan limits this reseller offers its clients (same shape as plans.limits).
+  planLimits Json?
+  // Quotas set by the operator. Null = unlimited.
+  maxClients Int?
+  maxApps    Int?
+  // Monthly AI actions across all of this reseller's clients. Null = unlimited.
+  maxAiActions Int?
+  // Whether new clients can sign themselves up on the reseller's domain.
+  allowSignup Boolean @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  owner   User   @relation("ResellerOwner", fields: [ownerId], references: [id], onDelete: Cascade)
+  clients User[] @relation("ResellerClients")
+}
+
+/// One-time links for account invitations and password resets. Only a hash
+/// of the token is stored.
+model AccountToken {
+  id        String    @id @default(cuid())
+  userId    String
+  purpose   String // "invite" | "reset"
+  tokenHash String    @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+/**
+ * A proof-of-work ticket handed to a signup form. The row is the only place the
+ * challenge exists, so it can be spent exactly once, and the per-IP history
+ * doubles as the signup rate limiter.
+ */
+model AuthChallenge {
+  id         String   @id
+  purpose    String   @default("signup")
+  ip         String
+  difficulty Int
+  createdAt  DateTime @default(now())
+  usedAt     DateTime?
+
+  @@index([ip, createdAt])
+  @@index([createdAt])
+}
+
+model Setting {
+  key       String   @id
+  value     Json
+  updatedAt DateTime @updatedAt
+}
+
+model Session {
+  id                  String   @id @default(cuid())
+  userId              String
+  token               String   @unique
+  expiresAt           DateTime
+  impersonatingUserId String?
+  createdAt           DateTime @default(now())
+  userAgent           String?
+  ip                  String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+model Project {
+  id          String            @id @default(cuid())
+  ownerId     String
+  name        String
+  slug        String            @unique
+  description String?
+  visibility  ProjectVisibility @default(PRIVATE)
+  kind        ProjectKind       @default(EDITOR)
+  published   Boolean           @default(false)
+  publishedAt DateTime?
+  // The deployment (snapshot of pages, flows and theme) the public site
+  // serves. Null for apps published before safe publishing existed: those
+  // keep serving their latest saved pages until they publish again.
+  liveDeploymentId String?
+  /// DNS-safe name for the app's own subdomain (<hostLabel>.<APPS_DOMAIN>).
+  hostLabel        String?           @unique
+  theme       Json?
+  icon        String?
+  native      Json?
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  owner       User            @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  pages       Page[]
+  flows       Flow[]
+  datasources DataSource[]
+  domains     Domain[]
+  deployments Deployment[]
+  modules     ProjectModule[]
+
+  @@index([ownerId])
+  pushMessages PushMessage[]
+  androidSigningKey AndroidSigningKey?
+}
+
+// ── Nullkode Designer — vendored Open CoDesign in cloud mode ───────────
+// All tables here back the renderer's `window.codesign.*` IPC surface, which
+// was originally backed by local SQLite + filesystem in the Electron build.
+// MIT-derived from OpenCoworkAI/open-codesign. See LICENSE-THIRD-PARTY.
+
+model DesignerDesign {
+  id             String                @id @default(cuid())
+  userId         String
+  // Optional Project (kind=DESIGNER) the design lives under. When set, the
+  // design's primary HTML file is mirrored to the project's pages so the
+  // existing Nullkode publish/domains/hosting pipeline can serve it.
+  projectId      String?
+  name           String                @default("Untitled design")
+  thumbnailText  String?
+  workspacePath  String?               // unused in cloud — kept for type parity
+  workspaceMode  DesignerWorkspaceMode?
+  previewMode    DesignerPreviewMode?
+  previewUrl     String?
+  deletedAt      DateTime?
+  createdAt      DateTime              @default(now())
+  updatedAt      DateTime              @updatedAt
+
+  user      User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  files     DesignerFile[]
+  snapshots DesignerSnapshot[]
+  chat      DesignerChatRow[]
+  comments  DesignerComment[]
+
+  @@index([userId])
+  @@index([projectId])
+}
+
+// Virtual workspace file. Replaces the local-FS workspace that the desktop
+// app keeps at <userData>/workspaces/<designId>/.
+model DesignerFile {
+  id          String           @id @default(cuid())
+  designId    String
+  path        String           // workspace-relative, normalized with forward slashes
+  kind        DesignerFileKind
+  content     String           @default("")
+  // For binary assets we base64 the content into `content`. `size` stays in bytes.
+  size        Int              @default(0)
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+
+  design DesignerDesign @relation(fields: [designId], references: [id], onDelete: Cascade)
+
+  @@unique([designId, path])
+  @@index([designId])
+}
+
+model DesignerSnapshot {
+  id                String               @id @default(cuid())
+  designId          String
+  parentId          String?
+  type              DesignerSnapshotType
+  prompt            String?
+  artifactType      DesignerArtifactType
+  artifactSource    String               // the actual HTML/JSX/SVG text at this snapshot
+  message           String?
+  createdAt         DateTime             @default(now())
+
+  design DesignerDesign @relation(fields: [designId], references: [id], onDelete: Cascade)
+
+  @@index([designId])
+  @@index([parentId])
+}
+
+// Chat row replayed from the per-design session JSONL in upstream. The
+// renderer uses `seq` to order; payload is opaque JSON the renderer parses.
+model DesignerChatRow {
+  id         Int              @id @default(autoincrement())
+  designId   String
+  seq        Int
+  kind       DesignerChatKind
+  payload    Json
+  snapshotId String?
+  createdAt  DateTime         @default(now())
+
+  design DesignerDesign @relation(fields: [designId], references: [id], onDelete: Cascade)
+
+  @@unique([designId, seq])
+  @@index([designId])
+}
+
+model DesignerComment {
+  id                  String                @id @default(cuid())
+  designId            String
+  snapshotId          String
+  kind                DesignerCommentKind
+  selector            String
+  tag                 String
+  outerHTML           String
+  rect                Json
+  text                String
+  status              DesignerCommentStatus @default(PENDING)
+  appliedInSnapshotId String?
+  scope               DesignerCommentScope  @default(ELEMENT)
+  parentOuterHTML     String?
+  createdAt           DateTime              @default(now())
+
+  design DesignerDesign @relation(fields: [designId], references: [id], onDelete: Cascade)
+
+  @@index([designId])
+  @@index([snapshotId])
+}
+
+// LLM provider configured by the user. Maps to the renderer's Settings
+// providers list. apiKey is encrypted at rest via the same AES-GCM helper
+// the existing Setting table uses.
+model DesignerProvider {
+  id            String   @id // "anthropic" | "openai" | "openrouter" | "ollama" | custom uuid
+  userId        String
+  name          String
+  wire          String   // "anthropic" | "openai-chat" | "openai-responses" | "openrouter" | "gemini" | "ollama"
+  baseUrl       String   @default("")
+  apiKeyEnc     String   @default("")  // AES-GCM ciphertext or "" for keyless (ollama)
+  defaultModel  String   @default("")
+  httpHeaders   Json?
+  queryParams   Json?
+  envKey        String?
+  reasoningLevel String? // null | "off" | "low" | "medium" | "high"
+  isActive      Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, id])
+  @@index([userId])
+}
+
+// One row per user — the full Preferences blob the renderer expects.
+model DesignerPreferences {
+  userId                    String   @id
+  updateChannel             String   @default("stable")
+  generationTimeoutSec      Int      @default(1200)
+  checkForUpdatesOnStartup  Boolean  @default(false)
+  dismissedUpdateVersion    String   @default("")
+  diagnosticsLastReadTs     BigInt   @default(0)
+  memoryEnabled             Boolean  @default(true)
+  workspaceMemoryAutoUpdate Boolean  @default(true)
+  userMemoryAutoUpdate      Boolean  @default(true)
+  // Active locale (renderer i18n).
+  locale                    String   @default("en")
+  // Active provider id + model. Mirrors OnboardingState.
+  activeProviderId          String?
+  activeModelPrimary        String?
+  // Design system path the user uploaded (mode = blank-canvas for now).
+  designSystemJson          Json?
+  updatedAt                 DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model DesignerMemory {
+  userId    String   @id
+  content   String   @default("")
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model DesignerImageGenSettings {
+  userId          String   @id
+  provider        String?  // "openai" | "openrouter" | null = off
+  model           String?
+  apiKeyEnc       String   @default("")
+  enabled         Boolean  @default(false)
+  updatedAt       DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model DesignerCodexOAuth {
+  userId       String   @id
+  // Status: "logged_out" | "pending" | "logged_in"
+  status       String   @default("logged_out")
+  accessTokenEnc  String?
+  refreshTokenEnc String?
+  expiresAt    DateTime?
+  accountType  String?  // "plus" | "pro" | "team" | etc.
+  email        String?
+  pkceVerifier String?  // transient during login flow
+  updatedAt    DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// In-progress agent generation. Used by generation-status / cancel.
+model DesignerGenerationJob {
+  id           String   @id  // matches renderer-supplied generationId
+  designId     String
+  userId       String
+  // "running" | "done" | "error" | "cancelled"
+  status       String   @default("running")
+  cancelRequested Boolean @default(false)
+  startedAt    DateTime @default(now())
+  finishedAt   DateTime?
+
+  @@index([designId])
+  @@index([userId])
+}
+
+model ProjectModule {
+  id          String   @id @default(cuid())
+  projectId   String
+  moduleId    String
+  version     String
+  config      Json     @default("{}")
+  installedAt DateTime @default(now())
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId])
+  @@index([moduleId])
+}
+
+model Page {
+  id        String   @id @default(cuid())
+  projectId String
+  slug      String
+  title     String
+  isHome    Boolean  @default(false)
+  html      String   @default("")
+  css       String   @default("")
+  components Json?
+  styles     Json?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, slug])
+  @@index([projectId])
+}
+
+model Flow {
+  id        String          @id @default(cuid())
+  projectId String
+  name      String
+  slug      String
+  trigger   FlowTriggerKind @default(HTTP)
+  httpPath  String?
+  httpMethod String?        @default("POST")
+  schedule  String?
+  enabled   Boolean         @default(true)
+  graph     Json            @default("{\"nodes\":[],\"edges\":[]}")
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  runs    FlowRun[]
+
+  @@unique([projectId, slug])
+  @@index([projectId])
+}
+
+model FlowRun {
+  id        String   @id @default(cuid())
+  flowId    String
+  status    String
+  input     Json?
+  output    Json?
+  error     String?
+  durationMs Int?
+  createdAt DateTime @default(now())
+
+  flow Flow @relation(fields: [flowId], references: [id], onDelete: Cascade)
+
+  @@index([flowId])
+  @@index([createdAt])
+}
+
+model DataSource {
+  id         String         @id @default(cuid())
+  projectId  String
+  name       String
+  kind       DataSourceKind
+  config     Json           @default("{}")
+  createdAt  DateTime       @default(now())
+  updatedAt  DateTime       @updatedAt
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  tables  DataTable[]
+
+  @@index([projectId])
+}
+
+model DataTable {
+  id           String   @id @default(cuid())
+  datasourceId String
+  name         String
+  schema       Json     @default("{\"fields\":[]}")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  datasource DataSource @relation(fields: [datasourceId], references: [id], onDelete: Cascade)
+
+  @@unique([datasourceId, name])
+  @@index([datasourceId])
+}
+
+model Domain {
+  id         String       @id @default(cuid())
+  projectId  String
+  host       String       @unique
+  status     DomainStatus @default(PENDING)
+  verifyToken String
+  createdAt  DateTime     @default(now())
+  verifiedAt DateTime?
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId])
+}
+
+model Deployment {
+  id        String   @id @default(cuid())
+  projectId String
+  version   Int
+  snapshot  Json
+  createdBy String?
+  createdAt DateTime @default(now())
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, version])
+  @@index([projectId])
+}
+
+/// A push notification an app owner sent to their app's subscribers.
+model PushMessage {
+  id        String   @id @default(cuid())
+  projectId String
+  title     String
+  body      String   @default("")
+  url       String?
+  sent      Int      @default(0)
+  failed    Int      @default(0)
+  removed   Int      @default(0)
+  createdBy String?
+  createdAt DateTime @default(now())
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId, createdAt])
+}
+
+/// One AI action (an app build, a Designer run, an Ask-AI edit, an AI flow
+/// step…), counted against the plan's monthly allowance. The operator pays
+/// the AI bill, so every plan can cap it.
+model AiUsage {
+  id        String   @id @default(cuid())
+  userId    String
+  projectId String?
+  kind      String
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+}
+
+/// The Android upload key that signs an app's Google Play builds (AAB and
+/// release APK). The keystore file is in private storage
+/// (uploads/.signing/<projectId>/, never under public/); both passwords are
+/// encrypted with encryptSecret (src/lib/settings.ts). Replacing the key
+/// updates this row, so lastVersionCode keeps counting up: Google Play needs
+/// a higher versionCode for every upload.
+model AndroidSigningKey {
+  id              String   @id @default(cuid())
+  projectId       String   @unique
+  /// File name inside the project's signing folder.
+  file            String
+  keyAlias        String
+  storePassword   String
+  keyPassword     String
+  /// Certificate fingerprints, shown to the owner (Play Console lists them too).
+  sha256          String
+  sha1            String   @default("")
+  /// true when the owner uploaded their own key instead of us creating one.
+  imported        Boolean  @default(false)
+  lastVersionCode Int      @default(0)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}

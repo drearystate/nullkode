@@ -1,0 +1,328 @@
+/* ============================================================
+ * Nullkode public design system
+ * Loaded into every published app (and the editor canvas) on top
+ * of Bootstrap 5. Tweaks typography, color, spacing and component
+ * styles so every module gets a sleek, cohesive look by default.
+ * ============================================================ */
+
+:root {
+  --nk-bg:         #fafafa;
+  --nk-surface:    #ffffff;
+  --nk-surface-2:  #f5f5f7;
+  --nk-border:     #ececef;
+  --nk-text:       #0f0f14;
+  --nk-text-muted: #6b6b7a;
+  --nk-primary:    #7c3aed;
+  --nk-primary-2:  #6d28d9;
+  --nk-accent:     #22d3ee;
+  --nk-success:    #16a34a;
+  --nk-warning:    #eab308;
+  --nk-danger:     #ef4444;
+  --nk-radius:     14px;
+  --nk-radius-sm:  10px;
+  --nk-shadow-sm:  0 1px 2px rgba(15,15,20,.04), 0 1px 3px rgba(15,15,20,.06);
+  --nk-shadow:     0 2px 4px rgba(15,15,20,.04), 0 8px 24px rgba(15,15,20,.06);
+  --nk-shadow-lg:  0 4px 6px rgba(15,15,20,.04), 0 20px 60px rgba(15,15,20,.12);
+  --nk-font:       ui-sans-serif, system-ui, -apple-system, "Segoe UI", Inter, Roboto, "Helvetica Neue", sans-serif;
+  --nk-font-display: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Inter, Roboto, sans-serif;
+}
+
+html, body {
+  background: var(--nk-bg);
+  color: var(--nk-text);
+  font-family: var(--nk-font);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Type rhythm */
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: var(--nk-font-display);
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+  font-weight: 700;
+}
+.display-1, .display-2, .display-3, .display-4, .display-5, .display-6 {
+  letter-spacing: -0.03em;
+  font-weight: 800;
+}
+.lead { color: var(--nk-text-muted); }
+p { line-height: 1.65; }
+
+/* Containers feel roomier */
+section { padding-block: clamp(3rem, 8vw, 6rem); }
+.container { max-width: 1200px; }
+
+/* Cards — softer, lighter by default */
+.card {
+  background: var(--nk-surface);
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  box-shadow: var(--nk-shadow-sm);
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.card.shadow, .card.shadow-sm, .card.shadow-lg { box-shadow: var(--nk-shadow); }
+.card.shadow-lg { box-shadow: var(--nk-shadow-lg); }
+a > .card:hover, .card.hoverable:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--nk-shadow-lg);
+  border-color: color-mix(in srgb, var(--nk-primary) 25%, var(--nk-border));
+}
+.card-body { padding: clamp(1.25rem, 2vw, 1.75rem); }
+.card-title { font-weight: 700; letter-spacing: -0.01em; }
+.card-img-top { border-top-left-radius: var(--nk-radius); border-top-right-radius: var(--nk-radius); }
+
+/* Buttons — bolder primary, subtler outlines, smoother hover */
+.btn {
+  border-radius: var(--nk-radius-sm);
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  padding: .55rem 1.15rem;
+  transition: transform .08s ease, box-shadow .2s ease, background .2s ease, color .2s ease;
+}
+.btn-lg { padding: .85rem 1.6rem; font-size: 1rem; }
+.btn:active { transform: translateY(1px); }
+
+.btn-primary {
+  background: var(--nk-primary);
+  border-color: var(--nk-primary);
+  box-shadow: 0 1px 2px color-mix(in srgb, var(--nk-primary) 25%, transparent), 0 6px 18px color-mix(in srgb, var(--nk-primary) 18%, transparent);
+}
+.btn-primary:hover, .btn-primary:focus {
+  background: var(--nk-primary-2);
+  border-color: var(--nk-primary-2);
+}
+.btn-outline-primary {
+  color: var(--nk-primary);
+  border-color: color-mix(in srgb, var(--nk-primary) 40%, var(--nk-border));
+}
+.btn-outline-primary:hover {
+  background: var(--nk-primary);
+  border-color: var(--nk-primary);
+  color: #fff;
+}
+.btn-success { background: var(--nk-success); border-color: var(--nk-success); }
+.btn-danger  { background: var(--nk-danger);  border-color: var(--nk-danger);  }
+
+/* Form controls — softer, focused states */
+.form-control, .form-select {
+  border-radius: var(--nk-radius-sm);
+  border-color: var(--nk-border);
+  background: var(--nk-surface);
+  padding: .6rem .85rem;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+.form-control:focus, .form-select:focus {
+  border-color: color-mix(in srgb, var(--nk-primary) 55%, var(--nk-border));
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--nk-primary) 18%, transparent);
+}
+.form-label {
+  font-size: .82rem;
+  font-weight: 600;
+  color: var(--nk-text);
+  letter-spacing: -0.005em;
+  margin-bottom: .35rem;
+}
+.form-control-lg, .form-select-lg { padding: .85rem 1rem; font-size: 1rem; }
+.input-group > .form-control, .input-group > .form-select {
+  border-radius: var(--nk-radius-sm);
+}
+.input-group > .btn { border-radius: var(--nk-radius-sm); }
+
+/* Badges — flatter, pill-shaped */
+.badge {
+  font-weight: 600;
+  letter-spacing: 0.015em;
+  border-radius: 999px;
+  padding: .35em .7em;
+}
+.badge.bg-primary   { background: color-mix(in srgb, var(--nk-primary) 15%, transparent) !important; color: var(--nk-primary) !important; }
+.badge.bg-success   { background: color-mix(in srgb, var(--nk-success) 15%, transparent) !important; color: var(--nk-success) !important; }
+.badge.bg-danger    { background: color-mix(in srgb, var(--nk-danger)  15%, transparent) !important; color: var(--nk-danger)  !important; }
+.badge.bg-warning   { background: color-mix(in srgb, var(--nk-warning) 18%, transparent) !important; color: #8a6700 !important; }
+.badge.bg-info      { background: color-mix(in srgb, var(--nk-accent)  18%, transparent) !important; color: #0b6e7a !important; }
+.badge.bg-secondary { background: var(--nk-surface-2) !important; color: var(--nk-text-muted) !important; }
+.badge.bg-dark      { background: var(--nk-text) !important; color: #fff !important; }
+
+/* Bootstrap neutral backgrounds map to theme surfaces so the theme
+ * system can reskin everything. Modules shouldn't use these classes
+ * anymore — prefer inline style="background: var(--nk-surface);" —
+ * but we keep these overrides so older markup still themes cleanly. */
+.bg-white, .bg-body     { background: var(--nk-surface)   !important; color: var(--nk-text) !important; }
+.bg-light, .bg-body-tertiary, .bg-body-secondary { background: var(--nk-surface-2) !important; color: var(--nk-text) !important; }
+.bg-dark { background: linear-gradient(180deg, color-mix(in srgb, var(--nk-text) 8%, var(--nk-surface-2)), var(--nk-surface-2)) !important; color: var(--nk-text) !important; }
+.text-black, .text-dark { color: var(--nk-text) !important; }
+
+/* ========================================================
+ * Composable helpers for modules + AI-generated pages.
+ * All built from theme tokens so they re-skin automatically.
+ * ======================================================== */
+
+/* Hero band — two soft color blobs behind a headline section */
+.nk-hero {
+  position: relative;
+  overflow: hidden;
+  padding-block: clamp(4rem, 9vw, 7rem);
+}
+.nk-hero::before, .nk-hero::after {
+  content: "";
+  position: absolute;
+  width: 420px; height: 420px;
+  border-radius: 50%;
+  filter: blur(100px);
+  pointer-events: none;
+  z-index: 0;
+}
+.nk-hero::before { top: -160px; left: -140px; background: var(--nk-primary); opacity: 0.18; }
+.nk-hero::after  { bottom: -180px; right: -120px; background: var(--nk-accent); opacity: 0.16; }
+.nk-hero > .container { position: relative; z-index: 1; }
+
+/* Eyebrow label — small caps above a heading */
+.nk-eyebrow {
+  display: inline-block;
+  font-size: .72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--nk-primary);
+  margin-bottom: .75rem;
+}
+
+/* Icon chip used in feature grids */
+.nk-icon-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px; height: 48px;
+  border-radius: var(--nk-radius-sm);
+  background: color-mix(in srgb, var(--nk-primary) 14%, transparent);
+  color: var(--nk-primary);
+  font-size: 22px;
+  margin-bottom: 1rem;
+}
+
+/* CTA band — rounded gradient block that calls the visitor to action */
+.nk-cta-band {
+  padding: clamp(2.5rem, 6vw, 4rem) clamp(1.5rem, 4vw, 3rem);
+  border-radius: calc(var(--nk-radius) + 6px);
+  background: linear-gradient(135deg,
+    color-mix(in srgb, var(--nk-primary) 95%, black),
+    color-mix(in srgb, var(--nk-accent)  80%, black));
+  color: #fff;
+  text-align: center;
+  box-shadow: var(--nk-shadow-lg);
+}
+.nk-cta-band h2, .nk-cta-band .h2 { color: #fff; }
+.nk-cta-band .lead { color: rgba(255,255,255,0.9); }
+.nk-cta-band .btn { background: #fff; color: var(--nk-primary); border: 0; }
+.nk-cta-band .btn:hover { background: rgba(255,255,255,0.92); color: var(--nk-primary-2); }
+
+/* Stat strip — big numbers under a top border */
+.nk-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1.5rem;
+  padding-top: 2rem;
+  margin-top: 2rem;
+  border-top: 1px solid var(--nk-border);
+}
+.nk-stats .nk-stat-value {
+  font-family: var(--nk-font-display);
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--nk-primary);
+  line-height: 1;
+}
+.nk-stats .nk-stat-label {
+  font-size: .72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--nk-text-muted);
+  margin-top: .5rem;
+}
+
+/* Sleek feature card — used in card grids */
+.nk-feature {
+  background: var(--nk-surface);
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  padding: clamp(1.25rem, 2vw, 1.75rem);
+  height: 100%;
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.nk-feature:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--nk-shadow-lg);
+  border-color: color-mix(in srgb, var(--nk-primary) 25%, var(--nk-border));
+}
+.nk-feature h3, .nk-feature .h3 { font-size: 1.1rem; margin-bottom: .5rem; }
+.nk-feature p { color: var(--nk-text-muted); font-size: .92rem; margin-bottom: 0; }
+
+/* Section title centered block */
+.nk-section-title {
+  text-align: center;
+  max-width: 620px;
+  margin-inline: auto;
+  margin-bottom: clamp(2rem, 5vw, 3.5rem);
+}
+.nk-section-title p { color: var(--nk-text-muted); margin-bottom: 0; }
+
+/* Links — no underline by default, subtle on hover */
+a { color: var(--nk-primary); text-decoration: none; }
+a:hover { color: var(--nk-primary-2); text-decoration: underline; text-underline-offset: 3px; }
+a.btn, a.card, a.text-decoration-none, a.text-body { text-decoration: none; }
+a.btn:hover, a.card:hover, a.text-body:hover { text-decoration: none; }
+
+/* Code / pre — softer background */
+code, pre, kbd { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+code {
+  background: var(--nk-surface-2);
+  color: var(--nk-text);
+  padding: .12em .4em;
+  border-radius: .35em;
+  font-size: .92em;
+}
+
+/* Dividers & borders */
+hr { border-color: var(--nk-border); opacity: 1; }
+.border-bottom { border-bottom-color: var(--nk-border) !important; }
+.border-top    { border-top-color:    var(--nk-border) !important; }
+.border        { border-color:        var(--nk-border) !important; }
+
+/* Native <details> accordion gets a clean disclosure without the triangle */
+details summary::-webkit-details-marker { display: none; }
+details summary::marker { content: ""; }
+details > summary {
+  list-style: none;
+  position: relative;
+  padding-right: 2rem;
+  cursor: pointer;
+}
+details > summary::after {
+  content: "+";
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 1.5em;
+  text-align: center;
+  color: var(--nk-primary);
+  font-weight: 700;
+  font-size: 1.25em;
+  transition: transform .2s ease;
+}
+details[open] > summary::after { content: "−"; }
+
+/* Images inside cards never overflow their radius */
+.card img { max-width: 100%; }
+
+/* Forms feel less cramped */
+.row > .col-12 > .form-label { margin-top: .25rem; }
+
+/* Smooth scroll for anchor links */
+html { scroll-behavior: smooth; }
+
+/* Selection color */
+::selection { background: color-mix(in srgb, var(--nk-primary) 30%, transparent); color: var(--nk-text); }

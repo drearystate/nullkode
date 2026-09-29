@@ -1,0 +1,166 @@
+import Link from "next/link";
+import QRCode from "qrcode";
+import { appPublicUrl } from "@/lib/reseller";
+import { ArrowRight, Blocks, Check, ExternalLink, Globe2, ImageIcon, KeyRound, Paintbrush, Rocket, Smartphone } from "lucide-react";
+import { notFound, redirect } from "next/navigation";
+import { db } from "@/lib/db";
+import { getCurrentUser } from "@/lib/auth";
+import { ProjectIconPanel } from "@/components/project-icon-panel";
+import { RenameProjectField } from "@/components/rename-project-field";
+import { TransferProjectCard } from "@/components/transfer-project-card";
+import { AppAdminCard } from "@/components/app-admin-card";
+import { LatestSubmissionsCard } from "@/components/latest-submissions-card";
+import { listAppAdmins } from "@/lib/app-admin";
+
+export default async function ProjectOverview({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+  const user = await getCurrentUser();
+  if (!user) return null;
+  const project = await db.project.findUnique({
+    where: { id },
+    include: {
+      _count: { select: { pages: true, flows: true, datasources: true, domains: true } },
+    },
+  });
+  if (!project || project.ownerId !== user.id) notFound();
+
+  // Designer projects don't have a separate overview — the workspace IS
+  // the overview. Push the user straight into it.
+  if (project.kind === "DESIGNER") redirect(`/projects/${project.id}/designer`);
+
+  const publicUrl = await appPublicUrl(project);
+  const [activeDomains, qrDataUrl, appAdmins] = await Promise.all([
+    db.domain.count({ where: { projectId: project.id, status: "ACTIVE" } }),
+    project.published ? QRCode.toDataURL(publicUrl, { margin: 1, width: 132 }).catch(() => null) : Promise.resolve(null),
+    listAppAdmins(project.id).catch(() => null),
+  ]);
+  const launch = [
+    { done: project._count.pages > 0, title: "Build your app", detail: "Your pages, data and forms are in place.", href: `/projects/${id}/pages`, icon: Paintbrush },
+    { done: Boolean(project.icon), title: "Add your app icon", detail: "It shows on phones, in browser tabs and in the Android app.", href: "#app-icon", icon: ImageIcon },
+    ...(appAdmins ? [{ done: appAdmins.length > 0, title: "Set your admin login", detail: "So you can sign in to your app's admin pages.", href: "#app-admin", icon: KeyRound }] : []),
+    { done: project.published, title: project.published ? "Published" : "Publish it", detail: project.published ? "Anyone with the link can use it." : "Get a link you can share with anyone.", href: `/projects/${id}/publish`, icon: Rocket },
+  ];
+  const launchDone = launch.filter((s) => s.done).length;
+
+  return (
+    <div className="mx-auto max-w-6xl px-6 py-10">
+      <div className="flex flex-wrap items-end justify-between gap-5"><div>
+      <p className="studio-eyebrow mb-3 text-brand-300">YOUR APP, AT A GLANCE</p>
+      <h1 className="text-3xl font-semibold tracking-tight">{project.name}</h1>
+      <p className="text-sm text-surface-400 mt-1">
+        {project.published ? (
+          <>
+            Live at{" "}
+            <a href={publicUrl} className="text-brand-400 hover:underline" target="_blank">
+              {publicUrl}
+            </a>
+          </>
+        ) : (
+          "Draft — not yet published."
+        )}
+      </p>
+
+      </div><Link href={`/projects/${id}/pages`} className="btn-primary"><Paintbrush size={16} />Continue editing <ArrowRight size={16} /></Link></div>
+      <div className="mt-8 grid gap-4 md:grid-cols-4">
+        <StatCard label="Pages" value={project._count.pages} href={`/projects/${id}/pages`} />
+        <StatCard label="Flows" value={project._count.flows} href={`/projects/${id}/flows`} />
+        <StatCard label="Data" value={project._count.datasources} href={`/projects/${id}/data`} />
+        <StatCard label="Own domains" value={project._count.domains} href={`/projects/${id}/domains`} />
+      </div>
+
+      <div id="app-icon" className="mt-10 scroll-mt-24">
+        <ProjectIconPanel
+          projectId={project.id}
+          initialIcon={project.icon}
+          projectName={project.name}
+        />
+      </div>
+
+      <div className="mt-6 grid gap-4 md:grid-cols-2">
+        <section className="card p-6" aria-labelledby="launch-heading">
+          <div className="flex items-baseline justify-between gap-3">
+            <p className="studio-eyebrow">GET IT IN PEOPLE&apos;S HANDS</p>
+            <span className="text-xs text-surface-400">{launchDone} of {launch.length} done</span>
+          </div>
+          <h2 id="launch-heading" className="mt-2 text-lg font-semibold">Launch checklist</h2>
+          <ol className="mt-4 space-y-1">
+            {launch.map(({ done, title, detail, href, icon: Icon }) => (
+              <li key={title}>
+                <Link href={href} className="studio-next-step">
+                  <span className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full ${done ? "bg-emerald-500/15 text-emerald-300" : "bg-white/[0.05] text-brand-300"}`}>{done ? <Check size={15} aria-hidden /> : <Icon size={15} aria-hidden />}</span>
+                  <span className="flex-1"><strong className={`block text-sm font-medium ${done ? "text-surface-300" : ""}`}>{title}<span className="sr-only">{done ? " (done)" : " (to do)"}</span></strong><span className="mt-0.5 block text-xs text-surface-400">{detail}</span></span>
+                  <ArrowRight size={14} className="text-surface-500" aria-hidden />
+                </Link>
+              </li>
+            ))}
+          </ol>
+          <div className="mt-4 rounded-xl border border-white/[0.07] bg-white/[0.02] p-4">
+            <p className="flex items-center gap-2 text-sm font-medium"><Smartphone size={15} className="text-brand-300" aria-hidden />Open it on your phone</p>
+            {qrDataUrl ? (
+              <div className="mt-3 flex items-center gap-4">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={qrDataUrl} alt={`QR code for ${publicUrl}`} width={112} height={112} className="rounded-lg bg-white p-1" />
+                <p className="text-xs leading-relaxed text-surface-400">Point your phone&apos;s camera at the code. Then use &ldquo;Add to Home Screen&rdquo; and it opens like an app.</p>
+              </div>
+            ) : (
+              <p className="mt-1 text-xs text-surface-400">Publish first, then scan a code here to try it on your phone.</p>
+            )}
+          </div>
+          <p className="mt-5 text-xs font-medium uppercase tracking-wider text-surface-500">Optional</p>
+          <div className="mt-1 space-y-1">
+            <Link href={`/projects/${id}/theme`} className="studio-next-step"><Paintbrush size={17} className="text-brand-300" aria-hidden /><span className="flex-1"><strong className="block text-sm font-medium">Change colours and fonts</strong><span className="mt-0.5 block text-xs text-surface-400">Match your brand in a couple of clicks.</span></span><ArrowRight size={14} className="text-surface-500" aria-hidden /></Link>
+            <Link href={`/projects/${id}/domains`} className="studio-next-step"><Globe2 size={17} className="text-brand-300" aria-hidden /><span className="flex-1"><strong className="block text-sm font-medium">{activeDomains ? "Your own domain is connected" : "Use your own domain"}</strong><span className="mt-0.5 block text-xs text-surface-400">{activeDomains ? "Manage your web addresses." : "Like www.yourbusiness.com."}</span></span><ArrowRight size={14} className="text-surface-500" aria-hidden /></Link>
+            <Link href={`/projects/${id}/native`} className="studio-next-step"><Smartphone size={17} className="text-brand-300" aria-hidden /><span className="flex-1"><strong className="block text-sm font-medium">Get the Android app</strong><span className="mt-0.5 block text-xs text-surface-400">Download an app file you can install or put on Google Play.</span></span><ArrowRight size={14} className="text-surface-500" aria-hidden /></Link>
+            <Link href={`/projects/${id}/modules`} className="studio-next-step"><Blocks size={17} className="text-brand-300" aria-hidden /><span className="flex-1"><strong className="block text-sm font-medium">Add a feature</strong><span className="mt-0.5 block text-xs text-surface-400">Bookings, a shop, a blog, sign-ups and more.</span></span><ArrowRight size={14} className="text-surface-500" aria-hidden /></Link>
+            <a href={`/preview/${id}`} target="_blank" rel="noopener noreferrer" className="studio-next-step"><ExternalLink size={17} className="text-brand-300" aria-hidden /><span className="flex-1"><strong className="block text-sm font-medium">Try it as a visitor</strong><span className="mt-0.5 block text-xs text-surface-400">Opens a preview in a new tab.</span></span><ArrowRight size={14} className="text-surface-500" aria-hidden /></a>
+          </div>
+        </section>
+        <div className="card p-6">
+          <h2 className="font-semibold">Settings</h2>
+          <dl className="mt-3 text-sm">
+            <RenameProjectField projectId={project.id} initialName={project.name} />
+            <div className="flex justify-between gap-4 py-1 border-b border-surface-800">
+              <dt className="text-surface-400">Web address</dt>
+              <dd className="truncate text-surface-200">{project.published ? <a href={publicUrl} target="_blank" rel="noopener" className="hover:underline">{publicUrl.replace(/^https?:\/\//, "")}</a> : "After you publish"}</dd>
+            </div>
+            <div className="flex justify-between py-1">
+              <dt className="text-surface-400">Created</dt>
+              <dd className="text-surface-200">
+                {new Date(project.createdAt).toLocaleDateString()}
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+
+      <AppAdminCard projectId={project.id} />
+      <LatestSubmissionsCard projectId={project.id} />
+
+      <div className="mt-6">
+        <TransferProjectCard projectId={project.id} projectName={project.name} />
+      </div>
+
+    </div>
+  );
+}
+
+function StatCard({
+  label,
+  value,
+  href,
+}: {
+  label: string;
+  value: number;
+  href: string;
+}) {
+  return (
+    <Link href={href} className="card p-5 hover:border-brand-500 transition block">
+      <div className="text-xs uppercase tracking-wider text-surface-400">{label}</div>
+      <div className="text-3xl font-bold mt-2">{value}</div>
+    </Link>
+  );
+}
