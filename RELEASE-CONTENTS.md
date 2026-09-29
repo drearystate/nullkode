@@ -1,0 +1,1 @@
+All application, Designer, flow, data, billing, native export, and installer source is included. Runtime customer data, secrets, generated bundles, local maintenance scripts, and purchased third-party Crafto/Litho theme packs are excluded. Original MIT starter designs are included. Dependencies are downloaded at build time.

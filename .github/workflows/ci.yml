@@ -1,0 +1,71 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: nullkode
+          POSTGRES_PASSWORD: nullkode
+          POSTGRES_DB: nullkode_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U nullkode"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      DATABASE_URL: postgres://nullkode:nullkode@localhost:5432/nullkode_test
+      AUTH_SECRET: ci-secret-not-for-production-only-for-tests-32ch
+      PUBLIC_BASE_URL: http://localhost:3001
+      NK_CLAUDE_RUNNER_DISABLE: "1"
+      NEXT_TELEMETRY_DISABLED: "1"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.19.2
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.4
+          run_install: false
+
+      - name: Cache pnpm store
+        uses: actions/cache@v4
+        with:
+          path: ~/.local/share/pnpm/store
+          key: pnpm-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: pnpm-${{ runner.os }}-
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Prisma generate
+        run: pnpm exec prisma generate
+
+      - name: Prisma push (schema sanity)
+        run: pnpm exec prisma db push
+
+      - name: Typecheck (main app)
+        run: pnpm typecheck
+
+      - name: Build Designer SPA
+        run: pnpm -C apps/designer-renderer build
+
+      - name: Build Next
+        run: pnpm exec next build

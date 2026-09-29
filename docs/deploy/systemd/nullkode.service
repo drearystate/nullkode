@@ -1,0 +1,37 @@
+[Unit]
+Description=Nullkode Next.js app
+After=network.target postgresql.service
+Wants=postgresql.service
+
+[Service]
+Type=simple
+# Adjust to your install user. Use root only if you need privilege drop
+# for the Designer's CLI subprocess (NK_CLAUDE_RUNNER_DISABLE=0).
+# Most installs should use a dedicated unprivileged user.
+User=nullkode
+Group=nullkode
+
+# Install path. Change to wherever you cloned the repo.
+WorkingDirectory=/opt/nullkode
+
+Environment=NODE_ENV=production
+Environment=PORT=3001
+Environment=HOSTNAME=127.0.0.1
+# Adjust to your Node install (typical: nvm, /usr/local/bin, or system).
+Environment=PATH=/usr/local/bin:/usr/bin:/bin
+# Load real secrets from .env in WorkingDirectory.
+EnvironmentFile=/opt/nullkode/.env
+
+ExecStart=/usr/bin/env node node_modules/next/dist/bin/next start -p 3001 -H 127.0.0.1
+Restart=on-failure
+RestartSec=3
+
+# Where logs go. Adjust if you prefer journald (remove these two lines).
+StandardOutput=append:/var/log/nullkode.log
+StandardError=append:/var/log/nullkode.err.log
+
+# Generous file limit for SSE / long-running agent runs.
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,70 @@
+# Env & secrets
+.env
+.env.local
+.env.*
+!.env.example
+
+# Node
+node_modules/
+.pnpm-store/
+.pnpm-debug.log*
+npm-debug.log*
+
+# Next.js
+.next/
+.next-*/
+out/
+next-env.d.ts
+
+# Build artifacts
+dist/
+/build/
+*.tsbuildinfo
+
+# Runtime / data
+/data/
+logs/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Claude (local dev tooling)
+.claude/
+
+# Designer renderer build output. This is checked-in for the published
+# binary path (so `pnpm start` works without rebuilding the SPA), but
+# noisy in PR diffs. Forks should decide whether to commit it.
+# Uncomment to exclude:
+# public/designer/
+
+# Tmp scratch
+/tmp/nullkode-designer/
+scripts/scratch-*
+
+# Database dumps
+*.sql.gz
+*.dump
+
+# Android APK build pipeline (Gradle outputs & generated keystores)
+native-templates/**/.gradle/
+native-templates/**/build/
+native-templates/**/local.properties
+
+# Runtime uploads & generated native builds
+/uploads/
+/public/uploads/
+
+/backups/
+/release/
+scripts/.ux-review.mjs
+
+# Signing keys and editor bundles
+*.jks
+*.keystore
+public/designer/

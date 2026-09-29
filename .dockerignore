@@ -1,0 +1,33 @@
+.git
+.env
+.env.*
+**/.env
+**/.env.*
+!.env.example
+**/node_modules
+.next*
+**/dist
+# Build output only. A bare "**/build" also dropped the APK build API
+# (src/app/api/projects/[id]/native/build) from the image.
+native-templates/**/build
+native-templates/**/local.properties
+**/.gradle
+**/*.tsbuildinfo
+**/*.log
+.vscode
+.claude
+uploads
+backups
+public/uploads
+public/assets/cloned
+public/assets/crafto
+public/assets/litho
+public/designer
+public/screenshots
+*.zip
+*.tar*
+*.dump
+*.sql*
+scripts/.ux-review.mjs
+.nk-screenshot.mjs
+release

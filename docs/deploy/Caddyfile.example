@@ -1,0 +1,9 @@
+# Replace builder.example.com with your domain. Run Caddy on the host.
+builder.example.com {
+    reverse_proxy 127.0.0.1:3001 {
+        flush_interval -1
+        # The app trusts X-Real-IP for sign-up protection and rate limits,
+        # so always replace whatever the visitor sent.
+        header_up X-Real-IP {remote_host}
+    }
+}
