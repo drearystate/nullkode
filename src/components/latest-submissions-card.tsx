@@ -33,11 +33,11 @@ export function LatestSubmissionsCard({ projectId }: { projectId: string }) {
   return (
     <section className="card mt-6 p-6" aria-labelledby="latest-submissions-heading">
       <div className="flex items-baseline justify-between gap-3">
-        <h2 id="latest-submissions-heading" className="flex items-center gap-2 font-semibold">
+        <h2 id="latest-submissions-heading" className="flex items-center gap-2 font-semibold" data-help="The five newest things visitors sent through your app, like form messages or bookings.">
           <Inbox size={17} className="text-brand-300" aria-hidden />
           Latest submissions
         </h2>
-        <Link href={`/projects/${projectId}/data`} className="text-sm text-brand-300 hover:underline">
+        <Link href={`/projects/${projectId}/data`} className="text-sm text-brand-300 hover:underline" data-help="Open the Data page to see everything your app has saved.">
           See all data
         </Link>
       </div>
@@ -47,7 +47,7 @@ export function LatestSubmissionsCard({ projectId }: { projectId: string }) {
         <ul className="mt-3 divide-y divide-white/[0.06]">
           {items.map((s) => (
             <li key={`${s.tableId}-${s.rowId}-${s.createdAt}`}>
-              <Link href={`/projects/${projectId}/data?table=${encodeURIComponent(s.tableId)}`} className="group flex items-center gap-3 py-2.5">
+              <Link href={`/projects/${projectId}/data?table=${encodeURIComponent(s.tableId)}`} className="group flex items-center gap-3 py-2.5" data-help="Open the table this came from to see it in full.">
                 <span className="min-w-0 flex-1">
                   <span className="block truncate text-sm">{s.summary || "New entry"}</span>
                   <span className="mt-0.5 block text-xs text-surface-400">

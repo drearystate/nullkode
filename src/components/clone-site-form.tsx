@@ -141,6 +141,7 @@ export function CloneSiteForm({ onBack }: Props) {
               <label htmlFor="clone-url" className="label">Your website&apos;s address</label>
               <input
                 id="clone-url"
+                data-help="The address of the website to copy, like mybusiness.com. You don't need to type https://."
                 type="url"
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
@@ -153,6 +154,7 @@ export function CloneSiteForm({ onBack }: Props) {
               />
               <button
                 onClick={submit}
+                data-help="Starts copying the site into a new app. It can take a minute; the editor opens by itself when it's done."
                 disabled={!url.trim()}
                 className="btn-primary w-full py-3 disabled:opacity-40"
               >
@@ -182,7 +184,7 @@ export function CloneSiteForm({ onBack }: Props) {
               </div>
               <div className="mt-3 flex items-center justify-between gap-3">
                 <p className="text-[11px] text-surface-500 leading-relaxed">We&apos;ll open the editor when it&apos;s done.</p>
-                <button type="button" onClick={stop} className="btn-ghost text-sm">Stop</button>
+                <button type="button" onClick={stop} data-help="Stop copying. Nothing is saved, so you can try again with a different address." className="btn-ghost text-sm">Stop</button>
               </div>
             </>
           )}

@@ -90,17 +90,17 @@ export function ActivityPanel({ projectId, flowId, refreshKey = 0 }: { projectId
     <section className="mx-auto max-w-3xl px-5 pb-10 pt-16" aria-labelledby="activity-heading">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h2 id="activity-heading" className="text-lg font-semibold">Activity</h2>
+          <h2 id="activity-heading" className="text-lg font-semibold" data-help="Each time this automation ran: whether it worked, what started it, and what was sent in. Handy for spotting problems.">Activity</h2>
           <p className="mt-0.5 text-sm text-surface-400">
             {data ? `Last 24 hours: ${data.last24h.total} ${data.last24h.total === 1 ? "run" : "runs"}, ${data.last24h.problems} with a problem.` : "What happened each time this flow ran."}
           </p>
         </div>
         <div className="flex items-center gap-2">
           <div className="studio-segmented" role="group" aria-label="Which runs to show">
-            <button type="button" aria-pressed={!problemsOnly} className={!problemsOnly ? "active" : ""} onClick={() => setProblemsOnly(false)}>All runs</button>
-            <button type="button" aria-pressed={problemsOnly} className={problemsOnly ? "active" : ""} onClick={() => setProblemsOnly(true)}>Only problems</button>
+            <button type="button" aria-pressed={!problemsOnly} className={!problemsOnly ? "active" : ""} onClick={() => setProblemsOnly(false)} data-help="Show every recent run of this automation.">All runs</button>
+            <button type="button" aria-pressed={problemsOnly} className={problemsOnly ? "active" : ""} onClick={() => setProblemsOnly(true)} data-help="Show only runs that failed or finished with a problem, like an email that wasn’t sent.">Only problems</button>
           </div>
-          <button type="button" className="btn-ghost !min-h-0 px-3 py-1.5" onClick={() => void load()} disabled={loading} aria-label="Refresh activity">
+          <button type="button" className="btn-ghost !min-h-0 px-3 py-1.5" onClick={() => void load()} disabled={loading} aria-label="Refresh activity" data-help="Check again for new runs.">
             <RefreshCw size={14} className={loading ? "animate-spin" : ""} aria-hidden />
           </button>
         </div>
@@ -124,7 +124,7 @@ export function ActivityPanel({ projectId, flowId, refreshKey = 0 }: { projectId
               return (
                 <li key={r.id} className={`rounded-xl border p-4 ${problem ? "border-amber-400/20 bg-amber-400/[0.04]" : "border-surface-800 bg-surface-900/60"}`}>
                   <div className="flex items-start gap-3">
-                    <Icon size={17} className={`mt-0.5 shrink-0 ${color}`} aria-label={label} role="img" />
+                    <Icon size={17} className={`mt-0.5 shrink-0 ${color}`} aria-label={label} role="img" data-help={r.outcome === "failed" ? "Failed: this run stopped at a step with an error and didn’t finish." : r.outcome === "warning" ? "Finished with a problem: it went through, but something went wrong on the way, like an email not being sent." : r.outcome === "answered" ? "Answered: it replied with a no, like a wrong password or missing details. That’s usually expected, not a fault." : "Went through: every step worked."} />
                     <div className="min-w-0 flex-1">
                       <p className="text-sm text-surface-100">{r.summary}</p>
                       <p className="mt-1 text-xs text-surface-400">
@@ -145,7 +145,7 @@ export function ActivityPanel({ projectId, flowId, refreshKey = 0 }: { projectId
                       ) : (
                         r.fields.length > 0 && (
                           <details className="mt-2">
-                            <summary className="cursor-pointer text-xs text-surface-400 hover:text-surface-200">What was sent</summary>
+                            <summary className="cursor-pointer text-xs text-surface-400 hover:text-surface-200" data-help="The information that came in with this run, like what someone typed into a form.">What was sent</summary>
                             <div className="mt-2"><Fields fields={r.fields} /></div>
                           </details>
                         )

@@ -56,10 +56,11 @@ export function DesignerHome({ aiReady }: { aiReady: boolean }) {
         <h1 className="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">Describe it. Watch it take shape.</h1>
         <p className="mx-auto mt-3 max-w-xl text-surface-400">Tell the AI what you want in plain words. It designs the pages, sets up the data and forms, and you keep changing it until it's right.</p>
         {!aiReady && <p role="status" className="mx-auto mt-4 max-w-xl rounded-lg border border-amber-400/30 bg-amber-400/10 p-3 text-sm text-amber-100">The AI isn't set up on this server yet, so designs can't be built.</p>}
-        <form onSubmit={start} className="mx-auto mt-8 max-w-3xl rounded-2xl border border-white/10 bg-white/[0.03] p-3 text-left shadow-2xl shadow-brand-900/20 focus-within:border-brand-500/60">
+        <form onSubmit={start} data-help="Describe the app or website you want in your own words. The AI may ask a couple of quick questions, then designs the pages for you." className="mx-auto mt-8 max-w-3xl rounded-2xl border border-white/10 bg-white/[0.03] p-3 text-left shadow-2xl shadow-brand-900/20 focus-within:border-brand-500/60">
           <label htmlFor="designer-prompt" className="sr-only">What do you want to make?</label>
           <textarea
             id="designer-prompt"
+            data-help="Say who it's for and what visitors should be able to do, like book a time or send a message. Press Ctrl+Enter (Cmd+Enter on Mac) to start."
             ref={box}
             rows={3}
             value={prompt}
@@ -70,19 +71,19 @@ export function DesignerHome({ aiReady }: { aiReady: boolean }) {
           />
           <div className="flex items-center justify-between gap-3 px-2 pb-1">
             <span className="text-xs text-surface-500">Say who it's for and what they do on it.</span>
-            <button className="btn-primary" disabled={!prompt.trim() || busy || !aiReady}>{busy ? "Starting…" : <>Design it <ArrowRight size={16} /></>}</button>
+            <button className="btn-primary" data-help="Creates a new design and opens it. The AI may ask a few quick questions before it starts building." disabled={!prompt.trim() || busy || !aiReady}>{busy ? "Starting…" : <>Design it <ArrowRight size={16} /></>}</button>
           </div>
         </form>
         {error && <p role="alert" className="mt-3 text-sm text-red-400">{error}</p>}
         <div className="mx-auto mt-5 flex max-w-3xl flex-wrap justify-center gap-2">
           {IDEAS.map((i) => (
-            <button key={i.title} type="button" className="rounded-full border border-white/10 px-3 py-1.5 text-sm text-surface-300 hover:border-brand-500/60 hover:text-white" onClick={() => { setPrompt(i.prompt); box.current?.focus(); }}>{i.title}</button>
+            <button key={i.title} type="button" data-help="Fills the box above with a ready-made example description. Edit it to fit your idea, then press Design it." className="rounded-full border border-white/10 px-3 py-1.5 text-sm text-surface-300 hover:border-brand-500/60 hover:text-white" onClick={() => { setPrompt(i.prompt); box.current?.focus(); }}>{i.title}</button>
           ))}
         </div>
       </section>
 
       <section className="mt-14" aria-labelledby="designs-heading">
-        <h2 id="designs-heading" className="text-lg font-semibold">Your designs</h2>
+        <h2 id="designs-heading" data-help="Everything you've designed with the AI. Click a card to open it and keep changing it." className="text-lg font-semibold">Your designs</h2>
         {designs === null ? (
           <p className="mt-4 text-sm text-surface-400">Loading…</p>
         ) : designs.length === 0 ? (
@@ -117,7 +118,7 @@ function DesignCard({ design, onChanged }: { design: Design; onChanged: () => vo
   }
   return (
     <article className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] transition hover:border-brand-500/50">
-      <Link href={`/designer/${design.id}`} className="block" aria-label={`Open ${design.name}`}>
+      <Link href={`/designer/${design.id}`} className="block" aria-label={`Open ${design.name}`} data-help="Open this design to see it full size and ask the AI for changes.">
         <div className="relative aspect-[16/10] overflow-hidden bg-surface-900">
           {design.hasHome ? (
             <iframe
@@ -141,12 +142,12 @@ function DesignCard({ design, onChanged }: { design: Design; onChanged: () => vo
           <p className="text-xs text-surface-400">{design.inBuilder ? "Moved to the page builder · " : ""}{ago(design.updatedAt)}</p>
         </div>
         <div className="relative">
-          <button type="button" className="rounded-md p-1.5 text-surface-400 hover:bg-white/10 hover:text-white" aria-label="Design options" aria-expanded={menu} onClick={() => setMenu(!menu)}><MoreHorizontal size={18} /></button>
+          <button type="button" className="rounded-md p-1.5 text-surface-400 hover:bg-white/10 hover:text-white" aria-label="Design options" data-help="Rename, copy or delete this design." aria-expanded={menu} onClick={() => setMenu(!menu)}><MoreHorizontal size={18} /></button>
           {menu && (
             <div className="absolute right-0 z-10 mt-1 w-40 overflow-hidden rounded-lg border border-white/10 bg-surface-900 py-1 text-sm shadow-xl">
-              <button type="button" className="flex w-full items-center gap-2 px-3 py-2 hover:bg-white/5" onClick={() => act("rename")}><Pencil size={14} />Rename</button>
-              <button type="button" className="flex w-full items-center gap-2 px-3 py-2 hover:bg-white/5" onClick={() => act("duplicate")}><Copy size={14} />Make a copy</button>
-              <button type="button" className="flex w-full items-center gap-2 px-3 py-2 text-red-300 hover:bg-white/5" onClick={() => act("delete")}><Trash2 size={14} />Delete</button>
+              <button type="button" className="flex w-full items-center gap-2 px-3 py-2 hover:bg-white/5" data-help="Give this design a new name so it is easy to find in your list." onClick={() => act("rename")}><Pencil size={14} />Rename</button>
+              <button type="button" className="flex w-full items-center gap-2 px-3 py-2 hover:bg-white/5" data-help="Makes a separate copy of this design and opens it, so you can try ideas without changing the original." onClick={() => act("duplicate")}><Copy size={14} />Make a copy</button>
+              <button type="button" className="flex w-full items-center gap-2 px-3 py-2 text-red-300 hover:bg-white/5" data-help="Deletes this design for good after you confirm. If its app hasn't moved to the page builder, the app is deleted too. This can't be undone." onClick={() => act("delete")}><Trash2 size={14} />Delete</button>
             </div>
           )}
         </div>

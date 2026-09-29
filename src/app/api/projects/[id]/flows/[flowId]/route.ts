@@ -2,6 +2,7 @@ import { z } from "zod";
 import { db } from "@/lib/db";
 import { ownedProject, checkScheduledFlows } from "@/lib/guard";
 import { json } from "@/lib/utils";
+import { plannedNextRun } from "@/lib/flow/scheduler";
 
 const PatchBody = z.object({
   name: z.string().min(1).max(80).optional(),
@@ -41,8 +42,19 @@ export async function PATCH(
     if (scheduleError) return scheduleError;
   }
 
+  // A schedule turned back on starts from now: a run it missed while paused
+  // doesn't go off the moment it's resumed.
+  let replan = {};
+  if (parsed.data.enabled === true) {
+    const before = await db.flow.findFirst({ where: { id: flowId, projectId: id } });
+    const after = before && { ...before, ...parsed.data, trigger: parsed.data.trigger ?? before.trigger };
+    if (before && after && !before.enabled && after.trigger === "SCHEDULE") {
+      replan = { nextRunAt: await plannedNextRun(after, r.project.liveDeploymentId), scheduleDeploymentId: r.project.liveDeploymentId };
+    }
+  }
+
   // Scope to this project: owning one app must not unlock another app's flows.
-  const { count } = await db.flow.updateMany({ where: { id: flowId, projectId: id }, data: parsed.data });
+  const { count } = await db.flow.updateMany({ where: { id: flowId, projectId: id }, data: { ...parsed.data, ...replan } });
   if (!count) return json({ error: "Not found" }, { status: 404 });
   const flow = await db.flow.findUnique({ where: { id: flowId } });
   return json({ flow });

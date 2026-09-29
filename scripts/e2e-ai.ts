@@ -370,12 +370,12 @@ async function main() {
     await sleep(1500);
     await page.getByRole("button", { name: /Ask AI/ }).click();
     const left0 = 30 - (await used());
-    await page.getByText(`${left0} of 30 AI changes left this month`).waitFor();
+    await page.getByText(`${left0} of 30 AI actions left this month`).waitFor();
     const onPage = (await db.page.findUnique({ where: { id: home.id } }))!.html;
     mock.setFallback((req) => (/in-app AI builder/.test(req.system) ? editAnswer(onPage.replace("Corner Cafe", "Corner Cafe &amp; Bakery"), { explanation: "Renamed the heading." }) : { status: 500 }));
     await page.getByPlaceholder("Tell me what to change...").fill("Call it Corner Cafe & Bakery");
     await page.keyboard.press("Enter");
-    await page.getByText(`${left0 - 1} of 30 AI changes left this month`).waitFor({ timeout: 60_000 });
+    await page.getByText(`${left0 - 1} of 30 AI actions left this month`).waitFor({ timeout: 60_000 });
     ok("the footer updates after each edit", true);
     mock.setFallback(() => ({ status: 400 }));
     await page.getByPlaceholder("Tell me what to change...").fill("Add a footer");
@@ -385,7 +385,7 @@ async function main() {
     await page.keyboard.press("Enter");
     await page.getByText("This doesn't seem to be working. You could:").waitFor({ timeout: 60_000 });
     ok("after two failures in a row the panel suggests rewording, a smaller part, or Undo", await page.getByRole("button", { name: "Undo last change" }).isVisible());
-    ok("failed edits don't move the footer", await page.getByText(`${left0 - 1} of 30 AI changes left this month`).isVisible());
+    ok("failed edits don't move the footer", await page.getByText(`${left0 - 1} of 30 AI actions left this month`).isVisible());
     mock.setFallback(null);
 
     const wizard = await ctx.newPage();

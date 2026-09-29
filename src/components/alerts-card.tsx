@@ -99,7 +99,7 @@ export function AlertsCard({ projectId }: { projectId: string }) {
   return (
     <section className="card mt-6 p-6" aria-labelledby="alerts-heading" id="alerts" data-testid="alerts-card">
       <div className="flex flex-wrap items-baseline justify-between gap-3">
-        <h2 id="alerts-heading" className="flex items-center gap-2 font-semibold">
+        <h2 id="alerts-heading" className="flex items-center gap-2 font-semibold" data-help="Emails you when visitors send something through your app, like a form, booking or order. You choose which tables send alerts.">
           <BellRing size={17} className="text-brand-300" aria-hidden />
           Alerts
         </h2>
@@ -112,7 +112,7 @@ export function AlertsCard({ projectId }: { projectId: string }) {
           <AlertTriangle size={16} className="mt-0.5 shrink-0 text-amber-300" aria-hidden />
           <span>
             {EMAIL_OFF}
-            {view.canSetUpEmail && <> <Link href="/admin/settings#email" className="font-medium underline">Set up email</Link></>}
+            {view.canSetUpEmail && <> <Link href="/admin/settings#email" className="font-medium underline" data-help="Open the server settings to connect an email service, so apps can send emails.">Set up email</Link></>}
           </span>
         </div>
       )}
@@ -135,6 +135,7 @@ export function AlertsCard({ projectId }: { projectId: string }) {
                   role="switch"
                   aria-checked={checked}
                   aria-labelledby={id}
+                  data-help="When on, you get an email each time a visitor adds something to this table. Press Save alerts to keep your change."
                   onClick={() => {
                     setModes((m) => ({ ...m, [t.name]: checked ? "off" : "instant" }));
                     setMessage(null);
@@ -154,13 +155,13 @@ export function AlertsCard({ projectId }: { projectId: string }) {
         <p className="text-surface-300">Alerts go to <span className="font-medium text-surface-100">{view.ownerEmail}</span>.</p>
         <label className="mt-3 block">
           <span className="text-surface-300">Also send to <span className="text-surface-400">(up to {view.maxExtra}, separated by commas)</span></span>
-          <input className="input mt-1" type="text" inputMode="email" autoComplete="off" spellCheck={false} value={extra} onChange={(e) => { setExtra(e.target.value); setMessage(null); }} placeholder="partner@yourbusiness.com" />
+          <input className="input mt-1" type="text" inputMode="email" autoComplete="off" spellCheck={false} value={extra} onChange={(e) => { setExtra(e.target.value); setMessage(null); }} placeholder="partner@yourbusiness.com" data-help="Other people who should get these alerts too, like a business partner. Separate addresses with commas." />
         </label>
       </div>
 
       <div className="mt-4 flex flex-wrap items-center gap-3">
-        <button type="button" className="btn-primary" onClick={save} disabled={busy !== "" || !dirty}>{busy === "save" ? "Saving…" : "Save alerts"}</button>
-        <button type="button" className="btn-secondary" onClick={test} disabled={busy !== "" || !view.emailOn || dirty} title={dirty ? "Save first" : undefined}>
+        <button type="button" className="btn-primary" onClick={save} disabled={busy !== "" || !dirty} data-help="Saves which tables send alerts and who gets them.">{busy === "save" ? "Saving…" : "Save alerts"}</button>
+        <button type="button" className="btn-secondary" onClick={test} disabled={busy !== "" || !view.emailOn || dirty} title={dirty ? "Save first" : undefined} data-help="Sends a sample alert email to everyone listed, so you can check it arrives. Save your changes first.">
           <Send size={14} aria-hidden />{busy === "test" ? "Sending…" : "Send a test"}
         </button>
       </div>
@@ -188,7 +189,7 @@ export function TestSubmissionStep({ projectId, initiallyDone, emailOn }: { proj
 
   return (
     <>
-      <button type="button" onClick={run} disabled={busy} className="studio-next-step w-full text-left" aria-describedby={message ? "test-submission-result" : undefined}>
+      <button type="button" onClick={run} disabled={busy} className="studio-next-step w-full text-left" aria-describedby={message ? "test-submission-result" : undefined} data-help="Sends you a sample alert email, like the one you get when someone uses your form, so you can check it reaches your inbox.">
         <span className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full ${done ? "bg-emerald-500/15 text-emerald-300" : "bg-white/[0.05] text-brand-300"}`}>{done ? <Check size={15} aria-hidden /> : <Send size={15} aria-hidden />}</span>
         <span className="flex-1">
           <strong className={`block text-sm font-medium ${done ? "text-surface-300" : ""}`}>{busy ? "Sending a test submission…" : "Send a test submission"}<span className="sr-only">{done ? " (done)" : " (to do)"}</span></strong>

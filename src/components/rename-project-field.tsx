@@ -77,6 +77,7 @@ export function RenameProjectField({
             type="button"
             className="btn btn-ghost text-xs shrink-0"
             onClick={startEdit}
+            data-help="Change your app's name. Its web address stays the same, so links you've shared keep working."
           >
             Edit
           </button>
@@ -96,6 +97,8 @@ export function RenameProjectField({
             value={draft}
             maxLength={80}
             disabled={busy}
+            aria-label="App name"
+            data-help="Your app's new name. Press Enter to save or Esc to cancel."
             onChange={(e) => setDraft(e.target.value)}
             onKeyDown={(e) => {
               if (e.key === "Enter") save();
@@ -107,6 +110,7 @@ export function RenameProjectField({
             className="btn btn-primary text-xs shrink-0"
             disabled={busy || !draft.trim()}
             onClick={save}
+            data-help="Save the new name. Its web address doesn't change."
           >
             {busy ? "Saving…" : "Save"}
           </button>
@@ -121,8 +125,8 @@ export function RenameProjectField({
         </dd>
       </div>
       <p className="mt-1 text-xs text-surface-500 text-right">
-        The public URL keeps using the slug below — renaming won&apos;t break
-        a published app.
+        Only the name changes. Your app&apos;s web address stays the same, so
+        renaming won&apos;t break a published app.
       </p>
       {error && <p className="mt-1 text-xs text-red-400 text-right">{error}</p>}
     </div>

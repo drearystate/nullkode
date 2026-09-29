@@ -207,19 +207,19 @@ export function ClientsManager({ clients: initial, emailOn, seatsLeft: initialSe
               <textarea className="input min-h-[110px] w-full font-mono text-xs" value={emails} onChange={(e) => setEmails(e.target.value)} placeholder={"jo@shop.com\nsam@cafe.com, lee@studio.com"} disabled={atLimit} />
               <span className="mt-1 block text-xs text-surface-500">One per line, or separated by commas. Up to 50 at a time.{seatsLeft !== null && pasted.length > seatsLeft && !atLimit && <> Only the first {seatsLeft} will be invited: that&apos;s all your seats.</>}</span>
             </label>
-            <label className="block text-sm"><span className="label">Plan</span>
+            <label className="block text-sm" data-help="The plan they start on. You can change it any time; this doesn't charge them anything."><span className="label">Plan</span>
               <select className="input w-full" value={plan} onChange={(e) => setPlan(e.target.value)} disabled={atLimit}>{PLANS.map((p) => <option key={p} value={p}>{planLabel(p)}</option>)}</select>
             </label>
-            <div className="flex items-end"><button className="btn-primary w-full justify-center" disabled={busy === "invite" || atLimit || pasted.length === 0}>{busy === "invite" ? "Adding…" : `Send ${pasted.length || ""} invite${pasted.length === 1 ? "" : "s"}`}</button></div>
+            <div className="flex items-end"><button className="btn-primary w-full justify-center" disabled={busy === "invite" || atLimit || pasted.length === 0} data-help="Creates an account for each address and gives each person a one-time link to set their password, valid for 7 days. Each new client uses one of your seats.">{busy === "invite" ? "Adding…" : `Send ${pasted.length || ""} invite${pasted.length === 1 ? "" : "s"}`}</button></div>
           </div>
         ) : (
           <div className="mt-4 grid gap-3 md:grid-cols-[1.4fr_1fr_140px_auto]">
             <label className="block text-sm"><span className="label">Email</span><input className="input w-full" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="client@business.com" disabled={atLimit} /></label>
             <label className="block text-sm"><span className="label">Name (optional)</span><input className="input w-full" value={name} onChange={(e) => setName(e.target.value)} placeholder="Jordan Lee" disabled={atLimit} /></label>
-            <label className="block text-sm"><span className="label">Plan</span>
+            <label className="block text-sm" data-help="The plan they start on. You can change it any time; this doesn't charge them anything."><span className="label">Plan</span>
               <select className="input w-full" value={plan} onChange={(e) => setPlan(e.target.value)} disabled={atLimit}>{PLANS.map((p) => <option key={p} value={p}>{planLabel(p)}</option>)}</select>
             </label>
-            <div className="flex items-end"><button className="btn-primary w-full justify-center" disabled={busy === "invite" || atLimit}>{busy === "invite" ? "Adding…" : "Send invite"}</button></div>
+            <div className="flex items-end"><button className="btn-primary w-full justify-center" disabled={busy === "invite" || atLimit} data-help="Creates their account and gives them a one-time link to set their password, valid for 7 days. Each client uses one of your seats.">{busy === "invite" ? "Adding…" : "Send invite"}</button></div>
           </div>
         )}
         {atLimit && <p className="mt-3 text-sm text-amber-200">You&apos;ve used all your client seats. Contact the platform operator to add more.</p>}
@@ -257,7 +257,7 @@ export function ClientsManager({ clients: initial, emailOn, seatsLeft: initialSe
 
       {clients.length > 0 && ATTENTION_ORDER.some((f) => counts[f] > 0) && (
         <section className="card p-4" aria-labelledby="attention-heading">
-          <h2 id="attention-heading" className="text-sm font-semibold">Needs attention</h2>
+          <h2 id="attention-heading" className="text-sm font-semibold" data-help="Clients who may need a nudge from you. Click a tag to show only those clients; click it again to show everyone.">Needs attention</h2>
           <ul className="mt-3 flex flex-wrap gap-2">
             {ATTENTION_ORDER.filter((f) => counts[f] > 0).map((f) => (
               <li key={f}>
@@ -284,7 +284,7 @@ export function ClientsManager({ clients: initial, emailOn, seatsLeft: initialSe
           <div className="flex flex-wrap items-center gap-2">
             {clients.length > 5 && <label className="studio-search"><Search size={14} aria-hidden /><input aria-label="Search clients" placeholder="Search clients…" value={query} onChange={(e) => setQuery(e.target.value)} /></label>}
             {clients.length > 0 && (
-              <a href="/api/reseller/clients/export" className="btn-ghost text-sm" download>
+              <a href="/api/reseller/clients/export" className="btn-ghost text-sm" download data-help="Downloads all your clients as a spreadsheet file (CSV), with their plan, payment status, apps, AI use and last activity.">
                 <Download size={14} aria-hidden /> Download CSV
               </a>
             )}
@@ -302,7 +302,7 @@ export function ClientsManager({ clients: initial, emailOn, seatsLeft: initialSe
                 <option value="all">All</option>{PLANS.map((p) => <option key={p} value={p}>{planLabel(p)}</option>)}
               </select>
             </label>
-            <label className="block"><span className="label">Payment</span>
+            <label className="block" data-help="Paying: subscription active or on a free trial. Past due: their last payment didn't go through. Not paying: no paid subscription."><span className="label">Payment</span>
               <select className="input py-1" value={pay} onChange={(e) => setPay(e.target.value as PayFilter)}>
                 <option value="all">All</option><option value="paying">Paying</option><option value="past-due">Past due</option><option value="not-paying">Not paying</option>
               </select>
@@ -325,7 +325,7 @@ export function ClientsManager({ clients: initial, emailOn, seatsLeft: initialSe
                   <th className="px-4 py-3 font-medium">Status</th>
                   <th className="px-4 py-3 font-medium">Plan</th>
                   <th className="px-4 py-3 font-medium">Apps</th>
-                  <th className="px-4 py-3 font-medium">AI this month</th>
+                  <th className="px-4 py-3 font-medium" data-help="How many AI actions each client has used this month, out of what their plan includes.">AI this month</th>
                   <th className="px-4 py-3 font-medium">Last active</th>
                   <th className="px-4 py-3 text-right font-medium">Actions</th>
                 </tr>
@@ -344,7 +344,7 @@ export function ClientsManager({ clients: initial, emailOn, seatsLeft: initialSe
                       </span>
                     </td>
                     <td className="px-4 py-3">
-                      <select aria-label={`Plan for ${c.email}`} className="input py-1" value={c.plan} disabled={busy === c.id} onChange={(e) => update(c, { plan: e.target.value })}>
+                      <select aria-label={`Plan for ${c.email}`} data-help="Changes their plan straight away. It doesn't charge them or change their Stripe subscription, and a later payment update from Stripe can switch it back." className="input py-1" value={c.plan} disabled={busy === c.id} onChange={(e) => update(c, { plan: e.target.value })}>
                         {PLANS.map((p) => <option key={p} value={p}>{planLabel(p)}</option>)}
                       </select>
                       {c.subscriptionStatus !== "NONE" && <span className={`ml-2 text-xs ${c.subscriptionStatus === "PAST_DUE" ? "text-amber-200" : "text-surface-400"}`}>{paymentLabel(c.subscriptionStatus).toLowerCase()}</span>}
@@ -354,10 +354,10 @@ export function ClientsManager({ clients: initial, emailOn, seatsLeft: initialSe
                     <td className="px-4 py-3 text-surface-300" title={c.lastActiveAt ?? undefined}>{whenLabel(c.lastActiveAt, now)}</td>
                     <td className="px-4 py-3">
                       <div className="flex justify-end gap-1">
-                        <IconButton label="Open their workspace" onClick={() => open(c)} disabled={busy === c.id || c.suspended}><ExternalLink size={15} /></IconButton>
-                        <IconButton label={c.invited ? "New invitation link" : "Password reset link"} onClick={() => link(c)} disabled={busy === c.id}><KeyRound size={15} /></IconButton>
-                        <IconButton label={c.suspended ? "Restore access" : "Suspend"} onClick={() => update(c, { suspended: !c.suspended })} disabled={busy === c.id}>{c.suspended ? <UserCheck size={15} /> : <UserX size={15} />}</IconButton>
-                        <IconButton label="Delete client" onClick={() => remove(c)} disabled={busy === c.id} danger><Trash2 size={15} /></IconButton>
+                        <IconButton label="Open their workspace" help="Opens the studio as this client so you can build or fix things for them. Changes happen in their account. Use the bar at the top to come back." onClick={() => open(c)} disabled={busy === c.id || c.suspended}><ExternalLink size={15} /></IconButton>
+                        <IconButton label={c.invited ? "New invitation link" : "Password reset link"} help={c.invited ? "Makes a new invitation link for them to set their password, valid once for 7 days. It's also emailed if email is on." : "Makes a link for them to choose a new password, valid once for 2 hours. It's also emailed if email is on."} onClick={() => link(c)} disabled={busy === c.id}><KeyRound size={15} /></IconButton>
+                        <IconButton label={c.suspended ? "Restore access" : "Suspend"} help={c.suspended ? "Lets this client sign in again." : "Signs them out everywhere and stops them signing in until you restore access. Their apps and data are kept."} onClick={() => update(c, { suspended: !c.suspended })} disabled={busy === c.id}>{c.suspended ? <UserCheck size={15} /> : <UserX size={15} />}</IconButton>
+                        <IconButton label="Delete client" help="Permanently deletes this client and all their apps, data and files. Any subscription on your Stripe account is cancelled first. Can't be undone." onClick={() => remove(c)} disabled={busy === c.id} danger><Trash2 size={15} /></IconButton>
                       </div>
                     </td>
                   </tr>
@@ -371,9 +371,9 @@ export function ClientsManager({ clients: initial, emailOn, seatsLeft: initialSe
   );
 }
 
-function IconButton({ label, onClick, disabled, danger, children }: { label: string; onClick: () => void; disabled?: boolean; danger?: boolean; children: React.ReactNode }) {
+function IconButton({ label, help, onClick, disabled, danger, children }: { label: string; help?: string; onClick: () => void; disabled?: boolean; danger?: boolean; children: React.ReactNode }) {
   return (
-    <button type="button" title={label} aria-label={label} onClick={onClick} disabled={disabled}
+    <button type="button" title={label} aria-label={label} data-help={help} onClick={onClick} disabled={disabled}
       className={`grid h-8 w-8 place-items-center rounded-lg transition disabled:opacity-40 ${danger ? "text-red-300 hover:bg-red-400/10" : "text-surface-300 hover:bg-white/10 hover:text-surface-50"}`}>
       {children}
     </button>

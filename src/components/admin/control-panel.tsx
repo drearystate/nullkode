@@ -101,7 +101,7 @@ export function ControlPanel({ s }: { s: ControlPanelStatus }) {
     { done: s.aiReady, label: "Connect an AI engine", href: "/admin/settings#ai" },
     { done: s.stripeConnected && s.paidPlans > 0, label: "Connect Stripe and price your plans", href: "/admin/settings#payments" },
     { done: s.emailOn, label: "Turn on email so invites, password links and app alerts are sent for you", href: "/admin/settings#email" },
-    { done: Boolean(s.appsDomain), label: s.appsDomain ? `Apps get their own address (*.${s.appsDomain})` : "Give published apps their own address (APPS_DOMAIN)", href: null },
+    { done: Boolean(s.appsDomain), label: s.appsDomain ? `Apps get their own address (*.${s.appsDomain})` : "Give published apps their own address (APPS_DOMAIN)", href: null, help: "Gives every published app its own web address, kept apart from the studio. It's set in the server's settings file (.env), not on this screen." },
     { done: s.resellers > 0, label: "Invite your first reseller", href: "/admin/resellers" },
   ];
   const done = steps.filter((x) => x.done).length;
@@ -127,12 +127,12 @@ export function ControlPanel({ s }: { s: ControlPanelStatus }) {
       <div className="mt-6 grid gap-4 lg:grid-cols-2">
         <section className="card p-5" aria-labelledby="setup-heading">
           <div className="flex items-baseline justify-between gap-3">
-            <h2 id="setup-heading" className="font-semibold">Setup checklist</h2>
+            <h2 id="setup-heading" className="font-semibold" data-help="The main steps to get your platform ready for customers. Each one ticks itself off once it's set up; click a step to go to its setting.">Setup checklist</h2>
             <span className="text-xs text-surface-400">{done} of {steps.length} done</span>
           </div>
           <ul className="mt-3 space-y-2 text-sm">
             {steps.map((x) => (
-              <li key={x.label} className="flex items-start gap-2">
+              <li key={x.label} className="flex items-start gap-2" data-help={x.help}>
                 <span aria-hidden className={`mt-0.5 grid h-4 w-4 shrink-0 place-items-center rounded-full border ${x.done ? "border-emerald-400 bg-emerald-400/15 text-emerald-300" : "border-surface-600"}`}>{x.done && <Check size={10} />}</span>
                 <span className={x.done ? "text-surface-400" : ""}>
                   <span className="sr-only">{x.done ? "Done: " : "To do: "}</span>

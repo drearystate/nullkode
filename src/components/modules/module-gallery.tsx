@@ -72,6 +72,7 @@ export function ModuleGallery({ projectId, projectName, modules, installed = [] 
           type="search"
           autoFocus
           placeholder="Search features, like bookings or shop…"
+          data-help="Type what you want your app to do, like bookings, shop or reviews, to find a matching feature."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           className="w-full rounded-xl border border-surface-800 bg-surface-900/60 px-4 py-2.5 pr-10 text-sm placeholder:text-surface-500 focus:outline-none focus:border-brand-500"
@@ -82,6 +83,7 @@ export function ModuleGallery({ projectId, projectName, modules, installed = [] 
             onClick={() => setQuery("")}
             className="absolute right-3 top-1/2 -translate-y-1/2 text-surface-500 hover:text-surface-300"
             aria-label="Clear search"
+            data-help="Clear the search and show every feature again."
           >
             ✕
           </button>
@@ -93,6 +95,7 @@ export function ModuleGallery({ projectId, projectName, modules, installed = [] 
           <button
             key={c}
             onClick={() => setCategory(c)}
+            data-help={c === "all" ? "Show every feature." : `Show only ${(CATEGORY_LABELS[c] ?? c).toLowerCase()} features.`}
             className={cn(
               "text-xs px-3 py-1.5 rounded-full border transition",
               category === c
@@ -122,6 +125,7 @@ export function ModuleGallery({ projectId, projectName, modules, installed = [] 
                 setQuery("");
                 setCategory("all");
               }}
+              data-help="Clear the search and category so every feature shows again."
               className="text-brand-300 hover:underline text-sm"
             >
               Clear filters
@@ -145,6 +149,7 @@ export function ModuleGallery({ projectId, projectName, modules, installed = [] 
             <button
               type="button"
               onClick={() => setInstalling(m)}
+              data-help={counts.has(m.id) ? "Your app already has this. Click to add another separate copy, with its own pages and saved items." : "Add this feature to your app. You may answer a few quick questions first, then its pages open so you can make them your own."}
               className="relative block w-full p-6 pb-3 text-left"
             >
               <div className="flex items-start justify-between gap-3">
@@ -152,7 +157,7 @@ export function ModuleGallery({ projectId, projectName, modules, installed = [] 
                   {friendlyName(m).charAt(0)}
                 </div>
                 {counts.has(m.id) && (
-                  <span className="rounded-full border border-emerald-400/30 bg-emerald-400/10 px-2.5 py-1 text-xs font-medium text-emerald-200">
+                  <span data-help="Your app already has this feature. The number shows how many copies you've added." className="rounded-full border border-emerald-400/30 bg-emerald-400/10 px-2.5 py-1 text-xs font-medium text-emerald-200">
                     Added{(counts.get(m.id) ?? 0) > 1 ? ` ×${counts.get(m.id)}` : ""}
                   </span>
                 )}
@@ -167,7 +172,7 @@ export function ModuleGallery({ projectId, projectName, modules, installed = [] 
               </div>
             </button>
             <details className="relative px-6 pb-5 text-xs text-surface-400">
-              <summary className="cursor-pointer select-none text-surface-500 hover:text-surface-300">Details</summary>
+              <summary data-help="See exactly what this feature adds to your app: how many pages, lists of saved items and automations." className="cursor-pointer select-none text-surface-500 hover:text-surface-300">Details</summary>
               <p className="mt-2 leading-relaxed">{m.description}</p>
               <p className="mt-2 text-surface-500">
                 Adds {m.pageCount} {m.pageCount === 1 ? "page" : "pages"}

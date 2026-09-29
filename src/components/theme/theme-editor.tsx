@@ -12,16 +12,16 @@ type Props = {
   homePage?: { html: string; css: string } | null;
 };
 
-const colorFields: Array<{ key: keyof ProjectTheme; label: string }> = [
-  { key: "primary", label: "Primary" },
-  { key: "primary2", label: "Primary hover" },
-  { key: "accent", label: "Accent" },
-  { key: "bg", label: "Background" },
-  { key: "surface", label: "Surface" },
-  { key: "surface2", label: "Surface 2" },
-  { key: "border", label: "Border" },
-  { key: "text", label: "Text" },
-  { key: "textMuted", label: "Text muted" },
+const colorFields: Array<{ key: keyof ProjectTheme; label: string; help: string }> = [
+  { key: "primary", label: "Primary", help: "Your main brand color, used for buttons, links and highlights. Changing it also updates Primary hover to match." },
+  { key: "primary2", label: "Primary hover", help: "The color buttons and links turn when someone points at them." },
+  { key: "accent", label: "Accent", help: "A second color for small touches, like badges and decorative shapes." },
+  { key: "bg", label: "Background", help: "The color behind everything on your pages." },
+  { key: "surface", label: "Surface", help: "The color of cards and boxes that sit on top of the background." },
+  { key: "surface2", label: "Surface 2", help: "A second box color, used to set some sections and labels apart." },
+  { key: "border", label: "Border", help: "The color of thin lines around boxes and between sections." },
+  { key: "text", label: "Text", help: "The color of most of the words on your pages." },
+  { key: "textMuted", label: "Text muted", help: "A softer color for less important words, like captions and small notes." },
 ];
 
 // Curated font stacks the user can pick from. Each entry knows its
@@ -205,12 +205,13 @@ export function ThemeEditor({ projectId, presets, initial, homePage = null }: Pr
 
         <section className="rounded-xl border border-surface-800 bg-surface-900 p-5">
           <div className="flex items-center justify-between mb-4">
-            <div className="text-[11px] uppercase tracking-[0.15em] text-surface-500 font-semibold">
+            <div className="text-[11px] uppercase tracking-[0.15em] text-surface-500 font-semibold" data-help="Fine-tune the look you picked: its fonts, colors and corners. Changes save by themselves; visitors see them after you publish.">
               Customize
             </div>
             <button
               type="button"
               onClick={() => setTheme(initial)}
+              data-help="Undo all the theme changes you made since you opened this page, going back to how it was then."
               className="text-[11px] text-surface-500 hover:text-surface-300"
             >
               Reset
@@ -230,6 +231,7 @@ export function ThemeEditor({ projectId, presets, initial, homePage = null }: Pr
                     className="mt-1 w-full rounded bg-surface-950 border border-surface-800 px-2 py-1.5 text-sm text-white"
                     value={theme.name}
                     onChange={(e) => patch("name", e.target.value)}
+                    data-help="A name for this look, just to help you tell themes apart. Visitors don't see it."
                   />
                 </label>
                 <label className="block">
@@ -237,6 +239,7 @@ export function ThemeEditor({ projectId, presets, initial, homePage = null }: Pr
                   <select
                     className="mt-1 w-full rounded bg-surface-950 border border-surface-800 px-2 py-1.5 text-sm text-white"
                     value={theme.mode}
+                    data-help="Whether this look is light or dark. Browsers use it for things like form boxes and scroll bars. It doesn't change your colors."
                     onChange={(e) =>
                       patch("mode", e.target.value as "light" | "dark")
                     }
@@ -260,6 +263,7 @@ export function ThemeEditor({ projectId, presets, initial, homePage = null }: Pr
                     className="mt-1 w-full rounded bg-surface-950 border border-surface-800 px-2 py-1.5 text-sm text-white"
                     value={bodyFontLabel}
                     onChange={(e) => pickFont("font", e.target.value)}
+                    data-help="The letter style for normal reading text, like paragraphs, buttons and forms."
                   >
                     {!bodyFontLabel && <option value="">Custom…</option>}
                     {FONT_OPTIONS.map((f) => (
@@ -281,6 +285,7 @@ export function ThemeEditor({ projectId, presets, initial, homePage = null }: Pr
                     className="mt-1 w-full rounded bg-surface-950 border border-surface-800 px-2 py-1.5 text-sm text-white"
                     value={displayFontLabel}
                     onChange={(e) => pickFont("fontDisplay", e.target.value)}
+                    data-help="The letter style for headings and titles. A bolder or fancier font here gives your app its personality."
                   >
                     {!displayFontLabel && <option value="">Custom…</option>}
                     {FONT_OPTIONS.map((f) => (
@@ -313,12 +318,15 @@ export function ThemeEditor({ projectId, presets, initial, homePage = null }: Pr
                         type="color"
                         value={(theme[f.key] as string) ?? "#000000"}
                         onChange={(e) => patch(f.key, e.target.value)}
+                        data-help={f.help}
                         className="h-8 w-10 rounded border border-surface-800 bg-surface-950 cursor-pointer"
                       />
                       <input
                         type="text"
                         value={(theme[f.key] as string) ?? ""}
                         onChange={(e) => patch(f.key, e.target.value)}
+                        aria-label={`${f.label} color code`}
+                        data-help="Or type a color code here, like #1a73e8, if you know the exact color you want."
                         className="flex-1 min-w-0 rounded bg-surface-950 border border-surface-800 px-2 py-1 text-xs text-white font-mono"
                       />
                     </div>
@@ -338,6 +346,7 @@ export function ThemeEditor({ projectId, presets, initial, homePage = null }: Pr
                   <input
                     className="mt-1 w-full rounded bg-surface-950 border border-surface-800 px-2 py-1.5 text-sm text-white font-mono"
                     value={theme.radius}
+                    data-help="How round the corners of cards and boxes are, like 14px. Use 0px for square corners."
                     onChange={(e) => patch("radius", e.target.value)}
                   />
                 </label>
@@ -346,6 +355,7 @@ export function ThemeEditor({ projectId, presets, initial, homePage = null }: Pr
                   <input
                     className="mt-1 w-full rounded bg-surface-950 border border-surface-800 px-2 py-1.5 text-sm text-white font-mono"
                     value={theme.radiusSm}
+                    data-help="How round the corners of smaller things are, like buttons and form boxes. Use 0px for square corners."
                     onChange={(e) => patch("radiusSm", e.target.value)}
                   />
                 </label>
@@ -360,11 +370,11 @@ export function ThemeEditor({ projectId, presets, initial, homePage = null }: Pr
         <div className="sticky top-6">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-3">
-              <div className="text-[11px] uppercase tracking-[0.15em] text-surface-500 font-semibold">Live preview</div>
+              <div className="text-[11px] uppercase tracking-[0.15em] text-surface-500 font-semibold" data-help="A quick look at how your app appears in this theme. It updates as you change things.">Live preview</div>
               {homePage?.html && (
                 <div className="flex gap-1 text-[11px]" role="group" aria-label="What to preview">
-                  <button type="button" aria-pressed={!showSample} onClick={() => setShowSample(false)} className={`rounded px-2 py-0.5 ${!showSample ? "bg-white/10 text-surface-100" : "text-surface-400"}`}>Your home page</button>
-                  <button type="button" aria-pressed={showSample} onClick={() => setShowSample(true)} className={`rounded px-2 py-0.5 ${showSample ? "bg-white/10 text-surface-100" : "text-surface-400"}`}>Sample</button>
+                  <button type="button" aria-pressed={!showSample} onClick={() => setShowSample(false)} data-help="Preview the theme on your app's real home page." className={`rounded px-2 py-0.5 ${!showSample ? "bg-white/10 text-surface-100" : "text-surface-400"}`}>Your home page</button>
+                  <button type="button" aria-pressed={showSample} onClick={() => setShowSample(true)} data-help="Preview the theme on a sample page with buttons, cards and a form, so you can see every color at once." className={`rounded px-2 py-0.5 ${showSample ? "bg-white/10 text-surface-100" : "text-surface-400"}`}>Sample</button>
                 </div>
               )}
             </div>
@@ -399,6 +409,7 @@ function PresetCard({
   return (
     <button
       onClick={onClick}
+      data-help={`Use the ${preset.name} look for your whole app: its colors, fonts and corners replace your current ones. Visitors see it after you publish.`}
       className={`group relative text-left rounded-xl border overflow-hidden transition focus:outline-none ${
         active
           ? "border-brand-500 ring-2 ring-brand-500/40"

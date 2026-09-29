@@ -18,7 +18,7 @@ export function EnablePushButton({ projectId }: { projectId: string }) {
   }
   return (
     <div className="mt-4">
-      <button type="button" className="btn-primary" onClick={enable} disabled={busy}>{busy ? "Turning on…" : "Turn on notifications"}</button>
+      <button type="button" className="btn-primary" onClick={enable} disabled={busy} data-help="Adds a “Get notified” page to your app where visitors can sign up. You can then send them messages from here or from an automation.">{busy ? "Turning on…" : "Turn on notifications"}</button>
       {error && <p role="alert" className="mt-2 text-sm text-red-300">{error}</p>}
     </div>
   );

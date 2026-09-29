@@ -91,7 +91,7 @@ export default async function SystemPage() {
         </section>
 
         <section id="cleanup" className="mt-10 scroll-mt-20" aria-labelledby="cleanup-heading">
-          <h2 id="cleanup-heading" className="text-lg font-semibold">Nightly clean-up</h2>
+          <h2 id="cleanup-heading" className="text-lg font-semibold" data-help="Tidies the database each night so it doesn't keep growing. Choose below whether it only reports what it would remove or actually removes old records.">Nightly clean-up</h2>
           <div className="mt-3 grid gap-4 lg:grid-cols-2">
             <div className="card p-5">
               <p className="text-sm text-surface-300">

@@ -45,6 +45,14 @@ const FIELD_LABELS: Record<keyof PlanLimitsForUI, string> = {
   aiActionsPerMonth: "AI actions / month",
   scheduledFlows: "Scheduled workflows",
 };
+const FIELD_HELP: Record<keyof PlanLimitsForUI, string> = {
+  maxProjects: "How many apps someone on this plan can have in total, live or not.",
+  maxPublished: "How many of their apps can be live on the web at the same time.",
+  maxPagesPerProject: "The most pages a single app can have.",
+  maxCustomDomains: "How many of their own web addresses (like shop.theirbusiness.com) they can connect, across all their apps.",
+  aiActionsPerMonth: "How many times a month they can ask the AI to build or change something. The count starts again each month.",
+  scheduledFlows: "Whether workflows can run on a timer, like every hour. Turning it off stops scheduled workflows on that plan from running.",
+};
 
 const KEYS = {
   AI_PROVIDER: "ai.provider",
@@ -115,7 +123,7 @@ export function SettingsPanel({
         setReasoning((s["ai.reasoning"] as string) || "auto");
         setScaffoldModel((s[KEYS.AI_OPENAI_MODEL_SCAFFOLD] as string) || "");
         setEditModel((s[KEYS.AI_OPENAI_MODEL_EDIT] as string) || "");
-        setClaudeModel((s[KEYS.AI_CLAUDE_MODEL] as string) || "opus");
+        setClaudeModel((s[KEYS.AI_CLAUDE_MODEL] as string) || "");
         setClaudeBin((s[KEYS.AI_CLAUDE_BIN] as string) || "");
       });
   }, []);
@@ -174,17 +182,19 @@ export function SettingsPanel({
 
   return (
     <div className="space-y-10">
-      <Section id="ai" title="AI Provider" subtitle="Pick which engine builds new apps and answers in-editor edits.">
+      <Section id="ai" title="AI Provider" help="Chooses the AI that builds new apps and makes edits for everyone on the platform, including resellers and their clients." subtitle="Pick which engine builds new apps and answers in-editor edits.">
         <div className="space-y-4">
           <div className="grid gap-3 md:grid-cols-2">
             <ProviderCard
               label="OpenAI"
+              help="Use OpenAI, or an AI service or model on your own server that works the same way (OpenAI-compatible). You'll set its address, model name and usually a secret key."
               description="OpenAI or any OpenAI-compatible server, including local models. Set the endpoint and model below."
               active={provider === "openai"}
               onSelect={() => setProvider("openai")}
             />
             <ProviderCard
               label="Command-line AI agent"
+              help="Use a command-line AI tool installed on this server and signed in to its own subscription, instead of paying per use with a secret key."
               description="Uses a locally installed, signed-in CLI subscription instead of per-token API billing."
               active={provider === "claude-cli"}
               onSelect={() => setProvider("claude-cli")}
@@ -193,7 +203,7 @@ export function SettingsPanel({
 
           {provider === "openai" && (
             <div className="rounded-lg border border-surface-700 bg-surface-900 p-4 space-y-3">
-              <Field label="OpenAI / compatible API key">
+              <Field label="OpenAI / compatible API key" help="The secret key from your AI provider's account. It's kept hidden; leave the box empty to keep the key already saved.">
                 <input
                   type="password"
                   className="form-input"
@@ -208,22 +218,22 @@ export function SettingsPanel({
                 </p>
               </Field>
               <div className="grid gap-3 md:grid-cols-2">
-                <Field label="API base URL" hint="Empty = OpenAI. Local server example: http://host.docker.internal:11434/v1">
+                <Field label="API base URL" help="The web address of your AI service. Leave it empty to use OpenAI itself, or enter your own server's address to use a model you run yourself." hint="Empty = OpenAI. Local server example: http://host.docker.internal:11434/v1">
                   <input className="input" value={baseUrl} onChange={e => setBaseUrl(e.target.value)} placeholder="https://api.openai.com/v1" />
                 </Field>
-                <Field label="JSON support" hint="Use JSON mode for compatible servers; text mode if JSON mode is unsupported.">
+                <Field label="JSON support" help="How strictly the AI is asked to answer in the fixed format the builder reads. If builds fail with format errors on your AI service, try a looser option." hint="Use JSON mode for compatible servers; text mode if JSON mode is unsupported.">
                   <select className="input" value={jsonMode} onChange={e => setJsonMode(e.target.value)}><option value="json">JSON mode</option><option value="schema">Strict JSON schema</option><option value="text">Prompt only</option></select>
                 </Field>
-                <Field label="Model context size (tokens)" hint="Leave blank to detect it automatically (use Test connection to see the result). Models under 24K get compact prompts.">
+                <Field label="Model context size (tokens)" help="How much text the model can read at once. Leave it empty to detect it automatically. Small models get shorter instructions so they still work." hint="Leave blank to detect it automatically (use Test connection to see the result). Models under 24K get compact prompts.">
                   <input className="input" type="number" min={2048} step={1024} placeholder="Auto-detect" value={contextWindow} onChange={e => setContextWindow(e.target.value)} />
                 </Field>
-                <Field label="Model thinking" hint="Reasoning models (e.g. Qwen3) can spend minutes thinking before they answer. Automatic turns it off for local servers so builds stay fast.">
+                <Field label="Model thinking" help="Whether a “thinking” model may reason at length before it answers. Off is fastest; On may give better results but builds can take much longer." hint="Reasoning models (e.g. Qwen3) can spend minutes thinking before they answer. Automatic turns it off for local servers so builds stay fast.">
                   <select className="input" value={reasoning} onChange={e => setReasoning(e.target.value)}><option value="auto">Automatic</option><option value="off">Off — fastest</option><option value="on">On — let the model think</option></select>
                 </Field>
-                <Field label="Maximum output tokens per call" hint="Leave blank for no limit. Set one (e.g. 8192) for small local models.">
+                <Field label="Maximum output tokens per call" help="Caps how long each AI reply can be (a token is roughly ¾ of a word). Leave it empty for no limit. Small models on your own server may need a cap." hint="Leave blank for no limit. Set one (e.g. 8192) for small local models.">
                   <input className="input" type="number" min={512} max={32768} placeholder={data?.env.AI_MAX_OUTPUT_TOKENS ? `${data.env.AI_MAX_OUTPUT_TOKENS} (set on the server)` : "No limit"} value={maxTokens} onChange={e => setMaxTokens(e.target.value)} />
                 </Field>
-                <Field label="Scaffold model" hint="Empty = use code default">
+                <Field label="Scaffold model" help="The exact model name used to build new apps from a description. Leave it empty for the default; for a service other than OpenAI you must enter it." hint="Empty = use code default">
                   <input
                     className="form-input"
                     placeholder="gpt-6-luna"
@@ -231,7 +241,7 @@ export function SettingsPanel({
                     onChange={(e) => setScaffoldModel(e.target.value)}
                   />
                 </Field>
-                <Field label="Edit model" hint="Empty = use code default">
+                <Field label="Edit model" help="The exact model name used for AI edits in the page editor. Leave it empty for the default; for a service other than OpenAI you must enter it." hint="Empty = use code default">
                   <input
                     className="form-input"
                     placeholder="gpt-6-luna"
@@ -243,10 +253,11 @@ export function SettingsPanel({
               <div>
                 <button
                   className="btn btn-secondary"
+                  data-help="Saves the settings above, then sends a short test message to your AI service and shows whether it replied, how fast, and how much text the model can read."
                   onClick={() => test("openai")}
                   disabled={testing !== null}
                 >
-                  {testing === "openai" ? "Testing…" : "Test OpenAI connection"}
+                  {testing === "openai" ? "Testing…" : "Test connection"}
                 </button>
               </div>
             </div>
@@ -255,22 +266,22 @@ export function SettingsPanel({
           {provider === "claude-cli" && (
             <div className="rounded-lg border border-surface-700 bg-surface-900 p-4 space-y-3">
               <p className="text-sm text-surface-300">
-                The <code className="text-surface-100">claude</code> CLI must be authenticated for the user that runs the Next.js
-                process (or the dedicated runner account, if one is configured). Run <code className="text-surface-100">claude login</code> as that user once.
+                The command-line AI tool must be installed on this server and signed in, once, as the user that runs
+                this platform (or the dedicated runner account, if one is configured). See docs/deploy/plesk.md.
               </p>
               <div className="grid gap-3 md:grid-cols-2">
-                <Field label="Model" hint="opus, sonnet, haiku, or full ID">
+                <Field label="Model" help="Which model the command-line AI tool should use, by its short name or full ID." hint="The tool's short model name or full ID">
                   <input
                     className="form-input"
-                    placeholder="opus"
+                    placeholder="Model name"
                     value={claudeModel}
                     onChange={(e) => setClaudeModel(e.target.value)}
                   />
                 </Field>
-                <Field label="Binary path" hint="Empty = $PATH lookup">
+                <Field label="Binary path" help="Where the command-line AI tool is installed on this server. Leave it empty to let the server find it by itself." hint="Empty = $PATH lookup">
                   <input
                     className="form-input"
-                    placeholder="/root/.nvm/versions/node/v20.19.2/bin/claude"
+                    placeholder="/usr/local/bin/…"
                     value={claudeBin}
                     onChange={(e) => setClaudeBin(e.target.value)}
                   />
@@ -279,6 +290,7 @@ export function SettingsPanel({
               <div>
                 <button
                   className="btn btn-secondary"
+                  data-help="Saves these settings, then checks that the command-line AI tool on this server starts, is signed in and replies."
                   onClick={() => test("claude-cli")}
                   disabled={testing !== null}
                 >
@@ -303,7 +315,7 @@ export function SettingsPanel({
 
 
           <div className="flex items-center gap-3 pt-2">
-            <button onClick={save} disabled={saving} className="btn btn-primary">
+            <button onClick={save} disabled={saving} className="btn btn-primary" data-help="Saves the AI settings. They apply to everyone on the platform, including resellers and their clients.">
               {saving ? "Saving…" : "Save changes"}
             </button>
             {savedAt && <span className="text-sm text-emerald-400">Saved.</span>}
@@ -314,7 +326,8 @@ export function SettingsPanel({
       <Section
         id="plans"
         title="Plans & limits"
-        subtitle="What each plan includes. Leave a box empty for unlimited. Reset returns a plan to the built-in defaults. You (and resellers) are never limited."
+        help="Sets what your direct customers get on each plan; resellers set their own for their clients. Lowering a limit never deletes anything, it only stops people adding more."
+        subtitle="What each plan includes. Tick unlimited for no limit. Reset returns a plan to the built-in defaults. You (and resellers) are never limited."
       >
         <div className="overflow-x-auto rounded-lg border border-surface-700">
           <table className="w-full text-sm">
@@ -329,7 +342,7 @@ export function SettingsPanel({
             <tbody>
               {NUMERIC_FIELDS.map((field) => (
                 <tr key={field} className="border-t border-surface-800">
-                  <td className="px-3 py-2 text-surface-200 text-sm whitespace-nowrap">{FIELD_LABELS[field]}</td>
+                  <td className="px-3 py-2 text-surface-200 text-sm whitespace-nowrap" data-help={FIELD_HELP[field]}>{FIELD_LABELS[field]}</td>
                   {PLAN_ORDER.map((plan) => {
                     const v = planLimits[plan][field] as number | null;
                     const unlimited = v === null;
@@ -341,6 +354,7 @@ export function SettingsPanel({
                             min={0}
                             step={1}
                             className="form-input w-24"
+                            aria-label={`${plan.charAt(0) + plan.slice(1).toLowerCase()}: ${FIELD_LABELS[field]}`}
                             disabled={unlimited}
                             value={unlimited ? "" : String(v ?? 0)}
                             onChange={(e) => updateNumericField(setPlanLimits, plan, field, e.target.value)}
@@ -348,6 +362,7 @@ export function SettingsPanel({
                           <label className="text-[11px] text-surface-400 flex items-center gap-1">
                             <input
                               type="checkbox"
+                              aria-label={`${plan.charAt(0) + plan.slice(1).toLowerCase()}: ${FIELD_LABELS[field]} unlimited`}
                               checked={unlimited}
                               onChange={(e) => toggleUnlimited(setPlanLimits, plan, field, e.target.checked)}
                             />
@@ -360,7 +375,7 @@ export function SettingsPanel({
                 </tr>
               ))}
               <tr className="border-t border-surface-800">
-                <td className="px-3 py-2 text-surface-200 text-xs">Scheduled workflows</td>
+                <td className="px-3 py-2 text-surface-200 text-xs" data-help={FIELD_HELP.scheduledFlows}>Scheduled workflows</td>
                 {PLAN_ORDER.map((plan) => (
                   <td key={plan} className="px-3 py-2 align-top">
                     <label className="text-xs text-surface-300 flex items-center gap-2">
@@ -402,6 +417,7 @@ export function SettingsPanel({
             }}
             disabled={planSaving}
             className="btn btn-primary"
+            data-help="Saves the limits for all four plans. They apply to your direct customers straight away."
           >
             {planSaving ? "Saving…" : "Save plan limits"}
           </button>
@@ -413,6 +429,7 @@ export function SettingsPanel({
             }}
             disabled={planSaving}
             className="btn btn-secondary"
+            data-help="Fills in the built-in standard limits. Nothing changes until you press Save plan limits."
           >
             Reset to the standard limits
           </button>
@@ -425,10 +442,10 @@ export function SettingsPanel({
   );
 }
 
-function Section({ id, title, subtitle, children }: { id?: string; title: string; subtitle?: string; children: React.ReactNode }) {
+function Section({ id, title, subtitle, help, children }: { id?: string; title: string; subtitle?: string; help?: string; children: React.ReactNode }) {
   return (
     <section id={id} className="scroll-mt-40">
-      <h2 className="text-lg font-semibold">{title}</h2>
+      <h2 className="text-lg font-semibold" data-help={help}>{title}</h2>
       {subtitle && <p className="text-sm text-surface-400 mt-1">{subtitle}</p>}
       <div className="mt-4">{children}</div>
     </section>
@@ -438,11 +455,13 @@ function Section({ id, title, subtitle, children }: { id?: string; title: string
 function ProviderCard({
   label,
   description,
+  help,
   active,
   onSelect,
 }: {
   label: string;
   description: string;
+  help?: string;
   active: boolean;
   onSelect: () => void;
 }) {
@@ -450,6 +469,7 @@ function ProviderCard({
     <button
       onClick={onSelect}
       type="button"
+      data-help={help}
       className={`text-left rounded-lg border p-4 transition ${
         active
           ? "border-indigo-500 bg-indigo-500/10 ring-1 ring-indigo-500"
@@ -468,14 +488,16 @@ function ProviderCard({
 function Field({
   label,
   hint,
+  help,
   children,
 }: {
   label: string;
   hint?: string;
+  help?: string;
   children: React.ReactNode;
 }) {
   return (
-    <label className="block">
+    <label className="block" data-help={help}>
       <span className="text-sm text-surface-200 block mb-1">{label}</span>
       {children}
       {hint && <span className="text-xs text-surface-500 block mt-1">{hint}</span>}

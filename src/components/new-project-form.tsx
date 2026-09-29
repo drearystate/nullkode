@@ -36,11 +36,12 @@ export function NewProjectForm() {
       <input
         className="input flex-1"
         placeholder="My awesome app"
+        data-help="A name for your new app. You can change it later."
         value={name}
         onChange={(e) => setName(e.target.value)}
         required
       />
-      <button className="btn-primary" disabled={busy || !name.trim()}>
+      <button className="btn-primary" data-help="Creates a new, empty app with this name and opens it." disabled={busy || !name.trim()}>
         {busy ? "..." : "Create"}
       </button>
       {error && <div className="text-sm text-red-400 mt-1">{error}</div>}

@@ -13,20 +13,22 @@ type IconSet = {
   id: string;
   label: string;
   prefix: string;
+  /** Hover note for the set's filter button. */
+  help: string;
 };
 
 // Matches the sets downloaded by scripts/download-icons.mjs. The "All" tab
 // searches across every set at once; the rest scope to a single prefix.
 const ICON_SETS: IconSet[] = [
-  { id: "all", label: "All", prefix: "" },
-  { id: "lucide", label: "Lucide", prefix: "lucide" },
-  { id: "heroicons", label: "Heroicons", prefix: "heroicons" },
-  { id: "tabler", label: "Tabler", prefix: "tabler" },
-  { id: "ph", label: "Phosphor", prefix: "ph" },
-  { id: "mdi", label: "Material", prefix: "mdi" },
-  { id: "fa6-solid", label: "FA Solid", prefix: "fa6-solid" },
-  { id: "fa6-brands", label: "FA Brands", prefix: "fa6-brands" },
-  { id: "simple-icons", label: "Brands", prefix: "simple-icons" },
+  { id: "all", label: "All", prefix: "", help: "Search icons in every style at once." },
+  { id: "lucide", label: "Lucide", prefix: "lucide", help: "Show only icons in the Lucide style: simple, thin outlines." },
+  { id: "heroicons", label: "Heroicons", prefix: "heroicons", help: "Show only icons in the Heroicons style: clean outlines." },
+  { id: "tabler", label: "Tabler", prefix: "tabler", help: "Show only icons in the Tabler style: simple outlines, lots of choice." },
+  { id: "ph", label: "Phosphor", prefix: "ph", help: "Show only icons in the Phosphor style: friendly, rounded outlines." },
+  { id: "mdi", label: "Material", prefix: "mdi", help: "Show only icons in the Material style, the look used by many Android apps." },
+  { id: "fa6-solid", label: "FA Solid", prefix: "fa6-solid", help: "Show only filled-in icons from the Font Awesome collection." },
+  { id: "fa6-brands", label: "FA Brands", prefix: "fa6-brands", help: "Show only logos of well-known companies from the Font Awesome collection." },
+  { id: "simple-icons", label: "Brands", prefix: "simple-icons", help: "Show only logos of well-known companies, apps and social networks." },
 ];
 
 export function IconsPanel({ editor }: { editor: Editor }) {
@@ -100,6 +102,7 @@ export function IconsPanel({ editor }: { editor: Editor }) {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search icons..."
+          data-help="Type what the icon should show, like “phone”, “star” or “cart”."
           className="w-full bg-surface-950 border border-surface-800 rounded px-2.5 py-1.5 text-xs text-surface-100 placeholder:text-surface-600 focus:outline-none focus:border-brand-500"
         />
         <div className="flex flex-wrap gap-1">
@@ -107,6 +110,7 @@ export function IconsPanel({ editor }: { editor: Editor }) {
             <button
               key={s.id}
               onClick={() => setSetId(s.id)}
+              data-help={s.help}
               className={`text-[10px] px-2 py-0.5 rounded-full border transition ${
                 setId === s.id
                   ? "bg-brand-500/20 border-brand-500 text-brand-200"
@@ -135,6 +139,8 @@ export function IconsPanel({ editor }: { editor: Editor }) {
               key={i.id}
               onClick={() => insertIcon(i)}
               title={i.id}
+              aria-label={`Add the ${i.name} icon`}
+              data-help="Add this icon inside the part you picked, or at the end of the page if nothing is picked."
               className="group relative aspect-square flex items-center justify-center rounded border border-surface-800 bg-surface-950 hover:border-brand-500 hover:bg-surface-900 transition text-surface-300 hover:text-white [&>svg]:w-5 [&>svg]:h-5 [&>svg]:opacity-90 hover:[&>svg]:opacity-100"
               dangerouslySetInnerHTML={{ __html: i.svg }}
             />

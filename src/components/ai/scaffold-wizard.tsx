@@ -360,18 +360,18 @@ export function ScaffoldWizard({ aiProblem = null, below }: { aiProblem?: string
             <div className="mt-6 flex flex-wrap justify-center gap-3">
               {failure.quota ? (
                 <>
-                  <Link href="/billing" className="btn-primary">See plans</Link>
-                  <Link href="/new?mode=template" className="btn-ghost">Use a template instead</Link>
+                  <Link href="/billing" className="btn-primary" data-help="Compare plans that include more AI actions each month.">See plans</Link>
+                  <Link href="/new?mode=template" className="btn-ghost" data-help="Start from a ready-made design instead. Templates don't use AI actions.">Use a template instead</Link>
                 </>
               ) : failure.phase === "build" && plan ? (
                 <>
-                  <button className="btn-primary" onClick={startBuild}>Build again</button>
-                  <button className="btn-ghost" onClick={() => { setFailure(null); setStage("review"); }}>Back to the plan</button>
+                  <button className="btn-primary" onClick={startBuild} data-help="Try building your app again from the same plan.">Build again</button>
+                  <button className="btn-ghost" onClick={() => { setFailure(null); setStage("review"); }} data-help="Go back to the plan to change it before building again.">Back to the plan</button>
                 </>
               ) : (
                 <>
-                  <button className="btn-primary" onClick={() => startPlanning(prompt)}>Try again</button>
-                  <button className="btn-ghost" onClick={() => { setFailure(null); setStage("input"); }}>Change my description</button>
+                  <button className="btn-primary" onClick={() => startPlanning(prompt)} data-help="Ask the AI to plan your app again from the same description.">Try again</button>
+                  <button className="btn-ghost" onClick={() => { setFailure(null); setStage("input"); }} data-help="Go back and reword your idea. Adding who uses the app and what they do often helps.">Change my description</button>
                 </>
               )}
             </div>
@@ -391,12 +391,13 @@ function IdeaInput({ prompt, setPrompt, onSubmit, aiProblem }: { prompt: string;
         <h1 className="studio-display mt-4">What do you want<br /><span>to make?</span></h1>
         <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-surface-400">Describe it in your own words. You&apos;ll see a plan before anything is built.</p>
       </div>
-      <form className="card mt-9 p-2" onSubmit={(e) => { e.preventDefault(); if (ready) onSubmit(); }}>
+      <form className="card mt-9 p-2" data-help="Describe the app you want in your own words. The AI turns it into a plan you can check before anything is built." onSubmit={(e) => { e.preventDefault(); if (ready) onSubmit(); }}>
         <textarea
           className="w-full resize-none bg-transparent p-4 text-base text-surface-50 placeholder:text-surface-500 focus:outline-none"
           rows={4}
           maxLength={2000}
           aria-label="Describe the app you want to make"
+          data-help="Say who uses your app and what they do on it. Press Ctrl+Enter (Cmd+Enter on Mac) to plan it."
           placeholder="e.g. A booking app for my dog walking business, where customers pick a time and I see every booking"
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
@@ -406,7 +407,7 @@ function IdeaInput({ prompt, setPrompt, onSubmit, aiProblem }: { prompt: string;
         />
         <div className="flex flex-wrap items-center justify-between gap-3 px-2 pb-2">
           <span className="text-xs text-surface-500">{prompt.length > 1500 ? `${2000 - prompt.length} characters left` : "Tip: say who uses it and what they do."}</span>
-          <button className="btn-primary px-6" disabled={!ready}>Plan my app</button>
+          <button className="btn-primary px-6" disabled={!ready} data-help="The AI reads your description and suggests pages, saved information and a look. You can change the plan before anything is built.">Plan my app</button>
         </div>
       </form>
       {aiProblem && <p role="status" className="mt-3 rounded-lg border border-amber-400/20 bg-amber-400/10 px-4 py-3 text-sm text-amber-100">{aiProblem} Templates and the editor still work.</p>}
@@ -415,7 +416,7 @@ function IdeaInput({ prompt, setPrompt, onSubmit, aiProblem }: { prompt: string;
           <p className="mb-2 text-center text-xs text-surface-500">Need an idea? Tap one to fill it in, then make it yours.</p>
           <div className="flex flex-wrap justify-center gap-2">
             {EXAMPLES.map((ex) => (
-              <button key={ex.label} type="button" onClick={() => setPrompt(ex.prompt)} className="rounded-full border border-white/10 bg-white/[0.03] px-3.5 py-1.5 text-sm text-surface-200 transition hover:border-brand-400/60 hover:bg-white/[0.06]">
+              <button key={ex.label} type="button" onClick={() => setPrompt(ex.prompt)} data-help="Fill the box with this example description. Change it to fit your idea before planning." className="rounded-full border border-white/10 bg-white/[0.03] px-3.5 py-1.5 text-sm text-surface-200 transition hover:border-brand-400/60 hover:bg-white/[0.06]">
                 {ex.label}
               </button>
             ))}
@@ -434,7 +435,7 @@ function PlanningStage({ prompt, status, onCancel }: { prompt: string; status: s
       <p className="mx-auto mt-2 max-w-xl text-sm italic text-surface-400">&ldquo;{prompt}&rdquo;</p>
       <p className="mt-6 text-sm text-surface-300">{status || "Reading your idea..."}</p>
       <p className="mt-6 text-xs text-surface-500">You&apos;ll be able to check and change the plan before anything is built.</p>
-      <button type="button" className="mt-5 text-sm text-surface-400 hover:text-surface-100" onClick={onCancel}>Cancel</button>
+      <button type="button" className="mt-5 text-sm text-surface-400 hover:text-surface-100" onClick={onCancel} data-help="Stop waiting for the plan and go back to your description.">Cancel</button>
     </div>
   );
 }
@@ -452,7 +453,7 @@ function BuildingStage({ plan, status, totals, completed, builtPages }: { plan: 
         <h2 className="text-2xl font-semibold tracking-tight">Building {plan?.project.name || "your app"}…</h2>
         <p className="mt-2 text-sm text-surface-400">This usually takes a few minutes. You can leave this page; the build keeps going and will be here when you come back.</p>
       </div>
-      <div className="mt-8" role="progressbar" aria-label="Build progress" aria-valuemin={0} aria-valuemax={100} aria-valuenow={percent}>
+      <div className="mt-8" role="progressbar" aria-label="Build progress" data-help="How far along the build is. You can leave this page; the build keeps going and will be here when you come back." aria-valuemin={0} aria-valuemax={100} aria-valuenow={percent}>
         <div className="h-2 overflow-hidden rounded-full bg-surface-800">
           <div className="h-full bg-gradient-to-r from-brand-400 to-cyan-400 transition-all duration-700 ease-out" style={{ width: `${percent}%` }} />
         </div>

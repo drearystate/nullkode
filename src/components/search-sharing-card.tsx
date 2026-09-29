@@ -161,7 +161,7 @@ export function SearchSharingCard(props: SearchSharingProps) {
 
   return (
     <section className="card p-6 mt-6" id="search-sharing" aria-labelledby="search-sharing-title">
-      <h2 id="search-sharing-title" className="font-semibold">Search and sharing</h2>
+      <h2 id="search-sharing-title" className="font-semibold" data-help="Control how your app looks in Google results and in the preview people see when they send its link in a chat. Changes apply right away.">Search and sharing</h2>
       <p className="mt-1 text-sm text-surface-400 max-w-2xl">
         How your app shows up in Google and when someone shares its link. Changes here apply right away, without publishing again.
       </p>
@@ -176,6 +176,7 @@ export function SearchSharingCard(props: SearchSharingProps) {
             id="seo-description"
             className="input min-h-[96px] resize-y"
             maxLength={300}
+            data-help="A short summary of your app. Google shows it under your app's name, and chats show it under shared links. Around 160 letters or fewer works best."
             value={description}
             onChange={(e) => { setDescription(e.target.value); setDescriptionMessage(null); }}
             placeholder="One or two sentences about your app, for example: Fresh bread and cakes from our family bakery. Order online and pick up the next morning."
@@ -190,7 +191,7 @@ export function SearchSharingCard(props: SearchSharingProps) {
             <p className="mt-2 text-xs text-surface-400">Your design sets its own description, which search engines and link previews show. This one is used when people install your app.</p>
           )}
           <div className="mt-3 flex flex-wrap items-center gap-3">
-            <button type="button" className="btn-primary" disabled={!dirty || savingDescription} onClick={saveDescription}>
+            <button type="button" className="btn-primary" disabled={!dirty || savingDescription} onClick={saveDescription} data-help="Save your description. It's used straight away, no need to publish again. Google updates it the next time it visits your app.">
               {savingDescription && <Loader2 size={15} className="animate-spin" />}
               Save description
             </button>
@@ -209,6 +210,7 @@ export function SearchSharingCard(props: SearchSharingProps) {
               role="switch"
               aria-checked={noindex}
               aria-labelledby="seo-noindex-label"
+              data-help="Turn on to ask Google and other search engines not to list your app. People with the link can still open it. Takes effect right away."
               disabled={savingNoindex}
               onClick={toggleNoindex}
               className={`relative inline-flex h-6 w-11 shrink-0 items-center rounded-full border transition disabled:opacity-60 ${noindex ? "border-brand-400 bg-brand-500" : "border-surface-600 bg-surface-800"}`}
@@ -220,7 +222,7 @@ export function SearchSharingCard(props: SearchSharingProps) {
           {noindexError && <p role="alert" className="mt-2 text-sm text-red-300">{noindexError}</p>}
 
           <details className="mt-4 rounded-lg border border-surface-800 px-4 py-3" open={Boolean(props.searchConsoleToken)}>
-            <summary className="cursor-pointer text-sm font-medium">Connect Google Search Console</summary>
+            <summary className="cursor-pointer text-sm font-medium" data-help="Optional. Google Search Console is a free Google tool that shows how people find your app in search. Open this to link your app to it.">Connect Google Search Console</summary>
             <div className="mt-3 space-y-3 text-sm">
               <p className="text-xs leading-relaxed text-surface-400">
                 Search Console shows how people find your app on Google. Add your app&apos;s address there as a URL-prefix property, choose the HTML tag way to verify, and paste the code (or the whole tag) here.
@@ -229,13 +231,14 @@ export function SearchSharingCard(props: SearchSharingProps) {
                 <input
                   className="input min-w-0 flex-1"
                   aria-label="Google verification code"
+                  data-help="Paste the code Google Search Console gives you (the HTML tag option). It proves to Google that the app is yours."
                   value={token}
                   onChange={(e) => { setToken(e.target.value); setTokenMessage(null); }}
                   placeholder='<meta name="google-site-verification" content="…">'
                   spellCheck={false}
                   autoComplete="off"
                 />
-                <button type="button" className="btn-ghost" disabled={savingToken || token.trim() === (props.searchConsoleToken ?? "")} onClick={saveToken}>
+                <button type="button" className="btn-ghost" disabled={savingToken || token.trim() === (props.searchConsoleToken ?? "")} onClick={saveToken} data-help="Save the code on your app, then go back to Search Console and press Verify. Save it empty to remove the code.">
                   {savingToken && <Loader2 size={15} className="animate-spin" />}
                   Save code
                 </button>
@@ -247,7 +250,7 @@ export function SearchSharingCard(props: SearchSharingProps) {
                 <span className="block">Then add your sitemap in Search Console, so Google finds every page:</span>
                 <span className="mt-1 flex min-w-0 items-center gap-2">
                   <code className="min-w-0 break-all rounded bg-white/[0.04] px-1.5 py-0.5 text-surface-200">{props.sitemapUrl}</code>
-                  <button type="button" className="studio-icon-button" aria-label={copied ? "Sitemap address copied" : "Copy sitemap address"} title={copied ? "Copied" : "Copy"} onClick={copySitemap}>
+                  <button type="button" className="studio-icon-button" aria-label={copied ? "Sitemap address copied" : "Copy sitemap address"} title={copied ? "Copied" : "Copy"} data-help="Copy the address of your app's sitemap, a list of all its pages. Paste it into Search Console under Sitemaps." onClick={copySitemap}>
                     {copied ? <Check size={14} /> : <Copy size={14} />}
                   </button>
                 </span>
@@ -258,7 +261,7 @@ export function SearchSharingCard(props: SearchSharingProps) {
 
         <div className="min-w-0 space-y-5">
           <div>
-            <p className="label">In Google</p>
+            <p className="label" data-help="A preview of how your app may look in Google search results. Google makes the final choice, so it can look slightly different.">In Google</p>
             <div className="rounded-lg bg-white p-4 text-left shadow-sm" aria-label="Preview of a Google search result">
               <div className="flex items-center gap-2.5">
                 <span className="flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden rounded-full border border-[#dadce0] bg-[#f1f3f4]">
@@ -277,7 +280,7 @@ export function SearchSharingCard(props: SearchSharingProps) {
           </div>
 
           <div>
-            <p className="label">In WhatsApp and other chats</p>
+            <p className="label" data-help="A preview of what people see when your app's link is sent in a chat or posted on social media.">In WhatsApp and other chats</p>
             <div className="rounded-xl bg-[#0b141a] p-3" aria-label="Preview of a shared link in a chat">
               <div className="ml-auto max-w-[340px] rounded-lg bg-[#005c4b] p-1 text-left">
                 <div className="overflow-hidden rounded-md bg-[#025144]">

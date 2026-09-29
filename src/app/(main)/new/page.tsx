@@ -30,7 +30,7 @@ export default async function NewProjectPage({ searchParams }: { searchParams: P
           <h1 className="text-2xl font-semibold tracking-tight">You&apos;ve reached your app limit</h1>
           <p className="mt-3 text-sm text-surface-400">{limitMessage}</p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
-            {(await getPublicPlans(billingScopeFor(user)).catch(() => [])).some((p) => p.key !== "FREE") && <Link href="/billing" className="btn-primary">See plans</Link>}
+            {(await getPublicPlans(billingScopeFor(user)).catch(() => [])).some((p) => p.key !== "FREE") && <Link href="/billing" className="btn-primary" data-help="Compare plans that let you make more apps.">See plans</Link>}
             <Link href="/dashboard" className="btn-ghost">Back to your apps</Link>
           </div>
         </div>

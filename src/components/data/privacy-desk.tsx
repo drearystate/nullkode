@@ -243,7 +243,7 @@ export function PrivacyDesk({
           <p className="text-surface-300">People can also delete their own account, or ask you to, on your app&apos;s delete-account page. App stores ask for this address:</p>
           <div className="mt-2 flex flex-wrap items-center gap-2">
             <code className="break-all rounded bg-white/[0.05] px-2 py-1 text-surface-200">{deleteAccountUrl}</code>
-            <button type="button" className="btn-ghost h-8 min-h-0 px-3 text-xs" onClick={copyUrl}>
+            <button type="button" className="btn-ghost h-8 min-h-0 px-3 text-xs" onClick={copyUrl} data-help="Copies this address so you can paste it into your app store listing, where they ask for a delete-account page.">
               {copied ? <Check size={13} aria-hidden /> : <Copy size={13} aria-hidden />} {copied ? "Copied" : "Copy"}
             </button>
           </div>
@@ -277,6 +277,7 @@ export function PrivacyDesk({
                   type="button"
                   className="rounded-lg bg-red-700 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-red-600 disabled:opacity-50"
                   disabled={busy !== null}
+                  data-help="Deletes this person’s account and what’s tied to it (you’ll confirm first). Orders or bookings are kept with their details removed. This can’t be undone."
                   onClick={async () => {
                     if (!window.confirm(`Delete the account for ${q.email} and what's tied to it? This can't be undone.`)) return;
                     const data = await requestAction({ action: "approve", queueId: q.id }, `approve-${q.id}`);
@@ -290,6 +291,7 @@ export function PrivacyDesk({
                   className="btn-ghost h-8 min-h-0 px-3 text-xs"
                   disabled={busy !== null}
                   onClick={() => requestAction({ action: "dismiss", queueId: q.id }, `dismiss-${q.id}`)}
+                  data-help="Takes this request off the list without deleting anything, for example if it’s spam or you’ve already handled it."
                 >
                   Dismiss
                 </button>
@@ -300,7 +302,7 @@ export function PrivacyDesk({
       )}
 
       <section aria-labelledby="privacy-open">
-        <h3 id="privacy-open" className="font-semibold">
+        <h3 id="privacy-open" className="font-semibold" data-help="Privacy requests you still need to answer, soonest deadline first.">
           Open requests
         </h3>
         {requests === null && !listError ? (
@@ -319,7 +321,7 @@ export function PrivacyDesk({
                       Received {day(r.receivedAt)}, {SOURCE_LABEL[r.source]} · <span className={due.late ? "font-semibold text-amber-300" : ""}>{due.text}</span>
                     </span>
                   </span>
-                  <button type="button" className="btn-ghost h-8 min-h-0 px-3 text-xs" disabled={busy !== null} onClick={() => requestAction({ action: "done", id: r.id, done: true }, `done-${r.id}`)}>
+                  <button type="button" className="btn-ghost h-8 min-h-0 px-3 text-xs" disabled={busy !== null} onClick={() => requestAction({ action: "done", id: r.id, done: true }, `done-${r.id}`)} data-help="Marks this request as answered and moves it to Recently done. Use it once you’ve replied to the person.">
                     <Check size={13} aria-hidden /> Mark done
                   </button>
                 </li>
@@ -337,7 +339,7 @@ export function PrivacyDesk({
         >
           <label className="block">
             <span className="label">Someone asked by email or phone? Log it</span>
-            <select className="input h-9 min-h-0 w-auto py-0 text-sm" value={logType} onChange={(e) => setLogType(e.target.value as RequestType)}>
+            <select className="input h-9 min-h-0 w-auto py-0 text-sm" value={logType} onChange={(e) => setLogType(e.target.value as RequestType)} data-help="What the person asked for. Logging it lets you track the 30 days you have to answer.">
               {(Object.keys(TYPE_LABEL) as RequestType[]).map((t) => (
                 <option key={t} value={t}>
                   {TYPE_LABEL[t]}
@@ -347,15 +349,15 @@ export function PrivacyDesk({
           </label>
           <label className="block">
             <span className="label">Arrived on</span>
-            <input type="date" className="input h-9 min-h-0 w-auto py-0 text-sm" value={logDay} max={new Date().toISOString().slice(0, 10)} onChange={(e) => setLogDay(e.target.value)} required />
+            <input type="date" className="input h-9 min-h-0 w-auto py-0 text-sm" value={logDay} max={new Date().toISOString().slice(0, 10)} onChange={(e) => setLogDay(e.target.value)} required data-help="The day the request reached you. The 30 days to answer count from this date." />
           </label>
-          <button type="submit" className="btn-ghost h-9 min-h-0" disabled={busy !== null}>
+          <button type="submit" className="btn-ghost h-9 min-h-0" disabled={busy !== null} data-help="Adds this request to Open requests so you can keep track of its deadline. Nothing is deleted or sent.">
             {busy === "log" ? "Adding…" : "Add to the log"}
           </button>
         </form>
         {done.length > 0 && (
           <details className="mt-4">
-            <summary className="cursor-pointer text-surface-400">Recently done</summary>
+            <summary className="cursor-pointer text-surface-400" data-help="The last few requests you finished, for your records.">Recently done</summary>
             <ul className="mt-2 space-y-1 text-xs text-surface-400">
               {done.map((r) => (
                 <li key={r.id}>
@@ -383,6 +385,7 @@ export function PrivacyDesk({
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             autoComplete="off"
+            data-help="Type the person’s email address or phone number to see what your app keeps about them. Searching doesn’t change anything."
           />
           <button type="submit" className="btn-primary" disabled={busy !== null || !query.trim()}>
             <Search size={15} aria-hidden /> {busy === "search" ? "Searching…" : "Search"}
@@ -491,7 +494,7 @@ export function PrivacyDesk({
                   {findings.mentions.map((m) => (
                     <li key={m.table}>
                       {m.tableId ? (
-                        <Link href={`/projects/${projectId}/data?table=${m.tableId}`} className="text-brand-300 hover:underline">
+                        <Link href={`/projects/${projectId}/data?table=${m.tableId}`} className="text-brand-300 hover:underline" data-help="Open this table to check these rows yourself.">
                           {m.label}
                         </Link>
                       ) : (
@@ -531,7 +534,7 @@ export function PrivacyDesk({
                 {open.length > 0 && (
                   <label className="block">
                     <span className="label">This answers</span>
-                    <select className="input h-9 min-h-0 w-auto py-0 text-sm" value={requestId} onChange={(e) => setRequestId(e.target.value)}>
+                    <select className="input h-9 min-h-0 w-auto py-0 text-sm" value={requestId} onChange={(e) => setRequestId(e.target.value)} data-help="Which open request this answers, so it’s marked as done when you download or erase. Pick “A new request” if it isn’t on your list.">
                       <option value="">A new request (it&apos;s logged as done)</option>
                       {open.map((r) => (
                         <option key={r.id} value={r.id}>
@@ -542,7 +545,7 @@ export function PrivacyDesk({
                   </label>
                 )}
                 <div className="flex flex-wrap gap-2">
-                  <button type="button" className="btn-ghost" onClick={download} disabled={busy !== null || total === 0}>
+                  <button type="button" className="btn-ghost" onClick={download} disabled={busy !== null || total === 0} data-help="Downloads everything found about this person as a file you can send them. The request is then logged as done.">
                     <Download size={15} aria-hidden /> {busy === "export" ? "Preparing…" : "Download a copy"}
                   </button>
                   {!erasing ? (
@@ -551,6 +554,7 @@ export function PrivacyDesk({
                       className="rounded-lg border border-red-800 px-4 py-2 text-sm font-medium text-red-300 transition hover:bg-red-950/40"
                       onClick={() => setErasing(true)}
                       disabled={busy !== null}
+                      data-help="Shows what would be deleted and lets you keep some rows for your records. Nothing is deleted until you press Erase now."
                     >
                       <Trash2 size={15} className="mr-1 inline" aria-hidden /> Erase…
                     </button>
@@ -561,6 +565,7 @@ export function PrivacyDesk({
                         className="rounded-lg bg-red-700 px-4 py-2 text-sm font-semibold text-white transition hover:bg-red-600 disabled:opacity-50"
                         onClick={erase}
                         disabled={busy !== null}
+                        data-help="Deletes this person’s data as described below and logs the request as done. This can’t be undone."
                       >
                         {busy === "erase" ? "Erasing…" : "Erase now"}
                       </button>

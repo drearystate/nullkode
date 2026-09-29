@@ -430,8 +430,8 @@ async function main() {
     ok("self-delete needs your own email typed", r.status === 400, r.text);
     r = await sam.agent.del("/api/me/account", { confirmEmail: "sam@example.com" });
     ok("self-delete asks for upload keys first", r.status === 409 && r.json?.code === "upload-key" && r.json.apps?.[0]?.id === samB.id, r.text);
-    r = await sam.agent.get("/billing");
-    ok("the billing page offers Delete my account with backups", r.status === 200 && r.text.includes("Delete my account") && r.text.includes(`/api/projects/${samA.id}/export`), r.status);
+    r = await sam.agent.get("/account");
+    ok("the settings page offers Delete my account with backups", r.status === 200 && r.text.includes("Delete my account") && r.text.includes(`/api/projects/${samA.id}/export`), r.status);
     r = await sam.agent.del("/api/me/account", { confirmEmail: "SAM@example.com", keysBackedUp: true });
     ok("self-delete removes the user", r.status === 200 && !(await inst.db.user.findUnique({ where: { id: sam.id } })), r.text);
     ok("...and all their projects", (await inst.db.project.count({ where: { id: { in: [samA.id, samB.id] } } })) === 0 && !(await schemaExists(samA.schema)) && !(await schemaExists(samB.schema)) && (await schemaExists(`trash_${samA.schema}_${day}`)));
@@ -610,10 +610,10 @@ async function main() {
       ok("the privacy desk searches in the browser", await page.getByTestId("privacy-results").getByRole("button", { name: /Download a copy/ }).isVisible());
       await page.screenshot({ path: path.join(shots, "erase-privacy-desk.png"), fullPage: true });
 
-      await page.goto(`${inst.base}/billing`, { waitUntil: "networkidle" });
+      await page.goto(`${inst.base}/account`, { waitUntil: "networkidle" });
       await page.getByRole("button", { name: "Delete my account…" }).click();
       await page.getByLabel("Type your email address to confirm").waitFor();
-      ok("the billing page opens the account deletion form", true);
+      ok("the settings page opens the account deletion form", true);
       await page.screenshot({ path: path.join(shots, "erase-billing.png"), fullPage: true });
 
       const adminCtx = await browser.newContext({ viewport: { width: 1280, height: 900 } });

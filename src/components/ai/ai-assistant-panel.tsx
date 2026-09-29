@@ -500,6 +500,8 @@ export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor }: Pr
           onClick={() => setOpen(false)}
           className="text-surface-400 hover:text-white text-xl leading-none"
           title="Minimize"
+          aria-label="Minimize"
+          data-help="Shrink the AI helper back to its button. Your chat stays here while this page is open."
         >
           ×
         </button>
@@ -522,6 +524,7 @@ export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor }: Pr
                   key={s}
                   onClick={() => send(s)}
                   disabled={busy}
+                  data-help="Send this request to the AI right away. It changes the page in the editor."
                   className="block w-full text-left text-xs bg-surface-800/60 hover:bg-surface-800 border border-surface-700 rounded-lg px-3 py-2 text-surface-200 transition disabled:opacity-50"
                 >
                   {s}
@@ -586,7 +589,7 @@ export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor }: Pr
                     <li>select a smaller part of the page first, then ask again</li>
                     <li>undo the last change if the page looks wrong</li>
                   </ul>
-                  <button type="button" onClick={undoLast} className="mt-2 rounded-md border border-amber-300/40 px-2 py-1 text-xs hover:bg-amber-300/10">
+                  <button type="button" onClick={undoLast} data-help="Undo the most recent change in the editor, in case the page now looks wrong." className="mt-2 rounded-md border border-amber-300/40 px-2 py-1 text-xs hover:bg-amber-300/10">
                     Undo last change
                   </button>
                 </div>
@@ -614,7 +617,7 @@ export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor }: Pr
                 {m.status === "ok" && <span className="mr-1">✓</span>}
                 {m.text}
                 {m.upgrade && canUpgrade(usage) && (
-                  <a href="/billing" className="ml-1 underline hover:text-red-100">See plans</a>
+                  <a href="/billing" className="ml-1 underline hover:text-red-100" data-help="Compare plans that include more AI actions each month.">See plans</a>
                 )}
               </div>
               {showSuggestions && (
@@ -627,6 +630,7 @@ export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor }: Pr
                       key={s}
                       onClick={() => send(s)}
                       disabled={busy}
+                      data-help="An idea for what to do next. Click to send it to the AI as your next request."
                       className="block w-full text-left text-xs bg-surface-800/40 hover:bg-surface-800 border border-surface-700 hover:border-brand-500/60 rounded-lg px-3 py-2 text-surface-200 transition disabled:opacity-50"
                     >
                       {s}
@@ -653,7 +657,7 @@ export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor }: Pr
         {selection && (
           <div className="mb-2 flex items-center justify-between gap-2 rounded-md border border-brand-500/30 bg-brand-500/10 px-2 py-1.5 text-xs text-brand-100">
             <span className="truncate">Changes apply to the selected <strong>{selection}</strong></span>
-            <button type="button" className="shrink-0 text-surface-300 underline hover:text-white" onClick={() => getEditor()?.select([])}>Whole page instead</button>
+            <button type="button" className="shrink-0 text-surface-300 underline hover:text-white" onClick={() => getEditor()?.select([])} data-help="Unselect the part you picked, so the AI can change anything on the whole page.">Whole page instead</button>
           </div>
         )}
         {attachments.length > 0 && (
@@ -684,6 +688,8 @@ export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor }: Pr
                   }
                   className="ml-1 text-surface-500 hover:text-white"
                   title="Remove"
+                  aria-label={`Remove ${a.name}`}
+                  data-help="Remove this picture so it isn't sent with your message."
                 >
                   ×
                 </button>
@@ -753,6 +759,7 @@ export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor }: Pr
           <button
             onClick={() => send()}
             disabled={busy || (!input.trim() && attachments.length === 0)}
+            data-help="Send your request, and any pictures you attached, to the AI. It makes the change for you."
             className="btn-primary disabled:opacity-40 shrink-0"
           >
             {busy ? "..." : "Send"}
@@ -777,8 +784,8 @@ function UsageLine({ usage }: { usage: Usage | null }) {
   const shared = usage.scope === "workspace" ? " (shared with your clients)" : "";
   if (usage.paused || left === 0) {
     return (
-      <div className="mt-1 text-center text-[11px] text-red-300" role="status">
-        {usage.problem ?? `No AI changes left this month${shared}.`}
+      <div className="mt-1 text-center text-[11px] text-red-300" role="status" data-help="You can't send more AI requests right now. You can still edit the page yourself in the editor.">
+        {usage.problem ?? `No AI actions left this month${shared}.`}
         {canUpgrade(usage) && (
           <>
             {" "}
@@ -790,8 +797,8 @@ function UsageLine({ usage }: { usage: Usage | null }) {
   }
   const low = usage.used >= usage.limit * 0.8;
   return (
-    <div className={`mt-1 text-center text-[11px] ${low ? "text-amber-300" : "text-surface-500"}`} role="status">
-      {left} of {usage.limit} AI changes left this month{shared}
+    <div className={`mt-1 text-center text-[11px] ${low ? "text-amber-300" : "text-surface-500"}`} role="status" data-help="How many more requests you can send to the AI this month. The count starts again next month.">
+      {left} of {usage.limit} AI actions left this month{shared}
       {low ? (usage.contact ? ` — ask ${usage.contact} if you need more` : " — running low") : ""}
     </div>
   );

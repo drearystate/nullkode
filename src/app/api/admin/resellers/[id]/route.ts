@@ -3,6 +3,7 @@ import { db } from "@/lib/db";
 import { getRealUser } from "@/lib/auth";
 import { json } from "@/lib/utils";
 import { forgetResellerHosts } from "@/lib/reseller";
+import { AccountDeletionError, cancelBilling } from "@/lib/erase";
 
 const quota = z.number().int().min(0).max(1_000_000).nullable().optional();
 const Patch = z.object({
@@ -33,7 +34,11 @@ export async function PATCH(req: Request, ctx: { params: Promise<{ id: string }>
   return json({ reseller });
 }
 
-const Delete = z.object({ confirmName: z.string() });
+const Delete = z.object({
+  confirmName: z.string(),
+  /** The operator cancelled the clients' subscriptions in the reseller's payment dashboard themselves. */
+  billingHandled: z.boolean().optional(),
+});
 
 /**
  * Remove a reseller. Its clients keep their accounts and apps and become the
@@ -48,9 +53,24 @@ export async function DELETE(req: Request, ctx: { params: Promise<{ id: string }
   if (!parsed.success || parsed.data.confirmName.trim() !== reseller.name) {
     return json({ error: "Type the reseller's name to confirm." }, { status: 400 });
   }
+  // Clients were billed on the reseller's Stripe account. Those
+  // subscriptions are cancelled first (while the reseller's payment settings
+  // still exist), so nobody keeps paying a workspace that's gone; if any
+  // can't be cancelled, nothing is removed.
+  const paying = await db.user.findMany({
+    where: { resellerId: reseller.id, OR: [{ stripeCustomerId: { not: null } }, { stripeSubscriptionId: { not: null } }] },
+    select: { id: true, email: true, resellerId: true, stripeCustomerId: true, stripeSubscriptionId: true, subscriptionStatus: true },
+  });
+  for (const client of parsed.data.billingHandled ? [] : paying) {
+    try {
+      await cancelBilling(client);
+    } catch (err) {
+      if (!(err instanceof AccountDeletionError)) throw err;
+      return json({ error: `The subscription of ${client.email} couldn't be cancelled on the reseller's Stripe account, so nothing was removed. Please try again in a minute.`, code: "billing" }, { status: 502 });
+    }
+  }
   await db.$transaction([
-    // Clients were billed on the reseller's Stripe account; those
-    // subscriptions don't carry over, so they restart on the free plan.
+    // Their paid plans don't carry over, so they restart on the free plan.
     db.user.updateMany({
       where: { resellerId: reseller.id },
       data: { resellerId: null, plan: "FREE", subscriptionStatus: "NONE", stripeCustomerId: null, stripeSubscriptionId: null, currentPeriodEnd: null },

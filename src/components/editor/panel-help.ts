@@ -226,6 +226,8 @@ export const TRAIT_HELP: Record<string, string> = {
   "when sent, run":
     "Pick what your app does with the answers when this form is sent, like saving them or sending an email. You'll find these under Flows.",
   "when pressed, run": "Pick what your app does when this button is pressed. You'll find these under Flows.",
+  "belongs to field":
+    "Which box on the form this label describes. Clicking the label then puts the cursor in that box.",
   "show items from":
     "Pick where this list gets its items from, like your bookings or products. It updates by itself.",
 };
@@ -237,6 +239,59 @@ export const LAYER_HELP = {
   layerRow:
     "One piece of your page. Click to select it; the arrow opens what's nested inside it.",
 } as const;
+
+/** Block groups in the Blocks tab, keyed by the group's name. */
+export const BLOCK_CATEGORY_HELP: Record<string, string> = {
+  Basic: "Simple building pieces. Click the name to show or hide them.",
+  Layout: "Boxes and columns that hold other pieces, plus basics like text and pictures. Click the name to show or hide them.",
+  Sections: "Whole ready-made parts of a page, like an intro, prices or a footer. Click the name to show or hide them.",
+  Content: "Headings, paragraphs, lists and notes. Click the name to show or hide them.",
+  Media: "Pictures, videos, sound and maps. Click the name to show or hide them.",
+  Interactive: "Buttons, cards, tabs, pop-ups and other pieces people click. Click the name to show or hide them.",
+  Forms: "Boxes people fill in, like contact and sign-up forms. Click the name to show or hide them.",
+  Commerce: "Pieces for selling, like product cards and prices. Click the name to show or hide them.",
+  Social: "Links to your social media, share buttons, and content from other websites. Click the name to show or hide them.",
+  "Live data":
+    "Pieces that work with your app's information: forms that save, lists that fill themselves, sign-in areas. Click the name to show or hide them.",
+  Premade: "Designed sections you can drop in and then change. Click the name to show or hide them.",
+};
+
+/** What a block adds, for blocks whose name doesn't say it all (keyed by the block's label). */
+export const BLOCK_HELP: Record<string, string> = {
+  Section: "A full-width band of the page with its own heading.",
+  Container: "A box that keeps what's inside at a comfortable width in the middle of the page.",
+  "Auto Grid": "Boxes that sit side by side and wrap onto new rows by themselves on smaller screens.",
+  Spacer: "Empty space, to push things apart.",
+  Divider: "A thin line to separate parts of the page.",
+  "Lead text": "A slightly bigger paragraph, good for an introduction.",
+  Badge: "A small colored label, like “New” or “Sale”.",
+  "Icon chip": "An icon in a small colored circle.",
+  Accordion: "Questions or headings that open when clicked to show more.",
+  Tabs: "Several panels of content, one shown at a time, switched with tabs.",
+  Carousel: "Pictures or slides that take turns.",
+  "Pop-up": "A button that opens a small window on top of the page.",
+  "Embed (iframe)": "Shows content from another website inside your page, like a booking or payment widget.",
+  "Form that runs a flow": "A form whose answers your app acts on, like saving them or emailing you. Pick what it does in Settings.",
+  "List of items": "A list that fills itself with your app's information, like products or bookings. Pick what it shows in Settings.",
+  "Table of items": "A table that fills itself with your app's information. Pick what it shows in Settings.",
+  "Grid of items": "Cards that fill themselves with your app's information. Pick what they show in Settings.",
+  "Members-only area": "A box only signed-in people can see.",
+  "User menu": "An Account menu for signed-in people, with links like Profile and Settings.",
+  "Sign out button": "A button that signs the person out of your app.",
+  "Button that runs a flow": "A button that makes your app do something when pressed. Pick what in Settings.",
+  "Marquee text": "Words that scroll across the screen.",
+};
+
+/** The text toolbar that appears while you edit words, keyed by button title. */
+export const RTE_HELP: Record<string, string> = {
+  Bold: "Make the highlighted words bold. Click again to undo it.",
+  Italic: "Make the highlighted words slanted (italic). Click again to undo it.",
+  Underline: "Underline the highlighted words. Click again to remove the line.",
+  "Strike-through": "Cross out the highlighted words with a line. Click again to remove it.",
+  Link: "Turn the highlighted words into a link, or remove the link. Then set where it goes in the Settings tab.",
+  "Wrap for style":
+    "Wrap the highlighted words in their own piece, so you can give just those words a different color or size in the Design tab.",
+};
 
 function setHelp(el: Element, text: string) {
   if (el.getAttribute("data-help") !== text) el.setAttribute("data-help", text);
@@ -290,6 +345,43 @@ function annotateLayers(host: HTMLElement) {
     .querySelectorAll(".gjs-layer-vis")
     .forEach((el) => setHelp(el, LAYER_HELP.visibility));
   host.querySelectorAll(".gjs-layer-move").forEach((el) => setHelp(el, LAYER_HELP.move));
+}
+
+/** Adds notes to the text toolbar's buttons (GrapesJS builds it the first time text is edited). */
+export function annotateTextToolbar(toolbar: HTMLElement | null | undefined) {
+  toolbar?.querySelectorAll(".gjs-rte-action").forEach((el) => {
+    const help = RTE_HELP[el.getAttribute("title") ?? ""];
+    if (help) setHelp(el, help);
+  });
+}
+
+/** GrapesJS's own picture window (double-click a picture on the page). */
+export const IMAGE_PICKER_HELP = {
+  urlInput:
+    "Paste the web address of a picture that's already online, then press Add image to put it in the list below.",
+  addButton: "Add the picture from the web address you typed to the list below. Then click it to use it.",
+  upload:
+    "Choose a picture from your computer or phone, or drop one here. It's saved inside your page and added to the list below.",
+  asset: "Click to use this picture on your page. Double-click to use it and close this window.",
+  removeAsset: "Take this picture off the list. Pictures already on your page stay there.",
+  close: "Close this window. Any picture you already clicked stays on your page.",
+} as const;
+
+/** Adds notes to the picture window; call when it opens or its list changes. */
+export function annotateImagePicker(root: ParentNode | null | undefined) {
+  if (!root) return;
+  root.querySelectorAll(".gjs-am-add-asset input").forEach((el) => setHelp(el, IMAGE_PICKER_HELP.urlInput));
+  root.querySelectorAll(".gjs-am-add-asset button").forEach((el) => setHelp(el, IMAGE_PICKER_HELP.addButton));
+  root.querySelectorAll(".gjs-am-file-uploader").forEach((el) => setHelp(el, IMAGE_PICKER_HELP.upload));
+  root.querySelectorAll(".gjs-am-asset").forEach((el) => setHelp(el, IMAGE_PICKER_HELP.asset));
+  root.querySelectorAll(".gjs-am-close").forEach((el) => {
+    setHelp(el, IMAGE_PICKER_HELP.removeAsset);
+    if (!el.getAttribute("aria-label")) el.setAttribute("aria-label", "Remove from list");
+  });
+  root.querySelectorAll(".gjs-mdl-btn-close").forEach((el) => {
+    setHelp(el, IMAGE_PICKER_HELP.close);
+    if (!el.getAttribute("aria-label")) el.setAttribute("aria-label", "Close");
+  });
 }
 
 export type PanelHosts = {

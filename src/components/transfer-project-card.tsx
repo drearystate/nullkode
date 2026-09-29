@@ -50,7 +50,7 @@ export function TransferProjectCard({
 
   return (
     <div className="card p-6 border-red-900/40">
-      <h2 className="font-semibold text-red-300">Transfer ownership</h2>
+      <h2 className="font-semibold text-red-300" data-help="Give this whole app to someone else who has an account here. Once it's theirs, you can't open or change it.">Transfer ownership</h2>
       <p className="mt-2 text-sm text-surface-400">
         Hand this entire app — pages, flows, data, domains, and the published
         site — to another account on this site. You will lose access to it.
@@ -68,6 +68,7 @@ export function TransferProjectCard({
             className="input flex-1 text-sm"
             placeholder="new-owner@example.com"
             aria-label="Email of the new owner"
+            data-help="The email address the new owner uses to sign in here. They need an account in the same workspace as you."
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             disabled={busy}
@@ -75,6 +76,7 @@ export function TransferProjectCard({
           <button
             className="rounded-lg border border-red-800 text-red-300 hover:bg-red-950/40 px-4 py-2 text-sm font-medium transition disabled:opacity-50"
             disabled={busy || !email.includes("@")}
+            data-help="Next step: you'll be asked to confirm before anything happens."
             onClick={() => {
               setError(null);
               setConfirming(true);
@@ -95,6 +97,7 @@ export function TransferProjectCard({
               className="rounded-lg bg-red-700 hover:bg-red-600 text-white px-4 py-2 text-sm font-semibold transition disabled:opacity-50"
               onClick={transfer}
               disabled={busy}
+              data-help="Hand the app over now. You lose access straight away, and you can't undo this yourself."
             >
               {busy ? "Transferring…" : "Yes, transfer it"}
             </button>

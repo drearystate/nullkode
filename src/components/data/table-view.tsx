@@ -174,11 +174,11 @@ export function TableView({
         </div>
         <div className="flex flex-wrap items-center gap-2">
           {editable && (
-            <button className="btn-primary" onClick={() => setForm({ mode: "add" })}>
+            <button className="btn-primary" onClick={() => setForm({ mode: "add" })} data-help="Type in a new record yourself. It’s saved to this table as soon as you add it.">
               <Plus size={16} aria-hidden /> Add a row
             </button>
           )}
-          <a className="btn-ghost" href={csvHref} download>
+          <a className="btn-ghost" href={csvHref} download data-help="Save this table as a file you can open in Excel or Google Sheets. It keeps your current search and sort, up to 50,000 rows.">
             <Download size={16} aria-hidden /> Download CSV
           </a>
         </div>
@@ -188,10 +188,10 @@ export function TableView({
         <label className="relative block w-full max-w-sm">
           <span className="sr-only">Search this table</span>
           <Search size={15} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-surface-500" aria-hidden />
-          <input className="input pl-9" type="search" placeholder="Search" value={searchInput} onChange={(e) => setSearchInput(e.target.value)} />
+          <input className="input pl-9" type="search" placeholder="Search" value={searchInput} onChange={(e) => setSearchInput(e.target.value)} data-help="Show only rows whose text contains these words (capital letters don’t matter). You can also type a row’s ID number." />
         </label>
         {editable && selected.size > 0 && !confirmDelete && (
-          <button className="btn-ghost text-red-300" onClick={() => setConfirmDelete(true)}>
+          <button className="btn-ghost text-red-300" onClick={() => setConfirmDelete(true)} data-help="Permanently deletes the rows you ticked. You’ll be asked to confirm first.">
             <Trash2 size={15} aria-hidden /> Delete {selected.size} {selected.size === 1 ? "row" : "rows"}
           </button>
         )}
@@ -244,6 +244,7 @@ export function TableView({
                       <input
                         type="checkbox"
                         aria-label="Select all rows on this page"
+                        data-help="Tick every row on this page, for example to delete them together."
                         checked={allSelected}
                         onChange={(e) => setSelected(e.target.checked ? new Set(data.rows.map(rowKey)) : new Set())}
                       />
@@ -253,7 +254,7 @@ export function TableView({
                     const on = activeSort?.col === c.name;
                     return (
                       <th key={c.name} className="px-3 py-2 font-medium" aria-sort={on ? (activeSort!.dir === "asc" ? "ascending" : "descending") : "none"}>
-                        <button className="inline-flex items-center gap-1 hover:text-white" onClick={() => toggleSort(c)} title={`Sort by ${c.label}`}>
+                        <button className="inline-flex items-center gap-1 hover:text-white" onClick={() => toggleSort(c)} title={`Sort by ${c.label}`} data-help="Sort the table by this column. Click again to flip the order.">
                           {c.label}
                           {on ? activeSort!.dir === "asc" ? <ArrowUp size={12} aria-hidden /> : <ArrowDown size={12} aria-hidden /> : null}
                         </button>
@@ -280,6 +281,7 @@ export function TableView({
                           <input
                             type="checkbox"
                             aria-label={`Select row ${key}`}
+                            data-help="Tick this row to delete it, along with any others you tick."
                             checked={selected.has(key)}
                             onChange={(e) => {
                               const next = new Set(selected);
@@ -316,7 +318,7 @@ export function TableView({
                       })}
                       {editable && (
                         <td className="px-3 py-2 align-top">
-                          <button className="rounded p-1 text-surface-400 hover:bg-white/[0.06] hover:text-white" aria-label={`Change row ${key}`} onClick={() => setForm({ mode: "edit", row })}>
+                          <button className="rounded p-1 text-surface-400 hover:bg-white/[0.06] hover:text-white" aria-label={`Change row ${key}`} onClick={() => setForm({ mode: "edit", row })} data-help="Open this row in a form to change several of its values at once. To change one value, just click it.">
                             <Pencil size={14} aria-hidden />
                           </button>
                         </td>
@@ -336,10 +338,10 @@ export function TableView({
             Showing {firstShown}–{lastShown} of {total}
           </span>
           <div className="flex gap-2">
-            <button className="btn-ghost" disabled={page <= 1 || loading} onClick={() => setPage(page - 1)}>
+            <button className="btn-ghost" disabled={page <= 1 || loading} onClick={() => setPage(page - 1)} data-help="Show the previous 50 rows.">
               <ChevronLeft size={15} aria-hidden /> Newer
             </button>
-            <button className="btn-ghost" disabled={page >= pages || loading} onClick={() => setPage(page + 1)}>
+            <button className="btn-ghost" disabled={page >= pages || loading} onClick={() => setPage(page + 1)} data-help="Show the next 50 rows.">
               Older <ChevronRight size={15} aria-hidden />
             </button>
           </div>
@@ -418,7 +420,7 @@ function CellEditor({ col, initial, busy, onSave, onCancel }: { col: Column; ini
         <button className="btn-primary px-2 py-1 text-xs" disabled={busy || Boolean(problem)} onClick={save} aria-label="Save">
           <Check size={13} aria-hidden /> Save
         </button>
-        <button className="btn-ghost px-2 py-1 text-xs" onClick={onCancel} aria-label="Cancel">
+        <button className="btn-ghost px-2 py-1 text-xs" onClick={onCancel} aria-label="Cancel" data-help="Stop changing this value without saving it. Pressing Esc does the same.">
           <X size={13} aria-hidden />
         </button>
       </div>

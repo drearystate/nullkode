@@ -92,7 +92,7 @@ export function DataPanel({
           <p className="mt-2 max-w-md text-sm text-surface-400">
             Add a feature like a contact form or bookings. When people use it, what they send shows up here.
           </p>
-          <Link href={`/projects/${projectId}/modules`} className="btn-ghost mt-5">
+          <Link href={`/projects/${projectId}/modules`} className="btn-ghost mt-5" data-help="Browse ready-made features, like a contact form or bookings. Each one sets up the tables it needs.">
             <Blocks size={15} aria-hidden /> Add a feature
           </Link>
         </div>
@@ -100,7 +100,7 @@ export function DataPanel({
         <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3" aria-label="Your tables">
           {tables.map((t) => (
             <li key={t.id}>
-              <button onClick={() => go(t.id)} className="card group flex w-full items-center gap-4 p-5 text-left transition hover:border-brand-500">
+              <button onClick={() => go(t.id)} className="card group flex w-full items-center gap-4 p-5 text-left transition hover:border-brand-500" data-help="Open this table to see what’s saved in it. A table is like a spreadsheet: one row per record, such as each form someone sent.">
                 <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-500/10 text-brand-300">
                   <Table2 size={19} aria-hidden />
                 </span>
@@ -121,7 +121,7 @@ export function DataPanel({
         open={privacyOpen}
         onToggle={(e) => setPrivacyOpen((e.currentTarget as HTMLDetailsElement).open)}
       >
-        <summary className="flex cursor-pointer list-none flex-wrap items-center gap-2 font-medium [&::-webkit-details-marker]:hidden">
+        <summary className="flex cursor-pointer list-none flex-wrap items-center gap-2 font-medium [&::-webkit-details-marker]:hidden" data-help="Answer people who want a copy of what your app keeps about them, or want it deleted. You have 30 days to answer each request.">
           <ShieldCheck size={16} className="text-surface-400" aria-hidden />
           Privacy requests
           <span className="text-sm font-normal text-surface-500">Find, download or erase what your app keeps about one person</span>
@@ -138,7 +138,7 @@ export function DataPanel({
       </details>
 
       <details className="card group/adv p-5">
-        <summary className="flex cursor-pointer list-none items-center gap-2 font-medium [&::-webkit-details-marker]:hidden">
+        <summary className="flex cursor-pointer list-none items-center gap-2 font-medium [&::-webkit-details-marker]:hidden" data-help="Technical setup: where your app’s data is kept, and making tables by hand. Most apps never need this.">
           <Settings2 size={16} className="text-surface-400" aria-hidden />
           Advanced
           <span className="text-sm font-normal text-surface-500">Where your data is stored, and making new tables</span>

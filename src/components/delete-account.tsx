@@ -5,9 +5,9 @@ import { Download } from "lucide-react";
 export type DeleteAccountApp = { id: string; name: string; hasUploadKey: boolean };
 
 /**
- * "Delete my account" on the Billing page (there's no separate account
- * page). Lists each app with its backup download (and upload key, for apps
- * on Google Play), then asks for the person's email to confirm.
+ * "Delete my account" on the Settings page (/account). Lists each app with
+ * its backup download (and upload key, for apps on Google Play), then asks
+ * for the person's email to confirm.
  */
 export function DeleteAccountCard({
   email,
@@ -78,7 +78,7 @@ export function DeleteAccountCard({
                     <Download size={13} aria-hidden /> Backup
                   </a>
                   {a.hasUploadKey && (
-                    <a href={`/api/projects/${a.id}/native/keystore/download`} className="inline-flex items-center gap-1 text-red-200 hover:underline" download>
+                    <a href={`/api/projects/${a.id}/native/keystore/download`} className="inline-flex items-center gap-1 text-red-200 hover:underline" download data-help="Download this key and keep it somewhere safe. Without it, this app can never be updated on Google Play again.">
                       <Download size={13} aria-hidden /> Google Play upload key
                     </a>
                   )}
@@ -98,6 +98,7 @@ export function DeleteAccountCard({
           type="button"
           className="mt-5 rounded-lg border border-red-800 px-4 py-2 text-sm font-medium text-red-300 transition hover:bg-red-950/40"
           onClick={() => setOpen(true)}
+          data-help="Starts deleting your account. You'll be asked to type your email address first; nothing is deleted until you confirm."
         >
           Delete my account…
         </button>

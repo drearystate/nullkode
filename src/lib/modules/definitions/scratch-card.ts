@@ -47,7 +47,7 @@ export const scratchCard: ModuleDefinition = {
         { id: "n1", type: "trigger", data: {} },
         { id: "n2", type: "query", data: { table: "prizes", where: { "stock >": "0" }, orderBy: "weight desc", limit: 100, output: "prizes" } },
         { id: "n3", type: "math", data: { expression: "weighted_random({{vars.prizes}}, 'weight')", output: "pick" } },
-        { id: "n4", type: "math", data: { expression: "floor(random()*999999)+100000", output: "n" } },
+        { id: "n4", type: "math", data: { expression: "floor(random()*900000)+100000", output: "n" } },
         {
           id: "n5",
           type: "insert",

@@ -44,6 +44,9 @@ const IMPLICIT_OUTPUT: Record<string, string> = {
   aggregate: "aggregated",
 };
 
+// Steps that work on one table of a database (not a Google Sheet).
+const DATA_STEPS = new Set(["query", "insert", "update", "delete", "aggregate", "bulk_insert", "bulk_update", "bulk_delete"]);
+
 function effectiveVarName(node: Node): string | null {
   const t = node.data.nkType as string;
   if (t === "set") {
@@ -52,6 +55,8 @@ function effectiveVarName(node: Node): string | null {
   }
   const custom = (node.data.output as string | undefined)?.trim();
   if (custom) return custom;
+  // A lookup adds the details to the list it was given, under the same name.
+  if (t === "lookup") return (node.data.sourceVar as string | undefined)?.trim() || IMPLICIT_OUTPUT.lookup;
   return IMPLICIT_OUTPUT[t] ?? null;
 }
 
@@ -114,12 +119,12 @@ export function NodeInspector({ node, nodes, edges, datasources, onChange, onDel
           <div className="text-xs uppercase tracking-wider text-surface-500">Step</div>
           <div className="font-semibold truncate">{(node.data.label as string) ?? t}</div>
         </div>
-        <button className="btn-danger text-xs shrink-0" onClick={onDelete}>
+        <button className="btn-danger text-xs shrink-0" onClick={onDelete} data-help="Removes this step and its connections from the automation. There’s no undo, so you’d have to add it again.">
           Delete
         </button>
       </div>
 
-      <Field label="Step name">
+      <Field label="Step name" help="A name for this step, shown on its box in the diagram so you can tell steps apart. It doesn’t change what the step does.">
         <input
           className="input"
           value={(node.data.label as string) ?? ""}
@@ -128,7 +133,7 @@ export function NodeInspector({ node, nodes, edges, datasources, onChange, onDel
         />
       </Field>
 
-      {(t === "query" || t === "insert" || t === "update" || t === "delete") && (
+      {DATA_STEPS.has(t) && (
         <DataNodeFields
           node={node}
           datasources={datasources.filter((d) => d.kind !== "GOOGLE_SHEETS")}
@@ -148,7 +153,7 @@ export function NodeInspector({ node, nodes, edges, datasources, onChange, onDel
 
       {t === "branch" && (
         <>
-          <Field label="When this value">
+          <Field label="When this value" help="The value to check, usually something from the form or an earlier step. Use Insert to pick it.">
             <ValueInput
               value={(node.data.left as string) ?? ""}
               onChange={(v) => onChange({ left: v })}
@@ -156,7 +161,7 @@ export function NodeInspector({ node, nodes, edges, datasources, onChange, onDel
               placeholder="Pick a value from a previous step"
             />
           </Field>
-          <Field label="Is">
+          <Field label="Is" help="How to compare the two values. “contains” looks for the text anywhere inside; “exists” only checks that the first value isn’t empty.">
             <select
               className="input"
               value={(node.data.op as string) ?? "=="}
@@ -173,22 +178,22 @@ export function NodeInspector({ node, nodes, edges, datasources, onChange, onDel
             </select>
           </Field>
           {node.data.op !== "exists" && (
-            <Field label="This value">
+            <Field label="This value" help="What to compare against. Type it without quote marks, or insert a value. “equal to” must match exactly, including capital letters.">
               <ValueInput
                 value={(node.data.right as string) ?? ""}
                 onChange={(v) => onChange({ right: v })}
                 varOptions={varOptions}
-                placeholder='e.g. "active"'
+                placeholder="e.g. active"
               />
             </Field>
           )}
-          <Hint>Connect the green handle for the true path, red for the false path.</Hint>
+          <Hint>Connect the top dot to what happens when this is true, and the bottom dot to what happens when it isn't.</Hint>
         </>
       )}
 
       {t === "set" && (
         <>
-          <Field label="Variable name">
+          <Field label="Variable name" help="The name to save the value under. Later steps can pick it from their Insert list.">
             <input
               className="input"
               value={(node.data.name as string) ?? ""}
@@ -196,7 +201,7 @@ export function NodeInspector({ node, nodes, edges, datasources, onChange, onDel
               placeholder="e.g. greeting"
             />
           </Field>
-          <Field label="Value">
+          <Field label="Value" help="What to save. Type text, insert a value from the form or an earlier step, or mix both.">
             <ValueInput
               value={(node.data.value as string) ?? ""}
               onChange={(v) => onChange({ value: v })}
@@ -209,7 +214,7 @@ export function NodeInspector({ node, nodes, edges, datasources, onChange, onDel
 
       {t === "http_request" && (
         <>
-          <Field label="Method">
+          <Field label="Method" help="The kind of request. GET fetches information, POST sends new information, PUT and PATCH change it, DELETE removes it. The other service’s guide says which to use.">
             <select
               className="input"
               value={(node.data.method as string) ?? "GET"}
@@ -220,7 +225,7 @@ export function NodeInspector({ node, nodes, edges, datasources, onChange, onDel
               ))}
             </select>
           </Field>
-          <Field label="URL">
+          <Field label="URL" help="The web address of the service to contact, starting with https://. You can insert values into it.">
             <ValueInput
               value={(node.data.url as string) ?? ""}
               onChange={(v) => onChange({ url: v })}
@@ -231,6 +236,7 @@ export function NodeInspector({ node, nodes, edges, datasources, onChange, onDel
           {node.data.method !== "GET" && node.data.method !== "DELETE" && (
             <KeyValueBuilder
               label="Body"
+              help="The information to send along. Each row is a name and a value; the other service’s guide says which names it expects."
               value={parseJsonOrEmpty(node.data.body as string)}
               onChange={(obj) => onChange({ body: JSON.stringify(obj) })}
               varOptions={varOptions}
@@ -256,13 +262,13 @@ export function NodeInspector({ node, nodes, edges, datasources, onChange, onDel
       {t === "send_push" && (
         <>
           <p className="text-xs text-surface-400">Sends to everyone who turned on notifications for this app. iPhone users need the app added to their home screen.</p>
-          <Field label="Title">
+          <Field label="Title" help="The bold first line of the notification. You can insert values, like a name from an earlier step.">
             <ValueInput value={(node.data.title as string) ?? ""} onChange={(v) => onChange({ title: v })} varOptions={varOptions} placeholder="Tonight: live music from 7pm" />
           </Field>
-          <Field label="Message">
+          <Field label="Message" help="The text under the title. Keep it short, as phones cut long messages off.">
             <ValueTextarea value={(node.data.body as string) ?? ""} onChange={(v) => onChange({ body: v })} varOptions={varOptions} placeholder="Book a table before they're gone." minHeight={90} />
           </Field>
-          <Field label="Open this page when tapped (optional)">
+          <Field label="Open this page when tapped (optional)" help="The page of your app to open when someone taps the notification, like /menu. Leave empty to open your app’s home page.">
             <ValueInput value={(node.data.url as string) ?? ""} onChange={(v) => onChange({ url: v })} varOptions={varOptions} placeholder="/menu" />
           </Field>
         </>
@@ -270,7 +276,7 @@ export function NodeInspector({ node, nodes, edges, datasources, onChange, onDel
 
       {t === "email" && (
         <>
-          <Field label="To">
+          <Field label="To" help="Who gets the email. Type an address, or insert one from the form, like the person’s own email. Separate several addresses with commas.">
             <ValueInput
               value={(node.data.to as string) ?? ""}
               onChange={(v) => onChange({ to: v })}
@@ -278,7 +284,7 @@ export function NodeInspector({ node, nodes, edges, datasources, onChange, onDel
               placeholder="recipient@example.com"
             />
           </Field>
-          <Field label="From (optional)">
+          <Field label="From (optional)" help="The address the email says it’s from. Leave empty to use the server’s usual sending address.">
             <input
               className="input"
               value={(node.data.from as string) ?? ""}
@@ -286,7 +292,7 @@ export function NodeInspector({ node, nodes, edges, datasources, onChange, onDel
               placeholder="you@yourdomain.com"
             />
           </Field>
-          <Field label="Subject">
+          <Field label="Subject" help="The email’s subject line. You can insert values, like an order number.">
             <ValueInput
               value={(node.data.subject as string) ?? ""}
               onChange={(v) => onChange({ subject: v })}
@@ -294,7 +300,7 @@ export function NodeInspector({ node, nodes, edges, datasources, onChange, onDel
               placeholder="Your order has shipped"
             />
           </Field>
-          <Field label="Message">
+          <Field label="Message" help="What the email says. Insert values to make it personal, like the person’s name or their order details.">
             <ValueTextarea
               value={(node.data.body as string) ?? ""}
               onChange={(v) => onChange({ body: v })}
@@ -313,7 +319,7 @@ export function NodeInspector({ node, nodes, edges, datasources, onChange, onDel
 
       {t === "ai_prompt" && (
         <>
-          <Field label="System instructions (optional)">
+          <Field label="System instructions (optional)" help="Background for the AI that stays the same every time, like “Answer in one friendly sentence” or “You work for a bakery”.">
             <ValueTextarea
               value={(node.data.system as string) ?? ""}
               onChange={(v) => onChange({ system: v })}
@@ -322,7 +328,7 @@ export function NodeInspector({ node, nodes, edges, datasources, onChange, onDel
               minHeight={70}
             />
           </Field>
-          <Field label="Prompt">
+          <Field label="Prompt" help="The question or task for the AI. Insert values to include things like the customer’s message.">
             <ValueTextarea
               value={(node.data.prompt as string) ?? ""}
               onChange={(v) => onChange({ prompt: v })}
@@ -340,7 +346,7 @@ export function NodeInspector({ node, nodes, edges, datasources, onChange, onDel
       )}
 
       {t === "delay" && (
-        <Field label="Seconds (0-60)">
+        <Field label="Seconds (0-60)" help="How long to pause before the next step. The person using your app waits too, so keep it short.">
           <input
             className="input"
             type="number"
@@ -354,7 +360,7 @@ export function NodeInspector({ node, nodes, edges, datasources, onChange, onDel
 
       {t === "parse_json" && (
         <>
-          <Field label="JSON text to parse">
+          <Field label="JSON text to parse" help="Text holding data in JSON, a common format other websites send, usually the answer from a “Call another website” step. The step fails if the text isn’t in that format.">
             <ValueInput
               value={(node.data.input as string) ?? ""}
               onChange={(v) => onChange({ input: v })}
@@ -372,7 +378,7 @@ export function NodeInspector({ node, nodes, edges, datasources, onChange, onDel
 
       {t === "hash_password" && (
         <>
-          <Field label="Password to hash">
+          <Field label="Password to hash" help="The password to scramble, usually the one typed into your sign-up form. Save the scrambled result, never the original.">
             <ValueInput
               value={(node.data.input as string) ?? ""}
               onChange={(v) => onChange({ input: v })}
@@ -390,7 +396,7 @@ export function NodeInspector({ node, nodes, edges, datasources, onChange, onDel
 
       {t === "verify_password" && (
         <>
-          <Field label="Password from user">
+          <Field label="Password from user" help="The password the person just typed into your sign-in form.">
             <ValueInput
               value={(node.data.plain as string) ?? ""}
               onChange={(v) => onChange({ plain: v })}
@@ -398,7 +404,7 @@ export function NodeInspector({ node, nodes, edges, datasources, onChange, onDel
               placeholder="Pick the password from the request"
             />
           </Field>
-          <Field label="Stored hash">
+          <Field label="Stored hash" help="The scrambled password you saved when they signed up, usually from a “Find records” step that found their account.">
             <ValueInput
               value={(node.data.hash as string) ?? ""}
               onChange={(v) => onChange({ hash: v })}
@@ -415,7 +421,7 @@ export function NodeInspector({ node, nodes, edges, datasources, onChange, onDel
       )}
 
       {t === "set_session" && (
-        <Field label="User ID">
+        <Field label="User ID" help="The ID of the account to sign in, usually from the record a “Find records” step found. Your app then remembers this person until they sign out.">
           <ValueInput
             value={(node.data.userId as string) ?? ""}
             onChange={(v) => onChange({ userId: v })}
@@ -435,7 +441,7 @@ export function NodeInspector({ node, nodes, edges, datasources, onChange, onDel
 
       {t === "math" && (
         <>
-          <Field label="First value">
+          <Field label="First value" help="The first number. Type it or insert one from an earlier step.">
             <ValueInput
               value={(node.data.left as string) ?? ""}
               onChange={(v) => onChange({ left: v })}
@@ -443,7 +449,7 @@ export function NodeInspector({ node, nodes, edges, datasources, onChange, onDel
               placeholder="e.g. 10"
             />
           </Field>
-          <Field label="Operator">
+          <Field label="Operator" help="What to do with the two numbers. Remainder is what’s left after dividing (7 remainder 2 is 1). Dividing by zero gives 0.">
             <select
               className="input"
               value={(node.data.op as string) ?? "+"}
@@ -456,7 +462,7 @@ export function NodeInspector({ node, nodes, edges, datasources, onChange, onDel
               <option value="%">remainder (%)</option>
             </select>
           </Field>
-          <Field label="Second value">
+          <Field label="Second value" help="The second number. Type it or insert one from an earlier step.">
             <ValueInput
               value={(node.data.right as string) ?? ""}
               onChange={(v) => onChange({ right: v })}
@@ -480,6 +486,33 @@ export function NodeInspector({ node, nodes, edges, datasources, onChange, onDel
           onChange={onChange}
         />
       )}
+
+      {t === "lookup" && (
+        <LookupFields
+          node={node}
+          nodes={nodes}
+          edges={edges}
+          datasources={datasources.filter((d) => d.kind !== "GOOGLE_SHEETS")}
+          varOptions={varOptions}
+          onChange={onChange}
+        />
+      )}
+
+      {t === "check_role" && (
+        <CheckRoleFields
+          node={node}
+          nodes={nodes}
+          edges={edges}
+          varOptions={varOptions}
+          onChange={onChange}
+        />
+      )}
+
+      {t === "clear_session" && (
+        <p className="text-xs text-surface-400 leading-relaxed" data-help="This step has no settings. It removes the sign-in your app saved on the person’s device.">
+          Signs out whoever is using your app on this device, so they need to sign in again next time. There’s nothing to set up here.
+        </p>
+      )}
     </div>
   );
 }
@@ -488,9 +521,9 @@ export function NodeInspector({ node, nodes, edges, datasources, onChange, onDel
 // Primitives
 // ────────────────────────────────────────────────────────────────────────────
 
-function Field({ label, children }: { label: string; children: React.ReactNode }) {
+function Field({ label, help, children }: { label: string; help?: string; children: React.ReactNode }) {
   return (
-    <div>
+    <div data-help={help}>
       <div className="label">{label}</div>
       {children}
     </div>
@@ -500,6 +533,34 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
 function Hint({ children }: { children: React.ReactNode }) {
   return (
     <div className="text-[11px] text-surface-500 leading-relaxed">{children}</div>
+  );
+}
+
+/**
+ * Picks the result of an earlier step by its name (vars.<name>), for steps
+ * that take a whole list rather than a {{value}} in text.
+ */
+function StepResultSelect({
+  value,
+  onChange,
+  varOptions,
+}: {
+  value: string;
+  onChange: (v: string) => void;
+  varOptions: { fromSteps: VarOption[]; hasTrigger: boolean };
+}) {
+  const names = varOptions.fromSteps.filter((o) => o.hint);
+  const known = names.some((o) => o.hint === value);
+  return (
+    <select className="input" value={value} onChange={(e) => onChange(e.target.value)}>
+      <option value="">— choose —</option>
+      {value && !known && <option value={value}>{value}</option>}
+      {names.map((o, i) => (
+        <option key={`${o.token}-${i}`} value={o.hint}>
+          {o.label} ({o.hint})
+        </option>
+      ))}
+    </select>
   );
 }
 
@@ -618,6 +679,8 @@ function ValuePicker({
         className="h-full px-2 rounded-md border border-surface-700 bg-surface-800 hover:bg-surface-700 text-surface-200 text-xs flex items-center gap-1"
         onClick={() => setOpen((v) => !v)}
         title="Insert a value from the request or a previous step"
+        aria-label="Insert a value"
+        data-help="Add a value that changes each time: something the form sent, the result of an earlier step, or today’s date."
       >
         <Plus size={13} />
         <span className="hidden sm:inline">Insert</span>
@@ -632,13 +695,15 @@ function ValuePicker({
               className="text-surface-500 hover:text-surface-300"
               onClick={() => setOpen(false)}
               type="button"
+              aria-label="Close"
+              data-help="Close this list without adding anything."
             >
               <X size={13} />
             </button>
           </div>
 
           {varOptions.hasTrigger && (
-            <div className="rounded-md bg-surface-950/60 border border-surface-800 p-2">
+            <div className="rounded-md bg-surface-950/60 border border-surface-800 p-2" data-help="“The request” is what the page or form sent when it started this automation. Type a field’s name, like email, then press Enter or Add.">
               <div className="text-[11px] text-surface-400 mb-1">From the request</div>
               <div className="flex gap-1">
                 <input
@@ -687,6 +752,7 @@ function ValuePicker({
                       onInsert(v.token);
                       setOpen(false);
                     }}
+                    data-help="Adds what this earlier step produced, such as the records it found or the answer it got."
                   >
                     <div className="text-surface-100 truncate">{v.label}</div>
                     {v.hint && (
@@ -703,9 +769,9 @@ function ValuePicker({
           <div className="border-t border-surface-800 pt-2">
             <div className="text-[11px] text-surface-400 px-1 mb-1">Helpers</div>
             {[
-              { label: "Current date & time", token: "{{now}}" },
-              { label: "Today’s date", token: "{{now.date}}" },
-              { label: "Random ID", token: "{{uuid}}" },
+              { label: "Current date & time", token: "{{now}}", help: "The exact date and time at the moment this step runs." },
+              { label: "Today’s date", token: "{{now.date}}", help: "The date this runs, without the time." },
+              { label: "Random ID", token: "{{uuid}}", help: "A new random code each time, handy as a unique reference number." },
             ].map((h) => (
               <button
                 key={h.token}
@@ -715,6 +781,7 @@ function ValuePicker({
                   onInsert(h.token);
                   setOpen(false);
                 }}
+                data-help={h.help}
               >
                 {h.label}
               </button>
@@ -740,7 +807,7 @@ function OutputVariableAdvanced({
   onChange: (v: string) => void;
 }) {
   return (
-    <details className="group rounded-md border border-surface-800 bg-surface-950/40">
+    <details className="group rounded-md border border-surface-800 bg-surface-950/40" data-help="Optional: the name this step’s result is saved under. Change it only if two steps would otherwise share a name, like two “Find records” steps.">
       <summary className="cursor-pointer list-none px-3 py-2 flex items-center justify-between text-xs text-surface-400 hover:text-surface-200">
         <span>Advanced</span>
         <ChevronDown size={14} className="transition group-open:rotate-180" />
@@ -761,8 +828,22 @@ function OutputVariableAdvanced({
 }
 
 // ────────────────────────────────────────────────────────────────────────────
-// DataNodeFields — query / insert / update / delete
+// DataNodeFields — query / insert / update / delete, the "many rows" steps
+// and "Count or add up records"
 // ────────────────────────────────────────────────────────────────────────────
+
+// Which records a step works on: its label and plain-English tip.
+const WHERE_TEXT: Record<string, { label: string; help: string }> = {
+  query: { label: "Find rows where", help: "Only records whose column equals the value you give are found; all rules must match. Rules whose value is empty are skipped. With no rules, it finds every record (up to 100)." },
+  update: { label: "Update rows where", help: "Which records to change: only those whose column equals the value you give. At least one rule is needed, so it can’t change the whole table by accident." },
+  delete: { label: "Delete rows where", help: "Which records to delete: only those whose column equals the value you give. At least one rule is needed, so it can’t wipe the whole table." },
+  bulk_update: { label: "Change rows where", help: "Which rows to change: every row whose column equals the value you give. At least one rule is needed, so it can’t change the whole table by accident." },
+  bulk_delete: { label: "Delete rows where", help: "Which rows to delete: every row whose column equals the value you give. At least one rule is needed, so it can’t wipe the whole table." },
+  aggregate: { label: "Only include rows where", help: "Only records whose column equals the value you give are counted; all rules must match. Rules whose value is empty are skipped, and with no rules every record counts." },
+};
+
+const AGGREGATE_RE = /^(COUNT|SUM|AVG|MIN|MAX)\(\s*(\*|[a-zA-Z_][a-zA-Z0-9_]*)\s*\)$/i;
+const NUMBER_TYPES = new Set(["int", "float"]);
 
 function DataNodeFields({
   node,
@@ -782,10 +863,11 @@ function DataNodeFields({
   const table = ds?.tables.find((tb) => tb.name === tableName);
   const columns = table?.columns ?? [];
   const writableColumns = columns.filter((c) => !AUTO_COLUMNS.has(c.name.toLowerCase()));
+  const whereText = WHERE_TEXT[t];
 
   return (
     <>
-      <Field label="Data source">
+      <Field label="Data source" help="Where your data is kept. Most apps only have their own built-in database; choose another only if you connected one yourself.">
         <select
           className="input"
           value={dsId ?? ""}
@@ -802,7 +884,7 @@ function DataNodeFields({
         </select>
       </Field>
 
-      <Field label="List of records">
+      <Field label="List of records" help="Which table to use. A table is like a spreadsheet: one row per record, such as one per order or sign-up.">
         {ds ? (
           <select
             className="input"
@@ -821,39 +903,61 @@ function DataNodeFields({
         )}
       </Field>
 
-      {(t === "query" || t === "update" || t === "delete") && tableName && (
-        <div>
-          <div className="label">
-            {t === "query" ? "Find rows where" : t === "update" ? "Update rows where" : "Delete rows where"}
-          </div>
+      {t === "bulk_insert" && (
+        <Field label="Rows to add" help="A list an earlier step made, like the records a “Find records” step found. Each item becomes one new row, so its names must match this table’s columns.">
+          <StepResultSelect
+            value={(node.data.rowsVar as string) ?? ""}
+            onChange={(v) => onChange({ rowsVar: v || undefined })}
+            varOptions={varOptions}
+          />
+          <Hint>The step stops with an error if that step didn’t make a list, or at an item whose ID is already in the table.</Hint>
+        </Field>
+      )}
+
+      {t === "aggregate" && tableName && (
+        <AggregateFields node={node} columns={columns} onChange={onChange} />
+      )}
+
+      {whereText && tableName && (
+        <div data-help={whereText.help}>
+          <div className="label">{whereText.label}</div>
           <WhereBuilder
             where={(node.data.where as Record<string, string> | undefined) ?? {}}
             columns={columns}
             varOptions={varOptions}
             onChange={(w) => onChange({ where: w })}
           />
-          {t === "query" && (
+          {(t === "query" || t === "aggregate") && (
             <Hint>
-              Leave empty to return all rows. Multiple conditions must all match.
+              {t === "query" ? "Leave empty to return all rows." : "Leave empty to include all rows."} Multiple conditions must all match.
             </Hint>
           )}
-          {t === "delete" && (
+          {(t === "delete" || t === "bulk_delete") && (
             <Hint>
               A condition is required to delete — otherwise the step will fail.
+            </Hint>
+          )}
+          {t === "bulk_update" && (
+            <Hint>
+              A condition is required to change rows — otherwise the step will fail.
             </Hint>
           )}
         </div>
       )}
 
-      {(t === "insert" || t === "update") && tableName && (
-        <div>
+      {t === "aggregate" && tableName && (
+        <AggregateGrouping node={node} columns={columns} onChange={onChange} />
+      )}
+
+      {(t === "insert" || t === "update" || t === "bulk_update") && tableName && (
+        <div data-help={t === "insert" ? "What to save in each column of the new record. Type a value or insert one from the form. The record’s ID and the date it was added are filled in for you." : "The new values to save. Leave a column blank to keep what’s already there."}>
           <div className="label">{t === "insert" ? "New row values" : "Set these fields"}</div>
           <ValuesForm
             values={(node.data.values as Record<string, string> | undefined) ?? {}}
             columns={writableColumns}
             varOptions={varOptions}
             onChange={(v) => onChange({ values: v })}
-            optional={t === "update"}
+            optional={t !== "insert"}
           />
         </div>
       )}
@@ -867,6 +971,116 @@ function DataNodeFields({
         defaultName={IMPLICIT_OUTPUT[t] ?? "result"}
         onChange={(v) => onChange({ output: v })}
       />
+    </>
+  );
+}
+
+/** "Count or add up records": what to work out, and of which column. */
+function AggregateFields({
+  node,
+  columns,
+  onChange,
+}: {
+  node: Node;
+  columns: DSColumn[];
+  onChange: (patch: Record<string, unknown>) => void;
+}) {
+  const m = AGGREGATE_RE.exec(String(node.data.aggregate ?? "COUNT(*)").trim());
+  const fn = m ? m[1].toUpperCase() : "COUNT";
+  const col = m && m[2] !== "*" ? m[2] : "";
+  const names = [...new Set(["id", ...columns.map((c) => c.name)])];
+  const firstNumber = columns.find((c) => NUMBER_TYPES.has(c.type))?.name ?? "id";
+
+  function setFn(next: string) {
+    onChange({ aggregate: next === "COUNT" ? "COUNT(*)" : `${next}(${col || firstNumber})` });
+  }
+
+  return (
+    <>
+      <Field label="What to work out" help="Count gives the number of records. Add up, average, smallest and largest work on one column, like the total of an amount column.">
+        <select className="input" value={fn} onChange={(e) => setFn(e.target.value)}>
+          <option value="COUNT">Count the records</option>
+          <option value="SUM">Add up a column</option>
+          <option value="AVG">Average of a column</option>
+          <option value="MIN">Smallest value in a column</option>
+          <option value="MAX">Largest value in a column</option>
+        </select>
+      </Field>
+      {fn !== "COUNT" && (
+        <Field label="Of this column" help="The column to work with, like amount or price. Adding up and averaging only work on number columns.">
+          <select className="input" value={col || firstNumber} onChange={(e) => onChange({ aggregate: `${fn}(${e.target.value})` })}>
+            {names.map((n) => (
+              <option key={n} value={n}>
+                {n}
+              </option>
+            ))}
+          </select>
+        </Field>
+      )}
+    </>
+  );
+}
+
+/** "Count or add up records": one total, or one per group. */
+function AggregateGrouping({
+  node,
+  columns,
+  onChange,
+}: {
+  node: Node;
+  columns: DSColumn[];
+  onChange: (patch: Record<string, unknown>) => void;
+}) {
+  const groupBy = (node.data.groupBy as string | undefined) ?? "";
+  const orderBy = ((node.data.orderBy as string | undefined) ?? "").trim() || "value desc";
+  const limit = node.data.limit as number | undefined;
+  const out = ((node.data.output as string | undefined) ?? "").trim() || IMPLICIT_OUTPUT.aggregate;
+
+  return (
+    <>
+      <Field label="Split into groups by" help="Gives one result per value of this column, like a count for each status. Leave it on “One total” for a single number.">
+        <select
+          className="input"
+          value={groupBy}
+          onChange={(e) => onChange({ groupBy: e.target.value || undefined, orderBy: undefined })}
+        >
+          <option value="">One total</option>
+          {columns.map((c) => (
+            <option key={c.name} value={c.name}>
+              {c.name}
+            </option>
+          ))}
+        </select>
+      </Field>
+      {groupBy && (
+        <>
+          <Field label="Order the groups" help="Which groups come first in the result, like the busiest status at the top.">
+            <select className="input" value={orderBy} onChange={(e) => onChange({ orderBy: e.target.value })}>
+              <option value="value desc">Biggest result first</option>
+              <option value="value asc">Smallest result first</option>
+              <option value={`${groupBy} asc`}>By {groupBy}, A to Z</option>
+              <option value={`${groupBy} desc`}>By {groupBy}, Z to A</option>
+            </select>
+          </Field>
+          <Field label="Most groups to return" help="The largest number of groups to give back, up to 1,000. Groups past this number are left out.">
+            <input
+              className="input"
+              type="number"
+              min={1}
+              max={1000}
+              value={limit ?? 100}
+              onChange={(e) =>
+                onChange({ limit: e.target.value === "" ? undefined : Math.max(1, Math.min(1000, Math.round(Number(e.target.value)) || 1)) })
+              }
+            />
+          </Field>
+        </>
+      )}
+      <Hint>
+        {groupBy
+          ? `The result is a list with one row per ${groupBy}, each with its ${groupBy} and value.`
+          : `The result is a list with a single row, whose value is the answer. To use the number in a later step, type {{vars.${out}.0.value}}.`}
+      </Hint>
     </>
   );
 }
@@ -934,6 +1148,7 @@ function WhereBuilder({
             className="input flex-1 min-w-0"
             value={key}
             onChange={(e) => renameKey(key, e.target.value)}
+            data-help="The column to check, like email or status."
           >
             {columns.map((c) => (
               <option
@@ -959,6 +1174,8 @@ function WhereBuilder({
             className="px-1.5 rounded-md border border-surface-800 text-surface-500 hover:text-red-400 hover:border-red-900"
             onClick={() => removeRow(key)}
             title="Remove condition"
+            aria-label="Remove condition"
+            data-help="Removes this rule."
           >
             <Trash2 size={13} />
           </button>
@@ -969,6 +1186,7 @@ function WhereBuilder({
         className="text-xs text-brand-300 hover:text-brand-200 flex items-center gap-1"
         onClick={addRow}
         disabled={rows.length >= columns.length}
+        data-help="Adds another rule. A record must match every rule to count."
       >
         <Plus size={12} /> Add condition
       </button>
@@ -1082,6 +1300,7 @@ function ResponseFields({
     <>
       <KeyValueBuilder
         label="Respond with"
+        help="What to send back to the page or form that started this. Each row is a name and a value, like message: Thanks, we got it."
         value={fields}
         onChange={setFields}
         varOptions={varOptions}
@@ -1098,12 +1317,14 @@ function ResponseFields({
 
 function KeyValueBuilder({
   label,
+  help,
   value,
   onChange,
   varOptions,
   emptyHint,
 }: {
   label: string;
+  help?: string;
   value: Record<string, string>;
   onChange: (v: Record<string, string>) => void;
   varOptions: { fromSteps: VarOption[]; hasTrigger: boolean };
@@ -1141,7 +1362,7 @@ function KeyValueBuilder({
   }
 
   return (
-    <div>
+    <div data-help={help}>
       <div className="label">{label}</div>
       <div className="space-y-2">
         {rows.length === 0 && emptyHint && (
@@ -1169,6 +1390,8 @@ function KeyValueBuilder({
               className="px-1.5 rounded-md border border-surface-800 text-surface-500 hover:text-red-400 hover:border-red-900"
               onClick={() => removeRow(k)}
               title="Remove"
+              aria-label="Remove"
+              data-help="Removes this row."
             >
               <Trash2 size={13} />
             </button>
@@ -1178,6 +1401,7 @@ function KeyValueBuilder({
           type="button"
           className="text-xs text-brand-300 hover:text-brand-200 flex items-center gap-1"
           onClick={addRow}
+          data-help="Adds another row with a name and a value."
         >
           <Plus size={12} /> Add field
         </button>
@@ -1204,7 +1428,7 @@ function SheetsFields({
   const t = node.data.nkType as string;
   return (
     <>
-      <Field label="Google Sheet data source">
+      <Field label="Google Sheet data source" help="The Google Sheet connected to your app. If the list is empty, add one under Advanced on your app’s Data page first.">
         <select
           className="input"
           value={(node.data.datasourceId as string) ?? ""}
@@ -1218,7 +1442,7 @@ function SheetsFields({
           ))}
         </select>
       </Field>
-      <Field label="Sheet tab name">
+      <Field label="Sheet tab name" help="The name of the tab at the bottom of the spreadsheet, exactly as shown, like Sheet1.">
         <input
           className="input"
           value={(node.data.sheet as string) ?? ""}
@@ -1229,6 +1453,7 @@ function SheetsFields({
       {t === "sheets_append" && (
         <KeyValueBuilder
           label="Row values"
+          help="What to put in the new row. Each name must match a column heading in the sheet’s first row; the value is what goes under it."
           value={parseJsonOrEmpty(node.data.values as string)}
           onChange={(obj) => onChange({ values: JSON.stringify(obj) })}
           varOptions={varOptions}
@@ -1351,7 +1576,7 @@ function CustomJsFields({
         used in other steps.
       </div>
 
-      <Field label="JavaScript">
+      <Field label="JavaScript" help="Your code. Use vars.name for earlier steps’ results and trigger.name for what was sent in. Whatever you return is saved for later steps.">
         <textarea
           ref={textareaRef}
           className="input font-mono text-[11px] leading-snug"
@@ -1363,7 +1588,7 @@ function CustomJsFields({
         />
       </Field>
 
-      <div>
+      <div data-help="Results of earlier steps you can use in your code. Click one to add it where your cursor is.">
         <div className="label">Available values</div>
         {jsVars.length === 0 && !hasTrigger ? (
           <div className="text-[11px] text-surface-500">
@@ -1398,7 +1623,7 @@ function CustomJsFields({
       </div>
 
       <details className="group rounded-md border border-surface-800 bg-surface-950/40">
-        <summary className="cursor-pointer list-none px-3 py-2 flex items-center justify-between text-xs text-surface-300 hover:text-surface-100">
+        <summary className="cursor-pointer list-none px-3 py-2 flex items-center justify-between text-xs text-surface-300 hover:text-surface-100" data-help="Ready-made bits of code for common jobs. Click one to add it where your cursor is.">
           <span>Examples</span>
           <ChevronDown size={14} className="transition group-open:rotate-180" />
         </summary>
@@ -1418,7 +1643,7 @@ function CustomJsFields({
       </details>
 
       <details className="group rounded-md border border-surface-800 bg-surface-950/40">
-        <summary className="cursor-pointer list-none px-3 py-2 flex items-center justify-between text-xs text-surface-300 hover:text-surface-100">
+        <summary className="cursor-pointer list-none px-3 py-2 flex items-center justify-between text-xs text-surface-300 hover:text-surface-100" data-help="What your code can and can’t do, and its limits, like stopping after 3 seconds.">
           <span>How this works</span>
           <ChevronDown size={14} className="transition group-open:rotate-180" />
         </summary>
@@ -1451,6 +1676,181 @@ function CustomJsFields({
       <OutputVariableAdvanced
         value={(node.data.output as string) ?? ""}
         defaultName={IMPLICIT_OUTPUT.custom_js ?? "result"}
+        onChange={(v) => onChange({ output: v })}
+      />
+    </>
+  );
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+// LookupFields — add details from another table to each record in a list
+// ────────────────────────────────────────────────────────────────────────────
+
+function LookupFields({
+  node,
+  nodes,
+  edges,
+  datasources,
+  varOptions,
+  onChange,
+}: {
+  node: Node;
+  nodes: Node[];
+  edges: Edge[];
+  datasources: DS[];
+  varOptions: { fromSteps: VarOption[]; hasTrigger: boolean };
+  onChange: (patch: Record<string, unknown>) => void;
+}) {
+  const dsId = node.data.datasourceId as string | undefined;
+  const ds = datasources.find((d) => d.id === dsId);
+  const lookupTable = node.data.lookupTable as string | undefined;
+  const lookupColumns = ds?.tables.find((tb) => tb.name === lookupTable)?.columns ?? [];
+  const sourceVar = ((node.data.sourceVar as string | undefined) ?? "").trim();
+  // The columns of the list being added to, when an earlier step found it in a table.
+  const sourceStep = sourceVar ? upstreamOf(node.id, nodes, edges).find((n) => effectiveVarName(n) === sourceVar && n.data.table) : undefined;
+  const sourceColumns = sourceStep
+    ? datasources.find((d) => d.id === sourceStep.data.datasourceId)?.tables.find((tb) => tb.name === sourceStep.data.table)?.columns ?? []
+    : [];
+  const listId = `lookup-cols-${node.id}`;
+
+  return (
+    <>
+      <Field label="Records to add details to" help="The list an earlier step found, like the orders from a “Find records” step. The step stops with an error if that step didn’t give a list.">
+        <StepResultSelect
+          value={sourceVar}
+          onChange={(v) => onChange({ sourceVar: v || undefined })}
+          varOptions={varOptions}
+        />
+      </Field>
+      <Field label="Column that points to the other record" help="The column in those records that holds the other record’s ID, like customer_id on an order. Records where it’s empty are left as they are.">
+        <input
+          className="input"
+          list={listId}
+          value={(node.data.sourceField as string) ?? ""}
+          onChange={(e) => onChange({ sourceField: e.target.value || undefined })}
+          placeholder="id"
+        />
+        <datalist id={listId}>
+          {sourceColumns.map((c) => (
+            <option key={c.name} value={c.name} />
+          ))}
+        </datalist>
+      </Field>
+      <Field label="Data source" help="Where the other list is kept. Most apps only have their own built-in database.">
+        <select
+          className="input"
+          value={dsId ?? ""}
+          onChange={(e) => onChange({ datasourceId: e.target.value || undefined, lookupTable: undefined })}
+        >
+          <option value="">— choose —</option>
+          {datasources.map((d) => (
+            <option key={d.id} value={d.id}>
+              {d.name}
+            </option>
+          ))}
+        </select>
+      </Field>
+      <Field label="Look up in" help="The list of records the details come from, like Customers.">
+        {ds ? (
+          <select
+            className="input"
+            value={lookupTable ?? ""}
+            onChange={(e) => onChange({ lookupTable: e.target.value || undefined })}
+          >
+            <option value="">— choose —</option>
+            {ds.tables.map((tb) => (
+              <option key={tb.name} value={tb.name}>
+                {friendlyTable(tb.name)}
+              </option>
+            ))}
+          </select>
+        ) : (
+          <input className="input" disabled placeholder="Pick a data source first" />
+        )}
+      </Field>
+      {lookupTable && (
+        <Field label="Matching column there" help="The column in that list that must equal the value above. It’s usually id.">
+          <select
+            className="input"
+            value={(node.data.lookupField as string) ?? "id"}
+            onChange={(e) => onChange({ lookupField: e.target.value })}
+          >
+            {[...new Set(["id", ...lookupColumns.map((c) => c.name)])].map((n) => (
+              <option key={n} value={n}>
+                {n}
+              </option>
+            ))}
+          </select>
+        </Field>
+      )}
+      <Field label="Save the details as" help="A name for the added details on each record, like customer. One match is saved as a single record; several matches as a list of up to 10.">
+        <input
+          className="input"
+          value={(node.data.as as string) ?? ""}
+          onChange={(e) => onChange({ as: e.target.value || undefined })}
+          placeholder="lookup"
+        />
+      </Field>
+      <OutputVariableAdvanced
+        value={(node.data.output as string) ?? ""}
+        defaultName={sourceVar || IMPLICIT_OUTPUT.lookup}
+        onChange={(v) => onChange({ output: v })}
+      />
+    </>
+  );
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+// CheckRoleFields — does the signed-in person have a role?
+// ────────────────────────────────────────────────────────────────────────────
+
+function CheckRoleFields({
+  node,
+  nodes,
+  edges,
+  varOptions,
+  onChange,
+}: {
+  node: Node;
+  nodes: Node[];
+  edges: Edge[];
+  varOptions: { fromSteps: VarOption[]; hasTrigger: boolean };
+  onChange: (patch: Record<string, unknown>) => void;
+}) {
+  const source = ((node.data.source as string | undefined) ?? "").trim();
+  const out = ((node.data.output as string | undefined) ?? "").trim() || IMPLICIT_OUTPUT.check_role;
+  const readsSession = !source || source === "session.role";
+  const hasWhoIsSignedIn = upstreamOf(node.id, nodes, edges).some(
+    (n) => (n.data.nkType as string) === "get_session" && effectiveVarName(n) === "session"
+  );
+
+  return (
+    <>
+      <Field label="Role needed" help="The role the person must have, like admin or manager. Capital letters don’t matter.">
+        <ValueInput
+          value={(node.data.role as string) ?? ""}
+          onChange={(v) => onChange({ role: v })}
+          varOptions={varOptions}
+          placeholder="admin"
+        />
+      </Field>
+      <Field label="Where their role is (optional)" help="Leave empty to use the role of whoever is signed in, from a “Who is signed in” step before this one. Change it only if an earlier step saved the role under another name.">
+        <input
+          className="input"
+          value={(node.data.source as string) ?? ""}
+          onChange={(e) => onChange({ source: e.target.value || undefined })}
+          placeholder="session.role"
+        />
+      </Field>
+      {readsSession && !hasWhoIsSignedIn && (
+        <Hint>Add a “Who is signed in” step before this one, or nobody will pass this check.</Hint>
+      )}
+      <Hint>
+        The answer, true or false, is saved as {out}. Follow this with an “If this, otherwise that” step that checks whether {`{{vars.${out}}}`} is equal to true.
+      </Hint>
+      <OutputVariableAdvanced
+        value={(node.data.output as string) ?? ""}
+        defaultName={IMPLICIT_OUTPUT.check_role}
         onChange={(v) => onChange({ output: v })}
       />
     </>

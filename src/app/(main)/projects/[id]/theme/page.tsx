@@ -29,7 +29,8 @@ export default async function ThemePage({
         <h1 className="text-2xl font-semibold">Theme</h1>
         <p className="text-sm text-surface-400 mt-1">
           Pick a preset or dial in your own. Colors, fonts, and corner radii apply
-          to every page in this project — editor canvas and published site both.
+          to every page in this app. You see them in the editor right away;
+          visitors see them after you next publish.
         </p>
       </div>
       <ThemeEditor

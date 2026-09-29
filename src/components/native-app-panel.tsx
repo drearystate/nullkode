@@ -195,7 +195,7 @@ export function NativeAppPanel({
             The mobile app shows your live published site, so it needs to be live before you can
             build it. Anything you publish later updates the app by itself, with no new build.
           </p>
-          <Link href={`/projects/${projectId}/publish`} className="btn-primary mt-3 inline-flex">
+          <Link href={`/projects/${projectId}/publish`} className="btn-primary mt-3 inline-flex" data-help="Go to Publish to put your app online. Then come back here to build the phone app.">
             Go to Publish
           </Link>
         </div>
@@ -204,7 +204,7 @@ export function NativeAppPanel({
       {published && (
         <div className="card p-4 text-sm">
           <span className="text-surface-400">Your app shows: </span>
-          <a href={liveUrl} target="_blank" rel="noreferrer" className="text-brand-400 hover:underline break-all">
+          <a href={liveUrl} target="_blank" rel="noreferrer" className="text-brand-400 hover:underline break-all" data-help="The live web address your phone app opens. Whatever you publish there shows up in the phone app too.">
             {liveUrl}
           </a>
           {liveUrl.startsWith("http://") && (
@@ -218,7 +218,7 @@ export function NativeAppPanel({
 
       {/* ── App identity ──────────────────────────────────────────── */}
       <div className="card p-6">
-        <h2 className="font-semibold">App details</h2>
+        <h2 className="font-semibold" data-help="The name, colors and store details built into your phone app. Changes go into your next build or download, not into apps already installed.">App details</h2>
         <p className="mt-1 text-sm text-surface-400">
           These appear in the app stores and on the phone&apos;s home screen.
         </p>
@@ -230,6 +230,8 @@ export function NativeAppPanel({
               className="input"
               value={cfg.appName}
               maxLength={30}
+              aria-label="App name"
+              data-help="The name shown under your app's icon on the phone. Up to 30 letters, but a short name fits best."
               onChange={(e) => set("appName", e.target.value)}
             />
           </div>
@@ -238,6 +240,8 @@ export function NativeAppPanel({
             <input
               className="input font-mono"
               value={cfg.appId}
+              aria-label="Bundle / Application ID"
+              data-help="A one-of-a-kind name the app stores use to tell your app apart, like com.yourbusiness.app. Visitors never see it. Don't change it once your app is in a store."
               onChange={(e) => set("appId", e.target.value)}
               placeholder="com.company.app"
             />
@@ -250,6 +254,8 @@ export function NativeAppPanel({
             <input
               className="input font-mono"
               value={cfg.version}
+              aria-label="Version"
+              data-help="The version number people see in the store, like 1.0.0. Raise it when you send an update, for example to 1.1.0."
               onChange={(e) => set("version", e.target.value)}
               placeholder="1.0.0"
             />
@@ -261,6 +267,8 @@ export function NativeAppPanel({
               type="number"
               min={1}
               value={cfg.build}
+              aria-label="Build number"
+              data-help="A counting number the stores use to tell updates apart; each upload needs a higher one. Google Play builds made here count up by themselves."
               onChange={(e) => set("build", Math.max(1, Number(e.target.value) || 1))}
             />
             <p className="mt-1 text-xs text-surface-500">
@@ -272,6 +280,8 @@ export function NativeAppPanel({
             <select
               className="input"
               value={cfg.orientation}
+              aria-label="Orientation"
+              data-help="Whether your app turns sideways when the phone does. Follow device lets it turn; the others keep it upright or sideways."
               onChange={(e) => set("orientation", e.target.value as NativeConfig["orientation"])}
             >
               <option value="default">Follow device</option>
@@ -282,17 +292,17 @@ export function NativeAppPanel({
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label className="label">Theme color</label>
-              <ColorField value={cfg.themeColor} onChange={(v) => set("themeColor", v)} />
+              <ColorField value={cfg.themeColor} onChange={(v) => set("themeColor", v)} label="Theme color" help="Your app's main color on the phone: used on the loading screen, the no-internet screen and the plain icon made if yours can't be used." />
             </div>
             <div>
               <label className="label">Background</label>
-              <ColorField value={cfg.backgroundColor} onChange={(v) => set("backgroundColor", v)} />
+              <ColorField value={cfg.backgroundColor} onChange={(v) => set("backgroundColor", v)} label="Background" help="The color behind your app while it opens, and on the screen shown when there's no internet." />
             </div>
           </div>
         </div>
 
         <div className="mt-5 flex items-center gap-3">
-          <button className="btn-primary" disabled={saving} onClick={save}>
+          <button className="btn-primary" disabled={saving} onClick={save} data-help="Save these details. They go into your next build or download; apps people already installed don't change until you send an update.">
             {saving ? "Saving…" : "Save settings"}
           </button>
           {status && (
@@ -364,6 +374,7 @@ export function NativeAppPanel({
           href={`/api/projects/${projectId}/native/download?platform=android`}
           className="inline-block text-xs text-surface-500 hover:text-surface-300"
           download={published ? true : undefined}
+          data-help="For developers: download the Android project files to build the app yourself with Android Studio. Most people don't need this."
           onClick={(e) => {
             if (!published) e.preventDefault();
           }}
@@ -415,6 +426,7 @@ export function NativeAppPanel({
             href={`/api/projects/${projectId}/native/download?platform=ios`}
             className="btn-primary mt-4 inline-flex items-center justify-center gap-2"
             download
+            data-help="Download the files needed to build your iPhone app. You'll need a Mac or a GitHub account, plus a paid Apple Developer account, to send it to Apple."
           >
             <DownloadIcon />
             Download iPhone project
@@ -565,22 +577,22 @@ function BuildCard({
           </p>
           {kind === "release" ? (
             <>
-              <a href={download("aab")} className="btn-primary w-full inline-flex items-center justify-center gap-2" download>
+              <a href={download("aab")} className="btn-primary w-full inline-flex items-center justify-center gap-2" download data-help="Download the Android app file (.aab) that Google Play asks for. Upload it in the Google Play Console, as the steps below explain.">
                 <DownloadIcon />
                 Download AAB for Google Play{size(build.files?.aab?.bytes)}
               </a>
-              <a href={download("apk")} className="btn-ghost w-full inline-flex items-center justify-center gap-2 text-sm" download>
+              <a href={download("apk")} className="btn-ghost w-full inline-flex items-center justify-center gap-2 text-sm" download data-help="Download the same app as an installable Android file (.apk), signed with your key, for app stores other than Google Play.">
                 <DownloadIcon />
                 Signed APK for other stores{size(build.files?.apk?.bytes)}
               </a>
             </>
           ) : (
-            <a href={download("apk")} className="btn-primary w-full inline-flex items-center justify-center gap-2" download>
+            <a href={download("apk")} className="btn-primary w-full inline-flex items-center justify-center gap-2" download data-help="Download the test Android app file (.apk). Open it on an Android phone and allow installing when asked.">
               <DownloadIcon />
               Download test APK{size(build.apkBytes)}
             </a>
           )}
-          <button className="btn-ghost w-full text-sm" onClick={start} disabled={!enabled}>
+          <button className="btn-ghost w-full text-sm" onClick={start} disabled={!enabled} data-help={kind === "release" ? "Make a new Google Play file with your latest app details. It gets the next build number, ready to upload as an update." : "Make a new test file with your latest app details, like name, icon and colors."}>
             Build again
           </button>
         </div>
@@ -589,6 +601,7 @@ function BuildCard({
           className="btn-primary mt-4 inline-flex items-center justify-center gap-2"
           onClick={start}
           disabled={!enabled}
+          data-help={kind === "release" ? "Build the Android app file for Google Play. It takes a few minutes. If you haven't added a key, the first build makes your upload key." : "Build a test Android app you can install straight on a phone. It takes a few minutes."}
         >
           <AndroidIcon small />
           {buttonLabel}
@@ -673,7 +686,7 @@ function UploadKeyCard({
     <div className="card p-6">
       <div className="flex items-center gap-2">
         <KeyRound size={18} className="text-surface-300" aria-hidden />
-        <h3 className="font-semibold">Your upload key</h3>
+        <h3 className="font-semibold" data-help="A secret file that proves updates to your app on Google Play come from you. If it's lost, you can't update the app on Google Play.">Your upload key</h3>
       </div>
 
       {!keyInfo ? (
@@ -689,7 +702,7 @@ function UploadKeyCard({
             <span className="font-mono text-xs text-surface-300">{keyInfo.alias}</span>
           </p>
           <div>
-            <div className="text-xs uppercase tracking-wider text-surface-500">Certificate fingerprint (SHA-256)</div>
+            <div className="text-xs uppercase tracking-wider text-surface-500" data-help="A code that identifies your key. Some Google services ask you to paste it in when you set them up.">Certificate fingerprint (SHA-256)</div>
             <div className="mt-1 break-all font-mono text-xs text-surface-300">{keyInfo.sha256}</div>
           </div>
           {keyInfo.missing ? (
@@ -712,6 +725,7 @@ function UploadKeyCard({
                   href={`/api/projects/${projectId}/native/keystore/download`}
                   className="btn-ghost mt-3 inline-flex items-center gap-2"
                   download
+                  data-help="Save a copy of your upload key and its passwords. Keep it somewhere private: anyone with it could sign updates as you."
                 >
                   <DownloadIcon />
                   Download key backup
@@ -728,30 +742,30 @@ function UploadKeyCard({
 
       {ownerActions && (
         <div className="mt-4">
-          <button className="text-sm text-brand-400 hover:underline" onClick={() => setOpen((o) => !o)}>
+          <button className="text-sm text-brand-400 hover:underline" onClick={() => setOpen((o) => !o)} data-help={open ? "Close this form without changing your key." : "Already have an app on Google Play? Add the key you used for it, so new builds can update that app."}>
             {open ? "Cancel" : keyInfo ? "Use a different key" : "Use a key I already have"}
           </button>
           {open && (
             <form className="mt-3 grid gap-3 sm:grid-cols-2" onSubmit={importKey}>
               <div className="sm:col-span-2">
                 <label className="label" htmlFor="nk-keystore">Keystore file (.jks or .keystore)</label>
-                <input id="nk-keystore" name="keystore" type="file" accept=".jks,.keystore,.p12,.pfx" required className="input" />
+                <input id="nk-keystore" name="keystore" type="file" accept=".jks,.keystore,.p12,.pfx" required className="input" data-help="Choose the key file you signed your app with before. It usually ends in .jks or .keystore." />
               </div>
               <div>
                 <label className="label" htmlFor="nk-alias">Key alias</label>
-                <input id="nk-alias" name="alias" className="input font-mono" placeholder="Leave empty if there's only one" autoComplete="off" />
+                <input id="nk-alias" name="alias" className="input font-mono" placeholder="Leave empty if there's only one" autoComplete="off" data-help="The name of the key inside the file. Leave it empty if the file holds just one key." />
               </div>
               <div>
                 <label className="label" htmlFor="nk-storepass">Keystore password</label>
-                <input id="nk-storepass" name="storePassword" type="password" required className="input" autoComplete="off" />
+                <input id="nk-storepass" name="storePassword" type="password" required className="input" autoComplete="off" data-help="The password that opens the key file." />
               </div>
               <div>
                 <label className="label" htmlFor="nk-keypass">Key password</label>
-                <input id="nk-keypass" name="keyPassword" type="password" className="input" placeholder="Leave empty if it's the same" autoComplete="off" />
+                <input id="nk-keypass" name="keyPassword" type="password" className="input" placeholder="Leave empty if it's the same" autoComplete="off" data-help="The password for the key itself. Leave it empty if it's the same as the file's password." />
               </div>
               {keyInfo && (
                 <label className="sm:col-span-2 flex items-start gap-2 text-sm text-surface-300">
-                  <input type="checkbox" name="replace" value="true" required className="mt-1" />
+                  <input type="checkbox" name="replace" value="true" required className="mt-1" data-help="Confirm you want to swap your current key for this one. Download a backup of the current key first." />
                   <span>
                     Replace my current key. Only do this if Google Play expects this other key:
                     download a backup of the current one first.
@@ -759,7 +773,7 @@ function UploadKeyCard({
                 </label>
               )}
               <div className="sm:col-span-2 flex items-center gap-3">
-                <button className="btn-primary" disabled={busy}>
+                <button className="btn-primary" disabled={busy} data-help="Check the key and passwords, then use this key for all your Google Play builds from now on.">
                   {busy ? "Checking…" : "Save key"}
                 </button>
                 {error && <span className="text-sm text-red-400">{error}</span>}
@@ -832,7 +846,7 @@ function PhoneFeaturesCard({
     <section className="card p-6" aria-labelledby="phone-features-heading">
       <div className="flex items-center gap-2">
         <Smartphone size={18} className="text-surface-300" aria-hidden />
-        <h2 id="phone-features-heading" className="font-semibold">Phone features this app uses</h2>
+        <h2 id="phone-features-heading" className="font-semibold" data-help="The phone parts your app needs, like the camera or location, found by looking at your pages and features. The phone asks people before your app can use them.">Phone features this app uses</h2>
       </div>
       <p className="mt-1 text-sm text-surface-400">
         Worked out from your app&apos;s features and pages. The phone only lets the app use what its
@@ -869,7 +883,7 @@ function PhoneFeaturesCard({
       )}
 
       <details className="mt-5">
-        <summary className="cursor-pointer text-sm font-medium text-brand-400 hover:underline">
+        <summary className="cursor-pointer text-sm font-medium text-brand-400 hover:underline" data-help="Open this to write the message iPhones show when your app asks to use the camera, microphone, photos or location.">
           What the phone says when the app asks
         </summary>
         <p className="mt-2 text-sm text-surface-400">
@@ -884,6 +898,7 @@ function PhoneFeaturesCard({
               <textarea
                 className="input min-h-[60px] w-full"
                 maxLength={300}
+                data-help="Say plainly why your app needs this, like “To scan tickets at the door.” Apple checks it. Leave empty to use the suggested words."
                 value={texts[f.key] ?? ""}
                 placeholder={phone?.suggested[f.key] ?? ""}
                 onChange={(e) => {
@@ -895,7 +910,7 @@ function PhoneFeaturesCard({
           ))}
         </div>
         <div className="mt-3 flex items-center gap-3">
-          <button className="btn-primary" onClick={save} disabled={saving}>
+          <button className="btn-primary" onClick={save} disabled={saving} data-help="Save these messages. They go into your next build and iPhone download.">
             {saving ? "Saving…" : "Save wording"}
           </button>
           {message && (
@@ -930,7 +945,7 @@ function StoreRequirements({ deleteAccountUrl, store }: { deleteAccountUrl: stri
 function PlaySteps({ deleteAccountUrl }: { deleteAccountUrl: string }) {
   return (
     <details className="card p-6 group" open>
-      <summary className="cursor-pointer font-semibold">Put your app on Google Play</summary>
+      <summary className="cursor-pointer font-semibold" data-help="Step-by-step instructions for putting your app in the Google Play store. Click to show or hide them.">Put your app on Google Play</summary>
       <ol className="mt-3 list-decimal space-y-2 pl-5 text-sm text-surface-300">
         <li>
           Sign up for a Google Play developer account at{" "}
@@ -989,7 +1004,7 @@ function Spinner() {
   );
 }
 
-function ColorField({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+function ColorField({ value, onChange, label, help }: { value: string; onChange: (v: string) => void; label?: string; help?: string }) {
   return (
     <div className="flex items-center gap-2">
       <input
@@ -997,10 +1012,13 @@ function ColorField({ value, onChange }: { value: string; onChange: (v: string) 
         value={/^#[0-9a-fA-F]{6}$/.test(value) ? value : "#0b0b0b"}
         onChange={(e) => onChange(e.target.value)}
         className="h-9 w-10 shrink-0 rounded border border-surface-700 bg-transparent p-0.5"
-        aria-label="Pick color"
+        aria-label={label ? `Pick ${label.toLowerCase()}` : "Pick color"}
+        data-help={help}
       />
       <input
         className="input font-mono"
+        aria-label={label ? `${label} code` : "Color code"}
+        data-help="Or type a color code here, like #1a73e8, if you know the exact color you want."
         value={value}
         onChange={(e) => onChange(e.target.value)}
       />

@@ -173,10 +173,10 @@ export function PageSettingsDialog({ projectId, page, busy, onClose, onSave, onD
               </div>
 
               <fieldset>
-                <legend className="label">Who can see this page</legend>
+                <legend className="label" data-help="Choose who can open this page in your live app: anyone, only people who have signed in, or only admins.">Who can see this page</legend>
                 <div className="mt-2 space-y-1.5">
                   {[...AUDIENCES, ...(s.visibility === "role" ? [{ value: "role" as const, label: `People with the “${s.role}” role`, hint: "Set by the page itself. Pick another option to change it." }] : [])].map((a) => (
-                    <label key={a.value} className={`flex cursor-pointer items-start gap-3 rounded-lg border px-3 py-2.5 text-sm transition ${visibility === a.value ? "border-brand-500/60 bg-brand-500/10" : "border-surface-800 hover:border-surface-700"}`}>
+                    <label key={a.value} data-help={a.hint} className={`flex cursor-pointer items-start gap-3 rounded-lg border px-3 py-2.5 text-sm transition ${visibility === a.value ? "border-brand-500/60 bg-brand-500/10" : "border-surface-800 hover:border-surface-700"}`}>
                       <input
                         type="radio"
                         name={`${titleId}-audience`}
@@ -208,9 +208,9 @@ export function PageSettingsDialog({ projectId, page, busy, onClose, onSave, onD
               </fieldset>
 
               <fieldset>
-                <legend className="label">Menu</legend>
+                <legend className="label" data-help="Whether this page has a link in your app’s menu, and where in the menu it sits.">Menu</legend>
                 {s.canShowInMenu ? (
-                  <label className="mt-2 flex cursor-pointer items-center gap-3 text-sm">
+                  <label className="mt-2 flex cursor-pointer items-center gap-3 text-sm" data-help="Tick to put a link to this page in your app’s menu. Untick to hide it from the menu; people with the link can still open it.">
                     <input type="checkbox" className="h-4 w-4 accent-brand-500" checked={showInMenu} onChange={(e) => setShowInMenu(e.target.checked)} />
                     <span>
                       Show in menu
@@ -229,10 +229,10 @@ export function PageSettingsDialog({ projectId, page, busy, onClose, onSave, onD
                       Place in {where}: <strong className="text-surface-100">{position}</strong> of {s.menuCount}
                     </span>
                     <span className="ml-auto flex gap-2">
-                      <button type="button" className="btn-ghost !min-h-0 !px-3 !py-1.5 text-xs" disabled={position <= 1} onClick={() => setPosition(position - 1)}>
+                      <button type="button" className="btn-ghost !min-h-0 !px-3 !py-1.5 text-xs" disabled={position <= 1} onClick={() => setPosition(position - 1)} data-help="Move this page one place earlier in the menu. It changes when you press Save.">
                         <ArrowUp size={14} aria-hidden />Move up
                       </button>
-                      <button type="button" className="btn-ghost !min-h-0 !px-3 !py-1.5 text-xs" disabled={position >= s.menuCount} onClick={() => setPosition(position + 1)}>
+                      <button type="button" className="btn-ghost !min-h-0 !px-3 !py-1.5 text-xs" disabled={position >= s.menuCount} onClick={() => setPosition(position + 1)} data-help="Move this page one place later in the menu. It changes when you press Save.">
                         <ArrowDown size={14} aria-hidden />Move down
                       </button>
                     </span>
@@ -242,7 +242,7 @@ export function PageSettingsDialog({ projectId, page, busy, onClose, onSave, onD
             </div>
 
             <div className="flex flex-wrap items-center justify-between gap-2 border-t border-surface-800 p-4">
-              <button type="button" className="btn-ghost" onClick={() => void duplicate()} disabled={disabled || s.designer}>
+              <button type="button" className="btn-ghost" onClick={() => void duplicate()} disabled={disabled || s.designer} data-help="Make a copy of this page, named “(copy)”, and open it so you can edit it. Settings changed here but not saved aren’t copied.">
                 {working === "copy" ? <Loader2 size={14} className="animate-spin" aria-hidden /> : <Copy size={14} aria-hidden />}
                 Duplicate
               </button>
@@ -250,7 +250,7 @@ export function PageSettingsDialog({ projectId, page, busy, onClose, onSave, onD
                 <button type="button" className="btn-ghost" onClick={onClose} disabled={working !== null}>
                   Cancel
                 </button>
-                <button type="submit" className="btn-primary" disabled={disabled || s.designer || !trimmed}>
+                <button type="submit" className="btn-primary" disabled={disabled || s.designer || !trimmed} data-help="Save these settings. Your app’s menu is updated on every page to match.">
                   {working === "save" ? "Saving…" : "Save"}
                 </button>
               </span>

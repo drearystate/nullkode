@@ -37,15 +37,15 @@ export function ImportAppForm() {
       <form onSubmit={submit} className="card mt-6 space-y-5 p-6">
         <label className="block text-sm">
           <span className="label">Backup file</span>
-          <input type="file" accept=".zip,application/zip" required disabled={busy} onChange={(e) => setFile(e.target.files?.[0] ?? null)}
+          <input type="file" data-help="Pick the backup .zip you downloaded from an app's Publish page. Backups made on another server work too." accept=".zip,application/zip" required disabled={busy} onChange={(e) => setFile(e.target.files?.[0] ?? null)}
             className="block w-full text-sm text-surface-300 file:mr-4 file:rounded-lg file:border-0 file:bg-white/10 file:px-4 file:py-2 file:text-sm file:font-medium file:text-surface-100 hover:file:bg-white/15" />
         </label>
         <label className="block text-sm">
           <span className="label">New name (optional)</span>
-          <input className="input w-full" maxLength={80} value={name} disabled={busy} onChange={(e) => setName(e.target.value)} placeholder="Keeps the original name if empty" />
+          <input className="input w-full" data-help="Give the imported app a different name. Leave empty to keep the name it had in the backup." maxLength={80} value={name} disabled={busy} onChange={(e) => setName(e.target.value)} placeholder="Keeps the original name if empty" />
         </label>
         {error && <p role="alert" className="text-sm text-red-300">{error}</p>}
-        <button className="btn-primary w-full justify-center" disabled={busy || !file}>
+        <button className="btn-primary w-full justify-center" data-help="Creates a new app from the backup. Your other apps aren't changed. The editor opens when it's ready." disabled={busy || !file}>
           <FileUp size={16} aria-hidden />{busy ? "Importing…" : "Import app"}
         </button>
       </form>

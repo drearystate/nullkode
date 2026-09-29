@@ -54,7 +54,7 @@ export default async function PublishPage({
       <div className="card p-6 mt-6">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
-            <div className="text-xs uppercase tracking-wider text-surface-500">
+            <div className="text-xs uppercase tracking-wider text-surface-500" data-help="Whether your app is online, and whether visitors see your latest changes or an older version.">
               Status
             </div>
             <div className="text-lg font-semibold mt-1">
@@ -78,16 +78,16 @@ export default async function PublishPage({
         <p className="mt-5 rounded-lg border border-white/10 bg-white/[0.02] px-4 py-3 text-xs leading-relaxed text-surface-400">
           {legacyLive
             ? "This app still updates live as you edit. Publish once to switch to safe publishing: visitors then see the version you publish, and your edits stay private until you publish again."
-            : "Visitors see the version you last published. Edits (including AI changes) stay in your draft until you click Publish, and you can bring back any earlier version below."}
+            : "Visitors see the version you last published. Edits (including ones the AI made) stay in your draft until you click Publish, and you can bring back any earlier version below."}
         </p>
         <div className="mt-6 space-y-2 text-sm">
           <div className="flex flex-wrap items-center justify-between gap-3 py-3 border-b border-surface-800">
-            <span className="text-surface-400">Default URL</span>
-            <div className="flex min-w-0 items-center gap-2"><a href={project.published ? publicUrl : `/preview/${id}`} target="_blank" rel="noopener noreferrer" className="break-all text-brand-300 hover:underline">{publicUrl}</a><CopyAppLink url={publicUrl} /></div>
+            <span className="text-surface-400" data-help="The web address your app gets for free. Share it with anyone once your app is published.">Default URL</span>
+            <div className="flex min-w-0 items-center gap-2"><a href={project.published ? publicUrl : `/preview/${id}`} target="_blank" rel="noopener noreferrer" className="break-all text-brand-300 hover:underline" data-help={project.published ? "Open your live app in a new tab, just as visitors see it." : "Your app isn't online yet, so this opens a preview of your latest changes instead."}>{publicUrl}</a><CopyAppLink url={publicUrl} /></div>
           </div>
           {project.domains.map((d) => (
             <div key={d.id} className="flex flex-wrap items-center justify-between gap-3 py-3 border-b border-surface-800">
-              <span className="text-surface-400">Custom domain</span>
+              <span className="text-surface-400" data-help="Your own web address that also opens this app. Manage it on the Domains tab.">Custom domain</span>
               <a
                 href={`https://${d.host}`}
                 target="_blank"
@@ -147,6 +147,7 @@ export default async function PublishPage({
               <a
                 href={`/api/projects/${id}/offline`}
                 download
+                data-help="Download a zipped folder with your whole app and a copy of its data. Open index.html inside to use it on a computer with no internet."
                 className="btn-primary inline-flex items-center gap-2 mt-3 text-sm"
               >
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
@@ -169,6 +170,7 @@ export default async function PublishPage({
                 <a
                   href={`/api/projects/${id}/installer/windows`}
                   download
+                  data-help="Download a small installer for Windows. Run it to add a shortcut that opens your live app in its own window."
                   className="rounded-lg border border-surface-700 hover:border-brand-500 px-3 py-1.5 text-sm text-surface-200 transition"
                 >
                   Windows
@@ -176,6 +178,7 @@ export default async function PublishPage({
                 <a
                   href={`/api/projects/${id}/installer/mac`}
                   download
+                  data-help="Download a small installer for Mac. Open it to add a shortcut that opens your live app in its own window."
                   className="rounded-lg border border-surface-700 hover:border-brand-500 px-3 py-1.5 text-sm text-surface-200 transition"
                 >
                   macOS
@@ -190,6 +193,7 @@ export default async function PublishPage({
                   <img
                     src={qrDataUrl}
                     alt={`QR code for ${publicUrl}`}
+                    data-help="Point your phone's camera at this square code to open your live app on your phone."
                     className="rounded bg-white p-1 shrink-0"
                     width={120}
                     height={120}
@@ -200,8 +204,8 @@ export default async function PublishPage({
                   <p className="mt-1 text-xs text-surface-400 max-w-md">
                     Scan with a phone camera, open the app, then choose
                     &quot;Add to Home Screen&quot; in the browser menu — it installs like a
-                    normal app with your icon. To build an Android APK, use the
-                    mobile app builder below.
+                    normal app with your icon. To make a real Android app you can
+                    install or put on Google Play, use the mobile app builder below.
                   </p>
                 </div>
               </div>
@@ -222,6 +226,7 @@ export default async function PublishPage({
           </div>
           <a
             href={`/projects/${id}/native`}
+            data-help="Go to Mobile app to build versions of your app for Android phones and iPhones."
             className="btn-primary inline-flex items-center gap-2 whitespace-nowrap"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
@@ -248,6 +253,7 @@ export default async function PublishPage({
             href={`/api/projects/${id}/export`}
             className="btn-primary inline-flex items-center gap-2 whitespace-nowrap"
             download
+            data-help="Save one file with your whole app to your device. Keep it as a backup, or use Import an app to bring it back or move it."
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
@@ -260,7 +266,7 @@ export default async function PublishPage({
       </div>
 
       <div className="mt-6">
-        <h2 className="font-semibold">Release history</h2>
+        <h2 className="font-semibold" data-help="Every version you've published, newest first. If a change goes wrong, use Make live to put an earlier version back online.">Release history</h2>
         <div className="mt-3 space-y-2">
           {project.deployments.length === 0 && (
             <p className="text-sm text-surface-500">Your releases will appear here after you publish.</p>

@@ -209,20 +209,20 @@ export function SchedulePicker({ projectId, flowId }: { projectId: string; flowI
 
   return (
     <section className="card p-4" aria-labelledby={`${uid}-h`}>
-      <h2 id={`${uid}-h`} className="flex items-center gap-2 text-sm font-semibold">
+      <h2 id={`${uid}-h`} className="flex items-center gap-2 text-sm font-semibold" data-help="Choose whether this automation runs when your app uses it, or by itself at set times, like every morning.">
         <CalendarClock size={16} className="text-brand-300" aria-hidden /> When this runs
       </h2>
 
       <fieldset className="mt-3 space-y-2 text-sm">
         <legend className="sr-only">When this runs</legend>
-        <label className="flex cursor-pointer items-start gap-2">
+        <label className="flex cursor-pointer items-start gap-2" data-help="It runs only when something in your app starts it, like a visitor sending a form.">
           <input type="radio" name={`${uid}-mode`} className="mt-1" checked={mode === "app"} onChange={() => { setMode("app"); setSaved(false); }} />
           <span>
             When your app uses it
             <span className="block text-xs text-surface-400">A page, a form or another site starts it.</span>
           </span>
         </label>
-        <label className={`flex items-start gap-2 ${state.planAllows ? "cursor-pointer" : "cursor-not-allowed opacity-60"}`}>
+        <label className={`flex items-start gap-2 ${state.planAllows ? "cursor-pointer" : "cursor-not-allowed opacity-60"}`} data-help="It runs by itself at the times you choose. The schedule starts once your app is published with it.">
           <input type="radio" name={`${uid}-mode`} className="mt-1" checked={mode === "schedule"} disabled={!state.planAllows && state.mode !== "schedule"} onChange={() => { setMode("schedule"); setSaved(false); }} />
           <span>
             On a schedule
@@ -237,14 +237,14 @@ export function SchedulePicker({ projectId, flowId }: { projectId: string; flowI
         <div className="mt-4 grid gap-3 sm:grid-cols-2">
           <div>
             <label className="label" htmlFor={`${uid}-kind`}>How often</label>
-            <select id={`${uid}-kind`} className="input" value={form.kind} onChange={(e) => set({ kind: e.target.value as ScheduleKind })}>
+            <select id={`${uid}-kind`} className="input" data-help="How often it runs. Pick a pattern, then the exact time next to it." value={form.kind} onChange={(e) => set({ kind: e.target.value as ScheduleKind })}>
               {KINDS.map((k) => <option key={k.value} value={k.value}>{k.label}</option>)}
             </select>
           </div>
           {form.kind === "every" && (
             <div>
               <label className="label" htmlFor={`${uid}-minutes`}>Every</label>
-              <select id={`${uid}-minutes`} className="input" value={form.minutes} onChange={(e) => set({ minutes: Number(e.target.value) })}>
+              <select id={`${uid}-minutes`} className="input" data-help="The gap between runs. Some choices may be greyed out, for example when this automation uses the AI." value={form.minutes} onChange={(e) => set({ minutes: Number(e.target.value) })}>
                 {minuteChoices.map((n) => <option key={n} value={n} disabled={n < state.minMinutes}>{minutesLabel(n)}</option>)}
               </select>
             </div>
@@ -252,7 +252,7 @@ export function SchedulePicker({ projectId, flowId }: { projectId: string; flowI
           {form.kind === "hourly" && (
             <div>
               <label className="label" htmlFor={`${uid}-minute`}>Minutes past the hour</label>
-              <select id={`${uid}-minute`} className="input" value={form.minute} onChange={(e) => set({ minute: Number(e.target.value) })}>
+              <select id={`${uid}-minute`} className="input" data-help="Which minute of each hour it runs at, like :15 for quarter past." value={form.minute} onChange={(e) => set({ minute: Number(e.target.value) })}>
                 {[...new Set([...PAST_HOUR, form.minute])].sort((a, b) => a - b).map((m) => <option key={m} value={m}>{m === 0 ? "On the hour (:00)" : `:${String(m).padStart(2, "0")}`}</option>)}
               </select>
             </div>
@@ -260,7 +260,7 @@ export function SchedulePicker({ projectId, flowId }: { projectId: string; flowI
           {form.kind === "weekly" && (
             <div>
               <label className="label" htmlFor={`${uid}-day`}>Day</label>
-              <select id={`${uid}-day`} className="input" value={form.day} onChange={(e) => set({ day: Number(e.target.value) })}>
+              <select id={`${uid}-day`} className="input" data-help="Which day of the week it runs." value={form.day} onChange={(e) => set({ day: Number(e.target.value) })}>
                 {[1, 2, 3, 4, 5, 6, 0].map((d) => <option key={d} value={d}>{DAY_NAMES[d]}</option>)}
               </select>
             </div>
@@ -268,13 +268,13 @@ export function SchedulePicker({ projectId, flowId }: { projectId: string; flowI
           {(form.kind === "daily" || form.kind === "weekdays" || form.kind === "weekly") && (
             <div>
               <label className="label" htmlFor={`${uid}-at`}>Time</label>
-              <input id={`${uid}-at`} type="time" step={60} required className="input" value={form.at} onChange={(e) => set({ at: e.target.value.slice(0, 5) })} />
+              <input id={`${uid}-at`} type="time" step={60} required className="input" data-help="The time of day it runs, by the clock of the time zone below." value={form.at} onChange={(e) => set({ at: e.target.value.slice(0, 5) })} />
             </div>
           )}
           {form.kind !== "every" && (
             <div className="sm:col-span-2">
               <label className="label" htmlFor={`${uid}-tz`}>Time zone</label>
-              <select id={`${uid}-tz`} className="input" value={form.tz} onChange={(e) => set({ tz: e.target.value })}>
+              <select id={`${uid}-tz`} className="input" data-help="Whose clock the times follow. Pick where you or your customers are, so 9:00 means 9:00 there." value={form.tz} onChange={(e) => set({ tz: e.target.value })}>
                 {zones.map((z) => <option key={z} value={z}>{z.replace(/_/g, " ")}{z === viewerZone ? " (yours)" : ""}</option>)}
               </select>
             </div>
@@ -287,12 +287,12 @@ export function SchedulePicker({ projectId, flowId }: { projectId: string; flowI
       )}
 
       <div className="mt-4 flex flex-wrap items-center gap-2">
-        <button type="button" className="btn-primary" disabled={busy || !dirty || (mode === "schedule" && (!checked.ok || tooOften || !state.planAllows))} onClick={save}>
+        <button type="button" className="btn-primary" disabled={busy || !dirty || (mode === "schedule" && (!checked.ok || tooOften || !state.planAllows))} onClick={save} data-help="Saves when this runs. A new or changed schedule takes effect once you publish your app.">
           {busy && <Loader2 size={14} className="animate-spin" />}
           {mode === "schedule" ? "Save schedule" : "Save"}
         </button>
         {state.mode === "schedule" && state.pausedReason === "failures" && (
-          <button type="button" className="btn-ghost" disabled={busy} onClick={() => send({ resume: true })}>
+          <button type="button" className="btn-ghost" disabled={busy} onClick={() => send({ resume: true })} data-help="Turns the schedule back on after it paused because runs kept failing. Fix the problem in its steps first.">
             <RotateCcw size={14} /> Resume
           </button>
         )}

@@ -150,10 +150,10 @@ export default async function AdminDashboard() {
 
         <div className="mt-8 grid gap-4 md:grid-cols-5">
           <Stat label="Users" value={userCount} />
-          <Stat label="Paid users" value={paidCount} />
+          <Stat label="Paid users" value={paidCount} help="People on any plan other than Free, whether they pay through Stripe or you set the plan by hand." />
           <Stat label="Projects" value={projectCount} />
-          <Stat label="Flows" value={flowCount} />
-          <Stat label="Flow runs" value={runCount} />
+          <Stat label="Flows" value={flowCount} help="Workflows: automated steps people have set up in their apps, like sending an email when a form is filled in." />
+          <Stat label="Flow runs" value={runCount} help="How many times workflows have run, as far back as the saved run logs go." />
         </div>
 
         <section className="mt-8" aria-labelledby="funnel-heading">
@@ -161,15 +161,15 @@ export default async function AdminDashboard() {
           <p className="mt-1 text-sm text-surface-400">How quickly people who sign up get an app live. Measured from sign-up to their first published app.</p>
           <div className={`mt-3 grid gap-4 ${typeof arrivedWithIdea === "number" ? "md:grid-cols-5" : "md:grid-cols-4"}`}>
             <Stat label="Signed up" value={funnel.signups} />
-            {typeof arrivedWithIdea === "number" && <StatText label="Came with an idea" value={`${arrivedWithIdea} · ${pct(arrivedWithIdea)}`} />}
+            {typeof arrivedWithIdea === "number" && <StatText label="Came with an idea" help="People who signed up after typing an app idea into the box on the home page." value={`${arrivedWithIdea} · ${pct(arrivedWithIdea)}`} />}
             <StatText label="Made an app" value={`${funnel.madeApp} · ${pct(funnel.madeApp)}`} />
             <StatText label="Published one" value={`${funnel.published} · ${pct(funnel.published)}`} />
-            <StatText label="Median time to publish" value={funnel.medianMinutesToPublish === null ? "—" : funnel.medianMinutesToPublish < 120 ? `${funnel.medianMinutesToPublish} min` : `${Math.round(funnel.medianMinutesToPublish / 60)} h`} />
+            <StatText label="Median time to publish" help="The typical time from signing up to publishing a first app: half of people are quicker, half slower." value={funnel.medianMinutesToPublish === null ? "—" : funnel.medianMinutesToPublish < 120 ? `${funnel.medianMinutesToPublish} min` : `${Math.round(funnel.medianMinutesToPublish / 60)} h`} />
           </div>
         </section>
 
         <section id="users" className="mt-10 scroll-mt-20">
-          <h2 className="font-semibold text-lg">Users</h2>
+          <h2 className="font-semibold text-lg" data-help="Everyone with an account, newest 50 first. Change someone's plan, send a password link, open their workspace to help them, or delete them.">Users</h2>
           <div className="mt-3 card overflow-hidden">
             <table className="w-full text-sm">
               <thead className="bg-surface-900 text-surface-400 text-xs uppercase tracking-wider">
@@ -216,7 +216,7 @@ export default async function AdminDashboard() {
         </section>
 
         <section className="mt-10">
-          <h2 className="font-semibold text-lg">Recent projects</h2>
+          <h2 className="font-semibold text-lg">Recent apps</h2>
           <div className="mt-3 grid gap-3 md:grid-cols-2">
             {projects.map((p) => (
               <div key={p.id} className="card p-4">
@@ -257,7 +257,7 @@ export default async function AdminDashboard() {
         </section>
 
         <section className="mt-10">
-          <h2 className="font-semibold text-lg">Recent flow runs</h2>
+          <h2 className="font-semibold text-lg" data-help="The latest 20 times any workflow ran. A status in the 200s (green) means it worked; anything else (red) means it failed.">Recent flow runs</h2>
           <div className="mt-3 card overflow-hidden">
             <table className="w-full text-sm">
               <thead className="bg-surface-900 text-surface-400 text-xs uppercase tracking-wider">
@@ -334,18 +334,18 @@ function SchemaBanner({ schema }: { schema: SchemaStatus }) {
   );
 }
 
-function StatText({ label, value }: { label: string; value: string }) {
+function StatText({ label, value, help }: { label: string; value: string; help?: string }) {
   return (
-    <div className="card p-5">
+    <div className="card p-5" data-help={help}>
       <div className="text-xs uppercase tracking-wider text-surface-400">{label}</div>
       <div className="text-2xl font-bold mt-2">{value}</div>
     </div>
   );
 }
 
-function Stat({ label, value }: { label: string; value: number }) {
+function Stat({ label, value, help }: { label: string; value: number; help?: string }) {
   return (
-    <div className="card p-5">
+    <div className="card p-5" data-help={help}>
       <div className="text-xs uppercase tracking-wider text-surface-400">{label}</div>
       <div className="text-3xl font-bold mt-2">{value}</div>
     </div>

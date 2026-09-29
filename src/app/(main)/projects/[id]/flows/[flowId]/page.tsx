@@ -22,7 +22,7 @@ export default async function FlowEditorPage({
 
   const flow = await db.flow.findFirst({
     where: { id: flowId, projectId: id, project: { ownerId: user.id } },
-    select: { id: true, name: true, httpPath: true, graph: true },
+    select: { id: true, name: true, httpPath: true, graph: true, enabled: true, trigger: true },
   });
   if (!flow) notFound();
 
@@ -40,6 +40,8 @@ export default async function FlowEditorPage({
       flowId={flow.id}
       flowName={flow.name}
       httpPath={flow.httpPath ?? ""}
+      enabled={flow.enabled}
+      scheduled={flow.trigger === "SCHEDULE"}
       initialGraph={flow.graph as unknown as FlowGraph}
       initialTab={tab === "activity" || tab === "schedule" ? tab : "design"}
       problemCount={problemCount}

@@ -43,7 +43,7 @@ export async function ProblemsCard({ projectId, emailOn, canSetUpEmail }: { proj
   return (
     <section id="problems" className="card mt-6 scroll-mt-24 border-amber-400/25 p-6" aria-labelledby="problems-heading" data-testid="problems-card">
       <div className="flex flex-wrap items-baseline justify-between gap-3">
-        <h2 id="problems-heading" className="flex items-center gap-2 font-semibold">
+        <h2 id="problems-heading" className="flex items-center gap-2 font-semibold" data-help="Times in the last day when one of your automations failed or couldn’t finish something, like an email that wasn’t sent.">
           <AlertTriangle size={17} className="text-amber-300" aria-hidden />
           Problems in the last 24 hours
         </h2>
@@ -54,7 +54,7 @@ export async function ProblemsCard({ projectId, emailOn, canSetUpEmail }: { proj
           <li key={p.flowId} className="py-3" data-testid="problem-line">
             <p className="text-sm text-surface-100">{line(p)}</p>
             {p.failed > 0 && p.lastError && <p className="mt-1 text-xs text-surface-400">Last error: {p.lastError.slice(0, 200)}</p>}
-            <Link href={`/projects/${projectId}/flows/${p.flowId}?tab=activity`} className="mt-1.5 inline-flex items-center gap-1 text-xs font-medium text-brand-300 hover:underline">
+            <Link href={`/projects/${projectId}/flows/${p.flowId}?tab=activity`} className="mt-1.5 inline-flex items-center gap-1 text-xs font-medium text-brand-300 hover:underline" data-help="Open this automation’s Activity to see each run, including what people sent, so you can get back to them.">
               {p.failed ? "See who it was and what they sent" : "See what happened"}
               <ArrowRight size={12} aria-hidden />
             </Link>
@@ -64,7 +64,7 @@ export async function ProblemsCard({ projectId, emailOn, canSetUpEmail }: { proj
       {emailIssue && (
         <p className="mt-2 text-xs text-surface-400">
           Email isn&apos;t set up on this server.{" "}
-          {canSetUpEmail ? <Link href="/admin/settings#email" className="text-brand-300 hover:underline">Set up email</Link> : "Ask your provider to connect email."}
+          {canSetUpEmail ? <Link href="/admin/settings#email" className="text-brand-300 hover:underline" data-help="Open the server settings to connect an email service, so apps can send emails.">Set up email</Link> : "Ask your provider to connect email."}
         </p>
       )}
     </section>

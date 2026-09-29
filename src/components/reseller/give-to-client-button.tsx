@@ -54,7 +54,7 @@ export function GiveToClientButton({
 
   if (!open) {
     return (
-      <button type="button" className="btn-ghost text-xs" onClick={() => setOpen(true)}>
+      <button type="button" className="btn-ghost text-xs" onClick={() => setOpen(true)} data-help="Moves this app into one of your clients' accounts. It shows on their dashboard and counts toward their plan; you can still open it for them.">
         <Gift size={14} aria-hidden /> Give to client
       </button>
     );

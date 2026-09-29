@@ -23,6 +23,7 @@ import type { FlowGraph } from "@/lib/flow/types";
 import { NodeInspector } from "./node-inspector";
 import { ActivityPanel } from "./activity-panel";
 import { CATEGORY_LABELS, NODE_CATALOG } from "./catalog";
+import { FlowEnabledSwitch } from "./flow-enabled-switch";
 
 type DSColumn = { name: string; type: string };
 type DSTable = { name: string; columns: DSColumn[] };
@@ -35,6 +36,10 @@ type Props = {
   flowId: string;
   flowName: string;
   httpPath: string;
+  /** Whether the flow runs at all (false: paused). */
+  enabled?: boolean;
+  /** Runs on a schedule (changes what pausing means). */
+  scheduled?: boolean;
   initialGraph: FlowGraph;
   datasources: DS[];
   /** Open on the Activity tab (links from the Problems card). */
@@ -72,6 +77,7 @@ export function FlowEditor(props: Props) {
   const [testOut, setTestOut] = useState<string>("");
   const [tab, setTab] = useState<Tab>(props.initialTab === "schedule" && !props.schedulePanel ? "design" : props.initialTab ?? "design");
   const [activityKey, setActivityKey] = useState(0);
+  const [enabled, setEnabled] = useState(props.enabled ?? true);
   const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   // What's already saved, so opening the flow (or selecting/resizing steps)
   // doesn't send a save or flash "Saving…"; only real edits do.
@@ -190,6 +196,11 @@ export function FlowEditor(props: Props) {
   }, [nodes, edges, props.projectId, props.flowId]);
 
   async function testRun() {
+    // /api/run turns paused flows away for everyone, the owner included.
+    if (!enabled) {
+      setTestOut("This automation is paused. Turn it on to test it.");
+      return;
+    }
     setTestOut("Running...");
     try {
       const res = await fetch(`/api/run/${props.flowId}`, {
@@ -214,13 +225,13 @@ export function FlowEditor(props: Props) {
         <div className="p-3 border-b border-surface-800">
           <div className="text-xs text-surface-500 uppercase tracking-wider">Flow</div>
           <div className="font-semibold">{props.flowName}</div>
-          <details className="mt-2 text-[11px] text-surface-400"><summary className="cursor-pointer">Web address (for developers)</summary><code className="mt-2 block break-all">/api/run/{props.flowId}</code></details>
+          <details className="mt-2 text-[11px] text-surface-400"><summary className="cursor-pointer" data-help="The web address other services or your own code can call to start this automation. You only need it if you’re connecting something outside the studio.">Web address (for developers)</summary><code className="mt-2 block break-all">/api/run/{props.flowId}</code></details>
         </div>
         <div className="p-3">
-          <div className="text-xs uppercase tracking-wider text-surface-400 mb-2">
+          <div className="text-xs uppercase tracking-wider text-surface-400 mb-2" data-help="The things your automation can do. Click one to add it, then drag from its right edge to the next step to set the order they run in.">
             Add step
           </div>
-          <label className="studio-search mb-4"><Search size={14} /><input aria-label="Search flow steps" placeholder="Find a step…" value={stepSearch} onChange={(e) => setStepSearch(e.target.value)} /></label>
+          <label className="studio-search mb-4"><Search size={14} /><input aria-label="Search flow steps" data-help="Type a word, like “email” or “save”, to find a step fast." placeholder="Find a step…" value={stepSearch} onChange={(e) => setStepSearch(e.target.value)} /></label>
           {Object.entries(groupByCategory(NODE_CATALOG.filter((c) => `${c.label} ${c.category} ${CATEGORY_LABELS[c.category]}`.toLowerCase().includes(stepSearch.toLowerCase())))).map(([cat, items]) => (
             <div key={cat} className="mb-4">
               <div className="text-[10px] text-surface-500 uppercase tracking-[0.12em] font-semibold mb-1.5">
@@ -234,6 +245,7 @@ export function FlowEditor(props: Props) {
                       key={c.type}
                       className="group flex items-center gap-2.5 text-left px-2.5 py-2 rounded-lg hover:bg-surface-800 text-sm border border-surface-800 hover:border-surface-700 transition"
                       onClick={() => addNode(c.type)}
+                      data-help={c.help}
                     >
                       <span
                         className={`inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-surface-950 border border-surface-800 group-hover:border-surface-700 ${c.iconColor}`}
@@ -252,15 +264,15 @@ export function FlowEditor(props: Props) {
 
       <div className="flex-1 min-w-0 relative">
         <div className="studio-segmented absolute left-3 top-3 z-30 bg-surface-950/90" role="tablist" aria-label="Flow views">
-          <button type="button" role="tab" id="flow-tab-design" aria-selected={tab === "design"} aria-controls="flow-panel-design" className={`inline-flex items-center gap-1.5 ${tab === "design" ? "active" : ""}`} onClick={() => setTab("design")}>
+          <button type="button" role="tab" id="flow-tab-design" aria-selected={tab === "design"} aria-controls="flow-panel-design" data-help="Build the automation: add steps and connect them in the order they should run." className={`inline-flex items-center gap-1.5 ${tab === "design" ? "active" : ""}`} onClick={() => setTab("design")}>
             <Workflow size={13} aria-hidden />Steps
           </button>
-          <button type="button" role="tab" id="flow-tab-activity" aria-selected={tab === "activity"} aria-controls="flow-panel-activity" className={`inline-flex items-center gap-1.5 ${tab === "activity" ? "active" : ""}`} onClick={() => setTab("activity")}>
+          <button type="button" role="tab" id="flow-tab-activity" aria-selected={tab === "activity"} aria-controls="flow-panel-activity" data-help="See each time this automation ran, whether it worked, and what people sent when something went wrong." className={`inline-flex items-center gap-1.5 ${tab === "activity" ? "active" : ""}`} onClick={() => setTab("activity")}>
             <History size={13} aria-hidden />Activity
             {props.problemCount ? <span className="ml-0.5 rounded-full bg-amber-400/20 px-1.5 text-[10px] font-semibold text-amber-200" aria-label={`${props.problemCount} with a problem in the last 24 hours`}>{props.problemCount > 99 ? "99+" : props.problemCount}</span> : null}
           </button>
           {props.schedulePanel ? (
-            <button type="button" role="tab" id="flow-tab-schedule" aria-selected={tab === "schedule"} aria-controls="flow-panel-schedule" className={`inline-flex items-center gap-1.5 ${tab === "schedule" ? "active" : ""}`} onClick={() => setTab("schedule")}>
+            <button type="button" role="tab" id="flow-tab-schedule" aria-selected={tab === "schedule"} aria-controls="flow-panel-schedule" data-help="Choose whether this runs when your app uses it or by itself at set times, like every morning." className={`inline-flex items-center gap-1.5 ${tab === "schedule" ? "active" : ""}`} onClick={() => setTab("schedule")}>
               <CalendarClock size={13} aria-hidden />Schedule
             </button>
           ) : null}
@@ -279,7 +291,10 @@ export function FlowEditor(props: Props) {
           <span className="text-xs text-surface-400">
             {status === "saving" ? "Saving…" : status === "saved" ? "Saved" : status === "error" ? "Save failed" : ""}
           </span>
-          <button className="btn-ghost" onClick={testRun}>
+          <span className="rounded-md border border-surface-800 bg-surface-950/90 px-2 py-1.5">
+            <FlowEnabledSwitch projectId={props.projectId} flowId={props.flowId} enabled={enabled} scheduled={props.scheduled} onChange={setEnabled} />
+          </span>
+          <button className="btn-ghost" onClick={testRun} data-help="Runs this automation once right now, using your latest saved changes, and shows the result below. It really does its steps (saving, emailing and so on), and it shows up in Activity.">
             Test run
           </button>
         </div>
@@ -354,6 +369,8 @@ function NkNodeView({ id, data, selected }: { id: string; data: Record<string, u
             deleteNode(id);
           }}
           title="Delete step"
+          aria-label="Delete step"
+          data-help="Removes this step and its connections. You can also press Delete on your keyboard."
         >
           <X size={12} strokeWidth={2.5} />
         </button>
@@ -384,24 +401,24 @@ function NkNodeView({ id, data, selected }: { id: string; data: Record<string, u
 
 function Handles({ type }: { type: string }) {
   if (type === "trigger") {
-    return <Handle type="source" position={Position.Right} />;
+    return <Handle type="source" position={Position.Right} data-help="Drag from here to the next step to choose what runs after this one." />;
   }
   if (type === "response") {
-    return <Handle type="target" position={Position.Left} />;
+    return <Handle type="target" position={Position.Left} data-help="Where the previous step connects in." />;
   }
   if (type === "branch") {
     return (
       <>
-        <Handle type="target" position={Position.Left} />
-        <Handle id="true" type="source" position={Position.Right} style={{ top: "35%" }} />
-        <Handle id="false" type="source" position={Position.Right} style={{ top: "65%" }} />
+        <Handle type="target" position={Position.Left} data-help="Where the previous step connects in." />
+        <Handle id="true" type="source" position={Position.Right} style={{ top: "35%" }} data-help="Top dot: drag from here to the step that should run when the check is true." />
+        <Handle id="false" type="source" position={Position.Right} style={{ top: "65%" }} data-help="Bottom dot: drag from here to the step that should run when the check is not true." />
       </>
     );
   }
   return (
     <>
-      <Handle type="target" position={Position.Left} />
-      <Handle type="source" position={Position.Right} />
+      <Handle type="target" position={Position.Left} data-help="Where the previous step connects in." />
+      <Handle type="source" position={Position.Right} data-help="Drag from here to the next step to choose what runs after this one." />
     </>
   );
 }

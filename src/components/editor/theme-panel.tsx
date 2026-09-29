@@ -8,16 +8,16 @@ type Props = {
   editor: Editor;
 };
 
-const COLOR_FIELDS: Array<{ key: keyof ProjectTheme; label: string }> = [
-  { key: "primary", label: "Primary" },
-  { key: "primary2", label: "Primary hover" },
-  { key: "accent", label: "Accent" },
-  { key: "bg", label: "Background" },
-  { key: "surface", label: "Surface" },
-  { key: "surface2", label: "Surface alt" },
-  { key: "border", label: "Border" },
-  { key: "text", label: "Text" },
-  { key: "textMuted", label: "Text muted" },
+const COLOR_FIELDS: Array<{ key: keyof ProjectTheme; label: string; help: string }> = [
+  { key: "primary", label: "Primary", help: "Your main brand color, used for buttons, links and highlights." },
+  { key: "primary2", label: "Primary hover", help: "The color buttons and links turn when someone points at them." },
+  { key: "accent", label: "Accent", help: "A second color for small touches, like badges and decorative shapes." },
+  { key: "bg", label: "Background", help: "The color behind everything on your pages." },
+  { key: "surface", label: "Surface", help: "The color of cards and boxes that sit on top of the background." },
+  { key: "surface2", label: "Surface alt", help: "A second box color, used to set some sections and labels apart." },
+  { key: "border", label: "Border", help: "The color of thin lines around boxes and between sections." },
+  { key: "text", label: "Text", help: "The color of most of the words on your pages." },
+  { key: "textMuted", label: "Text muted", help: "A softer color for less important words, like captions and small notes." },
 ];
 
 function SwatchDots({ preset }: { preset: ProjectTheme }) {
@@ -128,13 +128,14 @@ export function ThemePanel({ projectId, editor }: Props) {
 
       {/* Preset picker with color swatches */}
       <div>
-        <div className="text-[10px] uppercase tracking-wider text-surface-500 font-semibold mb-1.5">
+        <div className="text-[10px] uppercase tracking-wider text-surface-500 font-semibold mb-1.5" data-help="Ready-made color and font sets for your whole app. Pick one to start, then fine-tune the colors below.">
           Preset
         </div>
         <div className="relative">
           <button
             type="button"
             onClick={() => setDropdownOpen(!dropdownOpen)}
+            data-help="Choose a ready-made look for your whole app. It replaces your current colors, fonts and corners. Visitors see it after you publish."
             className="w-full flex items-center justify-between bg-surface-950 border border-surface-800 rounded px-2.5 py-1.5 text-xs text-surface-100 focus:outline-none focus:border-brand-500 hover:border-surface-700 transition"
           >
             <div className="flex items-center gap-2">
@@ -154,6 +155,7 @@ export function ThemePanel({ projectId, editor }: Props) {
                   <button
                     key={p.name}
                     onClick={() => { pickPreset(p.name); setDropdownOpen(false); }}
+                    data-help={`Use the ${p.name} look: its colors, fonts and corners replace your current ones.`}
                     className={`w-full flex items-center justify-between px-2.5 py-1.5 text-xs hover:bg-surface-800 transition ${
                       p.name === theme.name ? "text-brand-300 bg-brand-500/10" : "text-surface-200"
                     }`}
@@ -167,6 +169,7 @@ export function ThemePanel({ projectId, editor }: Props) {
                   <button
                     key={p.name}
                     onClick={() => { pickPreset(p.name); setDropdownOpen(false); }}
+                    data-help={`Use the ${p.name} look: its colors, fonts and corners replace your current ones.`}
                     className={`w-full flex items-center justify-between px-2.5 py-1.5 text-xs hover:bg-surface-800 transition ${
                       p.name === theme.name ? "text-brand-300 bg-brand-500/10" : "text-surface-200"
                     }`}
@@ -205,6 +208,7 @@ export function ThemePanel({ projectId, editor }: Props) {
             }
           }}
           className="w-full bg-surface-950 border border-surface-800 rounded px-2.5 py-1.5 text-xs text-surface-100 focus:outline-none focus:border-brand-500"
+          data-help="The colors your app switches to when a visitor turns on dark mode with the sun/moon button. Auto picks one for you."
         >
           <option value="__auto__">Auto (first dark preset)</option>
           {THEME_PRESETS.filter((p) => p.mode === "dark").map((p) => (
@@ -228,6 +232,8 @@ export function ThemePanel({ projectId, editor }: Props) {
                 type="color"
                 value={(theme[f.key] as string) ?? "#000000"}
                 onChange={(e) => patch(f.key, e.target.value)}
+                aria-label={`${f.label} color`}
+                data-help={f.help}
                 className="w-6 h-6 rounded border border-surface-700 cursor-pointer bg-transparent p-0"
                 style={{ minWidth: "24px" }}
               />
@@ -236,6 +242,8 @@ export function ThemePanel({ projectId, editor }: Props) {
                 type="text"
                 value={(theme[f.key] as string) ?? ""}
                 onChange={(e) => patch(f.key, e.target.value)}
+                aria-label={`${f.label} color code`}
+                data-help="Or type a color code here, like #1a73e8, if you know the exact color you want."
                 className="w-[72px] bg-surface-950 border border-surface-800 rounded px-1.5 py-0.5 text-[10px] text-surface-400 font-mono focus:outline-none focus:border-brand-500"
               />
             </div>
@@ -261,6 +269,8 @@ export function ThemePanel({ projectId, editor }: Props) {
               patch("radiusSm", Math.max(0, parseInt(e.target.value) - 4) + "px");
             }}
             className="flex-1 accent-brand-500"
+            aria-label="Corner roundness"
+            data-help="How round the corners of buttons, cards and boxes are across your app. Slide left for square, right for rounder."
           />
           <span className="text-[10px] text-surface-500 w-8 text-right font-mono">
             {theme.radius ?? "14px"}
@@ -282,6 +292,7 @@ export function ThemePanel({ projectId, editor }: Props) {
                 const target = THEME_PRESETS.find((p) => p.mode === m);
                 if (target) setTheme({ ...target });
               }}
+              data-help={m === "light" ? "Switch to the first light ready-made theme. This replaces your current colors and fonts." : "Switch to the first dark ready-made theme. This replaces your current colors and fonts."}
               className={`flex-1 text-[11px] py-1.5 rounded border transition ${
                 theme.mode === m
                   ? "bg-brand-500/20 border-brand-500 text-brand-200"

@@ -552,7 +552,12 @@ async function main() {
     // ── Deleting a reseller keeps its clients ───────────────────────
     r = await op.del(`/api/admin/resellers/${otherId}`, { confirmName: "wrong" });
     ok("deleting a reseller requires typing its name", r.status === 400);
+    // A client still paying on the reseller's Stripe account (which can't be
+    // reached here) blocks the delete until the operator says they handled it.
+    await db.user.update({ where: { id: joId }, data: { stripeCustomerId: "cus_e2e", stripeSubscriptionId: "sub_e2e", subscriptionStatus: "ACTIVE", plan: "STARTER" } });
     r = await op.del(`/api/admin/resellers/${brightId}`, { confirmName: "Bright Apps" });
+    ok("a client's subscription that can't be cancelled stops the delete", r.status === 502 && r.json?.code === "billing" && Boolean(await db.reseller.findUnique({ where: { id: brightId } })), r.json);
+    r = await op.del(`/api/admin/resellers/${brightId}`, { confirmName: "Bright Apps", billingHandled: true });
     ok("operator deletes a reseller", r.status === 200, r.json);
     const [joAfter, ownerAfter, appsAfter] = await Promise.all([
       db.user.findUnique({ where: { id: joId } }),

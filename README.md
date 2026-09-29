@@ -48,6 +48,10 @@ paid core and no license server.
   under theirs, on their own domains, billing their own clients.
 - **Any AI, including local.** OpenAI or any compatible service, or a model on
   your own server. Building a typical app costs a few cents.
+- **Help where you need it.** Plain-English tips on every button and setting
+  (switch them off in Settings), and 18 step-by-step guides with screenshots.
+  The Help link opens the guide for the screen you're on. Also in
+  [docs/guides](docs/guides/README.md).
 
 ---
 
@@ -165,7 +169,7 @@ pnpm dev                 # http://localhost:3001/install
 Checks: `pnpm typecheck`, `pnpm check:js`, `pnpm check:extensions`,
 `pnpm test:e2e`. More: [architecture](ARCHITECTURE.md),
 [contributing](CONTRIBUTING.md), [local AI](docs/local-ai.md),
-[mobile apps](docs/mobile-apps.md), [deployment](docs/deploy/).
+[mobile apps](docs/mobile-apps.md), [deployment](docs/deploy/), [user guides](docs/guides/README.md).
 
 ## License
 

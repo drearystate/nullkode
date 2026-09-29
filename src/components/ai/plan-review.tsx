@@ -40,7 +40,7 @@ export function PlanReview({
   };
 
   return (
-    <section className="card p-6 md:p-8" aria-labelledby="plan-heading">
+    <section className="card p-6 md:p-8" aria-labelledby="plan-heading" data-help="The AI's plan for your app: its pages, what it saves and how it looks. Change anything here; nothing is built until you press Build my app.">
       <p className="studio-eyebrow text-brand-300">YOUR PLAN</p>
       <h2 id="plan-heading" className="mt-2 text-2xl font-semibold tracking-tight">Here&apos;s what I&apos;ll build</h2>
       <p className="mt-1 text-sm text-surface-400">Check it over and change anything you like. Nothing is built until you say so.</p>
@@ -48,9 +48,9 @@ export function PlanReview({
       <div className="mt-6 grid gap-4 sm:grid-cols-[1fr_auto] sm:items-end">
         <label className="block text-sm">
           <span className="label">App name</span>
-          <input className="input w-full text-base" maxLength={80} value={plan.project.name} onChange={(e) => onChange({ ...plan, project: { ...plan.project, name: e.target.value } })} />
+          <input className="input w-full text-base" data-help="What your app is called. You can change it now or later." maxLength={80} value={plan.project.name} onChange={(e) => onChange({ ...plan, project: { ...plan.project, name: e.target.value } })} />
         </label>
-        <button type="button" className="btn-ghost justify-start" aria-expanded={showLooks} aria-controls="plan-looks" onClick={() => setShowLooks((v) => !v)}>
+        <button type="button" className="btn-ghost justify-start" data-help="The colours and style your app will use. Click to pick a different look; you can change it again after it's built." aria-expanded={showLooks} aria-controls="plan-looks" onClick={() => setShowLooks((v) => !v)}>
           <Palette size={16} aria-hidden />
           <Swatch theme={theme} />
           <span>{theme.name}</span>
@@ -59,7 +59,7 @@ export function PlanReview({
       {showLooks && (
         <div id="plan-looks" className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4" role="group" aria-label="Choose a look">
           {themes.map((t) => (
-            <button key={t.name} type="button" aria-pressed={t.name === theme.name} onClick={() => { onChange({ ...plan, theme: t.name }); setShowLooks(false); }}
+            <button key={t.name} type="button" aria-pressed={t.name === theme.name} data-help="Use this set of colours for your app." onClick={() => { onChange({ ...plan, theme: t.name }); setShowLooks(false); }}
               className={`flex items-center gap-2 rounded-lg border px-3 py-2 text-left text-xs transition ${t.name === theme.name ? "border-brand-400 bg-white/[0.06]" : "border-white/10 hover:border-white/25"}`}>
               <Swatch theme={t} />
               <span className="truncate">{t.name}</span>
@@ -79,13 +79,13 @@ export function PlanReview({
                     <p className="flex flex-wrap items-center gap-2 text-sm font-medium">
                       {p.title}
                       {p.isHome && <span className="rounded-full bg-brand-500/15 px-2 py-0.5 text-[11px] font-normal text-brand-200">Home page</span>}
-                      {p.requiresRole ? <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/10 px-2 py-0.5 text-[11px] font-normal text-amber-200"><ShieldCheck size={11} aria-hidden />{words(p.requiresRole)}s only</span>
-                        : p.requiresAuth ? <span className="inline-flex items-center gap-1 rounded-full bg-white/[0.06] px-2 py-0.5 text-[11px] font-normal text-surface-300"><Lock size={11} aria-hidden />Signed-in visitors</span> : null}
+                      {p.requiresRole ? <span data-help="Only signed-in people with this role can open this page. Other visitors can't see it." className="inline-flex items-center gap-1 rounded-full bg-amber-500/10 px-2 py-0.5 text-[11px] font-normal text-amber-200"><ShieldCheck size={11} aria-hidden />{words(p.requiresRole)}s only</span>
+                        : p.requiresAuth ? <span data-help="Visitors must sign in to their account before they can see this page." className="inline-flex items-center gap-1 rounded-full bg-white/[0.06] px-2 py-0.5 text-[11px] font-normal text-surface-300"><Lock size={11} aria-hidden />Signed-in visitors</span> : null}
                     </p>
                     {p.summary && <p className="mt-1 text-xs leading-relaxed text-surface-400">{p.summary}</p>}
                   </div>
                   {plan.pages.length > 1 && (
-                    <button type="button" className="rounded-md p-1.5 text-surface-400 hover:bg-white/[0.06] hover:text-surface-100" aria-label={`Remove the ${p.title} page`} title="Remove page" onClick={() => removePage(p.slug)}>
+                    <button type="button" className="rounded-md p-1.5 text-surface-400 hover:bg-white/[0.06] hover:text-surface-100" aria-label={`Remove the ${p.title} page`} title="Remove page" data-help="Take this page out of the plan so it isn't built. To get it back, ask for it in the box below." onClick={() => removePage(p.slug)}>
                       <Trash2 size={14} />
                     </button>
                   )}
@@ -99,7 +99,7 @@ export function PlanReview({
         <div className="space-y-6">
           {plan.tables.length > 0 && (
             <div>
-              <h3 className="flex items-center gap-2 text-sm font-semibold"><Database size={15} className="text-brand-300" aria-hidden />What it saves</h3>
+              <h3 className="flex items-center gap-2 text-sm font-semibold" data-help="The kinds of information your app will keep, like bookings or messages, and the details saved for each one."><Database size={15} className="text-brand-300" aria-hidden />What it saves</h3>
               <ul className="mt-3 space-y-2">
                 {plan.tables.map((t) => (
                   <li key={t.name} className="text-sm">
@@ -113,7 +113,7 @@ export function PlanReview({
           )}
           {plan.assumptions.length > 0 && (
             <div>
-              <h3 className="flex items-center gap-2 text-sm font-semibold"><Check size={15} className="text-brand-300" aria-hidden />I assumed</h3>
+              <h3 className="flex items-center gap-2 text-sm font-semibold" data-help="Choices the AI made where your description didn't say. If one is wrong, tell it in the box below."><Check size={15} className="text-brand-300" aria-hidden />I assumed</h3>
               <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm text-surface-300">
                 {plan.assumptions.map((a, i) => <li key={i}>{a}</li>)}
               </ul>
@@ -121,7 +121,7 @@ export function PlanReview({
           )}
           {plan.flows.length > 0 && (
             <details className="text-sm">
-              <summary className="cursor-pointer text-surface-400 hover:text-surface-200">Behind the scenes: {plan.flows.length} {plan.flows.length === 1 ? "action" : "actions"}</summary>
+              <summary className="cursor-pointer text-surface-400 hover:text-surface-200" data-help="Automations the AI will set up, like saving a form or sending an email. They run by themselves when visitors use your app.">Behind the scenes: {plan.flows.length} {plan.flows.length === 1 ? "action" : "actions"}</summary>
               <ul className="mt-2 space-y-1 pl-1 text-xs text-surface-400">
                 {plan.flows.map((f) => <li key={f.slug}><span className="text-surface-200">{f.name}</span>{f.purpose ? ` — ${f.purpose}` : ""}</li>)}
               </ul>
@@ -134,8 +134,8 @@ export function PlanReview({
         <label htmlFor="plan-change" className="text-sm font-medium">Want something different?</label>
         <p className="mt-0.5 text-xs text-surface-400">Say it in your own words and I&apos;ll update the plan.</p>
         <div className="mt-3 flex flex-col gap-2 sm:flex-row">
-          <input id="plan-change" className="input flex-1" maxLength={1000} value={change} disabled={revising} onChange={(e) => setChange(e.target.value)} placeholder="e.g. Add a prices page, and let customers cancel a booking" />
-          <button className="btn-ghost shrink-0" disabled={revising || change.trim().length < 3}>
+          <input id="plan-change" data-help="Describe what to change in the plan, like adding a page or a new detail to save." className="input flex-1" maxLength={1000} value={change} disabled={revising} onChange={(e) => setChange(e.target.value)} placeholder="e.g. Add a prices page, and let customers cancel a booking" />
+          <button className="btn-ghost shrink-0" data-help="Ask the AI to redo the plan with your change. Your current plan stays until the new one is ready." disabled={revising || change.trim().length < 3}>
             <Wand2 size={15} aria-hidden />{revising ? "Updating…" : "Update plan"}
           </button>
         </div>
@@ -143,8 +143,8 @@ export function PlanReview({
       </form>
 
       <div className="mt-6 flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <button type="button" className="text-sm text-surface-400 hover:text-surface-100" onClick={onStartOver} disabled={revising}>Start over</button>
-        <button type="button" className="btn-primary px-6" onClick={onBuild} disabled={revising || !nameOk}>Build my app</button>
+        <button type="button" className="text-sm text-surface-400 hover:text-surface-100" onClick={onStartOver} disabled={revising} data-help="Throw away this plan and go back to your description. Nothing has been built yet.">Start over</button>
+        <button type="button" className="btn-primary px-6" onClick={onBuild} disabled={revising || !nameOk} data-help="Build your app from this plan. It usually takes a few minutes, then your app opens in the editor.">Build my app</button>
       </div>
     </section>
   );

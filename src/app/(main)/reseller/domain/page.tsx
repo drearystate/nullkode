@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { getRealUser } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { platformTargetHost } from "@/lib/reseller";
+import { platformTargetHost, platformTargetIp } from "@/lib/reseller";
 import { DomainSetup } from "@/components/reseller/domain-setup";
 
 export const dynamic = "force-dynamic";
@@ -24,6 +24,7 @@ export default async function ResellerDomainPage() {
         initialToken={reseller.domainToken}
         initiallyVerified={Boolean(reseller.domainVerifiedAt)}
         target={platformTargetHost()}
+        ip={await platformTargetIp()}
         autoTls={process.env.NK_AUTO_TLS === "1"}
       />
     </div>

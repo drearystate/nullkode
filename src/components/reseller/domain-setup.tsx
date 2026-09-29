@@ -4,7 +4,7 @@ import { CheckCircle2, CircleDashed, Copy } from "lucide-react";
 
 type Check = { owned: boolean; pointsHere: boolean } | null;
 
-export function DomainSetup({ initialDomain, initialToken, initiallyVerified, target, autoTls = false }: { initialDomain: string | null; initialToken: string | null; initiallyVerified: boolean; target: string; autoTls?: boolean }) {
+export function DomainSetup({ initialDomain, initialToken, initiallyVerified, target, ip = null, autoTls = false }: { initialDomain: string | null; initialToken: string | null; initiallyVerified: boolean; target: string; ip?: string | null; autoTls?: boolean }) {
   const [domain, setDomain] = useState(initialDomain);
   const [token, setToken] = useState(initialToken);
   const [verified, setVerified] = useState(initiallyVerified);
@@ -44,8 +44,8 @@ export function DomainSetup({ initialDomain, initialToken, initiallyVerified, ta
         <label className="block text-sm">
           <span className="label">Domain</span>
           <div className="flex flex-col gap-2 sm:flex-row">
-            <input className="input flex-1 font-mono" value={input} onChange={(e) => setInput(e.target.value)} placeholder="apps.youragency.com" aria-describedby="domain-hint" />
-            <button className="btn-primary justify-center" disabled={busy || input.trim() === (domain ?? "")}>{domain ? "Change domain" : "Use this domain"}</button>
+            <input data-help="A web address you own, like apps.youragency.com. Your clients will sign in and build there, and their published apps are shared from it." className="input flex-1 font-mono" value={input} onChange={(e) => setInput(e.target.value)} placeholder="apps.youragency.com" aria-describedby="domain-hint" />
+            <button className="btn-primary justify-center" disabled={busy || input.trim() === (domain ?? "")} data-help="Saves the address and shows the settings to add at the company where you bought your domain. A new address has to be checked again before it works.">{domain ? "Change domain" : "Use this domain"}</button>
           </div>
         </label>
         <p id="domain-hint" className="mt-2 text-xs text-surface-400">Use a subdomain you control, like apps.youragency.com. Leave it empty and save to stop using a custom domain.</p>
@@ -55,7 +55,7 @@ export function DomainSetup({ initialDomain, initialToken, initiallyVerified, ta
       {domain && token && (
         <section className="card p-6" aria-labelledby="dns-heading">
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <h2 id="dns-heading" className="font-semibold">Connect {domain}</h2>
+            <h2 id="dns-heading" className="font-semibold" data-help="DNS records are settings at the company where you bought your domain. These two prove the address is yours and send visitors to your workspace.">Connect {domain}</h2>
             {verified
               ? <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-400/10 px-3 py-1 text-xs text-emerald-300"><CheckCircle2 size={14} /> Connected</span>
               : <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-400/10 px-3 py-1 text-xs text-amber-200"><CircleDashed size={14} /> Waiting for DNS</span>}
@@ -70,9 +70,9 @@ export function DomainSetup({ initialDomain, initialToken, initiallyVerified, ta
               </tbody>
             </table>
           </div>
-          <p className="mt-3 text-xs text-surface-400">If your DNS host doesn&apos;t allow a CNAME here, use an A record pointing to this server&apos;s IP address instead.</p>
+          <p className="mt-3 text-xs text-surface-400">If your DNS host doesn&apos;t allow a CNAME here, use an A record pointing to {ip ? <span className="font-mono text-surface-200">{ip}</span> : <>this server&apos;s IP address</>} instead.</p>
           <div className="mt-5 flex flex-wrap items-center gap-3">
-            <button type="button" className="btn-primary" onClick={verify} disabled={busy}>{busy ? "Checking…" : "Check now"}</button>
+            <button type="button" className="btn-primary" onClick={verify} disabled={busy} data-help="Looks up your domain's settings now. As soon as the ownership record (TXT) is found, your address counts as connected.">{busy ? "Checking…" : "Check now"}</button>
             {check && (
               <ul className="space-y-1 text-sm">
                 <li className={check.owned ? "text-emerald-300" : "text-amber-200"}>{check.owned ? "Ownership confirmed (TXT record found)." : "TXT record not found yet."}</li>

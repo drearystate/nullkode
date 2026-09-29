@@ -64,7 +64,7 @@ export const eventTickets: ModuleDefinition = {
         { id: "n1", type: "trigger", data: {} },
         { id: "n2", type: "query", data: { table: "tiers", where: { id: "{{trigger.tier_id}}" }, limit: 1, output: "t" } },
         { id: "n3", type: "branch", data: { left: "{{vars.t.0.sold}}", op: "<", right: "{{vars.t.0.capacity}}" } },
-        { id: "n4", type: "math", data: { expression: "floor(random()*99999999)+10000000", output: "n" } },
+        { id: "n4", type: "math", data: { expression: "floor(random()*90000000)+10000000", output: "n" } },
         {
           id: "n5",
           type: "insert",

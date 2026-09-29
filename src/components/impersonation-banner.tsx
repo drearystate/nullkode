@@ -36,6 +36,7 @@ export function ImpersonationBanner({ adminEmail, targetEmail, targetName, actor
         <button
           onClick={stop}
           disabled={busy}
+          data-help={reseller ? "Leaves this client's workspace and takes you back to your client list. Changes you made stay in their account." : "Stops acting as this person and takes you back to Admin. Changes you made stay in their account."}
           className="shrink-0 bg-surface-950 text-amber-400 font-semibold rounded px-3 py-1 hover:bg-surface-800 disabled:opacity-50"
         >
           {busy ? "…" : reseller ? "Back to your clients" : "Stop impersonating"}

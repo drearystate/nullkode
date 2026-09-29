@@ -201,6 +201,21 @@ export function plainSettings(flowOptions: FlowOption[]) {
   };
 }
 
+/**
+ * Rebuilds a piece's settings after it was connected to a flow in code, so a
+ * newly connected list offers "Show items from" and a form's "When sent, run"
+ * shows the flow. Settings are worked out when a piece is made (see above).
+ */
+export function refreshSettings(editor: Editor, component: Component) {
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const traits = (editor.DomComponents.getType(String(component.get("type") ?? "default"))?.model?.prototype as any)?.defaults?.traits;
+    if (typeof traits === "function") component.set("traits", traits(component));
+  } catch {
+    /* the settings panel is a nicety */
+  }
+}
+
 // ─── Element toolbar ───────────────────────────────────────────────────────
 
 const MOVE_UP = "nk:move-up";
@@ -226,23 +241,23 @@ function plainToolbar(this: Component) {
   const self = this as any;
   const em = self.em;
   if (this.get("toolbar") || !em) return;
-  const item = (id: string, label: string, title: string, command: ToolbarItem["command"], extra: Record<string, unknown> = {}): ToolbarItem => ({
+  const item = (id: string, label: string, title: string, help: string, command: ToolbarItem["command"], extra: Record<string, unknown> = {}): ToolbarItem => ({
     id,
     label,
     command,
-    attributes: { title, "aria-label": title, role: "button", ...extra },
+    attributes: { title, "aria-label": title, "data-help": help, role: "button", ...extra },
   });
   const tb: ToolbarItem[] = [];
   if (self.collection) {
-    tb.push(item("nk-parent", ICONS.parent, "Select the part around this", (ed) => ed.runCommand("core:component-exit", { force: 1 })));
+    tb.push(item("nk-parent", ICONS.parent, "Select the part around this", "Pick the bigger box this piece sits in, like the whole section around a button.", (ed) => ed.runCommand("core:component-exit", { force: 1 })));
   }
   if (self.collection && this.get("draggable")) {
-    tb.push(item("nk-up", ICONS.up, "Move up", MOVE_UP));
-    tb.push(item("nk-down", ICONS.down, "Move down", MOVE_DOWN));
-    tb.push(item("nk-drag", em.getIcon("move"), "Drag to move", "tlb-move", { class: "gjs-no-touch-actions", draggable: true }));
+    tb.push(item("nk-up", ICONS.up, "Move up", "Move this piece one step up the page, above the piece before it. Undo puts it back.", MOVE_UP));
+    tb.push(item("nk-down", ICONS.down, "Move down", "Move this piece one step down the page, below the piece after it. Undo puts it back.", MOVE_DOWN));
+    tb.push(item("nk-drag", em.getIcon("move"), "Drag to move", "Hold here and drag to move this piece anywhere on the page. On a touch screen, use Move up and Move down.", "tlb-move", { class: "gjs-no-touch-actions", draggable: true }));
   }
-  if (this.get("copyable")) tb.push(item("nk-copy", em.getIcon("copy"), "Duplicate", "tlb-clone"));
-  if (this.get("removable")) tb.push(item("nk-delete", em.getIcon("delete"), "Delete", "tlb-delete"));
+  if (this.get("copyable")) tb.push(item("nk-copy", em.getIcon("copy"), "Duplicate", "Make a copy of this piece, placed right after it.", "tlb-clone"));
+  if (this.get("removable")) tb.push(item("nk-delete", em.getIcon("delete"), "Delete", "Remove this piece from the page. Changed your mind? Use Undo at the top.", "tlb-delete"));
   this.set("toolbar", tb);
 }
 

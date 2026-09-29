@@ -13,6 +13,8 @@ const InstallBody = z.object({
   moduleId: z.string().min(1),
   config: z.record(z.union([z.string(), z.number(), z.boolean()])).optional(),
   skipPages: z.boolean().optional(),
+  /** Starting rows per feature table (a premade block's sample items). */
+  seed: z.record(z.array(z.record(z.union([z.string(), z.number(), z.boolean(), z.null()]))).max(50)).optional(),
 });
 
 export async function GET(_req: Request, ctx: { params: Promise<{ id: string }> }) {
@@ -42,6 +44,7 @@ export async function POST(req: Request, ctx: { params: Promise<{ id: string }> 
       module,
       config: parsed.data.config,
       skipPages: parsed.data.skipPages,
+      seed: seedFor(module, parsed.data.seed),
       // Checked above, in plain words, counting the server's email settings
       // and the capabilities a feature brings itself.
       allowUnmetRequirements: true,
@@ -72,6 +75,25 @@ export async function POST(req: Request, ctx: { params: Promise<{ id: string }> 
       { status: 500 }
     );
   }
+}
+
+/**
+ * Starting rows limited to the feature's own tables and columns: column
+ * names become SQL identifiers when the rows are added.
+ */
+function seedFor(
+  module: ModuleDefinition,
+  seed: Record<string, Array<Record<string, string | number | boolean | null>>> | undefined
+): Record<string, Array<Record<string, unknown>>> | undefined {
+  if (!seed) return undefined;
+  const out: Record<string, Array<Record<string, unknown>>> = {};
+  for (const t of module.tables) {
+    const rows = seed[t.name];
+    if (!rows) continue;
+    const columns = new Set(t.fields.map((f) => f.name));
+    out[t.name] = rows.map((row) => Object.fromEntries(Object.entries(row).filter(([k]) => columns.has(k))));
+  }
+  return out;
 }
 
 /** Capabilities that come from the server's settings, not from another feature. */

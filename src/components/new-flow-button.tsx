@@ -23,13 +23,14 @@ export function NewFlowButton({ projectId }: { projectId: string }) {
     }
   }
 
-  if (!open) return <button className="btn-primary" onClick={() => setOpen(true)}>New flow</button>;
+  if (!open) return <button className="btn-primary" onClick={() => setOpen(true)} data-help="Start a new, empty automation: something that runs by itself when something happens in your app. You’ll name it, then add its steps.">New flow</button>;
   return (
     <div className="flex gap-2">
       <input
         className="input w-64"
         autoFocus
         placeholder="e.g. Submit contact form"
+        data-help="A name that says what this automation does, like Send booking confirmation. Press Enter to create it."
         value={name}
         onChange={(e) => setName(e.target.value)}
         onKeyDown={(e) => {
@@ -37,7 +38,7 @@ export function NewFlowButton({ projectId }: { projectId: string }) {
           if (e.key === "Escape") setOpen(false);
         }}
       />
-      <button className="btn-primary" disabled={busy} onClick={create}>Create</button>
+      <button className="btn-primary" disabled={busy} onClick={create} data-help="Creates the automation and opens it so you can add its steps.">Create</button>
       <button className="btn-ghost" onClick={() => setOpen(false)}>Cancel</button>
     </div>
   );

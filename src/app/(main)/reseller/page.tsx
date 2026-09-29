@@ -74,7 +74,7 @@ export default async function ResellerOverview() {
       {remaining > 0 && (
         <section className="card p-6" aria-labelledby="setup-heading">
           <div className="flex flex-wrap items-baseline justify-between gap-2">
-            <h2 id="setup-heading" className="text-lg font-semibold">Get set up</h2>
+            <h2 id="setup-heading" className="text-lg font-semibold" data-help="The main steps to start selling under your own brand. Each one ticks itself off once it's done; click a step to go there.">Get set up</h2>
             <span className="text-sm text-surface-400">{steps.length - remaining} of {steps.length} done</span>
           </div>
           <ol className="mt-4 grid gap-3 md:grid-cols-2">
@@ -94,11 +94,11 @@ export default async function ResellerOverview() {
       )}
 
       <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-5" aria-label="Usage">
-        <Stat label="Clients" value={clients} limit={reseller.maxClients} />
-        <Stat label="Apps" value={apps} limit={reseller.maxApps} />
+        <Stat label="Clients" value={clients} limit={reseller.maxClients} help="Your client accounts, out of the number your plan with the platform allows." />
+        <Stat label="Apps" value={apps} limit={reseller.maxApps} help="Apps made by you and all your clients together, out of your plan's total." />
         <Stat label="Published apps" value={published} />
-        <Stat label="Paying clients" value={paying} note={pastDue > 0 ? `${pastDue.toLocaleString("en-US")} past due` : undefined} href="/reseller/clients" />
-        <Stat label="AI actions this month" value={aiUsed} limit={aiCap} />
+        <Stat label="Paying clients" help="Clients with an active or free-trial subscription on your Stripe account. Past due means their last payment didn't go through." value={paying} note={pastDue > 0 ? `${pastDue.toLocaleString("en-US")} past due` : undefined} href="/reseller/clients" />
+        <Stat label="AI actions this month" value={aiUsed} limit={aiCap} help="AI uses by you and all your clients this month. If you reach the limit, AI pauses for everyone until next month." />
       </section>
 
       <div className="grid gap-6 xl:grid-cols-2">
@@ -147,10 +147,10 @@ function planName(plan: string) {
   return plan[0] + plan.slice(1).toLowerCase();
 }
 
-function Stat({ label, value, limit, note, href }: { label: string; value: number; limit?: number | null; note?: string; href?: string }) {
+function Stat({ label, value, limit, note, href, help }: { label: string; value: number; limit?: number | null; note?: string; href?: string; help?: string }) {
   const pct = limit != null ? (limit <= 0 ? 100 : Math.min(100, Math.round((value / limit) * 100))) : null;
   return (
-    <div className="card p-5">
+    <div className="card p-5" data-help={help}>
       <p className="text-xs uppercase tracking-wider text-surface-400">{href ? <Link href={href} className="hover:text-surface-200">{label}</Link> : label}</p>
       <p className="mt-2 text-3xl font-semibold tabular-nums">{value.toLocaleString("en-US")}{limit != null && <span className="text-base font-normal text-surface-400"> / {limit.toLocaleString("en-US")}</span>}</p>
       {note && <p className="mt-1 text-xs font-medium text-amber-200">{note}</p>}

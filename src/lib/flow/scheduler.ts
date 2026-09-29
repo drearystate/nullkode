@@ -116,9 +116,14 @@ type FlowLike = { id: string; trigger: FlowTriggerKind; schedule: string | null;
  * The schedule the published app runs with: the live version's when that
  * version has the flow on a schedule, otherwise the draft's (used to plan
  * ahead; the run itself still waits for a publish).
+ *
+ * On/Paused is not part of a published version: the flow's own switch
+ * (Flow.enabled, checked when due runs are picked) applies at once, like it
+ * does for visitors, so a flow published while paused runs again as soon as
+ * it's turned back on.
  */
 export function effectiveSchedule(draft: FlowLike, live: SnapshotFlow | undefined): { spec: ScheduleSpec | null; usesAi: boolean; fromLive: boolean } {
-  if (live && live.trigger === "SCHEDULE" && live.enabled !== false) {
+  if (live && live.trigger === "SCHEDULE") {
     return { spec: parseSchedule(live.schedule ?? null), usesAi: graphUsesAi(live.graph), fromLive: true };
   }
   return { spec: parseSchedule(draft.schedule), usesAi: graphUsesAi(live?.graph ?? draft.graph), fromLive: false };
@@ -243,7 +248,7 @@ export async function checkEligible(flowId: string): Promise<Decision> {
   if (!flow.project.published || !flow.project.liveDeploymentId) return { run: false, reason: "unpublished", spec: draftSpec };
   const live = await liveFlow(flow.project.liveDeploymentId, flow.id);
   // Published versions from before snapshots recorded the trigger count as scheduled.
-  if (!live || (live.trigger !== undefined && live.trigger !== "SCHEDULE") || live.enabled === false) {
+  if (!live || (live.trigger !== undefined && live.trigger !== "SCHEDULE")) {
     return { run: false, reason: "not-live", spec: draftSpec };
   }
   const spec = live.trigger === "SCHEDULE" ? parseSchedule(live.schedule ?? null) : draftSpec;
@@ -471,7 +476,7 @@ export async function flowScheduleState(
 ): Promise<FlowScheduleState> {
   const live = project.liveDeploymentId ? await liveFlow(project.liveDeploymentId, flow.id) : undefined;
   const draftSpec = parseSchedule(flow.schedule);
-  const liveScheduled = Boolean(live && live.trigger === "SCHEDULE" && live.enabled !== false);
+  const liveScheduled = Boolean(live && live.trigger === "SCHEDULE");
   const liveSpec = liveScheduled ? parseSchedule(live!.schedule ?? null) : null;
   const scheduled = flow.trigger === "SCHEDULE";
   const usesAi = graphUsesAi(flow.graph);

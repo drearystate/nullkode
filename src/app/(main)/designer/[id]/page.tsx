@@ -22,7 +22,7 @@ export default async function DesignPage({ params }: { params: Promise<{ id: str
   return (
     <main className="studio-shell h-dvh overflow-hidden">
       <TopBar user={user}>
-        <Link href="/designer" className="studio-workspace-label hover:text-white">AI Designer</Link>
+        <Link href="/designer" className="studio-workspace-label hover:text-white" data-help="Go back to the AI Designer home to see all your designs or start a new one.">AI Designer</Link>
       </TopBar>
       <DesignWorkspace id={id} />
     </main>

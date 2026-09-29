@@ -26,6 +26,18 @@ const CATEGORY_LABELS: Record<string, string> = {
   utility: "Tools",
 };
 
+/** Hover notes for the category filter buttons. */
+const CATEGORY_HELP: Record<string, string> = {
+  all: "Show every feature you can add.",
+  communication: "Features for keeping in touch with visitors, like a contact form, newsletter or text messages.",
+  content: "Features for sharing words and news, like a blog, FAQs, a portfolio or a course.",
+  media: "Features for photos, video, music and other media.",
+  commerce: "Features for selling and taking payments, like a shop, bookings, coupons or donations.",
+  productivity: "Features for getting things done, like to-do lists, notes, appointments and surveys.",
+  community: "Features that bring people together, like events, reviews, chat and forums.",
+  utility: "Handy extras, like sign-in, maps, file uploads and a weather widget.",
+};
+
 export function ModulesPanel({ projectId, projectName, flush, onInstalled }: Props) {
   const [modules, setModules] = useState<ModuleSummary[]>([]);
   const [installed, setInstalled] = useState<InstalledModule[]>([]);
@@ -115,6 +127,7 @@ export function ModulesPanel({ projectId, projectName, flush, onInstalled }: Pro
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search features…"
           aria-label="Search features"
+          data-help="Type what you want your app to do, like “bookings” or “newsletter”, to find a ready-made feature."
           className="w-full bg-surface-950 border border-surface-800 rounded px-2.5 py-1.5 text-xs text-surface-100 placeholder:text-surface-600 focus:outline-none focus:border-brand-500"
         />
         <div className="flex flex-wrap gap-1">
@@ -122,6 +135,7 @@ export function ModulesPanel({ projectId, projectName, flush, onInstalled }: Pro
             <button
               key={c}
               onClick={() => setCategory(c)}
+              data-help={CATEGORY_HELP[c] ?? "Show only features in this group."}
               className={`text-[10px] px-2 py-0.5 rounded-full border transition ${
                 category === c
                   ? "bg-brand-500/20 border-brand-500 text-brand-200"
@@ -150,6 +164,7 @@ export function ModulesPanel({ projectId, projectName, flush, onInstalled }: Pro
               disabled={opening === mod.id}
               title={friendlySummary(mod)}
               aria-label={`${friendlyName(mod)}${counts.has(mod.id) ? " (added)" : ""}`}
+              data-help={counts.has(mod.id) ? "Already in your app. Tap to see what it adds, or add it again." : "Tap to see what this feature adds to your app. Nothing changes until you confirm. Your page is saved first."}
               className="rounded-lg border border-surface-800 bg-surface-950 overflow-hidden hover:border-brand-500 transition text-left disabled:opacity-40 group"
             >
               {/* Preview image with fade */}

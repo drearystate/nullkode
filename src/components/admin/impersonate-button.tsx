@@ -31,7 +31,7 @@ export function ImpersonateButton({
   }
 
   return (
-    <button className="btn-ghost text-xs px-3 py-1" disabled={busy} onClick={go}>
+    <button className="btn-ghost text-xs px-3 py-1" disabled={busy} onClick={go} data-help="See the studio exactly as this person does, to help them. Anything you change happens in their account. Use the bar at the top of the page to switch back.">
       {busy ? "..." : label}
     </button>
   );

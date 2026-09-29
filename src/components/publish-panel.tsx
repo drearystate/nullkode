@@ -20,7 +20,7 @@ export function PublishPanel({ projectId, published, version, pending = true }: 
     } catch (err) { setError(err instanceof Error ? err.message : "Check your connection and try again."); }
     finally { setBusy(false); }
   }
-  return <div><div className="flex flex-wrap gap-2"><button className="btn-primary" disabled={busy || (published && !pending)} onClick={() => update("POST")}>{busy ? <Loader2 size={15} className="animate-spin" /> : <Rocket size={15} />}{!published ? "Publish app" : pending ? `Publish changes (v${version + 1})` : "Up to date"}</button>{published && <button className="btn-ghost" disabled={busy} onClick={() => update("DELETE")}>Take offline</button>}</div>{error && <p role="alert" className="mt-3 text-sm text-red-300">{error}</p>}{success && <p role="status" className="mt-3 text-sm text-emerald-300">{success}</p>}</div>;
+  return <div><div className="flex flex-wrap gap-2"><button className="btn-primary" disabled={busy || (published && !pending)} onClick={() => update("POST")} data-help={!published ? "Put your app online so anyone with its link can use it." : pending ? "Make your latest changes live. Visitors see them right away, and you can go back to an earlier version below." : "Visitors already see your latest changes. Nothing new to publish."}>{busy ? <Loader2 size={15} className="animate-spin" /> : <Rocket size={15} />}{!published ? "Publish app" : pending ? `Publish changes (v${version + 1})` : "Up to date"}</button>{published && <button className="btn-ghost" disabled={busy} onClick={() => update("DELETE")} data-help="Hide your app from everyone. Visitors can't open it until you publish again. Nothing is deleted.">Take offline</button>}</div>{error && <p role="alert" className="mt-3 text-sm text-red-300">{error}</p>}{success && <p role="status" className="mt-3 text-sm text-emerald-300">{success}</p>}</div>;
 }
 
 export function CopyAppLink({ url }: { url: string }) {
@@ -30,7 +30,7 @@ export function CopyAppLink({ url }: { url: string }) {
     try { await navigator.clipboard.writeText(new URL(url, window.location.origin).href); setCopied(true); setError(false); setTimeout(() => setCopied(false), 2500); }
     catch { setError(true); }
   }
-  return <span className="inline-flex flex-col gap-1"><button className="studio-icon-button" aria-label={copied ? "Link copied" : "Copy app link"} title={copied ? "Copied" : "Copy link"} onClick={copy}>{copied ? <Check size={15} /> : <Copy size={15} />}</button><span role="status" className={error ? "text-xs text-amber-300" : "sr-only"}>{error ? "Select the link to copy it manually." : copied ? "Link copied" : ""}</span></span>;
+  return <span className="inline-flex flex-col gap-1"><button className="studio-icon-button" aria-label={copied ? "Link copied" : "Copy app link"} title={copied ? "Copied" : "Copy link"} data-help="Copy your app's link, ready to paste into a message, email or post." onClick={copy}>{copied ? <Check size={15} /> : <Copy size={15} />}</button><span role="status" className={error ? "text-xs text-amber-300" : "sr-only"}>{error ? "Select the link to copy it manually." : copied ? "Link copied" : ""}</span></span>;
 }
 
 /** Bring back an earlier published version (rollback). */
@@ -49,5 +49,5 @@ export function MakeLiveButton({ projectId, deploymentId, version }: { projectId
     }
     router.refresh();
   }
-  return <button type="button" className="btn-ghost text-xs" disabled={busy} onClick={restore}>{busy ? "Restoring…" : "Make live"}</button>;
+  return <button type="button" className="btn-ghost text-xs" disabled={busy} onClick={restore} data-help="Put this earlier version back online. Visitors see it straight away; the edits you're working on stay as they are.">{busy ? "Restoring…" : "Make live"}</button>;
 }

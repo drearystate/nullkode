@@ -37,7 +37,7 @@ export const abandonedCart: ModuleDefinition = {
       httpMethod: "POST",
       nodes: [
         { id: "n1", type: "trigger", data: {} },
-        { id: "n2", type: "math", data: { expression: "floor(random()*999999999)+100000000", output: "n" } },
+        { id: "n2", type: "math", data: { expression: "floor(random()*900000000)+100000000", output: "n" } },
         {
           id: "n3",
           type: "insert",

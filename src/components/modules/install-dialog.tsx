@@ -203,7 +203,7 @@ export function InstallDialog({ projectId, projectName, module, installedCount =
               {onOpenModule && needs.length > 0 && (
                 <div className="flex flex-wrap gap-2">
                   {needs.map((n) => (
-                    <button key={n.id} type="button" className="btn-ghost !min-h-0 !px-3 !py-1.5 text-xs" onClick={() => onOpenModule(n.id)}>
+                    <button key={n.id} type="button" className="btn-ghost !min-h-0 !px-3 !py-1.5 text-xs" data-help="This feature needs that one to work. Add it first, then come back and add this one." onClick={() => onOpenModule(n.id)}>
                       Add {n.name}
                     </button>
                   ))}
@@ -221,6 +221,7 @@ export function InstallDialog({ projectId, projectName, module, installedCount =
             type="button"
             className="btn-primary"
             onClick={install}
+            data-help={installedCount > 0 ? "Adds a second, separate copy of this feature with its own pages and saved items. The copy you already have isn't changed." : "Adds this feature's pages, and any lists or automations it needs, to your app. You can change everything afterwards."}
             disabled={busy}
             ref={fields.length === 0 ? (el) => { firstFieldRef.current = el; } : undefined}
           >

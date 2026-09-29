@@ -104,7 +104,7 @@ export function TemplateGallery({ onBack, initialId, heading = "Pick a template"
       <div className="pointer-events-none absolute -inset-20 bg-gradient-to-br from-brand-700/20 via-transparent to-cyan-500/10 blur-3xl" />
 
       <dialog ref={dialog} onCancel={() => setSelected(null)} className="w-[min(960px,94vw)] max-h-[90dvh] rounded-2xl border border-white/15 bg-surface-900 p-0 text-surface-100 backdrop:bg-black/75">
-        {selected && <div className="grid md:grid-cols-[1.3fr_1fr]"><div className="max-h-[60dvh] overflow-auto bg-surface-800">{selected.preview && <img src={selected.preview} alt={`${selected.name} template preview`} className="w-full" />}</div><div className="space-y-5 p-6"><div className="flex items-start justify-between gap-4"><h2 className="text-2xl font-semibold">{selected.name}</h2><button type="button" onClick={() => setSelected(null)} aria-label="Close template preview" className="btn-ghost">✕</button></div><p className="text-sm leading-relaxed text-surface-400">{selected.tagline}</p><p className="text-xs text-surface-400">Includes the starter design and its working feature modules. You can change everything after creating your app.</p><label className="block text-sm">Your app name<input className="input mt-2 w-full" maxLength={80} value={appName} onChange={e=>setAppName(e.target.value)} /></label><button className="btn-primary w-full justify-center" disabled={creating!==null||!appName.trim()} onClick={()=>useTemplate(selected.id)}>{creating?"Creating your app…":"Create app from this template"}</button>{error&&<p role="alert" className="text-sm text-red-300">{error}</p>}</div></div>}
+        {selected && <div className="grid md:grid-cols-[1.3fr_1fr]"><div className="max-h-[60dvh] overflow-auto bg-surface-800">{selected.preview && <img src={selected.preview} alt={`${selected.name} template preview`} className="w-full" />}</div><div className="space-y-5 p-6"><div className="flex items-start justify-between gap-4"><h2 className="text-2xl font-semibold">{selected.name}</h2><button type="button" onClick={() => setSelected(null)} aria-label="Close template preview" data-help="Close this preview and go back to the list of templates." className="btn-ghost">✕</button></div><p className="text-sm leading-relaxed text-surface-400">{selected.tagline}</p><p className="text-xs text-surface-400">Includes the starter design and its working feature modules. You can change everything after creating your app.</p><label className="block text-sm">Your app name<input className="input mt-2 w-full" data-help="What to call your new app. You can change it later." maxLength={80} value={appName} onChange={e=>setAppName(e.target.value)} /></label><button className="btn-primary w-full justify-center" data-help="Makes a new app with this design and its ready-made features, then opens the editor so you can change anything." disabled={creating!==null||!appName.trim()} onClick={()=>useTemplate(selected.id)}>{creating?"Creating your app…":"Create app from this template"}</button>{error&&<p role="alert" className="text-sm text-red-300">{error}</p>}</div></div>}
       </dialog>
       <div className="relative">
         {onBack && (
@@ -132,6 +132,7 @@ export function TemplateGallery({ onBack, initialId, heading = "Pick a template"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search templates..."
+            data-help="Type a word like 'bakery' or 'booking' to find templates by name, description or tag."
             className="w-full bg-surface-900 border border-surface-700 rounded-full px-5 py-2.5 text-sm text-surface-100 placeholder:text-surface-500 focus:outline-none focus:border-brand-500 transition"
           />
         </div>
@@ -142,6 +143,7 @@ export function TemplateGallery({ onBack, initialId, heading = "Pick a template"
             <button
               key={c}
               onClick={() => setCategory(c)}
+              data-help={c === "all" ? "Show every template." : `Show only templates for ${(CATEGORY_LABELS[c] ?? c).toLowerCase()}.`}
               className={`text-[11px] px-2.5 py-1 rounded-full border transition ${
                 category === c
                   ? "bg-brand-500 border-brand-500 text-white"
@@ -181,6 +183,7 @@ export function TemplateGallery({ onBack, initialId, heading = "Pick a template"
             <button
               key={t.id}
               onClick={() => { setSelected(t); setAppName(t.name); setError(null); }}
+              data-help="See a bigger preview of this template. Nothing is created until you choose to."
               disabled={creating !== null}
               className="card p-0 overflow-hidden hover:border-brand-500 transition group text-left disabled:opacity-60"
             >

@@ -33,12 +33,12 @@ export default async function NotificationsPage({ params }: { params: Promise<{ 
       ) : (
         <>
           <div className="mt-6 grid gap-4 sm:grid-cols-2">
-            <div className="card p-5"><p className="text-xs uppercase tracking-wider text-surface-400">Subscribers</p><p className="mt-2 text-3xl font-semibold tabular-nums">{subscribers.toLocaleString("en-US")}</p></div>
+            <div className="card p-5" data-help="How many phones and computers have turned on notifications for your app. Someone using two devices counts twice."><p className="text-xs uppercase tracking-wider text-surface-400">Subscribers</p><p className="mt-2 text-3xl font-semibold tabular-nums">{subscribers.toLocaleString("en-US")}</p></div>
             <div className="card p-5 text-sm text-surface-300"><p className="font-medium text-surface-100">Good to know</p><p className="mt-1 text-xs leading-relaxed text-surface-400">On iPhone and iPad, people first add your app to their home screen (Share → Add to Home Screen), then turn on notifications there. Android and computers work from the browser.</p></div>
           </div>
           <NotificationComposer projectId={id} published={project.published} subscribers={subscribers} />
           <section className="mt-8" aria-labelledby="sent-heading">
-            <h2 id="sent-heading" className="font-semibold">Sent</h2>
+            <h2 id="sent-heading" className="font-semibold" data-help="Notifications you’ve sent, newest first, with how many devices got each one.">Sent</h2>
             {history.length === 0 ? (
               <p className="mt-2 text-sm text-surface-400">Nothing sent yet.</p>
             ) : (

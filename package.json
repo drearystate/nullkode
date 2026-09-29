@@ -44,6 +44,8 @@
     "new:template": "tsx scripts/new-template.ts",
     "check:middleware": "tsx scripts/check-middleware.ts",
     "check:docs": "node scripts/check-docs.mjs",
+    "check:guides": "tsx scripts/check-guides.ts",
+    "guides:build": "tsx scripts/build-guides.ts",
     "test:e2e": "tsx scripts/check-generated-js.ts && tsx scripts/check-middleware.ts && tsx scripts/e2e-resellers.ts && tsx scripts/e2e-publishing.ts && tsx scripts/e2e-push.ts && tsx scripts/e2e-security.ts && tsx scripts/e2e-data.ts && tsx scripts/e2e-backup.ts && node scripts/smoke-install.cjs"
   },
   "dependencies": {

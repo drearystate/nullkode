@@ -17,7 +17,7 @@ export function UserPlanSelect({ userId, plan }: { userId: string; plan: string 
   }
   return (
     <span className="inline-flex items-center gap-2">
-      <select aria-label="Plan" className="input h-8 min-h-0 w-auto py-0 text-xs" value={value} onChange={(e) => change(e.target.value)}>
+      <select aria-label="Plan" data-help="Changes their plan straight away. It doesn't charge them or change any Stripe subscription, and a later payment update from Stripe can switch it back." className="input h-8 min-h-0 w-auto py-0 text-xs" value={value} onChange={(e) => change(e.target.value)}>
         {PLANS.map((p) => <option key={p} value={p}>{title(p)}</option>)}
       </select>
       {state === "saved" && <span className="text-xs text-emerald-300">Saved</span>}
@@ -41,7 +41,7 @@ export function PasswordLinkButton({ userId, email }: { userId: string; email: s
   }
   return (
     <span className="inline-flex items-center gap-2">
-      <button type="button" className="btn-ghost h-8 min-h-0 px-3 text-xs" onClick={make} disabled={busy}>{busy ? "Making…" : "Password link"}</button>
+      <button type="button" className="btn-ghost h-8 min-h-0 px-3 text-xs" onClick={make} disabled={busy} data-help="Makes a one-time link for them to choose a new password, valid for 2 hours. It's emailed to them if email is on; otherwise it's copied for you to send.">{busy ? "Making…" : "Password link"}</button>
       {result && <span role="status" className="max-w-[16rem] text-left text-xs text-surface-300">{result}</span>}
     </span>
   );
@@ -138,7 +138,7 @@ export function DeleteUserButton({ userId, email }: { userId: string; email: str
 
   return (
     <>
-      <button type="button" className="btn-ghost h-8 min-h-0 px-3 text-xs text-red-300 hover:text-red-200" onClick={() => setOpen(true)}>
+      <button type="button" className="btn-ghost h-8 min-h-0 px-3 text-xs text-red-300 hover:text-red-200" onClick={() => setOpen(true)} data-help="Permanently deletes their account and all their apps, data and files, cancelling any subscription first. You'll see what goes before you confirm. Can't be undone.">
         Delete
       </button>
       {open && (
@@ -183,7 +183,7 @@ export function DeleteUserButton({ userId, email }: { userId: string; email: str
                     They run the reseller workspace &ldquo;{info.reseller}&rdquo;. Remove it under Admin, Resellers first, then delete the account.
                   </p>
                 )}
-                {info.self && <p role="alert" className="text-amber-200">This is your own account. Use Delete my account on the Billing page.</p>}
+                {info.self && <p role="alert" className="text-amber-200">This is your own account. Use Delete my account in Settings.</p>}
                 {keyed.length > 0 && (
                   <label className="flex items-start gap-2 rounded-lg border border-red-800/60 bg-red-950/30 p-3 text-red-100">
                     <input type="checkbox" className="mt-1" checked={keysAck} onChange={(e) => setKeysAck(e.target.checked)} />

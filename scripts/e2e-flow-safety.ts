@@ -15,6 +15,10 @@
  *    shows the real error, an email that isn't sent is a warning;
  *  - feature pages that call flows by their short name
  *    (__nkFlowSlugMap['summary']) work and keep their pages' protection;
+ *  - step settings: "Count or add up records" and "Check what the person
+ *    may do" keep what was saved and work; pausing a flow turns /api/run
+ *    away at once (no publish), resuming restores it, and a resumed
+ *    schedule doesn't fire the run it missed;
  *  - owner alerts (second install, with an SMTP catcher): one email per
  *    contact message, none for chat, at most 20 an hour; visitor text in
  *    emails is escaped; one address gets at most 5 emails an hour.
@@ -26,6 +30,7 @@
 import http from "node:http";
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
+import { isDeepStrictEqual } from "node:util";
 import type { ModuleDefinition } from "../src/lib/modules/types";
 import { emailVerify } from "../src/lib/modules/definitions/email-verify";
 import { abandonedCart } from "../src/lib/modules/definitions/abandoned-cart";
@@ -471,6 +476,63 @@ async function runtimeChecks(inst: Instance, mock: { port: number; bodies: strin
   ok("a short name two features share ('list') stays unknown", r.status === 404, r.status);
   r = await visitor.post("/api/run/list", {}, { referer: page("store-locator-stores") });
   ok("but a feature's own page gets its own flow", r.status === 200 && Array.isArray(r.json) && r.json.some((x: Json) => "city" in x), `${r.status} ${r.text.slice(0, 200)}`);
+
+  // ── Settings of "Count or add up records" and "Check what the person may do" ──
+  const countData = { label: "Count messages", datasourceId: ds.id, table: "contact_form_messages", aggregate: "COUNT(*)", where: { subject: "Hi" }, output: "total" };
+  const groupData = { label: "Per subject", datasourceId: ds.id, table: "contact_form_messages", aggregate: "COUNT(*)", groupBy: "subject", orderBy: "value desc", limit: 5, output: "bySubject" };
+  const roleData = { label: "Admins only", role: "Admin", source: "me", output: "isAdmin" };
+  const counter = await newFlow(op, projectId, "Message counts", {
+    nodes: [
+      { id: "start", type: "trigger", position: { x: 0, y: 0 }, data: {} },
+      { id: "me", type: "set", position: { x: 240, y: 0 }, data: { name: "me", value: "{{trigger.role}}" } },
+      { id: "count", type: "aggregate", position: { x: 480, y: 0 }, data: countData },
+      { id: "group", type: "aggregate", position: { x: 720, y: 0 }, data: groupData },
+      { id: "role", type: "check_role", position: { x: 960, y: 0 }, data: roleData },
+      { id: "reply", type: "response", position: { x: 1200, y: 0 }, data: { status: 200, body: "" } },
+    ],
+    edges: [
+      { id: "e1", source: "start", target: "me" },
+      { id: "e2", source: "me", target: "count" },
+      { id: "e3", source: "count", target: "group" },
+      { id: "e4", source: "group", target: "role" },
+      { id: "e5", source: "role", target: "reply" },
+    ],
+  });
+  r = await op.get(`/api/projects/${projectId}/flows/${counter}`);
+  const savedNodes = (r.json?.flow?.graph?.nodes ?? []) as Json[];
+  const savedData = (id: string) => savedNodes.find((n) => n.id === id)?.data;
+  ok("a count step's settings come back from the flows API as saved", r.status === 200 && isDeepStrictEqual(savedData("count"), countData) && isDeepStrictEqual(savedData("group"), groupData), savedNodes);
+  ok("so do a role check's", isDeepStrictEqual(savedData("role"), roleData), savedData("role"));
+  const his = (await inst.db.$queryRawUnsafe<Array<{ n: number }>>(`SELECT count(*)::int AS n FROM "proj_${projectId}".contact_form_messages WHERE subject = 'Hi'`))[0].n;
+  r = await op.post(`/api/run/${counter}`, { role: "admin" }, { referer: builder(counter) });
+  ok("the count step counts only the matching records", r.status === 200 && Number(r.json?.total?.[0]?.value) === his && his > 0, `${his} ${r.text.slice(0, 300)}`);
+  const groups = (r.json?.bySubject ?? []) as Json[];
+  ok("grouped, it gives one row per subject, biggest first", groups.length >= 1 && groups.length <= 5 && groups[0].subject === "Hi" && groups.every((g, i) => i === 0 || Number(groups[i - 1].value) >= Number(g.value)), groups);
+  ok("the role check passes for the role, whatever its capitals", r.json?.isAdmin === true, r.json?.isAdmin);
+  r = await op.post(`/api/run/${counter}`, { role: "member" }, { referer: builder(counter) });
+  ok("and fails for another role", r.status === 200 && r.json?.isAdmin === false, r.json?.isAdmin);
+
+  // ── Pausing a flow ──
+  const top = flow("leaderboard-top");
+  const liveBefore = (await inst.db.project.findUnique({ where: { id: projectId } }))!.liveDeploymentId;
+  const runsBefore = await inst.db.flowRun.count({ where: { flowId: top } });
+  r = await op.patch(`/api/projects/${projectId}/flows/${top}`, { enabled: false });
+  ok("the owner pauses a published flow", r.status === 200 && r.json?.flow?.enabled === false, r.text.slice(0, 200));
+  r = await freshVisitor(inst).post(`/api/run/${top}`, { category: "points" });
+  ok("visitors calling a paused flow get 404, without a publish", r.status === 404 && r.json?.error === "Flow not found or disabled", `${r.status} ${r.text.slice(0, 200)}`);
+  r = await op.post(`/api/run/${top}`, { category: "points" }, { referer: builder(top) });
+  ok("the builder's test run is turned away too", r.status === 404, r.status);
+  ok("nothing ran while it was paused", (await inst.db.flowRun.count({ where: { flowId: top } })) === runsBefore);
+  r = await op.patch(`/api/projects/${projectId}/flows/${top}`, { enabled: true });
+  ok("the owner turns it back on", r.status === 200 && r.json?.flow?.enabled === true, r.text.slice(0, 200));
+  r = await freshVisitor(inst).post(`/api/run/${top}`, { category: "points" });
+  ok("and visitors get its answer again", r.status === 200 && Array.isArray(r.json) && r.json.length > 0, `${r.status} ${r.text.slice(0, 200)}`);
+  ok("pausing and resuming didn't publish anything", (await inst.db.project.findUnique({ where: { id: projectId } }))!.liveDeploymentId === liveBefore);
+  r = await op.patch(`/api/projects/${projectId}/flows/${nightly}`, { enabled: false });
+  await inst.db.flow.update({ where: { id: nightly }, data: { nextRunAt: new Date(Date.now() - 3 * 60 * 60_000) } });
+  r = await op.patch(`/api/projects/${projectId}/flows/${nightly}`, { enabled: true });
+  const resumedAt = r.json?.flow?.nextRunAt ? Date.parse(r.json.flow.nextRunAt) : 0;
+  ok("a schedule turned back on plans its next run from now, not the one it missed", r.status === 200 && resumedAt > Date.now(), r.json?.flow?.nextRunAt);
 }
 
 /* ── Install 2: email through an SMTP catcher ──────────────────────────── */

@@ -81,7 +81,7 @@ export function ProjectIconPanel({
           )}
         </div>
         <div className="flex-1">
-          <h2 className="font-semibold">App icon</h2>
+          <h2 className="font-semibold" data-help="The small square picture that stands for your app on phone home screens, in browser tabs and in the Android app. Changes apply right away.">App icon</h2>
           <p className="text-xs text-surface-400 mt-1">
             Shown when visitors install your app as a PWA on their device.
             Use a square image, ideally 512×512 PNG.
@@ -91,6 +91,7 @@ export function ProjectIconPanel({
               type="button"
               className="btn btn-secondary text-sm"
               disabled={busy}
+              data-help="Choose a square picture from your device, ideally 512 by 512 pixels. It replaces your current icon."
               onClick={() => fileRef.current?.click()}
             >
               {mode === "uploading" ? "Uploading…" : "Upload image"}
@@ -100,6 +101,7 @@ export function ProjectIconPanel({
                 type="button"
                 className="btn btn-ghost text-sm"
                 disabled={busy}
+                data-help="Take the icon off your app. You'll be asked to confirm."
                 onClick={handleRemove}
               >
                 Remove
@@ -130,6 +132,8 @@ export function ProjectIconPanel({
             type="text"
             className="input flex-1"
             placeholder="e.g. a minimalist rocket on purple gradient"
+            aria-label="Describe your icon"
+            data-help="Describe the icon you'd like, such as its colors and a simple symbol. The AI draws it for you."
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
             disabled={busy}
@@ -138,6 +142,7 @@ export function ProjectIconPanel({
             type="button"
             className="btn btn-primary text-sm"
             disabled={busy || !prompt.trim()}
+            data-help="Have the AI draw an icon from your description. It replaces your current icon; you can generate again or upload your own."
             onClick={handleGenerate}
           >
             {mode === "generating" ? "Generating…" : "Generate"}

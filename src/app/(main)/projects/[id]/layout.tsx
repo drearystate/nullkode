@@ -25,7 +25,7 @@ export default async function ProjectLayout({
   // the user came from (the user kept getting stranded in the GrapesJS
   // editor with no exit).
   const backHref = project.kind === "DESIGNER" ? "/designer" : "/dashboard";
-  const backLabel = project.kind === "DESIGNER" ? "Back to Designer" : "Back to projects";
+  const backLabel = project.kind === "DESIGNER" ? "Back to Designer" : "Back to my apps";
 
   const hasPush = Boolean(await db.projectModule.findFirst({ where: { projectId: project.id, moduleId: "push-notifications" }, select: { id: true } }));
   return (
@@ -34,7 +34,8 @@ export default async function ProjectLayout({
         <div className="flex min-w-0 items-center gap-2 text-sm">
           <Link
             href={backHref}
-            data-help="Return to your workspace."
+            aria-label={backLabel}
+            data-help={project.kind === "DESIGNER" ? "Go back to the AI Designer." : "Go back to the list of all your apps."}
             className="studio-back-link shrink-0"
           >
             <span aria-hidden>←</span>
@@ -54,7 +55,7 @@ export default async function ProjectLayout({
         </div>
       </TopBar>
       <ProjectTabs projectId={project.id} kind={project.kind} hasPush={hasPush} />
-      <div>{children}</div>
+      <main id="main">{children}</main>
     </div>
   );
 }

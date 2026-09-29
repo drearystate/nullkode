@@ -59,23 +59,23 @@ export function BrandForm({ initial, endpoint = "/api/reseller/brand", savedText
     <form onSubmit={save} className="grid gap-6 xl:grid-cols-[1fr_380px]">
       <div className="card space-y-5 p-6">
         <div className="grid gap-4 md:grid-cols-2">
-          <label className="block text-sm"><span className="label">Brand name</span><input className="input w-full" required minLength={2} maxLength={60} value={brand.name} onChange={(e) => set("name", e.target.value)} /></label>
-          <label className="block text-sm"><span className="label">Tagline (optional)</span><input className="input w-full" maxLength={160} value={brand.tagline} onChange={(e) => set("tagline", e.target.value)} placeholder="Apps for local businesses" /></label>
+          <label className="block text-sm" data-help="The name people see at the top of every screen, in emails and on the sign-in page."><span className="label">Brand name</span><input className="input w-full" required minLength={2} maxLength={60} value={brand.name} onChange={(e) => set("name", e.target.value)} /></label>
+          <label className="block text-sm" data-help="A short line about what you offer. It's added to the browser tab title, next to your brand name."><span className="label">Tagline (optional)</span><input className="input w-full" maxLength={160} value={brand.tagline} onChange={(e) => set("tagline", e.target.value)} placeholder="Apps for local businesses" /></label>
         </div>
         <div className="grid gap-4 md:grid-cols-2">
-          <ImagePicker label="Logo" hint="Wide logos look best. PNG or SVG, under 150 KB." value={brand.logoDataUrl} onPick={(f) => pick("logoDataUrl", f)} onClear={() => set("logoDataUrl", null)} />
-          <ImagePicker label="Browser icon" hint="Square, at least 64×64 px." value={brand.faviconDataUrl} onPick={(f) => pick("faviconDataUrl", f)} onClear={() => set("faviconDataUrl", null)} />
+          <ImagePicker label="Logo" help="Your logo, shown in place of the brand name at the top of the screens and on the sign-in page." hint="Wide logos look best. PNG or SVG, under 150 KB." value={brand.logoDataUrl} onPick={(f) => pick("logoDataUrl", f)} onClear={() => set("logoDataUrl", null)} />
+          <ImagePicker label="Browser icon" help="The small picture shown in the browser tab and in bookmarks." hint="Square, at least 64×64 px." value={brand.faviconDataUrl} onPick={(f) => pick("faviconDataUrl", f)} onClear={() => set("faviconDataUrl", null)} />
         </div>
         <div className="grid gap-4 md:grid-cols-2">
-          <ColorField label="Main colour" hint="Buttons and highlights" value={brand.colorPrimary} onChange={(v) => set("colorPrimary", v)} />
-          <ColorField label="Accent colour" hint="Secondary highlights" value={brand.colorAccent} onChange={(v) => set("colorAccent", v)} />
+          <ColorField label="Main colour" help="The colour of buttons and highlights across the screens and on the sign-in page." hint="Buttons and highlights" value={brand.colorPrimary} onChange={(v) => set("colorPrimary", v)} />
+          <ColorField label="Accent colour" help="A second colour used for smaller touches and highlights." hint="Secondary highlights" value={brand.colorAccent} onChange={(v) => set("colorAccent", v)} />
         </div>
         <div className="grid gap-4 md:grid-cols-2">
-          <label className="block text-sm"><span className="label">Support email</span><input className="input w-full" type="email" value={brand.supportEmail} onChange={(e) => set("supportEmail", e.target.value)} placeholder="help@youragency.com" /><span className="mt-1 block text-xs text-surface-400">Shown to clients who need help, and used as the reply-to on emails.</span></label>
-          <label className="block text-sm"><span className="label">Your website (optional)</span><input className="input w-full" type="url" value={brand.homepageUrl} onChange={(e) => set("homepageUrl", e.target.value)} placeholder="https://youragency.com" /></label>
+          <label className="block text-sm" data-help="Shown on the sign-in and password pages so people can reach you, and used as the reply-to address on invitation and password emails."><span className="label">Support email</span><input className="input w-full" type="email" value={brand.supportEmail} onChange={(e) => set("supportEmail", e.target.value)} placeholder="help@youragency.com" /><span className="mt-1 block text-xs text-surface-400">Shown to clients who need help, and used as the reply-to on emails.</span></label>
+          <label className="block text-sm" data-help="Your business website's address, saved with your brand details."><span className="label">Your website (optional)</span><input className="input w-full" type="url" value={brand.homepageUrl} onChange={(e) => set("homepageUrl", e.target.value)} placeholder="https://youragency.com" /></label>
         </div>
         {message && <p role={message.ok ? "status" : "alert"} className={`text-sm ${message.ok ? "text-emerald-300" : "text-red-300"}`}>{message.text}</p>}
-        <button className="btn-primary" disabled={busy}>{busy ? "Saving…" : "Save branding"}</button>
+        <button className="btn-primary" disabled={busy} data-help="Saves your brand. People see the change the next time a page loads.">{busy ? "Saving…" : "Save branding"}</button>
       </div>
 
       <aside aria-label="Preview" className="space-y-3">
@@ -101,9 +101,9 @@ export function BrandForm({ initial, endpoint = "/api/reseller/brand", savedText
   );
 }
 
-function ImagePicker({ label, hint, value, onPick, onClear }: { label: string; hint: string; value: string | null; onPick: (f: File | undefined) => void; onClear: () => void }) {
+function ImagePicker({ label, hint, help, value, onPick, onClear }: { label: string; hint: string; help?: string; value: string | null; onPick: (f: File | undefined) => void; onClear: () => void }) {
   return (
-    <div className="text-sm">
+    <div className="text-sm" data-help={help}>
       <span className="label">{label}</span>
       <div className="flex items-center gap-3">
         <div className="grid h-14 w-28 place-items-center overflow-hidden rounded-lg border border-white/10 bg-white/5">
@@ -114,16 +114,16 @@ function ImagePicker({ label, hint, value, onPick, onClear }: { label: string; h
           {value ? "Replace" : "Upload"}
           <input type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml,image/x-icon" className="sr-only" onChange={(e) => onPick(e.target.files?.[0])} />
         </label>
-        {value && <button type="button" className="text-surface-400 hover:text-surface-100" onClick={onClear} aria-label={`Remove ${label.toLowerCase()}`}><X size={16} /></button>}
+        {value && <button type="button" className="text-surface-400 hover:text-surface-100" onClick={onClear} aria-label={`Remove ${label.toLowerCase()}`} data-help="Removes this image. The change takes effect when you save."><X size={16} /></button>}
       </div>
       <span className="mt-1 block text-xs text-surface-400">{hint}</span>
     </div>
   );
 }
 
-function ColorField({ label, hint, value, onChange }: { label: string; hint: string; value: string; onChange: (v: string) => void }) {
+function ColorField({ label, hint, help, value, onChange }: { label: string; hint: string; help?: string; value: string; onChange: (v: string) => void }) {
   return (
-    <label className="block text-sm">
+    <label className="block text-sm" data-help={help}>
       <span className="label">{label}</span>
       <span className="flex items-center gap-2">
         <input type="color" value={value} onChange={(e) => onChange(e.target.value)} className="h-10 w-12 cursor-pointer rounded-lg border border-white/10 bg-transparent" aria-label={`${label} picker`} />

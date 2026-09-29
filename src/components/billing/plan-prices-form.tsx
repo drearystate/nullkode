@@ -74,11 +74,11 @@ export function PlanPricesForm({ endpoint, audience }: { endpoint: string; audie
         <div className="mt-4 space-y-3">
           {PAID.map((key) => (
             <div key={key} className="grid gap-3 sm:grid-cols-[1fr_140px_120px] sm:items-end">
-              <label className="text-sm">
+              <label className="text-sm" data-help="The name shown on the pricing and Billing pages, and on the plan in your Stripe account.">
                 Plan name
                 <input className="input mt-1" value={plans[key].name} maxLength={60} onChange={(e) => update(key, { name: e.target.value })} />
               </label>
-              <label className="text-sm">
+              <label className="text-sm" data-help="What this plan costs each month. Leave it empty to stop selling it. A change only affects new subscriptions; people already subscribed keep their old price.">
                 Price per month
                 <input
                   className="input mt-1"
@@ -91,7 +91,7 @@ export function PlanPricesForm({ endpoint, audience }: { endpoint: string; audie
                   onChange={(e) => update(key, { amount: e.target.value === "" ? null : Number(e.target.value) })}
                 />
               </label>
-              <label className="text-sm">
+              <label className="text-sm" data-help="The currency this plan is charged in. Like a price change, it only affects new subscriptions.">
                 Currency
                 <select className="input mt-1" value={plans[key].currency} onChange={(e) => update(key, { currency: e.target.value })}>
                   {CURRENCIES.map((c) => (
@@ -105,32 +105,32 @@ export function PlanPricesForm({ endpoint, audience }: { endpoint: string; audie
       </div>
 
       <div className="rounded-lg border border-surface-700 p-4">
-        <h3 className="font-semibold">Stripe</h3>
+        <h3 className="font-semibold" data-help={`Stripe is the payment service that charges cards. Money from your ${audience} goes straight into your own Stripe account.`}>Stripe</h3>
         <p className="mt-1 text-sm text-surface-400">
           {configured
-            ? `Connected. ${audience === "clients" ? "Your clients pay you" : "Customers pay you"} directly; Nullkode creates and updates the prices in your Stripe account when you save.`
+            ? `Connected. ${audience === "clients" ? "Your clients pay you" : "Customers pay you"} directly; the prices are created and updated in your Stripe account when you save.`
             : `Connect your Stripe account so ${audience} can pay. Until then, your prices still show, and checkout opens once Stripe is connected.`}
         </p>
-        <label className="mt-3 block text-sm">
+        <label className="mt-3 block text-sm" data-help="The secret key from your Stripe account. It lets this server create your plans in Stripe and open checkout. It's kept hidden; leave the box empty to keep the saved one.">
           Secret key {configured && <span className="text-surface-400">(connected; leave empty to keep it)</span>}
           <input className="input mt-1" type="password" autoComplete="new-password" placeholder="sk_live_…" value={secret} onChange={(e) => setSecret(e.target.value)} />
         </label>
         <p className="mt-1 text-xs text-surface-400">In Stripe: Developers → API keys → Secret key. Use a test key (sk_test_…) to try it out first.</p>
         <details className="mt-3 text-sm">
-          <summary className="cursor-pointer text-surface-300">Advanced: payment updates (webhook) {webhookConfigured ? "· set up" : "· set up automatically when you save"}</summary>
-          <p className="mt-2 text-xs text-surface-400">Stripe tells Nullkode when someone pays, upgrades or cancels, at this address. It's set up for you; only if that fails, add it in Stripe (events: checkout.session.completed and customer.subscription.created, updated, deleted) and paste its signing secret here.</p>
+          <summary className="cursor-pointer text-surface-300" data-help="A webhook is how Stripe tells this server that someone paid, upgraded or cancelled, so their plan changes here. It's normally set up for you when you save.">Advanced: payment updates (webhook) {webhookConfigured ? "· set up" : "· set up automatically when you save"}</summary>
+          <p className="mt-2 text-xs text-surface-400">Stripe tells this platform when someone pays, upgrades or cancels, at this address. It's set up for you; only if that fails, add it in Stripe (events: checkout.session.completed and customer.subscription.created, updated, deleted) and paste its signing secret here.</p>
           {webhookUrl && (
             <div className="mt-2 flex items-center gap-2">
               <code className="min-w-0 flex-1 truncate rounded bg-surface-900 px-2 py-1 text-xs">{webhookUrl}</code>
-              <button type="button" className="btn-ghost px-2 py-1" aria-label="Copy the webhook address" onClick={() => navigator.clipboard.writeText(webhookUrl)}><Copy size={14} /></button>
+              <button type="button" className="btn-ghost px-2 py-1" aria-label="Copy the webhook address" data-help="Copies this address, to paste into Stripe if you need to add the webhook yourself." onClick={() => navigator.clipboard.writeText(webhookUrl)}><Copy size={14} /></button>
             </div>
           )}
-          <input className="input mt-2" type="password" autoComplete="new-password" placeholder="whsec_… (only if needed)" value={webhook} onChange={(e) => setWebhook(e.target.value)} />
+          <input data-help="Only if automatic setup failed: paste the signing secret Stripe shows for the webhook you added. It starts with whsec_." className="input mt-2" type="password" autoComplete="new-password" placeholder="whsec_… (only if needed)" value={webhook} onChange={(e) => setWebhook(e.target.value)} />
         </details>
       </div>
 
       <div className="flex flex-wrap items-center gap-3">
-        <button className="btn-primary" disabled={busy}>{busy ? "Saving…" : "Save prices"}</button>
+        <button className="btn-primary" disabled={busy} data-help="Saves your plans and prices. With Stripe connected, it also creates or updates them in your Stripe account.">{busy ? "Saving…" : "Save prices"}</button>
         {message && <p role="status" className={`text-sm ${message.ok ? "text-emerald-400" : "text-red-400"}`}>{message.text}</p>}
       </div>
     </form>

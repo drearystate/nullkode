@@ -178,6 +178,37 @@ async function main() {
       if (uploadedUrl) await unlink(path.join(inst.root, "public", uploadedUrl)).catch(() => {});
     }
 
+    // ── Settings: name, password, help tips ─────────────────────────
+    const other = inst.agent();
+    r = await other.post("/api/auth/login", { email: "operator@example.invalid", password: "operator-password-2026" });
+    ok("a second device signs in", r.status === 200, r.text);
+    r = await op.get("/account");
+    ok("the settings page opens", r.status === 200 && r.text.includes("Settings") && r.text.includes("Help tips") && r.text.includes("Change password"), r.status);
+    r = await op.patch("/api/me/profile", { name: "  Olive Operator  " });
+    ok("the name can be changed", r.status === 200 && (await inst.db.user.findFirst({ where: { email: "operator@example.invalid" } }))?.name === "Olive Operator", r.text);
+    r = await op.patch("/api/me/profile", { name: "   " });
+    ok("a blank name is refused", r.status === 400, r.text);
+    r = await op.post("/api/me/password", { current: "not-my-password", next: "new-operator-password-2026" });
+    ok("a wrong current password is refused", r.status === 400, r.text);
+    r = await op.post("/api/me/password", { current: "operator-password-2026", next: "short" });
+    ok("a short new password is refused", r.status === 400, r.text);
+    r = await op.post("/api/me/password", { current: "operator-password-2026", next: "new-operator-password-2026" });
+    ok("the password can be changed", r.status === 200, r.text);
+    r = await other.get("/api/me/prefs");
+    ok("changing it signs out the other device", r.status === 401, r.status);
+    r = await op.get("/api/me/prefs");
+    ok("this device stays signed in", r.status === 200, r.status);
+    r = await inst.agent().post("/api/auth/login", { email: "operator@example.invalid", password: "new-operator-password-2026" });
+    ok("the new password works", r.status === 200, r.text);
+    r = await op.patch("/api/me/prefs", { helpTips: false });
+    ok("help tips can be turned off", r.status === 200 && r.json?.prefs?.helpTips === false, r.text);
+    r = await op.get("/account");
+    ok("…and the settings page shows them off", r.status === 200 && /role="switch" aria-checked="false"/.test(r.text), r.status);
+    r = await op.get("/dashboard");
+    ok("pages still render with tips off", r.status === 200, r.status);
+    r = await visitor.post("/api/me/password", { current: "x", next: "yyyyyyyyyy" });
+    ok("signed-out visitors can't change a password", r.status === 401, r.status);
+
     console.log(JSON.stringify({ ok: true, checks: checks.length }));
   } catch (err) {
     console.error(err);

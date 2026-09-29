@@ -120,6 +120,30 @@ export function platformTargetHost(): string {
   return "your-server-address";
 }
 
+let targetIp: { host: string; ip: string | null; at: number } | null = null;
+
+/**
+ * The IPv4 address customers can use for an A record when their DNS host
+ * can't put a CNAME on a root domain: the target itself when it's an
+ * address, otherwise what it resolves to (cached for 10 minutes). Null when
+ * it can't be found.
+ */
+export async function platformTargetIp(): Promise<string | null> {
+  const host = platformTargetHost();
+  if (/^\d+\.\d+\.\d+\.\d+$/.test(host)) return host;
+  if (host === "your-server-address") return null;
+  if (targetIp && targetIp.host === host && Date.now() - targetIp.at < 10 * 60_000) return targetIp.ip;
+  let ip: string | null = null;
+  try {
+    const { resolve4 } = await import("node:dns/promises");
+    ip = (await resolve4(host))[0] ?? null;
+  } catch {
+    ip = null;
+  }
+  targetIp = { host, ip, at: Date.now() };
+  return ip;
+}
+
 export function resellerSlug(name: string): string {
   return name.toLowerCase().normalize("NFKD").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 40) || "reseller";
 }

@@ -57,6 +57,8 @@ export const CATEGORY_LABELS: Record<CatalogEntry["category"], string> = {
 export type CatalogEntry = {
   type: string;
   label: string;
+  /** Plain-words hover tip for the "Add step" list. */
+  help: string;
   icon: LucideIcon;
   iconColor: string;
   category: "Trigger" | "Data" | "Logic" | "Integration" | "AI" | "Auth" | "Response";
@@ -67,6 +69,7 @@ export type CatalogEntry = {
 export const NODE_CATALOG: CatalogEntry[] = [
   {
     type: "trigger",
+    help: "Where the automation starts: when a page or form in your app uses it, or on its schedule if you set one. Connect it to the first step you want to happen.",
     label: "When the app calls this",
     icon: Zap,
     iconColor: "text-amber-400",
@@ -76,6 +79,7 @@ export const NODE_CATALOG: CatalogEntry[] = [
   },
   {
     type: "query",
+    help: "Finds saved records in one of your tables (a table is like a spreadsheet), optionally only the ones that match your conditions. Later steps can use what it finds.",
     label: "Find records",
     icon: Search,
     iconColor: "text-sky-400",
@@ -85,6 +89,7 @@ export const NODE_CATALOG: CatalogEntry[] = [
   },
   {
     type: "insert",
+    help: "Saves a new record (a new row) in one of your tables, like the details someone typed into a form.",
     label: "Add a record",
     icon: Plus,
     iconColor: "text-emerald-400",
@@ -94,6 +99,7 @@ export const NODE_CATALOG: CatalogEntry[] = [
   },
   {
     type: "update",
+    help: "Changes records already saved in a table. You choose which records to change and what their new values are.",
     label: "Change records",
     icon: Pencil,
     iconColor: "text-amber-300",
@@ -103,6 +109,7 @@ export const NODE_CATALOG: CatalogEntry[] = [
   },
   {
     type: "delete",
+    help: "Permanently removes the records in a table that match your conditions. This can't be undone.",
     label: "Delete records",
     icon: Trash2,
     iconColor: "text-red-400",
@@ -112,6 +119,7 @@ export const NODE_CATALOG: CatalogEntry[] = [
   },
   {
     type: "sheets_read",
+    help: "Reads the rows of a Google Sheet you've connected (up to 1,000), so later steps can use them.",
     label: "Read a Google Sheet",
     icon: FileSpreadsheet,
     iconColor: "text-green-400",
@@ -121,6 +129,7 @@ export const NODE_CATALOG: CatalogEntry[] = [
   },
   {
     type: "sheets_append",
+    help: "Adds a new row to a Google Sheet you've connected, like a log of every form sent. It only works with sheets your app is allowed to edit, not read-only ones.",
     label: "Add a row to a Google Sheet",
     icon: FileSpreadsheet,
     iconColor: "text-green-300",
@@ -130,6 +139,7 @@ export const NODE_CATALOG: CatalogEntry[] = [
   },
   {
     type: "branch",
+    help: "Checks something and splits the automation in two: one path runs when it's true, the other when it isn't.",
     label: "If this, otherwise that",
     icon: GitBranch,
     iconColor: "text-fuchsia-400",
@@ -139,6 +149,7 @@ export const NODE_CATALOG: CatalogEntry[] = [
   },
   {
     type: "set",
+    help: "Saves a value under a name you choose so later steps can reuse it, like a sticky note for this run.",
     label: "Remember a value",
     icon: Variable,
     iconColor: "text-brand-300",
@@ -148,6 +159,7 @@ export const NODE_CATALOG: CatalogEntry[] = [
   },
   {
     type: "parse_json",
+    help: "Turns text that holds structured data (often sent by other websites) into separate values that later steps can pick from.",
     label: "Read data from text",
     icon: Braces,
     iconColor: "text-indigo-300",
@@ -157,6 +169,7 @@ export const NODE_CATALOG: CatalogEntry[] = [
   },
   {
     type: "math",
+    help: "Works out a number from two values: add, subtract, multiply, divide or remainder. Later steps can use the answer.",
     label: "Do a sum",
     icon: Calculator,
     iconColor: "text-cyan-300",
@@ -166,6 +179,7 @@ export const NODE_CATALOG: CatalogEntry[] = [
   },
   {
     type: "delay",
+    help: "Pauses the automation for a few seconds (up to 60) before the next step runs.",
     label: "Wait",
     icon: Clock,
     iconColor: "text-slate-300",
@@ -175,6 +189,7 @@ export const NODE_CATALOG: CatalogEntry[] = [
   },
   {
     type: "custom_js",
+    help: "For developers: runs a short piece of JavaScript code you write. Use it only when no other step does what you need.",
     label: "Custom code",
     icon: Code2,
     iconColor: "text-lime-300",
@@ -188,6 +203,7 @@ export const NODE_CATALOG: CatalogEntry[] = [
   },
   {
     type: "http_request",
+    help: "Contacts another website or online service, to fetch information or pass some along. Later steps can use its answer.",
     label: "Call another website",
     icon: Globe,
     iconColor: "text-blue-400",
@@ -197,6 +213,7 @@ export const NODE_CATALOG: CatalogEntry[] = [
   },
   {
     type: "email",
+    help: "Sends an email, like an order confirmation to a customer or a heads-up to yourself.",
     label: "Send an email",
     icon: Mail,
     iconColor: "text-pink-400",
@@ -206,6 +223,7 @@ export const NODE_CATALOG: CatalogEntry[] = [
   },
   {
     type: "send_push",
+    help: "Sends a notification to everyone who turned on notifications for your app, on their phone or computer.",
     label: "Send a notification",
     icon: Bell,
     iconColor: "text-amber-300",
@@ -215,6 +233,7 @@ export const NODE_CATALOG: CatalogEntry[] = [
   },
   {
     type: "ai_prompt",
+    help: "Gives the AI a question or task, like summarizing a message. Later steps can use its answer. Each run counts toward your AI allowance.",
     label: "Ask AI",
     icon: Sparkles,
     iconColor: "text-brand-300",
@@ -224,6 +243,7 @@ export const NODE_CATALOG: CatalogEntry[] = [
   },
   {
     type: "hash_password",
+    help: "Scrambles a password so it can be saved safely. Use it before saving a new account's password; the original can't be read back.",
     label: "Protect a password",
     icon: Lock,
     iconColor: "text-rose-400",
@@ -233,6 +253,7 @@ export const NODE_CATALOG: CatalogEntry[] = [
   },
   {
     type: "verify_password",
+    help: "Checks whether the password someone typed matches the scrambled one you saved. Use it when people sign in.",
     label: "Check a password",
     icon: ShieldCheck,
     iconColor: "text-emerald-400",
@@ -243,6 +264,7 @@ export const NODE_CATALOG: CatalogEntry[] = [
   },
   {
     type: "set_session",
+    help: "Signs the person in on this device, so your app remembers who they are on their next visits.",
     label: "Sign the person in",
     icon: LogIn,
     iconColor: "text-sky-300",
@@ -252,6 +274,7 @@ export const NODE_CATALOG: CatalogEntry[] = [
   },
   {
     type: "get_session",
+    help: "Finds out who is signed in right now, if anyone, with their name, email and role, so later steps can use them.",
     label: "Who is signed in",
     icon: KeyRound,
     iconColor: "text-amber-300",
@@ -261,6 +284,7 @@ export const NODE_CATALOG: CatalogEntry[] = [
   },
   {
     type: "clear_session",
+    help: "Signs the person out on this device.",
     label: "Sign the person out",
     icon: LogOut,
     iconColor: "text-slate-400",
@@ -270,6 +294,7 @@ export const NODE_CATALOG: CatalogEntry[] = [
   },
   {
     type: "lookup",
+    help: "For each record an earlier step found, fetches the matching record from another table, like adding each order's customer details.",
     label: "Look up a related record",
     icon: Link2,
     iconColor: "text-violet-400",
@@ -279,6 +304,7 @@ export const NODE_CATALOG: CatalogEntry[] = [
   },
   {
     type: "aggregate",
+    help: "Counts records or adds up a column in a table, like the number of sign-ups or total sales. Later steps can use the result.",
     label: "Count or add up records",
     icon: BarChart3,
     iconColor: "text-orange-400",
@@ -288,6 +314,7 @@ export const NODE_CATALOG: CatalogEntry[] = [
   },
   {
     type: "bulk_insert",
+    help: "Adds many rows to a table at once, from a list an earlier step made.",
     label: "Add many rows",
     icon: CopyPlus,
     iconColor: "text-emerald-300",
@@ -297,6 +324,7 @@ export const NODE_CATALOG: CatalogEntry[] = [
   },
   {
     type: "bulk_update",
+    help: "Changes every row in a table that matches your conditions, in one go.",
     label: "Change many rows",
     icon: Pencil,
     iconColor: "text-amber-200",
@@ -306,6 +334,7 @@ export const NODE_CATALOG: CatalogEntry[] = [
   },
   {
     type: "bulk_delete",
+    help: "Permanently deletes every row in a table that matches your conditions, in one go. This can't be undone.",
     label: "Delete many rows",
     icon: CopyMinus,
     iconColor: "text-red-300",
@@ -315,6 +344,7 @@ export const NODE_CATALOG: CatalogEntry[] = [
   },
   {
     type: "check_role",
+    help: "Checks whether the signed-in person has a certain role, like admin. Follow it with an “If this, otherwise that” step to decide what happens.",
     label: "Check what the person may do",
     icon: Shield,
     iconColor: "text-amber-400",
@@ -324,6 +354,7 @@ export const NODE_CATALOG: CatalogEntry[] = [
   },
   {
     type: "response",
+    help: "Sends an answer back to the page or form that started the automation, like a success message or the records found.",
     label: "Reply",
     icon: Reply,
     iconColor: "text-teal-400",

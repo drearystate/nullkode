@@ -23,8 +23,8 @@ Administration → Settings → AI:
 
 1. **API base URL:** the address from the table.
 2. **API key:** leave empty unless your server needs one.
-3. **Model:** the exact model name the server uses (for Ollama, the name you
-   ran, e.g. `qwen3:8b`).
+3. **Scaffold model** and **Edit model:** the exact model name the server
+   uses, in both (for Ollama, the name you ran, e.g. `qwen3:8b`).
 4. **Model context size:** leave empty. NullKode asks vLLM, LM Studio and
    Ollama how much the model can read at once. Models under 24K tokens get
    shorter instructions automatically.

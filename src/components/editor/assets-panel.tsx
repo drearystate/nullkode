@@ -16,20 +16,22 @@ type Category = {
   id: string;
   label: string;
   query: string;
+  /** Hover note for the category button. */
+  help: string;
 };
 
 const CATEGORIES: Category[] = [
-  { id: "all", label: "All", query: "" },
-  { id: "stock", label: "Stock", query: "home demo" },
-  { id: "nature", label: "Nature", query: "nature landscape" },
-  { id: "people", label: "People", query: "people portrait" },
-  { id: "business", label: "Business", query: "business office" },
-  { id: "tech", label: "Tech", query: "technology computer" },
-  { id: "food", label: "Food", query: "food restaurant" },
-  { id: "architecture", label: "Architecture", query: "architecture building" },
-  { id: "fitness", label: "Fitness", query: "gym fitness" },
-  { id: "medical", label: "Medical", query: "medical health" },
-  { id: "travel", label: "Travel", query: "travel agency" },
+  { id: "all", label: "All", query: "", help: "Show a mix of free photos you can use on your page." },
+  { id: "stock", label: "Stock", query: "home demo", help: "Show general-purpose free photos that suit most pages." },
+  { id: "nature", label: "Nature", query: "nature landscape", help: "Show free photos of nature and landscapes." },
+  { id: "people", label: "People", query: "people portrait", help: "Show free photos of people." },
+  { id: "business", label: "Business", query: "business office", help: "Show free photos of offices and people at work." },
+  { id: "tech", label: "Tech", query: "technology computer", help: "Show free photos of computers and technology." },
+  { id: "food", label: "Food", query: "food restaurant", help: "Show free photos of food and restaurants." },
+  { id: "architecture", label: "Architecture", query: "architecture building", help: "Show free photos of buildings." },
+  { id: "fitness", label: "Fitness", query: "gym fitness", help: "Show free photos of gyms and exercise." },
+  { id: "medical", label: "Medical", query: "medical health", help: "Show free photos of health care and medicine." },
+  { id: "travel", label: "Travel", query: "travel agency", help: "Show free photos of travel and places to visit." },
 ];
 
 export function AssetsPanel({ editor }: { editor: Editor }) {
@@ -123,6 +125,7 @@ export function AssetsPanel({ editor }: { editor: Editor }) {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search photos..."
+          data-help="Type what you want a photo of, like “coffee” or “dog”, to find free photos you can use."
           className="w-full bg-surface-950 border border-surface-800 rounded px-2.5 py-1.5 text-xs text-surface-100 placeholder:text-surface-600 focus:outline-none focus:border-brand-500"
         />
         <div className="flex flex-wrap gap-1">
@@ -130,6 +133,7 @@ export function AssetsPanel({ editor }: { editor: Editor }) {
             <button
               key={c.id}
               onClick={() => setCategory(c.id)}
+              data-help={c.help}
               className={`text-[10px] px-2 py-0.5 rounded-full border transition ${
                 category === c.id
                   ? "bg-brand-500/20 border-brand-500 text-brand-200"
@@ -160,11 +164,12 @@ export function AssetsPanel({ editor }: { editor: Editor }) {
             maxLength={200}
             onChange={(e) => setDescribing({ ...describing, alt: e.target.value })}
             placeholder="e.g. Fresh bread on our shop counter"
+            data-help="A few words saying what’s in the picture. Screen readers read it out to people who can’t see it, and search engines use it too."
             className="w-full rounded border border-surface-800 bg-surface-950 px-2 py-1.5 text-xs text-surface-100 placeholder:text-surface-600 focus:border-brand-500 focus:outline-none"
           />
           <div className="flex gap-2">
-            <button type="submit" className="rounded bg-brand-500 px-2.5 py-1 text-[11px] font-semibold text-white hover:bg-brand-400">Save description</button>
-            <button type="button" className="rounded px-2 py-1 text-[11px] text-surface-400 hover:text-surface-100" onClick={() => setDescribing(null)}>Skip</button>
+            <button type="submit" data-help="Save this description on the picture." className="rounded bg-brand-500 px-2.5 py-1 text-[11px] font-semibold text-white hover:bg-brand-400">Save description</button>
+            <button type="button" className="rounded px-2 py-1 text-[11px] text-surface-400 hover:text-surface-100" onClick={() => setDescribing(null)} data-help="Keep the new picture without changing its description.">Skip</button>
           </div>
         </form>
       )}
@@ -186,6 +191,7 @@ export function AssetsPanel({ editor }: { editor: Editor }) {
               draggable
               onDragStart={(e) => onDragStart(e, a)}
               onClick={() => insertImage(a)}
+              data-help={imageSelected ? "Tap to put this photo in place of the picture you picked. It keeps the same size and spot." : "Tap to add this photo below the part you picked, or drag it onto your page."}
               title={a.credit ? `Photo by ${a.credit.name}` : a.alt}
               aria-label={`${imageSelected ? "Use this photo instead" : "Add this photo"}${a.alt ? `: ${a.alt}` : ""}`}
               className="group relative aspect-square overflow-hidden rounded border border-surface-800 bg-surface-950 hover:border-brand-500 transition"

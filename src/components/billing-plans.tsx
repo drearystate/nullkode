@@ -53,6 +53,7 @@ export function BillingPlans({
               <button
                 className="btn-primary mt-4 w-full justify-center disabled:opacity-50"
                 disabled={isCurrent || busy !== null || p.key === "FREE" || !p.buyable}
+                data-help={isCurrent || p.key === "FREE" ? undefined : !p.buyable ? "This plan can't be bought online yet." : "Opens a secure Stripe payment page to start this plan, billed monthly. Already on a paid plan? Use Manage billing to switch instead."}
                 onClick={() => p.key !== "FREE" && checkout(p.key as "STARTER" | "PRO" | "TEAM")}
               >
                 {isCurrent ? "Current" : p.key === "FREE" ? "Free" : !p.buyable ? "Coming soon" : busy === p.key ? "..." : "Upgrade"}
@@ -64,7 +65,7 @@ export function BillingPlans({
 
       {hasCustomer && (
         <div className="mt-6">
-          <button className="btn-ghost" disabled={busy === "portal"} onClick={portal}>
+          <button className="btn-ghost" disabled={busy === "portal"} onClick={portal} data-help="Opens Stripe's secure billing page, where you can update your card, see past invoices and, where offered, change or cancel your plan.">
             {busy === "portal" ? "..." : "Manage billing"}
           </button>
         </div>

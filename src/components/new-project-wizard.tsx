@@ -33,7 +33,7 @@ export function NewProjectWizard({ aiReady, aiProblem, isAdmin }: { aiReady: boo
             <Link href="/dashboard" className="studio-back-link"><ArrowLeft size={15} />Back to your apps</Link>
             {isAdmin && (
               <p role="status" className="mt-6 rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-surface-300">
-                Want people to build apps just by describing them? <Link href="/admin/settings" className="text-brand-300 underline underline-offset-2">Connect an AI model</Link> in Settings. It works with hosted models or one running on your own computer.
+                Want people to build apps just by describing them? <Link href="/admin/settings" data-help="Only admins see this link. Open Settings to connect the AI so people can create apps by describing them." className="text-brand-300 underline underline-offset-2">Connect an AI model</Link> in Settings. It works with hosted models or one running on your own computer.
               </p>
             )}
           </div>
@@ -53,10 +53,10 @@ export function NewProjectWizard({ aiReady, aiProblem, isAdmin }: { aiReady: boo
   return (
     <div className="studio-creation-flow">
       <nav className="studio-creation-nav" aria-label="Ways to start">
-        <Link href="/new" className="studio-back-link"><ArrowLeft size={15} /><span>{aiReady ? "Describe your app" : "Start your app"}</span></Link>
+        <Link href="/new" data-help="Go back to the start page to see every way to begin a new app." className="studio-back-link"><ArrowLeft size={15} /><span>{aiReady ? "Describe your app" : "Start your app"}</span></Link>
         <div className="flex gap-1 overflow-x-auto">
-          {methods.filter((m) => m.id !== "ai").map(({ id, href, title, icon: Icon }) => (
-            <Link key={id} href={href} aria-current={mode === id ? "page" : undefined} className={mode === id ? "active" : ""}><Icon size={15} /><span>{title}</span></Link>
+          {methods.filter((m) => m.id !== "ai").map(({ id, href, title, icon: Icon, help }) => (
+            <Link key={id} href={href} data-help={help} aria-current={mode === id ? "page" : undefined} className={mode === id ? "active" : ""}><Icon size={15} /><span>{title}</span></Link>
           ))}
         </div>
       </nav>

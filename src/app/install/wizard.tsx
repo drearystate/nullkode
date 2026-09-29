@@ -32,7 +32,7 @@ export function InstallWizard({ ownerSignedIn = false }: { ownerSignedIn?: boole
   const [aiBaseUrl, setAiBaseUrl] = useState("");
   const [aiModel, setAiModel] = useState("gpt-6-luna");
   const [openaiKey, setOpenaiKey] = useState("");
-  const [claudeBin, setClaudeBin] = useState("/usr/local/bin/claude");
+  const [claudeBin, setClaudeBin] = useState("");
 
   // ── Step 3: brand ─────────────────────────────────────────────────
   const [brand, setBrand] = useState<BrandForm>({
@@ -217,14 +217,14 @@ export function InstallWizard({ ownerSignedIn = false }: { ownerSignedIn?: boole
                   <div>
                     <div className="font-medium">
                       {p === "openai" && "Hosted or local AI (OpenAI-compatible API)"}
-                      {p === "claude-cli" && "Command-line AI agent (Designer)"}
+                      {p === "claude-cli" && "Command-line AI agent"}
                       {p === "skip" && "Skip for now"}
                     </div>
                     <div className="mt-0.5 text-xs text-surface-400">
                       {p === "openai" &&
                         "Use a hosted or local model for the AI builder, Designer, and editor."}
                       {p === "claude-cli" &&
-                        "Powers the Designer's agentic workspace. Requires `claude` installed and `claude login`."}
+                        "Uses a command-line AI tool installed and signed in on this server, for every AI feature. See docs/deploy/plesk.md."}
                       {p === "skip" &&
                         "Use the visual editor + templates only. AI features will be disabled until you configure a provider in admin settings."}
                     </div>
@@ -245,10 +245,10 @@ export function InstallWizard({ ownerSignedIn = false }: { ownerSignedIn?: boole
             )}
             {aiProvider === "claude-cli" && (
               <Field
-                label="AI agent program path"
+                label="AI agent program path (blank to find it automatically)"
                 value={claudeBin}
                 onChange={setClaudeBin}
-                placeholder="/usr/local/bin/claude"
+                placeholder="/usr/local/bin/…"
               />
             )}
 

@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
 import { DomainsPanel } from "@/components/domains-panel";
-import { platformTargetHost } from "@/lib/reseller";
+import { platformTargetHost, platformTargetIp } from "@/lib/reseller";
 
 export default async function DomainsPage({
   params,
@@ -24,7 +24,7 @@ export default async function DomainsPage({
       <p className="text-sm text-surface-400 mt-1">
         Put this app on your own address, like www.yourbusiness.com. Add two DNS records where you bought the domain, then check the connection here.
       </p>
-      <DomainsPanel projectId={id} domains={project.domains} target={platformTargetHost()} />
+      <DomainsPanel projectId={id} domains={project.domains} target={platformTargetHost()} ip={await platformTargetIp()} />
     </div>
   );
 }

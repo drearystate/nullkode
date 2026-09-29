@@ -8,9 +8,9 @@ import { AssetsPanel } from "./assets-panel";
 import { ModulesPanel } from "./modules-panel";
 import { IconPickerModal } from "./icon-picker-modal";
 import { ThemePanel } from "./theme-panel";
-import { WireUpModal } from "./wire-up-modal";
-import { getModuleForBlock, type BlockModuleMapping } from "./block-module-map";
-import { observePanelHelp } from "./panel-help";
+import { WireUpModal, type WiredFlow } from "./wire-up-modal";
+import { connectBlock, getModuleForBlock, type BlockModuleMapping } from "./block-module-map";
+import { BLOCK_CATEGORY_HELP, BLOCK_HELP, annotateImagePicker, annotateTextToolbar, observePanelHelp } from "./panel-help";
 import {
   STYLE_SECTORS,
   clickToEdit,
@@ -18,6 +18,7 @@ import {
   pageHtmlNow,
   placeForBlock,
   plainSettings,
+  refreshSettings,
   scrollToPart,
   syncEditingText,
   syncEditingTextNow,
@@ -132,7 +133,10 @@ export function GrapesEditor(props: Props) {
   const [iconPickerOpen, setIconPickerOpen] = useState(false);
   const [iconReplaceId, setIconReplaceId] = useState<string | null>(null);
   const [blockSearch, setBlockSearch] = useState("");
-  const [wireUpMapping, setWireUpMapping] = useState<BlockModuleMapping | null>(null);
+  // A premade block just added whose feature can be connected, and its parts.
+  const [wireUp, setWireUp] = useState<{ mapping: BlockModuleMapping; components: Component[] } | null>(null);
+  // The flows offered in the "When sent, run" / "Show items from" settings.
+  const flowOptionsRef = useRef<FlowOption[]>([]);
   const [advancedOpen, setAdvancedOpen] = useState(false);
   const [hasSettings, setHasSettings] = useState(false);
   const [draftOffer, setDraftOffer] = useState<{ draft: PageDraft; newer: boolean } | null>(null);
@@ -161,6 +165,7 @@ export function GrapesEditor(props: Props) {
         .then((r) => (r.ok ? r.json() : { flows: [] }))
         .then((d: { flows?: { id: string; name: string }[] }) => (d.flows ?? []).map((f) => ({ id: f.id, label: f.name })))
         .catch(() => []);
+      flowOptionsRef.current = flowOptions;
 
       if (
         !mounted ||
@@ -275,15 +280,18 @@ export function GrapesEditor(props: Props) {
             el.querySelector(".gjs-block-label")?.textContent?.trim() ??
             el.getAttribute("title") ??
             "this";
+          const about = BLOCK_HELP[label];
           el.setAttribute(
             "data-help",
-            `Tap or drag: tap "${label}" to add it below the part you picked, or drag it to where you want it.`
+            about
+              ? `${about} Tap to add it below the part you picked, or drag it onto the page.`
+              : `Tap or drag: tap “${label}” to add it below the part you picked, or drag it to where you want it.`
           );
         });
         host.querySelectorAll<HTMLElement>(".gjs-block-category .gjs-title").forEach((el) => {
           el.setAttribute(
             "data-help",
-            "A group of blocks. Click the name to show or hide them."
+            BLOCK_CATEGORY_HELP[el.textContent?.trim() ?? ""] ?? "A group of blocks. Click the name to show or hide them."
           );
         });
 
@@ -297,6 +305,14 @@ export function GrapesEditor(props: Props) {
           layers: layersHostRef.current,
         });
       });
+
+      // The bold/italic/link bar shown while editing words: GrapesJS builds
+      // its buttons the first time text is edited.
+      editor.on("rte:enable", () => annotateTextToolbar(editor.RichTextEditor.getToolbarEl()));
+      // GrapesJS's picture window (double-click a picture).
+      const notePicturePicker = () => setTimeout(() => annotateImagePicker(editorHostRef.current), 0);
+      editor.on("run:open-assets", notePicturePicker);
+      editor.on("asset:add", notePicturePicker);
 
       // Opens the icon picker to replace a freshly added Icon placeholder.
       const pickIconFor = (component: Component) => {
@@ -315,9 +331,8 @@ export function GrapesEditor(props: Props) {
         const first = Array.isArray(component) ? component[0] : component;
         if (blockId === "nk-icon-picker" && first) return pickIconFor(first);
         const mapping = getModuleForBlock(blockId);
-        if (mapping) {
-          setWireUpMapping(mapping);
-        }
+        const added = (Array.isArray(component) ? component : [component]).filter((c): c is Component => !!c);
+        if (mapping && added.length) setWireUp({ mapping, components: added });
       });
 
       // Tap to add: dragging doesn't work on touch screens, and a tap is
@@ -340,7 +355,7 @@ export function GrapesEditor(props: Props) {
         if (id === "nk-icon-picker") return pickIconFor(first);
         if (block.get("activate")) first.trigger("active");
         const mapping = getModuleForBlock(id);
-        if (mapping) setWireUpMapping(mapping);
+        if (mapping) setWireUp({ mapping, components: Array.isArray(added) ? (added as Component[]) : [first] });
       };
 
       // Icon block: opens the icon picker to choose the icon (tapped or
@@ -696,6 +711,21 @@ export function GrapesEditor(props: Props) {
   }, [props.projectId, props.pageId]);
 
   const flushNow = useCallback(() => saveApiRef.current?.flush() ?? Promise.resolve(true), []);
+
+  // "Yes, connect it": point the block's forms and lists at the feature's
+  // flows (the change saves like any other edit).
+  const onBlockWired = (components: Component[], flows: WiredFlow[]) => {
+    setWireUp(null);
+    const ed = editorRef.current;
+    if (!ed) return;
+    for (const f of flows) {
+      if (!flowOptionsRef.current.some((o) => o.id === f.id)) flowOptionsRef.current.push({ id: f.id, label: f.name });
+    }
+    const changed = connectBlock(components, Object.fromEntries(flows.map((f) => [f.slug, f.id])));
+    for (const c of changed) refreshSettings(ed, c);
+    if (changed.length) markDirtyRef.current?.();
+  };
+
   const previewHref = `/preview/${props.projectId}${props.pageSlug ? `?page=${encodeURIComponent(props.pageSlug)}` : ""}`;
 
   return (
@@ -753,13 +783,13 @@ export function GrapesEditor(props: Props) {
       )}
 
       {/* Wire-up modal — appears when a premade block with a module mapping is added */}
-      {wireUpMapping && (
+      {wireUp && (
         <WireUpModal
-          mapping={wireUpMapping}
+          mapping={wireUp.mapping}
           projectId={props.projectId}
-          open={!!wireUpMapping}
-          onClose={() => setWireUpMapping(null)}
-          onWired={() => setWireUpMapping(null)}
+          open={!!wireUp}
+          onClose={() => setWireUp(null)}
+          onWired={(flows) => onBlockWired(wireUp.components, flows)}
         />
       )}
 
@@ -839,18 +869,18 @@ export function GrapesEditor(props: Props) {
       <div className="flex-1 min-w-0 flex flex-col">
         <div className="studio-canvas-toolbar">
           <div className="flex items-center gap-3">
-            <button className="studio-icon-button" aria-label="Toggle blocks panel" aria-pressed={leftOpen} onClick={() => setLeftOpen((v) => !v)}><PanelLeft size={16} /></button>
-            <button className="studio-icon-button" aria-label="Undo" title="Undo" onClick={() => editorRef.current?.UndoManager.undo()}><Undo2 size={15} /></button>
-            <button className="studio-icon-button" aria-label="Redo" title="Redo" onClick={() => editorRef.current?.UndoManager.redo()}><Redo2 size={15} /></button>
-            <span role="status" aria-live="polite" data-state={status} title={STATUS_TEXT[status]} className={`studio-save-status ${status === "error" ? "text-red-300" : "text-surface-400"}`}>
+            <button className="studio-icon-button" aria-label="Toggle blocks panel" data-help="Show or hide the left panel with blocks, features and photos, to give your page more room." aria-pressed={leftOpen} onClick={() => setLeftOpen((v) => !v)}><PanelLeft size={16} /></button>
+            <button className="studio-icon-button" aria-label="Undo" title="Undo" data-help="Take back your last change on this page. Press it again to go further back." onClick={() => editorRef.current?.UndoManager.undo()}><Undo2 size={15} /></button>
+            <button className="studio-icon-button" aria-label="Redo" title="Redo" data-help="Bring back the change you just undid." onClick={() => editorRef.current?.UndoManager.redo()}><Redo2 size={15} /></button>
+            <span role="status" aria-live="polite" data-state={status} title={STATUS_TEXT[status]} data-help={status === "error" ? "Your latest edits didn’t reach the server. They’re kept in this browser, and we keep trying. Check your internet connection." : "Your edits save by themselves a moment after you stop typing. Visitors see them only after you publish."} className={`studio-save-status ${status === "error" ? "text-red-300" : "text-surface-400"}`}>
               <span className="studio-save-dot" aria-hidden />
               {status === "saving" ? <Loader2 size={12} className="studio-save-icon animate-spin" aria-hidden /> : status === "idle" || status === "saved" ? <Check size={12} className="studio-save-icon" aria-hidden /> : null}
               <span className="studio-save-text">{STATUS_TEXT[status]}</span>
-              {status === "error" && <button type="button" className="studio-save-retry" onClick={() => void flushNow()}>Retry</button>}
+              {status === "error" && <button type="button" className="studio-save-retry" data-help="Try saving your latest edits again right now." onClick={() => void flushNow()}>Retry</button>}
             </span>
           </div>
           <div className="flex items-center gap-2">
-          <button className="studio-icon-button" aria-label="Toggle properties panel" aria-pressed={rightOpen} onClick={() => setRightOpen((v) => !v)}><PanelRight size={16} /></button>
+          <button className="studio-icon-button" aria-label="Toggle properties panel" data-help="Show or hide the right panel with the Design, Layers, Settings and Theme tabs." aria-pressed={rightOpen} onClick={() => setRightOpen((v) => !v)}><PanelRight size={16} /></button>
           <div className="flex items-center gap-1 bg-surface-900 rounded-md p-0.5 border border-surface-800">
             {(
               [
@@ -909,8 +939,8 @@ export function GrapesEditor(props: Props) {
                 : `We found edits from ${new Date(draftOffer.draft.savedAt).toLocaleString()} that didn't save. This page has changed since then. Restore them anyway?`}
             </span>
             <span className="flex shrink-0 gap-2">
-              <button type="button" className="btn-primary !min-h-0 !px-3 !py-1.5 text-xs" onClick={restoreDraft}>Restore</button>
-              <button type="button" className="btn-ghost !min-h-0 !px-3 !py-1.5 text-xs" onClick={discardDraft}>Discard</button>
+              <button type="button" className="btn-primary !min-h-0 !px-3 !py-1.5 text-xs" data-help="Put back the edits this browser kept from last time. They replace what’s on the page now, and save as usual." onClick={restoreDraft}>Restore</button>
+              <button type="button" className="btn-ghost !min-h-0 !px-3 !py-1.5 text-xs" data-help="Throw away those unsaved edits and keep the page as it is. They can’t be brought back." onClick={discardDraft}>Discard</button>
             </span>
           </div>
         )}
@@ -930,7 +960,7 @@ export function GrapesEditor(props: Props) {
                     ? "Everything on your page in order, top to bottom. Handy for picking pieces that are hard to click."
                     : t === "traits"
                       ? "Settings for the selected piece, like where a link goes or what a form does when it's sent."
-                      : "Quick color and font settings for your whole app, right here in the editor."
+                      : "Quick color and corner settings for your whole app, or a ready-made look. Visitors see changes after you publish."
               }
               onClick={() => setRightTab(t)}
               className={`flex-1 py-2.5 text-xs uppercase tracking-wider font-semibold transition ${
@@ -943,7 +973,7 @@ export function GrapesEditor(props: Props) {
             </button>
           ))}
         </div>
-        <div className="studio-selection-label"><MousePointer2 size={13} /><span>{selectedName || "Select something on your page"}</span></div>
+        <div className="studio-selection-label" data-help="The piece you picked on your page. The Design and Settings tabs change this piece. Click something on the page to pick it."><MousePointer2 size={13} /><span>{selectedName || "Select something on your page"}</span></div>
         <div className="flex-1 overflow-y-auto">
           {/* Plain sections first; the "adv-" sections and the class/state
               picker only show once "Advanced" is opened. The GrapesJS

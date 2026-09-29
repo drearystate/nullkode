@@ -195,7 +195,7 @@ export function EmailSettings() {
       </div>
 
       <fieldset>
-        <legend className="text-sm font-medium">How should email be sent?</legend>
+        <legend className="text-sm font-medium" data-help="SMTP means your email provider's sending settings; almost every provider has them. Resend is a sending service that uses a secret key instead.">How should email be sent?</legend>
         <div className="mt-2 grid gap-3 md:grid-cols-2">
           {([
             ["smtp", "Any email provider (SMTP)", "Works with Google Workspace, Microsoft 365, Brevo, Mailgun, Postmark, Amazon SES, Resend and most web hosts."],
@@ -238,7 +238,7 @@ export function EmailSettings() {
             </div>
             <span className="mt-1 block text-xs text-surface-400">Use 587 unless your provider says otherwise. Many hosting companies block port 25.</span>
           </div>
-          <label className="block text-sm">Username
+          <label className="block text-sm" data-help="The login for your email provider's sending settings, usually your full email address.">Username
             <input className="input mt-1" name="smtp-user" value={form.user} onChange={(e) => set("user", e.target.value)} placeholder="you@example.com" autoComplete="off" spellCheck={false} />
           </label>
           <label className="block text-sm">Password
@@ -248,7 +248,7 @@ export function EmailSettings() {
           </label>
           <details className="md:col-span-2 text-sm">
             <summary className="cursor-pointer text-surface-300">More options</summary>
-            <label className="mt-3 block max-w-sm">Encryption
+            <label className="mt-3 block max-w-sm" data-help="How the connection to your email server is kept private. Leave it on Automatic unless your email provider says otherwise.">Encryption
               <select className="input mt-1" value={form.security} onChange={(e) => set("security", e.target.value as Security)}>
                 <option value="auto">Automatic (recommended)</option>
                 <option value="ssl">SSL from the start (port 465)</option>
@@ -258,7 +258,7 @@ export function EmailSettings() {
           </details>
         </div>
       ) : (
-        <label className="block text-sm">Resend API key
+        <label className="block text-sm" data-help="The secret key from your Resend account. It's kept hidden; leave the box empty to keep the key already saved.">Resend API key
           <input className="input mt-1" name="resend-key" type="password" value={form.apiKey} onChange={(e) => set("apiKey", e.target.value)} autoComplete="new-password"
             placeholder={settings.resend.apiKeySet ? `Saved (${settings.resend.apiKeyMask}). Leave blank to keep it` : env.resendKeySet ? "Using the key in the server's settings file. Leave blank to keep it" : "re_…"} />
         </label>
@@ -276,12 +276,12 @@ export function EmailSettings() {
       </div>
 
       <div className="flex flex-wrap items-center gap-3">
-        <button type="submit" className="btn-primary" disabled={busy !== ""}>{busy === "save" ? "Saving…" : "Save email settings"}</button>
+        <button type="submit" className="btn-primary" disabled={busy !== ""} data-help="Saves these settings. From then on, invitations, password links and app alerts for everyone on the platform, resellers' clients included, are sent this way.">{busy === "save" ? "Saving…" : "Save email settings"}</button>
         <button type="button" className="btn-secondary" onClick={test} disabled={busy !== ""}>
           <Send size={15} aria-hidden />{busy === "test" ? "Sending…" : "Send a test email to me"}
         </button>
         {settings.provider && (
-          <button type="button" className="text-sm text-surface-400 underline-offset-2 hover:text-surface-100 hover:underline" onClick={remove} disabled={busy !== ""}>
+          <button type="button" className="text-sm text-surface-400 underline-offset-2 hover:text-surface-100 hover:underline" onClick={remove} disabled={busy !== ""} data-help="Deletes the email settings saved here. Email then uses the server's settings file (.env) if it has any, or turns off.">
             {busy === "remove" ? "Removing…" : "Remove these settings"}
           </button>
         )}

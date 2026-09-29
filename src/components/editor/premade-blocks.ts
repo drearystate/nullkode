@@ -128,13 +128,13 @@ export function registerPremadeBlocks(editor: Editor) {
       <h2 style="font-family:var(--nk-font-display);color:var(--nk-text);font-weight:700">Meet our team</h2>
       <p style="color:var(--nk-text-muted);max-width:480px;margin:0 auto">The talented people behind our success.</p>
     </div>
-    <div class="row g-4">
-      <div class="col-lg-3 col-md-6 text-center">
+    <div class="row g-4" data-nk-connect-list="team-feed">
+      <div class="col-lg-3 col-md-6 text-center" data-nk-item>
         <div style="background:var(--nk-surface);border-radius:var(--nk-radius);overflow:hidden;box-shadow:var(--nk-shadow-sm);border:1px solid var(--nk-border)">
-          <div style="height:240px;background:linear-gradient(135deg,var(--nk-primary),var(--nk-accent))"></div>
+          <div data-nk-src="photo_url" style="height:240px;background:linear-gradient(135deg,var(--nk-primary),var(--nk-accent))"></div>
           <div style="padding:24px 16px">
-            <div style="font-weight:600;font-size:17px;color:var(--nk-text)">Jeremy Dupont</div>
-            <div style="color:var(--nk-text-muted);font-size:14px;margin-bottom:12px">Executive Officer</div>
+            <div data-nk-field="name" style="font-weight:600;font-size:17px;color:var(--nk-text)">Jeremy Dupont</div>
+            <div data-nk-field="role" style="color:var(--nk-text-muted);font-size:14px;margin-bottom:12px">Executive Officer</div>
             <div style="display:flex;gap:12px;justify-content:center">
               <a href="#" style="color:var(--nk-text-muted);text-decoration:none;font-size:14px;font-weight:500">in</a>
               <a href="#" style="color:var(--nk-text-muted);text-decoration:none;font-size:14px;font-weight:500">tw</a>
@@ -281,10 +281,10 @@ export function registerPremadeBlocks(editor: Editor) {
           <h2 style="font-family:var(--nk-font-display);color:var(--nk-text);font-weight:700">Frequently asked questions</h2>
           <p style="color:var(--nk-text-muted)">Everything you need to know about our product and services.</p>
         </div>
-        <div class="accordion" id="nkFaq">
-          <div class="accordion-item" style="border:1px solid var(--nk-border);border-radius:var(--nk-radius-sm);margin-bottom:12px;overflow:hidden;background:var(--nk-surface)">
-            <h2 class="accordion-header"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#nkFaq1" style="font-weight:600;font-size:16px;color:var(--nk-text);background:var(--nk-surface)">How do I get started?</button></h2>
-            <div id="nkFaq1" class="accordion-collapse collapse show" data-bs-parent="#nkFaq"><div class="accordion-body" style="color:var(--nk-text-muted);font-size:15px;line-height:1.7">Simply sign up for a free account, choose your plan, and you can start building right away. No credit card required for the trial period.</div></div>
+        <div class="accordion" id="nkFaq" data-nk-connect-list="faq-feed">
+          <div class="accordion-item" data-nk-item style="border:1px solid var(--nk-border);border-radius:var(--nk-radius-sm);margin-bottom:12px;overflow:hidden;background:var(--nk-surface)">
+            <h2 class="accordion-header"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#nkFaq1" data-nk-attr-data-bs-target="#nkFaq-{id}" data-nk-field="question" style="font-weight:600;font-size:16px;color:var(--nk-text);background:var(--nk-surface)">How do I get started?</button></h2>
+            <div id="nkFaq1" data-nk-attr-id="nkFaq-{id}" class="accordion-collapse collapse show" data-bs-parent="#nkFaq"><div class="accordion-body" data-nk-field="answer" style="color:var(--nk-text-muted);font-size:15px;line-height:1.7">Simply sign up for a free account, choose your plan, and you can start building right away. No credit card required for the trial period.</div></div>
           </div>
           <div class="accordion-item" style="border:1px solid var(--nk-border);border-radius:var(--nk-radius-sm);margin-bottom:12px;overflow:hidden;background:var(--nk-surface)">
             <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#nkFaq2" style="font-weight:600;font-size:16px;color:var(--nk-text);background:var(--nk-surface)">Can I upgrade or downgrade my plan?</button></h2>
@@ -350,7 +350,7 @@ export function registerPremadeBlocks(editor: Editor) {
       <h2 style="font-family:var(--nk-font-display);color:var(--nk-text);font-weight:700">Our work</h2>
       <p style="color:var(--nk-text-muted);max-width:480px;margin:0 auto">A selection of our recent projects and creative endeavors.</p>
     </div>
-    <div class="row g-3">
+    <div class="row g-3" data-nk-connect-list="gallery-feed">
       <div class="col-md-8">
         <div style="height:320px;border-radius:var(--nk-radius);background:linear-gradient(135deg,var(--nk-primary),var(--nk-accent));display:flex;align-items:end;padding:24px;overflow:hidden">
           <span style="color:#fff;font-weight:600;font-size:18px">Featured project</span>
@@ -361,9 +361,9 @@ export function registerPremadeBlocks(editor: Editor) {
           <span style="color:#fff;font-weight:600;font-size:18px">Branding</span>
         </div>
       </div>
-      <div class="col-md-4">
-        <div style="height:240px;border-radius:var(--nk-radius);background:linear-gradient(135deg,var(--nk-warning),var(--nk-danger));display:flex;align-items:end;padding:24px;overflow:hidden">
-          <span style="color:#fff;font-weight:600;font-size:18px">Photography</span>
+      <div class="col-md-4" data-nk-item>
+        <div data-nk-src="image_url" style="height:240px;border-radius:var(--nk-radius);background:linear-gradient(135deg,var(--nk-warning),var(--nk-danger));display:flex;align-items:end;padding:24px;overflow:hidden">
+          <span data-nk-field="title" style="color:#fff;font-weight:600;font-size:18px">Photography</span>
         </div>
       </div>
       <div class="col-md-4">
@@ -542,18 +542,17 @@ export function registerPremadeBlocks(editor: Editor) {
     media: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 7h4v4c0 2-1 3-3 4"/><path d="M15 7h4v4c0 2-1 3-3 4"/></svg>`,
     content: `<section style="padding:64px 0;font-family:var(--nk-font);background:var(--nk-bg)">
   <div class="container">
-    <div class="row g-4">
-      <div class="col-lg-4 col-md-6">
+    <div class="row g-4" data-nk-connect-list="reviews-approved">
+      <div class="col-lg-4 col-md-6" data-nk-item>
         <div style="background:var(--nk-surface);border-radius:var(--nk-radius);overflow:hidden;box-shadow:var(--nk-shadow);height:100%;display:flex;flex-direction:column">
           <div style="height:200px;background:linear-gradient(135deg,var(--nk-primary),var(--nk-accent));position:relative">
             <div style="position:absolute;top:16px;right:16px;background:var(--nk-warning);color:#fff;font-size:13px;padding:4px 12px;border-radius:16px">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
           </div>
           <div style="padding:28px 24px;flex:1">
-            <p style="color:var(--nk-text);font-size:15px;line-height:1.7;margin-bottom:0">Exceptional quality and outstanding service. The team went above and beyond to deliver a perfect result.</p>
+            <p data-nk-field="comment" style="color:var(--nk-text);font-size:15px;line-height:1.7;margin-bottom:0">Exceptional quality and outstanding service. The team went above and beyond to deliver a perfect result.</p>
           </div>
           <div style="padding:16px 24px;border-top:1px solid var(--nk-border)">
-            <span style="font-weight:700;color:var(--nk-text);font-size:14px;text-transform:uppercase">Jacob Kalling</span>
-            <span style="color:var(--nk-text-muted);font-size:13px"> &mdash; Walmart</span>
+            <span data-nk-field="reviewer_name" style="font-weight:700;color:var(--nk-text);font-size:14px;text-transform:uppercase">Jacob Kalling</span>
           </div>
         </div>
       </div>
@@ -567,7 +566,6 @@ export function registerPremadeBlocks(editor: Editor) {
           </div>
           <div style="padding:16px 24px;border-top:1px solid var(--nk-border)">
             <span style="font-weight:700;color:var(--nk-text);font-size:14px;text-transform:uppercase">Shoko Mugikura</span>
-            <span style="color:var(--nk-text-muted);font-size:13px"> &mdash; PayPal</span>
           </div>
         </div>
       </div>
@@ -581,7 +579,6 @@ export function registerPremadeBlocks(editor: Editor) {
           </div>
           <div style="padding:16px 24px;border-top:1px solid var(--nk-border)">
             <span style="font-weight:700;color:var(--nk-text);font-size:14px;text-transform:uppercase">Alexa Harvard</span>
-            <span style="color:var(--nk-text-muted);font-size:13px"> &mdash; Monday</span>
           </div>
         </div>
       </div>
@@ -601,14 +598,14 @@ export function registerPremadeBlocks(editor: Editor) {
       <h2 style="font-family:var(--nk-font-display);color:var(--nk-text);font-weight:700">What we offer</h2>
       <p style="color:var(--nk-text-muted);max-width:480px;margin:0 auto">Professional services tailored to your business needs.</p>
     </div>
-    <div class="row g-4">
-      <div class="col-lg-4 col-md-6">
+    <div class="row g-4" data-nk-connect-list="service-menu-feed">
+      <div class="col-lg-4 col-md-6" data-nk-item>
         <div style="background:var(--nk-surface);border:1px solid var(--nk-border);border-radius:var(--nk-radius);overflow:hidden;height:100%">
           <div style="height:180px;background:linear-gradient(135deg,var(--nk-primary),var(--nk-accent))"></div>
           <div style="padding:28px 24px">
-            <h5 style="font-weight:600;color:var(--nk-text);margin-bottom:8px">Web Development</h5>
-            <p style="color:var(--nk-text-muted);font-size:14px;line-height:1.6;margin-bottom:16px">Custom websites and web applications built with modern technologies.</p>
-            <div style="font-size:22px;font-weight:700;color:var(--nk-text)">$2,500 <span style="font-size:14px;font-weight:400;color:var(--nk-text-muted)">starting</span></div>
+            <h5 data-nk-field="name" style="font-weight:600;color:var(--nk-text);margin-bottom:8px">Web Development</h5>
+            <p data-nk-field="description" style="color:var(--nk-text-muted);font-size:14px;line-height:1.6;margin-bottom:16px">Custom websites and web applications built with modern technologies.</p>
+            <div style="font-size:22px;font-weight:700;color:var(--nk-text)">$<span data-nk-field="price" data-nk-format="number">2,500</span> <span style="font-size:14px;font-weight:400;color:var(--nk-text-muted)">starting</span></div>
           </div>
         </div>
       </div>
@@ -662,21 +659,22 @@ export function registerPremadeBlocks(editor: Editor) {
         </div>
       </div>
       <div class="col-lg-5">
-        <div style="background:var(--nk-surface);border-radius:var(--nk-radius);padding:32px;box-shadow:var(--nk-shadow)">
+        <form data-nk-form="" data-nk-flow-ref="contact-form-submit" style="background:var(--nk-surface);border-radius:var(--nk-radius);padding:32px;box-shadow:var(--nk-shadow)">
           <div style="margin-bottom:16px">
             <label style="display:block;font-weight:500;font-size:14px;color:var(--nk-text);margin-bottom:6px">Name</label>
-            <input type="text" placeholder="Your name" style="width:100%;padding:12px 16px;border:1px solid var(--nk-border);border-radius:var(--nk-radius-sm);font-size:15px;background:var(--nk-bg);color:var(--nk-text);outline:none;font-family:var(--nk-font)">
+            <input type="text" name="full_name" required placeholder="Your name" style="width:100%;padding:12px 16px;border:1px solid var(--nk-border);border-radius:var(--nk-radius-sm);font-size:15px;background:var(--nk-bg);color:var(--nk-text);outline:none;font-family:var(--nk-font)">
           </div>
           <div style="margin-bottom:16px">
             <label style="display:block;font-weight:500;font-size:14px;color:var(--nk-text);margin-bottom:6px">Email</label>
-            <input type="email" placeholder="Your email" style="width:100%;padding:12px 16px;border:1px solid var(--nk-border);border-radius:var(--nk-radius-sm);font-size:15px;background:var(--nk-bg);color:var(--nk-text);outline:none;font-family:var(--nk-font)">
+            <input type="email" name="email" required placeholder="Your email" style="width:100%;padding:12px 16px;border:1px solid var(--nk-border);border-radius:var(--nk-radius-sm);font-size:15px;background:var(--nk-bg);color:var(--nk-text);outline:none;font-family:var(--nk-font)">
           </div>
           <div style="margin-bottom:24px">
             <label style="display:block;font-weight:500;font-size:14px;color:var(--nk-text);margin-bottom:6px">Message</label>
-            <textarea placeholder="Tell us about your project" rows="4" style="width:100%;padding:12px 16px;border:1px solid var(--nk-border);border-radius:var(--nk-radius-sm);font-size:15px;background:var(--nk-bg);color:var(--nk-text);outline:none;resize:vertical;font-family:var(--nk-font)"></textarea>
+            <textarea name="body" required placeholder="Tell us about your project" rows="4" style="width:100%;padding:12px 16px;border:1px solid var(--nk-border);border-radius:var(--nk-radius-sm);font-size:15px;background:var(--nk-bg);color:var(--nk-text);outline:none;resize:vertical;font-family:var(--nk-font)"></textarea>
           </div>
-          <a href="#" style="display:inline-block;padding:14px 32px;border-radius:var(--nk-radius-sm);background:var(--nk-primary);color:#fff;font-weight:600;font-size:15px;text-decoration:none;width:100%;text-align:center">Send message</a>
-        </div>
+          <button type="submit" style="display:inline-block;padding:14px 32px;border:0;border-radius:var(--nk-radius-sm);background:var(--nk-primary);color:#fff;font-weight:600;font-size:15px;text-decoration:none;width:100%;text-align:center;cursor:pointer">Send message</button>
+          <div data-nk-error data-nk-auto></div>
+        </form>
       </div>
     </div>
   </div>
@@ -1025,10 +1023,13 @@ export function registerPremadeBlocks(editor: Editor) {
       </div>
       <div class="col-lg-3 col-sm-6">
         <h6 style="color:#fff;font-weight:600;font-size:15px;margin-bottom:18px">Subscribe to newsletter</h6>
-        <div style="display:flex;gap:0;margin-bottom:20px">
-          <input type="email" placeholder="Enter your email" style="flex:1;padding:10px 14px;border:1px solid rgba(255,255,255,.15);border-right:none;border-radius:var(--nk-radius-sm) 0 0 var(--nk-radius-sm);background:transparent;color:#fff;font-size:14px;outline:none">
-          <button style="padding:10px 18px;background:var(--nk-primary);color:#fff;border:none;border-radius:0 var(--nk-radius-sm) var(--nk-radius-sm) 0;font-size:14px;cursor:pointer">&#9993;</button>
-        </div>
+        <form data-nk-form="" data-nk-flow-ref="newsletter-subscribe" style="margin-bottom:20px">
+          <div style="display:flex;gap:0">
+            <input type="email" name="email" required placeholder="Enter your email" style="flex:1;padding:10px 14px;border:1px solid rgba(255,255,255,.15);border-right:none;border-radius:var(--nk-radius-sm) 0 0 var(--nk-radius-sm);background:transparent;color:#fff;font-size:14px;outline:none">
+            <button type="submit" aria-label="Subscribe" style="padding:10px 18px;background:var(--nk-primary);color:#fff;border:none;border-radius:0 var(--nk-radius-sm) var(--nk-radius-sm) 0;font-size:14px;cursor:pointer">&#9993;</button>
+          </div>
+          <p data-nk-error style="margin:0;font-size:13px;color:#fff"></p>
+        </form>
         <p style="font-size:13px;color:rgba(255,255,255,.4);margin:0">&copy; 2025 Your Company</p>
       </div>
     </div>
@@ -1056,12 +1057,13 @@ export function registerPremadeBlocks(editor: Editor) {
       </div>
       <div class="col-lg-6 offset-lg-1 col-md-8">
         <h4 style="font-family:var(--nk-font-display);color:var(--nk-text);font-weight:700;margin-bottom:24px">Let&rsquo;s get in touch</h4>
-        <form>
-          <input type="text" placeholder="Your name" style="width:100%;padding:14px 0;border:none;border-bottom:2px solid var(--nk-border);background:transparent;color:var(--nk-text);font-size:15px;margin-bottom:20px;outline:none;font-family:var(--nk-font)">
-          <input type="email" placeholder="Your email address" style="width:100%;padding:14px 0;border:none;border-bottom:2px solid var(--nk-border);background:transparent;color:var(--nk-text);font-size:15px;margin-bottom:20px;outline:none;font-family:var(--nk-font)">
+        <form data-nk-form="" data-nk-flow-ref="contact-form-submit">
+          <input type="text" name="full_name" required placeholder="Your name" style="width:100%;padding:14px 0;border:none;border-bottom:2px solid var(--nk-border);background:transparent;color:var(--nk-text);font-size:15px;margin-bottom:20px;outline:none;font-family:var(--nk-font)">
+          <input type="email" name="email" required placeholder="Your email address" style="width:100%;padding:14px 0;border:none;border-bottom:2px solid var(--nk-border);background:transparent;color:var(--nk-text);font-size:15px;margin-bottom:20px;outline:none;font-family:var(--nk-font)">
           <input type="tel" placeholder="Mobile no" style="width:100%;padding:14px 0;border:none;border-bottom:2px solid var(--nk-border);background:transparent;color:var(--nk-text);font-size:15px;margin-bottom:20px;outline:none;font-family:var(--nk-font)">
-          <textarea rows="4" placeholder="How can we help you?" style="width:100%;padding:14px 0;border:none;border-bottom:2px solid var(--nk-border);background:transparent;color:var(--nk-text);font-size:15px;margin-bottom:28px;outline:none;resize:vertical;font-family:var(--nk-font)"></textarea>
+          <textarea name="body" required rows="4" placeholder="How can we help you?" style="width:100%;padding:14px 0;border:none;border-bottom:2px solid var(--nk-border);background:transparent;color:var(--nk-text);font-size:15px;margin-bottom:28px;outline:none;resize:vertical;font-family:var(--nk-font)"></textarea>
           <button type="submit" style="padding:14px 36px;background:var(--nk-text);color:var(--nk-bg);border:none;border-radius:var(--nk-radius-sm);font-weight:600;font-size:14px;text-transform:uppercase;letter-spacing:.5px;cursor:pointer">Send message</button>
+          <div data-nk-error data-nk-auto></div>
         </form>
       </div>
     </div>
@@ -1316,28 +1318,30 @@ export function registerPremadeBlocks(editor: Editor) {
     <div class="row justify-content-center g-4">
       <div class="col-xl-5 col-md-6">
         <h5 style="font-family:var(--nk-font-display);font-weight:600;color:var(--nk-text);margin-bottom:24px">Login</h5>
-        <div style="background:var(--nk-surface);border-radius:var(--nk-radius);padding:40px">
+        <form data-nk-form="" data-nk-flow-ref="login" style="background:var(--nk-surface);border-radius:var(--nk-radius);padding:40px">
           <label style="display:block;font-size:14px;font-weight:500;color:var(--nk-text);margin-bottom:8px">Email address <span style="color:#ef4444">*</span></label>
-          <input type="email" placeholder="Enter your email" style="width:100%;padding:12px 16px;border:1px solid var(--nk-border);border-radius:var(--nk-radius-sm);background:var(--nk-bg);color:var(--nk-text);font-size:14px;margin-bottom:20px;outline:none;font-family:var(--nk-font)">
+          <input type="email" name="email" required placeholder="Enter your email" style="width:100%;padding:12px 16px;border:1px solid var(--nk-border);border-radius:var(--nk-radius-sm);background:var(--nk-bg);color:var(--nk-text);font-size:14px;margin-bottom:20px;outline:none;font-family:var(--nk-font)">
           <label style="display:block;font-size:14px;font-weight:500;color:var(--nk-text);margin-bottom:8px">Password <span style="color:#ef4444">*</span></label>
-          <input type="password" placeholder="Enter your password" style="width:100%;padding:12px 16px;border:1px solid var(--nk-border);border-radius:var(--nk-radius-sm);background:var(--nk-bg);color:var(--nk-text);font-size:14px;margin-bottom:20px;outline:none;font-family:var(--nk-font)">
+          <input type="password" name="password" required placeholder="Enter your password" style="width:100%;padding:12px 16px;border:1px solid var(--nk-border);border-radius:var(--nk-radius-sm);background:var(--nk-bg);color:var(--nk-text);font-size:14px;margin-bottom:20px;outline:none;font-family:var(--nk-font)">
           <label style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--nk-text);margin-bottom:24px;cursor:pointer"><input type="checkbox" style="width:auto;margin:0"> Remember me</label>
-          <button style="width:100%;padding:14px;background:var(--nk-text);color:var(--nk-bg);border:none;border-radius:var(--nk-radius-sm);font-weight:600;font-size:15px;cursor:pointer;font-family:var(--nk-font)">Login</button>
+          <button type="submit" style="width:100%;padding:14px;background:var(--nk-text);color:var(--nk-bg);border:none;border-radius:var(--nk-radius-sm);font-weight:600;font-size:15px;cursor:pointer;font-family:var(--nk-font)">Login</button>
+          <div data-nk-error data-nk-auto></div>
           <p style="text-align:right;margin-top:16px;margin-bottom:0"><a href="#" style="font-size:14px;color:var(--nk-text-muted);text-decoration:none">Lost your password?</a></p>
-        </div>
+        </form>
       </div>
       <div class="col-xl-5 offset-xl-1 col-md-6">
         <h5 style="font-family:var(--nk-font-display);font-weight:600;color:var(--nk-text);margin-bottom:24px">Register</h5>
-        <div style="border:1px solid var(--nk-border);border-radius:var(--nk-radius);padding:40px">
+        <form data-nk-form="" data-nk-flow-ref="register" style="border:1px solid var(--nk-border);border-radius:var(--nk-radius);padding:40px">
           <label style="display:block;font-size:14px;font-weight:500;color:var(--nk-text);margin-bottom:8px">Username <span style="color:#ef4444">*</span></label>
-          <input type="text" placeholder="Enter your username" style="width:100%;padding:12px 16px;border:1px solid var(--nk-border);border-radius:var(--nk-radius-sm);background:var(--nk-bg);color:var(--nk-text);font-size:14px;margin-bottom:20px;outline:none;font-family:var(--nk-font)">
+          <input type="text" name="name" required placeholder="Enter your username" style="width:100%;padding:12px 16px;border:1px solid var(--nk-border);border-radius:var(--nk-radius-sm);background:var(--nk-bg);color:var(--nk-text);font-size:14px;margin-bottom:20px;outline:none;font-family:var(--nk-font)">
           <label style="display:block;font-size:14px;font-weight:500;color:var(--nk-text);margin-bottom:8px">Email address <span style="color:#ef4444">*</span></label>
-          <input type="email" placeholder="Enter your email" style="width:100%;padding:12px 16px;border:1px solid var(--nk-border);border-radius:var(--nk-radius-sm);background:var(--nk-bg);color:var(--nk-text);font-size:14px;margin-bottom:20px;outline:none;font-family:var(--nk-font)">
+          <input type="email" name="email" required placeholder="Enter your email" style="width:100%;padding:12px 16px;border:1px solid var(--nk-border);border-radius:var(--nk-radius-sm);background:var(--nk-bg);color:var(--nk-text);font-size:14px;margin-bottom:20px;outline:none;font-family:var(--nk-font)">
           <label style="display:block;font-size:14px;font-weight:500;color:var(--nk-text);margin-bottom:8px">Password <span style="color:#ef4444">*</span></label>
-          <input type="password" placeholder="Enter your password" style="width:100%;padding:12px 16px;border:1px solid var(--nk-border);border-radius:var(--nk-radius-sm);background:var(--nk-bg);color:var(--nk-text);font-size:14px;margin-bottom:20px;outline:none;font-family:var(--nk-font)">
+          <input type="password" name="password" required minlength="8" placeholder="Enter your password" style="width:100%;padding:12px 16px;border:1px solid var(--nk-border);border-radius:var(--nk-radius-sm);background:var(--nk-bg);color:var(--nk-text);font-size:14px;margin-bottom:20px;outline:none;font-family:var(--nk-font)">
           <p style="font-size:13px;color:var(--nk-text-muted);margin-bottom:20px;line-height:1.6">Your personal data will be used to support your experience, manage account access, and for purposes described in our <a href="#" style="text-decoration:underline;color:var(--nk-text)">privacy policy</a>.</p>
-          <button style="width:100%;padding:14px;background:var(--nk-text);color:var(--nk-bg);border:none;border-radius:var(--nk-radius-sm);font-weight:600;font-size:15px;cursor:pointer;font-family:var(--nk-font)">Register</button>
-        </div>
+          <button type="submit" style="width:100%;padding:14px;background:var(--nk-text);color:var(--nk-bg);border:none;border-radius:var(--nk-radius-sm);font-weight:600;font-size:15px;cursor:pointer;font-family:var(--nk-font)">Register</button>
+          <div data-nk-error data-nk-auto></div>
+        </form>
       </div>
     </div>
   </div>
@@ -1355,15 +1359,15 @@ export function registerPremadeBlocks(editor: Editor) {
       <span style="font-size:13px;font-weight:500;text-transform:uppercase;letter-spacing:1px;color:var(--nk-primary);display:block;margin-bottom:8px">Most popular news</span>
       <h4 style="font-family:var(--nk-font-display);font-weight:700;color:var(--nk-text);text-transform:uppercase;margin:0">Popular highlights</h4>
     </div>
-    <div class="row g-4">
-      <div class="col-lg-4 col-sm-6">
+    <div class="row g-4" data-nk-connect-list="blog-feed">
+      <div class="col-lg-4 col-sm-6" data-nk-item>
         <div style="background:var(--nk-bg);border-radius:var(--nk-radius);overflow:hidden;box-shadow:var(--nk-shadow);text-align:center">
           <div style="height:200px;background:linear-gradient(135deg,var(--nk-primary),#6366f1);position:relative">
             <a href="#" style="position:absolute;bottom:50%;left:50%;transform:translate(-50%,50%);width:40px;height:40px;background:var(--nk-bg);border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;color:var(--nk-text);font-size:14px;box-shadow:var(--nk-shadow)">&#8594;</a>
           </div>
           <div style="padding:28px 24px">
-            <span style="font-size:12px;text-transform:uppercase;color:var(--nk-text-muted);letter-spacing:.5px">23 February 2025</span>
-            <a href="#" style="display:block;font-weight:600;color:var(--nk-text);text-decoration:none;margin-top:8px;font-size:16px">Build perfect websites</a>
+            <span data-nk-field="created_at" data-nk-format="date" style="font-size:12px;text-transform:uppercase;color:var(--nk-text-muted);letter-spacing:.5px">23 February 2025</span>
+            <a href="#" data-nk-field="title" style="display:block;font-weight:600;color:var(--nk-text);text-decoration:none;margin-top:8px;font-size:16px">Build perfect websites</a>
           </div>
         </div>
       </div>

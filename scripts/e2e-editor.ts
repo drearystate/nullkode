@@ -6,6 +6,9 @@
  *  - on a touch phone, tapping a block adds it after the picked section,
  *    Move up reorders (and Ctrl+Z undoes it), a tapped photo replaces the
  *    picked picture, and a premade feature block still offers to connect;
+ *  - connecting a premade block points it at its feature's flows: a Contact
+ *    form saves what a visitor sends, a Testimonials list shows its rows, and
+ *    a Login form reuses the sign-in the app already has;
  *  - adding a feature from the editor asks its questions, lists its pages
  *    without a reload, keeps them in the open page's menu, and asks before
  *    adding a second copy;
@@ -357,12 +360,16 @@ async function browserChecks(
       if (!(await lib.isVisible())) await page.getByRole("button", { name: "Toggle blocks panel" }).tap();
       await lib.waitFor();
     };
-    const tapBlock = async (label: string) => {
+    // Premade and Forms both have a "Contact form": pick by category when asked.
+    const tapBlock = async (label: string, category?: string) => {
       await openBlocks();
       await page.getByRole("button", { name: "blocks", exact: true }).tap();
       await page.getByPlaceholder("Search blocks...").fill(label);
-      await page.locator(".gjs-block").filter({ has: page.locator(".gjs-block-label", { hasText: new RegExp(`^${label}$`) }) }).first().tap();
+      const scope = category ? page.locator(".gjs-block-category").filter({ has: page.locator(".gjs-title", { hasText: new RegExp(`^\\s*${category}\\s*$`) }) }) : page;
+      await scope.locator(".gjs-block").filter({ has: page.locator(".gjs-block-label", { hasText: new RegExp(`^${label}$`) }) }).first().tap();
     };
+    const savedHtml = async () => ((await op.get(pageUrl(tapPage.id))).json?.page?.html ?? "") as string;
+    const flowBySlug = async (slug: string) => (await inst.db.flow.findFirst({ where: { projectId, slug } }))!;
 
     await canvas.locator("#s1").tap({ position: { x: 8, y: 8 } });
     await page.locator(".gjs-toolbar-item__nk-up").first().waitFor();
@@ -409,11 +416,57 @@ async function browserChecks(
 
     // A premade feature block still offers to connect its feature.
     await canvas.locator("#s2").tap({ position: { x: 8, y: 8 } });
-    await tapBlock("Contact form");
+    await tapBlock("Contact form", "Premade");
     await page.getByText("Wire this up?").waitFor();
     ok("tapping a premade feature block still offers to wire it up", true);
+    await page.getByText(/adds a table for the messages and the automation that saves them, and connects this form to it/).waitFor();
     await page.screenshot({ path: path.join(shots, "editor-phone-wire-up.png") });
-    await page.getByRole("button", { name: "No, I'll handle it" }).tap();
+    await page.getByRole("button", { name: "Yes, connect it" }).tap();
+    await page.getByText("Wire this up?").waitFor({ state: "detached", timeout: 60_000 });
+    const submit = await flowBySlug("contact-form-submit");
+    ok("connecting adds the contact form feature's flow", !!submit);
+    let html = "";
+    ok("the dropped form now points at the real submit flow, and that is saved", await waitFor(async () => (html = await savedHtml()).includes(`data-nk-flow="${submit.id}"`), 20_000), html.slice(0, 300));
+    const form = /<form\b[^>]*data-nk-flow="[^"]+"[^>]*>[\s\S]*?<\/form>/.exec(html)?.[0] ?? "";
+    ok("the form is an app form with named fields, a message area and no leftover ref", /data-nk-form/.test(form) && ["full_name", "email", "body"].every((n) => form.includes(`name="${n}"`)) && /data-nk-error/.test(form) && !form.includes("data-nk-flow-ref"), form.slice(0, 400));
+
+    // A visitor sends it on the published app.
+    let r = await op.post(`/api/projects/${projectId}/publish`);
+    ok("publish with the connected form", r.status === 200, r.text.slice(0, 200));
+    const visitor = inst.agent();
+    r = await visitor.post(`/api/run/${submit.id}`, { full_name: "Ada Visitor", email: "ada@example.com", body: "Do you bake on Sundays?", _nk_hp: "", _nk_t: String(Date.now() - 5000) });
+    ok("a visitor's message is accepted", r.status === 200 && r.json?.ok === true, `${r.status} ${r.text.slice(0, 200)}`);
+    r = await op.get(`/api/projects/${projectId}/data/tables/contact_form_messages`);
+    ok("and lands in the messages table", r.status === 200 && r.json.rows.some((m: Record<string, unknown>) => m.full_name === "Ada Visitor" && m.email === "ada@example.com" && m.body === "Do you bake on Sundays?"), r.text.slice(0, 300));
+
+    // A list block is bound to its feature's list flow, starting with its own items.
+    await canvas.locator("#s1").tap({ position: { x: 8, y: 8 } });
+    await tapBlock("Testimonials", "Sections");
+    await page.getByText("Wire this up?").waitFor();
+    await page.getByRole("button", { name: "Yes, connect it" }).tap();
+    await page.getByText("Wire this up?").waitFor({ state: "detached", timeout: 60_000 });
+    const feed = await flowBySlug("testimonials-feed");
+    ok("the testimonials list is bound to the feature's list flow", await waitFor(async () => (html = await savedHtml()).includes(`data-nk-bind-flow="${feed.id}"`), 20_000), html.slice(0, 300));
+    const list = new RegExp(`<div[^>]*data-nk-bind-flow="${feed.id}"[\\s\\S]*?data-nk-item[\\s\\S]*?data-nk-field="quote"`).test(html) && html.includes('data-nk-field="author"') && !html.includes("data-nk-connect-list");
+    ok("with a row template and field bindings", list, html.slice(html.indexOf("data-nk-bind-flow"), html.indexOf("data-nk-bind-flow") + 400));
+    r = await op.post(`/api/projects/${projectId}/publish`);
+    r = await visitor.post(`/api/run/${feed.id}`, {});
+    ok("the list flow returns the block's three quotes, in the block's order", r.status === 200 && Array.isArray(r.json) && r.json.map((x: { author: string }) => x.author).join(",") === "Maya R.,Devon K.,Priya S.", r.text.slice(0, 300));
+
+    // A block whose feature the app already has reuses it.
+    const login = await flowBySlug("login");
+    await canvas.locator("#s1").tap({ position: { x: 8, y: 8 } });
+    await tapBlock("Login form", "Premade");
+    await page.getByText("Wire this up?").waitFor();
+    await page.getByText(/connects both forms to your app's sign-in and accounts/).waitFor();
+    await page.getByRole("button", { name: "Yes, connect it" }).tap();
+    await page.getByText("Wire this up?").waitFor({ state: "detached", timeout: 60_000 });
+    const register = await flowBySlug("register");
+    ok("a login block connects to the sign-in the app already has", await waitFor(async () => {
+      html = await savedHtml();
+      return html.includes(`data-nk-flow="${login.id}"`) && html.includes(`data-nk-flow="${register.id}"`);
+    }, 20_000), html.slice(0, 300));
+    ok("without adding a second copy", (await inst.db.projectModule.count({ where: { projectId, moduleId: "auth" } })) === 1 && (await inst.db.flow.count({ where: { projectId, slug: { startsWith: "login-" } } })) === 0);
     ok("the mobile hint points to tap-to-add and Ask AI", /tap a block to add it/.test((await page.locator(".studio-editor-shell > p").first().textContent()) ?? "") && /Ask AI/.test((await page.locator(".studio-editor-shell > p").first().textContent()) ?? ""));
     const preview = await page.locator("a.studio-preview-button").getAttribute("href");
     ok("Preview opens the page being edited", preview === `/preview/${projectId}?page=${tapPage.slug}`, preview);
@@ -454,7 +507,9 @@ async function browserChecks(
       return h.includes(" today") && h.includes(`href="/${visible.slug}"`);
     }, 15_000));
 
-    // A second copy asks first.
+    // A second copy asks first. Adding a feature reloads the open page, and
+    // the reloaded editor opens on Blocks.
+    await page.getByRole("button", { name: "Features", exact: true }).click();
     await page.getByRole("button", { name: /^Appointments \(added\)/ }).click();
     await dialog.getByText("Already added.").waitFor();
     ok("adding a second copy asks first", (await dialog.getByRole("button", { name: "Add another copy" }).isVisible()));
@@ -505,6 +560,8 @@ async function browserChecks(
       <link rel="stylesheet" href="${inst.base}/nk-public.css">
       <link rel="stylesheet" href="${inst.base}/api/projects/${projectId}/theme.css">
       </head><body>${homeHtml.replace(/\shidden(?=[\s>])/g, "")}</body></html>`, { waitUntil: "networkidle" });
+    // tsx names the helpers below with __name(), which the page doesn't have.
+    await page.evaluate("window.__name = (f) => f");
     const ratios = await page.evaluate(() => {
       const rgb = (s: string) => (s.match(/[\d.]+/g) ?? []).slice(0, 4).map(Number);
       const lum = ([r, g, b]: number[]) => {

@@ -25,7 +25,7 @@ export function NewPageButton({ projectId }: { projectId: string }) {
 
   if (!open) {
     return (
-      <button className="btn-primary" onClick={() => setOpen(true)}>
+      <button className="btn-primary" data-help="Add a new, empty page to your app. You'll type its name, then it opens in the editor." onClick={() => setOpen(true)}>
         New page
       </button>
     );
@@ -36,6 +36,7 @@ export function NewPageButton({ projectId }: { projectId: string }) {
         className="input w-64"
         autoFocus
         placeholder="Page title"
+        data-help="The name for your new page, like “About us”. It's shown in your app's menu and on the browser tab."
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         onKeyDown={(e) => {
@@ -43,7 +44,7 @@ export function NewPageButton({ projectId }: { projectId: string }) {
           if (e.key === "Escape") setOpen(false);
         }}
       />
-      <button className="btn-primary" disabled={busy} onClick={create}>
+      <button className="btn-primary" disabled={busy} onClick={create} data-help="Make the page and open it in the editor.">
         Create
       </button>
       <button className="btn-ghost" onClick={() => setOpen(false)}>

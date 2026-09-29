@@ -16,5 +16,5 @@ export function OpenAppButton({ projectId, ownerId }: { projectId: string; owner
     }
     window.location.href = `/projects/${projectId}`;
   }
-  return <button type="button" className="btn-ghost text-xs" onClick={open} disabled={busy}>{busy ? "Opening…" : "Open"}</button>;
+  return <button type="button" className="btn-ghost text-xs" onClick={open} disabled={busy} data-help={ownerId ? "Opens this app in the editor inside your client's workspace, so any change you make happens in their account." : "Opens this app in the editor."}>{busy ? "Opening…" : "Open"}</button>;
 }

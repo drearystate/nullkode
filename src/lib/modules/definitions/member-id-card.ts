@@ -35,7 +35,7 @@ export const memberIdCard: ModuleDefinition = {
       httpMethod: "POST",
       nodes: [
         { id: "n1", type: "trigger", data: {} },
-        { id: "n2", type: "math", data: { expression: "floor(random()*99999999)+10000000", output: "n" } },
+        { id: "n2", type: "math", data: { expression: "floor(random()*90000000)+10000000", output: "n" } },
         {
           id: "n3",
           type: "insert",

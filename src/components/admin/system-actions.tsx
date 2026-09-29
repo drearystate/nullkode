@@ -31,14 +31,14 @@ export function SystemDetailsActions({ text, filename, bugHref }: { text: string
   return (
     <div>
       <div className="flex flex-wrap gap-2">
-        <button type="button" className="btn-ghost" onClick={copy}>
+        <button type="button" className="btn-ghost" onClick={copy} data-help="Copies this page's checks, setting names and recent errors, with private data hidden, so you can paste them into a message to whoever supports you.">
           {copied === "yes" ? <Check size={15} /> : <Copy size={15} />} Copy details
         </button>
-        <button type="button" className="btn-ghost" onClick={download}>
+        <button type="button" className="btn-ghost" onClick={download} data-help="Saves the same details as a text file you can attach to a support request.">
           <Download size={15} /> Download .txt
         </button>
         {bugHref && (
-          <a className="btn-ghost" href={bugHref} target="_blank" rel="noopener noreferrer">
+          <a className="btn-ghost" href={bugHref} target="_blank" rel="noopener noreferrer" data-help="Opens a new bug report for the platform's developers, with your version filled in. Paste the copied details into it and read them over before posting.">
             <Bug size={15} /> Open a bug report
           </a>
         )}
@@ -112,7 +112,7 @@ export function MaintenanceControls({ mode: initial, fromEnv }: { mode: Mode; fr
         <button type="button" className="btn-primary" disabled={busy !== null || mode === initial} onClick={save}>
           {busy === "save" && <Loader2 size={14} className="animate-spin" />} Save
         </button>
-        <button type="button" className="btn-ghost" disabled={busy !== null} onClick={() => void call("POST")}>
+        <button type="button" className="btn-ghost" disabled={busy !== null} onClick={() => void call("POST")} data-help={initial === "apply" ? "Runs the clean-up right away. Old records it finds are removed for good." : "Counts what the clean-up would remove, without deleting anything."}>
           {busy === "run" ? <Loader2 size={14} className="animate-spin" /> : <Play size={14} />} {initial === "apply" ? "Run clean-up now" : "Check now"}
         </button>
       </div>
