@@ -19,7 +19,7 @@ for (const name of top) {
     if (/^src\/lib\/templates\/(?:crafto|litho)-/.test(rel)) return false;
     // Scripts the release uses: install/runtime helpers, packaging, and the
     // test suite (`pnpm test:e2e`: check-generated-js.ts, e2e-*.ts and their harness).
-    if (/^scripts\//.test(rel) && !['container-start.sh','Install-Nullkode.ps1','backup.sh','package-release.mjs','verify-release.mjs','render-original-templates.ts','scheduler.mjs','smoke-install.cjs','secure-existing-apps.ts','check-generated-js.ts'].includes(rel.slice(8)) && !/^scripts\/e2e-[\w-]+\.ts$/.test(rel)) return false;
+    if (/^scripts\//.test(rel) && !['container-start.sh','Install-Nullkode.ps1','backup.sh','package-release.mjs','verify-release.mjs','render-original-templates.ts','scheduler.mjs','smoke-install.cjs','secure-existing-apps.ts','check-generated-js.ts','new-module.ts','new-template.ts','check-extensions.ts'].includes(rel.slice(8)) && !/^scripts\/e2e-[\w-]+\.ts$/.test(rel)) return false;
     return true;
   } });
 }

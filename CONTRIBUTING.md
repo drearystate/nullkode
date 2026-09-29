@@ -71,3 +71,7 @@ pnpm dev              # starts Next on http://localhost:3001
 
 By contributing you agree your contributions are licensed under MIT
 (the project license).
+
+## New features and templates
+
+The quickest way to contribute: `pnpm new:module "Name"` or `pnpm new:template "Name" --category x`, then `pnpm check:extensions`. Guide: [docs/extending.md](docs/extending.md).

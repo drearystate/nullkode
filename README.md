@@ -1,50 +1,172 @@
-# Nullkode
+<h1 align="center">Nullkode</h1>
 
-A self-hosted app builder with five ways to start, a visual editor, real databases, workflows, and publishing. Run your own independent installation, welcome customers, and set your own subscription prices.
+<p align="center">
+  <strong>The open-source app builder you can run as your own SaaS.</strong><br>
+  Describe an app and get a real one: pages, database, backend, web, Android and iPhone.<br>
+  Then sell app building to everyone else, under your own brand.
+</p>
 
-**[Start here: easy installation](START-HERE.md)**
+<p align="center">
+  <a href="https://nullkode.com"><strong>Try it free at nullkode.com</strong></a> ·
+  <a href="#run-it-yourself-in-5-minutes"><strong>Self-host in 5 minutes</strong></a> ·
+  <a href="docs/extending.md"><strong>Add features</strong></a>
+</p>
 
-## Build your way
+<p align="center">
+  <a href="LICENSE"><img alt="MIT license" src="https://img.shields.io/badge/license-MIT-7c3aed"></a>
+  <img alt="Self-hosted" src="https://img.shields.io/badge/self--hosted-yes-0ea5e9">
+  <img alt="Features" src="https://img.shields.io/badge/ready--made%20features-135-10b981">
+  <img alt="Next.js 15" src="https://img.shields.io/badge/Next.js-15-111827">
+  <img alt="PostgreSQL" src="https://img.shields.io/badge/PostgreSQL-16-336791">
+</p>
 
-1. **AI Designer** — an iterative workspace with files, previews, and saved snapshots.
-2. **Build with AI** — describe an app; the builder creates pages, tables, and workflows in smaller steps.
-3. **Templates** — begin with an original starter and add working feature modules.
-4. **Import a website** — capture a site and continue editing visually.
-5. **Blank canvas** — create pages in the drag-and-drop editor.
+<p align="center">
+  <img src="docs/screenshots/dashboard.webp" alt="Nullkode workspace with three apps" width="100%">
+</p>
 
-All paths use the same project tools: pages, features, flows, data, themes, preview, domains, and publishing. AI can connect to OpenAI or a compatible hosted/local endpoint. There is no requirement for an expensive model and no automatic upgrade to one.
+---
 
-## Your installation, your business
+## What you get
 
-- Your own brand, owner account, customers, and database.
-- Your own Stripe account, plan names, recurring prices, currencies, and limits.
-- Encrypted provider/payment settings and customer billing management.
-- Web publishing, PWA/offline support, and native source exports.
-- Full source under MIT, with third-party notices retained. No license server or separate paid core.
+**A complete platform, not just a builder.** Accounts, plans, Stripe billing,
+white-label branding, resellers, an admin control panel, publishing, custom
+domains, automatic HTTPS and mobile app builds. It's all here, all MIT, with no
+paid core and no license server.
 
-External services and server resources can cost money. Local model weights and optional native build toolchains are separate dependencies. See [START-HERE.md](START-HERE.md) for supported setup and operational limits.
+- **Describe it, check the plan, launch it.** The AI shows you a plan first
+  (pages, data, what each form does), you change what you like, then it builds
+  the whole app.
+- **Real backends, visually.** Every app gets its own Postgres database and a
+  flow editor for the logic: forms, sign-in, bookings, payments, emails and
+  schedules.
+- **135 ready-made features.** Bookings, shops, memberships, CRM, reviews,
+  forums, invoices, event tickets and more. Each one adds its own pages, tables
+  and admin screens.
+- **Ship everywhere.** Web, installable app, Android (APK and Google Play), iPhone
+  (Xcode and TestFlight), plus Windows and Mac shortcuts.
+- **Run it as your business.** Your brand on everything. Agencies resell it
+  under theirs, on their own domains, billing their own clients.
+- **Any AI, including local.** OpenAI or any compatible service, or a model on
+  your own server. Building a typical app costs a few cents.
+
+---
+
+## Build
+
+<table>
+<tr>
+<td width="50%"><img src="docs/screenshots/describe-your-app.webp" alt="Describe your app"><br><b>Describe it.</b> Plain words in, a plan out. Nothing is built until you approve it.</td>
+<td width="50%"><img src="docs/screenshots/editor.webp" alt="Visual editor"><br><b>Edit visually.</b> Drag-and-drop editor with live data, plus "Ask AI" for any change.</td>
+</tr>
+<tr>
+<td><img src="docs/screenshots/flow-editor.webp" alt="Flow editor"><br><b>Logic without code.</b> Flows for forms, sign-in, bookings and branches, with test runs.</td>
+<td><img src="docs/screenshots/data.webp" alt="Data tab"><br><b>Your data.</b> Every app has a real database: search, edit, export to CSV.</td>
+</tr>
+<tr>
+<td colspan="2"><img src="docs/screenshots/features.webp" alt="Features gallery"><br><b>Add a superpower.</b> 135 features, one click each: bookings, shop, memberships, reviews, forums, tickets…</td>
+</tr>
+</table>
+
+## Publish everywhere
+
+<table>
+<tr>
+<td width="62%"><img src="docs/screenshots/published-app.webp" alt="A published restaurant app"><br><b>Every app gets its own address and HTTPS</b>, plus the owner's own domain if they want it.</td>
+<td width="38%"><img src="docs/screenshots/published-app-phone.webp" alt="The same app on a phone"><br><b>Looks right on phones</b>, and installs to the home screen.</td>
+</tr>
+<tr>
+<td><img src="docs/screenshots/publish.webp" alt="Publish screen"><br><b>Safe publishing.</b> Visitors see the last published version; edits wait in a draft, and every version can be restored.</td>
+<td><img src="docs/screenshots/mobile-app.webp" alt="Mobile app screen"><br><b>Android and iPhone apps</b> from the same project, built on your server.</td>
+</tr>
+</table>
+
+## Run it as your business
+
+<table>
+<tr>
+<td width="50%"><img src="docs/screenshots/admin.webp" alt="Admin control panel"><br><b>One control panel</b> for branding, resellers, payments, plans, AI and users, with a setup checklist.</td>
+<td width="50%"><img src="docs/screenshots/resellers.webp" alt="Resellers"><br><b>Resellers.</b> Agencies get their own dashboard, brand, domain, Stripe account and clients. You set their limits.</td>
+</tr>
+<tr>
+<td><img src="docs/screenshots/white-label-branding.webp" alt="White-label branding"><br><b>White label.</b> Your name, logo, colours and help email on every screen and email…</td>
+<td><img src="docs/screenshots/white-label-dashboard.webp" alt="The platform rebranded"><br>…and the whole platform is yours. Here it's "Bright Apps".</td>
+</tr>
+</table>
+
+**Four levels, out of the box:** you run the platform → resellers sell it under
+their brand → their clients build apps → app users use them. Clients pay
+resellers directly on the reseller's own Stripe account. Set plans and prices in
+the admin panel. See [docs/resellers.md](docs/resellers.md).
+
+---
+
+## Run it yourself in 5 minutes
+
+You need [Docker](https://docs.docker.com/get-docker/). Then:
+
+```bash
+git clone https://github.com/drearystate/nullkode.git
+cd nullkode
+bash install.sh          # Windows: double-click Start-Nullkode.bat
+```
+
+Open **http://localhost:3001/install**, create your owner account, and you're
+running. On a server with a domain, the installer sets up automatic HTTPS for
+the studio, every app, and your customers' own domains. Step-by-step guide:
+[START-HERE.md](START-HERE.md).
+
+**Rather not run servers?** [nullkode.com](https://nullkode.com) is the hosted
+version: nothing to install, free to start.
+
+## Add features and templates
+
+Two commands make a working starter and register it. One more checks it:
+
+```bash
+pnpm new:module "Pet Adoption"                  # a feature: pages + tables + backend
+pnpm new:template "Coffee Shop" --category food # a template: design + theme + features
+pnpm check:extensions                           # catches mistakes before anyone installs it
+```
+
+The guide is short: [docs/extending.md](docs/extending.md). New features and
+templates are the easiest way to contribute.
+
+---
+
+## Everything in the box
+
+| | |
+|---|---|
+| **Building** | AI plan-then-build, AI Designer, 18 original templates, website import, blank canvas, drag-and-drop editor, Ask AI edits, themes with dark mode |
+| **Backend** | Postgres per app, visual flows, sign-in and roles, email, webhooks, Google Sheets, scheduled flows, AI steps |
+| **Features** | 135 ready-made: commerce (32), utility (26), community (26), productivity (20), content (17), media (9), communication (5) |
+| **Publishing** | Draft and live versions with rollback, own address per app, custom domains, automatic HTTPS, PWA and offline, push notifications, QR codes |
+| **Mobile** | Android APK and Google Play (AAB) with per-app signing keys, iOS Xcode project and TestFlight workflow |
+| **Business** | Plans and limits, Stripe billing, white-label, resellers with their own Stripe and domains, admin panel, user impersonation for support |
+| **Security** | Owner-only admin pages locked automatically, app data isolated per app, cross-site request blocking, sign-up spam protection, safe upload handling |
+| **AI** | OpenAI or any compatible API, local models, AI usage limits per plan |
 
 ## For developers
 
-Node 20 and pnpm 10 are pinned by the Docker build. Install PostgreSQL, copy `.env.example` to `.env`, supply random secrets and DATABASE_URL, then:
+Next.js 15 (App Router), React 19, Prisma and PostgreSQL, GrapesJS, pnpm
+workspaces. Node 20+ and pnpm 10.
 
-```sh
+```bash
 corepack enable
 pnpm install --frozen-lockfile
+cp .env.example .env     # set DATABASE_URL and random secrets
 pnpm db:push
 pnpm designer:build
-pnpm dev
+pnpm dev                 # http://localhost:3001/install
 ```
 
-Open `http://localhost:3001/install`. The setup code is INSTALL_TOKEN in your `.env`.
+Checks: `pnpm typecheck`, `pnpm check:js`, `pnpm check:extensions`,
+`pnpm test:e2e`. More: [architecture](ARCHITECTURE.md),
+[contributing](CONTRIBUTING.md), [local AI](docs/local-ai.md),
+[mobile apps](docs/mobile-apps.md), [deployment](docs/deploy/).
 
-```sh
-pnpm typecheck
-pnpm build
-node scripts/package-release.mjs /tmp/nullkode-release
-node scripts/verify-release.mjs /tmp/nullkode-release
-```
+## License
 
-Read [architecture](ARCHITECTURE.md), [contributing](CONTRIBUTING.md), [third-party licenses](LICENSE-THIRD-PARTY.md), and [installation/recovery](START-HERE.md).
-
-The release package contains 83 original MIT starter variants across 18 categories and all 135 module definition files. The variants share a design system and reusable layouts; they are not 83 separately commissioned designs. Purchased Crafto/Litho theme packs present in a private installation are not part of the public distribution. They are not needed to run any of the five building methods.
+MIT: use it, change it, sell it. See [LICENSE](LICENSE). The AI Designer
+builds on MIT-licensed code credited in
+[LICENSE-THIRD-PARTY.md](LICENSE-THIRD-PARTY.md).
