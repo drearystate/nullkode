@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState, useCallback, useRef } from "react";
-import type { Editor } from "grapesjs";
+import type { Editor, Component } from "grapesjs";
+import { placeForBlock, scrollToPart } from "./plain-editor";
 
 type Asset = {
   id: string;
@@ -38,6 +39,19 @@ export function AssetsPanel({ editor }: { editor: Editor }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // Whether a picture is selected on the page (then a tap swaps it).
+  const [imageSelected, setImageSelected] = useState(false);
+  // The picture just swapped in, waiting for its description.
+  const [describing, setDescribing] = useState<{ component: Component; alt: string } | null>(null);
+
+  useEffect(() => {
+    const check = () => setImageSelected(isImage(editor.getSelected()));
+    check();
+    editor.on("component:toggled", check);
+    return () => {
+      editor.off("component:toggled", check);
+    };
+  }, [editor]);
 
   const fetchAssets = useCallback(async (q: string) => {
     setLoading(true);
@@ -64,23 +78,38 @@ export function AssetsPanel({ editor }: { editor: Editor }) {
     };
   }, [query, category, fetchAssets]);
 
+  // A selected picture gets the new photo (and keeps its size and place);
+  // otherwise the photo is added after the part that's picked.
   const insertImage = useCallback(
     (asset: Asset) => {
       const wrapper = editor.getWrapper();
       if (!wrapper) return;
       const selected = editor.getSelected();
-      const target = selected ?? wrapper;
-      target.append(
-        `<img src="${asset.url}" alt="${asset.alt.replace(/"/g, "&quot;")}" class="img-fluid rounded"/>`
-      );
+      if (selected && isImage(selected)) {
+        if (selected.is("image")) selected.set("src", asset.url);
+        selected.addAttributes({ src: asset.url });
+        setDescribing({ component: selected, alt: asset.alt || String(selected.getAttributes().alt ?? "") });
+        return;
+      }
+      const { parent, at } = placeForBlock(editor, false);
+      const added = parent.append(imageHtml(asset), { at })[0];
+      if (added) {
+        editor.select(added);
+        scrollToPart(editor, added);
+      }
     },
     [editor]
   );
 
+  const saveDescription = useCallback(() => {
+    if (!describing) return;
+    describing.component.addAttributes({ alt: describing.alt.trim() });
+    setDescribing(null);
+  }, [describing]);
+
   const onDragStart = useCallback(
     (e: React.DragEvent<HTMLButtonElement>, asset: Asset) => {
-      const html = `<img src="${asset.url}" alt="${asset.alt.replace(/"/g, "&quot;")}" class="img-fluid rounded"/>`;
-      e.dataTransfer.setData("text/html", html);
+      e.dataTransfer.setData("text/html", imageHtml(asset));
       e.dataTransfer.effectAllowed = "copy";
     },
     []
@@ -113,6 +142,33 @@ export function AssetsPanel({ editor }: { editor: Editor }) {
         </div>
       </div>
 
+      {describing && (
+        <form
+          className="mx-2 mt-2 space-y-2 rounded border border-brand-500/40 bg-brand-500/10 p-2"
+          onSubmit={(e) => {
+            e.preventDefault();
+            saveDescription();
+          }}
+        >
+          <label htmlFor="nk-picture-description" className="block text-[11px] font-semibold text-surface-100">
+            Picture changed. Describe it for people who can&apos;t see it:
+          </label>
+          <input
+            id="nk-picture-description"
+            autoFocus
+            value={describing.alt}
+            maxLength={200}
+            onChange={(e) => setDescribing({ ...describing, alt: e.target.value })}
+            placeholder="e.g. Fresh bread on our shop counter"
+            className="w-full rounded border border-surface-800 bg-surface-950 px-2 py-1.5 text-xs text-surface-100 placeholder:text-surface-600 focus:border-brand-500 focus:outline-none"
+          />
+          <div className="flex gap-2">
+            <button type="submit" className="rounded bg-brand-500 px-2.5 py-1 text-[11px] font-semibold text-white hover:bg-brand-400">Save description</button>
+            <button type="button" className="rounded px-2 py-1 text-[11px] text-surface-400 hover:text-surface-100" onClick={() => setDescribing(null)}>Skip</button>
+          </div>
+        </form>
+      )}
+
       <div className="flex-1 overflow-y-auto p-2">
         {loading && (
           <div className="text-center text-surface-500 text-xs py-8">Loading…</div>
@@ -131,6 +187,7 @@ export function AssetsPanel({ editor }: { editor: Editor }) {
               onDragStart={(e) => onDragStart(e, a)}
               onClick={() => insertImage(a)}
               title={a.credit ? `Photo by ${a.credit.name}` : a.alt}
+              aria-label={`${imageSelected ? "Use this photo instead" : "Add this photo"}${a.alt ? `: ${a.alt}` : ""}`}
               className="group relative aspect-square overflow-hidden rounded border border-surface-800 bg-surface-950 hover:border-brand-500 transition"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -151,8 +208,17 @@ export function AssetsPanel({ editor }: { editor: Editor }) {
       </div>
 
       <div className="px-3 py-2 border-t border-surface-800 text-[10px] text-surface-600 text-center">
-        Click or drag to insert · Free photos
+        {imageSelected ? "Tap a photo to use it instead of the picture you picked" : "Tap or drag to add · Free photos"}
       </div>
     </div>
   );
+}
+
+function isImage(c: Component | null | undefined): c is Component {
+  return !!c && (c.is("image") || String(c.get("tagName") ?? "").toLowerCase() === "img");
+}
+
+function imageHtml(asset: Asset): string {
+  const attr = (v: string) => v.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
+  return `<img src="${attr(asset.url)}" alt="${attr(asset.alt)}" loading="lazy" class="img-fluid rounded"/>`;
 }

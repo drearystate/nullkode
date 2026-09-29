@@ -17,7 +17,7 @@ type ScaffoldEvent =
   | { type: "planned"; plan: AppPlan }
   | { type: "token"; text: string }
   | { type: "done"; projectId: string; homePageId: string }
-  | { type: "error"; message: string };
+  | { type: "error"; message: string; refunded?: boolean };
 
 type RunSnapshot = {
   id: string;
@@ -27,6 +27,8 @@ type RunSnapshot = {
   events: ScaffoldEvent[];
   result: { projectId: string; homePageId: string } | null;
   error: string | null;
+  /** The failed build's AI action was given back. */
+  refunded?: boolean;
 };
 
 /** What the user is working on, kept per tab so a refresh or a detour doesn't lose it. */
@@ -60,7 +62,7 @@ export const EXAMPLES = [
   { label: "Art portfolio", prompt: "A portfolio to show off my drawings. Each drawing has a title, a picture and a description. Visitors see them in a gallery and can send me a message." },
 ];
 
-type Failure = { phase: "plan" | "build"; message: string; quota?: boolean };
+type Failure = { phase: "plan" | "build"; message: string; quota?: boolean; refunded?: boolean };
 
 async function readError(res: Response): Promise<{ message: string; quota: boolean }> {
   const text = await res.text().catch(() => "");
@@ -142,6 +144,7 @@ export function ScaffoldWizard({ aiProblem = null, below }: { aiProblem?: string
     streamAbortRef.current = controller;
     let toSkip = seenRef.current;
     let serverError: string | null = null;
+    let serverRefunded = false;
     let ended = false;
     try {
       const res = await fetch(`/api/ai/runs/${runId}/stream`, { signal: controller.signal, cache: "no-store" });
@@ -166,12 +169,15 @@ export function ScaffoldWizard({ aiProblem = null, below }: { aiProblem?: string
           }
           if (toSkip > 0) { toSkip -= 1; continue; }
           seenRef.current += 1;
-          if (ev.type === "error") serverError = ev.message;
+          if (ev.type === "error") {
+            serverError = ev.message;
+            serverRefunded = Boolean(ev.refunded);
+          }
           if (ev.type === "done" || ev.type === "planned") ended = true;
           applyEvent(ev);
         }
       }
-      if (serverError) return onFail({ phase, message: serverError });
+      if (serverError) return onFail({ phase, message: serverError, refunded: serverRefunded });
       if (ended) return;
       // The stream closed early. Ask where the run is and carry on from there.
       const snap = await fetch(`/api/ai/runs/${runId}`, { cache: "no-store" }).then((r) => (r.ok ? (r.json() as Promise<RunSnapshot>) : null)).catch(() => null);
@@ -181,7 +187,7 @@ export function ScaffoldWizard({ aiProblem = null, below }: { aiProblem?: string
         applyEvent(ev);
       }
       if (snap.status === "running") return followRun(runId, phase, reconnects, onFail);
-      if (snap.status === "error") return onFail({ phase, message: snap.error ?? "The work stopped unexpectedly." });
+      if (snap.status === "error") return onFail({ phase, message: snap.error ?? "The work stopped unexpectedly.", refunded: Boolean(snap.refunded) });
       if (snap.status === "success" && snap.result && phase === "build") openEditor(snap.result);
     } catch (err) {
       if (controller.signal.aborted) return;
@@ -265,7 +271,7 @@ export function ScaffoldWizard({ aiProblem = null, below }: { aiProblem?: string
             if (draft?.plan) setPlan(draft.plan);
             if (snap.status === "success" && snap.result) return openEditor(snap.result);
           }
-          if (snap.status === "error") return fail({ phase, message: snap.error ?? "The work stopped unexpectedly." });
+          if (snap.status === "error") return fail({ phase, message: snap.error ?? "The work stopped unexpectedly.", refunded: Boolean(snap.refunded) });
           setStage(phase === "plan" ? "planning" : "building");
           seenRef.current = 0;
           for (const ev of snap.events) {
@@ -343,7 +349,7 @@ export function ScaffoldWizard({ aiProblem = null, below }: { aiProblem?: string
             <p className="mx-auto mt-2 max-w-lg text-sm text-surface-400">
               {failure.quota ? failure.message
                 : failure.phase === "plan" ? "The AI couldn't plan this one. Try again, or describe your idea a little differently."
-                : "The build didn't finish. Your plan is saved, so you can build it again."}
+                : `The build didn't finish. Your plan is saved, so you can build it again.${failure.refunded ? " This one didn't count." : ""}`}
             </p>
             {!failure.quota && (
               <details className="mx-auto mt-3 max-w-lg text-xs text-surface-500">

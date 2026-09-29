@@ -107,21 +107,23 @@ export const geofencer: ModuleDefinition = {
 <button class="btn btn-primary btn-lg w-100 mt-3" id="nk-gf-go" type="button">Check my location</button>
 <div id="nk-gf-result" class="mt-4"></div>
 <script>(function(){
+  function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+  function safeUrl(u){u=String(u||'');return /^(https?:|\\/|data:image\\/)/i.test(u)?u:'#'}
   function dist(a,b,c,d){ var R=6371000,toR=function(x){return x*Math.PI/180;}; var dLat=toR(c-a),dLng=toR(d-b); var x = Math.sin(dLat/2)*Math.sin(dLat/2)+Math.cos(toR(a))*Math.cos(toR(c))*Math.sin(dLng/2)*Math.sin(dLng/2); return R*2*Math.atan2(Math.sqrt(x), Math.sqrt(1-x)); }
   document.getElementById('nk-gf-go').addEventListener('click', function(){
-    if(!navigator.geolocation){ alert('Geolocation not supported'); return; }
+    if(!navigator.geolocation){ (window.nkToast||alert)("This device can't share its location."); return; }
     navigator.geolocation.getCurrentPosition(function(p){
       var lat = p.coords.latitude, lng = p.coords.longitude;
       fetch('/api/run/' + ((window.__nkFlowSlugMap||{})['fences']||'fences'), { method:'POST', headers:{'content-type':'application/json'}, body:'{}' })
         .then(function(r){return r.json();}).then(function(fences){
-          var hits = (fences||[]).filter(function(f){ return dist(lat,lng,f.lat,f.lng) <= (f.radius_m || 100); });
+          var hits = (Array.isArray(fences)?fences:[]).filter(function(f){ return dist(lat,lng,f.lat,f.lng) <= (f.radius_m || 100); });
           var html = hits.length ? hits.map(function(f){
             fetch('/api/run/' + ((window.__nkFlowSlugMap||{})['checkin']||'checkin'), { method:'POST', headers:{'content-type':'application/json'}, body: JSON.stringify({fence_id:f.id, lat:lat, lng:lng}) });
-            return '<div class="card border-0 shadow-sm mb-3 p-4"><h4 class="fw-bold">'+f.label+'</h4><p class="lead">'+f.message+'</p>'+(f.cta_url?'<a class="btn btn-primary" href="'+f.cta_url+'">Open</a>':'')+'</div>';
+            return '<div class="card border-0 shadow-sm mb-3 p-4"><h4 class="fw-bold">'+esc(f.label)+'</h4><p class="lead">'+esc(f.message)+'</p>'+(f.cta_url?'<a class="btn btn-primary" href="'+esc(safeUrl(f.cta_url))+'">Open</a>':'')+'</div>';
           }).join('') : '<div class="alert alert-light">No nearby offers — keep moving around.</div>';
           document.getElementById('nk-gf-result').innerHTML = html;
         });
-    }, function(){ alert('Could not get your location.'); });
+    }, function(){ (window.nkToast||alert)("We couldn't get your location. Please allow location access and try again."); });
   });
 })();</script>
 </div></section>`,

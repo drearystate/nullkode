@@ -2,14 +2,18 @@
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { ModuleSummary } from "@/lib/modules/registry";
+import type { InstalledModule } from "@/lib/modules/installed";
 import { cn } from "@/lib/utils";
-import { BUSINESS_NAME_FIELD, friendlyName, friendlySummary } from "./friendly";
+import { friendlyName, friendlySummary } from "./friendly";
+import { InstallDialog, requirementNote, type InstallResult } from "./install-dialog";
 
 type Props = {
   projectId: string;
   /** The app's name, used to prefill fields like "Business name". */
   projectName: string;
   modules: ModuleSummary[];
+  /** Features the app already has, marked "Added". */
+  installed?: InstalledModule[];
 };
 
 const CATEGORY_LABELS: Record<string, string> = {
@@ -23,10 +27,17 @@ const CATEGORY_LABELS: Record<string, string> = {
   utility: "Handy tools",
 };
 
-export function ModuleGallery({ projectId, projectName, modules }: Props) {
+export function ModuleGallery({ projectId, projectName, modules, installed = [] }: Props) {
+  const router = useRouter();
   const [category, setCategory] = useState<string>("all");
   const [query, setQuery] = useState<string>("");
   const [installing, setInstalling] = useState<ModuleSummary | null>(null);
+  const counts = useMemo(() => new Map(installed.map((i) => [i.moduleId, i.count])), [installed]);
+
+  // After adding, open the editor on the feature's first page.
+  function afterInstall(result: InstallResult) {
+    router.push(result.firstPageId ? `/projects/${projectId}/pages/${result.firstPageId}/edit` : `/projects/${projectId}`);
+  }
 
   const categories = useMemo(() => {
     const set = new Set<string>(modules.map((m) => m.category));
@@ -136,13 +147,23 @@ export function ModuleGallery({ projectId, projectName, modules }: Props) {
               onClick={() => setInstalling(m)}
               className="relative block w-full p-6 pb-3 text-left"
             >
-              <div className="w-10 h-10 rounded-lg bg-surface-800 border border-surface-700 flex items-center justify-center text-lg font-bold text-brand-300">
-                {friendlyName(m).charAt(0)}
+              <div className="flex items-start justify-between gap-3">
+                <div className="w-10 h-10 rounded-lg bg-surface-800 border border-surface-700 flex items-center justify-center text-lg font-bold text-brand-300">
+                  {friendlyName(m).charAt(0)}
+                </div>
+                {counts.has(m.id) && (
+                  <span className="rounded-full border border-emerald-400/30 bg-emerald-400/10 px-2.5 py-1 text-xs font-medium text-emerald-200">
+                    Added{(counts.get(m.id) ?? 0) > 1 ? ` ×${counts.get(m.id)}` : ""}
+                  </span>
+                )}
               </div>
               <div className="mt-3 font-semibold text-lg">{friendlyName(m)}</div>
               <p className="mt-1 text-sm text-surface-300">{friendlySummary(m)}</p>
+              {m.requires.includes("email") && (
+                <p className="mt-2 text-xs text-amber-200/90">Needs email to be set up on the server.</p>
+              )}
               <div className="mt-4 inline-flex items-center gap-1 text-brand-300 text-sm font-semibold">
-                Add to my app →
+                {counts.has(m.id) ? "Add another copy →" : "Add to my app →"}
               </div>
             </button>
             <details className="relative px-6 pb-5 text-xs text-surface-400">
@@ -152,7 +173,7 @@ export function ModuleGallery({ projectId, projectName, modules }: Props) {
                 Adds {m.pageCount} {m.pageCount === 1 ? "page" : "pages"}
                 {m.tableCount > 0 && <>, {m.tableCount} {m.tableCount === 1 ? "list" : "lists"} of saved items</>}
                 {m.flowCount > 0 && <> and {m.flowCount} {m.flowCount === 1 ? "flow" : "flows"}</>}.
-                {m.requires.length > 0 && <> Needs sign-in and accounts, which every new app already has.</>}
+                {requirementNote(m) && <> {requirementNote(m)}</>}
               </p>
             </details>
           </div>
@@ -161,147 +182,16 @@ export function ModuleGallery({ projectId, projectName, modules }: Props) {
 
       {installing && (
         <InstallDialog
+          key={installing.id}
           projectId={projectId}
           projectName={projectName}
           module={installing}
+          installedCount={counts.get(installing.id) ?? 0}
           onClose={() => setInstalling(null)}
+          onInstalled={afterInstall}
+          onOpenModule={(id) => setInstalling(modules.find((m) => m.id === id) ?? null)}
         />
       )}
-    </div>
-  );
-}
-
-function InstallDialog({
-  projectId,
-  projectName,
-  module,
-  onClose,
-}: {
-  projectId: string;
-  projectName: string;
-  module: ModuleSummary;
-  onClose: () => void;
-}) {
-  const router = useRouter();
-  const [config, setConfig] = useState<Record<string, string | number>>(() => {
-    const out: Record<string, string | number> = {};
-    for (const f of module.config ?? []) {
-      if (BUSINESS_NAME_FIELD.test(f.key) && projectName) out[f.key] = projectName;
-      else if (f.default != null) out[f.key] = f.default as string | number;
-    }
-    return out;
-  });
-  const [busy, setBusy] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  async function install() {
-    setBusy(true);
-    setError(null);
-    try {
-      const res = await fetch(`/api/projects/${projectId}/modules`, {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ moduleId: module.id, config }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error ?? `Error ${res.status}`);
-      // Redirect into the editor on the first new page
-      if (data.firstPageId) {
-        router.push(`/projects/${projectId}/pages/${data.firstPageId}/edit`);
-      } else {
-        router.push(`/projects/${projectId}`);
-      }
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Couldn't add this feature. Please try again.");
-      setBusy(false);
-    }
-  }
-
-  return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
-      onClick={onClose}
-    >
-      <div
-        className="w-full max-w-md rounded-2xl border border-surface-700 bg-surface-900 shadow-2xl"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <div className="p-6 border-b border-surface-800">
-          <div className="flex items-start gap-3">
-            <div className="w-10 h-10 rounded-lg bg-surface-800 border border-surface-700 flex items-center justify-center text-lg font-bold text-brand-300 shrink-0">
-              {friendlyName(module).charAt(0)}
-            </div>
-            <div>
-              <h2 className="text-lg font-bold">Add {friendlyName(module)}</h2>
-              <p className="text-xs text-surface-400 mt-0.5">{friendlySummary(module)}</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="p-6 space-y-4 max-h-[60vh] overflow-y-auto">
-          {(module.config ?? []).length === 0 && (
-            <p className="text-sm text-surface-400">
-              Nothing to fill in. We&apos;ll add its pages to your app, ready for you to change.
-            </p>
-          )}
-          {(module.config ?? []).map((f) => (
-            <div key={f.key}>
-              <label className="label">
-                {f.label}
-                {f.required && <span className="text-brand-400 ml-1">*</span>}
-              </label>
-              {f.type === "textarea" ? (
-                <textarea
-                  className="input min-h-[80px]"
-                  placeholder={f.placeholder}
-                  value={(config[f.key] as string) ?? ""}
-                  onChange={(e) => setConfig({ ...config, [f.key]: e.target.value })}
-                />
-              ) : f.type === "select" ? (
-                <select
-                  className="input"
-                  value={(config[f.key] as string) ?? ""}
-                  onChange={(e) => setConfig({ ...config, [f.key]: e.target.value })}
-                >
-                  {(f.options ?? []).map((o) => (
-                    <option key={o.value} value={o.value}>
-                      {o.label}
-                    </option>
-                  ))}
-                </select>
-              ) : (
-                <input
-                  className="input"
-                  type={f.type === "number" ? "number" : f.type === "url" ? "url" : "text"}
-                  placeholder={f.placeholder}
-                  value={(config[f.key] as string | number) ?? ""}
-                  onChange={(e) =>
-                    setConfig({
-                      ...config,
-                      [f.key]: f.type === "number" ? Number(e.target.value) : e.target.value,
-                    })
-                  }
-                />
-              )}
-              {f.help && <div className="mt-1 text-[11px] text-surface-500">{f.help}</div>}
-            </div>
-          ))}
-          {error && (
-            <div className="text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-lg p-3">
-              {error}
-            </div>
-          )}
-        </div>
-
-        <div className="p-4 border-t border-surface-800 flex justify-end gap-2">
-          <button className="btn-ghost" onClick={onClose} disabled={busy}>
-            Cancel
-          </button>
-          <button className="btn-primary" onClick={install} disabled={busy}>
-            {busy ? "Adding…" : "Add to my app"}
-          </button>
-        </div>
-      </div>
     </div>
   );
 }

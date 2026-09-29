@@ -1,6 +1,6 @@
 "use client";
 import { createContext, useCallback, useContext, useMemo, useState, useEffect, useRef } from "react";
-import { X, Search, MousePointer2 } from "lucide-react";
+import { X, Search, MousePointer2, Workflow, History, CalendarClock } from "lucide-react";
 import ReactFlow, {
   Background,
   Controls,
@@ -21,6 +21,7 @@ import "reactflow/dist/style.css";
 import { nanoid } from "nanoid";
 import type { FlowGraph } from "@/lib/flow/types";
 import { NodeInspector } from "./node-inspector";
+import { ActivityPanel } from "./activity-panel";
 import { CATEGORY_LABELS, NODE_CATALOG } from "./catalog";
 
 type DSColumn = { name: string; type: string };
@@ -36,7 +37,15 @@ type Props = {
   httpPath: string;
   initialGraph: FlowGraph;
   datasources: DS[];
+  /** Open on the Activity tab (links from the Problems card). */
+  initialTab?: "design" | "activity" | "schedule";
+  /** Runs from the app with a problem in the last 24 hours, for the tab's badge. */
+  problemCount?: number;
+  /** When the flow runs (the schedule picker), shown in its own tab. */
+  schedulePanel?: React.ReactNode;
 };
+
+type Tab = "design" | "activity" | "schedule";
 
 export function FlowEditor(props: Props) {
   const [nodes, setNodes] = useState<Node[]>(
@@ -61,6 +70,8 @@ export function FlowEditor(props: Props) {
   const [selected, setSelected] = useState<string | null>(null);
   const [status, setStatus] = useState<"idle" | "saving" | "saved" | "error">("idle");
   const [testOut, setTestOut] = useState<string>("");
+  const [tab, setTab] = useState<Tab>(props.initialTab === "schedule" && !props.schedulePanel ? "design" : props.initialTab ?? "design");
+  const [activityKey, setActivityKey] = useState(0);
   const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   // What's already saved, so opening the flow (or selecting/resizing steps)
   // doesn't send a save or flash "Saving…"; only real edits do.
@@ -111,6 +122,8 @@ export function FlowEditor(props: Props) {
   deleteNodeRef.current = deleteNode;
   const selectedRef = useRef(selected);
   selectedRef.current = selected;
+  const tabRef = useRef(tab);
+  tabRef.current = tab;
 
   function deleteNode(id: string) {
     setNodes((ns) => ns.filter((n) => n.id !== id));
@@ -121,6 +134,8 @@ export function FlowEditor(props: Props) {
   useEffect(() => {
     function onKeyDown(e: KeyboardEvent) {
       if (e.key === "Delete" || e.key === "Backspace") {
+        // Steps are hidden behind the Activity tab; never delete one unseen.
+        if (tabRef.current !== "design") return;
         const el = e.target as HTMLElement | null;
         const tag = el?.tagName;
         if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || el?.isContentEditable) return;
@@ -187,6 +202,8 @@ export function FlowEditor(props: Props) {
     } catch (e) {
       setTestOut(String(e));
     }
+    // The test run is stored too; show it in Activity.
+    setActivityKey((k) => k + 1);
   }
 
   const nodeTypes = useMemo(() => ({ nkNode: NkNodeView }), []);
@@ -234,7 +251,31 @@ export function FlowEditor(props: Props) {
       </aside>
 
       <div className="flex-1 min-w-0 relative">
-        <div className="absolute top-3 right-3 z-10 flex items-center gap-2">
+        <div className="studio-segmented absolute left-3 top-3 z-30 bg-surface-950/90" role="tablist" aria-label="Flow views">
+          <button type="button" role="tab" id="flow-tab-design" aria-selected={tab === "design"} aria-controls="flow-panel-design" className={`inline-flex items-center gap-1.5 ${tab === "design" ? "active" : ""}`} onClick={() => setTab("design")}>
+            <Workflow size={13} aria-hidden />Steps
+          </button>
+          <button type="button" role="tab" id="flow-tab-activity" aria-selected={tab === "activity"} aria-controls="flow-panel-activity" className={`inline-flex items-center gap-1.5 ${tab === "activity" ? "active" : ""}`} onClick={() => setTab("activity")}>
+            <History size={13} aria-hidden />Activity
+            {props.problemCount ? <span className="ml-0.5 rounded-full bg-amber-400/20 px-1.5 text-[10px] font-semibold text-amber-200" aria-label={`${props.problemCount} with a problem in the last 24 hours`}>{props.problemCount > 99 ? "99+" : props.problemCount}</span> : null}
+          </button>
+          {props.schedulePanel ? (
+            <button type="button" role="tab" id="flow-tab-schedule" aria-selected={tab === "schedule"} aria-controls="flow-panel-schedule" className={`inline-flex items-center gap-1.5 ${tab === "schedule" ? "active" : ""}`} onClick={() => setTab("schedule")}>
+              <CalendarClock size={13} aria-hidden />Schedule
+            </button>
+          ) : null}
+        </div>
+        {tab === "activity" && (
+          <div id="flow-panel-activity" role="tabpanel" aria-labelledby="flow-tab-activity" className="absolute inset-0 z-20 overflow-y-auto bg-surface-950">
+            <ActivityPanel projectId={props.projectId} flowId={props.flowId} refreshKey={activityKey} />
+          </div>
+        )}
+        {tab === "schedule" && props.schedulePanel && (
+          <div id="flow-panel-schedule" role="tabpanel" aria-labelledby="flow-tab-schedule" className="absolute inset-0 z-20 overflow-y-auto bg-surface-950">
+            <div className="mx-auto max-w-xl px-5 pb-10 pt-16">{props.schedulePanel}</div>
+          </div>
+        )}
+        <div className="absolute top-3 right-3 z-30 flex items-center gap-2">
           <span className="text-xs text-surface-400">
             {status === "saving" ? "Saving…" : status === "saved" ? "Saved" : status === "error" ? "Save failed" : ""}
           </span>
@@ -242,6 +283,7 @@ export function FlowEditor(props: Props) {
             Test run
           </button>
         </div>
+        <div id="flow-panel-design" role="tabpanel" aria-labelledby="flow-tab-design" className="h-full" aria-hidden={tab !== "design"} inert={tab !== "design"}>
         <DeleteNodeCtx.Provider value={deleteNode}>
           <ReactFlow
             nodes={nodes}
@@ -259,8 +301,9 @@ export function FlowEditor(props: Props) {
             <Controls />
           </ReactFlow>
         </DeleteNodeCtx.Provider>
+        </div>
 
-        {testOut && (
+        {testOut && tab === "design" && (
           <pre className="absolute bottom-3 left-3 right-3 max-h-40 overflow-auto bg-surface-950/90 border border-surface-800 rounded-lg p-3 text-xs font-mono text-surface-200">
 {testOut}
           </pre>

@@ -6,7 +6,6 @@
     "no-code",
     "low-code",
     "ai",
-    "claude",
     "openai",
     "agent",
     "nextjs",
@@ -38,13 +37,14 @@
     "db:push": "prisma db push",
     "db:migrate": "prisma migrate dev",
     "db:studio": "prisma studio",
-    "designer:build": "pnpm -C apps/designer-renderer build",
     "postinstall": "prisma generate",
     "check:js": "tsx scripts/check-generated-js.ts",
     "check:extensions": "tsx scripts/check-extensions.ts",
     "new:module": "tsx scripts/new-module.ts",
     "new:template": "tsx scripts/new-template.ts",
-    "test:e2e": "tsx scripts/check-generated-js.ts && tsx scripts/e2e-resellers.ts && tsx scripts/e2e-publishing.ts && tsx scripts/e2e-push.ts && tsx scripts/e2e-security.ts && tsx scripts/e2e-data.ts && node scripts/smoke-install.cjs"
+    "check:middleware": "tsx scripts/check-middleware.ts",
+    "check:docs": "node scripts/check-docs.mjs",
+    "test:e2e": "tsx scripts/check-generated-js.ts && tsx scripts/check-middleware.ts && tsx scripts/e2e-resellers.ts && tsx scripts/e2e-publishing.ts && tsx scripts/e2e-push.ts && tsx scripts/e2e-security.ts && tsx scripts/e2e-data.ts && tsx scripts/e2e-backup.ts && node scripts/smoke-install.cjs"
   },
   "dependencies": {
     "@prisma/client": "^6.1.0",
@@ -63,19 +63,19 @@
     "jose": "^5.9.6",
     "jszip": "^3.10.1",
     "lucide-react": "^1.8.0",
-    "nanoid": "^5.0.9",
-    "next": "15.1.11",
+    "nanoid": "^5.1.16",
+    "next": "15.5.26",
+    "nodemailer": "^10.0.12",
     "openai": "^6.34.0",
     "pg": "^8.13.1",
-    "pptxgenjs": "4.0.1",
     "qrcode": "^1.5.4",
-    "react": "19.0.0",
-    "react-dom": "19.0.0",
+    "react": "19.1.9",
+    "react-dom": "19.1.9",
     "reactflow": "^11.11.4",
     "resend": "^6.10.0",
     "stripe": "^17.4.0",
     "tailwind-merge": "^2.6.0",
-    "undici": "7.25.0",
+    "undici": "7.30.0",
     "web-push": "^3.6.7",
     "zod": "^3.24.1"
   },
@@ -87,7 +87,21 @@
       "prisma",
       "sharp",
       "unrs-resolver"
-    ]
+    ],
+    "overrides": {
+      "nanoid@>=3 <3.3.18": "^3.3.19",
+      "postcss@>=8 <8.5.18": "^8.5.28",
+      "ws@>=8 <8.21.0": "^8.22.0",
+      "protobufjs@>=7 <7.6.1": "^7.6.6",
+      "brace-expansion@>=5 <5.0.9": "^5.0.12",
+      "ip-address@>=10 <10.3.1": "^10.7.2",
+      "undici@>=7 <7.29.0": "^7.30.0"
+    },
+    "auditConfig": {
+      "ignoreGhsas": [
+        "GHSA-ggr8-5vv4-36mx"
+      ]
+    }
   },
   "devDependencies": {
     "@types/node": "^22.10.2",
@@ -98,7 +112,7 @@
     "@types/web-push": "^3.6.4",
     "autoprefixer": "^10.4.20",
     "eslint": "^9.17.0",
-    "eslint-config-next": "15.1.3",
+    "eslint-config-next": "15.5.26",
     "playwright": "^1.59.1",
     "postcss": "^8.4.49",
     "prisma": "^6.1.0",

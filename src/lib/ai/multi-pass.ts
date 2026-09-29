@@ -3,10 +3,13 @@ import { z } from "zod";
 import { AppPlanSchema, normalizePlan, type AppPlan } from "./plan";
 import { DESIGN_SYSTEM_RULES, DESIGN_RULES_COMPACT } from "./design-system";
 import { findTemplateForPrompt } from "../templates/registry";
-import { isCompactModel } from "./budget";
+import { estimateTokens, isCompactModel } from "./budget";
 import { parsePageOutput } from "./text";
 import { completeJson } from "./json-call";
-import { standardFlowGraph, standardKind } from "./standard-flows";
+import { standardFlowGraph, standardKind, type StandardFlowInfo } from "./standard-flows";
+import { canonicalNodeType, isKnownNodeType, NODE_TYPES } from "./node-types";
+import { formatViolationsForRepair, type Violation } from "./validate-scaffold";
+import { UnusableOutputError } from "./errors";
 import type { ScaffoldResult } from "./schema";
 
 export { stripThinking } from "./text";
@@ -36,7 +39,7 @@ export type MultiPassEvent =
   | { type: "progress"; message: string }
   | { type: "plan"; totalTables: number; totalPages: number; totalFlows: number }
   | { type: "milestone"; kind: "table" | "page" | "flow"; label: string }
-  | { type: "result"; scaffold: ScaffoldResult };
+  | { type: "result"; scaffold: ScaffoldResult; plan: AppPlan; compact: boolean };
 
 /* ─────────────────────────── Phase 1: PLAN ─────────────────────────── */
 
@@ -45,7 +48,8 @@ const PLAN_SYSTEM = `You are Nullkode's app planner. The user describes an app i
 CRITICAL OUTPUT RULES:
 - Reply with raw JSON ONLY. Start with "{" and end with "}". No prose, no markdown fences, no commentary.
 - Use the exact field names below.
-- AUTH + SETTINGS ARE PRE-INSTALLED. Do not list auth tables (auth_users), auth pages (login/register/profile/forgot-password/settings), or auth flows (login/register/logout/me/update-profile/list-users/change-role/set-theme-pref). They already exist.
+- AUTH + SETTINGS ARE PRE-INSTALLED. Do not list auth tables (auth_users), auth pages (login/register/profile/settings), or auth flows (login/register/logout/me/update-profile/list-users/change-role/set-theme-pref). They already exist.
+- HONESTY: the project description and assumptions describe only what the user told you — never invent awards, customer numbers, years in business or reviews. Never plan a testimonials or reviews table with made-up entries, and never seed reviews, ratings or quotes: those must come from real people.
 - Pick a theme that matches the app's mood. Available themes: Clean Slate, Corporate Trust, Warm Earth, Cherry Blossom, Ocean Breeze, Forest, Spring Garden, Sunset, Autumn Gold, Rose Gold, Newspaper, Minimal Mono, Brutalist, Pastel Dream, Gradient Dream, Desert, Electric, Midnight, Midnight Blue, Charcoal & Amber, Bold Neon, Terminal Green, Ocean Depths, Forest Dark, Purple Rain, Industrial, Royal, Cyberpunk, Copper, Monochrome.
 - Tables: snake_case names. Fields are { name (snake_case), type: "text" | "int" | "float" | "bool" | "timestamp" | "json" }. Do NOT include id/created_at/updated_at/created_by — they're auto-managed. DO NOT add a "user_id" column or any per-user ownership column — data is shared across all users by default. Access is gated at the page level, not the row level.
 - Pages: aim for 3-6 pages. Each is { slug (kebab-case), title, isHome, summary, requiresAuth, requiresRole }. Exactly one isHome=true. Mark requiresAuth=true for any page that requires the visitor to be signed in. Mark requiresRole="admin" (or another role string) ONLY for admin/staff/manager pages — leave it null otherwise. Public pages (landing, marketing) leave both false/null.
@@ -159,13 +163,13 @@ ${PAGE_BINDING_RULES}
 
 AUTH-AWARE UI: use data-nk-auth="in" for elements visible only when signed in (e.g. logout, dashboard link) and data-nk-auth="out" for sign-in/sign-up CTAs. Use data-nk-user-field="email" to print the current user's email.
 
-INTERACTIVE PATTERNS available in the runtime:
-- data-nk-inline-edit="field_name" data-nk-update-flow="<flow>" data-nk-row-id="{id}" — click-to-edit fields
-- <canvas data-nk-chart="bar|line|pie" data-nk-bind-flow-ref="<flow>" data-nk-label-field="..." data-nk-value-field="..." style="height:300px;"></canvas>
-- data-nk-sortable + data-nk-reorder-flow-ref="<flow>" — drag to reorder
+INTERACTIVE PATTERNS available in the runtime (always name flows by slug with the -ref attributes):
+- data-nk-inline-edit="field_name" data-nk-update-flow-ref="<flow-slug>" data-nk-row-id="{id}" — click-to-edit fields
+- <canvas data-nk-chart="bar|line|pie" data-nk-bind-flow-ref="<flow-slug>" data-nk-label-field="..." data-nk-value-field="..." style="height:300px;"></canvas>
+- data-nk-sortable + data-nk-reorder-flow-ref="<flow-slug>" — drag to reorder
 - data-nk-filter="<key>" data-nk-target="#chart-or-list" — reactive filters
-- data-nk-calendar="month" + data-nk-calendar-source children — calendar grid
-- data-nk-kanban + data-nk-update-flow-ref="<flow>" — drag between columns
+- data-nk-calendar="month" + data-nk-calendar-source children (each with data-nk-bind-flow-ref="<list-flow-slug>") — calendar grid
+- data-nk-kanban + data-nk-update-flow-ref="<flow-slug>" — drag between columns
 
 ${DESIGN_SYSTEM_RULES}`;
 
@@ -178,16 +182,26 @@ RULES:
 - Signed-in-only pages start with <!--nk:require-auth-->.
 - Show sign-in links with data-nk-auth="out"; sign-out: <a data-nk-logout-ref="auth-logout" data-nk-redirect="/login" data-nk-auth="in">Log out</a>.
 - No <script> unless the page truly needs browser logic (a game or canvas).
+- Form fields use the table's exact column names (name="<column>").
 ${PAGE_BINDING_RULES}
 
 ${DESIGN_RULES_COMPACT}`;
 
-async function runPage(opts: {
+/** A page that failed the build checks, sent back once to be fixed (repair mode). */
+export type PageRepair = { html: string; css: string; violations: Violation[] };
+
+/**
+ * Builds one page. In repair mode it gets its previous version and the
+ * problems the build checks found, answers once, and has a smaller budget
+ * (about the size of the page it fixes).
+ */
+export async function runPage(opts: {
   plan: Plan;
   page: Plan["pages"][number];
   templateHomeHtml?: string;
   compact: boolean;
   onDelta: (n: number) => void;
+  repair?: PageRepair;
 }): Promise<{ html: string; css: string }> {
   const otherPages = opts.plan.pages
     .filter((p) => p.slug !== opts.page.slug)
@@ -199,9 +213,9 @@ async function runPage(opts: {
   const flowsBlock = opts.plan.flows.length
     ? opts.plan.flows.map((f) => `- ${f.slug} (${f.kind}${f.table ? ` on ${f.table}` : ""}): ${f.purpose}`).join("\n")
     : "(no app flows)";
-  const templateLimit = opts.compact ? 0 : 8000;
+  const templateLimit = opts.compact || opts.repair ? 0 : 8000;
   const templateBlock = opts.page.isHome && opts.templateHomeHtml && templateLimit
-    ? `\n\nSTARTER TEMPLATE for the HOME page — adapt this HTML, keep the visual structure and sections, change the text/content to match the app:\n<starter-html>\n${opts.templateHomeHtml.slice(0, templateLimit)}\n</starter-html>`
+    ? `\n\nSTARTER TEMPLATE for the HOME page — adapt this HTML, keep the visual structure and sections, change the text/content to match the app (keep its layout, but not its made-up facts: no invented reviews, ratings, counts or prices):\n<starter-html>\n${opts.templateHomeHtml.slice(0, templateLimit)}\n</starter-html>`
     : "";
 
   const userMessage = `Project: ${opts.plan.project.name} — ${opts.plan.project.description}
@@ -223,22 +237,30 @@ ${tablesBlock}
 FLOWS (reference by slug in data-nk-flow-ref / data-nk-bind-flow-ref):
 ${flowsBlock}${templateBlock}
 
-Build THIS page only. Wire every form to a create/update flow from the FLOWS list and every list to a list flow. Wire every link to a real page slug or an external URL. Reply with the <style> block followed by the page markup.`;
+Build THIS page only. Wire every form to a create/update flow from the FLOWS list and every list to a list flow; form fields use the table's exact column names. Wire every link to a real page slug or an external URL. Reply with the <style> block followed by the page markup.`;
 
+  const repairBlock = opts.repair
+    ? `\n\nYOUR PREVIOUS VERSION OF THIS PAGE:\n<style>\n${opts.repair.css}\n</style>\n${opts.repair.html}\n\nPROBLEMS FOUND IN IT:\n${formatViolationsForRepair(opts.repair.violations)}\n\nReturn the corrected page: fix every problem listed and keep everything else as it is (same sections, same text, same markers at the top). Reply with the <style> block followed by the complete page markup.`
+    : "";
+  const fullBudget = opts.compact ? 6000 : 12000;
+  const maxTokens = opts.repair
+    ? Math.min(fullBudget, Math.max(2000, Math.ceil(estimateTokens(opts.repair.html + opts.repair.css) * 1.3) + 800))
+    : fullBudget;
   const system = opts.compact ? PAGE_SYSTEM_COMPACT : PAGE_SYSTEM_FULL;
-  for (let attempt = 0; attempt < 2; attempt++) {
+  const attempts = opts.repair ? 1 : 2;
+  for (let attempt = 0; attempt < attempts; attempt++) {
     const text = await providerComplete({
       systemPrompt: system,
-      userMessage: attempt === 0 ? userMessage : `${userMessage}\n\nYour previous answer was not usable HTML. Reply with a <style> block followed by the page markup only.`,
+      userMessage: attempt === 0 ? `${userMessage}${repairBlock}` : `${userMessage}\n\nYour previous answer was not usable HTML. Reply with a <style> block followed by the page markup only.`,
       task: "scaffold",
-      maxTokens: opts.compact ? 6000 : 12000,
+      maxTokens,
       onDelta: opts.onDelta,
     });
     const page = parsePageOutput(text);
     if (page) return page;
     console.error(`[multi-pass] page "${opts.page.slug}": unusable output (attempt ${attempt + 1})`, text.slice(0, 300));
   }
-  throw new Error(`The AI couldn't produce the "${opts.page.title}" page. Please try again.`);
+  throw new UnusableOutputError(`The AI couldn't produce the "${opts.page.title}" page. Please try again.`);
 }
 
 /* ─────────────────────────── Phase 3: FLOW ─────────────────────────── */
@@ -282,7 +304,8 @@ LIST-STYLE results that feed data-nk-bind-flow-ref containers MUST respond with 
 const FlowGraphSchema = z.object({
   nodes: z.array(z.object({
     id: z.string().min(1),
-    type: z.string().min(1),
+    // Well-known invented names ("send_email") become the real type.
+    type: z.string().min(1).transform((t) => canonicalNodeType(t) ?? t),
     data: z.union([z.string(), z.record(z.unknown())]).default({}),
   })).min(2),
   edges: z.array(z.object({
@@ -295,7 +318,10 @@ const FlowGraphSchema = z.object({
   message: "needs a trigger node and a response node",
 }).refine((g) => g.edges.every((e) => g.nodes.some((n) => n.id === e.source) && g.nodes.some((n) => n.id === e.target)), {
   message: "every edge must connect existing node ids",
-});
+}).refine((g) => g.nodes.every((n) => isKnownNodeType(n.type)), (g) => ({
+  // The runtime silently skips node types it doesn't know.
+  message: `unknown node type ${g.nodes.filter((n) => !isKnownNodeType(n.type)).map((n) => `"${n.type}"`).join(", ")}; use only: ${NODE_TYPES.join(", ")}`,
+}));
 type FlowGraph = z.infer<typeof FlowGraphSchema>;
 
 async function runCustomFlow(plan: Plan, flow: Plan["flows"][number], onDelta: (n: number) => void): Promise<FlowGraph> {
@@ -323,11 +349,12 @@ Build the flow graph for THIS flow only. Reply with raw JSON: { "nodes": [...], 
 }
 
 /** Standard graph for a planned flow, or null when it needs custom logic. */
-function plannedStandardFlow(plan: Plan, flow: Plan["flows"][number]): FlowGraph | null {
+function plannedStandardFlow(plan: Plan, flow: Plan["flows"][number]): { graph: FlowGraph; info: StandardFlowInfo } | null {
   const kind = standardKind(flow.kind);
   const table = flow.table ? plan.tables.find((t) => t.name === flow.table) : undefined;
   if (!kind || !table) return null;
-  return standardFlowGraph({ kind, table: table.name, fields: table.fields.map((f) => f.name), auth: flow.auth });
+  const info: StandardFlowInfo = { kind, table: table.name, auth: Boolean(flow.auth) };
+  return { graph: standardFlowGraph({ kind, table: table.name, fields: table.fields.map((f) => f.name), auth: info.auth }), info };
 }
 
 /* ─────────────────────── Orchestrator ─────────────────────── */
@@ -396,7 +423,9 @@ export async function* scaffoldMultiPass(
   const flows: ScaffoldResult["flows"] = [];
   for (let i = 0; i < plan.flows.length; i++) {
     const f = plan.flows[i];
-    let graph = plannedStandardFlow(plan, f);
+    const planned = plannedStandardFlow(plan, f);
+    let graph = planned?.graph ?? null;
+    let standard = planned?.info;
     if (!graph) {
       const label = `Building flow ${i + 1}/${plan.flows.length}: ${f.name}`;
       yield { type: "progress", message: label };
@@ -408,7 +437,9 @@ export async function* scaffoldMultiPass(
         // One bad custom flow must not sink the whole app: keep a safe
         // placeholder the user can finish in the Flow editor.
         console.error(`[multi-pass] flow "${f.slug}" failed; using a placeholder`, err instanceof Error ? err.message : err);
-        graph = standardFallback(plan, f);
+        const fallback = standardFallback(plan, f);
+        graph = fallback.graph;
+        standard = fallback.info;
         yield { type: "progress", message: `"${f.name}" needs a finishing touch in the Flow editor — a simple version was added.` };
       }
     }
@@ -419,6 +450,7 @@ export async function* scaffoldMultiPass(
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       nodes: graph.nodes as any,
       edges: graph.edges.map((e) => ({ ...e, sourceHandle: e.sourceHandle ?? null })),
+      ...(standard ? { standard } : {}),
     });
     yield { type: "milestone", kind: "flow", label: f.name };
   }
@@ -430,21 +462,24 @@ export async function* scaffoldMultiPass(
     pages,
     flows,
   };
-  yield { type: "result", scaffold };
+  yield { type: "result", scaffold, plan, compact };
 }
 
 /** A runnable stand-in for a custom flow the model couldn't build. */
-function standardFallback(plan: Plan, flow: Plan["flows"][number]): FlowGraph {
+function standardFallback(plan: Plan, flow: Plan["flows"][number]): { graph: FlowGraph; info?: StandardFlowInfo } {
   const table = flow.table ? plan.tables.find((t) => t.name === flow.table) : undefined;
   if (table) {
-    return standardFlowGraph({ kind: /list|load|get|show|fetch/.test(flow.slug) ? "list" : "create", table: table.name, fields: table.fields.map((f) => f.name), auth: flow.auth });
+    const info: StandardFlowInfo = { kind: /list|load|get|show|fetch/.test(flow.slug) ? "list" : "create", table: table.name, auth: Boolean(flow.auth) };
+    return { graph: standardFlowGraph({ kind: info.kind, table: table.name, fields: table.fields.map((f) => f.name), auth: info.auth }), info };
   }
   return {
-    nodes: [
-      { id: "trigger", type: "trigger", data: { label: "Trigger" } },
-      { id: "respond", type: "response", data: { status: 200, body: '{"ok":true}' } },
-    ],
-    edges: [{ id: "trigger-respond", source: "trigger", target: "respond", sourceHandle: null }],
+    graph: {
+      nodes: [
+        { id: "trigger", type: "trigger", data: { label: "Trigger" } },
+        { id: "respond", type: "response", data: { status: 200, body: '{"ok":true}' } },
+      ],
+      edges: [{ id: "trigger-respond", source: "trigger", target: "respond", sourceHandle: null }],
+    },
   };
 }
 

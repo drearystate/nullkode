@@ -79,10 +79,12 @@ export const eventTickets: ModuleDefinition = {
             output: "ticket",
           },
         },
+        // One more sold (as a number: the column holds whole numbers).
+        { id: "n9", type: "math", data: { left: "{{vars.t.0.sold}}", op: "+", right: "1", output: "sold" } },
         {
           id: "n6",
           type: "update",
-          data: { table: "tiers", where: { id: "{{vars.t.0.id}}" }, values: { sold: "{{vars.t.0.sold}}+1" } },
+          data: { table: "tiers", where: { id: "{{vars.t.0.id}}" }, values: { sold: "{{vars.sold}}" } },
         },
         { id: "n7", type: "response", data: { status: 200, body: '{"ok":true,"ticket_code":"{{vars.ticket.code}}","redirect":"/ticket?code={{vars.ticket.code}}"}' } },
         { id: "n8", type: "response", data: { status: 409, body: '{"error":"Sold out"}' } },
@@ -92,7 +94,8 @@ export const eventTickets: ModuleDefinition = {
         { id: "e2", source: "n2", target: "n3" },
         { id: "e3", source: "n3", target: "n4", sourceHandle: "true" },
         { id: "e4", source: "n4", target: "n5" },
-        { id: "e5", source: "n5", target: "n6" },
+        { id: "e5", source: "n5", target: "n9" },
+        { id: "e8", source: "n9", target: "n6" },
         { id: "e6", source: "n6", target: "n7" },
         { id: "e7", source: "n3", target: "n8", sourceHandle: "false" },
       ],
@@ -182,15 +185,25 @@ export const eventTickets: ModuleDefinition = {
   <div id="nk-qr" class="my-3"></div>
   <code class="fs-4 font-monospace" data-nk-field="code">TKT-XXXXXXXX</code>
   <div class="mt-3"><div class="fw-bold" data-nk-field="holder_name">Holder name</div><div class="small" style="color:var(--nk-text-muted);" data-nk-field="holder_email">email</div></div>
-</div></div>
+</div><p data-nk-empty hidden style="color:var(--nk-text-muted);">We couldn't find that ticket. Please check the link you were sent.</p></div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js" integrity="sha512-ZDSPMa/JM1D+7kdg2x3BsruQ6T/JpJo3jWDWkCZsP+5yVyp1KfESqLI+7RqB5k24F7p2cV7i2YHh/890y6P6Sw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>(function(){
   var code = new URLSearchParams(location.search).get('code') || '';
-  setTimeout(function(){
-    var el = document.getElementById('nk-qr'); if(!el || !window.QRCode) return;
-    QRCode.toCanvas(code, { width: 220 }, function(err, c){ if(!err && c){ el.innerHTML=''; el.appendChild(c); } });
-  }, 400);
+  // The ticket card is redrawn when its row arrives, which empties #nk-qr,
+  // so the code is drawn whenever an empty #nk-qr is on the page.
+  function draw(){
+    var el = document.getElementById('nk-qr');
+    if(!el || el.firstChild || !code || typeof qrcode !== 'function') return;
+    var qr = qrcode(0, 'M'); qr.addData(code); qr.make();
+    var size = qr.getModuleCount() + 8, cell = Math.max(2, Math.floor(220 / size));
+    var img = document.createElement('img');
+    img.src = qr.createDataURL(cell, 4); img.width = img.height = cell * size;
+    img.alt = 'QR code for ticket ' + code;
+    el.appendChild(img);
+  }
+  draw();
+  if(window.MutationObserver) new MutationObserver(draw).observe(document.body, { childList: true, subtree: true });
 })();</script>
 </div></section>`,
     },

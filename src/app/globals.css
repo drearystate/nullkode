@@ -282,6 +282,16 @@ body {
 .studio-page-row-actions { display:flex; padding-right:4px; }.studio-page-row-actions button { padding:5px; color:#8e8da4; }.studio-page-row-actions button:hover { color:#e2cff9; }
 .studio-canvas-toolbar { display:flex; align-items:center; justify-content:space-between; gap:8px; height:46px; padding:0 10px; border-bottom:1px solid #ffffff0e; background:#15161f; flex-shrink:0; }
 .studio-canvas-toolbar > div:first-child { gap:3px; }.studio-save-status { display:flex; align-items:center; gap:5px; font-size:10px; margin-left:6px; white-space:nowrap; }
+/* Save status: a dot that stays visible on phones (the words hide there),
+   green when saved, amber while edits wait or save, red when a save failed. */
+.studio-save-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; background:#6ee7b7; }
+.studio-save-status[data-state="pending"] .studio-save-dot,.studio-save-status[data-state="saving"] .studio-save-dot { background:#fbbf24; }
+.studio-save-status[data-state="error"] .studio-save-dot { background:#f87171; box-shadow:0 0 0 3px #f8717133; }
+.studio-save-retry { margin-left:2px; text-decoration:underline; text-underline-offset:2px; color:#fecaca; }
+.studio-save-error { position:sticky; top:0; z-index:36; display:flex; align-items:center; gap:10px; padding:10px 16px; border-bottom:1px solid #f8717155; background:#7f1d1d; color:#fee2e2; font-size:13px; }
+.studio-save-error button { flex-shrink:0; min-height:32px; padding:4px 14px; border-radius:8px; background:#fee2e2; color:#7f1d1d; font-weight:600; }
+.studio-save-error button:hover { background:#fff; }
+.studio-draft-offer { display:flex; flex-wrap:wrap; align-items:center; gap:10px; padding:8px 12px; border-bottom:1px solid #fbbf2440; background:#fbbf2414; color:#fde68a; font-size:12px; flex-shrink:0; }
 .studio-editor-library { width:224px; }.studio-editor-inspector { width:270px; }
 .studio-selection-label { display:flex; align-items:center; gap:8px; color:#b4a5c8; padding:14px; font-size:11px; border-bottom:1px solid #ffffff0a; }
 .studio-canvas-workspace .gjs-one-bg,.studio-canvas-workspace .gjs-block-category .gjs-title,.studio-canvas-workspace .gjs-sm-sector .gjs-sm-title { background:#15161f!important; }
@@ -292,7 +302,20 @@ body {
 .studio-canvas-workspace .gjs-cv-canvas { background-color:#20212d!important; background-image:radial-gradient(#ffffff0e 1px,transparent 1px); background-size:16px 16px; }
 .studio-canvas-workspace .gjs-frame-wrapper { box-shadow:0 8px 35px #0003; }
 @media(max-width:1100px) { .studio-page-list { position:absolute; inset:0 auto 0 0; z-index:35; width:270px; box-shadow:20px 0 50px #0005; }.studio-editor-inspector { position:absolute; right:0; top:46px; bottom:0; z-index:20; box-shadow:-10px 0 35px #0005; } }
-@media(max-width:700px) { .studio-editor-library { position:absolute; left:0; top:46px; bottom:0; z-index:20; box-shadow:10px 0 35px #0005; }.studio-canvas-toolbar .studio-save-status { display:none; }.studio-page-bar { padding:8px 12px; }.studio-canvas-toolbar .studio-icon-button { width:26px; }.studio-editor-shell { height:calc(100dvh - 119px); }.studio-canvas-toolbar > div:last-child { gap:4px; } }
+@media(max-width:700px) { .studio-editor-library { position:absolute; left:0; top:46px; bottom:0; z-index:20; box-shadow:10px 0 35px #0005; }.studio-canvas-toolbar .studio-save-status { margin-left:2px; }.studio-canvas-toolbar .studio-save-icon { display:none; }.studio-canvas-toolbar .studio-save-text { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }.studio-page-bar { padding:8px 12px; }.studio-editor-shell { height:calc(100dvh - 119px); }.studio-canvas-toolbar > div:last-child { gap:4px; }.studio-save-error { font-size:12px; padding:8px 12px; } }
+@media(max-width:420px) { .studio-canvas-toolbar { padding:0 6px; }.studio-preview-button span { display:none; }.studio-preview-button { padding:8px 9px; } }
+/* Touch screens: fingers need bigger targets than a mouse. The element
+   toolbar and the editor's buttons grow to 36px, and the drag handle (which
+   touch can't use) gives way to the Move up and Move down buttons. */
+@media (pointer: coarse) {
+  .gjs-toolbar-item { width:36px !important; height:36px; padding:8px !important; display:inline-flex !important; align-items:center; justify-content:center; }
+  .gjs-toolbar-item svg { width:20px; height:20px; }
+  .gjs-toolbar-item.gjs-toolbar-item__nk-drag { display:none !important; }
+  .studio-canvas-toolbar .studio-icon-button { width:36px; height:36px; }
+  .studio-canvas-toolbar .studio-device-button { width:36px; height:32px; }
+  .studio-page-row-actions button { padding:10px; }
+  .studio-save-retry { min-height:32px; }
+}
 .studio-flow-explainer { display:flex; align-items:center; gap:24px; margin-top:28px; padding:20px 24px; border:1px solid #ffffff0b; border-radius:14px; background:linear-gradient(110deg,#b096e909,#ffffff02); color:#a8a6bc; font-size:12px; }
 .studio-flow-explainer > span { display:flex; align-items:center; gap:12px; }.studio-flow-explainer .studio-method-icon,.studio-flow-card .studio-method-icon { --method-color:#bda2e5; }
 .studio-flow-card { display:flex; align-items:center; gap:18px; padding:20px; border:1px solid #ffffff0d; border-radius:13px; background:#15161f; transition:border-color .2s; }.studio-flow-card:hover { border-color:#b496ee50; }

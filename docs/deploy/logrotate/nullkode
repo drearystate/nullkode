@@ -1,0 +1,20 @@
+# Keeps Nullkode's log files from growing forever. Only needed when
+# docs/deploy/systemd/nullkode.service writes to files (StandardOutput=append:)
+# instead of the systemd journal (the default).
+#
+# Install:  sudo cp docs/deploy/logrotate/nullkode /etc/logrotate.d/nullkode
+# Test:     sudo logrotate --debug /etc/logrotate.d/nullkode
+#
+# copytruncate: the app keeps its log files open and never reopens them, so
+# they are copied and emptied in place (a few lines written during the copy
+# can be lost).
+/var/log/nullkode.log /var/log/nullkode.err.log {
+    daily
+    rotate 14
+    maxsize 50M
+    missingok
+    notifempty
+    compress
+    delaycompress
+    copytruncate
+}

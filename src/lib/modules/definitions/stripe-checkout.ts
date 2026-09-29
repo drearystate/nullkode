@@ -16,8 +16,8 @@ export const stripeCheckout: ModuleDefinition = {
     { key: "priceCents", label: "Price in cents", type: "number", default: 4900, required: true },
     { key: "currency", label: "Currency code", type: "text", default: "usd", required: true },
     { key: "stripeSecret", label: "Stripe secret key", type: "text", placeholder: "sk_test_...", required: true, help: "Your Stripe secret key. Use a test key to start." },
-    { key: "successUrl", label: "Success redirect URL", type: "url", default: "https://nullkode.com/app/your-app", required: true },
-    { key: "cancelUrl", label: "Cancel redirect URL", type: "url", default: "https://nullkode.com/app/your-app", required: true },
+    { key: "successUrl", label: "Success redirect URL", type: "url", default: "", placeholder: "https://your-app-address/thank-you", required: true, help: "Where people land after they pay: a page of your app, like its thank-you page. Copy the address from your app's Publish tab." },
+    { key: "cancelUrl", label: "Cancel redirect URL", type: "url", default: "", placeholder: "https://your-app-address/", required: true, help: "Where people land if they cancel: usually your app's home page." },
   ],
   tables: [
     {

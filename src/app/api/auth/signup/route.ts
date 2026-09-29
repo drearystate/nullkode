@@ -15,13 +15,16 @@ const Body = z.object({
   // Honeypots — must stay empty.
   website: z.string().max(200).optional(),
   company: z.string().max(200).optional(),
+  // Signed up after describing an app in the home page's idea box (counted
+  // in the onboarding funnel).
+  arrivedWithIdea: z.boolean().optional(),
 });
 
 export async function POST(req: Request) {
   const parsed = Body.safeParse(await req.json().catch(() => null));
   if (!parsed.success) return json({ error: "Invalid input" }, { status: 400 });
 
-  const { password, name, challenge, nonce, website, company } = parsed.data;
+  const { password, name, challenge, nonce, website, company, arrivedWithIdea } = parsed.data;
   const email = parsed.data.email.trim().toLowerCase();
 
   // Signing up on a reseller's domain makes you that reseller's client.
@@ -61,7 +64,10 @@ export async function POST(req: Request) {
 
   const passwordHash = await hashPassword(password);
   const user = await db.user.create({
-    data: { email, passwordHash, name, emailNormalized, signupIp: ip, resellerId: reseller?.id ?? null },
+    data: {
+      email, passwordHash, name, emailNormalized, signupIp: ip, resellerId: reseller?.id ?? null,
+      ...(arrivedWithIdea ? { prefs: { arrivedWithIdea: true } } : {}),
+    },
     select: { id: true, email: true, name: true },
   });
 

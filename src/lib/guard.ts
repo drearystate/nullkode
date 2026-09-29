@@ -54,6 +54,50 @@ export async function checkProjectLimit(user: User) {
   return null;
 }
 
+/**
+ * Whether `target` can receive an existing app (a transfer, or a hand-off
+ * from a reseller to a client), worded for the person sending it. Applies
+ * the target's plan: its app count, its live-app count when the app is
+ * published, and its own-domain count when the app has domains. The
+ * reseller's app quota only applies to moves between workspaces: within one
+ * workspace the app is already counted in the reseller's total, so a
+ * hand-off must not be refused just because the reseller is at its quota.
+ */
+export async function checkProjectLimitFor(
+  target: User,
+  opts: { sameWorkspace: boolean; published?: boolean; domains?: number },
+) {
+  const full = json({ error: "That account's plan has no room for another app." }, { status: 403 });
+  if (!opts.sameWorkspace && (await checkResellerAppQuota(target))) return full;
+  const limits = await limitsForUser(target);
+  if (limits.maxProjects !== Infinity) {
+    const count = await db.project.count({ where: { ownerId: target.id } });
+    if (count >= limits.maxProjects) return full;
+  }
+  if (opts.published && limits.maxPublished !== Infinity) {
+    const count = await db.project.count({ where: { ownerId: target.id, published: true } });
+    if (count >= limits.maxPublished) {
+      return json(
+        { error: "That account's plan has no room for another live app. Unpublish this app first, or ask them to make room." },
+        { status: 403 },
+      );
+    }
+  }
+  const domains = opts.domains ?? 0;
+  if (domains > 0 && limits.maxCustomDomains !== Infinity) {
+    const count = await db.domain.count({ where: { project: { ownerId: target.id } } });
+    if (count + domains > limits.maxCustomDomains) {
+      return json(
+        {
+          error: `That account's plan has no room for this app's own domain${domains === 1 ? "" : "s"}. Remove ${domains === 1 ? "it" : "them"} from the app first, or ask them to make room.`,
+        },
+        { status: 403 },
+      );
+    }
+  }
+  return null;
+}
+
 export async function checkPublishLimit(user: User) {
   const limits = await limitsForUser(user);
   if (limits.maxPublished === Infinity) return null;

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Briefcase, Check, CreditCard, Globe, Mail, Palette, SlidersHorizontal, Sparkles, Users } from "lucide-react";
+import { Activity, Briefcase, Check, CreditCard, Globe, Mail, Palette, SlidersHorizontal, Sparkles, Users } from "lucide-react";
 
 export type ControlPanelStatus = {
   brandName: string;
@@ -12,9 +12,12 @@ export type ControlPanelStatus = {
   emailOn: boolean;
   appsDomain: string | null;
   users: number;
+  /** Admin > System health checks that are red / amber (undefined when they couldn't run). */
+  systemRed?: number;
+  systemAmber?: number;
 };
 
-type Card = { href: string; icon: React.ReactNode; title: string; text: string; status: string; ok: boolean };
+type Card = { href: string; icon: React.ReactNode; title: string; text: string; status: string; ok: boolean; bad?: boolean };
 
 /** The admin home's map of everything the operator can set up. */
 export function ControlPanel({ s }: { s: ControlPanelStatus }) {
@@ -60,6 +63,14 @@ export function ControlPanel({ s }: { s: ControlPanelStatus }) {
       ok: s.aiReady,
     },
     {
+      href: "/admin/settings#email",
+      icon: <Mail size={18} />,
+      title: "Email",
+      text: "Send invitations, password links and app alerts from your own address, through any email provider.",
+      status: s.emailOn ? "On" : "Not set up. Links are shown on screen instead",
+      ok: s.emailOn,
+    },
+    {
       href: "#users",
       icon: <Users size={18} />,
       title: "Users",
@@ -67,13 +78,29 @@ export function ControlPanel({ s }: { s: ControlPanelStatus }) {
       status: `${s.users} ${s.users === 1 ? "person" : "people"}`,
       ok: true,
     },
+    {
+      href: "/admin/system",
+      icon: <Activity size={18} />,
+      title: "System",
+      text: "Server health in plain words: database, disk space, scheduled flows, backups, nightly clean-up and recent errors.",
+      status:
+        s.systemRed === undefined
+          ? "Open to check the server"
+          : s.systemRed
+            ? `${s.systemRed} problem${s.systemRed === 1 ? "" : "s"} need${s.systemRed === 1 ? "s" : ""} attention`
+            : s.systemAmber
+              ? `Working · ${s.systemAmber} thing${s.systemAmber === 1 ? "" : "s"} to look at`
+              : "All checks look fine",
+      ok: s.systemRed === 0 && s.systemAmber === 0,
+      bad: Boolean(s.systemRed),
+    },
   ];
 
   const steps = [
     { done: s.brandCustom, label: "Set your brand", href: "/admin/settings#brand" },
     { done: s.aiReady, label: "Connect an AI engine", href: "/admin/settings#ai" },
     { done: s.stripeConnected && s.paidPlans > 0, label: "Connect Stripe and price your plans", href: "/admin/settings#payments" },
-    { done: s.emailOn, label: "Turn on email (RESEND_API_KEY) so invites and password links are sent for you", href: null },
+    { done: s.emailOn, label: "Turn on email so invites, password links and app alerts are sent for you", href: "/admin/settings#email" },
     { done: Boolean(s.appsDomain), label: s.appsDomain ? `Apps get their own address (*.${s.appsDomain})` : "Give published apps their own address (APPS_DOMAIN)", href: null },
     { done: s.resellers > 0, label: "Invite your first reseller", href: "/admin/resellers" },
   ];
@@ -91,7 +118,7 @@ export function ControlPanel({ s }: { s: ControlPanelStatus }) {
                 {c.title}
               </span>
               <span className="mt-2 flex-1 text-sm text-surface-400">{c.text}</span>
-              <span className={`mt-3 text-xs font-medium ${c.ok ? "text-emerald-400" : "text-amber-300"}`}>{c.status}</span>
+              <span className={`mt-3 text-xs font-medium ${c.ok ? "text-emerald-400" : c.bad ? "text-red-300" : "text-amber-300"}`}>{c.status}</span>
             </Link>
           ))}
         </div>
@@ -114,10 +141,10 @@ export function ControlPanel({ s }: { s: ControlPanelStatus }) {
               </li>
             ))}
           </ul>
-          {(!s.emailOn || !s.appsDomain) && (
+          {!s.appsDomain && (
             <p className="mt-3 flex items-start gap-2 text-xs text-surface-400">
-              <Mail size={13} className="mt-0.5 shrink-0" /><Globe size={13} className="mt-0.5 shrink-0" />
-              <span>Email and the apps address are server settings: add them to the <span className="font-mono">.env</span> file (the installer can do it) and restart.</span>
+              <Globe size={13} className="mt-0.5 shrink-0" />
+              <span>The apps address is a server setting: add it to the <span className="font-mono">.env</span> file (the installer can do it) and restart.</span>
             </p>
           )}
         </section>

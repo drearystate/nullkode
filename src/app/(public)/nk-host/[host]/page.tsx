@@ -1,9 +1,11 @@
 import { notFound } from "next/navigation";
 import { appIconUrl } from "@/lib/app-icon";
-import { projectForRequestHost } from "@/lib/app-hosts";
+import { noteServedHost, projectForHostRequest, queryString, redirectToPrimary } from "@/lib/app-hosts";
 import { headers } from "next/headers";
 import { renderPublicPage, RUNTIME_JS, publicBootScript, PlatformStylesheets } from "@/lib/public-page";
 import { pwaBootScript } from "@/lib/pwa";
+import { buildMetadata, primaryUrl } from "@/lib/seo";
+import { documentAttributesScript, documentMarkup, splitDesignerDocument } from "@/lib/design-studio/document-split";
 
 export const dynamic = "force-dynamic";
 
@@ -13,26 +15,31 @@ export async function generateMetadata({
   params: Promise<{ host: string }>;
 }) {
   const { host } = await params;
-  const project = await projectForRequestHost(host, await headers());
+  const project = await projectForHostRequest(host);
   if (!project) return { title: "Not found" };
-  const icon = appIconUrl(project, 192);
-  return {
-    title: project.name,
-    description: project.description ?? undefined,
-    icons: { icon, shortcut: icon, apple: appIconUrl(project, 180) },
-  };
+  return buildMetadata(project);
 }
 
 export default async function HostHome({
   params,
+  searchParams,
 }: {
   params: Promise<{ host: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const { host } = await params;
-  const project = await projectForRequestHost(host, await headers());
+  const project = await projectForHostRequest(host);
   if (!project || !project.published) notFound();
+  // Remember that this domain works, then send visitors on a second address
+  // (another domain, or the apps-domain label) to the app's primary one.
+  await noteServedHost(project.id, host, await headers());
+  await redirectToPrimary(project, await primaryUrl(project), { route: "host", requestHost: host, path: "/", search: queryString(await searchParams) });
 
   const page = await renderPublicPage(project.id, "");
+  // AI Designer pages are whole documents: their head goes into metadata and
+  // ahead of the body, and the wrapper stays out of their layout.
+  const doc = splitDesignerDocument(page.html);
+  const docAttrs = documentAttributesScript(doc);
   const themeColor =
     (project.theme as { primary?: string } | null)?.primary ?? "#0b0b0b";
 
@@ -46,7 +53,8 @@ export default async function HostHome({
       <meta name="apple-mobile-web-app-capable" content="yes" />
       <meta name="apple-mobile-web-app-title" content={project.name} />
       <style dangerouslySetInnerHTML={{ __html: page.css }} />
-      <div suppressHydrationWarning dangerouslySetInnerHTML={{ __html: page.html }} />
+      {docAttrs && <script dangerouslySetInnerHTML={{ __html: docAttrs }} />}
+      <div suppressHydrationWarning style={doc.isDocument ? { display: "contents" } : undefined} dangerouslySetInnerHTML={{ __html: documentMarkup(doc) }} />
       <script dangerouslySetInnerHTML={{ __html: publicBootScript(project.id, "", page.pageSlugs) }} />
       <script dangerouslySetInnerHTML={{ __html: RUNTIME_JS }} />
       <script

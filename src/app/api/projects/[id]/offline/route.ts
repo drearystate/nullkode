@@ -4,6 +4,8 @@ import { json } from "@/lib/utils";
 import { themeToCss, type ProjectTheme } from "@/lib/theme";
 import { readPublicAsset, referencedAssets, rewriteAssets } from "@/lib/bundle-assets";
 import { RUNTIME_JS, publicBootScript, pageRequiresAuth } from "@/lib/public-page";
+import { getRequestBrand } from "@/lib/reseller";
+import { newRedactionReport, redactFlowGraph, redactModuleConfig, redactRow } from "@/lib/export-secrets";
 import { Pool } from "pg";
 import JSZip from "jszip";
 import { readFile } from "node:fs/promises";
@@ -28,6 +30,13 @@ export const maxDuration = 120;
  * with a snapshot of the project's tables. Forms save, lists load, auth
  * registers/logs in — all locally. http_request/email/sheets/AI nodes
  * degrade honestly (see nk-offline.js).
+ *
+ * The bundle is a file people share, so it carries no private keys (secret
+ * module settings and the flow steps they were copied into are blanked, see
+ * src/lib/export-secrets.ts) and no passwords, hashes, secrets or tokens in
+ * the data. White-label: nothing in it names this platform. The README names
+ * the owner's brand, and the inlined stylesheet and scripts lose their
+ * header comments.
  */
 
 function qident(name: string): string {
@@ -55,6 +64,16 @@ function scriptSafe(src: string): string {
   return src.replace(/<\/script/gi, "<\\/script");
 }
 
+/** Inline-safe CSS: a stylesheet can't close our <style> tag. */
+function styleSafe(src: string): string {
+  return src.replace(/<\/style/gi, "<\\/style");
+}
+
+/** Drops a file's leading block comment (its header), which names where the file comes from. */
+function withoutHeaderComment(src: string): string {
+  return src.replace(/^\uFEFF?\s*\/\*[\s\S]*?\*\/\s*/, "");
+}
+
 export async function GET(_req: Request, ctx: { params: Promise<{ id: string }> }) {
   const { id } = await ctx.params;
   const user = await getCurrentUser();
@@ -66,6 +85,7 @@ export async function GET(_req: Request, ctx: { params: Promise<{ id: string }> 
       pages: { orderBy: { isHome: "desc" } },
       flows: { where: { enabled: true } },
       datasources: { include: { tables: true } },
+      modules: { select: { config: true } },
     },
   });
   if (!project || project.ownerId !== user.id) {
@@ -88,14 +108,9 @@ export async function GET(_req: Request, ctx: { params: Promise<{ id: string }> 
             `SELECT * FROM ${qident(schema)}.${qident(t.name)} ORDER BY id ASC`
           );
           // Hashed passwords are useless offline (argon2 can't be verified
-          // in-browser) and shouldn't ship in a portable file anyway.
-          seed[t.name] = rows.rows.map((r: Record<string, unknown>) => {
-            const out: Record<string, unknown> = { ...r };
-            for (const k of Object.keys(out)) {
-              if (/password|_hash$/i.test(k)) out[k] = null;
-            }
-            return out;
-          });
+          // in-browser), and no password, secret or token should ship in a
+          // portable file anyway.
+          seed[t.name] = rows.rows.map((r: Record<string, unknown>) => redactRow(r));
         } catch {
           seed[t.name] = [];
         }
@@ -120,13 +135,19 @@ export async function GET(_req: Request, ctx: { params: Promise<{ id: string }> 
   // ── Shared page ingredients ────────────────────────────────────
   const themeData = project.theme as (ProjectTheme & { dark?: ProjectTheme }) | null;
   const themeCss = themeToCss(themeData, themeData?.dark ?? null);
-  const [bootstrap, nkPublicCss, nkOfflineJs] = await Promise.all([
+  const [bootstrap, nkPublicCss, nkOfflineJs, { brand }] = await Promise.all([
     bootstrapCss(),
-    readFile(join(process.cwd(), "public", "nk-public.css"), "utf8").catch(() => ""),
-    readFile(join(process.cwd(), "public", "nk-offline.js"), "utf8"),
+    readFile(join(process.cwd(), "public", "nk-public.css"), "utf8").then(withoutHeaderComment).catch(() => ""),
+    readFile(join(process.cwd(), "public", "nk-offline.js"), "utf8").then(withoutHeaderComment),
+    getRequestBrand(user),
   ]);
 
-  const flowsPayload = project.flows.map((f) => ({ id: f.id, graph: f.graph }));
+  // Private keys stay out of the bundle: steps that need them (payments,
+  // SMS, paid APIs) can't work offline anyway.
+  const redaction = newRedactionReport();
+  const secretValues = new Set<string>();
+  for (const m of project.modules) redactModuleConfig(m.config, secretValues, redaction);
+  const flowsPayload = project.flows.map((f) => ({ id: f.id, graph: redactFlowGraph(f.graph, secretValues, redaction) }));
 
   function rewriteHtml(html: string): string {
     let out = html;
@@ -161,10 +182,10 @@ export async function GET(_req: Request, ctx: { params: Promise<{ id: string }> 
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>${page.title.replace(/</g, "&lt;")}</title>
-<style>${bootstrap}</style>
-<style>${nkPublicCss}</style>
-<style>${themeCss}</style>
-<style>${rewriteAssets(page.css ?? "", bundled, "./assets")}</style>
+<style>${styleSafe(bootstrap)}</style>
+<style>${styleSafe(nkPublicCss)}</style>
+<style>${styleSafe(themeCss)}</style>
+<style>${styleSafe(rewriteAssets(page.css ?? "", bundled, "./assets"))}</style>
 </head>
 <body>
 ${rewriteHtml(inner)}
@@ -187,7 +208,7 @@ ${rewriteHtml(inner)}
 
   zip.file(
     "README.txt",
-    `${project.name} — offline app (exported from Nullkode ${new Date().toISOString().slice(0, 10)})
+    `${project.name} — offline app (exported from ${brand.appName} ${new Date().toISOString().slice(0, 10)})
 
 HOW TO USE
   1. Keep this folder together (you can move it anywhere — Desktop, C:\\, a USB stick).
@@ -207,7 +228,7 @@ WHAT DOESN'T
     sign up fresh inside the offline app.
   - Emails, Google Sheets, AI features, push notifications, and any flow
     step that calls an external website (unless you happen to be online).
-${bootstrap ? "" : "  - NOTE: Bootstrap CSS could not be bundled at export time; layout may look off.\n"}`
+${redaction.removed > 0 ? "  - Steps that use your private keys (for example payments or text messages):\n    the keys are left out of this file, so it is safe to share.\n" : ""}${bootstrap ? "" : "  - NOTE: Bootstrap CSS could not be bundled at export time; layout may look off.\n"}`
   );
 
   const blob = await zip.generateAsync({ type: "nodebuffer", compression: "DEFLATE" });

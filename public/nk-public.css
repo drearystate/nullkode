@@ -1,5 +1,5 @@
 /* ============================================================
- * Nullkode public design system
+ * App design system
  * Loaded into every published app (and the editor canvas) on top
  * of Bootstrap 5. Tweaks typography, color, spacing and component
  * styles so every module gets a sleek, cohesive look by default.
@@ -326,3 +326,19 @@ html { scroll-behavior: smooth; }
 
 /* Selection color */
 ::selection { background: color-mix(in srgb, var(--nk-primary) 30%, transparent); color: var(--nk-text); }
+
+/* A button whose form is sending */
+[aria-busy="true"] { cursor: progress; }
+
+/* Visitors who ask their device for less motion get no lifts, slides or
+   smooth scrolling. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  a > .card:hover, .card.hoverable:hover, .nk-feature:hover, .btn:hover, .btn:active { transform: none !important; }
+}

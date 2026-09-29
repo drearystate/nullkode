@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
+import { deleteAccountUrl } from "@/lib/app-account-data";
 import { DataPanel } from "@/components/data/data-panel";
 import type { TableSummary } from "@/components/data/format";
 import { listTables } from "@/app/api/projects/[id]/data/_lib/tables";
@@ -27,6 +28,8 @@ export default async function DataPage({
   } catch (err) {
     console.error("[data] listing tables failed", err);
   }
+  // The public delete-account page only answers once the app is published.
+  const deletionPage = project.published ? await deleteAccountUrl(project).catch(() => null) : null;
 
   return (
     <div className="mx-auto max-w-6xl px-6 py-10">
@@ -38,6 +41,7 @@ export default async function DataPage({
       <DataPanel
         projectId={id}
         tables={tables}
+        deleteAccountUrl={deletionPage}
         datasources={project.datasources.map((d) => ({
           id: d.id,
           name: d.name,

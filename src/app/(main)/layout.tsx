@@ -17,7 +17,7 @@ export async function generateMetadata(): Promise<Metadata> {
     // The platform's install manifest names the platform; resellers' clients don't get it.
     ...(reseller ? {} : { manifest: "/site.webmanifest" }),
     // /favicon.ico is host-aware: the brand's icon, or its initial on its colour.
-    icons: { icon: brand.faviconDataUrl || "/favicon.ico" },
+    icons: brand.faviconDataUrl ? { icon: brand.faviconDataUrl } : { icon: [{ url: "/favicon.ico" }, { url: "/favicon.svg", type: "image/svg+xml" }], apple: "/apple-touch-icon.png" },
   };
 }
 

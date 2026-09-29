@@ -101,6 +101,9 @@ export const mediaPlaylist: ModuleDefinition = {
   </div>
 </div>
 <script>(function(){
+  function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+  function safeUrl(u){u=String(u||'');return /^(https?:|\\/|data:image\\/)/i.test(u)?u:'#'}
+  function start(m){ var p = m.play(); if(p && p.catch) p.catch(function(){}); }
   var items = []; var idx = 0;
   function play(i){
     if(i < 0 || i >= items.length) return;
@@ -108,8 +111,8 @@ export const mediaPlaylist: ModuleDefinition = {
     var it = items[i];
     var a = document.getElementById('nk-pl-audio'); var v = document.getElementById('nk-pl-video');
     a.style.display='none'; v.style.display='none'; a.pause(); v.pause();
-    if(it.kind === 'video'){ v.src = it.url; v.style.display='block'; v.play(); }
-    else { a.src = it.url; a.style.display='block'; a.play(); }
+    if(it.kind === 'video'){ v.src = safeUrl(it.url); v.style.display='block'; start(v); }
+    else { a.src = safeUrl(it.url); a.style.display='block'; start(a); }
     document.getElementById('nk-pl-title').textContent = it.title || '';
     document.getElementById('nk-pl-artist').textContent = it.artist || '';
     Array.from(document.querySelectorAll('[data-pl-idx]')).forEach(function(el){ el.classList.toggle('border-primary', parseInt(el.getAttribute('data-pl-idx'),10) === i); });
@@ -122,10 +125,10 @@ export const mediaPlaylist: ModuleDefinition = {
   document.getElementById('nk-pl-video').addEventListener('ended', next);
   fetch('/api/run/' + ((window.__nkFlowSlugMap||{})['items']||'items'), { method:'POST', headers:{'content-type':'application/json'}, body:'{}' })
     .then(function(r){return r.json();}).then(function(rows){
-      items = rows || [];
+      items = Array.isArray(rows) ? rows : [];
       document.getElementById('nk-pl-queue').innerHTML = items.map(function(it, i){
         var icon = it.kind === 'video' ? '' : '';
-        return '<div data-pl-idx="'+i+'" class="d-flex gap-2 align-items-center p-2 border rounded mb-2" style="cursor:pointer;background:var(--nk-surface);"><img style="width:48px;height:48px;object-fit:cover;border-radius:6px;" src="'+(it.thumb_url||'https://picsum.photos/seed/x/100')+'"/><div class="flex-grow-1"><div class="fw-bold small">'+icon+' '+(it.title||'')+'</div><div class="small" style="color:var(--nk-text-muted);">'+(it.artist||'')+'</div></div></div>';
+        return '<div data-pl-idx="'+i+'" class="d-flex gap-2 align-items-center p-2 border rounded mb-2" style="cursor:pointer;background:var(--nk-surface);"><img style="width:48px;height:48px;object-fit:cover;border-radius:6px;" src="'+esc(safeUrl(it.thumb_url||'https://picsum.photos/seed/x/100'))+'" alt=""/><div class="flex-grow-1"><div class="fw-bold small">'+icon+' '+esc(it.title||'')+'</div><div class="small" style="color:var(--nk-text-muted);">'+esc(it.artist||'')+'</div></div></div>';
       }).join('');
       document.querySelectorAll('[data-pl-idx]').forEach(function(el){ el.addEventListener('click', function(){ play(parseInt(el.getAttribute('data-pl-idx'),10)); }); });
       if(items.length) play(0);

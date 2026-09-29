@@ -17,7 +17,7 @@ async function waitFor(url) { for(let i=0;i<120;i++){try{const r=await fetch(url
  execFileSync('docker',['run','-d','--name',name,'-e','POSTGRES_PASSWORD='+password,'-e','POSTGRES_DB=nullkode','-p','127.0.0.1::5432','postgres:16-alpine'],{stdio:'pipe'});
  const binding=execFileSync('docker',['port',name,'5432'],{encoding:'utf8'}).trim();
  const dbPort=binding.split(':').pop();
- const env={...process.env,DATABASE_URL:`postgresql://postgres:${password}@127.0.0.1:${dbPort}/nullkode`,AUTH_SECRET:randomBytes(32).toString('hex'),INSTALL_TOKEN:token,PUBLIC_BASE_URL:`http://localhost:${port}`,NK_BUILD_DIR:'.next-release-check',AI_PROVIDER:'openai',DESIGNER_ENGINE:'api',AI_MAX_OUTPUT_TOKENS:'8192',OPENAI_API_KEY:'review-mock-key',STRIPE_SECRET_KEY:'',STRIPE_WEBHOOK_SECRET:'',ADMIN_EMAILS:''};
+ const env={...process.env,DATABASE_URL:`postgresql://postgres:${password}@127.0.0.1:${dbPort}/nullkode`,AUTH_SECRET:randomBytes(32).toString('hex'),INSTALL_TOKEN:token,PUBLIC_BASE_URL:`http://localhost:${port}`,NK_BUILD_DIR:'.next-release-check',AI_PROVIDER:'openai',AI_MAX_OUTPUT_TOKENS:'8192',OPENAI_API_KEY:'review-mock-key',STRIPE_SECRET_KEY:'',STRIPE_WEBHOOK_SECRET:'',ADMIN_EMAILS:''};
  writeFileSync('/tmp/nullkode-release-test-env.json',JSON.stringify({name,env}),{mode:0o600});
  for(let i=0;i<40;i++){try{execFileSync('docker',['exec',name,'pg_isready','-U','postgres'],{stdio:'pipe'});break;}catch{} await new Promise(r=>setTimeout(r,500));}
  execFileSync('node',[root+'/node_modules/prisma/build/index.js','db','push','--skip-generate'],{cwd:root,env,stdio:'pipe'});
@@ -26,7 +26,7 @@ async function waitFor(url) { for(let i=0;i<120;i++){try{const r=await fetch(url
  if(req.method==='GET'){res.setHeader('Content-Type','application/json');return res.end(JSON.stringify(req.url.endsWith('/models')?{object:'list',data:[{id:'qwen-test-27b',object:'model',max_model_len:32768}]}:{}));}
  const body=JSON.parse(raw||'{}');calls.push(body);let content='{"ok":true}';
  const system=body.messages?.[0]?.content||'';
- if(system.includes('Plan only.'))content=JSON.stringify({message:'Created a working home page.',files:[{path:'index.html',instructions:'Create a welcome page.'}]});
+ if(system.includes('Plan only.')||system.includes('Plan the change.'))content=JSON.stringify({message:'Created a working home page.',files:[{path:'index.html',instructions:'Create a welcome page.'}]});
  else if(system.includes('complete HTML document'))content='<!doctype html><html><head><style>body{font-family:system-ui}</style></head><body><main><h1>Review app</h1><a href="https://example.org">Learn more</a></main></body></html>';
  if(body.stream){res.setHeader('Content-Type','text/event-stream');const chunk=(delta,finish)=>`data: ${JSON.stringify({id:'review',object:'chat.completion.chunk',created:1,model:body.model,choices:[{index:0,delta,finish_reason:finish}]})}\n\n`;res.write(chunk({role:'assistant',content:content.slice(0,Math.ceil(content.length/2))},null));res.write(chunk({content:content.slice(Math.ceil(content.length/2))},null));res.write(chunk({},'stop'));return res.end('data: [DONE]\n\n');}
  res.setHeader('Content-Type','application/json');res.end(JSON.stringify({id:'review',object:'chat.completion',created:1,model:body.model,choices:[{index:0,message:{role:'assistant',content},finish_reason:'stop'}],usage:{prompt_tokens:1,completion_tokens:1,total_tokens:2}}));});
@@ -34,7 +34,7 @@ async function waitFor(url) { for(let i=0;i<120;i++){try{const r=await fetch(url
  if (image) {
    appContainer=name+'-app';
    const dockerEnv={...env,PORT:'3001'};
-   execFileSync('docker',['run','-d','--name',appContainer,'--network','host',...['DATABASE_URL','AUTH_SECRET','INSTALL_TOKEN','PUBLIC_BASE_URL','OPENAI_API_KEY','AI_PROVIDER','DESIGNER_ENGINE','AI_MAX_OUTPUT_TOKENS','STRIPE_SECRET_KEY','STRIPE_WEBHOOK_SECRET','ADMIN_EMAILS'].flatMap(k=>['-e',k]),image,'sh','-c',`node node_modules/prisma/build/index.js db push --skip-generate && node node_modules/next/dist/bin/next start -p ${port} -H 127.0.0.1`],{env:dockerEnv,stdio:'pipe'});
+   execFileSync('docker',['run','-d','--name',appContainer,'--network','host',...['DATABASE_URL','AUTH_SECRET','INSTALL_TOKEN','PUBLIC_BASE_URL','OPENAI_API_KEY','AI_PROVIDER','AI_MAX_OUTPUT_TOKENS','STRIPE_SECRET_KEY','STRIPE_WEBHOOK_SECRET','ADMIN_EMAILS'].flatMap(k=>['-e',k]),image,'sh','-c',`node node_modules/prisma/build/index.js db push --skip-generate && node node_modules/next/dist/bin/next start -p ${port} -H 127.0.0.1`],{env:dockerEnv,stdio:'pipe'});
  } else {
    next=spawn('node',[root+'/node_modules/next/dist/bin/next','dev','-p',String(port),'-H','127.0.0.1'],{cwd:root,env,stdio:['ignore','pipe','pipe']});next.stdout.pipe(log);next.stderr.pipe(log);
  }
@@ -42,6 +42,7 @@ async function waitFor(url) { for(let i=0;i<120;i++){try{const r=await fetch(url
  browser=await chromium.launch({headless:true,args:['--no-sandbox']});
  const ctx=await browser.newContext(); const page=await ctx.newPage(); const pageErrors=[];page.on("pageerror",e=>pageErrors.push(e.message));page.on('console',m=>{if(m.type()==='error'&&/same key|hydration|Cannot update/.test(m.text()))pageErrors.push(m.text());}); const api=ctx.request; const base=`http://localhost:${port}`;
  const post=(path,data)=>api.post(base+path,{data});
+ const waitDesign=async id=>{for(let i=0;i<240;i++){const g=await (await api.get(base+'/api/designs/'+id)).json();if(!g.runningJobId)return g;await new Promise(r=>setTimeout(r,500));}throw new Error('Designer build timed out');};
  assert.equal((await post('/api/install/ai',{provider:'skip'})).status(),403);
  assert.equal((await post('/api/install/finish',{})).status(),403);
  const owner={name:'Review Owner',email:'owner@example.invalid',password:'review-password-long-2026',token};
@@ -55,8 +56,8 @@ async function waitFor(url) { for(let i=0;i<120;i++){try{const r=await fetch(url
  assert.equal((await post('/api/install/admin',owner)).status(),409);
  await page.goto(base+'/dashboard');await page.getByRole('link',{name:'Review Studio home'}).waitFor();
  await page.goto(base+'/new');assert.match(await page.textContent('body'),/Designer/);
- r=await post('/api/designer/ipc/snapshots/createDesign',{name:'Review app'});assert.equal(r.status(),200,await r.text());const design=await r.json();
- r=await post('/api/designer/ipc/generate',{designId:design.id,generationId:'review-'+Date.now(),prompt:'Build a simple welcome page.'});const result=await r.json();assert.ok(result.artifacts?.some(a=>a.entryPath==='index.html'),JSON.stringify(result));
+ r=await post('/api/designs',{name:'Review app'});assert.equal(r.status(),200,await r.text());const design=(await r.json()).design;
+ r=await post('/api/designs/'+design.id+'/generate',{prompt:'Build a simple welcome page.'});assert.equal(r.status(),200,await r.text());const result=await waitDesign(design.id);assert.ok(result.design.files.some(f=>f.path==='index.html'),JSON.stringify(result.chat));
  assert.ok(calls.length>=2); assert.ok(calls.every(c=>c.model==='qwen-test-27b'));assert.ok(calls.every(c=>!('reasoning_effort' in c)));assert.ok(calls.every(c=>c.max_tokens<=8192));
  const {PrismaClient}=require(root+'/node_modules/@prisma/client');const db=new PrismaClient({datasourceUrl:env.DATABASE_URL});
  const templates=await (await api.get(base+'/api/templates')).json();const originals=templates.templates.filter(t=>t.id.startsWith('original-'));assert.ok(originals.length>=Number(process.env.MIN_ORIGINALS||1),'Original templates missing: '+originals.length);assert.equal(new Set(templates.templates.map(t=>t.id)).size,templates.templates.length,'Template IDs must be unique');
@@ -66,18 +67,18 @@ async function waitFor(url) { for(let i=0;i<120;i++){try{const r=await fetch(url
  await page.goto(base+'/new?mode=template');await page.getByRole('button',{name:new RegExp(pick.name.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'))}).first().click();
  await page.getByRole('dialog').waitFor();assert.match(await page.getByRole('dialog').textContent(),/Create app from this template/);await page.getByRole('button',{name:'Close template preview'}).click();
  await page.evaluate(()=>window.scrollTo(0,0));await page.waitForFunction(()=>[...document.images].filter(i=>i.getBoundingClientRect().top<innerHeight).every(i=>i.complete));await page.screenshot({caret:'initial',path:'/tmp/nullkode-template-gallery.png'});
- const md=await post('/api/designer/ipc/snapshots/createDesign',{name:'Backend Review'});const backendDesign=await md.json();
- for(const f of [{path:'index.html',content:'<main><form data-nk-form data-nk-flow-ref="add-item"><input name="title"><button>Save</button></form></main>'},{path:'meta/tables.json',content:JSON.stringify({tables:[{name:'items',fields:[{name:'title',type:'text'}]}]})},{path:'meta/flows.json',content:JSON.stringify({flows:[{slug:'add-item',name:'Add item',kind:'insert',table:'items',fields:['title']},{slug:'list-items',name:'List items',kind:'query',table:'items'}]})}])assert.equal((await post('/api/designer/ipc/files/write',{designId:backendDesign.id,...f})).status(),200);
- r=await post('/api/designer/ipc/generate',{designId:backendDesign.id,generationId:'backend-review-'+Date.now(),prompt:'Polish the home page.'});const br=await r.json();assert.ok(br.artifacts,JSON.stringify(br));
+ const md=await post('/api/designs',{name:'Backend Review'});const backendDesign=(await md.json()).design;
+ for(const f of [{path:'index.html',content:'<main><form data-nk-form data-nk-flow-ref="add-item"><input name="title"><button>Save</button></form></main>'},{path:'meta/tables.json',content:JSON.stringify({tables:[{name:'items',fields:[{name:'title',type:'text'}]}]})},{path:'meta/flows.json',content:JSON.stringify({flows:[{slug:'add-item',name:'Add item',kind:'insert',table:'items',fields:['title']},{slug:'list-items',name:'List items',kind:'query',table:'items'}]})}])await db.designerFile.create({data:{designId:backendDesign.id,path:f.path,content:f.content,kind:f.path.endsWith('.html')?'HTML':'TEXT',size:f.content.length}});
+ r=await post('/api/designs/'+backendDesign.id+'/generate',{prompt:'Polish the home page.'});assert.equal(r.status(),200,await r.text());const br=await waitDesign(backendDesign.id);assert.ok(br.design.files.length>=3,JSON.stringify(br.chat));
  const backed=await db.designerDesign.findUnique({where:{id:backendDesign.id}});const flows=await db.flow.findMany({where:{projectId:backed.projectId}});assert.equal(flows.length,2);
  const add=flows.find(f=>f.slug==='add-item'),list=flows.find(f=>f.slug==='list-items');
  r=await post('/api/run/'+add.id,{title:'Saved from the test'});assert.equal(r.status(),200,await r.text());
  r=await post('/api/run/'+list.id,{});assert.equal(r.status(),200,await r.text());assert.match(await r.text(),/Saved from the test/);
- r=await post('/api/designer/ipc/generate',{designId:backendDesign.id,generationId:'backend-repeat-'+Date.now(),prompt:'Polish the spacing.'});assert.ok((await r.json()).artifacts);assert.equal(await db.flow.count({where:{projectId:backed.projectId}}),2,'Repeat edits duplicated flows');
+ r=await post('/api/designs/'+backendDesign.id+'/generate',{prompt:'Polish the spacing.'});assert.equal(r.status(),200,await r.text());await waitDesign(backendDesign.id);assert.equal(await db.flow.count({where:{projectId:backed.projectId}}),2,'Repeat edits duplicated flows');
  await page.setViewportSize({width:1440,height:960});await page.goto(base+`/projects/${backed.projectId}/flows/${list.id}`);await page.locator('.react-flow').waitFor();await page.screenshot({caret:'initial',path:'/tmp/nullkode-original-flows.png'});
  await page.goto(base+`/projects/${backed.projectId}/data`);await page.getByText(/\b\d+ rows?\b/).first().waitFor();await page.screenshot({caret:'initial',path:'/tmp/nullkode-original-data.png'});
  const other=await db.user.create({data:{email:'other@example.invalid',passwordHash:'disabled'}});const otherDesign=await db.designerDesign.create({data:{name:'Private',userId:other.id}});
- assert.equal((await post('/api/designer/ipc/files/read',{designId:otherDesign.id,path:'index.html'})).status(),404);
+ assert.equal((await api.get(base+'/api/designs/'+otherDesign.id+'/preview/index.html')).status(),404);assert.equal((await api.get(base+'/api/designs/'+otherDesign.id)).status(),404);
  const otherProject=await db.project.create({data:{ownerId:other.id,name:'Private',slug:'private-review'}});const otherPage=await db.page.create({data:{projectId:otherProject.id,title:'Secret',slug:'home',html:'secret'}});
  const myProject=await db.project.findFirst({where:{ownerId:{not:other.id}}});
  assert.equal((await api.patch(base+`/api/projects/${myProject.id}/pages/${otherPage.id}`,{data:{html:'changed'}})).status(),404);

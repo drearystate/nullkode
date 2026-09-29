@@ -7,13 +7,17 @@ import { aiReady } from "@/lib/ai/client";
 import { aiQuotaProblem } from "@/lib/ai-quota";
 import { TopBar } from "@/components/top-bar";
 import { NewProjectWizard } from "@/components/new-project-wizard";
+import { queryString } from "@/lib/app-hosts";
+import { withNext } from "@/lib/safe-next";
 
 export const dynamic = "force-dynamic";
 
-export default async function NewProjectPage({ searchParams }: { searchParams: Promise<{ runId?: string }> }) {
+export default async function NewProjectPage({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
+  const params = await searchParams;
   const user = await getCurrentUser();
-  if (!user) redirect("/login");
-  const { runId } = await searchParams;
+  // Come back here (with the idea, template or run in the URL) after signing in.
+  if (!user) redirect(withNext("/login", `/new${queryString(params)}`));
+  const runId = typeof params.runId === "string" ? params.runId : undefined;
   const [ready, problem, limit] = await Promise.all([aiReady(), aiQuotaProblem(user), checkProjectLimit(user)]);
   // A build that's already running (or just finished) is shown even at the limit.
   const limitMessage = limit && !runId ? ((await limit.json().catch(() => ({}))) as { error?: string }).error || "You've reached your app limit." : null;

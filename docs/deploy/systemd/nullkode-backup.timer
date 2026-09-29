@@ -1,0 +1,13 @@
+# Runs nullkode-backup.service every night. Change OnCalendar to pick the
+# time (the server's time zone). If the server was off at that time, the
+# backup runs soon after it starts again (Persistent=true).
+[Unit]
+Description=Nightly Nullkode backup
+
+[Timer]
+OnCalendar=*-*-* 03:30:00
+Persistent=true
+RandomizedDelaySec=5min
+
+[Install]
+WantedBy=timers.target

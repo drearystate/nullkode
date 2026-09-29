@@ -97,6 +97,7 @@ export const storeLocator: ModuleDefinition = {
   <div class="col-lg-7"><div id="nk-sl-map" style="height:560px;border-radius:10px;background:#e5e7eb;"></div></div>
 </div>
 <script>(function(){
+  function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
   var map = L.map('nk-sl-map').setView([47.6,-122.3], 10);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution:'© OSM' }).addTo(map);
   var layer = L.layerGroup().addTo(map);
@@ -104,14 +105,14 @@ export const storeLocator: ModuleDefinition = {
   function dist(a,b,c,d){ var R=6371,toR=function(x){return x*Math.PI/180;}; var dLat=toR(c-a),dLng=toR(d-b); var x=Math.sin(dLat/2)*Math.sin(dLat/2)+Math.cos(toR(a))*Math.cos(toR(c))*Math.sin(dLng/2)*Math.sin(dLng/2); return R*2*Math.atan2(Math.sqrt(x),Math.sqrt(1-x)); }
   function paint(stores){
     layer.clearLayers();
-    var sorted = (stores||[]).slice();
+    var sorted = (Array.isArray(stores)?stores:[]).slice();
     if(userLoc) sorted.sort(function(a,b){ return dist(userLoc.lat, userLoc.lng, a.lat, a.lng) - dist(userLoc.lat, userLoc.lng, b.lat, b.lng); });
     document.getElementById('nk-sl-list').innerHTML = sorted.map(function(s){
-      var d = userLoc ? '<div class="small fw-bold" style="color:var(--nk-primary);">'+dist(userLoc.lat,userLoc.lng,s.lat,s.lng).toFixed(1)+' km away</div>' : '';
-      var mapsUrl = 'https://www.google.com/maps/dir/?api=1&destination='+s.lat+','+s.lng;
-      return '<div class="card border-0 shadow-sm mb-3"><div class="card-body"><div class="fw-bold fs-5">'+s.name+'</div>'+d+'<div class="small mt-1"> '+s.address+', '+s.city+'</div><div class="small"> '+s.hours+'</div><div class="small"> '+s.phone+'</div><div class="small"> '+s.services+'</div><div class="mt-2"><a class="btn btn-outline-primary btn-sm" target="_blank" href="'+mapsUrl+'"> Directions</a></div></div></div>';
+      var away = userLoc ? '<div class="small fw-bold" style="color:var(--nk-primary);">'+dist(userLoc.lat,userLoc.lng,s.lat,s.lng).toFixed(1)+' km away</div>' : '';
+      var mapsUrl = 'https://www.google.com/maps/dir/?api=1&destination='+encodeURIComponent(s.lat+','+s.lng);
+      return '<div class="card border-0 shadow-sm mb-3"><div class="card-body"><div class="fw-bold fs-5">'+esc(s.name)+'</div>'+away+'<div class="small mt-1"> '+esc(s.address)+', '+esc(s.city)+'</div><div class="small"> '+esc(s.hours)+'</div><div class="small"> '+esc(s.phone)+'</div><div class="small"> '+esc(s.services)+'</div><div class="mt-2"><a class="btn btn-outline-primary btn-sm" target="_blank" rel="noopener" href="'+esc(mapsUrl)+'"> Directions</a></div></div></div>';
     }).join('');
-    sorted.forEach(function(s){ L.marker([s.lat, s.lng]).bindPopup('<b>'+s.name+'</b><br/>'+s.address).addTo(layer); });
+    sorted.forEach(function(s){ L.marker([s.lat, s.lng]).bindPopup('<b>'+esc(s.name)+'</b><br/>'+esc(s.address)).addTo(layer); });
     if(sorted.length){ var b = L.latLngBounds(sorted.map(function(s){return [s.lat, s.lng];})); if(userLoc) b.extend([userLoc.lat, userLoc.lng]); map.fitBounds(b, { padding:[40,40] }); }
   }
   function load(){
@@ -119,8 +120,8 @@ export const storeLocator: ModuleDefinition = {
       .then(function(r){return r.json();}).then(paint);
   }
   document.getElementById('nk-sl-loc').addEventListener('click', function(){
-    if(!navigator.geolocation){ alert('Geolocation not supported'); return; }
-    navigator.geolocation.getCurrentPosition(function(p){ userLoc = { lat:p.coords.latitude, lng:p.coords.longitude }; L.marker([userLoc.lat, userLoc.lng], { title:'You' }).addTo(layer); load(); });
+    if(!navigator.geolocation){ (window.nkToast||alert)("This device can't share its location."); return; }
+    navigator.geolocation.getCurrentPosition(function(p){ userLoc = { lat:p.coords.latitude, lng:p.coords.longitude }; L.marker([userLoc.lat, userLoc.lng], { title:'You' }).addTo(layer); load(); }, function(){ (window.nkToast||alert)("We couldn't get your location. Please allow location access and try again."); });
   });
   load();
 })();</script>

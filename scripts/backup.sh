@@ -1,14 +1,22 @@
 #!/usr/bin/env bash
+# Makes a full backup now, while Nullkode keeps running: the database,
+# uploaded files, imported website files and, when BACKUP_PASSPHRASE is set
+# in .env, an encrypted copy of .env. It uses the same backup container as
+# the nightly backups and saves into backups/ (or BACKUP_DIR from .env).
+# Backups made this way are never deleted automatically.
+#
+#   bash scripts/backup.sh
+#
+# On Windows (PowerShell), in the Nullkode folder: docker compose run --rm backup once
 set -euo pipefail
 cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.."
-umask 077
-backup_path="backups/$(date -u +%Y%m%dT%H%M%SZ)"
-mkdir -p "$backup_path"
-# Stop writers while capturing a matching database/assets snapshot.
-trap 'docker compose start app >/dev/null' EXIT
-docker compose stop app
-docker compose exec -T db pg_dump -U nullkode -d nullkode -Fc > "$backup_path/database.dump"
-docker compose run --rm --no-deps --entrypoint tar app -czf - uploads public/uploads public/assets/cloned > "$backup_path/assets.tar.gz"
-cp .env "$backup_path/.env"
-docker compose config --no-interpolate > "$backup_path/compose.yml"
-printf 'Backup saved to %s. Keep it private and copy it off this server.\n' "$backup_path"
+if [[ ! -f .env ]]; then
+  echo 'There is no .env in this folder. Run this from your Nullkode folder (where install.sh is).' >&2
+  exit 1
+fi
+# Create the backup folder as you (and private), so you can open and copy the
+# backups and nobody else can.
+backup_dir=$(sed -n 's/^BACKUP_DIR=//p' .env | tail -n 1 | tr -d "\"'\r")
+(umask 077 && mkdir -p -- "${backup_dir:-backups}")
+docker compose run --rm -T backup once
+echo "Keep backups private (they hold your customers' data) and copy them to another device."

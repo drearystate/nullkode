@@ -113,26 +113,28 @@ export const leaderboard: ModuleDefinition = {
 
 <form data-nk-form="" data-nk-flow-ref="submit" class="card p-3 shadow-sm mt-5">
   <h5 class="fw-bold">Submit a score</h5>
-  <div class="row g-2"><div class="col-md-4"><input name="category" class="form-control" placeholder="Category" value="{{config.defaultCategory}}"/></div><div class="col-md-4"><input name="user_label" class="form-control" placeholder="Player name"/></div><div class="col-md-3"><input name="score" type="number" step="0.01" class="form-control" placeholder="Score"/></div><div class="col-md-1"><button class="btn btn-primary w-100" type="submit">+</button></div></div>
+  <div class="row g-2"><div class="col-md-4"><input name="category" class="form-control" placeholder="Category" aria-label="Category" value="{{config.defaultCategory}}"/></div><div class="col-md-4"><input name="user_label" class="form-control" placeholder="Player name" aria-label="Player name"/></div><div class="col-md-3"><input name="score" type="number" step="0.01" class="form-control" placeholder="Score" aria-label="Score"/></div><div class="col-md-1"><button class="btn btn-primary w-100" type="submit" aria-label="Add score">+</button></div></div>
 </form>
 
 <script>(function(){
-  var cat = '{{config.defaultCategory}}';
+  function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+  function safeUrl(u){u=String(u||'');return /^(https?:|\\/|data:image\\/)/i.test(u)?u:'#'}
+  var cat = \`{{config.defaultCategory}}\`;
   function paint(){
     fetch('/api/run/' + ((window.__nkFlowSlugMap||{})['top']||'top'), { method:'POST', headers:{'content-type':'application/json'}, body: JSON.stringify({category:cat}) })
       .then(function(r){return r.json();}).then(function(rows){
         var medals = ['','',''];
-        document.getElementById('nk-board').innerHTML = (rows||[]).map(function(r, i){
+        document.getElementById('nk-board').innerHTML = (Array.isArray(rows)?rows:[]).map(function(r, i){
           var m = medals[i] || (i+1)+'.';
-          return '<div class="d-flex align-items-center gap-3 p-3 border rounded mb-2" style="background:var(--nk-surface);"><div class="fs-3" style="width:40px;text-align:center;">'+m+'</div><img class="rounded-circle" style="width:48px;height:48px;object-fit:cover;" src="'+(r.avatar_url||'https://i.pravatar.cc/100')+'"/><div class="flex-grow-1 fw-bold">'+r.user_label+'</div><div class="fs-4 fw-bold" style="color:var(--nk-primary);">'+r.score+'</div></div>';
+          return '<div class="d-flex align-items-center gap-3 p-3 border rounded mb-2" style="background:var(--nk-surface);"><div class="fs-3" style="width:40px;text-align:center;">'+m+'</div><img class="rounded-circle" style="width:48px;height:48px;object-fit:cover;" src="'+esc(safeUrl(r.avatar_url||'https://i.pravatar.cc/100'))+'" alt=""/><div class="flex-grow-1 fw-bold">'+esc(r.user_label)+'</div><div class="fs-4 fw-bold" style="color:var(--nk-primary);">'+esc(r.score)+'</div></div>';
         }).join('') || '<div class="alert alert-light">No scores yet.</div>';
       });
   }
   function paintCats(){
     fetch('/api/run/' + ((window.__nkFlowSlugMap||{})['categories']||'categories'), { method:'POST', headers:{'content-type':'application/json'}, body:'{}' })
       .then(function(r){return r.json();}).then(function(rows){
-        var set = {}; (rows||[]).forEach(function(r){ if(r.category) set[r.category]=1; });
-        document.getElementById('nk-cats').innerHTML = Object.keys(set).map(function(c){ return '<button class="btn btn-sm '+(c===cat?'btn-primary':'btn-outline-primary')+' nk-cat" data-c="'+c+'">'+c+'</button>'; }).join('');
+        var set = {}; (Array.isArray(rows)?rows:[]).forEach(function(r){ if(r.category) set[r.category]=1; });
+        document.getElementById('nk-cats').innerHTML = Object.keys(set).map(function(c){ return '<button type="button" class="btn btn-sm '+(c===cat?'btn-primary':'btn-outline-primary')+' nk-cat" data-c="'+esc(c)+'">'+esc(c)+'</button>'; }).join('');
         document.querySelectorAll('.nk-cat').forEach(function(b){ b.addEventListener('click', function(){ cat = b.getAttribute('data-c'); paint(); paintCats(); }); });
       });
   }

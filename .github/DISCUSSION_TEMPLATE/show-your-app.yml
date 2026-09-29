@@ -1,0 +1,41 @@
+# Form for the "Show your app" discussion category. The file name must match
+# the category's slug (show-your-app), which is created by hand in the
+# repository's Discussions settings.
+title: "Show: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Built something with Nullkode? We'd love to see it. Only share what you're happy for everyone to see: no private data, keys or customer details.
+  - type: textarea
+    id: what
+    attributes:
+      label: What did you build?
+      description: Who it's for and what it does.
+    validations:
+      required: true
+  - type: input
+    id: link
+    attributes:
+      label: Link
+      description: Optional. The published app, if it's public.
+  - type: dropdown
+    id: start
+    attributes:
+      label: How did you start?
+      options:
+        - Described it to the AI
+        - AI Designer
+        - A template
+        - Copied a website
+        - Blank app
+        - Imported an app
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: Drag pictures in here.
+  - type: textarea
+    id: learned
+    attributes:
+      label: Anything you learned, or wish worked differently?

@@ -188,8 +188,10 @@ export function plainSettings(flowOptions: FlowOption[]) {
         return out;
       };
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      dc.addType(id, { model: { defaults: { traits: traits as any } } });
+      dc.addType(id, { model: { defaults: { traits: traits as any }, initToolbar: plainToolbar } });
     }
+    editor.Commands.add(MOVE_UP, { run: (ed: Editor) => moveSelected(ed, -1) });
+    editor.Commands.add(MOVE_DOWN, { run: (ed: Editor) => moveSelected(ed, 1) });
     // A form only sends to its flow when it's marked as an app form.
     editor.on("component:update:attributes", (component: Component) => {
       if (String(component.get("tagName") ?? "").toLowerCase() !== "form") return;
@@ -197,6 +199,124 @@ export function plainSettings(flowOptions: FlowOption[]) {
       if (attrs["data-nk-flow"] && !("data-nk-form" in attrs)) component.addAttributes({ "data-nk-form": "" });
     });
   };
+}
+
+// ─── Element toolbar ───────────────────────────────────────────────────────
+
+const MOVE_UP = "nk:move-up";
+const MOVE_DOWN = "nk:move-down";
+
+const svgIcon = (path: string) => `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${path}"/></svg>`;
+const ICONS = {
+  parent: svgIcon("M9 4 4 9l1.41 1.41L8 7.83V14c0 3.31 2.69 6 6 6h6v-2h-6c-2.21 0-4-1.79-4-4V7.83l2.59 2.58L14 9 9 4z"),
+  up: svgIcon("M7.41 15.41 12 10.83l4.59 4.58L18 14l-6-6-6 6z"),
+  down: svgIcon("M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6z"),
+};
+
+type ToolbarItem = { id: string; label: string; command: string | ((ed: Editor) => unknown); attributes: Record<string, unknown> };
+
+/**
+ * Every piece's toolbar, in plain words: select the part around it, move it
+ * up or down (buttons work on touch screens, where dragging doesn't), drag,
+ * duplicate and delete. Replaces GrapesJS's own initToolbar, keeping its
+ * rules for which buttons a piece gets.
+ */
+function plainToolbar(this: Component) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const self = this as any;
+  const em = self.em;
+  if (this.get("toolbar") || !em) return;
+  const item = (id: string, label: string, title: string, command: ToolbarItem["command"], extra: Record<string, unknown> = {}): ToolbarItem => ({
+    id,
+    label,
+    command,
+    attributes: { title, "aria-label": title, role: "button", ...extra },
+  });
+  const tb: ToolbarItem[] = [];
+  if (self.collection) {
+    tb.push(item("nk-parent", ICONS.parent, "Select the part around this", (ed) => ed.runCommand("core:component-exit", { force: 1 })));
+  }
+  if (self.collection && this.get("draggable")) {
+    tb.push(item("nk-up", ICONS.up, "Move up", MOVE_UP));
+    tb.push(item("nk-down", ICONS.down, "Move down", MOVE_DOWN));
+    tb.push(item("nk-drag", em.getIcon("move"), "Drag to move", "tlb-move", { class: "gjs-no-touch-actions", draggable: true }));
+  }
+  if (this.get("copyable")) tb.push(item("nk-copy", em.getIcon("copy"), "Duplicate", "tlb-clone"));
+  if (this.get("removable")) tb.push(item("nk-delete", em.getIcon("delete"), "Delete", "tlb-delete"));
+  this.set("toolbar", tb);
+}
+
+/** Parts people can see and pick (not bits of text or page markers). */
+function isVisiblePart(c: Component): boolean {
+  const type = String(c.get("type") ?? "");
+  return c.get("layerable") !== false && type !== "textnode" && type !== "comment";
+}
+
+/**
+ * Moves the selected piece past its neighbour. Uses component.move(), so
+ * the move is one step in undo (Ctrl+Z).
+ */
+function moveSelected(editor: Editor, dir: -1 | 1) {
+  const c = editor.getSelected();
+  const parent = c?.parent();
+  if (!c || !parent) return;
+  const siblings = parent.components().models as Component[];
+  let j = siblings.indexOf(c) + dir;
+  while (j >= 0 && j < siblings.length && !isVisiblePart(siblings[j])) j += dir;
+  if (j < 0 || j >= siblings.length) return;
+  c.move(parent, { at: dir < 0 ? j : j + 1 });
+  editor.select(c);
+  scrollToPart(editor, c);
+}
+
+export function scrollToPart(editor: Editor, c: Component) {
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (editor.Canvas as any).scrollTo(c, { behavior: "smooth", block: "center", force: true });
+  } catch {
+    /* scrolling is a nicety */
+  }
+}
+
+// ─── Tap to add ────────────────────────────────────────────────────────────
+
+/** Block categories that make a whole part of the page, and GrapesJS's small basics listed among them. */
+const WHOLE_PART_CATEGORIES = new Set(["Layout", "Sections", "Premade"]);
+const SMALL_BASIC_BLOCKS = new Set(["text", "link", "image", "video", "map"]);
+
+export function isWholePartBlock(id: string, category: string): boolean {
+  return WHOLE_PART_CATEGORIES.has(category) && !SMALL_BASIC_BLOCKS.has(id);
+}
+
+function acceptsChildren(c: Component): boolean {
+  const droppable = c.get("droppable");
+  return droppable !== false && !c.get("void") && !c.isInstanceOf?.("text") && isVisiblePart(c);
+}
+
+/**
+ * Where a tapped block goes. A whole part (a section, a premade block) goes
+ * after the top-level section holding the selection: added inside the
+ * selection it could land in a button or a heading. A small piece (a button,
+ * a picture) goes inside the selected box, or right after the selected piece,
+ * never inside a line of text. With nothing selected, the end of the page.
+ */
+export function placeForBlock(editor: Editor, wholePart: boolean): { parent: Component; at: number } {
+  const wrapper = editor.getWrapper()!;
+  const selected = editor.getSelected();
+  const end = { parent: wrapper, at: wrapper.components().length };
+  if (!selected || selected === wrapper) return end;
+  if (wholePart) {
+    let top: Component = selected;
+    while (top.parent() && top.parent() !== wrapper) top = top.parent()!;
+    return top.parent() === wrapper ? { parent: wrapper, at: top.index() + 1 } : end;
+  }
+  if (acceptsChildren(selected)) return { parent: selected, at: selected.components().length };
+  let piece: Component = selected;
+  while (piece.parent() && piece.parent() !== wrapper && (piece.parent()!.isInstanceOf?.("text") || !acceptsChildren(piece.parent()!))) {
+    piece = piece.parent()!;
+  }
+  const parent = piece.parent();
+  return parent ? { parent, at: piece.index() + 1 } : end;
 }
 
 // ─── Click to edit ─────────────────────────────────────────────────────────
@@ -265,6 +385,44 @@ export async function syncEditingText(editor: Editor): Promise<void> {
   const caret = caretOffset(el);
   await view.syncContent({ noCount: true });
   if (caret !== null && editor.getEditing() === editing) setCaretOffset(el, caret);
+}
+
+/**
+ * The same copy, done at once: for a tab that's closing, where waiting a
+ * moment isn't possible. Passing the content in keeps GrapesJS from
+ * reading it asynchronously.
+ */
+export function syncEditingTextNow(editor: Editor): void {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const view = editor.getEditing()?.getView() as any;
+  if (!view?.syncContent) return;
+  const el = (view.getChildrenContainer?.() ?? view.el) as HTMLElement;
+  void view.syncContent({ noCount: true, content: el.innerHTML });
+}
+
+/**
+ * The page's HTML including words still being typed, without touching the
+ * text being edited (copying it into the page model mid-word would upset
+ * phone keyboards). Used for the copy kept in the browser.
+ */
+export function pageHtmlNow(editor: Editor): string {
+  const editing = editor.getEditing();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const view = editing?.getView() as any;
+  const el = (view?.getChildrenContainer?.() ?? view?.el) as HTMLElement | undefined;
+  if (!editing || !el) return editor.getHtml();
+  const live = el.innerHTML;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const target = editing as any;
+  const own = Object.prototype.hasOwnProperty.call(target, "getInnerHTML");
+  const previous = target.getInnerHTML;
+  target.getInnerHTML = () => live;
+  try {
+    return editor.getHtml();
+  } finally {
+    if (own) target.getInnerHTML = previous;
+    else delete target.getInnerHTML;
+  }
 }
 
 function caretOffset(el: HTMLElement): number | null {

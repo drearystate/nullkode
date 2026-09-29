@@ -177,6 +177,7 @@ export const deliveryTracking: ModuleDefinition = {
   <ol class="small mb-0" id="nk-events"></ol>
 </div>
 <script>(function(){
+  function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
   var id = new URLSearchParams(location.search).get('id') || '';
   var map = L.map('nk-tmap').setView([37.7749,-122.4194], 12);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution:'© OSM' }).addTo(map);
@@ -184,11 +185,11 @@ export const deliveryTracking: ModuleDefinition = {
   function poll(){
     fetch('/api/run/' + ((window.__nkFlowSlugMap||{})['get']||'get'), { method:'POST', headers:{'content-type':'application/json'}, body: JSON.stringify({id:id}) })
       .then(function(r){return r.json();}).then(function(d){
-        if(!d.delivery) return;
-        document.getElementById('nk-status').textContent = (d.delivery.status||'').toUpperCase();
+        if(!d || !d.delivery) return;
+        document.getElementById('nk-status').textContent = String(d.delivery.status||'').toUpperCase();
         document.getElementById('nk-driver').textContent = d.delivery.driver_name || '—';
         if(d.delivery.last_lat && d.delivery.last_lng){ var ll = [d.delivery.last_lat, d.delivery.last_lng]; marker.setLatLng(ll); map.setView(ll, 14); }
-        document.getElementById('nk-events').innerHTML = (d.events||[]).map(function(e){ return '<li>'+e.label+'</li>'; }).join('');
+        document.getElementById('nk-events').innerHTML = (Array.isArray(d.events)?d.events:[]).map(function(e){ return '<li>'+esc(e.label)+'</li>'; }).join('');
       });
   }
   poll(); setInterval(poll, 6000);

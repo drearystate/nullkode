@@ -157,6 +157,7 @@ export const statusPage: ModuleDefinition = {
 <div id="nk-inc-host"></div>
 
 <script>(function(){
+  function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
   function dot(s){
     var c = s === 'operational' ? '#10b981' : s === 'degraded' ? '#f59e0b' : s === 'partial-outage' ? '#f97316' : '#ef4444';
     return '<span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:'+c+';"></span>';
@@ -164,15 +165,17 @@ export const statusPage: ModuleDefinition = {
   function poll(){
     fetch('/api/run/' + ((window.__nkFlowSlugMap||{})['summary']||'summary'), { method:'POST', headers:{'content-type':'application/json'}, body:'{}' })
       .then(function(r){return r.json();}).then(function(d){
-        var anyDown = (d.services||[]).some(function(s){ return s.status !== 'operational'; }) || (d.active||[]).length > 0;
+        d = d || {};
+        var services = Array.isArray(d.services) ? d.services : [], recent = Array.isArray(d.recent) ? d.recent : [];
+        var anyDown = services.some(function(s){ return s.status !== 'operational'; }) || (Array.isArray(d.active) ? d.active : []).length > 0;
         var box = document.getElementById('nk-overall');
         if(anyDown){ box.style.background = '#ef4444'; box.querySelector('.fw-bold').textContent = ' Some services are affected'; }
         else { box.style.background = '#10b981'; box.querySelector('.fw-bold').textContent = ' All systems operational'; }
-        document.getElementById('nk-svc-host').innerHTML = (d.services||[]).map(function(s){
-          return '<div class="d-flex justify-content-between align-items-center p-3 border rounded mb-2" style="background:var(--nk-surface);"><div><div class="fw-bold">'+s.name+'</div><div class="small" style="color:var(--nk-text-muted);">'+(s.description||'')+'</div></div><div>'+dot(s.status)+' <span class="small text-capitalize">'+(s.status||'').replace('-',' ')+'</span></div></div>';
+        document.getElementById('nk-svc-host').innerHTML = services.map(function(s){
+          return '<div class="d-flex justify-content-between align-items-center p-3 border rounded mb-2" style="background:var(--nk-surface);"><div><div class="fw-bold">'+esc(s.name)+'</div><div class="small" style="color:var(--nk-text-muted);">'+esc(s.description||'')+'</div></div><div>'+dot(s.status)+' <span class="small text-capitalize">'+esc(String(s.status||'').replace('-',' '))+'</span></div></div>';
         }).join('');
-        document.getElementById('nk-inc-host').innerHTML = (d.recent||[]).map(function(i){
-          return '<div class="card border-0 shadow-sm mb-2 p-3"><div class="d-flex justify-content-between"><div class="fw-bold">'+i.title+'</div><span class="badge bg-secondary">'+i.status+'</span></div><div class="small mt-1" style="color:var(--nk-text-muted);">'+(i.summary||'')+'</div></div>';
+        document.getElementById('nk-inc-host').innerHTML = recent.map(function(i){
+          return '<div class="card border-0 shadow-sm mb-2 p-3"><div class="d-flex justify-content-between"><div class="fw-bold">'+esc(i.title)+'</div><span class="badge bg-secondary">'+esc(i.status)+'</span></div><div class="small mt-1" style="color:var(--nk-text-muted);">'+esc(i.summary||'')+'</div></div>';
         }).join('') || '<div class="small" style="color:var(--nk-text-muted);">No incidents reported.</div>';
       });
   }

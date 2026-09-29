@@ -6,8 +6,14 @@ import type { Plan, User } from "@prisma/client";
 
 export const BILLING_KEYS = { secret: "billing.secretKey", webhook: "billing.webhookSecret", catalog: "billing.catalog" };
 export type PaidPlan = "STARTER" | "PRO" | "TEAM";
-export type Catalog = Partial<Record<PaidPlan, { name: string; priceId: string; priceLabel: string }>>;
-export type PublicPlan = { key: Plan; name: string; price: string; features: string[] };
+/**
+ * A plan's price. amount (smallest currency unit, e.g. cents) and currency are
+ * what the operator typed; priceId/productId are the Stripe objects made from
+ * them (empty until Stripe is connected). Older catalogs have only priceId.
+ */
+export type CatalogEntry = { name: string; priceId: string; priceLabel: string; amount?: number; currency?: string; productId?: string };
+export type Catalog = Partial<Record<PaidPlan, CatalogEntry>>;
+export type PublicPlan = { key: Plan; name: string; price: string; features: string[]; /** False while the price exists in Nullkode but Stripe isn't connected yet. */ buyable: boolean };
 
 /**
  * Whose Stripe account a customer is billed on: the operator's (platform),
@@ -83,7 +89,8 @@ export async function getPublicPlans(scope: BillingScope = PLATFORM_SCOPE): Prom
   for (const key of ["FREE", "STARTER", "PRO", "TEAM"] as const) {
     const entry = key === "FREE" ? undefined : config.catalog?.[key];
     const priceId = key === "FREE" ? undefined : await priceFor(key, scope);
-    if (key !== "FREE" && !priceId) continue;
+    // A price set in Nullkode shows even before Stripe is connected.
+    if (key !== "FREE" && !priceId && !entry?.priceLabel) continue;
     const limits = scopedLimits?.[key] ?? (await limitsFor(key));
     const label = (n: number, one: string, many: string) => (Number.isFinite(n) ? `${n} ${n === 1 ? one : many}` : `Unlimited ${many}`);
     let price = key === "FREE" ? "$0" : entry?.priceLabel;
@@ -91,7 +98,7 @@ export async function getPublicPlans(scope: BillingScope = PLATFORM_SCOPE): Prom
       price = await liveLabel(priceId, scope);
       if (!price) continue;
     }
-    plans.push({ key, name: entry?.name || key[0] + key.slice(1).toLowerCase(), price: price!, features: [label(limits.maxProjects, "app", "apps"), label(limits.maxPublished, "published app", "published apps"), label(limits.maxPagesPerProject, "page per app", "pages per app"), label(limits.maxCustomDomains, "domain of your own", "domains of your own"), label(limits.aiActionsPerMonth, "AI action a month", "AI actions a month"), ...(limits.scheduledFlows ? ["Scheduled workflows"] : [])] });
+    plans.push({ key, buyable: key === "FREE" || Boolean(priceId), name: entry?.name || key[0] + key.slice(1).toLowerCase(), price: price!, features: [label(limits.maxProjects, "app", "apps"), label(limits.maxPublished, "published app", "published apps"), label(limits.maxPagesPerProject, "page per app", "pages per app"), label(limits.maxCustomDomains, "domain of your own", "domains of your own"), label(limits.aiActionsPerMonth, "AI action a month", "AI actions a month"), ...(limits.scheduledFlows ? ["Scheduled workflows"] : [])] });
   }
   return plans;
 }

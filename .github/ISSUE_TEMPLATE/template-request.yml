@@ -1,0 +1,44 @@
+name: Template request
+description: Ask for a ready-made starting design for a kind of business.
+labels: ["template"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Templates are the ready-made designs people start their apps from. Tell us who the template is for and what it needs to do.
+  - type: input
+    id: business
+    attributes:
+      label: What kind of business or project is it for?
+      placeholder: Dog grooming salon
+    validations:
+      required: true
+  - type: textarea
+    id: pages
+    attributes:
+      label: Which pages does it need?
+      placeholder: |
+        Home, services and prices, book an appointment, gallery, contact
+    validations:
+      required: true
+  - type: textarea
+    id: features
+    attributes:
+      label: What should visitors be able to do?
+      description: For example book, order, sign up, pay, leave a review, get notifications.
+    validations:
+      required: true
+  - type: textarea
+    id: examples
+    attributes:
+      label: Websites you like
+      description: Links to sites with the look or features you have in mind.
+  - type: dropdown
+    id: photos
+    attributes:
+      label: Could you help with photos?
+      description: Template photos must be free to reuse (for example CC0 or public domain), with a credit in the template's CREDITS.md.
+      options:
+        - No
+        - Yes, I can suggest free-to-use photos
+        - Yes, I have photos I can release under CC0

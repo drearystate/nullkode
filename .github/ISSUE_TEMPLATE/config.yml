@@ -1,0 +1,9 @@
+# TODO: replace YOUR_ORG once the GitHub organisation is chosen.
+blank_issues_enabled: false
+contact_links:
+  - name: Questions, help and showing your work
+    url: https://github.com/YOUR_ORG/nullkode/discussions
+    about: Ask how to do something, share an app you built, or share a template.
+  - name: Report a security problem privately
+    url: https://github.com/YOUR_ORG/nullkode/security/policy
+    about: Please don't open a public issue for security problems. The security policy says how to report them privately.

@@ -10,10 +10,59 @@ type Config = {
 
 const pools = new Map<string, Pool>();
 
+const SCHEMA_NAME = /^proj_[a-z0-9]+$/;
+
+/**
+ * The Postgres schema that holds an app's built-in tables ("proj_<id>").
+ * Project ids are cuids (lowercase letters and digits); anything else is
+ * refused, so the name is always safe to quote into SQL.
+ */
+export function projectSchemaName(projectId: string): string {
+  const name = `proj_${projectId}`;
+  if (!SCHEMA_NAME.test(name)) throw new Error("Invalid app id");
+  return name;
+}
+
+/**
+ * Takes a deleted app's built-in tables out of service without destroying
+ * them yet: `proj_<id>` becomes `trash_proj_<id>_<yyyymmdd>` (UTC date), and
+ * the nightly maintenance drops trash schemas after 7 days. When a schema of
+ * that name is already there (the same app erased twice in a day), the new
+ * one gets a `_2`, `_3`… suffix. Only ever touches the platform's own
+ * database, never an outside one. Returns the new name, or null when the app
+ * never had any tables.
+ */
+export async function renameSchemaToTrash(projectId: string, when = new Date()): Promise<string | null> {
+  const schema = projectSchemaName(projectId);
+  const day = when.toISOString().slice(0, 10).replace(/-/g, "");
+  const pool = new Pool({ connectionString: process.env.DATABASE_URL, max: 1 });
+  try {
+    const exists = await pool.query("SELECT 1 FROM pg_namespace WHERE nspname = $1", [schema]);
+    if (exists.rowCount === 0) return null;
+    for (let n = 1; n <= 20; n++) {
+      const target = `trash_${schema}_${day}${n === 1 ? "" : `_${n}`}`;
+      if (target.length > 63) throw new Error("App id too long for a trash schema name");
+      const taken = await pool.query("SELECT 1 FROM pg_namespace WHERE nspname = $1", [target]);
+      if (taken.rowCount) continue;
+      await pool.query(`ALTER SCHEMA ${qident(schema)} RENAME TO ${qident(target)}`);
+      // The app's cached connection pool points at tables that are gone now.
+      const cached = pools.get(`internal:${schema}`);
+      if (cached) {
+        pools.delete(`internal:${schema}`);
+        void cached.end().catch(() => {});
+      }
+      return target;
+    }
+    throw new Error(`Too many trash copies of ${schema} today`);
+  } finally {
+    await pool.end().catch(() => {});
+  }
+}
+
 async function poolFor(source: DataSource): Promise<{ pool: Pool; schema: string }> {
   const cfg = (source.config as Config) ?? {};
   if (source.kind === "POSTGRES_INTERNAL") {
-    const schema = `proj_${source.projectId.replace(/[^a-zA-Z0-9_]/g, "")}`;
+    const schema = projectSchemaName(source.projectId);
     const key = `internal:${schema}`;
     if (!pools.has(key)) {
       pools.set(
@@ -153,7 +202,7 @@ export async function ensureInternalTable(
   tableName: string,
   fields: Array<{ name: string; type: FieldType }>
 ) {
-  const schema = `proj_${projectId.replace(/[^a-zA-Z0-9_]/g, "")}`;
+  const schema = projectSchemaName(projectId);
   const pool = new Pool({ connectionString: process.env.DATABASE_URL, max: 2 });
   try {
     await pool.query(`CREATE SCHEMA IF NOT EXISTS ${qident(schema)}`);

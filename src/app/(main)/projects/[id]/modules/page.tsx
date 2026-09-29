@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
 import { listModuleSummaries } from "@/lib/modules/registry";
+import { installedModules } from "@/lib/modules/installed";
 import { ModuleGallery } from "@/components/modules/module-gallery";
 
 export const dynamic = "force-dynamic";
@@ -21,6 +22,7 @@ export default async function ModulesPage({
   if (!project) notFound();
 
   const modules = listModuleSummaries();
+  const installed = await installedModules(id);
 
   return (
     <div className="mx-auto max-w-6xl px-6 py-10">
@@ -33,7 +35,7 @@ export default async function ModulesPage({
           </p>
         </div>
       </div>
-      <ModuleGallery projectId={id} projectName={project.name} modules={modules} />
+      <ModuleGallery projectId={id} projectName={project.name} modules={modules} installed={installed} />
     </div>
   );
 }

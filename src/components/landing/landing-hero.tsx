@@ -1,7 +1,68 @@
 "use client";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useRef, useState } from "react";
 
-export function LandingHero({ authed, moduleCount = 135 }: { authed: boolean; moduleCount?: number }) {
+/** Longest idea the box takes. */
+const IDEA_MAX_CHARS = 600;
+/**
+ * The idea travels in the address through sign-up (/signup?next=/new?idea=…),
+ * encoded twice. Proxies refuse addresses over about 8 KB, and one character
+ * in some scripts takes nine bytes once encoded, so the encoded length is
+ * capped too.
+ */
+const IDEA_MAX_ENCODED = 2400;
+
+// Starting points for the box. Tapping one fills it in to edit.
+const IDEAS = [
+  { label: "Bakery pre-orders", prompt: "A pre-order page for my bakery. Customers pick cakes and bread, choose a pickup day and leave their name and phone number. I see every order on an admin page." },
+  { label: "Salon bookings", prompt: "A booking app for my hair salon. Clients pick a service, a stylist and a time, and I can see and manage all bookings in one place." },
+  { label: "Gym timetable", prompt: "A class timetable for my gym. Members see this week's classes and book a spot. I can add classes and see who is coming to each one." },
+  { label: "Tutoring sign-ups", prompt: "A sign-up page for my tutoring lessons. Parents pick a subject and a weekly time and leave their contact details. I see the list of students and their lessons." },
+];
+
+/** The idea as it will travel: at most IDEA_MAX_CHARS characters and IDEA_MAX_ENCODED encoded. */
+function capIdea(text: string): string {
+  let encoded = 0;
+  let out = "";
+  for (const ch of Array.from(text.trim()).slice(0, IDEA_MAX_CHARS)) {
+    let size: number;
+    try {
+      size = encodeURIComponent(ch).length;
+    } catch {
+      continue; // a broken character from a paste
+    }
+    if (encoded + size > IDEA_MAX_ENCODED) break;
+    encoded += size;
+    out += ch;
+  }
+  return out;
+}
+
+export function LandingHero({ authed, moduleCount = 135, aiReady = false }: { authed: boolean; moduleCount?: number; aiReady?: boolean }) {
+  const router = useRouter();
+  const [idea, setIdea] = useState("");
+  const [going, setGoing] = useState(false);
+  const box = useRef<HTMLTextAreaElement>(null);
+  const ready = idea.trim().length >= 5 && !going;
+
+  function start(e?: React.FormEvent) {
+    e?.preventDefault();
+    const text = capIdea(idea);
+    if (going || text.length < 5) return;
+    setGoing(true);
+    // Re-enabled in case the visitor comes back to this page.
+    setTimeout(() => setGoing(false), 4000);
+    const target = `/new?idea=${encodeURIComponent(text)}`;
+    // New visitors make an account first, then land on the plan for their idea.
+    router.push(authed ? target : `/signup?next=${encodeURIComponent(target)}`);
+  }
+
+  function fillExample(prompt: string) {
+    setIdea(prompt);
+    box.current?.focus();
+  }
+
   return (
     <section className="relative pt-28 pb-20 bg-surface-100 overflow-hidden">
       <div className="pointer-events-none absolute inset-0">
@@ -27,21 +88,76 @@ export function LandingHero({ authed, moduleCount = 135 }: { authed: boolean; mo
             database or your Google Sheets. Publish to your own domain. No code.
           </p>
 
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <Link
-              href={authed ? "/dashboard" : "/signup"}
-              className="inline-flex items-center gap-2 rounded-xl bg-surface-900 hover:bg-surface-800 text-white px-7 py-3.5 text-sm font-semibold transition shadow-lg shadow-surface-900/20"
-            >
-              {authed ? "Open dashboard" : "Start building — it\u2019s free"}
-              <span aria-hidden className="text-surface-400">&rarr;</span>
-            </Link>
-            <a
-              href="#features"
-              className="inline-flex items-center gap-2 rounded-xl border border-surface-200 bg-white hover:bg-surface-50 text-surface-700 px-7 py-3.5 text-sm font-semibold transition"
-            >
-              See how it works
-            </a>
-          </div>
+          {aiReady ? (
+            <form onSubmit={start} className="mt-9 mx-auto max-w-2xl text-left">
+              <div className="rounded-2xl border border-surface-200 bg-white p-2 shadow-xl shadow-surface-900/5 transition focus-within:border-surface-400">
+                <label htmlFor="landing-idea" className="block px-3 pt-2 text-sm font-semibold text-surface-900">
+                  What should your app do?
+                </label>
+                <textarea
+                  id="landing-idea"
+                  ref={box}
+                  rows={3}
+                  maxLength={IDEA_MAX_CHARS}
+                  value={idea}
+                  onChange={(e) => setIdea(e.target.value)}
+                  onKeyDown={(e) => { if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) start(); }}
+                  placeholder="e.g. Customers order cakes online, choose a pickup day, and I see every order in one list."
+                  className="w-full resize-none bg-transparent px-3 py-2 text-base text-surface-900 placeholder:text-surface-400 focus:outline-none"
+                />
+                <div className="flex flex-wrap items-center justify-between gap-3 px-2 pb-1">
+                  <span className="text-xs text-surface-400" aria-live="polite">
+                    {idea.length > IDEA_MAX_CHARS - 100 ? `${IDEA_MAX_CHARS - idea.length} characters left` : "Say who uses it and what they do."}
+                  </span>
+                  <button
+                    type="submit"
+                    disabled={!ready}
+                    className="inline-flex items-center gap-2 rounded-xl bg-surface-900 hover:bg-surface-800 text-white px-6 py-3 text-sm font-semibold transition shadow-lg shadow-surface-900/20 disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                    {going ? "Opening…" : "Plan my app"}
+                    <span aria-hidden className="text-surface-400">&rarr;</span>
+                  </button>
+                </div>
+              </div>
+              <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
+                <span className="text-xs text-surface-500">Try one:</span>
+                {IDEAS.map((ex) => (
+                  <button
+                    key={ex.label}
+                    type="button"
+                    onClick={() => fillExample(ex.prompt)}
+                    className="rounded-full border border-surface-200 bg-white/70 px-3.5 py-1.5 text-xs font-medium text-surface-600 transition hover:border-surface-300 hover:text-surface-900"
+                  >
+                    {ex.label}
+                  </button>
+                ))}
+              </div>
+              <p className="mt-5 text-center text-sm text-surface-500">
+                You&apos;ll check a plan before anything is built.{" "}
+                {authed ? (
+                  <Link href="/dashboard" className="font-medium text-surface-700 underline-offset-4 hover:underline">Open your dashboard</Link>
+                ) : (
+                  <a href="#features" className="font-medium text-surface-700 underline-offset-4 hover:underline">See how it works</a>
+                )}
+              </p>
+            </form>
+          ) : (
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+              <Link
+                href={authed ? "/dashboard" : "/signup"}
+                className="inline-flex items-center gap-2 rounded-xl bg-surface-900 hover:bg-surface-800 text-white px-7 py-3.5 text-sm font-semibold transition shadow-lg shadow-surface-900/20"
+              >
+                {authed ? "Open dashboard" : "Start building — it’s free"}
+                <span aria-hidden className="text-surface-400">&rarr;</span>
+              </Link>
+              <a
+                href="#features"
+                className="inline-flex items-center gap-2 rounded-xl border border-surface-200 bg-white hover:bg-surface-50 text-surface-700 px-7 py-3.5 text-sm font-semibold transition"
+              >
+                See how it works
+              </a>
+            </div>
+          )}
         </div>
 
         {/* Stats strip — social proof without a dark screenshot */}

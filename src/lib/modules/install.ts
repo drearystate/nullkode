@@ -3,6 +3,7 @@ import { db } from "../db";
 import { ensureInternalTable } from "../datasources/postgres";
 import { slugify } from "../utils";
 import { syncProjectNav } from "../nav-sync";
+import { flowRefMap, resolveFlowRefsWith, type FlowRefMap } from "../ai/flow-refs";
 import type { ModuleCapability, ModuleDefinition, ModuleFieldType } from "./types";
 import { getModule } from "./registry";
 
@@ -285,13 +286,17 @@ export async function installModule(opts: {
 
   if (!opts.skipPages) {
     const ownerSlugs = module.pages.filter((p) => isOwnerOnlyPage(module.id, p)).map((p) => pageSlugMap.get(p.slug)!);
+    // Flow refs resolve to this module's own flows first (by their local
+    // slugs), then to any flow in the project — so a module page's "Log out"
+    // (data-nk-logout-ref="logout") or "me" reaches the sign-in module.
+    const refMap = await flowRefMap(projectId, flowIds);
     for (const p of module.pages) {
       const realSlug = pageSlugMap.get(p.slug)!;
       // Resolve capability refs first so downstream template/flow-ref
       // rewriting sees the real table/flow names
       const htmlWithCaps = resolveCapabilityRefs(p.html, provided);
       const htmlWithPages = resolveLocalPageLinks(interpolatePageRefs(htmlWithCaps, pageSlugMap), pageSlugMap);
-      const rewritten = rewritePageHtml(htmlWithPages, flowSlugMap, flowIds, config);
+      const rewritten = rewritePageHtml(htmlWithPages, refMap, config, `${module.id}/${p.slug}`);
       const html = isOwnerOnlyPage(module.id, p) ? withAdminMarkers(rewritten) : hideOwnerLinks(rewritten, ownerSlugs);
       const css = interpolateConfig(
         interpolatePageRefs(resolveCapabilityRefs(p.css ?? "", provided), pageSlugMap),
@@ -458,26 +463,19 @@ function rewriteNodeData(
   return out;
 }
 
+/**
+ * Fills {{config.*}} and turns every data-nk-*-ref="<slug>" (forms, lists,
+ * sign-out, kanban, sortable, calendar) into the real flow id.
+ */
 function rewritePageHtml(
   html: string,
-  flowSlugMap: Map<string, string>,
-  flowIds: Map<string, string>,
-  config: Record<string, unknown>
+  refMap: FlowRefMap,
+  config: Record<string, unknown>,
+  label: string
 ): string {
-  let out = interpolateConfig(html, config);
-  for (const [localSlug, _realSlug] of flowSlugMap) {
-    const realId = flowIds.get(localSlug);
-    if (!realId) continue;
-    const flowRef = new RegExp(
-      `data-nk-flow-ref=["']${escapeRegex(localSlug)}["']`,
-      "g"
-    );
-    out = out.replace(flowRef, `data-nk-flow="${realId}"`);
-    const bindRef = new RegExp(
-      `data-nk-bind-flow-ref=["']${escapeRegex(localSlug)}["']`,
-      "g"
-    );
-    out = out.replace(bindRef, `data-nk-bind-flow="${realId}"`);
+  const { html: out, leftover } = resolveFlowRefsWith(interpolateConfig(html, config), refMap);
+  if (leftover.length > 0) {
+    console.warn(`[modules] ${label}: unconnected parts ${leftover.slice(0, 5).join(", ")}`);
   }
   return out;
 }
@@ -500,10 +498,6 @@ function interpolateDeep(value: unknown, config: Record<string, unknown>): unkno
     return out;
   }
   return value;
-}
-
-function escapeRegex(s: string): string {
-  return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
 async function seedRows(

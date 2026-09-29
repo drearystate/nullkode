@@ -47,7 +47,31 @@ export type NativeConfig = {
   themeColor: string;
   androidEnabled: boolean;
   iosEnabled: boolean;
+  /**
+   * The owner's own wording for the phone's permission prompts (iPhone shows
+   * it). Empty keys use the suggested wording, which names the app and the
+   * feature (src/lib/native-permissions.ts).
+   */
+  permissionText: PermissionText;
 };
+
+/** Wording keys for the phone's permission prompts. */
+export type PermissionTextKey = "camera" | "microphone" | "photos" | "location";
+export type PermissionText = Partial<Record<PermissionTextKey, string>>;
+const PERMISSION_TEXT_KEYS: PermissionTextKey[] = ["camera", "microphone", "photos", "location"];
+
+/** Saved permission wording, cleaned: one line each, at most 300 characters, empty ones dropped. */
+export function cleanPermissionText(value: unknown): PermissionText {
+  const source = value && typeof value === "object" && !Array.isArray(value) ? (value as Record<string, unknown>) : {};
+  const out: PermissionText = {};
+  for (const key of PERMISSION_TEXT_KEYS) {
+    const text = source[key];
+    if (typeof text !== "string") continue;
+    const clean = text.replace(/[\u0000-\u001f\u007f]+/g, " ").replace(/\s+/g, " ").trim().slice(0, 300);
+    if (clean) out[key] = clean;
+  }
+  return out;
+}
 
 type ThemeShape = { primary?: string; background?: string; text?: string } | null | undefined;
 
@@ -150,6 +174,7 @@ export function defaultNativeConfig(
     themeColor: theme?.primary ?? "#0b0b0b",
     androidEnabled: true,
     iosEnabled: true,
+    permissionText: {},
   };
 }
 
@@ -188,6 +213,7 @@ export function resolveNativeConfig(
         : defaults.themeColor,
     androidEnabled: saved.androidEnabled !== false,
     iosEnabled: saved.iosEnabled !== false,
+    permissionText: cleanPermissionText(saved.permissionText),
   };
 }
 
@@ -377,36 +403,64 @@ export function nativeMetaJson(cfg: NativeConfig, url: string, slug: string): st
 
 const ICON_MAX_BYTES = 8 * 1024 * 1024;
 
+/** Why the owner's icon couldn't go into a native app (shown to the owner). */
+export const ICON_PROBLEM = {
+  notPng: "Your app icon isn't a PNG file.",
+  tooBig: "Your app icon file is bigger than 8 MB.",
+  unreachable: "Your app icon couldn't be loaded.",
+  unreadable: "Your app icon couldn't be read.",
+} as const;
+
+/** What a store build says when it had to use the default icon instead of the owner's. */
+export function iconNote(problem: string): string {
+  return `${problem} This build has a plain icon in your app's colors instead. Upload your icon again as a square PNG (1024 x 1024 pixels is best), then build again.`;
+}
+
 /**
- * The project icon as PNG bytes for native packaging. Handles on-disk uploads
- * (`/uploads/...` → public/uploads/...) and https URLs. Anything else (no icon,
- * not a PNG, unreachable) gives the generated default icon in the theme color,
- * like the published web app. Published apps never show the platform's logo.
+ * The project icon for native packaging, as PNG bytes: the owner's icon, or
+ * the generated default icon in the theme color (like the published web app)
+ * when there is none or it can't be used. Then `problem` says why, so a build
+ * can tell the owner. Published apps never show the platform's logo.
+ * Handles on-disk files (`/uploads/...` → public/uploads/...) and https URLs.
  */
-export async function resolveIconPng(icon: string | null, fallbackColor = "#4f46e5", fallbackSize = 512): Promise<Buffer> {
-  const fallback = () => defaultAppIconPng(fallbackSize, normalizeHexColor(fallbackColor, "#4f46e5"));
+export async function resolveAppIcon(
+  icon: string | null,
+  fallbackColor = "#4f46e5",
+  fallbackSize = 512,
+): Promise<{ png: Buffer; problem?: string }> {
+  const fallback = (problem?: string) => ({
+    png: defaultAppIconPng(fallbackSize, normalizeHexColor(fallbackColor, "#4f46e5")),
+    ...(problem ? { problem } : {}),
+  });
+  const checked = (bytes: Buffer) =>
+    bytes.length > ICON_MAX_BYTES ? fallback(ICON_PROBLEM.tooBig) : isPng(bytes) ? { png: bytes } : fallback(ICON_PROBLEM.notPng);
   if (!icon) return fallback();
   try {
     if (/^https:\/\//i.test(icon)) {
       const res = await fetch(icon, { signal: AbortSignal.timeout(10_000), redirect: "follow" });
-      if (!res.ok) return fallback();
-      const ct = res.headers.get("content-type") ?? "";
-      if (!/image\/png/i.test(ct)) return fallback();
-      const bytes = Buffer.from(await res.arrayBuffer());
-      return bytes.length <= ICON_MAX_BYTES && isPng(bytes) ? bytes : fallback();
+      if (!res.ok) return fallback(ICON_PROBLEM.unreachable);
+      if (!/image\/png/i.test(res.headers.get("content-type") ?? "")) return fallback(ICON_PROBLEM.notPng);
+      if (Number(res.headers.get("content-length")) > ICON_MAX_BYTES) return fallback(ICON_PROBLEM.tooBig);
+      return checked(Buffer.from(await res.arrayBuffer()));
     }
-    if (icon.startsWith("/") && /\.png$/i.test(icon)) {
+    if (icon.startsWith("/")) {
+      const path = decodeURIComponent(icon.split(/[?#]/)[0]);
+      if (!/\.png$/i.test(path)) return fallback(ICON_PROBLEM.notPng);
       // Only files under public/ (uploads, bundled images).
       const root = resolve(process.cwd(), "public");
-      const file = resolve(root, `.${decodeURIComponent(icon.split("?")[0])}`);
-      if (!file.startsWith(root + sep)) return fallback();
-      const bytes = await readFile(file);
-      return bytes.length <= ICON_MAX_BYTES && isPng(bytes) ? bytes : fallback();
+      const file = resolve(root, `.${path}`);
+      if (!file.startsWith(root + sep)) return fallback(ICON_PROBLEM.unreachable);
+      return checked(await readFile(file));
     }
   } catch {
-    return fallback();
+    return fallback(ICON_PROBLEM.unreachable);
   }
-  return fallback();
+  return fallback(ICON_PROBLEM.unreachable);
+}
+
+/** The project icon as PNG bytes for native packaging (see resolveAppIcon). */
+export async function resolveIconPng(icon: string | null, fallbackColor = "#4f46e5", fallbackSize = 512): Promise<Buffer> {
+  return (await resolveAppIcon(icon, fallbackColor, fallbackSize)).png;
 }
 
 function isPng(bytes: Buffer): boolean {

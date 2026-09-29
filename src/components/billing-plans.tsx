@@ -52,10 +52,10 @@ export function BillingPlans({
               </ul>
               <button
                 className="btn-primary mt-4 w-full justify-center disabled:opacity-50"
-                disabled={isCurrent || busy !== null || p.key === "FREE"}
+                disabled={isCurrent || busy !== null || p.key === "FREE" || !p.buyable}
                 onClick={() => p.key !== "FREE" && checkout(p.key as "STARTER" | "PRO" | "TEAM")}
               >
-                {isCurrent ? "Current" : p.key === "FREE" ? "Free" : busy === p.key ? "..." : "Upgrade"}
+                {isCurrent ? "Current" : p.key === "FREE" ? "Free" : !p.buyable ? "Coming soon" : busy === p.key ? "..." : "Upgrade"}
               </button>
             </div>
           );

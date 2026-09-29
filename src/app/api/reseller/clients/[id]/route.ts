@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { db } from "@/lib/db";
 import { json } from "@/lib/utils";
+import { AccountDeletionError, deleteUserAccount } from "@/lib/erase";
 import { CLIENT_PLANS, requireReseller, resellerClient } from "@/lib/reseller-admin";
 
 const Patch = z.object({
@@ -34,7 +35,11 @@ export async function PATCH(req: Request, ctx: { params: Promise<{ id: string }>
 
 const Delete = z.object({ confirmEmail: z.string() });
 
-/** Permanently delete a client's account and all of their apps. */
+/**
+ * Permanently delete a client's account and all of their apps with their
+ * data and files. Their subscription on the reseller's own Stripe account is
+ * cancelled first; if that fails, nothing is deleted.
+ */
 export async function DELETE(req: Request, ctx: { params: Promise<{ id: string }> }) {
   const r = await requireReseller();
   if ("error" in r) return r.error;
@@ -45,6 +50,17 @@ export async function DELETE(req: Request, ctx: { params: Promise<{ id: string }
   if (!parsed.success || parsed.data.confirmEmail.trim().toLowerCase() !== client.email.toLowerCase()) {
     return json({ error: "Type the client's email address to confirm." }, { status: 400 });
   }
-  await db.user.delete({ where: { id: client.id } });
+  try {
+    await deleteUserAccount(client.id, { actor: "reseller" });
+  } catch (err) {
+    if (err instanceof AccountDeletionError) {
+      const message = err.code === "billing"
+        ? "Their subscription couldn't be cancelled on your payment account, so nothing was deleted. Check your payment settings, or cancel it in your payment dashboard, then try again."
+        : err.message;
+      return json({ error: message, code: err.code }, { status: err.status });
+    }
+    console.error("[erase] reseller client delete failed", err);
+    return json({ error: "The client couldn't be deleted. Please try again." }, { status: 500 });
+  }
   return json({ ok: true });
 }

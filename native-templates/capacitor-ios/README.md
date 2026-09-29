@@ -18,7 +18,9 @@ run on Linux with Node 22) with these changes:
   - `App/App.xcodeproj/project.pbxproj`: `__NK_APP_ID__`, `__NK_VERSION__`,
     `__NK_BUILD__`
   - `App/App/Info.plist`: `__NK_APP_NAME__`, `__NK_STATUS_BAR_STYLE__`,
-    `__NK_IPHONE_ORIENTATIONS__`
+    `__NK_IPHONE_ORIENTATIONS__`, and `__NK_PRIVACY_KEYS__` (the camera,
+    microphone and photo library purpose strings, plus location when the app
+    uses it; see `src/lib/native-permissions.ts`)
 - `Info.plist` also sets `ITSAppUsesNonExemptEncryption` to false (the app
   only uses HTTPS), so TestFlight doesn't ask about encryption for every build.
 

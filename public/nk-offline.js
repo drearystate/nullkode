@@ -1,7 +1,9 @@
-/* Nullkode offline runtime.
+/* Offline runtime for exported apps.
  *
  * Loaded (inlined) into every page of an exported offline bundle, BEFORE
- * the standard client runtime. Provides:
+ * the standard client runtime. The offline download route strips this
+ * header when it inlines the file, and nothing in this file may name the
+ * platform: the bundle is white-label. Provides:
  *
  *   - a local database seeded from the export (window.__NK_OFFLINE__.seed),
  *     persisted to localStorage so the app keeps its data between opens

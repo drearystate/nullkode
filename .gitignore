@@ -64,7 +64,6 @@ native-templates/**/local.properties
 /release/
 scripts/.ux-review.mjs
 
-# Signing keys and editor bundles
+# Signing keys
 *.jks
 *.keystore
-public/designer/

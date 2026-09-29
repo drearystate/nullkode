@@ -1,0 +1,33 @@
+# Dependabot. Turn on "Dependabot security updates" in the repository's
+# settings (Code security) as well.
+#
+# npm: security updates only. open-pull-requests-limit 0 turns off routine
+# version bumps, while pull requests for security advisories are still opened. The same goes for the
+# Android template's Gradle dependencies.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 0
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      actions:
+        patterns: ["*"]
+
+  # The iOS template ships its own workflow for TestFlight uploads.
+  - package-ecosystem: github-actions
+    directory: /native-templates/capacitor-ios
+    schedule:
+      interval: monthly
+
+  - package-ecosystem: gradle
+    directory: /native-templates/android-webview
+    schedule:
+      interval: monthly
+    open-pull-requests-limit: 0

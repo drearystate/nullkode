@@ -7,13 +7,21 @@
  *    sample accounts exist;
  *  - cross-site writes to the dashboard API are refused, cross-site flow
  *    calls run without the visitor's cookies;
- *  - /_host/* can't be opened directly; APPS_DOMAIN gives each app its own
- *    origin and /app/<slug> redirects there.
+ *  - /nk-host/* can't be opened directly; APPS_DOMAIN gives each app its own
+ *    origin and /app/<slug> redirects there;
+ *  - requests that try to call a Server Action (Next-Action header) get a
+ *    404, and the image optimizer refuses uploaded files while still
+ *    serving the landing page's own pictures.
  *
  * Needs Docker (for a scratch Postgres). Run from the repo root:
  *   node_modules/.bin/tsx scripts/e2e-security.ts
  */
+import { unlink } from "node:fs/promises";
+import path from "node:path";
 import { startInstance, installOperator, checker, type Agent } from "./e2e-harness";
+
+// The smallest valid PNG (1x1, transparent).
+const TINY_PNG = Buffer.from("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==", "base64");
 
 const port = Number(process.env.E2E_PORT || 3127);
 const APPS = "apps.nk-test.example";
@@ -131,6 +139,44 @@ async function main() {
     r = await op.get(`/projects/${projectId}`);
     const done = /(\d) of (\d) done/.exec(r.text.replace(/<!-- -->/g, ""));
     ok("overview shows the launch checklist with progress", r.text.includes("Launch checklist") && Boolean(done), done?.[0]);
+
+    // Server Action probes: this app has none, so the header gets a 404
+    // before Next looks for an action.
+    const action = { "next-action": "7f3a9c2e5b" };
+    r = await visitor.post("/", {}, action);
+    ok("a Next-Action POST to the dashboard gets 404", r.status === 404, r.status);
+    r = await visitor.get("/login", action);
+    ok("a Next-Action GET gets 404 too", r.status === 404, r.status);
+    r = await inst.agent(host).post("/", {}, action);
+    ok("a Next-Action POST to a published app gets 404", r.status === 404, r.status);
+    r = await op.post("/api/projects", { name: "Probe" }, action);
+    ok("a Next-Action request to the API gets 404", r.status === 404 && !(await inst.db.project.findFirst({ where: { name: "Probe" } })), r.status);
+
+    // The image optimizer: a visitor uploads a picture, then asks the
+    // optimizer to convert it. Uploads never reach the optimizer's decoders.
+    const form = new FormData();
+    form.append("photo", new Blob([TINY_PNG], { type: "image/png" }), "probe.png");
+    const up = await fetch(`${inst.base}/api/upload`, { method: "POST", body: form, headers: { "x-real-ip": "203.0.113.9" } });
+    const uploadedUrl = ((await up.json()) as { files?: Record<string, string> }).files?.photo ?? "";
+    ok("a visitor can upload a picture", up.status === 200 && /^\/uploads\/\d{6}\/[\w-]+\.png$/.test(uploadedUrl), uploadedUrl);
+    try {
+      r = await visitor.get(uploadedUrl);
+      ok("the upload itself is served", r.status === 200, r.status);
+      for (const format of ["image/avif", "image/webp", "image/png"]) {
+        r = await visitor.get(`/_next/image?url=${encodeURIComponent(uploadedUrl)}&w=64&q=75`, { accept: `${format},*/*` });
+        ok(`the optimizer refuses an uploaded file (asked for ${format})`, r.status === 400 && !String(r.headers["content-type"]).startsWith("image/"), `${r.status} ${r.headers["content-type"]}`);
+      }
+      r = await visitor.get(`/_next/image?url=${encodeURIComponent("https://example.org/photo.png")}&w=64&q=75`);
+      ok("the optimizer refuses other websites' pictures", r.status === 400, r.status);
+      r = await visitor.get(`/_next/image?url=${encodeURIComponent("/templates/originals/original-restaurant/embers.webp")}&w=640&q=75`);
+      ok("the optimizer refuses paths outside its list", r.status === 400, r.status);
+      r = await visitor.get(`/_next/image?url=${encodeURIComponent("/studio-preview/dashboard.png")}&w=640&q=75`, { accept: "image/webp,*/*" });
+      ok("the optimizer still serves the landing page's screenshots", r.status === 200 && String(r.headers["content-type"]).startsWith("image/"), `${r.status} ${r.headers["content-type"]}`);
+      r = await visitor.get(`/_next/image?url=${encodeURIComponent("/nullkode-banner.png")}&w=384&q=75`);
+      ok("the optimizer still serves the banner", r.status === 200 && String(r.headers["content-type"]).startsWith("image/"), `${r.status} ${r.headers["content-type"]}`);
+    } finally {
+      if (uploadedUrl) await unlink(path.join(inst.root, "public", uploadedUrl)).catch(() => {});
+    }
 
     console.log(JSON.stringify({ ok: true, checks: checks.length }));
   } catch (err) {

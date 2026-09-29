@@ -37,6 +37,8 @@ export default async function EditPage({
   return (
     <EditorShell
       projectId={id}
+      projectName={project.name}
+      projectKind={project.kind}
       welcome={welcome === "1"}
       pages={project.pages.map((p) => ({
         id: p.id,
@@ -47,10 +49,13 @@ export default async function EditPage({
       initialPage={{
         id: current.id,
         title: current.title,
+        slug: current.slug,
         html: current.html,
         css: current.css,
         components: current.components as object | null,
         styles: current.styles as object | null,
+        // To tell whether edits kept in the browser are newer than this copy.
+        updatedAt: current.updatedAt.toISOString(),
       }}
     />
   );

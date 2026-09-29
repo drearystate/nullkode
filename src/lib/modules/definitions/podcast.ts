@@ -70,7 +70,7 @@ export const podcast: ModuleDefinition = {
       <img class="rounded" style="width:100px;height:100px;object-fit:cover;" data-nk-src="cover_url" src="https://picsum.photos/seed/ep1/200/200" alt=""/>
       <div class="flex-grow-1">
         <div class="small" style="color:var(--nk-text-muted);">Episode #<span data-nk-field="episode_number">12</span> · <span data-nk-field="duration">42 min</span></div>
-        <h5 class="fw-bold mt-1" data-nk-field="title">How we built the Nullkode editor</h5>
+        <h5 class="fw-bold mt-1" data-nk-field="title">How we built our first product</h5>
         <p class="small mb-2" style="color:var(--nk-text-muted);" data-nk-field="description">A deep dive into the architecture, the tradeoffs and what we'd do differently.</p>
         <button class="btn btn-primary btn-sm">&#9654; Play episode</button>
       </div>

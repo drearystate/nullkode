@@ -7,11 +7,8 @@ ship — keep PRs small, focused, and honest about scope.
 
 - **Main app**: Next.js 15 (App Router), Tailwind v3, Prisma 6, TS 5.7
   strict.
-- **Designer subsystem**: vendored from [Open CoDesign](https://github.com/OpenCoworkAI/open-codesign)
-  (MIT). Lives at `apps/designer-renderer/` (Vite SPA) and uses Tailwind
-  v4 internally. Don't mix its CSS into the main app.
-- **Vendored packages**: `packages/` — keep them as close to upstream as
-  feasible so we can pull future Open CoDesign updates without conflict.
+- **AI Designer**: `src/components/designer`, `src/lib/design-studio`,
+  API under `src/app/api/designs`.
 - **Database**: schema in `prisma/schema.prisma`. Migrations via
   `pnpm db:push` for local dev; consider `prisma migrate` for production
   work.
@@ -24,7 +21,6 @@ cd nullkode
 pnpm install
 cp .env.example .env  # fill at least DATABASE_URL + AUTH_SECRET
 pnpm db:push
-pnpm -C apps/designer-renderer build
 pnpm dev              # starts Next on http://localhost:3001
 ```
 
@@ -37,8 +33,6 @@ pnpm dev              # starts Next on http://localhost:3001
 - Describe what changed AND why in the PR body. Screenshots for
   user-facing changes.
 - Run `pnpm exec tsc --noEmit` before pushing.
-- For the Designer subsystem, also run
-  `pnpm -C apps/designer-renderer build` and verify it compiles.
 
 ## Code style
 
@@ -57,8 +51,7 @@ pnpm dev              # starts Next on http://localhost:3001
 
 - Unit tests for non-trivial logic (Vitest).
 - Smoke scripts under `scripts/` for end-to-end verification.
-- The Designer subsystem inherits upstream's Vitest suite — try not to
-  break it.
+- New features and templates: `pnpm check:extensions`.
 
 ## Filing issues
 

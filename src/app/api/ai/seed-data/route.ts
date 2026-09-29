@@ -1,11 +1,11 @@
 import { z } from "zod";
-import { checkAiQuota, recordAiUsage } from "@/lib/ai-quota";
+import { aiUsageSummary, checkAiQuota, recordAiUsage, refundFailedAi } from "@/lib/ai-quota";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
 import { json } from "@/lib/utils";
 import { providerEditPage } from "@/lib/ai/provider";
 import { postgresAdapter } from "@/lib/datasources/postgres";
-import { aiErrorFor } from "@/lib/ai/errors";
+import { aiErrorFor, classifyAiFailure } from "@/lib/ai/errors";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -36,7 +36,6 @@ export async function POST(req: Request) {
 
   const parsed = Body.safeParse(await req.json().catch(() => null));
   if (!parsed.success) return json({ error: "Invalid input" }, { status: 400 });
-  await recordAiUsage(user.id, "seed");
   const { projectId, message } = parsed.data;
 
   const project = await db.project.findFirst({
@@ -64,7 +63,9 @@ export async function POST(req: Request) {
   // login/registration silently. If users need test accounts they should
   // register through the real flow.
   const tables = tableRows
-    .filter((t) => t.name !== "users")
+    // "auth_users" (and "auth_users_2" after a reinstall) is the sign-in
+    // module's table; "users" is the older name.
+    .filter((t) => !/^(?:auth_)?users(?:_\d+)?$/.test(t.name))
     .map((t) => {
       const s = (t.schema as TableSchemaShape) ?? {};
       return {
@@ -86,6 +87,11 @@ export async function POST(req: Request) {
       { status: 400 }
     );
   }
+
+  // Charged only now that there is something to fill (the checks above
+  // cost nothing), and given back if no rows come of it.
+  const chargeId = await recordAiUsage(user.id, "seed", projectId);
+  const usage = () => aiUsageSummary(user).catch(() => null);
 
   // Prompt the model for rows. Keep it tiny — no design system rules, no
   // HTML, no flow node docs. Just the table list and a short instruction.
@@ -142,9 +148,12 @@ ${message ? `User context: ${message}\n\n` : ""}Return the JSON object now. No p
   try {
     content = await providerEditPage({ systemPrompt: SYSTEM, userText: USER, jsonSchema: SCHEMA, schemaName: "nullkode_seed_data", maxCompletionTokens: 8000 });
   } catch (err) {
+    const refunded = await refundFailedAi(chargeId, user.id, classifyAiFailure(err));
     return json(
       {
         error: aiErrorFor(user, err, "The AI couldn't make sample data. Please try again."),
+        refunded,
+        usage: await usage(),
       },
       { status: 500 }
     );
@@ -154,7 +163,8 @@ ${message ? `User context: ${message}\n\n` : ""}Return the JSON object now. No p
   try {
     parsedRows = JSON.parse(content);
   } catch {
-    return json({ error: "AI returned invalid JSON for sample data" }, { status: 500 });
+    const refunded = await refundFailedAi(chargeId, user.id, "unusable");
+    return json({ error: `The AI's sample data couldn't be read. Please try again.${refunded ? " This one didn't count." : ""}`, refunded, usage: await usage() }, { status: 500 });
   }
 
   const byName = new Map(tables.map((t) => [t.name, t]));
@@ -199,15 +209,19 @@ ${message ? `User context: ${message}\n\n` : ""}Return the JSON object now. No p
   }
 
   const total = insertedCounts.reduce((s, t) => s + t.count, 0);
+  // Nothing usable came back: the action doesn't count.
+  const refunded = total === 0 ? await refundFailedAi(chargeId, user.id, "unusable") : false;
   const explanation =
     total > 0
       ? `Added ${total} sample ${total === 1 ? "row" : "rows"} across ${
           insertedCounts.length
         } ${insertedCounts.length === 1 ? "table" : "tables"}.`
-      : "No sample rows were inserted (the AI didn't return any valid rows).";
+      : `No sample rows were added (the AI didn't return any rows that fit your tables).${refunded ? " It wasn't counted." : ""}`;
 
   return json({
     explanation,
+    refunded,
+    usage: await usage(),
     insertedCounts,
     // Echo nulls for html/css so the client knows not to touch the canvas.
     html: null,

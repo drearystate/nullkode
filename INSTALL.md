@@ -8,4 +8,10 @@ On a server with a domain name, the installer also sets up HTTPS by itself: answ
 
 The installer also offers optional Android APK building. It adds about 1.1 GB and Google's Android SDK, which means accepting Google's Android SDK License. Turn it on by answering `y`, or run `NULLKODE_ANDROID=1 bash install.sh`. See [Build Android apps](START-HERE.md#build-android-apps-optional).
 
-For source layout see [ARCHITECTURE.md](ARCHITECTURE.md). For recovery see [docs/deploy/RESTORE.md](docs/deploy/RESTORE.md).
+Email (invitations, password links, owner alerts) is set up in the browser under Administration → Settings → Email, with any provider's SMTP details. See [docs/email.md](docs/email.md).
+
+Backups run by themselves every night while Nullkode keeps running, and each service keeps at most 50 MB of logs. Set `BACKUP_PASSPHRASE` in `.env` so backups include an encrypted copy of `.env`, and copy backups to another device now and then. See [Back up, update, or move](START-HERE.md#back-up-update-or-move) and [docs/deploy/RESTORE.md](docs/deploy/RESTORE.md).
+
+Without Docker (systemd, Plesk, your own web server), see [docs/deploy/README.md](docs/deploy/README.md), and to update such a server safely, [docs/deploy/plesk.md → Updating](docs/deploy/plesk.md#updating).
+
+For source layout see [ARCHITECTURE.md](ARCHITECTURE.md). To report a security problem see [SECURITY.md](SECURITY.md).

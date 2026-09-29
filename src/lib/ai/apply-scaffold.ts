@@ -6,6 +6,7 @@ import { getModule } from "../modules/registry";
 import { installModule } from "../modules/install";
 import { syncProjectNav } from "../nav-sync";
 import type { ScaffoldResult } from "./schema";
+import { flowRefMap, resolveFlowRefsWith } from "./flow-refs";
 
 type FieldType = "text" | "int" | "float" | "bool" | "timestamp" | "json";
 
@@ -64,12 +65,6 @@ export async function persistTables(
 }
 
 /**
- * Create flows from a scaffold-style flow list. Enforces unique slugs
- * per-project (if a collision is found, appends a numeric suffix).
- * Returns a map of the slug the AI asked for → the real flow id,
- * so callers can rewrite HTML `data-nk-flow-ref="<slug>"` attributes.
- */
-/**
  * Model output isn't always schema-checked (JSON mode on local models, Ask AI):
  * edges arrive as {source,target}, {from,to} or {sourceId,targetId}. Saving
  * them as-is left 399 flows whose edges pointed nowhere, so every run stopped
@@ -95,6 +90,12 @@ export function normalizeEdges(nodes: Array<{ id: string; type: string }>, raw: 
   return ordered.slice(1).map((n, i) => ({ id: `${ordered[i].id}-${n.id}`, source: ordered[i].id, target: n.id, sourceHandle: null, targetHandle: null }));
 }
 
+/**
+ * Create flows from a scaffold-style flow list. Enforces unique slugs
+ * per-project (if a collision is found, appends a numeric suffix).
+ * Returns a map of the slug the AI asked for → the real flow id,
+ * so callers can rewrite HTML `data-nk-flow-ref="<slug>"` attributes.
+ */
 export async function persistFlows(
   projectId: string,
   datasourceId: string,
@@ -162,16 +163,21 @@ export async function persistFlows(
   return slugToId;
 }
 
-/**
- * Rewrite `data-nk-flow-ref`, `data-nk-bind-flow-ref`, `data-nk-logout-ref`
- * attributes in HTML to the real flow id. Exported so incremental edits
- * can reuse the exact same rewriter.
- */
+export {
+  buildFlowRefMap,
+  flowRefMap,
+  resolveFlowRefs,
+  resolveFlowRefsWith,
+  unconnectedNote,
+  type FlowRefMap,
+} from "./flow-refs";
+
+/** Kept for callers that only need the rewritten HTML. */
 export function rewriteFlowRefsInHtml(
   html: string,
   flowSlugToId: Map<string, string>
 ): string {
-  return rewriteFlowRefs(html, flowSlugToId);
+  return resolveFlowRefsWith(html, flowSlugToId).html;
 }
 
 export async function applyScaffold(
@@ -226,20 +232,10 @@ export async function applyScaffold(
     scaffold.flows
   );
 
-  // Merge in flows the auth module pre-installed (login, register, logout,
-  // me, update-profile) so the AI's slug references resolve. Also register
-  // common aliases ("auth-logout" → "logout", "auth-login" → "login", etc.)
-  // because the model frequently emits the prefixed form.
-  const allFlows = await db.flow.findMany({
-    where: { projectId: project.id },
-    select: { id: true, slug: true },
-  });
-  for (const f of allFlows) {
-    if (!flowSlugToId.has(f.slug)) flowSlugToId.set(f.slug, f.id);
-    // Alias the prefixed form ("auth-logout" → logout flow id).
-    const prefixed = `auth-${f.slug}`;
-    if (!flowSlugToId.has(prefixed)) flowSlugToId.set(prefixed, f.id);
-  }
+  // Resolve against every flow in the project, including the ones the auth
+  // module pre-installed (login, register, logout, me, update-profile) and
+  // their "auth-" spellings; the flows this build made win on collisions.
+  const refMap = await flowRefMap(project.id, flowSlugToId);
 
   // Safety net: detect which scaffold flows read the current user's session
   //    (via a get_session node). Any page that references one of these flows
@@ -262,7 +258,7 @@ export async function applyScaffold(
       // check so "list-tasks" doesn't accidentally match "list-tasks-admin".
       const esc = slug.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
       const re = new RegExp(
-        `data-nk-(?:flow|bind-flow|update-flow|reorder-flow|logout)-ref=["']${esc}["']`,
+        `data-nk-(?:flow|bind-flow|update-flow|reorder-flow|logout|calendar-flow)-ref=["']${esc}["']`,
       );
       if (re.test(html)) return true;
     }
@@ -297,7 +293,11 @@ export async function applyScaffold(
     }
     pageSlugs.add(pageSlug);
 
-    let rewrittenHtml = rewriteFlowRefs(p.html, flowSlugToId);
+    const resolved = resolveFlowRefsWith(p.html, refMap);
+    if (resolved.leftover.length > 0) {
+      console.warn(`[scaffold] page "${pageSlug}" has unconnected parts: ${resolved.leftover.slice(0, 5).join(", ")}`);
+    }
+    let rewrittenHtml = resolved.html;
 
     // Belt-and-braces: if this page uses a session-reading flow but the AI
     // forgot the auth marker, inject it so users don't land on a broken
@@ -408,29 +408,6 @@ function injectDatasourceId(
     out.datasourceId = datasourceId;
   }
   return out;
-}
-
-function rewriteFlowRefs(html: string, flowSlugToId: Map<string, string>): string {
-  let out = html;
-  for (const [slug, id] of flowSlugToId) {
-    const flowRef = new RegExp(`data-nk-flow-ref=["']${escapeRegex(slug)}["']`, "g");
-    out = out.replace(flowRef, `data-nk-flow="${id}"`);
-    const bindRef = new RegExp(
-      `data-nk-bind-flow-ref=["']${escapeRegex(slug)}["']`,
-      "g"
-    );
-    out = out.replace(bindRef, `data-nk-bind-flow="${id}"`);
-    const logoutRef = new RegExp(
-      `data-nk-logout-ref=["']${escapeRegex(slug)}["']`,
-      "g"
-    );
-    out = out.replace(logoutRef, `data-nk-logout="${id}"`);
-  }
-  return out;
-}
-
-function escapeRegex(s: string): string {
-  return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
 /** Example rows from the plan; only known columns, values as parameters. */

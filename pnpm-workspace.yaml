@@ -1,8 +1,3 @@
-packages:
-  - "packages/*"
-  - "apps/*"
-
-# Pinned in main package.json — keep aligned with /tmp/open-codesign for parity.
 onlyBuiltDependencies:
   - "@prisma/client"
   - "@prisma/engines"

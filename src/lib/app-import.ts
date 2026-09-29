@@ -4,7 +4,8 @@ import { mkdir, stat, writeFile } from "fs/promises";
 import { dirname, resolve, sep } from "path";
 import { db } from "./db";
 import { ensureInternalDatasource } from "./ai/apply-scaffold";
-import { ensureInternalTable } from "./datasources/postgres";
+import { ensureInternalTable, projectSchemaName } from "./datasources/postgres";
+import { eraseProject } from "./erase";
 import { syncProjectNav } from "./nav-sync";
 import { projectSlug } from "./utils";
 import type { FieldType } from "./datasources/postgres";
@@ -69,7 +70,7 @@ export async function importApp(ownerId: string, zipData: Buffer, overrideName?:
 
     // Tables and rows.
     const datasource = await ensureInternalDatasource(project.id);
-    const schemaName = `proj_${project.id.replace(/[^a-zA-Z0-9_]/g, "")}`;
+    const schemaName = projectSchemaName(project.id);
     const pool = new Pool({ connectionString: process.env.DATABASE_URL, max: 2 });
     try {
       for (const file of Object.keys(zip.files).filter((f) => /^tables\/[^/]+\.schema\.json$/.test(f))) {
@@ -148,8 +149,9 @@ export async function importApp(ownerId: string, zipData: Buffer, overrideName?:
     await syncProjectNav(project.id).catch(() => 0);
     return { projectId: project.id, homePageId };
   } catch (err) {
-    // Don't leave a half-imported app behind.
-    await db.project.delete({ where: { id: project.id } }).catch(() => {});
+    // Don't leave a half-imported app (or its tables) behind. Restored
+    // images stay: they may be shared with another app.
+    await eraseProject(project.id, project.slug).catch((e) => console.error("[import] rollback failed", e));
     throw err;
   }
 }

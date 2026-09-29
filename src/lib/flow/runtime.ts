@@ -1,36 +1,143 @@
+import { Prisma, type Flow } from "@prisma/client";
 import { publicFetch } from "../public-url";
 import argon2 from "argon2";
-import type { FlowGraph, FlowNode, RunContext, RunResult } from "./types";
-import { interpolate, interpolateObject, cmp } from "./expr";
+import type { FlowGraph, FlowNode, RunContext, RunResult, RunSource } from "./types";
+import {
+  interpolate,
+  interpolateObject,
+  interpolateJson,
+  interpolateDeep,
+  cmp,
+  evaluateFormula,
+  FormulaSyntaxError,
+  secureRandomInt,
+} from "./expr";
 import { getAdapter as loadAdapter } from "../datasources";
 import { db } from "../db";
 import { liveSnapshot } from "../deployments";
 import { signAppSession, verifyAppSession, sessionCookieName } from "./session";
-import { checkFlowAccess } from "./access";
+import { flowAccessDecision } from "./access";
+import { redactForLog, scrubResponseBody } from "./redact";
+import { hitLimit, undoHit } from "../rate-limit";
+
+/** What a visitor sees when a step fails. The owner sees the real reason in the flow's activity. */
+export const VISITOR_ERROR = "Sorry, that didn't send. Please try again; the owner has been told.";
+export const EMAIL_NOT_SET_UP_WARNING = "Email isn't set up on this server, so the message was not sent.";
+
+/** Flows that only the platform starts. Visitors can't call them. */
+export const HIDDEN_TRIGGERS: ReadonlySet<string> = new Set(["SCHEDULE", "EVENT"]);
+
+export type RunOptions = {
+  /** Run the version frozen at the last publish (visitors, webhooks, schedules); otherwise the saved draft. */
+  live?: boolean;
+  /**
+   * The owner testing in the builder, or the platform itself (schedules).
+   * Everyone else must pass the same sign-in and role checks as the pages
+   * that use the flow, and gets the visitor limits and friendly errors.
+   */
+  trusted?: boolean;
+  /** The visitor's address (X-Real-IP), when a request started the run. */
+  clientIp?: string | null;
+  /** Defaults to "test" for trusted draft runs, "schedule" for trusted live runs, else "live". */
+  source?: RunSource;
+  /** The graph to run, when the caller already loaded it with runnableFlow. */
+  graph?: FlowGraph;
+};
+
+function normalizeGraph(g: unknown): FlowGraph {
+  const graph = (g ?? {}) as Partial<FlowGraph>;
+  return { nodes: Array.isArray(graph.nodes) ? graph.nodes : [], edges: Array.isArray(graph.edges) ? graph.edges : [] };
+}
+
+/**
+ * The graph a run uses, and the trigger it was published with. Published
+ * apps, webhooks and schedules run the version frozen at the last publish;
+ * the builder runs the draft. A flow created since then has no published
+ * version yet, so it runs as saved.
+ */
+export async function runnableFlow(flow: Pick<Flow, "id" | "projectId" | "graph" | "trigger">, live: boolean): Promise<{ graph: FlowGraph; trigger: string }> {
+  if (live) {
+    const published = (await liveSnapshot(flow.projectId))?.flows.find((f) => f.id === flow.id);
+    if (published) return { graph: normalizeGraph(published.graph), trigger: String(published.trigger ?? flow.trigger) };
+  }
+  return { graph: normalizeGraph(flow.graph), trigger: flow.trigger };
+}
+
+const WRITE_STEPS = new Set(["insert", "update", "delete", "bulk_insert", "bulk_update", "bulk_delete", "email", "send_push", "sheets_append", "http_request"]);
+
+/** Whether the flow saves, changes or sends anything (the kind visitors are rate-limited on). */
+export function flowWrites(graph: FlowGraph): boolean {
+  return graph.nodes.some((n) => WRITE_STEPS.has(n.type));
+}
+
+/** Whether the flow checks a password (sign-in), which gets its own attempt limits. */
+export function flowChecksPassword(graph: FlowGraph): boolean {
+  return graph.nodes.some((n) => n.type === "verify_password");
+}
+
+type Failure = {
+  message: string;
+  nodeId?: string;
+  nodeLabel?: string | null;
+  nodeType?: string;
+  /** 400/409 when the visitor's input was the problem; 500 otherwise. */
+  status?: number;
+  /** What visitors are told instead of VISITOR_ERROR (their input was the problem). */
+  visitorMessage?: string;
+};
+
+// Postgres invalid text/datetime/number, not-null, check and foreign-key
+// violations, plus the adapters' own refusals.
+const BAD_INPUT_CODES = new Set(["22P02", "22007", "22008", "22003", "23502", "23503", "23514", "NK_BAD_INPUT"]);
+
+/**
+ * A value the database can't store (text in a number column, a blank
+ * required field, a duplicate) is the caller's mistake, not a crash: it gets
+ * 400/409 in plain words. The database's own text stays on the run for the
+ * owner and is never sent to visitors.
+ */
+function inputProblem(err: unknown): Pick<Failure, "status" | "visitorMessage"> {
+  const code = (err as { code?: unknown } | null)?.code;
+  if (code === "23505") return { status: 409, visitorMessage: "That already exists." };
+  if (typeof code === "string" && BAD_INPUT_CODES.has(code)) return { status: 400, visitorMessage: "Some of the information is missing or in the wrong format." };
+  return {};
+}
+type RunState = { failure: Failure | null };
+
+const MAX_WARNINGS = 20;
+const MAX_STEPS_KEPT = 60;
+const TABLE_STEPS = new Set(["query", "insert", "update", "delete", "bulk_insert", "bulk_update", "bulk_delete", "aggregate"]);
+
+function errorText(err: unknown): string {
+  const s = err instanceof Error ? err.message : String(err);
+  return s.length > 2000 ? `${s.slice(0, 2000)}…` : s;
+}
+
+function labelOf(node: FlowNode): string | null {
+  const label = (node.data as { label?: unknown } | undefined)?.label;
+  return typeof label === "string" && label.trim() ? label.trim().slice(0, 120) : null;
+}
+
+function warn(ctx: RunContext, message: string) {
+  const m = message.replace(/\s+/g, " ").trim().slice(0, 300);
+  if (m && !ctx.warnings.includes(m) && ctx.warnings.length < MAX_WARNINGS) ctx.warnings.push(m);
+}
+
+function toJsonInput(v: unknown): Prisma.InputJsonValue | typeof Prisma.DbNull {
+  return v === null || v === undefined ? Prisma.DbNull : (v as Prisma.InputJsonValue);
+}
 
 export async function runFlow(
   flowId: string,
   trigger: unknown,
   cookies: Record<string, string> = {},
-  // trusted: the owner testing in the builder, or the platform itself
-  // (schedules). Everyone else must pass the same sign-in and role checks as
-  // the pages that use the flow.
-  opts: { live?: boolean; trusted?: boolean } = {}
+  opts: RunOptions = {}
 ): Promise<RunResult> {
   const flow = await db.flow.findUnique({ where: { id: flowId } });
   if (!flow) throw new Error("Flow not found");
-  if (!opts.trusted) {
-    const denied = await checkFlowAccess(flow, cookies, Boolean(opts.live));
-    if (denied) return { status: denied.status, body: denied.body, vars: {}, setCookies: [], trace: [] };
-  }
-  let graph = flow.graph as unknown as FlowGraph;
-  // Published apps, webhooks and schedules run the version frozen at the last
-  // publish; the builder runs the draft. A flow created since then has no
-  // published version yet, so it runs as saved.
-  if (opts.live) {
-    const published = (await liveSnapshot(flow.projectId))?.flows.find((f) => f.id === flow.id);
-    if (published) graph = published.graph as unknown as FlowGraph;
-  }
+  const trusted = Boolean(opts.trusted);
+  const live = Boolean(opts.live);
+  const started = Date.now();
 
   const ctx: RunContext = {
     trigger,
@@ -38,19 +145,12 @@ export async function runFlow(
     projectId: flow.projectId,
     flowId: flow.id,
     cookies,
+    trusted,
+    clientIp: opts.clientIp ?? null,
+    source: opts.source ?? (trusted ? (live ? "schedule" : "test") : "live"),
+    secrets: new Set(),
+    warnings: [],
   };
-
-  const start = findTrigger(graph);
-  if (!start) {
-    return {
-      status: 500,
-      body: { error: "Flow has no trigger node" },
-      vars: ctx.vars,
-      setCookies: [],
-      trace: [],
-    };
-  }
-
   const result: RunResult = {
     status: 200,
     body: { ok: true },
@@ -58,28 +158,79 @@ export async function runFlow(
     setCookies: [],
     trace: [],
   };
+  const state: RunState = { failure: null };
+  let graph: FlowGraph | null = null;
 
-  const startedAt = Date.now();
-  await walk(start.id, graph, ctx, result, new Set());
+  // Everything that can fail sits in here, so every run leaves exactly one
+  // FlowRun row (the scheduler reads the newest one), even when loading the
+  // published version or the database fails before any step runs.
+  try {
+    if (!trusted) {
+      // Scheduled and event flows only run for the platform (see /api/run).
+      if (HIDDEN_TRIGGERS.has(flow.trigger)) return { status: 404, body: { error: "Flow not found or disabled" }, vars: {}, setCookies: [], trace: [] };
+      const { access, denied } = await flowAccessDecision(flow, cookies, live);
+      // Turned away before anything ran: not a run, nothing to record.
+      if (denied) return { status: denied.status, body: scrubResponseBody(denied.body), vars: {}, setCookies: [], trace: [] };
+      ctx.staffOnly = Boolean(access.signIn && access.roles && access.roles.length > 0);
+    }
+    graph = opts.graph ? normalizeGraph(opts.graph) : (await runnableFlow(flow, live)).graph;
+    const start = findTrigger(graph);
+    if (!start) throw new Error("Flow has no trigger node");
+    await walk(start.id, graph, ctx, result, new Set(), state);
+  } catch (err) {
+    state.failure ??= { message: errorText(err) };
+  }
 
-  const failed = result.trace.find((t) => !t.ok);
-  const run = await db.flowRun.create({
-    data: {
-      flowId: flow.id,
-      status: String(result.status),
-      input: trigger as object,
-      output: result.body as object,
-      error: failed?.error ? String(failed.error).slice(0, 2000) : null,
-      durationMs: Date.now() - startedAt,
-    },
-  });
-  void run;
+  const failure = state.failure;
+  if (failure) {
+    result.status = failure.status ?? 500;
+    result.failed = true;
+    result.body = { error: failure.message, ...(failure.nodeId ? { nodeId: failure.nodeId } : {}) };
+    console.error(`[flow] ${flow.id} (${ctx.source}) failed${failure.nodeId ? ` at step ${failure.nodeId}` : ""}: ${failure.message}`);
+  }
+
+  // Stored for the owner's activity view: redacted input and response, plus
+  // what happened (output.meta) so no extra columns are needed.
+  const nodes = new Map((graph?.nodes ?? []).map((n) => [n.id, n] as const));
+  const meta = {
+    source: ctx.source,
+    warnings: ctx.warnings,
+    failedNodeId: failure?.nodeId ?? null,
+    failedNodeLabel: failure?.nodeLabel ?? null,
+    failedNodeType: failure?.nodeType ?? null,
+    steps: result.trace.slice(0, MAX_STEPS_KEPT).map((t) => {
+      const table = (nodes.get(t.nodeId)?.data as { table?: unknown } | undefined)?.table;
+      return { nodeId: t.nodeId, type: t.type, ok: t.ok, durationMs: t.durationMs, ...(TABLE_STEPS.has(t.type) && typeof table === "string" ? { table } : {}) };
+    }),
+  };
+  try {
+    const row = await db.flowRun.create({
+      data: {
+        flowId: flow.id,
+        status: String(result.status),
+        input: toJsonInput(redactForLog(trigger, ctx.secrets)),
+        output: toJsonInput({ body: redactForLog(result.body, ctx.secrets), meta }),
+        error: failure ? failure.message : null,
+        durationMs: Date.now() - started,
+      },
+      select: { id: true },
+    });
+    result.runId = row.id;
+  } catch (err) {
+    console.error(`[flow] couldn't record a run of ${flow.id}:`, errorText(err));
+  }
+  result.warnings = ctx.warnings;
+
+  if (failure) {
+    const ref = result.runId ? { ref: result.runId } : {};
+    // The owner testing in the builder sees what went wrong; visitors get a
+    // plain apology and a reference the owner can look up.
+    result.body = trusted ? { error: failure.message, ...(failure.nodeId ? { nodeId: failure.nodeId } : {}), ...ref } : { error: failure.visitorMessage ?? VISITOR_ERROR, ...ref };
+  }
+  // Password fields and hashes never leave the server, whatever the flow returns.
+  result.body = scrubResponseBody(result.body);
   return result;
 }
-
-// Postgres invalid text/datetime/number, not-null, check and foreign-key
-// violations, plus the adapters' own refusals.
-const BAD_INPUT_CODES = new Set(["22P02", "22007", "22008", "22003", "23502", "23503", "23514", "NK_BAD_INPUT"]);
 
 function findTrigger(graph: FlowGraph): FlowNode | undefined {
   return graph.nodes.find((n) => n.type === "trigger") ?? graph.nodes[0];
@@ -96,52 +247,146 @@ async function walk(
   graph: FlowGraph,
   ctx: RunContext,
   result: RunResult,
-  visited: Set<string>
+  visited: Set<string>,
+  state: RunState
 ): Promise<void> {
-  if (visited.has(nodeId)) return;
+  if (state.failure || visited.has(nodeId)) return;
   visited.add(nodeId);
 
   const node = graph.nodes.find((n) => n.id === nodeId);
   if (!node) return;
 
   const t0 = Date.now();
+  let handle: string | undefined;
   try {
-    const handle = await executeNode(node, ctx, result);
-    result.trace.push({
-      nodeId: node.id,
-      type: node.type,
-      durationMs: Date.now() - t0,
-      ok: true,
-    });
-    const nexts = nextOf(graph, nodeId, handle);
-    for (const n of nexts) {
-      await walk(n, graph, ctx, result, visited);
-    }
+    handle = await executeNode(node, ctx, result);
   } catch (err) {
-    const message = err instanceof Error ? err.message : String(err);
-    result.trace.push({
-      nodeId: node.id,
-      type: node.type,
-      durationMs: Date.now() - t0,
-      ok: false,
-      error: message,
-    });
-    // A value the database can't store (text in a number column, a blank
-    // required field, a duplicate) is the caller's mistake, not a crash:
-    // answer 400/409 in plain words. The database's own text is kept on the
-    // run for the owner, never sent to visitors.
-    const code = (err as { code?: unknown } | null)?.code;
-    if (code === "23505") {
-      result.status = 409;
-      result.body = { error: "That already exists.", nodeId: node.id };
-    } else if (typeof code === "string" && BAD_INPUT_CODES.has(code)) {
-      result.status = 400;
-      result.body = { error: "Some of the information is missing or in the wrong format.", nodeId: node.id };
-    } else {
-      result.status = 500;
-      result.body = { error: message, nodeId: node.id };
-    }
+    const message = errorText(err);
+    result.trace.push({ nodeId: node.id, type: node.type, durationMs: Date.now() - t0, ok: false, error: message });
+    // A failed step ends the run: later steps (including a success reply on
+    // another branch) must not cover it up.
+    state.failure = { message, nodeId: node.id, nodeLabel: labelOf(node), nodeType: node.type, ...inputProblem(err) };
+    return;
   }
+  result.trace.push({
+    nodeId: node.id,
+    type: node.type,
+    durationMs: Date.now() - t0,
+    ok: true,
+  });
+  for (const n of nextOf(graph, nodeId, handle)) {
+    await walk(n, graph, ctx, result, visited, state);
+    if (state.failure) return;
+  }
+}
+
+/* ── Visitor email limits ──────────────────────────────────────────────── */
+
+const HOUR = 60 * 60 * 1000;
+const EMAIL_LIMITS = { appPerHour: 50, appPerDay: 200, recipientPerHour: 5 };
+
+/**
+ * Counts a visitor-started email against the app's and each recipient's
+ * allowance. Returns why it must be held back, or null when it may go out.
+ * `perRecipient` is false for addresses the owner typed into the step (their
+ * own inbox, say): only addresses that come from a {{value}} could be used to
+ * aim emails at someone else.
+ */
+function takeEmailAllowance(projectId: string, recipients: string[], perRecipient: boolean): string | null {
+  const taken: string[] = [];
+  const take = (key: string, limit: number, windowMs: number) => {
+    const ok = hitLimit(key, limit, windowMs).ok;
+    taken.push(key);
+    return ok;
+  };
+  let problem: string | null = null;
+  for (const to of recipients) {
+    if (perRecipient && !take(`flow-email:to:${to}`, EMAIL_LIMITS.recipientPerHour, HOUR)) {
+      problem = `${to} has already been sent ${EMAIL_LIMITS.recipientPerHour} emails by apps in the last hour, so this one was held back.`;
+    } else if (!take(`flow-email:app-hour:${projectId}`, EMAIL_LIMITS.appPerHour, HOUR)) {
+      problem = `This app has sent ${EMAIL_LIMITS.appPerHour} emails in the last hour, so this one was held back to prevent spam.`;
+    } else if (!take(`flow-email:app-day:${projectId}`, EMAIL_LIMITS.appPerDay, 24 * HOUR)) {
+      problem = `This app has sent ${EMAIL_LIMITS.appPerDay} emails today, so this one was held back to prevent spam.`;
+    }
+    if (problem) break;
+  }
+  if (problem) for (const key of taken) undoHit(key);
+  return problem;
+}
+
+function giveBackEmailAllowance(projectId: string, recipients: string[], perRecipient: boolean) {
+  for (const to of recipients) {
+    if (perRecipient) undoHit(`flow-email:to:${to}`);
+    undoHit(`flow-email:app-hour:${projectId}`);
+    undoHit(`flow-email:app-day:${projectId}`);
+  }
+}
+
+/** Sample sender addresses from feature defaults (no-reply@example.com) are never used. */
+function realSender(from: string): string | undefined {
+  const address = (from.match(/<([^>]+)>/)?.[1] ?? from).trim().toLowerCase();
+  if (!address.includes("@")) return undefined;
+  if (/@(?:[^@]+\.)?example\.(?:com|org|net)$|\.(?:example|invalid|test|localhost)$|@localhost$/.test(address)) return undefined;
+  return from;
+}
+
+/* ── Outgoing requests ─────────────────────────────────────────────────── */
+
+async function outboundFetch(url: string, init: RequestInit): Promise<Response> {
+  // Test runs only: the e2e tests point flows at a mock server on this
+  // machine. Never honoured by a production build.
+  if (process.env.NK_FLOW_HTTP_ALLOW_PRIVATE === "1" && process.env.NODE_ENV !== "production") {
+    return fetch(url, { ...init, redirect: "manual", signal: init.signal ?? AbortSignal.timeout(20000) });
+  }
+  return publicFetch(url, init);
+}
+
+function requestBody(template: string | undefined, contentType: string, ctx: RunContext): string {
+  // A body that is one {{value}} is sent as it is (the flow built it).
+  if (template == null || /^\s*\{\{[^}]+\}\}\s*$/.test(template)) return interpolate(template, ctx);
+  // Each value is encoded on its own, so visitor text like
+  // "a@b.com&line_items[0][price_data][unit_amount]=1" stays one value and
+  // can't add or change fields of the request (a Stripe price, say).
+  if (contentType.includes("application/x-www-form-urlencoded")) return interpolate(template, ctx, { urlEncode: true });
+  if (/[/+]json\b/.test(contentType)) return interpolateJson(template, ctx);
+  return interpolate(template, ctx);
+}
+
+/* ── Steps ─────────────────────────────────────────────────────────────── */
+
+function wholeNumber(raw: unknown, ctx: RunContext, what: string): number {
+  const s = interpolate(raw == null ? "" : String(raw), ctx).trim();
+  const n = Number(s);
+  if (s === "" || !Number.isSafeInteger(n)) throw new Error(`A random number needs a whole number for its ${what} value.`);
+  return n;
+}
+
+function plainMath(node: Extract<FlowNode, { type: "math" }>, ctx: RunContext): number {
+  const left = Number(interpolate(node.data.left, ctx));
+  const right = Number(interpolate(node.data.right, ctx));
+  switch (node.data.op) {
+    case "+":
+      return left + right;
+    case "-":
+      return left - right;
+    case "*":
+      return left * right;
+    case "/":
+      return right === 0 ? 0 : left / right;
+    case "%":
+      return right === 0 ? 0 : left % right;
+    default:
+      return left + right;
+  }
+}
+
+/** Tell the owner about a visitor's new row, after the reply and without waiting. */
+function alertOwner(ctx: RunContext, table: string, row: unknown, values: Record<string, unknown>) {
+  if (!((!ctx.trusted && !ctx.staffOnly) || ctx.source === "test-submission")) return;
+  const saved = row && typeof row === "object" && !Array.isArray(row) ? (row as Record<string, unknown>) : values;
+  void import("../owner-alerts")
+    .then(({ notifyVisitorInsert }) => notifyVisitorInsert({ projectId: ctx.projectId, table, row: saved, source: ctx.source }))
+    .catch((err) => console.error("[flow] owner alert failed:", errorText(err)));
 }
 
 async function executeNode(
@@ -189,6 +434,7 @@ async function executeNode(
       const row = await adapter.insert(source, node.data.table, values);
       if (node.data.output) ctx.vars[node.data.output] = row;
       else ctx.vars.inserted = row;
+      alertOwner(ctx, node.data.table, row, values);
       return;
     }
 
@@ -237,7 +483,8 @@ async function executeNode(
       const { source, adapter } = await getAdapter(node.data.datasourceId, ctx.projectId);
       let parsed: Record<string, unknown> = {};
       try {
-        parsed = JSON.parse(interpolate(node.data.values, ctx) || "{}");
+        // Values inside the JSON template are escaped, so visitor text can't add fields.
+        parsed = JSON.parse(interpolateJson(node.data.values, ctx) || "{}");
       } catch {
         parsed = {};
       }
@@ -253,11 +500,12 @@ async function executeNode(
         headers[k] = interpolate(v, ctx);
       }
       const method = node.data.method ?? "GET";
+      const contentType = (Object.entries(headers).find(([k]) => k.toLowerCase() === "content-type")?.[1] ?? "").toLowerCase();
       const body =
         method === "GET" || method === "DELETE"
           ? undefined
-          : interpolate(node.data.body, ctx);
-      const res = await publicFetch(url, { method, headers, body });
+          : requestBody(node.data.body, contentType, ctx);
+      const res = await outboundFetch(url, { method, headers, body });
       const ct = res.headers.get("content-type") ?? "";
       const parsed = ct.includes("json") ? await res.json() : await res.text();
       const val = { status: res.status, body: parsed };
@@ -274,47 +522,64 @@ async function executeNode(
     }
 
     case "response": {
-      result.status = node.data.status ?? 200;
+      const status = Number(node.data.status ?? 200);
+      result.status = Number.isInteger(status) && status >= 200 && status <= 599 ? status : 200;
+      const raw = node.data.body as unknown;
+      if (raw !== null && typeof raw === "object") {
+        // A reply written as an object: each text in it is filled in.
+        result.body = interpolateDeep(raw, ctx);
+        return;
+      }
+      const template = raw == null ? undefined : String(raw);
+      // Values inside JSON strings are escaped, so quotes and line breaks in
+      // what visitors typed keep the reply valid JSON.
+      const body = interpolateJson(template, ctx);
       try {
-        const body = interpolate(node.data.body, ctx);
         result.body = body ? JSON.parse(body) : ctx.vars;
       } catch {
-        result.body = interpolate(node.data.body, ctx);
+        result.body = interpolate(template, ctx);
       }
       return;
     }
 
     case "email": {
-      const to = interpolate(node.data.to, ctx);
-      const subject = interpolate(node.data.subject, ctx);
-      const body = interpolate(node.data.body, ctx);
+      const to = interpolate(node.data.to, ctx).replace(/[\r\n]+/g, " ").trim();
       if (!to) throw new Error("Email node missing 'to'");
-      let from = interpolate(node.data.from, ctx);
-      if (!from) {
-        // Send as the app (its own name) from the server's configured address.
-        const configured = process.env.DEFAULT_EMAIL_FROM;
-        if (!configured) throw new Error("Set DEFAULT_EMAIL_FROM on the server, or a From address on this step.");
-        const address = configured.match(/<([^>]+)>/)?.[1] ?? configured;
-        const app = await db.project.findUnique({ where: { id: ctx.projectId }, select: { name: true } });
-        from = app?.name ? `${app.name.replace(/[<>"]/g, "")} <${address}>` : configured;
-      }
-
-      const apiKey = process.env.RESEND_API_KEY;
-      if (!apiKey) {
-        // Soft-fail in dev — log and move on so flows remain testable
-        console.warn("[email node] RESEND_API_KEY not set; skipping send", { to, subject });
-        if (node.data.output) ctx.vars[node.data.output] = { ok: false, skipped: true };
+      const out = node.data.output?.trim();
+      const { emailEnabled, sendEmailDetailed } = await import("../mailer");
+      if (!emailEnabled()) {
+        // Not a failure of the flow: the visitor still gets the flow's reply,
+        // and the owner sees why no email went out.
+        warn(ctx, EMAIL_NOT_SET_UP_WARNING);
+        if (out) ctx.vars[out] = { ok: false, skipped: true };
         return;
       }
-      const { Resend } = await import("resend");
-      const resend = new Resend(apiKey);
-      const send = await resend.emails.send({
-        from,
-        to,
-        subject,
-        html: body,
-      });
-      if (node.data.output) ctx.vars[node.data.output] = send;
+      const recipients = [...new Set(to.split(/[,;]/).map((s) => (s.match(/<([^>]+)>/)?.[1] ?? s).trim().toLowerCase()).filter(Boolean))];
+      const chosenByValue = /\{\{/.test(String(node.data.to ?? ""));
+      if (!ctx.trusted) {
+        const held = takeEmailAllowance(ctx.projectId, recipients, chosenByValue);
+        if (held) {
+          warn(ctx, held);
+          if (out) ctx.vars[out] = { ok: false, skipped: true, error: held };
+          return;
+        }
+      }
+      const subject = interpolate(node.data.subject, ctx).replace(/[\r\n]+/g, " ").trim();
+      const template = node.data.body ?? "";
+      const isHtml = /<[a-z!/][^>]*>/i.test(template);
+      // Values are escaped for HTML, so what a visitor typed shows as text
+      // and can't add links or markup to the email.
+      const escaped = interpolate(template, ctx, { escapeHtml: true });
+      const html = isHtml ? escaped : escaped.replace(/\r?\n/g, "<br>\n");
+      const text = isHtml ? undefined : interpolate(template, ctx);
+      const from = realSender(interpolate(node.data.from, ctx).trim());
+      const app = await db.project.findUnique({ where: { id: ctx.projectId }, select: { name: true } });
+      const sent = await sendEmailDetailed({ to, subject, html, text, from, fromName: app?.name || undefined });
+      if (!sent.ok) {
+        if (!ctx.trusted) giveBackEmailAllowance(ctx.projectId, recipients, chosenByValue);
+        warn(ctx, sent.skipped ? EMAIL_NOT_SET_UP_WARNING : sent.error || "The email couldn't be sent.");
+      }
+      if (out) ctx.vars[out] = { ok: sent.ok, ...(sent.skipped ? { skipped: true } : {}), ...(sent.error ? { error: sent.error } : {}) };
       return;
     }
 
@@ -342,7 +607,6 @@ async function executeNode(
       if (!prompt) throw new Error("AI prompt node is missing a prompt");
       // Anyone visiting a published app can trigger this step, so it is both
       // rate-limited per app and counted against the app owner's AI allowance.
-      const { hitLimit } = await import("../rate-limit");
       if (!hitLimit(`ai-flow:${ctx.projectId}`, Number(process.env.AI_FLOW_HOURLY_LIMIT || 120), 3_600_000).ok) {
         throw new Error("This app is receiving too many AI requests right now. Please try again later.");
       }
@@ -381,27 +645,22 @@ async function executeNode(
     }
 
     case "math": {
-      const left = Number(interpolate(node.data.left, ctx));
-      const right = Number(interpolate(node.data.right, ctx));
-      let out = 0;
-      switch (node.data.op) {
-        case "+":
-          out = left + right;
-          break;
-        case "-":
-          out = left - right;
-          break;
-        case "*":
-          out = left * right;
-          break;
-        case "/":
-          out = right === 0 ? 0 : left / right;
-          break;
-        case "%":
-          out = right === 0 ? 0 : left % right;
-          break;
-        default:
-          out = left + right;
+      let out: number;
+      if (node.data.op === "random_int") {
+        // A whole number from min to max, from the system's secure generator.
+        out = secureRandomInt(wholeNumber(node.data.min, ctx, "smallest"), wholeNumber(node.data.max, ctx, "largest"));
+      } else if (typeof node.data.expression === "string" && node.data.expression.trim()) {
+        try {
+          out = evaluateFormula(node.data.expression, ctx);
+        } catch (err) {
+          if (!(err instanceof FormulaSyntaxError)) throw err;
+          // A formula this step can't work out keeps the step's plain
+          // numbers, as before, and tells the owner why.
+          warn(ctx, `The formula in step "${labelOf(node) ?? node.id}" can't be worked out: ${err.message}`);
+          out = plainMath(node, ctx);
+        }
+      } else {
+        out = plainMath(node, ctx);
       }
       if (node.data.output) ctx.vars[node.data.output] = out;
       else ctx.vars.result = out;
@@ -411,6 +670,8 @@ async function executeNode(
     case "hash_password": {
       const plain = interpolate(node.data.input, ctx);
       if (!plain) throw new Error("hash_password node missing 'input'");
+      // Masked wherever it appears in the stored run.
+      ctx.secrets.add(plain);
       const hashed = await argon2.hash(plain, { type: argon2.argon2id });
       const out = node.data.output ?? "hash";
       ctx.vars[out] = hashed;
@@ -419,6 +680,7 @@ async function executeNode(
 
     case "verify_password": {
       const plain = interpolate(node.data.plain, ctx);
+      if (plain) ctx.secrets.add(plain);
       const hashed = interpolate(node.data.hash, ctx);
       let ok = false;
       if (plain && hashed) {
@@ -428,6 +690,7 @@ async function executeNode(
           ok = false;
         }
       }
+      if (!ok) result.authFailed = true;
       const out = node.data.output ?? "verified";
       ctx.vars[out] = ok;
       return;

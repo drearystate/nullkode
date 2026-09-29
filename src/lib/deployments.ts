@@ -17,10 +17,14 @@ export type SnapshotFlow = Pick<Flow, "id" | "name" | "slug" | "graph"> & Partia
 export type Snapshot = { pages: SnapshotPage[]; flows: SnapshotFlow[]; theme?: unknown; hash?: string };
 
 /** Fingerprint of everything a visitor can see or trigger. */
-export function contentHash(input: { pages: Array<Pick<Page, "slug" | "title" | "isHome" | "html" | "css">>; flows: Array<Pick<Flow, "id" | "slug" | "graph">>; theme: unknown }): string {
+export function contentHash(input: { pages: Array<Pick<Page, "slug" | "title" | "isHome" | "html" | "css">>; flows: Array<Pick<Flow, "id" | "slug" | "graph"> & Partial<Pick<Flow, "trigger" | "schedule" | "enabled">>>; theme: unknown }): string {
   const h = createHash("sha256");
   for (const p of [...input.pages].sort((a, b) => a.slug.localeCompare(b.slug))) h.update(`P|${p.slug}|${p.title}|${p.isHome}|${p.html}|${p.css}\n`);
-  for (const f of [...input.flows].sort((a, b) => a.id.localeCompare(b.id))) h.update(`F|${f.id}|${f.slug}|${JSON.stringify(f.graph)}\n`);
+  // A flow's schedule is published like its steps (the scheduler runs the
+  // live version's), so it counts as a change. Only scheduled flows add it,
+  // so every other app's fingerprint stays as it was.
+  const sched = (f: Partial<Pick<Flow, "trigger" | "schedule" | "enabled">>) => (f.trigger === "SCHEDULE" ? `|S|${f.schedule ?? ""}|${f.enabled === false ? 0 : 1}` : "");
+  for (const f of [...input.flows].sort((a, b) => a.id.localeCompare(b.id))) h.update(`F|${f.id}|${f.slug}|${JSON.stringify(f.graph)}${sched(f)}\n`);
   h.update(`T|${JSON.stringify(input.theme ?? null)}`);
   return h.digest("hex");
 }
@@ -71,6 +75,11 @@ export async function publishDraft(projectId: string, userId: string | null): Pr
     where: { id: projectId },
     data: { published: true, publishedAt: new Date(), liveDeploymentId: deployment.id },
   });
+  // Schedules are published too: work out their next runs from this version
+  // now rather than at the next scheduler tick.
+  await import("./flow/scheduler")
+    .then((m) => m.planFlows(new Date(), projectId))
+    .catch((err) => console.error("[scheduler] couldn't plan schedules after publishing:", err instanceof Error ? err.message : err));
   return { version, deploymentId: deployment.id };
 }
 

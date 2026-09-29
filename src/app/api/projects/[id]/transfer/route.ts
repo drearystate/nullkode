@@ -1,37 +1,52 @@
 import { z } from "zod";
 import { db } from "@/lib/db";
-import { getCurrentUser } from "@/lib/auth";
+import { getCurrentUser, getRealUser } from "@/lib/auth";
 import { json } from "@/lib/utils";
+import { hitLimit } from "@/lib/rate-limit";
+import { canReceiveApps, loadTransferAccount, transferProjectTo, workspaceKey } from "@/lib/project-transfer";
 
 /**
- * Transfer project ownership to another registered user. Owner-only.
+ * Transfer an app to another registered account. Owner-only.
  *
- * Everything a project contains (pages, flows, datasources, domains,
- * module installs) is keyed by projectId, so a single ownerId change moves
- * the whole app. The one cross-cutting risk is a Designer design that
- * mirrors into this project: it belongs to the OLD owner's designer
- * workspace, and left attached it would let them silently overwrite the
- * new owner's pages. We detach any such mirror in the same transaction —
- * the old owner keeps their design file, it just stops publishing here.
+ * Everything an app contains (pages, flows, data, domains, module installs)
+ * is keyed by projectId, so one owner change moves the whole app (see
+ * src/lib/project-transfer.ts, which also detaches Designer mirrors).
+ *
+ * Guard rails:
+ * - Only within the sender's workspace (a reseller and its clients, or the
+ *   platform's own customers); the operator may move apps anywhere.
+ * - Never into a suspended account, or past the receiving account's plan.
+ * - Unknown and ineligible emails get the same answer, and each account
+ *   gets 10 tries an hour, so the form can't be used to find out who has an
+ *   account here.
+ * - Nobody acting as someone else (a reseller helping a client) can give
+ *   that person's apps away; only the operator can.
  */
 
 const Body = z.object({
-  email: z.string().email().max(320),
+  email: z.string().trim().email().max(320),
 });
+
+const TRIES_PER_HOUR = 10;
+
+const NOT_ELIGIBLE =
+  "We couldn't transfer the app to that email. Check the address: it must belong to an account here that can receive apps from you.";
 
 export async function POST(
   req: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const user = await getCurrentUser();
-  if (!user) return json({ error: "Unauthorized" }, { status: 401 });
-
-  const { id } = await params;
-  const parsed = Body.safeParse(await req.json().catch(() => null));
-  if (!parsed.success) {
-    return json({ error: "Enter a valid email address." }, { status: 400 });
+  const [user, real] = await Promise.all([getCurrentUser(), getRealUser()]);
+  if (!user || !real) return json({ error: "Unauthorized" }, { status: 401 });
+  const operator = real.role === "ADMIN";
+  if (real.id !== user.id && !operator) {
+    return json(
+      { error: "Only the app's owner can transfer it. Ask them to do it from their own account." },
+      { status: 403 }
+    );
   }
 
+  const { id } = await params;
   const project = await db.project.findUnique({
     where: { id },
     select: { id: true, name: true, ownerId: true },
@@ -40,30 +55,31 @@ export async function POST(
     return json({ error: "Project not found" }, { status: 404 });
   }
 
-  const target = await db.user.findFirst({
-    where: { email: { equals: parsed.data.email, mode: "insensitive" } },
-    select: { id: true, email: true },
-  });
-  if (!target) {
+  if (!operator && !hitLimit(`transfer:${user.id}`, TRIES_PER_HOUR, 60 * 60_000).ok) {
     return json(
-      { error: "No account with that email. They need to sign up first." },
-      { status: 400 }
+      { error: "That's a lot of transfer attempts. Please wait an hour and try again." },
+      { status: 429 }
     );
   }
-  if (target.id === user.id) {
-    return json({ error: "You already own this project." }, { status: 400 });
+
+  const parsed = Body.safeParse(await req.json().catch(() => null));
+  if (!parsed.success) {
+    return json({ error: "Enter a valid email address." }, { status: 400 });
   }
 
-  await db.$transaction([
-    db.designerDesign.updateMany({
-      where: { projectId: project.id },
-      data: { projectId: null },
-    }),
-    db.project.update({
-      where: { id: project.id },
-      data: { ownerId: target.id },
-    }),
+  const [target, sender] = await Promise.all([
+    loadTransferAccount({ email: parsed.data.email }),
+    loadTransferAccount({ id: user.id }),
   ]);
+  if (target && target.id === user.id) {
+    return json({ error: "You already own this app." }, { status: 400 });
+  }
+  const sameWorkspace = Boolean(target && sender && workspaceKey(target) === workspaceKey(sender));
+  if (!target || !sender || !canReceiveApps(target) || (!sameWorkspace && !operator)) {
+    return json({ error: NOT_ELIGIBLE }, { status: 400 });
+  }
 
+  const refused = await transferProjectTo(project.id, user.id, target, { sameWorkspace });
+  if (refused) return refused;
   return json({ ok: true, newOwner: target.email });
 }

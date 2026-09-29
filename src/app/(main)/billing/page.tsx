@@ -1,13 +1,35 @@
 import { getPublicPlans, billingScopeFor } from "@/lib/stripe";
 import { aiAllowance } from "@/lib/ai-quota";
 import { redirect } from "next/navigation";
-import { getCurrentUser } from "@/lib/auth";
+import { getCurrentUser, getImpersonation } from "@/lib/auth";
+import { db } from "@/lib/db";
 import { TopBar } from "@/components/top-bar";
 import { BillingPlans } from "@/components/billing-plans";
+import { DeleteAccountCard } from "@/components/delete-account";
+
+const LIVE_STATUS = new Set(["TRIALING", "ACTIVE", "PAST_DUE", "UNPAID"]);
 
 export default async function BillingPage() {
   const user = await getCurrentUser();
   if (!user) redirect("/login");
+
+  const [impersonation, apps, reseller, admins] = await Promise.all([
+    getImpersonation(),
+    db.project.findMany({
+      where: { ownerId: user.id },
+      select: { id: true, name: true, androidSigningKey: { select: { id: true } } },
+      orderBy: { createdAt: "asc" },
+    }),
+    db.reseller.findUnique({ where: { ownerId: user.id }, select: { id: true } }),
+    user.role === "ADMIN" ? db.user.count({ where: { role: "ADMIN" } }) : Promise.resolve(0),
+  ]);
+  const blocked = impersonation
+    ? "Only the person who owns this account can delete it. As an admin you can delete accounts from Admin, under Users."
+    : reseller
+      ? "You run a reseller workspace, so your account can't be deleted here. Ask the platform's operator to remove the workspace first."
+      : user.role === "ADMIN" && admins <= 1
+        ? "You're the only operator of this platform, so your account can't be deleted."
+        : null;
 
   return (
     <main className="min-h-screen">
@@ -21,6 +43,13 @@ export default async function BillingPage() {
         <AiUsageLine user={user} />
 
         <BillingPlans plans={await getPublicPlans(billingScopeFor(user))} currentPlan={user.plan} hasCustomer={!!user.stripeCustomerId} />
+
+        <DeleteAccountCard
+          email={user.email}
+          apps={apps.map((a) => ({ id: a.id, name: a.name, hasUploadKey: Boolean(a.androidSigningKey) }))}
+          paying={LIVE_STATUS.has(user.subscriptionStatus)}
+          blocked={blocked}
+        />
       </div>
     </main>
   );

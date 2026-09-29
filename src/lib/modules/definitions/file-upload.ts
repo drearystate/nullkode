@@ -72,13 +72,40 @@ export const fileUpload: ModuleDefinition = {
       slug: "upload",
       title: "Upload",
       html: `<section class="py-5"><div class="container" style="max-width:680px;"><h1 class="display-5 fw-bold">{{config.heading}}</h1><p style="color:var(--nk-text-muted);">Drag a file in or click to browse. Max 20MB.</p>
-<form id="nk-upload-form" class="card p-4 mt-4 shadow-sm" onsubmit="(async function(e){e.preventDefault();var f=e.target;var fd=new FormData();var file=f.querySelector('input[type=file]').files[0];if(!file)return;fd.append('file',file);var up=await fetch('/api/upload',{method:'POST',body:fd});var j=await up.json();if(!j.ok){alert('Upload failed');return;}var flow=f.getAttribute('data-nk-flow');var rec=await fetch('/api/run/'+flow,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({original_name:file.name,url:j.files.file,uploaded_by:f.querySelector('[name=uploaded_by]').value,notes:f.querySelector('[name=notes]').value})});f.reset();if(typeof window.__nkBindFlow==='function'){document.querySelectorAll('[data-nk-bind-flow]').forEach(function(el){window.__nkBindFlow(el);});}alert('Uploaded!');})(event);" data-nk-flow="__submit__">
-  <div class="mb-3"><label class="form-label">Your name</label><input name="uploaded_by" class="form-control" required/></div>
-  <div class="mb-3"><label class="form-label">Pick a file</label><input type="file" name="file" class="form-control" required/></div>
-  <div class="mb-3"><label class="form-label">Notes (optional)</label><input name="notes" class="form-control"/></div>
+<form id="nk-upload-form" class="card p-4 mt-4 shadow-sm" data-nk-flow-ref="upload">
+  <div class="mb-3"><label class="form-label" for="nk-up-name">Your name</label><input id="nk-up-name" name="uploaded_by" class="form-control" autocomplete="name" required/></div>
+  <div class="mb-3"><label class="form-label" for="nk-up-file">Pick a file</label><input id="nk-up-file" type="file" name="file" class="form-control" required/></div>
+  <div class="mb-3"><label class="form-label" for="nk-up-notes">Notes (optional)</label><input id="nk-up-notes" name="notes" class="form-control"/></div>
   <div class="text-end"><button class="btn btn-primary btn-lg" type="submit">Upload file</button></div>
 </form>
-<script>document.getElementById('nk-upload-form').setAttribute('data-nk-flow', document.querySelector('[data-nk-bind-flow]').getAttribute('data-nk-bind-flow').replace('{{NOPE}}', ''));</script>
+<script>(function(){
+  var f = document.getElementById('nk-upload-form');
+  if(!f) return;
+  var failed = 'Sorry, that file did not upload. Please try again.';
+  f.addEventListener('submit', function(e){
+    e.preventDefault();
+    var file = f.querySelector('input[type=file]').files[0]; if(!file) return;
+    var btn = f.querySelector('[type=submit]');
+    btn.disabled = true; btn.setAttribute('aria-busy', 'true');
+    var fd = new FormData(); fd.append('file', file);
+    fetch('/api/upload', { method:'POST', body: fd })
+      .then(function(r){ return r.json().catch(function(){ return {}; }); })
+      .then(function(j){
+        if(!j || !j.ok || !j.files){ (window.nkToast||alert)((j && j.error) || failed); return; }
+        var flow = f.getAttribute('data-nk-flow') || f.getAttribute('data-nk-flow-ref') || 'upload';
+        return fetch('/api/run/' + flow, { method:'POST', headers:{'content-type':'application/json'}, credentials:'same-origin', body: JSON.stringify({ original_name: file.name, url: j.files.file, uploaded_by: f.querySelector('[name=uploaded_by]').value, notes: f.querySelector('[name=notes]').value }) })
+          .then(function(r){ return r.json().catch(function(){ return {}; }).then(function(d){ return { ok: r.ok, d: d || {} }; }); })
+          .then(function(r){
+            if(!r.ok || r.d.error){ (window.nkToast||alert)(failed); return; }
+            f.reset();
+            if(typeof window.__nkBindFlow === 'function'){ document.querySelectorAll('[data-nk-bind-flow]').forEach(function(el){ window.__nkBindFlow(el); }); }
+            (window.nkToast||alert)(r.d.message || 'Uploaded!');
+          });
+      })
+      .catch(function(){ (window.nkToast||alert)(failed); })
+      .then(function(){ btn.disabled = false; btn.removeAttribute('aria-busy'); });
+  });
+})();</script>
 <h3 class="fw-bold mt-5">Recent uploads</h3>
 <div data-nk-bind-flow-ref="feed" class="mt-3">
   <div class="d-flex align-items-center gap-3 p-3 rounded border mb-2" style="background:var(--nk-surface);" data-nk-item>

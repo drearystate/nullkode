@@ -73,7 +73,6 @@ export function SettingsPanel({
   const [maxTokens, setMaxTokens] = useState("");
   const [contextWindow, setContextWindow] = useState("");
   const [reasoning, setReasoning] = useState("auto");
-  const [designerEngine, setDesignerEngine] = useState("");
   const [scaffoldModel, setScaffoldModel] = useState("");
   const [editModel, setEditModel] = useState("");
   const [claudeModel, setClaudeModel] = useState("");
@@ -114,7 +113,6 @@ export function SettingsPanel({
         setMaxTokens(s["ai.maxOutputTokens"] ? String(s["ai.maxOutputTokens"]) : "");
         setContextWindow(s["ai.contextWindow"] ? String(s["ai.contextWindow"]) : "");
         setReasoning((s["ai.reasoning"] as string) || "auto");
-        setDesignerEngine((s["designer.engine"] as string) || "");
         setScaffoldModel((s[KEYS.AI_OPENAI_MODEL_SCAFFOLD] as string) || "");
         setEditModel((s[KEYS.AI_OPENAI_MODEL_EDIT] as string) || "");
         setClaudeModel((s[KEYS.AI_CLAUDE_MODEL] as string) || "opus");
@@ -131,7 +129,6 @@ export function SettingsPanel({
       "ai.maxOutputTokens": maxTokens.trim() ? Number(maxTokens) : null,
       "ai.contextWindow": contextWindow.trim() ? Number(contextWindow) : null,
       "ai.reasoning": reasoning,
-      "designer.engine": designerEngine,
       [KEYS.AI_PROVIDER]: provider,
       [KEYS.AI_OPENAI_MODEL_SCAFFOLD]: scaffoldModel,
       [KEYS.AI_OPENAI_MODEL_EDIT]: editModel,
@@ -304,13 +301,6 @@ export function SettingsPanel({
             </div>
           )}
 
-          <Field label="Designer engine" hint="Automatic keeps the CLI agent on installs where it is configured, and otherwise uses the API provider above.">
-            <select className="input" value={designerEngine} onChange={(e) => setDesignerEngine(e.target.value)}>
-              <option value="">Automatic</option>
-              <option value="claude-cli">CLI agent (tool-using, best quality)</option>
-              <option value="api">API provider above (works with any model)</option>
-            </select>
-          </Field>
 
           <div className="flex items-center gap-3 pt-2">
             <button onClick={save} disabled={saving} className="btn btn-primary">

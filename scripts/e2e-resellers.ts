@@ -4,19 +4,29 @@
  * invitations, impersonation boundaries, suspension, isolation between
  * resellers, and deletion.
  *
- * Needs Docker (for a scratch Postgres). Run from the repo root:
- *   node_modules/.bin/tsx scripts/e2e-resellers.ts
+ * Also: files a reseller's client downloads (backup, offline copy, desktop
+ * installers) never name the platform and carry no private keys; apps only
+ * move within a workspace and within the receiving plan; "Give to client";
+ * Last active, the paying and AI tiles, bulk invites and the CSV export.
+ *
+ * Needs Docker (for a scratch Postgres) and python3 (to read plists and CSV).
+ * Run from the repo root:
+ *   E2E_PORT=3126 node_modules/.bin/tsx scripts/e2e-resellers.ts
  */
 import { randomBytes } from "node:crypto";
 import { execFileSync, spawn, type ChildProcess } from "node:child_process";
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import http from "node:http";
 import assert from "node:assert/strict";
 import { PrismaClient } from "@prisma/client";
+import JSZip from "jszip";
 
 const root = process.cwd();
 const port = Number(process.env.E2E_PORT || 3126);
 const base = `http://127.0.0.1:${port}`;
-const pgName = `nk-e2e-resellers-${Date.now()}`;
+const pgName = `nk-e2e-${port}-resellers-${Date.now()}`;
 const password = randomBytes(24).toString("hex");
 const installToken = randomBytes(32).toString("hex");
 const RESELLER_HOST = "apps.bright.test";
@@ -68,13 +78,73 @@ function agent(host?: string) {
       if (payload) req.write(payload);
       req.end();
     });
+  /** A download, as bytes (zips). */
+  const getBinary = (path: string): Promise<{ status: number; headers: http.IncomingHttpHeaders; body: Buffer }> =>
+    new Promise((resolve, reject) => {
+      const req = http.request(
+        {
+          host: "127.0.0.1",
+          port,
+          path,
+          method: "GET",
+          headers: {
+            ...(host ? { host } : {}),
+            ...(jar.size ? { cookie: [...jar].map(([k, v]) => `${k}=${v}`).join("; ") } : {}),
+            "x-real-ip": "203.0.113.7",
+          },
+        },
+        (res) => {
+          const chunks: Buffer[] = [];
+          res.on("data", (d: Buffer) => chunks.push(d));
+          res.on("end", () => resolve({ status: res.statusCode ?? 0, headers: res.headers, body: Buffer.concat(chunks) }));
+        },
+      );
+      req.on("error", reject);
+      req.setTimeout(180_000, () => req.destroy(new Error(`timeout GET ${path}`)));
+      req.end();
+    });
   return {
     get: (p: string) => request("GET", p),
     post: (p: string, b?: unknown) => request("POST", p, b ?? {}),
     patch: (p: string, b?: unknown) => request("PATCH", p, b ?? {}),
     del: (p: string, b?: unknown) => request("DELETE", p, b ?? {}),
+    getBinary,
     jar,
   };
+}
+
+/** The platform's names, which must never reach a reseller's client. */
+const PLATFORM_NAME = /Platform One|Nullkode/i;
+
+/** Rendered HTML without React's text separators. */
+const plain = (html: string) => html.replace(/<!-- -->/g, "");
+
+/** What a reader sees on a page: no scripts, styles, tags or comments. */
+const readable = (html: string) =>
+  html.replace(/<script[\s\S]*?<\/script>/gi, " ").replace(/<style[\s\S]*?<\/style>/gi, " ").replace(/<!--[\s\S]*?-->/g, " ").replace(/<[^>]+>/g, " ");
+
+/** A plist file, read by Python's plistlib (fails on invalid XML). */
+function plistOf(path: string): Record<string, unknown> {
+  return JSON.parse(
+    execFileSync("python3", ["-c", "import json,plistlib,sys; print(json.dumps(plistlib.load(open(sys.argv[1],'rb'))))", path], { encoding: "utf8" }),
+  );
+}
+
+/** CSV rows, read the way a spreadsheet reads them (Python's csv module). */
+function csvRows(text: string): string[][] {
+  return JSON.parse(
+    execFileSync("python3", ["-c", "import csv,io,json,sys; print(json.dumps(list(csv.reader(io.StringIO(sys.stdin.read().lstrip(chr(0xfeff)))))))"], { input: text, encoding: "utf8" }),
+  );
+}
+
+/** Every text file in a zip. */
+async function zipTexts(bytes: Buffer): Promise<Map<string, string>> {
+  const zip = await JSZip.loadAsync(bytes);
+  const out = new Map<string, string>();
+  for (const file of Object.values(zip.files)) {
+    if (!file.dir && /\.(md|txt|json|html|css|js)$/i.test(file.name)) out.set(file.name, await file.async("string"));
+  }
+  return out;
 }
 
 /** Page text without dev-server debug info (source paths contain the checkout directory's name). */
@@ -240,6 +310,8 @@ async function main() {
     ok("reseller opens a client's workspace", r.status === 200, r.json);
     r = await rita.get("/dashboard");
     ok("reseller sees the client's apps with a clear banner", r.text.includes("Jo app 1") && r.text.includes("workspace"), r.status);
+    r = await rita.post(`/api/projects/${joProject!.id}/transfer`, { email: "sam@shop.test" });
+    ok("a reseller in a client's workspace can't give the client's apps away", r.status === 403, r.json);
     await rita.post("/api/admin/stop-impersonating");
     r = await rita.post(`/api/reseller/clients/${direct.id}/impersonate`);
     ok("resellers can't impersonate non-clients", r.status === 404, r.json);
@@ -270,6 +342,195 @@ async function main() {
     r = await rita.get("/reseller");
     ok("the suspended reseller is signed out", r.status === 307 || !r.text.includes("RESELLER DASHBOARD"), r.status);
     await op.patch(`/api/admin/resellers/${brightId}`, { status: "ACTIVE" });
+
+    // The suspensions above signed Rita and Jo out.
+    r = await rita.post("/api/auth/login", { email: "owner@bright.test", password: "reseller-password-2026" });
+    assert.equal(r.status, 200, r.text);
+    r = await jo.post("/api/auth/login", { email: "jo@shop.test", password: "client-password-2026" });
+    assert.equal(r.status, 200, r.text);
+    const ritaUser = await db.user.findFirstOrThrow({ where: { email: "owner@bright.test" } });
+
+    // ── Last active, paying clients, AI pool ────────────────────────
+    const joSeen = (await db.user.findUnique({ where: { id: joId } }))?.lastSeenAt;
+    ok("a client who signs in gets a Last active time", Boolean(joSeen && Date.now() - joSeen.getTime() < 60 * 60_000), joSeen);
+    r = await rita.post(`/api/reseller/clients/${samId}/impersonate`);
+    assert.equal(r.status, 200, r.text);
+    await rita.get("/dashboard");
+    await rita.post("/api/admin/stop-impersonating");
+    await new Promise((res) => setTimeout(res, 500));
+    ok("opening a client's workspace doesn't count as the client being active", (await db.user.findUnique({ where: { id: samId } }))?.lastSeenAt === null);
+
+    await db.user.update({ where: { id: joId }, data: { subscriptionStatus: "ACTIVE" } });
+    await db.user.update({ where: { id: samId }, data: { subscriptionStatus: "PAST_DUE" } });
+    r = await rita.get("/reseller");
+    const tile = /Paying clients<\/a><\/p><p[^>]*>(\d+)<\/p><p[^>]*>(\d+) past due<\/p>/.exec(plain(r.text));
+    r = await rita.get("/reseller/clients");
+    const clientList = plain(r.text);
+    ok("the paying tile counts active and trial subscriptions, with past due beside it", tile?.[1] === "1" && tile?.[2] === "1", tile?.[0]);
+    ok("the paying tile matches the client list", clientList.includes("1 paying, 1 past due"), (clientList.match(/.{0,60}paying.{0,60}/) ?? [""])[0]);
+    ok("the client list shows Last active", clientList.includes("Last active") && /Just now|\d+ minutes? ago/.test(clientList) && clientList.includes("Never"));
+    ok("the client list flags who needs attention", clientList.includes("Needs attention") && clientList.includes("Payment past due") && clientList.includes("Invited, never signed in"));
+
+    r = await op.patch(`/api/admin/resellers/${brightId}`, { maxAiActions: 5 });
+    assert.equal(r.status, 200, r.text);
+    await db.aiUsage.createMany({ data: [joId, joId, joId, ritaUser.id].map((userId) => ({ userId, kind: "edit" })) });
+    r = await rita.get("/reseller");
+    let overview = plain(r.text);
+    ok("the AI tile counts the reseller's own use and its clients'", /AI actions this month<\/p><p[^>]*>4<span[^>]*> \/ 5<\/span>/.test(overview), (overview.match(/AI actions this month.{0,200}/) ?? [""])[0]);
+    ok("the overview warns at 80% of the AI allowance", overview.includes("used 4 of 5 AI actions this month (80%)"));
+    await db.aiUsage.create({ data: { userId: samId, kind: "edit" } });
+    r = await rita.get("/reseller");
+    overview = plain(r.text);
+    ok("the overview says when the AI allowance is used up", overview.includes("All 5 AI actions in your plan are used up for this month"));
+
+    // ── CSV export ──────────────────────────────────────────────────
+    r = await rita.get("/api/reseller/clients/export");
+    const csv = csvRows(r.text);
+    const header = csv[0] ?? [];
+    const joRow = csv.find((row) => row[1] === "jo@shop.test");
+    const samRow = csv.find((row) => row[1] === "sam@shop.test");
+    ok(
+      "the client CSV opens in a spreadsheet",
+      r.status === 200 && String(r.headers["content-type"]).startsWith("text/csv") && r.text.startsWith("\uFEFF") && csv.length === 3 && csv.every((row) => row.length === header.length),
+      { status: r.status, type: r.headers["content-type"], csv },
+    );
+    ok("the CSV has each client's plan, payment and AI use", joRow?.[4] === "Paying" && samRow?.[4] === "Past due" && joRow?.[7] === "3", { joRow, samRow });
+    r = await otherAgent.get("/api/reseller/clients/export");
+    ok("a reseller's CSV lists only its own clients", r.status === 200 && !r.text.includes("jo@shop.test"));
+
+    // ── White-label files a client downloads ────────────────────────
+    const STRIPE_TEST_SECRET = "sk_test_51BrightAppsE2eSecretKey000000000000";
+    const fishId = joProject!.id;
+    r = await jo.patch(`/api/projects/${fishId}`, { name: "Fish & Chips $5" });
+    assert.equal(r.status, 200, r.text);
+    r = await jo.post(`/api/projects/${fishId}/modules`, {
+      moduleId: "stripe-checkout",
+      config: { productName: "Mug", priceCents: 1500, currency: "usd", stripeSecret: STRIPE_TEST_SECRET, successUrl: `https://${RESELLER_HOST}/thanks`, cancelUrl: `https://${RESELLER_HOST}/` },
+    });
+    ok("the client adds Stripe Checkout with a secret key", r.status === 200, r.json);
+    r = await jo.post(`/api/projects/${fishId}/publish`);
+    ok("the client publishes the app", r.status === 200, r.json);
+
+    const backup = await jo.getBinary(`/api/projects/${fishId}/export`);
+    const backupFiles = await zipTexts(backup.body);
+    const backupReadme = backupFiles.get("README.md") ?? "";
+    ok("the backup README names the reseller, never the platform", backup.status === 200 && backupReadme.includes("Bright Apps") && !PLATFORM_NAME.test(backupReadme), backupReadme.slice(0, 400));
+    const backupText = [...backupFiles.values()].join("\n");
+    ok("an exported Stripe Checkout app contains no sk_ key", !backupText.includes(STRIPE_TEST_SECRET) && !/\bsk_(?:test|live)_/.test(backupText), (backupText.match(/.{0,80}sk_(?:test|live)_.{0,40}/) ?? [""])[0]);
+    ok("the backup README says the secrets were removed", backupReadme.includes("Secrets were removed; re-enter them after import"));
+
+    const offline = await jo.getBinary(`/api/projects/${fishId}/offline`);
+    const offlineFiles = await zipTexts(offline.body);
+    const offlineReadme = offlineFiles.get("README.txt") ?? "";
+    ok("the offline README names the reseller, never the platform", offline.status === 200 && offlineReadme.includes("Bright Apps") && !PLATFORM_NAME.test(offlineReadme), offlineReadme.slice(0, 300));
+    const offlineHtml = [...offlineFiles.entries()].filter(([name]) => name.endsWith(".html")).map(([, text]) => text);
+    ok(
+      "offline pages never name the platform (no file headers, nothing readable)",
+      offlineHtml.length > 0 && offlineHtml.every((html) => !/public design system|offline runtime/i.test(html) && !PLATFORM_NAME.test(readable(html))),
+      offlineHtml.map((html) => (readable(html).match(/.{0,60}(Platform One|Nullkode).{0,60}/i) ?? [""])[0]).filter(Boolean)[0],
+    );
+    ok("the offline copy carries no Stripe key", ![...offlineFiles.values()].some((text) => text.includes(STRIPE_TEST_SECRET) || /\bsk_(?:test|live)_/.test(text)));
+
+    r = await jo.get(`/api/projects/${fishId}/installer/windows`);
+    ok(
+      "the Windows installer names the reseller, never the platform",
+      r.status === 200 && r.text.includes("Bright Apps") && !PLATFORM_NAME.test(r.text) && r.text.includes('set "APPNAME=Fish & Chips $5"'),
+      r.text.slice(0, 300),
+    );
+    r = await jo.get(`/api/projects/${fishId}/installer/mac`);
+    const macScript = r.text;
+    const bundleId = /<key>CFBundleIdentifier<\/key><string>([^<]+)<\/string>/.exec(macScript)?.[1] ?? "";
+    ok("the Mac installer names the reseller, never the platform", r.status === 200 && macScript.includes("Bright Apps") && !PLATFORM_NAME.test(macScript), macScript.slice(0, 300));
+    ok("the Mac bundle ID starts with the reseller's prefix", bundleId.startsWith("com.brightapps.") && bundleId.endsWith(".desktop"), bundleId);
+    const home = mkdtempSync(join(tmpdir(), "nk-e2e-mac-"));
+    try {
+      writeFileSync(join(home, "install.command"), macScript);
+      const out = execFileSync("bash", [join(home, "install.command")], { cwd: home, env: { PATH: process.env.PATH ?? "/usr/bin:/bin", HOME: home } as unknown as NodeJS.ProcessEnv, encoding: "utf8" });
+      const plistPath = join(home, "Desktop", "Fish & Chips $5.app", "Contents", "Info.plist");
+      const info = plistOf(plistPath);
+      ok(
+        "an app named 'Fish & Chips $5' gives a valid plist and a script with no shell expansion",
+        info.CFBundleName === "Fish & Chips $5" && info.CFBundleIdentifier === bundleId && out.includes("Installed: Fish & Chips $5 is now on your Desktop."),
+        { info, out },
+      );
+      ok("the installed plist never names the platform", !PLATFORM_NAME.test(readFileSync(plistPath, "utf8")));
+    } finally {
+      rmSync(home, { recursive: true, force: true });
+    }
+
+    // ── Moving apps: only within the workspace and the target's plan ─
+    r = await otherAgent.post("/api/reseller/clients", { email: "kim@other.test" });
+    ok("the other reseller invites a client", r.status === 200, r.json);
+    const kimId = r.json.client.id as string;
+    const joApps = await db.project.findMany({ where: { ownerId: joId }, orderBy: { createdAt: "asc" } });
+    const moving = joApps.find((p) => p.id !== fishId)!;
+    let transferTries = 0;
+    const transfer = (email: string, projectId = moving.id) => {
+      transferTries += 1;
+      return jo.post(`/api/projects/${projectId}/transfer`, { email });
+    };
+    r = await transfer("kim@other.test");
+    const notEligible = r.json?.error as string;
+    ok("a client of one reseller can't transfer an app to another reseller's client", r.status === 400 && typeof notEligible === "string", r.json);
+    r = await transfer("nobody@nowhere.test");
+    ok("unknown emails get the same answer as ineligible ones", r.status === 400 && r.json?.error === notEligible, r.json);
+    r = await transfer("direct@example.invalid");
+    ok("a client can't transfer an app out to the platform's own customers", r.status === 400 && r.json?.error === notEligible, r.json);
+    await db.reseller.update({ where: { id: brightId }, data: { planLimits: { FREE: { maxProjects: 0 } } } });
+    r = await transfer("sam@shop.test");
+    ok("a full account gets a plain refusal worded for the sender", r.status === 403 && r.json?.error === "That account's plan has no room for another app.", r.json);
+    await db.reseller.update({ where: { id: brightId }, data: { planLimits: {} } });
+    ok("the reseller is exactly at its app quota", (await db.project.count({ where: { OR: [{ ownerId: ritaUser.id }, { owner: { resellerId: brightId } }] } })) === 3);
+    r = await transfer("SAM@shop.test");
+    ok(
+      "a client transfers an app to another client of the same reseller, even at the reseller's app quota",
+      r.status === 200 && (await db.project.findUnique({ where: { id: moving.id } }))?.ownerId === samId,
+      r.json,
+    );
+    while (transferTries < 10) {
+      r = await transfer("nobody@nowhere.test", fishId);
+      assert.equal(r.status, 400, r.text);
+    }
+    r = await transfer("nobody@nowhere.test", fishId);
+    ok("the 11th transfer attempt in an hour gets 429", r.status === 429, r.json);
+
+    // ── "Give to client" ────────────────────────────────────────────
+    r = await op.patch(`/api/admin/resellers/${brightId}`, { maxApps: 4 });
+    assert.equal(r.status, 200, r.text);
+    r = await rita.post("/api/projects", { name: "Starter app from Rita" });
+    ok("the reseller builds an app of its own", r.status === 200, r.json);
+    const ritaAppId = r.json.project.id as string;
+    r = await rita.get("/reseller/apps");
+    ok("the reseller's app list offers Give to client", r.status === 200 && r.text.includes("Give to client"));
+    r = await rita.post(`/api/reseller/apps/${ritaAppId}/give`, { clientId: kimId });
+    ok("a reseller can't give an app to another reseller's client", r.status === 404, r.json);
+    r = await otherAgent.post(`/api/reseller/apps/${ritaAppId}/give`, { clientId: kimId });
+    ok("a reseller can only give away its own apps", r.status === 404, r.json);
+    await rita.patch(`/api/reseller/clients/${samId}`, { suspended: true });
+    r = await rita.post(`/api/reseller/apps/${ritaAppId}/give`, { clientId: samId });
+    ok("a suspended client can't receive apps", r.status === 409, r.json);
+    await rita.patch(`/api/reseller/clients/${samId}`, { suspended: false });
+    r = await rita.post(`/api/reseller/apps/${ritaAppId}/give`, { clientId: joId });
+    ok("a reseller gives an app to its client, even at its app quota", r.status === 200 && (await db.project.findUnique({ where: { id: ritaAppId } }))?.ownerId === joId, r.json);
+    r = await jo.get("/dashboard");
+    ok("the app appears on the client's dashboard", r.status === 200 && r.text.includes("Starter app from Rita"), r.status);
+
+    // ── Bulk invite ─────────────────────────────────────────────────
+    r = await op.patch(`/api/admin/resellers/${otherId}`, { maxClients: 4 });
+    assert.equal(r.status, 200, r.text);
+    r = await otherAgent.post("/api/reseller/clients", { emails: "one@bulk.test\ntwo@bulk.test, three@bulk.test\nfour@bulk.test,five@bulk.test", plan: "STARTER" });
+    const invitedNow = (r.json?.results ?? []).filter((x: { status: string }) => x.status === "invited");
+    ok(
+      "pasting 5 emails with 3 seats left creates 3 invites and reports 2 skipped",
+      r.status === 200 && r.json.invited === 3 && r.json.skipped === 2 && r.json.seatsLeft === 0 && (await db.user.count({ where: { resellerId: otherId } })) === 4,
+      r.json,
+    );
+    ok("each new client gets a link when email is off", invitedNow.length === 3 && invitedNow.every((x: { link?: string }) => typeof x.link === "string" && x.link.includes("/set-password?token=")), invitedNow);
+    ok(
+      "the skipped addresses say why",
+      (r.json.results as Array<{ email: string; status: string; reason?: string }>).filter((x) => x.status === "skipped").map((x) => `${x.email}:${x.reason}`).join() === "four@bulk.test:No client seats left.,five@bulk.test:No client seats left.",
+      r.json.results,
+    );
 
     // ── Webhooks, rate limits, forgot password ──────────────────────
     r = await agent().post(`/api/stripe/webhook/r/${brightId}`, {});

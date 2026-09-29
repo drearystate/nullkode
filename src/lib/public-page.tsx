@@ -43,6 +43,8 @@ export const RUNTIME_JS = `
   // backgrounds, period. If a project wants a user-flippable dark mode
   // it must add its own toggle wired to data-theme="dark" on <html>.
 
+  // Fills {field} placeholders from a row. (This script lives in a template
+  // string, so every regex backslash is written twice here.)
   function tpl(str, row){
     return String(str).replace(/\\{(\\w+)\\}/g, function(_, k){
       var v = row[k];
@@ -73,8 +75,6 @@ export const RUNTIME_JS = `
     return s;
   }
   var NK_URL_ATTRS = { href: 1, src: 0, action: 1, formaction: 1, poster: 0, 'xlink:href': 1, background: 0, cite: 1, data: 1, ping: 1 };
-  // Plain attributes that may hold {field} placeholders. Event handlers and
-  // styles never do: row values come from visitors.
   function nkFillable(name){
     var n = String(name).toLowerCase();
     if(n.indexOf('data-nk-attr-') === 0 || /-template$/.test(n)) return false;
@@ -234,7 +234,7 @@ export const RUNTIME_JS = `
       // only that); rows then get the built-in readable layout instead.
       var placeholder = template && !template.hasAttribute('data-nk-item') &&
         !template.querySelector('[data-nk-field],[data-nk-src],[data-nk-href],[data-nk-field-value]') &&
-        !/data-nk-attr-/.test(template.outerHTML) && /^\s*loading/i.test(template.textContent || '');
+        !/data-nk-attr-/.test(template.outerHTML) && /^\\s*loading/i.test(template.textContent || '');
       el.__nkTplHtml = template && !placeholder ? template.outerHTML : '';
     }
     try {
@@ -260,7 +260,10 @@ export const RUNTIME_JS = `
       });
       var data = {};
       try { data = await res.json(); } catch(_){}
-      var rows = Array.isArray(data) ? data : (Array.isArray(data && data.rows) ? data.rows : []);
+      // A list of rows, { rows: [...] }, or one database row (a "load one"
+      // flow like a ticket or an edit page's record) shown as a list of one.
+      var single = res.ok && data && typeof data === 'object' && !Array.isArray(data) && data.id != null && data.error == null;
+      var rows = Array.isArray(data) ? data : (Array.isArray(data && data.rows) ? data.rows : (single ? [data] : []));
       if(rows.length === 0){
         // In the editor canvas keep the design-time item so it stays editable.
         if(!window.__nkProjectId) return;
@@ -286,6 +289,9 @@ export const RUNTIME_JS = `
       } else {
         el.innerHTML = rows.map(nkRowCard).join('');
       }
+      // Forms inside the rows (a Delete or Buy button) get the same set-up
+      // as the page's other forms.
+      nkPrepForms(el);
     } catch(err){ console.error('[nk] bind-flow failed', err); }
   }
 
@@ -509,7 +515,172 @@ export const RUNTIME_JS = `
     calRenderMonth(el);
   }
 
+  // ── Notices and form feedback ─────────────────────────────
+  // window.nkToast(message, kind) shows a short notice at the bottom of the
+  // screen that screen readers read out; kind is 'error', 'success' or
+  // anything else for a plain notice. Styles are inline, in the app's
+  // --nk-* colours, because apps made in the AI Designer don't load the
+  // platform stylesheet.
+  function nkToast(msg, kind){
+    try {
+      var text = String(msg == null ? '' : msg);
+      if(!text) return;
+      var host = document.getElementById('nk-toasts');
+      var fresh = !host;
+      if(fresh){
+        host = document.createElement('div');
+        host.id = 'nk-toasts';
+        host.setAttribute('role', 'status');
+        host.setAttribute('aria-live', 'polite');
+        host.style.cssText = 'position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom, 0px));transform:translateX(-50%);z-index:2147483000;display:flex;flex-direction:column;align-items:center;gap:8px;width:max-content;max-width:calc(100vw - 32px);pointer-events:none;';
+        (document.body || document.documentElement).appendChild(host);
+      }
+      var bad = kind === 'error';
+      var edge = bad ? 'var(--nk-danger, #dc2626)' : kind === 'success' ? 'var(--nk-success, #16a34a)' : 'var(--nk-primary, #4f46e5)';
+      var t = document.createElement('div');
+      if(bad) t.setAttribute('role', 'alert');
+      t.textContent = text;
+      t.style.cssText = 'pointer-events:auto;box-sizing:border-box;max-width:100%;padding:10px 14px;border-radius:var(--nk-radius-sm, 10px);background:var(--nk-surface, #fff);color:var(--nk-text, #111);border:1px solid var(--nk-border, #e5e7eb);border-left:4px solid ' + edge + ';box-shadow:0 8px 24px rgba(0,0,0,.18);font:inherit;font-size:15px;line-height:1.4;white-space:pre-wrap;overflow-wrap:anywhere;cursor:pointer;';
+      t.addEventListener('click', function(){ t.remove(); });
+      // A live region that was only just added needs a moment before new
+      // text in it is read out.
+      setTimeout(function(){ host.appendChild(t); }, fresh ? 150 : 0);
+      setTimeout(function(){ t.remove(); }, Math.min(12000, 4000 + text.length * 60));
+    } catch(_){}
+  }
+  if(typeof window !== 'undefined') window.nkToast = nkToast;
+
+  var NK_SEND_FAILED = "Sorry, that didn't send. Please try again.";
+  // The editor shows pages inside GrapesJS's canvas. Forms there aren't
+  // re-wired, so the editor's copy of the page is never changed.
+  function nkInEditor(){
+    try {
+      var fr = window.frameElement;
+      return !!(fr && /(^|\\s)gjs-frame(\\s|$)/.test(fr.className || ''));
+    } catch(_){ return false; }
+  }
+  // A page whose flow reference was never turned into a flow id (say,
+  // data-nk-flow-ref="save-note" left by an interrupted edit) still works:
+  // /api/run also accepts a flow's name.
+  var NK_REF_ATTRS = [
+    ['data-nk-flow-ref', 'data-nk-flow'],
+    ['data-nk-bind-flow-ref', 'data-nk-bind-flow'],
+    ['data-nk-update-flow-ref', 'data-nk-update-flow'],
+    ['data-nk-reorder-flow-ref', 'data-nk-reorder-flow'],
+    ['data-nk-logout-ref', 'data-nk-logout'],
+    ['data-nk-calendar-flow-ref', 'data-nk-flow'],
+  ];
+  function nkResolveRefs(root){
+    NK_REF_ATTRS.forEach(function(pair){
+      root.querySelectorAll('[' + pair[0] + ']').forEach(function(el){
+        var ref = el.getAttribute(pair[0]);
+        if(ref && !el.hasAttribute(pair[1])) el.setAttribute(pair[1], ref);
+      });
+    });
+  }
+  // Every form gets a spam trap: a field people never see or fill in
+  // (_nk_hp) and the time the form appeared (_nk_t, in ms). The server may
+  // use them to skip obvious bots; it never requires them.
+  function nkPrepForm(form){
+    if(form.__nkPrepped) return;
+    form.__nkPrepped = true;
+    if(!form.querySelector('input[name="_nk_hp"]')){
+      var hp = document.createElement('input');
+      hp.type = 'text';
+      hp.name = '_nk_hp';
+      hp.setAttribute('tabindex', '-1');
+      hp.setAttribute('autocomplete', 'off');
+      hp.setAttribute('aria-hidden', 'true');
+      hp.style.cssText = 'position:absolute !important;left:-10000px !important;top:auto !important;width:1px !important;height:1px !important;overflow:hidden !important;opacity:0 !important;';
+      form.appendChild(hp);
+    }
+    var stamp = form.querySelector('input[name="_nk_t"]');
+    if(!stamp){
+      stamp = document.createElement('input');
+      stamp.type = 'hidden';
+      stamp.name = '_nk_t';
+      form.appendChild(stamp);
+    }
+    if(!stamp.value) stamp.value = String(Date.now());
+  }
+  function nkPrepForms(root){
+    root = root || document;
+    if(nkInEditor()) return;
+    nkResolveRefs(root);
+    if(root.matches && root.matches('form[data-nk-form]')) nkPrepForm(root);
+    root.querySelectorAll('form[data-nk-form]').forEach(nkPrepForm);
+    // Messages in these elements are read out by screen readers.
+    root.querySelectorAll('[data-nk-error],[data-nk-success]').forEach(function(el){
+      if(!el.getAttribute('role')) el.setAttribute('role', 'status');
+      if(!el.getAttribute('aria-live')) el.setAttribute('aria-live', 'polite');
+    });
+  }
+  // Where a form's result is shown: its [data-nk-error] element, or one
+  // added right after the form.
+  function nkFeedbackEl(form, create){
+    var el = form.__nkFeedback || form.querySelector('[data-nk-error]');
+    if(!el && create){
+      el = document.createElement('div');
+      el.setAttribute('data-nk-error', '');
+      el.setAttribute('data-nk-auto', '');
+      el.setAttribute('role', 'status');
+      el.setAttribute('aria-live', 'polite');
+      el.style.cssText = 'white-space:pre-wrap;overflow-wrap:anywhere;';
+      el.__nkBorn = Date.now();
+      form.insertAdjacentElement('afterend', el);
+    }
+    if(el) form.__nkFeedback = el;
+    return el;
+  }
+  // kind: 'error', 'success' or 'pending'. Errors are announced at once
+  // (role=alert), everything else politely.
+  function nkPaint(el, text, kind){
+    if(!el) return;
+    el.setAttribute('role', kind === 'error' ? 'alert' : 'status');
+    if(!el.getAttribute('aria-live')) el.setAttribute('aria-live', 'polite');
+    var apply = function(){
+      el.textContent = text || '';
+      if(el.hasAttribute('data-nk-auto')){
+        var edge = kind === 'error' ? 'var(--nk-danger, #dc2626)' : kind === 'success' ? 'var(--nk-success, #16a34a)' : 'var(--nk-border, #d1d5db)';
+        el.style.cssText = 'white-space:pre-wrap;overflow-wrap:anywhere;' + (text ? 'margin-top:.75rem;padding:.6rem .85rem;border-left:4px solid ' + edge + ';border-radius:var(--nk-radius-sm, 10px);background:color-mix(in srgb, ' + edge + ' 10%, transparent);color:var(--nk-text, inherit);font-size:.95rem;line-height:1.45;' : '');
+      } else if(typeof el.className === 'string'){
+        if(kind === 'error') el.className = el.className.replace(/\\btext-success\\b/g, 'text-danger');
+        else if(kind === 'success') el.className = el.className.replace(/\\btext-danger\\b/g, 'text-success');
+      }
+    };
+    // A live region added a moment ago needs a beat before it's read out.
+    if(text && el.__nkBorn && Date.now() - el.__nkBorn < 150) setTimeout(apply, 150);
+    else apply();
+  }
+  function nkShowFeedback(form, text, kind){
+    var errEl = nkFeedbackEl(form, false);
+    var okEl = form.querySelector('[data-nk-success]');
+    if(kind === 'success' && okEl){ nkPaint(okEl, text, kind); nkPaint(errEl, '', kind); return; }
+    if(okEl) nkPaint(okEl, '', kind);
+    nkPaint(errEl, text, kind);
+  }
+  // A flow's own error ("Wrong password") is shown when it's a short
+  // sentence; anything else gets a plain apology.
+  function nkErrorText(body){
+    var e = body && typeof body === 'object' ? body.error : null;
+    if(typeof e === 'string'){
+      e = e.trim();
+      if(e && e.length <= 200 && e !== 'Flow not found or disabled') return e;
+    }
+    return NK_SEND_FAILED;
+  }
+  // The flow's message, or the field named by data-nk-message-field (the
+  // AI Assistant shows its answer this way).
+  function nkMessageText(form, body){
+    var key = form.getAttribute('data-nk-message-field') || 'message';
+    var m = body && typeof body === 'object' ? body[key] : null;
+    return typeof m === 'string' || typeof m === 'number' ? String(m) : '';
+  }
+
   function runtime(){
+    // Wire up leftover flow references, spam traps and message regions
+    // before anything is bound.
+    nkPrepForms(document);
     // 0a. Shared nav: hamburger + dropdown toggling for the auto-generated
     //     menu (data-nk-nav). Bootstrap's JS bundle isn't loaded on
     //     published pages, so the collapse/dropdown "show" classes are
@@ -546,68 +717,79 @@ export const RUNTIME_JS = `
       if(key && qs[key] != null){ el.value = qs[key]; }
     });
 
-    // 1. Forms bound to flows
-    document.querySelectorAll('[data-nk-form][data-nk-flow]').forEach(function(form){
-      if(form.__nkBound) return; form.__nkBound = true;
-      form.addEventListener('submit', async function(e){
-        e.preventDefault();
-        var flowId = form.getAttribute('data-nk-flow');
-        var errEl = form.querySelector('[data-nk-error]');
-        var submit = form.querySelector('[type=submit]');
-        if(errEl){ errEl.textContent=''; errEl.className = (errEl.className||'').replace(/text-success/g,'text-danger'); }
-        if(submit) submit.disabled = true;
-        try {
-          var hasFile = false;
-          form.querySelectorAll('input[type=file]').forEach(function(f){ if(f.files && f.files.length) hasFile = true; });
-          var res;
-          if(hasFile){
-            var fd = new FormData(form);
-            res = await fetch('/api/run/'+flowId, { method:'POST', body: fd, credentials:'same-origin' });
-          } else {
-            var data = {};
-            var fd2 = new FormData(form);
-            fd2.forEach(function(v,k){
-              var el = form.elements[k];
-              if(el && el.type === 'checkbox'){ data[k] = el.checked ? (el.value||'true') : 'false'; }
-              else { data[k] = v; }
-            });
-            res = await fetch('/api/run/'+flowId, {
-              method:'POST',
-              headers:{'content-type':'application/json'},
-              body: JSON.stringify(data),
-              credentials:'same-origin',
-            });
-          }
-          var body = {};
-          try { body = await res.json(); } catch(_){ body = {}; }
-          if(!res.ok || body.error){
-            if(errEl) errEl.textContent = body.error || ('Something went wrong ('+res.status+')');
-            form.dispatchEvent(new CustomEvent('nk:error',{detail:body}));
-            return;
-          }
-          form.dispatchEvent(new CustomEvent('nk:success',{detail:body}));
-          // A flow can signal the runtime to empty the client-side cart
-          // (shop place-order does this after a successful checkout).
-          if(body.clearCart){ cartWrite([]); }
-          if(body.redirect){ if(window.__nkNavigate) window.__nkNavigate(body.redirect); else window.location.href = body.redirect; return; }
-          form.reset();
-          if(body.message && errEl){
-            errEl.textContent = body.message;
-            errEl.className = (errEl.className||'').replace(/text-danger/g,'text-success');
-          }
-          document.querySelectorAll('[data-nk-bind-flow]').forEach(function(el){
-            if(el.hasAttribute('data-nk-calendar') || el.hasAttribute('data-nk-calendar-source')) return;
-            bindFlow(el);
+    // 1. Forms bound to flows. One listener for the whole page, so forms
+    //    that appear later (a Delete or Buy button inside a list's rows)
+    //    work too. The outcome is always shown and read out: the flow's
+    //    message (or "Done."), or a plain error.
+    //    Optional on the form: data-nk-pending-text="Thinking…" while it
+    //    sends, data-nk-success-text="…" instead of "Done.", and
+    //    data-nk-message-field="answer" to show that field of the reply.
+    async function nkSubmit(form, flowId, submitter){
+      if(form.__nkSending) return;
+      if(!nkInEditor()) nkPrepForm(form);
+      nkFeedbackEl(form, true);
+      var submit = submitter && submitter.form === form ? submitter : form.querySelector('[type=submit],button:not([type])');
+      form.__nkSending = true;
+      if(submit){ submit.disabled = true; submit.setAttribute('aria-busy', 'true'); }
+      nkShowFeedback(form, form.getAttribute('data-nk-pending-text') || '', 'pending');
+      try {
+        var hasFile = false;
+        form.querySelectorAll('input[type=file]').forEach(function(f){ if(f.files && f.files.length) hasFile = true; });
+        var res;
+        if(hasFile){
+          res = await fetch('/api/run/'+flowId, { method:'POST', body: new FormData(form), credentials:'same-origin' });
+        } else {
+          var data = {};
+          new FormData(form).forEach(function(v,k){
+            var el = form.elements[k];
+            if(el && el.type === 'checkbox'){ data[k] = el.checked ? (el.value||'true') : 'false'; }
+            else { data[k] = v; }
           });
-          document.querySelectorAll('[data-nk-calendar]').forEach(function(el){ refreshCalendar(el); });
-        } catch(err){
-          console.error('[nk] form submit failed', err);
-          if(errEl) errEl.textContent = 'Network error. Please try again.';
-        } finally {
-          if(submit) submit.disabled = false;
+          res = await fetch('/api/run/'+flowId, {
+            method:'POST',
+            headers:{'content-type':'application/json'},
+            body: JSON.stringify(data),
+            credentials:'same-origin',
+          });
         }
+        var body = {};
+        try { body = await res.json(); } catch(_){ body = {}; }
+        if(!res.ok || (body && body.error)){
+          nkShowFeedback(form, nkErrorText(body), 'error');
+          form.dispatchEvent(new CustomEvent('nk:error',{detail:body}));
+          return;
+        }
+        form.dispatchEvent(new CustomEvent('nk:success',{detail:body}));
+        // A flow can signal the runtime to empty the client-side cart
+        // (shop place-order does this after a successful checkout).
+        if(body && body.clearCart){ cartWrite([]); }
+        if(body && body.redirect){ if(window.__nkNavigate) window.__nkNavigate(body.redirect); else window.location.href = body.redirect; return; }
+        form.reset();
+        nkShowFeedback(form, nkMessageText(form, body) || form.getAttribute('data-nk-success-text') || 'Done.', 'success');
+        document.querySelectorAll('[data-nk-bind-flow]').forEach(function(el){
+          if(el.hasAttribute('data-nk-calendar') || el.hasAttribute('data-nk-calendar-source')) return;
+          bindFlow(el);
+        });
+        document.querySelectorAll('[data-nk-calendar]').forEach(function(el){ refreshCalendar(el); });
+      } catch(err){
+        console.error('[nk] form submit failed', err);
+        nkShowFeedback(form, "Sorry, that didn't send. Please check your connection and try again.", 'error');
+      } finally {
+        form.__nkSending = false;
+        if(submit){ submit.disabled = false; submit.removeAttribute('aria-busy'); }
+      }
+    }
+    if(!document.__nkFormsBound){
+      document.__nkFormsBound = true;
+      document.addEventListener('submit', function(e){
+        var form = e.target;
+        if(!form || form.tagName !== 'FORM' || !form.hasAttribute('data-nk-form')) return;
+        var flowId = form.getAttribute('data-nk-flow') || form.getAttribute('data-nk-flow-ref');
+        if(!flowId) return;
+        e.preventDefault();
+        nkSubmit(form, flowId, e.submitter);
       });
-    });
+    }
 
     // 2. Data-bound lists (with optional polling refresh).
     //    Skip elements that are actually a calendar or a calendar-source —
@@ -784,8 +966,8 @@ export const RUNTIME_JS = `
 
     // 8. Cart (localStorage) — minimal client-side shopping cart so shop
     //    modules can add/remove/list/total items without a server round-trip.
-    //    Items are scoped per hostname so two apps on nullkode subdomains
-    //    don't share a basket.
+    //    Items are scoped per hostname so two apps on neighbouring
+    //    subdomains don't share a basket.
     var CART_KEY = 'nk-cart-' + (location.hostname || 'app');
     function cartRead(){
       try { return JSON.parse(localStorage.getItem(CART_KEY) || '[]'); }
@@ -1247,7 +1429,7 @@ export const RUNTIME_JS = `
       if(btn.__nkBound) return; btn.__nkBound = true;
       btn.addEventListener('click', async function(){
         if(!('serviceWorker' in navigator) || !('PushManager' in window)){
-          alert('Push notifications are not supported on this browser.');
+          nkToast("Notifications aren't available in this browser.", 'error');
           return;
         }
         try {
@@ -1257,7 +1439,7 @@ export const RUNTIME_JS = `
           await navigator.serviceWorker.ready;
           var keyRes = await fetch('/api/push/vapid');
           var keyJson = await keyRes.json();
-          if(!keyJson.publicKey){ alert('Push not configured on the server.'); return; }
+          if(!keyJson.publicKey){ nkToast("Notifications aren't set up for this app yet.", 'error'); return; }
           var sub = await swReg.pushManager.subscribe({
             userVisibleOnly: true,
             applicationServerKey: urlB64ToUint8Array(keyJson.publicKey),
@@ -1271,7 +1453,12 @@ export const RUNTIME_JS = `
           });
           btn.textContent = 'Notifications on';
           btn.disabled = true;
-        } catch(err){ console.error('[nk] push subscribe failed', err); alert('Could not subscribe: '+err.message); }
+          nkToast('Notifications are on.', 'success');
+        } catch(err){
+          console.error('[nk] push subscribe failed', err);
+          var blocked = typeof Notification !== 'undefined' && Notification.permission === 'denied';
+          nkToast(blocked ? "Notifications are blocked for this site. You can allow them in your browser's settings." : "We couldn't turn on notifications. Please try again.", 'error');
+        }
       });
     });
   }

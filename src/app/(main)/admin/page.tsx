@@ -1,26 +1,25 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import { AlertTriangle } from "lucide-react";
 import { getRealUser } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { TopBar } from "@/components/top-bar";
 import { appsDomain } from "@/lib/hosts";
 import { onboardingFunnel } from "@/lib/onboarding-funnel";
 import { ImpersonateButton } from "@/components/admin/impersonate-button";
-import { PasswordLinkButton, UserPlanSelect } from "@/components/admin/user-row-actions";
+import { DeleteUserButton, PasswordLinkButton, UserPlanSelect } from "@/components/admin/user-row-actions";
 import { ControlPanel } from "@/components/admin/control-panel";
 import { BRAND_DEFAULTS, getBrand } from "@/lib/brand";
 import { BILLING_KEYS, priceFor, type PaidPlan } from "@/lib/stripe";
 import { getSetting } from "@/lib/settings";
 import { aiReady } from "@/lib/ai/client";
 import { emailEnabled } from "@/lib/mailer";
+import { describeMissing, getSchemaStatus, type SchemaStatus } from "@/lib/schema-check";
+import { runHealthChecks, summarize } from "@/lib/system-health";
 
 export const dynamic = "force-dynamic";
 
-export default async function AdminDashboard() {
-  const real = await getRealUser();
-  if (!real) redirect("/login");
-  if (real.role !== "ADMIN") redirect("/dashboard");
-
+async function loadDashboard() {
   const [users, projects, recentRuns, counts] = await Promise.all([
     db.user.findMany({
       orderBy: { createdAt: "desc" },
@@ -57,8 +56,6 @@ export default async function AdminDashboard() {
       db.user.count({ where: { plan: { not: "FREE" }, role: { not: "ADMIN" } } }),
     ]),
   ]);
-
-  const [userCount, projectCount, flowCount, runCount, paidCount] = counts;
   const [funnel, brand, resellerCount, resellerClients, stripeSecret, prices, ready] = await Promise.all([
     onboardingFunnel(30),
     getBrand(),
@@ -68,6 +65,45 @@ export default async function AdminDashboard() {
     Promise.all((["STARTER", "PRO", "TEAM"] as PaidPlan[]).map((p) => priceFor(p))),
     aiReady(),
   ]);
+  return { users, projects, recentRuns, counts, funnel, brand, resellerCount, resellerClients, stripeSecret, prices, ready };
+}
+
+export default async function AdminDashboard() {
+  const real = await getRealUser();
+  if (!real) redirect("/login");
+  if (real.role !== "ADMIN") redirect("/dashboard");
+
+  // Checked first and on its own: when the database is missing columns, the
+  // queries below can fail, and this banner is how the operator finds out.
+  const schema = await getSchemaStatus();
+  let data: Awaited<ReturnType<typeof loadDashboard>> | null = null;
+  try {
+    data = await loadDashboard();
+  } catch (err) {
+    console.error("[admin] the admin home couldn't load:", err instanceof Error ? err.message.split("\n")[0] : err);
+  }
+  const system = await runHealthChecks().then(summarize).catch(() => null);
+
+  if (!data) {
+    return (
+      <main className="min-h-screen">
+        <TopBar user={real} />
+        <div className="mx-auto max-w-6xl px-6 py-10">
+          <h1 className="text-2xl font-semibold">Admin</h1>
+          <SchemaBanner schema={schema} />
+          <div role="alert" className="mt-6 rounded-xl border border-red-500/40 bg-red-500/10 p-4 text-sm text-red-100">
+            This page couldn&apos;t load everything. {schema.missing.length || schema.missingValues.length ? "It needs the database update described above. " : ""}
+            <Link href="/admin/system" className="underline">Open System</Link> for the details.
+          </div>
+        </div>
+      </main>
+    );
+  }
+
+  const { users, projects, recentRuns, funnel, brand, resellerCount, resellerClients, stripeSecret, prices, ready } = data;
+  const [userCount, projectCount, flowCount, runCount, paidCount] = data.counts;
+  // Sign-ups that started from the home page's "What should your app do?" box.
+  const arrivedWithIdea = (funnel as { arrivedWithIdea?: unknown }).arrivedWithIdea;
   const pct = (n: number) => (funnel.signups ? `${Math.round((n / funnel.signups) * 100)}%` : "—");
 
   return (
@@ -81,8 +117,10 @@ export default async function AdminDashboard() {
               Everything about your platform: branding, resellers, payments, AI and the people using it.
             </p>
           </div>
-          <div className="flex shrink-0 flex-wrap gap-2 whitespace-nowrap"><Link href="/admin/resellers" className="btn-secondary">Resellers</Link><Link href="/admin/settings" className="btn-secondary">All settings</Link></div>
+          <div className="flex shrink-0 flex-wrap gap-2 whitespace-nowrap"><Link href="/admin/resellers" className="btn-secondary">Resellers</Link><Link href="/admin/system" className="btn-secondary">System</Link><Link href="/admin/settings" className="btn-secondary">All settings</Link></div>
         </div>
+
+        <SchemaBanner schema={schema} />
 
         <ControlPanel
           s={{
@@ -96,6 +134,8 @@ export default async function AdminDashboard() {
             emailOn: emailEnabled(),
             appsDomain: appsDomain() || null,
             users: userCount,
+            systemRed: system?.red,
+            systemAmber: system?.amber,
           }}
         />
 
@@ -119,8 +159,9 @@ export default async function AdminDashboard() {
         <section className="mt-8" aria-labelledby="funnel-heading">
           <h2 id="funnel-heading" className="font-semibold text-lg">New people, last {funnel.days} days</h2>
           <p className="mt-1 text-sm text-surface-400">How quickly people who sign up get an app live. Measured from sign-up to their first published app.</p>
-          <div className="mt-3 grid gap-4 md:grid-cols-4">
+          <div className={`mt-3 grid gap-4 ${typeof arrivedWithIdea === "number" ? "md:grid-cols-5" : "md:grid-cols-4"}`}>
             <Stat label="Signed up" value={funnel.signups} />
+            {typeof arrivedWithIdea === "number" && <StatText label="Came with an idea" value={`${arrivedWithIdea} · ${pct(arrivedWithIdea)}`} />}
             <StatText label="Made an app" value={`${funnel.madeApp} · ${pct(funnel.madeApp)}`} />
             <StatText label="Published one" value={`${funnel.published} · ${pct(funnel.published)}`} />
             <StatText label="Median time to publish" value={funnel.medianMinutesToPublish === null ? "—" : funnel.medianMinutesToPublish < 120 ? `${funnel.medianMinutesToPublish} min` : `${Math.round(funnel.medianMinutesToPublish / 60)} h`} />
@@ -163,6 +204,7 @@ export default async function AdminDashboard() {
                         <span className="inline-flex flex-wrap items-center justify-end gap-2">
                           <PasswordLinkButton userId={u.id} email={u.email} />
                           <ImpersonateButton userId={u.id} email={u.email} />
+                          <DeleteUserButton userId={u.id} email={u.email} />
                         </span>
                       )}
                     </td>
@@ -269,6 +311,26 @@ export default async function AdminDashboard() {
         </section>
       </div>
     </main>
+  );
+}
+
+/**
+ * Red banner when the database lacks columns this version needs (it wasn't
+ * updated along with the code). Operators only: this page is admin-only.
+ */
+function SchemaBanner({ schema }: { schema: SchemaStatus }) {
+  const missing = [...schema.missing, ...schema.missingValues];
+  if (!missing.length) return null;
+  return (
+    <div role="alert" className="mt-6 rounded-xl border border-red-500/40 bg-red-500/10 p-4 text-sm text-red-100">
+      <p className="flex items-center gap-2 font-semibold">
+        <AlertTriangle size={16} aria-hidden /> The database is missing {describeMissing(schema)}; the site will fail until it is updated.
+      </p>
+      <p className="mt-2 break-words font-mono text-xs text-red-100/90">{missing.join(", ")}</p>
+      <p className="mt-2 text-red-100/80">
+        Back up the database, then run <span className="font-mono">pnpm exec prisma db push</span> in the app folder and restart the app. Docker installs do this by themselves when the app restarts (<span className="font-mono">docker compose up -d</span>).
+      </p>
+    </div>
   );
 }
 

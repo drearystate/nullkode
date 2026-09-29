@@ -1,9 +1,11 @@
+import { APIConnectionError, APIError, APIUserAbortError } from "openai";
 import { openai, getAIModel, completionOptions, isOfficialOpenAI } from "./client";
 import { claudeCliStream, claudeCliComplete } from "./claude-cli";
 import { getAIProvider, getSetting, SETTING_KEYS } from "../settings";
 import { STALL_TIMEOUT_MS } from "../stall";
-import { fitMaxTokens } from "./budget";
+import { ContextTooSmallError, fitMaxTokens } from "./budget";
 import { stripThinking } from "./text";
+import { UnusableOutputError } from "./errors";
 
 /**
  * Provider-agnostic shims used by the builders. Every route goes through here
@@ -48,6 +50,118 @@ interface StreamChatOpts {
   looseJson?: boolean;
   signal?: AbortSignal;
   onDelta?: (chars: number) => void;
+  /** False turns off retrying transient provider errors (see withProviderRetry). */
+  retry?: boolean;
+}
+
+/* ── Retrying transient provider errors ─────────────────────────────── */
+
+/** Tries per request, the first included. */
+export const PROVIDER_ATTEMPTS = 3;
+/** Longest wait between tries, even when the provider asks for more. */
+export const PROVIDER_RETRY_CAP_MS = 60_000;
+
+/** An error that must never be retried: the stall watchdog or a cancelled request. */
+class FinalProviderError extends Error {}
+
+const RETRYABLE_CODES = /^(?:ECONNRESET|ECONNREFUSED|ECONNABORTED|EPIPE|ETIMEDOUT|EAI_AGAIN|UND_ERR_SOCKET|UND_ERR_CONNECT_TIMEOUT|UND_ERR_HEADERS_TIMEOUT|UND_ERR_BODY_TIMEOUT|UND_ERR_CLOSED)$/;
+
+/**
+ * Whether a failed provider call is worth another try: HTTP 408, 409, 429
+ * and 5xx, and dropped or refused connections. Never an abort (the stall
+ * watchdog or the caller), a request too big for the model, or a 4xx that
+ * would fail the same way again.
+ */
+export function isRetryableProviderError(err: unknown): boolean {
+  if (!err || typeof err !== "object") return false;
+  if (err instanceof FinalProviderError || err instanceof ContextTooSmallError || err instanceof UnusableOutputError) return false;
+  if (err instanceof APIUserAbortError) return false;
+  const e = err as { name?: unknown; status?: unknown; code?: unknown; cause?: unknown; message?: unknown };
+  if (e.name === "AbortError") return false;
+  if (err instanceof APIConnectionError) return true;
+  const status = typeof e.status === "number" ? e.status : undefined;
+  if (status !== undefined || err instanceof APIError) {
+    return status === 408 || status === 409 || status === 429 || (status !== undefined && status >= 500);
+  }
+  const cause = e.cause && typeof e.cause === "object" ? (e.cause as { code?: unknown }) : undefined;
+  if ([e.code, cause?.code].some((c) => typeof c === "string" && RETRYABLE_CODES.test(c))) return true;
+  return /socket hang up|other side closed|terminated|fetch failed|ECONNRESET/i.test(String(e.message ?? ""));
+}
+
+function headerValue(err: unknown, name: string): string | null {
+  const headers = err && typeof err === "object" ? (err as { headers?: unknown }).headers : undefined;
+  if (!headers || typeof headers !== "object") return null;
+  if (typeof (headers as Headers).get === "function") return (headers as Headers).get(name);
+  const v = (headers as Record<string, unknown>)[name];
+  return typeof v === "string" ? v : null;
+}
+
+/**
+ * How long to wait before try `attempt + 1`: the provider's retry-after-ms
+ * or retry-after (seconds or a date) when it sends one, otherwise a jittered
+ * exponential back-off (about 1 s, then 2 s). Never more than 60 s.
+ */
+export function retryDelayMs(err: unknown, attempt: number, random: () => number = Math.random): number {
+  const ms = Number(headerValue(err, "retry-after-ms"));
+  if (headerValue(err, "retry-after-ms") !== null && Number.isFinite(ms) && ms >= 0) return Math.min(ms, PROVIDER_RETRY_CAP_MS);
+  const after = headerValue(err, "retry-after");
+  if (after !== null && after.trim() !== "") {
+    const secs = Number(after);
+    if (Number.isFinite(secs) && secs >= 0) return Math.min(secs * 1000, PROVIDER_RETRY_CAP_MS);
+    const at = Date.parse(after);
+    if (Number.isFinite(at)) return Math.min(Math.max(0, at - Date.now()), PROVIDER_RETRY_CAP_MS);
+  }
+  const base = 1000 * 2 ** Math.max(0, attempt - 1);
+  return Math.min(PROVIDER_RETRY_CAP_MS, Math.round(base * (0.5 + random())));
+}
+
+function sleep(ms: number, signal?: AbortSignal): Promise<void> {
+  return new Promise((resolve, reject) => {
+    if (signal?.aborted) return reject(new FinalProviderError("The AI request was cancelled."));
+    const onAbort = () => {
+      clearTimeout(timer);
+      reject(new FinalProviderError("The AI request was cancelled."));
+    };
+    const timer = setTimeout(() => {
+      signal?.removeEventListener("abort", onAbort);
+      resolve();
+    }, ms);
+    signal?.addEventListener("abort", onAbort, { once: true });
+  });
+}
+
+function describeProviderError(err: unknown): string {
+  const status = err && typeof err === "object" ? (err as { status?: unknown }).status : undefined;
+  if (typeof status === "number") return `HTTP ${status}`;
+  return err instanceof Error ? err.message.slice(0, 120) : "connection problem";
+}
+
+/**
+ * Runs one provider call, trying again (up to PROVIDER_ATTEMPTS times in
+ * all) when it fails with a transient error — but only while nothing has
+ * streamed yet (`canRetry`), so a caller never sees a reply start twice.
+ * `retry: false` turns this off (published apps' AI steps use that).
+ */
+export async function withProviderRetry<T>(
+  run: (attempt: number) => Promise<T>,
+  opts: { retry?: boolean; signal?: AbortSignal; canRetry?: () => boolean } = {},
+): Promise<T> {
+  for (let attempt = 1; ; attempt++) {
+    try {
+      return await run(attempt);
+    } catch (err) {
+      const again =
+        opts.retry !== false &&
+        attempt < PROVIDER_ATTEMPTS &&
+        !opts.signal?.aborted &&
+        (opts.canRetry?.() ?? true) &&
+        isRetryableProviderError(err);
+      if (!again) throw err;
+      const wait = retryDelayMs(err, attempt);
+      console.warn(`[ai] provider call failed (${describeProviderError(err)}); trying again in ${Math.round(wait / 100) / 10}s (try ${attempt + 1} of ${PROVIDER_ATTEMPTS})`);
+      await sleep(wait, opts.signal);
+    }
+  }
 }
 
 /**
@@ -77,71 +191,73 @@ async function streamChat(opts: StreamChatOpts): Promise<string> {
   if (await thinkingOff(model)) opts = { ...opts, user: withNoThink(opts.user, model) };
   const userText = typeof opts.user === "string" ? opts.user : opts.user.map((p) => (p.type === "text" ? p.text : "")).join("\n");
   const maxTokens = await fitMaxTokens(`${opts.system}\n${userText}`, opts.maxTokens, Math.min(1024, opts.maxTokens));
-
-  const abort = new AbortController();
-  const onCallerAbort = () => abort.abort();
-  if (opts.signal?.aborted) abort.abort();
-  else opts.signal?.addEventListener("abort", onCallerAbort, { once: true });
-  let stalled = false;
-  let stallTimer: NodeJS.Timeout | null = null;
-  const armStall = () => {
-    if (stallTimer) clearTimeout(stallTimer);
-    stallTimer = setTimeout(() => {
-      stalled = true;
-      abort.abort();
-    }, STALL_TIMEOUT_MS);
+  const request = {
+    model,
+    stream: true as const,
+    messages: [
+      { role: "system" as const, content: opts.system },
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      { role: "user" as const, content: opts.user as any },
+    ],
+    ...(await completionOptions(maxTokens, opts.schema?.schema, opts.schema?.name, { looseJson: opts.looseJson })),
   };
-  armStall();
 
   let text = "";
-  let finish: string | null = null;
-  try {
-    const stream = await client.chat.completions.create(
-      {
-        model,
-        stream: true,
-        messages: [
-          { role: "system", content: opts.system },
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          { role: "user", content: opts.user as any },
-        ],
-        ...(await completionOptions(maxTokens, opts.schema?.schema, opts.schema?.name, { looseJson: opts.looseJson })),
-      },
-      { signal: abort.signal },
-    );
-    for await (const event of stream) {
-      // Any event — including reasoning deltas and keep-alives — proves the
-      // model is alive.
-      armStall();
-      const choice = event.choices?.[0];
-      const delta = choice?.delta?.content;
-      if (delta) {
-        text += delta;
-        opts.onDelta?.(text.length);
+  let finish = null as string | null;
+  await withProviderRetry(async () => {
+    text = "";
+    finish = null;
+    const abort = new AbortController();
+    const onCallerAbort = () => abort.abort();
+    if (opts.signal?.aborted) abort.abort();
+    else opts.signal?.addEventListener("abort", onCallerAbort, { once: true });
+    let stalled = false;
+    let stallTimer: NodeJS.Timeout | null = null;
+    const armStall = () => {
+      if (stallTimer) clearTimeout(stallTimer);
+      stallTimer = setTimeout(() => {
+        stalled = true;
+        abort.abort();
+      }, STALL_TIMEOUT_MS);
+    };
+    armStall();
+    try {
+      const stream = await client.chat.completions.create(request, { signal: abort.signal });
+      for await (const event of stream) {
+        // Any event — including reasoning deltas and keep-alives — proves the
+        // model is alive.
+        armStall();
+        const choice = event.choices?.[0];
+        const delta = choice?.delta?.content;
+        if (delta) {
+          text += delta;
+          opts.onDelta?.(text.length);
+        }
+        if (choice?.finish_reason) finish = choice.finish_reason;
       }
-      if (choice?.finish_reason) finish = choice.finish_reason;
+    } catch (err) {
+      if (stalled) {
+        throw new FinalProviderError(
+          `The AI stopped responding (no output for ${Math.round(STALL_TIMEOUT_MS / 1000)}s), so the request was stopped. ` +
+            "On slow hardware, raise AI_STALL_TIMEOUT_MS or use a smaller model.",
+        );
+      }
+      if (opts.signal?.aborted) throw new FinalProviderError("The AI request was cancelled.");
+      throw err;
+    } finally {
+      if (stallTimer) clearTimeout(stallTimer);
+      opts.signal?.removeEventListener("abort", onCallerAbort);
     }
-  } catch (err) {
-    if (stalled) {
-      throw new Error(
-        `The AI stopped responding (no output for ${Math.round(STALL_TIMEOUT_MS / 1000)}s), so the request was stopped. ` +
-          "On slow hardware, raise AI_STALL_TIMEOUT_MS or use a smaller model.",
-      );
-    }
-    if (opts.signal?.aborted) throw new Error("The AI request was cancelled.");
-    throw err;
-  } finally {
-    if (stallTimer) clearTimeout(stallTimer);
-    opts.signal?.removeEventListener("abort", onCallerAbort);
-  }
+  }, { retry: opts.retry, signal: opts.signal, canRetry: () => text.length === 0 });
+
   if (finish === "length") {
-    throw new Error(
+    throw new UnusableOutputError(
       "The AI ran out of room before finishing its answer. Try a smaller request, or raise the output limit or context size in Admin → Settings.",
     );
   }
   const out = stripThinking(text);
   if (!out.trim()) {
-    throw new Error("The AI returned an empty answer. Check the model name and its output limit in Admin → Settings.");
+    throw new UnusableOutputError("The AI returned an empty answer. Check the model name and its output limit in Admin → Settings.");
   }
   return out;
 }
@@ -179,54 +295,62 @@ async function* openaiScaffoldStream(
   const client = await openai();
   const system = `${opts.systemPrompt}\nReturn JSON matching this schema: ${JSON.stringify(opts.jsonSchema)}`;
   const maxTokens = await fitMaxTokens(`${system}\n${opts.userMessage}`, opts.maxCompletionTokens ?? 8192);
-
-  // Stall watchdog: abort the request if the model streams NOTHING for
-  // STALL_TIMEOUT_MS. Reset on every stream event (including empty-delta
-  // keep-alive chunks), so a long-but-live generation is never killed.
-  const abort = new AbortController();
-  let stalled = false;
-  let stallTimer: NodeJS.Timeout | null = null;
-  const armStall = () => {
-    if (stallTimer) clearTimeout(stallTimer);
-    stallTimer = setTimeout(() => {
-      stalled = true;
-      abort.abort();
-    }, STALL_TIMEOUT_MS);
+  const request = {
+    model: await getAIModel("scaffold"),
+    stream: true as const,
+    messages: [
+      { role: "system" as const, content: system },
+      { role: "user" as const, content: opts.userMessage },
+    ],
+    ...await completionOptions(maxTokens, opts.jsonSchema, opts.schemaName),
   };
-  armStall();
 
-  let accumulated = "";
-  try {
-    const stream = await client.chat.completions.create(
-      {
-        model: await getAIModel("scaffold"),
-        stream: true,
-        messages: [
-          { role: "system", content: system },
-          { role: "user", content: opts.userMessage },
-        ],
-        ...await completionOptions(maxTokens, opts.jsonSchema, opts.schemaName),
-      },
-      { signal: abort.signal },
-    );
+  // Transient provider errors are tried again (see withProviderRetry), but
+  // only before the first chunk has gone to the caller.
+  for (let attempt = 1; ; attempt++) {
+    // Stall watchdog: abort the request if the model streams NOTHING for
+    // STALL_TIMEOUT_MS. Reset on every stream event (including empty-delta
+    // keep-alive chunks), so a long-but-live generation is never killed.
+    const abort = new AbortController();
+    let stalled = false;
+    let stallTimer: NodeJS.Timeout | null = null;
+    const armStall = () => {
+      if (stallTimer) clearTimeout(stallTimer);
+      stallTimer = setTimeout(() => {
+        stalled = true;
+        abort.abort();
+      }, STALL_TIMEOUT_MS);
+    };
+    armStall();
 
-    for await (const event of stream) {
-      armStall();
-      const delta = event.choices[0]?.delta?.content ?? "";
-      if (!delta) continue;
-      accumulated += delta;
-      yield { delta, accumulated };
+    let accumulated = "";
+    try {
+      const stream = await client.chat.completions.create(request, { signal: abort.signal });
+      for await (const event of stream) {
+        armStall();
+        const delta = event.choices[0]?.delta?.content ?? "";
+        if (!delta) continue;
+        accumulated += delta;
+        yield { delta, accumulated };
+      }
+      return;
+    } catch (err) {
+      if (stalled) {
+        throw new FinalProviderError(
+          `AI builder stalled — no output for ${Math.round(STALL_TIMEOUT_MS / 1000)}s, ` +
+            `so the request was stopped. Please try again.`,
+        );
+      }
+      if (accumulated.length === 0 && attempt < PROVIDER_ATTEMPTS && isRetryableProviderError(err)) {
+        const wait = retryDelayMs(err, attempt);
+        console.warn(`[ai] provider call failed (${describeProviderError(err)}); trying again in ${Math.round(wait / 100) / 10}s (try ${attempt + 1} of ${PROVIDER_ATTEMPTS})`);
+        await sleep(wait);
+        continue;
+      }
+      throw err;
+    } finally {
+      if (stallTimer) clearTimeout(stallTimer);
     }
-  } catch (err) {
-    if (stalled) {
-      throw new Error(
-        `AI builder stalled — no output for ${Math.round(STALL_TIMEOUT_MS / 1000)}s, ` +
-          `so the request was stopped. Please try again.`,
-      );
-    }
-    throw err;
-  } finally {
-    if (stallTimer) clearTimeout(stallTimer);
   }
 }
 
@@ -320,6 +444,12 @@ export async function providerComplete(opts: {
   signal?: AbortSignal;
   /** Called as the answer streams in, with the characters received so far. */
   onDelta?: (chars: number) => void;
+  /**
+   * False turns off retrying transient provider errors. Published apps' AI
+   * steps use it: a visitor is waiting on the page, and the flow reports the
+   * error itself.
+   */
+  retry?: boolean;
 }): Promise<string> {
   if (await getAIProvider() === "claude-cli") {
     if (!opts.onDelta) {
@@ -331,7 +461,7 @@ export async function providerComplete(opts: {
       text = chunk.accumulated;
       opts.onDelta(text.length);
     }
-    if (!text.trim()) throw new Error("The AI returned an empty answer. Please try again.");
+    if (!text.trim()) throw new UnusableOutputError("The AI returned an empty answer. Please try again.");
     return text;
   }
   return streamChat({
@@ -342,5 +472,6 @@ export async function providerComplete(opts: {
     looseJson: opts.json,
     signal: opts.signal,
     onDelta: opts.onDelta,
+    retry: opts.retry,
   });
 }

@@ -6,12 +6,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends python3 build-e
 RUN corepack enable && corepack prepare pnpm@10.33.4 --activate
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY prisma ./prisma
-COPY packages ./packages
-COPY apps/designer-renderer/package.json ./apps/designer-renderer/package.json
 RUN pnpm install --frozen-lockfile
 COPY . .
 ENV NEXT_TELEMETRY_DISABLED=1
-RUN pnpm designer:build && pnpm build
+RUN pnpm build
 
 FROM node:20.19.2-bookworm-slim AS runtime
 WORKDIR /app

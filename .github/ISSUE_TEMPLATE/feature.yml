@@ -1,0 +1,45 @@
+name: Idea or feature request
+description: Suggest something Nullkode should do.
+labels: ["idea"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the idea. The most useful requests start with what you're trying to get done, not with the solution. Several people often want the same outcome in different ways.
+  - type: textarea
+    id: goal
+    attributes:
+      label: What are you trying to do?
+      description: The job you (or the people using your apps) need to get done.
+      placeholder: My clients run small gyms. They want members to book a class and get a reminder the day before.
+    validations:
+      required: true
+  - type: textarea
+    id: today
+    attributes:
+      label: What happens today?
+      description: How you do it now, or where Nullkode gets in the way.
+      placeholder: The Bookings feature works, but nothing reminds members, so half of them forget.
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: What would help?
+      description: Your suggestion, if you have one. Rough ideas are welcome.
+  - type: dropdown
+    id: who
+    attributes:
+      label: Who is it for?
+      options:
+        - People who build apps in Nullkode
+        - People who use the published apps
+        - The person who runs the server (operator)
+        - Resellers and their clients
+    validations:
+      required: true
+  - type: textarea
+    id: more
+    attributes:
+      label: Anything else?
+      description: Examples from other tools, sketches, screenshots.
