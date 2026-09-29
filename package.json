@@ -41,6 +41,9 @@
     "designer:build": "pnpm -C apps/designer-renderer build",
     "postinstall": "prisma generate",
     "check:js": "tsx scripts/check-generated-js.ts",
+    "check:extensions": "tsx scripts/check-extensions.ts",
+    "new:module": "tsx scripts/new-module.ts",
+    "new:template": "tsx scripts/new-template.ts",
     "test:e2e": "tsx scripts/check-generated-js.ts && tsx scripts/e2e-resellers.ts && tsx scripts/e2e-publishing.ts && tsx scripts/e2e-push.ts && tsx scripts/e2e-security.ts && tsx scripts/e2e-data.ts && node scripts/smoke-install.cjs"
   },
   "dependencies": {
