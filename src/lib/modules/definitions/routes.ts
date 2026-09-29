@@ -154,6 +154,7 @@ export const routes: ModuleDefinition = {
 </form>
 
 <script>(function(){
+  function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
   var id = new URLSearchParams(location.search).get('id') || '';
   document.getElementById('nk-add-trip').value = id;
   var map = L.map('nk-rmap').setView([37.7749,-122.4194], 13);
@@ -164,15 +165,16 @@ export const routes: ModuleDefinition = {
       .then(function(r){return r.json();}).then(function(stops){
         layer.clearLayers();
         var coords = [];
-        (stops||[]).forEach(function(s, i){
+        stops = Array.isArray(stops) ? stops : [];
+        stops.forEach(function(s, i){
           if(!s.lat || !s.lng) return;
-          L.marker([s.lat, s.lng]).bindPopup('<b>'+(i+1)+'. '+s.label+'</b><br/>'+(s.address||'')).addTo(layer);
+          L.marker([s.lat, s.lng]).bindPopup('<b>'+(i+1)+'. '+esc(s.label)+'</b><br/>'+esc(s.address||'')).addTo(layer);
           coords.push([s.lat, s.lng]);
         });
         if(coords.length > 1) L.polyline(coords, { color:'#0ea5e9', weight:4 }).addTo(layer);
         if(coords.length) map.fitBounds(coords, { padding:[40,40] });
-        document.getElementById('nk-stops').innerHTML = (stops||[]).map(function(s){
-          return '<li class="mb-2"><strong>'+s.label+'</strong>'+(s.address?' — <span style="color:var(--nk-text-muted);">'+s.address+'</span>':'')+(s.notes?'<div class="small">'+s.notes+'</div>':'')+'</li>';
+        document.getElementById('nk-stops').innerHTML = stops.map(function(s){
+          return '<li class="mb-2"><strong>'+esc(s.label)+'</strong>'+(s.address?' — <span style="color:var(--nk-text-muted);">'+esc(s.address)+'</span>':'')+(s.notes?'<div class="small">'+esc(s.notes)+'</div>':'')+'</li>';
         }).join('');
       });
   }

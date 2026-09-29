@@ -8,6 +8,7 @@ import { json, slugify, projectSlug } from "@/lib/utils";
 import { syncProjectNav } from "@/lib/nav-sync";
 import { checkProjectLimit } from "@/lib/guard";
 import { hideOwnerLinks } from "@/lib/modules/owner-only";
+import { eraseProject } from "@/lib/erase";
 
 const Body = z.object({
   templateId: z.string().min(1),
@@ -105,9 +106,10 @@ export async function POST(req: Request) {
       }
     }
   } catch (err) {
-    // Don't leave a half-built project counting against the plan limit.
+    // Don't leave a half-built project (or the tables its modules made)
+    // counting against the plan limit.
     console.error("Template create failed:", err);
-    await db.project.delete({ where: { id: project.id } }).catch(() => {});
+    await eraseProject(project.id, project.slug).catch((e) => console.error("Template rollback failed:", e));
     return json({ error: "Could not create the app from this template. Please try again." }, { status: 500 });
   }
 

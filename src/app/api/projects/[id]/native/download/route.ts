@@ -19,6 +19,7 @@ import {
 } from "@/lib/native";
 import { iosProjectFiles } from "@/lib/native-ios";
 import { nativeConfigForOutput } from "@/lib/apk-build";
+import { nativeNeedsFor, permissionFeaturesOf, usageTextsFor } from "@/lib/native-permissions";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -73,9 +74,18 @@ export async function GET(req: Request, ctx: { params: Promise<{ id: string }> }
   zip.file("resources/icon.png", iconPng);
   zip.file("resources/README.md", iconResourcesReadme(cfg));
 
-  for (const entry of await iosProjectFiles({ cfg, url, allowNavigation: hosts, iconPng, www })) {
+  // The phone's permission prompts: their wording, and location only when the app uses it.
+  const needs = await nativeNeedsFor(project.id);
+  const privacy = { texts: usageTextsFor(cfg.appName, cfg.permissionText, needs), location: needs.features.includes("location") };
+  for (const entry of await iosProjectFiles({ cfg, url, allowNavigation: hosts, iconPng, www, privacy })) {
     zip.file(entry.path, entry.data);
   }
+  // Remembered, so the Mobile app tab can say when the iPhone app needs a new build.
+  const saved = project.native && typeof project.native === "object" && !Array.isArray(project.native) ? project.native : {};
+  await db.project.update({
+    where: { id: project.id },
+    data: { native: { ...saved, iosDownload: { at: new Date().toISOString(), features: permissionFeaturesOf(needs.features) } } },
+  });
 
   const buffer = await zip.generateAsync({ type: "nodebuffer", compression: "DEFLATE" });
   const base = sanitizeBundleSegment(project.slug) || "app";

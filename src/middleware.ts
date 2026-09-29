@@ -61,6 +61,9 @@ function uploadResponse(pathname: string): NextResponse {
   return res;
 }
 
+// Files with an extension that still belong to each app on its own address.
+const PER_HOST_FILES = new Set(["/manifest.webmanifest", "/sw.js", "/robots.txt", "/sitemap.xml"]);
+
 export async function middleware(req: NextRequest) {
   // This app has no Server Actions. Refuse the header so probes never reach
   // Next's action handling.
@@ -84,8 +87,10 @@ export async function middleware(req: NextRequest) {
   }
   // Static files (template photos, uploads, stylesheets, fonts) are the same
   // on every host. App pages never have a file extension; the app's own
-  // manifest and service worker are served per host below.
-  if (/\.[a-z0-9]{2,10}$/i.test(pathname) && !/\.html?$/i.test(pathname) && pathname !== "/manifest.webmanifest" && pathname !== "/sw.js") {
+  // manifest, service worker, robots.txt and sitemap are served per host below
+  // (/nk-host/<host>/robots.txt and so on). On the dashboard's own address,
+  // /robots.txt is the platform's (src/app/robots.ts), handled above.
+  if (/\.[a-z0-9]{2,10}$/i.test(pathname) && !/\.html?$/i.test(pathname) && !PER_HOST_FILES.has(pathname)) {
     return NextResponse.next();
   }
 

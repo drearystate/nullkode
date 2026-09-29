@@ -64,7 +64,7 @@ enum ProjectKind {
   DESIGNER
 }
 
-// Open CoDesign types we need to encode in SQL. See LICENSE-THIRD-PARTY.
+// AI Designer (src/lib/design-studio).
 
 enum DesignerSnapshotType {
   INITIAL
@@ -84,34 +84,6 @@ enum DesignerChatKind {
   TOOL_CALL
   ARTIFACT_DELIVERED
   ERROR
-}
-
-enum DesignerCommentKind {
-  NOTE
-  EDIT
-}
-
-enum DesignerCommentStatus {
-  PENDING
-  APPLIED
-  DISMISSED
-}
-
-enum DesignerCommentScope {
-  ELEMENT
-  GLOBAL
-}
-
-enum DesignerWorkspaceMode {
-  BLANK_CANVAS
-  WORK_ON_PROJECT
-}
-
-enum DesignerPreviewMode {
-  MANAGED_FILE
-  CONNECTED_URL
-  EXTERNAL_APP
-  NONE
 }
 
 enum DesignerFileKind {
@@ -171,11 +143,6 @@ model User {
   ownedReseller Reseller? @relation("ResellerOwner")
 
   designerDesigns      DesignerDesign[]
-  designerProviders    DesignerProvider[]
-  designerPreferences  DesignerPreferences?
-  designerMemory       DesignerMemory?
-  designerImageGen     DesignerImageGenSettings?
-  designerOAuthCodex   DesignerCodexOAuth?
 
   @@index([stripeCustomerId])
   @@index([emailNormalized])
@@ -310,10 +277,10 @@ model Project {
   androidSigningKey AndroidSigningKey?
 }
 
-// ── Nullkode Designer — vendored Open CoDesign in cloud mode ───────────
-// All tables here back the renderer's `window.codesign.*` IPC surface, which
-// was originally backed by local SQLite + filesystem in the Electron build.
-// MIT-derived from OpenCoworkAI/open-codesign. See LICENSE-THIRD-PARTY.
+// ── AI Designer ─────────────────────────────────────────────────────────
+// A design is its files (pages and data definitions), the versions saved
+// after each change, the conversation, and the builds that ran
+// (src/lib/design-studio).
 
 model DesignerDesign {
   id             String                @id @default(cuid())
@@ -323,11 +290,6 @@ model DesignerDesign {
   // existing Nullkode publish/domains/hosting pipeline can serve it.
   projectId      String?
   name           String                @default("Untitled design")
-  thumbnailText  String?
-  workspacePath  String?               // unused in cloud — kept for type parity
-  workspaceMode  DesignerWorkspaceMode?
-  previewMode    DesignerPreviewMode?
-  previewUrl     String?
   deletedAt      DateTime?
   createdAt      DateTime              @default(now())
   updatedAt      DateTime              @updatedAt
@@ -336,7 +298,6 @@ model DesignerDesign {
   files     DesignerFile[]
   snapshots DesignerSnapshot[]
   chat      DesignerChatRow[]
-  comments  DesignerComment[]
 
   @@index([userId])
   @@index([projectId])
@@ -370,6 +331,9 @@ model DesignerSnapshot {
   artifactType      DesignerArtifactType
   artifactSource    String               // the actual HTML/JSX/SVG text at this snapshot
   message           String?
+  /// Every text file of the design at this version ({ path: content }), so a
+  /// version can be restored whole. Older versions only have artifactSource.
+  files             Json?
   createdAt         DateTime             @default(now())
 
   design DesignerDesign @relation(fields: [designId], references: [id], onDelete: Cascade)
@@ -395,109 +359,11 @@ model DesignerChatRow {
   @@index([designId])
 }
 
-model DesignerComment {
-  id                  String                @id @default(cuid())
-  designId            String
-  snapshotId          String
-  kind                DesignerCommentKind
-  selector            String
-  tag                 String
-  outerHTML           String
-  rect                Json
-  text                String
-  status              DesignerCommentStatus @default(PENDING)
-  appliedInSnapshotId String?
-  scope               DesignerCommentScope  @default(ELEMENT)
-  parentOuterHTML     String?
-  createdAt           DateTime              @default(now())
-
-  design DesignerDesign @relation(fields: [designId], references: [id], onDelete: Cascade)
-
-  @@index([designId])
-  @@index([snapshotId])
-}
-
 // LLM provider configured by the user. Maps to the renderer's Settings
 // providers list. apiKey is encrypted at rest via the same AES-GCM helper
 // the existing Setting table uses.
-model DesignerProvider {
-  id            String   @id // "anthropic" | "openai" | "openrouter" | "ollama" | custom uuid
-  userId        String
-  name          String
-  wire          String   // "anthropic" | "openai-chat" | "openai-responses" | "openrouter" | "gemini" | "ollama"
-  baseUrl       String   @default("")
-  apiKeyEnc     String   @default("")  // AES-GCM ciphertext or "" for keyless (ollama)
-  defaultModel  String   @default("")
-  httpHeaders   Json?
-  queryParams   Json?
-  envKey        String?
-  reasoningLevel String? // null | "off" | "low" | "medium" | "high"
-  isActive      Boolean  @default(false)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([userId, id])
-  @@index([userId])
-}
 
 // One row per user — the full Preferences blob the renderer expects.
-model DesignerPreferences {
-  userId                    String   @id
-  updateChannel             String   @default("stable")
-  generationTimeoutSec      Int      @default(1200)
-  checkForUpdatesOnStartup  Boolean  @default(false)
-  dismissedUpdateVersion    String   @default("")
-  diagnosticsLastReadTs     BigInt   @default(0)
-  memoryEnabled             Boolean  @default(true)
-  workspaceMemoryAutoUpdate Boolean  @default(true)
-  userMemoryAutoUpdate      Boolean  @default(true)
-  // Active locale (renderer i18n).
-  locale                    String   @default("en")
-  // Active provider id + model. Mirrors OnboardingState.
-  activeProviderId          String?
-  activeModelPrimary        String?
-  // Design system path the user uploaded (mode = blank-canvas for now).
-  designSystemJson          Json?
-  updatedAt                 DateTime @updatedAt
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model DesignerMemory {
-  userId    String   @id
-  content   String   @default("")
-  updatedAt DateTime @updatedAt
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model DesignerImageGenSettings {
-  userId          String   @id
-  provider        String?  // "openai" | "openrouter" | null = off
-  model           String?
-  apiKeyEnc       String   @default("")
-  enabled         Boolean  @default(false)
-  updatedAt       DateTime @updatedAt
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model DesignerCodexOAuth {
-  userId       String   @id
-  // Status: "logged_out" | "pending" | "logged_in"
-  status       String   @default("logged_out")
-  accessTokenEnc  String?
-  refreshTokenEnc String?
-  expiresAt    DateTime?
-  accountType  String?  // "plus" | "pro" | "team" | etc.
-  email        String?
-  pkceVerifier String?  // transient during login flow
-  updatedAt    DateTime @updatedAt
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
 
 // In-progress agent generation. Used by generation-status / cancel.
 model DesignerGenerationJob {
@@ -561,11 +427,25 @@ model Flow {
   createdAt DateTime        @default(now())
   updatedAt DateTime        @updatedAt
 
+  // Built-in scheduler bookkeeping (src/lib/flow/scheduler.ts). Every field
+  // is optional or has a default, so adding them never rewrites old rows.
+  /// When the flow next runs on its schedule. Null until the scheduler plans it.
+  nextRunAt            DateTime?
+  lastRunAt            DateTime?
+  /// "running" | "ok" | "failed" | "timeout"
+  lastStatus           String?
+  consecutiveFailures  Int       @default(0)
+  /// Why the scheduler stopped running the flow ("failures" | "invalid"); Resume clears it.
+  pausedReason         String?
+  /// The live deployment nextRunAt was planned from, so a new publish re-plans it.
+  scheduleDeploymentId String?
+
   project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
   runs    FlowRun[]
 
   @@unique([projectId, slug])
   @@index([projectId])
+  @@index([trigger, enabled, nextRunAt])
 }
 
 model FlowRun {

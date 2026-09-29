@@ -125,15 +125,16 @@ export const reactions: ModuleDefinition = {
 <div id="nk-trend" class="d-flex flex-wrap gap-3 fs-3 mt-3">—</div>
 
 <script>(function(){
+  function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
   var EMOJIS = ['','','','','',''];
   function paint(host){
     var et = host.getAttribute('data-entity-table'); var eid = host.getAttribute('data-entity-id');
     fetch('/api/run/' + ((window.__nkFlowSlugMap||{})['for-entity']||'for-entity'), { method:'POST', headers:{'content-type':'application/json'}, body: JSON.stringify({entity_table:et, entity_id:eid}) })
       .then(function(r){return r.json();}).then(function(rows){
-        var counts = {}; (rows||[]).forEach(function(r){ counts[r.emoji]=(counts[r.emoji]||0)+1; });
+        var counts = {}; (Array.isArray(rows)?rows:[]).forEach(function(r){ counts[r.emoji]=(counts[r.emoji]||0)+1; });
         host.innerHTML = EMOJIS.map(function(e){
           var c = counts[e] || 0;
-          return '<button type="button" class="btn btn-sm '+(c?'btn-primary':'btn-outline-secondary')+' nk-react" data-emoji="'+e+'">'+e+' <span class="badge bg-light text-dark ms-1">'+c+'</span></button>';
+          return '<button type="button" class="btn btn-sm '+(c?'btn-primary':'btn-outline-secondary')+' nk-react" data-emoji="'+esc(e)+'">'+esc(e)+' <span class="badge bg-light text-dark ms-1">'+c+'</span></button>';
         }).join('');
         host.querySelectorAll('.nk-react').forEach(function(b){
           b.addEventListener('click', function(){
@@ -145,8 +146,8 @@ export const reactions: ModuleDefinition = {
   document.querySelectorAll('[data-nk-reactions]').forEach(paint);
   fetch('/api/run/' + ((window.__nkFlowSlugMap||{})['top']||'top'), { method:'POST', headers:{'content-type':'application/json'}, body:'{}' })
     .then(function(r){return r.json();}).then(function(rows){
-      var c={}; (rows||[]).forEach(function(r){ c[r.emoji]=(c[r.emoji]||0)+1; });
-      document.getElementById('nk-trend').innerHTML = Object.entries(c).sort(function(a,b){return b[1]-a[1];}).slice(0,8).map(function(p){ return '<div class="text-center">'+p[0]+'<div class="small">'+p[1]+'</div></div>'; }).join('') || '<span style="color:var(--nk-text-muted);">No reactions yet.</span>';
+      var c={}; (Array.isArray(rows)?rows:[]).forEach(function(r){ c[r.emoji]=(c[r.emoji]||0)+1; });
+      document.getElementById('nk-trend').innerHTML = Object.entries(c).sort(function(a,b){return b[1]-a[1];}).slice(0,8).map(function(p){ return '<div class="text-center">'+esc(p[0])+'<div class="small">'+esc(p[1])+'</div></div>'; }).join('') || '<span style="color:var(--nk-text-muted);">No reactions yet.</span>';
     });
 })();</script>
 </div></section>`,

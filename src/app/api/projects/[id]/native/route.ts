@@ -3,14 +3,18 @@ import { getCurrentUser } from "@/lib/auth";
 import { json } from "@/lib/utils";
 import { z } from "zod";
 import {
+  cleanPermissionText,
   nativeConfigFor,
   publishedAppUrl,
   isValidBundleId,
   sanitizeBundleSegment,
 } from "@/lib/native";
+import { nativeNeedsFor, suggestedUsageTexts, usageTextsFor } from "@/lib/native-permissions";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
+
+const Wording = z.string().max(300);
 
 const Body = z.object({
   appId: z.string().min(3).max(120).optional(),
@@ -25,6 +29,11 @@ const Body = z.object({
   themeColor: z.string().regex(/^#[0-9a-fA-F]{3,8}$/).optional(),
   androidEnabled: z.boolean().optional(),
   iosEnabled: z.boolean().optional(),
+  // The wording of the phone's permission prompts; "" goes back to the suggested wording.
+  permissionText: z
+    .object({ camera: Wording, microphone: Wording, photos: Wording, location: Wording })
+    .partial()
+    .optional(),
 });
 
 async function load(id: string) {
@@ -36,15 +45,39 @@ async function load(id: string) {
   return { project };
 }
 
+/** Saved native settings as stored, including keys the config doesn't resolve (iosDownload). */
+function savedNative(native: unknown): Record<string, unknown> {
+  return native && typeof native === "object" && !Array.isArray(native) ? (native as Record<string, unknown>) : {};
+}
+
+/**
+ * The app's native settings, plus the phone features it uses (camera,
+ * microphone, location, files: from its modules and pages), the wording the
+ * phone shows for each, and the features of the last iPhone project
+ * download (see src/lib/native-permissions.ts).
+ */
 export async function GET(_req: Request, ctx: { params: Promise<{ id: string }> }) {
   const { id } = await ctx.params;
   const res = await load(id);
   if ("error" in res) return json({ error: res.error }, { status: res.status });
   const { project } = res;
+  const [config, liveUrl, needs] = await Promise.all([
+    nativeConfigFor(project),
+    publishedAppUrl(project),
+    nativeNeedsFor(project.id),
+  ]);
+  const iosDownload = savedNative(project.native).iosDownload;
   return json({
-    config: await nativeConfigFor(project),
+    config,
     published: project.published,
-    liveUrl: (await publishedAppUrl(project)),
+    liveUrl,
+    phone: {
+      features: needs.features,
+      sources: needs.sources,
+      suggested: suggestedUsageTexts(config.appName, needs),
+      texts: usageTextsFor(config.appName, config.permissionText, needs),
+      iosDownload: iosDownload && typeof iosDownload === "object" ? iosDownload : null,
+    },
   });
 }
 
@@ -79,12 +112,15 @@ export async function PATCH(req: Request, ctx: { params: Promise<{ id: string }>
   }
 
   const current = await nativeConfigFor(project);
+  const { permissionText, ...rest } = parsed.data;
   const next = {
     ...current,
-    ...parsed.data,
+    ...rest,
     ...(appId !== undefined ? { appId } : {}),
+    permissionText: cleanPermissionText({ ...current.permissionText, ...(permissionText ?? {}) }),
   };
 
-  await db.project.update({ where: { id }, data: { native: next } });
+  // Keep what the settings don't cover (such as the last iPhone download).
+  await db.project.update({ where: { id }, data: { native: { ...savedNative(project.native), ...next } } });
   return json({ config: next });
 }

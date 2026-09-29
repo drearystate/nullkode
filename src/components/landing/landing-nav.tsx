@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { BrandWordmark } from "@/components/brand-wordmark";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
@@ -24,7 +25,7 @@ export function LandingNav({ authed, name = "Nullkode", logo }: { authed: boolea
     >
       <div className="mx-auto max-w-6xl px-6 flex items-center justify-between h-16">
         <Link href="/" className="flex items-center gap-2 text-xl font-bold tracking-tight" aria-label={`${name} home`}>
-          {logo ? <img src={logo} alt="" className="h-8 w-auto" /> : null}{name}
+          {logo ? <><img src={logo} alt="" className="h-8 w-auto" />{name}</> : <BrandWordmark name={name} />}
         </Link>
         <nav className="hidden md:flex items-center gap-8 text-sm text-surface-600">
           <a href="#product" className="hover:text-surface-900 transition">Product</a>

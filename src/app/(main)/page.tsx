@@ -1,6 +1,6 @@
 import { getBrand } from "@/lib/brand";
 import Link from "next/link";
-import Image from "next/image";
+import { BrandWordmark } from "@/components/brand-wordmark";
 import { getCurrentUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { requestHost, resellerForHost } from "@/lib/reseller";
@@ -10,17 +10,20 @@ import { PricingSection } from "@/components/landing/pricing-section";
 import { FaqSection } from "@/components/landing/faq-section";
 import { LandingNav } from "@/components/landing/landing-nav";
 import { MODULE_REGISTRY } from "@/lib/modules/registry";
+import { aiReady } from "@/lib/ai/client";
 
 export default async function HomePage() {
   const [user, brand] = await Promise.all([getCurrentUser(), getBrand()]);
   const authed = !!user;
   // On a reseller's own domain the front door is sign-in, not our marketing site.
   if (await resellerForHost(await requestHost())) redirect(authed ? "/dashboard" : "/login");
+  // The "What should your app do?" box only makes sense with an AI model set up.
+  const canDescribe = await aiReady().catch(() => false);
 
   return (
     <main className="min-h-screen bg-surface-100 text-surface-900">
       <LandingNav authed={authed} name={brand.appName} logo={brand.logoDataUrl} />
-      <LandingHero authed={authed} moduleCount={MODULE_REGISTRY.length} />
+      <LandingHero authed={authed} moduleCount={MODULE_REGISTRY.length} aiReady={canDescribe} />
       <FeatureBento name={brand.appName} moduleCount={MODULE_REGISTRY.length} autoTls={process.env.NK_AUTO_TLS === "1"} />
       <PricingSection authed={authed} />
       <FaqSection name={brand.appName} />
@@ -59,7 +62,7 @@ export default async function HomePage() {
                 // eslint-disable-next-line @next/next/no-img-element
                 ? <img src={(brand.logoWideDataUrl || brand.logoDataUrl)!} alt={brand.appName} className="h-9 w-auto" />
                 : brand.appName === "Nullkode"
-                  ? <Image src="/nullkode-banner.png" alt={brand.appName} width={160} height={32} className="h-9 w-auto" />
+                  ? <BrandWordmark name={brand.appName} className="text-xl font-semibold tracking-tight" />
                   : <span className="text-xl font-semibold tracking-tight">{brand.appName}</span>}
             </Link>
             <p className="text-sm text-surface-500 mt-3 max-w-sm">

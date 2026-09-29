@@ -1,5 +1,6 @@
 import { db } from "@/lib/db";
 import { Prisma } from "@prisma/client";
+import { readMenuMarkers } from "@/lib/page-visibility";
 
 /**
  * Project-wide navigation sync.
@@ -14,6 +15,13 @@ import { Prisma } from "@prisma/client";
  * The generated nav is marked with data-nk-nav="auto" so re-syncs can find
  * and replace it idempotently. Pages that must not carry the shared menu
  * opt out with a <!--nk:no-nav--> comment anywhere in their HTML.
+ *
+ * The owner's own choices come first (Page settings in the editor, stored
+ * as markers in each page, see lib/page-visibility.ts): a page marked
+ * <!--nk:hide-in-menu--> is left out, and <!--nk:menu-order:N--> sets its
+ * place. Only then do the heuristics below apply (sign-in pages become
+ * buttons, detail and "thank you" pages stay out, the rest follow in the
+ * order they were made).
  */
 
 export const NO_NAV_MARKER = "<!--nk:no-nav-->";
@@ -38,6 +46,13 @@ const AUTH_OUT_SLUGS = new Set([
 const UTILITY_SLUG_RE =
   /(^|-)(detail|details|edit|success|confirmation|thank-you|thanks|404|error)(-|$)/;
 
+/**
+ * Addresses the platform serves itself for every app (a built-in page wins
+ * over a page of the same name), so a page there never goes in the menu and
+ * new pages shouldn't take them.
+ */
+export const RESERVED_PAGE_SLUGS = new Set(["delete-account"]);
+
 /** Visible links before the rest overflows into a "More" dropdown. */
 const MAX_PRIMARY_LINKS = 5;
 
@@ -51,12 +66,80 @@ type NavPage = {
 
 export type NavProjectInfo = {
   projectName: string;
-  /** Menu-eligible pages, home first, in creation order. */
+  /** Menu-eligible pages, home first, then in menu order. */
   pages: NavPage[];
   loginSlug: string | null;
   registerSlug: string | null;
   logoutFlowId: string | null;
 };
+
+/** What the menu planner needs from each page. */
+export type MenuSourcePage = {
+  id: string;
+  slug: string;
+  title: string;
+  isHome: boolean;
+  html: string;
+  createdAt: Date;
+};
+
+/**
+ * A page's slot in the menu. "main" pages are the visitor links (signed-in
+ * only ones included), "staff" pages sit in the admins' "Manage" menu.
+ */
+export type MenuEntry = NavPage & { id: string; group: "home" | "main" | "staff"; order: number | null };
+
+export type MenuPlan = {
+  home: MenuEntry | null;
+  main: MenuEntry[];
+  staff: MenuEntry[];
+  loginSlug: string | null;
+  registerSlug: string | null;
+};
+
+/** Pages that are never plain menu links, whatever their markers say. */
+export function neverInMenu(slug: string): boolean {
+  return AUTH_OUT_SLUGS.has(slug) || RESERVED_PAGE_SLUGS.has(slug);
+}
+
+/**
+ * Decides which pages the shared menu shows, and in what order: the
+ * owner's markers first (hidden pages out, a page with a menu place always
+ * in, sorted by it), then the heuristics, then creation order.
+ */
+export function planMenu(pages: MenuSourcePage[]): MenuPlan {
+  const shown = pages.filter((p) => !readMenuMarkers(p.html).hidden);
+  const bySlug = new Map(shown.map((p) => [p.slug, p]));
+  const entries: MenuEntry[] = shown
+    .map((p) => ({ p, order: readMenuMarkers(p.html).order }))
+    .filter(({ p, order }) => !neverInMenu(p.slug) && (order !== null || !UTILITY_SLUG_RE.test(p.slug)))
+    .sort((a, b) => {
+      const ao = a.order ?? Number.POSITIVE_INFINITY;
+      const bo = b.order ?? Number.POSITIVE_INFINITY;
+      if (ao !== bo) return ao < bo ? -1 : 1;
+      return a.p.createdAt.getTime() - b.p.createdAt.getTime() || a.p.slug.localeCompare(b.p.slug);
+    })
+    .map(({ p, order }): MenuEntry => {
+      const requiredRole = ROLE_MARKER_RE.exec(p.html)?.[1] ?? null;
+      return {
+        id: p.id,
+        slug: p.slug,
+        title: p.title,
+        isHome: p.isHome,
+        requiresAuth: p.html.includes(AUTH_MARKER),
+        requiredRole,
+        order,
+        group: p.isHome ? "home" : requiredRole ? "staff" : "main",
+      };
+    });
+  return {
+    home: entries.find((e) => e.group === "home") ?? null,
+    main: entries.filter((e) => e.group === "main"),
+    staff: entries.filter((e) => e.group === "staff"),
+    loginSlug: LOGIN_SLUGS.find((s) => bySlug.has(s)) ?? null,
+    registerSlug: REGISTER_SLUGS.find((s) => bySlug.has(s)) ?? null,
+  };
+}
 
 function escHtml(s: string): string {
   return s
@@ -115,7 +198,7 @@ export function buildNavHtml(info: NavProjectInfo, currentSlug: string): string 
       .join("");
     items.push(
       `<li class="nav-item dropdown">` +
-        `<a class="nav-link" href="#" data-nk-nav-toggle="#nk-nav-more" aria-expanded="false" style="color: var(--nk-text);">More &#9662;</a>` +
+        `<a class="nav-link" href="#" role="button" data-nk-nav-toggle="#nk-nav-more" aria-controls="nk-nav-more" aria-expanded="false" style="color: var(--nk-text);">More <span aria-hidden="true">&#9662;</span></a>` +
         `<ul class="dropdown-menu dropdown-menu-end" id="nk-nav-more" style="background: var(--nk-surface); border: 1px solid var(--nk-border);">${inner}</ul>` +
         `</li>`
     );
@@ -128,7 +211,7 @@ export function buildNavHtml(info: NavProjectInfo, currentSlug: string): string 
       .join("");
     items.push(
       `<li class="nav-item dropdown" data-nk-role="${escHtml(roles)}" hidden>` +
-        `<a class="nav-link" href="#" data-nk-nav-toggle="#nk-nav-manage" aria-expanded="false" style="color: var(--nk-text);">Manage &#9662;</a>` +
+        `<a class="nav-link" href="#" role="button" data-nk-nav-toggle="#nk-nav-manage" aria-controls="nk-nav-manage" aria-expanded="false" style="color: var(--nk-text);">Manage <span aria-hidden="true">&#9662;</span></a>` +
         `<ul class="dropdown-menu dropdown-menu-end" id="nk-nav-manage" style="background: var(--nk-surface); border: 1px solid var(--nk-border);">${inner}</ul>` +
         `</li>`
     );
@@ -145,26 +228,31 @@ export function buildNavHtml(info: NavProjectInfo, currentSlug: string): string 
   if (info.registerSlug) {
     items.push(
       `<li class="nav-item ms-lg-2" data-nk-auth="out" hidden>` +
-        `<a class="btn btn-sm" href="/${info.registerSlug}" style="background: var(--nk-primary); color: #fff; border-radius: var(--nk-radius-sm, 8px); padding: .35rem .9rem;">Sign up</a></li>`
+        `<a class="btn btn-sm" href="/${info.registerSlug}" style="background: var(--nk-primary); color: var(--nk-on-primary, #fff); border-radius: var(--nk-radius-sm, 8px); padding: .35rem .9rem;">Sign up</a></li>`
     );
   }
   if (info.logoutFlowId) {
     items.push(
       `<li class="nav-item" data-nk-auth="in" hidden>` +
-        `<a class="nav-link" href="#" data-nk-logout="${escHtml(info.logoutFlowId)}" data-nk-redirect="/" style="color: var(--nk-text-muted);">Log out</a></li>`
+        `<a class="nav-link" href="#" data-nk-logout="${escHtml(info.logoutFlowId)}" data-nk-redirect="/" style="color: var(--nk-text);">Log out</a></li>`
     );
   }
 
+  // "Skip to content" lets keyboard and screen-reader users jump past the
+  // menu. It only shows while focused (Bootstrap's visually-hidden-focusable)
+  // and lands on the empty marker at the end of the nav, so the next Tab
+  // goes to the page's own content.
   return (
-    `<nav data-nk-nav="auto" class="navbar navbar-expand-lg nk-nav" style="background: var(--nk-surface); border-bottom: 1px solid var(--nk-border);">` +
+    `<nav data-nk-nav="auto" class="navbar navbar-expand-lg nk-nav" aria-label="Main" style="background: var(--nk-surface); border-bottom: 1px solid var(--nk-border);">` +
+    `<a class="visually-hidden-focusable nk-skip-link" href="#nk-main" style="position: absolute; top: 8px; left: 8px; z-index: 1080; padding: .5rem 1rem; background: var(--nk-surface); color: var(--nk-text); border: 2px solid var(--nk-primary); border-radius: var(--nk-radius-sm, 8px); text-decoration: none;">Skip to content</a>` +
     `<div class="container">` +
     `<a class="navbar-brand fw-bold" href="/" style="color: var(--nk-text); font-family: var(--nk-font-display, inherit);">${escHtml(
       info.projectName
     )}</a>` +
-    `<button class="navbar-toggler border-0 p-1" type="button" data-nk-nav-toggle="#nk-nav-menu" aria-controls="nk-nav-menu" aria-expanded="false" aria-label="Toggle navigation" style="color: var(--nk-text); box-shadow: none;">${TOGGLER_BAR}${TOGGLER_BAR}${TOGGLER_BAR}</button>` +
+    `<button class="navbar-toggler border-0 p-1" type="button" data-nk-nav-toggle="#nk-nav-menu" aria-controls="nk-nav-menu" aria-expanded="false" aria-label="Menu" style="color: var(--nk-text); box-shadow: none;">${TOGGLER_BAR}${TOGGLER_BAR}${TOGGLER_BAR}</button>` +
     `<div class="collapse navbar-collapse" id="nk-nav-menu">` +
     `<ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">${items.join("")}</ul>` +
-    `</div></div></nav>`
+    `</div></div><span id="nk-main" tabindex="-1"></span></nav>`
   );
 }
 
@@ -204,7 +292,7 @@ export async function syncProjectNav(projectId: string): Promise<number> {
     db.page.findMany({
       where: { projectId },
       orderBy: { createdAt: "asc" },
-      select: { id: true, slug: true, title: true, isHome: true, html: true },
+      select: { id: true, slug: true, title: true, isHome: true, html: true, createdAt: true },
     }),
     db.flow.findMany({ where: { projectId }, select: { id: true, slug: true } }),
   ]);
@@ -215,27 +303,14 @@ export async function syncProjectNav(projectId: string): Promise<number> {
     flows.find((f) => f.slug === "auth-logout") ??
     flows.find((f) => f.slug.endsWith("-logout"));
 
-  const bySlug = new Map(pages.map((p) => [p.slug, p]));
-  const loginSlug = LOGIN_SLUGS.find((s) => bySlug.has(s)) ?? null;
-  const registerSlug = REGISTER_SLUGS.find((s) => bySlug.has(s)) ?? null;
-
-  const navPages: NavPage[] = pages
-    .filter((p) => !AUTH_OUT_SLUGS.has(p.slug) && !UTILITY_SLUG_RE.test(p.slug))
-    .map((p) => ({
-      slug: p.slug,
-      title: p.title,
-      isHome: p.isHome,
-      requiresAuth: p.html.includes(AUTH_MARKER),
-      requiredRole: ROLE_MARKER_RE.exec(p.html)?.[1] ?? null,
-    }));
-  // Home first, then creation order.
-  navPages.sort((a, b) => (a.isHome === b.isHome ? 0 : a.isHome ? -1 : 1));
-
+  // Home first, then the owner's order, then creation order.
+  const plan = planMenu(pages);
+  const toNav = ({ slug, title, isHome, requiresAuth, requiredRole }: MenuEntry): NavPage => ({ slug, title, isHome, requiresAuth, requiredRole });
   const info: NavProjectInfo = {
     projectName: project.name,
-    pages: navPages,
-    loginSlug,
-    registerSlug,
+    pages: [...(plan.home ? [plan.home] : []), ...plan.main, ...plan.staff].map(toNav),
+    loginSlug: plan.loginSlug,
+    registerSlug: plan.registerSlug,
     logoutFlowId: logoutFlow?.id ?? null,
   };
 

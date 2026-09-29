@@ -1,4 +1,21 @@
 name: nullkode
+
+# Every service keeps at most 5 log files of 10 MB each (docker compose logs
+# shows them), so logs can't fill the disk.
+x-logging: &logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "5"
+
+# Database access for the backup and restore services.
+x-backup-env: &backup-env
+  PGHOST: db
+  PGUSER: nullkode
+  PGDATABASE: nullkode
+  PGPASSWORD: ${DB_PASSWORD:?Run the installer to create .env first}
+  TZ: ${TZ:-UTC}
+
 services:
   db:
     image: postgres:16-alpine
@@ -14,6 +31,7 @@ services:
       interval: 5s
       timeout: 5s
       retries: 20
+    logging: *logging
   app:
     build:
       context: .
@@ -29,6 +47,9 @@ services:
     env_file: .env
     environment:
       DATABASE_URL: postgresql://nullkode:${DB_PASSWORD}@db:5432/nullkode
+      # The scheduler service below checks for due scheduled workflows every
+      # minute, so the app doesn't run its own timer as well.
+      NK_EXTERNAL_SCHEDULER: ${NK_EXTERNAL_SCHEDULER:-1}
     ports:
       - "${BIND_ADDRESS:-127.0.0.1}:${APP_PORT:-3001}:3001"
     extra_hosts:
@@ -43,6 +64,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 12
+    logging: *logging
   scheduler:
     image: node:20.19.2-bookworm-slim
     restart: unless-stopped
@@ -54,6 +76,58 @@ services:
     volumes:
       - ./scripts/scheduler.mjs:/scheduler.mjs:ro
     command: ["node", "/scheduler.mjs"]
+    logging: *logging
+  # Nightly backups while the app keeps running: the database, uploaded files,
+  # and once a week imported website files, into ./backups (or BACKUP_DIR).
+  # Settings: BACKUP_* in .env (see .env.example). One backup now:
+  # bash scripts/backup.sh, or docker compose run --rm backup once.
+  # See START-HERE.md and docs/deploy/RESTORE.md.
+  backup:
+    build:
+      context: ./scripts
+      dockerfile: backup.Dockerfile
+    restart: unless-stopped
+    init: true
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      <<: *backup-env
+      BACKUP_TIME: ${BACKUP_TIME:-03:30}
+      BACKUP_WEEKLY_DAY: ${BACKUP_WEEKLY_DAY:-7}
+      BACKUP_KEEP_DAILY: ${BACKUP_KEEP_DAILY:-7}
+      BACKUP_KEEP_WEEKLY: ${BACKUP_KEEP_WEEKLY:-4}
+      BACKUP_PASSPHRASE: ${BACKUP_PASSPHRASE:-}
+      BACKUP_HEARTBEAT_URL: ${BACKUP_HEARTBEAT_URL:-}
+    volumes:
+      - ${BACKUP_DIR:-./backups}:/backups
+      - ./.env:/nullkode/.env:ro
+      - ./package.json:/nullkode/package.json:ro
+      # Read-only: backups never change your files.
+      - uploads:/nullkode/uploads:ro
+      - public_uploads:/nullkode/public/uploads:ro
+      - imported_assets:/nullkode/public/assets/cloned:ro
+    logging: *logging
+  # Restores a backup into a new, empty installation. Never starts by itself;
+  # scripts/restore.sh runs it (or: docker compose run --rm restore <backup>).
+  restore:
+    build:
+      context: ./scripts
+      dockerfile: backup.Dockerfile
+    profiles: ["restore"]
+    init: true
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      <<: *backup-env
+    entrypoint: ["/usr/local/bin/nk-backup", "restore"]
+    volumes:
+      - ${BACKUP_DIR:-./backups}:/backups:ro
+      - uploads:/nullkode/uploads
+      - public_uploads:/nullkode/public/uploads
+      - imported_assets:/nullkode/public/assets/cloned
+    logging: *logging
   # Automatic HTTPS. Runs only in HTTPS mode: the installer sets
   # COMPOSE_PROFILES=https in .env when you give it a domain name (without
   # one, the app is plain http on APP_PORT). Caddy answers on ports 80 and
@@ -80,6 +154,7 @@ services:
       # certificate again at once can hit Let's Encrypt's weekly limits.
       - caddy_data:/data
       - caddy_config:/config
+    logging: *logging
 volumes:
   database:
   uploads:

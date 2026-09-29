@@ -52,8 +52,10 @@ export async function startInstance(opts: { port: number; buildDir: string; env?
     AI_PROVIDER: "openai",
     ...opts.env,
   };
-  for (let i = 0; i < 40; i++) {
-    try { execFileSync("docker", ["exec", pgName, "pg_isready", "-U", "postgres"], { stdio: "pipe" }); break; } catch { await new Promise((r) => setTimeout(r, 500)); }
+  // Over TCP: a fresh Postgres first runs a set-up server on its socket only,
+  // then restarts, and the schema push below connects over TCP.
+  for (let i = 0; i < 120; i++) {
+    try { execFileSync("docker", ["exec", pgName, "pg_isready", "-h", "127.0.0.1", "-U", "postgres"], { stdio: "pipe" }); break; } catch { await new Promise((r) => setTimeout(r, 500)); }
   }
   await new Promise((r) => setTimeout(r, 1500));
   execFileSync("node", [`${root}/node_modules/prisma/build/index.js`, "db", "push", "--skip-generate"], { cwd: root, env, stdio: "pipe" });

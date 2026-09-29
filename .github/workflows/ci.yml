@@ -6,7 +6,34 @@ on:
   pull_request:
     branches: [main]
 
+permissions:
+  contents: read
+
 jobs:
+  # Known high or critical advisories in the production dependencies fail the
+  # build. It reads pnpm-lock.yaml and asks the npm registry, so it needs no
+  # install. Accepted exceptions: package.json pnpm.auditConfig.ignoreGhsas,
+  # explained in docs/security-audit-exceptions.md.
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.19.2
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.4
+          run_install: false
+
+      - name: Dependency audit
+        run: pnpm audit --prod --audit-level=high
+
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 30
@@ -55,6 +82,9 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
+      - name: Documentation is current
+        run: node scripts/check-docs.mjs
+
       - name: Prisma generate
         run: pnpm exec prisma generate
 
@@ -64,8 +94,14 @@ jobs:
       - name: Typecheck (main app)
         run: pnpm typecheck
 
-      - name: Build Designer SPA
-        run: pnpm -C apps/designer-renderer build
+      - name: Generated browser scripts parse
+        run: pnpm check:js
+
+      - name: Middleware (Server Action probes, per-app robots.txt and sitemap)
+        run: pnpm check:middleware
 
       - name: Build Next
         run: pnpm exec next build
+
+      - name: Backup scripts parse
+        run: for f in scripts/backup.sh scripts/backup-loop.sh scripts/restore.sh docs/deploy/systemd/nullkode-backup.sh; do bash -n "$f"; done

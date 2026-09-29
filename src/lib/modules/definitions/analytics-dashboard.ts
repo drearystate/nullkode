@@ -93,6 +93,7 @@ fetch('/api/run/track',{method:'POST',headers:{'content-type':'application/json'
 &lt;/script&gt;</pre></div>
 
 <script>(function(){
+  function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
   function load(){
     var slug = (window.__nkFlowSlugMap && window.__nkFlowSlugMap['summary']) || 'summary';
     fetch('/api/run/' + slug, { method:'POST', headers:{'content-type':'application/json'}, body:'{}' })
@@ -110,7 +111,7 @@ fetch('/api/run/track',{method:'POST',headers:{'content-type':'application/json'
         function topBy(key){
           var c={}; recent.forEach(function(r){var k=r[key]||'—';c[k]=(c[k]||0)+1;});
           return Object.entries(c).sort(function(a,b){return b[1]-a[1];}).slice(0,8).map(function(p){
-            return '<div class="d-flex justify-content-between border-bottom py-1"><span>'+p[0]+'</span><span class="fw-bold">'+p[1]+'</span></div>';
+            return '<div class="d-flex justify-content-between border-bottom py-1"><span>'+esc(p[0])+'</span><span class="fw-bold">'+esc(p[1])+'</span></div>';
           }).join('') || '<div style="color:var(--nk-text-muted);">No data yet.</div>';
         }
         document.getElementById('nk-top-paths').innerHTML = topBy('path');

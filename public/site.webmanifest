@@ -1,16 +1,31 @@
 {
-  "name": "Nullkode — Visual app builder",
+  "name": "Nullkode \u2014 Visual app builder",
   "short_name": "Nullkode",
-  "description": "Build complete web apps visually — drag-and-drop UI, visual backend logic, real databases.",
+  "description": "Build complete web apps visually \u2014 drag-and-drop UI, visual backend logic, real databases.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "orientation": "any",
-  "theme_color": "#0b0b0b",
-  "background_color": "#0b0b0b",
+  "theme_color": "#10111a",
+  "background_color": "#10111a",
   "icons": [
-    { "src": "/nullkode.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "/nullkode.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "/nullkode.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
   ]
 }

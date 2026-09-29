@@ -27,6 +27,63 @@ export function standardKind(kind: string | undefined): StandardKind | null {
   return KIND_ALIASES[(kind ?? "").trim().toLowerCase()] ?? null;
 }
 
+/**
+ * What a standard flow does, carried on scaffold flows the builder made from
+ * a standard graph (see ScaffoldResult in ./schema). The build checks use it
+ * to compare form fields and list fields with the table's columns, and the
+ * autofix rebuilds these flows when it adds a column.
+ */
+export type StandardFlowInfo = { kind: StandardKind; table: string; auth: boolean };
+
+/** Columns every table has without declaring them. */
+export const AUTO_COLUMNS = ["id", "created_at", "updated_at", "created_by"] as const;
+
+/**
+ * Fields a page may read from a standard flow's rows (data-nk-field and
+ * friends): list and load return whole rows; the standard count returns
+ * rows shaped { value } (plus the grouping column when there is one).
+ */
+export function rowFieldsFor(info: Pick<StandardFlowInfo, "kind">, columns: string[], groupBy?: string | null): string[] | null {
+  if (info.kind === "list" || info.kind === "load") return [...columns, ...AUTO_COLUMNS];
+  if (info.kind === "aggregate") return groupBy ? ["value", groupBy] : ["value"];
+  return null;
+}
+
+/** Singular/plural spellings to try when matching a slug's noun to a table. */
+function nounForms(noun: string): string[] {
+  const n = noun.replace(/-/g, "_");
+  const forms = new Set([n, `${n}s`, `${n}es`]);
+  if (n.endsWith("ies")) forms.add(`${n.slice(0, -3)}y`);
+  if (n.endsWith("y")) forms.add(`${n.slice(0, -1)}ies`);
+  if (n.endsWith("es")) forms.add(n.slice(0, -2));
+  if (n.endsWith("s")) forms.add(n.slice(0, -1));
+  return [...forms];
+}
+
+const SLUG_VERBS: Record<string, StandardKind> = {
+  list: "list", fetch: "list", all: "list",
+  load: "load", get: "load", show: "load", view: "load",
+  create: "create", add: "create", new: "create", submit: "create", save: "create",
+  update: "update", edit: "update",
+  delete: "delete", remove: "delete",
+  count: "aggregate",
+};
+
+/**
+ * The standard flow a slug names, when it follows the builder's naming
+ * ("list-orders", "create-order", "load-booking", "update-task",
+ * "delete-task", "count-orders") and its noun matches exactly one table.
+ */
+export function standardFlowFromSlug(slug: string, tableNames: string[]): { kind: StandardKind; table: string } | null {
+  const m = /^([a-z]+)-([a-z0-9][a-z0-9-]*)$/.exec(slug.trim().toLowerCase());
+  if (!m) return null;
+  const kind = SLUG_VERBS[m[1]];
+  if (!kind) return null;
+  const forms = nounForms(m[2]);
+  const matches = tableNames.filter((t) => forms.includes(t.toLowerCase()));
+  return matches.length === 1 ? { kind, table: matches[0] } : null;
+}
+
 export function standardFlowGraph(opts: {
   kind: StandardKind;
   table: string;

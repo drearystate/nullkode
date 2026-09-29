@@ -26,6 +26,7 @@
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+__NK_PRIVACY_KEYS__
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

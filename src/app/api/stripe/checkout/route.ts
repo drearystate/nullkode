@@ -19,7 +19,7 @@ export async function POST(req: Request) {
   // A reseller's clients pay the reseller, on the reseller's Stripe account.
   const scope = billingScopeFor(user);
   const price = await priceFor(parsed.data.plan, scope);
-  if (!price) return json({ error: "This plan isn't available right now." }, { status: 400 });
+  if (!price) return json({ error: "Online payment isn't open yet for this plan. Please check back soon." }, { status: 400 });
 
   const s = await stripe(scope);
 

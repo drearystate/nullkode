@@ -80,8 +80,12 @@ export const shareApp: ModuleDefinition = {
 <div id="nk-share-stats" class="small mt-2" style="color:var(--nk-text-muted);">Loading…</div>
 
 <script>(function(){
-  var u = encodeURIComponent('{{config.appUrl}}');
-  var t = encodeURIComponent('{{config.shareText}} {{config.appName}}');
+  function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+  // Backtick strings, so an apostrophe in the app's settings ("I'm") can't
+  // break the script.
+  var appUrl = \`{{config.appUrl}}\`, appName = \`{{config.appName}}\`, shareText = \`{{config.shareText}}\`;
+  var u = encodeURIComponent(appUrl);
+  var t = encodeURIComponent(shareText + ' ' + appName);
   var hrefs = {
     twitter: 'https://twitter.com/intent/tweet?text=' + t + '%20' + u,
     facebook: 'https://www.facebook.com/sharer/sharer.php?u=' + u,
@@ -95,13 +99,13 @@ export const shareApp: ModuleDefinition = {
   });
   document.getElementById('nk-copy').addEventListener('click', function(){ var inp = document.getElementById('nk-share-url'); inp.select(); document.execCommand('copy'); this.textContent='Copied!'; fetch('/api/run/' + ((window.__nkFlowSlugMap||{})['log']||'log'),{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({destination:'copy'})}); });
   document.getElementById('nk-native').addEventListener('click', function(){
-    if(navigator.share){ navigator.share({title:'{{config.appName}}', text:'{{config.shareText}}', url:'{{config.appUrl}}'}).then(function(){ fetch('/api/run/log',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({destination:'native'})}); }); }
-    else { alert('Native share not supported on this device.'); }
+    if(navigator.share){ navigator.share({title: appName, text: shareText, url: appUrl}).then(function(){ fetch('/api/run/' + ((window.__nkFlowSlugMap||{})['log']||'log'),{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({destination:'native'})}); }).catch(function(){}); }
+    else { (window.nkToast||alert)("Sharing straight from this device isn't available here. Use one of the buttons below."); }
   });
   fetch('/api/run/' + ((window.__nkFlowSlugMap||{})['stats']||'stats'), { method:'POST', headers:{'content-type':'application/json'}, body:'{}' })
     .then(function(r){return r.json();}).then(function(rows){
-      var c={}; (rows||[]).forEach(function(r){ c[r.destination]=(c[r.destination]||0)+1; });
-      var html = Object.entries(c).map(function(p){ return '<div class="d-flex justify-content-between border-bottom py-1"><span>'+p[0]+'</span><span class="fw-bold">'+p[1]+'</span></div>'; }).join('');
+      var c={}; (Array.isArray(rows)?rows:[]).forEach(function(r){ c[r.destination]=(c[r.destination]||0)+1; });
+      var html = Object.entries(c).map(function(p){ return '<div class="d-flex justify-content-between border-bottom py-1"><span>'+esc(p[0])+'</span><span class="fw-bold">'+esc(p[1])+'</span></div>'; }).join('');
       document.getElementById('nk-share-stats').innerHTML = html || 'No shares yet — be the first.';
     });
 })();</script>

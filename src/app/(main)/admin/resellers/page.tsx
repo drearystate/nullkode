@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getRealUser } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { resellerPoolUsage } from "@/lib/ai-quota";
 import { emailEnabled } from "@/lib/mailer";
 import { TopBar } from "@/components/top-bar";
 import { ResellersManager } from "@/components/admin/resellers-manager";
@@ -16,10 +17,11 @@ export default async function AdminResellersPage() {
     orderBy: { createdAt: "desc" },
     include: { owner: { select: { id: true, email: true, name: true, emailVerified: true } }, _count: { select: { clients: true } } },
   });
-  const monthStart = new Date(Date.UTC(new Date().getUTCFullYear(), new Date().getUTCMonth(), 1));
   const [appCounts, aiCounts] = await Promise.all([
     Promise.all(resellers.map((r) => db.project.count({ where: { OR: [{ ownerId: r.ownerId }, { owner: { resellerId: r.id } }] } }))),
-    Promise.all(resellers.map((r) => db.aiUsage.count({ where: { createdAt: { gte: monthStart }, user: { resellerId: r.id } } }))),
+    // This month's AI actions: every client's plus the reseller's own, the
+    // same count their monthly AI limit is checked against.
+    Promise.all(resellers.map((r) => resellerPoolUsage(r))),
   ]);
   return (
     <main className="min-h-screen">
@@ -29,6 +31,9 @@ export default async function AdminResellersPage() {
         <h1 className="mt-3 text-3xl font-semibold tracking-tight">Resellers</h1>
         <p className="mt-2 max-w-2xl text-sm text-surface-400">
           Resellers sell your platform under their own brand. Each gets a dashboard to invite clients, brand the experience, connect their own domain and bill clients on their own Stripe account. You set how many clients and apps each reseller can have.
+        </p>
+        <p className="mt-2 max-w-2xl text-sm text-surface-400">
+          The monthly AI limit covers the reseller&apos;s clients and the reseller&apos;s own workspace together. When it runs out, AI pauses for all of them until the next month, and the reseller is emailed at 80% and 100% (when email is set up).
         </p>
         <ResellersManager
           emailOn={emailEnabled()}

@@ -1,0 +1,7 @@
+# Shell scripts run inside Linux containers (the backup service) and on
+# macOS/Linux; they must keep LF line endings even in a Windows checkout.
+*.sh       text eol=lf
+*.command  text eol=lf
+Caddyfile  text eol=lf
+# Windows launchers keep CRLF.
+*.bat      text eol=crlf

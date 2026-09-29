@@ -63,6 +63,9 @@ paid core and no license server.
 <td><img src="docs/screenshots/data.webp" alt="Data tab"><br><b>Your data.</b> Every app has a real database: search, edit, export to CSV.</td>
 </tr>
 <tr>
+<td colspan="2"><img src="docs/screenshots/designer.webp" alt="AI Designer"><br><b>Or design it in a conversation.</b> The AI Designer builds a complete site with working forms and a private admin page, then keeps changing it as you talk. Click anything to comment, compare versions, restore, download. Runs on any OpenAI-compatible model, including open models on your own hardware.</td>
+</tr>
+<tr>
 <td colspan="2"><img src="docs/screenshots/features.webp" alt="Features gallery"><br><b>Add a superpower.</b> 135 features, one click each: bookings, shop, memberships, reviews, forums, tickets…</td>
 </tr>
 </table>
@@ -116,7 +119,7 @@ the studio, every app, and your customers' own domains. Step-by-step guide:
 [START-HERE.md](START-HERE.md).
 
 **Rather not run servers?** [nullkode.com](https://nullkode.com) is the hosted
-version: nothing to install, free to start.
+version: nothing to install, and it's free.
 
 ## Add features and templates
 
@@ -156,7 +159,6 @@ corepack enable
 pnpm install --frozen-lockfile
 cp .env.example .env     # set DATABASE_URL and random secrets
 pnpm db:push
-pnpm designer:build
 pnpm dev                 # http://localhost:3001/install
 ```
 
@@ -167,6 +169,4 @@ Checks: `pnpm typecheck`, `pnpm check:js`, `pnpm check:extensions`,
 
 ## License
 
-MIT: use it, change it, sell it. See [LICENSE](LICENSE). The AI Designer
-builds on MIT-licensed code credited in
-[LICENSE-THIRD-PARTY.md](LICENSE-THIRD-PARTY.md).
+MIT: use it, change it, sell it. See [LICENSE](LICENSE).

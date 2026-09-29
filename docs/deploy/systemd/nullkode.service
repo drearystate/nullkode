@@ -6,7 +6,7 @@ Wants=postgresql.service
 [Service]
 Type=simple
 # Adjust to your install user. Use root only if you need privilege drop
-# for the Designer's CLI subprocess (NK_CLAUDE_RUNNER_DISABLE=0).
+# for the Designer's command-line AI subprocess (NK_CLAUDE_RUNNER_DISABLE=0).
 # Most installs should use a dedicated unprivileged user.
 User=nullkode
 Group=nullkode
@@ -22,13 +22,30 @@ Environment=PATH=/usr/local/bin:/usr/bin:/bin
 # Load real secrets from .env in WorkingDirectory.
 EnvironmentFile=/opt/nullkode/.env
 
+# Before starting, check that the database has every table and column this
+# version needs (scripts/check-schema.mjs). A server whose database wasn't
+# updated then refuses to start with a plain message in the log, instead of
+# failing on every page. Set NK_SCHEMA_MODE in .env to choose:
+#   refuse (the default)  don't start; update the database yourself
+#                         (see docs/deploy/plesk.md, "Updating")
+#   apply                 add what's missing first (prisma db push, additive
+#                         changes only, never --accept-data-loss)
+ExecStartPre=/usr/bin/env node scripts/check-schema.mjs
 ExecStart=/usr/bin/env node node_modules/next/dist/bin/next start -p 3001 -H 127.0.0.1
 Restart=on-failure
 RestartSec=3
 
-# Where logs go. Adjust if you prefer journald (remove these two lines).
-StandardOutput=append:/var/log/nullkode.log
-StandardError=append:/var/log/nullkode.err.log
+# Logs go to the systemd journal, which caps its own size:
+#   journalctl -u nullkode -f            follow the log
+#   journalctl -u nullkode -n 200        the last 200 lines
+# To write plain files instead, use these two lines and install
+# docs/deploy/logrotate/nullkode as /etc/logrotate.d/nullkode, so the files
+# can't grow forever:
+#   StandardOutput=append:/var/log/nullkode.log
+#   StandardError=append:/var/log/nullkode.err.log
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=nullkode
 
 # Generous file limit for SSE / long-running agent runs.
 LimitNOFILE=65536

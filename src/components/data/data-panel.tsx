@@ -1,9 +1,10 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { ArrowRight, Blocks, ChevronDown, Settings2, Table2 } from "lucide-react";
+import { ArrowRight, Blocks, ChevronDown, Settings2, ShieldCheck, Table2 } from "lucide-react";
 import { AdvancedPanel, type DS } from "./advanced-panel";
+import { PrivacyDesk, type PrivacyCounts } from "./privacy-desk";
 import { TableView } from "./table-view";
 import type { TableSummary } from "./format";
 
@@ -18,21 +19,37 @@ function rowsText(t: TableSummary) {
 
 /**
  * The Data tab: the app's tables by friendly name, each opening a grid of
- * its rows. The technical setup lives under "Advanced" at the bottom.
+ * its rows; privacy requests (find, download or erase one person's data);
+ * and, under "Advanced" at the bottom, the technical setup.
  */
 export function DataPanel({
   projectId,
   tables: initialTables,
   datasources,
+  deleteAccountUrl = null,
 }: {
   projectId: string;
   tables: TableSummary[];
   datasources: DS[];
+  /** The app's public delete-account page, for store listings. */
+  deleteAccountUrl?: string | null;
 }) {
   const params = useSearchParams();
   const openId = params.get("table");
   const [tables, setTables] = useState(initialTables);
   useEffect(() => setTables(initialTables), [initialTables]);
+  const [privacyOpen, setPrivacyOpen] = useState(false);
+  const [privacy, setPrivacy] = useState<PrivacyCounts | null>(null);
+  useEffect(() => {
+    if (window.location.hash === "#privacy") setPrivacyOpen(true);
+  }, []);
+  // Requests waiting for approval or past their due date shouldn't hide.
+  const autoOpened = useRef(false);
+  useEffect(() => {
+    if (autoOpened.current || !privacy || (privacy.waiting === 0 && privacy.overdue === 0)) return;
+    autoOpened.current = true;
+    setPrivacyOpen(true);
+  }, [privacy]);
 
   const open = openId ? tables.find((t) => t.id === openId || t.name === openId) : undefined;
 
@@ -97,6 +114,28 @@ export function DataPanel({
           ))}
         </ul>
       )}
+
+      <details
+        id="privacy"
+        className="card group/privacy scroll-mt-20 p-5"
+        open={privacyOpen}
+        onToggle={(e) => setPrivacyOpen((e.currentTarget as HTMLDetailsElement).open)}
+      >
+        <summary className="flex cursor-pointer list-none flex-wrap items-center gap-2 font-medium [&::-webkit-details-marker]:hidden">
+          <ShieldCheck size={16} className="text-surface-400" aria-hidden />
+          Privacy requests
+          <span className="text-sm font-normal text-surface-500">Find, download or erase what your app keeps about one person</span>
+          {privacy && privacy.waiting + privacy.open > 0 && (
+            <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${privacy.waiting || privacy.overdue ? "bg-amber-400/15 text-amber-200" : "bg-white/10 text-surface-300"}`}>
+              {[privacy.waiting ? `${privacy.waiting} waiting for you` : "", privacy.open ? `${privacy.open} open` : ""].filter(Boolean).join(" · ")}
+            </span>
+          )}
+          <ChevronDown size={16} className="ml-auto text-surface-500 transition group-open/privacy:rotate-180" aria-hidden />
+        </summary>
+        <div className="mt-6 border-t border-white/[0.06] pt-6">
+          <PrivacyDesk projectId={projectId} deleteAccountUrl={deleteAccountUrl} onCounts={setPrivacy} />
+        </div>
+      </details>
 
       <details className="card group/adv p-5">
         <summary className="flex cursor-pointer list-none items-center gap-2 font-medium [&::-webkit-details-marker]:hidden">

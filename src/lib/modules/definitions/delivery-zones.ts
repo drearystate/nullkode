@@ -154,12 +154,12 @@ export const deliveryZones: ModuleDefinition = {
       html: `<section class="py-5"><div class="container" style="max-width:520px;">
 <div class="text-center"><div class="display-1"></div><h1 class="display-4 fw-bold">Do you deliver?</h1><p class="lead" style="color:var(--nk-text-muted);">Enter your address — we'll quote delivery instantly.</p></div>
 <div class="card p-4 mt-4 shadow-sm" id="nk-dz-card">
-  <div class="mb-3"><label class="form-label">Your address</label><input id="nk-dz-addr" class="form-control" placeholder="123 Main St, Seattle" required/></div>
-  <div class="row g-2"><div class="col-6"><input id="nk-dz-lat" type="number" step="0.000001" class="form-control" placeholder="Lat (auto)"/></div><div class="col-6"><input id="nk-dz-lng" type="number" step="0.000001" class="form-control" placeholder="Lng (auto)"/></div></div>
+  <div class="mb-3"><label class="form-label" for="nk-dz-addr">Your address</label><input id="nk-dz-addr" class="form-control" placeholder="123 Main St, Seattle" autocomplete="street-address" required/></div>
+  <div class="row g-2"><div class="col-6"><input id="nk-dz-lat" type="number" step="0.000001" class="form-control" placeholder="Lat (auto)" aria-label="Latitude"/></div><div class="col-6"><input id="nk-dz-lng" type="number" step="0.000001" class="form-control" placeholder="Lng (auto)" aria-label="Longitude"/></div></div>
   <button class="btn btn-link btn-sm mt-1" id="nk-dz-geo" type="button"> Use my location</button>
-  <div class="mb-3 mt-2"><label class="form-label">Order total ($)</label><input id="nk-dz-total" type="number" step="0.01" value="25" class="form-control" required/></div>
+  <div class="mb-3 mt-2"><label class="form-label" for="nk-dz-total">Order total ($)</label><input id="nk-dz-total" type="number" step="0.01" value="25" class="form-control" required/></div>
   <button class="btn btn-primary btn-lg w-100" id="nk-dz-go" type="button">Get quote</button>
-  <div id="nk-dz-result" class="mt-3"></div>
+  <div id="nk-dz-result" class="mt-3" role="status" aria-live="polite"></div>
 </div>
 
 <h4 class="fw-bold mt-5">Zones</h4>
@@ -168,19 +168,21 @@ export const deliveryZones: ModuleDefinition = {
 </div>
 
 <script>(function(){
+  function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
   document.getElementById('nk-dz-geo').addEventListener('click', function(){
     if(!navigator.geolocation) return;
     navigator.geolocation.getCurrentPosition(function(p){ document.getElementById('nk-dz-lat').value = p.coords.latitude.toFixed(6); document.getElementById('nk-dz-lng').value = p.coords.longitude.toFixed(6); });
   });
   document.getElementById('nk-dz-go').addEventListener('click', function(){
     var body = { address: document.getElementById('nk-dz-addr').value, lat: parseFloat(document.getElementById('nk-dz-lat').value), lng: parseFloat(document.getElementById('nk-dz-lng').value), order_total: parseFloat(document.getElementById('nk-dz-total').value) };
+    var el = document.getElementById('nk-dz-result');
     fetch('/api/run/' + ((window.__nkFlowSlugMap||{})['quote']||'quote'), { method:'POST', headers:{'content-type':'application/json'}, body: JSON.stringify(body) })
-      .then(function(r){return r.json().then(function(d){ return {ok:r.ok, d:d}; });})
+      .then(function(r){return r.json().then(function(d){ return {ok:r.ok, d:d || {}}; });})
       .then(function(r){
-        var el = document.getElementById('nk-dz-result');
-        if(r.ok){ el.innerHTML = '<div class="alert alert-success"><div class="fw-bold fs-5"> We deliver to you!</div><div class="small">'+r.d.zone+' · $'+r.d.fee+' delivery · ETA '+r.d.eta_minutes+' min</div></div>'; }
-        else { el.innerHTML = '<div class="alert alert-warning">'+(r.d.error || 'No quote')+'</div>'; }
-      });
+        if(r.ok){ el.innerHTML = '<div class="alert alert-success"><div class="fw-bold fs-5"> We deliver to you!</div><div class="small">'+esc(r.d.zone)+' · $'+esc(r.d.fee)+' delivery · ETA '+esc(r.d.eta_minutes)+' min</div></div>'; }
+        else { el.innerHTML = '<div class="alert alert-warning">'+esc(r.d.error || 'No quote')+'</div>'; }
+      })
+      .catch(function(){ el.innerHTML = '<div class="alert alert-warning">Sorry, we could not get a quote. Please try again.</div>'; });
   });
 })();</script>
 </div></section>`,

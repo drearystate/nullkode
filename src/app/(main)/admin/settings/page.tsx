@@ -1,5 +1,6 @@
 import { BrandSettings } from "@/components/admin/brand-settings";
 import { BusinessSettings } from "@/components/admin/business-settings";
+import { EmailSettings } from "@/components/admin/email-settings";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { getRealUser } from "@/lib/auth";
@@ -35,13 +36,13 @@ export default async function AdminSettingsPage() {
           <div>
             <h1 className="text-2xl font-semibold">Admin · Settings</h1>
             <p className="text-sm text-surface-400 mt-1">
-              Your brand, payments, AI engine and what each plan includes.
+              Your brand, payments, email, AI engine and what each plan includes.
             </p>
           </div>
           <Link href="/admin" className="btn btn-secondary">Back to admin</Link>
         </div>
         <nav aria-label="Settings sections" className="sticky top-[60px] sm:top-[68px] z-10 -mx-2 mt-6 flex flex-wrap gap-2 bg-surface-950/90 px-2 py-3 backdrop-blur">
-          {[["#brand", "Branding"], ["#payments", "Payments"], ["#ai", "AI engine"], ["#plans", "Plans & limits"]].map(([href, label]) => (
+          {[["#brand", "Branding"], ["#payments", "Payments"], ["#email", "Email"], ["#ai", "AI engine"], ["#plans", "Plans & limits"]].map(([href, label]) => (
             <a key={href} href={href} className="rounded-full border border-surface-700 px-3 py-1.5 text-sm text-surface-300 hover:border-brand-500/60 hover:text-white">{label}</a>
           ))}
           <Link href="/admin/resellers" className="rounded-full border border-surface-700 px-3 py-1.5 text-sm text-surface-300 hover:border-brand-500/60 hover:text-white">Resellers</Link>
@@ -49,6 +50,7 @@ export default async function AdminSettingsPage() {
         <div className="mt-6">
           <BrandSettings />
           <BusinessSettings />
+          <EmailSettings />
           <div className="mt-10">
             <SettingsPanel initialPlanLimits={initial} defaultPlanLimits={fallback} />
           </div>

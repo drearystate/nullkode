@@ -1,0 +1,82 @@
+name: Something isn't working
+description: Report a bug in Nullkode.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report this.
+
+        **Found a security problem?** Please don't open an issue. Follow the [security policy](../security/policy) instead.
+
+        Don't paste passwords, API keys, the contents of your `.env` file, or your customers' data. Remove them from logs and screenshots first.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What were you doing, what did you expect to happen, and what happened instead?
+      placeholder: I added a contact form to my app and published it. When a visitor sends the form, they see "Something went wrong".
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: How can we see it happen?
+      description: The steps, one per line. Screenshots help a lot.
+      placeholder: |
+        1. Open an app and go to Features
+        2. Add "Contact form"
+        3. Publish, open the app and send the form
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Nullkode version
+      description: The "version" line in package.json, or the date of the release you downloaded.
+      placeholder: "0.1.0"
+    validations:
+      required: true
+  - type: dropdown
+    id: install
+    attributes:
+      label: How is Nullkode installed?
+      options:
+        - Docker, set up with install.sh
+        - Docker, set up with the Windows or Mac launcher (Start-Nullkode)
+        - Docker, set up by hand (docker compose)
+        - Plesk
+        - By hand on a server, without Docker (systemd)
+        - Something else (tell us below)
+    validations:
+      required: true
+  - type: dropdown
+    id: ai
+    attributes:
+      label: How is AI set up?
+      description: Only the kind of setup. Don't include keys or addresses.
+      options:
+        - No AI
+        - A hosted AI service with an API key
+        - Another OpenAI-compatible service or endpoint
+        - A model running on my own computer or server
+        - A command-line AI tool for the Designer
+        - I don't know
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and computer
+      placeholder: Chrome 140 on Windows 11
+  - type: textarea
+    id: logs
+    attributes:
+      label: Server log
+      description: |
+        The last lines of the log, if the problem shows an error. Docker: `docker compose logs --tail=100 app`. Without Docker: `journalctl -u nullkode -n 100`. Check it for anything private first.
+      render: text
+  - type: textarea
+    id: more
+    attributes:
+      label: Anything else?

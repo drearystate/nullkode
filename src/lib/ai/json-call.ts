@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { providerComplete } from "./provider";
 import { extractJson } from "./text";
+import { UnusableOutputError } from "./errors";
 
 /**
  * JSON call with validation and one repair attempt. Small models often get
@@ -30,5 +31,5 @@ export async function completeJson<T>(
     problem = parsed.error.issues.slice(0, 6).map((i) => `${i.path.join(".") || "root"}: ${i.message}`).join("; ");
     console.error(`[ai] ${phase}: schema mismatch (attempt ${attempt + 1})`, problem);
   }
-  throw new Error(`The AI returned an unreadable answer for the ${phase} step. Please try again.`);
+  throw new UnusableOutputError(`The AI returned an unreadable answer for the ${phase} step. Please try again.`);
 }

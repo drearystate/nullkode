@@ -13,10 +13,23 @@
  */
 
 /**
+ * The owner publishes what the AI writes as their own words, so it must not
+ * make things up about the business. Shared by every builder prompt (the
+ * design rules below include it; the plan, build and edit prompts repeat it).
+ */
+export const HONESTY_RULES = `HONEST CONTENT — the owner publishes this as their own words
+- Never invent testimonials, reviews, quotes, star ratings, customer or user counts, awards, certifications, press mentions or partner logos.
+- Leave statistics out unless the request supplies them: no made-up counts, percentages or years in business.
+- For facts you weren't given (prices, opening hours, phone numbers, addresses, email addresses, staff names), write a clearly marked placeholder such as [Your price], [Opening hours] or [Phone number] — never a made-up value.
+- Write headings and descriptions that fit the business, without claims nobody can back up ("award-winning", "trusted by thousands", "the best in town").`;
+
+/**
  * Hard rules the AI must follow. Kept as a single string so we can
  * inject it into any prompt without restructuring each one.
  */
 export const DESIGN_SYSTEM_RULES = `NULLKODE DESIGN SYSTEM — follow every rule
+
+${HONESTY_RULES}
 
 CORE AESTHETIC
 Every page you generate should feel like a premium website template (think Crafto, Litho, Stripe, Linear). Clean. Confident. Spacious. Opinionated. Each app should have its own personality that matches its industry — a restaurant should feel warm and inviting, a SaaS should feel clean and technical, a yoga studio should feel calm and organic.
@@ -143,7 +156,7 @@ ALTERNATING FEATURE ROWS (use for "about" or "how it works" when you want more d
   </div>
 </section>
 
-PRICING TABLE PATTERN (use for plans/packages — highlight the recommended plan)
+PRICING TABLE PATTERN (use for plans/packages — highlight the recommended plan; prices you weren't given stay as [Price] placeholders)
 <section class="py-5 py-lg-6" style="background:var(--nk-surface-2);">
   <div class="container">
     <div class="text-center mb-5">
@@ -155,12 +168,12 @@ PRICING TABLE PATTERN (use for plans/packages — highlight the recommended plan
       <div class="col-lg-4 col-md-6">
         <div class="text-center p-4 p-lg-5" style="background:var(--nk-surface);border:1px solid var(--nk-border);border-radius:var(--nk-radius);">
           <div class="text-uppercase fw-semibold small mb-2" style="color:var(--nk-text-muted);letter-spacing:0.1em;">Basic</div>
-          <div class="display-4 fw-bold mb-1"><sup class="fs-5 fw-semibold" style="top:-0.6em;">$</sup>19</div>
+          <div class="display-5 fw-bold mb-1">[Price]</div>
           <div class="small mb-4" style="color:var(--nk-text-muted);">per month</div>
           <ul class="list-unstyled mb-4" style="color:var(--nk-text-muted);">
-            <li class="py-2" style="border-bottom:1px solid var(--nk-border);">5 projects</li>
-            <li class="py-2" style="border-bottom:1px solid var(--nk-border);">10 GB storage</li>
-            <li class="py-2">Email support</li>
+            <li class="py-2" style="border-bottom:1px solid var(--nk-border);">What's included</li>
+            <li class="py-2" style="border-bottom:1px solid var(--nk-border);">Another inclusion</li>
+            <li class="py-2">One more</li>
           </ul>
           <a href="#" class="btn btn-outline-primary btn-lg w-100 px-4">Get started</a>
         </div>
@@ -170,12 +183,12 @@ PRICING TABLE PATTERN (use for plans/packages — highlight the recommended plan
         <div class="text-center p-4 p-lg-5 position-relative" style="background:var(--nk-surface);border:2px solid var(--nk-primary);border-radius:var(--nk-radius);box-shadow:0 20px 60px color-mix(in srgb, var(--nk-primary) 20%, transparent);">
           <span class="badge position-absolute top-0 start-50 translate-middle rounded-pill px-3 py-2" style="background:var(--nk-primary);color:var(--nk-on-primary);font-weight:600;">Popular</span>
           <div class="text-uppercase fw-semibold small mb-2" style="color:var(--nk-primary);letter-spacing:0.1em;">Pro</div>
-          <div class="display-4 fw-bold mb-1"><sup class="fs-5 fw-semibold" style="top:-0.6em;">$</sup>49</div>
+          <div class="display-5 fw-bold mb-1">[Price]</div>
           <div class="small mb-4" style="color:var(--nk-text-muted);">per month</div>
           <ul class="list-unstyled mb-4" style="color:var(--nk-text-muted);">
-            <li class="py-2" style="border-bottom:1px solid var(--nk-border);">Unlimited projects</li>
-            <li class="py-2" style="border-bottom:1px solid var(--nk-border);">100 GB storage</li>
-            <li class="py-2">Priority support</li>
+            <li class="py-2" style="border-bottom:1px solid var(--nk-border);">Everything in Basic</li>
+            <li class="py-2" style="border-bottom:1px solid var(--nk-border);">What this plan adds</li>
+            <li class="py-2">One more</li>
           </ul>
           <a href="#" class="btn btn-primary btn-lg w-100 px-4">Get started</a>
         </div>
@@ -184,12 +197,12 @@ PRICING TABLE PATTERN (use for plans/packages — highlight the recommended plan
       <div class="col-lg-4 col-md-6">
         <div class="text-center p-4 p-lg-5" style="background:var(--nk-surface);border:1px solid var(--nk-border);border-radius:var(--nk-radius);">
           <div class="text-uppercase fw-semibold small mb-2" style="color:var(--nk-text-muted);letter-spacing:0.1em;">Enterprise</div>
-          <div class="display-4 fw-bold mb-1"><sup class="fs-5 fw-semibold" style="top:-0.6em;">$</sup>99</div>
+          <div class="display-5 fw-bold mb-1">[Price]</div>
           <div class="small mb-4" style="color:var(--nk-text-muted);">per month</div>
           <ul class="list-unstyled mb-4" style="color:var(--nk-text-muted);">
             <li class="py-2" style="border-bottom:1px solid var(--nk-border);">Everything in Pro</li>
-            <li class="py-2" style="border-bottom:1px solid var(--nk-border);">1 TB storage</li>
-            <li class="py-2">Dedicated support</li>
+            <li class="py-2" style="border-bottom:1px solid var(--nk-border);">What this plan adds</li>
+            <li class="py-2">One more</li>
           </ul>
           <a href="#" class="btn btn-outline-primary btn-lg w-100 px-4">Contact us</a>
         </div>
@@ -198,7 +211,7 @@ PRICING TABLE PATTERN (use for plans/packages — highlight the recommended plan
   </div>
 </section>
 
-TESTIMONIAL PATTERN (use for social proof — speech bubble cards with avatar)
+TESTIMONIAL PATTERN (ONLY for real quotes the request supplies, or bound with data-nk-bind-flow-ref to a reviews table real visitors fill in — never invent quotes, names or ratings)
 <section class="py-5 py-lg-6">
   <div class="container">
     <div class="text-center mb-5">
@@ -207,14 +220,12 @@ TESTIMONIAL PATTERN (use for social proof — speech bubble cards with avatar)
     <div class="row g-4">
       <div class="col-md-4">
         <div class="p-4 position-relative" style="background:var(--nk-surface);border:1px solid var(--nk-border);border-radius:var(--nk-radius);">
-          <div class="mb-3" style="color:var(--nk-primary);font-size:1.5rem;">★★★★★</div>
-          <p class="mb-0" style="color:var(--nk-text-muted);">"Testimonial quote text goes here. Keep it to 2-3 lines for a clean look."</p>
+          <p class="mb-0" style="color:var(--nk-text-muted);">"[The customer's own words]"</p>
         </div>
         <div class="d-flex align-items-center mt-3 ps-2">
-          <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width:48px;height:48px;background:color-mix(in srgb, var(--nk-primary) 15%, transparent);color:var(--nk-primary);font-size:1.1rem;flex-shrink:0;">JD</div>
+          <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width:48px;height:48px;background:color-mix(in srgb, var(--nk-primary) 15%, transparent);color:var(--nk-primary);font-size:1.1rem;flex-shrink:0;" aria-hidden="true">A</div>
           <div class="ms-3">
-            <div class="fw-semibold small">Jane Doe</div>
-            <div class="small" style="color:var(--nk-text-muted);">CEO, Company</div>
+            <div class="fw-semibold small">[Customer name]</div>
           </div>
         </div>
       </div>
@@ -223,7 +234,7 @@ TESTIMONIAL PATTERN (use for social proof — speech bubble cards with avatar)
   </div>
 </section>
 
-TEAM SECTION PATTERN (use for "our team" or "meet the crew")
+TEAM SECTION PATTERN (use for "our team" or "meet the crew" — names and roles you weren't given stay as [Name] and [Role])
 <section class="py-5 py-lg-6">
   <div class="container">
     <div class="text-center mb-5">
@@ -232,9 +243,9 @@ TEAM SECTION PATTERN (use for "our team" or "meet the crew")
     </div>
     <div class="row g-4">
       <div class="col-md-4 col-lg-3 text-center">
-        <div class="rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center fw-bold" style="width:120px;height:120px;background:linear-gradient(135deg, var(--nk-primary), var(--nk-accent));color:#fff;font-size:2rem;">AB</div>
-        <h4 class="h6 fw-bold mb-1">Alex Brown</h4>
-        <div class="small" style="color:var(--nk-text-muted);">Lead Designer</div>
+        <div class="rounded-circle mx-auto mb-3" style="width:120px;height:120px;background:linear-gradient(135deg, var(--nk-primary), var(--nk-accent));" aria-hidden="true"></div>
+        <h4 class="h6 fw-bold mb-1">[Name]</h4>
+        <div class="small" style="color:var(--nk-text-muted);">[Role]</div>
       </div>
       <!-- more .col-md-4.col-lg-3 team members -->
     </div>
@@ -269,31 +280,31 @@ PROCESS / HOW IT WORKS PATTERN (numbered steps with connector — use for onboar
   </div>
 </section>
 
-STATS / COUNTER STRIP PATTERN (use for proof points — works in hero or standalone)
+FACTS STRIP PATTERN (ONLY with numbers or facts the request supplies — otherwise leave it out; never invent counts, percentages or ratings)
 <section class="py-5" style="border-top:1px solid var(--nk-border);border-bottom:1px solid var(--nk-border);">
   <div class="container">
     <div class="row g-4 text-center">
       <div class="col-6 col-md-3">
-        <div class="display-5 fw-bold" style="color:var(--nk-primary);letter-spacing:-0.02em;">12k+</div>
-        <div class="small text-uppercase fw-semibold mt-1" style="color:var(--nk-text-muted);letter-spacing:0.15em;">Users</div>
+        <div class="display-5 fw-bold" style="color:var(--nk-primary);letter-spacing:-0.02em;">[Fact]</div>
+        <div class="small text-uppercase fw-semibold mt-1" style="color:var(--nk-text-muted);letter-spacing:0.15em;">[Label]</div>
       </div>
       <div class="col-6 col-md-3">
-        <div class="display-5 fw-bold" style="color:var(--nk-primary);letter-spacing:-0.02em;">98%</div>
-        <div class="small text-uppercase fw-semibold mt-1" style="color:var(--nk-text-muted);letter-spacing:0.15em;">Satisfaction</div>
+        <div class="display-5 fw-bold" style="color:var(--nk-primary);letter-spacing:-0.02em;">[Fact]</div>
+        <div class="small text-uppercase fw-semibold mt-1" style="color:var(--nk-text-muted);letter-spacing:0.15em;">[Label]</div>
       </div>
       <div class="col-6 col-md-3">
-        <div class="display-5 fw-bold" style="color:var(--nk-primary);letter-spacing:-0.02em;">50+</div>
-        <div class="small text-uppercase fw-semibold mt-1" style="color:var(--nk-text-muted);letter-spacing:0.15em;">Countries</div>
+        <div class="display-5 fw-bold" style="color:var(--nk-primary);letter-spacing:-0.02em;">[Fact]</div>
+        <div class="small text-uppercase fw-semibold mt-1" style="color:var(--nk-text-muted);letter-spacing:0.15em;">[Label]</div>
       </div>
       <div class="col-6 col-md-3">
-        <div class="display-5 fw-bold" style="color:var(--nk-primary);letter-spacing:-0.02em;">24/7</div>
-        <div class="small text-uppercase fw-semibold mt-1" style="color:var(--nk-text-muted);letter-spacing:0.15em;">Support</div>
+        <div class="display-5 fw-bold" style="color:var(--nk-primary);letter-spacing:-0.02em;">[Fact]</div>
+        <div class="small text-uppercase fw-semibold mt-1" style="color:var(--nk-text-muted);letter-spacing:0.15em;">[Label]</div>
       </div>
     </div>
   </div>
 </section>
 
-FAQ / ACCORDION PATTERN (use for FAQs, common questions — two-column with heading on left)
+FAQ / ACCORDION PATTERN (use for FAQs, common questions — two-column with heading on left; answers about the business you weren't given stay as [Your answer])
 <section class="py-5 py-lg-6">
   <div class="container">
     <div class="row g-5">
@@ -311,7 +322,7 @@ FAQ / ACCORDION PATTERN (use for FAQs, common questions — two-column with head
               <span style="color:var(--nk-text-muted);">+</span>
             </button>
             <div class="collapse mt-2" id="faq1">
-              <p class="small mb-0" style="color:var(--nk-text-muted);">Answer text goes here. Keep it concise and helpful.</p>
+              <p class="small mb-0" style="color:var(--nk-text-muted);">[Your answer]</p>
             </div>
           </div>
           <div class="py-3" style="border-bottom:1px solid var(--nk-border);">
@@ -320,7 +331,7 @@ FAQ / ACCORDION PATTERN (use for FAQs, common questions — two-column with head
               <span style="color:var(--nk-text-muted);">+</span>
             </button>
             <div class="collapse mt-2" id="faq2">
-              <p class="small mb-0" style="color:var(--nk-text-muted);">Yes, you can cancel your subscription at any time.</p>
+              <p class="small mb-0" style="color:var(--nk-text-muted);">[Your answer]</p>
             </div>
           </div>
           <!-- more items -->
@@ -380,16 +391,16 @@ GALLERY / PORTFOLIO GRID PATTERN (use for image galleries, project showcases)
   </div>
 </section>
 
-CLIENT / PARTNER LOGO STRIP PATTERN (use for social proof — trusted by logos)
+CLIENT / PARTNER STRIP PATTERN (ONLY with real client or partner names the request supplies — never invent brands)
 <section class="py-4" style="border-top:1px solid var(--nk-border);">
   <div class="container">
     <div class="text-center small text-uppercase fw-semibold mb-3" style="color:var(--nk-text-muted);letter-spacing:0.15em;">Trusted by</div>
     <div class="d-flex flex-wrap justify-content-center align-items-center gap-4 gap-lg-5" style="opacity:0.5;">
-      <span class="fw-bold" style="font-size:1.25rem;color:var(--nk-text);">Company</span>
-      <span class="fw-bold" style="font-size:1.25rem;color:var(--nk-text);">Brand</span>
-      <span class="fw-bold" style="font-size:1.25rem;color:var(--nk-text);">Partner</span>
-      <span class="fw-bold" style="font-size:1.25rem;color:var(--nk-text);">Client</span>
-      <span class="fw-bold" style="font-size:1.25rem;color:var(--nk-text);">Startup</span>
+      <span class="fw-bold" style="font-size:1.25rem;color:var(--nk-text);">[Partner name]</span>
+      <span class="fw-bold" style="font-size:1.25rem;color:var(--nk-text);">[Partner name]</span>
+      <span class="fw-bold" style="font-size:1.25rem;color:var(--nk-text);">[Partner name]</span>
+      <span class="fw-bold" style="font-size:1.25rem;color:var(--nk-text);">[Partner name]</span>
+      <span class="fw-bold" style="font-size:1.25rem;color:var(--nk-text);">[Partner name]</span>
     </div>
   </div>
 </section>
@@ -461,9 +472,9 @@ SCHEDULE / TIMETABLE PATTERN (use for class schedules, event agendas, session li
     </div>
     <div class="py-3 d-flex align-items-center justify-content-between" style="border-bottom:1px solid var(--nk-border);">
       <div>
-        <div class="small fw-semibold" style="color:var(--nk-primary);">09:00 – 10:30</div>
+        <div class="small fw-semibold" style="color:var(--nk-primary);">[Time]</div>
         <h4 class="h6 fw-bold mb-0 mt-1">Session title</h4>
-        <div class="small" style="color:var(--nk-text-muted);">Instructor / Speaker name</div>
+        <div class="small" style="color:var(--nk-text-muted);">[Instructor name]</div>
       </div>
       <span class="badge rounded-pill px-3 py-2" style="background:color-mix(in srgb, var(--nk-primary) 12%, transparent);color:var(--nk-primary);font-size:0.7rem;">Room A</span>
     </div>
@@ -483,7 +494,7 @@ MENU / PRICE LIST PATTERN (use for restaurants, spas, service menus — item + d
           <h4 class="h6 fw-bold mb-0">Item name</h4>
           <p class="small mb-0" style="color:var(--nk-text-muted);">Short description of the item.</p>
         </div>
-        <div class="fw-bold ms-3 text-nowrap" style="color:var(--nk-primary);">$12.99</div>
+        <div class="fw-bold ms-3 text-nowrap" style="color:var(--nk-primary);">[Price]</div>
       </div>
       <!-- more items -->
     </div>
@@ -513,10 +524,11 @@ PAGE COMPOSITION — which sections to use
 =======================================
 
 HOME PAGE (pick 5-8 sections, always start with hero and end with footer):
-Hero → Stats/Logos → Features (card grid OR alternating rows) → How It Works (process) → Testimonials → Pricing (if relevant) → CTA Band → Footer
+Hero → Features (card grid OR alternating rows) → How It Works (process) → Pricing or menu (if relevant) → FAQ → CTA Band → Footer
+Add testimonials, a facts strip or partner names only when the request supplies real ones.
 
 ABOUT PAGE:
-Hero (shorter) → Team → Process/Timeline → Stats → CTA Band → Footer
+Hero (shorter) → Story (what the business does and for whom) → Process/Timeline → Team (names as placeholders unless given) → CTA Band → Footer
 
 SERVICES / FEATURES PAGE:
 Hero (shorter) → Card Grid → Alternating Feature Rows → Pricing → FAQ → CTA Band → Footer
@@ -542,17 +554,15 @@ FOOD / RESTAURANT / CAFE:
 
 SAAS / TECH / STARTUP:
 - Clean, confident language ("Ship faster", "Built for scale")
-- Use STATS strip for proof points (12k+ users, 99.9% uptime)
 - PRICING TABLE is essential
 - PROCESS steps for "How it works"
 - Tight, dense cards with lots of features
-- CLIENT LOGO strip for trust
 
 FITNESS / HEALTH / YOGA:
 - Calm, empowering language ("Find your balance", "Transform your body")
 - Large images, spacious layouts
 - PROCESS for class schedule or session flow
-- TESTIMONIALS for transformation stories
+- FAQ for first-timers' questions
 - Organic rounded shapes, soft gradients
 
 CREATIVE / PORTFOLIO / AGENCY:
@@ -565,7 +575,6 @@ CREATIVE / PORTFOLIO / AGENCY:
 PROFESSIONAL / CONSULTING / LAW:
 - Authoritative language ("Trusted expertise", "Results that matter")
 - TEAM section is essential
-- STATS for track record (500+ cases, 25 years)
 - FAQ for common legal/financial questions
 - Conservative spacing, professional feel
 
@@ -573,7 +582,7 @@ ECOMMERCE / SHOP:
 - Action-oriented language ("Shop now", "New arrivals")
 - CARD GRID for product listings (data-bound)
 - TAB CONTENT for categories
-- TESTIMONIALS / REVIEWS for trust
+- A reviews list bound to real reviews (data-nk-bind-flow-ref) when the app collects them
 - PRICING patterns for subscription boxes
 
 BOOKING / SERVICE:
@@ -581,7 +590,7 @@ BOOKING / SERVICE:
 - PROCESS for how booking works
 - FORM CARD prominent on home page
 - PRICING for packages
-- TESTIMONIALS for social proof
+- FAQ for what to expect
 
 BUTTON RULES
 - Primary CTA: class="btn btn-primary btn-lg px-4" — never override its background inline
@@ -618,8 +627,9 @@ export const DESIGN_RULES_COMPACT = `DESIGN RULES
 - Look: a polished, premium website that suits the industry — warm and inviting for food, clean and precise for software, calm for wellness, bold for creative work, authoritative for professional services.
 - Colours, fonts and corners ONLY through theme variables: var(--nk-primary) for buttons and links, var(--nk-primary-2), var(--nk-accent), var(--nk-surface) for cards, var(--nk-surface-2) for alternating bands, var(--nk-border), var(--nk-text), var(--nk-text-muted), var(--nk-radius), var(--nk-radius-sm). Never write hex or rgb() colours; never use Bootstrap colour classes (bg-*, text-white, text-primary).
 - Layout: Bootstrap 5, mobile-first, no horizontal scrolling. <section class="py-5"><div class="container"><div class="row g-4"> with col-md-6 or col-md-4 columns.
-- Home page: hero (one h1, a one-sentence lead, a primary and a secondary button) → 3-5 sections that fit the industry (features, menu with prices, services, schedule, testimonials, stats, pricing, FAQ) → a call-to-action band → footer. Other pages: short heading band → content → footer.
+- Home page: hero (one h1, a one-sentence lead, a primary and a secondary button) → 3-5 sections that fit the industry (features, menu with prices, services, schedule, pricing, FAQ) → a call-to-action band → footer. Other pages: short heading band → content → footer.
 - Headings: one h1 per page, h2 per section, h3 in cards. Buttons: class="btn btn-primary btn-lg" and "btn btn-outline-primary btn-lg".
 - Cards: style="background:var(--nk-surface);border:1px solid var(--nk-border);border-radius:var(--nk-radius);padding:1.5rem".
 - Icons: small inline SVG (viewBox="0 0 24 24", stroke="currentColor", fill="none"). No emoji, no icon fonts, no invented image URLs.
-- Copy: specific and believable (real-sounding names, prices, hours). No lorem ipsum.`;
+- Copy: specific to this business, in plain words. No lorem ipsum.
+- Honesty: never invent testimonials, reviews, star ratings, customer counts, awards or certifications; leave stats out unless given; prices, hours or phone numbers you weren't given are written as placeholders like [Your price].`;

@@ -75,11 +75,6 @@ export async function PATCH(req: Request) {
     if (!["auto", "on", "off"].includes(String(reasoning))) return new NextResponse("Invalid reasoning mode", { status: 400 });
     await setSetting(SETTING_KEYS.AI_REASONING, reasoning);
   }
-  const engine = body[SETTING_KEYS.DESIGNER_ENGINE];
-  if (engine !== undefined) {
-    if (!["", "claude-cli", "api"].includes(String(engine))) return new NextResponse("Invalid Designer engine", { status: 400 });
-    await setSetting(SETTING_KEYS.DESIGNER_ENGINE, engine);
-  }
   const tokens = body[SETTING_KEYS.AI_MAX_TOKENS];
   // null/"" clears the cap (each call keeps its own budget).
   if (tokens === null || tokens === "") {

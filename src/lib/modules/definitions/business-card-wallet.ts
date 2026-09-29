@@ -144,19 +144,29 @@ export const businessCardWallet: ModuleDefinition = {
 </div>
 </div></div></section>
 
-<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js" integrity="sha512-ZDSPMa/JM1D+7kdg2x3BsruQ6T/JpJo3jWDWkCZsP+5yVyp1KfESqLI+7RqB5k24F7p2cV7i2YHh/890y6P6Sw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>(function(){
   var id = new URLSearchParams(location.search).get('id') || '';
+  // The QR code opens this very page (whatever address the app lives at).
+  var box = document.getElementById('nk-vcard-qr');
+  if(box && typeof qrcode === 'function'){
+    var qr = qrcode(0, 'M'); qr.addData(location.href.split('#')[0]); qr.make();
+    var size = qr.getModuleCount() + 8, cell = Math.max(2, Math.floor(180 / size));
+    var img = document.createElement('img');
+    img.src = qr.createDataURL(cell, 4); img.width = img.height = cell * size;
+    img.alt = 'QR code for this card';
+    box.appendChild(img);
+  }
   fetch('/api/run/' + ((window.__nkFlowSlugMap||{})['get']||'get'), { method:'POST', headers:{'content-type':'application/json'}, body: JSON.stringify({id:id}) })
     .then(function(r){return r.json();}).then(function(c){
-      if(!c) return;
-      var vcf = ['BEGIN:VCARD','VERSION:3.0','FN:'+(c.name||''),'TITLE:'+(c.title||''),'ORG:'+(c.company||''),'EMAIL:'+(c.email||''),'TEL:'+(c.phone||''),'URL:'+(c.website||''),'END:VCARD'].join('\\n');
+      if(Array.isArray(c)) c = c[0];
+      if(!c || c.error) return;
+      var line = function(v){ return String(v == null ? '' : v).replace(/[\\r\\n]+/g, ' '); };
+      var vcf = ['BEGIN:VCARD','VERSION:3.0','FN:'+line(c.name),'TITLE:'+line(c.title),'ORG:'+line(c.company),'EMAIL:'+line(c.email),'TEL:'+line(c.phone),'URL:'+line(c.website),'END:VCARD'].join('\\n');
       var blob = new Blob([vcf], {type:'text/vcard'});
-      document.getElementById('nk-vcard-dl').href = URL.createObjectURL(blob);
-      document.getElementById('nk-vcard-dl').setAttribute('download', (c.name||'card').replace(/\\s+/g,'_') + '.vcf');
-      if(window.QRCode){
-        QRCode.toCanvas(location.origin + '/card?id=' + id, { width: 180 }, function(err, cnv){ if(!err) document.getElementById('nk-vcard-qr').appendChild(cnv); });
-      }
+      var dl = document.getElementById('nk-vcard-dl');
+      dl.href = URL.createObjectURL(blob);
+      dl.setAttribute('download', (String(c.name||'card').replace(/\\s+/g,'_').replace(/[^\\w.-]/g,'') || 'card') + '.vcf');
     });
 })();</script>`,
     },

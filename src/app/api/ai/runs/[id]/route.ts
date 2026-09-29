@@ -19,6 +19,7 @@ export async function GET(_req: Request, { params }: { params: Promise<{ id: str
     events: run.events,
     result: run.result,
     error: run.error,
+    refunded: run.refunded,
     createdAt: run.createdAt,
     updatedAt: run.updatedAt,
     endedAt: run.endedAt,

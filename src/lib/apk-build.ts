@@ -12,19 +12,32 @@ import {
   nativeConfigFor,
   isValidBundleId,
   publishedAppUrl,
-  resolveIconPng,
+  appNavigationHosts,
+  resolveAppIcon,
   sanitizeBundleSegment,
   normalizeHexColor,
+  iconNote,
+  ICON_PROBLEM,
   type NativeConfig,
 } from "@/lib/native";
+import { decodeIconPng, decodePng, drawIcon, iconEdgeColor } from "@/lib/native-ios";
+import { defaultAppIconPng } from "@/lib/app-icon";
+import { NATIVE_SHELL_VERSION, androidManifestLines, androidPermissions, nativeNeedsFor } from "@/lib/native-permissions";
 
 /**
  * Server-side Android builder.
  *
  * Each project's published URL is wrapped by the reusable WebView template at
  * `native-templates/android-webview`. A build copies that template into a temp
- * working dir, injects app identity via Gradle `-P` properties and swaps in the
- * project icon, then runs Gradle. There are two kinds of build:
+ * working dir, injects app identity via Gradle `-P` properties, draws the
+ * project icon (a legacy and a round icon at 48 dp, and an adaptive icon
+ * foreground at 108 dp with the icon inside the 66 dp safe zone, on a
+ * background of the icon's own edge color; see launcherIcons: when the
+ * owner's icon can't be used the build card says so), writes the phone permissions the
+ * app needs into AndroidManifest.xml (src/lib/native-permissions.ts), then
+ * runs Gradle. Each build records the phone features it declared, so the
+ * Mobile app tab can say when a new build is needed. There are two kinds of
+ * build:
  *
  * - "debug": `assembleDebug`, a test APK signed with the server's debug key.
  *   It installs directly on any device (sideload), but Google Play refuses it.
@@ -118,15 +131,92 @@ export type BuildStatus = {
   signer?: string;
   owner?: string;
   error?: string;
+  /**
+   * Phone features this build declared ("camera", "microphone", "location",
+   * "files"; see src/lib/native-permissions.ts). Missing on builds made
+   * before phone features were supported: those declared none.
+   */
+  features?: string[];
+  /** The Android permissions the build declared for those features. */
+  permissions?: string[];
+  /** Version of the app shell (NATIVE_SHELL_VERSION). Missing on older builds. */
+  shell?: number;
+  /**
+   * Set when the build couldn't use the owner's icon and drew the default
+   * one instead: why, and what to do (shown on the build card).
+   */
+  iconNote?: string;
 };
 
 function templateDir(): string {
   return join(process.cwd(), "native-templates", "android-webview");
 }
 
-// The template's Java package. Each build moves MainActivity into the app's
-// own package (see javaPackageFor), so no platform name ends up in the app.
+// The template's Java package. Each build moves its classes (MainActivity,
+// SharedFileProvider) into the app's own package (see javaPackageFor), so no
+// platform name ends up in the app.
 const TEMPLATE_PACKAGE = "com.example.webapp";
+
+// Launcher icon densities: scale against mdpi (1 dp = 1 px).
+const ICON_DENSITIES: Array<[string, number]> = [
+  ["mipmap-mdpi", 1],
+  ["mipmap-hdpi", 1.5],
+  ["mipmap-xhdpi", 2],
+  ["mipmap-xxhdpi", 3],
+  ["mipmap-xxxhdpi", 4],
+];
+
+// Where apk-build writes the permissions into the template's manifest.
+const PERMISSIONS_MARKER = /^[ \t]*<!-- nk:phone-features:[^\n]*-->[ \t]*$/m;
+
+/** The template's manifest with the permission and hardware lines for these features. */
+export function manifestWithFeatures(manifest: string, features: readonly string[]): string {
+  const lines = androidManifestLines(features);
+  if (PERMISSIONS_MARKER.test(manifest)) return manifest.replace(PERMISSIONS_MARKER, () => lines);
+  return manifest.replace(/^([ \t]*)<application\b/m, (m) => `${lines}\n\n${m}`);
+}
+
+/**
+ * A build's launcher icons, as files under res/: at every density a legacy
+ * and a round icon at 48 dp, and an adaptive icon foreground at 108 dp with
+ * the icon inside the 66 dp safe zone. `background` is the adaptive icon's
+ * background: the icon's own edge color, or the app's background color.
+ *
+ * Any PNG the owner can upload is drawn (interlaced or not, very big ones
+ * shrunk). When the owner's icon can't be used, the default icon is drawn
+ * and `note` says why, for the build card: a build never swaps the icon
+ * silently.
+ */
+export async function launcherIcons(
+  icon: { png: Buffer; problem?: string },
+  colors: { themeColor: string; backgroundColor: string },
+): Promise<{ files: Array<{ path: string; png: Buffer }>; background: string; note?: string }> {
+  const themeColor = normalizeHexColor(colors.themeColor);
+  let problem = icon.problem;
+  let image = await decodeIconPng(icon.png);
+  if (!image) {
+    problem ??= ICON_PROBLEM.unreadable;
+    image = decodePng(defaultAppIconPng(512, themeColor));
+  }
+  if (!image) throw new Error("Could not draw the app icon.");
+  const background = iconEdgeColor(image) ?? normalizeHexColor(colors.backgroundColor, themeColor);
+  const files: Array<{ path: string; png: Buffer }> = [];
+  for (const [folder, scale] of ICON_DENSITIES) {
+    const legacy = Math.round(48 * scale);
+    files.push(
+      { path: `${folder}/ic_launcher.png`, png: drawIcon(image, { size: legacy, box: legacy, background: null }) },
+      {
+        path: `${folder}/ic_launcher_round.png`,
+        png: drawIcon(image, { size: legacy, box: Math.round(legacy * 0.7), background, mask: "circle" }),
+      },
+      {
+        path: `${folder}/ic_launcher_foreground.png`,
+        png: drawIcon(image, { size: Math.round(108 * scale), box: Math.round(66 * scale), background: null }),
+      },
+    );
+  }
+  return { files, background, ...(problem ? { note: iconNote(problem) } : {}) };
+}
 
 // Words Java doesn't allow as package names.
 const JAVA_RESERVED = new Set(
@@ -351,7 +441,7 @@ export async function startAndroidBuild(
   if (running) return { buildId: running.buildId, versionCode: running.versionCode ?? 0, alreadyRunning: true };
 
   const cfg = await nativeConfigForOutput(project);
-  const url = await publishedAppUrl(project);
+  const [url, hosts, needs] = await Promise.all([publishedAppUrl(project), appNavigationHosts(project), nativeNeedsFor(project.id)]);
   let key: UploadKey | null = null;
   let versionCode = Math.min(MAX_VERSION_CODE, Math.max(1, Math.floor(cfg.build) || 1));
   if (kind === "release") {
@@ -375,13 +465,16 @@ export async function startAndroidBuild(
     versionCode,
     startedAt: new Date().toISOString(),
     owner: PROCESS_TAG,
+    features: needs.features,
+    permissions: androidPermissions(needs.features),
+    shell: NATIVE_SHELL_VERSION,
     ...(kind === "debug" ? { filename: `${base}-test.apk` } : {}),
   };
   await writeStatus(dir, status);
 
   // Run the heavy work without blocking the response. Failures are captured
   // into status.json so the poller can surface them.
-  void enqueue(() => runBuild(project, cfg, url, status, dir, `${base}-${versionCode}`, key))
+  void enqueue(() => runBuild(project, cfg, { url, hosts }, status, dir, `${base}-${versionCode}`, key))
     .catch(async (err) => {
       await writeStatus(dir, {
         ...status,
@@ -405,12 +498,13 @@ function androidString(s: string): string {
 async function runBuild(
   project: Project,
   cfg: NativeConfig,
-  url: string,
+  site: { url: string; hosts: string[] },
   status: BuildStatus,
   dir: string,
   releaseName: string,
   key: UploadKey | null,
 ): Promise<void> {
+  const { url } = site;
   const kind = status.kind ?? "debug";
   const root = workRoot();
   const work = join(root, status.buildId);
@@ -427,34 +521,48 @@ async function runBuild(
         !/(^|[\\/])(build|\.gradle|local\.properties)([\\/]|$)/.test(relative(template, src)),
     });
     await writeFile(join(work, "local.properties"), `sdk.dir=${sdkDir()}\n`);
-    // Move MainActivity into the app's own package.
+    // Move the Java classes into the app's own package.
     const javaPackage = javaPackageFor(cfg.appId);
     const javaRoot = join(work, "app", "src", "main", "java");
-    const templateSource = join(javaRoot, ...TEMPLATE_PACKAGE.split("."), "MainActivity.java");
-    const source = (await readFile(templateSource, "utf8")).replace(/^package [\w.]+;/m, `package ${javaPackage};`);
-    await rm(templateSource);
-    await mkdir(join(javaRoot, ...javaPackage.split(".")), { recursive: true });
-    await writeFile(join(javaRoot, ...javaPackage.split("."), "MainActivity.java"), source);
+    const templateDirJava = join(javaRoot, ...TEMPLATE_PACKAGE.split("."));
+    const targetDirJava = join(javaRoot, ...javaPackage.split("."));
+    const classes = (await readdir(templateDirJava)).filter((f) => f.endsWith(".java"));
+    const sources = await Promise.all(classes.map(async (f) => [f, await readFile(join(templateDirJava, f), "utf8")] as const));
+    await rm(templateDirJava, { recursive: true, force: true });
+    await mkdir(targetDirJava, { recursive: true });
+    for (const [file, source] of sources) {
+      await writeFile(join(targetDirJava, file), source.replace(/^package [\w.]+;/m, `package ${javaPackage};`));
+    }
     if (process.env.ANDROID_USER_HOME) {
       await mkdir(process.env.ANDROID_USER_HOME, { recursive: true });
     }
 
-    // 2. Swap in the project icon across launcher densities.
-    const iconPng = await resolveIconPng(project.icon, cfg.themeColor);
-    for (const d of ["mipmap-mdpi", "mipmap-hdpi", "mipmap-xhdpi", "mipmap-xxhdpi", "mipmap-xxxhdpi"]) {
-      const resDir = join(work, "app", "src", "main", "res", d);
-      await mkdir(resDir, { recursive: true });
-      await writeFile(join(resDir, "ic_launcher.png"), iconPng);
+    // 2. Permissions for the phone features the app uses.
+    const manifestPath = join(work, "app", "src", "main", "AndroidManifest.xml");
+    await writeFile(manifestPath, manifestWithFeatures(await readFile(manifestPath, "utf8"), status.features ?? []));
+
+    // 3. The project icon at every launcher density.
+    const themeColor = normalizeHexColor(cfg.themeColor);
+    const launcher = await launcherIcons(await resolveAppIcon(project.icon, themeColor), cfg);
+    for (const file of launcher.files) {
+      const path = join(work, "app", "src", "main", "res", file.path);
+      await mkdir(dirname(path), { recursive: true });
+      await writeFile(path, file.png);
+    }
+    const iconBackground = launcher.background;
+    if (launcher.note) {
+      // On the status now, so the finished (or failed) build keeps it.
+      status.iconNote = launcher.note;
+      await writeStatus(dir, status);
     }
 
-    // 3. Build.
+    // 4. Build.
     const orientation =
       cfg.orientation === "portrait"
         ? "portrait"
         : cfg.orientation === "landscape"
           ? "landscape"
           : "unspecified";
-    const themeColor = normalizeHexColor(cfg.themeColor);
 
     await runGradle(
       work,
@@ -470,6 +578,8 @@ async function runBuild(
         `-PnkOrientation=${orientation}`,
         `-PnkThemeColor=${themeColor}`,
         `-PnkBackgroundColor=${normalizeHexColor(cfg.backgroundColor, themeColor)}`,
+        `-PnkAppHosts=${androidString(site.hosts.join(","))}`,
+        `-PnkIconBackground=${iconBackground}`,
       ],
       logPath,
       // Signing details go in the environment, never on the command line.
@@ -483,7 +593,7 @@ async function runBuild(
         : {},
     );
 
-    // 4. Collect the outputs.
+    // 5. Collect the outputs.
     const done: BuildStatus = { ...status, status: "done", finishedAt: "" };
     if (kind === "debug") {
       const apkDst = join(dir, OUTPUT.debug.apk!);

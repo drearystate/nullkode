@@ -28,17 +28,132 @@ import type { ModuleDefinition } from "../types";
  *
  * … and the `{{@auth-users.table}}` placeholder will be rewritten to
  * `auth_users` at install time.
+ *
+ * 1.1.0: the profile page has "Download my data" and "Delete my account"
+ * (app stores require in-app account deletion). They call
+ * /api/app-account/export and /api/app-account/delete, which find
+ * everything tied to the account (lib/app-account-data.ts). Every app also
+ * has a public /delete-account page for people who can't sign in.
+ * scripts/upgrade-account-deletion.ts adds the section to existing apps.
  */
+
+/** Marks the account-data section, so upgrades can tell it's there. */
+export const ACCOUNT_DATA_MARKER = "<!--nk:account-data:v1-->";
+
+/**
+ * "Download my data" and "Delete my account" for the profile page. Plain
+ * HTML and one script (no {{config.*}} values), so the upgrade script can add
+ * the very same block to apps that are already installed.
+ */
+export const ACCOUNT_DATA_SECTION = `${ACCOUNT_DATA_MARKER}
+<div class="card p-4 shadow-sm mt-4" data-nk-account-data="">
+  <h5 class="fw-bold mb-1">Download my data</h5>
+  <p class="small mb-3" style="color:var(--nk-text-muted);">Get a copy of your account and everything tied to it, as a .zip file.</p>
+  <div><button type="button" class="btn btn-outline-primary" data-nk-account-export="">Download my data</button></div>
+  <div class="small mt-2" role="status" aria-live="polite" data-nk-account-export-status=""></div>
+</div>
+<form class="card p-4 shadow-sm mt-4" style="border-color:#dc3545;" data-nk-account-delete="">
+  <h5 class="fw-bold mb-1 text-danger">Delete my account</h5>
+  <p class="small mb-2" style="color:var(--nk-text-muted);">This deletes your account and everything you added while signed in, like your profile, saved items and posts. Bookings, orders or messages sent with your email address are kept for the business's records, with your name and contact details removed. This can't be undone.</p>
+  <label class="form-label mt-2" for="nk-account-delete-password">Your password</label>
+  <input id="nk-account-delete-password" name="password" type="password" class="form-control" autocomplete="current-password" required=""/>
+  <label class="form-label mt-3" for="nk-account-delete-confirm">Type DELETE to confirm</label>
+  <input id="nk-account-delete-confirm" name="confirm" class="form-control" autocomplete="off" required=""/>
+  <div class="mt-3"><button type="submit" class="btn btn-danger">Delete my account</button></div>
+  <div class="text-danger small mt-2" role="alert" data-nk-account-delete-error=""></div>
+</form>
+<script>(function(){
+  var pid = window.__nkProjectId || '';
+  function base(){ var b = window.__nkPublicBase || ''; return b.charAt(b.length - 1) === '/' ? b.slice(0, -1) : b; }
+  function post(path, body){
+    return fetch(path, { method: 'POST', credentials: 'same-origin', headers: { 'content-type': 'application/json', 'x-nk-project-id': pid }, body: JSON.stringify(body || {}) });
+  }
+  function say(el, text){ if (el) el.textContent = text || ''; }
+  function problem(res, fallback){
+    return res.json().catch(function(){ return {}; }).then(function(d){ return typeof d.error === 'string' && d.error.length < 300 ? d.error : fallback; });
+  }
+  // This device's push subscription, so deleting the account removes it too.
+  // Some browsers never answer when they have no push service: give up after
+  // a moment rather than hold up the delete.
+  function pushSubscription(){
+    var lookup;
+    try {
+      if (!('serviceWorker' in navigator)) return Promise.resolve(null);
+      lookup = navigator.serviceWorker.getRegistration(base() + '/').then(function(reg){
+        return reg && reg.pushManager ? reg.pushManager.getSubscription() : null;
+      }).catch(function(){ return null; });
+    } catch (e) { return Promise.resolve(null); }
+    return Promise.race([lookup, new Promise(function(resolve){ setTimeout(function(){ resolve(null); }, 1500); })]);
+  }
+
+  var exp = document.querySelector('[data-nk-account-export]');
+  if (exp && !exp.__nkBound) {
+    exp.__nkBound = true;
+    exp.addEventListener('click', function(){
+      var status = document.querySelector('[data-nk-account-export-status]');
+      exp.disabled = true;
+      say(status, 'Preparing your download…');
+      post('/api/app-account/export').then(function(res){
+        if (!res.ok) return problem(res, "Your data couldn't be downloaded. Please try again.").then(function(m){ say(status, m); });
+        return res.blob().then(function(blob){
+          var m = /filename="([^"]+)"/.exec(res.headers.get('content-disposition') || '');
+          var url = URL.createObjectURL(blob);
+          var a = document.createElement('a');
+          a.href = url;
+          a.download = m ? m[1] : 'my-data.zip';
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          setTimeout(function(){ URL.revokeObjectURL(url); }, 10000);
+          say(status, 'Your download has started.');
+        });
+      }).catch(function(){ say(status, 'Network error. Please try again.'); }).then(function(){ exp.disabled = false; });
+    });
+  }
+
+  var form = document.querySelector('[data-nk-account-delete]');
+  if (form && !form.__nkBound) {
+    form.__nkBound = true;
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var err = form.querySelector('[data-nk-account-delete-error]');
+      var password = form.querySelector('[name=password]').value;
+      var typed = (form.querySelector('[name=confirm]').value || '').trim().toUpperCase();
+      if (typed !== 'DELETE') { say(err, 'Type DELETE to confirm.'); return; }
+      var btn = form.querySelector('button[type=submit]');
+      btn.disabled = true;
+      say(err, '');
+      var sub = null;
+      pushSubscription().then(function(s){
+        sub = s;
+        return post('/api/app-account/delete', { password: password, confirm: typed, pushEndpoint: s ? s.endpoint : null });
+      }).then(function(res){
+        if (!res.ok) return problem(res, "Your account couldn't be deleted. Please try again.").then(function(m){ say(err, m); btn.disabled = false; });
+        try { if (sub) sub.unsubscribe(); } catch (x) {}
+        var done = document.createElement('p');
+        done.className = 'card p-4 shadow-sm mt-4 fw-bold';
+        done.setAttribute('role', 'status');
+        done.textContent = 'Your account was deleted. Taking you to the home page…';
+        form.parentNode.replaceChild(done, form);
+        var data = document.querySelector('[data-nk-account-data]');
+        if (data) data.remove();
+        setTimeout(function(){ window.location.href = base() + '/'; }, 1500);
+      }).catch(function(){ say(err, 'Network error. Nothing was deleted.'); btn.disabled = false; });
+    });
+  }
+})();</script>
+<!--/nk:account-data-->`;
+
 export const auth: ModuleDefinition = {
   id: "auth",
   name: "Sign-in and accounts",
   tagline: "Let people create an account and sign in",
   description:
-    "Adds sign-up, sign-in and sign-out pages, and keeps a list of the people who have an account. Passwords are stored safely. Features that need people to be signed in, like favorites or private messages, use these accounts automatically.",
+    "Adds sign-up, sign-in and sign-out pages, and keeps a list of the people who have an account. Passwords are stored safely. People can download their data or delete their account from their profile page. Features that need people to be signed in, like favorites or private messages, use these accounts automatically.",
   icon: "",
   color: "from-slate-600 to-zinc-800",
   category: "utility",
-  version: "1.0.0",
+  version: "1.1.0",
   provides: ["auth-session", "auth-users"],
   bareSlugs: true,
   capabilityRefs: {
@@ -290,6 +405,7 @@ export const auth: ModuleDefinition = {
 <section class="py-5"><div class="container" style="max-width:420px;padding-top:4vh;"><div class="text-center mb-4"><h1 class="display-5 fw-bold">Welcome back</h1><p style="color:var(--nk-text-muted);">Sign in to {{config.appName}}</p></div>
 <form data-nk-form="" data-nk-flow-ref="login" class="card p-4 shadow-sm"><div class="mb-3"><label class="form-label">Email</label><input name="email" type="email" class="form-control" required/></div><div class="mb-3"><label class="form-label">Password</label><input name="password" type="password" class="form-control" required/></div><button class="btn btn-primary btn-lg w-100" type="submit">Log in</button><div data-nk-error class="text-danger small mt-2"></div></form>
 <p class="small text-center mt-3" style="color:var(--nk-text-muted);">No account? <a href="/register">Create one</a></p>
+<p class="small text-center mt-2"><a href="/delete-account" style="color:var(--nk-text-muted);">Delete your account</a></p>
 </div></section>`,
     },
     {
@@ -321,6 +437,7 @@ export const auth: ModuleDefinition = {
 </div>
 
 <form data-nk-form="" data-nk-flow-ref="update-profile" class="card p-4 shadow-sm mt-4"><h5 class="fw-bold">Edit profile</h5><div class="row g-3 mt-2"><div class="col-12"><label class="form-label">Name</label><input name="name" class="form-control"/></div><div class="col-12"><label class="form-label">Avatar URL</label><input name="avatar_url" type="url" class="form-control"/></div><div class="col-12"><label class="form-label">Bio</label><textarea name="bio" class="form-control" rows="3"></textarea></div><div class="col-12 text-end"><button class="btn btn-primary" type="submit">Save changes</button></div><div data-nk-error class="col-12 text-danger small"></div></div></form>
+${ACCOUNT_DATA_SECTION}
 </div></section>`,
     },
     {

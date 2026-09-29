@@ -2,6 +2,8 @@ import { notFound, redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { RUNTIME_JS } from "@/lib/public-page";
+import { documentAttributesScript, documentMarkup, splitDesignerDocument } from "@/lib/design-studio/document-split";
+import { withNext } from "@/lib/safe-next";
 
 export const dynamic = "force-dynamic";
 
@@ -13,10 +15,10 @@ export default async function PreviewPage({
   searchParams: Promise<{ page?: string; embed?: string }>;
 }) {
   const user = await getCurrentUser();
-  if (!user) redirect("/login");
-
   const { id } = await params;
   const { page: pageSlug, embed } = await searchParams;
+  // Back to this preview after signing in.
+  if (!user) redirect(withNext("/login", `/preview/${encodeURIComponent(id)}${pageSlug ? `?page=${encodeURIComponent(pageSlug)}` : ""}`));
   const isEmbed = embed === "1";
 
   const project = await db.project.findFirst({
@@ -58,14 +60,18 @@ export default async function PreviewPage({
   if (!page) notFound();
 
   const previewBase = `/preview/${id}`;
+  // AI Designer pages are whole documents: the same split as the published
+  // app (title and lang from their head, head elements ahead of the body).
+  const doc = splitDesignerDocument(page.html);
+  const docAttrs = documentAttributesScript(doc);
 
   return (
-    <html lang="en">
+    <html lang={doc.lang ?? "en"}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="robots" content="noindex" />
-        <title>{page.title} — Preview</title>
+        <title>{`${doc.title ?? page.title} — Preview`}</title>
         {/* AI Designer apps bring their own complete CSS: no platform sheets. */}
         {project.kind === "DESIGNER" ? null : (
           <>
@@ -132,7 +138,8 @@ export default async function PreviewPage({
           </a>
         </div>}
 
-        <div suppressHydrationWarning dangerouslySetInnerHTML={{ __html: page.html }} />
+        {docAttrs && <script dangerouslySetInnerHTML={{ __html: docAttrs }} />}
+        <div suppressHydrationWarning style={doc.isDocument ? { display: "contents" } : undefined} dangerouslySetInnerHTML={{ __html: documentMarkup(doc) }} />
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer />
         <script dangerouslySetInnerHTML={{ __html: RUNTIME_JS }} />

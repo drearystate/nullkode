@@ -9,6 +9,7 @@
  */
 export const OWNER_ONLY_PAGES: Record<string, string[]> = {
   "acknowledgments": ["acks-admin"],
+  "ai-assistant": ["assistant-admin"],
   "analytics-dashboard": ["analytics"],
   "app-walkthrough": ["walkthrough-admin"],
   "appointments": ["appointments-admin"],

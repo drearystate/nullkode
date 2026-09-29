@@ -1,8 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { KeyRound, ShieldCheck, TriangleAlert } from "lucide-react";
+import { Camera, FileUp, KeyRound, MapPin, Mic, ShieldCheck, Smartphone, TriangleAlert } from "lucide-react";
+
+type WordingKey = "camera" | "microphone" | "photos" | "location";
 
 type NativeConfig = {
   appId: string;
@@ -14,7 +16,37 @@ type NativeConfig = {
   themeColor: string;
   androidEnabled: boolean;
   iosEnabled: boolean;
+  /** The owner's own wording for the permission prompts ("" or missing: the suggested wording). */
+  permissionText?: Partial<Record<WordingKey, string>>;
 };
+
+type PhoneFeature = "camera" | "microphone" | "location" | "files";
+
+/** What GET /api/projects/[id]/native says about the phone features the app uses. */
+type PhoneInfo = {
+  features: PhoneFeature[];
+  sources: Partial<Record<PhoneFeature, Array<{ kind: "module" | "page"; label: string }>>>;
+  suggested: Record<WordingKey, string>;
+  texts: Record<WordingKey, string>;
+  iosDownload: { at: string; features: string[] } | null;
+};
+
+/** Features that need the phone's permission, so a new store build when they change. */
+const PERMISSION_FEATURES: PhoneFeature[] = ["camera", "microphone", "location"];
+/** Builds before this version of the app shell can't open files, download or ask for permissions. */
+const SHELL_VERSION = 2;
+
+const FEATURE_TEXT: Record<PhoneFeature, { label: string; about: string }> = {
+  camera: { label: "Camera", about: "A page shows the camera, for example to scan QR codes. The phone asks the person first." },
+  microphone: { label: "Microphone", about: "A page records sound or listens to speech. The phone asks the person first." },
+  location: { label: "Location", about: "A page asks where the person is, for example to find places nearby. The phone asks the person first." },
+  files: { label: "Photos and files", about: "File uploads open the phone's picker, with the option to take a photo. This needs no permission on Android." },
+};
+
+function featureList(items: PhoneFeature[]): string {
+  const names = items.map((f) => FEATURE_TEXT[f].label.toLowerCase());
+  return names.length <= 1 ? names[0] ?? "" : `${names.slice(0, -1).join(", ")} and ${names[names.length - 1]}`;
+}
 
 export type BuildKind = "debug" | "release";
 
@@ -31,7 +63,29 @@ export type BuildSummary = {
   files?: { aab?: { name: string; bytes: number }; apk?: { name: string; bytes: number } };
   signer?: string;
   error?: string;
+  /** Phone features the build declared (missing on builds before phone features). */
+  features?: string[];
+  /** App shell version (missing on builds before phone features). */
+  shell?: number;
+  /** Set when the build couldn't use the app's icon and drew the default one: why, and what to do. */
+  iconNote?: string;
 };
+
+/** Why a finished build needs redoing for the store, or null. */
+function rebuildReason(build: BuildSummary | null, current: PhoneFeature[] | null, kind: BuildKind): string | null {
+  if (!build || build.status !== "done" || !current) return null;
+  const upload = kind === "release" ? " and upload the new version to Google Play" : "";
+  if (!build.shell || build.shell < SHELL_VERSION) {
+    return `This build was made before the app could open files, save downloads or use phone features. Build again${upload}.`;
+  }
+  const had = PERMISSION_FEATURES.filter((f) => (build.features ?? []).includes(f));
+  const need = PERMISSION_FEATURES.filter((f) => current.includes(f));
+  const added = need.filter((f) => !had.includes(f));
+  const removed = had.filter((f) => !need.includes(f));
+  if (added.length) return `Your app now uses the ${featureList(added)}, and this build can't ask for ${added.length === 1 ? "it" : "them"}. Build again${upload}.`;
+  if (removed.length) return `This build still asks for the ${featureList(removed)}, which your app no longer uses. Build again${upload} to remove ${removed.length === 1 ? "it" : "them"}.`;
+  return null;
+}
 
 export type UploadKeySummary = {
   alias: string;
@@ -72,6 +126,17 @@ export function NativeAppPanel({
   const [saving, setSaving] = useState(false);
   const [status, setStatus] = useState<{ kind: "ok" | "err"; msg: string } | null>(null);
   const [key, setKey] = useState<UploadKeySummary | null>(initialKey);
+  const [phone, setPhone] = useState<PhoneInfo | null>(null);
+
+  // Phone features come from the app's modules and pages, worked out on the server.
+  const loadPhone = useCallback(async () => {
+    const res = await fetch(`/api/projects/${projectId}/native`).catch(() => null);
+    const data = res?.ok ? await res.json().catch(() => null) : null;
+    if (data?.phone) setPhone(data.phone as PhoneInfo);
+  }, [projectId]);
+  useEffect(() => {
+    void loadPhone();
+  }, [loadPhone]);
 
   function set<K extends keyof NativeConfig>(k: K, value: NativeConfig[K]) {
     setCfg((c) => ({ ...c, [k]: value }));
@@ -91,6 +156,7 @@ export function NativeAppPanel({
       if (!res.ok) throw new Error(data.error || "Could not save");
       setCfg(data.config);
       setStatus({ kind: "ok", msg: "Saved." });
+      void loadPhone();
     } catch (e) {
       setStatus({ kind: "err", msg: (e as Error).message });
     } finally {
@@ -107,6 +173,18 @@ export function NativeAppPanel({
   const latest = (kind: BuildKind) => initialBuilds.find((b) => (b.kind ?? "debug") === kind) ?? null;
   const nextVersionCode = Math.max(Math.floor(cfg.build) || 1, (key?.lastVersionCode ?? 0) + 1);
   const canBuild = published && android.ready;
+  const current = phone?.features ?? null;
+  // The app's public page where people can delete their account (the stores ask for it).
+  const deleteAccountUrl = `${liveUrl.replace(/\/$/, "")}/delete-account`;
+  const iosLocationChange = (() => {
+    if (!phone?.iosDownload || !current) return null;
+    const had = phone.iosDownload.features.includes("location");
+    const need = current.includes("location");
+    if (had === need) return null;
+    return need
+      ? "Your app now uses the location. Download the iPhone project again and send Apple a new build, or the app can't ask for it."
+      : "Your app no longer uses the location. Download the iPhone project again for your next build, so it stops asking for it.";
+  })();
 
   return (
     <div className="space-y-6">
@@ -225,6 +303,16 @@ export function NativeAppPanel({
         </div>
       </div>
 
+      <PhoneFeaturesCard
+        projectId={projectId}
+        phone={phone}
+        wording={cfg.permissionText ?? {}}
+        onSaved={(config) => {
+          setCfg(config);
+          void loadPhone();
+        }}
+      />
+
       {/* ── Android ───────────────────────────────────────────────── */}
       <section className="space-y-4">
         <div className="flex items-center gap-3">
@@ -249,6 +337,8 @@ export function NativeAppPanel({
             enabled={canBuild}
             published={published}
             initial={latest("debug")}
+            currentFeatures={current}
+            onUpdate={loadPhone}
           />
           <BuildCard
             projectId={projectId}
@@ -259,12 +349,16 @@ export function NativeAppPanel({
             enabled={canBuild && !(key?.missing ?? false)}
             published={published}
             initial={latest("release")}
-            onUpdate={refreshKey}
+            currentFeatures={current}
+            onUpdate={() => {
+              void refreshKey();
+              void loadPhone();
+            }}
           />
         </div>
 
         <UploadKeyCard projectId={projectId} keyInfo={key} onChange={setKey} ownerActions={ownerActions} />
-        <PlaySteps />
+        <PlaySteps deleteAccountUrl={deleteAccountUrl} />
 
         <a
           href={`/api/projects/${projectId}/native/download?platform=android`}
@@ -309,6 +403,13 @@ export function NativeAppPanel({
         <p className="mt-3 text-sm text-surface-400">
           The README in the download walks you through both, step by step.
         </p>
+        <StoreRequirements deleteAccountUrl={deleteAccountUrl} store="App Store Connect" />
+        {iosLocationChange && (
+          <p role="status" className="mt-4 flex items-start gap-2 rounded-lg border border-amber-500/40 bg-amber-500/5 p-3 text-sm text-amber-200">
+            <TriangleAlert size={16} className="mt-0.5 shrink-0" aria-hidden />
+            <span><span className="font-semibold">New build needed.</span> {iosLocationChange}</span>
+          </p>
+        )}
         {published ? (
           <a
             href={`/api/projects/${projectId}/native/download?platform=ios`}
@@ -368,6 +469,7 @@ function BuildCard({
   enabled,
   published,
   initial,
+  currentFeatures,
   onUpdate,
 }: {
   projectId: string;
@@ -378,6 +480,8 @@ function BuildCard({
   enabled: boolean;
   published: boolean;
   initial: BuildSummary | null;
+  /** The phone features the app uses now (null while loading), to spot builds that need redoing. */
+  currentFeatures: PhoneFeature[] | null;
   /** Called when a build starts or ends (a Google Play build can create the upload key). */
   onUpdate?: () => void;
 }) {
@@ -433,6 +537,7 @@ function BuildCard({
   }
 
   const running = starting || build?.status === "running";
+  const rebuild = running ? null : rebuildReason(build, currentFeatures, kind);
   const seconds = build?.status === "running" ? Math.max(0, Math.round((Date.now() - Date.parse(build.startedAt)) / 1000)) : 0;
   const download = (file: "apk" | "aab") =>
     `/api/projects/${projectId}/native/build/download?buildId=${build?.buildId}&file=${file}`;
@@ -492,6 +597,25 @@ function BuildCard({
 
       {(error || build?.status === "error") && (
         <p className="mt-2 text-sm text-red-400">{error || build?.error || "The build failed."}</p>
+      )}
+
+      {rebuild && (
+        <p role="status" className="mt-3 flex items-start gap-2 rounded-lg border border-amber-500/40 bg-amber-500/5 p-3 text-sm text-amber-200">
+          <TriangleAlert size={16} className="mt-0.5 shrink-0" aria-hidden />
+          <span><span className="font-semibold">Rebuild needed.</span> {rebuild}</span>
+        </p>
+      )}
+
+      {!running && build?.status === "done" && build.iconNote && (
+        <p role="status" className="mt-3 flex items-start gap-2 rounded-lg border border-amber-500/40 bg-amber-500/5 p-3 text-sm text-amber-200">
+          <TriangleAlert size={16} className="mt-0.5 shrink-0" aria-hidden />
+          <span>
+            <span className="font-semibold">Your icon wasn&apos;t used.</span> {build.iconNote}{" "}
+            <Link href={`/projects/${projectId}#app-icon`} className="underline hover:text-amber-100">
+              Change the icon
+            </Link>
+          </span>
+        </p>
       )}
 
       {kind === "debug" ? (
@@ -648,7 +772,162 @@ function UploadKeyCard({
   );
 }
 
-function PlaySteps() {
+/**
+ * The phone features the app uses, where each comes from, and the wording
+ * the phone shows when the app asks (iPhone shows the wording; Android shows
+ * its own). The wording is saved with the app's settings and goes into the
+ * next build or download.
+ */
+function PhoneFeaturesCard({
+  projectId,
+  phone,
+  wording,
+  onSaved,
+}: {
+  projectId: string;
+  phone: PhoneInfo | null;
+  wording: Partial<Record<WordingKey, string>>;
+  onSaved: (config: NativeConfig) => void;
+}) {
+  // Starts from the saved wording; after a save the boxes already show it.
+  const [texts, setTexts] = useState<Partial<Record<WordingKey, string>>>(wording);
+  const [saving, setSaving] = useState(false);
+  const [message, setMessage] = useState<{ kind: "ok" | "err"; text: string } | null>(null);
+
+  const icons: Record<PhoneFeature, React.ReactNode> = {
+    camera: <Camera size={16} aria-hidden />,
+    microphone: <Mic size={16} aria-hidden />,
+    location: <MapPin size={16} aria-hidden />,
+    files: <FileUp size={16} aria-hidden />,
+  };
+  const fields: Array<{ key: WordingKey; label: string; show: boolean }> = [
+    { key: "camera", label: "Camera", show: true },
+    { key: "photos", label: "Photo library", show: true },
+    { key: "microphone", label: "Microphone", show: true },
+    { key: "location", label: "Location", show: Boolean(phone?.features.includes("location") || wording.location) },
+  ];
+
+  async function save() {
+    setSaving(true);
+    setMessage(null);
+    try {
+      const permissionText = Object.fromEntries(fields.map((f) => [f.key, (texts[f.key] ?? "").trim()]));
+      const res = await fetch(`/api/projects/${projectId}/native`, {
+        method: "PATCH",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ permissionText }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || "Could not save");
+      onSaved(data.config);
+      setMessage({ kind: "ok", text: "Saved. It goes into your next build and download." });
+    } catch (e) {
+      setMessage({ kind: "err", text: (e as Error).message });
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  return (
+    <section className="card p-6" aria-labelledby="phone-features-heading">
+      <div className="flex items-center gap-2">
+        <Smartphone size={18} className="text-surface-300" aria-hidden />
+        <h2 id="phone-features-heading" className="font-semibold">Phone features this app uses</h2>
+      </div>
+      <p className="mt-1 text-sm text-surface-400">
+        Worked out from your app&apos;s features and pages. The phone only lets the app use what its
+        build asks for, so when this list changes, build the app again and send the stores the new
+        version.
+      </p>
+
+      {!phone ? (
+        <p className="mt-4 text-sm text-surface-500">Checking your app…</p>
+      ) : phone.features.length === 0 ? (
+        <p className="mt-4 text-sm text-surface-300">
+          None right now: no page uses the camera, microphone, location or file uploads.
+        </p>
+      ) : (
+        <ul className="mt-4 space-y-3">
+          {phone.features.map((f) => {
+            const sources = phone.sources[f] ?? [];
+            return (
+              <li key={f} className="flex items-start gap-3 text-sm">
+                <span className="mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-white/5 text-surface-200">{icons[f]}</span>
+                <span className="min-w-0">
+                  <span className="block font-medium text-surface-100">{FEATURE_TEXT[f].label}</span>
+                  <span className="block text-surface-400">{FEATURE_TEXT[f].about}</span>
+                  {sources.length > 0 && (
+                    <span className="mt-0.5 block text-xs text-surface-500">
+                      Used by {sources.map((src) => (src.kind === "module" ? src.label : `the “${src.label}” page`)).join(", ")}
+                    </span>
+                  )}
+                </span>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+
+      <details className="mt-5">
+        <summary className="cursor-pointer text-sm font-medium text-brand-400 hover:underline">
+          What the phone says when the app asks
+        </summary>
+        <p className="mt-2 text-sm text-surface-400">
+          iPhones show this text when the app asks for each feature, and Apple reviews it. Say
+          plainly what your app uses it for. Leave a box empty to use the suggested wording.
+          Android phones show their own standard message.
+        </p>
+        <div className="mt-3 grid gap-3">
+          {fields.filter((f) => f.show).map((f) => (
+            <label key={f.key} className="block text-sm">
+              <span className="label">{f.label}</span>
+              <textarea
+                className="input min-h-[60px] w-full"
+                maxLength={300}
+                value={texts[f.key] ?? ""}
+                placeholder={phone?.suggested[f.key] ?? ""}
+                onChange={(e) => {
+                  setTexts((t) => ({ ...t, [f.key]: e.target.value }));
+                  setMessage(null);
+                }}
+              />
+            </label>
+          ))}
+        </div>
+        <div className="mt-3 flex items-center gap-3">
+          <button className="btn-primary" onClick={save} disabled={saving}>
+            {saving ? "Saving…" : "Save wording"}
+          </button>
+          {message && (
+            <span className={message.kind === "ok" ? "text-sm text-green-400" : "text-sm text-red-400"}>{message.text}</span>
+          )}
+        </div>
+      </details>
+    </section>
+  );
+}
+
+/** What both stores ask every app with sign-up for: an account deletion link and a privacy policy. */
+function StoreRequirements({ deleteAccountUrl, store }: { deleteAccountUrl: string; store: string }) {
+  return (
+    <div className="mt-4 rounded-lg border border-white/10 bg-white/[0.03] p-4 text-sm text-surface-300">
+      <p className="font-medium text-surface-100">Before you send it to {store}</p>
+      <ul className="mt-2 list-disc space-y-1.5 pl-5">
+        <li>
+          If people can sign up in your app, the store asks for a link where they can delete their
+          account. Use{" "}
+          <span className="break-all font-mono text-xs text-surface-100">{deleteAccountUrl}</span>
+        </li>
+        <li>
+          The store also asks for a link to your privacy policy. Add a Privacy page to your app (or
+          use one on your website) and paste its address in the store listing.
+        </li>
+      </ul>
+    </div>
+  );
+}
+
+function PlaySteps({ deleteAccountUrl }: { deleteAccountUrl: string }) {
   return (
     <details className="card p-6 group" open>
       <summary className="cursor-pointer font-semibold">Put your app on Google Play</summary>
@@ -664,6 +943,11 @@ function PlaySteps() {
         <li>
           Fill in the store listing: a short and a full description, an icon (512 × 512), a
           feature picture (1024 × 500) and at least two phone screenshots.
+        </li>
+        <li>
+          Under <b>App content</b>, add your privacy policy link. If people can sign up in your
+          app, Google also asks for a link where they can delete their account: use{" "}
+          <span className="break-all font-mono text-xs text-surface-100">{deleteAccountUrl}</span>.
         </li>
         <li>
           Open <b>Test and release</b>, pick a track (<b>Internal testing</b> is the quickest way to

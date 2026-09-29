@@ -25,36 +25,6 @@
     "paths": {
       "@/*": [
         "./src/*"
-      ],
-      "@open-codesign/shared": [
-        "./packages/shared/src/index.ts"
-      ],
-      "@open-codesign/shared/*": [
-        "./packages/shared/src/*"
-      ],
-      "@open-codesign/artifacts": [
-        "./packages/artifacts/src/index.ts"
-      ],
-      "@open-codesign/providers": [
-        "./packages/providers/src/index.ts"
-      ],
-      "@open-codesign/core": [
-        "./packages/core/src/index.ts"
-      ],
-      "@open-codesign/exporters": [
-        "./packages/exporters/src/index.ts"
-      ],
-      "@open-codesign/templates": [
-        "./packages/templates/src/index.ts"
-      ],
-      "@open-codesign/i18n": [
-        "./packages/i18n/src/index.ts"
-      ],
-      "@open-codesign/runtime": [
-        "./packages/runtime/src/index.ts"
-      ],
-      "@open-codesign/ui": [
-        "./packages/ui/src/index.ts"
       ]
     }
   },

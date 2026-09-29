@@ -1,8 +1,8 @@
 import Link from "next/link";
 import QRCode from "qrcode";
 import { appPublicUrl } from "@/lib/reseller";
-import { ArrowRight, Blocks, Check, ExternalLink, Globe2, ImageIcon, KeyRound, Paintbrush, Rocket, Smartphone } from "lucide-react";
-import { notFound, redirect } from "next/navigation";
+import { AlertTriangle, ArrowRight, Blocks, Check, ExternalLink, Globe2, ImageIcon, KeyRound, Paintbrush, Rocket, Smartphone, Sparkles } from "lucide-react";
+import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
 import { ProjectIconPanel } from "@/components/project-icon-panel";
@@ -11,6 +11,10 @@ import { TransferProjectCard } from "@/components/transfer-project-card";
 import { AppAdminCard } from "@/components/app-admin-card";
 import { LatestSubmissionsCard } from "@/components/latest-submissions-card";
 import { listAppAdmins } from "@/lib/app-admin";
+import { AlertsCard, TestSubmissionStep } from "@/components/alerts-card";
+import { ProblemsCard } from "@/components/problems-card";
+import { emailEnabled } from "@/lib/mailer";
+import { getSetting } from "@/lib/settings";
 
 export default async function ProjectOverview({
   params,
@@ -28,20 +32,31 @@ export default async function ProjectOverview({
   });
   if (!project || project.ownerId !== user.id) notFound();
 
-  // Designer projects don't have a separate overview — the workspace IS
-  // the overview. Push the user straight into it.
-  if (project.kind === "DESIGNER") redirect(`/projects/${project.id}/designer`);
+  // Designer apps are built in the Designer; this page still gives them their
+  // alerts, problems, submissions and launch steps. "Continue" opens the Designer.
+  const designer = project.kind === "DESIGNER";
+  const editHref = designer ? `/projects/${id}/designer` : `/projects/${id}/pages`;
 
   const publicUrl = await appPublicUrl(project);
-  const [activeDomains, qrDataUrl, appAdmins] = await Promise.all([
+  const emailOn = emailEnabled();
+  const [activeDomains, qrDataUrl, appAdmins, formTables, testSent, flows] = await Promise.all([
     db.domain.count({ where: { projectId: project.id, status: "ACTIVE" } }),
     project.published ? QRCode.toDataURL(publicUrl, { margin: 1, width: 132 }).catch(() => null) : Promise.resolve(null),
     listAppAdmins(project.id).catch(() => null),
+    db.dataTable.count({ where: { datasource: { projectId: project.id, kind: "POSTGRES_INTERNAL" } } }),
+    getSetting<{ at?: string }>(`alerts-test:${project.id}`).catch(() => undefined),
+    emailOn ? Promise.resolve([]) : db.flow.findMany({ where: { projectId: project.id }, select: { name: true, graph: true } }),
   ]);
-  const launch = [
-    { done: project._count.pages > 0, title: "Build your app", detail: "Your pages, data and forms are in place.", href: `/projects/${id}/pages`, icon: Paintbrush },
+  // Flows with a "Send email" step, when email isn't set up on this server.
+  const unsentEmailFlows = flows
+    .filter((f) => ((f.graph as { nodes?: Array<{ type?: string }> } | null)?.nodes ?? []).some((n) => n?.type === "email"))
+    .map((f) => f.name);
+  type LaunchStep = { done: boolean; title: string; detail: string; href: string; icon: typeof Paintbrush; test?: boolean };
+  const launch: LaunchStep[] = [
+    { done: project._count.pages > 0, title: "Build your app", detail: "Your pages, data and forms are in place.", href: editHref, icon: Paintbrush },
     { done: Boolean(project.icon), title: "Add your app icon", detail: "It shows on phones, in browser tabs and in the Android app.", href: "#app-icon", icon: ImageIcon },
     ...(appAdmins ? [{ done: appAdmins.length > 0, title: "Set your admin login", detail: "So you can sign in to your app's admin pages.", href: "#app-admin", icon: KeyRound }] : []),
+    ...(formTables > 0 ? [{ done: Boolean(testSent?.at), title: "Send a test submission", detail: "", href: "#alerts", icon: Rocket, test: true }] : []),
     { done: project.published, title: project.published ? "Published" : "Publish it", detail: project.published ? "Anyone with the link can use it." : "Get a link you can share with anyone.", href: `/projects/${id}/publish`, icon: Rocket },
   ];
   const launchDone = launch.filter((s) => s.done).length;
@@ -64,13 +79,25 @@ export default async function ProjectOverview({
         )}
       </p>
 
-      </div><Link href={`/projects/${id}/pages`} className="btn-primary"><Paintbrush size={16} />Continue editing <ArrowRight size={16} /></Link></div>
+      </div><Link href={editHref} className="btn-primary">{designer ? <Sparkles size={16} /> : <Paintbrush size={16} />}{designer ? "Continue in the Designer" : "Continue editing"} <ArrowRight size={16} /></Link></div>
       <div className="mt-8 grid gap-4 md:grid-cols-4">
         <StatCard label="Pages" value={project._count.pages} href={`/projects/${id}/pages`} />
         <StatCard label="Flows" value={project._count.flows} href={`/projects/${id}/flows`} />
         <StatCard label="Data" value={project._count.datasources} href={`/projects/${id}/data`} />
         <StatCard label="Own domains" value={project._count.domains} href={`/projects/${id}/domains`} />
       </div>
+
+      {unsentEmailFlows.length > 0 && (
+        <div role="status" className="mt-6 flex items-start gap-2 rounded-xl border border-amber-400/25 bg-amber-400/[0.07] p-4 text-sm text-amber-100" data-testid="email-off-warning">
+          <AlertTriangle size={16} className="mt-0.5 shrink-0 text-amber-300" aria-hidden />
+          <span>
+            Your app sends emails ({unsentEmailFlows.slice(0, 3).map((n) => `“${n}”`).join(", ")}{unsentEmailFlows.length > 3 ? ` and ${unsentEmailFlows.length - 3} more` : ""}), but email isn&apos;t set up on this server, so they aren&apos;t being sent.{" "}
+            {user.role === "ADMIN" ? <Link href="/admin/settings#email" className="font-medium underline">Set up email</Link> : "Ask your provider to connect email."}
+          </span>
+        </div>
+      )}
+
+      <ProblemsCard projectId={project.id} emailOn={emailOn} canSetUpEmail={user.role === "ADMIN"} />
 
       <div id="app-icon" className="mt-10 scroll-mt-24">
         <ProjectIconPanel
@@ -88,13 +115,13 @@ export default async function ProjectOverview({
           </div>
           <h2 id="launch-heading" className="mt-2 text-lg font-semibold">Launch checklist</h2>
           <ol className="mt-4 space-y-1">
-            {launch.map(({ done, title, detail, href, icon: Icon }) => (
+            {launch.map(({ done, title, detail, href, icon: Icon, test }) => (
               <li key={title}>
-                <Link href={href} className="studio-next-step">
+                {test ? <TestSubmissionStep projectId={project.id} initiallyDone={done} emailOn={emailOn} /> : <Link href={href} className="studio-next-step">
                   <span className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full ${done ? "bg-emerald-500/15 text-emerald-300" : "bg-white/[0.05] text-brand-300"}`}>{done ? <Check size={15} aria-hidden /> : <Icon size={15} aria-hidden />}</span>
                   <span className="flex-1"><strong className={`block text-sm font-medium ${done ? "text-surface-300" : ""}`}>{title}<span className="sr-only">{done ? " (done)" : " (to do)"}</span></strong><span className="mt-0.5 block text-xs text-surface-400">{detail}</span></span>
                   <ArrowRight size={14} className="text-surface-500" aria-hidden />
-                </Link>
+                </Link>}
               </li>
             ))}
           </ol>
@@ -139,6 +166,7 @@ export default async function ProjectOverview({
 
       <AppAdminCard projectId={project.id} />
       <LatestSubmissionsCard projectId={project.id} />
+      <AlertsCard projectId={project.id} />
 
       <div className="mt-6">
         <TransferProjectCard projectId={project.id} projectName={project.name} />

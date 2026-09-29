@@ -31,6 +31,11 @@ https:// {
 	@internal path /api/internal/*
 	respond @internal "Not found" 404
 
+	# The app has no Server Actions, so a request that tries to call one is a
+	# probe. Refuse it here, before it reaches the app (the app refuses it too).
+	@nextaction header Next-Action *
+	respond @nextaction 404
+
 	# The biggest request the app accepts is a 20 MB file upload.
 	request_body {
 		max_size 100MB

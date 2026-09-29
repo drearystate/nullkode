@@ -127,15 +127,16 @@ export const nutritionTracker: ModuleDefinition = {
 
 <script>(function(){
   var today = new Date().toISOString().slice(0,10);
+  function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
   function refresh(){
     fetch('/api/run/' + ((window.__nkFlowSlugMap||{})['history']||'history'), { method:'POST', headers:{'content-type':'application/json'}, body:'{}' })
       .then(function(r){return r.json();}).then(function(rows){
-        var todayRows = (rows||[]).filter(function(r){ return r.logged_for_day === today; });
-        var k=0,p=0; todayRows.forEach(function(r){ k+=r.kcal||0; p+=r.protein_g||0; });
+        var todayRows = (Array.isArray(rows)?rows:[]).filter(function(r){ return r.logged_for_day === today; });
+        var k=0,p=0; todayRows.forEach(function(r){ k+=Number(r.kcal)||0; p+=Number(r.protein_g)||0; });
         document.getElementById('nk-nu-k').textContent = k;
         document.getElementById('nk-nu-p').textContent = Math.round(p);
         document.getElementById('nk-nu-today').innerHTML = todayRows.length ? todayRows.map(function(r){
-          return '<div class="d-flex justify-content-between p-2 border rounded mb-1" style="background:var(--nk-surface);"><span>'+r.food+'</span><span class="small">'+r.kcal+' kcal · '+r.protein_g+'g protein</span></div>';
+          return '<div class="d-flex justify-content-between p-2 border rounded mb-1" style="background:var(--nk-surface);"><span>'+esc(r.food)+'</span><span class="small">'+esc(r.kcal)+' kcal · '+esc(r.protein_g)+'g protein</span></div>';
         }).join('') : '<div class="small" style="color:var(--nk-text-muted);">Nothing logged today yet.</div>';
       });
   }

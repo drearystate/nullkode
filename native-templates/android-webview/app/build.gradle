@@ -15,9 +15,15 @@ def cfgOrientation = project.findProperty('nkOrientation') ?: 'unspecified'
 def cfgThemeColor  = project.findProperty('nkThemeColor')  ?: '#0b0b0b'
 // Page background: shown while a page loads and behind the offline page.
 def cfgPageColor   = project.findProperty('nkBackgroundColor') ?: cfgThemeColor
-// Java package of MainActivity and the R class. src/lib/apk-build.ts moves
-// MainActivity into the app's own package and passes that package here.
+// Java package of the app's classes and the R class. src/lib/apk-build.ts
+// moves MainActivity and SharedFileProvider into the app's own package and
+// passes that package here.
 def cfgNamespace   = project.findProperty('nkNamespace')   ?: 'com.example.webapp'
+// The app's own web addresses, comma-separated. Only pages on these may use
+// the camera, microphone, location and the file-saving bridge.
+def cfgAppHosts    = project.findProperty('nkAppHosts')    ?: 'example.com'
+// Background of the adaptive launcher icon (Android 8 and newer).
+def cfgIconBackground = project.findProperty('nkIconBackground') ?: cfgThemeColor
 
 // Google Play builds are signed with the app's own upload key. src/lib/apk-build.ts
 // passes it as ORG_GRADLE_PROJECT_nkKeystore* environment variables, so the
@@ -44,6 +50,8 @@ android {
         resValue "string", "start_url", cfgStartUrl
         resValue "string", "theme_color", cfgThemeColor
         resValue "string", "page_background", cfgPageColor
+        resValue "string", "app_hosts", cfgAppHosts
+        resValue "color", "ic_launcher_background", cfgIconBackground
         manifestPlaceholders = [screenOrientation: cfgOrientation]
     }
 

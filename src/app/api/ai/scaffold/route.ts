@@ -1,16 +1,17 @@
 import { getCurrentUser } from "@/lib/auth";
-import { checkAiQuota, recordAiUsage } from "@/lib/ai-quota";
+import { checkAiQuota, recordAiUsage, refundFailedAi } from "@/lib/ai-quota";
 import { scaffoldAppStream, repairScaffold } from "@/lib/ai/scaffold";
-import { scaffoldMultiPass } from "@/lib/ai/multi-pass";
+import { runPage, scaffoldMultiPass } from "@/lib/ai/multi-pass";
 import { AppPlanSchema, type AppPlan } from "@/lib/ai/plan";
 import { applyScaffold } from "@/lib/ai/apply-scaffold";
-import { validateScaffold } from "@/lib/ai/validate-scaffold";
+import { validateScaffold, type Violation } from "@/lib/ai/validate-scaffold";
+import { autofixScaffold, checkAndFixScaffold, checkMessage } from "@/lib/ai/autofix";
 import { repairTruncatedJson } from "@/lib/ai/repair-json";
 import { getAIProvider } from "@/lib/settings";
 import { checkProjectLimit } from "@/lib/guard";
-import { createRun, pushEvent, finishRun, type ScaffoldEvent } from "@/lib/ai/runs";
+import { createRun, pushEvent, finishRun, takeRunCharge, type ScaffoldEvent } from "@/lib/ai/runs";
 import type { ScaffoldResult } from "@/lib/ai/schema";
-import { aiErrorFor } from "@/lib/ai/errors";
+import { aiErrorFor, classifyAiFailure, UnusableOutputError } from "@/lib/ai/errors";
 
 export const runtime = "nodejs";
 // Worker is detached, so this only caps how long POST itself can take. POST
@@ -125,11 +126,13 @@ export async function POST(req: Request) {
   const limitError = await checkProjectLimit(user);
   if (limitError) return limitError;
 
-  const run = createRun(user.id, "scaffold", prompt);
+  // Charged before the AI runs (so parallel requests can't pass the limit)
+  // and refunded by the worker or the stall sweep if the build fails.
+  const chargeId = await recordAiUsage(user.id, "build");
+  const run = createRun(user.id, "scaffold", prompt, { chargeId });
   // Fire-and-forget. The worker writes events to the run registry; clients
   // subscribe via /api/ai/runs/[id]/stream. Errors are caught inside the
   // worker and routed to the run's error state, so this `void` is safe.
-  await recordAiUsage(user.id, "build");
   void runScaffoldWorker(run.id, user.id, prompt, plan, user.role);
 
   return Response.json({ runId: run.id });
@@ -144,8 +147,11 @@ async function runScaffoldWorker(runId: string, userId: string, prompt: string, 
     const provider = await getAIProvider();
     let scaffold: ScaffoldResult | null = null;
     let fullContent = "";
+    let builtPlan: AppPlan | null = null;
+    let compact = false;
+    const multiPass = Boolean(approvedPlan) || provider === "claude-cli" || process.env.AI_SINGLE_PASS !== "1";
 
-    if (approvedPlan || provider === "claude-cli" || process.env.AI_SINGLE_PASS !== "1") {
+    if (multiPass) {
       send({
         type: "progress",
         step: "generate",
@@ -169,9 +175,11 @@ async function runScaffoldWorker(runId: string, userId: string, prompt: string, 
           });
         } else if (ev.type === "result") {
           scaffold = ev.scaffold;
+          builtPlan = ev.plan;
+          compact = ev.compact;
         }
       }
-      if (!scaffold) throw new Error("Multi-pass returned no scaffold");
+      if (!scaffold) throw new UnusableOutputError("The build produced no pages. Please try again.");
     } else {
       send({
         type: "progress",
@@ -204,7 +212,7 @@ async function runScaffoldWorker(runId: string, userId: string, prompt: string, 
     // Only the single-pass stream leaves raw text to parse; multi-pass has
     // already produced a structured scaffold (for every provider).
     if (!scaffold) {
-      if (!fullContent) throw new Error("No content returned from AI");
+      if (!fullContent) throw new UnusableOutputError("The AI returned an empty answer. Please try again.");
       const extracted = extractJsonObject(fullContent);
       try {
         scaffold = JSON.parse(extracted);
@@ -239,35 +247,49 @@ async function runScaffoldWorker(runId: string, userId: string, prompt: string, 
         scaffold.theme = scaffold.theme ?? "Clean Slate";
       }
     }
-    if (!scaffold) throw new Error("No scaffold produced");
+    if (!scaffold) throw new UnusableOutputError("The build produced no pages. Please try again.");
 
-    const initialViolations = validateScaffold(scaffold);
-    if (initialViolations.length > 0) {
-      send({
-        type: "progress",
-        step: "repair",
-        message: `Found ${initialViolations.length} wiring issue${initialViolations.length === 1 ? "" : "s"} — asking the AI to fix them...`,
+    // Quality pass: check every page, fix what can be fixed in code, and
+    // (multi-pass) send each page that is still broken back to the page
+    // builder once. The whole-app repair is only for single-pass builds.
+    if (multiPass) {
+      send({ type: "progress", step: "check", message: "Checking every link, form and list..." });
+      const plan = builtPlan;
+      const { scaffold: checked, summary } = await checkAndFixScaffold(scaffold, {
+        repairPage: plan ? (page, violations, current) => repairPlannedPage(plan, compact, page, violations, current) : undefined,
+        onProgress: (message) => send({ type: "progress", step: "repair", message }),
       });
-      try {
-        const repaired = await repairScaffold(scaffold, initialViolations);
-        if (repaired) {
-          const repairedViolations = validateScaffold(repaired);
-          if (repairedViolations.length < initialViolations.length) {
-            scaffold = repaired;
-          }
-          if (repairedViolations.length === 0) {
-            send({ type: "progress", step: "repair", message: "All wiring checks passed." });
-          } else {
-            send({
-              type: "progress",
-              step: "repair",
-              message: `Fixed most issues (${initialViolations.length - repairedViolations.length}/${initialViolations.length}); continuing with the best version.`,
-            });
-          }
-        }
-      } catch (err) {
-        console.error("scaffold repair failed:", err);
+      scaffold = checked;
+      if (summary.remaining.length > 0) {
+        console.warn(`[scaffold] ${summary.remaining.length} problem(s) left after fixes:`, summary.remaining.slice(0, 8).map((v) => `${v.code} ${v.location ?? ""}`).join("; "));
       }
+      send({ type: "progress", step: "check", message: summary.message });
+    } else {
+      const auto = autofixScaffold(scaffold);
+      scaffold = auto.scaffold;
+      let fixed = auto.fixes.length;
+      const initialViolations = validateScaffold(scaffold);
+      if (initialViolations.length > 0) {
+        send({
+          type: "progress",
+          step: "repair",
+          message: `Found ${initialViolations.length} wiring issue${initialViolations.length === 1 ? "" : "s"} — asking the AI to fix them...`,
+        });
+        try {
+          const repaired = await repairScaffold(scaffold, initialViolations);
+          if (repaired) {
+            const repairedFixed = autofixScaffold(repaired).scaffold;
+            const repairedViolations = validateScaffold(repairedFixed);
+            if (repairedViolations.length < initialViolations.length) {
+              fixed += initialViolations.length - repairedViolations.length;
+              scaffold = repairedFixed;
+            }
+          }
+        } catch (err) {
+          console.error("scaffold repair failed:", err);
+        }
+      }
+      send({ type: "progress", step: "check", message: checkMessage(scaffold.pages.length, fixed, validateScaffold(scaffold).length) });
     }
 
     send({ type: "progress", step: "persist", message: "Saving to database..." });
@@ -281,7 +303,34 @@ async function runScaffoldWorker(runId: string, userId: string, prompt: string, 
     finishRun(runId, { ok: true, result: { projectId, homePageId } });
   } catch (err) {
     const message = aiErrorFor({ role }, err);
-    pushEvent(runId, { type: "error", message });
-    finishRun(runId, { ok: false, error: message });
+    // A failed build doesn't count (capped for unusable answers, see refundFailedAi).
+    const refunded = await refundFailedAi(takeRunCharge(runId), userId, classifyAiFailure(err));
+    pushEvent(runId, { type: "error", message, ...(refunded ? { refunded: true } : {}) });
+    finishRun(runId, { ok: false, error: message, refunded });
   }
+}
+
+/**
+ * Repair mode of the page builder for one page that failed the build checks.
+ * The plan it gets reflects the automatic fixes (new columns, new flows).
+ */
+async function repairPlannedPage(
+  plan: AppPlan,
+  compact: boolean,
+  page: ScaffoldResult["pages"][number],
+  violations: Violation[],
+  current: ScaffoldResult,
+): Promise<{ html: string; css: string } | null> {
+  const planPage = plan.pages.find((p) => p.slug === page.slug);
+  if (!planPage) return null;
+  const planned = new Set(plan.flows.map((f) => f.slug));
+  const added = current.flows
+    .filter((f) => !planned.has(f.slug) && f.standard)
+    .map((f) => ({ slug: f.slug, name: f.name, purpose: f.purpose, kind: f.standard!.kind, table: f.standard!.table, auth: f.standard!.auth }));
+  const updated: AppPlan = {
+    ...plan,
+    tables: current.datasource.tables.map((t) => ({ name: t.name, fields: t.fields, seed: t.seed })),
+    flows: [...plan.flows, ...added],
+  };
+  return runPage({ plan: updated, page: planPage, compact, onDelta: () => {}, repair: { html: page.html, css: page.css ?? "", violations } });
 }

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { checkAiQuota, recordAiUsage } from "@/lib/ai-quota";
+import { aiUsageSummary, checkAiQuota, recordAiUsage, refundFailedAi } from "@/lib/ai-quota";
 import { Prisma } from "@prisma/client";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
@@ -7,17 +7,25 @@ import {
   editPage,
   findLostWiring,
   repairLostWiring,
+  type EditPageResult,
   type ProjectContext,
 } from "@/lib/ai/edit-page";
 import {
   ensureInternalDatasource,
   persistTables,
   persistFlows,
-  rewriteFlowRefsInHtml,
+  flowRefMap,
+  resolveFlowRefsWith,
+  unconnectedNote,
 } from "@/lib/ai/apply-scaffold";
+import { isNoOpEdit } from "@/lib/ai/html-diff";
 import { json } from "@/lib/utils";
 import type { ProjectTheme } from "@/lib/theme";
-import { aiErrorFor } from "@/lib/ai/errors";
+import { aiErrorFor, classifyAiFailure } from "@/lib/ai/errors";
+
+/** Reply when the AI returned the page unchanged (see isNoOpEdit). */
+const NO_CHANGE_REFUNDED = "I couldn't make that change. Nothing was changed, and it wasn't counted.";
+const NO_CHANGE = "I couldn't make that change. Nothing was changed.";
 
 export const runtime = "nodejs";
 // Give the model room to think when it has to add tables + flows + HTML.
@@ -216,9 +224,20 @@ export async function POST(req: Request) {
     ),
   };
 
-  let result;
+  // Charged before the AI runs (so parallel requests can't pass the limit);
+  // every failure below gives the action back.
+  const chargeId = await recordAiUsage(user.id, "edit", page.projectId);
+  const usage = () => aiUsageSummary(user).catch(() => null);
+  const fail = async (err: unknown, fallback: string) => {
+    const refunded = await refundFailedAi(chargeId, user.id, classifyAiFailure(err));
+    return json(
+      { error: aiErrorFor(user, err, fallback), refunded, usage: await usage() },
+      { status: 500 }
+    );
+  };
+
+  let result: EditPageResult;
   try {
-    await recordAiUsage(user.id, "edit", page.projectId);
     result = await editPage({
       currentHtml,
       currentCss: cssOmitted ? "" : currentCss,
@@ -232,176 +251,204 @@ export async function POST(req: Request) {
       history,
     });
   } catch (err) {
-    return json(
-      { error: aiErrorFor(user, err, "The AI couldn't change this page. Please try again.") },
-      { status: 500 }
-    );
+    return fail(err, "The AI couldn't change this page. Please try again.");
   }
 
-  // When the stylesheet was too big to show the model, its returned css is
-  // meaningless — keep the page's real stylesheet byte-for-byte.
-  if (cssOmitted) result = { ...result, css: currentCss };
-
-  // Wiring guard: don't let the edit break existing functionality. If the
-  // new HTML lost data-nk-* bindings the old HTML had, run one focused
-  // repair pass that reinstates them (unless the user asked for the
-  // removal). If wiring is still missing after repair — either the model
-  // judged the removal intentional or the repair failed — proceed but tell
-  // the user exactly what changed so nothing breaks silently.
-  const userNotes: string[] = [];
-  let lostWiring = findLostWiring(currentHtml, result.html);
-  if (lostWiring.length > 0) {
-    const repaired = await repairLostWiring({
+  // Nothing changed and nothing was added: say so honestly, and give the
+  // action back (a question answered without changes is not this case).
+  if (
+    isNoOpEdit({
       message,
-      originalHtml: currentHtml,
-      proposedHtml: result.html,
-      proposedCss: result.css,
-      lostWiring,
+      before: { html: currentHtml, css: currentCss },
+      after: { html: result.html ?? "", css: result.css ?? "" },
+      compareCss: !cssOmitted,
+      otherWork: (result.newTables?.length ?? 0) > 0 || (result.newFlows?.length ?? 0) > 0 || (result.pageEdits?.length ?? 0) > 0,
+    })
+  ) {
+    const refunded = await refundFailedAi(chargeId, user.id, "unusable");
+    return json({
+      html: null,
+      css: null,
+      explanation: refunded ? NO_CHANGE_REFUNDED : NO_CHANGE,
+      noChange: true,
+      refunded,
+      createdTables: [],
+      createdFlowSlugs: [],
+      updatedPages: [],
+      suggestions: [],
+      usage: await usage(),
     });
-    if (repaired) {
-      result = { ...result, html: repaired.html, css: repaired.css };
-      lostWiring = findLostWiring(currentHtml, result.html);
-    }
-    if (lostWiring.length > 0) {
-      const shown = lostWiring.slice(0, 4).join(", ");
-      const more = lostWiring.length > 4 ? ` and ${lostWiring.length - 4} more` : "";
-      userNotes.push(
-        `Note: this change removed some existing wiring (${shown}${more}). If that wasn't intended, use undo (Ctrl+Z) or tell me to restore it.`
-      );
-    }
   }
-
-  // Persist new backend resources before we rewrite the HTML. Order matters:
-  // tables first, then flows (flows reference table names), then we can
-  // rewrite flow-ref slugs to real ids in the returned HTML.
-  let createdTables: string[] = [];
-  const flowSlugToId = new Map<string, string>();
 
   try {
-    if (result.newTables.length > 0 || result.newFlows.length > 0) {
-      const datasource = await ensureInternalDatasource(projectId);
+    // When the stylesheet was too big to show the model, its returned css is
+    // meaningless — keep the page's real stylesheet byte-for-byte.
+    if (cssOmitted) result = { ...result, css: currentCss };
 
-      if (result.newTables.length > 0) {
-        createdTables = await persistTables(
-          projectId,
-          datasource.id,
-          result.newTables
-        );
+    // Wiring guard: don't let the edit break existing functionality. If the
+    // new HTML lost data-nk-* bindings the old HTML had, run one focused
+    // repair pass that reinstates them (unless the user asked for the
+    // removal). If wiring is still missing after repair — either the model
+    // judged the removal intentional or the repair failed — proceed but tell
+    // the user exactly what changed so nothing breaks silently.
+    const userNotes: string[] = [];
+    let lostWiring = findLostWiring(currentHtml, result.html);
+    if (lostWiring.length > 0) {
+      const repaired = await repairLostWiring({
+        message,
+        originalHtml: currentHtml,
+        proposedHtml: result.html,
+        proposedCss: result.css,
+        lostWiring,
+      });
+      if (repaired) {
+        result = { ...result, html: repaired.html, css: repaired.css };
+        lostWiring = findLostWiring(currentHtml, result.html);
       }
-
-      if (result.newFlows.length > 0) {
-        const map = await persistFlows(
-          projectId,
-          datasource.id,
-          result.newFlows
+      if (lostWiring.length > 0) {
+        const shown = lostWiring.slice(0, 4).join(", ");
+        const more = lostWiring.length > 4 ? ` and ${lostWiring.length - 4} more` : "";
+        userNotes.push(
+          `Note: this change removed some existing wiring (${shown}${more}). If that wasn't intended, use undo (Ctrl+Z) or tell me to restore it.`
         );
-        for (const [slug, id] of map) flowSlugToId.set(slug, id);
       }
     }
-  } catch (err) {
-    return json(
-      {
-        error: aiErrorFor(user, err, "The AI couldn't add the parts behind this page. Please try again."),
-      },
-      { status: 500 }
-    );
-  }
 
-  // Rewrite current-page HTML so data-nk-flow-ref="save-location" becomes
-  // data-nk-flow="<real-id>". Safe to run even when no new flows were
-  // created — it's a no-op on an empty map.
-  const rewrittenHtml =
-    flowSlugToId.size > 0
-      ? rewriteFlowRefsInHtml(result.html, flowSlugToId)
-      : result.html;
+    // Persist new backend resources before we rewrite the HTML. Order matters:
+    // tables first, then flows (flows reference table names), then we can
+    // rewrite flow-ref slugs to real ids in the returned HTML.
+    let createdTables: string[] = [];
+    const flowSlugToId = new Map<string, string>();
 
-  // Persist the current page server-side too. The client applies the new
-  // HTML to the canvas and autosaves, but if the user switched pages (the
-  // editor remounts per tab) the canvas apply is skipped — without this
-  // write the whole edit would be silently lost. Clearing components/styles
-  // matters: the editor prefers the components JSON over html on load, so
-  // leaving the old JSON in place would show the pre-edit page.
-  await db.page.update({
-    where: { id: pageId },
-    data: {
-      html: rewrittenHtml,
-      css: result.css,
-      components: Prisma.DbNull,
-      styles: Prisma.DbNull,
-    },
-  });
+    try {
+      if (result.newTables.length > 0 || result.newFlows.length > 0) {
+        const datasource = await ensureInternalDatasource(projectId);
 
-  // Apply pageEdits to sibling pages. The AI can only edit pages that
-  // already exist — we validate each slug against the project.
-  const appliedPageEdits: Array<{ slug: string; id: string }> = [];
-  if (result.pageEdits.length > 0) {
-    const bySlug = new Map(existingPages.map((p) => [p.slug, p]));
-    for (const edit of result.pageEdits) {
-      // Skip edits that target the current page — the AI is supposed to
-      // use `html`/`css` for those, not pageEdits. Also skip unknown slugs.
-      if (edit.pageSlug === page.slug) continue;
-      const target = bySlug.get(edit.pageSlug);
-      if (!target) continue;
+        if (result.newTables.length > 0) {
+          createdTables = await persistTables(
+            projectId,
+            datasource.id,
+            result.newTables
+          );
+        }
 
-      let editHtml =
-        flowSlugToId.size > 0
-          ? rewriteFlowRefsInHtml(edit.newHtml, flowSlugToId)
-          : edit.newHtml;
-      let editCss = edit.newCss ?? "";
-
-      // Wiring guard for sibling pages: the user can't see these pages
-      // while the edit happens, so breaking one is worse than applying it.
-      // Try the same repair pass the current page gets; if wiring is still
-      // missing afterwards, skip the update and say so.
-      let siblingLost = findLostWiring(target.html, editHtml);
-      if (siblingLost.length > 0) {
-        const repaired = await repairLostWiring({
-          message,
-          originalHtml: target.html,
-          proposedHtml: editHtml,
-          proposedCss: editCss,
-          lostWiring: siblingLost,
-        });
-        if (repaired) {
-          editHtml = repaired.html;
-          editCss = repaired.css;
-          siblingLost = findLostWiring(target.html, editHtml);
+        if (result.newFlows.length > 0) {
+          const map = await persistFlows(
+            projectId,
+            datasource.id,
+            result.newFlows
+          );
+          for (const [slug, id] of map) flowSlugToId.set(slug, id);
         }
       }
-      if (siblingLost.length > 0) {
-        userNotes.push(
-          `Skipped updating "${target.title}" — the proposed change would have removed working functionality there (${siblingLost.slice(0, 3).join(", ")}${siblingLost.length > 3 ? ", …" : ""}). Open that page and ask me there if you still want it changed.`
-        );
-        continue;
-      }
-
-      const updated = await db.page.update({
-        where: { projectId_slug: { projectId, slug: edit.pageSlug } },
-        data: {
-          html: editHtml,
-          css: editCss,
-          // The editor loads components JSON in preference to html, so a
-          // stale components blob would make this edit invisible in the
-          // editor even though the published page changed.
-          components: Prisma.DbNull,
-          styles: Prisma.DbNull,
-        },
-        select: { id: true, slug: true },
-      });
-      appliedPageEdits.push({ slug: updated.slug, id: updated.id });
+    } catch (err) {
+      return fail(err, "The AI couldn't add the parts behind this page. Please try again.");
     }
-  }
 
-  return json({
-    html: rewrittenHtml,
-    css: result.css,
-    explanation:
-      userNotes.length > 0
-        ? `${result.explanation} ${userNotes.join(" ")}`
-        : result.explanation,
-    createdTables,
-    createdFlowSlugs: result.newFlows.map((f) => f.slug),
-    updatedPages: appliedPageEdits,
-    suggestions: result.suggestions ?? [],
-  });
+    // Resolve every data-nk-*-ref="<slug>" (forms, lists, sign-out, kanban,
+    // sortable, calendar) against ALL of the project's flows — the ones this
+    // edit made win on a clash — so reusing an existing flow works too. Runs
+    // on every edit, not only when flows were added.
+    const refMap = await flowRefMap(projectId, flowSlugToId);
+    const unconnected: string[] = [];
+    const current = resolveFlowRefsWith(result.html, refMap);
+    unconnected.push(...current.leftover);
+    const rewrittenHtml = current.html;
+
+    // Persist the current page server-side too. The client applies the new
+    // HTML to the canvas and autosaves, but if the user switched pages (the
+    // editor remounts per tab) the canvas apply is skipped — without this
+    // write the whole edit would be silently lost. Clearing components/styles
+    // matters: the editor prefers the components JSON over html on load, so
+    // leaving the old JSON in place would show the pre-edit page.
+    await db.page.update({
+      where: { id: pageId },
+      data: {
+        html: rewrittenHtml,
+        css: result.css,
+        components: Prisma.DbNull,
+        styles: Prisma.DbNull,
+      },
+    });
+
+    // Apply pageEdits to sibling pages. The AI can only edit pages that
+    // already exist — we validate each slug against the project.
+    const appliedPageEdits: Array<{ slug: string; id: string }> = [];
+    if (result.pageEdits.length > 0) {
+      const bySlug = new Map(existingPages.map((p) => [p.slug, p]));
+      for (const edit of result.pageEdits) {
+        // Skip edits that target the current page — the AI is supposed to
+        // use `html`/`css` for those, not pageEdits. Also skip unknown slugs.
+        if (edit.pageSlug === page.slug) continue;
+        const target = bySlug.get(edit.pageSlug);
+        if (!target) continue;
+
+        const sibling = resolveFlowRefsWith(edit.newHtml, refMap);
+        let editHtml = sibling.html;
+        let editCss = edit.newCss ?? "";
+
+        // Wiring guard for sibling pages: the user can't see these pages
+        // while the edit happens, so breaking one is worse than applying it.
+        // Try the same repair pass the current page gets; if wiring is still
+        // missing afterwards, skip the update and say so.
+        let siblingLost = findLostWiring(target.html, editHtml);
+        if (siblingLost.length > 0) {
+          const repaired = await repairLostWiring({
+            message,
+            originalHtml: target.html,
+            proposedHtml: editHtml,
+            proposedCss: editCss,
+            lostWiring: siblingLost,
+          });
+          if (repaired) {
+            editHtml = repaired.html;
+            editCss = repaired.css;
+            siblingLost = findLostWiring(target.html, editHtml);
+          }
+        }
+        if (siblingLost.length > 0) {
+          userNotes.push(
+            `Skipped updating "${target.title}" — the proposed change would have removed working functionality there (${siblingLost.slice(0, 3).join(", ")}${siblingLost.length > 3 ? ", …" : ""}). Open that page and ask me there if you still want it changed.`
+          );
+          continue;
+        }
+
+        const updated = await db.page.update({
+          where: { projectId_slug: { projectId, slug: edit.pageSlug } },
+          data: {
+            html: editHtml,
+            css: editCss,
+            // The editor loads components JSON in preference to html, so a
+            // stale components blob would make this edit invisible in the
+            // editor even though the published page changed.
+            components: Prisma.DbNull,
+            styles: Prisma.DbNull,
+          },
+          select: { id: true, slug: true },
+        });
+        appliedPageEdits.push({ slug: updated.slug, id: updated.id });
+        unconnected.push(...sibling.leftover);
+      }
+    }
+
+    const note = unconnectedNote(unconnected);
+    if (note) userNotes.push(note);
+
+    return json({
+      html: rewrittenHtml,
+      css: result.css,
+      explanation:
+        userNotes.length > 0
+          ? `${result.explanation} ${userNotes.join(" ")}`
+          : result.explanation,
+      createdTables,
+      createdFlowSlugs: result.newFlows.map((f) => f.slug),
+      updatedPages: appliedPageEdits,
+      suggestions: result.suggestions ?? [],
+      usage: await usage(),
+    });
+  } catch (err) {
+    console.error("[ai/edit-page] saving the edit failed", err);
+    return fail(err, "The AI's change couldn't be saved. Please try again.");
+  }
 }

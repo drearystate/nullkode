@@ -142,20 +142,21 @@ export const dynamicList: ModuleDefinition = {
 <div id="nk-rows" class="mt-2">Loading…</div>
 
 <script>(function(){
+  function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
   var slug = new URLSearchParams(location.search).get('slug') || '';
   var listId = null; var schema = [];
   function field(f){
-    var ctrl = f.type === 'textarea' ? '<textarea name="'+f.key+'" class="form-control" '+(f.required?'required':'')+'></textarea>' :
-      '<input name="'+f.key+'" type="'+(f.type||'text')+'" class="form-control" '+(f.required?'required':'')+'/>';
-    return '<div class="mb-2"><label class="form-label small mb-1">'+f.label+'</label>'+ctrl+'</div>';
+    var ctrl = f.type === 'textarea' ? '<textarea name="'+esc(f.key)+'" class="form-control" '+(f.required?'required':'')+'></textarea>' :
+      '<input name="'+esc(f.key)+'" type="'+esc(f.type||'text')+'" class="form-control" '+(f.required?'required':'')+'/>';
+    return '<div class="mb-2"><label class="form-label small mb-1">'+esc(f.label)+'</label>'+ctrl+'</div>';
   }
   function paintRows(rows){
     document.getElementById('nk-rows').innerHTML = (rows||[]).map(function(r){
       var d = {}; try { d = JSON.parse(r.data_json || '{}'); } catch(e){}
       var body = schema.map(function(f){
         var v = d[f.key]; if(v == null || v === '') return '';
-        if(f.type === 'url' && /^https?:/.test(v)) return '<div class="small"><strong>'+f.label+':</strong> <a href="'+v+'" target="_blank">'+v+'</a></div>';
-        return '<div class="small"><strong>'+f.label+':</strong> '+String(v).replace(/[<>&]/g,function(c){return {'<':'&lt;','>':'&gt;','&':'&amp;'}[c];})+'</div>';
+        if(f.type === 'url' && /^https?:/.test(v)) return '<div class="small"><strong>'+esc(f.label)+':</strong> <a href="'+esc(v)+'" target="_blank" rel="noopener">'+esc(v)+'</a></div>';
+        return '<div class="small"><strong>'+esc(f.label)+':</strong> '+esc(v)+'</div>';
       }).join('');
       return '<div class="card border-0 shadow-sm mb-2 p-3">'+body+'</div>';
     }).join('') || '<div class="alert alert-light">No entries yet.</div>';

@@ -1,7 +1,9 @@
-import { DESIGN_SYSTEM_RULES } from "./design-system";
+import { DESIGN_RULES_COMPACT, DESIGN_SYSTEM_RULES } from "./design-system";
 import type { ProjectTheme } from "@/lib/theme";
 import type { ScaffoldTable, ScaffoldFlow } from "./apply-scaffold";
 import { providerEditPage } from "./provider";
+import { estimateTokens, getContextWindow, COMPACT_BELOW } from "./budget";
+import { UnusableOutputError } from "./errors";
 
 /**
  * The in-editor "Ask AI" used to only return replacement HTML/CSS for the
@@ -37,13 +39,14 @@ You return a single JSON object matching the provided schema — no prose, no ma
 - You CAN use <script> tags and inline JavaScript inside the HTML when the feature genuinely needs browser-side logic — games, canvas, drawing, drag-physics, web audio, navigator APIs (geolocation, camera, speech), animations, anything that has to run in the browser. Build the real thing.
 - For features that map onto the platform's data model (saving rows, listing rows, editing rows, auth-gated actions), still prefer the form + flow pattern — flows are visible and editable in the Flow tab. The right split: use flows for "save the score"; use a <script> for "run the game loop." Wrap script logic in an IIFE; call backend flows via fetch('/api/run/<flow-id>', {method:'POST', body: JSON.stringify({...})}) when you need to persist state.
 - For game features (canvas games, action mechanics, touch controls): wire BOTH keyboard (arrows/space) AND on-screen touch buttons (d-md-none for mobile, d-none d-md-block for keyboard hints). Use requestAnimationFrame for the game loop. Game-over overlay = absolute-positioned div over the canvas with a <form data-nk-form data-nk-flow-ref="save-score"> + hidden score input filled by JS before save. Persistence via flow, gameplay via JS.
+- HONESTY: never invent testimonials, reviews, star ratings, customer counts, awards or certifications, and leave statistics out unless the user supplies them. Prices, opening hours or phone numbers you weren't given are written as clear placeholders such as [Your price].
 
 === HTML RULES ===
 - PRESERVE THE PAGE'S <nav>/<header> EXACTLY. If the current HTML opens with a navbar or header element, your output must open with the IDENTICAL navbar/header. Do not add links, do not remove links, do not rename brand, do not change classes. The user explicitly relies on every page sharing the same nav — even small tweaks here look like bugs across the app.
 - Same rule for any <footer> that already exists — keep it byte-identical.
 - EXCEPTION: when the instruction is explicitly ABOUT the nav/header/footer (restyle it, add/remove a link, "make navigation uniform"), make exactly the requested change. If the request is site-wide, put the IDENTICAL new nav markup on every page you return — same links, same order, same classes — so the pages stay in sync.
 - A <nav data-nk-nav="auto"> element is the platform-managed shared menu: it is automatically regenerated on every page whenever a page or module is added. You may restyle it or edit its links when asked (keep the data-nk-nav="auto" attribute), but to permanently REMOVE the menu from a page you must delete the nav element AND add <!--nk:no-nav--> at the top of that page's HTML — otherwise the platform re-inserts it.
-- Preserve every data-nk-* attribute that already exists (data-nk-flow, data-nk-form, data-nk-bind-flow, data-nk-action, data-nk-flow-ref, data-nk-bind-flow-ref, data-nk-field, data-nk-src, data-nk-item, data-nk-logout-ref, data-nk-redirect). Dropping them breaks existing bindings.
+- Preserve every data-nk-* attribute that already exists (data-nk-flow, data-nk-form, data-nk-bind-flow, data-nk-action, data-nk-flow-ref, data-nk-bind-flow-ref, data-nk-field, data-nk-src, data-nk-item, data-nk-logout, data-nk-logout-ref, data-nk-redirect). Dropping them breaks existing bindings.
 - Use semantic HTML (header, main, section, h1-h6, p, a, ul, form, button). Use <a href="/slug"> for internal links.
 - Bootstrap 5 utility classes for layout and spacing (container, row, col-md-*, py-5). Keep the visual polish.
 - NEVER hardcode hex colors. Use var(--nk-primary), var(--nk-accent), var(--nk-surface), var(--nk-text) etc. Never use bg-white / bg-light / bg-dark / bg-primary / text-white / text-dark / text-primary Bootstrap utilities — they bypass the theme. Use inline style="background: var(--nk-surface);" instead.
@@ -109,16 +112,18 @@ Node types and their inner data shapes (stringify these):
 === INTERACTIVE PAGE FEATURES ===
 The runtime supports these interactive patterns. Use them in your HTML when building features that need inline editing, charts, or drag-to-reorder:
 
-Inline edit: <span data-nk-inline-edit="field_name" data-nk-update-flow="<flow-slug>" data-nk-row-id="{id}">current value</span>
+Name flows by SLUG in all of these (the -ref attributes); the server swaps in the real ids when it saves, exactly like data-nk-flow-ref on forms.
+
+Inline edit: <span data-nk-inline-edit="field_name" data-nk-update-flow-ref="<flow-slug>" data-nk-row-id="{id}">current value</span>
 - When clicked, turns into an input. On blur, POSTs { id, field_name: newValue } to the update flow. Auto-refreshes lists.
 
-Charts: <canvas data-nk-chart="bar|line|pie|doughnut" data-nk-bind-flow="<flow-id>" data-nk-label-field="name" data-nk-value-field="amount" style="height:300px;"></canvas>
+Charts: <canvas data-nk-chart="bar|line|pie|doughnut" data-nk-bind-flow-ref="<flow-slug>" data-nk-label-field="name" data-nk-value-field="amount" style="height:300px;"></canvas>
 - Renders a chart from flow data. The flow should return rows with a label field and a value field.
 
-Sortable lists: add data-nk-sortable to a container and data-nk-reorder-flow="<flow-id>" to fire a flow with the new order.
+Sortable lists: add data-nk-sortable to a container and data-nk-reorder-flow-ref="<flow-slug>" to fire a flow with the new order.
 - Each child needs data-nk-row-id="{id}". The flow receives { order: [{ id, position }] }.
 
-Kanban board: <div data-nk-kanban data-nk-update-flow="<flow-id>" data-nk-status-field="status">
+Kanban board: <div data-nk-kanban data-nk-update-flow-ref="<flow-slug>" data-nk-status-field="status">
   <div data-nk-column="todo">To Do column</div>
   <div data-nk-column="in_progress">In Progress column</div>
   <div data-nk-column="done">Done column</div>
@@ -137,7 +142,7 @@ Each new flow needs:
 
 === OTHER PAGE EDITS ===
 Use pageEdits[] in two situations:
-1. The user's instruction explicitly targets another page ("add a testimonials section to the home page" while editing About). This is a normal, fully supported request — do it.
+1. The user's instruction explicitly targets another page ("add a FAQ section to the home page" while editing About). This is a normal, fully supported request — do it.
 2. A feature on the current page genuinely requires touching another page — e.g., adding a "My saved locations" link to the home page when you add the save-location feature to the profile page.
 
 Each entry:
@@ -181,6 +186,45 @@ Rules for suggestions:
 - If nothing meaningful to suggest, return an empty array. Better to say nothing than to pad.
 
 ${DESIGN_SYSTEM_RULES}`;
+
+/**
+ * The same job for models with small context windows (8-16K tokens, see
+ * ai/budget.ts). The full prompt plus the design system is ~15K tokens on
+ * its own, so small local models failed every request with "too large for
+ * the context"; this keeps the rules that matter and trims the node docs.
+ */
+const SYSTEM_PROMPT_COMPACT = `You are Nullkode's in-app AI builder. The user describes a change to the page they are editing. Deliver the working change, including any database tables and flows it needs. Return ONE JSON object matching the schema — no prose, no markdown, no code fences.
+
+RULES
+- Change only what was asked. Keep everything else, including the page's <nav>, <header> and <footer>, exactly as it is.
+- The instruction is about the CURRENT page unless it names another page. Edit another page through pageEdits only when its full HTML is in OTHER PAGE CONTENT; otherwise return the current page unchanged and ask the user to open that page.
+- If the message is a question, change nothing: return the current html and css unchanged with empty arrays, and answer in the explanation.
+- Reuse EXISTING tables and flows when they fit. Never recreate them, and never touch the sign-in parts (users table; login, register, logout, update-profile flows).
+- A purely visual change needs empty newTables, newFlows and pageEdits.
+- Keep every data-nk-* attribute that already exists.
+- Return the COMPLETE html of the page, not a diff.
+- Colours only through var(--nk-primary), var(--nk-accent), var(--nk-surface), var(--nk-text), var(--nk-text-muted), var(--nk-border); never hex values or Bootstrap colour classes.
+- <script> only for real browser logic (a game, a canvas), wrapped in an IIFE.
+- Honesty: never invent testimonials, reviews, ratings, customer counts, awards or certifications; prices, hours or phone numbers you weren't given are placeholders like [Your price].
+
+WIRING — always name flows by slug; the server swaps in the real ids
+- Form: <form data-nk-form="" data-nk-flow-ref="<flow-slug>"> with inputs named after the table's columns and <div data-nk-error class="text-danger small"></div>.
+- List: <div data-nk-bind-flow-ref="<list-flow-slug>"><div data-nk-item>…<span data-nk-field="<column>"></span>…</div></div>. Never put {placeholders} outside a data-nk-item.
+- Number/KPI: an aggregate flow returning [{"value":N}], shown with data-nk-field="value".
+- Chart: <canvas data-nk-chart="bar" data-nk-bind-flow-ref="<flow-slug>" data-nk-label-field="name" data-nk-value-field="total"></canvas>
+- Kanban: <div data-nk-kanban data-nk-update-flow-ref="<flow-slug>" data-nk-status-field="status"> with data-nk-column="<value>" columns; cards have data-nk-row-id="{id}" draggable="true".
+- Sortable: data-nk-sortable data-nk-reorder-flow-ref="<flow-slug>"; each child has data-nk-row-id="{id}".
+- Inline edit: <span data-nk-inline-edit="<column>" data-nk-update-flow-ref="<flow-slug>" data-nk-row-id="{id}">value</span>
+- Log out: data-nk-logout-ref="logout" data-nk-redirect="/login". Signed-in-only page: <!--nk:require-auth--> as the first line.
+
+NEW TABLES: snake_case names; fields {name, type: text|int|float|bool|timestamp|json}; never id, created_at or updated_at.
+NEW FLOWS: {name, slug (kebab-case), purpose, nodes, edges}. One "trigger" node, then steps, then a "response" node on every path. Each node's "data" is a JSON STRING. Edges out of a branch have sourceHandle "true" or "false"; all others null.
+NODE TYPES (data): trigger {} | query {"table","where":{"col":"{{trigger.x}}"},"limit":50,"output":"rows"} | insert {"table","values":{"col":"{{trigger.x}}"},"output":"inserted"} | update {"table","where":{"id":"{{trigger.id}}"},"values":{…}} | delete {"table","where":{"id":"{{trigger.id}}"}} | branch {"left","op":"==","right"} (ops ==, !=, >, <, exists, contains) | set {"name","value"} | get_session {"output":"session"} | aggregate {"table","aggregate":"COUNT(*)","groupBy":"col","output":"stats"} | custom_js {"code","output"} | response {"status":200,"body":"{{vars.rows}}"}.
+A flow feeding a list responds with body "{{vars.rows}}". A signed-in-only flow starts with get_session, then a branch on {{vars.session.userId}} "exists" (false path: status 401).
+
+EXPLANATION: one friendly sentence about what changed. SUGGESTIONS: up to 3 short next steps the user could ask for, or [].
+
+${DESIGN_RULES_COMPACT}`;
 
 /**
  * Strict-mode OpenAI structured-output schemas can't have truly optional
@@ -353,6 +397,20 @@ const EDIT_SCHEMA = {
   },
 } as const;
 
+/** EDIT_SCHEMA without the descriptions (same shape), for small-context models. */
+function withoutDescriptions(value: unknown): unknown {
+  if (Array.isArray(value)) return value.map(withoutDescriptions);
+  if (value && typeof value === "object") {
+    return Object.fromEntries(
+      Object.entries(value as Record<string, unknown>)
+        .filter(([k]) => k !== "description")
+        .map(([k, v]) => [k, withoutDescriptions(v)])
+    );
+  }
+  return value;
+}
+const EDIT_SCHEMA_COMPACT = withoutDescriptions(EDIT_SCHEMA) as Record<string, unknown>;
+
 export type EditPageResult = {
   html: string;
   css: string;
@@ -396,6 +454,10 @@ export async function editPage(opts: {
    *  must not restyle or return CSS — the server preserves the original. */
   cssOmitted?: boolean;
 }): Promise<EditPageResult> {
+  // Small-context models (8-16K) get the compact prompt, and other pages'
+  // full content only while it leaves room for the answer.
+  const window = await getContextWindow();
+  const compact = window < COMPACT_BELOW;
   const themeBlock = opts.theme
     ? `ACTIVE THEME: "${opts.theme.name ?? "custom"}" (mode: ${opts.theme.mode ?? "light"})
 Primary: ${opts.theme.primary ?? "(default)"}   Accent: ${opts.theme.accent ?? "(default)"}
@@ -423,18 +485,28 @@ Radius: ${opts.theme.radius ?? "(default)"}
         .join("\n")
     : "(no flows yet)";
 
+
+  let namedPages = opts.context.pages.filter(
+    (p) => typeof p.html === "string"
+  );
+  if (compact) {
+    // The answer repeats the page, so the page counts twice; other pages'
+    // content goes in only while a quarter of the window is still free.
+    let budget = window * 0.75 - 3500 - estimateTokens(opts.currentHtml + opts.currentCss) * 2;
+    namedPages = namedPages.filter((p) => {
+      const cost = estimateTokens(`${p.html ?? ""}${p.css ?? ""}`) * 2;
+      if (cost > budget) return false;
+      budget -= cost;
+      return true;
+    });
+  }
+  const named = new Set(namedPages.map((p) => p.slug));
   const pagesBlock = opts.context.pages.length
     ? opts.context.pages
-        .map(
-          (p) =>
-            `- ${p.slug} — ${p.title}${typeof p.html === "string" ? " (full content below)" : ""}`
-        )
+        .map((p) => `- ${p.slug} — ${p.title}${named.has(p.slug) ? " (full content below)" : ""}`)
         .join("\n")
     : "(no other pages)";
 
-  const namedPages = opts.context.pages.filter(
-    (p) => typeof p.html === "string"
-  );
   const otherPagesBlock = namedPages.length
     ? `\nOTHER PAGE CONTENT (pages the instruction names — editable via pageEdits[]):\n${namedPages
         .map(
@@ -494,23 +566,47 @@ Return the complete JSON object. Populate newTables / newFlows / pageEdits only 
 CRITICAL OUTPUT RULES: Your reply MUST start with the character "{" and end with the character "}". No preamble. No "Here's your..." text. No markdown code fences. No commentary. Just the raw JSON object.`;
 
   const content = await providerEditPage({
-    systemPrompt: SYSTEM_PROMPT,
+    systemPrompt: compact ? SYSTEM_PROMPT_COMPACT : SYSTEM_PROMPT,
     userText: userContent,
-    jsonSchema: EDIT_SCHEMA as Record<string, unknown>,
+    jsonSchema: (compact ? EDIT_SCHEMA_COMPACT : EDIT_SCHEMA) as Record<string, unknown>,
     schemaName: "nullkode_edit_page",
     attachments,
     maxCompletionTokens: 20000,
   });
 
-  if (!content) throw new Error("No content returned from AI");
+  if (!content) throw new UnusableOutputError("The AI returned an empty answer. Please try again.");
   const extracted = extractJsonObject(content);
+  let parsed: Partial<EditPageResult>;
   try {
-    return JSON.parse(extracted) as EditPageResult;
+    parsed = JSON.parse(extracted) as Partial<EditPageResult>;
   } catch (err) {
-    throw new Error(
+    throw new UnusableOutputError(
       `AI returned invalid JSON: ${err instanceof Error ? err.message : "parse error"}`
     );
   }
+  return normalizeEditResult(parsed);
+}
+
+/**
+ * Fills in what a loosely-following model left out (JSON mode on local
+ * servers doesn't enforce the schema), so callers can rely on the shape.
+ */
+function normalizeEditResult(parsed: Partial<EditPageResult> | null): EditPageResult {
+  if (!parsed || typeof parsed !== "object" || typeof parsed.html !== "string") {
+    throw new UnusableOutputError("The AI's answer couldn't be used (it had no page HTML). Please try again.");
+  }
+  const list = <T,>(v: unknown): T[] => (Array.isArray(v) ? (v as T[]) : []);
+  return {
+    html: parsed.html,
+    css: typeof parsed.css === "string" ? parsed.css : "",
+    explanation: typeof parsed.explanation === "string" && parsed.explanation.trim() ? parsed.explanation : "Updated the page.",
+    newTables: list<ScaffoldTable>(parsed.newTables),
+    newFlows: list<ScaffoldFlow>(parsed.newFlows),
+    pageEdits: list<EditPageResult["pageEdits"][number]>(parsed.pageEdits).filter(
+      (e) => e && typeof e.pageSlug === "string" && typeof e.newHtml === "string"
+    ),
+    suggestions: list<unknown>(parsed.suggestions).filter((x): x is string => typeof x === "string"),
+  };
 }
 
 /**

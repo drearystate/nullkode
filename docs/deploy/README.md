@@ -5,14 +5,34 @@ match and adapt.
 
 | File | When to use |
 |---|---|
-| [`systemd/nullkode.service`](./systemd/nullkode.service) | bare-metal Linux with systemd |
+| [`systemd/nullkode.service`](./systemd/nullkode.service) | bare-metal Linux with systemd (logs to the journal; checks the database before starting) |
+| [`systemd/nullkode-backup.timer`](./systemd/nullkode-backup.timer), [`.service`](./systemd/nullkode-backup.service), [`.sh`](./systemd/nullkode-backup.sh) | nightly backups without Docker |
+| [`logrotate/nullkode`](./logrotate/nullkode) | only if the systemd service writes log files instead of the journal |
 | [`nginx.conf`](./nginx.conf) | nginx in front of Nullkode (TLS, custom domains, SSE) |
 | [`apache.conf`](./apache.conf) | Apache 2.4 in front (mod_proxy + mod_proxy_http) |
-| [`plesk.md`](./plesk.md) | Plesk-managed VPS (Apache + nginx layered, additional vhost directives) |
+| [`plesk.md`](./plesk.md) | Plesk-managed VPS (Apache + nginx layered, additional vhost directives), and **how to update safely** ([Updating](./plesk.md#updating)) |
+| [`RESTORE.md`](./RESTORE.md) | backups, testing a backup, and restoring |
 | [`../../Caddyfile`](../../Caddyfile) | Docker install in HTTPS mode: automatic certificates for every address (the installer turns it on) |
 
 All of these are starting points — review and edit for your domain, TLS
-certs, and load-balancer setup before shipping.
+certs, and load-balancer setup before shipping. The first-time install with
+Docker is described in [START-HERE.md](../../START-HERE.md) and
+[INSTALL.md](../../INSTALL.md).
+
+## Backups, logs and updates
+
+- **Docker:** the `backup` service in `docker-compose.yml` makes a backup every
+  night while the app runs (settings: `BACKUP_*` in `.env`), and every service
+  keeps at most five 10 MB log files. `bash scripts/backup.sh` makes one now.
+- **systemd:** install `systemd/nullkode-backup.timer` with its service. The
+  app's own service logs to the journal (`journalctl -u nullkode`); if you
+  switch it to log files, install `logrotate/nullkode` too.
+- **Updating without Docker:** follow [plesk.md → Updating](./plesk.md#updating)
+  on any systemd server: back up, update the database, build next to the
+  running version, then restart. Never run `pnpm install` or
+  `prisma generate` in the live folder without updating the database and
+  restarting right after.
+- Restoring and testing backups: [RESTORE.md](./RESTORE.md).
 
 ## HTTPS and domains
 
@@ -70,7 +90,7 @@ For automatic certificates for customers' domains and app addresses without Dock
 
 ## Scheduled workflows
 
-The guided Compose setup includes a scheduler which checks due workflows every minute using CRON_SECRET. Bare-metal installations should call GET /api/cron once per minute with an Authorization: Bearer header containing CRON_SECRET. Do not log or publish the secret. Schedules use a positive number of minutes.
+The app checks for due scheduled workflows every minute by itself, so bare-metal installations need nothing extra. If you'd rather drive it from outside (for example a cron job, or with several app processes), set `NK_EXTERNAL_SCHEDULER=1` and call `GET /api/cron` once per minute with an `Authorization: Bearer` header containing `CRON_SECRET`. The guided Compose setup does exactly that: its `scheduler` service calls `/api/cron`, and `docker-compose.yml` sets `NK_EXTERNAL_SCHEDULER=1` for the app. Do not log or publish the secret.
 
 ## Native Android compilation
 

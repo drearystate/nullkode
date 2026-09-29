@@ -3,6 +3,7 @@ import { getRealUser } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { publicBaseUrlFor } from "@/lib/reseller";
 import { OpenAppButton } from "@/components/reseller/open-app-button";
+import { GiveToClientButton } from "@/components/reseller/give-to-client-button";
 
 export const dynamic = "force-dynamic";
 
@@ -22,13 +23,21 @@ export default async function ResellerAppsPage() {
     },
   });
   const base = await publicBaseUrlFor(user);
+  // Clients an app of the reseller's own can be given to (suspended ones can't receive apps).
+  const clients = (
+    await db.user.findMany({
+      where: { resellerId: reseller.id, suspendedAt: null },
+      orderBy: [{ name: "asc" }, { email: "asc" }],
+      select: { id: true, name: true, email: true },
+    })
+  ).map((c) => ({ id: c.id, label: c.name ? `${c.name} (${c.email})` : c.email }));
   return (
     <div className="space-y-6">
       <header>
         <p className="studio-eyebrow">APPS</p>
         <h1 className="mt-2 text-3xl font-semibold tracking-tight">Every client app</h1>
         <p className="mt-2 text-sm text-surface-400">
-          {apps.length} app{apps.length === 1 ? "" : "s"}{reseller.maxApps !== null && <> of {reseller.maxApps} included in your plan</>}. Open one to edit it in the client's workspace.
+          {apps.length} app{apps.length === 1 ? "" : "s"}{reseller.maxApps !== null && <> of {reseller.maxApps} included in your plan</>}. Open one to edit it in the client's workspace, or give an app you built to one of your clients.
         </p>
       </header>
       <section className="card overflow-hidden" aria-label="Apps">
@@ -54,7 +63,12 @@ export default async function ResellerAppsPage() {
                           : <span className="rounded-full bg-white/5 px-2 py-0.5 text-xs text-surface-400">Draft</span>}
                       </td>
                       <td className="px-4 py-3 text-surface-400">{a.updatedAt.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</td>
-                      <td className="px-4 py-3 text-right"><OpenAppButton projectId={a.id} ownerId={own ? null : a.owner.id} /></td>
+                      <td className="px-4 py-3 text-right">
+                        <div className="flex flex-wrap items-start justify-end gap-1">
+                          {own && <GiveToClientButton projectId={a.id} projectName={a.name} clients={clients} />}
+                          <OpenAppButton projectId={a.id} ownerId={own ? null : a.owner.id} />
+                        </div>
+                      </td>
                     </tr>
                   );
                 })}

@@ -1,7 +1,11 @@
 import { createHash, createHmac, timingSafeEqual } from "crypto";
+import { cache } from "react";
+import { permanentRedirect, redirect } from "next/navigation";
+import { headers as requestHeaders } from "next/headers";
 import type { Project } from "@prisma/client";
 import { db } from "./db";
 import { appLabelFromHost, appsDomain, normalizeHost } from "./hosts";
+import { getSetting, setSetting } from "./settings";
 
 /**
  * Which app a hostname serves, and each app's own address when the operator
@@ -33,19 +37,6 @@ export async function hostLabelFor(project: Pick<Project, "id" | "slug" | "hostL
     }
   }
   throw new Error("Couldn't give this app a web address.");
-}
-
-/**
- * In-app web views: Android apps built before the apps domain was set load
- * /app/<slug> and only allow navigation on the platform's address, so a
- * redirect would push the app out into the phone's browser. Web views never
- * hold dashboard sessions, so they can stay put; every browser still moves
- * to the app's own origin.
- */
-export function isInAppWebView(userAgent: string | null): boolean {
-  if (!userAgent) return false;
-  if (/; wv\)/.test(userAgent)) return true; // Android WebView
-  return /\((iPhone|iPad|iPod)/.test(userAgent) && /AppleWebKit\//.test(userAgent) && !/Safari\//.test(userAgent); // iOS WKWebView
 }
 
 /** https://<label>.<APPS_DOMAIN>, or null when no apps domain is set. */
@@ -106,4 +97,144 @@ export function queryString(params: Record<string, string | string[] | undefined
   for (const [k, v] of Object.entries(params)) for (const one of Array.isArray(v) ? v : v === undefined ? [] : [v]) q.append(k, one);
   const s = q.toString();
   return s ? `?${s}` : "";
+}
+
+/** The project a signed app-host request serves, looked up once per request (metadata and page share it). */
+export const projectForHostRequest = cache(async (host: string) => projectForRequestHost(host, await requestHeaders()));
+
+/* ── One address per app ──────────────────────────────────────────────────
+ * An app can answer on /app/<slug>, on <label>.<APPS_DOMAIN> and on each of
+ * its custom domains. Search engines should see one of them (the primary
+ * address, lib/seo.ts primaryUrl), so page loads elsewhere are sent there with
+ * a permanent redirect. Only top-level page loads move: API calls, the
+ * service worker, the manifest and uploads have their own routes and never
+ * redirect, and neither do embedded browsers such as the store-app shells. */
+
+/**
+ * The native shell's marker: embedded browsers. The Android shell is a
+ * WebView, whose user agent always carries "; wv)"; the iOS shell is a
+ * WKWebView, which reports WebKit without a "Safari/" token (every browser
+ * app on iOS includes one). A shell only follows addresses it was built to
+ * allow, so a redirect to a domain added later would open the phone's
+ * browser instead. In-app browsers of social apps match as well, which is
+ * harmless: they get the page at the address they asked for.
+ */
+export function isEmbeddedWebView(userAgent: string | null | undefined): boolean {
+  const ua = userAgent ?? "";
+  if (/;\s*wv\)/.test(ua)) return true;
+  return /AppleWebKit\//.test(ua) && /\b(iPhone|iPad|iPod|Macintosh)\b/.test(ua) && !/Safari\//.test(ua);
+}
+
+/** A top-level page load (a browser navigation or a crawler), not fetch(), a prefetch or a service worker. */
+export function isTopLevelPageRequest(h: Headers): boolean {
+  const mode = h.get("sec-fetch-mode");
+  if (mode && mode !== "navigate") return false;
+  const dest = h.get("sec-fetch-dest");
+  if (dest && dest !== "document") return false;
+  if (h.has("rsc") || h.has("next-router-prefetch")) return false;
+  const accept = h.get("accept");
+  return !accept || /text\/html|application\/xhtml\+xml|\*\/\*/i.test(accept);
+}
+
+// Custom domains seen serving an app over HTTPS, in Setting `seo-hosts:<projectId>`
+// ({ host: first seen }). A domain counts as the app's address as soon as its
+// owner proves they own it (a DNS TXT record), but that doesn't mean it points
+// here yet or has a certificate; people are only sent to it once it has
+// actually served the app.
+const servedKey = (projectId: string) => `seo-hosts:${projectId}`;
+const served = new Map<string, { at: number; hosts: Set<string> }>();
+const SERVED_TTL_MS = 60_000;
+
+async function servedHosts(projectId: string): Promise<Set<string>> {
+  const hit = served.get(projectId);
+  if (hit && Date.now() - hit.at < SERVED_TTL_MS) return hit.hosts;
+  const raw = await getSetting<Record<string, string>>(servedKey(projectId)).catch(() => undefined);
+  const hosts = new Set(raw && typeof raw === "object" ? Object.keys(raw) : []);
+  if (served.size >= 5000) served.delete(served.keys().next().value!);
+  served.set(projectId, { at: Date.now(), hosts });
+  return hosts;
+}
+
+/** Whether `host` has served this app over HTTPS. */
+export async function hostServesApp(projectId: string, host: string): Promise<boolean> {
+  return (await servedHosts(projectId)).has(normalizeHost(host));
+}
+
+/**
+ * Records that a custom domain just served one of this app's pages over
+ * HTTPS (the proxy in front of the app sets X-Forwarded-Proto). Writes once
+ * per domain; later calls are a memory lookup.
+ */
+export async function noteServedHost(projectId: string, host: string, h: Headers): Promise<void> {
+  const name = normalizeHost(host);
+  if (!name || appLabelFromHost(name)) return;
+  if ((h.get("x-forwarded-proto") ?? "").split(",")[0].trim().toLowerCase() !== "https") return;
+  const hosts = await servedHosts(projectId);
+  if (hosts.has(name)) return;
+  hosts.add(name);
+  try {
+    const raw = (await getSetting<Record<string, string>>(servedKey(projectId))) ?? {};
+    const record = raw && typeof raw === "object" ? { ...raw } : {};
+    record[name] = new Date().toISOString();
+    // An app has a handful of domains; keep the record small regardless.
+    const trimmed = Object.fromEntries(Object.entries(record).slice(-20));
+    await setSetting(servedKey(projectId), trimmed);
+  } catch (err) {
+    hosts.delete(name);
+    console.error("[app-hosts] couldn't record a served domain", err instanceof Error ? err.message : err);
+  }
+}
+
+export type RedirectInput = {
+  /** "path": /app/<slug>/… on a platform address; "host": the app's own address (a domain or label). */
+  route: "path" | "host";
+  requestHost: string;
+  primary: { kind: "domain" | "label" | "path"; host: string; base: string };
+  /** The primary custom domain has served the app over HTTPS. */
+  primaryServed: boolean;
+  /** https://<label>.<APPS_DOMAIN> when the operator set APPS_DOMAIN. */
+  labelOrigin: string | null;
+  topLevel: boolean;
+  webView: boolean;
+};
+
+/** Where a public page request should go instead, if anywhere. `to` has no trailing slash. */
+export function redirectTargetFor(i: RedirectInput): { to: string; permanent: boolean } | null {
+  const movable = i.topLevel && !i.webView;
+  if (i.primary.kind === "domain" && i.primaryServed && movable && normalizeHost(i.requestHost) !== i.primary.host) {
+    return { to: i.primary.base, permanent: true };
+  }
+  // With an apps domain, /app/<slug> never runs an app on the dashboard's
+  // origin (each app gets its own). Unchanged from before, for every client.
+  if (i.route === "path" && i.labelOrigin) return { to: i.labelOrigin, permanent: movable };
+  return null;
+}
+
+/**
+ * Sends a public page request to the app's primary address when it isn't
+ * already there (see redirectTargetFor). Permanent redirects are 308s: Next
+ * pages can't answer 301, and search engines treat the two the same.
+ * `path` is the page's path on the app ("/" or "/about"); `search` its "?…".
+ */
+export async function redirectToPrimary(
+  project: Pick<Project, "id" | "slug"> & { hostLabel?: string | null },
+  primary: RedirectInput["primary"],
+  opts: { route: "path" | "host"; requestHost?: string; path: string; search: string },
+): Promise<void> {
+  const h = await requestHeaders();
+  const requestHost = opts.requestHost ?? normalizeHost(h.get("host"));
+  const labelOrigin = opts.route === "path" ? await appOrigin({ id: project.id, slug: project.slug, hostLabel: project.hostLabel ?? null }) : null;
+  const target = redirectTargetFor({
+    route: opts.route,
+    requestHost,
+    primary,
+    primaryServed: primary.kind === "domain" ? await hostServesApp(project.id, primary.host) : false,
+    labelOrigin,
+    topLevel: isTopLevelPageRequest(h),
+    webView: isEmbeddedWebView(h.get("user-agent")),
+  });
+  if (!target) return;
+  const url = `${target.to}${opts.path.startsWith("/") ? opts.path : `/${opts.path}`}${opts.search}`;
+  if (target.permanent) permanentRedirect(url);
+  redirect(url);
 }

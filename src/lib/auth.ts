@@ -48,6 +48,8 @@ export async function createSession(
   await db.session.create({
     data: { userId, token, expiresAt, ip: opts.ip, userAgent: opts.userAgent },
   });
+  // Signing in counts as being active (see noteActivity).
+  noteActivity(userId, null);
 
   const jwt = await new SignJWT({ sub: userId, sid: token })
     .setProtectedHeader({ alg: "HS256" })
@@ -87,6 +89,32 @@ type LoadedSession = {
   user: User & { ownedReseller?: { id: string; status: string } | null };
 };
 
+/** "Last active" (User.lastSeenAt) is written at most this often per account. */
+const LAST_SEEN_EVERY_MS = 10 * 60_000;
+// When this process last wrote each account's lastSeenAt, so a burst of
+// requests doesn't even reach the database.
+const lastSeenWrites = new Map<string, number>();
+
+/**
+ * Records that the account is active, for "Last active" on the reseller's
+ * client list. Never blocks or fails the request.
+ */
+function noteActivity(userId: string, lastSeenAt: Date | null): void {
+  const now = Date.now();
+  if (lastSeenAt && now - lastSeenAt.getTime() < LAST_SEEN_EVERY_MS) return;
+  const written = lastSeenWrites.get(userId);
+  if (written !== undefined && now - written < LAST_SEEN_EVERY_MS) return;
+  if (lastSeenWrites.size >= 5_000) {
+    for (const [id, at] of lastSeenWrites) if (now - at >= LAST_SEEN_EVERY_MS) lastSeenWrites.delete(id);
+  }
+  lastSeenWrites.set(userId, now);
+  const cutoff = new Date(now - LAST_SEEN_EVERY_MS);
+  // Plain SQL, so the account's updatedAt keeps meaning "the account changed".
+  void db.$executeRaw`UPDATE "User" SET "lastSeenAt" = NOW() WHERE "id" = ${userId} AND ("lastSeenAt" IS NULL OR "lastSeenAt" < ${cutoff})`.catch(
+    (err: unknown) => console.error("[auth] couldn't record activity", err instanceof Error ? err.message : err),
+  );
+}
+
 async function loadSession(): Promise<LoadedSession | null> {
   const jar = await cookies();
   const jwt = jar.get(SESSION_COOKIE)?.value;
@@ -101,6 +129,9 @@ async function loadSession(): Promise<LoadedSession | null> {
     });
     if (!session || session.expiresAt < new Date()) return null;
     if (isBlocked(session.user)) return null;
+    // Someone opening a client's workspace (the operator or a reseller) is
+    // not that client being active.
+    if (!session.impersonatingUserId) noteActivity(session.userId, session.user.lastSeenAt);
     return {
       id: session.id,
       token: session.token,

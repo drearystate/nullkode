@@ -1,6 +1,7 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { solvePow } from "@/lib/pow";
+import { DEFAULT_NEXT, ideaFromNext, safeNext } from "@/lib/safe-next";
 
 type Variant = "dark" | "light";
 
@@ -12,10 +13,14 @@ const MIN_TICKET_AGE_MS = 1_800;
 export function AuthForm({
   mode,
   variant = "dark",
+  next = DEFAULT_NEXT,
 }: {
   mode: "login" | "signup";
   variant?: Variant;
+  /** Where to go once signed in: a path on this site (checked again here). */
+  next?: string;
 }) {
+  const destination = safeNext(next);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -74,6 +79,8 @@ export function AuthForm({
       if (wait > 0) await new Promise((r) => setTimeout(r, wait));
       const { issuedAt: _issuedAt, ...proof } = ticket;
       extra = { ...proof, website, company };
+      // Came from the home page's "What should your app do?" box.
+      if (ideaFromNext(destination)) extra.arrivedWithIdea = true;
     }
     return fetch(`/api/auth/${mode}`, {
       method: "POST",
@@ -102,7 +109,7 @@ export function AuthForm({
         if (mode === "signup") startTicket();
         throw new Error(data.error ?? "Something went wrong");
       }
-      window.location.href = "/dashboard";
+      window.location.href = destination;
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong");
     } finally {

@@ -165,7 +165,12 @@ export type ResponseNode = BaseNode<
   {
     label?: string;
     status?: number;
-    body?: string;
+    /**
+     * A JSON template ('{"ok":true,"answer":"{{vars.answer}}"}'; values inside
+     * JSON strings are escaped), or an object whose texts are filled in
+     * ({ message: "{{vars.answer}}" }). Empty sends back all of the flow's values.
+     */
+    body?: string | Record<string, unknown> | unknown[];
     bodyFields?: Record<string, string>;
   }
 >;
@@ -227,8 +232,18 @@ export type MathNode = BaseNode<
   {
     label?: string;
     left?: string;
-    op?: "+" | "-" | "*" | "/" | "%";
+    /** "random_int": a whole number from `min` to `max` (both included). */
+    op?: "+" | "-" | "*" | "/" | "%" | "random_int";
     right?: string;
+    /** For "random_int". Templates are allowed ("{{vars.low}}"). */
+    min?: string | number;
+    max?: string | number;
+    /**
+     * A small formula, used instead of left/op/right: numbers, {{values}},
+     * + - * / %, brackets, and floor(), ceil(), round() and random().
+     * Example: "floor(random()*900000)+100000" (a 6-digit code).
+     */
+    expression?: string;
     output?: string;
   }
 >;
@@ -383,12 +398,34 @@ export type AggregateNode = BaseNode<
   }
 >;
 
+/**
+ * Where a run came from: the owner testing in the builder ("test"), a visitor
+ * or another site calling the published app ("live"), the scheduler
+ * ("schedule"), an app event ("event"), or the owner's "Send a test
+ * submission" button ("test-submission").
+ */
+export type RunSource = "test" | "live" | "schedule" | "event" | "test-submission";
+
 export type RunContext = {
   trigger: unknown;
   vars: Record<string, unknown>;
   projectId: string;
   flowId: string;
   cookies: Record<string, string>;
+  /**
+   * The owner testing in the builder, or the platform itself (schedules).
+   * Untrusted runs get the visitor limits (email caps) and friendly errors.
+   */
+  trusted: boolean;
+  /** The visitor's address (X-Real-IP) when a request started the run. */
+  clientIp: string | null;
+  source: RunSource;
+  /** Plain text fed to hash_password / verify_password steps; masked in the stored run. */
+  secrets: Set<string>;
+  /** Problems that didn't stop the run, in plain words (an email that wasn't sent). */
+  warnings: string[];
+  /** Set when only people with a role (the app's staff) can run the flow. */
+  staffOnly?: boolean;
 };
 
 export type RunResult = {
@@ -397,4 +434,12 @@ export type RunResult = {
   vars: Record<string, unknown>;
   setCookies: Array<{ name: string; value: string; expires?: Date; maxAge?: number }>;
   trace: Array<{ nodeId: string; type: string; durationMs: number; ok: boolean; error?: string }>;
+  /** The stored FlowRun row, when it could be written. */
+  runId?: string;
+  /** A step failed; the stored run has the details. */
+  failed?: boolean;
+  /** A verify_password step said no (sign-in rate limits count these). */
+  authFailed?: boolean;
+  /** Problems that didn't stop the run (also kept in the stored run). */
+  warnings?: string[];
 };

@@ -1,0 +1,37 @@
+# Form for the "Share a template" discussion category. The file name must
+# match the category's slug (share-a-template), which is created by hand in
+# the repository's Discussions settings.
+title: "Template: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Share an app design others can start from. Export it from the app's Publish page (Download code) and attach the .zip, or describe it. Photos must be free to reuse (for example CC0), with their credits.
+  - type: input
+    id: business
+    attributes:
+      label: What kind of business or project is it for?
+      placeholder: Yoga studio
+    validations:
+      required: true
+  - type: textarea
+    id: contents
+    attributes:
+      label: What's in it?
+      description: Pages, features (bookings, shop, sign-in...), and anything special.
+    validations:
+      required: true
+  - type: textarea
+    id: files
+    attributes:
+      label: Screenshots and the exported .zip
+      description: Drag files in here. Remove any real customer data before exporting.
+  - type: checkboxes
+    id: rights
+    attributes:
+      label: Rights
+      options:
+        - label: I made this design (or have the right to share it), and it may be shared under the MIT licence.
+          required: true
+        - label: Every photo in it is free to reuse, and its credit is included.
+          required: true

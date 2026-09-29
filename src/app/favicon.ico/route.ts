@@ -62,7 +62,7 @@ export async function GET() {
     // the static asset.
   }
   // Fallback chain.
-  for (const fname of ["favicon.ico", "nullkode.png"]) {
+  for (const fname of ["favicon-64.png", "nullkode.png"]) {
     try {
       const bytes = await readFile(path.join(process.cwd(), "public", fname));
       const mime = fname.endsWith(".ico") ? "image/x-icon" : "image/png";

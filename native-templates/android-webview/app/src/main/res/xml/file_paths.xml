@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Folders SharedFileProvider may share with other apps, and only through a
+  one-time grant: the camera app writes a photo or video for an upload here.
+-->
+<paths>
+    <cache-path name="captures" path="captures/" />
+</paths>

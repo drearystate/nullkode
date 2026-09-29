@@ -12,9 +12,12 @@ import { Pool } from "pg";
 import type { DataSource } from "@prisma/client";
 import { db } from "@/lib/db";
 import { getAdapter } from "@/lib/datasources";
+import { projectSchemaName } from "@/lib/datasources/postgres";
+import { columnLabel, tableLabel } from "@/lib/data-labels";
+import { SENSITIVE_COLUMN } from "@/lib/sensitive";
 import { json } from "@/lib/utils";
 
-export const SENSITIVE_COLUMN = /password|_hash$|secret|token/i;
+export { SENSITIVE_COLUMN };
 const IDENT = /^[a-zA-Z_][a-zA-Z0-9_]*$/;
 const READ_ONLY_COLUMNS = new Set(["id", "created_at", "updated_at", "created_by"]);
 export const MAX_PAGE_SIZE = 200;
@@ -45,7 +48,11 @@ function pool(): Pool {
 }
 
 export function schemaFor(projectId: string) {
-  return `proj_${projectId.replace(/[^a-zA-Z0-9_]/g, "")}`;
+  try {
+    return projectSchemaName(projectId);
+  } catch {
+    throw new DataError("We couldn't find that app.", 404);
+  }
 }
 
 function q(name: string) {
@@ -55,37 +62,7 @@ function q(name: string) {
 
 /* ── Friendly names ─────────────────────────────────────────── */
 
-const TABLE_LABELS: Record<string, string> = {
-  auth_users: "People who signed up",
-};
-const COLUMN_LABELS: Record<string, string> = {
-  id: "ID",
-  created_at: "Added",
-  updated_at: "Last changed",
-  created_by: "Added by",
-  email: "Email",
-  url: "Link",
-};
-
-function words(name: string) {
-  const parts = name
-    .replace(/([a-z])([A-Z])/g, "$1 $2")
-    .split(/[_\s-]+/)
-    .filter(Boolean)
-    .map((w) => w.toLowerCase());
-  // "bookings_bookings" -> "bookings"
-  const deduped = parts.filter((w, i) => i === 0 || w !== parts[i - 1]);
-  const s = deduped.join(" ");
-  return s ? s[0].toUpperCase() + s.slice(1) : name;
-}
-
-export function tableLabel(name: string) {
-  return TABLE_LABELS[name] ?? words(name);
-}
-
-export function columnLabel(name: string) {
-  return COLUMN_LABELS[name] ?? words(name).replace(/\bid\b/i, "ID");
-}
+export { tableLabel, columnLabel };
 
 /* ── Tables ─────────────────────────────────────────────────── */
 
@@ -364,7 +341,7 @@ async function readOutsideRows(table: Resolved, opts: RowQuery): Promise<RowsRes
 async function writableShape(projectId: string, key: string) {
   const table = await resolveTable(projectId, key);
   if (table.source.kind !== "POSTGRES_INTERNAL") {
-    throw new DataError("This table lives outside NullKode, so it can't be changed here.", 400);
+    throw new DataError("This table lives in Google Sheets or your own database, so it can't be changed here.", 400);
   }
   const shape = await internalShape(projectId, table);
   if (!shape.editable) throw new DataError(shape.note ?? "This table can't be changed here.");

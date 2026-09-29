@@ -13,7 +13,7 @@ Nullkode is a complete, self-hosted app builder. Each installation is independen
 4. The installer asks a few questions. On your own computer, press Enter for each one: no domain name, the address `http://localhost:3001`, and no Android apps. (On a server with a domain name, see [Put it on a public domain](#put-it-on-a-public-domain-automatic-https). For Android apps, see [Build Android apps](#build-android-apps-optional).) The first build downloads dependencies and may take several minutes. Keep the installer open.
 5. Open **http://localhost:3001/install**. Copy the private setup code printed by the installer, create your owner account, and follow the three setup steps.
 
-You can skip AI and start with templates, website import, or the visual editor. All five building methods are included. Your browser can be closed without stopping the server. Restart it later by running the installer again; existing settings and data are preserved.
+You can skip AI and start with templates, website import, or the visual editor. All six ways to start an app are included: describe it to the AI, the AI Designer, templates, copying a website, a blank app, and importing an app from a backup. Your browser can be closed without stopping the server. Restart it later by running the installer again; existing settings and data are preserved.
 
 The source package needs an internet connection for its first build. It includes all application source, but downloads standard dependencies and container images. Local AI models are separate downloads and need hardware sufficient for the model you choose.
 
@@ -30,6 +30,10 @@ In **Administration → Settings**, choose OpenAI / compatible API.
 The app builds in smaller steps, detects how much text the model can read at once and uses shorter instructions for small models, and turns off slow "thinking" on local servers unless you switch it on. It never changes to a more expensive provider on its own. A command-line AI agent can optionally power the Designer; the normal installation does not need it. Image generation requires a separate image-capable service; a text model does not provide image generation.
 
 Running AI on your own computer or server: see [docs/local-ai.md](docs/local-ai.md). Selling this platform to agencies under their own brand: see [docs/resellers.md](docs/resellers.md).
+
+## Send email
+
+Nullkode sends invitations, password links, and alerts to app owners, and apps can send their own emails (booking confirmations, sign-up codes). Set it up in **Administration → Settings → Email** with any email provider's SMTP details, then press **Send a test email to me**. Use port 587; many servers block port 25. Until email is set up, invitation and password links are shown on screen instead. Examples for common providers: [docs/email.md](docs/email.md).
 
 ## Run your own business
 
@@ -112,13 +116,32 @@ Your server signs every APK with a key it creates on the first build. The key is
 
 ## Back up, update, or move
 
-Run `bash scripts/backup.sh` before updating. It saves the database, uploads, imported assets, and `.env` together in `backups/`. **Keep this private**: `.env` contains the encryption key needed to read saved AI/payment keys. Copy the backup to another device.
+**Nullkode backs itself up every night** at 03:30, while it keeps running: the database, uploaded files, and once a week the files of imported websites. Backups go into the `backups` folder next to `install.sh`. The last 7 daily and 4 weekly backups are kept, and the admin pages show when the last one ran. To change the time or where backups go, set `BACKUP_TIME`, `TZ` and `BACKUP_DIR` in `.env` (see `.env.example`) and run the installer again.
 
-To update, keep your `.env` and Compose project name, replace application source with the new release, then run the installer again. Database volumes persist. Startup refuses destructive schema changes; read the release's migration notes if it stops. Never run `docker compose down -v` on an installation you want to keep.
+**Keep `.env` safe as well.** It holds the key that unlocks the AI and payment keys saved in the database. Add a passphrase to `.env`, for example `BACKUP_PASSPHRASE=a long sentence only you know`, and every backup includes an encrypted copy of `.env`. Write the passphrase down somewhere away from this computer. Without a passphrase, backups leave `.env` out, so keep your own copy.
 
-Restore instructions: `docs/deploy/RESTORE.md`.
+**Copy backups to another device** from time to time: a backup on the same disk doesn't help if the disk fails. Backups hold your customers' data, so keep them private.
+
+Make a backup yourself before every update:
+
+- Linux or macOS: `bash scripts/backup.sh`
+- Windows (PowerShell, in the Nullkode folder): `docker compose run --rm backup once`
+
+Check that a backup really works, without touching your installation: `bash scripts/restore.sh backups/<backup folder> --verify`.
+
+To update, make a backup, keep your `.env` and Compose project name, replace the application files with the new release, then run the installer again. Database volumes persist. Startup refuses destructive schema changes; read the release's migration notes if it stops. Never run `docker compose down -v` on an installation you want to keep: it deletes your data.
+
+To restore a backup or move to a new server: [docs/deploy/RESTORE.md](docs/deploy/RESTORE.md).
 
 HTTPS certificates don't need a backup. After moving to a new server, point your DNS records at it and the certificates are made again on the first visits.
+
+## Keep an eye on it
+
+- `/api/health` answers 200 when the app and its database are working. Point an uptime monitor (Uptime Kuma, Healthchecks.io, or your hosting company's) at it.
+- Set `BACKUP_HEARTBEAT_URL` in `.env` to a monitor's "push" address, and it's opened after each nightly backup: when backups stop, the monitor tells you.
+- Docker keeps at most 50 MB of logs for each part of Nullkode: `docker compose logs --tail=100 app` shows the latest.
+
+More for operators (health details, housekeeping, updates): [docs/operations.md](docs/operations.md).
 
 ## Troubleshooting
 

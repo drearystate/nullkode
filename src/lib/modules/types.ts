@@ -30,8 +30,15 @@ export type ModuleCategory =
  * what they depend on. Declaring them lets the module gallery warn about
  * unmet requirements, and paves the way for automatic wiring between
  * modules that share the same capability (v2 — today it's informational).
+ *
+ * Phone features ("camera", "location") go in `provides` only: installing
+ * the module adds that feature to the app, so its store apps ask for the
+ * phone's permission (src/lib/native-permissions.ts). Never put them in
+ * `requires`: no module provides them, so the install would be refused.
  */
 export type ModuleCapability =
+  | "camera" // shows the phone's camera in the page (getUserMedia), e.g. a QR scanner
+  | "location" // asks for the visitor's location (navigator.geolocation)
   | "auth-session" // reads or writes the project's user session cookie
   | "auth-users" // owns the users table (register / login flows)
   | "map" // renders a Leaflet map with location data

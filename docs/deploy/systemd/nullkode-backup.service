@@ -1,0 +1,34 @@
+# Nightly Nullkode backup for servers without Docker. Started by
+# nullkode-backup.timer; to make one now: sudo systemctl start nullkode-backup
+#
+# Install (adjust /opt/nullkode, the user and the backup folder first):
+#   sudo install -d -o nullkode -g nullkode -m 700 /var/backups/nullkode
+#   sudo cp docs/deploy/systemd/nullkode-backup.service docs/deploy/systemd/nullkode-backup.timer /etc/systemd/system/
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now nullkode-backup.timer
+# Check:
+#   systemctl list-timers nullkode-backup.timer
+#   journalctl -u nullkode-backup -n 50
+[Unit]
+Description=Nullkode backup
+After=network.target postgresql.service
+Wants=postgresql.service
+
+[Service]
+Type=oneshot
+# The same user as nullkode.service: it needs to read .env and the uploads
+# folders, and write to the backup folder.
+User=nullkode
+Group=nullkode
+WorkingDirectory=/opt/nullkode
+Environment=NULLKODE_DIR=/opt/nullkode
+Environment=BACKUP_DIR=/var/backups/nullkode
+Environment=PATH=/usr/local/bin:/usr/bin:/bin
+# DATABASE_URL and the BACKUP_* settings. A BACKUP_DIR set in .env wins over
+# the line above.
+EnvironmentFile=/opt/nullkode/.env
+ExecStart=/usr/bin/env bash /opt/nullkode/docs/deploy/systemd/nullkode-backup.sh
+# Backups are big, slow writes: let the app go first.
+Nice=10
+IOSchedulingClass=idle
+TimeoutStartSec=6h

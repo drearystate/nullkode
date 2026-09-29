@@ -116,10 +116,10 @@ export const whatsappOrder: ModuleDefinition = {
     <div class="card shadow-sm sticky-top" style="top:1rem;">
       <div class="card-body">
         <h5 class="fw-bold"> Your order</h5>
-        <ul class="list-unstyled small" id="nk-cart"><li style="color:var(--nk-text-muted);">Nothing in your cart yet.</li></ul>
+        <ul class="list-unstyled small" id="nk-cart" aria-live="polite"><li style="color:var(--nk-text-muted);">Nothing in your cart yet.</li></ul>
         <div class="d-flex justify-content-between fw-bold border-top pt-2"><span>Total</span><span>$<span id="nk-total">0</span></span></div>
-        <input id="nk-name" class="form-control mt-3" placeholder="Your name"/>
-        <input id="nk-phone" class="form-control mt-2" placeholder="Phone"/>
+        <input id="nk-name" class="form-control mt-3" placeholder="Your name" aria-label="Your name" autocomplete="name"/>
+        <input id="nk-phone" class="form-control mt-2" placeholder="Phone" aria-label="Phone" autocomplete="tel"/>
         <button class="btn btn-success btn-lg w-100 mt-3" id="nk-send" type="button">Order via WhatsApp →</button>
       </div>
     </div>
@@ -127,13 +127,14 @@ export const whatsappOrder: ModuleDefinition = {
 </div>
 </div></section>
 <script>(function(){
+  function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
   var cart = {};
   function refresh(){
     var ul = document.getElementById('nk-cart'); var total = 0;
     var keys = Object.keys(cart);
     ul.innerHTML = keys.length ? keys.map(function(k){
       var it = cart[k]; total += it.qty * it.price;
-      return '<li class="d-flex justify-content-between py-1"><span>'+it.qty+'× '+it.name+'</span><span>$'+(it.qty*it.price).toFixed(2)+'</span></li>';
+      return '<li class="d-flex justify-content-between py-1"><span>'+esc(it.qty)+'× '+esc(it.name)+'</span><span>$'+(it.qty*it.price).toFixed(2)+'</span></li>';
     }).join('') : '<li style="color:var(--nk-text-muted);">Nothing in your cart yet.</li>';
     document.getElementById('nk-total').textContent = total.toFixed(2);
   }
@@ -148,11 +149,11 @@ export const whatsappOrder: ModuleDefinition = {
     refresh();
   });
   document.getElementById('nk-send').addEventListener('click', function(){
-    var keys = Object.keys(cart); if(!keys.length){ alert('Add items first'); return; }
+    var keys = Object.keys(cart); if(!keys.length){ (window.nkToast||alert)('Add something to your order first.'); return; }
     var total = 0; var lines = keys.map(function(k){ var it = cart[k]; total += it.qty * it.price; return '• '+it.qty+'× '+it.name+' — $'+(it.qty*it.price).toFixed(2); });
     var name = document.getElementById('nk-name').value || 'Customer';
     var phone = document.getElementById('nk-phone').value || '';
-    var msg = 'Hi! New order from '+name+'%0A%0A' + encodeURIComponent(lines.join('\\n')) + '%0A%0ATotal: $'+total.toFixed(2)+'%0APhone: '+encodeURIComponent(phone);
+    var msg = encodeURIComponent('Hi! New order from '+name)+'%0A%0A' + encodeURIComponent(lines.join('\\n')) + '%0A%0ATotal: $'+total.toFixed(2)+'%0APhone: '+encodeURIComponent(phone);
     fetch('/api/run/' + ((window.__nkFlowSlugMap||{})['place-order']||'place-order'), { method:'POST', headers:{'content-type':'application/json'}, body: JSON.stringify({ customer_name:name, phone:phone, items_json: JSON.stringify(cart), total: total }) }).finally(function(){
       location.href = 'https://wa.me/{{config.whatsappNumber}}?text=' + msg;
     });

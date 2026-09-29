@@ -1,10 +1,18 @@
 import { notFound } from "next/navigation";
-import { appPublicUrl } from "@/lib/reseller";
+import { appPublicUrl, getRequestBrand } from "@/lib/reseller";
 import QRCode from "qrcode";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
 import { PublishPanel, CopyAppLink, MakeLiveButton } from "@/components/publish-panel";
+import { SearchSharingCard } from "@/components/search-sharing-card";
 import { hasUnpublishedChanges } from "@/lib/deployments";
+import { appIconUrl } from "@/lib/app-icon";
+import { pageSeo, shareCardUrl, sitemapUrl } from "@/lib/seo";
+
+/** A picture address this screen can load: same-server files by path, others as they are. */
+function previewSrc(url: string, origin: string): string {
+  return url.startsWith(`${origin}/`) ? url.slice(origin.length) : url;
+}
 
 export default async function PublishPage({
   params,
@@ -29,6 +37,11 @@ export default async function PublishPage({
   const qrDataUrl = project.published
     ? await QRCode.toDataURL(publicUrl, { margin: 1, width: 160 }).catch(() => null)
     : null;
+  const { brand } = await getRequestBrand(user);
+  // How the home page looks to search engines and in shared links (the live
+  // version once published; the draft before that).
+  const seo = await pageSeo(project);
+  const cardImage = seo ? previewSrc(await shareCardUrl(project, seo.primary.origin), seo.primary.origin) : "";
 
   return (
     <div className="mx-auto max-w-4xl px-6 py-10">
@@ -86,6 +99,26 @@ export default async function PublishPage({
           ))}
         </div>
       </div>
+
+      {seo && (
+        <SearchSharingCard
+          projectId={id}
+          published={project.published}
+          description={project.description ?? ""}
+          pageParagraph={seo.pageParagraph}
+          designerDescription={seo.descriptionSource === "designer" ? seo.description : null}
+          title={seo.title}
+          address={seo.canonical}
+          image={previewSrc(seo.image, seo.primary.origin)}
+          imageIsCard={seo.imageIsCard}
+          cardImage={cardImage}
+          iconUrl={appIconUrl(project, 64)}
+          siteName={seo.siteName}
+          noindex={seo.hiddenApp}
+          searchConsoleToken={seo.searchConsoleToken}
+          sitemapUrl={sitemapUrl(seo.primary)}
+        />
+      )}
 
       <div className="card p-6 mt-6">
         <h2 className="font-semibold">Install on devices</h2>
@@ -206,8 +239,8 @@ export default async function PublishPage({
             <h2 className="font-semibold">Back up or move your app</h2>
             <p className="mt-1 text-sm text-surface-400 max-w-xl">
               One file with every page, flow, table and row, your theme and your
-              images. Keep it as a backup, or import it into any NullKode server
-              (New app → More ways to start → Import an app). App passwords
+              images. Keep it as a backup, or import it into {brand.appName} or a
+              compatible server (New app → More ways to start → Import an app). App passwords
               aren&apos;t included, so people reset theirs after a move.
             </p>
           </div>

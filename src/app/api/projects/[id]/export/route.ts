@@ -5,6 +5,8 @@ import { themeToCss, type ProjectTheme } from "@/lib/theme";
 import { Pool } from "pg";
 import JSZip from "jszip";
 import { readPublicAsset, referencedAssets } from "@/lib/bundle-assets";
+import { getRequestBrand } from "@/lib/reseller";
+import { newRedactionReport, redactFlowGraph, redactModuleConfig, redactRow } from "@/lib/export-secrets";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -21,7 +23,16 @@ export const dynamic = "force-dynamic";
  *   flows/<slug>.json    each flow's graph + http config
  *   tables/<name>.schema.json  declared columns
  *   tables/<name>.rows.json    snapshot of every row in the table
- *   assets/<path>        every file under /uploads/<projectId>/
+ *   assets/<path>        every uploaded image or file the pages or data use
+ *
+ * Private keys never leave in the zip: secret module settings (Stripe
+ * secret, SMS token, API keys) are blanked in project.json and in the flow
+ * steps they were copied into, and password, hash, secret and token columns
+ * are emptied in the table rows (see src/lib/export-secrets.ts). The README
+ * says so, so the owner knows to enter the keys again after an import.
+ *
+ * White-label: the README names the owner's brand (their reseller's for a
+ * reseller's clients), never this platform.
  *
  * Project owner only. Streams the zip with a sensible filename so the
  * browser saves it as `<slug>-export-YYYY-MM-DD.zip`.
@@ -46,6 +57,17 @@ export async function GET(_req: Request, ctx: { params: Promise<{ id: string }> 
   const zip = new JSZip();
   // Row data, kept to find images it points at.
   const dataTexts: string[] = [];
+  const { brand } = await getRequestBrand(user);
+
+  // Private keys: blanked in the module settings, and wherever the flows
+  // copied them.
+  const redaction = newRedactionReport();
+  const secretValues = new Set<string>();
+  const modules = project.modules.map((m) => ({
+    moduleId: m.moduleId,
+    version: m.version,
+    config: redactModuleConfig(m.config, secretValues, redaction),
+  }));
 
   // ── Meta ─────────────────────────────────────────────────────
   zip.file(
@@ -59,11 +81,7 @@ export async function GET(_req: Request, ctx: { params: Promise<{ id: string }> 
         theme: project.theme,
         icon: project.icon,
         published: project.published,
-        modules: project.modules.map((m) => ({
-          moduleId: m.moduleId,
-          version: m.version,
-          config: m.config,
-        })),
+        modules,
         // Page order, titles and the home page, so the app can be imported
         // again exactly as it was (the files in pages/ are keyed by slug).
         pages: project.pages.map((p) => ({ slug: p.slug, title: p.title, isHome: p.isHome, file: sanitize(p.slug || "page") })),
@@ -106,7 +124,7 @@ export async function GET(_req: Request, ctx: { params: Promise<{ id: string }> 
           httpMethod: flow.httpMethod,
           schedule: flow.schedule,
           enabled: flow.enabled,
-          graph: flow.graph,
+          graph: redactFlowGraph(flow.graph, secretValues, redaction),
         },
         null,
         2,
@@ -131,15 +149,9 @@ export async function GET(_req: Request, ctx: { params: Promise<{ id: string }> 
           const rows = await pool.query(
             `SELECT * FROM ${qident(schema)}.${qident(t.name)} ORDER BY id ASC`,
           );
-          // Strip password_hash from any users-y table — even a backup zip
-          // shouldn't ship hashed passwords; they're regenerable on import.
-          const stripped = rows.rows.map((r: Record<string, unknown>) => {
-            const out: Record<string, unknown> = { ...r };
-            for (const k of Object.keys(out)) {
-              if (/^password|_hash$/i.test(k)) out[k] = null;
-            }
-            return out;
-          });
+          // No passwords, password hashes, secrets or tokens — even a
+          // backup zip shouldn't ship them; people sign up again or reset.
+          const stripped = rows.rows.map((r: Record<string, unknown>) => redactRow(r));
           const rowsJson = JSON.stringify(stripped, null, 2);
           dataTexts.push(rowsJson);
           zip.file(`tables/${safe}.rows.json`, rowsJson);
@@ -166,7 +178,7 @@ export async function GET(_req: Request, ctx: { params: Promise<{ id: string }> 
   }
 
   // ── README ───────────────────────────────────────────────────
-  zip.file("README.md", readme(project.name, project.slug));
+  zip.file("README.md", readme(project.name, project.slug, brand.appName, redaction.removed > 0));
 
   const buffer = await zip.generateAsync({ type: "nodebuffer", compression: "DEFLATE" });
   const filename = `${sanitize(project.slug || project.id)}-export-${new Date().toISOString().slice(0, 10)}.zip`;
@@ -190,10 +202,10 @@ function qident(name: string): string {
 }
 
 
-function readme(name: string, slug: string): string {
+function readme(name: string, slug: string, brandName: string, secretsRemoved: boolean): string {
   return `# ${name}
 
-This is a portable backup of your Nullkode app **${name}** (\`${slug}\`).
+This is a portable backup of your ${brandName} app **${name}** (\`${slug}\`).
 It contains everything you built — pages, flows, data, theme, assets — in
 plain files you can read, archive, or re-import later.
 
@@ -206,13 +218,20 @@ plain files you can read, archive, or re-import later.
 - **tables/** — for every data table:
     - \`<name>.schema.json\` — declared column definitions.
     - \`<name>.rows.json\` — snapshot of every row at export time.
-    - Password hashes are scrubbed from any user tables.
+    - Passwords, password hashes, secrets and tokens are left out of the rows.
 - **assets/** — files you uploaded (images, etc.), mirroring the original folder layout.
+${secretsRemoved ? `
+## Private keys
 
+Secrets were removed; re-enter them after import. Private keys you added to
+features (for example a Stripe secret key, an SMS token or an API key) are
+left out of this file, so it is safe to store and share. After you import
+the app, open those features and type the keys in again.
+` : ""}
 ## What you can do with it
 
 - **Archive it** — a snapshot of the app as it was on the day of export.
-- **Re-import** — bring it back into Nullkode (your account or another instance)
+- **Re-import** — bring it back into ${brandName} (your account or another instance)
   to restore the app to this state.
 - **Read it** — the HTML, CSS, theme, and flow graphs are all human-readable.
   Useful for moving content elsewhere, auditing, or learning how it's wired.
@@ -220,9 +239,9 @@ plain files you can read, archive, or re-import later.
 ## What this does NOT do
 
 This zip is a *backup*, not a standalone runnable app. The flows are graphs,
-not server code — running them needs Nullkode's flow runtime. If you want a
-self-hostable version of the app that runs anywhere, that's a separate
-export format (coming later).
+not server code — running them needs ${brandName}'s flow runtime. If you want a
+copy of the app that runs without a server, download the offline version
+from the Publish tab.
 
 Exported: ${new Date().toISOString()}
 `;

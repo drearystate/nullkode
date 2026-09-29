@@ -10,6 +10,8 @@ export const qrScanner: ModuleDefinition = {
   color: "from-slate-700 to-gray-900",
   category: "utility",
   version: "1.0.0",
+  // Store apps ask for the camera (see src/lib/native-permissions.ts).
+  provides: ["camera"],
   config: [
     { key: "heading", label: "Heading", type: "text", default: "Scan a QR code", required: true },
   ],

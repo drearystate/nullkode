@@ -136,13 +136,15 @@ export const dripContent: ModuleDefinition = {
 <p style="color:var(--nk-text-muted);">Day <span id="nk-day">—</span> of {{config.programName}}.</p>
 <div id="nk-lessons" class="mt-3">Loading…</div>
 <script>(function(){
+  function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
   var email = new URLSearchParams(location.search).get('email') || '';
   if(!email){ document.getElementById('nk-lessons').innerHTML = '<div class="alert alert-info">Pass <code>?email=…</code> in the URL to view available lessons.</div>'; return; }
   fetch('/api/run/' + ((window.__nkFlowSlugMap||{})['available']||'available'), { method:'POST', headers:{'content-type':'application/json'}, body: JSON.stringify({user_email:email}) })
     .then(function(r){return r.json();}).then(function(d){
+      d = d || {};
       document.getElementById('nk-day').textContent = d.days || 0;
-      var html = (d.lessons||[]).map(function(l, i){
-        return '<div class="card border-0 shadow-sm mb-3"><div class="card-body"><div class="small text-uppercase fw-bold" style="color:var(--nk-text-muted);">Day '+l.day_offset+'</div><h4 class="fw-bold">'+l.title+'</h4><p>'+l.body+'</p></div></div>';
+      var html = (Array.isArray(d.lessons)?d.lessons:[]).map(function(l, i){
+        return '<div class="card border-0 shadow-sm mb-3"><div class="card-body"><div class="small text-uppercase fw-bold" style="color:var(--nk-text-muted);">Day '+esc(l.day_offset)+'</div><h4 class="fw-bold">'+esc(l.title)+'</h4><p style="white-space:pre-wrap;">'+esc(l.body)+'</p></div></div>';
       }).join('') || '<div class="alert alert-light">No lessons unlocked yet — check back tomorrow.</div>';
       document.getElementById('nk-lessons').innerHTML = html;
     });

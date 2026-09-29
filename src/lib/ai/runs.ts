@@ -2,6 +2,7 @@ import { EventEmitter } from "events";
 import { STALL_TIMEOUT_MS } from "../stall";
 import { randomUUID } from "crypto";
 import type { AppPlan } from "./plan";
+import { refundAiUsage } from "../ai-quota";
 
 /**
  * In-process registry for long-running AI builds. Decouples the work from
@@ -13,6 +14,11 @@ import type { AppPlan } from "./plan";
  * Cross-process is not a concern: `nullkode.service` runs a single Node
  * instance. If we ever scale out, swap the registry for Redis/Postgres
  * without touching the route shape.
+ *
+ * A run keeps the id of the AI action it was charged (see lib/ai-quota.ts),
+ * so a build that fails or stalls is refunded. A build that is still running
+ * when the server restarts is lost with the registry and stays charged; the
+ * durable-jobs work fixes that.
  */
 
 export type ScaffoldEvent =
@@ -21,7 +27,8 @@ export type ScaffoldEvent =
   | { type: "planned"; plan: AppPlan }
   | { type: "token"; text: string }
   | { type: "done"; projectId: string; homePageId: string }
-  | { type: "error"; message: string };
+  /** `refunded`: the failed build's AI action was given back ("didn't count"). */
+  | { type: "error"; message: string; refunded?: boolean };
 
 export type RunKind = "scaffold" | "plan";
 export type RunStatus = "running" | "success" | "error";
@@ -35,6 +42,8 @@ export interface RunSnapshot {
   events: ScaffoldEvent[];
   result: { projectId: string; homePageId: string } | null;
   error: string | null;
+  /** The failed run's AI action was refunded. */
+  refunded: boolean;
   createdAt: number;
   updatedAt: number;
   endedAt: number | null;
@@ -43,6 +52,8 @@ export interface RunSnapshot {
 interface InternalRun extends Omit<RunSnapshot, "events"> {
   events: ScaffoldEvent[];
   bus: EventEmitter;
+  /** The AI action this run was charged (lib/ai-quota.ts), refunded if it fails. */
+  chargeId: string | null;
 }
 
 interface Registry {
@@ -84,7 +95,12 @@ function startSweepOnce(): void {
         run.error = "The build stopped responding, so it was cancelled. Please try again.";
         run.endedAt = now;
         run.updatedAt = now;
-        const ev: ScaffoldEvent = { type: "error", message: run.error };
+        // A stalled build is never the person's doing: always refunded.
+        const chargeId = run.chargeId;
+        run.chargeId = null;
+        run.refunded = Boolean(chargeId);
+        if (chargeId) void refundAiUsage(chargeId);
+        const ev: ScaffoldEvent = { type: "error", message: run.error, ...(run.refunded ? { refunded: true } : {}) };
         run.events.push(ev);
         run.bus.emit("event", ev);
         run.bus.emit("end");
@@ -104,13 +120,14 @@ function toSnapshot(r: InternalRun): RunSnapshot {
     events: [...r.events],
     result: r.result,
     error: r.error,
+    refunded: r.refunded,
     createdAt: r.createdAt,
     updatedAt: r.updatedAt,
     endedAt: r.endedAt,
   };
 }
 
-export function createRun(ownerId: string, kind: RunKind, prompt: string): RunSnapshot {
+export function createRun(ownerId: string, kind: RunKind, prompt: string, opts: { chargeId?: string | null } = {}): RunSnapshot {
   startSweepOnce();
   const now = Date.now();
   const run: InternalRun = {
@@ -122,10 +139,12 @@ export function createRun(ownerId: string, kind: RunKind, prompt: string): RunSn
     events: [],
     result: null,
     error: null,
+    refunded: false,
     createdAt: now,
     updatedAt: now,
     endedAt: null,
     bus: new EventEmitter(),
+    chargeId: opts.chargeId ?? null,
   };
   // EventEmitter warns at 10 listeners; with two listeners per subscriber
   // (event + end) a few concurrent tabs trip the warning even though it's
@@ -152,7 +171,7 @@ export function finishRun(
   id: string,
   outcome:
     | { ok: true; result: { projectId: string; homePageId: string } | null }
-    | { ok: false; error: string },
+    | { ok: false; error: string; refunded?: boolean },
 ): void {
   const r = registry().map.get(id);
   if (!r || r.status !== "running") return;
@@ -165,8 +184,23 @@ export function finishRun(
   } else {
     r.status = "error";
     r.error = outcome.error;
+    r.refunded = Boolean(outcome.refunded);
   }
+  r.chargeId = null;
   r.bus.emit("end");
+}
+
+/**
+ * Hands over the charge of a still-running run to the caller that is about
+ * to refund it (so the stall sweep can't refund it a second time), or null
+ * when the run has none or already ended.
+ */
+export function takeRunCharge(id: string): string | null {
+  const r = registry().map.get(id);
+  if (!r || r.status !== "running") return null;
+  const chargeId = r.chargeId;
+  r.chargeId = null;
+  return chargeId;
 }
 
 export interface RunSubscription {

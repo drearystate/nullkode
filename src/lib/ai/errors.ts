@@ -11,3 +11,36 @@ export function aiErrorFor(user: { role?: string | null } | null | undefined, er
   }
   return message;
 }
+
+/**
+ * The model answered, but the answer couldn't be used (unreadable JSON, no
+ * usable HTML, an empty or cut-off reply). Kept apart from provider and
+ * server failures because a person can provoke this kind on purpose, so its
+ * refunds are capped (see refundFailedAi in lib/ai-quota.ts).
+ */
+export class UnusableOutputError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "UnusableOutputError";
+  }
+}
+
+/**
+ * How a failed AI action is refunded:
+ *  - "failed": the provider, the network or the server failed, or the
+ *    request never reached the model. Always refunded.
+ *  - "unusable": the model answered but the answer was unusable. Refunded
+ *    a few times a day per person.
+ */
+export type AiFailureKind = "failed" | "unusable";
+
+const UNUSABLE_MESSAGE =
+  /couldn't be used|could not be used|unreadable answer|invalid JSON|not usable|invalid HTML|empty answer|ran out of room|couldn't produce|truncated too early|produced no pages|returned no scaffold|without producing any pages/i;
+
+export function classifyAiFailure(err: unknown): AiFailureKind {
+  if (err instanceof UnusableOutputError) return "unusable";
+  if (err instanceof SyntaxError) return "unusable";
+  if (err && typeof err === "object" && (err as { name?: unknown }).name === "ZodError") return "unusable";
+  const message = err instanceof Error ? err.message : typeof err === "string" ? err : "";
+  return UNUSABLE_MESSAGE.test(message) ? "unusable" : "failed";
+}

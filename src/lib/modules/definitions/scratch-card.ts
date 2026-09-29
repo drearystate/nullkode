@@ -95,7 +95,7 @@ export const scratchCard: ModuleDefinition = {
       isHome: true,
       html: `<section class="py-5" style="background:linear-gradient(135deg,#f59e0b,#ef4444);min-height:80vh;color:#fff;"><div class="container py-4" style="max-width:480px;">
 <div class="text-center"><div class="display-1"></div><h1 class="display-3 fw-bold">{{config.campaignName}}</h1><p class="lead">Enter your email and scratch the card to reveal your prize.</p></div>
-<form id="nk-scratch-form" class="card p-3 mt-4 shadow text-body"><div class="mb-2"><label class="form-label">Email</label><input id="nk-email" type="email" class="form-control" required/></div><button class="btn btn-warning w-100 fw-bold" id="nk-start" type="button">Get my card</button></form>
+<form id="nk-scratch-form" class="card p-3 mt-4 shadow text-body"><div class="mb-2"><label class="form-label" for="nk-email">Email</label><input id="nk-email" type="email" class="form-control" autocomplete="email" required/></div><button class="btn btn-warning w-100 fw-bold" id="nk-start" type="button">Get my card</button></form>
 
 <div id="nk-card-wrap" class="card p-3 mt-3 shadow text-center text-body" style="display:none;">
   <div class="position-relative" style="margin:auto;max-width:320px;">
@@ -108,9 +108,10 @@ export const scratchCard: ModuleDefinition = {
 </div>
 <script>(function(){
   document.getElementById('nk-start').addEventListener('click', function(){
-    var email = document.getElementById('nk-email').value; if(!email){ alert('Email please'); return; }
+    var email = document.getElementById('nk-email').value; if(!email){ (window.nkToast||alert)('Please enter your email first.'); return; }
     fetch('/api/run/' + ((window.__nkFlowSlugMap||{})['spin']||'spin'), { method:'POST', headers:{'content-type':'application/json'}, body: JSON.stringify({email:email}) })
       .then(function(r){return r.json();}).then(function(d){
+        if(!d || d.error){ (window.nkToast||alert)(d && typeof d.error === 'string' ? d.error : "Sorry, that didn't work. Please try again."); return; }
         document.getElementById('nk-scratch-form').style.display = 'none';
         document.getElementById('nk-card-wrap').style.display = 'block';
         document.getElementById('nk-prize').textContent = d.prize || '—';

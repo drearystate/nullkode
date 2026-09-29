@@ -2,10 +2,76 @@
 
 Every published app can become a phone app. The phone app is a thin native
 shell that shows the app's live published address, so publishing changes
-updates it right away. A new build is only needed to change the app's name,
-icon, colors, orientation or version.
+updates it right away. A new build is needed to change the app's name,
+icon, colors, orientation or version, and when the phone features it uses
+change (see below).
 
 Open an app, then **Mobile app**.
+
+## Phone features (camera, microphone, location, files)
+
+A phone only lets an app use what its build declared, so the builds ask for
+exactly what the app uses. `src/lib/native-permissions.ts` works it out from:
+
+- installed modules: their `provides: ["camera"]` or `["location"]` tags
+  (QR Scanner), plus a built-in list for File Upload, Store Locator,
+  Geofencer, Delivery Tracking and Delivery Zones;
+- the app's pages, live and draft: `getUserMedia` and `data-nk-qr-scanner`
+  (camera; microphone when audio is asked for), `SpeechRecognition`
+  (microphone), `navigator.geolocation` (location) and file inputs (files).
+  Pages written by AI use these without any module.
+
+The **Mobile app** tab lists them under **Phone features this app uses**,
+with what uses each one. Because the store apps load the live site, a
+feature added after a build (installing a QR scanner later, say) needs a
+new build and a store update: every Android build records what it declared
+in its `status.json` (`features`, `permissions`, `shell`), and the tab shows
+**Rebuild needed** when the app's features no longer match the last build.
+The iPhone project download records the same (`iosDownload` in the app's
+native settings), and the tab asks for a new download when location
+support changes.
+
+**Android.** `apk-build.ts` writes only the needed `<uses-permission>` lines
+(`CAMERA`; `RECORD_AUDIO` and `MODIFY_AUDIO_SETTINGS`; `ACCESS_COARSE_LOCATION`
+and `ACCESS_FINE_LOCATION`) into the manifest, and marks the camera,
+microphone and location hardware `required="false"` so Google Play doesn't
+hide the app from devices without them. The app shell:
+
+- opens the phone's file picker for file inputs (honouring `accept` and
+  `multiple`), with "take a photo" (and "take a video" for video inputs)
+  through the camera app. The photo goes through the app's own file provider
+  (`SharedFileProvider`, folders in `res/xml/file_paths.xml`), so a photo
+  for an upload needs no camera permission. The page always gets an answer,
+  also when the picker is cancelled, so the input keeps working;
+- grants the camera, microphone and location only to pages on the app's
+  own addresses (the `app_hosts` resource, from the app's domains and
+  addresses), only for permissions the build declared, and only after the
+  person allows them on the phone. A third-party page opened inside the app
+  gets none of them;
+- sends web downloads to the phone's Downloads folder (with the page's
+  cookies, so signed-in downloads work), opens PDFs in the phone's viewer,
+  and saves files a page makes itself (`blob:` and `data:` links, like a
+  contact card) where the person picks, through a small bridge
+  (`assets/save-file.js`) that only answers the app's own pages. No storage
+  permission is needed;
+- has an adaptive launcher icon (Android 8 and newer): the app's icon inside
+  the 66 dp safe zone of a 108 dp foreground, on a background of the icon's
+  own edge color (or the app's background color), plus 48 dp legacy and
+  round icons.
+
+**iPhone.** `Info.plist` always has the camera, microphone and photo library
+purpose strings (a web page's file picker offers "Take Photo" and "Take
+Video", and an app without them crashes when someone taps those and is
+rejected by Apple), and the location one only when the app uses location.
+The suggested wording names the app and what the feature is for (Apple
+rejects vague wording under guideline 5.1.1); owners can change it under
+**What the phone says when the app asks** (saved as `permissionText` in the
+app's native settings).
+
+**Store listings.** Both stores ask apps that let people sign up for a link
+where people can delete their account, and for a privacy policy link. The
+tab shows the app's deletion page, `<app address>/delete-account`, in the
+Google Play and iPhone steps, with a reminder about the privacy policy.
 
 ## App identity and white-label
 
@@ -22,6 +88,10 @@ Nothing in the phone apps or the downloaded project names this platform.
 - The Android app's code lives in the app's own package
   (`<bundle ID>.MainActivity`), and the downloaded project's README names
   the owner's brand (reseller or operator).
+- The desktop installers (Publish tab) name the owner's brand in their
+  header, and the Mac one uses the bundle ID `<bundle ID>.desktop`, so it
+  never clashes with the same app's iPhone build (iPhone apps also run on
+  Apple Silicon Macs).
 
 ## Android
 
@@ -112,9 +182,11 @@ Settings (environment variables, all optional):
 `native-templates/android-webview` is a small WebView app (no extra
 libraries). App details come in as Gradle properties (`nkAppId`,
 `nkNamespace`, `nkAppName`, `nkStartUrl`, `nkVersionName`, `nkVersionCode`,
-`nkOrientation`, `nkThemeColor`, `nkBackgroundColor`), and each build moves
-`MainActivity` from the template's `com.example.webapp` package into the
-app's own package; the release signing
+`nkOrientation`, `nkThemeColor`, `nkBackgroundColor`, `nkAppHosts`,
+`nkIconBackground`), each build writes the app's permissions where the
+manifest says `nk:phone-features`, and moves the Java classes
+(`MainActivity`, `SharedFileProvider`) from the template's
+`com.example.webapp` package into the app's own package; the release signing
 details come in as `ORG_GRADLE_PROJECT_nkKeystore*` environment variables,
 so passwords never appear on a command line. It targets API 36 (required
 by Google Play from 31 August 2026).

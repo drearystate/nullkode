@@ -23,11 +23,28 @@ export const SETTING_KEYS = {
   AI_OPENAI_MODEL_EDIT: "ai.openai.model.edit",
   AI_CLAUDE_MODEL: "ai.claude.model", // "opus" | "sonnet" | "haiku" | full id
   AI_CLAUDE_BIN: "ai.claude.bin", // path to `claude` binary (override)
-  DESIGNER_ENGINE: "designer.engine", // "claude-cli" | "api"
   INSTALL_COMPLETED_AT: "install.completedAt", // ISO timestamp, set by wizard
+  // Email (Admin > Settings > Email). Each falls back to .env (SMTP_*, RESEND_API_KEY).
+  EMAIL_PROVIDER: "email.provider", // "smtp" | "resend"; unset = use .env
+  EMAIL_SMTP_HOST: "email.smtp.host",
+  EMAIL_SMTP_PORT: "email.smtp.port", // number, default 587
+  EMAIL_SMTP_SECURITY: "email.smtp.security", // "auto" | "ssl" | "starttls"
+  EMAIL_SMTP_USER: "email.smtp.user",
+  EMAIL_SMTP_PASSWORD: "email.smtp.password", // encrypted
+  EMAIL_RESEND_API_KEY: "email.resend.apiKey", // encrypted
+  EMAIL_FROM: "email.from", // sender address
+  EMAIL_FROM_NAME: "email.fromName",
+  EMAIL_STATS: "email.stats", // {sent24h, failed24h, lastError, lastAt, ...}, written by mailer.ts
 } as const;
 
-const SECRET_KEYS = new Set<string>([SETTING_KEYS.AI_OPENAI_API_KEY, "billing.secretKey", "billing.webhookSecret", "push.vapidPrivateKey"]);
+const SECRET_KEYS = new Set<string>([
+  SETTING_KEYS.AI_OPENAI_API_KEY,
+  "billing.secretKey",
+  "billing.webhookSecret",
+  "push.vapidPrivateKey",
+  SETTING_KEYS.EMAIL_SMTP_PASSWORD,
+  SETTING_KEYS.EMAIL_RESEND_API_KEY,
+]);
 
 export type AIProvider = "openai" | "claude-cli";
 
@@ -120,7 +137,7 @@ export async function getAllSettingsRedacted(): Promise<Record<string, unknown>>
   for (const r of rows) {
     if (SECRET_KEYS.has(r.key)) {
       const decrypted = typeof r.value === "string" ? safeDecrypt(r.value) : "";
-      out[r.key] = mask(decrypted);
+      out[r.key] = maskSecret(decrypted, r.key);
       out[`${r.key}.set`] = decrypted.length > 0;
     } else {
       out[r.key] = r.value;
@@ -143,6 +160,16 @@ function mask(secret: string): string {
   return `${secret.slice(0, 4)}…${secret.slice(-4)}`;
 }
 
+/**
+ * A secret shown safely. API keys keep their first and last 4 characters
+ * ("sk-p…wxyz") so the admin can tell which key is saved; passwords show
+ * nothing of themselves.
+ */
+export function maskSecret(secret: string, key = ""): string {
+  if (!secret) return "";
+  return /password/i.test(key) ? "••••••••" : mask(secret);
+}
+
 export async function getAIProvider(): Promise<AIProvider> {
   const fromDb = await getSetting<string>(SETTING_KEYS.AI_PROVIDER);
   if (fromDb === "openai" || fromDb === "claude-cli") return fromDb;
@@ -161,22 +188,6 @@ export async function getClaudeModel(): Promise<string> {
   const fromDb = await getSetting<string>(SETTING_KEYS.AI_CLAUDE_MODEL);
   if (fromDb && fromDb.length > 0) return fromDb;
   return process.env.CLAUDE_MODEL ?? "opus";
-}
-
-/**
- * Which agent builds Designer apps. This is separate from `ai.provider`: an
- * install can run cheap API models for scaffolding and Ask AI while keeping
- * the tool-using CLI agent for the Designer. When unset, any install with the
- * CLI configured keeps using it; everything else uses the configured API.
- */
-export async function getDesignerEngine(): Promise<"claude-cli" | "api"> {
-  const fromDb = await getSetting<string>(SETTING_KEYS.DESIGNER_ENGINE);
-  if (fromDb === "claude-cli" || fromDb === "api") return fromDb;
-  const fromEnv = process.env.DESIGNER_ENGINE;
-  if (fromEnv === "claude-cli" || fromEnv === "api") return fromEnv;
-  if (await getAIProvider() === "claude-cli") return "claude-cli";
-  if (process.env.CLAUDE_CODE_OAUTH_TOKEN || process.env.CLAUDE_CONFIG_DIR || process.env.CLAUDE_BIN) return "claude-cli";
-  return "api";
 }
 
 export async function getClaudeBin(): Promise<string> {

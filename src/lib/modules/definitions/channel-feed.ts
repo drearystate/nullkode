@@ -109,7 +109,7 @@ export const channelFeed: ModuleDefinition = {
   var vid = new URLSearchParams(location.search).get('id') || '';
   if(!vid) return;
   var kind = '{{config.channelKind}}';
-  var embed = kind === 'youtube' ? 'https://www.youtube.com/embed/' + vid : 'https://player.vimeo.com/video/' + vid;
+  var embed = kind === 'youtube' ? 'https://www.youtube.com/embed/' + encodeURIComponent(vid) : 'https://player.vimeo.com/video/' + encodeURIComponent(vid);
   document.getElementById('nk-cf-player').innerHTML = '<iframe style="width:100%;height:100%;border:0;" src="'+embed+'" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
   fetch('/api/run/' + ((window.__nkFlowSlugMap||{})['list']||'list'), { method:'POST', headers:{'content-type':'application/json'}, body:'{}' })
     .then(function(r){return r.json();}).then(function(rows){

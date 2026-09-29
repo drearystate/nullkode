@@ -246,5 +246,10 @@ export type ScaffoldResult = {
       target: string;
       sourceHandle?: string | null;
     }>;
+    /**
+     * Set by the builder when the flow is a standard data operation built in
+     * code (see ./standard-flows). Never part of the model's output.
+     */
+    standard?: { kind: "list" | "load" | "create" | "update" | "delete" | "aggregate"; table: string; auth: boolean };
   }>;
 };

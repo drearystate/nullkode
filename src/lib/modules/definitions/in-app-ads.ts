@@ -141,12 +141,14 @@ export const inAppAds: ModuleDefinition = {
 <div id="nk-ads-stats" class="table-responsive mt-2"><div class="small" style="color:var(--nk-text-muted);">Loading…</div></div>
 
 <script>(function(){
+  function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+  function safeUrl(u){u=String(u||'');return /^(https?:|\\/|data:image\\/)/i.test(u)?u:'#'}
   function serve(slot){
     var pl = slot.getAttribute('data-placement') || 'header';
     fetch('/api/run/' + ((window.__nkFlowSlugMap||{})['serve']||'serve'), { method:'POST', headers:{'content-type':'application/json'}, body: JSON.stringify({placement:pl}) })
       .then(function(r){return r.json();}).then(function(ad){
         if(!ad || !ad.id){ slot.style.display='none'; return; }
-        slot.innerHTML = '<a class="d-block position-relative text-decoration-none" data-ad-id="'+ad.id+'" href="'+(ad.click_url||'#')+'" target="_blank" style="border-radius:8px;overflow:hidden;"><img style="width:100%;height:auto;display:block;" src="'+(ad.image_url||'')+'" alt=""/><div class="position-absolute bottom-0 start-0 end-0 p-2 text-white" style="background:linear-gradient(transparent, rgba(0,0,0,.6));"><strong>'+(ad.headline||'')+'</strong></div></a>';
+        slot.innerHTML = '<a class="d-block position-relative text-decoration-none" data-ad-id="'+esc(ad.id)+'" href="'+esc(safeUrl(ad.click_url||'#'))+'" target="_blank" rel="noopener sponsored" style="border-radius:8px;overflow:hidden;">'+(ad.image_url?'<img style="width:100%;height:auto;display:block;" src="'+esc(safeUrl(ad.image_url))+'" alt=""/>':'')+'<div class="position-absolute bottom-0 start-0 end-0 p-2 text-white" style="background:linear-gradient(transparent, rgba(0,0,0,.6));"><strong>'+esc(ad.headline||'')+'</strong></div></a>';
         slot.querySelector('a').addEventListener('click', function(){
           fetch('/api/run/' + ((window.__nkFlowSlugMap||{})['click']||'click'), { method:'POST', headers:{'content-type':'application/json'}, body: JSON.stringify({ad_id:ad.id}) });
         });
@@ -155,13 +157,15 @@ export const inAppAds: ModuleDefinition = {
   document.querySelectorAll('[data-nk-ad-slot]').forEach(serve);
   fetch('/api/run/' + ((window.__nkFlowSlugMap||{})['stats']||'stats'), { method:'POST', headers:{'content-type':'application/json'}, body:'{}' })
     .then(function(r){return r.json();}).then(function(d){
-      var imps = {}; (d.impressions||[]).forEach(function(i){ imps[i.ad_id] = (imps[i.ad_id]||0)+1; });
-      var clk = {}; (d.clicks||[]).forEach(function(c){ clk[c.ad_id] = (clk[c.ad_id]||0)+1; });
+      d = d || {};
+      var list = function(x){ return Array.isArray(x) ? x : []; };
+      var imps = {}; list(d.impressions).forEach(function(i){ imps[i.ad_id] = (imps[i.ad_id]||0)+1; });
+      var clk = {}; list(d.clicks).forEach(function(c){ clk[c.ad_id] = (clk[c.ad_id]||0)+1; });
       var html = '<table class="table align-middle"><thead><tr><th>Ad</th><th>Imp</th><th>Clk</th><th>CTR</th></tr></thead><tbody>' +
-        (d.ads||[]).map(function(a){
+        list(d.ads).map(function(a){
           var i = imps[a.id] || 0, c = clk[a.id] || 0;
           var ctr = i ? ((c/i*100).toFixed(1)+'%') : '—';
-          return '<tr><td>'+a.headline+'</td><td>'+i+'</td><td>'+c+'</td><td><strong>'+ctr+'</strong></td></tr>';
+          return '<tr><td>'+esc(a.headline)+'</td><td>'+esc(i)+'</td><td>'+esc(c)+'</td><td><strong>'+ctr+'</strong></td></tr>';
         }).join('') + '</tbody></table>';
       document.getElementById('nk-ads-stats').innerHTML = html;
     });

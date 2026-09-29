@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { Editor } from "grapesjs";
 import { Sparkles } from "lucide-react";
 
@@ -13,9 +13,29 @@ type Attachment = {
 
 type Message =
   | { role: "user"; text: string; attachments?: Array<{ name: string; mediaType: string }> }
-  | { role: "assistant"; text: string; status: "ok" | "error"; suggestions?: string[] }
+  /** "info": the AI answered but changed nothing (no check mark, not an error). */
+  | { role: "assistant"; text: string; status: "ok" | "error" | "info"; suggestions?: string[]; upgrade?: boolean }
   | { role: "assistant-plan"; text: string }
-  | { role: "assistant-thinking"; label: string };
+  | { role: "assistant-thinking"; label: string }
+  /** Shown after two failures in a row: ways out of the loop. */
+  | { role: "assistant-tip" };
+
+/** This month's AI allowance, from /api/me/ai-usage and the AI routes. */
+type Usage = {
+  used: number;
+  limit: number | null;
+  paused: boolean;
+  problem: string | null;
+  contact: string | null;
+  scope: "plan" | "workspace";
+};
+
+/** An AI request that failed, with what the server said about it. */
+class AiRequestError extends Error {
+  constructor(message: string, readonly quota: boolean) {
+    super(message);
+  }
+}
 
 /**
  * Cheap client-side intent detection. We only need to catch the obvious
@@ -79,6 +99,9 @@ export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor }: Pr
   const [busy, setBusy] = useState(false);
   const [attachments, setAttachments] = useState<Attachment[]>([]);
   const [attachError, setAttachError] = useState<string | null>(null);
+  const [usage, setUsage] = useState<Usage | null>(null);
+  // Failed or no-change answers in a row; two in a row shows a tip.
+  const failStreak = useRef(0);
   const scrollRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   // Tracks the page currently shown in the editor, so an in-flight AI
@@ -103,11 +126,26 @@ export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor }: Pr
   // Reset chat when the active page changes
   useEffect(() => {
     pageIdRef.current = pageId;
+    failStreak.current = 0;
     setMessages([]);
     setInput("");
     setAttachments([]);
     setAttachError(null);
   }, [pageId]);
+
+  // The allowance line under the input: loaded when the panel opens, then
+  // kept current from each AI answer.
+  const refreshUsage = useCallback(async () => {
+    try {
+      const res = await fetch("/api/me/ai-usage", { cache: "no-store" });
+      if (res.ok) setUsage((await res.json()) as Usage);
+    } catch {
+      /* keep the last known numbers */
+    }
+  }, []);
+  useEffect(() => {
+    if (open) void refreshUsage();
+  }, [open, refreshUsage]);
 
   async function addFiles(files: FileList | File[]) {
     setAttachError(null);
@@ -289,8 +327,12 @@ export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor }: Pr
           });
 
       if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-        throw new Error(data.error ?? `Error ${res.status}`);
+        const data = (await res.json().catch(() => ({}))) as { error?: string; code?: string; refunded?: boolean; usage?: Usage | null };
+        if (data.usage) setUsage(data.usage);
+        else void refreshUsage();
+        let text = data.error ?? `Error ${res.status}`;
+        if (data.refunded && !/didn't count|wasn't counted/i.test(text)) text += " This one didn't count.";
+        throw new AiRequestError(text, data.code === "ai_quota");
       }
 
       const {
@@ -301,6 +343,8 @@ export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor }: Pr
         createdFlowSlugs = [],
         updatedPages = [],
         suggestions = [],
+        noChange = false,
+        usage: nextUsage,
       } = (await res.json()) as {
         html: string | null;
         css: string | null;
@@ -309,7 +353,11 @@ export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor }: Pr
         createdFlowSlugs?: string[];
         updatedPages?: Array<{ slug: string; id: string }>;
         suggestions?: string[];
+        noChange?: boolean;
+        usage?: Usage | null;
       };
+      if (nextUsage) setUsage(nextUsage);
+      else void refreshUsage();
 
       // The seed-data fast path returns html/css = null because it doesn't
       // touch the page. Leaving the canvas alone is the whole point —
@@ -374,14 +422,23 @@ export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor }: Pr
         summary += ` (Saved to "${sentPageTitle}" — open that page to see the change.)`;
       }
 
+      // An answer that changed nothing counts toward the "stuck" tip.
+      failStreak.current = noChange ? failStreak.current + 1 : 0;
+      const tip = noChange && failStreak.current === 2;
       setMessages((m) => {
         const next = m.slice(0, -1); // drop the thinking placeholder
         return [
           ...next,
-          { role: "assistant", text: summary, status: "ok", suggestions },
+          noChange
+            ? { role: "assistant", text: summary, status: "info" }
+            : { role: "assistant", text: summary, status: "ok", suggestions },
+          ...(tip ? ([{ role: "assistant-tip" }] as Message[]) : []),
         ];
       });
     } catch (err) {
+      const quota = err instanceof AiRequestError && err.quota;
+      failStreak.current += 1;
+      const tip = !quota && failStreak.current === 2;
       setMessages((m) => {
         const next = m.slice(0, -1);
         return [
@@ -390,11 +447,22 @@ export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor }: Pr
             role: "assistant",
             text: err instanceof Error ? err.message : "Something went wrong",
             status: "error",
+            upgrade: quota,
           },
+          ...(tip ? ([{ role: "assistant-tip" }] as Message[]) : []),
         ];
       });
     } finally {
       setBusy(false);
+    }
+  }
+
+  function undoLast() {
+    const ed = getEditor();
+    try {
+      if (ed?.UndoManager.hasUndo()) ed.UndoManager.undo();
+    } catch {
+      /* editor mid-teardown */
     }
   }
 
@@ -508,6 +576,23 @@ export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor }: Pr
               </div>
             );
           }
+          if (m.role === "assistant-tip") {
+            return (
+              <div key={i} className="flex">
+                <div className="max-w-[85%] rounded-2xl rounded-bl-sm border border-amber-400/30 bg-amber-400/10 px-4 py-2 text-sm text-amber-100">
+                  <p>This doesn&apos;t seem to be working. You could:</p>
+                  <ul className="mt-1 list-disc space-y-0.5 pl-5 text-xs">
+                    <li>say it another way, in a few simple words</li>
+                    <li>select a smaller part of the page first, then ask again</li>
+                    <li>undo the last change if the page looks wrong</li>
+                  </ul>
+                  <button type="button" onClick={undoLast} className="mt-2 rounded-md border border-amber-300/40 px-2 py-1 text-xs hover:bg-amber-300/10">
+                    Undo last change
+                  </button>
+                </div>
+              </div>
+            );
+          }
           // assistant complete
           const isLast = i === messages.length - 1;
           const showSuggestions =
@@ -521,11 +606,16 @@ export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor }: Pr
                 className={`max-w-[85%] rounded-2xl rounded-bl-sm px-4 py-2 text-sm ${
                   m.status === "ok"
                     ? "bg-surface-800 text-surface-100"
-                    : "bg-red-500/10 border border-red-500/30 text-red-300"
+                    : m.status === "info"
+                      ? "bg-surface-800 border border-surface-600 text-surface-200"
+                      : "bg-red-500/10 border border-red-500/30 text-red-300"
                 }`}
               >
                 {m.status === "ok" && <span className="mr-1">✓</span>}
                 {m.text}
+                {m.upgrade && canUpgrade(usage) && (
+                  <a href="/billing" className="ml-1 underline hover:text-red-100">See plans</a>
+                )}
               </div>
               {showSuggestions && (
                 <div className="w-full space-y-1.5 pl-1">
@@ -671,9 +761,45 @@ export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor }: Pr
         <div className="mt-1.5 text-[10px] text-surface-500 text-center">
           Enter to send · Attach images for context (drop or paste)
         </div>
+        <UsageLine usage={usage} />
       </div>
     </div>
   );
+}
+
+/**
+ * "38 of 50 AI changes left this month": amber once 80% is used; when none
+ * are left (or AI is paused) it says why and where to get more.
+ */
+function UsageLine({ usage }: { usage: Usage | null }) {
+  if (!usage || usage.limit === null) return null;
+  const left = Math.max(0, usage.limit - usage.used);
+  const shared = usage.scope === "workspace" ? " (shared with your clients)" : "";
+  if (usage.paused || left === 0) {
+    return (
+      <div className="mt-1 text-center text-[11px] text-red-300" role="status">
+        {usage.problem ?? `No AI changes left this month${shared}.`}
+        {canUpgrade(usage) && (
+          <>
+            {" "}
+            <a href="/billing" className="underline hover:text-red-100">See plans</a>
+          </>
+        )}
+      </div>
+    );
+  }
+  const low = usage.used >= usage.limit * 0.8;
+  return (
+    <div className={`mt-1 text-center text-[11px] ${low ? "text-amber-300" : "text-surface-500"}`} role="status">
+      {left} of {usage.limit} AI changes left this month{shared}
+      {low ? (usage.contact ? ` — ask ${usage.contact} if you need more` : " — running low") : ""}
+    </div>
+  );
+}
+
+/** A plan with more AI changes can be bought (the plan's own allowance ran out, not a workspace cap). */
+function canUpgrade(usage: Usage | null): boolean {
+  return Boolean(usage && usage.scope === "plan" && usage.limit !== null && usage.used >= usage.limit);
 }
 
 function Dot({ delay = 0 }: { delay?: number }) {
