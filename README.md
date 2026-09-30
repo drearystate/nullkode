@@ -28,13 +28,13 @@
 
 <table>
 <tr>
-<td width="33%" align="center"><a href="https://nullkode.com/videos/nullkode-quick-tour.mp4"><img src="docs/videos/quick-tour.webp" alt="Quick tour video: describe an app, check the plan, build, edit with AI, publish" width="100%"></a><br><b>Quick tour</b> (1:24)<br>Describe a booking app, check the plan, watch it build, change it with AI, publish.</td>
-<td width="33%" align="center"><a href="https://nullkode.com/videos/nullkode-ai-designer.mp4"><img src="docs/videos/ai-designer.webp" alt="AI Designer video: design a bakery website by talking" width="100%"></a><br><b>AI Designer</b> (1:27)<br>Design a whole website by talking: click anything to change it, every version saved.</td>
-<td width="33%" align="center"><a href="https://nullkode.com/videos/nullkode-own-platform.mp4"><img src="docs/videos/own-platform.webp" alt="Run your own platform video: prices, resellers, AI settings and white label" width="100%"></a><br><b>Run your own platform</b> (1:22)<br>Your prices, your resellers, any AI, and your brand on everything.</td>
+<td width="33%" align="center"><a href="https://nullkode.com/videos/nullkode-quick-tour.mp4"><img src="docs/videos/quick-tour.webp" alt="Quick tour video: describe an app, check the plan, build, edit with AI, publish" width="100%"></a><br><b>Quick tour</b> (1:24) · <a href="https://nullkode.com/videos/download/nullkode-quick-tour.mp4">Download</a><br>Describe a booking app, check the plan, watch it build, change it with AI, publish.</td>
+<td width="33%" align="center"><a href="https://nullkode.com/videos/nullkode-ai-designer.mp4"><img src="docs/videos/ai-designer.webp" alt="AI Designer video: design a bakery website by talking" width="100%"></a><br><b>AI Designer</b> (1:27) · <a href="https://nullkode.com/videos/download/nullkode-ai-designer.mp4">Download</a><br>Design a whole website by talking: click anything to change it, every version saved.</td>
+<td width="33%" align="center"><a href="https://nullkode.com/videos/nullkode-own-platform.mp4"><img src="docs/videos/own-platform.webp" alt="Run your own platform video: prices, resellers, AI settings and white label" width="100%"></a><br><b>Run your own platform</b> (1:22) · <a href="https://nullkode.com/videos/download/nullkode-own-platform.mp4">Download</a><br>Your prices, your resellers, any AI, and your brand on everything.</td>
 </tr>
 </table>
 
-<sub>Click a preview to watch the full video with sound. Music: Kevin MacLeod (incompetech.com), CC-BY 4.0.</sub>
+<sub>Click a preview to watch the full video with sound, or <a href="https://nullkode.com/videos/download/nullkode-videos.zip">download all three</a> (25 MB). Music: Kevin MacLeod (incompetech.com), CC-BY 4.0.</sub>
 
 ---
 
