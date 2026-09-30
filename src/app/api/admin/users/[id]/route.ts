@@ -60,7 +60,7 @@ export async function DELETE(req: Request, ctx: { params: Promise<{ id: string }
   const real = await getRealUser();
   if (real?.role !== "ADMIN") return json({ error: "Forbidden" }, { status: 403 });
   const { id } = await ctx.params;
-  if (id === real.id) return json({ error: "You can't delete your own account from here. Use Delete my account in Settings." }, { status: 400 });
+  if (id === real.id) return json({ error: "You can't delete your own account from here. Use Delete my account on your Profile page." }, { status: 400 });
   const user = await db.user.findUnique({ where: { id }, select: { id: true, email: true } });
   if (!user) return json({ error: "User not found." }, { status: 404 });
   const parsed = DeleteBody.safeParse(await req.json().catch(() => null));

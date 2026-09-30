@@ -64,34 +64,34 @@ export function LandingHero({ authed, moduleCount = 135, aiReady = false }: { au
   }
 
   return (
-    <section className="relative pt-28 pb-20 bg-surface-100 overflow-hidden">
+    <section className="relative pt-28 pb-20 bg-surface-950 overflow-hidden">
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute left-1/2 -translate-x-1/2 top-[-120px] h-[500px] w-[900px] rounded-full bg-blue-100/60 blur-[100px]" />
+        <div className="absolute left-1/2 -translate-x-1/2 top-[-120px] h-[500px] w-[900px] rounded-full bg-blue-900/60 blur-[100px]" />
       </div>
 
       <div className="relative mx-auto max-w-6xl px-6">
         <div className="text-center max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 rounded-full border border-surface-200 bg-surface-50 px-4 py-1.5 text-xs text-surface-600 font-medium">
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-surface-900 px-4 py-1.5 text-xs text-surface-300 font-medium">
             <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
             Describe it, check the plan, launch it
           </div>
 
-          <h1 className="mt-6 text-5xl sm:text-6xl md:text-7xl font-bold leading-[1.05] tracking-tight text-surface-900">
+          <h1 className="mt-6 text-5xl sm:text-6xl md:text-7xl font-bold leading-[1.05] tracking-tight text-surface-50">
             Build apps,{" "}
-            <span className="bg-gradient-to-r from-[var(--nk-brand-primary,#2563eb)] to-cyan-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[var(--nk-brand-primary,rgb(var(--c-blue-400)))] to-cyan-500 bg-clip-text text-transparent">
               not just pages.
             </span>
           </h1>
 
-          <p className="mt-6 max-w-2xl mx-auto text-lg md:text-xl text-surface-500 leading-relaxed">
+          <p className="mt-6 max-w-2xl mx-auto text-lg md:text-xl text-surface-400 leading-relaxed">
             Drag-and-drop the UI. Wire up real backend logic visually. Use a real
             database or your Google Sheets. Publish to your own domain. No code.
           </p>
 
           {aiReady ? (
             <form onSubmit={start} className="mt-9 mx-auto max-w-2xl text-left">
-              <div className="rounded-2xl border border-surface-200 bg-white p-2 shadow-xl shadow-surface-900/5 transition focus-within:border-surface-400">
-                <label htmlFor="landing-idea" className="block px-3 pt-2 text-sm font-semibold text-surface-900">
+              <div className="rounded-2xl border border-white/10 bg-surface-900 p-2 shadow-xl shadow-black/5 transition focus-within:border-surface-600">
+                <label htmlFor="landing-idea" className="block px-3 pt-2 text-sm font-semibold text-surface-50">
                   What should your app do?
                 </label>
                 <textarea
@@ -103,41 +103,41 @@ export function LandingHero({ authed, moduleCount = 135, aiReady = false }: { au
                   onChange={(e) => setIdea(e.target.value)}
                   onKeyDown={(e) => { if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) start(); }}
                   placeholder="e.g. Customers order cakes online, choose a pickup day, and I see every order in one list."
-                  className="w-full resize-none bg-transparent px-3 py-2 text-base text-surface-900 placeholder:text-surface-400 focus:outline-none"
+                  className="w-full resize-none bg-transparent px-3 py-2 text-base text-surface-50 placeholder:text-surface-500 focus:outline-none"
                 />
                 <div className="flex flex-wrap items-center justify-between gap-3 px-2 pb-1">
-                  <span className="text-xs text-surface-400" aria-live="polite">
+                  <span className="text-xs text-surface-500" aria-live="polite">
                     {idea.length > IDEA_MAX_CHARS - 100 ? `${IDEA_MAX_CHARS - idea.length} characters left` : "Say who uses it and what they do."}
                   </span>
                   <button
                     type="submit"
                     disabled={!ready}
-                    className="inline-flex items-center gap-2 rounded-xl bg-surface-900 hover:bg-surface-800 text-white px-6 py-3 text-sm font-semibold transition shadow-lg shadow-surface-900/20 disabled:cursor-not-allowed disabled:opacity-50"
+                    className="inline-flex items-center gap-2 rounded-xl bg-surface-50 hover:bg-surface-100 text-surface-900 px-6 py-3 text-sm font-semibold transition shadow-lg shadow-black/20 disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     {going ? "Opening…" : "Plan my app"}
-                    <span aria-hidden className="text-surface-400">&rarr;</span>
+                    <span aria-hidden className="text-surface-600">&rarr;</span>
                   </button>
                 </div>
               </div>
               <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
-                <span className="text-xs text-surface-500">Try one:</span>
+                <span className="text-xs text-surface-400">Try one:</span>
                 {IDEAS.map((ex) => (
                   <button
                     key={ex.label}
                     type="button"
                     onClick={() => fillExample(ex.prompt)}
-                    className="rounded-full border border-surface-200 bg-white/70 px-3.5 py-1.5 text-xs font-medium text-surface-600 transition hover:border-surface-300 hover:text-surface-900"
+                    className="rounded-full border border-white/10 bg-surface-900/70 px-3.5 py-1.5 text-xs font-medium text-surface-300 transition hover:border-surface-700 hover:text-surface-50"
                   >
                     {ex.label}
                   </button>
                 ))}
               </div>
-              <p className="mt-5 text-center text-sm text-surface-500">
+              <p className="mt-5 text-center text-sm text-surface-400">
                 You&apos;ll check a plan before anything is built.{" "}
                 {authed ? (
-                  <Link href="/dashboard" className="font-medium text-surface-700 underline-offset-4 hover:underline">Open your dashboard</Link>
+                  <Link href="/dashboard" className="font-medium text-surface-200 underline-offset-4 hover:underline">Open your dashboard</Link>
                 ) : (
-                  <a href="#features" className="font-medium text-surface-700 underline-offset-4 hover:underline">See how it works</a>
+                  <a href="#features" className="font-medium text-surface-200 underline-offset-4 hover:underline">See how it works</a>
                 )}
               </p>
             </form>
@@ -145,14 +145,14 @@ export function LandingHero({ authed, moduleCount = 135, aiReady = false }: { au
             <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
               <Link
                 href={authed ? "/dashboard" : "/signup"}
-                className="inline-flex items-center gap-2 rounded-xl bg-surface-900 hover:bg-surface-800 text-white px-7 py-3.5 text-sm font-semibold transition shadow-lg shadow-surface-900/20"
+                className="inline-flex items-center gap-2 rounded-xl bg-surface-50 hover:bg-surface-100 text-surface-900 px-7 py-3.5 text-sm font-semibold transition shadow-lg shadow-black/20"
               >
                 {authed ? "Open dashboard" : "Start building — it’s free"}
-                <span aria-hidden className="text-surface-400">&rarr;</span>
+                <span aria-hidden className="text-surface-600">&rarr;</span>
               </Link>
               <a
                 href="#features"
-                className="inline-flex items-center gap-2 rounded-xl border border-surface-200 bg-white hover:bg-surface-50 text-surface-700 px-7 py-3.5 text-sm font-semibold transition"
+                className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-surface-900 hover:bg-surface-950 text-surface-200 px-7 py-3.5 text-sm font-semibold transition"
               >
                 See how it works
               </a>
@@ -169,19 +169,19 @@ export function LandingHero({ authed, moduleCount = 135, aiReady = false }: { au
             { value: "Web + Android", label: "Apps from one project" },
           ].map((s) => (
             <div key={s.label} className="text-center">
-              <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-[var(--nk-brand-primary,#2563eb)] to-cyan-500 bg-clip-text text-transparent">
+              <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-[var(--nk-brand-primary,rgb(var(--c-blue-400)))] to-cyan-500 bg-clip-text text-transparent">
                 {s.value}
               </div>
-              <div className="mt-1 text-sm text-surface-500">{s.label}</div>
+              <div className="mt-1 text-sm text-surface-400">{s.label}</div>
             </div>
           ))}
         </div>
 
-        <div className="mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-xs text-surface-400 uppercase tracking-widest font-medium">
+        <div className="mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-xs text-surface-500 uppercase tracking-widest font-medium">
           <span>No credit card</span>
-          <span className="hidden sm:inline text-surface-200">&middot;</span>
+          <span className="hidden sm:inline text-surface-700">&middot;</span>
           <span>Free forever plan</span>
-          <span className="hidden sm:inline text-surface-200">&middot;</span>
+          <span className="hidden sm:inline text-surface-700">&middot;</span>
           <span>Own your data</span>
         </div>
       </div>

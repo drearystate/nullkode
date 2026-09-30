@@ -21,7 +21,7 @@ export function HelpIndex({ groups }: { groups: HelpIndexGroup[] }) {
 
   return (
     <div className="mt-8">
-      <div className="flex max-w-xl items-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-3 focus-within:border-brand-400">
+      <div className="flex max-w-xl items-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] [[data-theme=light]_&]:bg-surface-900 px-3 focus-within:border-brand-400">
         <Search size={17} className="shrink-0 text-surface-400" aria-hidden />
         <label htmlFor="help-search" className="sr-only">
           Search the guides
@@ -66,7 +66,7 @@ export function HelpIndex({ groups }: { groups: HelpIndexGroup[] }) {
                   <li key={guide.slug}>
                     <Link
                       href={`/help/${guide.slug}`}
-                      className="group flex h-full flex-col rounded-2xl border border-white/[0.07] bg-[#15161f] p-5 transition hover:border-brand-400/50 hover:bg-[#191a25]"
+                      className="group flex h-full flex-col rounded-2xl border border-[var(--nk-line)] bg-surface-900 p-5 transition hover:border-brand-400/50 hover:bg-surface-800/40"
                     >
                       <span className="flex items-start justify-between gap-3">
                         <span className="font-semibold text-surface-50">{guide.title}</span>

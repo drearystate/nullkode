@@ -742,23 +742,23 @@ export function GrapesEditor(props: Props) {
         .gjs-editor .gjs-cv-canvas { top: 0 !important; width: 100% !important; height: 100% !important; }
 
         /* Stronger separators in side panels */
-        .nk-styles .gjs-sm-sector { border-top: 1px solid rgba(255,255,255,0.08) !important; }
-        .nk-styles .gjs-sm-sector-title { border-bottom: 1px solid rgba(255,255,255,0.06) !important; padding: 10px 8px !important; }
-        .nk-selectors { border-bottom: 1px solid rgba(255,255,255,0.1) !important; }
-        .nk-layers .gjs-layer { border-bottom: 1px solid rgba(255,255,255,0.06) !important; }
-        .nk-traits .gjs-trt-trait { border-bottom: 1px solid rgba(255,255,255,0.06) !important; padding-bottom: 8px !important; margin-bottom: 8px !important; }
-        .nk-blocks .gjs-block-category { border-bottom: 1px solid rgba(255,255,255,0.08) !important; }
-        .nk-blocks .gjs-block-category .gjs-title { border-bottom: 1px solid rgba(255,255,255,0.05) !important; }
+        .nk-styles .gjs-sm-sector { border-top: 1px solid rgb(var(--c-white) / 0.08) !important; }
+        .nk-styles .gjs-sm-sector-title { border-bottom: 1px solid rgb(var(--c-white) / 0.06) !important; padding: 10px 8px !important; }
+        .nk-selectors { border-bottom: 1px solid rgb(var(--c-white) / 0.1) !important; }
+        .nk-layers .gjs-layer { border-bottom: 1px solid rgb(var(--c-white) / 0.06) !important; }
+        .nk-traits .gjs-trt-trait { border-bottom: 1px solid rgb(var(--c-white) / 0.06) !important; padding-bottom: 8px !important; margin-bottom: 8px !important; }
+        .nk-blocks .gjs-block-category { border-bottom: 1px solid rgb(var(--c-white) / 0.08) !important; }
+        .nk-blocks .gjs-block-category .gjs-title { border-bottom: 1px solid rgb(var(--c-white) / 0.05) !important; }
 
         /* Design panel: plain sections, then the Advanced toggle, then the
            advanced sections and the shared-styles picker (hidden until open). */
         .nk-design { flex-direction: column; }
         .nk-design .nk-styles, .nk-design .nk-styles > .gjs-sm-sectors { display: contents; }
         .nk-design .gjs-sm-sector { order: 0; }
-        .nk-design .nk-adv-toggle { order: 1; display: flex; align-items: center; gap: 8px; margin-top: 10px; padding: 10px 8px; font-size: 12px; font-weight: 600; color: rgb(203 213 225); border-top: 1px solid rgba(255,255,255,0.1); text-align: left; }
-        .nk-design .nk-adv-toggle:hover { color: #fff; }
+        .nk-design .nk-adv-toggle { order: 1; display: flex; align-items: center; gap: 8px; margin-top: 10px; padding: 10px 8px; font-size: 12px; font-weight: 600; color: rgb(var(--c-slate-300)); border-top: 1px solid rgb(var(--c-white) / 0.1); text-align: left; }
+        .nk-design .nk-adv-toggle:hover { color: rgb(var(--c-white)); }
         .nk-design .gjs-sm-sector[class*="gjs-sm-sector__adv-"] { order: 2; }
-        .nk-design .nk-selectors-wrap { order: 3; padding: 12px 8px; border-top: 1px solid rgba(255,255,255,0.08); }
+        .nk-design .nk-selectors-wrap { order: 3; padding: 12px 8px; border-top: 1px solid rgb(var(--c-white) / 0.08); }
         .nk-design:not(.nk-adv-open) .gjs-sm-sector[class*="gjs-sm-sector__adv-"],
         .nk-design:not(.nk-adv-open) .nk-selectors-wrap { display: none !important; }
 
@@ -923,7 +923,7 @@ export function GrapesEditor(props: Props) {
             rel="noopener noreferrer"
             aria-label="Preview this page"
             data-help="Open this page in a new tab and try it for real — buttons, forms and all — just like your visitors will."
-            className="studio-preview-button flex items-center gap-1.5 bg-brand-500 hover:bg-brand-400 text-white font-semibold px-3 py-1 rounded-md transition text-xs"
+            className="studio-preview-button flex items-center gap-1.5 bg-brand-500 hover:bg-brand-400 text-fixed-white font-semibold px-3 py-1 rounded-md transition text-xs"
           >
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden><polygon points="5 3 19 12 5 21 5 3"/></svg>
             <span>Preview</span>

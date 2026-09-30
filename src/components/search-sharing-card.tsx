@@ -215,7 +215,7 @@ export function SearchSharingCard(props: SearchSharingProps) {
               onClick={toggleNoindex}
               className={`relative inline-flex h-6 w-11 shrink-0 items-center rounded-full border transition disabled:opacity-60 ${noindex ? "border-brand-400 bg-brand-500" : "border-surface-600 bg-surface-800"}`}
             >
-              <span className={`inline-block h-4 w-4 rounded-full bg-white shadow transition ${noindex ? "translate-x-6" : "translate-x-1"}`} />
+              <span className={`inline-block h-4 w-4 rounded-full bg-fixed-white shadow transition ${noindex ? "translate-x-6" : "translate-x-1"}`} />
               <span className="sr-only">{noindex ? "On" : "Off"}</span>
             </button>
           </div>
@@ -262,7 +262,7 @@ export function SearchSharingCard(props: SearchSharingProps) {
         <div className="min-w-0 space-y-5">
           <div>
             <p className="label" data-help="A preview of how your app may look in Google search results. Google makes the final choice, so it can look slightly different.">In Google</p>
-            <div className="rounded-lg bg-white p-4 text-left shadow-sm" aria-label="Preview of a Google search result">
+            <div className="rounded-lg bg-fixed-white p-4 text-left shadow-sm [[data-theme=light]_&]:ring-1 [[data-theme=light]_&]:ring-surface-700" aria-label="Preview of a Google search result">
               <div className="flex items-center gap-2.5">
                 <span className="flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden rounded-full border border-[#dadce0] bg-[#f1f3f4]">
                   {/* eslint-disable-next-line @next/next/no-img-element */}

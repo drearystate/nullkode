@@ -1,10 +1,13 @@
 import Link from "next/link";
-import { ChevronDown, LayoutGrid, LogOut, Sparkles, CreditCard, Shield, Briefcase, Settings, CircleHelp } from "lucide-react";
+import { ChevronDown, LayoutGrid, LogOut, Sparkles, CreditCard, Shield, Briefcase, CircleHelp, UserRound } from "lucide-react";
 import { getRealUser, getImpersonation, getCurrentUser } from "@/lib/auth";
 import { getRequestBrand } from "@/lib/reseller";
 import { ImpersonationBanner } from "./impersonation-banner";
 import { HelpTipsLayer } from "./help-tips";
 import { HelpLink } from "./help-link";
+import { BrandWordmark } from "./brand-wordmark";
+import { ThemeToggle } from "./theme-toggle";
+import { UserAvatar } from "./user-avatar";
 
 type User = { id: string; name: string | null; email: string };
 export async function TopBar({ user, children }: { user: User; children?: React.ReactNode }) {
@@ -21,7 +24,7 @@ export async function TopBar({ user, children }: { user: User; children?: React.
           {logo
             // eslint-disable-next-line @next/next/no-img-element
             ? <img src={logo} alt={brand.appName} className="h-7 w-auto max-w-[160px] object-contain" />
-            : <><span className="studio-logo-mark"><span /><span /><span /></span><span>{brand.appName}<span className="text-brand-400">.</span></span></>}
+            : <BrandWordmark name={brand.appName} />}
         </Link>
         <span className="studio-topbar-divider" />
         <div className="min-w-0 flex-1">{children || <span className="studio-workspace-label">Workspace</span>}</div>
@@ -31,7 +34,8 @@ export async function TopBar({ user, children }: { user: User; children?: React.
           {real?.role === "RESELLER" && <Link href="/reseller" className="studio-top-link" aria-label="Reseller dashboard" data-help="Manage your clients, your brand, your prices and your web address."><Briefcase size={15} /><span className="hidden md:inline">Reseller dashboard</span></Link>}
           {real?.role === "ADMIN" && <Link href="/admin" className="studio-top-link" aria-label="Admin" data-help="Settings for the whole platform: branding, AI, email, payments, users and resellers."><Shield size={15} /><span className="hidden md:inline">Admin</span></Link>}
           <HelpLink />
-          <details className="studio-account"><summary aria-label="Account menu" data-help="Your settings, plan and billing, help guides, and log out."><span className="studio-avatar">{(user.name || user.email).charAt(0).toUpperCase()}</span><ChevronDown size={12} /></summary><div className="studio-account-menu"><p className="px-3 pt-2 font-medium text-surface-100">{user.name || "Your account"}</p><p className="mb-2 truncate border-b border-white/10 px-3 pb-3 pt-1 text-xs text-surface-400">{user.email}</p><Link href="/account"><Settings size={16} />Settings</Link><Link href="/billing"><CreditCard size={16} />Billing & plan</Link><Link href="/help"><CircleHelp size={16} />Help & guides</Link>{real?.role === "RESELLER" && <Link href="/reseller"><Briefcase size={16} />Reseller dashboard</Link>}{real?.role === "ADMIN" && <Link href="/admin"><Shield size={16} />Administration</Link>}<form action="/api/auth/logout" method="post"><button type="submit" className="w-full"><LogOut size={16} />Log out</button></form></div></details>
+          <ThemeToggle signedIn />
+          <details className="studio-account"><summary aria-label="Account menu"><UserAvatar name={user.name} email={user.email} avatarUrl={viewer?.avatarUrl} /><ChevronDown size={12} /></summary><div className="studio-account-menu"><div className="mb-2 flex items-center gap-3 border-b border-white/10 px-3 pb-3 pt-2"><UserAvatar name={user.name} email={user.email} avatarUrl={viewer?.avatarUrl} size={40} /><div className="min-w-0"><p className="truncate font-medium text-surface-100">{user.name || "Your account"}</p><p className="truncate text-xs text-surface-400">{user.email}</p></div></div><Link href="/account"><UserRound size={16} />Profile</Link><Link href="/billing"><CreditCard size={16} />Billing & plan</Link><Link href="/help"><CircleHelp size={16} />Help & guides</Link>{real?.role === "RESELLER" && <Link href="/reseller"><Briefcase size={16} />Reseller dashboard</Link>}{real?.role === "ADMIN" && <Link href="/admin"><Shield size={16} />Administration</Link>}<form action="/api/auth/logout" method="post"><button type="submit" className="w-full"><LogOut size={16} />Log out</button></form></div></details>
         </nav>
       </div>
     </header>

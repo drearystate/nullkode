@@ -14,7 +14,7 @@ export default async function SetPasswordPage({ searchParams }: { searchParams: 
       <AuthShell
         title="This link has expired"
         subtitle="Links work once and expire after a while. Ask whoever sent it for a new one, or reset your password yourself."
-        footer={<Link href="/forgot-password" className="text-brand-600 hover:text-brand-500 font-medium">Reset my password</Link>}
+        footer={<Link href="/forgot-password" className="font-medium text-brand-300 hover:text-brand-200">Reset my password</Link>}
       >
         <span />
       </AuthShell>

@@ -8,7 +8,7 @@ export default async function SignupPage({ searchParams }: { searchParams: Promi
   const { reseller } = await getRequestBrand(null);
   const raw = (await searchParams).next;
   const next = safeNext(Array.isArray(raw) ? raw[0] : raw);
-  const logIn = <>Already have an account? <Link href={withNext("/login", next)} className="text-brand-600 hover:text-brand-500 font-medium">Log in</Link></>;
+  const logIn = <>Already have an account? <Link href={withNext("/login", next)} className="font-medium text-brand-300 hover:text-brand-200">Log in</Link></>;
   if (reseller && !reseller.allowSignup) {
     return (
       <AuthShell
@@ -28,7 +28,7 @@ export default async function SignupPage({ searchParams }: { searchParams: Promi
       subtitle={hasIdea ? "Create your account and you'll see a plan for your idea next." : "Start on the free plan. Upgrade any time."}
       footer={logIn}
     >
-      <AuthForm mode="signup" variant="light" next={next} />
+      <AuthForm mode="signup" next={next} />
     </AuthShell>
   );
 }

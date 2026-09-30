@@ -130,7 +130,7 @@ export default async function ProjectOverview({
             {qrDataUrl ? (
               <div className="mt-3 flex items-center gap-4">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={qrDataUrl} alt={`QR code for ${publicUrl}`} width={112} height={112} className="rounded-lg bg-white p-1" data-help="Point your phone's camera at this square code to open your live app on your phone." />
+                <img src={qrDataUrl} alt={`QR code for ${publicUrl}`} width={112} height={112} className="rounded-lg bg-fixed-white p-1" data-help="Point your phone's camera at this square code to open your live app on your phone." />
                 <p className="text-xs leading-relaxed text-surface-400">Point your phone&apos;s camera at the code. Then use &ldquo;Add to Home Screen&rdquo; and it opens like an app.</p>
               </div>
             ) : (

@@ -183,7 +183,7 @@ export function DeleteUserButton({ userId, email }: { userId: string; email: str
                     They run the reseller workspace &ldquo;{info.reseller}&rdquo;. Remove it under Admin, Resellers first, then delete the account.
                   </p>
                 )}
-                {info.self && <p role="alert" className="text-amber-200">This is your own account. Use Delete my account in Settings.</p>}
+                {info.self && <p role="alert" className="text-amber-200">This is your own account. Use Delete my account on your Profile page.</p>}
                 {keyed.length > 0 && (
                   <label className="flex items-start gap-2 rounded-lg border border-red-800/60 bg-red-950/30 p-3 text-red-100">
                     <input type="checkbox" className="mt-1" checked={keysAck} onChange={(e) => setKeysAck(e.target.checked)} />
@@ -217,7 +217,7 @@ export function DeleteUserButton({ userId, email }: { userId: string; email: str
               </button>
               <button
                 type="submit"
-                className="rounded-lg bg-red-700 px-4 py-2 text-sm font-semibold text-white transition hover:bg-red-600 disabled:opacity-50"
+                className="rounded-lg bg-red-700 px-4 py-2 text-sm font-semibold text-fixed-white transition hover:bg-red-600 [[data-theme=light]_&]:bg-red-300 [[data-theme=light]_&]:hover:bg-red-400 disabled:opacity-50"
                 disabled={!canDelete || busy}
               >
                 {busy ? "Deleting…" : "Delete account"}

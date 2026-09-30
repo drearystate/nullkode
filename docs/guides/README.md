@@ -23,7 +23,7 @@ Step-by-step guides to everything in Nullkode. The same guides are in the app, u
 
 ## Your account
 
-- [Your account, plan and settings](account-and-billing.md): Change your name and password, turn help tips on or off, check your plan and AI use, or delete your account.
+- [Your profile, plan and settings](account-and-billing.md): Add a photo, change your name and password, choose light or dark, turn help tips on or off, check your plan and AI use, or delete your account.
 
 ## Running the platform
 

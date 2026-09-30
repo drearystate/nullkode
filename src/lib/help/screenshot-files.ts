@@ -11,7 +11,7 @@ export const HELP_IMAGE_DIR = path.join(process.cwd(), "public", "help");
  * the image's pixels.
  */
 export async function screenshotSize(file: string): Promise<{ width: number; height: number } | null> {
-  if (!/^[a-z0-9-]+\.webp$/.test(file)) return null;
+  if (!/^[a-z0-9-]+(?:\.light)?\.webp$/.test(file)) return null;
   let handle;
   try {
     handle = await open(path.join(HELP_IMAGE_DIR, file), "r");
@@ -25,6 +25,11 @@ export async function screenshotSize(file: string): Promise<{ width: number; hei
   } finally {
     await handle?.close().catch(() => {});
   }
+}
+
+/** The light-theme copy of a screenshot (captured with THEME=light). */
+export function lightScreenshot(file: string): string {
+  return file.replace(/\.webp$/, ".light.webp");
 }
 
 /** Pixel size from a WebP file's first 30 bytes. */

@@ -75,16 +75,16 @@ const features = (name: string, moduleCount: number, autoTls: boolean) => [
 
 export function FeatureBento({ name = "Nullkode", moduleCount = 135, autoTls = false }: { name?: string; moduleCount?: number; autoTls?: boolean }) {
   return (
-    <section id="features" className="bg-white py-24">
+    <section id="features" className="bg-surface-900 py-24">
       <div className="mx-auto max-w-6xl px-6">
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <p className="text-xs uppercase tracking-[0.2em] text-blue-600 font-semibold">
+          <p className="text-xs uppercase tracking-[0.2em] text-blue-400 font-semibold">
             Everything you need
           </p>
-          <h2 className="mt-3 text-4xl md:text-5xl font-bold tracking-tight text-surface-900">
+          <h2 className="mt-3 text-4xl md:text-5xl font-bold tracking-tight text-surface-50">
             A whole platform, not a plugin.
           </h2>
-          <p className="mt-4 text-lg text-surface-500">
+          <p className="mt-4 text-lg text-surface-400">
             Pages, backend logic, real data, publishing, modules, AI — one
             product, no glue required.
           </p>
@@ -94,15 +94,15 @@ export function FeatureBento({ name = "Nullkode", moduleCount = 135, autoTls = f
           {features(name, moduleCount, autoTls).map((f) => (
             <div
               key={f.title}
-              className="group rounded-2xl border border-surface-200 bg-surface-50 p-6 transition hover:shadow-lg hover:shadow-black/[0.04] hover:border-blue-200"
+              className="group rounded-2xl border border-white/10 bg-white/[0.03] p-6 transition hover:shadow-lg hover:shadow-black/[0.04] hover:border-blue-800"
             >
-              <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center group-hover:bg-blue-100 transition">
+              <div className="w-12 h-12 rounded-xl bg-blue-950 text-blue-400 flex items-center justify-center group-hover:bg-blue-900 transition">
                 {f.icon}
               </div>
-              <h3 className="mt-5 text-base font-bold text-surface-900">
+              <h3 className="mt-5 text-base font-bold text-surface-50">
                 {f.title}
               </h3>
-              <p className="mt-2 text-sm text-surface-500 leading-relaxed">
+              <p className="mt-2 text-sm text-surface-400 leading-relaxed">
                 {f.body}
               </p>
             </div>

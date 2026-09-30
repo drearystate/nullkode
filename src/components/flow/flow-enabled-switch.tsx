@@ -58,7 +58,7 @@ export function FlowEnabledSwitch({
         onClick={toggle}
         className={`relative inline-flex h-5 w-9 shrink-0 items-center rounded-full border transition disabled:opacity-60 ${on ? "border-brand-400 bg-brand-500" : "border-surface-600 bg-surface-800"}`}
       >
-        <span className={`inline-block h-3.5 w-3.5 rounded-full bg-white shadow transition ${on ? "translate-x-[18px]" : "translate-x-0.5"}`} />
+        <span className={`inline-block h-3.5 w-3.5 rounded-full bg-fixed-white shadow transition ${on ? "translate-x-[18px]" : "translate-x-0.5"}`} />
       </button>
       <span className={`text-xs ${on ? "text-surface-200" : "text-amber-200"}`} aria-hidden>
         {on ? "On" : "Paused"}

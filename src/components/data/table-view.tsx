@@ -306,11 +306,11 @@ export function TableView({
                                 title={text ? `${text}\n(click to change)` : "Click to fill in"}
                                 onClick={() => setEditing({ rowId: key, col: c.name })}
                               >
-                                {text || <span className="text-surface-600">—</span>}
+                                {text || <span className="text-surface-600 [[data-theme=light]_&]:text-surface-500">—</span>}
                               </button>
                             ) : (
                               <span className={`block truncate ${c.type === "json" ? "font-mono text-xs" : ""}`} title={text}>
-                                {text || <span className="text-surface-600">—</span>}
+                                {text || <span className="text-surface-600 [[data-theme=light]_&]:text-surface-500">—</span>}
                               </span>
                             )}
                           </td>

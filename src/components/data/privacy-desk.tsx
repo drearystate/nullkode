@@ -275,7 +275,7 @@ export function PrivacyDesk({
                 </span>
                 <button
                   type="button"
-                  className="rounded-lg bg-red-700 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-red-600 disabled:opacity-50"
+                  className="rounded-lg bg-[#b91c1c] px-3 py-1.5 text-xs font-semibold text-fixed-white transition hover:bg-[#dc2626] disabled:opacity-50"
                   disabled={busy !== null}
                   data-help="Deletes this person’s account and what’s tied to it (you’ll confirm first). Orders or bookings are kept with their details removed. This can’t be undone."
                   onClick={async () => {
@@ -562,7 +562,7 @@ export function PrivacyDesk({
                     <>
                       <button
                         type="button"
-                        className="rounded-lg bg-red-700 px-4 py-2 text-sm font-semibold text-white transition hover:bg-red-600 disabled:opacity-50"
+                        className="rounded-lg bg-[#b91c1c] px-4 py-2 text-sm font-semibold text-fixed-white transition hover:bg-[#dc2626] disabled:opacity-50"
                         onClick={erase}
                         disabled={busy !== null}
                         data-help="Deletes this person’s data as described below and logs the request as done. This can’t be undone."

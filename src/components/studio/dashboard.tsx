@@ -58,7 +58,7 @@ function IdeaBox() {
   const router = useRouter();
   const [idea, setIdea] = useState("");
   const ready = idea.trim().length >= 5;
-  return <form className="mt-7 flex max-w-xl flex-col gap-2 rounded-xl border border-white/10 bg-black/20 p-2 sm:flex-row" onSubmit={(e) => { e.preventDefault(); if (ready) router.push(`/new?idea=${encodeURIComponent(idea.trim().slice(0, 2000))}`); }}>
+  return <form className="mt-7 flex max-w-xl flex-col gap-2 rounded-xl border border-white/10 bg-surface-950/40 p-2 sm:flex-row" onSubmit={(e) => { e.preventDefault(); if (ready) router.push(`/new?idea=${encodeURIComponent(idea.trim().slice(0, 2000))}`); }}>
     <label htmlFor="dashboard-idea" className="sr-only">Describe the app you want to make</label>
     <input id="dashboard-idea" className="min-w-0 flex-1 bg-transparent px-3 py-2 text-sm text-surface-50 placeholder:text-surface-500 focus:outline-none" maxLength={2000} value={idea} onChange={(e) => setIdea(e.target.value)} placeholder="e.g. Bookings for my dog walking business" />
     <button className="btn-primary shrink-0" disabled={!ready}>Plan my app <ArrowRight size={15} /></button>

@@ -173,7 +173,7 @@ export function HelpTips({ initialOn }: { initialOn: boolean }) {
         <line x1="12" y1="17" x2="12.01" y2="17" />
       </svg>
       Help tips
-      <span className={`rounded-full px-1.5 py-px text-[10px] font-semibold ${on ? "bg-brand-500 text-white" : "bg-white/10 text-surface-300"}`}>{on ? "ON" : "OFF"}</span>
+      <span className={`rounded-full px-1.5 py-px text-[10px] font-semibold ${on ? "bg-brand-500 text-fixed-white" : "bg-white/10 text-surface-300"}`}>{on ? "ON" : "OFF"}</span>
     </button>
   );
 }

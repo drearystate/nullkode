@@ -146,7 +146,7 @@ export function TemplateGallery({ onBack, initialId, heading = "Pick a template"
               data-help={c === "all" ? "Show every template." : `Show only templates for ${(CATEGORY_LABELS[c] ?? c).toLowerCase()}.`}
               className={`text-[11px] px-2.5 py-1 rounded-full border transition ${
                 category === c
-                  ? "bg-brand-500 border-brand-500 text-white"
+                  ? "bg-brand-500 border-brand-500 text-fixed-white"
                   : "bg-surface-900 border-surface-800 text-surface-400 hover:border-surface-600 hover:text-surface-200"
               }`}
             >

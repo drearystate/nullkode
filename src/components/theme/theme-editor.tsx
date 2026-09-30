@@ -575,7 +575,7 @@ function PresetCard({
       </div>
 
       {active && (
-        <div className="absolute top-2 right-2 bg-brand-500 text-white text-[9px] font-bold px-2 py-0.5 rounded-full shadow-lg">
+        <div className="absolute top-2 right-2 bg-brand-500 text-fixed-white text-[9px] font-bold px-2 py-0.5 rounded-full shadow-lg">
           ACTIVE
         </div>
       )}

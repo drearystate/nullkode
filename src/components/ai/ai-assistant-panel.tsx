@@ -471,7 +471,7 @@ export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor }: Pr
       <button
         onClick={() => setOpen(true)}
         data-help="Your AI helper. Tell it what you want in normal words — like 'make the title bigger' — and it changes the page for you."
-        className="fixed bottom-6 right-6 z-50 rounded-full bg-gradient-to-br from-brand-400 via-brand-600 to-brand-800 text-white px-5 py-3 shadow-2xl shadow-brand-700/50 hover:scale-105 transition flex items-center gap-2 font-semibold"
+        className="fixed bottom-6 right-6 z-50 rounded-full bg-gradient-to-br from-brand-400 via-brand-600 to-brand-800 text-fixed-white [[data-theme=light]_&]:from-brand-600 [[data-theme=light]_&]:via-brand-400 [[data-theme=light]_&]:to-brand-200 px-5 py-3 shadow-2xl shadow-brand-700/50 hover:scale-105 transition flex items-center gap-2 font-semibold"
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Sparkles size={20} aria-hidden />
@@ -481,7 +481,7 @@ export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor }: Pr
   }
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 w-[min(420px,calc(100vw-32px))] h-[min(640px,calc(100vh-64px))] rounded-2xl border border-surface-700 bg-surface-900/95 backdrop-blur-xl shadow-2xl shadow-black/80 flex flex-col overflow-hidden">
+    <div className="fixed bottom-6 right-6 z-50 w-[min(420px,calc(100vw-32px))] h-[min(640px,calc(100vh-64px))] rounded-2xl border border-surface-700 bg-surface-900/95 backdrop-blur-xl shadow-2xl shadow-black/80 [[data-theme=light]_&]:shadow-black/20 flex flex-col overflow-hidden">
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-surface-800 bg-gradient-to-r from-brand-900/30 to-transparent">
         <div className="flex items-center gap-2">
@@ -538,13 +538,13 @@ export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor }: Pr
           if (m.role === "user") {
             return (
               <div key={i} className="flex justify-end">
-                <div className="max-w-[85%] rounded-2xl rounded-br-sm bg-brand-600 text-white px-4 py-2 text-sm">
+                <div className="max-w-[85%] rounded-2xl rounded-br-sm bg-brand-600 text-fixed-white [[data-theme=light]_&]:bg-brand-400 px-4 py-2 text-sm">
                   {m.attachments && m.attachments.length > 0 && (
                     <div className="mb-1.5 flex flex-wrap gap-1">
                       {m.attachments.map((a, j) => (
                         <span
                           key={j}
-                          className="inline-flex items-center gap-1 rounded bg-brand-700/60 px-1.5 py-0.5 text-[10px]"
+                          className="inline-flex items-center gap-1 rounded bg-brand-700/60 [[data-theme=light]_&]:bg-brand-300/60 px-1.5 py-0.5 text-[10px]"
                           title={a.name}
                         >
                           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>

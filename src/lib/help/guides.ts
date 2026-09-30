@@ -159,7 +159,7 @@ const GUIDE_LIST: Guide[] = [
           "Nothing is public until you publish. **Preview** lets you try your app first.",
           "To delete an app, use the bin icon on its card on the dashboard. Download a backup first: deleting can't be undone.",
           "Your plan may limit how many apps you can make. When you reach it, see **Billing & plan**.",
-          "Hold your mouse over a button to see a short tip about it. You can turn tips off in **Settings**.",
+          "Hold your mouse over a button to see a short tip about it. You can turn tips off in your **Profile**.",
         ],
       },
     ],
@@ -1025,23 +1025,24 @@ const GUIDE_LIST: Guide[] = [
   // ── Your account ──────────────────────────────────────────────────────
   {
     slug: "account-and-billing",
-    title: "Your account, plan and settings",
-    summary: "Change your name and password, turn help tips on or off, check your plan and AI use, or delete your account.",
+    title: "Your profile, plan and settings",
+    summary: "Add a photo, change your name and password, choose light or dark, turn help tips on or off, check your plan and AI use, or delete your account.",
     audience: "everyone",
     group: "account",
     sections: [
       {
-        heading: "Your details and password",
+        heading: "Your photo, details and password",
         body: [],
         steps: [
-          "Click your initial at the top right, then **Settings**.",
-          "Under **Your details**, change your **Name** and press **Save**. Your email is the one you sign in with and can't be changed here.",
+          "Click your picture (or initial) at the top right, then **Profile**.",
+          "Press **Add a photo** and pick a picture of you. It's cropped to a square and shows next to your name. **Change photo** or **Remove** it any time.",
+          "Change your **Name** and press **Save**. Your email is the one you sign in with and can't be changed here.",
           "Under **Password**, type your **Current password** and a **New password** of at least 8 characters, then press **Change password**. You're signed out on your other devices.",
         ],
         screenshot: {
           file: "account-and-billing-1.webp",
-          alt: "The Settings page with your details, password, help tips and account deletion.",
-          caption: "Settings: your name, password, help tips and more.",
+          alt: "The Profile page with your photo, details, password, appearance and help tips.",
+          caption: "Profile: your photo, name, password, light or dark, and help tips.",
           shot: { path: "/account", waitFor: "#profile-heading" },
         },
       },
@@ -1052,9 +1053,15 @@ const GUIDE_LIST: Guide[] = [
         ],
       },
       {
+        heading: "Light or dark",
+        body: [
+          "Press the sun or moon button in the top bar to switch between light and dark. In your **Profile**, under **Appearance**, you can also choose **Match my device**, which follows your computer or phone. Your choice is saved to your account, so it follows you to other devices.",
+        ],
+      },
+      {
         heading: "Help tips and guides",
         body: [
-          "Help tips are short notes that appear when you hold your mouse over a button or setting. Turn them on or off in **Settings** under **Help**. Inside an app, the **Help tips** button at the top does the same.",
+          "Help tips are short notes that appear when you hold your mouse over a button or setting. Turn them on or off in your **Profile** under **Help**. Inside an app, the **Help tips** button at the top does the same.",
           "The **Help** link in the top bar opens the guide for the screen you're on. **Help & guides** in the account menu lists every guide.",
         ],
       },
@@ -1077,7 +1084,7 @@ const GUIDE_LIST: Guide[] = [
           "This deletes your account and all your apps, with everything they saved, their files and their web addresses. It can't be undone.",
         ],
         steps: [
-          "Go to **Settings** and find **Delete my account**.",
+          "Go to your **Profile** and find **Delete my account**.",
           "Download a **Backup** of each app you might want later. If an app is on Google Play, download its **Google Play upload key** too.",
           "Press **Delete my account…**.",
           "Type your email address to confirm, and tick the upload key box if it's shown.",
@@ -1090,7 +1097,7 @@ const GUIDE_LIST: Guide[] = [
         bullets: [
           "Changing your password signs you out everywhere else.",
           "A paid plan is cancelled straight away when you delete your account.",
-          "If your account can't be deleted here, for example because you run a workspace for other people, the Settings page explains why.",
+          "If your account can't be deleted here, for example because you run a workspace for other people, your Profile page explains why.",
         ],
       },
     ],

@@ -215,7 +215,7 @@ export function ThemePanel({ projectId, editor }: Props) {
             <option key={p.name} value={p.name}>{p.name}</option>
           ))}
         </select>
-        <div className="text-[10px] text-surface-600 mt-1">
+        <div className="text-[10px] text-surface-600 [[data-theme=light]_&]:text-surface-500 mt-1">
           Users see a sun/moon toggle on every page.
         </div>
       </div>

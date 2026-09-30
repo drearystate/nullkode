@@ -204,9 +204,11 @@ export function redirectTargetFor(i: RedirectInput): { to: string; permanent: bo
   if (i.primary.kind === "domain" && i.primaryServed && movable && normalizeHost(i.requestHost) !== i.primary.host) {
     return { to: i.primary.base, permanent: true };
   }
-  // With an apps domain, /app/<slug> never runs an app on the dashboard's
-  // origin (each app gets its own). Unchanged from before, for every client.
-  if (i.route === "path" && i.labelOrigin) return { to: i.labelOrigin, permanent: movable };
+  // With an apps domain, /app/<slug> doesn't run an app on the dashboard's
+  // origin (each app gets its own). Except inside an app shell (Android /
+  // iOS web view): apps built before APPS_DOMAIN only allow this address, so
+  // a redirect would push the app out into the phone's browser.
+  if (i.route === "path" && i.labelOrigin && !i.webView) return { to: i.labelOrigin, permanent: movable };
   return null;
 }
 

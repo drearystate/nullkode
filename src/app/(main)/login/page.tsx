@@ -16,11 +16,11 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
       footer={canSignUp ? (
         <>
           No account?{" "}
-          <Link href={withNext("/signup", next)} className="text-brand-600 hover:text-brand-500 font-medium">Create one</Link>
+          <Link href={withNext("/signup", next)} className="font-medium text-brand-300 hover:text-brand-200">Create one</Link>
         </>
       ) : null}
     >
-      <AuthForm mode="login" variant="light" next={next} />
+      <AuthForm mode="login" next={next} />
     </AuthShell>
   );
 }

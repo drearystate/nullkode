@@ -92,7 +92,7 @@ Problems also show on your app's Overview under **Problems in the last 24 hours*
 - Flow changes are part of your draft. Visitors get them after you publish.
 - **Send an email** only sends when email is set up on the server. If it isn't, your app's Overview warns you.
 - The **Ask AI** step uses your plan's AI allowance each time it runs.
-- If you publish while a scheduled flow is paused, publish again after turning it back on.
+- Pausing or turning a flow back on applies straight away, including its schedule. You don't need to publish.
 - Some plans don't include scheduled flows. The Schedule tab says so.
 - **Web address (for developers)** is only needed to start a flow from outside Nullkode.
 

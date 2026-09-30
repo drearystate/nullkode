@@ -30,13 +30,13 @@ const faqs = (name: string) => [
 
 export function FaqSection({ name = "Nullkode" }: { name?: string }) {
   return (
-    <section id="faq" className="bg-white py-24">
+    <section id="faq" className="bg-surface-900 py-24">
       <div className="mx-auto max-w-3xl px-6">
         <div className="text-center">
-          <p className="text-xs uppercase tracking-[0.2em] text-blue-600 font-semibold">
+          <p className="text-xs uppercase tracking-[0.2em] text-blue-400 font-semibold">
             FAQ
           </p>
-          <h2 className="mt-3 text-4xl md:text-5xl font-bold tracking-tight text-surface-900">
+          <h2 className="mt-3 text-4xl md:text-5xl font-bold tracking-tight text-surface-50">
             Questions, honestly answered.
           </h2>
         </div>
@@ -54,11 +54,11 @@ export function FaqSection({ name = "Nullkode" }: { name?: string }) {
 function FaqItem({ item }: { item: { q: string; a: string } }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="rounded-xl border border-surface-200 bg-white overflow-hidden">
+    <div className="rounded-xl border border-white/10 bg-surface-900 overflow-hidden">
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="w-full flex items-center justify-between text-left px-5 py-4 text-surface-900 font-medium hover:bg-surface-50 transition"
+        className="w-full flex items-center justify-between text-left px-5 py-4 text-surface-50 font-medium hover:bg-white/[0.03] transition"
       >
         <span>{item.q}</span>
         <span
@@ -72,7 +72,7 @@ function FaqItem({ item }: { item: { q: string; a: string } }) {
       </button>
       {open && (
         <div className="overflow-hidden">
-          <p className="px-5 pb-5 text-surface-500 text-sm leading-relaxed">
+          <p className="px-5 pb-5 text-surface-400 text-sm leading-relaxed">
             {item.a}
           </p>
         </div>

@@ -1,7 +1,11 @@
 "use client";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { Camera } from "lucide-react";
 import { setHelpTips, useHelpTipsOn } from "./help-tips";
+import { ThemeChoice } from "./theme-toggle";
+import { UserAvatar } from "./user-avatar";
 
 type Status = { kind: "ok" | "error"; text: string } | null;
 
@@ -14,23 +18,110 @@ function Note({ status }: { status: Status }) {
   );
 }
 
-export function ProfileCard({ name: initialName, email, readOnly }: { name: string; email: string; readOnly: boolean }) {
+/** Crops the picture to a centred square and shrinks it to 256×256, in the browser. */
+async function squarePhoto(file: File): Promise<string> {
+  const url = URL.createObjectURL(file);
+  try {
+    const img = await new Promise<HTMLImageElement>((resolve, reject) => {
+      const i = new Image();
+      i.onload = () => resolve(i);
+      i.onerror = () => reject(new Error("That file isn't a picture we can open."));
+      i.src = url;
+    });
+    const side = Math.min(img.naturalWidth, img.naturalHeight);
+    const canvas = document.createElement("canvas");
+    canvas.width = canvas.height = 256;
+    const ctx = canvas.getContext("2d");
+    if (!ctx || !side) throw new Error("That file isn't a picture we can open.");
+    ctx.imageSmoothingQuality = "high";
+    ctx.drawImage(img, (img.naturalWidth - side) / 2, (img.naturalHeight - side) / 2, side, side, 0, 0, 256, 256);
+    const webp = canvas.toDataURL("image/webp", 0.86);
+    return webp.startsWith("data:image/webp") ? webp : canvas.toDataURL("image/jpeg", 0.86);
+  } finally {
+    URL.revokeObjectURL(url);
+  }
+}
+
+export function ProfileCard({ name: initialName, email, avatarUrl: initialAvatar, readOnly }: { name: string; email: string; avatarUrl: string | null; readOnly: boolean }) {
+  const router = useRouter();
   const [name, setName] = useState(initialName);
-  const [busy, setBusy] = useState(false);
+  const [saved, setSaved] = useState(initialName);
+  const [avatar, setAvatar] = useState(initialAvatar);
+  const [busy, setBusy] = useState<"name" | "photo" | null>(null);
   const [status, setStatus] = useState<Status>(null);
+  const fileRef = useRef<HTMLInputElement>(null);
+
   async function save(e: React.FormEvent) {
     e.preventDefault();
-    setBusy(true);
+    setBusy("name");
     setStatus(null);
     const res = await fetch("/api/me/profile", { method: "PATCH", headers: { "content-type": "application/json" }, body: JSON.stringify({ name }) }).catch(() => null);
     const data = await res?.json().catch(() => ({}));
-    setBusy(false);
-    setStatus(res?.ok ? { kind: "ok", text: "Saved." } : { kind: "error", text: data?.error || "Couldn't save. Please try again." });
+    setBusy(null);
+    if (res?.ok) {
+      setSaved(data.name ?? name.trim());
+      setStatus({ kind: "ok", text: "Saved." });
+      router.refresh();
+    } else {
+      setStatus({ kind: "error", text: data?.error || "Couldn't save. Please try again." });
+    }
   }
+
+  async function pick(file: File | undefined) {
+    if (!file) return;
+    setBusy("photo");
+    setStatus(null);
+    try {
+      const dataUrl = await squarePhoto(file);
+      const res = await fetch("/api/me/avatar", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ dataUrl }) });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || "Couldn't save the photo. Please try again.");
+      setAvatar(dataUrl);
+      setStatus({ kind: "ok", text: "Photo saved." });
+      router.refresh();
+    } catch (err) {
+      setStatus({ kind: "error", text: err instanceof Error ? err.message : "Couldn't save the photo." });
+    } finally {
+      setBusy(null);
+      if (fileRef.current) fileRef.current.value = "";
+    }
+  }
+
+  async function removePhoto() {
+    setBusy("photo");
+    setStatus(null);
+    const res = await fetch("/api/me/avatar", { method: "DELETE" }).catch(() => null);
+    setBusy(null);
+    if (res?.ok) {
+      setAvatar(null);
+      setStatus({ kind: "ok", text: "Photo removed." });
+      router.refresh();
+    } else {
+      setStatus({ kind: "error", text: "Couldn't remove the photo. Please try again." });
+    }
+  }
+
   return (
     <section aria-labelledby="profile-heading" className="card p-6">
-      <h2 id="profile-heading" className="font-semibold">Your details</h2>
-      <form onSubmit={save} className="mt-4 grid max-w-md gap-4">
+      <h2 id="profile-heading" className="font-semibold">Your profile</h2>
+      <div className="mt-5 flex flex-wrap items-center gap-5">
+        <UserAvatar name={saved || null} email={email} avatarUrl={avatar} size={88} className="text-2xl" />
+        {!readOnly && (
+          <div className="flex flex-wrap gap-2">
+            <input ref={fileRef} type="file" accept="image/png,image/jpeg,image/webp" className="sr-only" id="avatar-file" onChange={(e) => void pick(e.target.files?.[0])} />
+            <button type="button" className="btn-secondary" disabled={busy !== null} onClick={() => fileRef.current?.click()} data-help="Choose a picture of you (PNG, JPEG or WebP). It's cropped to a square and shown next to your name.">
+              <Camera size={15} />
+              {busy === "photo" ? "Saving…" : avatar ? "Change photo" : "Add a photo"}
+            </button>
+            {avatar && (
+              <button type="button" className="btn-ghost" disabled={busy !== null} onClick={() => void removePhoto()} data-help="Take your photo off. Your initial shows instead.">
+                Remove
+              </button>
+            )}
+          </div>
+        )}
+      </div>
+      <form onSubmit={save} className="mt-6 grid max-w-md gap-4">
         <div>
           <label htmlFor="account-name" className="label">Name</label>
           <input id="account-name" className="input" value={name} maxLength={100} onChange={(e) => setName(e.target.value)} disabled={readOnly} data-help="The name shown on your account and in emails we send you." />
@@ -42,11 +133,23 @@ export function ProfileCard({ name: initialName, email, readOnly }: { name: stri
         </div>
         {!readOnly && (
           <div>
-            <button className="btn-primary" disabled={busy || !name.trim() || name.trim() === initialName}>{busy ? "Saving…" : "Save"}</button>
+            <button className="btn-primary" disabled={busy !== null || !name.trim() || name.trim() === saved}>{busy === "name" ? "Saving…" : "Save"}</button>
           </div>
         )}
       </form>
       <Note status={status} />
+    </section>
+  );
+}
+
+export function AppearanceCard() {
+  return (
+    <section aria-labelledby="appearance-heading" className="card p-6">
+      <h2 id="appearance-heading" className="font-semibold">Appearance</h2>
+      <p className="mt-1 text-sm text-surface-400">Choose how the studio looks. It&apos;s saved to your account, so it follows you to other devices.</p>
+      <div className="mt-4">
+        <ThemeChoice />
+      </div>
     </section>
   );
 }

@@ -56,7 +56,7 @@ export function DesignerHome({ aiReady }: { aiReady: boolean }) {
         <h1 className="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">Describe it. Watch it take shape.</h1>
         <p className="mx-auto mt-3 max-w-xl text-surface-400">Tell the AI what you want in plain words. It designs the pages, sets up the data and forms, and you keep changing it until it's right.</p>
         {!aiReady && <p role="status" className="mx-auto mt-4 max-w-xl rounded-lg border border-amber-400/30 bg-amber-400/10 p-3 text-sm text-amber-100">The AI isn't set up on this server yet, so designs can't be built.</p>}
-        <form onSubmit={start} data-help="Describe the app or website you want in your own words. The AI may ask a couple of quick questions, then designs the pages for you." className="mx-auto mt-8 max-w-3xl rounded-2xl border border-white/10 bg-white/[0.03] p-3 text-left shadow-2xl shadow-brand-900/20 focus-within:border-brand-500/60">
+        <form onSubmit={start} data-help="Describe the app or website you want in your own words. The AI may ask a couple of quick questions, then designs the pages for you." className="mx-auto mt-8 max-w-3xl rounded-2xl border border-white/10 bg-white/[0.03] p-3 text-left [[data-theme=light]_&]:bg-surface-900 shadow-2xl shadow-brand-900/20 focus-within:border-brand-500/60">
           <label htmlFor="designer-prompt" className="sr-only">What do you want to make?</label>
           <textarea
             id="designer-prompt"
@@ -117,7 +117,7 @@ function DesignCard({ design, onChanged }: { design: Design; onChanged: () => vo
     onChanged();
   }
   return (
-    <article className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] transition hover:border-brand-500/50">
+    <article className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] [[data-theme=light]_&]:bg-surface-900 transition hover:border-brand-500/50">
       <Link href={`/designer/${design.id}`} className="block" aria-label={`Open ${design.name}`} data-help="Open this design to see it full size and ask the AI for changes.">
         <div className="relative aspect-[16/10] overflow-hidden bg-surface-900">
           {design.hasHome ? (

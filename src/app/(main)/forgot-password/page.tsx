@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 
 export default async function ForgotPasswordPage() {
   const { brand } = await getRequestBrand(null);
-  const back = <Link href="/login" className="text-brand-600 hover:text-brand-500 font-medium">Back to log in</Link>;
+  const back = <Link href="/login" className="font-medium text-brand-300 hover:text-brand-200">Back to log in</Link>;
   if (!emailEnabled()) {
     return (
       <AuthShell

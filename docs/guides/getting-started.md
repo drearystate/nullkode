@@ -78,7 +78,7 @@ The Overview shows whether your app is live and its address, a **Launch checklis
 - Nothing is public until you publish. **Preview** lets you try your app first.
 - To delete an app, use the bin icon on its card on the dashboard. Download a backup first: deleting can't be undone.
 - Your plan may limit how many apps you can make. When you reach it, see **Billing & plan**.
-- Hold your mouse over a button to see a short tip about it. You can turn tips off in **Settings**.
+- Hold your mouse over a button to see a short tip about it. You can turn tips off in your **Profile**.
 
 ## Related guides
 

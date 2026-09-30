@@ -5,6 +5,7 @@ import { isInstallComplete } from "@/lib/install";
 import { brandCssVars } from "@/lib/brand";
 import { getCurrentUser } from "@/lib/auth";
 import { getRequestBrand } from "@/lib/reseller";
+import { themeBootScript, themePref } from "@/lib/theme/theme";
 
 export const dynamic = "force-dynamic";
 
@@ -42,10 +43,15 @@ export default async function RootLayout({
   // (or a login page they can't sign up for without a verified email).
   if (!(await isInstallComplete())) redirect("/install");
 
-  const { brand } = await getRequestBrand(await getCurrentUser());
+  const user = await getCurrentUser();
+  const { brand } = await getRequestBrand(user);
+  const theme = await themePref(user);
   return (
-    <html lang="en">
+    // The boot script sets data-theme before paint; the server can only
+    // know it for an explicit choice, not for "match my device".
+    <html lang="en" data-theme-pref={theme} data-theme={theme === "system" ? undefined : theme} suppressHydrationWarning>
       <head>
+        <script dangerouslySetInnerHTML={{ __html: themeBootScript(theme) }} />
         <style dangerouslySetInnerHTML={{ __html: brandCssVars(brand) }} />
       </head>
       <body>

@@ -88,7 +88,7 @@ export function DeleteProjectButton({
         role="dialog"
         aria-modal="true"
         aria-labelledby={`delete-app-${projectId}`}
-        className="card w-full max-w-md p-6 text-left shadow-2xl"
+        className="card w-full max-w-md p-6 text-left shadow-2xl [[data-theme=light]_&]:bg-surface-900"
         onClick={(e) => e.stopPropagation()}
         onKeyDown={(e) => {
           if (e.key === "Escape") close();
@@ -131,7 +131,7 @@ export function DeleteProjectButton({
             onClick={remove}
             disabled={busy || (hasKey && !keyAck)}
             data-help="Delete this app for good: its pages, data, files and web address. Visitors can no longer open it. This can't be undone."
-            className="rounded-lg bg-red-700 px-4 py-2 text-sm font-semibold text-white transition hover:bg-red-600 disabled:opacity-50"
+            className="rounded-lg bg-[#b91c1c] px-4 py-2 text-sm font-semibold text-fixed-white transition hover:bg-[#dc2626] disabled:opacity-50"
           >
             {busy ? "Deleting…" : "Delete app"}
           </button>

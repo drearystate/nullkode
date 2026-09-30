@@ -2,6 +2,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { solvePow } from "@/lib/pow";
 import { DEFAULT_NEXT, ideaFromNext, safeNext } from "@/lib/safe-next";
+import { authButton, authError, authInput, authLabel, authLink } from "./auth-styles";
 
 type Variant = "dark" | "light";
 
@@ -59,17 +60,11 @@ export function AuthForm({
     startTicket();
   }, [mode, startTicket]);
 
-  // Light-theme classes inline so we don't have to touch the shared
-  // .input / .label Tailwind component classes which the rest of the dark
-  // platform still relies on.
-  const isLight = variant === "light";
-  const labelCls = isLight
-    ? "block text-xs font-semibold text-surface-600 mb-1.5 uppercase tracking-wider"
-    : "label";
-  const inputCls = isLight
-    ? "w-full rounded-lg bg-white border border-surface-300 px-3 py-2.5 text-sm text-surface-900 placeholder:text-surface-400 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20"
-    : "input";
-  const errorCls = isLight ? "text-sm text-red-600" : "text-sm text-red-400";
+  // variant is kept for callers; the fields follow the studio's theme now.
+  void variant;
+  const labelCls = authLabel;
+  const inputCls = authInput;
+  const errorCls = authError;
 
   async function post(): Promise<Response> {
     let extra: Record<string, unknown> = {};
@@ -177,7 +172,7 @@ export function AuthForm({
       <div>
         <div className="flex items-baseline justify-between">
           <label className={labelCls} htmlFor="auth-password">Password</label>
-          {mode === "login" && <a href="/forgot-password" className="text-xs text-brand-600 hover:text-brand-500">Forgot password?</a>}
+          {mode === "login" && <a href="/forgot-password" className={`text-xs ${authLink}`}>Forgot password?</a>}
         </div>
         <input
           id="auth-password"
@@ -192,7 +187,7 @@ export function AuthForm({
         />
       </div>
       {error && <div className={errorCls}>{error}</div>}
-      <button type="submit" disabled={busy} className="btn-primary w-full disabled:opacity-50">
+      <button type="submit" disabled={busy} className={authButton}>
         {busy ? (mode === "signup" ? "Creating your account…" : "Signing in…") : mode === "signup" ? "Create account" : "Log in"}
       </button>
     </form>

@@ -539,7 +539,7 @@ function SubmitRow({
       <button
         type="submit"
         disabled={busy}
-        className="inline-flex items-center justify-center rounded-lg bg-brand-500 px-5 py-2.5 text-sm font-semibold text-white hover:bg-brand-400 disabled:opacity-40"
+        className="inline-flex items-center justify-center rounded-lg bg-brand-500 px-5 py-2.5 text-sm font-semibold text-fixed-white hover:bg-brand-400 disabled:opacity-40"
       >
         {busy ? "Working…" : label}
       </button>

@@ -1,38 +1,16 @@
 import type { Config } from "tailwindcss";
+import plugin from "tailwindcss/plugin";
+import { themeColors, themeVariables } from "./src/lib/theme/palette";
+
+const vars = themeVariables();
 
 export default {
   content: ["./src/**/*.{ts,tsx}"],
   theme: {
+    // Every colour is a CSS variable with a dark and a light value (see
+    // src/lib/theme/palette.ts); the page's data-theme picks which.
+    colors: themeColors(),
     extend: {
-      colors: {
-        brand: {
-          50: "#f3f1ff",
-          100: "#ebe5ff",
-          200: "#d9ceff",
-          300: "#bea6ff",
-          400: "#9f75ff",
-          500: "#843dff",
-          600: "#7919ff",
-          700: "#6b04fd",
-          800: "#5a03d5",
-          900: "#4b05ad",
-          950: "#2c0076",
-        },
-        surface: {
-          0: "#ffffff",
-          50: "#f8f8fb",
-          100: "#f1f1f6",
-          200: "#e5e5ee",
-          300: "#d1d1de",
-          400: "#9c9cb0",
-          500: "#7e7e94",
-          600: "#4a4a5e",
-          700: "#323244",
-          800: "#1e1e2d",
-          900: "#121220",
-          950: "#0a0a14",
-        },
-      },
       fontFamily: {
         sans: [
           "-apple-system",
@@ -46,5 +24,9 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(({ addBase }) => {
+      addBase({ ":root": vars.dark, '[data-theme="light"]': vars.light });
+    }),
+  ],
 } satisfies Config;

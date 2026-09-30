@@ -94,7 +94,7 @@ export function TransferProjectCard({
           </p>
           <div className="mt-3 flex gap-2">
             <button
-              className="rounded-lg bg-red-700 hover:bg-red-600 text-white px-4 py-2 text-sm font-semibold transition disabled:opacity-50"
+              className="rounded-lg bg-[#b91c1c] hover:bg-[#dc2626] text-fixed-white px-4 py-2 text-sm font-semibold transition disabled:opacity-50"
               onClick={transfer}
               disabled={busy}
               data-help="Hand the app over now. You lose access straight away, and you can't undo this yourself."

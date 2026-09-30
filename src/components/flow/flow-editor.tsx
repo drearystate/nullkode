@@ -221,6 +221,28 @@ export function FlowEditor(props: Props) {
 
   return (
     <div className="studio-flow-editor h-[calc(100dvh-127px)] flex">
+      {/* Canvas colours (edges, handles, dots, minimap) for both themes. Dark
+          keeps React Flow's defaults the studio has always shown. */}
+      <style>{`
+        .studio-flow-editor {
+          --nk-flow-edge: #b1b1b7; --nk-flow-edge-active: #555555; --nk-flow-dot: #232336;
+          --nk-flow-handle: #1a192b; --nk-flow-handle-ring: #ffffff;
+          --nk-flow-mini-node: #e2e2e2; --nk-flow-mask: rgb(10 10 20 / 0.6);
+        }
+        [data-theme="light"] .studio-flow-editor {
+          --nk-flow-edge: rgb(var(--c-surface-500)); --nk-flow-edge-active: rgb(var(--c-surface-200)); --nk-flow-dot: rgb(var(--c-surface-600));
+          --nk-flow-handle: rgb(var(--c-surface-900)); --nk-flow-handle-ring: rgb(var(--c-surface-400));
+          --nk-flow-mini-node: rgb(var(--c-surface-700)); --nk-flow-mask: rgb(var(--c-surface-800) / 0.6);
+        }
+        .studio-flow-editor .react-flow__edge-path, .studio-flow-editor .react-flow__connection-path { stroke: var(--nk-flow-edge); }
+        .studio-flow-editor .react-flow__edge.selected .react-flow__edge-path,
+        .studio-flow-editor .react-flow__edge:focus .react-flow__edge-path,
+        .studio-flow-editor .react-flow__edge:focus-visible .react-flow__edge-path { stroke: var(--nk-flow-edge-active); }
+        .studio-flow-editor .react-flow__handle { background: var(--nk-flow-handle); border-color: var(--nk-flow-handle-ring); }
+        .studio-flow-editor .react-flow__background pattern circle { fill: var(--nk-flow-dot); }
+        .studio-flow-editor .react-flow__minimap-node { fill: var(--nk-flow-mini-node); }
+        .studio-flow-editor .react-flow__minimap-mask { fill: var(--nk-flow-mask); }
+      `}</style>
       <aside className="w-64 border-r border-surface-800 bg-surface-900 overflow-y-auto">
         <div className="p-3 border-b border-surface-800">
           <div className="text-xs text-surface-500 uppercase tracking-wider">Flow</div>
@@ -309,10 +331,11 @@ export function FlowEditor(props: Props) {
             onNodeClick={(_, n) => setSelected(n.id)}
             onPaneClick={() => setSelected(null)}
             nodeTypes={nodeTypes}
+            defaultMarkerColor="var(--nk-flow-edge)"
             fitView
           >
-            <Background color="#232336" gap={18} />
-            <MiniMap pannable zoomable maskColor="rgba(10,10,20,0.6)" />
+            <Background color="var(--nk-flow-dot)" gap={18} />
+            <MiniMap pannable zoomable maskColor="var(--nk-flow-mask)" nodeColor="var(--nk-flow-mini-node)" />
             <Controls />
           </ReactFlow>
         </DeleteNodeCtx.Provider>
@@ -357,13 +380,13 @@ function NkNodeView({ id, data, selected }: { id: string; data: Record<string, u
   const Icon = entry?.icon;
   return (
     <div
-      className={`relative rounded-xl border bg-surface-900 text-surface-100 min-w-[180px] shadow-xl shadow-black/40 ${
+      className={`relative rounded-xl border bg-surface-900 text-surface-100 min-w-[180px] shadow-xl shadow-black/40 [[data-theme=light]_&]:shadow-black/10 ${
         selected ? "border-brand-500" : "border-surface-700"
       }`}
     >
       {selected && (
         <button
-          className="absolute -top-2.5 -right-2.5 z-10 h-5 w-5 rounded-full bg-red-600 hover:bg-red-500 text-white flex items-center justify-center shadow-lg"
+          className="absolute -top-2.5 -right-2.5 z-10 h-5 w-5 rounded-full bg-[#dc2626] hover:bg-[#ef4444] text-fixed-white flex items-center justify-center shadow-lg"
           onClick={(e) => {
             e.stopPropagation();
             deleteNode(id);

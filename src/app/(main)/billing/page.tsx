@@ -24,7 +24,7 @@ export default async function BillingPage() {
         <BillingPlans plans={await getPublicPlans(billingScopeFor(user))} currentPlan={user.plan} hasCustomer={!!user.stripeCustomerId} />
 
         <p className="mt-12 text-sm text-surface-400">
-          Your name, password, help tips and account deletion are in <Link href="/account" className="text-brand-300 hover:underline">Settings</Link>.
+          Your photo, name, password, appearance, help tips and account deletion are on your <Link href="/account" className="text-brand-300 hover:underline">Profile</Link>.
         </p>
       </div>
     </main>

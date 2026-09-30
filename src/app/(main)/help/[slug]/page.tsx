@@ -7,7 +7,7 @@ import { withNext } from "@/lib/safe-next";
 import { TopBar } from "@/components/top-bar";
 import { RichText } from "@/components/help/rich-text";
 import { GROUPS, audienceAllows, brandGuide, getGuide, sectionId, type Guide } from "@/lib/help/guides";
-import { screenshotSize } from "@/lib/help/screenshot-files";
+import { lightScreenshot, screenshotSize } from "@/lib/help/screenshot-files";
 
 export const dynamic = "force-dynamic";
 
@@ -43,6 +43,8 @@ export default async function GuidePage({ params }: Props) {
       ...s,
       id: sectionId(s.heading),
       image: s.screenshot ? await screenshotSize(s.screenshot.file) : null,
+      // Shown instead in light mode, when it has been captured.
+      lightImage: s.screenshot ? Boolean(await screenshotSize(lightScreenshot(s.screenshot.file))) : false,
     })),
   );
   const related = guide.related
@@ -76,7 +78,7 @@ export default async function GuidePage({ params }: Props) {
             </header>
 
             {showToc && (
-              <nav aria-label="On this page" className="mt-8 rounded-2xl border border-white/[0.07] bg-[#15161f] p-5 lg:hidden">
+              <nav aria-label="On this page" className="mt-8 rounded-2xl border border-[var(--nk-line)] bg-surface-900 p-5 lg:hidden">
                 <TocList sections={sections} />
               </nav>
             )}
@@ -134,8 +136,20 @@ export default async function GuidePage({ params }: Props) {
                         height={s.image.height || undefined}
                         loading="lazy"
                         decoding="async"
-                        className="h-auto w-full rounded-xl border border-white/10 bg-[#10111a] shadow-2xl shadow-black/30"
+                        className={`h-auto w-full rounded-xl border border-white/10 bg-[var(--nk-chrome)] shadow-2xl shadow-black/30 ${s.lightImage ? "help-shot-dark" : ""}`}
                       />
+                      {s.lightImage && (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                          src={`/help/${lightScreenshot(s.screenshot.file)}`}
+                          alt={s.screenshot.alt}
+                          width={s.image.width || undefined}
+                          height={s.image.height || undefined}
+                          loading="lazy"
+                          decoding="async"
+                          className="help-shot-light h-auto w-full rounded-xl border border-white/10 bg-[var(--nk-chrome)] shadow-xl shadow-black/10"
+                        />
+                      )}
                       <figcaption className="mt-2.5 text-sm text-surface-400">{s.screenshot.caption}</figcaption>
                     </figure>
                   )}
@@ -153,7 +167,7 @@ export default async function GuidePage({ params }: Props) {
                     <li key={r.slug}>
                       <Link
                         href={`/help/${r.slug}`}
-                        className="group flex h-full flex-col rounded-2xl border border-white/[0.07] bg-[#15161f] p-5 transition hover:border-brand-400/50"
+                        className="group flex h-full flex-col rounded-2xl border border-[var(--nk-line)] bg-surface-900 p-5 transition hover:border-brand-400/50"
                       >
                         <span className="flex items-start justify-between gap-3">
                           <span className="font-semibold text-surface-50">{r.title}</span>
@@ -177,7 +191,7 @@ export default async function GuidePage({ params }: Props) {
 
           {showToc && (
             <aside className="hidden lg:block">
-              <nav aria-label="On this page" className="sticky top-24 rounded-2xl border border-white/[0.07] bg-[#15161f] p-5">
+              <nav aria-label="On this page" className="sticky top-24 rounded-2xl border border-[var(--nk-line)] bg-surface-900 p-5">
                 <TocList sections={sections} />
               </nav>
             </aside>

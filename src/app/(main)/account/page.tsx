@@ -2,11 +2,11 @@ import { redirect } from "next/navigation";
 import { getCurrentUser, getImpersonation } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { TopBar } from "@/components/top-bar";
-import { HelpPrefsCard, PasswordCard, ProfileCard } from "@/components/account-settings";
+import { AppearanceCard, HelpPrefsCard, PasswordCard, ProfileCard } from "@/components/account-settings";
 import { DeleteAccountCard } from "@/components/delete-account";
 
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Settings" };
+export const metadata = { title: "Profile" };
 
 const LIVE_STATUS = new Set(["TRIALING", "ACTIVE", "PAST_DUE", "UNPAID"]);
 
@@ -38,11 +38,12 @@ export default async function AccountPage() {
       <TopBar user={user} />
       <div className="mx-auto max-w-3xl space-y-6 px-6 py-10">
         <div>
-          <h1 className="text-2xl font-semibold">Settings</h1>
-          <p className="mt-1 text-sm text-surface-400">Your account and how the studio works for you.</p>
+          <h1 className="text-2xl font-semibold">Profile</h1>
+          <p className="mt-1 text-sm text-surface-400">Your photo, your details, and how the studio looks and works for you.</p>
         </div>
-        <ProfileCard name={user.name ?? ""} email={user.email} readOnly={Boolean(impersonation)} />
+        <ProfileCard name={user.name ?? ""} email={user.email} avatarUrl={user.avatarUrl} readOnly={Boolean(impersonation)} />
         <PasswordCard readOnly={Boolean(impersonation)} />
+        <AppearanceCard />
         <HelpPrefsCard initialOn={helpTipsOn} />
         <DeleteAccountCard
           email={user.email}

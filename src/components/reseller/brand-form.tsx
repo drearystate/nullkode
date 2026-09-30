@@ -80,7 +80,7 @@ export function BrandForm({ initial, endpoint = "/api/reseller/brand", savedText
 
       <aside aria-label="Preview" className="space-y-3">
         <p className="studio-eyebrow">PREVIEW</p>
-        <div className="overflow-hidden rounded-2xl border border-white/10 bg-[#0e0e16]">
+        <div className="overflow-hidden rounded-2xl border border-white/10 bg-surface-950">
           <div className="flex items-center gap-2 border-b border-white/10 px-4 py-3">
             {brand.logoDataUrl
               // eslint-disable-next-line @next/next/no-img-element
@@ -92,7 +92,7 @@ export function BrandForm({ initial, endpoint = "/api/reseller/brand", savedText
             <p className="text-lg font-semibold">Welcome back</p>
             <p className="mt-1 text-xs text-surface-400">{brand.tagline || "Build and publish your own apps."}</p>
             <div className="mt-4 space-y-2"><div className="h-8 rounded-lg bg-white/5" /><div className="h-8 rounded-lg bg-white/5" /></div>
-            <div className="mt-4 rounded-lg py-2 text-center text-sm font-medium text-white" style={{ background: brand.colorPrimary }}>Log in</div>
+            <div className="mt-4 rounded-lg py-2 text-center text-sm font-medium text-fixed-white" style={{ background: brand.colorPrimary }}>Log in</div>
             <p className="mt-3 text-center text-xs" style={{ color: brand.colorAccent }}>{brand.supportEmail || "help@youragency.com"}</p>
           </div>
         </div>

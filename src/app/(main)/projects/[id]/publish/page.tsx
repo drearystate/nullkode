@@ -194,7 +194,7 @@ export default async function PublishPage({
                     src={qrDataUrl}
                     alt={`QR code for ${publicUrl}`}
                     data-help="Point your phone's camera at this square code to open your live app on your phone."
-                    className="rounded bg-white p-1 shrink-0"
+                    className="rounded bg-fixed-white p-1 shrink-0"
                     width={120}
                     height={120}
                   />

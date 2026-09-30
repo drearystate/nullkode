@@ -252,7 +252,7 @@ export function DesignWorkspace({ id }: { id: string }) {
               </ul>
             )}
             {error && <p role="alert" className="mb-2 text-xs text-red-300">{error}</p>}
-            <div className="flex items-end gap-2 rounded-xl border border-white/10 bg-white/[0.03] p-2 focus-within:border-brand-500/60">
+            <div className="flex items-end gap-2 rounded-xl border border-white/10 bg-white/[0.03] [[data-theme=light]_&]:bg-surface-900 p-2 focus-within:border-brand-500/60">
               <label htmlFor="design-prompt" className="sr-only">Ask for a change</label>
               <textarea
                 id="design-prompt"
@@ -309,14 +309,14 @@ export function DesignWorkspace({ id }: { id: string }) {
         )}
 
         <div className="relative flex min-h-0 flex-1">
-          <div className="flex min-h-0 flex-1 justify-center overflow-auto bg-[#0b0c12] p-3">
+          <div className="flex min-h-0 flex-1 justify-center overflow-auto bg-surface-950 p-3 [[data-theme=light]_&]:bg-surface-800/60">
             <iframe
               ref={frame}
               key={`${viewport}`}
               title="Design preview"
               src={src}
               sandbox="allow-scripts allow-forms allow-popups allow-modals"
-              className="h-full rounded-lg border border-white/10 bg-white transition-[width]"
+              className="h-full rounded-lg border border-white/10 bg-fixed-white transition-[width]"
               style={{ width: VIEWPORTS[viewport], maxWidth: "100%" }}
             />
           </div>

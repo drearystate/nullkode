@@ -99,7 +99,7 @@ export function ModuleGallery({ projectId, projectName, modules, installed = [] 
             className={cn(
               "text-xs px-3 py-1.5 rounded-full border transition",
               category === c
-                ? "bg-brand-500 border-brand-500 text-white"
+                ? "bg-brand-500 border-brand-500 text-fixed-white"
                 : "bg-surface-900 border-surface-800 text-surface-300 hover:border-surface-600"
             )}
           >

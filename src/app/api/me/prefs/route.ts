@@ -11,6 +11,7 @@ import { json } from "@/lib/utils";
 
 const Body = z.object({
   helpTips: z.boolean().optional(),
+  theme: z.enum(["light", "dark", "system"]).optional(),
 });
 
 export async function GET() {

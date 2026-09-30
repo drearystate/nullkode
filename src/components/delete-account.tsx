@@ -5,7 +5,7 @@ import { Download } from "lucide-react";
 export type DeleteAccountApp = { id: string; name: string; hasUploadKey: boolean };
 
 /**
- * "Delete my account" on the Settings page (/account). Lists each app with
+ * "Delete my account" on the Profile page (/account). Lists each app with
  * its backup download (and upload key, for apps on Google Play), then asks
  * for the person's email to confirm.
  */
@@ -55,7 +55,7 @@ export function DeleteAccountCard({
   }
 
   return (
-    <section aria-labelledby="delete-account-heading" className="card mt-12 border-red-900/40 p-6">
+    <section aria-labelledby="delete-account-heading" className="card mt-12 border-red-900/40 p-6 [[data-theme=light]_&]:border-red-800">
       <h2 id="delete-account-heading" className="font-semibold text-red-300">
         Delete my account
       </h2>
@@ -134,7 +134,7 @@ export function DeleteAccountCard({
             <button
               type="submit"
               disabled={!ready || busy}
-              className="rounded-lg bg-red-700 px-4 py-2 text-sm font-semibold text-white transition hover:bg-red-600 disabled:opacity-50"
+              className="rounded-lg bg-red-700 px-4 py-2 text-sm font-semibold text-fixed-white transition hover:bg-red-600 [[data-theme=light]_&]:bg-red-300 [[data-theme=light]_&]:hover:bg-red-400 disabled:opacity-50"
             >
               {busy ? "Deleting…" : "Delete my account for good"}
             </button>

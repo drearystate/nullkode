@@ -721,7 +721,7 @@ function ValuePicker({
                 />
                 <button
                   type="button"
-                  className="px-2 h-8 rounded-md bg-brand-600 hover:bg-brand-500 text-white text-xs disabled:opacity-40"
+                  className="px-2 h-8 rounded-md bg-[#7919ff] hover:bg-brand-500 text-fixed-white text-xs disabled:opacity-40"
                   disabled={!triggerPath.trim()}
                   onClick={() => {
                     onInsert(`{{trigger.${triggerPath.trim()}}}`);

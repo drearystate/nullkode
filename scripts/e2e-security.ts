@@ -88,6 +88,10 @@ async function main() {
     const host = `${labelled!.hostLabel}.${APPS}`;
     ok("the app has a DNS-safe address name", /^[a-z0-9-]+$/.test(labelled!.hostLabel ?? ""), labelled!.hostLabel);
     ok("/app/<slug> redirects to the app's own origin", [307, 308].includes(r.status) && r.headers.location === `http://${host}/`, `${r.status} ${r.headers.location}`);
+    r = await visitor.get(`/app/${project!.slug}`, { "user-agent": "Mozilla/5.0 (Linux; Android 14; Pixel 8 Build/AP1A; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/129.0 Mobile Safari/537.36" });
+    ok("…but not inside an Android app shell (older apps only allow this address)", r.status === 200, `${r.status} ${r.headers.location}`);
+    r = await visitor.get(`/app/${project!.slug}`, { "user-agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148" });
+    ok("…or an iPhone app shell", r.status === 200, `${r.status} ${r.headers.location}`);
     const onApp = inst.agent(host);
     r = await onApp.get("/");
     ok("the app is served at its own origin", r.status === 200 && r.text.includes("__nkProjectId"), r.status);
@@ -183,7 +187,7 @@ async function main() {
     r = await other.post("/api/auth/login", { email: "operator@example.invalid", password: "operator-password-2026" });
     ok("a second device signs in", r.status === 200, r.text);
     r = await op.get("/account");
-    ok("the settings page opens", r.status === 200 && r.text.includes("Settings") && r.text.includes("Help tips") && r.text.includes("Change password"), r.status);
+    ok("the profile page opens", r.status === 200 && r.text.includes("Profile") && r.text.includes("Help tips") && r.text.includes("Change password") && r.text.includes("Appearance"), r.status);
     r = await op.patch("/api/me/profile", { name: "  Olive Operator  " });
     ok("the name can be changed", r.status === 200 && (await inst.db.user.findFirst({ where: { email: "operator@example.invalid" } }))?.name === "Olive Operator", r.text);
     r = await op.patch("/api/me/profile", { name: "   " });
@@ -203,9 +207,36 @@ async function main() {
     r = await op.patch("/api/me/prefs", { helpTips: false });
     ok("help tips can be turned off", r.status === 200 && r.json?.prefs?.helpTips === false, r.text);
     r = await op.get("/account");
-    ok("…and the settings page shows them off", r.status === 200 && /role="switch" aria-checked="false"/.test(r.text), r.status);
+    ok("…and the profile page shows them off", r.status === 200 && /role="switch" aria-checked="false"/.test(r.text), r.status);
     r = await op.get("/dashboard");
     ok("pages still render with tips off", r.status === 200, r.status);
+    // Light / dark: saved to the account, which wins over this device's cookie.
+    r = await op.patch("/api/me/prefs", { theme: "light" });
+    ok("the theme choice is saved to the account", r.status === 200 && r.json?.prefs?.theme === "light", r.text);
+    r = await op.get("/dashboard");
+    ok("studio pages open in the saved theme", /<html[^>]*data-theme="light"/.test(r.text), (r.text.match(/<html[^>]*>/) ?? [""])[0]);
+    r = await op.patch("/api/me/prefs", { theme: "purple" });
+    ok("an unknown theme is refused", r.status === 400, r.text);
+    r = await inst.agent().get("/login", { cookie: "nk-theme=dark" });
+    ok("signed-out pages follow this device's choice", /<html[^>]*data-theme="dark"/.test(r.text), (r.text.match(/<html[^>]*>/) ?? [""])[0]);
+    r = await inst.agent().get("/login");
+    ok("with no choice, pages follow the device", /<html[^>]*data-theme-pref="system"/.test(r.text) && !/<html[^>]*data-theme="/.test(r.text), (r.text.match(/<html[^>]*>/) ?? [""])[0]);
+
+    // Profile photo: small real pictures only.
+    const png = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==";
+    r = await op.post("/api/me/avatar", { dataUrl: `data:image/png;base64,${png}` });
+    ok("a profile photo can be added", r.status === 200 && (await inst.db.user.findFirst({ where: { email: "operator@example.invalid" } }))?.avatarUrl?.startsWith("data:image/png;base64,") === true, r.text);
+    r = await op.post("/api/me/avatar", { dataUrl: `data:image/jpeg;base64,${png}` });
+    ok("a picture whose type doesn't match its bytes is refused", r.status === 400, r.text);
+    r = await op.post("/api/me/avatar", { dataUrl: `data:image/svg+xml;base64,${Buffer.from("<svg onload=alert(1)>").toString("base64")}` });
+    ok("SVG (which can carry scripts) is refused", r.status === 400, r.text);
+    r = await op.post("/api/me/avatar", { dataUrl: `data:image/png;base64,${Buffer.alloc(260 * 1024, 1).toString("base64")}` });
+    ok("an oversized picture is refused", r.status === 400 || r.status === 413, r.status);
+    r = await op.get("/dashboard");
+    ok("the photo shows in the top bar", r.status === 200 && r.text.includes(`src="data:image/png;base64,${png}"`), r.status);
+    r = await op.del("/api/me/avatar");
+    ok("the photo can be removed", r.status === 200 && (await inst.db.user.findFirst({ where: { email: "operator@example.invalid" } }))?.avatarUrl === null, r.text);
+
     r = await visitor.post("/api/me/password", { current: "x", next: "yyyyyyyyyy" });
     ok("signed-out visitors can't change a password", r.status === 401, r.status);
 

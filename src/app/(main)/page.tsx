@@ -21,7 +21,7 @@ export default async function HomePage() {
   const canDescribe = await aiReady().catch(() => false);
 
   return (
-    <main className="min-h-screen bg-surface-100 text-surface-900">
+    <main className="min-h-screen bg-surface-950 text-surface-50">
       <LandingNav authed={authed} name={brand.appName} logo={brand.logoDataUrl} />
       <LandingHero authed={authed} moduleCount={MODULE_REGISTRY.length} aiReady={canDescribe} />
       <FeatureBento name={brand.appName} moduleCount={MODULE_REGISTRY.length} autoTls={process.env.NK_AUTO_TLS === "1"} />
@@ -29,15 +29,15 @@ export default async function HomePage() {
       <FaqSection name={brand.appName} />
 
       {/* Final CTA */}
-      <section className="bg-surface-100 py-24">
+      <section className="bg-surface-950 py-24">
         <div className="mx-auto max-w-3xl px-6 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-surface-900">
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-surface-50">
             Build the thing you&apos;ve been{" "}
-            <span className="bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-400 to-cyan-500 bg-clip-text text-transparent">
               putting off.
             </span>
           </h2>
-          <p className="mt-5 text-lg text-surface-500 max-w-2xl mx-auto">
+          <p className="mt-5 text-lg text-surface-400 max-w-2xl mx-auto">
             Stop wrestling with half-finished no-code tools that fall apart the
             moment you need real logic. {brand.appName} gives you the UI, the backend,
             and the data — all visual.
@@ -45,16 +45,16 @@ export default async function HomePage() {
           <div className="mt-8">
             <Link
               href={authed ? "/dashboard" : "/signup"}
-              className="inline-flex items-center gap-2 rounded-xl bg-surface-900 hover:bg-surface-800 text-white px-8 py-4 text-base font-semibold transition shadow-lg shadow-surface-900/20"
+              className="inline-flex items-center gap-2 rounded-xl bg-surface-50 hover:bg-surface-100 text-surface-900 px-8 py-4 text-base font-semibold transition shadow-lg shadow-black/20"
             >
               {authed ? "Open your dashboard" : "Start building — it\u2019s free"}
-              <span aria-hidden className="text-surface-400">&rarr;</span>
+              <span aria-hidden className="text-surface-600">&rarr;</span>
             </Link>
           </div>
         </div>
       </section>
 
-      <footer className="bg-surface-50 border-t border-surface-200 text-surface-700">
+      <footer className="bg-surface-900 border-t border-white/10 text-surface-200">
         <div className="mx-auto max-w-6xl px-6 py-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div>
             <Link href="/" aria-label={brand.appName} className="inline-flex">
@@ -65,12 +65,12 @@ export default async function HomePage() {
                   ? <BrandWordmark name={brand.appName} className="text-xl font-semibold tracking-tight" />
                   : <span className="text-xl font-semibold tracking-tight">{brand.appName}</span>}
             </Link>
-            <p className="text-sm text-surface-500 mt-3 max-w-sm">
+            <p className="text-sm text-surface-400 mt-3 max-w-sm">
               The visual app builder with a real backend. Ship complete
               products — not marketing pages.
             </p>
           </div>
-          <div className="text-sm text-surface-400">
+          <div className="text-sm text-surface-500">
             &copy; {new Date().getFullYear()} {brand.appName}
           </div>
         </div>

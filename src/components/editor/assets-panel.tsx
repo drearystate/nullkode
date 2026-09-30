@@ -168,7 +168,7 @@ export function AssetsPanel({ editor }: { editor: Editor }) {
             className="w-full rounded border border-surface-800 bg-surface-950 px-2 py-1.5 text-xs text-surface-100 placeholder:text-surface-600 focus:border-brand-500 focus:outline-none"
           />
           <div className="flex gap-2">
-            <button type="submit" data-help="Save this description on the picture." className="rounded bg-brand-500 px-2.5 py-1 text-[11px] font-semibold text-white hover:bg-brand-400">Save description</button>
+            <button type="submit" data-help="Save this description on the picture." className="rounded bg-brand-500 px-2.5 py-1 text-[11px] font-semibold text-fixed-white hover:bg-brand-400">Save description</button>
             <button type="button" className="rounded px-2 py-1 text-[11px] text-surface-400 hover:text-surface-100" onClick={() => setDescribing(null)} data-help="Keep the new picture without changing its description.">Skip</button>
           </div>
         </form>
@@ -204,7 +204,7 @@ export function AssetsPanel({ editor }: { editor: Editor }) {
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
               />
               {a.credit && (
-                <span className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 to-transparent px-1.5 py-1 text-[9px] text-white opacity-0 group-hover:opacity-100 transition truncate">
+                <span className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 to-transparent px-1.5 py-1 text-[9px] text-fixed-white opacity-0 group-hover:opacity-100 transition truncate">
                   {a.credit.name}
                 </span>
               )}
@@ -213,7 +213,7 @@ export function AssetsPanel({ editor }: { editor: Editor }) {
         </div>
       </div>
 
-      <div className="px-3 py-2 border-t border-surface-800 text-[10px] text-surface-600 text-center">
+      <div className="px-3 py-2 border-t border-surface-800 text-[10px] text-surface-600 [[data-theme=light]_&]:text-surface-500 text-center">
         {imageSelected ? "Tap a photo to use it instead of the picture you picked" : "Tap or drag to add · Free photos"}
       </div>
     </div>

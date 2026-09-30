@@ -1,8 +1,10 @@
+import { LogoMark } from "./logo-mark";
+
 /** The platform's mark (three bars) and name, as in the studio's top bar. */
-export function BrandWordmark({ name, className = "" }: { name: string; className?: string }) {
+export function BrandWordmark({ name, className = "", markSize = 28 }: { name: string; className?: string; markSize?: number }) {
   return (
     <span className={`inline-flex items-center gap-2 ${className}`}>
-      <span className="studio-logo-mark" aria-hidden="true"><span /><span /><span /></span>
+      <LogoMark size={markSize} />
       <span>{name}<span className="text-brand-400">.</span></span>
     </span>
   );

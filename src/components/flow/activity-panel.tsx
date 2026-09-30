@@ -138,7 +138,7 @@ export function ActivityPanel({ projectId, flowId, refreshKey = 0 }: { projectId
                         </ul>
                       )}
                       {problem ? (
-                        <div className="mt-3 rounded-lg border border-white/[0.06] bg-black/20 p-3">
+                        <div className="mt-3 rounded-lg border border-white/[0.06] bg-black/20 p-3 [[data-theme=light]_&]:bg-surface-950">
                           <p className="mb-2 text-xs font-medium text-surface-300">What they sent</p>
                           <Fields fields={r.fields} />
                         </div>

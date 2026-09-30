@@ -207,7 +207,7 @@ export function ModulesPanel({ projectId, projectName, flush, onInstalled }: Pro
         )}
       </div>
 
-      <div className="px-3 py-2 border-t border-surface-800 text-[10px] text-surface-600 text-center shrink-0">
+      <div className="px-3 py-2 border-t border-surface-800 text-[10px] text-surface-600 [[data-theme=light]_&]:text-surface-500 text-center shrink-0">
         Tap a feature to see what it adds to your app
       </div>
 
