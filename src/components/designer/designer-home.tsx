@@ -50,7 +50,7 @@ export function DesignerHome({ aiReady }: { aiReady: boolean }) {
   }
 
   return (
-    <div className="mx-auto max-w-6xl px-5 py-10 sm:px-8">
+    <div className="mx-auto max-w-7xl px-5 py-10 sm:px-8">
       <section className="text-center">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-300">AI Designer</p>
         <h1 className="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">Describe it. Watch it take shape.</h1>
@@ -89,7 +89,7 @@ export function DesignerHome({ aiReady }: { aiReady: boolean }) {
         ) : designs.length === 0 ? (
           <p className="mt-4 text-sm text-surface-400">Nothing yet. Describe your first one above.</p>
         ) : (
-          <div className="mt-4 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-5 grid gap-6 md:grid-cols-2 2xl:grid-cols-3">
             {designs.map((d) => <DesignCard key={d.id} design={d} onChanged={load} />)}
           </div>
         )}
@@ -101,6 +101,16 @@ export function DesignerHome({ aiReady }: { aiReady: boolean }) {
 function DesignCard({ design, onChanged }: { design: Design; onChanged: () => void }) {
   const router = useRouter();
   const [menu, setMenu] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+  // An open menu closes when you click anywhere else or press Escape.
+  useEffect(() => {
+    if (!menu) return;
+    const onDown = (e: PointerEvent) => { if (!menuRef.current?.contains(e.target as Node)) setMenu(false); };
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setMenu(false); };
+    document.addEventListener("pointerdown", onDown);
+    document.addEventListener("keydown", onKey);
+    return () => { document.removeEventListener("pointerdown", onDown); document.removeEventListener("keydown", onKey); };
+  }, [menu]);
   async function act(kind: "rename" | "duplicate" | "delete") {
     setMenu(false);
     if (kind === "rename") {
@@ -117,41 +127,61 @@ function DesignCard({ design, onChanged }: { design: Design; onChanged: () => vo
     onChanged();
   }
   return (
-    <article className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] [[data-theme=light]_&]:bg-surface-900 transition hover:border-brand-500/50">
-      <Link href={`/designer/${design.id}`} className="block" aria-label={`Open ${design.name}`} data-help="Open this design to see it full size and ask the AI for changes.">
+    <article className={`group relative rounded-2xl border ${menu ? "z-20" : ""} border-white/10 bg-white/[0.03] [[data-theme=light]_&]:bg-surface-900 transition hover:border-brand-500/50`}>
+      <Link href={`/designer/${design.id}`} className="block overflow-hidden rounded-t-2xl" aria-label={`Open ${design.name}`} data-help="Open this design to see it full size and ask the AI for changes.">
         <div className="relative aspect-[16/10] overflow-hidden bg-surface-900">
           {design.hasHome ? (
-            <iframe
-              title=""
-              aria-hidden="true"
-              tabIndex={-1}
-              loading="lazy"
-              sandbox="allow-scripts"
-              src={`/api/designs/${design.id}/preview/index.html`}
-              className="pointer-events-none absolute left-0 top-0 h-[400%] w-[400%] origin-top-left border-0"
-              style={{ transform: "scale(0.25)" }}
-            />
+            <DesignThumb src={`/api/designs/${design.id}/preview/index.html`} />
           ) : (
             <div className="grid h-full place-items-center text-surface-500"><Sparkles size={28} /></div>
           )}
         </div>
       </Link>
-      <div className="flex items-start justify-between gap-2 p-4">
+      <div className="flex items-start justify-between gap-2 px-5 py-4">
         <div className="min-w-0">
-          <Link href={`/designer/${design.id}`} className="block truncate font-medium hover:underline">{design.name}</Link>
-          <p className="text-xs text-surface-400">{design.inBuilder ? "Moved to the page builder · " : ""}{ago(design.updatedAt)}</p>
+          <Link href={`/designer/${design.id}`} className="block truncate text-base font-medium hover:underline">{design.name}</Link>
+          <p className="mt-0.5 text-sm text-surface-400">{design.inBuilder ? "Moved to the page builder · " : ""}{ago(design.updatedAt)}</p>
         </div>
-        <div className="relative">
+        <div className="relative" ref={menuRef}>
           <button type="button" className="rounded-md p-1.5 text-surface-400 hover:bg-white/10 hover:text-white" aria-label="Design options" data-help="Rename, copy or delete this design." aria-expanded={menu} onClick={() => setMenu(!menu)}><MoreHorizontal size={18} /></button>
           {menu && (
-            <div className="absolute right-0 z-10 mt-1 w-40 overflow-hidden rounded-lg border border-white/10 bg-surface-900 py-1 text-sm shadow-xl">
-              <button type="button" className="flex w-full items-center gap-2 px-3 py-2 hover:bg-white/5" data-help="Give this design a new name so it is easy to find in your list." onClick={() => act("rename")}><Pencil size={14} />Rename</button>
-              <button type="button" className="flex w-full items-center gap-2 px-3 py-2 hover:bg-white/5" data-help="Makes a separate copy of this design and opens it, so you can try ideas without changing the original." onClick={() => act("duplicate")}><Copy size={14} />Make a copy</button>
-              <button type="button" className="flex w-full items-center gap-2 px-3 py-2 text-red-300 hover:bg-white/5" data-help="Deletes this design for good after you confirm. If its app hasn't moved to the page builder, the app is deleted too. This can't be undone." onClick={() => act("delete")}><Trash2 size={14} />Delete</button>
+            <div role="menu" className="absolute right-0 top-full z-30 mt-1 w-44 overflow-hidden rounded-lg border border-white/10 bg-surface-900 py-1 text-sm shadow-xl shadow-black/30">
+              <button type="button" role="menuitem" className="flex w-full items-center gap-2 px-3 py-2 hover:bg-white/5" data-help="Give this design a new name so it is easy to find in your list." onClick={() => act("rename")}><Pencil size={14} />Rename</button>
+              <button type="button" role="menuitem" className="flex w-full items-center gap-2 px-3 py-2 hover:bg-white/5" data-help="Makes a separate copy of this design and opens it, so you can try ideas without changing the original." onClick={() => act("duplicate")}><Copy size={14} />Make a copy</button>
+              <button type="button" role="menuitem" className="flex w-full items-center gap-2 px-3 py-2 text-red-300 hover:bg-white/5" data-help="Deletes this design for good after you confirm. If its app hasn't moved to the page builder, the app is deleted too. This can't be undone." onClick={() => act("delete")}><Trash2 size={14} />Delete</button>
             </div>
           )}
         </div>
       </div>
     </article>
+  );
+}
+
+/** The design's home page drawn at a laptop width (1280 px) and scaled down to fit the card. */
+function DesignThumb({ src }: { src: string }) {
+  const box = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(0.4);
+  useEffect(() => {
+    const el = box.current;
+    if (!el) return;
+    const fit = () => setScale(el.clientWidth / 1280);
+    fit();
+    const ro = new ResizeObserver(fit);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+  return (
+    <div ref={box} className="absolute inset-0">
+      <iframe
+        title=""
+        aria-hidden="true"
+        tabIndex={-1}
+        loading="lazy"
+        sandbox="allow-scripts"
+        src={src}
+        className="pointer-events-none absolute left-0 top-0 origin-top-left border-0"
+        style={{ width: 1280, height: 800, transform: `scale(${scale})` }}
+      />
+    </div>
   );
 }
