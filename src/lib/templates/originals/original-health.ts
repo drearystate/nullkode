@@ -330,7 +330,7 @@ const HOME_HTML = `
 
 <section class="lkh-first">
   <div class="lkh-wrap lkh-first__grid">
-    <figure class="lkh-first__img"><img src="${IMG}/consultation.webp" alt="A physician listening to a patient across his desk while a nurse reviews notes" width="960" height="640" loading="lazy"></figure>
+    <figure class="lkh-first__img"><img src="${IMG}/consultation.webp" alt="A physician listening to a patient across a desk while a nurse reviews notes" width="960" height="640" loading="lazy"></figure>
     <div>
       <p class="lkh-eyebrow">Your first visit</p>
       <h2 class="lkh-h2">Forty minutes, just for getting to know you</h2>

@@ -1,6 +1,7 @@
 import { readdirSync, statSync } from "fs";
 import { join } from "path";
 import { json } from "@/lib/utils";
+import { searchGeneratedAssets } from "@/lib/assets/generated";
 
 type Asset = {
   id: string;
@@ -8,7 +9,7 @@ type Asset = {
   url: string;
   alt: string;
   credit?: { name: string; link: string };
-  source: "unsplash" | "pexels" | "pixabay" | "curated" | "stock";
+  source: "unsplash" | "pexels" | "pixabay" | "generated" | "stock";
 };
 
 // Cache provider responses per-query for an hour so the editor doesn't burn
@@ -99,36 +100,6 @@ async function fromPixabay(q: string): Promise<Asset[] | null> {
   }));
 }
 
-// Curated fallback: when no API keys are configured we still want the Assets
-// panel to feel alive. picsum.photos is a free, reliable stock-photo CDN —
-// deterministic per seed, so the same query always returns the same photos.
-const CURATED_SEEDS = [
-  "mountain", "ocean", "forest", "desert", "city", "street",
-  "office", "meeting", "laptop", "coffee", "table", "desk",
-  "portrait", "team", "people", "crowd", "smile", "hands",
-  "food", "pizza", "burger", "breakfast", "fruit", "wine",
-  "architecture", "building", "bridge", "house", "interior", "room",
-  "abstract", "texture", "pattern", "gradient", "neon", "light",
-  "travel", "map", "passport", "airplane", "beach", "sunset",
-  "nature", "flower", "tree", "leaf", "sky", "cloud",
-];
-
-function fromCurated(q: string): Asset[] {
-  const query = q.trim().toLowerCase();
-  const tokens = query.split(/\s+/).filter(Boolean);
-  const match = (seed: string) =>
-    tokens.length === 0 || tokens.some((t) => seed.includes(t) || t.includes(seed));
-  const matched = CURATED_SEEDS.filter(match);
-  const seeds = matched.length > 0 ? matched : CURATED_SEEDS;
-  return seeds.slice(0, 30).map((seed, i) => ({
-    id: `curated-${seed}-${i}`,
-    thumb: `https://picsum.photos/seed/${seed}-${i}/400/400`,
-    url: `https://picsum.photos/seed/${seed}-${i}/1200/800`,
-    alt: seed,
-    source: "curated",
-  }));
-}
-
 // Stock photos from purchased Crafto/Litho templates — cached on first load.
 let stockCache: Asset[] | null = null;
 
@@ -174,30 +145,30 @@ function fromStock(q: string): Asset[] {
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
-  const q = (searchParams.get("q") ?? "").trim();
+  const q = (searchParams.get("q") ?? "").trim().slice(0, 160);
+  const originalsOnly = searchParams.get("source") === "generated";
 
-  const cacheKey = `q:${q}`;
+  const cacheKey = `${originalsOnly ? "generated" : "all"}:${q}`;
   const cached = CACHE.get(cacheKey);
   if (cached && Date.now() - cached.at < CACHE_TTL) {
     return json({ assets: cached.assets, cached: true });
   }
 
-  // Always include matching stock photos first, then external providers.
-  const stock = fromStock(q);
+  const generated = searchGeneratedAssets(q);
+  const stock = originalsOnly ? [] : fromStock(q);
 
   let external: Asset[] | null = null;
   try {
-    external = (await fromUnsplash(q)) ?? (await fromPexels(q)) ?? (await fromPixabay(q));
+    if (!originalsOnly) external = (await fromUnsplash(q)) ?? (await fromPexels(q)) ?? (await fromPixabay(q));
   } catch {
-    // fall through to curated
-  }
-  if (!external || external.length === 0) {
-    external = fromCurated(q);
+    // Local photos remain available when an external provider fails.
   }
 
-  // Stock photos first, then external — deduplicated by putting stock at the front.
-  const assets = [...stock, ...external];
 
+  // Tagged local originals first. Never substitute unrelated random photos.
+  const assets = [...generated, ...stock, ...(external ?? [])];
+
+  if (CACHE.size >= 256) CACHE.delete(CACHE.keys().next().value!);
   CACHE.set(cacheKey, { at: Date.now(), assets });
   return json({ assets });
 }

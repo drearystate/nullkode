@@ -1,0 +1,807 @@
+[
+  {
+    "id": "restaurant-dining-room",
+    "category": "restaurant",
+    "templateId": "original-restaurant",
+    "replaces": "dining-room.webp",
+    "alt": "An intimate candlelit wood-fire restaurant dining room with dark oak tables, brass candleholders, linen napkins, amber glasses and a glowing hearth.",
+    "prompt": "Use case: photorealistic-natural. Asset type: restaurant website hero photograph, landscape 3:2. Create an original editorial photograph of an intimate wood-fire restaurant dining room at dusk: dark oak tables, linen napkins, small brass candleholders, amber wine glasses, warm charcoal plaster, an open hearth softly glowing in the background. Carefully composed architectural photograph, rich warm shadows and natural material detail, restrained amber and warm cream palette. No people, no text, no logos, no watermark. One continuous photograph, not a collage. Keep important furniture away from extreme edges so the photo crops gracefully to portrait and wide banners.",
+    "url": "/media/generated/restaurant-dining-room.webp",
+    "thumb": "/media/generated/thumbs/restaurant-dining-room.webp",
+    "tags": [
+      "restaurant",
+      "dining",
+      "room"
+    ]
+  },
+  {
+    "id": "restaurant-lamb-rack",
+    "category": "restaurant",
+    "templateId": "original-restaurant",
+    "replaces": "lamb-rack.webp",
+    "alt": "A char-grilled rack of lamb resting on a slate serving board with fresh thyme, moody restaurant food photography.",
+    "prompt": "Use case: photorealistic-natural. Asset type: restaurant website image, landscape 3:2. Primary request: A char-grilled rack of lamb resting on a slate serving board with fresh thyme, moody restaurant food photography. Style: polished original editorial photography; warm charcoal, amber, brass and cream; intimate dark editorial mood. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/restaurant-lamb-rack.webp",
+    "thumb": "/media/generated/thumbs/restaurant-lamb-rack.webp",
+    "tags": [
+      "restaurant",
+      "lamb",
+      "rack"
+    ]
+  },
+  {
+    "id": "restaurant-house-bread",
+    "category": "restaurant",
+    "templateId": "original-restaurant",
+    "replaces": "house-bread.webp",
+    "alt": "Toasted artisan sourdough bread with a small jar of whipped butter on a candlelit dark oak restaurant table.",
+    "prompt": "Use case: photorealistic-natural. Asset type: restaurant website image, landscape 3:2. Primary request: Toasted artisan sourdough bread with a small jar of whipped butter on a candlelit dark oak restaurant table. Style: polished original editorial photography; warm charcoal, amber, brass and cream; intimate dark editorial mood. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/restaurant-house-bread.webp",
+    "thumb": "/media/generated/thumbs/restaurant-house-bread.webp",
+    "tags": [
+      "restaurant",
+      "house",
+      "bread"
+    ]
+  },
+  {
+    "id": "food-croissant-tray",
+    "category": "food",
+    "templateId": "original-food",
+    "replaces": "croissant-tray.webp",
+    "alt": "A tray of freshly baked golden butter croissants cooling beside a bakery window.",
+    "prompt": "Use case: photorealistic-natural. Asset type: food website image, landscape 3:2. Primary request: A tray of freshly baked golden butter croissants cooling beside a bakery window. Style: polished original editorial photography; warm natural colors, realistic materials and fine detail. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/food-croissant-tray.webp",
+    "thumb": "/media/generated/thumbs/food-croissant-tray.webp",
+    "tags": [
+      "food",
+      "croissant",
+      "tray"
+    ]
+  },
+  {
+    "id": "food-flat-white",
+    "category": "food",
+    "templateId": "original-food",
+    "replaces": "flat-white.webp",
+    "alt": "A flat white coffee with delicate leaf latte art in a white ceramic cup, photographed directly from above on a warm pale bakery table.",
+    "prompt": "Use case: photorealistic-natural. Asset type: food website image, landscape 3:2. Primary request: A flat white coffee with delicate leaf latte art in a white ceramic cup, photographed directly from above on a warm pale bakery table. Style: polished original editorial photography; warm natural colors, realistic materials and fine detail. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/food-flat-white.webp",
+    "thumb": "/media/generated/thumbs/food-flat-white.webp",
+    "tags": [
+      "food",
+      "flat",
+      "white"
+    ]
+  },
+  {
+    "id": "food-bakery-counter",
+    "category": "food",
+    "templateId": "original-food",
+    "replaces": "bakery-counter.webp",
+    "alt": "A welcoming neighborhood bakery counter with rows of fresh sourdough loaves and pastries, two bakers serving customers.",
+    "prompt": "Use case: photorealistic-natural. Asset type: food website image, landscape 3:2. Primary request: A welcoming neighborhood bakery counter with rows of fresh sourdough loaves and pastries, two bakers serving customers. Style: polished original editorial photography; warm natural colors, realistic materials and fine detail. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/food-bakery-counter.webp",
+    "thumb": "/media/generated/thumbs/food-bakery-counter.webp",
+    "tags": [
+      "food",
+      "bakery",
+      "counter"
+    ]
+  },
+  {
+    "id": "hospitality-dune-path",
+    "category": "hospitality",
+    "templateId": "original-hospitality",
+    "replaces": "dune-path.webp",
+    "alt": "A sandy path winding through marram grass over coastal dunes, the Atlantic ocean visible beyond.",
+    "prompt": "Use case: photorealistic-natural. Asset type: hospitality website image, landscape 3:2. Primary request: A sandy path winding through marram grass over coastal dunes, the Atlantic ocean visible beyond. Style: polished original editorial photography; warm natural colors, realistic materials and fine detail. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/hospitality-dune-path.webp",
+    "thumb": "/media/generated/thumbs/hospitality-dune-path.webp",
+    "tags": [
+      "hospitality",
+      "dune",
+      "path"
+    ]
+  },
+  {
+    "id": "hospitality-bedside",
+    "category": "hospitality",
+    "templateId": "original-hospitality",
+    "replaces": "bedside.webp",
+    "alt": "A bright boutique coastal hotel bedroom corner with a copper reading lamp, small ceramic vase, white linen and soft morning light.",
+    "prompt": "Use case: photorealistic-natural. Asset type: hospitality website image, landscape 3:2. Primary request: A bright boutique coastal hotel bedroom corner with a copper reading lamp, small ceramic vase, white linen and soft morning light. Style: polished original editorial photography; warm natural colors, realistic materials and fine detail. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/hospitality-bedside.webp",
+    "thumb": "/media/generated/thumbs/hospitality-bedside.webp",
+    "tags": [
+      "hospitality",
+      "bedside"
+    ]
+  },
+  {
+    "id": "hospitality-breakfast-in-bed",
+    "category": "hospitality",
+    "templateId": "original-hospitality",
+    "replaces": "breakfast-in-bed.webp",
+    "alt": "A steaming cup of tea and an open book with indistinct print on a simple wooden breakfast tray in a white linen bed.",
+    "prompt": "Use case: photorealistic-natural. Asset type: hospitality website image, landscape 3:2. Primary request: A steaming cup of tea and an open book with indistinct print on a simple wooden breakfast tray in a white linen bed. Style: polished original editorial photography; warm natural colors, realistic materials and fine detail. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/hospitality-breakfast-in-bed.webp",
+    "thumb": "/media/generated/thumbs/hospitality-breakfast-in-bed.webp",
+    "tags": [
+      "hospitality",
+      "breakfast",
+      "in",
+      "bed"
+    ]
+  },
+  {
+    "id": "beauty-portrait-caramel",
+    "category": "beauty",
+    "templateId": "original-beauty",
+    "replaces": "portrait-caramel.webp",
+    "alt": "A fictional adult woman with natural glowing skin smiling over her shoulder against a warm caramel studio backdrop. Beauty editorial, natural skin texture, head and shoulders, elegant modest neutral clothing.",
+    "prompt": "Use case: photorealistic-natural. Asset type: beauty website image, landscape 3:2. Primary request: A fictional adult woman with natural glowing skin smiling over her shoulder against a warm caramel studio backdrop. Beauty editorial, natural skin texture, head and shoulders, elegant modest neutral clothing. Style: polished original editorial photography; warm caramel, cream and soft skin tones; refined spa editorial mood. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/beauty-portrait-caramel.webp",
+    "thumb": "/media/generated/thumbs/beauty-portrait-caramel.webp",
+    "tags": [
+      "beauty",
+      "portrait",
+      "caramel"
+    ]
+  },
+  {
+    "id": "beauty-facial-massage",
+    "category": "beauty",
+    "templateId": "original-beauty",
+    "replaces": "facial-massage.webp",
+    "alt": "An esthetician gently massaging an adult client\u2019s temples during a relaxing spa facial, client lying with eyes closed, hair wrapped in a cream towel, professional treatment setting.",
+    "prompt": "Use case: photorealistic-natural. Asset type: beauty website image, landscape 3:2. Primary request: An esthetician gently massaging an adult client\u2019s temples during a relaxing spa facial, client lying with eyes closed, hair wrapped in a cream towel, professional treatment setting. Style: polished original editorial photography; warm caramel, cream and soft skin tones; refined spa editorial mood. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/beauty-facial-massage.webp",
+    "thumb": "/media/generated/thumbs/beauty-facial-massage.webp",
+    "tags": [
+      "beauty",
+      "facial",
+      "massage"
+    ]
+  },
+  {
+    "id": "beauty-serum-dropper",
+    "category": "beauty",
+    "templateId": "original-beauty",
+    "replaces": "serum-dropper.webp",
+    "alt": "Close-up beauty photograph of a glass dropper applying a small clear serum droplet beneath an adult woman\u2019s eye, natural skin texture and a warm caramel background.",
+    "prompt": "Use case: photorealistic-natural. Asset type: beauty website image, landscape 3:2. Primary request: Close-up beauty photograph of a glass dropper applying a small clear serum droplet beneath an adult woman\u2019s eye, natural skin texture and a warm caramel background. Style: polished original editorial photography; warm caramel, cream and soft skin tones; refined spa editorial mood. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/beauty-serum-dropper.webp",
+    "thumb": "/media/generated/thumbs/beauty-serum-dropper.webp",
+    "tags": [
+      "beauty",
+      "serum",
+      "dropper"
+    ]
+  },
+  {
+    "id": "fitness-barbell-plate",
+    "category": "fitness",
+    "templateId": "original-fitness",
+    "replaces": "barbell-plate.webp",
+    "alt": "Close-up of a heavy unbranded black iron weight plate and metal locking collar securely mounted on a barbell, gritty strength training gym.",
+    "prompt": "Use case: photorealistic-natural. Asset type: fitness website image, landscape 3:2. Primary request: Close-up of a heavy unbranded black iron weight plate and metal locking collar securely mounted on a barbell, gritty strength training gym. Style: polished original editorial photography; charcoal, steel and muted warm highlights; energetic grounded gym mood. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/fitness-barbell-plate.webp",
+    "thumb": "/media/generated/thumbs/fitness-barbell-plate.webp",
+    "tags": [
+      "fitness",
+      "barbell",
+      "plate"
+    ]
+  },
+  {
+    "id": "fitness-battle-ropes",
+    "category": "fitness",
+    "templateId": "original-fitness",
+    "replaces": "battle-ropes.webp",
+    "alt": "An adult athlete using two heavy battle ropes in a training gym with a white brick wall, knees slightly bent and stable stance, believable anatomy and rope motion.",
+    "prompt": "Use case: photorealistic-natural. Asset type: fitness website image, landscape 3:2. Primary request: An adult athlete using two heavy battle ropes in a training gym with a white brick wall, knees slightly bent and stable stance, believable anatomy and rope motion. Style: polished original editorial photography; charcoal, steel and muted warm highlights; energetic grounded gym mood. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/fitness-battle-ropes.webp",
+    "thumb": "/media/generated/thumbs/fitness-battle-ropes.webp",
+    "tags": [
+      "fitness",
+      "battle",
+      "ropes"
+    ]
+  },
+  {
+    "id": "fitness-dumbbell-mirror",
+    "category": "fitness",
+    "templateId": "original-fitness",
+    "replaces": "dumbbell-mirror.webp",
+    "alt": "An adult athlete picking up a pair of dumbbells from a tidy rack in a gym, reflected naturally in a wall mirror, grounded realistic training scene.",
+    "prompt": "Use case: photorealistic-natural. Asset type: fitness website image, landscape 3:2. Primary request: An adult athlete picking up a pair of dumbbells from a tidy rack in a gym, reflected naturally in a wall mirror, grounded realistic training scene. Style: polished original editorial photography; charcoal, steel and muted warm highlights; energetic grounded gym mood. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/fitness-dumbbell-mirror.webp",
+    "thumb": "/media/generated/thumbs/fitness-dumbbell-mirror.webp",
+    "tags": [
+      "fitness",
+      "dumbbell",
+      "mirror"
+    ]
+  },
+  {
+    "id": "health-caring-hands",
+    "category": "health",
+    "templateId": "original-health",
+    "replaces": "caring-hands.webp",
+    "alt": "A smiling older woman holding hands with a nurse during a supportive clinic visit, warm reassuring natural light, respectful candid healthcare photograph.",
+    "prompt": "Use case: photorealistic-natural. Asset type: health website image, landscape 3:2. Primary request: A smiling older woman holding hands with a nurse during a supportive clinic visit, warm reassuring natural light, respectful candid healthcare photograph. Style: polished original editorial photography; warm natural colors, realistic materials and fine detail. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/health-caring-hands.webp",
+    "thumb": "/media/generated/thumbs/health-caring-hands.webp",
+    "tags": [
+      "health",
+      "caring",
+      "hands"
+    ]
+  },
+  {
+    "id": "health-consultation",
+    "category": "health",
+    "templateId": "original-health",
+    "replaces": "consultation.webp",
+    "alt": "A physician listening attentively to an adult patient across a desk while a nurse reviews a closed folder nearby, welcoming light-filled clinic, no readable medical records.",
+    "prompt": "Use case: photorealistic-natural. Asset type: health website image, landscape 3:2. Primary request: A physician listening attentively to an adult patient across a desk while a nurse reviews a closed folder nearby, welcoming light-filled clinic, no readable medical records. Style: polished original editorial photography; warm natural colors, realistic materials and fine detail. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/health-consultation.webp",
+    "thumb": "/media/generated/thumbs/health-consultation.webp",
+    "tags": [
+      "health",
+      "consultation"
+    ]
+  },
+  {
+    "id": "health-stethoscope",
+    "category": "health",
+    "templateId": "original-health",
+    "replaces": "stethoscope.webp",
+    "alt": "A blue stethoscope beside a closed silver laptop on a clean white medical office desk, soft daylight, quiet professional healthcare still life.",
+    "prompt": "Use case: photorealistic-natural. Asset type: health website image, landscape 3:2. Primary request: A blue stethoscope beside a closed silver laptop on a clean white medical office desk, soft daylight, quiet professional healthcare still life. Style: polished original editorial photography; warm natural colors, realistic materials and fine detail. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/health-stethoscope.webp",
+    "thumb": "/media/generated/thumbs/health-stethoscope.webp",
+    "tags": [
+      "health",
+      "stethoscope"
+    ]
+  },
+  {
+    "id": "ecommerce-terracotta-tumblers",
+    "category": "ecommerce",
+    "templateId": "original-ecommerce",
+    "replaces": "terracotta-tumblers.webp",
+    "alt": "Exactly three handmade ribbed terracotta ceramic tumblers on a white shelf, warm sunlight, artisanal homeware product photograph.",
+    "prompt": "Use case: photorealistic-natural. Asset type: ecommerce website image, landscape 3:2. Primary request: Exactly three handmade ribbed terracotta ceramic tumblers on a white shelf, warm sunlight, artisanal homeware product photograph. Style: polished original editorial photography; warm natural colors, realistic materials and fine detail. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/ecommerce-terracotta-tumblers.webp",
+    "thumb": "/media/generated/thumbs/ecommerce-terracotta-tumblers.webp",
+    "tags": [
+      "ecommerce",
+      "terracotta",
+      "tumblers"
+    ]
+  },
+  {
+    "id": "ecommerce-celadon-bottles",
+    "category": "ecommerce",
+    "templateId": "original-ecommerce",
+    "replaces": "celadon-bottles.webp",
+    "alt": "An arrangement of glossy celadon and sage ceramic bottle vases, hand-glazed textures, quiet pale background, sophisticated artisan homeware product photography.",
+    "prompt": "Use case: photorealistic-natural. Asset type: ecommerce website image, landscape 3:2. Primary request: An arrangement of glossy celadon and sage ceramic bottle vases, hand-glazed textures, quiet pale background, sophisticated artisan homeware product photography. Style: polished original editorial photography; warm natural colors, realistic materials and fine detail. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/ecommerce-celadon-bottles.webp",
+    "thumb": "/media/generated/thumbs/ecommerce-celadon-bottles.webp",
+    "tags": [
+      "ecommerce",
+      "celadon",
+      "bottles"
+    ]
+  },
+  {
+    "id": "ecommerce-wheel-hands",
+    "category": "ecommerce",
+    "templateId": "original-ecommerce",
+    "replaces": "wheel-hands.webp",
+    "alt": "Close-up of a potter\u2019s two clay-covered hands centering clay on a spinning pottery wheel in a warmly lit ceramics studio, accurate hands and tactile wet clay.",
+    "prompt": "Use case: photorealistic-natural. Asset type: ecommerce website image, landscape 3:2. Primary request: Close-up of a potter\u2019s two clay-covered hands centering clay on a spinning pottery wheel in a warmly lit ceramics studio, accurate hands and tactile wet clay. Style: polished original editorial photography; warm natural colors, realistic materials and fine detail. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/ecommerce-wheel-hands.webp",
+    "thumb": "/media/generated/thumbs/ecommerce-wheel-hands.webp",
+    "tags": [
+      "ecommerce",
+      "wheel",
+      "hands"
+    ]
+  },
+  {
+    "id": "corporate-port-terminal",
+    "category": "corporate",
+    "templateId": "original-corporate",
+    "replaces": "port-terminal.webp",
+    "alt": "Orange ship-to-shore cranes towering over neatly stacked cargo containers at a deep-water shipping terminal, architectural industrial editorial photograph.",
+    "prompt": "Use case: photorealistic-natural. Asset type: corporate website image, landscape 3:2. Primary request: Orange ship-to-shore cranes towering over neatly stacked cargo containers at a deep-water shipping terminal, architectural industrial editorial photograph. Style: polished original editorial photography; warm natural colors, realistic materials and fine detail. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/corporate-port-terminal.webp",
+    "thumb": "/media/generated/thumbs/corporate-port-terminal.webp",
+    "tags": [
+      "corporate",
+      "port",
+      "terminal"
+    ]
+  },
+  {
+    "id": "corporate-wind-turbine",
+    "category": "corporate",
+    "templateId": "original-corporate",
+    "replaces": "wind-turbine.webp",
+    "alt": "A tall modern wind turbine viewed from below against a deep blue sky, sunlight just behind its tower, clean renewable infrastructure photograph.",
+    "prompt": "Use case: photorealistic-natural. Asset type: corporate website image, landscape 3:2. Primary request: A tall modern wind turbine viewed from below against a deep blue sky, sunlight just behind its tower, clean renewable infrastructure photograph. Style: polished original editorial photography; warm natural colors, realistic materials and fine detail. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/corporate-wind-turbine.webp",
+    "thumb": "/media/generated/thumbs/corporate-wind-turbine.webp",
+    "tags": [
+      "corporate",
+      "wind",
+      "turbine"
+    ]
+  },
+  {
+    "id": "corporate-steel-works",
+    "category": "corporate",
+    "templateId": "original-corporate",
+    "replaces": "steel-works.webp",
+    "alt": "Molten metal glowing orange inside a large steelworks as an overhead crane lifts an industrial ladle, distant documentary view, controlled professional industrial environment.",
+    "prompt": "Use case: photorealistic-natural. Asset type: corporate website image, landscape 3:2. Primary request: Molten metal glowing orange inside a large steelworks as an overhead crane lifts an industrial ladle, distant documentary view, controlled professional industrial environment. Style: polished original editorial photography; warm natural colors, realistic materials and fine detail. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/corporate-steel-works.webp",
+    "thumb": "/media/generated/thumbs/corporate-steel-works.webp",
+    "tags": [
+      "corporate",
+      "steel",
+      "works"
+    ]
+  },
+  {
+    "id": "creative-studio-team",
+    "category": "creative",
+    "templateId": "original-creative",
+    "replaces": "studio-team.webp",
+    "alt": "Three adult designers working around a wooden studio table with laptops, notebooks, printed color studies and iced drinks, candid collaborative creative studio photograph.",
+    "prompt": "Use case: photorealistic-natural. Asset type: creative website image, landscape 3:2. Primary request: Three adult designers working around a wooden studio table with laptops, notebooks, printed color studies and iced drinks, candid collaborative creative studio photograph. Style: polished original editorial photography; warm natural colors, realistic materials and fine detail. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/creative-studio-team.webp",
+    "thumb": "/media/generated/thumbs/creative-studio-team.webp",
+    "tags": [
+      "creative",
+      "studio",
+      "team"
+    ]
+  },
+  {
+    "id": "creative-swatches",
+    "category": "creative",
+    "templateId": "original-creative",
+    "replaces": "swatches.webp",
+    "alt": "A fanned-out color swatch book showing saturated blues, magentas, oranges and yellows on a graphic designer\u2019s pale desk, precise close-up with no readable labels.",
+    "prompt": "Use case: photorealistic-natural. Asset type: creative website image, landscape 3:2. Primary request: A fanned-out color swatch book showing saturated blues, magentas, oranges and yellows on a graphic designer\u2019s pale desk, precise close-up with no readable labels. Style: polished original editorial photography; warm natural colors, realistic materials and fine detail. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/creative-swatches.webp",
+    "thumb": "/media/generated/thumbs/creative-swatches.webp",
+    "tags": [
+      "creative",
+      "swatches"
+    ]
+  },
+  {
+    "id": "creative-poster-wall",
+    "category": "creative",
+    "templateId": "original-creative",
+    "replaces": "poster-wall.webp",
+    "alt": "A richly textured wall layered with torn abstract gig posters in red, cobalt, pink and yellow, original geometric graphics and expressive paper texture, no letters or readable words.",
+    "prompt": "Use case: photorealistic-natural. Asset type: creative website image, landscape 3:2. Primary request: A richly textured wall layered with torn abstract gig posters in red, cobalt, pink and yellow, original geometric graphics and expressive paper texture, no letters or readable words. Style: polished original editorial photography; warm natural colors, realistic materials and fine detail. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/creative-poster-wall.webp",
+    "thumb": "/media/generated/thumbs/creative-poster-wall.webp",
+    "tags": [
+      "creative",
+      "poster",
+      "wall"
+    ]
+  },
+  {
+    "id": "education-class-whiteboard",
+    "category": "education",
+    "templateId": "original-education",
+    "replaces": "class-whiteboard.webp",
+    "alt": "An adult instructor sketching simple app wireframe rectangles on a whiteboard while two adult students follow along with laptops, cheerful contemporary classroom, no readable words.",
+    "prompt": "Use case: photorealistic-natural. Asset type: education website image, landscape 3:2. Primary request: An adult instructor sketching simple app wireframe rectangles on a whiteboard while two adult students follow along with laptops, cheerful contemporary classroom, no readable words. Style: polished original editorial photography; warm natural colors, realistic materials and fine detail. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/education-class-whiteboard.webp",
+    "thumb": "/media/generated/thumbs/education-class-whiteboard.webp",
+    "tags": [
+      "education",
+      "class",
+      "whiteboard"
+    ]
+  },
+  {
+    "id": "education-study-group",
+    "category": "education",
+    "templateId": "original-education",
+    "replaces": "study-group.webp",
+    "alt": "Three adult students collaborating on laptops decorated with simple unbranded abstract stickers around a study table, candid inclusive educational editorial photograph.",
+    "prompt": "Use case: photorealistic-natural. Asset type: education website image, landscape 3:2. Primary request: Three adult students collaborating on laptops decorated with simple unbranded abstract stickers around a study table, candid inclusive educational editorial photograph. Style: polished original editorial photography; warm natural colors, realistic materials and fine detail. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/education-study-group.webp",
+    "thumb": "/media/generated/thumbs/education-study-group.webp",
+    "tags": [
+      "education",
+      "study",
+      "group"
+    ]
+  },
+  {
+    "id": "education-ux-workshop",
+    "category": "education",
+    "templateId": "original-education",
+    "replaces": "ux-workshop.webp",
+    "alt": "Two adult design students arranging pastel sticky notes on a glass wall in a bright workshop, candid side view, no readable writing.",
+    "prompt": "Use case: photorealistic-natural. Asset type: education website image, landscape 3:2. Primary request: Two adult design students arranging pastel sticky notes on a glass wall in a bright workshop, candid side view, no readable writing. Style: polished original editorial photography; warm natural colors, realistic materials and fine detail. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/education-ux-workshop.webp",
+    "thumb": "/media/generated/thumbs/education-ux-workshop.webp",
+    "tags": [
+      "education",
+      "ux",
+      "workshop"
+    ]
+  },
+  {
+    "id": "finance-couple-window",
+    "category": "finance",
+    "templateId": "original-finance",
+    "replaces": "couple-window.webp",
+    "alt": "A happy fictional couple in their sixties gently dancing together beside a sunlit window at home, authentic warm retirement lifestyle photograph.",
+    "prompt": "Use case: photorealistic-natural. Asset type: finance website image, landscape 3:2. Primary request: A happy fictional couple in their sixties gently dancing together beside a sunlit window at home, authentic warm retirement lifestyle photograph. Style: polished original editorial photography; warm natural colors, realistic materials and fine detail. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/finance-couple-window.webp",
+    "thumb": "/media/generated/thumbs/finance-couple-window.webp",
+    "tags": [
+      "finance",
+      "couple",
+      "window"
+    ]
+  },
+  {
+    "id": "finance-young-family",
+    "category": "finance",
+    "templateId": "original-finance",
+    "replaces": "young-family.webp",
+    "alt": "Two adult parents and their young child with a friendly dog relaxing together on a picnic blanket in a green park, warm candid family lifestyle photograph.",
+    "prompt": "Use case: photorealistic-natural. Asset type: finance website image, landscape 3:2. Primary request: Two adult parents and their young child with a friendly dog relaxing together on a picnic blanket in a green park, warm candid family lifestyle photograph. Style: polished original editorial photography; warm natural colors, realistic materials and fine detail. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/finance-young-family.webp",
+    "thumb": "/media/generated/thumbs/finance-young-family.webp",
+    "tags": [
+      "finance",
+      "young",
+      "family"
+    ]
+  },
+  {
+    "id": "finance-generations",
+    "category": "finance",
+    "templateId": "original-finance",
+    "replaces": "generations.webp",
+    "alt": "A grandfather and his adult grandson looking at a tablet together outdoors in a leafy garden, affectionate unposed intergenerational lifestyle photograph.",
+    "prompt": "Use case: photorealistic-natural. Asset type: finance website image, landscape 3:2. Primary request: A grandfather and his adult grandson looking at a tablet together outdoors in a leafy garden, affectionate unposed intergenerational lifestyle photograph. Style: polished original editorial photography; warm natural colors, realistic materials and fine detail. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/finance-generations.webp",
+    "thumb": "/media/generated/thumbs/finance-generations.webp",
+    "tags": [
+      "finance",
+      "generations"
+    ]
+  },
+  {
+    "id": "legal-courthouse",
+    "category": "legal",
+    "templateId": "original-legal",
+    "replaces": "courthouse.webp",
+    "alt": "A fictional neoclassical stone courthouse with four fluted columns, elegant black and white architectural photograph, no signage or flags.",
+    "prompt": "Use case: photorealistic-natural. Asset type: legal website image, landscape 3:2. Primary request: A fictional neoclassical stone courthouse with four fluted columns, elegant black and white architectural photograph, no signage or flags. Style: polished original editorial photography; restrained charcoal and warm stone tones; dignified scholarly mood. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/legal-courthouse.webp",
+    "thumb": "/media/generated/thumbs/legal-courthouse.webp",
+    "tags": [
+      "legal",
+      "courthouse"
+    ]
+  },
+  {
+    "id": "legal-law-books",
+    "category": "legal",
+    "templateId": "original-legal",
+    "replaces": "law-books.webp",
+    "alt": "Rows of old leather-bound law books on a dark wooden library shelf, richly tactile aged leather and warm library light, no readable book titles.",
+    "prompt": "Use case: photorealistic-natural. Asset type: legal website image, landscape 3:2. Primary request: Rows of old leather-bound law books on a dark wooden library shelf, richly tactile aged leather and warm library light, no readable book titles. Style: polished original editorial photography; restrained charcoal and warm stone tones; dignified scholarly mood. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/legal-law-books.webp",
+    "thumb": "/media/generated/thumbs/legal-law-books.webp",
+    "tags": [
+      "legal",
+      "law",
+      "books"
+    ]
+  },
+  {
+    "id": "legal-library",
+    "category": "legal",
+    "templateId": "original-legal",
+    "replaces": "library.webp",
+    "alt": "A grand wood-paneled law library with a painted ceiling and floor-to-ceiling bookshelves, restrained scholarly architecture photograph, no people or readable titles.",
+    "prompt": "Use case: photorealistic-natural. Asset type: legal website image, landscape 3:2. Primary request: A grand wood-paneled law library with a painted ceiling and floor-to-ceiling bookshelves, restrained scholarly architecture photograph, no people or readable titles. Style: polished original editorial photography; restrained charcoal and warm stone tones; dignified scholarly mood. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/legal-library.webp",
+    "thumb": "/media/generated/thumbs/legal-library.webp",
+    "tags": [
+      "legal",
+      "library"
+    ]
+  },
+  {
+    "id": "nonprofit-market-hands",
+    "category": "nonprofit",
+    "templateId": "original-nonprofit",
+    "replaces": "market-hands.webp",
+    "alt": "A community volunteer handing an apple to a shopper across a market stall piled with tomatoes and nectarines, focus on the exchange and fresh produce, warm candid documentary style.",
+    "prompt": "Use case: photorealistic-natural. Asset type: nonprofit website image, landscape 3:2. Primary request: A community volunteer handing an apple to a shopper across a market stall piled with tomatoes and nectarines, focus on the exchange and fresh produce, warm candid documentary style. Style: polished original editorial photography; warm natural colors, realistic materials and fine detail. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/nonprofit-market-hands.webp",
+    "thumb": "/media/generated/thumbs/nonprofit-market-hands.webp",
+    "tags": [
+      "nonprofit",
+      "market",
+      "hands"
+    ]
+  },
+  {
+    "id": "nonprofit-market-greens",
+    "category": "nonprofit",
+    "templateId": "original-nonprofit",
+    "replaces": "market-greens.webp",
+    "alt": "Wooden crates of fresh leeks, beets and leafy greens at an outdoor community market, natural morning light, tactile fresh local produce.",
+    "prompt": "Use case: photorealistic-natural. Asset type: nonprofit website image, landscape 3:2. Primary request: Wooden crates of fresh leeks, beets and leafy greens at an outdoor community market, natural morning light, tactile fresh local produce. Style: polished original editorial photography; warm natural colors, realistic materials and fine detail. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/nonprofit-market-greens.webp",
+    "thumb": "/media/generated/thumbs/nonprofit-market-greens.webp",
+    "tags": [
+      "nonprofit",
+      "market",
+      "greens"
+    ]
+  },
+  {
+    "id": "nonprofit-groceries-basket",
+    "category": "nonprofit",
+    "templateId": "original-nonprofit",
+    "replaces": "groceries-basket.webp",
+    "alt": "A woven shopping basket filled with asparagus, avocados, peppers and tomatoes on a community kitchen counter, warm natural daylight, fresh wholesome produce.",
+    "prompt": "Use case: photorealistic-natural. Asset type: nonprofit website image, landscape 3:2. Primary request: A woven shopping basket filled with asparagus, avocados, peppers and tomatoes on a community kitchen counter, warm natural daylight, fresh wholesome produce. Style: polished original editorial photography; warm natural colors, realistic materials and fine detail. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/nonprofit-groceries-basket.webp",
+    "thumb": "/media/generated/thumbs/nonprofit-groceries-basket.webp",
+    "tags": [
+      "nonprofit",
+      "groceries",
+      "basket"
+    ]
+  },
+  {
+    "id": "portfolio-reading-room",
+    "category": "portfolio",
+    "templateId": "original-portfolio",
+    "replaces": "reading-room.webp",
+    "alt": "A leather butterfly chair with a striped throw in front of tall apartment windows and sheer curtains, Scandinavian interior design editorial photograph.",
+    "prompt": "Use case: photorealistic-natural. Asset type: portfolio website image, landscape 3:2. Primary request: A leather butterfly chair with a striped throw in front of tall apartment windows and sheer curtains, Scandinavian interior design editorial photograph. Style: polished original editorial photography; warm natural colors, realistic materials and fine detail. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/portfolio-reading-room.webp",
+    "thumb": "/media/generated/thumbs/portfolio-reading-room.webp",
+    "tags": [
+      "portfolio",
+      "reading",
+      "room"
+    ]
+  },
+  {
+    "id": "portfolio-vesterbro-loft",
+    "category": "portfolio",
+    "templateId": "original-portfolio",
+    "replaces": "vesterbro-loft.webp",
+    "alt": "An open-plan Scandinavian loft with a grey sofa, long white dining table, herringbone oak floor, exposed ducts and black steel windows, realistic architectural interior photograph.",
+    "prompt": "Use case: photorealistic-natural. Asset type: portfolio website image, landscape 3:2. Primary request: An open-plan Scandinavian loft with a grey sofa, long white dining table, herringbone oak floor, exposed ducts and black steel windows, realistic architectural interior photograph. Style: polished original editorial photography; warm natural colors, realistic materials and fine detail. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/portfolio-vesterbro-loft.webp",
+    "thumb": "/media/generated/thumbs/portfolio-vesterbro-loft.webp",
+    "tags": [
+      "portfolio",
+      "vesterbro",
+      "loft"
+    ]
+  },
+  {
+    "id": "portfolio-loft-table",
+    "category": "portfolio",
+    "templateId": "original-portfolio",
+    "replaces": "loft-table.webp",
+    "alt": "Late afternoon sun casting crisp window shadows across a smoked oak dining table in a minimal Scandinavian apartment, quiet material-focused interior photograph.",
+    "prompt": "Use case: photorealistic-natural. Asset type: portfolio website image, landscape 3:2. Primary request: Late afternoon sun casting crisp window shadows across a smoked oak dining table in a minimal Scandinavian apartment, quiet material-focused interior photograph. Style: polished original editorial photography; warm natural colors, realistic materials and fine detail. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/portfolio-loft-table.webp",
+    "thumb": "/media/generated/thumbs/portfolio-loft-table.webp",
+    "tags": [
+      "portfolio",
+      "loft",
+      "table"
+    ]
+  },
+  {
+    "id": "realestate-klickitat-house",
+    "category": "realestate",
+    "templateId": "original-realestate",
+    "replaces": "klickitat-house.webp",
+    "alt": "A fictional two-storey Pacific Northwest craftsman house at dusk with warmly lit windows, covered entry porch, landscaped garden and a double garage, high-quality real estate exterior photograph.",
+    "prompt": "Use case: photorealistic-natural. Asset type: realestate website image, landscape 3:2. Primary request: A fictional two-storey Pacific Northwest craftsman house at dusk with warmly lit windows, covered entry porch, landscaped garden and a double garage, high-quality real estate exterior photograph. Style: polished original editorial photography; warm natural colors, realistic materials and fine detail. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/realestate-klickitat-house.webp",
+    "thumb": "/media/generated/thumbs/realestate-klickitat-house.webp",
+    "tags": [
+      "realestate",
+      "klickitat",
+      "house"
+    ]
+  },
+  {
+    "id": "realestate-staged-living-room",
+    "category": "realestate",
+    "templateId": "original-realestate",
+    "replaces": "staged-living-room.webp",
+    "alt": "A bright professionally staged living room opening onto a covered garden patio, oak details, neutral upholstered furniture, leafy Pacific Northwest garden, inviting real estate photograph.",
+    "prompt": "Use case: photorealistic-natural. Asset type: realestate website image, landscape 3:2. Primary request: A bright professionally staged living room opening onto a covered garden patio, oak details, neutral upholstered furniture, leafy Pacific Northwest garden, inviting real estate photograph. Style: polished original editorial photography; warm natural colors, realistic materials and fine detail. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/realestate-staged-living-room.webp",
+    "thumb": "/media/generated/thumbs/realestate-staged-living-room.webp",
+    "tags": [
+      "realestate",
+      "staged",
+      "living",
+      "room"
+    ]
+  },
+  {
+    "id": "realestate-concordia-kitchen",
+    "category": "realestate",
+    "templateId": "original-realestate",
+    "replaces": "concordia-kitchen.webp",
+    "alt": "A renovated light-filled kitchen in a Portland craftsman house, pale cabinets, warm oak details, simple stone counters and greenery outside the windows, real estate interior photograph.",
+    "prompt": "Use case: photorealistic-natural. Asset type: realestate website image, landscape 3:2. Primary request: A renovated light-filled kitchen in a Portland craftsman house, pale cabinets, warm oak details, simple stone counters and greenery outside the windows, real estate interior photograph. Style: polished original editorial photography; warm natural colors, realistic materials and fine detail. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/realestate-concordia-kitchen.webp",
+    "thumb": "/media/generated/thumbs/realestate-concordia-kitchen.webp",
+    "tags": [
+      "realestate",
+      "concordia",
+      "kitchen"
+    ]
+  },
+  {
+    "id": "travel-ridge-above-clouds",
+    "category": "travel",
+    "templateId": "original-travel",
+    "replaces": "ridge-above-clouds.webp",
+    "alt": "A sharp lush green alpine ridge rising above a sea of white clouds, inspired by the Japanese Northern Alps, dramatic natural landscape, distant layered mountains.",
+    "prompt": "Use case: photorealistic-natural. Asset type: travel website image, landscape 3:2. Primary request: A sharp lush green alpine ridge rising above a sea of white clouds, inspired by the Japanese Northern Alps, dramatic natural landscape, distant layered mountains. Style: polished original editorial photography; warm natural colors, realistic materials and fine detail. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/travel-ridge-above-clouds.webp",
+    "thumb": "/media/generated/thumbs/travel-ridge-above-clouds.webp",
+    "tags": [
+      "travel",
+      "ridge",
+      "above",
+      "clouds"
+    ]
+  },
+  {
+    "id": "travel-dolomites-sunrise",
+    "category": "travel",
+    "templateId": "original-travel",
+    "replaces": "dolomites-sunrise.webp",
+    "alt": "A lone adult hiker in a red jacket safely watching sunrise from a broad grassy viewpoint overlooking jagged pale limestone ridges in the Italian Dolomites, small figure, expansive landscape.",
+    "prompt": "Use case: photorealistic-natural. Asset type: travel website image, landscape 3:2. Primary request: A lone adult hiker in a red jacket safely watching sunrise from a broad grassy viewpoint overlooking jagged pale limestone ridges in the Italian Dolomites, small figure, expansive landscape. Style: polished original editorial photography; warm natural colors, realistic materials and fine detail. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/travel-dolomites-sunrise.webp",
+    "thumb": "/media/generated/thumbs/travel-dolomites-sunrise.webp",
+    "tags": [
+      "travel",
+      "dolomites",
+      "sunrise"
+    ]
+  },
+  {
+    "id": "travel-tent-view",
+    "category": "travel",
+    "templateId": "original-travel",
+    "replaces": "tent-view.webp",
+    "alt": "View from inside an open camping tent toward pine trees and a turquoise mountain lake, serene dawn light, outdoor adventure editorial photograph.",
+    "prompt": "Use case: photorealistic-natural. Asset type: travel website image, landscape 3:2. Primary request: View from inside an open camping tent toward pine trees and a turquoise mountain lake, serene dawn light, outdoor adventure editorial photograph. Style: polished original editorial photography; warm natural colors, realistic materials and fine detail. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/travel-tent-view.webp",
+    "thumb": "/media/generated/thumbs/travel-tent-view.webp",
+    "tags": [
+      "travel",
+      "tent",
+      "view"
+    ]
+  },
+  {
+    "id": "saas-hannah",
+    "category": "saas",
+    "templateId": "original-saas",
+    "replaces": "hannah.webp",
+    "alt": "Head-and-shoulders portrait of a fictional female software team lead in her thirties, relaxed friendly smile, simple navy shirt, soft neutral office background, authentic editorial headshot.",
+    "prompt": "Use case: photorealistic-natural. Asset type: saas website image, landscape 3:2. Primary request: Head-and-shoulders portrait of a fictional female software team lead in her thirties, relaxed friendly smile, simple navy shirt, soft neutral office background, authentic editorial headshot. Style: polished original editorial photography; warm natural colors, realistic materials and fine detail. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/saas-hannah.webp",
+    "thumb": "/media/generated/thumbs/saas-hannah.webp",
+    "tags": [
+      "saas",
+      "hannah"
+    ]
+  },
+  {
+    "id": "saas-mateo",
+    "category": "saas",
+    "templateId": "original-saas",
+    "replaces": "mateo.webp",
+    "alt": "Head-and-shoulders portrait of a fictional Latino male software engineer in his thirties, friendly relaxed expression, simple charcoal shirt, soft neutral office background, authentic editorial headshot.",
+    "prompt": "Use case: photorealistic-natural. Asset type: saas website image, landscape 3:2. Primary request: Head-and-shoulders portrait of a fictional Latino male software engineer in his thirties, friendly relaxed expression, simple charcoal shirt, soft neutral office background, authentic editorial headshot. Style: polished original editorial photography; warm natural colors, realistic materials and fine detail. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/saas-mateo.webp",
+    "thumb": "/media/generated/thumbs/saas-mateo.webp",
+    "tags": [
+      "saas",
+      "mateo"
+    ]
+  },
+  {
+    "id": "saas-team-workspace",
+    "category": "saas",
+    "templateId": "original-saas",
+    "replaces": null,
+    "alt": "A thoughtfully arranged software team workspace with open laptops showing indistinct geometric interface shapes, notebooks and soft blue daylight, contemporary technical editorial photograph.",
+    "prompt": "Use case: photorealistic-natural. Asset type: saas website image, landscape 3:2. Primary request: A thoughtfully arranged software team workspace with open laptops showing indistinct geometric interface shapes, notebooks and soft blue daylight, contemporary technical editorial photograph. Style: polished original editorial photography; warm natural colors, realistic materials and fine detail. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/saas-team-workspace.webp",
+    "thumb": "/media/generated/thumbs/saas-team-workspace.webp",
+    "tags": [
+      "saas",
+      "team",
+      "workspace"
+    ]
+  },
+  {
+    "id": "personal-letter-desk",
+    "category": "personal",
+    "templateId": "original-personal",
+    "replaces": "letter-desk.webp",
+    "alt": "An open handwritten letter with intentionally indistinct handwriting, fountain pen, plain envelope and cup of tea on a sunlit oak writing desk, warm personal newsletter still life.",
+    "prompt": "Use case: photorealistic-natural. Asset type: personal website image, landscape 3:2. Primary request: An open handwritten letter with intentionally indistinct handwriting, fountain pen, plain envelope and cup of tea on a sunlit oak writing desk, warm personal newsletter still life. Style: polished original editorial photography; warm natural colors, realistic materials and fine detail. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/personal-letter-desk.webp",
+    "thumb": "/media/generated/thumbs/personal-letter-desk.webp",
+    "tags": [
+      "personal",
+      "letter",
+      "desk"
+    ]
+  },
+  {
+    "id": "personal-journal-still-life",
+    "category": "personal",
+    "templateId": "original-personal",
+    "replaces": null,
+    "alt": "An open unmarked linen-bound journal, pencil and reading glasses on a cream desk beside a small vase of seasonal flowers, intimate writer\u2019s editorial still life.",
+    "prompt": "Use case: photorealistic-natural. Asset type: personal website image, landscape 3:2. Primary request: An open unmarked linen-bound journal, pencil and reading glasses on a cream desk beside a small vase of seasonal flowers, intimate writer\u2019s editorial still life. Style: polished original editorial photography; warm natural colors, realistic materials and fine detail. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/personal-journal-still-life.webp",
+    "thumb": "/media/generated/thumbs/personal-journal-still-life.webp",
+    "tags": [
+      "personal",
+      "journal",
+      "still",
+      "life"
+    ]
+  },
+  {
+    "id": "personal-reading-shelf",
+    "category": "personal",
+    "templateId": "original-personal",
+    "replaces": null,
+    "alt": "A warmly lit reading corner with a wooden bookshelf, unmarked books, linen armchair and leafy houseplant, thoughtful personal writer website photograph.",
+    "prompt": "Use case: photorealistic-natural. Asset type: personal website image, landscape 3:2. Primary request: A warmly lit reading corner with a wooden bookshelf, unmarked books, linen armchair and leafy houseplant, thoughtful personal writer website photograph. Style: polished original editorial photography; warm natural colors, realistic materials and fine detail. Composition: one continuous photograph, no collage; important subjects comfortably inside the frame for responsive cropping. Constraints: no logos, no watermark, no readable text, no interface overlays. People, when requested, are fictional; natural proportions and accurate hands.",
+    "url": "/media/generated/personal-reading-shelf.webp",
+    "thumb": "/media/generated/thumbs/personal-reading-shelf.webp",
+    "tags": [
+      "personal",
+      "reading",
+      "shelf"
+    ]
+  }
+]

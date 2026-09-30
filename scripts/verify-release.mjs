@@ -105,3 +105,9 @@ assert.equal(audit.status, 0, `The dependency audit found high or critical advis
 
 console.log(`Release contents verified: full platform source, original templates with ${photos} photos (${photoRefs} references checked), backups, native build API and templates, current documentation, no environment secrets, database copies, keys or runtime folders.`);
 console.log(`Nullkode ${pkg.version} on Next.js ${pkg.dependencies?.next}, React ${pkg.dependencies?.react}. Dependency audit (pnpm audit --prod --audit-level=high): passed. ${auditSummary}`);
+
+const generated = JSON.parse(await readFile(join(root, 'src/lib/assets/generated-catalog.json'), 'utf8'));
+for (const asset of generated) {
+  for (const url of [asset.url, asset.thumb]) assert.ok(await stat(join(root, 'public', url)).catch(() => null), `Missing generated image ${url}`);
+}
+console.log(`Generated image library verified: ${generated.length} originals plus thumbnails.`);

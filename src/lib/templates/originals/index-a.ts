@@ -1,6 +1,7 @@
 // Original template set A. Each template lives in its own file and
 // registers itself on import. Nine flagship designs, one per category;
-// images ship under public/templates/originals/<id>/ (CC0, see CREDITS.md).
+// Existing photos ship under public/templates/originals/<id>/ (see CREDITS.md).
+// Registration also applies the generated image mappings from lib/assets.
 import "./original-restaurant";
 import "./original-food";
 import "./original-hospitality";

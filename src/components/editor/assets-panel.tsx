@@ -9,7 +9,7 @@ type Asset = {
   url: string;
   alt: string;
   credit?: { name: string; link: string };
-  source: "unsplash" | "pexels" | "pixabay" | "curated";
+  source: "unsplash" | "pexels" | "pixabay" | "generated" | "stock";
 };
 
 type Category = {
@@ -22,7 +22,7 @@ type Category = {
 
 const CATEGORIES: Category[] = [
   { id: "all", label: "All", query: "", help: "Show a mix of free photos you can use on your page." },
-  { id: "stock", label: "Stock", query: "home demo", help: "Show general-purpose free photos that suit most pages." },
+  { id: "originals", label: "Originals", query: "originals", help: "Browse original AI-generated photos included with this installation." },
   { id: "nature", label: "Nature", query: "nature landscape", help: "Show free photos of nature and landscapes." },
   { id: "people", label: "People", query: "people portrait", help: "Show free photos of people." },
   { id: "business", label: "Business", query: "business office", help: "Show free photos of offices and people at work." },
@@ -31,7 +31,12 @@ const CATEGORIES: Category[] = [
   { id: "architecture", label: "Architecture", query: "architecture building", help: "Show free photos of buildings." },
   { id: "fitness", label: "Fitness", query: "gym fitness", help: "Show free photos of gyms and exercise." },
   { id: "medical", label: "Medical", query: "medical health", help: "Show free photos of health care and medicine." },
-  { id: "travel", label: "Travel", query: "travel agency", help: "Show free photos of travel and places to visit." },
+  { id: "beauty", label: "Beauty", query: "beauty", help: "Skincare, spa and beauty images." },
+  { id: "products", label: "Products", query: "ecommerce", help: "Ceramics and product photography." },
+  { id: "education", label: "Learning", query: "education", help: "Classrooms and collaborative learning." },
+  { id: "legal", label: "Legal", query: "legal", help: "Law libraries and courthouse architecture." },
+  { id: "community", label: "Community", query: "nonprofit", help: "Community markets and fresh produce." },
+  { id: "travel", label: "Travel", query: "travel", help: "Show free photos of travel and places to visit." },
 ];
 
 export function AssetsPanel({ editor }: { editor: Editor }) {
@@ -40,6 +45,7 @@ export function AssetsPanel({ editor }: { editor: Editor }) {
   const [assets, setAssets] = useState<Asset[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const requestId = useRef(0);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   // Whether a picture is selected on the page (then a tap swaps it).
   const [imageSelected, setImageSelected] = useState(false);
@@ -55,26 +61,29 @@ export function AssetsPanel({ editor }: { editor: Editor }) {
     };
   }, [editor]);
 
-  const fetchAssets = useCallback(async (q: string) => {
+  const fetchAssets = useCallback(async (q: string, originalsOnly = false) => {
+    const id = ++requestId.current;
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch(`/api/assets/search?q=${encodeURIComponent(q)}`);
+      const res = await fetch(`/api/assets/search?q=${encodeURIComponent(q)}${originalsOnly ? "&source=generated" : ""}`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = (await res.json()) as { assets: Asset[] };
-      setAssets(data.assets ?? []);
+      if (id === requestId.current) setAssets(data.assets ?? []);
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Failed to load assets");
-      setAssets([]);
+      if (id === requestId.current) {
+        setError(e instanceof Error ? e.message : "Failed to load assets");
+        setAssets([]);
+      }
     } finally {
-      setLoading(false);
+      if (id === requestId.current) setLoading(false);
     }
   }, []);
 
   useEffect(() => {
     const q = query.trim() || CATEGORIES.find((c) => c.id === category)?.query || "";
     if (debounceRef.current) clearTimeout(debounceRef.current);
-    debounceRef.current = setTimeout(() => fetchAssets(q), 250);
+    debounceRef.current = setTimeout(() => fetchAssets(q, category === "originals"), 250);
     return () => {
       if (debounceRef.current) clearTimeout(debounceRef.current);
     };
@@ -182,7 +191,7 @@ export function AssetsPanel({ editor }: { editor: Editor }) {
           <div className="text-center text-red-400 text-xs py-8">{error}</div>
         )}
         {!loading && !error && assets.length === 0 && (
-          <div className="text-center text-surface-500 text-xs py-8">No results</div>
+          <div className="text-center text-surface-500 text-xs py-8">No matching images. Try a broader subject.</div>
         )}
         <div className="grid grid-cols-2 gap-2">
           {assets.map((a) => (
@@ -203,6 +212,9 @@ export function AssetsPanel({ editor }: { editor: Editor }) {
                 loading="lazy"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
               />
+              {a.source === "generated" && (
+                <span className="absolute bottom-1 left-1 rounded bg-black/70 px-1.5 py-0.5 text-[9px] text-fixed-white">AI original</span>
+              )}
               {a.credit && (
                 <span className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 to-transparent px-1.5 py-1 text-[9px] text-fixed-white opacity-0 group-hover:opacity-100 transition truncate">
                   {a.credit.name}

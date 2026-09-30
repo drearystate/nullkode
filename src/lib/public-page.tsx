@@ -113,19 +113,34 @@ export const RUNTIME_JS = `
     }).join('');
     return '<div class="p-3 mb-2" style="background:var(--nk-surface);border:1px solid var(--nk-border);border-radius:var(--nk-radius);display:grid;gap:.5rem;">' + when + fields + '</div>';
   }
+  // The element itself and everything inside it that matches: a row template
+  // can be the bound element (<option data-nk-item data-nk-field="name">).
+  function nkSelfAndAll(el, sel){
+    var list = Array.prototype.slice.call(el.querySelectorAll(sel));
+    if(el.matches && el.matches(sel)) list.unshift(el);
+    return list;
+  }
   function applyRowToElement(el, row){
     if(!el) return;
-    // Text fields: <span data-nk-field="name">…</span>
-    el.querySelectorAll('[data-nk-field]').forEach(function(f){
+    // Text fields: <span data-nk-field="name">…</span>. A choice (an <option>,
+    // or a radio/checkbox <input>) also gets the value it submits, unless it
+    // already has one of its own.
+    nkSelfAndAll(el, '[data-nk-field]').forEach(function(f){
       var key = f.getAttribute('data-nk-field');
       var val = row[key];
-      f.textContent = nkFormat(val, f.getAttribute('data-nk-format'));
+      var txt = nkFormat(val, f.getAttribute('data-nk-format'));
+      if(f.tagName === 'INPUT'){
+        if(!f.hasAttribute('value') || f.getAttribute('value') === '' || f.getAttribute('value') === 'on') f.setAttribute('value', val == null ? '' : String(val));
+        return;
+      }
+      f.textContent = txt;
+      if(f.tagName === 'OPTION' && (!f.hasAttribute('value') || f.getAttribute('value') === '')) f.setAttribute('value', val == null ? '' : String(val));
     });
     // Pre-fill form inputs from row data — used on edit pages where a
     // "load-<thing>" flow returns the single row to populate. Handles
     // text inputs, textareas, selects, and datetime-local (which needs
     // the "YYYY-MM-DDTHH:mm" form, not a full ISO string with seconds+Z).
-    el.querySelectorAll('[data-nk-field-value]').forEach(function(f){
+    nkSelfAndAll(el, '[data-nk-field-value]').forEach(function(f){
       var key = f.getAttribute('data-nk-field-value');
       var val = row[key];
       if(val == null) return;
@@ -150,7 +165,7 @@ export const RUNTIME_JS = `
       }
     });
     // Single-attribute shortcuts (legacy + common cases)
-    el.querySelectorAll('[data-nk-src]').forEach(function(f){
+    nkSelfAndAll(el, '[data-nk-src]').forEach(function(f){
       var key = f.getAttribute('data-nk-src');
       var val = row[key];
       if(!val) return;
@@ -162,7 +177,7 @@ export const RUNTIME_JS = `
       if(!f.style.backgroundSize) f.style.backgroundSize = 'cover';
       if(!f.style.backgroundPosition) f.style.backgroundPosition = 'center';
     });
-    el.querySelectorAll('[data-nk-href]').forEach(function(f){
+    nkSelfAndAll(el, '[data-nk-href]').forEach(function(f){
       var key = f.getAttribute('data-nk-href');
       var val = row[key];
       if(val) f.setAttribute('href', nkSafeUrl(val, false));

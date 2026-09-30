@@ -1,3 +1,4 @@
+import { generatedImageContext } from "../assets/generated";
 import { randomUUID } from "node:crypto";
 import { z } from "zod";
 import type { User } from "@prisma/client";
@@ -253,7 +254,7 @@ async function buildPage(opts: {
       signal: opts.signal,
       maxTokens: opts.compact ? 3000 : 6000,
       systemPrompt: `${RULES}\n\n${EDIT_TASK}`,
-      userMessage: `REQUEST: ${opts.request}\nWHAT THIS PAGE NEEDS: ${opts.file.instructions || opts.planMessage}\nALL PAGES: ${opts.allPages.join(", ")}\n\nCURRENT PAGE (${opts.file.path}):\n${opts.previous}`,
+      userMessage: `REQUEST: ${opts.request}\nWHAT THIS PAGE NEEDS: ${opts.file.instructions || opts.planMessage}\nALL PAGES: ${opts.allPages.join(", ")}\n\nCURRENT PAGE (${opts.file.path}):\n${opts.previous}${generatedImageContext(`${opts.request} ${opts.file.instructions ?? ""}`, opts.compact ? 3 : 6)}`,
     });
     const blocks = parseEditBlocks(text);
     if (blocks.length) {
@@ -275,6 +276,7 @@ async function buildPage(opts: {
         plan: opts.planMessage,
         page: opts.file.path,
         whatThisPageNeeds: opts.file.instructions,
+        availableImages: generatedImageContext(`${opts.request} ${opts.file.instructions ?? ""}`, opts.compact ? 3 : 6),
         allPages: opts.allPages,
         dataFiles: opts.dataFiles,
         ...(opts.previous ? (fits ? { currentPage: opts.previous } : { currentPageOutline: outline(opts.previous), note: "The current page is too long to include; rebuild it with the same sections and content, applying the request." }) : {}),

@@ -67,3 +67,6 @@ scripts/.ux-review.mjs
 # Signing keys
 *.jks
 *.keystore
+
+# Local image masters and visual review output (web assets are tracked under public/media).
+/output/

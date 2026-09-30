@@ -1,3 +1,4 @@
+import { generatedImageContext } from "../assets/generated";
 import { providerComplete } from "./provider";
 import { z } from "zod";
 import { AppPlanSchema, normalizePlan, type AppPlan } from "./plan";
@@ -83,7 +84,7 @@ async function runPlan(prompt: string, templateContext: string, onDelta: (n: num
     : "";
   const plan = await completeJson(AppPlanSchema, "plan", {
     systemPrompt: PLAN_SYSTEM,
-    userMessage: `Plan this app: ${prompt}${templateContext}${revise}\n\nRespond with the plan JSON only.`,
+    userMessage: `Plan this app: ${prompt}${templateContext}${generatedImageContext(prompt, 3)}${revise}\n\nRespond with the plan JSON only.`,
     json: true, task: "scaffold",
     maxTokens: 6000,
     onDelta,
@@ -235,7 +236,7 @@ TABLES (use names exactly):
 ${tablesBlock}
 
 FLOWS (reference by slug in data-nk-flow-ref / data-nk-bind-flow-ref):
-${flowsBlock}${templateBlock}
+${flowsBlock}${templateBlock}${generatedImageContext(`${opts.plan.project.description} ${opts.page.summary}`, opts.compact ? 3 : 6)}
 
 Build THIS page only. Wire every form to a create/update flow from the FLOWS list and every list to a list flow; form fields use the table's exact column names. Wire every link to a real page slug or an external URL. Reply with the <style> block followed by the page markup.`;
 

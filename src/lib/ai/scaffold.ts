@@ -1,3 +1,4 @@
+import { generatedImageContext } from "../assets/generated";
 import { SCAFFOLD_SCHEMA, type ScaffoldResult } from "./schema";
 import { DESIGN_SYSTEM_RULES } from "./design-system";
 import { findTemplateForPrompt } from "../templates/registry";
@@ -372,7 +373,7 @@ export async function* scaffoldAppStream(
   yield* providerScaffoldStream({
     systemPrompt: SYSTEM_PROMPT,
     userMessage:
-      `Build me: ${userDescription}${templateContext}\n\n` +
+      `Build me: ${userDescription}${templateContext}${generatedImageContext(userDescription)}\n\n` +
       `CRITICAL OUTPUT RULES: Your reply MUST start with the character "{" and end with "}". ` +
       `No preamble like "Here's your scaffold". No markdown code fences. No commentary. Just the raw JSON object.`,
     jsonSchema: SCAFFOLD_SCHEMA as Record<string, unknown>,

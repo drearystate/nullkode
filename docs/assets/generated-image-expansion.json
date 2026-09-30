@@ -1,0 +1,362 @@
+[
+  {
+    "id": "restaurant-chef-plating",
+    "category": "restaurant",
+    "templateId": "original-restaurant",
+    "replaces": "",
+    "alt": "A chef in a charcoal apron carefully plating roasted seasonal vegetables at a warm open restaurant kitchen counter.",
+    "url": "/media/generated/restaurant-chef-plating.webp",
+    "thumb": "/media/generated/thumbs/restaurant-chef-plating.webp",
+    "tags": [
+      "restaurant",
+      "chef",
+      "kitchen",
+      "vegetables",
+      "cooking",
+      "dining",
+      "generated",
+      "originals"
+    ],
+    "prompt": "Use case: photorealistic-natural. Asset type: premium website stock image, landscape 3:2. Primary request: A chef in a charcoal apron carefully plating roasted seasonal vegetables at a warm open restaurant kitchen counter. Style: original editorial photography, beautiful natural texture, believable materials and restrained colors. Composition: one continuous photograph, no collage; main subjects comfortably inside the frame for responsive cropping. Constraints: no brand names, no logos, no watermark, no readable text, no UI overlays. All locations and people are fictional. If people are present, accurate anatomy, natural hands and candid expressions."
+  },
+  {
+    "id": "food-berry-tart",
+    "category": "food",
+    "templateId": "original-food",
+    "replaces": "",
+    "alt": "A handmade summer berry tart on a cream ceramic plate beside a linen napkin, soft morning window light.",
+    "url": "/media/generated/food-berry-tart.webp",
+    "thumb": "/media/generated/thumbs/food-berry-tart.webp",
+    "tags": [
+      "food",
+      "bakery",
+      "dessert",
+      "fruit",
+      "pastry",
+      "cafe",
+      "generated",
+      "originals"
+    ],
+    "prompt": "Use case: photorealistic-natural. Asset type: premium website stock image, landscape 3:2. Primary request: A handmade summer berry tart on a cream ceramic plate beside a linen napkin, soft morning window light. Style: original editorial photography, beautiful natural texture, believable materials and restrained colors. Composition: one continuous photograph, no collage; main subjects comfortably inside the frame for responsive cropping. Constraints: no brand names, no logos, no watermark, no readable text, no UI overlays. All locations and people are fictional. If people are present, accurate anatomy, natural hands and candid expressions."
+  },
+  {
+    "id": "hospitality-courtyard-pool",
+    "category": "hospitality",
+    "templateId": "original-hospitality",
+    "replaces": "",
+    "alt": "A serene boutique hotel courtyard pool surrounded by pale stone arches, olive trees and cream loungers at sunrise.",
+    "url": "/media/generated/hospitality-courtyard-pool.webp",
+    "thumb": "/media/generated/thumbs/hospitality-courtyard-pool.webp",
+    "tags": [
+      "hospitality",
+      "hotel",
+      "pool",
+      "resort",
+      "vacation",
+      "luxury",
+      "generated",
+      "originals"
+    ],
+    "prompt": "Use case: photorealistic-natural. Asset type: premium website stock image, landscape 3:2. Primary request: A serene boutique hotel courtyard pool surrounded by pale stone arches, olive trees and cream loungers at sunrise. Style: original editorial photography, beautiful natural texture, believable materials and restrained colors. Composition: one continuous photograph, no collage; main subjects comfortably inside the frame for responsive cropping. Constraints: no brand names, no logos, no watermark, no readable text, no UI overlays. All locations and people are fictional. If people are present, accurate anatomy, natural hands and candid expressions."
+  },
+  {
+    "id": "beauty-spa-towels",
+    "category": "beauty",
+    "templateId": "original-beauty",
+    "replaces": "",
+    "alt": "Rolled ivory spa towels, a smooth ceramic oil bowl and eucalyptus on warm travertine, calm side lighting.",
+    "url": "/media/generated/beauty-spa-towels.webp",
+    "thumb": "/media/generated/thumbs/beauty-spa-towels.webp",
+    "tags": [
+      "beauty",
+      "spa",
+      "wellness",
+      "skincare",
+      "salon",
+      "massage",
+      "generated",
+      "originals"
+    ],
+    "prompt": "Use case: photorealistic-natural. Asset type: premium website stock image, landscape 3:2. Primary request: Rolled ivory spa towels, a smooth ceramic oil bowl and eucalyptus on warm travertine, calm side lighting. Style: original editorial photography, beautiful natural texture, believable materials and restrained colors. Composition: one continuous photograph, no collage; main subjects comfortably inside the frame for responsive cropping. Constraints: no brand names, no logos, no watermark, no readable text, no UI overlays. All locations and people are fictional. If people are present, accurate anatomy, natural hands and candid expressions."
+  },
+  {
+    "id": "fitness-yoga-studio",
+    "category": "fitness",
+    "templateId": "original-fitness",
+    "replaces": "",
+    "alt": "Three diverse adults practicing a simple standing warrior yoga pose in a bright uncluttered oak-floored studio.",
+    "url": "/media/generated/fitness-yoga-studio.webp",
+    "thumb": "/media/generated/thumbs/fitness-yoga-studio.webp",
+    "tags": [
+      "fitness",
+      "yoga",
+      "exercise",
+      "wellness",
+      "gym",
+      "class",
+      "generated",
+      "originals"
+    ],
+    "prompt": "Use case: photorealistic-natural. Asset type: premium website stock image, landscape 3:2. Primary request: Three diverse adults practicing a simple standing warrior yoga pose in a bright uncluttered oak-floored studio. Style: original editorial photography, beautiful natural texture, believable materials and restrained colors. Composition: one continuous photograph, no collage; main subjects comfortably inside the frame for responsive cropping. Constraints: no brand names, no logos, no watermark, no readable text, no UI overlays. All locations and people are fictional. If people are present, accurate anatomy, natural hands and candid expressions."
+  },
+  {
+    "id": "health-clinic-reception",
+    "category": "health",
+    "templateId": "original-health",
+    "replaces": "",
+    "alt": "A welcoming contemporary clinic reception with curved oak desk, comfortable chairs, plants and frosted glass, no people.",
+    "url": "/media/generated/health-clinic-reception.webp",
+    "thumb": "/media/generated/thumbs/health-clinic-reception.webp",
+    "tags": [
+      "health",
+      "clinic",
+      "healthcare",
+      "medical",
+      "reception",
+      "generated",
+      "originals"
+    ],
+    "prompt": "Use case: photorealistic-natural. Asset type: premium website stock image, landscape 3:2. Primary request: A welcoming contemporary clinic reception with curved oak desk, comfortable chairs, plants and frosted glass, no people. Style: original editorial photography, beautiful natural texture, believable materials and restrained colors. Composition: one continuous photograph, no collage; main subjects comfortably inside the frame for responsive cropping. Constraints: no brand names, no logos, no watermark, no readable text, no UI overlays. All locations and people are fictional. If people are present, accurate anatomy, natural hands and candid expressions."
+  },
+  {
+    "id": "ecommerce-linen-tote",
+    "category": "ecommerce",
+    "templateId": "original-ecommerce",
+    "replaces": "",
+    "alt": "An unbranded natural linen tote bag with sturdy handles and carefully stitched seams on a warm beige studio plinth.",
+    "url": "/media/generated/ecommerce-linen-tote.webp",
+    "thumb": "/media/generated/thumbs/ecommerce-linen-tote.webp",
+    "tags": [
+      "ecommerce",
+      "product",
+      "shop",
+      "retail",
+      "bag",
+      "sustainable",
+      "generated",
+      "originals"
+    ],
+    "prompt": "Use case: photorealistic-natural. Asset type: premium website stock image, landscape 3:2. Primary request: An unbranded natural linen tote bag with sturdy handles and carefully stitched seams on a warm beige studio plinth. Style: original editorial photography, beautiful natural texture, believable materials and restrained colors. Composition: one continuous photograph, no collage; main subjects comfortably inside the frame for responsive cropping. Constraints: no brand names, no logos, no watermark, no readable text, no UI overlays. All locations and people are fictional. If people are present, accurate anatomy, natural hands and candid expressions."
+  },
+  {
+    "id": "corporate-solar-rooftops",
+    "category": "corporate",
+    "templateId": "original-corporate",
+    "replaces": "",
+    "alt": "An elevated architectural photograph of solar panels on a modern industrial building under a clear morning sky.",
+    "url": "/media/generated/corporate-solar-rooftops.webp",
+    "thumb": "/media/generated/thumbs/corporate-solar-rooftops.webp",
+    "tags": [
+      "corporate",
+      "solar",
+      "energy",
+      "sustainability",
+      "industry",
+      "business",
+      "generated",
+      "originals"
+    ],
+    "prompt": "Use case: photorealistic-natural. Asset type: premium website stock image, landscape 3:2. Primary request: An elevated architectural photograph of solar panels on a modern industrial building under a clear morning sky. Style: original editorial photography, beautiful natural texture, believable materials and restrained colors. Composition: one continuous photograph, no collage; main subjects comfortably inside the frame for responsive cropping. Constraints: no brand names, no logos, no watermark, no readable text, no UI overlays. All locations and people are fictional. If people are present, accurate anatomy, natural hands and candid expressions."
+  },
+  {
+    "id": "creative-design-desk",
+    "category": "creative",
+    "templateId": "original-creative",
+    "replaces": "",
+    "alt": "A creative director's desk with tactile paper samples, a blank sketchbook, color swatches and drafting tools in natural light.",
+    "url": "/media/generated/creative-design-desk.webp",
+    "thumb": "/media/generated/thumbs/creative-design-desk.webp",
+    "tags": [
+      "creative",
+      "design",
+      "agency",
+      "studio",
+      "branding",
+      "workspace",
+      "generated",
+      "originals"
+    ],
+    "prompt": "Use case: photorealistic-natural. Asset type: premium website stock image, landscape 3:2. Primary request: A creative director's desk with tactile paper samples, a blank sketchbook, color swatches and drafting tools in natural light. Style: original editorial photography, beautiful natural texture, believable materials and restrained colors. Composition: one continuous photograph, no collage; main subjects comfortably inside the frame for responsive cropping. Constraints: no brand names, no logos, no watermark, no readable text, no UI overlays. All locations and people are fictional. If people are present, accurate anatomy, natural hands and candid expressions."
+  },
+  {
+    "id": "education-pottery-class",
+    "category": "education",
+    "templateId": "original-education",
+    "replaces": "",
+    "alt": "A small adult ceramics class shaping clay bowls at a shared workbench in a sunlit arts studio, candid documentary composition.",
+    "url": "/media/generated/education-pottery-class.webp",
+    "thumb": "/media/generated/thumbs/education-pottery-class.webp",
+    "tags": [
+      "education",
+      "learning",
+      "workshop",
+      "craft",
+      "students",
+      "teaching",
+      "generated",
+      "originals"
+    ],
+    "prompt": "Use case: photorealistic-natural. Asset type: premium website stock image, landscape 3:2. Primary request: A small adult ceramics class shaping clay bowls at a shared workbench in a sunlit arts studio, candid documentary composition. Style: original editorial photography, beautiful natural texture, believable materials and restrained colors. Composition: one continuous photograph, no collage; main subjects comfortably inside the frame for responsive cropping. Constraints: no brand names, no logos, no watermark, no readable text, no UI overlays. All locations and people are fictional. If people are present, accurate anatomy, natural hands and candid expressions."
+  },
+  {
+    "id": "finance-planning-desk",
+    "category": "finance",
+    "templateId": "original-finance",
+    "replaces": "",
+    "alt": "A calm home financial planning desk with a blank notebook, simple calculator, pen and coffee, soft neutral daylight.",
+    "url": "/media/generated/finance-planning-desk.webp",
+    "thumb": "/media/generated/thumbs/finance-planning-desk.webp",
+    "tags": [
+      "finance",
+      "money",
+      "savings",
+      "planning",
+      "accounting",
+      "banking",
+      "generated",
+      "originals"
+    ],
+    "prompt": "Use case: photorealistic-natural. Asset type: premium website stock image, landscape 3:2. Primary request: A calm home financial planning desk with a blank notebook, simple calculator, pen and coffee, soft neutral daylight. Style: original editorial photography, beautiful natural texture, believable materials and restrained colors. Composition: one continuous photograph, no collage; main subjects comfortably inside the frame for responsive cropping. Constraints: no brand names, no logos, no watermark, no readable text, no UI overlays. All locations and people are fictional. If people are present, accurate anatomy, natural hands and candid expressions."
+  },
+  {
+    "id": "legal-consultation-room",
+    "category": "legal",
+    "templateId": "original-legal",
+    "replaces": "",
+    "alt": "A dignified contemporary law office meeting room with walnut table, leather chairs and shelves of unlabelled books.",
+    "url": "/media/generated/legal-consultation-room.webp",
+    "thumb": "/media/generated/thumbs/legal-consultation-room.webp",
+    "tags": [
+      "legal",
+      "law",
+      "attorney",
+      "lawyer",
+      "office",
+      "meeting",
+      "generated",
+      "originals"
+    ],
+    "prompt": "Use case: photorealistic-natural. Asset type: premium website stock image, landscape 3:2. Primary request: A dignified contemporary law office meeting room with walnut table, leather chairs and shelves of unlabelled books. Style: original editorial photography, beautiful natural texture, believable materials and restrained colors. Composition: one continuous photograph, no collage; main subjects comfortably inside the frame for responsive cropping. Constraints: no brand names, no logos, no watermark, no readable text, no UI overlays. All locations and people are fictional. If people are present, accurate anatomy, natural hands and candid expressions."
+  },
+  {
+    "id": "nonprofit-community-garden",
+    "category": "nonprofit",
+    "templateId": "original-nonprofit",
+    "replaces": "",
+    "alt": "Adult volunteers from varied backgrounds tending raised vegetable beds in a thriving urban community garden.",
+    "url": "/media/generated/nonprofit-community-garden.webp",
+    "thumb": "/media/generated/thumbs/nonprofit-community-garden.webp",
+    "tags": [
+      "nonprofit",
+      "charity",
+      "community",
+      "volunteers",
+      "garden",
+      "donation",
+      "generated",
+      "originals"
+    ],
+    "prompt": "Use case: photorealistic-natural. Asset type: premium website stock image, landscape 3:2. Primary request: Adult volunteers from varied backgrounds tending raised vegetable beds in a thriving urban community garden. Style: original editorial photography, beautiful natural texture, believable materials and restrained colors. Composition: one continuous photograph, no collage; main subjects comfortably inside the frame for responsive cropping. Constraints: no brand names, no logos, no watermark, no readable text, no UI overlays. All locations and people are fictional. If people are present, accurate anatomy, natural hands and candid expressions."
+  },
+  {
+    "id": "portfolio-sculptural-staircase",
+    "category": "portfolio",
+    "templateId": "original-portfolio",
+    "replaces": "",
+    "alt": "An architectural editorial photograph of a sculptural cream plaster staircase curving upward beside a tall sunlit window.",
+    "url": "/media/generated/portfolio-sculptural-staircase.webp",
+    "thumb": "/media/generated/thumbs/portfolio-sculptural-staircase.webp",
+    "tags": [
+      "portfolio",
+      "architecture",
+      "interior",
+      "design",
+      "stairs",
+      "minimal",
+      "generated",
+      "originals"
+    ],
+    "prompt": "Use case: photorealistic-natural. Asset type: premium website stock image, landscape 3:2. Primary request: An architectural editorial photograph of a sculptural cream plaster staircase curving upward beside a tall sunlit window. Style: original editorial photography, beautiful natural texture, believable materials and restrained colors. Composition: one continuous photograph, no collage; main subjects comfortably inside the frame for responsive cropping. Constraints: no brand names, no logos, no watermark, no readable text, no UI overlays. All locations and people are fictional. If people are present, accurate anatomy, natural hands and candid expressions."
+  },
+  {
+    "id": "realestate-garden-patio",
+    "category": "realestate",
+    "templateId": "original-realestate",
+    "replaces": "",
+    "alt": "A welcoming residential garden patio with cedar dining table, lush planting and broad glass doors into a cozy house.",
+    "url": "/media/generated/realestate-garden-patio.webp",
+    "thumb": "/media/generated/thumbs/realestate-garden-patio.webp",
+    "tags": [
+      "realestate",
+      "property",
+      "home",
+      "house",
+      "outdoor",
+      "garden",
+      "patio",
+      "generated",
+      "originals"
+    ],
+    "prompt": "Use case: photorealistic-natural. Asset type: premium website stock image, landscape 3:2. Primary request: A welcoming residential garden patio with cedar dining table, lush planting and broad glass doors into a cozy house. Style: original editorial photography, beautiful natural texture, believable materials and restrained colors. Composition: one continuous photograph, no collage; main subjects comfortably inside the frame for responsive cropping. Constraints: no brand names, no logos, no watermark, no readable text, no UI overlays. All locations and people are fictional. If people are present, accurate anatomy, natural hands and candid expressions."
+  },
+  {
+    "id": "travel-coastal-village",
+    "category": "travel",
+    "templateId": "original-travel",
+    "replaces": "",
+    "alt": "A fictional Mediterranean coastal village with pastel houses, small fishing boats and clear turquoise water in morning light.",
+    "url": "/media/generated/travel-coastal-village.webp",
+    "thumb": "/media/generated/thumbs/travel-coastal-village.webp",
+    "tags": [
+      "travel",
+      "travel",
+      "coast",
+      "seaside",
+      "vacation",
+      "destination",
+      "generated",
+      "originals"
+    ],
+    "prompt": "Use case: photorealistic-natural. Asset type: premium website stock image, landscape 3:2. Primary request: A fictional Mediterranean coastal village with pastel houses, small fishing boats and clear turquoise water in morning light. Style: original editorial photography, beautiful natural texture, believable materials and restrained colors. Composition: one continuous photograph, no collage; main subjects comfortably inside the frame for responsive cropping. Constraints: no brand names, no logos, no watermark, no readable text, no UI overlays. All locations and people are fictional. If people are present, accurate anatomy, natural hands and candid expressions."
+  },
+  {
+    "id": "saas-remote-workspace",
+    "category": "saas",
+    "templateId": "original-saas",
+    "replaces": "",
+    "alt": "An elegant remote workspace with laptop showing only abstract soft color blocks, ergonomic chair, notebook and leafy plant.",
+    "url": "/media/generated/saas-remote-workspace.webp",
+    "thumb": "/media/generated/thumbs/saas-remote-workspace.webp",
+    "tags": [
+      "saas",
+      "technology",
+      "software",
+      "computer",
+      "workspace",
+      "remote",
+      "generated",
+      "originals"
+    ],
+    "prompt": "Use case: photorealistic-natural. Asset type: premium website stock image, landscape 3:2. Primary request: An elegant remote workspace with laptop showing only abstract soft color blocks, ergonomic chair, notebook and leafy plant. Style: original editorial photography, beautiful natural texture, believable materials and restrained colors. Composition: one continuous photograph, no collage; main subjects comfortably inside the frame for responsive cropping. Constraints: no brand names, no logos, no watermark, no readable text, no UI overlays. All locations and people are fictional. If people are present, accurate anatomy, natural hands and candid expressions."
+  },
+  {
+    "id": "personal-weekend-bicycle",
+    "category": "personal",
+    "templateId": "original-personal",
+    "replaces": "",
+    "alt": "A vintage sage-green bicycle with a basket of flowers leaning beside a warm stone cafe wall in soft afternoon light.",
+    "url": "/media/generated/personal-weekend-bicycle.webp",
+    "thumb": "/media/generated/thumbs/personal-weekend-bicycle.webp",
+    "tags": [
+      "personal",
+      "lifestyle",
+      "blog",
+      "cycling",
+      "weekend",
+      "flowers",
+      "generated",
+      "originals"
+    ],
+    "prompt": "Use case: photorealistic-natural. Asset type: premium website stock image, landscape 3:2. Primary request: A vintage sage-green bicycle with a basket of flowers leaning beside a warm stone cafe wall in soft afternoon light. Style: original editorial photography, beautiful natural texture, believable materials and restrained colors. Composition: one continuous photograph, no collage; main subjects comfortably inside the frame for responsive cropping. Constraints: no brand names, no logos, no watermark, no readable text, no UI overlays. All locations and people are fictional. If people are present, accurate anatomy, natural hands and candid expressions."
+  }
+]

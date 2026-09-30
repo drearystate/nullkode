@@ -17,7 +17,7 @@ import { startInstance, installOperator } from "./e2e-harness";
 async function main() {
   const only = process.argv.slice(2);
   const templates = TEMPLATE_STORE.filter((t) => t.source === "original" && (only.length === 0 || only.includes(t.id)));
-  const inst = await startInstance({ port: Number(process.env.E2E_PORT || 3129), buildDir: ".next-render-templates" });
+  const inst = await startInstance({ port: Number(process.env.E2E_PORT || 3129), buildDir: ".next-render-templates", env: { APPS_DOMAIN: "" } });
   const browser = await chromium.launch({ headless: true, args: ["--no-sandbox"] });
   const overflow: string[] = [];
   try {
@@ -29,8 +29,16 @@ async function main() {
       await op.post(`/api/projects/${created.json.projectId}/publish`);
       const project = await inst.db.project.findUnique({ where: { id: created.json.projectId }, select: { slug: true } });
       await page.setViewportSize({ width: 1200, height: 825 });
-      await page.goto(`${inst.base}/app/${project!.slug}`, { waitUntil: "networkidle", timeout: 120_000 });
-      await page.evaluate(() => document.fonts.ready);
+      const response = await page.goto(`${inst.base}/app/${project!.slug}`, { waitUntil: "networkidle", timeout: 120_000 });
+      if (response?.status() !== 200) throw new Error(`${t.id}: page returned ${response?.status()} at ${page.url()}`);
+      await page.evaluate(async () => {
+        await document.fonts.ready;
+        for (const image of document.images) image.loading = "eager";
+        await Promise.all([...document.images].map(image => image.decode().catch(() => {})));
+      });
+      await page.addStyleTag({ content: "nextjs-portal { display:none!important }" });
+      const broken = await page.evaluate(() => [...document.images].filter(i => !i.naturalWidth).map(i => i.getAttribute("src")));
+      if (broken.length) throw new Error(`${t.id}: broken images ${broken.join(", ")}`);
       await page.screenshot({ path: `public/templates/${t.id}.jpg`, type: "jpeg", quality: 80 });
       await page.setViewportSize({ width: 390, height: 844 });
       if (await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth)) overflow.push(t.id);

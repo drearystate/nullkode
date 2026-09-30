@@ -1,3 +1,4 @@
+import { generatedImageContext } from "../assets/generated";
 import { DESIGN_RULES_COMPACT, DESIGN_SYSTEM_RULES } from "./design-system";
 import type { ProjectTheme } from "@/lib/theme";
 import type { ScaffoldTable, ScaffoldFlow } from "./apply-scaffold";
@@ -559,7 +560,7 @@ ${
 }
 ${otherPagesBlock}${attachmentsBlock}${historyBlock}
 INSTRUCTION:
-${opts.message}
+${opts.message}${generatedImageContext(`${opts.message} ${opts.pageTitle}`, compact ? 3 : 6)}
 
 Return the complete JSON object. Populate newTables / newFlows / pageEdits only when the change genuinely requires them — otherwise use empty arrays.
 

@@ -125,6 +125,10 @@ the studio, every app, and your customers' own domains. Step-by-step guide:
 **Rather not run servers?** [nullkode.com](https://nullkode.com) is the hosted
 version: nothing to install, and it's free.
 
+## Original image library
+
+The editor includes 54 original generated images across 18 themes, with local thumbnails and subject search. They are assigned to matching original-template image slots and ship with the source release. Browse `public/media/generated/index.html`; prompts and asset details are in [the image-library notes](docs/assets/GENERATED-IMAGES.md).
+
 ## Add features and templates
 
 Two commands make a working starter and register it. One more checks it:

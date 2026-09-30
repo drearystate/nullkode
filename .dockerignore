@@ -31,3 +31,6 @@ public/screenshots
 scripts/.ux-review.mjs
 .nk-screenshot.mjs
 release
+
+# Generated image masters and browser review artifacts; optimized assets live in public.
+output
