@@ -24,6 +24,18 @@
   <img src="docs/screenshots/dashboard.webp" alt="Nullkode workspace with three apps" width="100%">
 </p>
 
+## See it in action
+
+<table>
+<tr>
+<td width="33%" align="center"><a href="https://nullkode.com/videos/nullkode-quick-tour.mp4"><img src="docs/videos/quick-tour.webp" alt="Quick tour video: describe an app, check the plan, build, edit with AI, publish" width="100%"></a><br><b>Quick tour</b> (1:24)<br>Describe a booking app, check the plan, watch it build, change it with AI, publish.</td>
+<td width="33%" align="center"><a href="https://nullkode.com/videos/nullkode-ai-designer.mp4"><img src="docs/videos/ai-designer.webp" alt="AI Designer video: design a bakery website by talking" width="100%"></a><br><b>AI Designer</b> (1:27)<br>Design a whole website by talking: click anything to change it, every version saved.</td>
+<td width="33%" align="center"><a href="https://nullkode.com/videos/nullkode-own-platform.mp4"><img src="docs/videos/own-platform.webp" alt="Run your own platform video: prices, resellers, AI settings and white label" width="100%"></a><br><b>Run your own platform</b> (1:22)<br>Your prices, your resellers, any AI, and your brand on everything.</td>
+</tr>
+</table>
+
+<sub>Click a preview to watch the full video with sound. Music: Kevin MacLeod (incompetech.com), CC-BY 4.0.</sub>
+
 ---
 
 ## What you get
@@ -49,7 +61,7 @@ paid core and no license server.
 - **Any AI, including local.** OpenAI or any compatible service, or a model on
   your own server. Building a typical app costs a few cents.
 - **Help where you need it.** Plain-English tips on every button and setting
-  (switch them off in Settings), and 18 step-by-step guides with screenshots.
+  (switch them off in your Profile), and 18 step-by-step guides with screenshots.
   The Help link opens the guide for the screen you're on. Also in
   [docs/guides](docs/guides/README.md).
 
