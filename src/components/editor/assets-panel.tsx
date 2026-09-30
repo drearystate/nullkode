@@ -37,6 +37,14 @@ const CATEGORIES: Category[] = [
   { id: "legal", label: "Legal", query: "legal", help: "Law libraries and courthouse architecture." },
   { id: "community", label: "Community", query: "nonprofit", help: "Community markets and fresh produce." },
   { id: "travel", label: "Travel", query: "travel", help: "Show free photos of travel and places to visit." },
+  { id: "trades", label: "Trades", query: "trades", help: "Plumbing, electrical work and construction." },
+  { id: "automotive", label: "Auto", query: "automotive", help: "Vehicle repair and garages." },
+  { id: "cleaning", label: "Cleaning", query: "cleaning", help: "Professional cleaning services." },
+  { id: "pets", label: "Pets", query: "pets", help: "Pet care and grooming." },
+  { id: "landscaping", label: "Gardens", query: "landscaping", help: "Gardening and landscaping services." },
+  { id: "logistics", label: "Logistics", query: "logistics", help: "Warehouses, delivery and shipping." },
+  { id: "agriculture", label: "Farming", query: "agriculture", help: "Farms and fresh produce." },
+  { id: "events", label: "Events", query: "events", help: "Weddings and event services." },
 ];
 
 export function AssetsPanel({ editor }: { editor: Editor }) {

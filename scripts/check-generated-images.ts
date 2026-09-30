@@ -5,6 +5,11 @@ import { generatedAssets, searchGeneratedAssets, withGeneratedTemplateImages, ge
 import { listTemplates } from "../src/lib/templates/registry";
 
 async function main() {
+  const ids = new Set(generatedAssets.map(a => a.id));
+  assert.equal(ids.size, generatedAssets.length, 'Duplicate catalog IDs');
+  const additions = JSON.parse(await readFile('docs/assets/generated-image-business-100.json', 'utf8')) as Array<{id: string}>;
+  assert.equal(additions.length, 100, 'The requested expansion must contain 100 images');
+  for (const asset of additions) assert.ok(ids.has(asset.id), `Expansion image missing from Assets: ${asset.id}`);
   const hashes = new Set<string>();
   for (const asset of generatedAssets) {
     for (const url of [asset.url, asset.thumb]) assert.ok((await stat(`public${url}`)).size > 1000, `Missing or empty: ${url}`);

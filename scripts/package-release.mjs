@@ -17,7 +17,7 @@ const top = ['src','prisma','native-templates','docs','scripts','public','.githu
 const shippedScripts = new Set([
   'container-start.sh','Install-Nullkode.ps1','scheduler.mjs','check-schema.mjs',
   'backup.sh','backup-loop.sh','backup.Dockerfile','restore.sh',
-  'package-release.mjs','verify-release.mjs','check-generated-images.ts','check-docs.mjs','render-original-templates.ts','smoke-install.cjs',
+  'package-release.mjs','verify-release.mjs','check-generated-images.ts','build-generated-gallery.mjs','check-docs.mjs','render-original-templates.ts','smoke-install.cjs',
   // One-time upgrade steps for installs made with an earlier version.
   'secure-existing-apps.ts','escape-module-scripts.ts','upgrade-account-deletion.ts','erase-orphans.ts',
 ]);

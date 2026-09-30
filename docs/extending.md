@@ -144,6 +144,17 @@ A template is one file in `src/lib/templates/originals/`. `pnpm new:template`
 writes a themed starter with a home page and an about page, and installs the
 contact form feature.
 
+Before shipping a new template, build out its complete customer and owner
+journeys. Every navigation link and call to action must reach an existing page,
+section, or working feature. Connect forms, bookings, purchases and other
+actions to the appropriate installed modules and flows, including their data
+and owner screens. Explain any required external account setup in the app's
+setup experience. Use imagery that matches the business and theme.
+
+Create an app from the template and exercise each advertised journey on desktop
+and mobile, checking saved data, success and error states, permissions, and all
+links. A generated starter or a visual preview alone is not a finished template.
+
 ```ts
 const template: StarterTemplate = {
   id: "original-coffee-shop",

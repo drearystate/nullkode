@@ -1,5 +1,2148 @@
 [
   {
+    "id": "hvac-filter-service",
+    "category": "hvac",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A Black woman HVAC technician changing a clean air filter in a modern residential utility room.",
+    "url": "/media/generated/hvac-filter-service.webp",
+    "thumb": "/media/generated/thumbs/hvac-filter-service.webp",
+    "tags": [
+      "hvac",
+      "heating",
+      "cooling",
+      "ventilation",
+      "technician",
+      "home",
+      "services",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "hvac-heat-pump",
+    "category": "hvac",
+    "templateId": "",
+    "replaces": "",
+    "alt": "An unbranded outdoor residential heat pump beside a neat brick house and green planting.",
+    "url": "/media/generated/hvac-heat-pump.webp",
+    "thumb": "/media/generated/thumbs/hvac-heat-pump.webp",
+    "tags": [
+      "hvac",
+      "heating",
+      "cooling",
+      "ventilation",
+      "technician",
+      "home",
+      "services",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "roofing-tile-roof",
+    "category": "roofing",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A newly completed terracotta tile roof with precise ridge details above a warm stucco house.",
+    "url": "/media/generated/roofing-tile-roof.webp",
+    "thumb": "/media/generated/thumbs/roofing-tile-roof.webp",
+    "tags": [
+      "roofing",
+      "roof",
+      "roofer",
+      "trades",
+      "home",
+      "repair",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "roofing-roof-consultation",
+    "category": "roofing",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A Latino roofing contractor discussing material samples with an older homeowner at a porch table.",
+    "url": "/media/generated/roofing-roof-consultation.webp",
+    "thumb": "/media/generated/thumbs/roofing-roof-consultation.webp",
+    "tags": [
+      "roofing",
+      "roof",
+      "roofer",
+      "trades",
+      "home",
+      "repair",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "painting-wall-roller",
+    "category": "painting",
+    "templateId": "",
+    "replaces": "",
+    "alt": "An East Asian woman house painter rolling warm off-white paint onto a living-room wall with protected floors.",
+    "url": "/media/generated/painting-wall-roller.webp",
+    "thumb": "/media/generated/thumbs/painting-wall-roller.webp",
+    "tags": [
+      "painting",
+      "painter",
+      "decorating",
+      "trades",
+      "renovation",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "painting-color-samples",
+    "category": "painting",
+    "templateId": "",
+    "replaces": "",
+    "alt": "An elegant interior decorator's tabletop with paint swatches, brushes and muted pigment sample pots.",
+    "url": "/media/generated/painting-color-samples.webp",
+    "thumb": "/media/generated/thumbs/painting-color-samples.webp",
+    "tags": [
+      "painting",
+      "painter",
+      "decorating",
+      "trades",
+      "renovation",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "flooring-oak-installation",
+    "category": "flooring",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A skilled South Asian floor installer fitting an oak plank in an unfinished sunlit room.",
+    "url": "/media/generated/flooring-oak-installation.webp",
+    "thumb": "/media/generated/thumbs/flooring-oak-installation.webp",
+    "tags": [
+      "flooring",
+      "floor",
+      "installation",
+      "renovation",
+      "trades",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "flooring-stone-floor",
+    "category": "flooring",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A beautiful finished limestone floor in a minimal entryway with warm timber furniture.",
+    "url": "/media/generated/flooring-stone-floor.webp",
+    "thumb": "/media/generated/thumbs/flooring-stone-floor.webp",
+    "tags": [
+      "flooring",
+      "floor",
+      "installation",
+      "renovation",
+      "trades",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "locksmith-lock-workbench",
+    "category": "locksmith",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A locksmith's precision workbench with neatly arranged blank keys, brass lock cylinders and hand tools.",
+    "url": "/media/generated/locksmith-lock-workbench.webp",
+    "thumb": "/media/generated/thumbs/locksmith-lock-workbench.webp",
+    "tags": [
+      "locksmith",
+      "locks",
+      "keys",
+      "security",
+      "trades",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "locksmith-door-hardware",
+    "category": "locksmith",
+    "templateId": "",
+    "replaces": "",
+    "alt": "Close editorial detail of handsome brushed brass door hardware on a navy residential front door.",
+    "url": "/media/generated/locksmith-door-hardware.webp",
+    "thumb": "/media/generated/thumbs/locksmith-door-hardware.webp",
+    "tags": [
+      "locksmith",
+      "locks",
+      "keys",
+      "security",
+      "trades",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "pestcontrol-inspection",
+    "category": "pestcontrol",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A professional woman pest inspector using a small flashlight to examine a home's exterior foundation, no pests or chemicals.",
+    "url": "/media/generated/pestcontrol-inspection.webp",
+    "thumb": "/media/generated/thumbs/pestcontrol-inspection.webp",
+    "tags": [
+      "pestcontrol",
+      "pest",
+      "inspection",
+      "home",
+      "services",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "pestcontrol-service-kit",
+    "category": "pestcontrol",
+    "templateId": "",
+    "replaces": "",
+    "alt": "An organized pest-inspection equipment case with flashlight, gloves and inspection mirror on a clean workbench.",
+    "url": "/media/generated/pestcontrol-service-kit.webp",
+    "thumb": "/media/generated/thumbs/pestcontrol-service-kit.webp",
+    "tags": [
+      "pestcontrol",
+      "pest",
+      "inspection",
+      "home",
+      "services",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "poolcare-pool-cleaning",
+    "category": "poolcare",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A middle-aged Black pool technician using a long skimmer at a bright residential swimming pool.",
+    "url": "/media/generated/poolcare-pool-cleaning.webp",
+    "thumb": "/media/generated/thumbs/poolcare-pool-cleaning.webp",
+    "tags": [
+      "poolcare",
+      "swimming",
+      "pool",
+      "maintenance",
+      "home",
+      "services",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "poolcare-clear-water",
+    "category": "poolcare",
+    "templateId": "",
+    "replaces": "",
+    "alt": "Sunlight making delicate ripples over immaculate blue pool tiles beside pale stone coping.",
+    "url": "/media/generated/poolcare-clear-water.webp",
+    "thumb": "/media/generated/thumbs/poolcare-clear-water.webp",
+    "tags": [
+      "poolcare",
+      "swimming",
+      "pool",
+      "maintenance",
+      "home",
+      "services",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "moving-moving-team",
+    "category": "moving",
+    "templateId": "",
+    "replaces": "",
+    "alt": "Two diverse professional movers carrying a plain cardboard box together through a residential doorway.",
+    "url": "/media/generated/moving-moving-team.webp",
+    "thumb": "/media/generated/thumbs/moving-moving-team.webp",
+    "tags": [
+      "moving",
+      "movers",
+      "relocation",
+      "transport",
+      "home",
+      "services",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "moving-packed-room",
+    "category": "moving",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A neatly packed living room with unbranded moving boxes, folded blankets and a leafy plant.",
+    "url": "/media/generated/moving-packed-room.webp",
+    "thumb": "/media/generated/thumbs/moving-packed-room.webp",
+    "tags": [
+      "moving",
+      "movers",
+      "relocation",
+      "transport",
+      "home",
+      "services",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "storage-storage-corridor",
+    "category": "storage",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A bright clean self-storage corridor with orderly teal roll-up unit doors and warm ceiling lights.",
+    "url": "/media/generated/storage-storage-corridor.webp",
+    "thumb": "/media/generated/thumbs/storage-storage-corridor.webp",
+    "tags": [
+      "storage",
+      "self",
+      "storage",
+      "warehouse",
+      "rental",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "storage-organized-unit",
+    "category": "storage",
+    "templateId": "",
+    "replaces": "",
+    "alt": "An open storage unit neatly arranged with plain boxes, a bicycle and safely covered furniture.",
+    "url": "/media/generated/storage-organized-unit.webp",
+    "thumb": "/media/generated/thumbs/storage-organized-unit.webp",
+    "tags": [
+      "storage",
+      "self",
+      "storage",
+      "warehouse",
+      "rental",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "laundry-laundry-shop",
+    "category": "laundry",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A welcoming contemporary laundromat with clean unbranded machines, folding counters and soft daylight.",
+    "url": "/media/generated/laundry-laundry-shop.webp",
+    "thumb": "/media/generated/thumbs/laundry-laundry-shop.webp",
+    "tags": [
+      "laundry",
+      "laundromat",
+      "dry",
+      "cleaning",
+      "fabric",
+      "clothes",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "laundry-folded-linen",
+    "category": "laundry",
+    "templateId": "",
+    "replaces": "",
+    "alt": "Precisely folded white cotton linens in a wicker basket beside a softly lit laundry counter.",
+    "url": "/media/generated/laundry-folded-linen.webp",
+    "thumb": "/media/generated/thumbs/laundry-folded-linen.webp",
+    "tags": [
+      "laundry",
+      "laundromat",
+      "dry",
+      "cleaning",
+      "fabric",
+      "clothes",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "tailoring-tailor-fitting",
+    "category": "tailoring",
+    "templateId": "",
+    "replaces": "",
+    "alt": "An older South Asian tailor adjusting the sleeve of an unbranded wool blazer on a dress form.",
+    "url": "/media/generated/tailoring-tailor-fitting.webp",
+    "thumb": "/media/generated/thumbs/tailoring-tailor-fitting.webp",
+    "tags": [
+      "tailoring",
+      "tailor",
+      "sewing",
+      "alterations",
+      "clothes",
+      "fashion",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "tailoring-sewing-details",
+    "category": "tailoring",
+    "templateId": "",
+    "replaces": "",
+    "alt": "Macro editorial photograph of a sewing machine presser foot stitching indigo fabric with neat seams.",
+    "url": "/media/generated/tailoring-sewing-details.webp",
+    "thumb": "/media/generated/thumbs/tailoring-sewing-details.webp",
+    "tags": [
+      "tailoring",
+      "tailor",
+      "sewing",
+      "alterations",
+      "clothes",
+      "fashion",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "shoerepair-cobbler-bench",
+    "category": "shoerepair",
+    "templateId": "",
+    "replaces": "",
+    "alt": "An older woman cobbler working on a brown leather boot at an authentic organized repair bench.",
+    "url": "/media/generated/shoerepair-cobbler-bench.webp",
+    "thumb": "/media/generated/thumbs/shoerepair-cobbler-bench.webp",
+    "tags": [
+      "shoerepair",
+      "cobbler",
+      "shoes",
+      "leather",
+      "repair",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "shoerepair-polished-shoes",
+    "category": "shoerepair",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A pair of beautifully restored brown leather lace-up shoes on a wooden counter.",
+    "url": "/media/generated/shoerepair-polished-shoes.webp",
+    "thumb": "/media/generated/thumbs/shoerepair-polished-shoes.webp",
+    "tags": [
+      "shoerepair",
+      "cobbler",
+      "shoes",
+      "leather",
+      "repair",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "jewelry-gold-earrings",
+    "category": "jewelry",
+    "templateId": "",
+    "replaces": "",
+    "alt": "Minimal unbranded sculptural gold earrings on a cream stone plinth, refined studio product photography.",
+    "url": "/media/generated/jewelry-gold-earrings.webp",
+    "thumb": "/media/generated/thumbs/jewelry-gold-earrings.webp",
+    "tags": [
+      "jewelry",
+      "jeweller",
+      "ring",
+      "necklace",
+      "accessories",
+      "retail",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "jewelry-jeweler-work",
+    "category": "jewelry",
+    "templateId": "",
+    "replaces": "",
+    "alt": "An East Asian jeweler carefully shaping a silver ring at a small specialist workbench.",
+    "url": "/media/generated/jewelry-jeweler-work.webp",
+    "thumb": "/media/generated/thumbs/jewelry-jeweler-work.webp",
+    "tags": [
+      "jewelry",
+      "jeweller",
+      "ring",
+      "necklace",
+      "accessories",
+      "retail",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "eyewear-frames-display",
+    "category": "eyewear",
+    "templateId": "",
+    "replaces": "",
+    "alt": "Unbranded tortoiseshell and translucent eyeglass frames arranged on pale oak display blocks.",
+    "url": "/media/generated/eyewear-frames-display.webp",
+    "thumb": "/media/generated/thumbs/eyewear-frames-display.webp",
+    "tags": [
+      "eyewear",
+      "optician",
+      "glasses",
+      "optical",
+      "vision",
+      "retail",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "eyewear-optical-store",
+    "category": "eyewear",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A warm contemporary optical shop with tidy wall displays and a welcoming consultation table, no people.",
+    "url": "/media/generated/eyewear-optical-store.webp",
+    "thumb": "/media/generated/thumbs/eyewear-optical-store.webp",
+    "tags": [
+      "eyewear",
+      "optician",
+      "glasses",
+      "optical",
+      "vision",
+      "retail",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "bookstore-reading-corner",
+    "category": "bookstore",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A cozy independent bookstore reading corner with deep green armchair, warm shelves and a window, book titles indistinct.",
+    "url": "/media/generated/bookstore-reading-corner.webp",
+    "thumb": "/media/generated/thumbs/bookstore-reading-corner.webp",
+    "tags": [
+      "bookstore",
+      "books",
+      "reading",
+      "independent",
+      "shop",
+      "retail",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "bookstore-bookseller",
+    "category": "bookstore",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A smiling older Black bookseller arranging clothbound books on an oak table, spines without readable titles.",
+    "url": "/media/generated/bookstore-bookseller.webp",
+    "thumb": "/media/generated/thumbs/bookstore-bookseller.webp",
+    "tags": [
+      "bookstore",
+      "books",
+      "reading",
+      "independent",
+      "shop",
+      "retail",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "music-recording-studio",
+    "category": "music",
+    "templateId": "",
+    "replaces": "",
+    "alt": "An inviting independent recording studio with unbranded mixing desk, acoustic panels and a vocal microphone.",
+    "url": "/media/generated/music-recording-studio.webp",
+    "thumb": "/media/generated/thumbs/music-recording-studio.webp",
+    "tags": [
+      "music",
+      "instruments",
+      "recording",
+      "lessons",
+      "sound",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "music-guitar-lesson",
+    "category": "music",
+    "templateId": "",
+    "replaces": "",
+    "alt": "Two adults in casual clothing seated with acoustic guitars during a friendly music lesson in a bright studio.",
+    "url": "/media/generated/music-guitar-lesson.webp",
+    "thumb": "/media/generated/thumbs/music-guitar-lesson.webp",
+    "tags": [
+      "music",
+      "instruments",
+      "recording",
+      "lessons",
+      "sound",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "photography-portrait-studio",
+    "category": "photography",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A professional portrait photography studio with unbranded camera on a tripod, softbox and warm seamless backdrop.",
+    "url": "/media/generated/photography-portrait-studio.webp",
+    "thumb": "/media/generated/thumbs/photography-portrait-studio.webp",
+    "tags": [
+      "photography",
+      "photographer",
+      "camera",
+      "studio",
+      "portrait",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "photography-camera-desk",
+    "category": "photography",
+    "templateId": "",
+    "replaces": "",
+    "alt": "An unbranded camera and two lenses on a photographer's oak desk beside a blank notebook.",
+    "url": "/media/generated/photography-camera-desk.webp",
+    "thumb": "/media/generated/thumbs/photography-camera-desk.webp",
+    "tags": [
+      "photography",
+      "photographer",
+      "camera",
+      "studio",
+      "portrait",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "printing-print-studio",
+    "category": "printing",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A small professional print studio with an unbranded wide-format printer producing abstract color artwork.",
+    "url": "/media/generated/printing-print-studio.webp",
+    "thumb": "/media/generated/thumbs/printing-print-studio.webp",
+    "tags": [
+      "printing",
+      "print",
+      "press",
+      "paper",
+      "stationery",
+      "business",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "printing-paper-stock",
+    "category": "printing",
+    "templateId": "",
+    "replaces": "",
+    "alt": "Tactile close-up of thick blank stationery papers in ivory, sage and charcoal stacked on a worktable.",
+    "url": "/media/generated/printing-paper-stock.webp",
+    "thumb": "/media/generated/thumbs/printing-paper-stock.webp",
+    "tags": [
+      "printing",
+      "print",
+      "press",
+      "paper",
+      "stationery",
+      "business",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "signage-sign-workshop",
+    "category": "signage",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A sign maker assembling a blank brushed metal shop sign on a clean workshop bench.",
+    "url": "/media/generated/signage-sign-workshop.webp",
+    "thumb": "/media/generated/thumbs/signage-sign-workshop.webp",
+    "tags": [
+      "signage",
+      "sign",
+      "making",
+      "workshop",
+      "lettering",
+      "business",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "signage-blank-storefront",
+    "category": "signage",
+    "templateId": "",
+    "replaces": "",
+    "alt": "An inviting small shop facade with an elegant blank hanging sign, warm wooden door and leafy planters.",
+    "url": "/media/generated/signage-blank-storefront.webp",
+    "thumb": "/media/generated/thumbs/signage-blank-storefront.webp",
+    "tags": [
+      "signage",
+      "sign",
+      "making",
+      "workshop",
+      "lettering",
+      "business",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "packaging-eco-packaging",
+    "category": "packaging",
+    "templateId": "",
+    "replaces": "",
+    "alt": "Unbranded recycled cardboard packaging, molded paper inserts and cotton ribbon in a refined tabletop arrangement.",
+    "url": "/media/generated/packaging-eco-packaging.webp",
+    "thumb": "/media/generated/thumbs/packaging-eco-packaging.webp",
+    "tags": [
+      "packaging",
+      "boxes",
+      "sustainable",
+      "parcel",
+      "retail",
+      "product",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "packaging-packing-station",
+    "category": "packaging",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A Black woman small-business owner packing a ceramic object into a plain protective shipping box.",
+    "url": "/media/generated/packaging-packing-station.webp",
+    "thumb": "/media/generated/thumbs/packaging-packing-station.webp",
+    "tags": [
+      "packaging",
+      "boxes",
+      "sustainable",
+      "parcel",
+      "retail",
+      "product",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "manufacturing-precision-factory",
+    "category": "manufacturing",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A clean precision manufacturing floor with enclosed CNC machines and orderly walkways, no visible labels.",
+    "url": "/media/generated/manufacturing-precision-factory.webp",
+    "thumb": "/media/generated/thumbs/manufacturing-precision-factory.webp",
+    "tags": [
+      "manufacturing",
+      "factory",
+      "engineering",
+      "industrial",
+      "production",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "manufacturing-quality-check",
+    "category": "manufacturing",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A woman industrial technician using calipers to check a machined metal component at a well-lit bench.",
+    "url": "/media/generated/manufacturing-quality-check.webp",
+    "thumb": "/media/generated/thumbs/manufacturing-quality-check.webp",
+    "tags": [
+      "manufacturing",
+      "factory",
+      "engineering",
+      "industrial",
+      "production",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "welding-welding-workshop",
+    "category": "welding",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A professional welder in full protective helmet and gloves working at a metal fabrication bench, a small controlled shower of sparks.",
+    "url": "/media/generated/welding-welding-workshop.webp",
+    "thumb": "/media/generated/thumbs/welding-welding-workshop.webp",
+    "tags": [
+      "welding",
+      "metal",
+      "fabrication",
+      "industrial",
+      "trades",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "welding-steel-joints",
+    "category": "welding",
+    "templateId": "",
+    "replaces": "",
+    "alt": "Close-up of beautifully fabricated steel frame corners with precise finished welds on an industrial workbench.",
+    "url": "/media/generated/welding-steel-joints.webp",
+    "thumb": "/media/generated/thumbs/welding-steel-joints.webp",
+    "tags": [
+      "welding",
+      "metal",
+      "fabrication",
+      "industrial",
+      "trades",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "woodworking-chair-making",
+    "category": "woodworking",
+    "templateId": "",
+    "replaces": "",
+    "alt": "An older Black craftsperson sanding a solid oak chair in a bright woodworking studio.",
+    "url": "/media/generated/woodworking-chair-making.webp",
+    "thumb": "/media/generated/thumbs/woodworking-chair-making.webp",
+    "tags": [
+      "woodworking",
+      "carpenter",
+      "furniture",
+      "timber",
+      "craft",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "woodworking-wood-tools",
+    "category": "woodworking",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A hand plane, wood shavings and a partly finished walnut board on a traditional carpentry bench.",
+    "url": "/media/generated/woodworking-wood-tools.webp",
+    "thumb": "/media/generated/thumbs/woodworking-wood-tools.webp",
+    "tags": [
+      "woodworking",
+      "carpenter",
+      "furniture",
+      "timber",
+      "craft",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "surveying-survey-field",
+    "category": "surveying",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A woman land surveyor using a tripod-mounted surveying instrument on a grassy building site.",
+    "url": "/media/generated/surveying-survey-field.webp",
+    "thumb": "/media/generated/thumbs/surveying-survey-field.webp",
+    "tags": [
+      "surveying",
+      "surveyor",
+      "mapping",
+      "construction",
+      "land",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "surveying-planning-table",
+    "category": "surveying",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A civil engineering planning table with rolled blank plans, scale ruler and a small neutral terrain model.",
+    "url": "/media/generated/surveying-planning-table.webp",
+    "thumb": "/media/generated/thumbs/surveying-planning-table.webp",
+    "tags": [
+      "surveying",
+      "surveyor",
+      "mapping",
+      "construction",
+      "land",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "renewableenergy-solar-installation",
+    "category": "renewableenergy",
+    "templateId": "",
+    "replaces": "",
+    "alt": "Two solar technicians in appropriate workwear inspecting ground-mounted solar panels on a sunny field.",
+    "url": "/media/generated/renewableenergy-solar-installation.webp",
+    "thumb": "/media/generated/thumbs/renewableenergy-solar-installation.webp",
+    "tags": [
+      "renewableenergy",
+      "solar",
+      "wind",
+      "energy",
+      "sustainability",
+      "green",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "renewableenergy-wind-landscape",
+    "category": "renewableenergy",
+    "templateId": "",
+    "replaces": "",
+    "alt": "Graceful wind turbines across rolling green farmland under a soft blue sky.",
+    "url": "/media/generated/renewableenergy-wind-landscape.webp",
+    "thumb": "/media/generated/thumbs/renewableenergy-wind-landscape.webp",
+    "tags": [
+      "renewableenergy",
+      "solar",
+      "wind",
+      "energy",
+      "sustainability",
+      "green",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "recycling-sorting-center",
+    "category": "recycling",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A bright organized recycling center with neatly separated bales of cardboard and plastic, clean industrial setting.",
+    "url": "/media/generated/recycling-sorting-center.webp",
+    "thumb": "/media/generated/thumbs/recycling-sorting-center.webp",
+    "tags": [
+      "recycling",
+      "waste",
+      "circular",
+      "sustainable",
+      "environment",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "recycling-reusable-materials",
+    "category": "recycling",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A thoughtful still life of reusable glass containers, folded paper and an unbranded aluminum bottle.",
+    "url": "/media/generated/recycling-reusable-materials.webp",
+    "thumb": "/media/generated/thumbs/recycling-reusable-materials.webp",
+    "tags": [
+      "recycling",
+      "waste",
+      "circular",
+      "sustainable",
+      "environment",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "water-water-filter",
+    "category": "water",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A compact unbranded drinking-water filtration system installed neatly beneath a bright kitchen sink.",
+    "url": "/media/generated/water-water-filter.webp",
+    "thumb": "/media/generated/thumbs/water-water-filter.webp",
+    "tags": [
+      "water",
+      "filtration",
+      "plumbing",
+      "utilities",
+      "drinking",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "water-water-glass",
+    "category": "water",
+    "templateId": "",
+    "replaces": "",
+    "alt": "Clear fresh water pouring into a simple glass on pale stone, softly blurred kitchen background.",
+    "url": "/media/generated/water-water-glass.webp",
+    "thumb": "/media/generated/thumbs/water-water-glass.webp",
+    "tags": [
+      "water",
+      "filtration",
+      "plumbing",
+      "utilities",
+      "drinking",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "aquarium-planted-tank",
+    "category": "aquarium",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A beautifully maintained freshwater aquarium with lush aquatic plants, driftwood and small colorful fish.",
+    "url": "/media/generated/aquarium-planted-tank.webp",
+    "thumb": "/media/generated/thumbs/aquarium-planted-tank.webp",
+    "tags": [
+      "aquarium",
+      "fish",
+      "aquatics",
+      "pets",
+      "tank",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "aquarium-aquatics-shop",
+    "category": "aquarium",
+    "templateId": "",
+    "replaces": "",
+    "alt": "An inviting specialist aquarium store with carefully maintained planted display tanks and clean aisles.",
+    "url": "/media/generated/aquarium-aquatics-shop.webp",
+    "thumb": "/media/generated/thumbs/aquarium-aquatics-shop.webp",
+    "tags": [
+      "aquarium",
+      "fish",
+      "aquatics",
+      "pets",
+      "tank",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "veterinary-vet-checkup",
+    "category": "veterinary",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A Black woman veterinarian gently examining a calm tabby cat on a clinic table with its owner nearby.",
+    "url": "/media/generated/veterinary-vet-checkup.webp",
+    "thumb": "/media/generated/thumbs/veterinary-vet-checkup.webp",
+    "tags": [
+      "veterinary",
+      "vet",
+      "animal",
+      "pets",
+      "healthcare",
+      "clinic",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "veterinary-clinic-waiting",
+    "category": "veterinary",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A welcoming veterinary waiting area with pet-friendly seating, a carrier and muted blue walls, no people.",
+    "url": "/media/generated/veterinary-clinic-waiting.webp",
+    "thumb": "/media/generated/thumbs/veterinary-clinic-waiting.webp",
+    "tags": [
+      "veterinary",
+      "vet",
+      "animal",
+      "pets",
+      "healthcare",
+      "clinic",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "equestrian-stable-grooming",
+    "category": "equestrian",
+    "templateId": "",
+    "replaces": "",
+    "alt": "An adult East Asian rider gently brushing a bay horse beside a clean airy stable.",
+    "url": "/media/generated/equestrian-stable-grooming.webp",
+    "thumb": "/media/generated/thumbs/equestrian-stable-grooming.webp",
+    "tags": [
+      "equestrian",
+      "horse",
+      "riding",
+      "stable",
+      "lessons",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "equestrian-riding-arena",
+    "category": "equestrian",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A wide peaceful equestrian riding arena with wooden rails and grazing horses beyond, golden morning.",
+    "url": "/media/generated/equestrian-riding-arena.webp",
+    "thumb": "/media/generated/thumbs/equestrian-riding-arena.webp",
+    "tags": [
+      "equestrian",
+      "horse",
+      "riding",
+      "stable",
+      "lessons",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "sports-tennis-court",
+    "category": "sports",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A pristine outdoor tennis court with unbranded racket and balls in the foreground, morning shadows.",
+    "url": "/media/generated/sports-tennis-court.webp",
+    "thumb": "/media/generated/thumbs/sports-tennis-court.webp",
+    "tags": [
+      "sports",
+      "sport",
+      "tennis",
+      "basketball",
+      "club",
+      "coaching",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "sports-basketball-coaching",
+    "category": "sports",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A Black woman basketball coach explaining a drill to two adult players in a bright indoor gym.",
+    "url": "/media/generated/sports-basketball-coaching.webp",
+    "thumb": "/media/generated/thumbs/sports-basketball-coaching.webp",
+    "tags": [
+      "sports",
+      "sport",
+      "tennis",
+      "basketball",
+      "club",
+      "coaching",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "dance-dance-rehearsal",
+    "category": "dance",
+    "templateId": "",
+    "replaces": "",
+    "alt": "Three diverse adult dancers rehearsing a simple contemporary movement in a spacious sunlit dance studio.",
+    "url": "/media/generated/dance-dance-rehearsal.webp",
+    "thumb": "/media/generated/thumbs/dance-dance-rehearsal.webp",
+    "tags": [
+      "dance",
+      "dancer",
+      "studio",
+      "ballet",
+      "classes",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "dance-ballet-still-life",
+    "category": "dance",
+    "templateId": "",
+    "replaces": "",
+    "alt": "Worn satin ballet shoes and a soft towel beside a wooden studio barre, warm gentle light.",
+    "url": "/media/generated/dance-ballet-still-life.webp",
+    "thumb": "/media/generated/thumbs/dance-ballet-still-life.webp",
+    "tags": [
+      "dance",
+      "dancer",
+      "studio",
+      "ballet",
+      "classes",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "martialarts-dojo",
+    "category": "martialarts",
+    "templateId": "",
+    "replaces": "",
+    "alt": "An immaculate martial arts dojo with pale timber floor, training mats and neatly stored equipment.",
+    "url": "/media/generated/martialarts-dojo.webp",
+    "thumb": "/media/generated/thumbs/martialarts-dojo.webp",
+    "tags": [
+      "martialarts",
+      "karate",
+      "judo",
+      "dojo",
+      "training",
+      "classes",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "martialarts-training-pads",
+    "category": "martialarts",
+    "templateId": "",
+    "replaces": "",
+    "alt": "An adult woman martial arts coach holding pads for an adult student practicing a controlled punch, proper padded gear.",
+    "url": "/media/generated/martialarts-training-pads.webp",
+    "thumb": "/media/generated/thumbs/martialarts-training-pads.webp",
+    "tags": [
+      "martialarts",
+      "karate",
+      "judo",
+      "dojo",
+      "training",
+      "classes",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "outdoor-camping-gear",
+    "category": "outdoor",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A carefully arranged unbranded backpack, rolled sleeping mat and hiking boots on a forest campsite table.",
+    "url": "/media/generated/outdoor-camping-gear.webp",
+    "thumb": "/media/generated/thumbs/outdoor-camping-gear.webp",
+    "tags": [
+      "outdoor",
+      "camping",
+      "hiking",
+      "gear",
+      "adventure",
+      "retail",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "outdoor-forest-walk",
+    "category": "outdoor",
+    "templateId": "",
+    "replaces": "",
+    "alt": "Two adult hikers of different backgrounds walking a peaceful pine-forest trail with comfortable daypacks.",
+    "url": "/media/generated/outdoor-forest-walk.webp",
+    "thumb": "/media/generated/thumbs/outdoor-forest-walk.webp",
+    "tags": [
+      "outdoor",
+      "camping",
+      "hiking",
+      "gear",
+      "adventure",
+      "retail",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "marine-marina",
+    "category": "marine",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A quiet marina with small sailboats and reflected masts in still blue water at dawn.",
+    "url": "/media/generated/marine-marina.webp",
+    "thumb": "/media/generated/thumbs/marine-marina.webp",
+    "tags": [
+      "marine",
+      "boat",
+      "marina",
+      "sailing",
+      "yacht",
+      "repair",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "marine-boat-workshop",
+    "category": "marine",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A skilled woman marine technician inspecting an unbranded boat engine in a tidy repair workshop.",
+    "url": "/media/generated/marine-boat-workshop.webp",
+    "thumb": "/media/generated/thumbs/marine-boat-workshop.webp",
+    "tags": [
+      "marine",
+      "boat",
+      "marina",
+      "sailing",
+      "yacht",
+      "repair",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "aviation-small-aircraft",
+    "category": "aviation",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A clean unbranded light training airplane parked on a small airfield apron in soft morning light.",
+    "url": "/media/generated/aviation-small-aircraft.webp",
+    "thumb": "/media/generated/thumbs/aviation-small-aircraft.webp",
+    "tags": [
+      "aviation",
+      "airplane",
+      "flight",
+      "pilot",
+      "training",
+      "airport",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "aviation-hangar-team",
+    "category": "aviation",
+    "templateId": "",
+    "replaces": "",
+    "alt": "Two diverse adult aircraft technicians discussing an inspection beside a small airplane inside a bright hangar.",
+    "url": "/media/generated/aviation-hangar-team.webp",
+    "thumb": "/media/generated/thumbs/aviation-hangar-team.webp",
+    "tags": [
+      "aviation",
+      "airplane",
+      "flight",
+      "pilot",
+      "training",
+      "airport",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "coworking-shared-office",
+    "category": "coworking",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A stylish inclusive coworking space with shared oak desks, acoustic booths and abundant daylight, no people.",
+    "url": "/media/generated/coworking-shared-office.webp",
+    "thumb": "/media/generated/thumbs/coworking-shared-office.webp",
+    "tags": [
+      "coworking",
+      "workspace",
+      "office",
+      "shared",
+      "freelancers",
+      "business",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "coworking-collaborative-table",
+    "category": "coworking",
+    "templateId": "",
+    "replaces": "",
+    "alt": "Four diverse adult independent professionals sharing ideas at a coworking table with closed notebooks and laptops.",
+    "url": "/media/generated/coworking-collaborative-table.webp",
+    "thumb": "/media/generated/thumbs/coworking-collaborative-table.webp",
+    "tags": [
+      "coworking",
+      "workspace",
+      "office",
+      "shared",
+      "freelancers",
+      "business",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "recruitment-job-interview",
+    "category": "recruitment",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A friendly professional job interview between an older woman recruiter and a younger Black man in a calm office.",
+    "url": "/media/generated/recruitment-job-interview.webp",
+    "thumb": "/media/generated/thumbs/recruitment-job-interview.webp",
+    "tags": [
+      "recruitment",
+      "hiring",
+      "careers",
+      "interview",
+      "staffing",
+      "business",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "recruitment-career-coaching",
+    "category": "recruitment",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A South Asian career coach speaking with an adult client across a small round table, attentive natural expressions.",
+    "url": "/media/generated/recruitment-career-coaching.webp",
+    "thumb": "/media/generated/thumbs/recruitment-career-coaching.webp",
+    "tags": [
+      "recruitment",
+      "hiring",
+      "careers",
+      "interview",
+      "staffing",
+      "business",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "insurance-advisor-meeting",
+    "category": "insurance",
+    "templateId": "",
+    "replaces": "",
+    "alt": "An East Asian insurance advisor meeting a couple in a warm professional office, papers without readable text.",
+    "url": "/media/generated/insurance-advisor-meeting.webp",
+    "thumb": "/media/generated/thumbs/insurance-advisor-meeting.webp",
+    "tags": [
+      "insurance",
+      "protection",
+      "advisor",
+      "home",
+      "family",
+      "business",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "insurance-protected-home",
+    "category": "insurance",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A welcoming well-maintained family house with a tidy garden and soft evening light.",
+    "url": "/media/generated/insurance-protected-home.webp",
+    "thumb": "/media/generated/thumbs/insurance-protected-home.webp",
+    "tags": [
+      "insurance",
+      "protection",
+      "advisor",
+      "home",
+      "family",
+      "business",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "accounting-accountant-desk",
+    "category": "accounting",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A Black woman accountant working at a tidy desk with calculator, plain folders and laptop showing abstract blocks.",
+    "url": "/media/generated/accounting-accountant-desk.webp",
+    "thumb": "/media/generated/thumbs/accounting-accountant-desk.webp",
+    "tags": [
+      "accounting",
+      "bookkeeping",
+      "accountant",
+      "tax",
+      "finance",
+      "business",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "accounting-bookkeeping-still-life",
+    "category": "accounting",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A calculator, blank ledger notebook, pen and neatly sorted unlabelled document folders on a neutral desk.",
+    "url": "/media/generated/accounting-bookkeeping-still-life.webp",
+    "thumb": "/media/generated/thumbs/accounting-bookkeeping-still-life.webp",
+    "tags": [
+      "accounting",
+      "bookkeeping",
+      "accountant",
+      "tax",
+      "finance",
+      "business",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "translation-translator-work",
+    "category": "translation",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A bilingual professional woman wearing a headset at a bright desk with plain reference books and unbranded laptop.",
+    "url": "/media/generated/translation-translator-work.webp",
+    "thumb": "/media/generated/thumbs/translation-translator-work.webp",
+    "tags": [
+      "translation",
+      "language",
+      "translator",
+      "interpreter",
+      "business",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "translation-language-tutoring",
+    "category": "translation",
+    "templateId": "",
+    "replaces": "",
+    "alt": "Two adults from different backgrounds practicing conversation across a cafe-style study table with blank notebooks.",
+    "url": "/media/generated/translation-language-tutoring.webp",
+    "thumb": "/media/generated/thumbs/translation-language-tutoring.webp",
+    "tags": [
+      "translation",
+      "language",
+      "translator",
+      "interpreter",
+      "business",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "counseling-therapy-room",
+    "category": "counseling",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A calm welcoming counseling room with two comfortable chairs, soft textiles and greenery, no people.",
+    "url": "/media/generated/counseling-therapy-room.webp",
+    "thumb": "/media/generated/thumbs/counseling-therapy-room.webp",
+    "tags": [
+      "counseling",
+      "therapy",
+      "therapist",
+      "wellbeing",
+      "support",
+      "mental",
+      "health",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "counseling-supportive-conversation",
+    "category": "counseling",
+    "templateId": "",
+    "replaces": "",
+    "alt": "An older Black woman therapist listening attentively to an adult client in a warm private consultation room.",
+    "url": "/media/generated/counseling-supportive-conversation.webp",
+    "thumb": "/media/generated/thumbs/counseling-supportive-conversation.webp",
+    "tags": [
+      "counseling",
+      "therapy",
+      "therapist",
+      "wellbeing",
+      "support",
+      "mental",
+      "health",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "eldercare-garden-companions",
+    "category": "eldercare",
+    "templateId": "",
+    "replaces": "",
+    "alt": "An older East Asian woman and an adult caregiver enjoying a quiet conversation in a sunny accessible garden.",
+    "url": "/media/generated/eldercare-garden-companions.webp",
+    "thumb": "/media/generated/thumbs/eldercare-garden-companions.webp",
+    "tags": [
+      "eldercare",
+      "senior",
+      "care",
+      "caregiver",
+      "support",
+      "home",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "eldercare-tea-together",
+    "category": "eldercare",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A male caregiver sharing tea with an older man at a bright home dining table, warm respectful atmosphere.",
+    "url": "/media/generated/eldercare-tea-together.webp",
+    "thumb": "/media/generated/thumbs/eldercare-tea-together.webp",
+    "tags": [
+      "eldercare",
+      "senior",
+      "care",
+      "caregiver",
+      "support",
+      "home",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "accessibility-accessible-entry",
+    "category": "accessibility",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A beautifully designed step-free building entrance with a gentle ramp, handrails and wide automatic doors.",
+    "url": "/media/generated/accessibility-accessible-entry.webp",
+    "thumb": "/media/generated/thumbs/accessibility-accessible-entry.webp",
+    "tags": [
+      "accessibility",
+      "wheelchair",
+      "mobility",
+      "inclusive",
+      "adaptive",
+      "services",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "accessibility-adaptive-workspace",
+    "category": "accessibility",
+    "templateId": "",
+    "replaces": "",
+    "alt": "An adult wheelchair user working comfortably at an adjustable desk in a bright inclusive office.",
+    "url": "/media/generated/accessibility-adaptive-workspace.webp",
+    "thumb": "/media/generated/thumbs/accessibility-adaptive-workspace.webp",
+    "tags": [
+      "accessibility",
+      "wheelchair",
+      "mobility",
+      "inclusive",
+      "adaptive",
+      "services",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "bicycle-cycle-workshop",
+    "category": "bicycle",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A woman bicycle mechanic tuning an unbranded city bicycle on a repair stand in a tidy shop.",
+    "url": "/media/generated/bicycle-cycle-workshop.webp",
+    "thumb": "/media/generated/thumbs/bicycle-cycle-workshop.webp",
+    "tags": [
+      "bicycle",
+      "bike",
+      "cycling",
+      "repair",
+      "shop",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "bicycle-commuter-bike",
+    "category": "bicycle",
+    "templateId": "",
+    "replaces": "",
+    "alt": "An elegant unbranded commuter bicycle leaning against a pale urban wall, soft late-afternoon shadows.",
+    "url": "/media/generated/bicycle-commuter-bike.webp",
+    "thumb": "/media/generated/thumbs/bicycle-commuter-bike.webp",
+    "tags": [
+      "bicycle",
+      "bike",
+      "cycling",
+      "repair",
+      "shop",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "barber-barber-chair",
+    "category": "barber",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A handsome vintage-style barber chair in a modern neighborhood barbershop with warm mirrors and neat tools.",
+    "url": "/media/generated/barber-barber-chair.webp",
+    "thumb": "/media/generated/thumbs/barber-barber-chair.webp",
+    "tags": [
+      "barber",
+      "barbershop",
+      "grooming",
+      "haircut",
+      "men",
+      "salon",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "barber-precision-haircut",
+    "category": "barber",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A Black barber carefully finishing an adult client's short haircut, candid professional grooming photograph.",
+    "url": "/media/generated/barber-precision-haircut.webp",
+    "thumb": "/media/generated/thumbs/barber-precision-haircut.webp",
+    "tags": [
+      "barber",
+      "barbershop",
+      "grooming",
+      "haircut",
+      "men",
+      "salon",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "wellness-massage-room",
+    "category": "wellness",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A serene massage treatment room with cream linens, warm timber and soft indirect light, no people.",
+    "url": "/media/generated/wellness-massage-room.webp",
+    "thumb": "/media/generated/thumbs/wellness-massage-room.webp",
+    "tags": [
+      "wellness",
+      "massage",
+      "spa",
+      "relaxation",
+      "wellbeing",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "wellness-meditation",
+    "category": "wellness",
+    "templateId": "",
+    "replaces": "",
+    "alt": "An adult South Asian woman sitting comfortably in quiet meditation beside a sunlit window with greenery.",
+    "url": "/media/generated/wellness-meditation.webp",
+    "thumb": "/media/generated/thumbs/wellness-meditation.webp",
+    "tags": [
+      "wellness",
+      "massage",
+      "spa",
+      "relaxation",
+      "wellbeing",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "security-security-installation",
+    "category": "security",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A woman security installer adjusting an unbranded compact camera beside a small business entrance.",
+    "url": "/media/generated/security-security-installation.webp",
+    "thumb": "/media/generated/thumbs/security-security-installation.webp",
+    "tags": [
+      "security",
+      "alarm",
+      "surveillance",
+      "protection",
+      "installation",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "security-entry-system",
+    "category": "security",
+    "templateId": "",
+    "replaces": "",
+    "alt": "Close-up of an elegant unbranded keypad and door access reader on a contemporary office entrance, no visible digits.",
+    "url": "/media/generated/security-entry-system.webp",
+    "thumb": "/media/generated/thumbs/security-entry-system.webp",
+    "tags": [
+      "security",
+      "alarm",
+      "surveillance",
+      "protection",
+      "installation",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "petcare-dog-walker",
+    "category": "petcare",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A professional dog walker strolling with two calm dogs on a leafy neighborhood path.",
+    "url": "/media/generated/petcare-dog-walker.webp",
+    "thumb": "/media/generated/thumbs/petcare-dog-walker.webp",
+    "tags": [
+      "petcare",
+      "dog",
+      "cat",
+      "walking",
+      "boarding",
+      "animal",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "petcare-cat-boarding",
+    "category": "petcare",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A bright comfortable cat boarding room with climbing shelves, cozy beds and one relaxed calico cat.",
+    "url": "/media/generated/petcare-cat-boarding.webp",
+    "thumb": "/media/generated/thumbs/petcare-cat-boarding.webp",
+    "tags": [
+      "petcare",
+      "dog",
+      "cat",
+      "walking",
+      "boarding",
+      "animal",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "beauty-nail-studio",
+    "category": "beauty",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A tidy contemporary nail studio with soft blush chairs, unbranded bottles and clean workstations.",
+    "url": "/media/generated/beauty-nail-studio.webp",
+    "thumb": "/media/generated/thumbs/beauty-nail-studio.webp",
+    "tags": [
+      "beauty",
+      "cosmetics",
+      "skincare",
+      "nails",
+      "manicure",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "beauty-skincare-products",
+    "category": "beauty",
+    "templateId": "",
+    "replaces": "",
+    "alt": "Unbranded frosted glass skincare bottles with blank labels on pale stone, soft studio shadows.",
+    "url": "/media/generated/beauty-skincare-products.webp",
+    "thumb": "/media/generated/thumbs/beauty-skincare-products.webp",
+    "tags": [
+      "beauty",
+      "cosmetics",
+      "skincare",
+      "nails",
+      "manicure",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "plumbing-pipe-repair",
+    "category": "plumbing",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A professional plumber inspecting neat copper pipework beneath an open kitchen sink, tidy residential interior, practical work clothes.",
+    "url": "/media/generated/plumbing-pipe-repair.webp",
+    "thumb": "/media/generated/thumbs/plumbing-pipe-repair.webp",
+    "tags": [
+      "plumbing",
+      "plumber",
+      "pipe",
+      "repair",
+      "trades",
+      "home",
+      "services",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "electrical-electrician-van",
+    "category": "electrical",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A professional electrician standing beside an organized service van with coiled cables and closed tool cases, suburban morning, no visible branding.",
+    "url": "/media/generated/electrical-electrician-van.webp",
+    "thumb": "/media/generated/thumbs/electrical-electrician-van.webp",
+    "tags": [
+      "electrical",
+      "electrician",
+      "trades",
+      "maintenance",
+      "service",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "automotive-repair-workshop",
+    "category": "automotive",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A clean independent auto repair workshop with a mechanic checking a car raised on a proper vehicle lift, tools organized along the wall.",
+    "url": "/media/generated/automotive-repair-workshop.webp",
+    "thumb": "/media/generated/thumbs/automotive-repair-workshop.webp",
+    "tags": [
+      "automotive",
+      "car",
+      "mechanic",
+      "garage",
+      "repair",
+      "vehicle",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "cleaning-home-service",
+    "category": "cleaning",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A professional cleaner wiping a bright modern kitchen counter with a microfiber cloth, clean gloves and an unlabelled spray bottle nearby.",
+    "url": "/media/generated/cleaning-home-service.webp",
+    "thumb": "/media/generated/thumbs/cleaning-home-service.webp",
+    "tags": [
+      "cleaning",
+      "housekeeping",
+      "home",
+      "service",
+      "maintenance",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "pets-dog-grooming",
+    "category": "pets",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A friendly dog groomer gently brushing a relaxed golden retriever on a grooming table in a bright boutique pet salon.",
+    "url": "/media/generated/pets-dog-grooming.webp",
+    "thumb": "/media/generated/thumbs/pets-dog-grooming.webp",
+    "tags": [
+      "pets",
+      "pet",
+      "dog",
+      "animal",
+      "grooming",
+      "care",
+      "salon",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "landscaping-garden-service",
+    "category": "landscaping",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A professional gardener tending a lush residential garden border beside a stone path, hand tools and flowering perennials.",
+    "url": "/media/generated/landscaping-garden-service.webp",
+    "thumb": "/media/generated/thumbs/landscaping-garden-service.webp",
+    "tags": [
+      "landscaping",
+      "gardener",
+      "lawn",
+      "outdoor",
+      "home",
+      "service",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "construction-renovation-site",
+    "category": "construction",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A carpenter measuring unfinished timber framing inside a tidy residential renovation site, hard hat and work boots, natural daylight.",
+    "url": "/media/generated/construction-renovation-site.webp",
+    "thumb": "/media/generated/thumbs/construction-renovation-site.webp",
+    "tags": [
+      "construction",
+      "contractor",
+      "builder",
+      "carpentry",
+      "renovation",
+      "trades",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "salon-hair-styling",
+    "category": "salon",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A hairstylist finishing a client's shoulder-length curls in a stylish neighborhood hair salon, warm mirrors and softly lit stations.",
+    "url": "/media/generated/salon-hair-styling.webp",
+    "thumb": "/media/generated/thumbs/salon-hair-styling.webp",
+    "tags": [
+      "salon",
+      "hair",
+      "barber",
+      "beauty",
+      "stylist",
+      "haircut",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "logistics-warehouse-dispatch",
+    "category": "logistics",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A warehouse worker checking unbranded cardboard parcels on a trolley in a clean organized dispatch area, shelves softly receding.",
+    "url": "/media/generated/logistics-warehouse-dispatch.webp",
+    "thumb": "/media/generated/thumbs/logistics-warehouse-dispatch.webp",
+    "tags": [
+      "logistics",
+      "warehouse",
+      "delivery",
+      "shipping",
+      "transport",
+      "fulfillment",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "agriculture-vegetable-farm",
+    "category": "agriculture",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A small-scale farmer carrying a wooden crate of fresh seasonal vegetables between sunlit crop rows on a thriving family farm.",
+    "url": "/media/generated/agriculture-vegetable-farm.webp",
+    "thumb": "/media/generated/thumbs/agriculture-vegetable-farm.webp",
+    "tags": [
+      "agriculture",
+      "farm",
+      "farming",
+      "produce",
+      "harvest",
+      "vegetables",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "events-garden-wedding",
+    "category": "events",
+    "templateId": "",
+    "replaces": "",
+    "alt": "An elegant outdoor wedding ceremony setting with a natural floral arch and rows of wooden chairs in a green garden, no guests.",
+    "url": "/media/generated/events-garden-wedding.webp",
+    "thumb": "/media/generated/thumbs/events-garden-wedding.webp",
+    "tags": [
+      "events",
+      "wedding",
+      "flowers",
+      "venue",
+      "celebration",
+      "planner",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "dental-dental-clinic",
+    "category": "dental",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A welcoming modern dental treatment room with a comfortable dental chair, neatly arranged equipment and soft pale blue cabinetry, no people.",
+    "url": "/media/generated/dental-dental-clinic.webp",
+    "thumb": "/media/generated/thumbs/dental-dental-clinic.webp",
+    "tags": [
+      "dental",
+      "dentist",
+      "teeth",
+      "clinic",
+      "healthcare",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "childcare-playroom",
+    "category": "childcare",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A bright welcoming childcare playroom with wooden toys, low bookshelves and little tables arranged for creative play, no children.",
+    "url": "/media/generated/childcare-playroom.webp",
+    "thumb": "/media/generated/thumbs/childcare-playroom.webp",
+    "tags": [
+      "childcare",
+      "daycare",
+      "nursery",
+      "preschool",
+      "education",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "technology-device-repair",
+    "category": "technology",
+    "templateId": "",
+    "replaces": "",
+    "alt": "An electronics technician at a clean workbench examining the inside of an unbranded laptop with precision tools and an anti-static mat.",
+    "url": "/media/generated/technology-device-repair.webp",
+    "thumb": "/media/generated/thumbs/technology-device-repair.webp",
+    "tags": [
+      "technology",
+      "computer",
+      "phone",
+      "electronics",
+      "repair",
+      "service",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "florist-flower-shop",
+    "category": "florist",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A florist arranging a seasonal bouquet of garden flowers at a rustic worktable in a charming flower shop, leafy buckets in the background.",
+    "url": "/media/generated/florist-flower-shop.webp",
+    "thumb": "/media/generated/thumbs/florist-flower-shop.webp",
+    "tags": [
+      "florist",
+      "flowers",
+      "bouquet",
+      "retail",
+      "shop",
+      "gift",
+      "generated",
+      "originals"
+    ]
+  },
+  {
     "id": "restaurant-dining-room",
     "category": "restaurant",
     "templateId": "original-restaurant",
@@ -1064,6 +3207,63 @@
       "journal",
       "books",
       "lifestyle",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "restaurant-chef-plating",
+    "category": "restaurant",
+    "templateId": "original-restaurant",
+    "replaces": "",
+    "alt": "A chef in a charcoal apron carefully plating roasted seasonal vegetables at a warm open restaurant kitchen counter.",
+    "url": "/media/generated/restaurant-chef-plating.webp",
+    "thumb": "/media/generated/thumbs/restaurant-chef-plating.webp",
+    "tags": [
+      "restaurant",
+      "chef",
+      "kitchen",
+      "vegetables",
+      "cooking",
+      "dining",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "food-berry-tart",
+    "category": "food",
+    "templateId": "original-food",
+    "replaces": "",
+    "alt": "A handmade summer berry tart on a cream ceramic plate beside a linen napkin, soft morning window light.",
+    "url": "/media/generated/food-berry-tart.webp",
+    "thumb": "/media/generated/thumbs/food-berry-tart.webp",
+    "tags": [
+      "food",
+      "bakery",
+      "dessert",
+      "fruit",
+      "pastry",
+      "cafe",
+      "generated",
+      "originals"
+    ]
+  },
+  {
+    "id": "hospitality-courtyard-pool",
+    "category": "hospitality",
+    "templateId": "original-hospitality",
+    "replaces": "",
+    "alt": "A serene boutique hotel courtyard pool surrounded by pale stone arches, olive trees and cream loungers at sunrise.",
+    "url": "/media/generated/hospitality-courtyard-pool.webp",
+    "thumb": "/media/generated/thumbs/hospitality-courtyard-pool.webp",
+    "tags": [
+      "hospitality",
+      "hotel",
+      "pool",
+      "resort",
+      "vacation",
+      "luxury",
       "generated",
       "originals"
     ]

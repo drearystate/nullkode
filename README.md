@@ -139,7 +139,7 @@ version: nothing to install, and it's free.
 
 ## Original image library
 
-The editor includes 54 original generated images across 18 themes, with local thumbnails and subject search. They are assigned to matching original-template image slots and ship with the source release. Browse `public/media/generated/index.html`; prompts and asset details are in [the image-library notes](docs/assets/GENERATED-IMAGES.md).
+The editor includes 172 original generated images across 82 business and lifestyle categories, with local thumbnails and subject search. Matching images are assigned to original-template photo slots; the full collection is searchable in Assets and ships with the source release. Browse `public/media/generated/index.html`; prompts and asset details are in [the image-library notes](docs/assets/GENERATED-IMAGES.md).
 
 ## Add features and templates
 
