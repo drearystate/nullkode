@@ -61,7 +61,7 @@ export const userProfileCard: ModuleDefinition = {
 <section class="py-5"><div class="container" style="max-width:480px;">
 <div data-nk-bind-flow-ref="me" class="card p-4 shadow-sm text-center">
   <div data-nk-item>
-    <img class="rounded-circle mx-auto mb-3" style="width:112px;height:112px;object-fit:cover;" data-nk-src="avatar_url" src="https://i.pravatar.cc/240?img=13" alt=""/>
+    <img class="rounded-circle mx-auto mb-3" style="width:112px;height:112px;object-fit:cover;" data-nk-src="avatar_url" src="/media/generated/thumbs/people-priya.webp" alt=""/>
     <h2 class="fw-bold mb-0" data-nk-field="name">Your name</h2>
     <div style="color:var(--nk-text-muted);" data-nk-field="email">you@example.com</div>
     <p class="mt-3 mb-0" style="color:var(--nk-text-muted);" data-nk-field="bio">Your bio goes here. Edit it on the profile page.</p>

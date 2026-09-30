@@ -37,7 +37,7 @@ body:
     id: photos
     attributes:
       label: Could you help with photos?
-      description: Template photos must be free to reuse (for example CC0 or public domain), with a credit in the template's CREDITS.md.
+      description: The built-in templates use original generated pictures. Photos you supply must be free to reuse (for example CC0 or public domain), with a credit in the template's CREDITS.md.
       options:
         - No
         - Yes, I can suggest free-to-use photos

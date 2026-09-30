@@ -109,15 +109,15 @@ export const userFavorites: ModuleDefinition = {
 <div data-nk-bind-flow-ref="my-list" class="row g-4 mt-3">
   <div class="col-md-4 col-6" data-nk-item>
     <a class="card h-100 text-body" data-nk-href="url" href="#">
-      <img class="card-img-top" data-nk-src="image_url" src="https://picsum.photos/seed/fav1/320/220" alt="" style="aspect-ratio:16/11;object-fit:cover;"/>
+      <img class="card-img-top" data-nk-src="image_url" src="/media/generated/ecommerce-celadon-bottles.webp" alt="" style="aspect-ratio:16/11;object-fit:cover;"/>
       <div class="card-body">
         <div class="small text-uppercase" style="color:var(--nk-text-muted);" data-nk-field="kind">Product</div>
         <h5 class="fw-bold mt-1" data-nk-field="label">Saved item name</h5>
       </div>
     </a>
   </div>
-  <div class="col-md-4 col-6"><a class="card h-100 text-body" href="#"><img class="card-img-top" src="https://picsum.photos/seed/fav2/320/220" alt="" style="aspect-ratio:16/11;object-fit:cover;"/><div class="card-body"><div class="small text-uppercase" style="color:var(--nk-text-muted);">Restaurant</div><h5 class="fw-bold mt-1">Noon Coffee deli</h5></div></a></div>
-  <div class="col-md-4 col-6"><a class="card h-100 text-body" href="#"><img class="card-img-top" src="https://picsum.photos/seed/fav3/320/220" alt="" style="aspect-ratio:16/11;object-fit:cover;"/><div class="card-body"><div class="small text-uppercase" style="color:var(--nk-text-muted);">Article</div><h5 class="fw-bold mt-1">Mastering sourdough</h5></div></a></div>
+  <div class="col-md-4 col-6"><a class="card h-100 text-body" href="#"><img class="card-img-top" src="/media/generated/food-flat-white.webp" alt="" style="aspect-ratio:16/11;object-fit:cover;"/><div class="card-body"><div class="small text-uppercase" style="color:var(--nk-text-muted);">Restaurant</div><h5 class="fw-bold mt-1">Noon Coffee deli</h5></div></a></div>
+  <div class="col-md-4 col-6"><a class="card h-100 text-body" href="#"><img class="card-img-top" src="/media/generated/food-loaf-board.webp" alt="" style="aspect-ratio:16/11;object-fit:cover;"/><div class="card-body"><div class="small text-uppercase" style="color:var(--nk-text-muted);">Article</div><h5 class="fw-bold mt-1">Mastering sourdough</h5></div></a></div>
 </div>
 
 <hr class="my-5"/>

@@ -26,7 +26,7 @@ export const businessCardWallet: ModuleDefinition = {
         { name: "owner_user_id", type: "text" },
       ],
       seed: [
-        { name: "Avery Chen", title: "Founder", company: "Pebble Labs", email: "avery@pebble.example", phone: "+1 415 555 0143", website: "https://pebble.example", photo_url: "https://i.pravatar.cc/200?img=8", linkedin: "https://linkedin.com/in/avery", owner_user_id: "" },
+        { name: "Avery Chen", title: "Founder", company: "Pebble Labs", email: "avery@pebble.example", phone: "+1 415 555 0143", website: "https://pebble.example", photo_url: "/media/generated/thumbs/people-avery-chen.webp", linkedin: "https://linkedin.com/in/avery", owner_user_id: "" },
       ],
     },
     {
@@ -120,7 +120,7 @@ export const businessCardWallet: ModuleDefinition = {
       isHome: true,
       html: `<section class="py-5"><div class="container" style="max-width:760px;"><h1 class="fw-bold">Business cards</h1>
 <div data-nk-bind-flow-ref="list" data-nk-refresh="30000" class="row g-3 mt-3">
-  <div class="col-md-6" data-nk-item><a class="card border-0 shadow-sm h-100 p-3 d-flex flex-row gap-3 align-items-center text-decoration-none text-body" data-nk-href-template="/card?id={id}" href="#"><img class="rounded" style="width:64px;height:64px;object-fit:cover;" data-nk-src="photo_url" src="https://i.pravatar.cc/200" alt=""/><div><div class="fw-bold" data-nk-field="name">Name</div><div class="small" style="color:var(--nk-text-muted);" data-nk-field="title">Title</div><div class="small" data-nk-field="company">Company</div></div></a></div>
+  <div class="col-md-6" data-nk-item><a class="card border-0 shadow-sm h-100 p-3 d-flex flex-row gap-3 align-items-center text-decoration-none text-body" data-nk-href-template="/card?id={id}" href="#"><img class="rounded" style="width:64px;height:64px;object-fit:cover;" data-nk-src="photo_url" src="/media/generated/thumbs/people-avery-chen.webp" alt=""/><div><div class="fw-bold" data-nk-field="name">Name</div><div class="small" style="color:var(--nk-text-muted);" data-nk-field="title">Title</div><div class="small" data-nk-field="company">Company</div></div></a></div>
 </div>
 </div></section>`,
     },
@@ -131,7 +131,7 @@ export const businessCardWallet: ModuleDefinition = {
 <div class="card shadow text-center" style="border-radius:18px;overflow:hidden;">
 <div class="p-4 text-white" style="background:linear-gradient(135deg,#1e3a8a,#0f172a);">
 <div data-nk-bind-flow-ref="get" data-nk-source="query:id"><div data-nk-item>
-  <img class="rounded-circle border border-3 border-light" style="width:100px;height:100px;object-fit:cover;" data-nk-src="photo_url" src="https://i.pravatar.cc/200" alt=""/>
+  <img class="rounded-circle border border-3 border-light" style="width:100px;height:100px;object-fit:cover;" data-nk-src="photo_url" src="/media/generated/thumbs/people-avery-chen.webp" alt=""/>
   <h2 class="fw-bold mt-3" data-nk-field="name">Name</h2>
   <div class="small" style="opacity:0.85;"><span data-nk-field="title">Title</span> · <span data-nk-field="company">Company</span></div>
   <hr style="border-color:rgba(255,255,255,.25);"/>

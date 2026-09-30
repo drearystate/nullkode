@@ -25,9 +25,9 @@ export const slider: ModuleDefinition = {
         { name: "sort_order", type: "int" },
       ],
       seed: [
-        { image_url: "https://picsum.photos/seed/sl1/1600/700", headline: "Welcome to our shop", subhead: "Summer collection is here.", cta_label: "Shop now", cta_url: "/", sort_order: 1 },
-        { image_url: "https://picsum.photos/seed/sl2/1600/700", headline: "Free delivery on orders $50+", subhead: "Across town, every day.", cta_label: "Browse", cta_url: "/", sort_order: 2 },
-        { image_url: "https://picsum.photos/seed/sl3/1600/700", headline: "Build a custom set", subhead: "Pick three, save 20%.", cta_label: "Get started", cta_url: "/", sort_order: 3 },
+        { image_url: "/media/generated/signage-blank-storefront.webp", headline: "Welcome to our shop", subhead: "Summer collection is here.", cta_label: "Shop now", cta_url: "/", sort_order: 1 },
+        { image_url: "/media/generated/packaging-packing-station.webp", headline: "Free delivery on orders $50+", subhead: "Across town, every day.", cta_label: "Browse", cta_url: "/", sort_order: 2 },
+        { image_url: "/media/generated/ecommerce-terracotta-tumblers.webp", headline: "Build a custom set", subhead: "Pick three, save 20%.", cta_label: "Get started", cta_url: "/", sort_order: 3 },
       ],
     },
   ],
@@ -135,7 +135,7 @@ export const slider: ModuleDefinition = {
 </form>
 <h4 class="fw-bold mt-5">Current slides</h4>
 <div data-nk-bind-flow-ref="list" data-nk-refresh="15000" class="mt-3">
-  <div class="d-flex gap-3 align-items-center p-3 border rounded mb-2" style="background:var(--nk-surface);" data-nk-item><img style="width:120px;height:70px;object-fit:cover;border-radius:8px;" data-nk-src="image_url" src="https://picsum.photos/seed/x/300/180" alt=""/><div class="flex-grow-1"><div class="fw-bold" data-nk-field="headline">Headline</div><div class="small" style="color:var(--nk-text-muted);" data-nk-field="subhead">Subhead</div></div></div>
+  <div class="d-flex gap-3 align-items-center p-3 border rounded mb-2" style="background:var(--nk-surface);" data-nk-item><img style="width:120px;height:70px;object-fit:cover;border-radius:8px;" data-nk-src="image_url" src="/media/generated/thumbs/signage-blank-storefront.webp" alt=""/><div class="flex-grow-1"><div class="fw-bold" data-nk-field="headline">Headline</div><div class="small" style="color:var(--nk-text-muted);" data-nk-field="subhead">Subhead</div></div></div>
 </div>
 </div></section>`,
     },

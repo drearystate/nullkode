@@ -22,7 +22,7 @@ export const countdown: ModuleDefinition = {
         { name: "image_url", type: "text" },
       ],
       seed: [
-        { headline: "Summer sale starts in", subhead: "30% off everything for 72 hours.", target_at: "2026-06-21 00:00:00", cta_label: "Shop now", cta_url: "/", image_url: "https://picsum.photos/seed/summer/1600/700" },
+        { headline: "Summer sale starts in", subhead: "30% off everything for 72 hours.", target_at: "2026-06-21 00:00:00", cta_label: "Shop now", cta_url: "/", image_url: "/media/generated/hospitality-courtyard-pool.webp" },
       ],
     },
   ],
@@ -89,7 +89,7 @@ export const countdown: ModuleDefinition = {
       slug: "countdown",
       title: "Countdown",
       isHome: true,
-      html: `<section id="nk-cd-bg" style="background:linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.7)), url('https://picsum.photos/seed/cd/1600/700') center/cover #111;color:#fff;min-height:80vh;display:flex;align-items:center;">
+      html: `<section id="nk-cd-bg" style="background:linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.7)), url('/media/generated/hospitality-courtyard-pool.webp') center/cover #111;color:#fff;min-height:80vh;display:flex;align-items:center;">
 <div class="container text-center py-5">
 <h1 class="display-3 fw-bold" id="nk-cd-head">Loading…</h1>
 <p class="lead" id="nk-cd-sub">—</p>

@@ -294,7 +294,7 @@ async function main() {
       ok("no script from a visitor's row runs", dialogs.length === 0 && (await injected(p)).length === 0, { dialogs, bad: await injected(p) });
       const srcs = await p.locator("#nk-board img").evaluateAll((imgs) => imgs.map((i) => i.getAttribute("src")));
       ok("a booby-trapped picture link becomes a dead link", srcs.includes("#") && !srcs.some((s) => (s ?? "").includes("onerror")), srcs);
-      ok("seed rows still show with their pictures", board.includes("Marcus") && board.includes("4820") && srcs.includes("https://i.pravatar.cc/100?img=11"), board.slice(0, 200));
+      ok("seed rows still show with their pictures", board.includes("Marcus") && board.includes("4820") && srcs.includes("/media/generated/thumbs/finance-advisor-marcus.webp"), board.slice(0, 200));
       ok("& shows as & (no double escaping)", board.includes("Fish & Chips") && !board.includes("&amp;"));
       await p.locator("#nk-cats .nk-cat").filter({ hasText: "<b>big</b>" }).waitFor();
       const cats = await p.locator("#nk-cats").innerText();

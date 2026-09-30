@@ -72,8 +72,8 @@ async function main() {
   // Existing behaviour that must not change.
   let res = await run(appHost, "/nk-public.css");
   ok("static files pass through on app addresses", passes(res) && !rewriteOf(res));
-  res = await run(appHost, "/templates/originals/original-restaurant/embers.webp");
-  ok("template photos pass through on app addresses", passes(res) && !rewriteOf(res));
+  res = await run(appHost, "/media/generated/restaurant-embers.webp");
+  ok("template pictures pass through on app addresses", passes(res) && !rewriteOf(res));
   res = await run(appHost, "/manifest.webmanifest");
   ok("the app's manifest is still served per host", rewriteOf(res) === `/nk-host/${appHost}/manifest.webmanifest`);
   res = await run(appHost, "/menu");

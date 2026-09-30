@@ -18,7 +18,6 @@
 import { registerTemplate } from "../store";
 import type { StarterTemplate } from "../types";
 
-const IMG = "/templates/originals/original-fitness";
 
 /*
  * The visual editor (GrapesJS) re-parses page CSS through the CSSOM and silently
@@ -189,7 +188,7 @@ const FOOTER = `
 
 const TRIAL = `
 <section class="frg-trial">
-  <img class="frg-trial__img" src="${IMG}/profile-focus.webp" alt="" width="960" height="638" loading="lazy">
+  <img class="frg-trial__img" src="/media/generated/fitness-profile-focus.webp" alt="" width="960" height="638" loading="lazy">
   <div class="frg-wrap">
     <p class="frg-tag">No contract. No catch.</p>
     <h2 class="frg-h2">Your first week<br><span>is on us</span></h2>
@@ -252,7 +251,7 @@ const slot = (s: Slot) => `
 
 const HOME_HTML = `
 <section class="frg-hero">
-  <img class="frg-hero__img" src="${IMG}/dumbbell-mirror.webp" alt="An athlete picking up dumbbells from the rack, reflected in the gym mirror" width="960" height="638" fetchpriority="high">
+  <img class="frg-hero__img" src="/media/generated/fitness-dumbbell-mirror.webp" alt="An athlete picking up dumbbells from the rack, reflected in the gym mirror" width="960" height="638" fetchpriority="high">
   <div class="frg-wrap frg-hero__inner">
     <p class="frg-tag">Denver &middot; RiNo &middot; since 2015</p>
     <h1 class="frg-hero__title">Lift heavy.<br>Move well.<br><span>Show up.</span></h1>
@@ -282,19 +281,19 @@ const HOME_HTML = `
     </div>
     <div class="frg-classes__grid">
       <article class="frg-class frg-class--str">
-        <figure><img src="${IMG}/barbell-plate.webp" alt="Close-up of an iron weight plate and collar on a barbell" width="960" height="640" loading="lazy"></figure>
+        <figure><img src="/media/generated/fitness-barbell-plate.webp" alt="Close-up of an iron weight plate and collar on a barbell" width="960" height="640" loading="lazy"></figure>
         <div class="frg-class__body"><p class="frg-class__n frg-num">01</p><h3>Strength Club</h3><p>Squat, bench, deadlift and press on a twelve-week programme. Coached, logged and progressed every week.</p><p class="frg-class__meta">55 min ${lvl(2)}</p></div>
       </article>
       <article class="frg-class frg-class--con">
-        <figure><img src="${IMG}/battle-ropes.webp" alt="An athlete slamming heavy battle ropes against a white brick wall" width="960" height="641" loading="lazy"></figure>
+        <figure><img src="/media/generated/fitness-battle-ropes.webp" alt="An athlete slamming heavy battle ropes against a white brick wall" width="960" height="641" loading="lazy"></figure>
         <div class="frg-class__body"><p class="frg-class__n frg-num">02</p><h3>Engine 30</h3><p>Thirty minutes of intervals on rowers, bikes, sleds and ropes. Scalable, sweaty, finished before your coffee's cold.</p><p class="frg-class__meta">30 min ${lvl(3)}</p></div>
       </article>
       <article class="frg-class frg-class--box">
-        <figure><img src="${IMG}/heavy-bag.webp" alt="A woman in boxing gloves throwing a knee into a heavy bag" width="960" height="540" loading="lazy"></figure>
+        <figure><img src="/media/generated/fitness-heavy-bag.webp" alt="A woman in boxing gloves throwing a knee into a heavy bag" width="960" height="540" loading="lazy"></figure>
         <div class="frg-class__body"><p class="frg-class__n frg-num">03</p><h3>Fight Fit</h3><p>Pad work, bag rounds and footwork drills. No sparring, all the cardio, and a surprising amount of fun.</p><p class="frg-class__meta">45 min ${lvl(3)}</p></div>
       </article>
       <article class="frg-class frg-class--mob">
-        <figure><img src="${IMG}/suspension-training.webp" alt="A man training on suspension straps in warm afternoon light" width="960" height="640" loading="lazy"></figure>
+        <figure><img src="/media/generated/fitness-suspension-training.webp" alt="A man training on suspension straps in warm afternoon light" width="960" height="640" loading="lazy"></figure>
         <div class="frg-class__body"><p class="frg-class__n frg-num">04</p><h3>Mobility Lab</h3><p>Slow strength, stretching and breathing to keep hips, shoulders and backs working for decades.</p><p class="frg-class__meta">45 min ${lvl(1)}</p></div>
       </article>
     </div>
@@ -375,7 +374,7 @@ const HOME_HTML = `
 
 <section class="frg-proof">
   <div class="frg-wrap frg-proof__grid">
-    <figure class="frg-proof__img"><img src="${IMG}/squat-bar.webp" alt="Black-and-white close-up of an athlete gripping a barbell across her shoulders" width="800" height="480" loading="lazy"></figure>
+    <figure class="frg-proof__img"><img src="/media/generated/fitness-squat-bar.webp" alt="Black-and-white close-up of an athlete gripping a barbell across her shoulders" width="800" height="480" loading="lazy"></figure>
     <div>
       <p class="frg-tag">Member results</p>
       <blockquote class="frg-proof__quote">
@@ -520,7 +519,7 @@ const coach = (initials: string, name: string, role: string, bio: string, creds:
 
 const COACHES_HTML = `
 <section class="frg-chead">
-  <img class="frg-chead__img" src="${IMG}/battle-ropes.webp" alt="" width="960" height="641" fetchpriority="high">
+  <img class="frg-chead__img" src="/media/generated/fitness-battle-ropes.webp" alt="" width="960" height="641" fetchpriority="high">
   <div class="frg-wrap frg-chead__inner">
     <p class="frg-tag">Coaches &amp; classes</p>
     <h1 class="frg-chead__title">Coached,<br><span>not counted</span></h1>

@@ -17,7 +17,6 @@
 import { registerTemplate } from "../store";
 import type { StarterTemplate } from "../types";
 
-const IMG = "/templates/originals/original-realestate";
 
 /*
  * The visual editor (GrapesJS) re-parses page CSS through the CSSOM and silently
@@ -217,18 +216,18 @@ type Listing = {
   beds: number; baths: string; sqft: string; band: "low" | "mid" | "high"; badge?: [string, "new" | "open" | "cut"];
 };
 const LISTINGS: Listing[] = [
-  { img: "klickitat-house.webp", alt: "A two-storey craftsman house at dusk with lit windows and a double garage", price: "1,145,000", addr: "2418 NE Klickitat St", area: "Irvington", type: "house", beds: 4, baths: "3", sqft: "2,640", band: "high", badge: ["Just listed", "new"] },
-  { img: "woodstock-modern.webp", alt: "A modern timber-clad house behind a hedge and mature trees", price: "879,000", addr: "5127 SE Woodstock Blvd", area: "Woodstock", type: "house", beds: 3, baths: "2.5", sqft: "2,080", band: "mid", badge: ["Open Sat 1 – 3 pm", "open"] },
-  { img: "irving-townhome.webp", alt: "A white townhouse entrance with a bright yellow front door and black railings", price: "749,000", addr: "1420 NW Irving St", area: "Alphabet District", type: "townhome", beds: 3, baths: "2.5", sqft: "1,760", band: "mid" },
-  { img: "burrage-ranch.webp", alt: "A single-storey ranch house with a lawn and a rain-wet driveway", price: "615,000", addr: "7302 N Burrage Ave", area: "Arbor Lodge", type: "house", beds: 3, baths: "2", sqft: "1,690", band: "mid", badge: ["Price reduced", "cut"] },
-  { img: "concordia-kitchen.webp", alt: "A bright white kitchen with an island, pendant lights and tall windows", price: "1,295,000", addr: "4906 NE 29th Ave", area: "Concordia", type: "house", beds: 5, baths: "3", sqft: "3,120", band: "high" },
-  { img: "downtown-condo.webp", alt: "A condo living room with a green sofa, oak floors and a balcony door", price: "525,000", addr: "1111 SW 10th Ave #1804", area: "Downtown", type: "condo", beds: 2, baths: "2", sqft: "1,180", band: "low", badge: ["Open Sun 11 – 1", "open"] },
-  { img: "division-condos.webp", alt: "A modern condo building with solar panels and lit windows at dusk", price: "389,000", addr: "3345 SE Division St #210", area: "Richmond", type: "condo", beds: 1, baths: "1", sqft: "720", band: "low" },
+  { img: "/media/generated/realestate-klickitat-house.webp", alt: "A two-storey craftsman house at dusk with lit windows and a double garage", price: "1,145,000", addr: "2418 NE Klickitat St", area: "Irvington", type: "house", beds: 4, baths: "3", sqft: "2,640", band: "high", badge: ["Just listed", "new"] },
+  { img: "/media/generated/realestate-woodstock-modern.webp", alt: "A modern timber-clad house behind a hedge and mature trees", price: "879,000", addr: "5127 SE Woodstock Blvd", area: "Woodstock", type: "house", beds: 3, baths: "2.5", sqft: "2,080", band: "mid", badge: ["Open Sat 1 – 3 pm", "open"] },
+  { img: "/media/generated/realestate-irving-townhome.webp", alt: "A white townhouse entrance with a bright yellow front door and black railings", price: "749,000", addr: "1420 NW Irving St", area: "Alphabet District", type: "townhome", beds: 3, baths: "2.5", sqft: "1,760", band: "mid" },
+  { img: "/media/generated/realestate-burrage-ranch.webp", alt: "A single-storey ranch house with a lawn and a rain-wet driveway", price: "615,000", addr: "7302 N Burrage Ave", area: "Arbor Lodge", type: "house", beds: 3, baths: "2", sqft: "1,690", band: "mid", badge: ["Price reduced", "cut"] },
+  { img: "/media/generated/realestate-concordia-kitchen.webp", alt: "A bright white kitchen with an island, pendant lights and tall windows", price: "1,295,000", addr: "4906 NE 29th Ave", area: "Concordia", type: "house", beds: 5, baths: "3", sqft: "3,120", band: "high" },
+  { img: "/media/generated/realestate-downtown-condo.webp", alt: "A condo living room with a green sofa, oak floors and a balcony door", price: "525,000", addr: "1111 SW 10th Ave #1804", area: "Downtown", type: "condo", beds: 2, baths: "2", sqft: "1,180", band: "low", badge: ["Open Sun 11 – 1", "open"] },
+  { img: "/media/generated/realestate-division-condos.webp", alt: "A modern condo building with solar panels and lit windows at dusk", price: "389,000", addr: "3345 SE Division St #210", area: "Richmond", type: "condo", beds: 1, baths: "1", sqft: "720", band: "low" },
 ];
 
 const listingCard = (l: Listing) => `
         <li class="prc-card is-${l.type} beds-${Math.min(l.beds, 4)} price-${l.band}">
-          <figure class="prc-card__img"><img src="${IMG}/${l.img}" alt="${l.alt}" width="960" height="640" loading="lazy">${l.badge ? `<figcaption class="prc-badge prc-badge--${l.badge[1]}">${l.badge[0]}</figcaption>` : ""}</figure>
+          <figure class="prc-card__img"><img src="${l.img}" alt="${l.alt}" width="960" height="640" loading="lazy">${l.badge ? `<figcaption class="prc-badge prc-badge--${l.badge[1]}">${l.badge[0]}</figcaption>` : ""}</figure>
           <div class="prc-card__body">
             <p class="prc-card__price prc-num">$${l.price}</p>
             <h3 class="prc-card__addr">${l.addr}</h3>
@@ -258,7 +257,7 @@ const HOME_HTML = `
       </div>
     </div>
     <figure class="prc-hero__media">
-      <img src="${IMG}/klickitat-house.webp" alt="A two-storey craftsman house at dusk with lit windows and a double garage" width="960" height="640" fetchpriority="high">
+      <img src="/media/generated/realestate-klickitat-house.webp" alt="A two-storey craftsman house at dusk with lit windows and a double garage" width="960" height="640" fetchpriority="high">
       <figcaption class="prc-hero__tag">
         <span class="prc-badge prc-badge--new">Just listed</span>
         <strong class="prc-num">$1,145,000</strong>
@@ -302,7 +301,7 @@ const HOME_HTML = `
 
 <section class="prc-sell">
   <div class="prc-wrap prc-sell__grid">
-    <figure class="prc-sell__img"><img src="${IMG}/staged-living-room.webp" alt="A staged living room opening onto a covered garden patio" width="960" height="640" loading="lazy"></figure>
+    <figure class="prc-sell__img"><img src="/media/generated/realestate-staged-living-room.webp" alt="A staged living room opening onto a covered garden patio" width="960" height="640" loading="lazy"></figure>
     <div>
       <p class="prc-kicker">Selling with Parcel</p>
       <h2 class="prc-h2">Four weeks from first coffee to sold sign</h2>
@@ -521,7 +520,7 @@ const HOODS_HTML = `
       <h1 class="prc-hoods-hero__title">Portland, one neighbourhood at a time</h1>
       <p class="prc-lede">Prices, commutes and what it's actually like to live there, from agents who do. Figures are 90-day medians for single-family homes.</p>
     </div>
-    <figure class="prc-hoods-hero__img"><img src="${IMG}/staged-living-room.webp" alt="A bright living room opening onto a covered garden patio" width="960" height="640" fetchpriority="high"></figure>
+    <figure class="prc-hoods-hero__img"><img src="/media/generated/realestate-staged-living-room.webp" alt="A bright living room opening onto a covered garden patio" width="960" height="640" fetchpriority="high"></figure>
   </div>
 </section>
 

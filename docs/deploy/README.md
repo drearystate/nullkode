@@ -16,8 +16,7 @@ match and adapt.
 
 All of these are starting points — review and edit for your domain, TLS
 certs, and load-balancer setup before shipping. The first-time install with
-Docker is described in [START-HERE.md](../../START-HERE.md) and
-[INSTALL.md](../../INSTALL.md).
+Docker is described in [docs/install.md](../install.md).
 
 ## Backups, logs and updates
 

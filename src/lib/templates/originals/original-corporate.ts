@@ -20,7 +20,6 @@
 import { registerTemplate } from "../store";
 import type { StarterTemplate } from "../types";
 
-const IMG = "/templates/originals/original-corporate";
 
 /* ── Shared CSS ─────────────────────────────────────────────────────── */
 const BASE_CSS = `
@@ -392,7 +391,7 @@ const HOME_HTML = `
       </div>
     </div>
     <figure class="cv-hero-media">
-      <img src="${IMG}/port-terminal.webp" alt="Orange ship-to-shore cranes above stacked containers at a deep-water terminal" width="560" height="640">
+      <img src="/media/generated/corporate-port-terminal.webp" alt="Orange ship-to-shore cranes above stacked containers at a deep-water terminal" width="560" height="640">
       <figcaption class="cv-hero-card"><span>Delivered 2025</span><strong>Aalvik Container Terminal</strong>Twelve automated stacking cranes, installed while every berth stayed open.</figcaption>
     </figure>
   </div>
@@ -457,21 +456,21 @@ const HOME_HTML = `
     <div class="cv-sector-grid">
       <article class="cv-sector">
         <figure class="cv-sector-media">
-          <img src="${IMG}/wind-turbine.webp" alt="A wind turbine against a deep blue sky with the sun behind its tower" width="600" height="750" loading="lazy">
+          <img src="/media/generated/corporate-wind-turbine.webp" alt="A wind turbine against a deep blue sky with the sun behind its tower" width="600" height="750" loading="lazy">
           <figcaption><h3>Energy transition</h3><p>Offshore substations, grid connections and hydrogen-ready plants.</p></figcaption>
         </figure>
         <dl><div><dt>offshore wind connected</dt><dd>6.2 GW</dd></div><div><dt>grid substations since 2020</dt><dd>14</dd></div></dl>
       </article>
       <article class="cv-sector">
         <figure class="cv-sector-media">
-          <img src="${IMG}/steel-works.webp" alt="Molten metal glowing inside a steelworks as a crane lifts a ladle" width="512" height="640" loading="lazy">
+          <img src="/media/generated/corporate-steel-works.webp" alt="Molten metal glowing inside a steelworks as a crane lifts a ladle" width="512" height="640" loading="lazy">
           <figcaption><h3>Heavy industry</h3><p>Decarbonising steel, cement and chemicals without stopping the line.</p></figcaption>
         </figure>
         <dl><div><dt>plants modernised</dt><dd>31</dd></div><div><dt>CO₂ avoided each year</dt><dd>1.9 Mt</dd></div></dl>
       </article>
       <article class="cv-sector">
         <figure class="cv-sector-media">
-          <img src="${IMG}/data-centre.webp" alt="An engineer connecting network cables to a switch in a server rack" width="512" height="640" loading="lazy">
+          <img src="/media/generated/corporate-data-centre.webp" alt="An engineer connecting network cables to a switch in a server rack" width="512" height="640" loading="lazy">
           <figcaption><h3>Digital infrastructure</h3><p>Data centres, cable landing stations and resilient private networks.</p></figcaption>
         </figure>
         <dl><div><dt>data-centre capacity delivered</dt><dd>420 MW</dd></div><div><dt>Tier IV facilities</dt><dd>9</dd></div></dl>
@@ -519,19 +518,19 @@ const HOME_HTML = `
     </div>
     <div class="cv-leader-grid">
       <figure class="cv-leader">
-        <img src="${IMG}/leader-amara.webp" alt="Portrait of Amara Okafor-Lind" width="480" height="600" loading="lazy">
+        <img src="/media/generated/corporate-leader-amara.webp" alt="Portrait of Amara Okafor-Lind" width="480" height="600" loading="lazy">
         <figcaption><h3>Amara Okafor-Lind</h3><span class="cv-leader-role">Group Chief Executive</span><p>Ran our offshore business through its first gigawatt. CEO since 2022.</p></figcaption>
       </figure>
       <figure class="cv-leader">
-        <img src="${IMG}/leader-henrik.webp" alt="Portrait of Henrik Vestergaard" width="480" height="600" loading="lazy">
+        <img src="/media/generated/corporate-leader-henrik.webp" alt="Portrait of Henrik Vestergaard" width="480" height="600" loading="lazy">
         <figcaption><h3>Henrik Vestergaard</h3><span class="cv-leader-role">Chair of the Board</span><p>Thirty years in port engineering, including twelve as a harbour master.</p></figcaption>
       </figure>
       <figure class="cv-leader">
-        <img src="${IMG}/leader-ingrid.webp" alt="Portrait of Ingrid Salo" width="480" height="600" loading="lazy">
+        <img src="/media/generated/corporate-leader-ingrid.webp" alt="Portrait of Ingrid Salo" width="480" height="600" loading="lazy">
         <figcaption><h3>Ingrid Salo</h3><span class="cv-leader-role">Chief Financial Officer</span><p>Previously project controls director on our largest EPC contracts.</p></figcaption>
       </figure>
       <figure class="cv-leader">
-        <img src="${IMG}/leader-tomas.webp" alt="Portrait of Tomás Reyes" width="480" height="600" loading="lazy">
+        <img src="/media/generated/corporate-leader-tomas.webp" alt="Portrait of Tomás Reyes" width="480" height="600" loading="lazy">
         <figcaption><h3>Tomás Reyes</h3><span class="cv-leader-role">Chief Operating Officer</span><p>Commissioned four steel plants and a hydrogen pilot before joining the board.</p></figcaption>
       </figure>
     </div>
@@ -805,7 +804,7 @@ const COMPANY_HTML = `
     </div>
     <div class="cv-bios">
       <article class="cv-bio">
-        <img src="${IMG}/leader-amara.webp" alt="Portrait of Amara Okafor-Lind" width="480" height="600" loading="lazy">
+        <img src="/media/generated/corporate-leader-amara.webp" alt="Portrait of Amara Okafor-Lind" width="480" height="600" loading="lazy">
         <div class="cv-bio-body">
           <h3>Amara Okafor-Lind</h3><span class="cv-bio-role">Group Chief Executive</span>
           <p>Amara joined as a structural engineer in 2004 and led the offshore business through its first gigawatt before becoming CEO.</p>
@@ -813,7 +812,7 @@ const COMPANY_HTML = `
         </div>
       </article>
       <article class="cv-bio">
-        <img src="${IMG}/leader-henrik.webp" alt="Portrait of Henrik Vestergaard" width="480" height="600" loading="lazy">
+        <img src="/media/generated/corporate-leader-henrik.webp" alt="Portrait of Henrik Vestergaard" width="480" height="600" loading="lazy">
         <div class="cv-bio-body">
           <h3>Henrik Vestergaard</h3><span class="cv-bio-role">Chair of the Board</span>
           <p>Henrik spent twelve years as a harbour master before three decades in port engineering and infrastructure finance.</p>
@@ -821,7 +820,7 @@ const COMPANY_HTML = `
         </div>
       </article>
       <article class="cv-bio">
-        <img src="${IMG}/leader-ingrid.webp" alt="Portrait of Ingrid Salo" width="480" height="600" loading="lazy">
+        <img src="/media/generated/corporate-leader-ingrid.webp" alt="Portrait of Ingrid Salo" width="480" height="600" loading="lazy">
         <div class="cv-bio-body">
           <h3>Ingrid Salo</h3><span class="cv-bio-role">Chief Financial Officer</span>
           <p>Ingrid ran project controls on our largest EPC contracts and built the risk process every bid now goes through.</p>
@@ -829,7 +828,7 @@ const COMPANY_HTML = `
         </div>
       </article>
       <article class="cv-bio">
-        <img src="${IMG}/leader-tomas.webp" alt="Portrait of Tomás Reyes" width="480" height="600" loading="lazy">
+        <img src="/media/generated/corporate-leader-tomas.webp" alt="Portrait of Tomás Reyes" width="480" height="600" loading="lazy">
         <div class="cv-bio-body">
           <h3>Tomás Reyes</h3><span class="cv-bio-role">Chief Operating Officer</span>
           <p>Tomás commissioned four steel plants and a green hydrogen pilot, and now leads our 140 operating sites.</p>

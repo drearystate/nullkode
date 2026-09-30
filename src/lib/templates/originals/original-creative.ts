@@ -19,7 +19,6 @@
 import { registerTemplate } from "../store";
 import type { StarterTemplate } from "../types";
 
-const IMG = "/templates/originals/original-creative";
 
 /* ── Shared CSS ─────────────────────────────────────────────────────── */
 const BASE_CSS = `
@@ -270,11 +269,11 @@ const FOOTER_HTML = `
 
 /* ── Pages ──────────────────────────────────────────────────────────── */
 const ROWS: Array<[string, string, string, string, string]> = [
-  ["parlour", "Parlour", "Identity · Neon · Menus", "2025", "parlour.webp"],
-  ["northline", "Northline Rail", "Rebrand · Motion system", "2025", "northline-waves.webp"],
-  ["home-cooking", "Home Cooking", "Naming · Identity · Signage", "2024", "home-cooking.webp"],
-  ["no-33", "No. 33", "Identity · Pattern · Print", "2024", "no-33.webp"],
-  ["low-tide", "Low Tide Festival", "Campaign · Posters · Motion", "2023", "low-tide.webp"],
+  ["parlour", "Parlour", "Identity · Neon · Menus", "2025", "/media/generated/creative-parlour.webp"],
+  ["northline", "Northline Rail", "Rebrand · Motion system", "2025", "/media/generated/creative-northline-waves.webp"],
+  ["home-cooking", "Home Cooking", "Naming · Identity · Signage", "2024", "/media/generated/creative-home-cooking.webp"],
+  ["no-33", "No. 33", "Identity · Pattern · Print", "2024", "/media/generated/creative-no-33.webp"],
+  ["low-tide", "Low Tide Festival", "Campaign · Posters · Motion", "2023", "/media/generated/creative-low-tide.webp"],
 ];
 
 const HOME_HTML = `
@@ -287,7 +286,7 @@ const HOME_HTML = `
       <p class="bw-label">Glasgow · Est. 2016</p>
       <p class="bw-label bw-live">Booking briefs for spring 2027</p>
     </div>
-    <h1 class="bw-mega">Brands for <img class="bw-pill" src="${IMG}/parlour.webp" alt="" width="960" height="640"> places people <img class="bw-pill bw-pill-round" src="${IMG}/no-33.webp" alt="" width="512" height="640"> <em>actually</em> go.</h1>
+    <h1 class="bw-mega">Brands for <img class="bw-pill" src="/media/generated/creative-parlour.webp" alt="" width="960" height="640"> places people <img class="bw-pill bw-pill-round" src="/media/generated/creative-no-33.webp" alt="" width="512" height="640"> <em>actually</em> go.</h1>
     <div class="bw-hero-foot">
       <p class="bw-lede">Big Weather is an independent studio of 14 designers, animators and makers. We build identities, motion and signage for bars, venues, festivals and one very large railway.</p>
       <div class="bw-hero-actions">
@@ -311,7 +310,7 @@ const HOME_HTML = `
       <a href="/work">Every project in detail →</a>
     </div>
     <ol class="bw-rows">
-${ROWS.map(([id, name, what, year, img], i) => `      <li><a class="bw-row" href="/work#${id}"><span class="bw-row-no">0${i + 1}</span><span class="bw-row-name">${name}</span><span class="bw-row-what">${what}</span><span class="bw-row-year">${year}</span><img src="${IMG}/${img}" alt="" width="${img === "no-33.webp" ? 512 : 960}" height="640" loading="lazy"></a></li>`).join("\n")}
+${ROWS.map(([id, name, what, year, img], i) => `      <li><a class="bw-row" href="/work#${id}"><span class="bw-row-no">0${i + 1}</span><span class="bw-row-name">${name}</span><span class="bw-row-what">${what}</span><span class="bw-row-year">${year}</span><img src="${img}" alt="" width="${img === "/media/generated/creative-no-33.webp" ? 512 : 960}" height="640" loading="lazy"></a></li>`).join("\n")}
     </ol>
   </div>
 </section>
@@ -319,7 +318,7 @@ ${ROWS.map(([id, name, what, year, img], i) => `      <li><a class="bw-row" href
 <section class="bw-feature" aria-labelledby="bw-feature-h">
   <div class="bw-wrap bw-feature-grid">
     <figure class="bw-feature-fig">
-      <img src="${IMG}/northline-waves.webp" alt="A still from the Northline Rail motion identity: layered waves in signal red, navy and sky blue" width="960" height="640" loading="lazy">
+      <img src="/media/generated/creative-northline-waves.webp" alt="A still from the Northline Rail motion identity: layered waves in signal red, navy and sky blue" width="960" height="640" loading="lazy">
       <figcaption>Northline Rail · motion system · 2025</figcaption>
     </figure>
     <div class="bw-feature-copy">
@@ -369,7 +368,7 @@ ${ROWS.map(([id, name, what, year, img], i) => `      <li><a class="bw-row" href
       </ul>
       <a class="bw-btn bw-btn-line" href="/studio">Meet the studio</a>
     </div>
-    <figure class="bw-studio-fig"><img src="${IMG}/studio-team.webp" alt="Three people around a wooden studio table with laptops, notebooks and iced drinks" width="960" height="640" loading="lazy"></figure>
+    <figure class="bw-studio-fig"><img src="/media/generated/creative-studio-team.webp" alt="Three people around a wooden studio table with laptops, notebooks and iced drinks" width="960" height="640" loading="lazy"></figure>
   </div>
 </section>
 ${CTA_HTML}
@@ -379,11 +378,11 @@ ${FOOTER_HTML}
 
 type Project = { id: string; layout: "a" | "b" | "c"; name: string; client: string; chips: string[]; body: string; results: [string, string][]; img: string; w: number; h: number; alt: string };
 const PROJECTS: Project[] = [
-  { id: "parlour", layout: "a", name: "Parlour", client: "A late-night cocktail bar on Sauchiehall Street", chips: ["Identity", "Neon", "Menus"], body: "Parlour wanted to feel like a secret you had been let in on. We drew a looping script that works as a neon sign, a stamp and a coaster, and hid the bar's name in the pattern of the menu.", results: [["+46%", "covers in the first six months"], ["1", "sign, now the most photographed on the street"]], img: "parlour.webp", w: 960, h: 640, alt: "The Parlour neon sign glowing red in a dark window" },
-  { id: "northline", layout: "b", name: "Northline Rail", client: "A regional rail operator with 64 stations", chips: ["Rebrand", "Motion system", "Wayfinding"], body: "A new identity built from one moving line, the route map itself. It animates on station screens, wraps the trains and tells you which platform to run for.", results: [["212", "trains wrapped with no days out of service"], ["3×", "more people noticed the new livery"]], img: "northline-waves.webp", w: 960, h: 640, alt: "Layered red, navy and sky-blue waves from the Northline motion identity" },
-  { id: "no-33", layout: "c", name: "No. 33", client: "A 12-room guesthouse in an old tiled townhouse", chips: ["Identity", "Pattern", "Print"], body: "The building's front wall was already a masterpiece of painted cubes, so we made it the brand: one pattern, three blues and the house number as the logo.", results: [["92%", "of guests book direct, not through agencies"], ["3", "blues, used on everything"]], img: "no-33.webp", w: 512, h: 640, alt: "A wall painted with blue isometric cubes and a tiled number 33" },
-  { id: "home-cooking", layout: "a", name: "Home Cooking", client: "A group of three neighbourhood restaurants", chips: ["Naming", "Identity", "Signage"], body: "The owners' grandmother ran a café called Home Cooking in 1971. We kept the name, redrew the lettering from an old photo and turned it into neon, menus and a very good tea towel.", results: [["3", "restaurants opened in 18 months"], ["4,000", "tea towels sold at the counter"]], img: "home-cooking.webp", w: 960, h: 640, alt: "A neon sign reading HOME COOKING glowing red and orange" },
-  { id: "low-tide", layout: "b", name: "Low Tide Festival", client: "A three-day music festival on the Clyde", chips: ["Campaign", "Posters", "Motion"], body: "A hand-painted campaign made with the sign painters who letter the festival's bars and stages, so the posters and the site look like they came from the same hand.", results: [["Sold out", "in nine days, a festival record"], ["38", "painted signs across the site"]], img: "low-tide.webp", w: 960, h: 640, alt: "Weathered hand-painted lettering reading Live Music on old boards" },
+  { id: "parlour", layout: "a", name: "Parlour", client: "A late-night cocktail bar on Sauchiehall Street", chips: ["Identity", "Neon", "Menus"], body: "Parlour wanted to feel like a secret you had been let in on. We drew a looping script that works as a neon sign, a stamp and a coaster, and hid the bar's name in the pattern of the menu.", results: [["+46%", "covers in the first six months"], ["1", "sign, now the most photographed on the street"]], img: "/media/generated/creative-parlour.webp", w: 960, h: 640, alt: "The Parlour neon flourish glowing red in a dark window" },
+  { id: "northline", layout: "b", name: "Northline Rail", client: "A regional rail operator with 64 stations", chips: ["Rebrand", "Motion system", "Wayfinding"], body: "A new identity built from one moving line, the route map itself. It animates on station screens, wraps the trains and tells you which platform to run for.", results: [["212", "trains wrapped with no days out of service"], ["3×", "more people noticed the new livery"]], img: "/media/generated/creative-northline-waves.webp", w: 960, h: 640, alt: "Layered red, navy and sky-blue waves from the Northline motion identity" },
+  { id: "no-33", layout: "c", name: "No. 33", client: "A 12-room guesthouse in an old tiled townhouse", chips: ["Identity", "Pattern", "Print"], body: "The building's front wall was already a masterpiece of painted cubes, so we made it the brand: one pattern, three blues and the house number as the logo.", results: [["92%", "of guests book direct, not through agencies"], ["3", "blues, used on everything"]], img: "/media/generated/creative-no-33.webp", w: 512, h: 640, alt: "A wall painted with blue isometric cubes and a small tiled plaque" },
+  { id: "home-cooking", layout: "a", name: "Home Cooking", client: "A group of three neighbourhood restaurants", chips: ["Naming", "Identity", "Signage"], body: "The owners' grandmother ran a café called Home Cooking in 1971. We kept the name, redrew the lettering from an old photo and turned it into neon, menus and a very good tea towel.", results: [["3", "restaurants opened in 18 months"], ["4,000", "tea towels sold at the counter"]], img: "/media/generated/creative-home-cooking.webp", w: 960, h: 640, alt: "A red and orange neon sign shaped like a steaming bowl glowing in a dark café window" },
+  { id: "low-tide", layout: "b", name: "Low Tide Festival", client: "A three-day music festival on the Clyde", chips: ["Campaign", "Posters", "Motion"], body: "A hand-painted campaign made with the sign painters who letter the festival's bars and stages, so the posters and the site look like they came from the same hand.", results: [["Sold out", "in nine days, a festival record"], ["38", "painted signs across the site"]], img: "/media/generated/creative-low-tide.webp", w: 960, h: 640, alt: "Weathered boards hand-painted with bold red and cobalt wave and sun shapes" },
 ];
 
 const WORK_HTML = `
@@ -402,7 +401,7 @@ const WORK_HTML = `
 <main>
 <div class="bw-wrap">
 ${PROJECTS.map((p, i) => `  <article class="bw-proj bw-proj-${p.layout}" id="${p.id}" aria-labelledby="bw-${p.id}-h">
-    <figure><img src="${IMG}/${p.img}" alt="${p.alt}" width="${p.w}" height="${p.h}"${i > 0 ? ' loading="lazy"' : ""}></figure>
+    <figure><img src="${p.img}" alt="${p.alt}" width="${p.w}" height="${p.h}"${i > 0 ? ' loading="lazy"' : ""}></figure>
     <div class="bw-proj-copy">
       <span class="bw-proj-no" aria-hidden="true">0${i + 1}</span>
       <h2 id="bw-${p.id}-h">${p.name}</h2>
@@ -446,7 +445,7 @@ const STUDIO_HTML = `
 </header>
 
 <main>
-<figure class="bw-team"><img src="${IMG}/studio-team.webp" alt="Three members of the studio working around a wooden table with laptops and notebooks" width="960" height="640"><figcaption class="bw-wrap">Tuesday review: every project, every week, whole team.</figcaption></figure>
+<figure class="bw-team"><img src="/media/generated/creative-studio-team.webp" alt="Three members of the studio working around a wooden table with laptops and notebooks" width="960" height="640"><figcaption class="bw-wrap">Tuesday review: every project, every week, whole team.</figcaption></figure>
 
 <section class="bw-proc" aria-labelledby="bw-proc-h">
   <div class="bw-wrap">
@@ -474,7 +473,7 @@ const STUDIO_HTML = `
 
 <section class="bw-craft" aria-labelledby="bw-craft-h">
   <div class="bw-wrap bw-craft-grid">
-    <figure><img src="${IMG}/swatches.webp" alt="A fanned-out colour swatch book showing blues, magentas, oranges and yellows" width="960" height="640" loading="lazy"></figure>
+    <figure><img src="/media/generated/creative-swatches.webp" alt="A fanned-out colour swatch book showing blues, magentas, oranges and yellows" width="960" height="640" loading="lazy"></figure>
     <div class="bw-craft-copy">
       <p class="bw-label">Craft</p>
       <h2 class="bw-h2" id="bw-craft-h">Colour, obsessively.</h2>
@@ -484,7 +483,7 @@ const STUDIO_HTML = `
   </div>
 </section>
 
-<figure class="bw-wall bw-ink"><img src="${IMG}/poster-wall.webp" alt="A wall layered with torn and pasted gig posters in many colours" width="960" height="480" loading="lazy"><figcaption>The studio stairwell: twelve years of gig posters, never once cleaned.</figcaption></figure>
+<figure class="bw-wall bw-ink"><img src="/media/generated/creative-poster-wall.webp" alt="A wall layered with torn and pasted gig posters in many colours" width="960" height="480" loading="lazy"><figcaption>The studio stairwell: twelve years of gig posters, never once cleaned.</figcaption></figure>
 
 <section class="bw-jobs" aria-labelledby="bw-jobs-h">
   <div class="bw-wrap bw-jobs-grid">

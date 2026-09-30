@@ -1,6 +1,6 @@
 $ErrorActionPreference = 'Stop'
 Set-Location (Split-Path $PSScriptRoot -Parent)
-# Optional Android APK builder (START-HERE.md, "Build Android apps").
+# Optional Android APK builder (docs/install.md, "Build Android apps").
 # Measured size of the extra tools. Update it when the Android toolchain changes.
 $androidSize = 'about 1.1 GB'
 $androidLicense = 'https://developer.android.com/studio/terms'
@@ -49,7 +49,7 @@ function New-Secret([int]$Count) {
   finally { $rng.Dispose() }
 }
 
-# Web address and automatic HTTPS (START-HERE.md, "Put it on a public domain").
+# Web address and automatic HTTPS (docs/install.md, "Put it on a public domain").
 # With a domain name, Caddy (docker-compose.yml, profile "https") answers on
 # ports 80 and 443 and gets certificates by itself. For scripted installs:
 #   $env:NULLKODE_DOMAIN = 'studio.example.com'    (none = this computer only, plain http)
@@ -314,7 +314,7 @@ try {
 
   foreach ($key in @('AUTH_SECRET','INSTALL_TOKEN','DB_PASSWORD','CRON_SECRET','NK_TLS_ASK_SECRET')) {
     $value = Get-EnvValue $key
-    if ($value.Length -lt 32 -or $value -match 'replace') { throw "Your .env needs a random $key of at least 32 characters. See START-HERE.md." }
+    if ($value.Length -lt 32 -or $value -match 'replace') { throw "Your .env needs a random $key of at least 32 characters. See docs/install.md." }
   }
   # Compose prefers this process's values over .env, so pass on the normalized ones.
   $env:NULLKODE_ANDROID = $android
@@ -324,7 +324,7 @@ try {
       $httpPort = if ("$env:HTTP_PORT".Trim()) { "$env:HTTP_PORT".Trim() } elseif (Get-EnvValue 'HTTP_PORT') { Get-EnvValue 'HTTP_PORT' } else { '80' }
       $httpsPort = if ("$env:HTTPS_PORT".Trim()) { "$env:HTTPS_PORT".Trim() } elseif (Get-EnvValue 'HTTPS_PORT') { Get-EnvValue 'HTTPS_PORT' } else { '443' }
       foreach ($p in @($httpPort, $httpsPort)) {
-        if (Test-PortInUse ([int]$p)) { throw "Another program on this computer already uses port $p, which HTTPS needs. Usually that is another web server. Stop it and run this installer again, or answer n and put Nullkode behind that web server instead (START-HERE.md, `"Put it on a public domain`")." }
+        if (Test-PortInUse ([int]$p)) { throw "Another program on this computer already uses port $p, which HTTPS needs. Usually that is another web server. Stop it and run this installer again, or answer n and put Nullkode behind that web server instead (docs/install.md, `"Put it on a public domain`")." }
       }
     }
     if ((Get-EnvValue 'BIND_ADDRESS') -eq '0.0.0.0') {
@@ -337,11 +337,11 @@ try {
   if ($android -eq '1') { Write-Host 'Building and starting Nullkode with the Android tools. The first download can take 10 minutes or more.' }
   else { Write-Host 'Building and starting Nullkode. The first download can take several minutes.' }
   docker compose up --build -d --wait --wait-timeout 240
-  if ($LASTEXITCODE -ne 0) { throw 'Startup failed. Read START-HERE.md (Troubleshooting). Your saved data has not been deleted.' }
+  if ($LASTEXITCODE -ne 0) { throw 'Startup failed. Read docs/install.md (Troubleshooting). Your saved data has not been deleted.' }
   if ($https -eq '1') {
     # Start the HTTPS web server afresh so it reads the current Caddyfile.
     docker compose up -d --no-deps --force-recreate caddy
-    if ($LASTEXITCODE -ne 0) { throw 'The HTTPS web server did not start. Read START-HERE.md (Troubleshooting). Your saved data has not been deleted.' }
+    if ($LASTEXITCODE -ne 0) { throw 'The HTTPS web server did not start. Read docs/install.md (Troubleshooting). Your saved data has not been deleted.' }
     $url = "$(Get-EnvValue 'PUBLIC_BASE_URL')/install"
     Write-Host "Ready! Open $url"
     Write-Host 'The first visit can take up to a minute while the secure certificate is made.'

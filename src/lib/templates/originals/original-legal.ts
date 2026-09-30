@@ -19,7 +19,6 @@
 import { registerTemplate } from "../store";
 import type { StarterTemplate } from "../types";
 
-const IMG = "/templates/originals/original-legal";
 /* Mid-size serif text uses the sturdier Caslon Text cut, falling back to the theme's display face. */
 const SERIF_TEXT = `"Libre Caslon Text", var(--nk-font-display)`;
 
@@ -347,7 +346,7 @@ const HOME_HTML = `
         <p class="cs-hero-note"><b>Free 30-minute case review</b> for employment and personal injury matters.</p>
       </div>
       <figure class="cs-hero-fig">
-        <img src="${IMG}/courthouse.webp" alt="A neoclassical stone building with four fluted columns, photographed in black and white" width="640" height="800">
+        <img src="/media/generated/legal-courthouse.webp" alt="A neoclassical stone building with four fluted columns, photographed in black and white" width="640" height="800">
         <figcaption>180 N. LaSalle Street · Chicago</figcaption>
       </figure>
     </div>
@@ -404,10 +403,10 @@ const HOME_HTML = `
       <p>Every client has a named partner and a direct phone number from the first day of the case to the last.</p>
     </div>
     <div class="cs-team">
-      <figure class="cs-atty"><img src="${IMG}/attorney-helen.webp" alt="Portrait of Helen Calloway" width="480" height="600" loading="lazy"><figcaption><h3>Helen Calloway</h3><span class="cs-atty-role">Founding partner · Employment</span><p>Thirty-one jury trials. Former chair of the county bar's labour section.</p></figcaption></figure>
-      <figure class="cs-atty"><img src="${IMG}/attorney-daniel.webp" alt="Portrait of Daniel Stone" width="480" height="600" loading="lazy"><figcaption><h3>Daniel Stone</h3><span class="cs-atty-role">Partner · Business disputes</span><p>Represents founders and family businesses in partner and contract disputes.</p></figcaption></figure>
-      <figure class="cs-atty"><img src="${IMG}/attorney-rohan.webp" alt="Portrait of Rohan Mehta" width="480" height="600" loading="lazy"><figcaption><h3>Rohan Mehta</h3><span class="cs-atty-role">Partner · Real estate &amp; injury</span><p>Former insurance defence counsel who now sits on the other side of the table.</p></figcaption></figure>
-      <figure class="cs-atty"><img src="${IMG}/attorney-claire.webp" alt="Portrait of Claire Novak" width="480" height="600" loading="lazy"><figcaption><h3>Claire Novak</h3><span class="cs-atty-role">Partner · Estates &amp; family</span><p>Certified mediator. Resolves most family matters without a courtroom.</p></figcaption></figure>
+      <figure class="cs-atty"><img src="/media/generated/legal-attorney-helen.webp" alt="Portrait of Helen Calloway" width="480" height="600" loading="lazy"><figcaption><h3>Helen Calloway</h3><span class="cs-atty-role">Founding partner · Employment</span><p>Thirty-one jury trials. Former chair of the county bar's labour section.</p></figcaption></figure>
+      <figure class="cs-atty"><img src="/media/generated/legal-attorney-daniel.webp" alt="Portrait of Daniel Stone" width="480" height="600" loading="lazy"><figcaption><h3>Daniel Stone</h3><span class="cs-atty-role">Partner · Business disputes</span><p>Represents founders and family businesses in partner and contract disputes.</p></figcaption></figure>
+      <figure class="cs-atty"><img src="/media/generated/legal-attorney-rohan.webp" alt="Portrait of Rohan Mehta" width="480" height="600" loading="lazy"><figcaption><h3>Rohan Mehta</h3><span class="cs-atty-role">Partner · Real estate &amp; injury</span><p>Former insurance defence counsel who now sits on the other side of the table.</p></figcaption></figure>
+      <figure class="cs-atty"><img src="/media/generated/legal-attorney-claire.webp" alt="Portrait of Claire Novak" width="480" height="600" loading="lazy"><figcaption><h3>Claire Novak</h3><span class="cs-atty-role">Partner · Estates &amp; family</span><p>Certified mediator. Resolves most family matters without a courtroom.</p></figcaption></figure>
     </div>
     <p class="cs-team-foot"><a class="cs-arrow" href="/attorneys">Read full biographies <span aria-hidden="true">→</span></a></p>
   </div>
@@ -455,7 +454,7 @@ const HOME_HTML = `
       <h2 id="cs-notes-h">Plain-English guides to the questions we hear most.</h2>
     </div>
     <div class="cs-notes-grid">
-      <figure class="cs-notes-fig"><img src="${IMG}/law-books.webp" alt="Rows of old leather-bound law books on a wooden shelf" width="960" height="640" loading="lazy"></figure>
+      <figure class="cs-notes-fig"><img src="/media/generated/legal-law-books.webp" alt="Rows of old leather-bound law books on a wooden shelf" width="960" height="640" loading="lazy"></figure>
       <ul class="cs-notes">
         <li><p class="cs-notes-meta">Employment · 6 min read</p><h3>Fired after you complained? The first 48 hours matter.</h3><p>What to write down, what not to sign, and which deadlines start running straight away.</p></li>
         <li><p class="cs-notes-meta">Business · 5 min read</p><h3>Is your non-compete enforceable? Four questions courts ask.</h3><p>Scope, time, geography and consideration, explained with recent examples.</p></li>
@@ -524,7 +523,7 @@ const PRACTICE_HTML = `
       <h1>What we do, what it costs and how long it takes.</h1>
       <p>Six practices, each led by a partner with trial experience in that field. Below you will find the matters we take on, how we charge and a realistic timeline for each.</p>
     </div>
-    <figure class="cs-phead-fig"><img src="${IMG}/columns.webp" alt="Weathered stone columns of a classical building, seen from below" width="600" height="711"></figure>
+    <figure class="cs-phead-fig"><img src="/media/generated/legal-columns.webp" alt="Weathered stone columns of a classical building, seen from below" width="600" height="711"></figure>
   </div>
 </header>
 
@@ -565,25 +564,25 @@ ${FOOTER_HTML}
 
 const BIOS = [
   {
-    img: "attorney-helen", name: "Helen Calloway", role: "Founding partner · Employment law",
+    img: "/media/generated/legal-attorney-helen.webp", name: "Helen Calloway", role: "Founding partner · Employment law",
     body: ["Helen founded the firm in 1985 after six years as a public defender. She has tried thirty-one employment cases to verdict and is known for preparing every case as if it will go to a jury.", "She chaired the county bar's labour and employment section from 2016 to 2019 and teaches trial advocacy to new lawyers each summer."],
     matters: ["$4.2M verdict for a supervisor fired after reporting safety violations", "$1.35M overtime settlement for 212 warehouse workers", "Executive severance negotiations for hospital leadership"],
     cred: [["Education", "J.D., Loyola University Chicago · B.A., University of Illinois"], ["Admitted", "Illinois, 1979 · U.S. District Court, N.D. Illinois"], ["Languages", "English"], ["Email", "hcalloway@callowaystone.example"]],
   },
   {
-    img: "attorney-daniel", name: "Daniel Stone", role: "Partner · Business disputes",
+    img: "/media/generated/legal-attorney-daniel.webp", name: "Daniel Stone", role: "Partner · Business disputes",
     body: ["Daniel represents founders, partners and family-owned companies when a business relationship breaks down. He spent eight years at a large corporate firm before joining Calloway Stone in 2011.", "His aim in every dispute is to keep the business running while it is resolved."],
     matters: ["Defence verdict and fee award in a non-compete suit", "Negotiated buy-out of a restaurant group partner", "Supply-contract recovery for a regional manufacturer"],
     cred: [["Education", "J.D., Northwestern University · B.S., Purdue University"], ["Admitted", "Illinois, 2003 · Indiana, 2004"], ["Languages", "English, Spanish"], ["Email", "dstone@callowaystone.example"]],
   },
   {
-    img: "attorney-rohan", name: "Rohan Mehta", role: "Partner · Real estate & personal injury",
+    img: "/media/generated/legal-attorney-rohan.webp", name: "Rohan Mehta", role: "Partner · Real estate & personal injury",
     body: ["Rohan spent a decade defending insurance companies before switching sides in 2016. He now uses that experience to value claims accurately and to know when an insurer is bluffing.", "He also advises commercial tenants on leases before they sign, which is the cheapest way to win a lease dispute."],
     matters: ["$2.7M settlement for a driver injured by a fleet truck", "$860K recovered for a restaurant tenant over build-out costs", "Construction defect claim for a 40-unit condominium association"],
     cred: [["Education", "J.D., University of Chicago · B.A., University of Michigan"], ["Admitted", "Illinois, 2006 · U.S. District Court, N.D. Illinois"], ["Languages", "English, Hindi"], ["Email", "rmehta@callowaystone.example"]],
   },
   {
-    img: "attorney-claire", name: "Claire Novak", role: "Partner · Estates & family law",
+    img: "/media/generated/legal-attorney-claire.webp", name: "Claire Novak", role: "Partner · Estates & family law",
     body: ["Claire is a certified family mediator who resolves most of her matters without a contested hearing. When a case does need a judge, she is a calm and exact advocate.", "She also drafts estate plans designed to keep families out of the probate disputes she litigates."],
     matters: ["$1.1M recovered from a self-dealing trustee", "Mediated relocation and shared custody agreement", "Estate plans for more than 400 Chicago families"],
     cred: [["Education", "J.D., DePaul University · B.A., Loyola University Chicago"], ["Admitted", "Illinois, 2012"], ["Languages", "English, Polish"], ["Email", "cnovak@callowaystone.example"]],
@@ -594,7 +593,7 @@ const ATTORNEYS_HTML = `
 <div class="cs-page">
 <nav aria-label="Main"></nav>
 <header>
-  <figure class="cs-banner"><img src="${IMG}/library.webp" alt="A grand wood-panelled law library with a painted ceiling and floor-to-ceiling bookshelves" width="960" height="640"><figcaption>Est. 1985</figcaption></figure>
+  <figure class="cs-banner"><img src="/media/generated/legal-library.webp" alt="A grand wood-panelled law library with a painted ceiling and floor-to-ceiling bookshelves" width="960" height="640"><figcaption>Est. 1985</figcaption></figure>
   <div class="cs-wrap cs-intro">
     <div>
       <p class="cs-kicker"><b>§</b> Attorneys</p>
@@ -606,7 +605,7 @@ const ATTORNEYS_HTML = `
 
 <main class="cs-wrap">
 ${BIOS.map((b) => `  <article class="cs-bio" aria-labelledby="cs-bio-${b.img}">
-    <img src="${IMG}/${b.img}.webp" alt="Portrait of ${b.name}" width="480" height="600" loading="lazy">
+    <img src="${b.img}" alt="Portrait of ${b.name}" width="480" height="600" loading="lazy">
     <div class="cs-bio-main">
       <h2 id="cs-bio-${b.img}">${b.name}</h2>
       <span class="cs-bio-role">${b.role.replace("&", "&amp;")}</span>

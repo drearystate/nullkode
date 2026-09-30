@@ -13,7 +13,6 @@
 import { registerTemplate } from "../store";
 import type { StarterTemplate } from "../types";
 
-const IMG = "/templates/originals/original-restaurant";
 
 /*
  * The visual editor (GrapesJS) re-parses page CSS through the CSSOM and silently
@@ -191,7 +190,7 @@ const FOOTER = `
 
 const HOME_HTML = `
 <section class="aash-hero">
-  <img class="aash-hero__bg" src="${IMG}/dining-room.webp" alt="The candlelit dining room at Alder &amp; Ash, with timber beams, brass lamps and set tables" width="1500" height="1245" fetchpriority="high">
+  <img class="aash-hero__bg" src="/media/generated/restaurant-dining-room.webp" alt="The candlelit dining room at Alder &amp; Ash, with timber beams, brass lamps and set tables" width="1500" height="1245" fetchpriority="high">
   <div class="aash-wrap aash-hero__inner">
     <p class="aash-kicker">Wood-fire kitchen &amp; wine bar &middot; Providence</p>
     <h1 class="aash-hero__title">Cooked over oak.<br><em>Served by candlelight.</em></h1>
@@ -218,7 +217,7 @@ const HOME_HTML = `
       <p class="aash-manifesto__statement">Good food takes time. Our lamb shoulder spends <em>eleven hours</em> over the embers, the bread proves for two days, and the fire is lit at nine every morning, whether we are full or not.</p>
     </div>
     <figure class="aash-manifesto__img">
-      <img src="${IMG}/oak-fire.webp" alt="A split log of red oak glowing orange as it burns in the hearth" width="960" height="720" loading="lazy">
+      <img src="/media/generated/restaurant-oak-fire.webp" alt="A split log of red oak glowing orange as it burns in the hearth" width="960" height="720" loading="lazy">
     </figure>
     <ul class="aash-manifesto__facts">
       <li><strong>11 hrs</strong><span>slow-roasted over red oak and apple wood</span></li>
@@ -284,7 +283,7 @@ const HOME_HTML = `
   <div class="aash-wrap aash-hearth__grid">
     <div class="aash-hearth__media">
       <figure class="aash-frame aash-hearth__main">
-        <img src="${IMG}/the-pass.webp" alt="Chefs placing grilled steak and roast chicken on warm plates at the kitchen pass" width="960" height="1200" loading="lazy">
+        <img src="/media/generated/restaurant-the-pass.webp" alt="Chefs placing grilled steak and roast chicken on warm plates at the kitchen pass" width="960" height="1200" loading="lazy">
       </figure>
     </div>
     <div class="aash-hearth__copy">
@@ -320,7 +319,7 @@ const HOME_HTML = `
       <a class="btn btn-primary aash-btn" href="/book">Reserve the counter</a>
     </div>
     <figure class="aash-frame aash-table__img">
-      <img src="${IMG}/lamb-rack.webp" alt="A rack of lamb, charred from the grill, resting on a slate board with thyme" width="960" height="720" loading="lazy">
+      <img src="/media/generated/restaurant-lamb-rack.webp" alt="A rack of lamb, charred from the grill, resting on a slate board with thyme" width="960" height="720" loading="lazy">
     </figure>
   </div>
 </section>
@@ -328,7 +327,7 @@ const HOME_HTML = `
 <section class="aash-cellar">
   <div class="aash-wrap aash-cellar__grid">
     <figure class="aash-cellar__img">
-      <img src="${IMG}/wine-pour.webp" alt="A server pouring white wine into a row of glasses along the bar" width="960" height="640" loading="lazy">
+      <img src="/media/generated/restaurant-wine-pour.webp" alt="A server pouring white wine into a row of glasses along the bar" width="960" height="640" loading="lazy">
     </figure>
     <div class="aash-cellar__copy">
       <p class="aash-kicker">The bar</p>
@@ -365,7 +364,7 @@ const HOME_HTML = `
 </section>
 
 <section class="aash-reserve">
-  <img class="aash-reserve__bg" src="${IMG}/embers.webp" alt="" width="1920" height="900" loading="lazy">
+  <img class="aash-reserve__bg" src="/media/generated/restaurant-embers.webp" alt="" width="1920" height="900" loading="lazy">
   <div class="aash-wrap">
     <p class="aash-kicker">Reservations</p>
     <h2 class="aash-h2">Tables open <em>thirty days</em> ahead</h2>
@@ -497,7 +496,7 @@ const HOME_CSS = `${BASE_CSS}
 
 const STORY_HTML = `
 <section class="aash-story-hero">
-  <img class="aash-story-hero__bg" src="${IMG}/oak-fire.webp" alt="" width="960" height="720" fetchpriority="high">
+  <img class="aash-story-hero__bg" src="/media/generated/restaurant-oak-fire.webp" alt="" width="960" height="720" fetchpriority="high">
   <div class="aash-wrap aash-story-hero__inner">
     <p class="aash-kicker">Our story</p>
     <h1 class="aash-story-hero__title">A kitchen built around <em>one fire</em></h1>
@@ -535,7 +534,7 @@ const STORY_HTML = `
 <section class="aash-growers">
   <div class="aash-wrap aash-growers__grid">
     <figure class="aash-frame aash-growers__img">
-      <img src="${IMG}/house-bread.webp" alt="Toasted house bread and a jar of whipped butter on a candlelit table" width="960" height="636" loading="lazy">
+      <img src="/media/generated/restaurant-house-bread.webp" alt="Toasted house bread and a jar of whipped butter on a candlelit table" width="960" height="636" loading="lazy">
     </figure>
     <div>
       <p class="aash-kicker">Who we buy from</p>
@@ -579,7 +578,7 @@ const STORY_HTML = `
 </section>
 
 <section class="aash-reserve aash-reserve--story">
-  <img class="aash-reserve__bg" src="${IMG}/dinner-table.webp" alt="" width="960" height="640" loading="lazy">
+  <img class="aash-reserve__bg" src="/media/generated/restaurant-dinner-table.webp" alt="" width="960" height="640" loading="lazy">
   <div class="aash-wrap">
     <p class="aash-kicker">Come and eat</p>
     <h2 class="aash-h2">Pull up a chair<br><em>by the fire</em></h2>

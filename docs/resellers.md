@@ -54,7 +54,7 @@ Stripe account), and use the limits above to match what they pay for.
 
 ## Good to know
 
-- Set `APPS_DOMAIN` (see START-HERE.md) so every published app gets its own
+- Set `APPS_DOMAIN` (see docs/install.md) so every published app gets its own
   web address. With resellers, pick a neutral domain (for example
   `myapps.site`) so their customers' app addresses don't show your brand.
 - Everything a reseller can do is limited to their own customers. They can't

@@ -14,7 +14,6 @@
 import { registerTemplate } from "../store";
 import type { StarterTemplate } from "../types";
 
-const IMG = "/templates/originals/original-hospitality";
 
 /*
  * The visual editor (GrapesJS) re-parses page CSS through the CSSOM and silently
@@ -176,7 +175,7 @@ const CTA = `
 
 const room = (img: string, alt: string, name: string, count: string, specs: string[], amen: string[], price: string) => `
       <article class="salt-room">
-        <figure class="salt-arch salt-room__img"><img src="${IMG}/${img}" alt="${alt}" width="960" height="640" loading="lazy"></figure>
+        <figure class="salt-arch salt-room__img"><img src="${img}" alt="${alt}" width="960" height="640" loading="lazy"></figure>
         <p class="salt-room__count">${count}</p>
         <h3 class="salt-room__name">${name}</h3>
         <ul class="salt-room__specs">${specs.map((s) => `<li>${s}</li>`).join("")}</ul>
@@ -187,7 +186,7 @@ const room = (img: string, alt: string, name: string, count: string, specs: stri
 const HOME_HTML = `
 <section class="salt-hero">
   <div class="salt-hero__frame">
-    <img class="salt-hero__img" src="${IMG}/dune-path.webp" alt="A sandy path through marram grass over the dunes, with the Atlantic beyond" width="1920" height="1440" fetchpriority="high">
+    <img class="salt-hero__img" src="/media/generated/hospitality-dune-path.webp" alt="A sandy path through marram grass over the dunes, with the Atlantic beyond" width="1920" height="1440" fetchpriority="high">
     <div class="salt-hero__panel">
       <p class="salt-label">Wellfleet &middot; Cape Cod</p>
       <h1 class="salt-hero__title">Twelve rooms at the <em>edge of the dunes</em></h1>
@@ -212,7 +211,7 @@ const HOME_HTML = `
       <h2 class="salt-label">Welcome</h2>
       <p class="salt-welcome__lead">Built in 1898 as a lifesaving station, Saltmarsh became an inn in 1952. We've kept the wide porches and the lookout tower, and added the things salt air calls for: deep baths, heavy linen and very good coffee.</p>
     </div>
-    <figure class="salt-arch salt-welcome__img"><img src="${IMG}/bedside.webp" alt="A bright bedroom corner with a copper reading lamp, a small vase and white linen" width="960" height="640" loading="lazy"></figure>
+    <figure class="salt-arch salt-welcome__img"><img src="/media/generated/hospitality-bedside.webp" alt="A bright bedroom corner with a copper reading lamp, a small vase and white linen" width="960" height="640" loading="lazy"></figure>
     <div class="salt-welcome__side">
       <p class="salt-welcome__note">&ldquo;We run Saltmarsh the way we'd want to be looked after: quietly, with good local advice and a pot of coffee waiting.&rdquo;</p>
       <p class="salt-welcome__sign">Mara &amp; Tom Ellery, innkeepers</p>
@@ -227,7 +226,7 @@ const HOME_HTML = `
     <p class="salt-text">Every room has a king or queen bed dressed in stonewashed linen, a rain shower, blackout blinds and a window you'll want to leave open.</p>
     <span class="salt-rule"></span>
   </div>
-  <div class="salt-wrap salt-rooms__grid">${room("dune-room.webp", "A made-up queen bed with crisp white pillows against a warm timber wall", "Dune Room", "4 rooms", ["280 sq ft", "Queen bed", "Sleeps 2", "Garden or dune view"], ["Rain shower", "Writing desk", "Dogs welcome"], "245")}${room("marsh-suite.webp", "A light-filled suite with a king bed, sheer curtains and an armchair by the window", "Marsh Suite", "5 suites", ["420 sq ft", "King bed", "Sleeps 2 + child", "Salt-marsh view"], ["Private deck", "Reading nook", "Espresso machine"], "325")}${room("lighthouse-loft.webp", "A timber-lined loft bedroom glowing with warm light behind sheer curtains", "Lighthouse Loft", "3 lofts", ["560 sq ft", "King + sofa bed", "Sleeps 4", "Atlantic view"], ["Soaking tub", "Lookout window", "Kitchenette"], "410")}
+  <div class="salt-wrap salt-rooms__grid">${room("/media/generated/hospitality-dune-room.webp", "A made-up queen bed with crisp white pillows against a warm timber wall", "Dune Room", "4 rooms", ["280 sq ft", "Queen bed", "Sleeps 2", "Garden or dune view"], ["Rain shower", "Writing desk", "Dogs welcome"], "245")}${room("/media/generated/hospitality-marsh-suite.webp", "A light-filled suite with a king bed, sheer curtains and an armchair by the window", "Marsh Suite", "5 suites", ["420 sq ft", "King bed", "Sleeps 2 + child", "Salt-marsh view"], ["Private deck", "Reading nook", "Espresso machine"], "325")}${room("/media/generated/hospitality-lighthouse-loft.webp", "A timber-lined loft bedroom glowing with warm light behind sheer curtains", "Lighthouse Loft", "3 lofts", ["560 sq ft", "King + sofa bed", "Sleeps 4", "Atlantic view"], ["Soaking tub", "Lookout window", "Kitchenette"], "410")}
   </div>
   <p class="salt-rooms__more"><a class="salt-link" href="/rooms">Compare rooms &amp; seasonal rates</a></p>
 </section>
@@ -253,7 +252,7 @@ const HOME_HTML = `
 
 <section class="salt-mornings">
   <div class="salt-wrap salt-mornings__grid">
-    <figure class="salt-mornings__img"><img src="${IMG}/breakfast-in-bed.webp" alt="A steaming cup of tea and an open book on a breakfast tray in bed" width="960" height="640" loading="lazy"></figure>
+    <figure class="salt-mornings__img"><img src="/media/generated/hospitality-breakfast-in-bed.webp" alt="A steaming cup of tea and an open book on a breakfast tray in bed" width="960" height="640" loading="lazy"></figure>
     <div class="salt-mornings__copy">
       <p class="salt-label">Mornings</p>
       <h2 class="salt-h2">Breakfast is <em>the whole point</em></h2>
@@ -307,8 +306,8 @@ const HOME_HTML = `
       </ol>
     </div>
     <div class="salt-nearby__imgs">
-      <figure class="salt-arch salt-nearby__tall"><img src="${IMG}/marram-path.webp" alt="A worn sand path running through dry grass towards the shore" width="960" height="641" loading="lazy"></figure>
-      <figure class="salt-nearby__small"><img src="${IMG}/seashell.webp" alt="A scallop shell at the edge of a foamy wave on wet sand" width="960" height="640" loading="lazy"></figure>
+      <figure class="salt-arch salt-nearby__tall"><img src="/media/generated/hospitality-marram-path.webp" alt="A worn sand path running through dry grass towards the shore" width="960" height="641" loading="lazy"></figure>
+      <figure class="salt-nearby__small"><img src="/media/generated/hospitality-seashell.webp" alt="A scallop shell at the edge of a foamy wave on wet sand" width="960" height="640" loading="lazy"></figure>
     </div>
   </div>
 </section>
@@ -436,7 +435,7 @@ const HOME_CSS = `${BASE_CSS}
 const roomDetail = (img: string, alt: string, name: string, lead: string, facts: [string, string][], amen: string[], rates: [string, string, string], flip = false) => `
 <section class="salt-detail${flip ? " salt-detail--flip" : ""}">
   <div class="salt-wrap salt-detail__grid">
-    <figure class="salt-arch salt-detail__img"><img src="${IMG}/${img}" alt="${alt}" width="960" height="640" loading="lazy"></figure>
+    <figure class="salt-arch salt-detail__img"><img src="${img}" alt="${alt}" width="960" height="640" loading="lazy"></figure>
     <div class="salt-detail__copy">
       <h2 class="salt-h2">${name}</h2>
       <p class="salt-text">${lead}</p>
@@ -461,9 +460,9 @@ const ROOMS_HTML = `
     <span class="salt-rule"></span>
   </div>
 </section>
-${roomDetail("dune-room.webp", "A made-up queen bed with crisp white pillows against a warm timber wall", "Dune Room", "Our snuggest rooms, tucked behind the garden and facing the grass-topped dunes. Dogs are welcome in all four.", [["Size", "280 sq ft"], ["Bed", "Queen"], ["Sleeps", "2 guests"], ["View", "Garden or dunes"]], ["Rain shower", "Writing desk", "Dog bed & bowls", "Blackout blinds", "Tea tray"], ["245", "295", "365"])}
-${roomDetail("marsh-suite.webp", "A light-filled suite with a king bed, sheer curtains and an armchair by the window", "Marsh Suite", "Corner suites looking west over the salt marsh: the best place in the house to watch the tide come in and the sun go down.", [["Size", "420 sq ft"], ["Bed", "King"], ["Sleeps", "2 + child under 12"], ["View", "Salt marsh, west"]], ["Private deck", "Reading nook", "Espresso machine", "Walk-in shower", "Robes & slippers"], ["325", "385", "465"], true)}
-${roomDetail("lighthouse-loft.webp", "A timber-lined loft bedroom glowing with warm light behind sheer curtains", "Lighthouse Loft", "Up in the eaves with a lookout window facing the Atlantic. Big enough for a family, or two people who want a soaking tub with a sea view.", [["Size", "560 sq ft"], ["Beds", "King + sofa bed"], ["Sleeps", "4 guests"], ["View", "Atlantic, east"]], ["Soaking tub", "Kitchenette", "Lookout window", "Two sinks", "Bluetooth speaker"], ["410", "480", "575"])}
+${roomDetail("/media/generated/hospitality-dune-room.webp", "A made-up queen bed with crisp white pillows against a warm timber wall", "Dune Room", "Our snuggest rooms, tucked behind the garden and facing the grass-topped dunes. Dogs are welcome in all four.", [["Size", "280 sq ft"], ["Bed", "Queen"], ["Sleeps", "2 guests"], ["View", "Garden or dunes"]], ["Rain shower", "Writing desk", "Dog bed & bowls", "Blackout blinds", "Tea tray"], ["245", "295", "365"])}
+${roomDetail("/media/generated/hospitality-marsh-suite.webp", "A light-filled suite with a king bed, sheer curtains and an armchair by the window", "Marsh Suite", "Corner suites looking west over the salt marsh: the best place in the house to watch the tide come in and the sun go down.", [["Size", "420 sq ft"], ["Bed", "King"], ["Sleeps", "2 + child under 12"], ["View", "Salt marsh, west"]], ["Private deck", "Reading nook", "Espresso machine", "Walk-in shower", "Robes & slippers"], ["325", "385", "465"], true)}
+${roomDetail("/media/generated/hospitality-lighthouse-loft.webp", "A timber-lined loft bedroom glowing with warm light behind sheer curtains", "Lighthouse Loft", "Up in the eaves with a lookout window facing the Atlantic. Big enough for a family, or two people who want a soaking tub with a sea view.", [["Size", "560 sq ft"], ["Beds", "King + sofa bed"], ["Sleeps", "4 guests"], ["View", "Atlantic, east"]], ["Soaking tub", "Kitchenette", "Lookout window", "Two sinks", "Bluetooth speaker"], ["410", "480", "575"])}
 
 <section class="salt-rules">
   <div class="salt-wrap">

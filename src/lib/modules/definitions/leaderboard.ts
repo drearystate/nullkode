@@ -25,10 +25,10 @@ export const leaderboard: ModuleDefinition = {
         { name: "score", type: "float" },
       ],
       seed: [
-        { category: "points", user_label: "Marcus", avatar_url: "https://i.pravatar.cc/100?img=11", score: 4820 },
-        { category: "points", user_label: "Sarah", avatar_url: "https://i.pravatar.cc/100?img=12", score: 4100 },
-        { category: "points", user_label: "Priya", avatar_url: "https://i.pravatar.cc/100?img=14", score: 3870 },
-        { category: "points", user_label: "Devon", avatar_url: "https://i.pravatar.cc/100?img=15", score: 3120 },
+        { category: "points", user_label: "Marcus", avatar_url: "/media/generated/thumbs/finance-advisor-marcus.webp", score: 4820 },
+        { category: "points", user_label: "Sarah", avatar_url: "/media/generated/thumbs/education-instructor-laura.webp", score: 4100 },
+        { category: "points", user_label: "Priya", avatar_url: "/media/generated/thumbs/people-priya.webp", score: 3870 },
+        { category: "points", user_label: "Devon", avatar_url: "/media/generated/thumbs/people-devon.webp", score: 3120 },
       ],
     },
   ],
@@ -126,7 +126,7 @@ export const leaderboard: ModuleDefinition = {
         var medals = ['','',''];
         document.getElementById('nk-board').innerHTML = (Array.isArray(rows)?rows:[]).map(function(r, i){
           var m = medals[i] || (i+1)+'.';
-          return '<div class="d-flex align-items-center gap-3 p-3 border rounded mb-2" style="background:var(--nk-surface);"><div class="fs-3" style="width:40px;text-align:center;">'+m+'</div><img class="rounded-circle" style="width:48px;height:48px;object-fit:cover;" src="'+esc(safeUrl(r.avatar_url||'https://i.pravatar.cc/100'))+'" alt=""/><div class="flex-grow-1 fw-bold">'+esc(r.user_label)+'</div><div class="fs-4 fw-bold" style="color:var(--nk-primary);">'+esc(r.score)+'</div></div>';
+          return '<div class="d-flex align-items-center gap-3 p-3 border rounded mb-2" style="background:var(--nk-surface);"><div class="fs-3" style="width:40px;text-align:center;">'+m+'</div><img class="rounded-circle" style="width:48px;height:48px;object-fit:cover;" src="'+esc(safeUrl(r.avatar_url||'/media/generated/thumbs/people-sam-patel.webp'))+'" alt=""/><div class="flex-grow-1 fw-bold">'+esc(r.user_label)+'</div><div class="fs-4 fw-bold" style="color:var(--nk-primary);">'+esc(r.score)+'</div></div>';
         }).join('') || '<div class="alert alert-light">No scores yet.</div>';
       });
   }

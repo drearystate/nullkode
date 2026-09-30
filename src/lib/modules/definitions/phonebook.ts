@@ -26,9 +26,9 @@ export const phonebook: ModuleDefinition = {
         { name: "photo_url", type: "text" },
       ],
       seed: [
-        { name: "Avery Chen", title: "Director of Engineering", department: "Engineering", email: "avery@example.com", phone: "(415) 555-0143", bio: "Builds the platform.", photo_url: "https://i.pravatar.cc/200?img=12" },
-        { name: "Sam Patel", title: "Customer Success Lead", department: "Customer Success", email: "sam@example.com", phone: "(415) 555-0177", bio: "On point for onboarding.", photo_url: "https://i.pravatar.cc/200?img=14" },
-        { name: "Devon Ward", title: "Senior Designer", department: "Design", email: "devon@example.com", phone: "(415) 555-0192", bio: "Visual systems & illustration.", photo_url: "https://i.pravatar.cc/200?img=33" },
+        { name: "Avery Chen", title: "Director of Engineering", department: "Engineering", email: "avery@example.com", phone: "(415) 555-0143", bio: "Builds the platform.", photo_url: "/media/generated/thumbs/people-avery-chen.webp" },
+        { name: "Sam Patel", title: "Customer Success Lead", department: "Customer Success", email: "sam@example.com", phone: "(415) 555-0177", bio: "On point for onboarding.", photo_url: "/media/generated/thumbs/people-sam-patel.webp" },
+        { name: "Devon Ward", title: "Senior Designer", department: "Design", email: "devon@example.com", phone: "(415) 555-0192", bio: "Visual systems & illustration.", photo_url: "/media/generated/thumbs/people-devon.webp" },
       ],
     },
   ],
@@ -89,7 +89,7 @@ export const phonebook: ModuleDefinition = {
 <div data-nk-bind-flow-ref="list" data-nk-refresh="60000" class="row g-3 mt-3" id="nk-grid">
   <div class="col-md-6 col-lg-4" data-nk-item>
     <div class="card border-0 shadow-sm h-100 p-3 d-flex flex-row gap-3 align-items-center">
-      <img class="rounded-circle" style="width:64px;height:64px;object-fit:cover;flex-shrink:0;" data-nk-src="photo_url" src="https://i.pravatar.cc/200" alt=""/>
+      <img class="rounded-circle" style="width:64px;height:64px;object-fit:cover;flex-shrink:0;" data-nk-src="photo_url" src="/media/generated/thumbs/people-avery-chen.webp" alt=""/>
       <div class="flex-grow-1">
         <div class="fw-bold" data-nk-field="name">Name</div>
         <div class="small" style="color:var(--nk-text-muted);" data-nk-field="title">Title</div>

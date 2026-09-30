@@ -25,9 +25,9 @@ export const whatsappOrder: ModuleDefinition = {
         { name: "description", type: "text" },
       ],
       seed: [
-        { name: "Margherita pizza", price: 12, image_url: "https://picsum.photos/seed/pizza/300/200", description: "Tomato, mozzarella, basil" },
-        { name: "Pepperoni pizza", price: 14, image_url: "https://picsum.photos/seed/pep/300/200", description: "Pepperoni, mozzarella, oregano" },
-        { name: "Garden salad", price: 8, image_url: "https://picsum.photos/seed/salad/300/200", description: "Mixed greens, vinaigrette" },
+        { name: "Margherita pizza", price: 12, image_url: "/media/generated/food-margherita-pizza.webp", description: "Tomato, mozzarella, basil" },
+        { name: "Pepperoni pizza", price: 14, image_url: "/media/generated/food-pepperoni-pizza.webp", description: "Pepperoni, mozzarella, oregano" },
+        { name: "Garden salad", price: 8, image_url: "/media/generated/food-garden-salad.webp", description: "Mixed greens, vinaigrette" },
       ],
     },
     {
@@ -109,7 +109,7 @@ export const whatsappOrder: ModuleDefinition = {
   <div class="col-md-7">
     <h2 class="fw-bold">Menu</h2>
     <div data-nk-bind-flow-ref="menu" class="row g-3 mt-1" id="nk-menu">
-      <div class="col-md-6" data-nk-item data-nk-row-id="{id}"><div class="card border-0 shadow-sm h-100"><img class="card-img-top" data-nk-src="image_url" src="https://picsum.photos/seed/x/300/200" style="aspect-ratio:3/2;object-fit:cover;" alt=""/><div class="card-body"><h6 class="fw-bold" data-nk-field="name">Item</h6><div class="small" style="color:var(--nk-text-muted);" data-nk-field="description">—</div><div class="d-flex justify-content-between align-items-center mt-2"><div class="fw-bold">$<span data-nk-field="price">0</span></div><button class="btn btn-sm btn-success nk-add" type="button">+ Add</button></div></div></div></div>
+      <div class="col-md-6" data-nk-item data-nk-row-id="{id}"><div class="card border-0 shadow-sm h-100"><img class="card-img-top" data-nk-src="image_url" src="/media/generated/food-margherita-pizza.webp" style="aspect-ratio:3/2;object-fit:cover;" alt=""/><div class="card-body"><h6 class="fw-bold" data-nk-field="name">Item</h6><div class="small" style="color:var(--nk-text-muted);" data-nk-field="description">—</div><div class="d-flex justify-content-between align-items-center mt-2"><div class="fw-bold">$<span data-nk-field="price">0</span></div><button class="btn btn-sm btn-success nk-add" type="button">+ Add</button></div></div></div></div>
     </div>
   </div>
   <div class="col-md-5">

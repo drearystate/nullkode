@@ -388,7 +388,7 @@ export type AndroidToolchainStatus = { ready: true } | { ready: false; reason: s
 /**
  * Whether this server can build Android apps and, if not, why (for
  * operators). Docker installs get the toolchain when the operator answers yes
- * to the installer's Android question (NULLKODE_ANDROID=1). See START-HERE.md.
+ * to the installer's Android question (NULLKODE_ANDROID=1). See docs/install.md.
  */
 export async function androidToolchainStatus(): Promise<AndroidToolchainStatus> {
   const sdk = sdkDir();

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd -- "$(dirname -- "${BASH_SOURCE[0]}")"
-trap 'echo; echo "Setup stopped. Your saved data has not been deleted. See START-HERE.md → Troubleshooting."' ERR
+trap 'echo; echo "Setup stopped. Your saved data has not been deleted. See docs/install.md → Troubleshooting."' ERR
 printf '\nWelcome to Nullkode. This installer sets up the app and database.\n\n'
 if ! command -v docker >/dev/null 2>&1; then
   echo 'Install and open Docker Desktop first: https://www.docker.com/products/docker-desktop/'
@@ -11,7 +11,7 @@ fi
 docker info >/dev/null 2>&1 || { echo 'Docker is not running. Open Docker Desktop, wait for it to start, then run this installer again.'; exit 1; }
 docker compose version >/dev/null || { echo 'Docker Compose is missing. Install the Docker Compose plugin, then retry.'; exit 1; }
 
-# Optional Android APK builder (START-HERE.md → "Build Android apps").
+# Optional Android APK builder (docs/install.md → "Build Android apps").
 # Measured size of the extra tools. Update it when the Android toolchain changes.
 android_size='about 1.1 GB'
 android_license='https://developer.android.com/studio/terms'
@@ -94,7 +94,7 @@ new_secrets() {
   docker run --rm node:20.19.2-bookworm-slim node -e "const c=require('crypto');for(let i=0;i<$1;i++)console.log(c.randomBytes(32).toString('hex'))"
 }
 
-# Web address and automatic HTTPS (START-HERE.md → "Put it on a public domain").
+# Web address and automatic HTTPS (docs/install.md → "Put it on a public domain").
 # With a domain name, Caddy (docker-compose.yml, profile "https") answers on
 # ports 80 and 443 and gets certificates by itself. For scripted installs:
 #   NULLKODE_DOMAIN=studio.example.com   (none = this computer only, plain http)
@@ -358,7 +358,7 @@ fi
 save_https
 for key in AUTH_SECRET INSTALL_TOKEN DB_PASSWORD CRON_SECRET NK_TLS_ASK_SECRET; do
   rg_value=$(sed -n "s/^${key}=//p" .env | head -1)
-  [[ ${#rg_value} -ge 32 && "$rg_value" != *replace* ]] || { echo "Your existing .env needs a random ${key} of at least 32 characters. See START-HERE.md."; exit 1; }
+  [[ ${#rg_value} -ge 32 && "$rg_value" != *replace* ]] || { echo "Your existing .env needs a random ${key} of at least 32 characters. See docs/install.md."; exit 1; }
 done
 # Compose prefers the shell's value over .env, so pass on the normalized ones.
 export NULLKODE_ANDROID="$android"
@@ -372,7 +372,7 @@ if [[ "$https" == 1 ]]; then
       if port_in_use "$port"; then
         echo "Another program on this computer already uses port ${port}, which HTTPS needs."
         echo 'Usually that is another web server. Stop it and run this installer again, or answer n'
-        echo 'and put Nullkode behind that web server instead (START-HERE.md → "Put it on a public domain").'
+        echo 'and put Nullkode behind that web server instead (docs/install.md → "Put it on a public domain").'
         exit 1
       fi
     done

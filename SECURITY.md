@@ -50,7 +50,7 @@ Nullkode hasn't reached 1.0. Fixes go into the **latest 0.x release only**
 **If you run your own installation, you install updates yourself.** Nothing
 updates automatically. Watch the repository's releases and security
 advisories, and follow "Back up, update, or move" in
-[START-HERE.md](START-HERE.md) to update. Take a backup first.
+[docs/install.md](docs/install.md) to update. Take a backup first.
 
 ## What's in scope
 

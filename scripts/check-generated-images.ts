@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFile, stat } from "node:fs/promises";
+import { readdir, readFile, stat } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import { generatedAssets, searchGeneratedAssets, withGeneratedTemplateImages, generatedImageContext } from "../src/lib/assets/generated";
 import { listTemplates } from "../src/lib/templates/registry";
@@ -34,6 +34,44 @@ async function main() {
   assert.ok(searchGeneratedAssets("medical").every(a => a.category === "health"));
   assert.equal(searchGeneratedAssets("originals").length, generatedAssets.length);
   assert.equal(withGeneratedTemplateImages('/uploads/my-photo.webp'), '/uploads/my-photo.webp');
-  console.log(`Verified ${generatedAssets.length} unique WebP images and thumbnails, ${generatedAssets.filter(a => a.replaces).length} exact template assignments, and relevant local search.`);
+  // Older template photo paths still map to their generated pictures.
+  assert.equal(withGeneratedTemplateImages('/templates/originals/original-restaurant/embers.webp'), '/media/generated/restaurant-embers.webp');
+  assert.equal(withGeneratedTemplateImages('/templates/originals/original-restaurant/dining-room.webp'), '/media/generated/restaurant-dining-room.webp');
+  const additionsForTemplates = JSON.parse(await readFile('docs/assets/generated-image-templates.json', 'utf8')) as Array<{id: string}>;
+  for (const asset of additionsForTemplates) assert.ok(ids.has(asset.id), `Template image missing from Assets: ${asset.id}`);
+  // Every picture the original templates show is a generated picture with a
+  // catalog entry, and no template points at the old photo folder.
+  const byUrl = new Map(generatedAssets.map(a => [a.url, a]));
+  const shown = new Set<string>();
+  const originals = listTemplates().filter(t => t.source === "original");
+  assert.equal(originals.length, 18, 'Expected the 18 original templates');
+  for (const template of originals) {
+    const serialized = JSON.stringify(template);
+    assert.ok(!serialized.includes('/templates/originals/'), `${template.id} still shows an old template photo`);
+    for (const [url] of serialized.matchAll(/\/media\/generated\/[\w-]+\.webp/g)) {
+      const asset = byUrl.get(url);
+      assert.ok(asset, `${template.id} shows ${url}, which is not in the catalog`);
+      shown.add(`${template.id} ${url}`);
+    }
+  }
+  const assignments = generatedAssets.filter(a => a.replaces);
+  assert.equal(assignments.length, 134, 'Expected 134 template picture assignments');
+  assert.equal(generatedAssets.length, 285, 'Expected 285 generated pictures');
+  for (const asset of generatedAssets) assert.ok(asset.width > 0 && asset.height > 0, `Missing size: ${asset.id}`);
+  // Editor blocks and modules show only our own pictures: no outside photo
+  // sites, and every library picture they name exists.
+  const thumbs = new Set(generatedAssets.map(a => a.thumb));
+  const sources = ['src/components/editor/blocks.ts', ...(await readdir('src/lib/modules/definitions')).filter(f => f.endsWith('.ts')).map(f => `src/lib/modules/definitions/${f}`)];
+  let pictures = 0;
+  for (const file of sources) {
+    const text = await readFile(file, 'utf8');
+    const outside = text.match(/https?:\/\/(?:[\w-]+\.)*(?:picsum\.photos|pravatar\.cc|unsplash\.com|placehold\.co|placeholder\.com|loremflickr\.com|randomuser\.me|pexels\.com|pixabay\.com|dummyimage\.com)[^\s"'`)]*/g);
+    assert.ok(!outside, `${file} links outside pictures: ${outside?.join(', ')}`);
+    for (const [url] of text.matchAll(/\/media\/generated\/(?:thumbs\/)?[\w-]+\.webp/g)) {
+      assert.ok(byUrl.has(url) || thumbs.has(url), `${file} shows ${url}, which is not in the catalog`);
+      pictures++;
+    }
+  }
+  console.log(`Verified ${generatedAssets.length} unique WebP images and thumbnails, ${assignments.length} exact template assignments, ${shown.size} template pictures in ${originals.length} original templates, ${pictures} library pictures in ${sources.length} block and module files, and relevant local search.`);
 }
 main().catch(error => { console.error(error); process.exit(1); });

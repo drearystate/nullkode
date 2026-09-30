@@ -172,7 +172,7 @@ async function main() {
       }
       r = await visitor.get(`/_next/image?url=${encodeURIComponent("https://example.org/photo.png")}&w=64&q=75`);
       ok("the optimizer refuses other websites' pictures", r.status === 400, r.status);
-      r = await visitor.get(`/_next/image?url=${encodeURIComponent("/templates/originals/original-restaurant/embers.webp")}&w=640&q=75`);
+      r = await visitor.get(`/_next/image?url=${encodeURIComponent("/media/generated/restaurant-embers.webp")}&w=640&q=75`);
       ok("the optimizer refuses paths outside its list", r.status === 400, r.status);
       r = await visitor.get(`/_next/image?url=${encodeURIComponent("/studio-preview/dashboard.png")}&w=640&q=75`, { accept: "image/webp,*/*" });
       ok("the optimizer still serves the landing page's screenshots", r.status === 200 && String(r.headers["content-type"]).startsWith("image/"), `${r.status} ${r.headers["content-type"]}`);

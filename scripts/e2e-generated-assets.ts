@@ -6,7 +6,7 @@ import { listTemplates } from "../src/lib/templates/registry";
 import { startInstance, installOperator } from "./e2e-harness";
 
 async function main() {
-  const inst = await startInstance({ port: 3137, buildDir: ".next-image-review", env: { APPS_DOMAIN: "", UNSPLASH_ACCESS_KEY: "", PEXELS_API_KEY: "", PIXABAY_API_KEY: "" } });
+  const inst = await startInstance({ port: Number(process.env.E2E_PORT || 3137), buildDir: ".next-image-review", env: { APPS_DOMAIN: "", UNSPLASH_ACCESS_KEY: "", PEXELS_API_KEY: "", PIXABAY_API_KEY: "" } });
   const browser = await chromium.launch({ headless: true, args: ["--no-sandbox"] });
   const report: Array<{ id: string; pages: number; generatedPhotos: number }> = [];
   await mkdir("output/image-review", { recursive: true });
@@ -35,6 +35,7 @@ async function main() {
         await page.setViewportSize({ width: 1200, height: 825 });
         const response = await page.goto(`${inst.base}/app/${project.slug}${design.isHome ? "" : "/" + design.slug}`, { waitUntil: "networkidle", timeout: 120000 });
         assert.equal(response?.status(), 200, `${id}/${design.slug}: ${page.url()}`);
+        assert.ok(!design.html.includes("/templates/originals/"), `${id}/${design.slug} still shows an old template photo path`);
         const expectedImages = [...design.html.matchAll(/src="(\/media\/generated\/[^"]+)"/g)].map(m => m[1]);
         for (const src of expectedImages) assert.ok(await page.locator(`img[src="${src}"]`).count(), `Missing expected image ${src}`);
         await page.evaluate(async () => {
@@ -75,7 +76,10 @@ async function main() {
     await page.locator('#category').selectOption('restaurant');
     assert.equal(await page.locator('article:visible').count(), generatedAssets.filter(a => a.category === 'restaurant').length);
     await page.locator('#search').fill('bread');
-    assert.equal(await page.locator('article:visible').count(), 1);
+    // Still filtered to the restaurant category chosen above.
+    const breadCount = generatedAssets.filter(a => a.category === 'restaurant' && `${a.tags.join(' ')} ${a.alt}`.toLowerCase().includes('bread')).length;
+    assert.ok(breadCount > 0);
+    assert.equal(await page.locator('article:visible').count(), breadCount);
     await page.locator('#search').fill('');
     await page.locator('#category').selectOption('');
     assert.equal(await page.locator('article').count(), generatedAssets.length);

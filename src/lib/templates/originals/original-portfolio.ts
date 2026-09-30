@@ -19,7 +19,6 @@
 import { registerTemplate } from "../store";
 import type { StarterTemplate } from "../types";
 
-const IMG = "/templates/originals/original-portfolio";
 
 /* ── Shared CSS ─────────────────────────────────────────────────────── */
 const BASE_CSS = `
@@ -337,7 +336,7 @@ const HOME_HTML = `
         </div>
       </div>
       <figure class="iv-intro-fig">
-        <img src="${IMG}/reading-room.webp" alt="A leather butterfly chair with a striped throw in front of tall windows and sheer curtains" width="512" height="640">
+        <img src="/media/generated/portfolio-reading-room.webp" alt="A leather butterfly chair with a striped throw in front of tall windows and sheer curtains" width="512" height="640">
         <figcaption><span>Latest</span>Østerbro Reading Room, 2024 · a spare room made into a library</figcaption>
       </figure>
     </div>
@@ -350,19 +349,19 @@ const HOME_HTML = `
     <div class="iv-sec-head"><h2 id="iv-work-h">Selected <em>work</em></h2><p class="iv-cap-label">Four of 32 projects · 2023–2025</p></div>
     <div class="iv-grid">
       <figure class="iv-tile iv-land iv-t1">
-        <a class="iv-tile-img" href="/vesterbro-loft"><img src="${IMG}/vesterbro-loft.webp" alt="An open-plan loft with a grey sofa, a long white dining table, herringbone oak floors and black steel windows" width="960" height="640"></a>
+        <a class="iv-tile-img" href="/vesterbro-loft"><img src="/media/generated/portfolio-vesterbro-loft.webp" alt="An open-plan loft with a grey sofa, a long white dining table, herringbone oak floors and black steel windows" width="960" height="640"></a>
         <figcaption><h3><a href="/vesterbro-loft">Vesterbro Loft</a></h3><span class="iv-tile-year">2025</span><p class="iv-tile-meta">A former print works turned family home · 142 m² · <a class="iv-case-link" href="/vesterbro-loft">Read the case study</a></p></figcaption>
       </figure>
       <figure class="iv-tile iv-port iv-t2">
-        <span class="iv-tile-img"><img src="${IMG}/townhouse-stair.webp" alt="An oak staircase with black steel balusters seen from the top floor looking down" width="640" height="800" loading="lazy"></span>
+        <span class="iv-tile-img"><img src="/media/generated/portfolio-townhouse-stair.webp" alt="An oak staircase with black steel balusters seen from the top floor looking down" width="640" height="800" loading="lazy"></span>
         <figcaption><h3>Frederiksberg Townhouse</h3><span class="iv-tile-year">2023</span><p class="iv-tile-meta">Four floors joined by one oak stair · 210 m²</p></figcaption>
       </figure>
       <figure class="iv-tile iv-land iv-t3">
-        <span class="iv-tile-img"><img src="${IMG}/kaffebar-ro.webp" alt="A pale counter with a glass coffee maker and a cactus in warm morning light by a window" width="959" height="640" loading="lazy"></span>
+        <span class="iv-tile-img"><img src="/media/generated/portfolio-kaffebar-ro.webp" alt="A pale counter with a glass coffee maker and a cactus in warm morning light by a window" width="959" height="640" loading="lazy"></span>
         <figcaption><h3>Kaffebar Ro</h3><span class="iv-tile-year">2024</span><p class="iv-tile-meta">A 20-seat espresso bar in a former dairy · 64 m²</p></figcaption>
       </figure>
       <figure class="iv-tile iv-land iv-t4">
-        <span class="iv-tile-img"><img src="${IMG}/nordlys-studio.webp" alt="A long dark meeting table lined with grey upholstered chairs in a white room" width="960" height="640" loading="lazy"></span>
+        <span class="iv-tile-img"><img src="/media/generated/portfolio-nordlys-studio.webp" alt="A long dark meeting table lined with grey upholstered chairs in a white room" width="960" height="640" loading="lazy"></span>
         <figcaption><h3>Nordlys Studio</h3><span class="iv-tile-year">2023</span><p class="iv-tile-meta">A workplace for a 40-person game studio · 410 m²</p></figcaption>
       </figure>
     </div>
@@ -444,7 +443,7 @@ const CASE_HTML = `
 <main>
 <div class="iv-wrap">
   <figure class="iv-case-hero">
-    <img src="${IMG}/vesterbro-loft.webp" alt="The finished loft: a grey sofa and a long white dining table under exposed ducts, with black steel windows" width="960" height="640">
+    <img src="/media/generated/portfolio-vesterbro-loft.webp" alt="The finished loft: a grey sofa and a long white dining table under exposed ducts, with black steel windows" width="960" height="640">
     <figcaption>The living and dining space, looking west towards the new steel windows.</figcaption>
   </figure>
 
@@ -500,8 +499,8 @@ const CASE_HTML = `
           <li class="iv-swatch"><i class="iv-sw-clay"></i><b>Clay tile</b><span>Kitchen and bath</span></li>
         </ul>
         <div class="iv-pair">
-          <figure><img src="${IMG}/loft-table.webp" alt="Late afternoon sun casting window shadows across a smoked oak dining table" width="959" height="640" loading="lazy"><figcaption>The oak table at 5 pm in April.</figcaption></figure>
-          <figure><img src="${IMG}/loft-lamp.webp" alt="A black floor lamp against a sage green wall" width="512" height="640" loading="lazy"><figcaption>The study niche, in sage.</figcaption></figure>
+          <figure><img src="/media/generated/portfolio-loft-table.webp" alt="Late afternoon sun casting window shadows across a smoked oak dining table" width="959" height="640" loading="lazy"><figcaption>The oak table at 5 pm in April.</figcaption></figure>
+          <figure><img src="/media/generated/portfolio-loft-lamp.webp" alt="A black floor lamp against a sage green wall" width="512" height="640" loading="lazy"><figcaption>The study niche, in sage.</figcaption></figure>
         </div>
       </section>
 
@@ -527,7 +526,7 @@ const CASE_HTML = `
     <p class="iv-cap-label">Keep reading</p>
     <h2 id="iv-next-h"><a href="/about">Meet the studio <span aria-hidden="true">→</span></a></h2>
   </div>
-  <img src="${IMG}/reading-room.webp" alt="A leather butterfly chair in front of tall windows" width="512" height="640" loading="lazy">
+  <img src="/media/generated/portfolio-reading-room.webp" alt="A leather butterfly chair in front of tall windows" width="512" height="640" loading="lazy">
 </section>
 ${CTA_HTML}
 </main>
@@ -539,7 +538,7 @@ const ABOUT_HTML = `
 <nav aria-label="Main"></nav>
 <header class="iv-wrap iv-about-head">
   <figure class="iv-portrait">
-    <img src="${IMG}/ines-portrait.webp" alt="Portrait of Ines Varga smiling at her desk surrounded by brushes and material samples" width="480" height="600">
+    <img src="/media/generated/portfolio-ines-portrait.webp" alt="Portrait of Ines Varga smiling at her desk surrounded by brushes and material samples" width="480" height="600">
     <figcaption>In the studio on Ravnsborggade.</figcaption>
   </figure>
   <div class="iv-about-copy">

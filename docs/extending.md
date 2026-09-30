@@ -179,9 +179,12 @@ const template: StarterTemplate = {
 - **Features:** list feature ids in `modules`. Their pages, tables and forms
   come with the template. Use `moduleSeeds` to give their tables sample rows
   that fit your template (a coffee menu, not a pizza menu).
-- **Images:** put them in `public/templates/originals/<id>/` and list every
-  file in its `CREDITS.md`. Only use images you may redistribute: your own
-  photos or CC0 (public domain) images.
+- **Images:** the built-in templates use original generated pictures from
+  `public/media/generated/` (listed, with descriptions and tags, in
+  `src/lib/assets/generated-catalog.json`). A new template can use them too.
+  To add pictures of your own, put them in `public/templates/originals/<id>/`
+  and list every file in its `CREDITS.md`. Only use images you may
+  redistribute: your own photos or CC0 (public domain) images.
 - **Preview:** make the gallery picture with
   `tsx scripts/render-original-templates.ts original-coffee-shop`
   (needs Docker). It also fails if the home page scrolls sideways on a phone.

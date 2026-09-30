@@ -18,7 +18,6 @@
 import { registerTemplate } from "../store";
 import type { StarterTemplate } from "../types";
 
-const IMG = "/templates/originals/original-education";
 
 /* ── Shared CSS ─────────────────────────────────────────────────────── */
 const BASE_CSS = `
@@ -453,7 +452,7 @@ const HOME_HTML = `
       <p class="mw-proof"><span class="mw-stars" aria-hidden="true">★★★★★</span><span><b>4.8 out of 5</b> from 1,240 graduates</span></p>
     </div>
     <div class="mw-hero-visual">
-      <figure class="mw-hero-photo"><img src="${IMG}/class-whiteboard.webp" alt="An instructor sketching app wireframes on a whiteboard while two students follow along with laptops" width="959" height="640"></figure>
+      <figure class="mw-hero-photo"><img src="/media/generated/education-class-whiteboard.webp" alt="An instructor sketching app wireframes on a whiteboard while two students follow along with laptops" width="959" height="640"></figure>
       <div class="mw-board">
         <p class="mw-board-title">Next cohorts <span>Autumn term</span></p>
         <ul>
@@ -547,17 +546,17 @@ const HOME_HTML = `
       </div>
     </div>
     <div class="mw-people">
-      <figure class="mw-person mw-tab-cobalt"><img src="${IMG}/instructor-nadia.webp" alt="Portrait of Nadia Rahman" width="320" height="320" loading="lazy"><figcaption><h3>Nadia Rahman</h3><span class="mw-person-teach">Data Analysis</span><p>Lead analyst at a national rail operator. Nine years of SQL, still loves a messy spreadsheet.</p></figcaption></figure>
-      <figure class="mw-person mw-tab-sun"><img src="${IMG}/instructor-laura.webp" alt="Portrait of Laura Whitcombe" width="320" height="320" loading="lazy"><figcaption><h3>Laura Whitcombe</h3><span class="mw-person-teach">UX &amp; Content Design</span><p>Head of design at a health-tech start-up. Has run over 300 usability tests.</p></figcaption></figure>
-      <figure class="mw-person mw-tab-ink"><img src="${IMG}/instructor-mei.webp" alt="Portrait of Mei Lin Chen" width="320" height="320" loading="lazy"><figcaption><h3>Mei Lin Chen</h3><span class="mw-person-teach">Front-end Development</span><p>Senior engineer building accessible web apps. Speaks at meetups about CSS layout.</p></figcaption></figure>
-      <figure class="mw-person mw-tab-tint"><img src="${IMG}/instructor-tom.webp" alt="Portrait of Tom Brennan" width="320" height="320" loading="lazy"><figcaption><h3>Tom Brennan</h3><span class="mw-person-teach">Product Management</span><p>Product director who has launched apps used by two million people.</p></figcaption></figure>
+      <figure class="mw-person mw-tab-cobalt"><img src="/media/generated/education-instructor-nadia.webp" alt="Portrait of Nadia Rahman" width="320" height="320" loading="lazy"><figcaption><h3>Nadia Rahman</h3><span class="mw-person-teach">Data Analysis</span><p>Lead analyst at a national rail operator. Nine years of SQL, still loves a messy spreadsheet.</p></figcaption></figure>
+      <figure class="mw-person mw-tab-sun"><img src="/media/generated/education-instructor-laura.webp" alt="Portrait of Laura Whitcombe" width="320" height="320" loading="lazy"><figcaption><h3>Laura Whitcombe</h3><span class="mw-person-teach">UX &amp; Content Design</span><p>Head of design at a health-tech start-up. Has run over 300 usability tests.</p></figcaption></figure>
+      <figure class="mw-person mw-tab-ink"><img src="/media/generated/education-instructor-mei.webp" alt="Portrait of Mei Lin Chen" width="320" height="320" loading="lazy"><figcaption><h3>Mei Lin Chen</h3><span class="mw-person-teach">Front-end Development</span><p>Senior engineer building accessible web apps. Speaks at meetups about CSS layout.</p></figcaption></figure>
+      <figure class="mw-person mw-tab-tint"><img src="/media/generated/education-instructor-tom.webp" alt="Portrait of Tom Brennan" width="320" height="320" loading="lazy"><figcaption><h3>Tom Brennan</h3><span class="mw-person-teach">Product Management</span><p>Product director who has launched apps used by two million people.</p></figcaption></figure>
     </div>
   </div>
 </section>
 
 <section class="mw-sec mw-week" aria-labelledby="mw-story-h">
   <div class="mw-wrap mw-story">
-    <figure class="mw-story-photo"><img src="${IMG}/study-group.webp" alt="Three students working together on laptops covered in stickers" width="960" height="480" loading="lazy"></figure>
+    <figure class="mw-story-photo"><img src="/media/generated/education-study-group.webp" alt="Three students working together on laptops covered in stickers" width="960" height="480" loading="lazy"></figure>
     <div>
       <p class="mw-label">Graduate story</p>
       <h2 class="mw-sr" id="mw-story-h">A graduate's story</h2>
@@ -614,8 +613,8 @@ const COURSES_HTML = `
 <div class="mw-wrap">
 ${COURSES.map(courseDetail).join("\n")}
   <div class="mw-course-pics">
-    <figure><img src="${IMG}/ux-workshop.webp" alt="Two students arranging sticky notes on a glass wall during a design workshop" width="720" height="640" loading="lazy"><figcaption>UX research sprint, week 2</figcaption></figure>
-    <figure><img src="${IMG}/coding.webp" alt="A student in headphones writing code across two monitors and a laptop" width="720" height="640" loading="lazy"><figcaption>Saturday project lab</figcaption></figure>
+    <figure><img src="/media/generated/education-ux-workshop.webp" alt="Two students arranging sticky notes on a glass wall during a design workshop" width="720" height="640" loading="lazy"><figcaption>UX research sprint, week 2</figcaption></figure>
+    <figure><img src="/media/generated/education-coding.webp" alt="A student in headphones writing code across two monitors and a laptop" width="720" height="640" loading="lazy"><figcaption>Saturday project lab</figcaption></figure>
   </div>
 </div>
 

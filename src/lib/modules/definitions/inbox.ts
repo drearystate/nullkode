@@ -159,7 +159,7 @@ export const inbox: ModuleDefinition = {
   <div class="col-md-4">
     <h6 class="text-uppercase fw-bold small" style="color:var(--nk-text-muted);">People</h6>
     <div data-nk-bind-flow-ref="people" data-nk-refresh="15000">
-      <a class="d-flex align-items-center gap-2 p-2 rounded text-decoration-none text-body" data-nk-item href="#" data-nk-href-template="/thread?to={id}" style="border:1px solid var(--nk-border);margin-bottom:6px;"><img class="rounded-circle" style="width:36px;height:36px;object-fit:cover;" data-nk-src="avatar_url" src="https://i.pravatar.cc/100?img=1"/><span class="fw-bold" data-nk-field="name">User</span></a>
+      <a class="d-flex align-items-center gap-2 p-2 rounded text-decoration-none text-body" data-nk-item href="#" data-nk-href-template="/thread?to={id}" style="border:1px solid var(--nk-border);margin-bottom:6px;"><img class="rounded-circle" style="width:36px;height:36px;object-fit:cover;" data-nk-src="avatar_url" src="/media/generated/thumbs/people-devon.webp"/><span class="fw-bold" data-nk-field="name">User</span></a>
     </div>
   </div>
   <div class="col-md-8">

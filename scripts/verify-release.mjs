@@ -5,12 +5,13 @@ import assert from 'node:assert/strict';
 import { lintDocs } from './check-docs.mjs';
 const root = resolve(process.argv[2] || '.');
 const required = [
-  'Dockerfile','docker-compose.yml','install.sh','Start-Nullkode.bat','START-HERE.md','prisma/schema.prisma','pnpm-lock.yaml',
+  'Dockerfile','docker-compose.yml','install.sh','Start-Nullkode.bat','docs/install.md','prisma/schema.prisma','pnpm-lock.yaml',
   // Front page, security policy and community rules.
   'README.md','SECURITY.md','CODE_OF_CONDUCT.md','docs/security-audit-exceptions.md',
   'src/lib/ai/provider.ts','src/lib/design-studio/engine.ts','src/lib/flow/runtime.ts',
-  // Original MIT starter designs (the templates the release ships) and their photos.
-  'src/lib/templates/originals/index-a.ts','src/lib/templates/originals/index-b.ts','public/templates/originals',
+  // Original MIT starter designs (the templates the release ships) and their
+  // generated pictures.
+  'src/lib/templates/originals/index-a.ts','src/lib/templates/originals/index-b.ts','src/lib/assets/generated-catalog.json','public/media/generated',
   'src/app/(main)/projects/[id]/data',
   // Mobile apps: the build API (a folder named "build") and both native templates.
   'src/app/api/projects/[id]/native/build/route.ts','src/app/api/projects/[id]/native/build/download/route.ts',
@@ -25,7 +26,7 @@ const required = [
   'docs/deploy/systemd/nullkode.service','docs/deploy/systemd/nullkode-backup.service','docs/deploy/systemd/nullkode-backup.timer','docs/deploy/systemd/nullkode-backup.sh',
   'docs/deploy/logrotate/nullkode',
   // `pnpm test:e2e` and scripts that import the test harness.
-  'scripts/e2e-harness.ts','scripts/check-generated-js.ts','scripts/secure-existing-apps.ts','scripts/smoke-install.cjs','scripts/check-docs.mjs',
+  'scripts/e2e-harness.ts','scripts/check-generated-js.ts','scripts/secure-existing-apps.ts','scripts/upgrade-template-images.ts','scripts/smoke-install.cjs','scripts/check-docs.mjs',
 ];
 const pkg = JSON.parse(await readFile(join(root, 'package.json'), 'utf8'));
 // Every script a package.json command runs must be in the release.
@@ -56,27 +57,31 @@ assert.ok(!/import "\.\/(crafto|litho)-/.test(registry));
 assert.match(registry,/originals\/index-a/);
 assert.match(registry,/originals\/index-b/);
 
-// Template photos: every picture an original template uses is in the
-// release, next to the CREDITS.md that says where it comes from.
+// Template pictures: every picture an original template shows is in the
+// release. The built-in templates use the generated library
+// (public/media/generated/). Pictures added for new templates live in
+// public/templates/originals/<template>/ next to a CREDITS.md.
+const generatedFiles = new Set(await readdir(join(root, 'public/media/generated')));
 let photos = 0;
-for (const folder of await readdir(join(root, 'public/templates/originals'), { withFileTypes: true })) {
-  if (!folder.isDirectory()) continue;
-  const files = await readdir(join(root, 'public/templates/originals', folder.name));
-  photos += files.filter((f) => f.endsWith('.webp')).length;
-  assert.ok(files.includes('CREDITS.md'), `public/templates/originals/${folder.name} has no CREDITS.md`);
-}
-assert.ok(photos > 0, 'No template photos (.webp) under public/templates/originals');
 let photoRefs = 0;
 for (const file of (await readdir(join(root, 'src/lib/templates/originals'))).filter((f) => f.endsWith('.ts'))) {
   const code = await readFile(join(root, 'src/lib/templates/originals', file), 'utf8');
   const base = /const IMG = "([^"]+)"/.exec(code)?.[1];
   const refs = [
     ...(base ? [...code.matchAll(/\$\{IMG\}\/([\w./-]+\.(?:webp|jpe?g|png|avif|gif|svg))/g)].map((m) => `${base}/${m[1]}`) : []),
-    ...[...code.matchAll(/["'(](\/templates\/[\w./-]+\.(?:webp|jpe?g|png|avif|gif|svg))/g)].map((m) => m[1]),
+    ...[...code.matchAll(/["'(`](\/(?:templates|media)\/[\w./-]+\.(?:webp|jpe?g|png|avif|gif|svg))/g)].map((m) => m[1]),
   ];
   for (const ref of new Set(refs)) {
     photoRefs++;
     assert.ok(await stat(join(root, 'public', ref)).catch(() => null), `src/lib/templates/originals/${file} shows ${ref}, which is not in the release`);
+    if (ref.startsWith('/media/generated/')) {
+      assert.ok(generatedFiles.has(ref.slice('/media/generated/'.length)), `src/lib/templates/originals/${file} shows ${ref}, which is not in the generated library`);
+      photos++;
+    } else {
+      const folder = /^\/templates\/originals\/([\w-]+)\//.exec(ref)?.[1];
+      assert.ok(folder, `src/lib/templates/originals/${file} shows ${ref}, outside public/media/generated/ and public/templates/originals/<template>/`);
+      assert.ok(await stat(join(root, 'public/templates/originals', folder, 'CREDITS.md')).catch(() => null), `public/templates/originals/${folder} has no CREDITS.md`);
+    }
   }
 }
 assert.ok(photoRefs > 0, 'Found no template photo references to check');
@@ -103,7 +108,7 @@ if (audit.error) throw new Error(`Could not run the dependency audit (pnpm audit
 const auditSummary = `${audit.stdout}\n${audit.stderr}`.trim().split('\n').filter((l) => /vulnerabilit|Severity|No known/i.test(l)).join(' ').trim();
 assert.equal(audit.status, 0, `The dependency audit found high or critical advisories (pnpm audit --prod --audit-level=high):\n${audit.stdout}\n${audit.stderr}`);
 
-console.log(`Release contents verified: full platform source, original templates with ${photos} photos (${photoRefs} references checked), backups, native build API and templates, current documentation, no environment secrets, database copies, keys or runtime folders.`);
+console.log(`Release contents verified: full platform source, original templates with ${photoRefs} pictures checked (${photos} from the generated library), backups, native build API and templates, current documentation, no environment secrets, database copies, keys or runtime folders.`);
 console.log(`Nullkode ${pkg.version} on Next.js ${pkg.dependencies?.next}, React ${pkg.dependencies?.react}. Dependency audit (pnpm audit --prod --audit-level=high): passed. ${auditSummary}`);
 
 const generated = JSON.parse(await readFile(join(root, 'src/lib/assets/generated-catalog.json'), 'utf8'));

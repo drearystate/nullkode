@@ -23,8 +23,8 @@ export const beforeAfter: ModuleDefinition = {
         { name: "after_url", type: "text" },
       ],
       seed: [
-        { title: "Kitchen renovation", caption: "Three-day refresh", before_url: "https://picsum.photos/seed/before1/800/500", after_url: "https://picsum.photos/seed/after1/800/500" },
-        { title: "Portrait edit", caption: "Color grade + skin retouch", before_url: "https://picsum.photos/seed/before2/800/500", after_url: "https://picsum.photos/seed/after2/800/500" },
+        { title: "Kitchen renovation", caption: "Three-day refresh", before_url: "/media/generated/realestate-kitchen-before.webp", after_url: "/media/generated/realestate-concordia-kitchen.webp" },
+        { title: "Portrait edit", caption: "Color grade + skin retouch", before_url: "/media/generated/beauty-portrait-before.webp", after_url: "/media/generated/beauty-portrait-caramel.webp" },
       ],
     },
   ],
@@ -82,8 +82,8 @@ export const beforeAfter: ModuleDefinition = {
     <h4 class="fw-bold" data-nk-field="title">Title</h4>
     <p class="small" style="color:var(--nk-text-muted);" data-nk-field="caption">Caption</p>
     <div class="nk-ba-frame" style="position:relative;overflow:hidden;user-select:none;border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,.15);aspect-ratio:16/10;background:#000;">
-      <img style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" data-nk-src="after_url" src="https://picsum.photos/seed/a/800/500"/>
-      <div class="nk-ba-before" style="position:absolute;inset:0;width:50%;overflow:hidden;"><img style="position:absolute;inset:0;width:200%;height:100%;object-fit:cover;" data-nk-src="before_url" src="https://picsum.photos/seed/b/800/500"/></div>
+      <img style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" data-nk-src="after_url" src="/media/generated/realestate-concordia-kitchen.webp"/>
+      <div class="nk-ba-before" style="position:absolute;inset:0;width:50%;overflow:hidden;"><img style="position:absolute;inset:0;width:200%;height:100%;object-fit:cover;" data-nk-src="before_url" src="/media/generated/realestate-kitchen-before.webp"/></div>
       <div class="nk-ba-handle" style="position:absolute;top:0;bottom:0;left:50%;width:4px;background:#fff;cursor:ew-resize;box-shadow:0 0 6px rgba(0,0,0,.4);"><div style="position:absolute;top:50%;left:-14px;transform:translateY(-50%);width:32px;height:32px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-weight:bold;">↔</div></div>
       <span style="position:absolute;top:8px;left:8px;background:rgba(0,0,0,.6);color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;">BEFORE</span>
       <span style="position:absolute;top:8px;right:8px;background:rgba(0,0,0,.6);color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;">AFTER</span>

@@ -62,8 +62,7 @@ paid core and no license server.
   your own server. Building a typical app costs a few cents.
 - **Help where you need it.** Plain-English tips on every button and setting
   (switch them off in your Profile), and 18 step-by-step guides with screenshots.
-  The Help link opens the guide for the screen you're on. Also in
-  [docs/guides](docs/guides/README.md).
+  The Help link opens the guide for the screen you're on.
 
 ---
 
@@ -132,7 +131,7 @@ bash install.sh          # Windows: double-click Start-Nullkode.bat
 Open **http://localhost:3001/install**, create your owner account, and you're
 running. On a server with a domain, the installer sets up automatic HTTPS for
 the studio, every app, and your customers' own domains. Step-by-step guide:
-[START-HERE.md](START-HERE.md).
+[docs/install.md](docs/install.md).
 
 **Rather not run servers?** [nullkode.com](https://nullkode.com) is the hosted
 version: nothing to install, and it's free.
@@ -183,9 +182,9 @@ pnpm dev                 # http://localhost:3001/install
 ```
 
 Checks: `pnpm typecheck`, `pnpm check:js`, `pnpm check:extensions`,
-`pnpm test:e2e`. More: [architecture](ARCHITECTURE.md),
+`pnpm test:e2e`. More: [architecture](docs/architecture.md),
 [contributing](CONTRIBUTING.md), [local AI](docs/local-ai.md),
-[mobile apps](docs/mobile-apps.md), [deployment](docs/deploy/), [user guides](docs/guides/README.md).
+[mobile apps](docs/mobile-apps.md), [deployment](docs/deploy/).
 
 ## License
 

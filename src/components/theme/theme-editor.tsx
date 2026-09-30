@@ -586,23 +586,13 @@ function PresetCard({
 /**
  * Renders a mini sample page inside an iframe so the theme CSS is fully
  * isolated from the dashboard chrome. We reload via srcDoc whenever the
- * theme changes — cheap enough for a live preview. The iframe height
- * tracks its inner body so the preview never has its own scrollbar; the
- * outer page handles scrolling instead.
+ * theme changes — cheap enough for a live preview. The preview is a
+ * fixed, screen-sized window that scrolls inside: sizing it to the page's
+ * height made sections sized to the screen (min-height: 100svh, as in
+ * several templates) grow with it, until the preview was mostly empty.
  */
 function ThemePreview({ css, theme, page }: { css: string; theme: Preset; page?: { html: string; css: string } | null }) {
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
-  const [height, setHeight] = useState(900);
-
-  const resize = () => {
-    const doc = iframeRef.current?.contentDocument;
-    if (!doc) return;
-    const h = Math.max(
-      doc.body?.scrollHeight ?? 0,
-      doc.documentElement?.scrollHeight ?? 0
-    );
-    if (h > 0) setHeight(h);
-  };
 
   const srcDoc = page?.html ? `<!doctype html>
 <html><head>
@@ -610,14 +600,14 @@ function ThemePreview({ css, theme, page }: { css: string; theme: Preset; page?:
 <link rel="stylesheet" href="/nk-public.css">
 <style>${css}
 ${page.css}
-html, body { overflow: hidden; margin: 0; }
+html, body { margin: 0; }
 </style>
 </head><body>${page.html}</body></html>` : `<!doctype html>
 <html><head>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="/nk-public.css">
 <style>${css}
-html, body { overflow: hidden; margin: 0; }
+html, body { margin: 0; }
 </style>
 </head><body class="p-4">
   <nav class="d-flex align-items-center justify-content-between mb-4">
@@ -662,10 +652,8 @@ html, body { overflow: hidden; margin: 0; }
       srcDoc={srcDoc}
       // No scripts: the preview only shows how the page looks.
       sandbox="allow-same-origin"
-      onLoad={resize}
-      scrolling="no"
       className="w-full block"
-      style={{ height, border: 0, background: theme.bg }}
+      style={{ height: "min(820px, 78vh)", border: 0, background: theme.bg }}
     />
   );
 }

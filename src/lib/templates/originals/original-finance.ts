@@ -21,7 +21,6 @@
 import { registerTemplate } from "../store";
 import type { StarterTemplate } from "../types";
 
-const IMG = "/templates/originals/original-finance";
 
 /*
  * Projection chart data: [typical markets, poor markets] as a percentage of a $2M
@@ -397,7 +396,7 @@ const HOME_HTML = `
 <nav aria-label="Main"></nav>
 <header class="tw-hero">
   <figure class="tw-hero-media">
-    <img src="${IMG}/couple-window.webp" alt="A couple in their sixties dancing together by a sunlit window" width="600" height="640">
+    <img src="/media/generated/finance-couple-window.webp" alt="A couple in their sixties dancing together by a sunlit window" width="600" height="640">
     <figcaption class="tw-hero-note">Clients since 2014</figcaption>
   </figure>
   <div class="tw-hero-copy">
@@ -500,15 +499,15 @@ const HOME_HTML = `
     <h2 class="tw-h2" id="tw-who-h">Three kinds of households, <em>one kind of advice.</em></h2>
     <div class="tw-who-grid">
       <figure class="tw-who tw-who-young">
-        <img src="${IMG}/young-family.webp" alt="A young family and their dog lying on a picnic blanket in the park" width="840" height="560" loading="lazy">
+        <img src="/media/generated/finance-young-family.webp" alt="A young family and their dog lying on a picnic blanket in the park" width="840" height="560" loading="lazy">
         <figcaption><h3>Growing families</h3><p>Two careers, children and a mortgage. We balance college, retirement and today's life so nothing crowds out the rest.</p><span class="tw-who-plan">Most choose Foundations</span></figcaption>
       </figure>
       <figure class="tw-who">
-        <img src="${IMG}/couple-embrace.webp" alt="A smiling couple in their sixties embracing by a bright window" width="560" height="560" loading="lazy">
+        <img src="/media/generated/finance-couple-embrace.webp" alt="A smiling couple in their sixties embracing by a bright window" width="560" height="560" loading="lazy">
         <figcaption><h3>Five years from retirement</h3><p>The decade when decisions compound fastest. We set the date, the income and the tax plan, then manage the investments that fund it.</p><span class="tw-who-plan">Most choose Complete</span></figcaption>
       </figure>
       <figure class="tw-who">
-        <img src="${IMG}/generations.webp" alt="A grandfather and his adult grandson looking at a tablet together outdoors" width="560" height="560" loading="lazy">
+        <img src="/media/generated/finance-generations.webp" alt="A grandfather and his adult grandson looking at a tablet together outdoors" width="560" height="560" loading="lazy">
         <figcaption><h3>Business owners and heirs</h3><p>Selling a company or receiving an inheritance. We plan the sale, the tax and what the money should do next, for more than one generation.</p><span class="tw-who-plan">Most choose Family Office</span></figcaption>
       </figure>
     </div>
@@ -533,9 +532,9 @@ const HOME_HTML = `
     <p class="tw-eyebrow">Your planners</p>
     <h2 class="tw-h2" id="tw-people-h">Small by design, so you always talk to <em>the person who knows your plan.</em></h2>
     <div class="tw-people-grid">
-      <figure class="tw-person"><img src="${IMG}/advisor-walter.webp" alt="Portrait of Walter Hayes" width="360" height="360" loading="lazy"><figcaption><h3>Walter Hayes</h3><span class="tw-person-role">Founding partner</span><p>Twenty-four years in retirement income planning. Former pension actuary.</p></figcaption></figure>
-      <figure class="tw-person"><img src="${IMG}/advisor-elena.webp" alt="Portrait of Elena Park" width="360" height="360" loading="lazy"><figcaption><h3>Elena Park</h3><span class="tw-person-role">Partner, tax planning</span><p>Enrolled agent and former tax attorney. Leads every Roth and withdrawal strategy.</p></figcaption></figure>
-      <figure class="tw-person"><img src="${IMG}/advisor-marcus.webp" alt="Portrait of Marcus Bell" width="360" height="360" loading="lazy"><figcaption><h3>Marcus Bell</h3><span class="tw-person-role">Senior planner</span><p>Works with families and business owners, from first home to company sale.</p></figcaption></figure>
+      <figure class="tw-person"><img src="/media/generated/finance-advisor-walter.webp" alt="Portrait of Walter Hayes" width="360" height="360" loading="lazy"><figcaption><h3>Walter Hayes</h3><span class="tw-person-role">Founding partner</span><p>Twenty-four years in retirement income planning. Former pension actuary.</p></figcaption></figure>
+      <figure class="tw-person"><img src="/media/generated/finance-advisor-elena.webp" alt="Portrait of Elena Park" width="360" height="360" loading="lazy"><figcaption><h3>Elena Park</h3><span class="tw-person-role">Partner, tax planning</span><p>Enrolled agent and former tax attorney. Leads every Roth and withdrawal strategy.</p></figcaption></figure>
+      <figure class="tw-person"><img src="/media/generated/finance-advisor-marcus.webp" alt="Portrait of Marcus Bell" width="360" height="360" loading="lazy"><figcaption><h3>Marcus Bell</h3><span class="tw-person-role">Senior planner</span><p>Works with families and business owners, from first home to company sale.</p></figcaption></figure>
     </div>
   </div>
 </section>
@@ -753,17 +752,17 @@ const APPROACH_HTML = `
     <p class="tw-intro">We cap each planner at 120 households so that when you call, you get someone who remembers your last conversation.</p>
     <div class="tw-bio-list">
       <article class="tw-bio">
-        <img src="${IMG}/advisor-walter.webp" alt="Portrait of Walter Hayes" width="360" height="360" loading="lazy">
+        <img src="/media/generated/finance-advisor-walter.webp" alt="Portrait of Walter Hayes" width="360" height="360" loading="lazy">
         <div><h3>Walter Hayes</h3><span class="tw-bio-role">Founding partner</span><p>Walter spent eleven years as a pension actuary before founding Tidewell in 2009. He leads retirement income planning and still takes every new client's intro call himself.</p></div>
         <dl class="tw-ledger"><div><dt>Planning since</dt><dd>2002</dd></div><div><dt>Focus</dt><dd>Retirement income</dd></div><div><dt>Outside work</dt><dd>Rowing</dd></div></dl>
       </article>
       <article class="tw-bio">
-        <img src="${IMG}/advisor-elena.webp" alt="Portrait of Elena Park" width="360" height="360" loading="lazy">
+        <img src="/media/generated/finance-advisor-elena.webp" alt="Portrait of Elena Park" width="360" height="360" loading="lazy">
         <div><h3>Elena Park</h3><span class="tw-bio-role">Partner, tax planning</span><p>Elena practised tax law for eight years and is an enrolled agent. She designs the withdrawal and Roth conversion strategy in every Complete and Family Office plan.</p></div>
         <dl class="tw-ledger"><div><dt>Joined</dt><dd>2016</dd></div><div><dt>Focus</dt><dd>Tax strategy</dd></div><div><dt>Outside work</dt><dd>Ceramics</dd></div></dl>
       </article>
       <article class="tw-bio">
-        <img src="${IMG}/advisor-marcus.webp" alt="Portrait of Marcus Bell" width="360" height="360" loading="lazy">
+        <img src="/media/generated/finance-advisor-marcus.webp" alt="Portrait of Marcus Bell" width="360" height="360" loading="lazy">
         <div><h3>Marcus Bell</h3><span class="tw-bio-role">Senior planner</span><p>Marcus works with growing families and business owners, from first home purchase to company sale. He previously ran corporate finance for a regional manufacturer.</p></div>
         <dl class="tw-ledger"><div><dt>Joined</dt><dd>2019</dd></div><div><dt>Focus</dt><dd>Families, owners</dd></div><div><dt>Outside work</dt><dd>Youth soccer</dd></div></dl>
       </article>

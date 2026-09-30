@@ -6,7 +6,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Share an app design others can start from. Export it from the app's Publish page (Download code) and attach the .zip, or describe it. Photos must be free to reuse (for example CC0), with their credits.
+        Share an app design others can start from. Export it from the app's Publish page (Download code) and attach the .zip, or describe it. If it includes your own photos, they must be free to reuse (for example CC0), with their credits.
   - type: input
     id: business
     attributes:

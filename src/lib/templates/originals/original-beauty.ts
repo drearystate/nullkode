@@ -17,7 +17,6 @@
 import { registerTemplate } from "../store";
 import type { StarterTemplate } from "../types";
 
-const IMG = "/templates/originals/original-beauty";
 
 /*
  * The visual editor (GrapesJS) re-parses page CSS through the CSSOM and silently
@@ -187,7 +186,7 @@ const menuItem = (name: string, detail: string, mins: string, price: string, tag
 const HOME_HTML = `
 <section class="aur-hero">
   <div class="aur-hero__grid">
-    <figure class="aur-hero__img"><img src="${IMG}/portrait-caramel.webp" alt="A woman with smooth, glowing skin smiling over her shoulder against a warm caramel backdrop" width="960" height="640" fetchpriority="high"></figure>
+    <figure class="aur-hero__img"><img src="/media/generated/beauty-portrait-caramel.webp" alt="A woman with smooth, glowing skin smiling over her shoulder against a warm caramel backdrop" width="960" height="640" fetchpriority="high"></figure>
     <div class="aur-hero__copy">
       <p class="aur-label">Aurelle Skin Studio &middot; East Austin</p>
       <h1 class="aur-hero__title">Skin care that listens first</h1>
@@ -217,7 +216,7 @@ const HOME_HTML = `
 
 <section class="aur-signature">
   <div class="aur-wrap aur-signature__grid">
-    <figure class="aur-pill aur-signature__img"><img src="${IMG}/serum-dropper.webp" alt="Close-up of a glass dropper applying serum beneath a woman's eye" width="960" height="640" loading="lazy"></figure>
+    <figure class="aur-pill aur-signature__img"><img src="/media/generated/beauty-serum-dropper.webp" alt="Close-up of a glass dropper applying serum beneath a woman's eye" width="960" height="640" loading="lazy"></figure>
     <div>
       <p class="aur-label">The signature</p>
       <h2 class="aur-h2">The Aurelle Facial</h2>
@@ -278,13 +277,13 @@ const HOME_HTML = `
       <p class="aur-club__small">Three-month minimum, then cancel any time with 30 days' notice.</p>
       <a class="btn btn-primary aur-btn" href="/book">Start with a consultation</a>
     </div>
-    <figure class="aur-pill aur-club__img"><img src="${IMG}/cream-jar.webp" alt="A woman holding an open jar of rich face cream against a caramel backdrop" width="960" height="640" loading="lazy"></figure>
+    <figure class="aur-pill aur-club__img"><img src="/media/generated/beauty-cream-jar.webp" alt="A woman holding an open jar of rich face cream against a caramel backdrop" width="960" height="640" loading="lazy"></figure>
   </div>
 </section>
 
 <section class="aur-results">
   <div class="aur-wrap aur-results__grid">
-    <figure class="aur-results__img"><img src="${IMG}/glow-smile.webp" alt="A woman laughing as she smooths moisturiser onto her cheek" width="960" height="640" loading="lazy"></figure>
+    <figure class="aur-results__img"><img src="/media/generated/beauty-glow-smile.webp" alt="A woman laughing as she smooths moisturiser onto her cheek" width="960" height="640" loading="lazy"></figure>
     <div>
       <p class="aur-label">Kind words</p>
       <h2 class="aur-h2">What regulars say</h2>
@@ -434,7 +433,7 @@ const TREAT_HTML = `
         <a class="aur-chip" href="#brows">Brows &amp; lashes</a>
       </div>
     </div>
-    <figure class="aur-pill aur-thead__img"><img src="${IMG}/facial-massage.webp" alt="An esthetician's hands gently massaging a client's temples during a facial" width="960" height="640" fetchpriority="high"></figure>
+    <figure class="aur-pill aur-thead__img"><img src="/media/generated/beauty-facial-massage.webp" alt="An esthetician's hands gently massaging a client's temples during a facial" width="960" height="640" fetchpriority="high"></figure>
   </div>
 </section>
 
@@ -453,7 +452,7 @@ const TREAT_HTML = `
       <div class="aur-tgrid aur-tgrid--one">${treat("Lactic Brightening Peel", "45 min", "125", "A gentle lactic acid peel that lifts dullness and evens tone, finished with a barrier-repair mask.", "Dullness, uneven tone, first-time peels", "Light flaking for 2 &ndash; 3 days")}${treat("Pigment Peel Series", "3 &times; 45 min", "375", "Three progressively stronger peels, four weeks apart, with a home routine to protect results.", "Sun spots, melasma (after consultation)", "3 &ndash; 5 days of peeling each time")}${treat("Microneedling", "75 min", "295", "Fine needles trigger your skin's own collagen repair. Numbing cream included. Consultation required first.", "Acne scars, texture, fine lines", "Pink for 24 &ndash; 48 hours")}
       </div>
     </div>
-    <figure class="aur-pill aur-tsection__img"><img src="${IMG}/back-massage.webp" alt="A client relaxing face-down on a treatment bed while an esthetician massages her shoulders" width="960" height="640" loading="lazy"></figure>
+    <figure class="aur-pill aur-tsection__img"><img src="/media/generated/beauty-back-massage.webp" alt="A client relaxing face-down on a treatment bed while an esthetician massages her shoulders" width="960" height="640" loading="lazy"></figure>
   </div>
 </section>
 

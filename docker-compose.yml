@@ -38,7 +38,7 @@ services:
       args:
         # 1 adds the optional Android APK builder (JDK 17 + Google's Android
         # SDK, which means accepting its license). The installer asks and
-        # saves the answer in .env. See START-HERE.md.
+        # saves the answer in .env. See docs/install.md.
         NULLKODE_ANDROID: ${NULLKODE_ANDROID:-0}
     restart: unless-stopped
     depends_on:
@@ -81,7 +81,7 @@ services:
   # and once a week imported website files, into ./backups (or BACKUP_DIR).
   # Settings: BACKUP_* in .env (see .env.example). One backup now:
   # bash scripts/backup.sh, or docker compose run --rm backup once.
-  # See START-HERE.md and docs/deploy/RESTORE.md.
+  # See docs/install.md and docs/deploy/RESTORE.md.
   backup:
     build:
       context: ./scripts
@@ -132,7 +132,7 @@ services:
   # COMPOSE_PROFILES=https in .env when you give it a domain name (without
   # one, the app is plain http on APP_PORT). Caddy answers on ports 80 and
   # 443, gets a certificate for each address the app approves and passes
-  # requests on to the app. See Caddyfile and START-HERE.md.
+  # requests on to the app. See Caddyfile and docs/install.md.
   caddy:
     image: caddy:2.11.4-alpine
     profiles: ["https"]

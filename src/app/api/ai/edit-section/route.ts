@@ -5,6 +5,7 @@ import { json } from "@/lib/utils";
 import { aiUsageSummary, checkAiQuota, recordAiUsage, refundFailedAi } from "@/lib/ai-quota";
 import { providerComplete } from "@/lib/ai/provider";
 import { DESIGN_RULES_COMPACT } from "@/lib/ai/design-system";
+import { generatedImageContext } from "@/lib/assets/generated";
 import { parsePageOutput } from "@/lib/ai/text";
 import { findLostWiring } from "@/lib/ai/edit-page";
 import { estimateTokens } from "@/lib/ai/budget";
@@ -34,7 +35,7 @@ RULES:
 - Keep every data-nk-* attribute, form field name, link and image unless the request explicitly asks to remove it — they power working features.
 - Keep the text language and tone; change only what the request asks.
 - Colours through theme variables only: var(--nk-primary), var(--nk-accent), var(--nk-text), var(--nk-text-muted), var(--nk-surface), var(--nk-border).
-- No emoji, no external scripts, no invented image URLs.
+- No emoji, no external scripts, no invented image URLs. New pictures come only from AVAILABLE LOCAL IMAGES (when listed) or image URLs the user gave, never from outside photo sites.
 
 ${DESIGN_RULES_COMPACT}`;
 
@@ -54,7 +55,7 @@ export async function POST(req: Request) {
   const chargeId = await recordAiUsage(user.id, "edit", projectId);
   const usage = () => aiUsageSummary(user).catch(() => null);
   const context = history?.length ? `Recent conversation:\n${history.map((h) => `${h.role}: ${h.text}`).join("\n")}\n\n` : "";
-  const baseMessage = `${context}Page: ${page.title}\nRequest: ${message}\n\nSECTION HTML:\n${sectionHtml}`;
+  const baseMessage = `${context}Page: ${page.title}\nRequest: ${message}\n\nSECTION HTML:\n${sectionHtml}${generatedImageContext(`${message} ${page.title}`, 3)}`;
   const maxTokens = Math.min(16_000, Math.max(2_000, estimateTokens(sectionHtml) * 2 + 1_500));
 
   let problem = "";

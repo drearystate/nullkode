@@ -21,7 +21,6 @@
 import { registerTemplate } from "../store";
 import type { StarterTemplate } from "../types";
 
-const IMG = "/templates/originals/original-personal";
 
 /* ── Shared CSS ─────────────────────────────────────────────────────── */
 const BASE_CSS = `
@@ -365,7 +364,7 @@ const HOME_HTML = `
       <p class="ch-proof"><span><b>38,000</b> readers every Monday</span><span><b>420</b> managers coached</span></p>
     </div>
     <figure class="ch-hero-fig">
-      <img src="${IMG}/clara-hero.webp" alt="Clara Holt smiling, arms folded, leaning against a red brick wall" width="720" height="900">
+      <img src="/media/generated/personal-clara-hero.webp" alt="Clara Holt smiling, arms folded, leaning against a red brick wall" width="720" height="900">
       <figcaption class="ch-hello"><strong>Hi, I'm Clara.</strong><span>Coach, writer and recovering engineering manager.</span></figcaption>
     </figure>
   </div>
@@ -433,7 +432,7 @@ const HOME_HTML = `
 <section class="ch-sec" aria-labelledby="ch-about-h">
   <div class="ch-wrap ch-about">
     <figure class="ch-about-fig">
-      <img src="${IMG}/clara-notebook.webp" alt="Clara in glasses holding a notebook, sitting on the edge of a desk" width="560" height="700" loading="lazy">
+      <img src="/media/generated/personal-clara-notebook.webp" alt="Clara in glasses holding a notebook, sitting on the edge of a desk" width="560" height="700" loading="lazy">
       <figcaption>12 years managing teams</figcaption>
     </figure>
     <div class="ch-about-copy">
@@ -479,7 +478,7 @@ const HOME_HTML = `
         <div><dt>Sent</dt><dd>Monday, 7:00 am</dd></div>
       </dl>
       <div class="ch-inbox-body">
-        <img src="${IMG}/letter-desk.webp" alt="" width="960" height="640" loading="lazy">
+        <img src="/media/generated/personal-letter-desk.webp" alt="" width="960" height="640" loading="lazy">
         <p>Hi friend,</p>
         <p>For two years my one-to-ones were status updates in disguise. Then a mentor gave me one question to open with: "What's taking more energy than it should right now?"</p>
         <p>It changed everything. People stopped reporting and started telling me what was actually going on. Here is how to use it this week, and the follow-up question that matters even more.</p>
@@ -572,7 +571,7 @@ const WORK_HTML = `
       </ul>
     </div>
     <div class="ch-offer-side">
-    <figure class="ch-coach-fig"><img src="${IMG}/clara-chair.webp" alt="Clara smiling, sitting in a wicker chair beside a houseplant" width="640" height="640" loading="lazy"></figure>
+    <figure class="ch-coach-fig"><img src="/media/generated/personal-clara-chair.webp" alt="Clara smiling, sitting in a wicker chair beside a houseplant" width="640" height="640" loading="lazy"></figure>
     <aside class="ch-price" aria-label="Coaching prices">
       <p class="ch-price-label">Choose how to pay</p>
       <div class="ch-price-opts">
@@ -656,7 +655,7 @@ const ABOUT_HTML = `
       <p>I don't say that to be modest. In my first year I micromanaged, avoided every difficult conversation and lost two excellent engineers. I thought I was just bad at it.</p>
       <p>It turned out I was untrained. Once I learned a handful of simple habits, managing became the best part of my job. Now I teach those habits to people who are where I was.</p>
     </div>
-    <figure class="ch-ahead-fig"><img src="${IMG}/clara-shelf.webp" alt="Clara standing by a wooden bookshelf, looking out of the frame" width="560" height="700"></figure>
+    <figure class="ch-ahead-fig"><img src="/media/generated/personal-clara-shelf.webp" alt="Clara standing by a wooden bookshelf, looking out of the frame" width="560" height="700"></figure>
   </div>
 </header>
 
@@ -689,14 +688,14 @@ const ABOUT_HTML = `
 </section>
 
 <div class="ch-wrap">
-  <figure class="ch-wide"><img src="${IMG}/clara-wall.webp" alt="Clara smiling with arms folded in front of a long red brick wall" width="960" height="480" loading="lazy"><figcaption>Somerville, where most Monday Letters get written.</figcaption></figure>
+  <figure class="ch-wide"><img src="/media/generated/personal-clara-wall.webp" alt="Clara smiling with arms folded in front of a long red brick wall" width="960" height="480" loading="lazy"><figcaption>Somerville, where most Monday Letters get written.</figcaption></figure>
 </div>
 
 <section class="ch-sec" aria-labelledby="ch-press-h">
   <div class="ch-wrap">
     <div class="ch-head"><p class="ch-kicker">Talks and interviews</p><h2 class="ch-h2" id="ch-press-h">Where I've been <em>talking about this.</em></h2></div>
     <div class="ch-press-grid">
-    <figure class="ch-press-fig"><img src="${IMG}/clara-reading.webp" alt="Clara in glasses reading a book in a leather armchair" width="560" height="700" loading="lazy"></figure>
+    <figure class="ch-press-fig"><img src="/media/generated/personal-clara-reading.webp" alt="Clara in glasses reading a book in a leather armchair" width="560" height="700" loading="lazy"></figure>
     <ul class="ch-press">
       <li><span class="ch-chip">Podcast</span><b>The Operator Podcast: "Your first 90 days as a manager"</b><span>48 min · 2026</span></li>
       <li><span class="ch-chip">Talk</span><b>LeadDev Boston: "Stop doing everyone's job"</b><span>25 min · 2026</span></li>

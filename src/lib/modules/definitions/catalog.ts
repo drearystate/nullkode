@@ -65,7 +65,7 @@ export const catalog: ModuleDefinition = {
 <div data-nk-bind-flow-ref="feed" class="row g-4">
   <div class="col-md-4" data-nk-item>
     <div class="card h-100 border-0 shadow-sm">
-      <img class="card-img-top" data-nk-src="image_url" src="https://picsum.photos/seed/cat1/480/360" alt=""/>
+      <img class="card-img-top" data-nk-src="image_url" src="/media/generated/ecommerce-terracotta-tumblers.webp" alt=""/>
       <div class="card-body">
         <div class="small text-uppercase" style="color:var(--nk-text-muted);" data-nk-field="category">Category</div>
         <h5 class="card-title fw-bold mt-1" data-nk-field="name">First product</h5>
@@ -76,7 +76,7 @@ export const catalog: ModuleDefinition = {
   </div>
   <div class="col-md-4">
     <div class="card h-100 border-0 shadow-sm">
-      <img class="card-img-top" src="https://picsum.photos/seed/cat2/480/360" alt=""/>
+      <img class="card-img-top" src="/media/generated/ecommerce-celadon-bottles.webp" alt=""/>
       <div class="card-body">
         <div class="small text-uppercase" style="color:var(--nk-text-muted);">Featured</div>
         <h5 class="card-title fw-bold mt-1">Second product</h5>
@@ -87,7 +87,7 @@ export const catalog: ModuleDefinition = {
   </div>
   <div class="col-md-4">
     <div class="card h-100 border-0 shadow-sm">
-      <img class="card-img-top" src="https://picsum.photos/seed/cat3/480/360" alt=""/>
+      <img class="card-img-top" src="/media/generated/ecommerce-wheel-hands.webp" alt=""/>
       <div class="card-body">
         <div class="small text-uppercase" style="color:var(--nk-text-muted);">Accessory</div>
         <h5 class="card-title fw-bold mt-1">Third product</h5>

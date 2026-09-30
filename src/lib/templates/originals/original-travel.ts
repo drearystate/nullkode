@@ -16,7 +16,6 @@
 import { registerTemplate } from "../store";
 import type { StarterTemplate } from "../types";
 
-const IMG = "/templates/originals/original-travel";
 const MONO = `"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace`;
 
 /*
@@ -225,7 +224,7 @@ const dep = (trip: string, region: string, dates: string, days: string, g: numbe
 
 const card = (img: string, alt: string, coords: string, region: string, name: string, days: string, g: number, gl: string, price: string, anchor: string, w = 960, h = 640) => `
       <article class="nbt-card">
-        <figure class="nbt-card__img"><img src="${IMG}/${img}" alt="${alt}" width="${w}" height="${h}" loading="lazy"><figcaption class="nbt-mono">${coords}</figcaption></figure>
+        <figure class="nbt-card__img"><img src="${img}" alt="${alt}" width="${w}" height="${h}" loading="lazy"><figcaption class="nbt-mono">${coords}</figcaption></figure>
         <div class="nbt-card__body">
           <p class="nbt-card__region">${region}</p>
           <h3 class="nbt-card__name">${name}</h3>
@@ -239,7 +238,7 @@ const card = (img: string, alt: string, coords: string, region: string, name: st
 
 const HOME_HTML = `
 <section class="nbt-hero">
-  <img class="nbt-hero__img" src="${IMG}/ridge-above-clouds.webp" alt="A sharp green ridge rising above a sea of clouds in the Japanese Northern Alps" width="1920" height="1163" fetchpriority="high">
+  <img class="nbt-hero__img" src="/media/generated/travel-ridge-above-clouds.webp" alt="A sharp green ridge rising above a sea of clouds in the Japanese Northern Alps" width="1920" height="1163" fetchpriority="high">
   <div class="nbt-wrap nbt-hero__inner">
     <p class="nbt-hero__coords nbt-mono">36.3419&deg; N &middot; 137.6476&deg; E &middot; Yari&ndash;Hotaka ridge, 3,180 m</p>
     <h1 class="nbt-hero__title">Small groups.<br>Big mountains.</h1>
@@ -287,7 +286,7 @@ const HOME_HTML = `
       <a class="btn btn-primary nbt-btn" href="/book">Reserve a place</a>
     </div>
     <div class="nbt-feature__media">
-      <figure class="nbt-feature__img"><img src="${IMG}/dolomites-lakes.webp" alt="A lone hiker standing by two alpine lakes beneath the pale cliffs of the Dolomites" width="960" height="610" loading="lazy"></figure>
+      <figure class="nbt-feature__img"><img src="/media/generated/travel-dolomites-lakes.webp" alt="A lone hiker standing by two alpine lakes beneath the pale cliffs of the Dolomites" width="960" height="610" loading="lazy"></figure>
       <div class="nbt-profile" role="img" aria-label="Daily ascent profile: day 1 850 m, day 2 1,120 m, day 3 640 m, day 4 980 m, day 5 420 m, day 6 1,210 m, day 7 760 m, day 8 descent to Belluno">
         <p class="nbt-profile__title nbt-mono">Daily ascent, metres</p>
         <ol class="nbt-profile__bars">
@@ -330,7 +329,7 @@ const HOME_HTML = `
       <p class="nbt-eyebrow">Five treks, four countries</p>
       <h2 class="nbt-h2">Pick your mountains</h2>
     </div>
-    <div class="nbt-treks__grid">${card("dolomites-sunrise.webp", "A hiker in a red jacket watching sunrise over the jagged Seceda ridge", "46.60&deg; N, 11.72&deg; E", "Italy &middot; Dolomites", "Alta Via 1", "8 days &middot; 68 km", 3, "Moderate+", "3,450", "dolomites", 960, 720)}${card("swiss-ridge.webp", "A hiker photographing green Swiss mountain ridges from a grassy saddle", "46.62&deg; N, 7.98&deg; E", "Switzerland &middot; Bernese Oberland", "Oberland Traverse", "7 days &middot; 62 km", 2, "Moderate", "3,890", "bernese-oberland", 960, 641)}${card("ridge-above-clouds.webp", "A green ridge above a sea of cloud in the Japanese Northern Alps", "36.34&deg; N, 137.65&deg; E", "Japan &middot; Northern Alps", "Yari&ndash;Hotaka Circuit", "6 days &middot; 41 km", 4, "Challenging", "4,280", "yari-hotaka", 1920, 1163)}${card("southern-alps.webp", "A hiker walking a golden valley track towards snow-covered peaks in New Zealand", "43.72&deg; S, 170.09&deg; E", "New Zealand &middot; Southern Alps", "Hooker Valley &amp; Mueller Hut", "9 days &middot; 74 km", 2, "Moderate", "4,650", "new-zealand")}${card("alpine-meadows.webp", "Rolling green alpine meadows dotted with larch trees beneath rocky peaks", "46.54&deg; N, 11.62&deg; E", "Italy &middot; South Tyrol", "Alpe di Siusi Meadows", "5 days &middot; 38 km", 1, "Easy", "1,980", "alpe-di-siusi")}
+    <div class="nbt-treks__grid">${card("/media/generated/travel-dolomites-sunrise.webp", "A hiker in a red jacket watching sunrise over the jagged Seceda ridge", "46.60&deg; N, 11.72&deg; E", "Italy &middot; Dolomites", "Alta Via 1", "8 days &middot; 68 km", 3, "Moderate+", "3,450", "dolomites", 960, 720)}${card("/media/generated/travel-swiss-ridge.webp", "A hiker photographing green Swiss mountain ridges from a grassy saddle", "46.62&deg; N, 7.98&deg; E", "Switzerland &middot; Bernese Oberland", "Oberland Traverse", "7 days &middot; 62 km", 2, "Moderate", "3,890", "bernese-oberland", 960, 641)}${card("/media/generated/travel-ridge-above-clouds.webp", "A green ridge above a sea of cloud in the Japanese Northern Alps", "36.34&deg; N, 137.65&deg; E", "Japan &middot; Northern Alps", "Yari&ndash;Hotaka Circuit", "6 days &middot; 41 km", 4, "Challenging", "4,280", "yari-hotaka", 1920, 1163)}${card("/media/generated/travel-southern-alps.webp", "A hiker walking a golden valley track towards snow-covered peaks in New Zealand", "43.72&deg; S, 170.09&deg; E", "New Zealand &middot; Southern Alps", "Hooker Valley &amp; Mueller Hut", "9 days &middot; 74 km", 2, "Moderate", "4,650", "new-zealand")}${card("/media/generated/travel-alpine-meadows.webp", "Rolling green alpine meadows dotted with larch trees beneath rocky peaks", "46.54&deg; N, 11.62&deg; E", "Italy &middot; South Tyrol", "Alpe di Siusi Meadows", "5 days &middot; 38 km", 1, "Easy", "1,980", "alpe-di-siusi")}
       <article class="nbt-card nbt-card--custom nbt-contours">
         <p class="nbt-card__region">Your dates, your pace</p>
         <h3 class="nbt-card__name">Private departures</h3>
@@ -359,7 +358,7 @@ const HOME_HTML = `
 
 <section class="nbt-included">
   <div class="nbt-wrap nbt-included__grid">
-    <figure class="nbt-included__img"><img src="${IMG}/tent-view.webp" alt="View from inside a tent of pine trees and a turquoise mountain lake" width="960" height="1200" loading="lazy"></figure>
+    <figure class="nbt-included__img"><img src="/media/generated/travel-tent-view.webp" alt="View from inside a tent of pine trees and a turquoise mountain lake" width="960" height="1200" loading="lazy"></figure>
     <div>
       <p class="nbt-eyebrow">What's in the price</p>
       <h2 class="nbt-h2">Everything but your boots</h2>
@@ -394,7 +393,7 @@ const HOME_HTML = `
         <footer><span class="nbt-mono">Alta Via 1 &middot; Sept 2025</span> Dan K., Portland</footer>
       </blockquote>
     </div>
-    <figure class="nbt-guides__img"><img src="${IMG}/small-group.webp" alt="A small group of hikers with large packs walking single file through a meadow towards the forest" width="960" height="640" loading="lazy"></figure>
+    <figure class="nbt-guides__img"><img src="/media/generated/travel-small-group.webp" alt="A small group of hikers with large packs walking single file through a meadow towards the forest" width="960" height="640" loading="lazy"></figure>
   </div>
 </section>
 ${PLANNER}
@@ -549,7 +548,7 @@ const trek = (id: string, img: string, alt: string, w: number, h: number, region
 <section class="nbt-trek${flip ? " nbt-trek--flip" : ""}" id="${id}">
   <div class="nbt-wrap nbt-trek__grid">
     <div class="nbt-trek__media">
-      <figure class="nbt-trek__img"><img src="${IMG}/${img}" alt="${alt}" width="${w}" height="${h}" loading="lazy"></figure>
+      <figure class="nbt-trek__img"><img src="${img}" alt="${alt}" width="${w}" height="${h}" loading="lazy"></figure>
       <dl class="nbt-trek__facts">${facts.map(([k, v]) => `<div><dt>${k}</dt><dd class="nbt-mono">${v}</dd></div>`).join("")}</dl>
     </div>
     <div class="nbt-trek__copy">
@@ -581,14 +580,14 @@ const TRIPS_HTML = `
         <a class="nbt-chip" href="#alpe-di-siusi">Alpe di Siusi</a>
       </div>
     </div>
-    <figure class="nbt-trips-hero__img"><img src="${IMG}/dolomites-sunrise.webp" alt="A hiker in a red jacket watching sunrise over the jagged Seceda ridge in the Dolomites" width="960" height="720" fetchpriority="high"><figcaption class="nbt-mono">46.60&deg; N, 11.72&deg; E &middot; Seceda, 2,519 m</figcaption></figure>
+    <figure class="nbt-trips-hero__img"><img src="/media/generated/travel-dolomites-sunrise.webp" alt="A hiker in a red jacket watching sunrise over the jagged Seceda ridge in the Dolomites" width="960" height="720" fetchpriority="high"><figcaption class="nbt-mono">46.60&deg; N, 11.72&deg; E &middot; Seceda, 2,519 m</figcaption></figure>
   </div>
 </section>
-${trek("dolomites", "dolomites-lakes.webp", "A lone hiker by two alpine lakes beneath the pale cliffs of the Dolomites", 960, 610, "Italy &middot; Dolomites &middot; Grade 3", "Alta Via 1", "Lago di Braies to Belluno along the most famous high route in the Dolomites, with five nights in rifugi and two in small hotels.", [["Days", "8"], ["Distance", "68 km"], ["Ascent", "+4,620 m"], ["Group", "4 &ndash; 10"]], `${stage("D1", "Lago di Braies &rarr; Rifugio Biella", "11 km", "+850 m", "Hut")}${stage("D2", "Biella &rarr; Rifugio Lagazuoi", "16 km", "+1,120 m", "Hut")}${stage("D3", "Lagazuoi &rarr; Rifugio Nuvolau", "9 km", "+640 m", "Hut")}${stage("D4", "Nuvolau &rarr; Rifugio Coldai", "12 km", "+980 m", "Hut")}${stage("D5", "Rest day at Lago Coldai", "6 km", "+420 m", "Hut")}${stage("D6&ndash;8", "Civetta wall &rarr; Belluno", "14 km", "+1,970 m", "Hotels")}`, ["Jun 14", "Sep 6"], "3,450")}
-${trek("bernese-oberland", "swiss-ridge.webp", "A hiker photographing green Swiss mountain ridges from a grassy saddle", 960, 641, "Switzerland &middot; Bernese Oberland &middot; Grade 2", "Oberland Traverse", "Beneath the Eiger, Mönch and Jungfrau on balcony paths, with mountain railways to skip the dull bits and a lake swim to finish.", [["Days", "7"], ["Distance", "62 km"], ["Ascent", "+3,300 m"], ["Group", "4 &ndash; 10"]], `${stage("D1", "Grindelwald &rarr; First &rarr; Bachalpsee", "10 km", "+520 m", "Hotel")}${stage("D2", "Faulhorn traverse &rarr; Schynige Platte", "15 km", "+780 m", "Mountain inn")}${stage("D3", "Wengen &rarr; Kleine Scheidegg", "11 km", "+620 m", "Hotel")}${stage("D4&ndash;7", "Mürren, Sefinental &amp; Lake Thun", "26 km", "+1,380 m", "Hotels")}`, ["Jul 12"], "3,890", true)}
-${trek("yari-hotaka", "ridge-above-clouds.webp", "A green ridge above a sea of cloud in the Japanese Northern Alps", 1920, 1163, "Japan &middot; Northern Alps &middot; Grade 4", "Yari&ndash;Hotaka Circuit", "Japan's great alpine ridge walk: chains, ladders and huts that serve miso soup at 4 am so you can watch sunrise from 3,000 metres.", [["Days", "6"], ["Distance", "41 km"], ["Ascent", "+3,900 m"], ["Group", "4 &ndash; 8"]], `${stage("D1", "Kamikochi &rarr; Yokoo Sanso", "11 km", "+220 m", "Hut")}${stage("D2", "Yokoo &rarr; Yarigatake Sanso", "9 km", "+1,500 m", "Hut")}${stage("D3", "Daikiretto &rarr; Kitahotaka hut", "5 km", "+640 m", "Hut")}${stage("D4&ndash;6", "Okuhotaka &rarr; Kamikochi &amp; onsen", "16 km", "+1,540 m", "Hut &amp; ryokan")}`, ["Aug 2 (waitlist)"], "4,280")}
-${trek("new-zealand", "southern-alps.webp", "A hiker walking a golden valley track towards snow-covered peaks in New Zealand", 960, 640, "New Zealand &middot; Southern Alps &middot; Grade 2", "Hooker Valley &amp; Mueller Hut", "Glacier lakes, swing bridges and a night at Mueller Hut beneath Aoraki / Mount Cook, then the Routeburn's lakes and beech forest.", [["Days", "9"], ["Distance", "74 km"], ["Ascent", "+3,450 m"], ["Group", "4 &ndash; 10"]], `${stage("D1&ndash;2", "Hooker Valley &amp; Tasman Glacier", "18 km", "+420 m", "Lodge")}${stage("D3", "Sealy Tarns &rarr; Mueller Hut", "5 km", "+1,050 m", "Hut")}${stage("D4&ndash;6", "Routeburn Track", "33 km", "+1,280 m", "Huts")}${stage("D7&ndash;9", "Milford Sound &amp; Queenstown", "18 km", "+700 m", "Hotels")}`, ["Nov 22"], "4,650", true)}
-${trek("alpe-di-siusi", "alpine-meadows.webp", "Rolling green alpine meadows dotted with larch trees beneath rocky peaks", 960, 640, "Italy &middot; South Tyrol &middot; Grade 1", "Alpe di Siusi Meadows", "Europe's largest high meadow on gentle paths, with the same hotel every night so you only unpack once. Ideal for first-timers and families with teens.", [["Days", "5"], ["Distance", "38 km"], ["Ascent", "+1,650 m"], ["Group", "4 &ndash; 10"]], `${stage("D1", "Compatsch &rarr; Saltria loop", "8 km", "+310 m", "Hotel")}${stage("D2", "Sassolungo circuit", "11 km", "+480 m", "Hotel")}${stage("D3&ndash;5", "Seiser Alm huts &amp; Santner view", "19 km", "+860 m", "Hotel")}`, ["Jun 28"], "1,980")}
+${trek("dolomites", "/media/generated/travel-dolomites-lakes.webp", "A lone hiker by two alpine lakes beneath the pale cliffs of the Dolomites", 960, 610, "Italy &middot; Dolomites &middot; Grade 3", "Alta Via 1", "Lago di Braies to Belluno along the most famous high route in the Dolomites, with five nights in rifugi and two in small hotels.", [["Days", "8"], ["Distance", "68 km"], ["Ascent", "+4,620 m"], ["Group", "4 &ndash; 10"]], `${stage("D1", "Lago di Braies &rarr; Rifugio Biella", "11 km", "+850 m", "Hut")}${stage("D2", "Biella &rarr; Rifugio Lagazuoi", "16 km", "+1,120 m", "Hut")}${stage("D3", "Lagazuoi &rarr; Rifugio Nuvolau", "9 km", "+640 m", "Hut")}${stage("D4", "Nuvolau &rarr; Rifugio Coldai", "12 km", "+980 m", "Hut")}${stage("D5", "Rest day at Lago Coldai", "6 km", "+420 m", "Hut")}${stage("D6&ndash;8", "Civetta wall &rarr; Belluno", "14 km", "+1,970 m", "Hotels")}`, ["Jun 14", "Sep 6"], "3,450")}
+${trek("bernese-oberland", "/media/generated/travel-swiss-ridge.webp", "A hiker photographing green Swiss mountain ridges from a grassy saddle", 960, 641, "Switzerland &middot; Bernese Oberland &middot; Grade 2", "Oberland Traverse", "Beneath the Eiger, Mönch and Jungfrau on balcony paths, with mountain railways to skip the dull bits and a lake swim to finish.", [["Days", "7"], ["Distance", "62 km"], ["Ascent", "+3,300 m"], ["Group", "4 &ndash; 10"]], `${stage("D1", "Grindelwald &rarr; First &rarr; Bachalpsee", "10 km", "+520 m", "Hotel")}${stage("D2", "Faulhorn traverse &rarr; Schynige Platte", "15 km", "+780 m", "Mountain inn")}${stage("D3", "Wengen &rarr; Kleine Scheidegg", "11 km", "+620 m", "Hotel")}${stage("D4&ndash;7", "Mürren, Sefinental &amp; Lake Thun", "26 km", "+1,380 m", "Hotels")}`, ["Jul 12"], "3,890", true)}
+${trek("yari-hotaka", "/media/generated/travel-ridge-above-clouds.webp", "A green ridge above a sea of cloud in the Japanese Northern Alps", 1920, 1163, "Japan &middot; Northern Alps &middot; Grade 4", "Yari&ndash;Hotaka Circuit", "Japan's great alpine ridge walk: chains, ladders and huts that serve miso soup at 4 am so you can watch sunrise from 3,000 metres.", [["Days", "6"], ["Distance", "41 km"], ["Ascent", "+3,900 m"], ["Group", "4 &ndash; 8"]], `${stage("D1", "Kamikochi &rarr; Yokoo Sanso", "11 km", "+220 m", "Hut")}${stage("D2", "Yokoo &rarr; Yarigatake Sanso", "9 km", "+1,500 m", "Hut")}${stage("D3", "Daikiretto &rarr; Kitahotaka hut", "5 km", "+640 m", "Hut")}${stage("D4&ndash;6", "Okuhotaka &rarr; Kamikochi &amp; onsen", "16 km", "+1,540 m", "Hut &amp; ryokan")}`, ["Aug 2 (waitlist)"], "4,280")}
+${trek("new-zealand", "/media/generated/travel-southern-alps.webp", "A hiker walking a golden valley track towards snow-covered peaks in New Zealand", 960, 640, "New Zealand &middot; Southern Alps &middot; Grade 2", "Hooker Valley &amp; Mueller Hut", "Glacier lakes, swing bridges and a night at Mueller Hut beneath Aoraki / Mount Cook, then the Routeburn's lakes and beech forest.", [["Days", "9"], ["Distance", "74 km"], ["Ascent", "+3,450 m"], ["Group", "4 &ndash; 10"]], `${stage("D1&ndash;2", "Hooker Valley &amp; Tasman Glacier", "18 km", "+420 m", "Lodge")}${stage("D3", "Sealy Tarns &rarr; Mueller Hut", "5 km", "+1,050 m", "Hut")}${stage("D4&ndash;6", "Routeburn Track", "33 km", "+1,280 m", "Huts")}${stage("D7&ndash;9", "Milford Sound &amp; Queenstown", "18 km", "+700 m", "Hotels")}`, ["Nov 22"], "4,650", true)}
+${trek("alpe-di-siusi", "/media/generated/travel-alpine-meadows.webp", "Rolling green alpine meadows dotted with larch trees beneath rocky peaks", 960, 640, "Italy &middot; South Tyrol &middot; Grade 1", "Alpe di Siusi Meadows", "Europe's largest high meadow on gentle paths, with the same hotel every night so you only unpack once. Ideal for first-timers and families with teens.", [["Days", "5"], ["Distance", "38 km"], ["Ascent", "+1,650 m"], ["Group", "4 &ndash; 10"]], `${stage("D1", "Compatsch &rarr; Saltria loop", "8 km", "+310 m", "Hotel")}${stage("D2", "Sassolungo circuit", "11 km", "+480 m", "Hotel")}${stage("D3&ndash;5", "Seiser Alm huts &amp; Santner view", "19 km", "+860 m", "Hotel")}`, ["Jun 28"], "1,980")}
 
 <section class="nbt-before">
   <div class="nbt-wrap nbt-before__grid">

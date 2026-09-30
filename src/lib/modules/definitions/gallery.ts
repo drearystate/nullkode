@@ -104,13 +104,13 @@ export const gallery: ModuleDefinition = {
     </div>
     <div data-nk-bind-flow-ref="feed" class="row g-3 mt-4">
       <div class="col-md-4 col-6" data-nk-item>
-        <figure class="m-0"><img class="img-fluid rounded shadow-sm" style="aspect-ratio:1/1;object-fit:cover;" data-nk-src="image_url" src="https://picsum.photos/seed/g1/400/400" alt=""/><figcaption class="small mt-2" style="color:var(--nk-text-muted);" data-nk-field="title">Sunset over the harbor</figcaption></figure>
+        <figure class="m-0"><img class="img-fluid rounded shadow-sm" style="aspect-ratio:1/1;object-fit:cover;" data-nk-src="image_url" src="/media/generated/marine-marina.webp" alt=""/><figcaption class="small mt-2" style="color:var(--nk-text-muted);" data-nk-field="title">Sunset over the harbor</figcaption></figure>
       </div>
-      <div class="col-md-4 col-6"><figure class="m-0"><img class="img-fluid rounded shadow-sm" style="aspect-ratio:1/1;object-fit:cover;" src="https://picsum.photos/seed/g2/400/400" alt=""/><figcaption class="small mt-2" style="color:var(--nk-text-muted);">City lights at night</figcaption></figure></div>
-      <div class="col-md-4 col-6"><figure class="m-0"><img class="img-fluid rounded shadow-sm" style="aspect-ratio:1/1;object-fit:cover;" src="https://picsum.photos/seed/g3/400/400" alt=""/><figcaption class="small mt-2" style="color:var(--nk-text-muted);">Mountain reflections</figcaption></figure></div>
-      <div class="col-md-4 col-6"><figure class="m-0"><img class="img-fluid rounded shadow-sm" style="aspect-ratio:1/1;object-fit:cover;" src="https://picsum.photos/seed/g4/400/400" alt=""/><figcaption class="small mt-2" style="color:var(--nk-text-muted);">Early morning fog</figcaption></figure></div>
-      <div class="col-md-4 col-6"><figure class="m-0"><img class="img-fluid rounded shadow-sm" style="aspect-ratio:1/1;object-fit:cover;" src="https://picsum.photos/seed/g5/400/400" alt=""/><figcaption class="small mt-2" style="color:var(--nk-text-muted);">Autumn trail</figcaption></figure></div>
-      <div class="col-md-4 col-6"><figure class="m-0"><img class="img-fluid rounded shadow-sm" style="aspect-ratio:1/1;object-fit:cover;" src="https://picsum.photos/seed/g6/400/400" alt=""/><figcaption class="small mt-2" style="color:var(--nk-text-muted);">Coastal cliffs</figcaption></figure></div>
+      <div class="col-md-4 col-6"><figure class="m-0"><img class="img-fluid rounded shadow-sm" style="aspect-ratio:1/1;object-fit:cover;" src="/media/generated/realestate-division-condos.webp" alt=""/><figcaption class="small mt-2" style="color:var(--nk-text-muted);">City lights at night</figcaption></figure></div>
+      <div class="col-md-4 col-6"><figure class="m-0"><img class="img-fluid rounded shadow-sm" style="aspect-ratio:1/1;object-fit:cover;" src="/media/generated/travel-dolomites-lakes.webp" alt=""/><figcaption class="small mt-2" style="color:var(--nk-text-muted);">Mountain reflections</figcaption></figure></div>
+      <div class="col-md-4 col-6"><figure class="m-0"><img class="img-fluid rounded shadow-sm" style="aspect-ratio:1/1;object-fit:cover;" src="/media/generated/travel-ridge-above-clouds.webp" alt=""/><figcaption class="small mt-2" style="color:var(--nk-text-muted);">Early morning fog</figcaption></figure></div>
+      <div class="col-md-4 col-6"><figure class="m-0"><img class="img-fluid rounded shadow-sm" style="aspect-ratio:1/1;object-fit:cover;" src="/media/generated/travel-southern-alps.webp" alt=""/><figcaption class="small mt-2" style="color:var(--nk-text-muted);">Autumn trail</figcaption></figure></div>
+      <div class="col-md-4 col-6"><figure class="m-0"><img class="img-fluid rounded shadow-sm" style="aspect-ratio:1/1;object-fit:cover;" src="/media/generated/hospitality-dune-path.webp" alt=""/><figcaption class="small mt-2" style="color:var(--nk-text-muted);">Coastal cliffs</figcaption></figure></div>
     </div>
   </div>
 </section>`,

@@ -18,7 +18,6 @@
 import { registerTemplate } from "../store";
 import type { StarterTemplate } from "../types";
 
-const IMG = "/templates/originals/original-health";
 
 /*
  * The visual editor (GrapesJS) re-parses page CSS through the CSSOM and silently
@@ -211,15 +210,15 @@ const BAND = `
 
 type Doc = { img: string; w: number; h: number; alt: string; name: string; cred: string; focus: string; langs: string; status: "ok" | "wait"; statusText: string };
 const DOCS: Doc[] = [
-  { img: "dr-hartley.webp", w: 360, h: 450, alt: "Portrait of Dr. Margaret Hartley smiling, wearing glasses and a white coat", name: "Dr. Margaret Hartley", cred: "MD, Family Medicine", focus: "Women's health, menopause care, preventive medicine", langs: "English", status: "wait", statusText: "Waitlist for new patients" },
-  { img: "dr-okafor.webp", w: 400, h: 500, alt: "Portrait of Dr. Daniel Okafor in a white coat with a stethoscope and tablet", name: "Dr. Daniel Okafor", cred: "MD, Family Medicine", focus: "Chronic conditions, sports injuries, men's health", langs: "English, Yoruba", status: "ok", statusText: "Accepting new patients" },
-  { img: "np-lindqvist.webp", w: 400, h: 500, alt: "Portrait of nurse practitioner Emma Lindqvist smiling while reading a tablet", name: "Emma Lindqvist", cred: "DNP, Family Nurse Practitioner", focus: "Children and teens, same-day sick visits, vaccines", langs: "English, Swedish", status: "ok", statusText: "Accepting new patients" },
-  { img: "dr-aldana.webp", w: 360, h: 450, alt: "Portrait of Dr. Victor Aldana, a senior physician with a white beard, mid-conversation", name: "Dr. Victor Aldana", cred: "MD, Internal Medicine", focus: "Older adults, heart health, diabetes management", langs: "English, Spanish", status: "ok", statusText: "Accepting new patients" },
+  { img: "/media/generated/health-dr-hartley.webp", w: 360, h: 450, alt: "Portrait of Dr. Margaret Hartley smiling, wearing glasses and a white coat", name: "Dr. Margaret Hartley", cred: "MD, Family Medicine", focus: "Women's health, menopause care, preventive medicine", langs: "English", status: "wait", statusText: "Waitlist for new patients" },
+  { img: "/media/generated/health-dr-okafor.webp", w: 400, h: 500, alt: "Portrait of Dr. Daniel Okafor in a white coat with a stethoscope and tablet", name: "Dr. Daniel Okafor", cred: "MD, Family Medicine", focus: "Chronic conditions, sports injuries, men's health", langs: "English, Yoruba", status: "ok", statusText: "Accepting new patients" },
+  { img: "/media/generated/health-np-lindqvist.webp", w: 400, h: 500, alt: "Portrait of nurse practitioner Emma Lindqvist smiling while reading a tablet", name: "Emma Lindqvist", cred: "DNP, Family Nurse Practitioner", focus: "Children and teens, same-day sick visits, vaccines", langs: "English, Swedish", status: "ok", statusText: "Accepting new patients" },
+  { img: "/media/generated/health-dr-aldana.webp", w: 360, h: 450, alt: "Portrait of Dr. Victor Aldana, a senior physician with a white beard, mid-conversation", name: "Dr. Victor Aldana", cred: "MD, Internal Medicine", focus: "Older adults, heart health, diabetes management", langs: "English, Spanish", status: "ok", statusText: "Accepting new patients" },
 ];
 
 const docCard = (d: Doc) => `
       <article class="lkh-doc">
-        <figure class="lkh-doc__img"><img src="${IMG}/${d.img}" alt="${d.alt}" width="${d.w}" height="${d.h}" loading="lazy"><figcaption class="lkh-chip lkh-chip--${d.status}">${d.statusText}</figcaption></figure>
+        <figure class="lkh-doc__img"><img src="${d.img}" alt="${d.alt}" width="${d.w}" height="${d.h}" loading="lazy"><figcaption class="lkh-chip lkh-chip--${d.status}">${d.statusText}</figcaption></figure>
         <h3>${d.name}</h3>
         <p class="lkh-doc__cred">${d.cred}</p>
         <p class="lkh-doc__focus">${d.focus}</p>
@@ -263,7 +262,7 @@ const HOME_HTML = `
       </ul>
     </div>
     <div class="lkh-hero__media">
-      <figure class="lkh-hero__img"><img src="${IMG}/caring-hands.webp" alt="A smiling older woman holding hands with a nurse during a visit" width="960" height="640" fetchpriority="high"></figure>
+      <figure class="lkh-hero__img"><img src="/media/generated/health-caring-hands.webp" alt="A smiling older woman holding hands with a nurse during a visit" width="960" height="640" fetchpriority="high"></figure>
       <div class="lkh-slot">
         <p class="lkh-slot__label">Next available</p>
         <p class="lkh-slot__time">Today, 3:40 pm</p>
@@ -330,7 +329,7 @@ const HOME_HTML = `
 
 <section class="lkh-first">
   <div class="lkh-wrap lkh-first__grid">
-    <figure class="lkh-first__img"><img src="${IMG}/consultation.webp" alt="A physician listening to a patient across a desk while a nurse reviews notes" width="960" height="640" loading="lazy"></figure>
+    <figure class="lkh-first__img"><img src="/media/generated/health-consultation.webp" alt="A physician listening to a patient across a desk while a nurse reviews notes" width="960" height="640" loading="lazy"></figure>
     <div>
       <p class="lkh-eyebrow">Your first visit</p>
       <h2 class="lkh-h2">Forty minutes, just for getting to know you</h2>
@@ -486,7 +485,7 @@ const SERVICES_HTML = `
       <h1 class="lkh-shead__title">Everything we do, and what it costs</h1>
       <p class="lkh-lede">Clear answers before you arrive. Insurance covers most visits; if you're paying yourself, these are our full prices with no facility fees or surprise bills.</p>
     </div>
-    <figure class="lkh-shead__img"><img src="${IMG}/care-team.webp" alt="A physician and two nurses discussing a patient chart beside a window" width="960" height="640" fetchpriority="high"></figure>
+    <figure class="lkh-shead__img"><img src="/media/generated/health-care-team.webp" alt="A physician and two nurses discussing a patient chart beside a window" width="960" height="640" fetchpriority="high"></figure>
   </div>
 </section>
 
@@ -515,7 +514,7 @@ const SERVICES_HTML = `
         <li>Questions you want answered, written down</li>
       </ul>
     </div>
-    <figure class="lkh-bring__img"><img src="${IMG}/stethoscope.webp" alt="A blue stethoscope beside a laptop on a white desk" width="960" height="613" loading="lazy"></figure>
+    <figure class="lkh-bring__img"><img src="/media/generated/health-stethoscope.webp" alt="A blue stethoscope beside a laptop on a white desk" width="960" height="613" loading="lazy"></figure>
   </div>
 </section>
 

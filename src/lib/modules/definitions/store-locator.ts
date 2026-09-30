@@ -29,9 +29,9 @@ export const storeLocator: ModuleDefinition = {
         { name: "image_url", type: "text" },
       ],
       seed: [
-        { name: "Acme Downtown", address: "100 Main St", city: "Seattle, WA", phone: "(206) 555-0100", hours: "Mon-Sat 9-9, Sun 11-7", services: "Pickup, Returns, Repairs", lat: 47.6062, lng: -122.3321, image_url: "https://picsum.photos/seed/store1/600/400" },
-        { name: "Acme Ballard", address: "5500 22nd Ave NW", city: "Seattle, WA", phone: "(206) 555-0101", hours: "Mon-Sat 10-8, Sun closed", services: "Pickup", lat: 47.6685, lng: -122.3848, image_url: "https://picsum.photos/seed/store2/600/400" },
-        { name: "Acme Bellevue", address: "200 Bellevue Way NE", city: "Bellevue, WA", phone: "(425) 555-0102", hours: "Daily 10-9", services: "Pickup, Returns", lat: 47.6101, lng: -122.2015, image_url: "https://picsum.photos/seed/store3/600/400" },
+        { name: "Acme Downtown", address: "100 Main St", city: "Seattle, WA", phone: "(206) 555-0100", hours: "Mon-Sat 9-9, Sun 11-7", services: "Pickup, Returns, Repairs", lat: 47.6062, lng: -122.3321, image_url: "/media/generated/signage-blank-storefront.webp" },
+        { name: "Acme Ballard", address: "5500 22nd Ave NW", city: "Seattle, WA", phone: "(206) 555-0101", hours: "Mon-Sat 10-8, Sun closed", services: "Pickup", lat: 47.6685, lng: -122.3848, image_url: "/media/generated/eyewear-optical-store.webp" },
+        { name: "Acme Bellevue", address: "200 Bellevue Way NE", city: "Bellevue, WA", phone: "(425) 555-0102", hours: "Daily 10-9", services: "Pickup, Returns", lat: 47.6101, lng: -122.2015, image_url: "/media/generated/bookstore-reading-corner.webp" },
       ],
     },
   ],

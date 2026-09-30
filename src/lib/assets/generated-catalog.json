@@ -17,7 +17,9 @@
       "services",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "hvac-heat-pump",
@@ -37,7 +39,9 @@
       "services",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "roofing-tile-roof",
@@ -56,7 +60,9 @@
       "repair",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "roofing-roof-consultation",
@@ -75,7 +81,9 @@
       "repair",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "painting-wall-roller",
@@ -93,7 +101,9 @@
       "renovation",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "painting-color-samples",
@@ -111,7 +121,9 @@
       "renovation",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "flooring-oak-installation",
@@ -129,7 +141,9 @@
       "trades",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "flooring-stone-floor",
@@ -147,7 +161,9 @@
       "trades",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "locksmith-lock-workbench",
@@ -165,7 +181,9 @@
       "trades",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "locksmith-door-hardware",
@@ -183,7 +201,9 @@
       "trades",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "pestcontrol-inspection",
@@ -201,7 +221,9 @@
       "services",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "pestcontrol-service-kit",
@@ -219,7 +241,9 @@
       "services",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "poolcare-pool-cleaning",
@@ -238,7 +262,9 @@
       "services",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "poolcare-clear-water",
@@ -257,7 +283,9 @@
       "services",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "moving-moving-team",
@@ -276,7 +304,9 @@
       "services",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "moving-packed-room",
@@ -295,7 +325,9 @@
       "services",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "storage-storage-corridor",
@@ -313,7 +345,9 @@
       "rental",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "storage-organized-unit",
@@ -331,7 +365,9 @@
       "rental",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "laundry-laundry-shop",
@@ -350,7 +386,9 @@
       "clothes",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "laundry-folded-linen",
@@ -369,7 +407,9 @@
       "clothes",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "tailoring-tailor-fitting",
@@ -388,7 +428,9 @@
       "fashion",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "tailoring-sewing-details",
@@ -407,7 +449,9 @@
       "fashion",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "shoerepair-cobbler-bench",
@@ -425,7 +469,9 @@
       "repair",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "shoerepair-polished-shoes",
@@ -443,7 +489,9 @@
       "repair",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "jewelry-gold-earrings",
@@ -462,7 +510,9 @@
       "retail",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "jewelry-jeweler-work",
@@ -481,7 +531,9 @@
       "retail",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "eyewear-frames-display",
@@ -500,7 +552,9 @@
       "retail",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "eyewear-optical-store",
@@ -519,7 +573,9 @@
       "retail",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "bookstore-reading-corner",
@@ -538,7 +594,9 @@
       "retail",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "bookstore-bookseller",
@@ -557,7 +615,9 @@
       "retail",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "music-recording-studio",
@@ -575,7 +635,9 @@
       "sound",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "music-guitar-lesson",
@@ -593,7 +655,9 @@
       "sound",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "photography-portrait-studio",
@@ -611,7 +675,9 @@
       "portrait",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "photography-camera-desk",
@@ -629,7 +695,9 @@
       "portrait",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "printing-print-studio",
@@ -648,7 +716,9 @@
       "business",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "printing-paper-stock",
@@ -667,7 +737,9 @@
       "business",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "signage-sign-workshop",
@@ -686,7 +758,9 @@
       "business",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "signage-blank-storefront",
@@ -705,7 +779,9 @@
       "business",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "packaging-eco-packaging",
@@ -724,7 +800,9 @@
       "product",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "packaging-packing-station",
@@ -743,7 +821,9 @@
       "product",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "manufacturing-precision-factory",
@@ -761,7 +841,9 @@
       "production",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "manufacturing-quality-check",
@@ -779,7 +861,9 @@
       "production",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "welding-welding-workshop",
@@ -797,7 +881,9 @@
       "trades",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "welding-steel-joints",
@@ -815,7 +901,9 @@
       "trades",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "woodworking-chair-making",
@@ -833,7 +921,9 @@
       "craft",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "woodworking-wood-tools",
@@ -851,7 +941,9 @@
       "craft",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "surveying-survey-field",
@@ -869,7 +961,9 @@
       "land",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "surveying-planning-table",
@@ -887,7 +981,9 @@
       "land",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "renewableenergy-solar-installation",
@@ -906,7 +1002,9 @@
       "green",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "renewableenergy-wind-landscape",
@@ -925,7 +1023,9 @@
       "green",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "recycling-sorting-center",
@@ -943,7 +1043,9 @@
       "environment",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "recycling-reusable-materials",
@@ -961,7 +1063,9 @@
       "environment",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "water-water-filter",
@@ -979,7 +1083,9 @@
       "drinking",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "water-water-glass",
@@ -997,7 +1103,9 @@
       "drinking",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "aquarium-planted-tank",
@@ -1015,7 +1123,9 @@
       "tank",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "aquarium-aquatics-shop",
@@ -1033,7 +1143,9 @@
       "tank",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "veterinary-vet-checkup",
@@ -1052,7 +1164,9 @@
       "clinic",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "veterinary-clinic-waiting",
@@ -1071,7 +1185,9 @@
       "clinic",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "equestrian-stable-grooming",
@@ -1089,7 +1205,9 @@
       "lessons",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "equestrian-riding-arena",
@@ -1107,7 +1225,9 @@
       "lessons",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "sports-tennis-court",
@@ -1126,7 +1246,9 @@
       "coaching",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "sports-basketball-coaching",
@@ -1145,7 +1267,9 @@
       "coaching",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "dance-dance-rehearsal",
@@ -1163,7 +1287,9 @@
       "classes",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "dance-ballet-still-life",
@@ -1181,7 +1307,9 @@
       "classes",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "martialarts-dojo",
@@ -1200,7 +1328,9 @@
       "classes",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "martialarts-training-pads",
@@ -1219,7 +1349,9 @@
       "classes",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "outdoor-camping-gear",
@@ -1238,7 +1370,9 @@
       "retail",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "outdoor-forest-walk",
@@ -1257,7 +1391,9 @@
       "retail",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "marine-marina",
@@ -1276,7 +1412,9 @@
       "repair",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "marine-boat-workshop",
@@ -1295,7 +1433,9 @@
       "repair",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "aviation-small-aircraft",
@@ -1314,7 +1454,9 @@
       "airport",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "aviation-hangar-team",
@@ -1333,7 +1475,9 @@
       "airport",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "coworking-shared-office",
@@ -1352,7 +1496,9 @@
       "business",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "coworking-collaborative-table",
@@ -1371,7 +1517,9 @@
       "business",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "recruitment-job-interview",
@@ -1390,7 +1538,9 @@
       "business",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "recruitment-career-coaching",
@@ -1409,7 +1559,9 @@
       "business",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "insurance-advisor-meeting",
@@ -1428,7 +1580,9 @@
       "business",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "insurance-protected-home",
@@ -1447,7 +1601,9 @@
       "business",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "accounting-accountant-desk",
@@ -1466,7 +1622,9 @@
       "business",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "accounting-bookkeeping-still-life",
@@ -1485,7 +1643,9 @@
       "business",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "translation-translator-work",
@@ -1503,7 +1663,9 @@
       "business",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "translation-language-tutoring",
@@ -1521,7 +1683,9 @@
       "business",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "counseling-therapy-room",
@@ -1541,7 +1705,9 @@
       "health",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "counseling-supportive-conversation",
@@ -1561,7 +1727,9 @@
       "health",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "eldercare-garden-companions",
@@ -1580,7 +1748,9 @@
       "home",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "eldercare-tea-together",
@@ -1599,7 +1769,9 @@
       "home",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "accessibility-accessible-entry",
@@ -1618,7 +1790,9 @@
       "services",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "accessibility-adaptive-workspace",
@@ -1637,7 +1811,9 @@
       "services",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "bicycle-cycle-workshop",
@@ -1655,7 +1831,9 @@
       "shop",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "bicycle-commuter-bike",
@@ -1673,7 +1851,9 @@
       "shop",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "barber-barber-chair",
@@ -1692,7 +1872,9 @@
       "salon",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "barber-precision-haircut",
@@ -1711,7 +1893,9 @@
       "salon",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "wellness-massage-room",
@@ -1729,7 +1913,9 @@
       "wellbeing",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "wellness-meditation",
@@ -1747,7 +1933,9 @@
       "wellbeing",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "security-security-installation",
@@ -1765,7 +1953,9 @@
       "installation",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "security-entry-system",
@@ -1783,7 +1973,9 @@
       "installation",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "petcare-dog-walker",
@@ -1802,7 +1994,9 @@
       "animal",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "petcare-cat-boarding",
@@ -1821,7 +2015,9 @@
       "animal",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "beauty-nail-studio",
@@ -1839,7 +2035,9 @@
       "manicure",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "beauty-skincare-products",
@@ -1857,7 +2055,9 @@
       "manicure",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "plumbing-pipe-repair",
@@ -1877,7 +2077,9 @@
       "services",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "electrical-electrician-van",
@@ -1895,7 +2097,9 @@
       "service",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "automotive-repair-workshop",
@@ -1914,7 +2118,9 @@
       "vehicle",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "cleaning-home-service",
@@ -1932,7 +2138,9 @@
       "maintenance",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "pets-dog-grooming",
@@ -1952,7 +2160,9 @@
       "salon",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "landscaping-garden-service",
@@ -1971,7 +2181,9 @@
       "service",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "construction-renovation-site",
@@ -1990,7 +2202,9 @@
       "trades",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "salon-hair-styling",
@@ -2009,7 +2223,9 @@
       "haircut",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "logistics-warehouse-dispatch",
@@ -2028,7 +2244,9 @@
       "fulfillment",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "agriculture-vegetable-farm",
@@ -2047,7 +2265,9 @@
       "vegetables",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "events-garden-wedding",
@@ -2066,7 +2286,9 @@
       "planner",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "dental-dental-clinic",
@@ -2084,7 +2306,9 @@
       "healthcare",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "childcare-playroom",
@@ -2102,7 +2326,9 @@
       "education",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "technology-device-repair",
@@ -2121,7 +2347,9 @@
       "service",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "florist-flower-shop",
@@ -2140,7 +2368,9 @@
       "gift",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "restaurant-dining-room",
@@ -2159,7 +2389,9 @@
       "hospitality",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "restaurant-lamb-rack",
@@ -2179,7 +2411,9 @@
       "hospitality",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "restaurant-house-bread",
@@ -2199,7 +2433,9 @@
       "hospitality",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "food-croissant-tray",
@@ -2219,7 +2455,9 @@
       "breakfast",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "food-flat-white",
@@ -2239,7 +2477,9 @@
       "breakfast",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "food-bakery-counter",
@@ -2258,7 +2498,9 @@
       "breakfast",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "hospitality-dune-path",
@@ -2278,7 +2520,9 @@
       "interior",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "hospitality-bedside",
@@ -2297,7 +2541,9 @@
       "interior",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "hospitality-breakfast-in-bed",
@@ -2318,7 +2564,9 @@
       "interior",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "beauty-portrait-caramel",
@@ -2338,14 +2586,16 @@
       "people",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "beauty-facial-massage",
     "category": "beauty",
     "templateId": "original-beauty",
     "replaces": "facial-massage.webp",
-    "alt": "An esthetician gently massaging an adult client\u2019s temples during a relaxing spa facial, client lying with eyes closed, hair wrapped in a cream towel, professional treatment setting.",
+    "alt": "An esthetician gently massaging an adult client’s temples during a relaxing spa facial, client lying with eyes closed, hair wrapped in a cream towel, professional treatment setting.",
     "url": "/media/generated/beauty-facial-massage.webp",
     "thumb": "/media/generated/thumbs/beauty-facial-massage.webp",
     "tags": [
@@ -2358,14 +2608,16 @@
       "people",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "beauty-serum-dropper",
     "category": "beauty",
     "templateId": "original-beauty",
     "replaces": "serum-dropper.webp",
-    "alt": "Close-up beauty photograph of a glass dropper applying a small clear serum droplet beneath an adult woman\u2019s eye, natural skin texture and a warm caramel background.",
+    "alt": "Close-up beauty photograph of a glass dropper applying a small clear serum droplet beneath an adult woman’s eye, natural skin texture and a warm caramel background.",
     "url": "/media/generated/beauty-serum-dropper.webp",
     "thumb": "/media/generated/thumbs/beauty-serum-dropper.webp",
     "tags": [
@@ -2378,7 +2630,9 @@
       "people",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "fitness-barbell-plate",
@@ -2398,7 +2652,9 @@
       "sport",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "fitness-battle-ropes",
@@ -2418,7 +2674,9 @@
       "sport",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "fitness-dumbbell-mirror",
@@ -2438,7 +2696,9 @@
       "sport",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "health-caring-hands",
@@ -2458,7 +2718,9 @@
       "people",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "health-consultation",
@@ -2477,7 +2739,9 @@
       "people",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "health-stethoscope",
@@ -2496,7 +2760,9 @@
       "people",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "ecommerce-terracotta-tumblers",
@@ -2516,7 +2782,9 @@
       "pottery",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "ecommerce-celadon-bottles",
@@ -2536,14 +2804,16 @@
       "pottery",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "ecommerce-wheel-hands",
     "category": "ecommerce",
     "templateId": "original-ecommerce",
     "replaces": "wheel-hands.webp",
-    "alt": "Close-up of a potter\u2019s two clay-covered hands centering clay on a spinning pottery wheel in a warmly lit ceramics studio, accurate hands and tactile wet clay.",
+    "alt": "Close-up of a potter’s two clay-covered hands centering clay on a spinning pottery wheel in a warmly lit ceramics studio, accurate hands and tactile wet clay.",
     "url": "/media/generated/ecommerce-wheel-hands.webp",
     "thumb": "/media/generated/thumbs/ecommerce-wheel-hands.webp",
     "tags": [
@@ -2556,7 +2826,9 @@
       "pottery",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "corporate-port-terminal",
@@ -2575,7 +2847,9 @@
       "infrastructure",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "corporate-wind-turbine",
@@ -2594,7 +2868,9 @@
       "infrastructure",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "corporate-steel-works",
@@ -2613,7 +2889,9 @@
       "infrastructure",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "creative-studio-team",
@@ -2632,14 +2910,16 @@
       "art",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "creative-swatches",
     "category": "creative",
     "templateId": "original-creative",
     "replaces": "swatches.webp",
-    "alt": "A fanned-out color swatch book showing saturated blues, magentas, oranges and yellows on a graphic designer\u2019s pale desk, precise close-up with no readable labels.",
+    "alt": "A fanned-out color swatch book showing saturated blues, magentas, oranges and yellows on a graphic designer’s pale desk, precise close-up with no readable labels.",
     "url": "/media/generated/creative-swatches.webp",
     "thumb": "/media/generated/thumbs/creative-swatches.webp",
     "tags": [
@@ -2651,7 +2931,9 @@
       "studio",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "creative-poster-wall",
@@ -2671,7 +2953,9 @@
       "studio",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "education-class-whiteboard",
@@ -2691,7 +2975,9 @@
       "people",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "education-study-group",
@@ -2711,7 +2997,9 @@
       "people",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "education-ux-workshop",
@@ -2731,7 +3019,9 @@
       "people",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "finance-couple-window",
@@ -2751,7 +3041,9 @@
       "planning",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "finance-young-family",
@@ -2770,7 +3062,9 @@
       "planning",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "finance-generations",
@@ -2789,7 +3083,9 @@
       "planning",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "legal-courthouse",
@@ -2807,7 +3103,9 @@
       "building",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "legal-law-books",
@@ -2825,7 +3123,9 @@
       "building",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "legal-library",
@@ -2843,7 +3143,9 @@
       "building",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "nonprofit-market-hands",
@@ -2862,7 +3164,9 @@
       "food",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "nonprofit-market-greens",
@@ -2881,7 +3185,9 @@
       "food",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "nonprofit-groceries-basket",
@@ -2901,7 +3207,9 @@
       "market",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "portfolio-reading-room",
@@ -2921,7 +3229,9 @@
       "furniture",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "portfolio-vesterbro-loft",
@@ -2941,7 +3251,9 @@
       "furniture",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "portfolio-loft-table",
@@ -2961,7 +3273,9 @@
       "furniture",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "realestate-klickitat-house",
@@ -2981,7 +3295,9 @@
       "interior",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "realestate-staged-living-room",
@@ -3003,7 +3319,9 @@
       "interior",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "realestate-concordia-kitchen",
@@ -3024,7 +3342,9 @@
       "interior",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "travel-ridge-above-clouds",
@@ -3045,7 +3365,9 @@
       "hiking",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "travel-dolomites-sunrise",
@@ -3065,7 +3387,9 @@
       "hiking",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "travel-tent-view",
@@ -3085,7 +3409,9 @@
       "hiking",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "saas-hannah",
@@ -3106,7 +3432,9 @@
       "people",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "saas-mateo",
@@ -3127,7 +3455,9 @@
       "people",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "saas-team-workspace",
@@ -3149,7 +3479,9 @@
       "people",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "personal-letter-desk",
@@ -3169,14 +3501,16 @@
       "lifestyle",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "personal-journal-still-life",
     "category": "personal",
     "templateId": "original-personal",
     "replaces": null,
-    "alt": "An open unmarked linen-bound journal, pencil and reading glasses on a cream desk beside a small vase of seasonal flowers, intimate writer\u2019s editorial still life.",
+    "alt": "An open unmarked linen-bound journal, pencil and reading glasses on a cream desk beside a small vase of seasonal flowers, intimate writer’s editorial still life.",
     "url": "/media/generated/personal-journal-still-life.webp",
     "thumb": "/media/generated/thumbs/personal-journal-still-life.webp",
     "tags": [
@@ -3189,7 +3523,9 @@
       "lifestyle",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "personal-reading-shelf",
@@ -3209,7 +3545,9 @@
       "lifestyle",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "restaurant-chef-plating",
@@ -3228,7 +3566,9 @@
       "dining",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "food-berry-tart",
@@ -3247,7 +3587,9 @@
       "cafe",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
   },
   {
     "id": "hospitality-courtyard-pool",
@@ -3266,6 +3608,2401 @@
       "luxury",
       "generated",
       "originals"
-    ]
+    ],
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "beauty-back-massage",
+    "category": "beauty",
+    "templateId": "original-beauty",
+    "replaces": "back-massage.webp",
+    "alt": "A client relaxing face-down under a white blanket while an esthetician massages her shoulders, candles softly blurred behind.",
+    "url": "/media/generated/beauty-back-massage.webp",
+    "thumb": "/media/generated/thumbs/beauty-back-massage.webp",
+    "tags": [
+      "beauty",
+      "spa",
+      "massage",
+      "treatment",
+      "wellness",
+      "skincare",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "beauty-cream-jar",
+    "category": "beauty",
+    "templateId": "original-beauty",
+    "replaces": "cream-jar.webp",
+    "alt": "A smiling woman holding an open jar of rich face cream against a warm caramel backdrop.",
+    "url": "/media/generated/beauty-cream-jar.webp",
+    "thumb": "/media/generated/thumbs/beauty-cream-jar.webp",
+    "tags": [
+      "beauty",
+      "skincare",
+      "cream",
+      "moisturiser",
+      "portrait",
+      "studio",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "beauty-glow-smile",
+    "category": "beauty",
+    "templateId": "original-beauty",
+    "replaces": "glow-smile.webp",
+    "alt": "A woman laughing as she smooths moisturiser onto her cheek against a caramel backdrop.",
+    "url": "/media/generated/beauty-glow-smile.webp",
+    "thumb": "/media/generated/thumbs/beauty-glow-smile.webp",
+    "tags": [
+      "beauty",
+      "skincare",
+      "moisturiser",
+      "portrait",
+      "glow",
+      "studio",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "corporate-data-centre",
+    "category": "corporate",
+    "templateId": "original-corporate",
+    "replaces": "data-centre.webp",
+    "alt": "An engineer connecting network cables to a switch in a server rack.",
+    "url": "/media/generated/corporate-data-centre.webp",
+    "thumb": "/media/generated/thumbs/corporate-data-centre.webp",
+    "tags": [
+      "corporate",
+      "engineering",
+      "data centre",
+      "technology",
+      "infrastructure",
+      "network",
+      "generated",
+      "originals"
+    ],
+    "width": 1024,
+    "height": 1280
+  },
+  {
+    "id": "corporate-leader-amara",
+    "category": "corporate",
+    "templateId": "original-corporate",
+    "replaces": "leader-amara.webp",
+    "alt": "Portrait of a smiling Black woman chief executive in a deep red sweater in a bright office.",
+    "url": "/media/generated/corporate-leader-amara.webp",
+    "thumb": "/media/generated/thumbs/corporate-leader-amara.webp",
+    "tags": [
+      "corporate",
+      "leadership",
+      "executive",
+      "portrait",
+      "team",
+      "generated",
+      "originals"
+    ],
+    "width": 1024,
+    "height": 1280
+  },
+  {
+    "id": "corporate-leader-henrik",
+    "category": "corporate",
+    "templateId": "original-corporate",
+    "replaces": "leader-henrik.webp",
+    "alt": "Portrait of an older board chair with a white beard in a teal sweater in a bright office.",
+    "url": "/media/generated/corporate-leader-henrik.webp",
+    "thumb": "/media/generated/thumbs/corporate-leader-henrik.webp",
+    "tags": [
+      "corporate",
+      "leadership",
+      "chair",
+      "portrait",
+      "team",
+      "generated",
+      "originals"
+    ],
+    "width": 1024,
+    "height": 1280
+  },
+  {
+    "id": "corporate-leader-ingrid",
+    "category": "corporate",
+    "templateId": "original-corporate",
+    "replaces": "leader-ingrid.webp",
+    "alt": "Portrait of a smiling finance chief with silver hair and glasses in a mustard sweater.",
+    "url": "/media/generated/corporate-leader-ingrid.webp",
+    "thumb": "/media/generated/thumbs/corporate-leader-ingrid.webp",
+    "tags": [
+      "corporate",
+      "leadership",
+      "finance",
+      "portrait",
+      "team",
+      "generated",
+      "originals"
+    ],
+    "width": 1024,
+    "height": 1280
+  },
+  {
+    "id": "corporate-leader-tomas",
+    "category": "corporate",
+    "templateId": "original-corporate",
+    "replaces": "leader-tomas.webp",
+    "alt": "Portrait of a smiling operations chief in a charcoal sweater vest in a bright office.",
+    "url": "/media/generated/corporate-leader-tomas.webp",
+    "thumb": "/media/generated/thumbs/corporate-leader-tomas.webp",
+    "tags": [
+      "corporate",
+      "leadership",
+      "operations",
+      "portrait",
+      "team",
+      "generated",
+      "originals"
+    ],
+    "width": 1024,
+    "height": 1280
+  },
+  {
+    "id": "creative-home-cooking",
+    "category": "creative",
+    "templateId": "original-creative",
+    "replaces": "home-cooking.webp",
+    "alt": "A red and orange neon sign shaped like a steaming bowl glowing in a dark cafe window.",
+    "url": "/media/generated/creative-home-cooking.webp",
+    "thumb": "/media/generated/thumbs/creative-home-cooking.webp",
+    "tags": [
+      "creative",
+      "branding",
+      "signage",
+      "neon",
+      "cafe identity",
+      "design",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "creative-low-tide",
+    "category": "creative",
+    "templateId": "original-creative",
+    "replaces": "low-tide.webp",
+    "alt": "Weathered wooden boards hand-painted with bold wave and sun shapes for a music festival.",
+    "url": "/media/generated/creative-low-tide.webp",
+    "thumb": "/media/generated/thumbs/creative-low-tide.webp",
+    "tags": [
+      "creative",
+      "posters",
+      "campaign",
+      "hand-painted",
+      "festival",
+      "design",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "creative-no-33",
+    "category": "creative",
+    "templateId": "original-creative",
+    "replaces": "no-33.webp",
+    "alt": "A townhouse wall painted in a blue isometric cube pattern with a small blank tile plaque.",
+    "url": "/media/generated/creative-no-33.webp",
+    "thumb": "/media/generated/thumbs/creative-no-33.webp",
+    "tags": [
+      "creative",
+      "pattern",
+      "identity",
+      "print",
+      "architecture",
+      "design",
+      "generated",
+      "originals"
+    ],
+    "width": 1024,
+    "height": 1280
+  },
+  {
+    "id": "creative-northline-waves",
+    "category": "creative",
+    "templateId": "original-creative",
+    "replaces": "northline-waves.webp",
+    "alt": "Abstract layered waves in signal red, navy and sky blue from a motion identity.",
+    "url": "/media/generated/creative-northline-waves.webp",
+    "thumb": "/media/generated/thumbs/creative-northline-waves.webp",
+    "tags": [
+      "creative",
+      "motion",
+      "abstract",
+      "branding",
+      "rail",
+      "design",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "creative-parlour",
+    "category": "creative",
+    "templateId": "original-creative",
+    "replaces": "parlour.webp",
+    "alt": "A red neon flourish sign glowing in the dark window of a late-night cocktail bar.",
+    "url": "/media/generated/creative-parlour.webp",
+    "thumb": "/media/generated/thumbs/creative-parlour.webp",
+    "tags": [
+      "creative",
+      "neon",
+      "bar",
+      "identity",
+      "signage",
+      "design",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "ecommerce-bud-vase",
+    "category": "ecommerce",
+    "templateId": "original-ecommerce",
+    "replaces": "bud-vase.webp",
+    "alt": "A cream bud vase with a rust-red band holding dried gypsophila against a green wall.",
+    "url": "/media/generated/ecommerce-bud-vase.webp",
+    "thumb": "/media/generated/thumbs/ecommerce-bud-vase.webp",
+    "tags": [
+      "ecommerce",
+      "pottery",
+      "ceramics",
+      "vase",
+      "homeware",
+      "handmade",
+      "generated",
+      "originals"
+    ],
+    "width": 1024,
+    "height": 1024
+  },
+  {
+    "id": "ecommerce-fog-mug",
+    "category": "ecommerce",
+    "templateId": "original-ecommerce",
+    "replaces": "fog-mug.webp",
+    "alt": "A matte grey handmade mug on a window ledge with misty hills behind.",
+    "url": "/media/generated/ecommerce-fog-mug.webp",
+    "thumb": "/media/generated/thumbs/ecommerce-fog-mug.webp",
+    "tags": [
+      "ecommerce",
+      "pottery",
+      "ceramics",
+      "mug",
+      "homeware",
+      "handmade",
+      "generated",
+      "originals"
+    ],
+    "width": 1024,
+    "height": 1024
+  },
+  {
+    "id": "ecommerce-milk-pitcher",
+    "category": "ecommerce",
+    "templateId": "original-ecommerce",
+    "replaces": "milk-pitcher.webp",
+    "alt": "A white porcelain pitcher holding a sprig of cedar beside a sheer curtain.",
+    "url": "/media/generated/ecommerce-milk-pitcher.webp",
+    "thumb": "/media/generated/thumbs/ecommerce-milk-pitcher.webp",
+    "tags": [
+      "ecommerce",
+      "pottery",
+      "ceramics",
+      "pitcher",
+      "porcelain",
+      "homeware",
+      "generated",
+      "originals"
+    ],
+    "width": 1024,
+    "height": 1024
+  },
+  {
+    "id": "ecommerce-ridged-planter",
+    "category": "ecommerce",
+    "templateId": "original-ecommerce",
+    "replaces": "ridged-planter.webp",
+    "alt": "A vertically ridged terracotta planter on its matching saucer.",
+    "url": "/media/generated/ecommerce-ridged-planter.webp",
+    "thumb": "/media/generated/thumbs/ecommerce-ridged-planter.webp",
+    "tags": [
+      "ecommerce",
+      "pottery",
+      "ceramics",
+      "planter",
+      "terracotta",
+      "homeware",
+      "generated",
+      "originals"
+    ],
+    "width": 1024,
+    "height": 1024
+  },
+  {
+    "id": "ecommerce-studio-shelves",
+    "category": "ecommerce",
+    "templateId": "original-ecommerce",
+    "replaces": "studio-shelves.webp",
+    "alt": "Studio shelves stacked with unglazed bowls, cups and plates waiting for the kiln.",
+    "url": "/media/generated/ecommerce-studio-shelves.webp",
+    "thumb": "/media/generated/thumbs/ecommerce-studio-shelves.webp",
+    "tags": [
+      "ecommerce",
+      "pottery",
+      "ceramics",
+      "studio",
+      "kiln",
+      "handmade",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "ecommerce-twin-vases",
+    "category": "ecommerce",
+    "templateId": "original-ecommerce",
+    "replaces": "twin-vases.webp",
+    "alt": "Two slim white bud vases with cherry blossom sprigs on a wooden tray.",
+    "url": "/media/generated/ecommerce-twin-vases.webp",
+    "thumb": "/media/generated/thumbs/ecommerce-twin-vases.webp",
+    "tags": [
+      "ecommerce",
+      "pottery",
+      "ceramics",
+      "vase",
+      "porcelain",
+      "homeware",
+      "generated",
+      "originals"
+    ],
+    "width": 1024,
+    "height": 1024
+  },
+  {
+    "id": "education-coding",
+    "category": "education",
+    "templateId": "original-education",
+    "replaces": "coding.webp",
+    "alt": "A student in headphones writing code across two monitors and a laptop.",
+    "url": "/media/generated/education-coding.webp",
+    "thumb": "/media/generated/thumbs/education-coding.webp",
+    "tags": [
+      "education",
+      "coding",
+      "student",
+      "class",
+      "technology",
+      "learning",
+      "generated",
+      "originals"
+    ],
+    "width": 1152,
+    "height": 1024
+  },
+  {
+    "id": "education-instructor-laura",
+    "category": "education",
+    "templateId": "original-education",
+    "replaces": "instructor-laura.webp",
+    "alt": "Portrait of a UX instructor with light brown hair and glasses smiling gently.",
+    "url": "/media/generated/education-instructor-laura.webp",
+    "thumb": "/media/generated/thumbs/education-instructor-laura.webp",
+    "tags": [
+      "education",
+      "instructor",
+      "teacher",
+      "portrait",
+      "ux",
+      "design",
+      "generated",
+      "originals"
+    ],
+    "width": 1024,
+    "height": 1024
+  },
+  {
+    "id": "education-instructor-mei",
+    "category": "education",
+    "templateId": "original-education",
+    "replaces": "instructor-mei.webp",
+    "alt": "Portrait of a front-end development instructor with a dark ponytail and round glasses.",
+    "url": "/media/generated/education-instructor-mei.webp",
+    "thumb": "/media/generated/thumbs/education-instructor-mei.webp",
+    "tags": [
+      "education",
+      "instructor",
+      "teacher",
+      "portrait",
+      "developer",
+      "coding",
+      "generated",
+      "originals"
+    ],
+    "width": 1024,
+    "height": 1024
+  },
+  {
+    "id": "education-instructor-nadia",
+    "category": "education",
+    "templateId": "original-education",
+    "replaces": "instructor-nadia.webp",
+    "alt": "Portrait of a data analysis instructor with dark hair and glasses presenting at a laptop.",
+    "url": "/media/generated/education-instructor-nadia.webp",
+    "thumb": "/media/generated/thumbs/education-instructor-nadia.webp",
+    "tags": [
+      "education",
+      "instructor",
+      "teacher",
+      "portrait",
+      "data",
+      "analysis",
+      "generated",
+      "originals"
+    ],
+    "width": 1024,
+    "height": 1024
+  },
+  {
+    "id": "education-instructor-tom",
+    "category": "education",
+    "templateId": "original-education",
+    "replaces": "instructor-tom.webp",
+    "alt": "Portrait of a product management instructor with a beard in a red sweater.",
+    "url": "/media/generated/education-instructor-tom.webp",
+    "thumb": "/media/generated/thumbs/education-instructor-tom.webp",
+    "tags": [
+      "education",
+      "instructor",
+      "teacher",
+      "portrait",
+      "product",
+      "management",
+      "generated",
+      "originals"
+    ],
+    "width": 1024,
+    "height": 1024
+  },
+  {
+    "id": "finance-advisor-elena",
+    "category": "finance",
+    "templateId": "original-finance",
+    "replaces": "advisor-elena.webp",
+    "alt": "Portrait of a smiling tax planning partner in a white blouse.",
+    "url": "/media/generated/finance-advisor-elena.webp",
+    "thumb": "/media/generated/thumbs/finance-advisor-elena.webp",
+    "tags": [
+      "finance",
+      "advisor",
+      "planner",
+      "portrait",
+      "team",
+      "generated",
+      "originals"
+    ],
+    "width": 1024,
+    "height": 1024
+  },
+  {
+    "id": "finance-advisor-marcus",
+    "category": "finance",
+    "templateId": "original-finance",
+    "replaces": "advisor-marcus.webp",
+    "alt": "Portrait of a smiling senior financial planner in a navy polo shirt.",
+    "url": "/media/generated/finance-advisor-marcus.webp",
+    "thumb": "/media/generated/thumbs/finance-advisor-marcus.webp",
+    "tags": [
+      "finance",
+      "advisor",
+      "planner",
+      "portrait",
+      "team",
+      "generated",
+      "originals"
+    ],
+    "width": 1024,
+    "height": 1024
+  },
+  {
+    "id": "finance-advisor-walter",
+    "category": "finance",
+    "templateId": "original-finance",
+    "replaces": "advisor-walter.webp",
+    "alt": "Portrait of a senior financial planner with grey hair in a shirt and tie.",
+    "url": "/media/generated/finance-advisor-walter.webp",
+    "thumb": "/media/generated/thumbs/finance-advisor-walter.webp",
+    "tags": [
+      "finance",
+      "advisor",
+      "planner",
+      "portrait",
+      "retirement",
+      "generated",
+      "originals"
+    ],
+    "width": 1024,
+    "height": 1024
+  },
+  {
+    "id": "finance-couple-embrace",
+    "category": "finance",
+    "templateId": "original-finance",
+    "replaces": "couple-embrace.webp",
+    "alt": "A smiling couple in their sixties embracing by a bright window.",
+    "url": "/media/generated/finance-couple-embrace.webp",
+    "thumb": "/media/generated/thumbs/finance-couple-embrace.webp",
+    "tags": [
+      "finance",
+      "retirement",
+      "couple",
+      "family",
+      "planning",
+      "home",
+      "generated",
+      "originals"
+    ],
+    "width": 1024,
+    "height": 1024
+  },
+  {
+    "id": "fitness-heavy-bag",
+    "category": "fitness",
+    "templateId": "original-fitness",
+    "replaces": "heavy-bag.webp",
+    "alt": "A woman in boxing gloves throwing a knee into a heavy bag in a dim gym.",
+    "url": "/media/generated/fitness-heavy-bag.webp",
+    "thumb": "/media/generated/thumbs/fitness-heavy-bag.webp",
+    "tags": [
+      "fitness",
+      "gym",
+      "boxing",
+      "training",
+      "kickboxing",
+      "conditioning",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 864
+  },
+  {
+    "id": "fitness-profile-focus",
+    "category": "fitness",
+    "templateId": "original-fitness",
+    "replaces": "profile-focus.webp",
+    "alt": "Side profile of a focused athlete against a deep black background.",
+    "url": "/media/generated/fitness-profile-focus.webp",
+    "thumb": "/media/generated/thumbs/fitness-profile-focus.webp",
+    "tags": [
+      "fitness",
+      "gym",
+      "athlete",
+      "strength",
+      "training",
+      "focus",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "fitness-squat-bar",
+    "category": "fitness",
+    "templateId": "original-fitness",
+    "replaces": "squat-bar.webp",
+    "alt": "Black-and-white close-up of an athlete gripping a barbell across her shoulders.",
+    "url": "/media/generated/fitness-squat-bar.webp",
+    "thumb": "/media/generated/thumbs/fitness-squat-bar.webp",
+    "tags": [
+      "fitness",
+      "gym",
+      "barbell",
+      "squat",
+      "strength",
+      "training",
+      "generated",
+      "originals"
+    ],
+    "width": 1600,
+    "height": 960
+  },
+  {
+    "id": "fitness-suspension-training",
+    "category": "fitness",
+    "templateId": "original-fitness",
+    "replaces": "suspension-training.webp",
+    "alt": "A man training on suspension straps in warm afternoon light.",
+    "url": "/media/generated/fitness-suspension-training.webp",
+    "thumb": "/media/generated/thumbs/fitness-suspension-training.webp",
+    "tags": [
+      "fitness",
+      "gym",
+      "suspension",
+      "training",
+      "strength",
+      "conditioning",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "food-baker-at-rack",
+    "category": "food",
+    "templateId": "original-food",
+    "replaces": "baker-at-rack.webp",
+    "alt": "A baker in whites sliding a tray of loaves onto the cooling rack.",
+    "url": "/media/generated/food-baker-at-rack.webp",
+    "thumb": "/media/generated/thumbs/food-baker-at-rack.webp",
+    "tags": [
+      "food",
+      "bakery",
+      "baker",
+      "bread",
+      "sourdough",
+      "kitchen",
+      "generated",
+      "originals"
+    ],
+    "width": 1280,
+    "height": 1024
+  },
+  {
+    "id": "food-croissant-breakfast",
+    "category": "food",
+    "templateId": "original-food",
+    "replaces": "croissant-breakfast.webp",
+    "alt": "Two golden almond croissants on a white plate beside jam and orange juice.",
+    "url": "/media/generated/food-croissant-breakfast.webp",
+    "thumb": "/media/generated/thumbs/food-croissant-breakfast.webp",
+    "tags": [
+      "food",
+      "bakery",
+      "croissant",
+      "pastry",
+      "breakfast",
+      "cafe",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "food-loaf-board",
+    "category": "food",
+    "templateId": "original-food",
+    "replaces": "loaf-board.webp",
+    "alt": "A round sourdough loaf with two slices cut on a wooden board.",
+    "url": "/media/generated/food-loaf-board.webp",
+    "thumb": "/media/generated/thumbs/food-loaf-board.webp",
+    "tags": [
+      "food",
+      "bakery",
+      "bread",
+      "sourdough",
+      "loaf",
+      "artisan",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "food-rustic-rolls",
+    "category": "food",
+    "templateId": "original-food",
+    "replaces": "rustic-rolls.webp",
+    "alt": "Flour-dusted rustic rolls piled in a basket.",
+    "url": "/media/generated/food-rustic-rolls.webp",
+    "thumb": "/media/generated/thumbs/food-rustic-rolls.webp",
+    "tags": [
+      "food",
+      "bakery",
+      "bread",
+      "rolls",
+      "sourdough",
+      "artisan",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "food-seeded-muffins",
+    "category": "food",
+    "templateId": "original-food",
+    "replaces": "seeded-muffins.webp",
+    "alt": "A basket of pumpkin-seed muffins lined with a green gingham cloth.",
+    "url": "/media/generated/food-seeded-muffins.webp",
+    "thumb": "/media/generated/thumbs/food-seeded-muffins.webp",
+    "tags": [
+      "food",
+      "bakery",
+      "muffins",
+      "baking",
+      "pastry",
+      "cafe",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "health-care-team",
+    "category": "health",
+    "templateId": "original-health",
+    "replaces": "care-team.webp",
+    "alt": "A physician and two nurses discussing a patient chart beside a window.",
+    "url": "/media/generated/health-care-team.webp",
+    "thumb": "/media/generated/thumbs/health-care-team.webp",
+    "tags": [
+      "health",
+      "medical",
+      "clinic",
+      "doctor",
+      "nurse",
+      "team",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "health-dr-aldana",
+    "category": "health",
+    "templateId": "original-health",
+    "replaces": "dr-aldana.webp",
+    "alt": "Portrait of a senior physician with a white beard, mid-conversation.",
+    "url": "/media/generated/health-dr-aldana.webp",
+    "thumb": "/media/generated/thumbs/health-dr-aldana.webp",
+    "tags": [
+      "health",
+      "medical",
+      "doctor",
+      "physician",
+      "portrait",
+      "clinic",
+      "generated",
+      "originals"
+    ],
+    "width": 1024,
+    "height": 1280
+  },
+  {
+    "id": "health-dr-hartley",
+    "category": "health",
+    "templateId": "original-health",
+    "replaces": "dr-hartley.webp",
+    "alt": "Portrait of a smiling family physician with silver hair and glasses in a white coat.",
+    "url": "/media/generated/health-dr-hartley.webp",
+    "thumb": "/media/generated/thumbs/health-dr-hartley.webp",
+    "tags": [
+      "health",
+      "medical",
+      "doctor",
+      "physician",
+      "portrait",
+      "clinic",
+      "generated",
+      "originals"
+    ],
+    "width": 1024,
+    "height": 1280
+  },
+  {
+    "id": "health-dr-okafor",
+    "category": "health",
+    "templateId": "original-health",
+    "replaces": "dr-okafor.webp",
+    "alt": "Portrait of a physician in a white coat with a stethoscope and tablet.",
+    "url": "/media/generated/health-dr-okafor.webp",
+    "thumb": "/media/generated/thumbs/health-dr-okafor.webp",
+    "tags": [
+      "health",
+      "medical",
+      "doctor",
+      "physician",
+      "portrait",
+      "clinic",
+      "generated",
+      "originals"
+    ],
+    "width": 1024,
+    "height": 1280
+  },
+  {
+    "id": "health-np-lindqvist",
+    "category": "health",
+    "templateId": "original-health",
+    "replaces": "np-lindqvist.webp",
+    "alt": "Portrait of a nurse practitioner smiling while reading a tablet.",
+    "url": "/media/generated/health-np-lindqvist.webp",
+    "thumb": "/media/generated/thumbs/health-np-lindqvist.webp",
+    "tags": [
+      "health",
+      "medical",
+      "nurse",
+      "practitioner",
+      "portrait",
+      "clinic",
+      "generated",
+      "originals"
+    ],
+    "width": 1024,
+    "height": 1280
+  },
+  {
+    "id": "hospitality-dune-room",
+    "category": "hospitality",
+    "templateId": "original-hospitality",
+    "replaces": "dune-room.webp",
+    "alt": "A made-up queen bed with crisp white pillows against a warm timber wall.",
+    "url": "/media/generated/hospitality-dune-room.webp",
+    "thumb": "/media/generated/thumbs/hospitality-dune-room.webp",
+    "tags": [
+      "hospitality",
+      "hotel",
+      "inn",
+      "bedroom",
+      "room",
+      "coastal",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "hospitality-lighthouse-loft",
+    "category": "hospitality",
+    "templateId": "original-hospitality",
+    "replaces": "lighthouse-loft.webp",
+    "alt": "A timber-lined loft bedroom glowing with warm light behind sheer curtains.",
+    "url": "/media/generated/hospitality-lighthouse-loft.webp",
+    "thumb": "/media/generated/thumbs/hospitality-lighthouse-loft.webp",
+    "tags": [
+      "hospitality",
+      "hotel",
+      "inn",
+      "suite",
+      "loft",
+      "coastal",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "hospitality-marram-path",
+    "category": "hospitality",
+    "templateId": "original-hospitality",
+    "replaces": "marram-path.webp",
+    "alt": "A worn sand path running through dry grass towards the shore.",
+    "url": "/media/generated/hospitality-marram-path.webp",
+    "thumb": "/media/generated/thumbs/hospitality-marram-path.webp",
+    "tags": [
+      "hospitality",
+      "coast",
+      "beach",
+      "dunes",
+      "path",
+      "nature",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "hospitality-marsh-suite",
+    "category": "hospitality",
+    "templateId": "original-hospitality",
+    "replaces": "marsh-suite.webp",
+    "alt": "A light-filled suite with a king bed, sheer curtains and an armchair by the window.",
+    "url": "/media/generated/hospitality-marsh-suite.webp",
+    "thumb": "/media/generated/thumbs/hospitality-marsh-suite.webp",
+    "tags": [
+      "hospitality",
+      "hotel",
+      "inn",
+      "suite",
+      "bedroom",
+      "coastal",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "hospitality-seashell",
+    "category": "hospitality",
+    "templateId": "original-hospitality",
+    "replaces": "seashell.webp",
+    "alt": "A scallop shell at the edge of a foamy wave on wet sand.",
+    "url": "/media/generated/hospitality-seashell.webp",
+    "thumb": "/media/generated/thumbs/hospitality-seashell.webp",
+    "tags": [
+      "hospitality",
+      "coast",
+      "beach",
+      "shell",
+      "sea",
+      "nature",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "legal-attorney-claire",
+    "category": "legal",
+    "templateId": "original-legal",
+    "replaces": "attorney-claire.webp",
+    "alt": "Black-and-white portrait of an estates and family law partner.",
+    "url": "/media/generated/legal-attorney-claire.webp",
+    "thumb": "/media/generated/thumbs/legal-attorney-claire.webp",
+    "tags": [
+      "legal",
+      "lawyer",
+      "attorney",
+      "portrait",
+      "law firm",
+      "generated",
+      "originals"
+    ],
+    "width": 1024,
+    "height": 1280
+  },
+  {
+    "id": "legal-attorney-daniel",
+    "category": "legal",
+    "templateId": "original-legal",
+    "replaces": "attorney-daniel.webp",
+    "alt": "Black-and-white portrait of a business disputes partner in a suit jacket.",
+    "url": "/media/generated/legal-attorney-daniel.webp",
+    "thumb": "/media/generated/thumbs/legal-attorney-daniel.webp",
+    "tags": [
+      "legal",
+      "lawyer",
+      "attorney",
+      "portrait",
+      "law firm",
+      "generated",
+      "originals"
+    ],
+    "width": 1024,
+    "height": 1280
+  },
+  {
+    "id": "legal-attorney-helen",
+    "category": "legal",
+    "templateId": "original-legal",
+    "replaces": "attorney-helen.webp",
+    "alt": "Black-and-white portrait of a founding partner with short dark hair in a blazer.",
+    "url": "/media/generated/legal-attorney-helen.webp",
+    "thumb": "/media/generated/thumbs/legal-attorney-helen.webp",
+    "tags": [
+      "legal",
+      "lawyer",
+      "attorney",
+      "portrait",
+      "law firm",
+      "generated",
+      "originals"
+    ],
+    "width": 1024,
+    "height": 1280
+  },
+  {
+    "id": "legal-attorney-rohan",
+    "category": "legal",
+    "templateId": "original-legal",
+    "replaces": "attorney-rohan.webp",
+    "alt": "Black-and-white portrait of a real estate and personal injury partner in a suit.",
+    "url": "/media/generated/legal-attorney-rohan.webp",
+    "thumb": "/media/generated/thumbs/legal-attorney-rohan.webp",
+    "tags": [
+      "legal",
+      "lawyer",
+      "attorney",
+      "portrait",
+      "law firm",
+      "generated",
+      "originals"
+    ],
+    "width": 1024,
+    "height": 1280
+  },
+  {
+    "id": "legal-columns",
+    "category": "legal",
+    "templateId": "original-legal",
+    "replaces": "columns.webp",
+    "alt": "Weathered stone columns of a classical building, seen from below.",
+    "url": "/media/generated/legal-columns.webp",
+    "thumb": "/media/generated/thumbs/legal-columns.webp",
+    "tags": [
+      "legal",
+      "law",
+      "columns",
+      "architecture",
+      "court",
+      "stone",
+      "generated",
+      "originals"
+    ],
+    "width": 1024,
+    "height": 1216
+  },
+  {
+    "id": "nonprofit-bread",
+    "category": "nonprofit",
+    "templateId": "original-nonprofit",
+    "replaces": "bread.webp",
+    "alt": "A basket of sliced sourdough bread lined with a red checked cloth.",
+    "url": "/media/generated/nonprofit-bread.webp",
+    "thumb": "/media/generated/thumbs/nonprofit-bread.webp",
+    "tags": [
+      "nonprofit",
+      "charity",
+      "food",
+      "bread",
+      "community",
+      "food bank",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1152
+  },
+  {
+    "id": "nonprofit-grower",
+    "category": "nonprofit",
+    "templateId": "original-nonprofit",
+    "replaces": "grower.webp",
+    "alt": "A hand holding two freshly pulled radishes with soil still on the roots.",
+    "url": "/media/generated/nonprofit-grower.webp",
+    "thumb": "/media/generated/thumbs/nonprofit-grower.webp",
+    "tags": [
+      "nonprofit",
+      "charity",
+      "food",
+      "farm",
+      "grower",
+      "community",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1152
+  },
+  {
+    "id": "nonprofit-kitchen",
+    "category": "nonprofit",
+    "templateId": "original-nonprofit",
+    "replaces": "kitchen.webp",
+    "alt": "A trainee chef preparing meals in a stainless-steel community kitchen.",
+    "url": "/media/generated/nonprofit-kitchen.webp",
+    "thumb": "/media/generated/thumbs/nonprofit-kitchen.webp",
+    "tags": [
+      "nonprofit",
+      "charity",
+      "kitchen",
+      "chef",
+      "community",
+      "meals",
+      "generated",
+      "originals"
+    ],
+    "width": 1152,
+    "height": 1024
+  },
+  {
+    "id": "nonprofit-rescue-crate",
+    "category": "nonprofit",
+    "templateId": "original-nonprofit",
+    "replaces": "rescue-crate.webp",
+    "alt": "A crate of rescued strawberries, oranges, cucumbers, carrots and kale seen from above.",
+    "url": "/media/generated/nonprofit-rescue-crate.webp",
+    "thumb": "/media/generated/thumbs/nonprofit-rescue-crate.webp",
+    "tags": [
+      "nonprofit",
+      "charity",
+      "food rescue",
+      "produce",
+      "vegetables",
+      "fruit",
+      "generated",
+      "originals"
+    ],
+    "width": 1024,
+    "height": 1024
+  },
+  {
+    "id": "nonprofit-shopper-peas",
+    "category": "nonprofit",
+    "templateId": "original-nonprofit",
+    "replaces": "shopper-peas.webp",
+    "alt": "An older man's hands opening a fresh pea pod at a market stall.",
+    "url": "/media/generated/nonprofit-shopper-peas.webp",
+    "thumb": "/media/generated/thumbs/nonprofit-shopper-peas.webp",
+    "tags": [
+      "nonprofit",
+      "charity",
+      "market",
+      "produce",
+      "community",
+      "food",
+      "generated",
+      "originals"
+    ],
+    "width": 1152,
+    "height": 1024
+  },
+  {
+    "id": "personal-clara-hero",
+    "category": "personal",
+    "templateId": "original-personal",
+    "replaces": "clara-hero.webp",
+    "alt": "A smiling coach and writer with folded arms leaning against a red brick wall.",
+    "url": "/media/generated/personal-clara-hero.webp",
+    "thumb": "/media/generated/thumbs/personal-clara-hero.webp",
+    "tags": [
+      "personal",
+      "coach",
+      "writer",
+      "portrait",
+      "personal brand",
+      "generated",
+      "originals"
+    ],
+    "width": 1024,
+    "height": 1280
+  },
+  {
+    "id": "personal-clara-chair",
+    "category": "personal",
+    "templateId": "original-personal",
+    "replaces": "clara-chair.webp",
+    "alt": "A coach smiling in a wicker chair beside a houseplant.",
+    "url": "/media/generated/personal-clara-chair.webp",
+    "thumb": "/media/generated/thumbs/personal-clara-chair.webp",
+    "tags": [
+      "personal",
+      "coach",
+      "writer",
+      "portrait",
+      "home",
+      "generated",
+      "originals"
+    ],
+    "width": 1024,
+    "height": 1024
+  },
+  {
+    "id": "personal-clara-notebook",
+    "category": "personal",
+    "templateId": "original-personal",
+    "replaces": "clara-notebook.webp",
+    "alt": "A coach in glasses holding a notebook, sitting on the edge of a desk.",
+    "url": "/media/generated/personal-clara-notebook.webp",
+    "thumb": "/media/generated/thumbs/personal-clara-notebook.webp",
+    "tags": [
+      "personal",
+      "coach",
+      "writer",
+      "portrait",
+      "office",
+      "generated",
+      "originals"
+    ],
+    "width": 1024,
+    "height": 1280
+  },
+  {
+    "id": "personal-clara-reading",
+    "category": "personal",
+    "templateId": "original-personal",
+    "replaces": "clara-reading.webp",
+    "alt": "A coach in glasses reading a book in a leather armchair.",
+    "url": "/media/generated/personal-clara-reading.webp",
+    "thumb": "/media/generated/thumbs/personal-clara-reading.webp",
+    "tags": [
+      "personal",
+      "coach",
+      "writer",
+      "reading",
+      "books",
+      "generated",
+      "originals"
+    ],
+    "width": 1024,
+    "height": 1280
+  },
+  {
+    "id": "personal-clara-shelf",
+    "category": "personal",
+    "templateId": "original-personal",
+    "replaces": "clara-shelf.webp",
+    "alt": "A coach standing by a wooden bookshelf, looking out of the frame.",
+    "url": "/media/generated/personal-clara-shelf.webp",
+    "thumb": "/media/generated/thumbs/personal-clara-shelf.webp",
+    "tags": [
+      "personal",
+      "coach",
+      "writer",
+      "books",
+      "portrait",
+      "generated",
+      "originals"
+    ],
+    "width": 1024,
+    "height": 1280
+  },
+  {
+    "id": "personal-clara-wall",
+    "category": "personal",
+    "templateId": "original-personal",
+    "replaces": "clara-wall.webp",
+    "alt": "A coach smiling with folded arms in front of a long red brick wall.",
+    "url": "/media/generated/personal-clara-wall.webp",
+    "thumb": "/media/generated/thumbs/personal-clara-wall.webp",
+    "tags": [
+      "personal",
+      "coach",
+      "writer",
+      "portrait",
+      "banner",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 768
+  },
+  {
+    "id": "portfolio-ines-portrait",
+    "category": "portfolio",
+    "templateId": "original-portfolio",
+    "replaces": "ines-portrait.webp",
+    "alt": "An interior architect smiling at her desk surrounded by brushes and material samples.",
+    "url": "/media/generated/portfolio-ines-portrait.webp",
+    "thumb": "/media/generated/thumbs/portfolio-ines-portrait.webp",
+    "tags": [
+      "portfolio",
+      "interior",
+      "architect",
+      "designer",
+      "portrait",
+      "studio",
+      "generated",
+      "originals"
+    ],
+    "width": 1024,
+    "height": 1280
+  },
+  {
+    "id": "portfolio-kaffebar-ro",
+    "category": "portfolio",
+    "templateId": "original-portfolio",
+    "replaces": "kaffebar-ro.webp",
+    "alt": "A pale counter with a glass coffee maker and a cactus in warm morning light by a window.",
+    "url": "/media/generated/portfolio-kaffebar-ro.webp",
+    "thumb": "/media/generated/thumbs/portfolio-kaffebar-ro.webp",
+    "tags": [
+      "portfolio",
+      "interior",
+      "cafe",
+      "kitchen",
+      "scandinavian",
+      "design",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "portfolio-loft-lamp",
+    "category": "portfolio",
+    "templateId": "original-portfolio",
+    "replaces": "loft-lamp.webp",
+    "alt": "A black floor lamp against a sage green wall.",
+    "url": "/media/generated/portfolio-loft-lamp.webp",
+    "thumb": "/media/generated/thumbs/portfolio-loft-lamp.webp",
+    "tags": [
+      "portfolio",
+      "interior",
+      "lamp",
+      "scandinavian",
+      "minimal",
+      "design",
+      "generated",
+      "originals"
+    ],
+    "width": 1024,
+    "height": 1280
+  },
+  {
+    "id": "portfolio-nordlys-studio",
+    "category": "portfolio",
+    "templateId": "original-portfolio",
+    "replaces": "nordlys-studio.webp",
+    "alt": "A long dark meeting table lined with grey upholstered chairs in a white room.",
+    "url": "/media/generated/portfolio-nordlys-studio.webp",
+    "thumb": "/media/generated/thumbs/portfolio-nordlys-studio.webp",
+    "tags": [
+      "portfolio",
+      "interior",
+      "office",
+      "meeting room",
+      "scandinavian",
+      "design",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "portfolio-townhouse-stair",
+    "category": "portfolio",
+    "templateId": "original-portfolio",
+    "replaces": "townhouse-stair.webp",
+    "alt": "An oak staircase with black steel balusters seen from the top floor looking down.",
+    "url": "/media/generated/portfolio-townhouse-stair.webp",
+    "thumb": "/media/generated/thumbs/portfolio-townhouse-stair.webp",
+    "tags": [
+      "portfolio",
+      "interior",
+      "staircase",
+      "architecture",
+      "townhouse",
+      "design",
+      "generated",
+      "originals"
+    ],
+    "width": 1024,
+    "height": 1280
+  },
+  {
+    "id": "realestate-burrage-ranch",
+    "category": "realestate",
+    "templateId": "original-realestate",
+    "replaces": "burrage-ranch.webp",
+    "alt": "A single-storey ranch house with a lawn and a rain-wet driveway.",
+    "url": "/media/generated/realestate-burrage-ranch.webp",
+    "thumb": "/media/generated/thumbs/realestate-burrage-ranch.webp",
+    "tags": [
+      "realestate",
+      "home",
+      "house",
+      "property",
+      "listing",
+      "ranch",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "realestate-division-condos",
+    "category": "realestate",
+    "templateId": "original-realestate",
+    "replaces": "division-condos.webp",
+    "alt": "A modern condo building with solar panels and lit windows at dusk.",
+    "url": "/media/generated/realestate-division-condos.webp",
+    "thumb": "/media/generated/thumbs/realestate-division-condos.webp",
+    "tags": [
+      "realestate",
+      "condo",
+      "apartment",
+      "property",
+      "listing",
+      "building",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "realestate-downtown-condo",
+    "category": "realestate",
+    "templateId": "original-realestate",
+    "replaces": "downtown-condo.webp",
+    "alt": "A condo living room with a green sofa, oak floors and a balcony door.",
+    "url": "/media/generated/realestate-downtown-condo.webp",
+    "thumb": "/media/generated/thumbs/realestate-downtown-condo.webp",
+    "tags": [
+      "realestate",
+      "condo",
+      "living room",
+      "interior",
+      "property",
+      "listing",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "realestate-irving-townhome",
+    "category": "realestate",
+    "templateId": "original-realestate",
+    "replaces": "irving-townhome.webp",
+    "alt": "A white townhouse entrance with a bright yellow front door and black railings.",
+    "url": "/media/generated/realestate-irving-townhome.webp",
+    "thumb": "/media/generated/thumbs/realestate-irving-townhome.webp",
+    "tags": [
+      "realestate",
+      "townhome",
+      "house",
+      "entrance",
+      "property",
+      "listing",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "realestate-woodstock-modern",
+    "category": "realestate",
+    "templateId": "original-realestate",
+    "replaces": "woodstock-modern.webp",
+    "alt": "A modern timber-clad house behind a hedge and mature trees.",
+    "url": "/media/generated/realestate-woodstock-modern.webp",
+    "thumb": "/media/generated/thumbs/realestate-woodstock-modern.webp",
+    "tags": [
+      "realestate",
+      "home",
+      "house",
+      "modern",
+      "property",
+      "listing",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "restaurant-dinner-table",
+    "category": "restaurant",
+    "templateId": "original-restaurant",
+    "replaces": "dinner-table.webp",
+    "alt": "A candlelit restaurant table set with a plated dish, wine glasses and bread.",
+    "url": "/media/generated/restaurant-dinner-table.webp",
+    "thumb": "/media/generated/thumbs/restaurant-dinner-table.webp",
+    "tags": [
+      "restaurant",
+      "dining",
+      "dinner",
+      "table",
+      "food",
+      "candlelight",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "restaurant-embers",
+    "category": "restaurant",
+    "templateId": "original-restaurant",
+    "replaces": "embers.webp",
+    "alt": "Glowing embers between charred oak logs in a wood-fire hearth.",
+    "url": "/media/generated/restaurant-embers.webp",
+    "thumb": "/media/generated/thumbs/restaurant-embers.webp",
+    "tags": [
+      "restaurant",
+      "fire",
+      "embers",
+      "hearth",
+      "wood-fire",
+      "grill",
+      "generated",
+      "originals"
+    ],
+    "width": 2048,
+    "height": 960
+  },
+  {
+    "id": "restaurant-oak-fire",
+    "category": "restaurant",
+    "templateId": "original-restaurant",
+    "replaces": "oak-fire.webp",
+    "alt": "A split log of red oak glowing orange as it burns in the hearth.",
+    "url": "/media/generated/restaurant-oak-fire.webp",
+    "thumb": "/media/generated/thumbs/restaurant-oak-fire.webp",
+    "tags": [
+      "restaurant",
+      "fire",
+      "oak",
+      "hearth",
+      "wood-fire",
+      "grill",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1152
+  },
+  {
+    "id": "restaurant-the-pass",
+    "category": "restaurant",
+    "templateId": "original-restaurant",
+    "replaces": "the-pass.webp",
+    "alt": "Chefs placing grilled steak and roast chicken on warm plates at the kitchen pass.",
+    "url": "/media/generated/restaurant-the-pass.webp",
+    "thumb": "/media/generated/thumbs/restaurant-the-pass.webp",
+    "tags": [
+      "restaurant",
+      "kitchen",
+      "chef",
+      "steak",
+      "service",
+      "grill",
+      "generated",
+      "originals"
+    ],
+    "width": 1024,
+    "height": 1280
+  },
+  {
+    "id": "restaurant-wine-pour",
+    "category": "restaurant",
+    "templateId": "original-restaurant",
+    "replaces": "wine-pour.webp",
+    "alt": "A server pouring white wine into a row of glasses along the bar.",
+    "url": "/media/generated/restaurant-wine-pour.webp",
+    "thumb": "/media/generated/thumbs/restaurant-wine-pour.webp",
+    "tags": [
+      "restaurant",
+      "wine",
+      "bar",
+      "drinks",
+      "service",
+      "dining",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "travel-alpine-meadows",
+    "category": "travel",
+    "templateId": "original-travel",
+    "replaces": "alpine-meadows.webp",
+    "alt": "Rolling green alpine meadows dotted with larch trees beneath rocky peaks.",
+    "url": "/media/generated/travel-alpine-meadows.webp",
+    "thumb": "/media/generated/thumbs/travel-alpine-meadows.webp",
+    "tags": [
+      "travel",
+      "hiking",
+      "mountains",
+      "meadow",
+      "alps",
+      "trekking",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "travel-dolomites-lakes",
+    "category": "travel",
+    "templateId": "original-travel",
+    "replaces": "dolomites-lakes.webp",
+    "alt": "A lone hiker standing by two alpine lakes beneath pale limestone cliffs.",
+    "url": "/media/generated/travel-dolomites-lakes.webp",
+    "thumb": "/media/generated/thumbs/travel-dolomites-lakes.webp",
+    "tags": [
+      "travel",
+      "hiking",
+      "mountains",
+      "lakes",
+      "dolomites",
+      "trekking",
+      "generated",
+      "originals"
+    ],
+    "width": 1600,
+    "height": 1024
+  },
+  {
+    "id": "travel-small-group",
+    "category": "travel",
+    "templateId": "original-travel",
+    "replaces": "small-group.webp",
+    "alt": "A small group of hikers with large packs walking single file through a meadow towards the forest.",
+    "url": "/media/generated/travel-small-group.webp",
+    "thumb": "/media/generated/thumbs/travel-small-group.webp",
+    "tags": [
+      "travel",
+      "hiking",
+      "group",
+      "trekking",
+      "backpacking",
+      "tour",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "travel-southern-alps",
+    "category": "travel",
+    "templateId": "original-travel",
+    "replaces": "southern-alps.webp",
+    "alt": "A hiker walking a golden valley track towards snow-covered peaks.",
+    "url": "/media/generated/travel-southern-alps.webp",
+    "thumb": "/media/generated/thumbs/travel-southern-alps.webp",
+    "tags": [
+      "travel",
+      "hiking",
+      "mountains",
+      "new zealand",
+      "valley",
+      "trekking",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "travel-swiss-ridge",
+    "category": "travel",
+    "templateId": "original-travel",
+    "replaces": "swiss-ridge.webp",
+    "alt": "A hiker photographing green Swiss mountain ridges from a grassy saddle.",
+    "url": "/media/generated/travel-swiss-ridge.webp",
+    "thumb": "/media/generated/thumbs/travel-swiss-ridge.webp",
+    "tags": [
+      "travel",
+      "hiking",
+      "mountains",
+      "switzerland",
+      "ridge",
+      "trekking",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "people-maya",
+    "category": "people",
+    "templateId": "",
+    "replaces": "",
+    "alt": "Portrait of a smiling young Black woman with natural curly hair in a mustard cardigan.",
+    "url": "/media/generated/people-maya.webp",
+    "thumb": "/media/generated/thumbs/people-maya.webp",
+    "tags": [
+      "people",
+      "portrait",
+      "avatar",
+      "profile",
+      "headshot",
+      "team",
+      "customer",
+      "woman",
+      "generated",
+      "originals"
+    ],
+    "width": 1024,
+    "height": 1024
+  },
+  {
+    "id": "people-devon",
+    "category": "people",
+    "templateId": "",
+    "replaces": "",
+    "alt": "Portrait of a relaxed man with a short beard in a denim shirt.",
+    "url": "/media/generated/people-devon.webp",
+    "thumb": "/media/generated/thumbs/people-devon.webp",
+    "tags": [
+      "people",
+      "portrait",
+      "avatar",
+      "profile",
+      "headshot",
+      "team",
+      "customer",
+      "designer",
+      "man",
+      "generated",
+      "originals"
+    ],
+    "width": 1024,
+    "height": 1024
+  },
+  {
+    "id": "people-priya",
+    "category": "people",
+    "templateId": "",
+    "replaces": "",
+    "alt": "Portrait of a smiling South Asian woman with long dark hair in a teal blouse.",
+    "url": "/media/generated/people-priya.webp",
+    "thumb": "/media/generated/thumbs/people-priya.webp",
+    "tags": [
+      "people",
+      "portrait",
+      "avatar",
+      "profile",
+      "headshot",
+      "team",
+      "customer",
+      "woman",
+      "generated",
+      "originals"
+    ],
+    "width": 1024,
+    "height": 1024
+  },
+  {
+    "id": "people-alex-chen",
+    "category": "people",
+    "templateId": "",
+    "replaces": "",
+    "alt": "Portrait of a smiling East Asian man in his forties in a navy apron over a grey shirt.",
+    "url": "/media/generated/people-alex-chen.webp",
+    "thumb": "/media/generated/thumbs/people-alex-chen.webp",
+    "tags": [
+      "people",
+      "portrait",
+      "avatar",
+      "profile",
+      "headshot",
+      "team",
+      "owner",
+      "staff",
+      "man",
+      "generated",
+      "originals"
+    ],
+    "width": 1024,
+    "height": 1024
+  },
+  {
+    "id": "people-jordan-lee",
+    "category": "people",
+    "templateId": "",
+    "replaces": "",
+    "alt": "Portrait of a smiling Black man with a close-cropped beard in an olive overshirt.",
+    "url": "/media/generated/people-jordan-lee.webp",
+    "thumb": "/media/generated/thumbs/people-jordan-lee.webp",
+    "tags": [
+      "people",
+      "portrait",
+      "avatar",
+      "profile",
+      "headshot",
+      "team",
+      "manager",
+      "staff",
+      "man",
+      "generated",
+      "originals"
+    ],
+    "width": 1024,
+    "height": 1024
+  },
+  {
+    "id": "people-sam-patel",
+    "category": "people",
+    "templateId": "",
+    "replaces": "",
+    "alt": "Portrait of a smiling South Asian man with glasses in a light blue shirt.",
+    "url": "/media/generated/people-sam-patel.webp",
+    "thumb": "/media/generated/thumbs/people-sam-patel.webp",
+    "tags": [
+      "people",
+      "portrait",
+      "avatar",
+      "profile",
+      "headshot",
+      "team",
+      "customer-service",
+      "staff",
+      "man",
+      "generated",
+      "originals"
+    ],
+    "width": 1024,
+    "height": 1024
+  },
+  {
+    "id": "people-casey-brown",
+    "category": "people",
+    "templateId": "",
+    "replaces": "",
+    "alt": "Portrait of a cheerful young woman with red hair in a cream sweater.",
+    "url": "/media/generated/people-casey-brown.webp",
+    "thumb": "/media/generated/thumbs/people-casey-brown.webp",
+    "tags": [
+      "people",
+      "portrait",
+      "avatar",
+      "profile",
+      "headshot",
+      "team",
+      "bookings",
+      "staff",
+      "woman",
+      "generated",
+      "originals"
+    ],
+    "width": 1024,
+    "height": 1024
+  },
+  {
+    "id": "people-avery-chen",
+    "category": "people",
+    "templateId": "",
+    "replaces": "",
+    "alt": "Portrait of a confident East Asian woman in her forties in a charcoal blazer.",
+    "url": "/media/generated/people-avery-chen.webp",
+    "thumb": "/media/generated/thumbs/people-avery-chen.webp",
+    "tags": [
+      "people",
+      "portrait",
+      "avatar",
+      "profile",
+      "headshot",
+      "team",
+      "founder",
+      "engineering",
+      "leader",
+      "woman",
+      "generated",
+      "originals"
+    ],
+    "width": 1024,
+    "height": 1024
+  },
+  {
+    "id": "food-taco-truck",
+    "category": "food",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A bright unbranded taco truck with its serving window open to a small queue on a sunny city lot.",
+    "url": "/media/generated/food-taco-truck.webp",
+    "thumb": "/media/generated/thumbs/food-taco-truck.webp",
+    "tags": [
+      "food",
+      "food-truck",
+      "street-food",
+      "tacos",
+      "truck",
+      "mexican",
+      "vendor",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "food-truck-evening-market",
+    "category": "food",
+    "templateId": "",
+    "replaces": "",
+    "alt": "Three unbranded food trucks under string lights at a busy evening street-food market.",
+    "url": "/media/generated/food-truck-evening-market.webp",
+    "thumb": "/media/generated/thumbs/food-truck-evening-market.webp",
+    "tags": [
+      "food",
+      "food-truck",
+      "street-food",
+      "market",
+      "night",
+      "vendor",
+      "event",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "food-al-pastor-tacos",
+    "category": "food",
+    "templateId": "",
+    "replaces": "",
+    "alt": "Three al pastor tacos topped with pineapple, onion and cilantro on a paper-lined tray.",
+    "url": "/media/generated/food-al-pastor-tacos.webp",
+    "thumb": "/media/generated/thumbs/food-al-pastor-tacos.webp",
+    "tags": [
+      "food",
+      "tacos",
+      "mexican",
+      "street-food",
+      "food-truck",
+      "menu",
+      "dish",
+      "generated",
+      "originals"
+    ],
+    "width": 1024,
+    "height": 1024
+  },
+  {
+    "id": "food-birria-quesadilla",
+    "category": "food",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A crisp birria quesadilla cut in half with melted cheese and a cup of consommé for dipping.",
+    "url": "/media/generated/food-birria-quesadilla.webp",
+    "thumb": "/media/generated/thumbs/food-birria-quesadilla.webp",
+    "tags": [
+      "food",
+      "quesadilla",
+      "mexican",
+      "street-food",
+      "food-truck",
+      "menu",
+      "dish",
+      "generated",
+      "originals"
+    ],
+    "width": 1024,
+    "height": 1024
+  },
+  {
+    "id": "food-horchata",
+    "category": "food",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A tall glass of creamy horchata over ice dusted with cinnamon, with cinnamon sticks beside it.",
+    "url": "/media/generated/food-horchata.webp",
+    "thumb": "/media/generated/thumbs/food-horchata.webp",
+    "tags": [
+      "food",
+      "drink",
+      "horchata",
+      "mexican",
+      "street-food",
+      "food-truck",
+      "menu",
+      "generated",
+      "originals"
+    ],
+    "width": 1024,
+    "height": 1024
+  },
+  {
+    "id": "food-lemon-ricotta-pancakes",
+    "category": "food",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A stack of fluffy lemon ricotta pancakes with berries, lemon zest and a drizzle of syrup.",
+    "url": "/media/generated/food-lemon-ricotta-pancakes.webp",
+    "thumb": "/media/generated/thumbs/food-lemon-ricotta-pancakes.webp",
+    "tags": [
+      "food",
+      "recipe",
+      "breakfast",
+      "pancakes",
+      "cooking",
+      "home-cooking",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "food-garlic-oil-pasta",
+    "category": "food",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A bowl of spaghetti with garlic, olive oil, chilli flakes and parsley on a rustic table.",
+    "url": "/media/generated/food-garlic-oil-pasta.webp",
+    "thumb": "/media/generated/thumbs/food-garlic-oil-pasta.webp",
+    "tags": [
+      "food",
+      "recipe",
+      "pasta",
+      "dinner",
+      "cooking",
+      "home-cooking",
+      "italian",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "food-sheet-pan-salmon",
+    "category": "food",
+    "templateId": "",
+    "replaces": "",
+    "alt": "Roasted salmon fillets with broccoli, peppers and lemon slices on a sheet pan.",
+    "url": "/media/generated/food-sheet-pan-salmon.webp",
+    "thumb": "/media/generated/thumbs/food-sheet-pan-salmon.webp",
+    "tags": [
+      "food",
+      "recipe",
+      "salmon",
+      "fish",
+      "dinner",
+      "cooking",
+      "home-cooking",
+      "healthy",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "food-chocolate-chip-cookies",
+    "category": "food",
+    "templateId": "",
+    "replaces": "",
+    "alt": "Chocolate chip cookies with flaky salt cooling on a wire rack beside a glass of milk.",
+    "url": "/media/generated/food-chocolate-chip-cookies.webp",
+    "thumb": "/media/generated/thumbs/food-chocolate-chip-cookies.webp",
+    "tags": [
+      "food",
+      "recipe",
+      "baking",
+      "cookies",
+      "dessert",
+      "cooking",
+      "home-cooking",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "food-green-grain-bowl",
+    "category": "food",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A grain bowl of farro, kale, herbs, avocado and chickpeas with tahini dressing.",
+    "url": "/media/generated/food-green-grain-bowl.webp",
+    "thumb": "/media/generated/thumbs/food-green-grain-bowl.webp",
+    "tags": [
+      "food",
+      "recipe",
+      "salad",
+      "bowl",
+      "healthy",
+      "vegetarian",
+      "lunch",
+      "meal-prep",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "food-tomato-soup",
+    "category": "food",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A bowl of creamy tomato soup with basil and a swirl of cream beside toasted bread.",
+    "url": "/media/generated/food-tomato-soup.webp",
+    "thumb": "/media/generated/thumbs/food-tomato-soup.webp",
+    "tags": [
+      "food",
+      "recipe",
+      "soup",
+      "tomato",
+      "comfort-food",
+      "cooking",
+      "home-cooking",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "food-margherita-pizza",
+    "category": "food",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A margherita pizza with tomato, fresh mozzarella and basil on a wooden board.",
+    "url": "/media/generated/food-margherita-pizza.webp",
+    "thumb": "/media/generated/thumbs/food-margherita-pizza.webp",
+    "tags": [
+      "food",
+      "pizza",
+      "takeaway",
+      "menu",
+      "italian",
+      "delivery",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "food-pepperoni-pizza",
+    "category": "food",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A pepperoni pizza with melted mozzarella and oregano, one slice pulled away.",
+    "url": "/media/generated/food-pepperoni-pizza.webp",
+    "thumb": "/media/generated/thumbs/food-pepperoni-pizza.webp",
+    "tags": [
+      "food",
+      "pizza",
+      "takeaway",
+      "menu",
+      "delivery",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "food-garden-salad",
+    "category": "food",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A fresh garden salad of mixed greens, cucumber, tomato and radish with vinaigrette.",
+    "url": "/media/generated/food-garden-salad.webp",
+    "thumb": "/media/generated/thumbs/food-garden-salad.webp",
+    "tags": [
+      "food",
+      "salad",
+      "takeaway",
+      "menu",
+      "healthy",
+      "vegetarian",
+      "delivery",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "realestate-kitchen-before",
+    "category": "realestate",
+    "templateId": "",
+    "replaces": "",
+    "alt": "The same craftsman kitchen before its renovation, with dated cabinets, worn counters and dim light.",
+    "url": "/media/generated/realestate-kitchen-before.webp",
+    "thumb": "/media/generated/thumbs/realestate-kitchen-before.webp",
+    "tags": [
+      "realestate",
+      "kitchen",
+      "renovation",
+      "before",
+      "remodel",
+      "home",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "beauty-portrait-before",
+    "category": "beauty",
+    "templateId": "",
+    "replaces": "",
+    "alt": "The same studio portrait before editing: flat, cooler colours and no retouching.",
+    "url": "/media/generated/beauty-portrait-before.webp",
+    "thumb": "/media/generated/thumbs/beauty-portrait-before.webp",
+    "tags": [
+      "beauty",
+      "portrait",
+      "photo-editing",
+      "retouching",
+      "before",
+      "studio",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "ecommerce-stand-mixer",
+    "category": "ecommerce",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A cream stand mixer with a steel bowl on a bright kitchen counter.",
+    "url": "/media/generated/ecommerce-stand-mixer.webp",
+    "thumb": "/media/generated/thumbs/ecommerce-stand-mixer.webp",
+    "tags": [
+      "ecommerce",
+      "product",
+      "kitchen",
+      "gift",
+      "mixer",
+      "baking",
+      "appliance",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "ecommerce-weekend-luggage",
+    "category": "ecommerce",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A matching set of sage canvas and leather weekend bags and a small suitcase by a doorway.",
+    "url": "/media/generated/ecommerce-weekend-luggage.webp",
+    "thumb": "/media/generated/thumbs/ecommerce-weekend-luggage.webp",
+    "tags": [
+      "ecommerce",
+      "product",
+      "travel",
+      "gift",
+      "luggage",
+      "bags",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "ecommerce-copper-cookware",
+    "category": "ecommerce",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A polished copper cookware set of pans and saucepans on a wooden kitchen shelf.",
+    "url": "/media/generated/ecommerce-copper-cookware.webp",
+    "thumb": "/media/generated/thumbs/ecommerce-copper-cookware.webp",
+    "tags": [
+      "ecommerce",
+      "product",
+      "kitchen",
+      "gift",
+      "cookware",
+      "copper",
+      "cooking",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "lifestyle-blue-raincoat",
+    "category": "lifestyle",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A blue hooded raincoat hanging on a wooden peg by a door, damp from the rain.",
+    "url": "/media/generated/lifestyle-blue-raincoat.webp",
+    "thumb": "/media/generated/thumbs/lifestyle-blue-raincoat.webp",
+    "tags": [
+      "lifestyle",
+      "clothing",
+      "raincoat",
+      "lost-found",
+      "item",
+      "generated",
+      "originals"
+    ],
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "lifestyle-mechanical-keyboard",
+    "category": "lifestyle",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A compact mechanical keyboard with cream and sage keycaps on a wooden desk.",
+    "url": "/media/generated/lifestyle-mechanical-keyboard.webp",
+    "thumb": "/media/generated/thumbs/lifestyle-mechanical-keyboard.webp",
+    "tags": [
+      "lifestyle",
+      "product",
+      "keyboard",
+      "desk",
+      "gadget",
+      "wishlist",
+      "technology",
+      "generated",
+      "originals"
+    ],
+    "width": 1024,
+    "height": 1024
+  },
+  {
+    "id": "lifestyle-coffee-grinder",
+    "category": "lifestyle",
+    "templateId": "",
+    "replaces": "",
+    "alt": "A burr coffee grinder with fresh ground coffee and beans on a kitchen counter.",
+    "url": "/media/generated/lifestyle-coffee-grinder.webp",
+    "thumb": "/media/generated/thumbs/lifestyle-coffee-grinder.webp",
+    "tags": [
+      "lifestyle",
+      "product",
+      "coffee",
+      "kitchen",
+      "gadget",
+      "wishlist",
+      "generated",
+      "originals"
+    ],
+    "width": 1024,
+    "height": 1024
   }
 ]

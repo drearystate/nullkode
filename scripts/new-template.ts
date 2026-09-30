@@ -5,7 +5,8 @@
  *
  * Writes src/lib/templates/originals/original-<id>.ts, imports it from
  * originals/index-b.ts, and makes public/templates/originals/original-<id>/
- * for its images (with a CREDITS.md to fill in). Then run
+ * for any pictures of your own (with a CREDITS.md to fill in). Templates can
+ * also use the generated pictures in public/media/generated/. Then run
  * `pnpm check:extensions`, and render its gallery preview with
  * `tsx scripts/render-original-templates.ts original-<id>`.
  */
@@ -39,9 +40,10 @@ writeFileSync(file, `/**
  * A template is a theme plus finished pages, and a list of features to install
  * (their pages, tables and forms come with them). Use the theme tokens
  * (var(--nk-primary), var(--nk-text), var(--nk-surface) …) instead of fixed
- * colours, so owners can re-theme it and dark mode works. Images go in
- * public/templates/originals/${id}/ and must be free to redistribute (list
- * them in CREDITS.md there). Guide: docs/extending.md
+ * colours, so owners can re-theme it and dark mode works. Use pictures from
+ * public/media/generated/ (see src/lib/assets/generated-catalog.json), or put
+ * your own in public/templates/originals/${id}/: they must be free to
+ * redistribute (list them in CREDITS.md there). Guide: docs/extending.md
  */
 import { registerTemplate } from "../store";
 import type { StarterTemplate } from "../types";
@@ -146,7 +148,8 @@ console.log(`Created src/lib/templates/originals/${id}.ts and added it to the ga
 
 Next:
   1. Design the pages and pick the theme colours in that file (see docs/extending.md).
-  2. Put images in public/templates/originals/${id}/ and list them in CREDITS.md.
+  2. Use pictures from public/media/generated/, or put your own in
+     public/templates/originals/${id}/ and list them in CREDITS.md.
   3. pnpm check:extensions
   4. tsx scripts/render-original-templates.ts ${id}   (makes the gallery preview image)`);
 

@@ -22,7 +22,12 @@ const replacements = new Map(generatedAssets.filter((a) => a.replaces).map((a) =
   `/templates/originals/${a.templateId}/${a.replaces}`, a.url,
 ]));
 
-/** Exact paths only: unrelated templates and customer uploads are never changed. */
+/**
+ * The original templates used to show photos from /templates/originals/<id>/.
+ * They now point at the generated library directly; this maps any of those
+ * older paths (catalog `templateId` + `replaces`) to its generated picture.
+ * Exact paths only: unrelated templates and customer uploads are never changed.
+ */
 export function withGeneratedTemplateImages(value: string): string {
   return value.replace(/\/templates\/originals\/[\w-]+\/[\w-]+\.webp/g, (path) => replacements.get(path) ?? path);
 }

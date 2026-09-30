@@ -26,8 +26,8 @@ export const mediaPlaylist: ModuleDefinition = {
         { name: "sort_order", type: "int" },
       ],
       seed: [
-        { kind: "audio", title: "Sample audio", artist: "Various", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3", thumb_url: "https://picsum.photos/seed/aud/300/300", duration_s: 372, sort_order: 1 },
-        { kind: "video", title: "Big Buck Bunny", artist: "Blender", url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", thumb_url: "https://picsum.photos/seed/vid/300/300", duration_s: 596, sort_order: 2 },
+        { kind: "audio", title: "Sample audio", artist: "Various", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3", thumb_url: "/media/generated/thumbs/music-recording-studio.webp", duration_s: 372, sort_order: 1 },
+        { kind: "video", title: "Big Buck Bunny", artist: "Blender", url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", thumb_url: "/media/generated/thumbs/photography-camera-desk.webp", duration_s: 596, sort_order: 2 },
       ],
     },
   ],
@@ -128,7 +128,7 @@ export const mediaPlaylist: ModuleDefinition = {
       items = Array.isArray(rows) ? rows : [];
       document.getElementById('nk-pl-queue').innerHTML = items.map(function(it, i){
         var icon = it.kind === 'video' ? '' : '';
-        return '<div data-pl-idx="'+i+'" class="d-flex gap-2 align-items-center p-2 border rounded mb-2" style="cursor:pointer;background:var(--nk-surface);"><img style="width:48px;height:48px;object-fit:cover;border-radius:6px;" src="'+esc(safeUrl(it.thumb_url||'https://picsum.photos/seed/x/100'))+'" alt=""/><div class="flex-grow-1"><div class="fw-bold small">'+icon+' '+esc(it.title||'')+'</div><div class="small" style="color:var(--nk-text-muted);">'+esc(it.artist||'')+'</div></div></div>';
+        return '<div data-pl-idx="'+i+'" class="d-flex gap-2 align-items-center p-2 border rounded mb-2" style="cursor:pointer;background:var(--nk-surface);"><img style="width:48px;height:48px;object-fit:cover;border-radius:6px;" src="'+esc(safeUrl(it.thumb_url||'/media/generated/thumbs/music-recording-studio.webp'))+'" alt=""/><div class="flex-grow-1"><div class="fw-bold small">'+icon+' '+esc(it.title||'')+'</div><div class="small" style="color:var(--nk-text-muted);">'+esc(it.artist||'')+'</div></div></div>';
       }).join('');
       document.querySelectorAll('[data-pl-idx]').forEach(function(el){ el.addEventListener('click', function(){ play(parseInt(el.getAttribute('data-pl-idx'),10)); }); });
       if(items.length) play(0);
@@ -145,7 +145,7 @@ export const mediaPlaylist: ModuleDefinition = {
   <button class="btn btn-primary mt-3" type="submit">Add</button>
 </form>
 <div data-nk-bind-flow-ref="items" data-nk-refresh="15000" class="mt-3">
-  <div class="d-flex gap-3 align-items-center p-2 border rounded mb-2" data-nk-item style="background:var(--nk-surface);"><img style="width:48px;height:48px;object-fit:cover;border-radius:6px;" data-nk-src="thumb_url" src="https://picsum.photos/seed/x/100"/><div class="flex-grow-1"><div class="fw-bold small" data-nk-field="title">Title</div><div class="small" style="color:var(--nk-text-muted);"><span data-nk-field="kind">audio</span> · <span data-nk-field="artist">artist</span></div></div></div>
+  <div class="d-flex gap-3 align-items-center p-2 border rounded mb-2" data-nk-item style="background:var(--nk-surface);"><img style="width:48px;height:48px;object-fit:cover;border-radius:6px;" data-nk-src="thumb_url" src="/media/generated/thumbs/music-recording-studio.webp"/><div class="flex-grow-1"><div class="fw-bold small" data-nk-field="title">Title</div><div class="small" style="color:var(--nk-text-muted);"><span data-nk-field="kind">audio</span> · <span data-nk-field="artist">artist</span></div></div></div>
 </div>
 </div></section>`,
     },

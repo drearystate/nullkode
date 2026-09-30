@@ -22,7 +22,6 @@
 import { registerTemplate } from "../store";
 import type { StarterTemplate } from "../types";
 
-const IMG = "/templates/originals/original-nonprofit";
 
 /* ── Shared CSS ─────────────────────────────────────────────────────── */
 const BASE_CSS = `
@@ -397,7 +396,7 @@ const HOME_HTML = `
       <p class="ct-hero-note"><span><b>$1</b> rescues about 3 meals</span><span><b>88¢</b> of every dollar goes to programs</span></p>
     </div>
     <figure class="ct-hero-fig">
-      <img src="${IMG}/market-hands.webp" alt="A volunteer hands an apple across a market stall piled with tomatoes and nectarines" width="960" height="640">
+      <img src="/media/generated/nonprofit-market-hands.webp" alt="A volunteer hands an apple across a market stall piled with tomatoes and nectarines" width="960" height="640">
       <span class="ct-tag">Rescued today: <b>4,120 lb</b></span>
       <figcaption>Saturday morning at our Harford Road market.</figcaption>
     </figure>
@@ -444,7 +443,7 @@ const HOME_HTML = `
     </div>
     <div class="ct-prog-grid">
       <article class="ct-prog">
-        <img src="${IMG}/market-greens.webp" alt="Wooden crates of leeks, beets and greens at an outdoor market" width="800" height="533" loading="lazy">
+        <img src="/media/generated/nonprofit-market-greens.webp" alt="Wooden crates of leeks, beets and greens at an outdoor market" width="800" height="533" loading="lazy">
         <div class="ct-prog-body">
           <p class="ct-prog-when">Tue – Sat · 3 locations</p>
           <h3>Neighborhood Markets</h3>
@@ -453,7 +452,7 @@ const HOME_HTML = `
         </div>
       </article>
       <article class="ct-prog">
-        <img src="${IMG}/kitchen.webp" alt="A trainee chef preparing meals in a stainless-steel community kitchen" width="720" height="640" loading="lazy">
+        <img src="/media/generated/nonprofit-kitchen.webp" alt="A trainee chef preparing meals in a stainless-steel community kitchen" width="720" height="640" loading="lazy">
         <div class="ct-prog-body">
           <p class="ct-prog-when">Every evening · Harford Road</p>
           <h3>Community Kitchen</h3>
@@ -462,7 +461,7 @@ const HOME_HTML = `
         </div>
       </article>
       <article class="ct-prog">
-        <img src="${IMG}/groceries-basket.webp" alt="A woven basket of asparagus, avocados, peppers and tomatoes" width="600" height="600" loading="lazy">
+        <img src="/media/generated/nonprofit-groceries-basket.webp" alt="A woven basket of asparagus, avocados, peppers and tomatoes" width="600" height="600" loading="lazy">
         <div class="ct-prog-body">
           <p class="ct-prog-when">School days · 18 schools</p>
           <h3>School Pantries</h3>
@@ -476,7 +475,7 @@ const HOME_HTML = `
 
 <section class="ct-sec" aria-labelledby="ct-story-h">
   <div class="ct-wrap ct-story">
-    <figure class="ct-story-fig"><img src="${IMG}/shopper-peas.webp" alt="An older man's hands opening a fresh pea pod at a market stall" width="720" height="640" loading="lazy"></figure>
+    <figure class="ct-story-fig"><img src="/media/generated/nonprofit-shopper-peas.webp" alt="An older man's hands opening a fresh pea pod at a market stall" width="720" height="640" loading="lazy"></figure>
     <div>
       <p class="ct-eyebrow">Neighbor story</p>
       <h2 class="ct-sr" id="ct-story-h">Walter's story</h2>
@@ -496,7 +495,7 @@ const HOME_HTML = `
       <h2 class="ct-h2" id="ct-donate-h">Rescued food is free. <em>Getting it here isn't.</em></h2>
       <p class="ct-intro">Your gift pays for fuel, refrigeration, warehouse space and the kitchen. Because the food itself is donated, every dollar goes a very long way.</p>
       <figure class="ct-donate-fig">
-        <img src="${IMG}/bread.webp" alt="A basket of sliced sourdough bread lined with a red checked cloth" width="800" height="600" loading="lazy">
+        <img src="/media/generated/nonprofit-bread.webp" alt="A basket of sliced sourdough bread lined with a red checked cloth" width="800" height="600" loading="lazy">
         <figcaption><b>Every night, 11 bakeries</b>send us their unsold bread instead of throwing it away.</figcaption>
       </figure>
     </div>
@@ -587,7 +586,7 @@ const IMPACT_HTML = `
       <h1>A record year for rescue, <em>and for neighbors.</em></h1>
       <p class="ct-intro">We rescued more food than ever, opened a third market and doubled our school pantries. Here is where the food went, who it reached and how we spent every dollar.</p>
     </div>
-    <figure class="ct-phead-fig"><img src="${IMG}/rescue-crate.webp" alt="A crate of rescued strawberries, oranges, cucumbers, carrots and kale seen from above" width="600" height="600"></figure>
+    <figure class="ct-phead-fig"><img src="/media/generated/nonprofit-rescue-crate.webp" alt="A crate of rescued strawberries, oranges, cucumbers, carrots and kale seen from above" width="600" height="600"></figure>
   </div>
 </header>
 
@@ -708,7 +707,7 @@ const INVOLVED_HTML = `
       <p class="ct-intro">Volunteers do most of the work at Common Table. Pick a role that suits you, bring your team, run a food drive or partner with us as a business.</p>
       <div class="ct-actions"><a class="ct-btn ct-btn-tomato" href="/contact">Sign up to volunteer</a><a class="ct-btn ct-btn-line" href="/donate">Give instead</a></div>
     </div>
-    <figure class="ct-phead-fig"><img src="${IMG}/grower.webp" alt="A hand holding two freshly pulled radishes with soil still on the roots" width="800" height="600"></figure>
+    <figure class="ct-phead-fig"><img src="/media/generated/nonprofit-grower.webp" alt="A hand holding two freshly pulled radishes with soil still on the roots" width="800" height="600"></figure>
   </div>
 </header>
 

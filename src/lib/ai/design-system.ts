@@ -602,7 +602,7 @@ ICON RULES
 Use unicode symbols or inline SVG (stroke-width:2, size 20-24) — never external icon fonts. Put the icon in a rounded colored chip: style="width:48px;height:48px;display:inline-flex;align-items:center;justify-content:center;border-radius:var(--nk-radius-sm);background:color-mix(in srgb, var(--nk-primary) 15%, transparent);color:var(--nk-primary);font-size:22px;"
 
 IMAGE RULES
-- Use only image URLs supplied in the request or verified assets returned by the asset picker. Do not invent local photo paths.
+- Pictures come only from the images listed under AVAILABLE LOCAL IMAGES, image URLs the user supplied, or pictures already on the page. Never use outside photo sites (stock-photo, placeholder or random-image services) and never invent image URLs or local photo paths.
 - When no suitable image is supplied, create an original inline SVG or a purposeful CSS composition. Use descriptive alt text for content images; mark decorative artwork aria-hidden.
 - For data-bound lists, use data-nk-src="column_name" on the <img> so the runtime fills it in from DB rows.
 
@@ -631,5 +631,6 @@ export const DESIGN_RULES_COMPACT = `DESIGN RULES
 - Headings: one h1 per page, h2 per section, h3 in cards. Buttons: class="btn btn-primary btn-lg" and "btn btn-outline-primary btn-lg".
 - Cards: style="background:var(--nk-surface);border:1px solid var(--nk-border);border-radius:var(--nk-radius);padding:1.5rem".
 - Icons: small inline SVG (viewBox="0 0 24 24", stroke="currentColor", fill="none"). No emoji, no icon fonts, no invented image URLs.
+- Pictures: only the images listed under AVAILABLE LOCAL IMAGES or image URLs the user supplied, or CSS gradients. Never use outside photo sites.
 - Copy: specific to this business, in plain words. No lorem ipsum.
 - Honesty: never invent testimonials, reviews, star ratings, customer counts, awards or certifications; leave stats out unless given; prices, hours or phone numbers you weren't given are written as placeholders like [Your price].`;

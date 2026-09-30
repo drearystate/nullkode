@@ -70,3 +70,6 @@ scripts/.ux-review.mjs
 
 # Local image masters and visual review output (web assets are tracked under public/media).
 /output/
+
+# Generated copy of the in-app help guides (pnpm guides:build)
+docs/guides/

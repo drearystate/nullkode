@@ -25,8 +25,8 @@ export const inAppAds: ModuleDefinition = {
         { name: "placement", type: "text" },
       ],
       seed: [
-        { headline: " Summer Sale — 30% off", image_url: "https://picsum.photos/seed/ad1/1200/200", click_url: "/", weight: 80, active: true, placement: "header" },
-        { headline: "New podcast — Episode 12 out now", image_url: "https://picsum.photos/seed/ad2/1200/200", click_url: "/", weight: 20, active: true, placement: "header" },
+        { headline: " Summer Sale — 30% off", image_url: "/media/generated/hospitality-courtyard-pool.webp", click_url: "/", weight: 80, active: true, placement: "header" },
+        { headline: "New podcast — Episode 12 out now", image_url: "/media/generated/music-recording-studio.webp", click_url: "/", weight: 20, active: true, placement: "header" },
       ],
     },
     {

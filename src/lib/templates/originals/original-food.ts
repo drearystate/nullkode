@@ -14,7 +14,6 @@
 import { registerTemplate } from "../store";
 import type { StarterTemplate } from "../types";
 
-const IMG = "/templates/originals/original-food";
 
 /*
  * The visual editor (GrapesJS) re-parses page CSS through the CSSOM and silently
@@ -205,9 +204,9 @@ const HOME_HTML = `
       <p class="prf-hero__proof"><span class="prf-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span> 4.9 from 1,240 neighbours &middot; Best Bakery, Seven Days 2025</p>
     </div>
     <div class="prf-hero__art">
-      <figure class="prf-hero__photo"><img src="${IMG}/croissant-tray.webp" alt="A tray of freshly baked butter croissants cooling by the bakery window" width="860" height="638" fetchpriority="high"></figure>
+      <figure class="prf-hero__photo"><img src="/media/generated/food-croissant-tray.webp" alt="A tray of freshly baked butter croissants cooling by the bakery window" width="860" height="638" fetchpriority="high"></figure>
       <p class="prf-sticker prf-hero__sticker"><span>Out of<br>the oven<br><em>by 7 am</em></span></p>
-      <figure class="prf-hero__cup"><img src="${IMG}/rustic-rolls.webp" alt="Flour-dusted rustic rolls straight from the oven" width="960" height="640"></figure>
+      <figure class="prf-hero__cup"><img src="/media/generated/food-rustic-rolls.webp" alt="Flour-dusted rustic rolls straight from the oven" width="960" height="640"></figure>
     </div>
   </div>
 </section>
@@ -252,7 +251,7 @@ const HOME_HTML = `
     </div>
     <div class="prf-specials__grid">
       <article class="prf-card">
-        <figure class="prf-card__img"><img src="${IMG}/croissant-breakfast.webp" alt="Two golden almond croissants on a white plate beside jam and orange juice" width="960" height="640" loading="lazy"><figcaption class="prf-card__day">Sat &amp; Sun</figcaption></figure>
+        <figure class="prf-card__img"><img src="/media/generated/food-croissant-breakfast.webp" alt="Two golden almond croissants on a white plate beside jam and orange juice" width="960" height="640" loading="lazy"><figcaption class="prf-card__day">Sat &amp; Sun</figcaption></figure>
         <div class="prf-card__body">
           <h3>Twice-baked almond croissant</h3>
           <p>Yesterday's croissants, soaked in orange syrup and baked again with frangipane.</p>
@@ -260,7 +259,7 @@ const HOME_HTML = `
         </div>
       </article>
       <article class="prf-card prf-card--tilt">
-        <figure class="prf-card__img"><img src="${IMG}/seeded-muffins.webp" alt="A basket of pumpkin-seed muffins lined with a green gingham cloth" width="960" height="640" loading="lazy"><figcaption class="prf-card__day">Tue &ndash; Thu</figcaption></figure>
+        <figure class="prf-card__img"><img src="/media/generated/food-seeded-muffins.webp" alt="A basket of pumpkin-seed muffins lined with a green gingham cloth" width="960" height="640" loading="lazy"><figcaption class="prf-card__day">Tue &ndash; Thu</figcaption></figure>
         <div class="prf-card__body">
           <h3>Spelt &amp; pumpkin muffin</h3>
           <p>Wholegrain spelt, roasted squash and toasted pepitas. Not too sweet, very good with coffee.</p>
@@ -268,7 +267,7 @@ const HOME_HTML = `
         </div>
       </article>
       <article class="prf-card">
-        <figure class="prf-card__img"><img src="${IMG}/loaf-board.webp" alt="A round wholemeal loaf with two slices cut on a wooden board" width="960" height="640" loading="lazy"><figcaption class="prf-card__day">Saturday</figcaption></figure>
+        <figure class="prf-card__img"><img src="/media/generated/food-loaf-board.webp" alt="A round wholemeal loaf with two slices cut on a wooden board" width="960" height="640" loading="lazy"><figcaption class="prf-card__day">Saturday</figcaption></figure>
         <div class="prf-card__body">
           <h3>Porridge oat loaf</h3>
           <p>Oat porridge folded into our levain for a soft, custardy crumb. Pre-order by Friday, 2 pm.</p>
@@ -293,7 +292,7 @@ const HOME_HTML = `
 
 <section class="prf-cafe">
   <div class="prf-wrap prf-cafe__grid">
-    <figure class="prf-cafe__img"><img src="${IMG}/flat-white.webp" alt="A flat white with leaf latte art in a white cup, seen from above" width="520" height="520" loading="lazy"></figure>
+    <figure class="prf-cafe__img"><img src="/media/generated/food-flat-white.webp" alt="A flat white with leaf latte art in a white cup, seen from above" width="520" height="520" loading="lazy"></figure>
     <div>
       <p class="prf-label">At the counter</p>
       <h2 class="prf-h2">Coffee &amp; <em>a little breakfast</em></h2>
@@ -336,7 +335,7 @@ const HOME_HTML = `
       </ul>
     </div>
     <figure class="prf-bakers__img">
-      <img src="${IMG}/baker-at-rack.webp" alt="A baker in whites sliding a tray of loaves onto the cooling rack" width="960" height="769" loading="lazy">
+      <img src="/media/generated/food-baker-at-rack.webp" alt="A baker in whites sliding a tray of loaves onto the cooling rack" width="960" height="769" loading="lazy">
       <p class="prf-sticker prf-bakers__sticker"><span>Est.<br><em>2019</em></span></p>
     </figure>
   </div>
@@ -372,7 +371,7 @@ const HOME_HTML = `
         </tbody>
       </table>
     </div>
-    <figure class="prf-visit__img"><img src="${IMG}/bakery-counter.webp" alt="The bakery counter stacked with loaves and pastries while two bakers serve customers" width="960" height="711" loading="lazy"></figure>
+    <figure class="prf-visit__img"><img src="/media/generated/food-bakery-counter.webp" alt="The bakery counter stacked with loaves and pastries while two bakers serve customers" width="960" height="711" loading="lazy"></figure>
   </div>
 </section>
 ${FOOTER}`;
@@ -539,7 +538,7 @@ const WEEK_HTML = `
       <h1 class="prf-week-hero__title">What's baking, <em>day by day</em></h1>
       <p class="prf-lede">The core loaves and pastries are on every morning. These are the extras: one-day specials we bake in small batches, so pre-ordering is the only sure way to get one.</p>
     </div>
-    <figure class="prf-week-hero__img"><img src="${IMG}/rustic-rolls.webp" alt="Flour-dusted rustic rolls piled in a basket" width="960" height="640" fetchpriority="high"></figure>
+    <figure class="prf-week-hero__img"><img src="/media/generated/food-rustic-rolls.webp" alt="Flour-dusted rustic rolls piled in a basket" width="960" height="640" fetchpriority="high"></figure>
   </div>
 </section>
 
@@ -592,7 +591,7 @@ const WEEK_HTML = `
       </ul>
       <a class="btn btn-primary prf-btn" href="/shop">Order for pickup</a>
     </div>
-    <figure class="prf-bulk__img"><img src="${IMG}/bakery-counter.webp" alt="Shelves of fresh loaves behind the bakery counter" width="960" height="711" loading="lazy"></figure>
+    <figure class="prf-bulk__img"><img src="/media/generated/food-bakery-counter.webp" alt="Shelves of fresh loaves behind the bakery counter" width="960" height="711" loading="lazy"></figure>
   </div>
 </section>
 ${FOOTER}`;
@@ -652,12 +651,12 @@ const template: StarterTemplate = {
   moduleSeeds: {
     shop: {
       products: [
-        { name: "Country sourdough, 800 g", description: "38-hour ferment, dark crust, open crumb. Vegan.", price: 9, image_url: `${IMG}/loaf-board.webp`, in_stock: true },
-        { name: "Butter croissant", description: "Three days from dough to oven. Best before noon.", price: 4.25, image_url: `${IMG}/croissant-tray.webp`, in_stock: true },
-        { name: "Twice-baked almond croissant", description: "Orange syrup and frangipane. Saturdays and Sundays.", price: 5.25, image_url: `${IMG}/croissant-breakfast.webp`, in_stock: true },
-        { name: "Spelt & pumpkin muffin", description: "Wholegrain spelt, roasted squash, toasted pepitas.", price: 3.75, image_url: `${IMG}/seeded-muffins.webp`, in_stock: true },
-        { name: "Crusty rolls, bag of 6", description: "Our sourdough, rolled small. Great for soups and sandwiches.", price: 7, image_url: `${IMG}/rustic-rolls.webp`, in_stock: true },
-        { name: "Morning pastry box for 6", description: "The baker's pick of today's croissants, buns and knots.", price: 24, image_url: `${IMG}/bakery-counter.webp`, in_stock: true },
+        { name: "Country sourdough, 800 g", description: "38-hour ferment, dark crust, open crumb. Vegan.", price: 9, image_url: `/media/generated/food-loaf-board.webp`, in_stock: true },
+        { name: "Butter croissant", description: "Three days from dough to oven. Best before noon.", price: 4.25, image_url: `/media/generated/food-croissant-tray.webp`, in_stock: true },
+        { name: "Twice-baked almond croissant", description: "Orange syrup and frangipane. Saturdays and Sundays.", price: 5.25, image_url: `/media/generated/food-croissant-breakfast.webp`, in_stock: true },
+        { name: "Spelt & pumpkin muffin", description: "Wholegrain spelt, roasted squash, toasted pepitas.", price: 3.75, image_url: `/media/generated/food-seeded-muffins.webp`, in_stock: true },
+        { name: "Crusty rolls, bag of 6", description: "Our sourdough, rolled small. Great for soups and sandwiches.", price: 7, image_url: `/media/generated/food-rustic-rolls.webp`, in_stock: true },
+        { name: "Morning pastry box for 6", description: "The baker's pick of today's croissants, buns and knots.", price: 24, image_url: `/media/generated/food-bakery-counter.webp`, in_stock: true },
       ],
     },
   },

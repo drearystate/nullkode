@@ -17,5 +17,5 @@
 - [ ] New code that creates pages calls `syncProjectNav`, so the app's menus stay in step.
 - [ ] Nothing trusts `X-Forwarded-For`; the visitor's address comes from `X-Real-IP`.
 - [ ] Scripts that change existing data only report by default and need `--apply` to write.
-- [ ] Documentation is updated (README, START-HERE, docs/) if behaviour or setup changed.
+- [ ] Documentation is updated (README, docs/) if behaviour or setup changed.
 - [ ] Tests: which ones you ran (for example `pnpm test:e2e`, or a single `scripts/e2e-*.ts`), and anything you couldn't test.

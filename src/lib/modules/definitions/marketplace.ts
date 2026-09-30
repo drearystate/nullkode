@@ -206,14 +206,14 @@ export const marketplace: ModuleDefinition = {
       html: `<header class="py-3" style="background:var(--nk-text);color:#fff;"><div class="container d-flex justify-content-between align-items-center"><a href="/" class="text-decoration-none fw-bold" style="color:#fff;">{{config.marketName}}</a><nav class="d-flex gap-3 small"><a class="text-decoration-none" style="color:rgba(255,255,255,0.65);" href="/marketplace">Browse</a><a class="text-decoration-none" style="color:rgba(255,255,255,0.65);" href="/stores">Stores</a><a class="text-decoration-none" style="color:rgba(255,255,255,0.65);" href="/sell">Sell on {{config.marketName}}</a></nav></div></header>
 <section class="py-5" style="background:var(--nk-surface-2);"><div class="container"><h1 class="display-4 fw-bold">Discover</h1><p class="lead" style="color:var(--nk-text-muted);">Goods from independent sellers around the network.</p></div></section>
 <section class="py-5"><div class="container"><div data-nk-bind-flow-ref="browse" class="row g-4">
-  <div class="col-md-3 col-sm-6" data-nk-item><div class="card border-0 shadow-sm h-100"><img class="card-img-top" data-nk-src="image_url" src="https://picsum.photos/seed/m1/400/300" style="aspect-ratio:4/3;object-fit:cover;" alt=""/><div class="card-body"><h6 class="fw-bold mb-1" data-nk-field="title">Handmade ceramic mug</h6><div class="fw-bold">$<span data-nk-field="price">24</span></div></div></div></div>
+  <div class="col-md-3 col-sm-6" data-nk-item><div class="card border-0 shadow-sm h-100"><img class="card-img-top" data-nk-src="image_url" src="/media/generated/ecommerce-fog-mug.webp" style="aspect-ratio:4/3;object-fit:cover;" alt=""/><div class="card-body"><h6 class="fw-bold mb-1" data-nk-field="title">Handmade ceramic mug</h6><div class="fw-bold">$<span data-nk-field="price">24</span></div></div></div></div>
 </div></div></section>`,
     },
     {
       slug: "stores",
       title: "Stores",
       html: `<section class="py-5"><div class="container"><h1 class="display-5 fw-bold">Stores</h1><div data-nk-bind-flow-ref="stores" class="row g-4 mt-2">
-  <div class="col-md-4" data-nk-item><div class="card border-0 shadow-sm h-100 p-3 text-center"><img class="rounded-circle mx-auto" style="width:80px;height:80px;object-fit:cover;" data-nk-src="logo_url" src="https://picsum.photos/seed/store/200/200" alt=""/><h5 class="fw-bold mt-3" data-nk-field="name">Maker Studio</h5><div class="small" style="color:var(--nk-text-muted);" data-nk-field="tagline">Hand-thrown ceramics and homewares.</div></div></div>
+  <div class="col-md-4" data-nk-item><div class="card border-0 shadow-sm h-100 p-3 text-center"><img class="rounded-circle mx-auto" style="width:80px;height:80px;object-fit:cover;" data-nk-src="logo_url" src="/media/generated/thumbs/ecommerce-wheel-hands.webp" alt=""/><h5 class="fw-bold mt-3" data-nk-field="name">Maker Studio</h5><div class="small" style="color:var(--nk-text-muted);" data-nk-field="tagline">Hand-thrown ceramics and homewares.</div></div></div>
 </div></div></section>`,
     },
     {

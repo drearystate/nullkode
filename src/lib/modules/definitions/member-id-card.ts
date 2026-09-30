@@ -115,7 +115,7 @@ export const memberIdCard: ModuleDefinition = {
       <div class="small text-uppercase" style="opacity:0.7;">{{config.orgName}}</div>
       <div class="fw-bold fs-5">{{config.cardTagline}}</div>
     </div>
-    <img class="rounded" style="width:70px;height:90px;object-fit:cover;" data-nk-src="photo_url" src="https://i.pravatar.cc/200" alt=""/>
+    <img class="rounded" style="width:70px;height:90px;object-fit:cover;" data-nk-src="photo_url" src="/media/generated/thumbs/people-jordan-lee.webp" alt=""/>
   </div>
   <div class="display-6 fw-bold mt-4" data-nk-field="name">Member name</div>
   <div class="small mt-1" style="opacity:0.7;">Tier <span data-nk-field="tier">Standard</span></div>
@@ -140,7 +140,7 @@ export const memberIdCard: ModuleDefinition = {
       title: "Members",
       html: `<section class="py-5"><div class="container"><h1 class="fw-bold">Members</h1>
 <div data-nk-bind-flow-ref="list" data-nk-refresh="20000" class="row g-3 mt-3">
-  <div class="col-md-6 col-lg-4" data-nk-item><a class="card border-0 shadow-sm h-100 text-decoration-none text-body" data-nk-href-template="/card?n={member_number}" href="#"><div class="card-body d-flex gap-3 align-items-center"><img class="rounded-circle" style="width:48px;height:48px;object-fit:cover;" data-nk-src="photo_url" src="https://i.pravatar.cc/100" alt=""/><div class="flex-grow-1"><div class="fw-bold" data-nk-field="name">Name</div><code class="small" data-nk-field="member_number">M-00000000</code></div></div></a></div>
+  <div class="col-md-6 col-lg-4" data-nk-item><a class="card border-0 shadow-sm h-100 text-decoration-none text-body" data-nk-href-template="/card?n={member_number}" href="#"><div class="card-body d-flex gap-3 align-items-center"><img class="rounded-circle" style="width:48px;height:48px;object-fit:cover;" data-nk-src="photo_url" src="/media/generated/thumbs/people-jordan-lee.webp" alt=""/><div class="flex-grow-1"><div class="fw-bold" data-nk-field="name">Name</div><code class="small" data-nk-field="member_number">M-00000000</code></div></div></a></div>
 </div>
 </div></section>`,
     },

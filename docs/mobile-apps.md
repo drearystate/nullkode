@@ -158,7 +158,7 @@ restarted is reported as stopped.
 The Mobile app page shows the exact reason when something is missing.
 
 **Docker installs:** run the installer again and answer yes to the Android
-question, or run `NULLKODE_ANDROID=1 bash install.sh`. See START-HERE.md.
+question, or run `NULLKODE_ANDROID=1 bash install.sh`. See docs/install.md.
 
 **Manual installs** (for example with systemd):
 

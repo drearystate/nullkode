@@ -22,7 +22,6 @@ import { registerTemplate } from "../store";
 import type { StarterTemplate } from "../types";
 
 const MONO = `"Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace`;
-const IMG = "/templates/originals/original-saas";
 
 /* ── Shared CSS (every Driftline page) ─────────────────────────────── */
 const BASE_CSS = `
@@ -661,7 +660,7 @@ const HOME_HTML = `
       <figure class="dl-voice-main">
         <blockquote><p>“We cancelled our weekly release meeting in March. Nobody has asked for it back, because the answer is already in Driftline.”</p></blockquote>
         <figcaption>
-          <img src="${IMG}/hannah.webp" alt="Portrait of Hannah Brooks" width="360" height="360" loading="lazy">
+          <img src="/media/generated/saas-hannah.webp" alt="Portrait of Hannah Brooks" width="360" height="360" loading="lazy">
           <span><strong>Hannah Brooks</strong>Director of Product, Parcelly</span>
         </figcaption>
       </figure>
@@ -669,7 +668,7 @@ const HOME_HTML = `
         <figure class="dl-voice">
           <blockquote><p>“Our iOS and Android teams finally ship on the same day. Dependency alerts paid for the year in week two.”</p></blockquote>
           <figcaption>
-            <img src="${IMG}/mateo.webp" alt="Portrait of Mateo Ruiz" width="360" height="360" loading="lazy">
+            <img src="/media/generated/saas-mateo.webp" alt="Portrait of Mateo Ruiz" width="360" height="360" loading="lazy">
             <span><strong>Mateo Ruiz</strong>Engineering Manager, Stackhouse</span>
           </figcaption>
         </figure>

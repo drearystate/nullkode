@@ -427,7 +427,7 @@ export const auth: ModuleDefinition = {
 
 <div data-nk-bind-flow-ref="me" class="card p-4 shadow-sm mt-4">
   <div data-nk-item class="d-flex align-items-center gap-4">
-    <img class="rounded-circle" style="width:88px;height:88px;object-fit:cover;" data-nk-src="avatar_url" src="https://i.pravatar.cc/200?img=11" alt=""/>
+    <img class="rounded-circle" style="width:88px;height:88px;object-fit:cover;" data-nk-src="avatar_url" src="/media/generated/thumbs/people-priya.webp" alt=""/>
     <div>
       <h3 class="fw-bold mb-0" data-nk-field="name">Your name</h3>
       <div style="color:var(--nk-text-muted);" data-nk-field="email">you@example.com</div>

@@ -63,7 +63,7 @@ export const audio: ModuleDefinition = {
 <section class="py-5"><div class="container" style="max-width:760px;">
 <div data-nk-bind-flow-ref="feed">
   <div class="d-flex align-items-center gap-3 p-3 border-bottom" data-nk-item>
-    <img class="rounded" style="width:56px;height:56px;object-fit:cover;" data-nk-src="cover_url" src="https://picsum.photos/seed/a1/120/120" alt=""/>
+    <img class="rounded" style="width:56px;height:56px;object-fit:cover;" data-nk-src="cover_url" src="/media/generated/thumbs/creative-parlour.webp" alt=""/>
     <div class="flex-grow-1">
       <div class="fw-bold" data-nk-field="title">Midnight Drive</div>
       <div class="small" style="color:var(--nk-text-muted);" data-nk-field="artist">The Wanderers</div>
@@ -72,19 +72,19 @@ export const audio: ModuleDefinition = {
     <button class="btn btn-sm btn-outline-primary rounded-circle" style="width:36px;height:36px;">&#9654;</button>
   </div>
   <div class="d-flex align-items-center gap-3 p-3 border-bottom">
-    <img class="rounded" style="width:56px;height:56px;object-fit:cover;" src="https://picsum.photos/seed/a2/120/120" alt=""/>
+    <img class="rounded" style="width:56px;height:56px;object-fit:cover;" src="/media/generated/thumbs/travel-alpine-meadows.webp" alt=""/>
     <div class="flex-grow-1"><div class="fw-bold">Sunlight</div><div class="small" style="color:var(--nk-text-muted);">Field Notes</div></div>
     <div class="small" style="color:var(--nk-text-muted);">4:18</div>
     <button class="btn btn-sm btn-outline-primary rounded-circle" style="width:36px;height:36px;">&#9654;</button>
   </div>
   <div class="d-flex align-items-center gap-3 p-3 border-bottom">
-    <img class="rounded" style="width:56px;height:56px;object-fit:cover;" src="https://picsum.photos/seed/a3/120/120" alt=""/>
+    <img class="rounded" style="width:56px;height:56px;object-fit:cover;" src="/media/generated/thumbs/creative-northline-waves.webp" alt=""/>
     <div class="flex-grow-1"><div class="fw-bold">Signal Lost</div><div class="small" style="color:var(--nk-text-muted);">Room 12</div></div>
     <div class="small" style="color:var(--nk-text-muted);">2:55</div>
     <button class="btn btn-sm btn-outline-primary rounded-circle" style="width:36px;height:36px;">&#9654;</button>
   </div>
   <div class="d-flex align-items-center gap-3 p-3">
-    <img class="rounded" style="width:56px;height:56px;object-fit:cover;" src="https://picsum.photos/seed/a4/120/120" alt=""/>
+    <img class="rounded" style="width:56px;height:56px;object-fit:cover;" src="/media/generated/thumbs/creative-poster-wall.webp" alt=""/>
     <div class="flex-grow-1"><div class="fw-bold">Afterhours</div><div class="small" style="color:var(--nk-text-muted);">Late Bloom</div></div>
     <div class="small" style="color:var(--nk-text-muted);">5:02</div>
     <button class="btn btn-sm btn-outline-primary rounded-circle" style="width:36px;height:36px;">&#9654;</button>

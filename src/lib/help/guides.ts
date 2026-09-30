@@ -1,7 +1,8 @@
 /**
  * The in-app Help guides, as data. One guide per slug in GUIDE_SLUGS
  * (./where.ts). The pages under /help render these, scripts/build-guides.ts
- * writes them to docs/guides/*.md, scripts/help-screenshots.ts captures the
+ * writes a local copy to docs/guides/*.md (not kept in the repository),
+ * scripts/help-screenshots.ts captures the
  * screenshots they reference, and scripts/check-guides.ts checks them.
  *
  * Writing rules:

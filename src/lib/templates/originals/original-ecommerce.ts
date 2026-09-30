@@ -17,7 +17,6 @@
 import { registerTemplate } from "../store";
 import type { StarterTemplate } from "../types";
 
-const IMG = "/templates/originals/original-ecommerce";
 
 /*
  * The visual editor (GrapesJS) re-parses page CSS through the CSSOM and silently
@@ -204,23 +203,23 @@ const DROP = `
 
 type Product = { id: string; name: string; glaze: string; size: string; price: string; img: string; w: number; h: number; alt: string; badge?: [string, "new" | "low" | "best"]; swatches: string[] };
 const PRODUCTS: Product[] = [
-  { id: "ridgeline-tumbler", name: "Ridgeline tumbler", glaze: "Raw terracotta", size: "12 oz", price: "32", img: "terracotta-tumblers.webp", w: 1100, h: 1100, alt: "Three ribbed terracotta tumblers on a white shelf", badge: ["Bestseller", "best"], swatches: ["Terracotta", "Ash", "Celadon"] },
-  { id: "fog-mug", name: "Fog mug", glaze: "Ash grey satin", size: "11 oz", price: "36", img: "fog-mug.webp", w: 640, h: 640, alt: "A matte grey mug on a window ledge with misty hills behind", swatches: ["Ash", "Bone"] },
-  { id: "milk-pitcher", name: "Milk pitcher", glaze: "Porcelain white", size: "24 oz", price: "58", img: "milk-pitcher.webp", w: 640, h: 640, alt: "A white porcelain pitcher holding a sprig of cedar beside a sheer curtain", swatches: ["Bone"] },
-  { id: "ridged-planter", name: "Ridged planter", glaze: "Raw terracotta", size: "5 in, with saucer", price: "44", img: "ridged-planter.webp", w: 800, h: 800, alt: "A vertically ridged terracotta planter on its matching saucer", swatches: ["Terracotta"] },
-  { id: "dune-bud-vase", name: "Dune bud vase", glaze: "Bone with iron band", size: "7 in", price: "38", img: "bud-vase.webp", w: 800, h: 800, alt: "A cream bud vase with a rust-red band holding dried gypsophila against a green wall", badge: ["3 left", "low"], swatches: ["Bone"] },
-  { id: "twin-bud-vases", name: "Twin bud vases", glaze: "Chalk white, set of 2", size: "6 in", price: "46", img: "twin-vases.webp", w: 640, h: 640, alt: "Two slim white bud vases with cherry blossom sprigs on a wooden tray", swatches: ["Bone"] },
-  { id: "celadon-bottle-vase", name: "Celadon bottle vase", glaze: "Celadon gloss", size: "9 in", price: "64", img: "celadon-bottles.webp", w: 960, h: 640, alt: "Rows of glossy celadon and sage bottle vases", badge: ["New", "new"], swatches: ["Celadon", "Sage", "Ink"] },
+  { id: "ridgeline-tumbler", name: "Ridgeline tumbler", glaze: "Raw terracotta", size: "12 oz", price: "32", img: "/media/generated/ecommerce-terracotta-tumblers.webp", w: 1100, h: 1100, alt: "Three ribbed terracotta tumblers on a white shelf", badge: ["Bestseller", "best"], swatches: ["Terracotta", "Ash", "Celadon"] },
+  { id: "fog-mug", name: "Fog mug", glaze: "Ash grey satin", size: "11 oz", price: "36", img: "/media/generated/ecommerce-fog-mug.webp", w: 640, h: 640, alt: "A matte grey mug on a window ledge with misty hills behind", swatches: ["Ash", "Bone"] },
+  { id: "milk-pitcher", name: "Milk pitcher", glaze: "Porcelain white", size: "24 oz", price: "58", img: "/media/generated/ecommerce-milk-pitcher.webp", w: 640, h: 640, alt: "A white porcelain pitcher holding a sprig of cedar beside a sheer curtain", swatches: ["Bone"] },
+  { id: "ridged-planter", name: "Ridged planter", glaze: "Raw terracotta", size: "5 in, with saucer", price: "44", img: "/media/generated/ecommerce-ridged-planter.webp", w: 800, h: 800, alt: "A vertically ridged terracotta planter on its matching saucer", swatches: ["Terracotta"] },
+  { id: "dune-bud-vase", name: "Dune bud vase", glaze: "Bone with iron band", size: "7 in", price: "38", img: "/media/generated/ecommerce-bud-vase.webp", w: 800, h: 800, alt: "A cream bud vase with a rust-red band holding dried gypsophila against a green wall", badge: ["3 left", "low"], swatches: ["Bone"] },
+  { id: "twin-bud-vases", name: "Twin bud vases", glaze: "Chalk white, set of 2", size: "6 in", price: "46", img: "/media/generated/ecommerce-twin-vases.webp", w: 640, h: 640, alt: "Two slim white bud vases with cherry blossom sprigs on a wooden tray", swatches: ["Bone"] },
+  { id: "celadon-bottle-vase", name: "Celadon bottle vase", glaze: "Celadon gloss", size: "9 in", price: "64", img: "/media/generated/ecommerce-celadon-bottles.webp", w: 960, h: 640, alt: "Rows of glossy celadon and sage bottle vases", badge: ["New", "new"], swatches: ["Celadon", "Sage", "Ink"] },
 ];
 const productCard = (p: Product) => `
         <li class="kco-product">
-          <figure class="kco-product__img"><img src="${IMG}/${p.img}" alt="${p.alt}" width="${p.w}" height="${p.h}" loading="lazy">${p.badge ? `<figcaption class="kco-badge kco-badge--${p.badge[1]}">${p.badge[0]}</figcaption>` : ""}</figure>
+          <figure class="kco-product__img"><img src="${p.img}" alt="${p.alt}" width="${p.w}" height="${p.h}" loading="lazy">${p.badge ? `<figcaption class="kco-badge kco-badge--${p.badge[1]}">${p.badge[0]}</figcaption>` : ""}</figure>
           <div class="kco-product__body">
             <div class="kco-product__row"><h3>${p.name}</h3><p class="kco-product__price kco-num">$${p.price}</p></div>
             <p class="kco-product__meta">${p.glaze} &middot; ${p.size}</p>
             <div class="kco-product__row kco-product__row--end">
               <p class="kco-product__glazes">${p.swatches.length > 1 ? `${p.swatches.length} glazes` : "One glaze"}</p>
-              <button type="button" class="kco-add" data-nk-cart-add data-nk-id="${p.id}" data-nk-name="${p.name}" data-nk-price="${p.price}" data-nk-image="${IMG}/${p.img}" aria-label="Add ${p.name} to cart">Add to cart</button>
+              <button type="button" class="kco-add" data-nk-cart-add data-nk-id="${p.id}" data-nk-name="${p.name}" data-nk-price="${p.price}" data-nk-image="${p.img}" aria-label="Add ${p.name} to cart">Add to cart</button>
             </div>
           </div>
         </li>`;
@@ -239,9 +238,9 @@ const HOME_HTML = `
         <a class="kco-btn kco-btn--line" href="#collections">Browse collections</a>
       </div>
     </div>
-    <figure class="kco-bento__main"><img src="${IMG}/terracotta-tumblers.webp" alt="Three ribbed terracotta tumblers on a white shelf" width="1100" height="1100" fetchpriority="high"><figcaption><span>Ridgeline tumbler</span><span class="kco-num">$32</span></figcaption></figure>
+    <figure class="kco-bento__main"><img src="/media/generated/ecommerce-terracotta-tumblers.webp" alt="Three ribbed terracotta tumblers on a white shelf" width="1100" height="1100" fetchpriority="high"><figcaption><span>Ridgeline tumbler</span><span class="kco-num">$32</span></figcaption></figure>
     <a class="kco-bento__new kco-tile" href="/studio">
-      <img src="${IMG}/studio-shelves.webp" alt="" width="960" height="640">
+      <img src="/media/generated/ecommerce-studio-shelves.webp" alt="" width="960" height="640">
       <span class="kco-bento__newlabel">Visit the studio &middot; Fri &amp; Sat</span>
     </a>
     <div class="kco-bento__stat">
@@ -279,16 +278,16 @@ const HOME_HTML = `
   <div class="kco-wrap">
     <p class="kco-micro">Collections</p>
     <div class="kco-collections__grid">
-      <a class="kco-col kco-tile" href="#shop"><img src="${IMG}/celadon-bottles.webp" alt="Rows of glossy celadon and sage bottle vases" width="960" height="640" loading="lazy"><span class="kco-col__name">Celadon</span><span class="kco-col__count">6 pieces &middot; new</span></a>
-      <a class="kco-col kco-tile" href="#shop"><img src="${IMG}/ridged-planter.webp" alt="A ridged terracotta planter on its saucer" width="800" height="800" loading="lazy"><span class="kco-col__name">Terracotta</span><span class="kco-col__count">9 pieces</span></a>
-      <a class="kco-col kco-tile" href="#shop"><img src="${IMG}/milk-pitcher.webp" alt="A white porcelain pitcher with a sprig of cedar" width="640" height="640" loading="lazy"><span class="kco-col__name">Porcelain white</span><span class="kco-col__count">12 pieces</span></a>
+      <a class="kco-col kco-tile" href="#shop"><img src="/media/generated/ecommerce-celadon-bottles.webp" alt="Rows of glossy celadon and sage bottle vases" width="960" height="640" loading="lazy"><span class="kco-col__name">Celadon</span><span class="kco-col__count">6 pieces &middot; new</span></a>
+      <a class="kco-col kco-tile" href="#shop"><img src="/media/generated/ecommerce-ridged-planter.webp" alt="A ridged terracotta planter on its saucer" width="800" height="800" loading="lazy"><span class="kco-col__name">Terracotta</span><span class="kco-col__count">9 pieces</span></a>
+      <a class="kco-col kco-tile" href="#shop"><img src="/media/generated/ecommerce-milk-pitcher.webp" alt="A white porcelain pitcher with a sprig of cedar" width="640" height="640" loading="lazy"><span class="kco-col__name">Porcelain white</span><span class="kco-col__count">12 pieces</span></a>
     </div>
   </div>
 </section>
 
 <section class="kco-made">
   <div class="kco-wrap kco-made__grid">
-    <figure class="kco-made__img"><img src="${IMG}/wheel-hands.webp" alt="Clay-covered hands centring a lump of clay on a spinning potter's wheel" width="960" height="640" loading="lazy"></figure>
+    <figure class="kco-made__img"><img src="/media/generated/ecommerce-wheel-hands.webp" alt="Clay-covered hands centring a lump of clay on a spinning potter's wheel" width="960" height="640" loading="lazy"></figure>
     <div>
       <p class="kco-micro">How it's made</p>
       <h2 class="kco-h2">Nine days from clay to your cupboard</h2>
@@ -449,7 +448,7 @@ const STUDIO_HTML = `
       <h1 class="kco-studio-hero__title">Two potters, one kiln, a lot of clay dust.</h1>
       <p class="kco-text">Kiln &amp; Co. began in 2017 with a secondhand wheel in Hana Park's garage. Today it's a small studio in Asheville's River Arts District, where Hana and Theo Marsh throw, glaze and pack every piece themselves.</p>
     </div>
-    <figure class="kco-studio-hero__img"><img src="${IMG}/studio-shelves.webp" alt="Studio shelves stacked with unglazed bowls, cups and plates waiting for the kiln" width="960" height="640" fetchpriority="high"></figure>
+    <figure class="kco-studio-hero__img"><img src="/media/generated/ecommerce-studio-shelves.webp" alt="Studio shelves stacked with unglazed bowls, cups and plates waiting for the kiln" width="960" height="640" fetchpriority="high"></figure>
   </div>
 </section>
 
@@ -469,17 +468,17 @@ const STUDIO_HTML = `
     <p class="kco-micro">The glaze library</p>
     <h2 class="kco-h2">Four glazes we're known for</h2>
     <ul class="kco-glazes__grid">
-      <li><img class="kco-chip" src="${IMG}/celadon-bottles.webp" alt="" width="960" height="640" loading="lazy"><h3>Celadon</h3><p>A glossy sea-green that pools darker in every ridge. Our newest, and already the favourite.</p></li>
-      <li><img class="kco-chip kco-chip--ash" src="${IMG}/fog-mug.webp" alt="" width="640" height="640" loading="lazy"><h3>Ash</h3><p>A satin grey made with wood ash from our own fireplace. Warm to hold, hard to chip.</p></li>
-      <li><img class="kco-chip" src="${IMG}/milk-pitcher.webp" alt="" width="640" height="640" loading="lazy"><h3>Bone</h3><p>Soft off-white with flecks of iron that bloom in the kiln. Pairs with everything.</p></li>
-      <li><img class="kco-chip" src="${IMG}/ridged-planter.webp" alt="" width="800" height="800" loading="lazy"><h3>Raw terracotta</h3><p>Unglazed outside, food-safe glaze inside. Develops a lovely patina over the years.</p></li>
+      <li><img class="kco-chip" src="/media/generated/ecommerce-celadon-bottles.webp" alt="" width="960" height="640" loading="lazy"><h3>Celadon</h3><p>A glossy sea-green that pools darker in every ridge. Our newest, and already the favourite.</p></li>
+      <li><img class="kco-chip kco-chip--ash" src="/media/generated/ecommerce-fog-mug.webp" alt="" width="640" height="640" loading="lazy"><h3>Ash</h3><p>A satin grey made with wood ash from our own fireplace. Warm to hold, hard to chip.</p></li>
+      <li><img class="kco-chip" src="/media/generated/ecommerce-milk-pitcher.webp" alt="" width="640" height="640" loading="lazy"><h3>Bone</h3><p>Soft off-white with flecks of iron that bloom in the kiln. Pairs with everything.</p></li>
+      <li><img class="kco-chip" src="/media/generated/ecommerce-ridged-planter.webp" alt="" width="800" height="800" loading="lazy"><h3>Raw terracotta</h3><p>Unglazed outside, food-safe glaze inside. Develops a lovely patina over the years.</p></li>
     </ul>
   </div>
 </section>
 
 <section class="kco-care">
   <div class="kco-wrap kco-care__grid">
-    <figure class="kco-care__img"><img src="${IMG}/wheel-hands.webp" alt="Clay-covered hands centring clay on the potter's wheel" width="960" height="640" loading="lazy"></figure>
+    <figure class="kco-care__img"><img src="/media/generated/ecommerce-wheel-hands.webp" alt="Clay-covered hands centring clay on the potter's wheel" width="960" height="640" loading="lazy"></figure>
     <div>
       <p class="kco-micro">Caring for your pottery</p>
       <h2 class="kco-h2">Made to be used</h2>
@@ -570,7 +569,7 @@ const template: StarterTemplate = {
         name: p.name,
         description: `${p.glaze}, ${p.size}. Thrown by hand in Asheville; every piece varies slightly.`,
         price: Number(p.price),
-        image_url: `${IMG}/${p.img}`,
+        image_url: p.img,
         in_stock: true,
       })),
     },
