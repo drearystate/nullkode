@@ -56,7 +56,8 @@ for (const name of top) {
     // Purchased theme packs' previews stay out.
     if (/^public\/templates\//.test(rel) && !/^public\/templates\/(?:originals(?:\/|$)|original-[\w-]+\.jpg$)/.test(rel)) return false;
     if (/^src\/lib\/templates\/(?:crafto|litho)-/.test(rel)) return false;
-    if (/^scripts\/./.test(rel) && !shippedScripts.has(rel.slice(8))) return false;
+    // Test fixtures (scripts/fixtures/) ship with the tests that import them.
+    if (/^scripts\/./.test(rel) && !/^scripts\/fixtures(?:\/|$)/.test(rel) && !shippedScripts.has(rel.slice(8))) return false;
     return true;
   } });
 }

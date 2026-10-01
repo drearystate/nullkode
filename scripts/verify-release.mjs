@@ -103,6 +103,21 @@ assert.equal(docProblems.length, 0, `Outdated documentation:\n  ${docProblems.jo
 // the npm registry, so it needs internet access. Accepted exceptions are in
 // package.json (pnpm.auditConfig.ignoreGhsas), explained in
 // docs/security-audit-exceptions.md.
+
+// Every relative import in a shipped script must be shipped too.
+{
+  const { readdirSync, readFileSync, existsSync, statSync } = await import('node:fs');
+  const { join: pjoin, dirname: pdir } = await import('node:path');
+  const missing = [];
+  const walk = (d) => { for (const f of readdirSync(d)) { const p = pjoin(d, f); if (statSync(p).isDirectory()) walk(p); else if (/\.(?:[cm]?[jt]s)$/.test(f) && !/^new-(?:module|template)\.ts$/.test(f)) { // the generators' imports are text they write into new files
+    for (const m of readFileSync(p, 'utf8').matchAll(/(?:from\s*|import\s*\(\s*|require\s*\(\s*)['"](\.{1,2}\/[^'"]+)['"]/g)) {
+      const base = pjoin(pdir(p), m[1]);
+      if (![base, ...['.ts','.mjs','.cjs','.js','.tsx','.json'].map((e) => base + e), pjoin(base, 'index.ts')].some((c) => existsSync(c))) missing.push(`${p.slice(root.length + 1)} -> ${m[1]}`);
+    } } } };
+  walk(pjoin(root, 'scripts'));
+  assert.ok(missing.length === 0, `Shipped scripts import files that are not in the release: ${missing.join(', ')}`);
+}
+
 const audit = spawnSync('pnpm', ['audit', '--prod', '--audit-level=high'], { cwd: root, encoding: 'utf8', shell: process.platform === 'win32' });
 if (audit.error) throw new Error(`Could not run the dependency audit (pnpm audit): ${audit.error.message}. Install pnpm 10 (corepack enable) and try again.`);
 const auditSummary = `${audit.stdout}\n${audit.stderr}`.trim().split('\n').filter((l) => /vulnerabilit|Severity|No known/i.test(l)).join(' ').trim();
