@@ -94,6 +94,10 @@ jobs:
       - name: Typecheck (main app)
         run: pnpm typecheck
 
+      - name: React effects only return cleanups
+
+        run: pnpm check:effects
+
       - name: Generated browser scripts parse
         run: pnpm check:js
 

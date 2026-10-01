@@ -47,7 +47,8 @@
     "check:guides": "tsx scripts/check-guides.ts",
     "guides:build": "tsx scripts/build-guides.ts",
     "test:e2e": "tsx scripts/check-generated-js.ts && tsx scripts/check-middleware.ts && tsx scripts/e2e-resellers.ts && tsx scripts/e2e-publishing.ts && tsx scripts/e2e-push.ts && tsx scripts/e2e-security.ts && tsx scripts/e2e-data.ts && tsx scripts/e2e-backup.ts && node scripts/smoke-install.cjs",
-    "test:runtime": "tsx scripts/test-bound-choices.ts"
+    "test:runtime": "tsx scripts/test-bound-choices.ts",
+    "check:effects": "node scripts/check-effects.mjs"
   },
   "dependencies": {
     "@prisma/client": "^6.1.0",

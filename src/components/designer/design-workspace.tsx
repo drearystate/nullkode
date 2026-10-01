@@ -68,7 +68,11 @@ export function DesignWorkspace({ id }: { id: string }) {
     return () => es.close();
   }, [id, refresh]);
 
-  useEffect(() => chatEnd.current?.scrollIntoView({ block: "end" }), [chat.length, steps.length]);
+  // Block body on purpose: newer browsers make scrollIntoView() return a
+  // promise, and an effect that returns anything but a function crashes React.
+  useEffect(() => {
+    chatEnd.current?.scrollIntoView({ block: "end" });
+  }, [chat.length, steps.length]);
 
   // The first request comes from the Designer home: ask quick questions first.
   useEffect(() => {

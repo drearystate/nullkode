@@ -37,7 +37,9 @@ export function DataPanel({
   const params = useSearchParams();
   const openId = params.get("table");
   const [tables, setTables] = useState(initialTables);
-  useEffect(() => setTables(initialTables), [initialTables]);
+  useEffect(() => {
+    setTables(initialTables);
+  }, [initialTables]);
   const [privacyOpen, setPrivacyOpen] = useState(false);
   const [privacy, setPrivacy] = useState<PrivacyCounts | null>(null);
   useEffect(() => {

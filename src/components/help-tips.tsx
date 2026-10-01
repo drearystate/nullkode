@@ -59,7 +59,9 @@ export function HelpTipsLayer({ initialOn }: { initialOn: boolean }) {
   const onRef = useRef(on);
   onRef.current = on;
 
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   useEffect(() => {
     if (!on) setTip(null);
   }, [on]);
