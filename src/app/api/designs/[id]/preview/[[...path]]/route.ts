@@ -17,6 +17,12 @@ document.addEventListener("click",function(e){e.preventDefault();e.stopPropagati
 parent.postMessage({type:"nk-pick",html:clone.outerHTML.slice(0,1500),text:(el.innerText||"").trim().slice(0,200),tag:el.tagName.toLowerCase()},"*");},true);
 })();</script>`;
 
+// The sandbox has no storage of its own, so a design that saves anything in the
+// browser (a game's high scores, a theme choice) would throw on its first
+// localStorage call. It gets an in-memory stand-in for the preview instead;
+// the published app, on its own address, uses the real one.
+const STORAGE = `<script>(function(){function mem(){var d={};return{getItem:function(k){k=String(k);return Object.prototype.hasOwnProperty.call(d,k)?d[k]:null},setItem:function(k,v){d[String(k)]=String(v)},removeItem:function(k){delete d[String(k)]},clear:function(){d={}},key:function(i){return Object.keys(d)[i]||null},get length(){return Object.keys(d).length}}}["localStorage","sessionStorage"].forEach(function(n){try{void window[n].length}catch(e){try{Object.defineProperty(window,n,{value:mem(),configurable:true})}catch(_){}}})})();</script>`;
+
 const PAGE_REPORT = `<script>parent.postMessage({type:"nk-page",path:location.pathname.split("/preview/")[1]||"index.html"},"*");</script>`;
 
 export async function GET(req: Request, ctx: { params: Promise<{ id: string; path?: string[] }> }) {
@@ -49,6 +55,8 @@ export async function GET(req: Request, ctx: { params: Promise<{ id: string; pat
   html = html
     .replace(/\bhref=(["'])\/(?:index\.html)?(?:#[^"']*)?\1/gi, `href=$1index.html${q}$1`)
     .replace(/\bhref=(["'])\/([a-zA-Z0-9_-]+\.html)(\?[^"'#]*)?(#[^"']*)?\1/g, (_m, qt: string, page: string, _qs: string | undefined, hash: string | undefined) => `href=${qt}${page}${q}${hash ?? ""}${qt}`);
+  // Before the design's own scripts, so they find storage in place.
+  html = /<head[^>]*>/i.test(html) ? html.replace(/<head[^>]*>/i, (m) => m + STORAGE) : STORAGE + html;
   const inject = PAGE_REPORT + (pick ? PICKER : "");
   html = /<\/body>/i.test(html) ? html.replace(/<\/body>/i, `${inject}</body>`) : html + inject;
 

@@ -11,6 +11,10 @@ const nextConfig = {
   reactStrictMode: true,
   // Isolate preview builds from the running production bundle.
   distDir: process.env.NK_BUILD_DIR || ".next",
+  // Each production build gets its own id (nk-plan/rebuild-live.sh sets it).
+  // A browser tab still running an older build then reloads the page on its
+  // next navigation instead of mixing old and new code (which crashes).
+  deploymentId: process.env.NK_DEPLOYMENT_ID || undefined,
   outputFileTracingRoot: projectRoot,
   poweredByHeader: false,
   serverExternalPackages: ["argon2", "undici"],
