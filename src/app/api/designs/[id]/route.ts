@@ -2,6 +2,7 @@ import { db } from "@/lib/db";
 import { deleteDesign, getDesign, listChat, listVersions, renameDesign } from "@/lib/design-studio/store";
 import { readJson, withUser } from "@/lib/design-studio/http";
 import { sweepStaleJobs } from "@/lib/design-studio/engine";
+import { previewPass } from "@/lib/design-studio/preview-token";
 
 type Ctx = { params: Promise<{ id: string }> };
 
@@ -12,7 +13,7 @@ export async function GET(_req: Request, ctx: Ctx) {
     const design = await getDesign(user.id, id);
     await sweepStaleJobs(user.id);
     const running = await db.designerGenerationJob.findFirst({ where: { designId: id, status: "running", startedAt: { gt: new Date(Date.now() - 15 * 60_000) } }, select: { id: true } });
-    return { design, chat: await listChat(user.id, id), versions: await listVersions(user.id, id), runningJobId: running?.id ?? null };
+    return { design, chat: await listChat(user.id, id), versions: await listVersions(user.id, id), runningJobId: running?.id ?? null, previewPass: previewPass(user.id, id) };
   });
 }
 

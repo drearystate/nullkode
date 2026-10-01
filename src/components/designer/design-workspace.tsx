@@ -16,6 +16,8 @@ const VIEWPORTS = { desktop: "100%", tablet: "820px", phone: "390px" } as const;
 export function DesignWorkspace({ id }: { id: string }) {
   const router = useRouter();
   const [design, setDesign] = useState<Design | null>(null);
+  // Lets the sandboxed preview open the design's other pages (see preview-token.ts).
+  const [pass, setPass] = useState("");
   const [chat, setChat] = useState<Message[]>([]);
   const [versions, setVersions] = useState<Version[]>([]);
   const [running, setRunning] = useState(false);
@@ -42,6 +44,7 @@ export function DesignWorkspace({ id }: { id: string }) {
     const d = await res.json().catch(() => null);
     if (!d?.design) return;
     setDesign(d.design);
+    if (typeof d.previewPass === "string") setPass((old) => old || d.previewPass);
     setChat(d.chat);
     setVersions(d.versions);
     setRunning(Boolean(d.runningJobId));
@@ -158,7 +161,7 @@ export function DesignWorkspace({ id }: { id: string }) {
     const list = (design?.files ?? []).map((f) => f.path).filter((p) => /^[^/]+\.html?$/i.test(p));
     return list.sort((a, b) => (a === "index.html" ? -1 : b === "index.html" ? 1 : a.localeCompare(b)));
   }, [design]);
-  const src = `/api/designs/${id}/preview/${encodeURIComponent(page)}?${viewVersion ? `version=${viewVersion}&` : ""}${commenting ? "pick=1&" : ""}t=${stamp}`;
+  const src = `/api/designs/${id}/preview/${pass ? `${pass}/` : ""}${encodeURIComponent(page)}?${viewVersion ? `version=${viewVersion}&` : ""}${commenting ? "pick=1&" : ""}t=${stamp}`;
   const readOnly = design?.inBuilder ?? false;
 
   if (!design) return <div className="grid min-h-[60vh] place-items-center text-surface-400"><Loader2 className="animate-spin" /></div>;

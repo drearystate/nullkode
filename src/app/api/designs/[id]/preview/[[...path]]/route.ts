@@ -1,5 +1,6 @@
 import { getCurrentUser } from "@/lib/auth";
 import { cleanPath, NotFound, readFile, versionFiles } from "@/lib/design-studio/store";
+import { readPreviewPass } from "@/lib/design-studio/preview-token";
 
 export const dynamic = "force-dynamic";
 
@@ -23,12 +24,17 @@ parent.postMessage({type:"nk-pick",html:clone.outerHTML.slice(0,1500),text:(el.i
 // the published app, on its own address, uses the real one.
 const STORAGE = `<script>(function(){function mem(){var d={};return{getItem:function(k){k=String(k);return Object.prototype.hasOwnProperty.call(d,k)?d[k]:null},setItem:function(k,v){d[String(k)]=String(v)},removeItem:function(k){delete d[String(k)]},clear:function(){d={}},key:function(i){return Object.keys(d)[i]||null},get length(){return Object.keys(d).length}}}["localStorage","sessionStorage"].forEach(function(n){try{void window[n].length}catch(e){try{Object.defineProperty(window,n,{value:mem(),configurable:true})}catch(_){}}})})();</script>`;
 
-const PAGE_REPORT = `<script>parent.postMessage({type:"nk-page",path:location.pathname.split("/preview/")[1]||"index.html"},"*");</script>`;
+const PAGE_REPORT = `<script>parent.postMessage({type:"nk-page",path:(location.pathname.split("/preview/")[1]||"").replace(/^~[^/]+\\//,"")||"index.html"},"*");</script>`;
 
 export async function GET(req: Request, ctx: { params: Promise<{ id: string; path?: string[] }> }) {
-  const { id, path } = await ctx.params;
-  const user = await getCurrentUser();
-  if (!user) return new Response("Please sign in.", { status: 401 });
+  const { id, path: rawPath } = await ctx.params;
+  // The pass in the address (see preview-token.ts) works where the sign-in
+  // cookie doesn't: requests the sandboxed page makes itself.
+  const parts = rawPath ?? [];
+  const passUser = parts[0]?.startsWith("~") ? readPreviewPass(parts[0], id) : null;
+  const path = parts[0]?.startsWith("~") ? parts.slice(1) : parts;
+  const userId = passUser ?? (await getCurrentUser())?.id ?? null;
+  if (!userId) return new Response("Please sign in.", { status: 401 });
   const url = new URL(req.url);
   const version = url.searchParams.get("version");
   const pick = url.searchParams.get("pick") === "1";
@@ -37,7 +43,7 @@ export async function GET(req: Request, ctx: { params: Promise<{ id: string; pat
 
   let html: string | null;
   try {
-    html = version ? (await versionFiles(user.id, id, version))[file] ?? null : await readFile(user.id, id, file);
+    html = version ? (await versionFiles(userId, id, version))[file] ?? null : await readFile(userId, id, file);
   } catch (err) {
     if (err instanceof NotFound) return new Response("Not found", { status: 404 });
     throw err;
