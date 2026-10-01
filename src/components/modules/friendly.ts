@@ -98,7 +98,7 @@ const SUMMARIES: Record<string, string> = {
   course: "Teach an online course, lesson by lesson.",
   "ai-assistant": "Let visitors chat with a helpful assistant.",
   links: "Share a simple page of your important links.",
-  places: "List local businesses or places to visit.",
+  places: "A guide to places on a map, with photos and nearest first.",
   "emergency-contacts": "Keep important phone numbers one tap away.",
   weather: "Show today's weather.",
   map: "Show your locations on a map.",

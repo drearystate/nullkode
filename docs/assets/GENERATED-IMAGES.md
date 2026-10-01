@@ -8,7 +8,7 @@ This collection was created with image generation tools for the platform's templ
 - Catalog, descriptions, tags and exact template bindings: `src/lib/assets/generated-catalog.json`.
 - Visual gallery: `public/media/generated/index.html`.
 
-The collection contains 285 independently generated pictures across 82 categories. Every one of the 134 picture slots in the 18 original templates now shows a generated picture; 121 additional business and lifestyle images are available in the image picker. Gallery thumbnails are resized copies, not additional generated pictures.
+The collection contains 293 independently generated pictures across 85 categories. Every one of the 134 picture slots in the 18 original templates now shows a generated picture; 129 additional business and lifestyle images are available in the image picker. Gallery thumbnails are resized copies, not additional generated pictures.
 
 The images are fictional illustrative assets. Portraits do not document real staff or customers, and property/travel images do not document real listings or exact destinations. Operators should replace sample imagery and sample business content with their own material where factual representation matters.
 
@@ -33,3 +33,5 @@ Template completion on 2026-09-30: 83 new pictures replace the last stock photos
 Template completion validation on 2026-09-30: all 255 unique images and thumbnails passed the asset checks, with 134 exact template assignments and no remaining references to the old photo folders. The 18 gallery previews were re-rendered from the new pictures, and browser checks passed for all 18 original templates and their 45 designed pages (no broken images, no sideways scrolling on a phone), plus gallery filtering and asset search. The optimized library, including thumbnails, occupies approximately 49 MB.
 
 Blocks and features update on 2026-09-30: 30 more pictures (people, food, products and before/after pairs) replaced every outside photo link in the page-editor blocks and ready-made features, so the platform shows only its own pictures. All 285 images and thumbnails pass the asset checks; prompts are in `generated-image-templates.json`.
+
+Places update on 2026-10-01: 8 more pictures in a new "city" category (a hilltop viewpoint, a riverside promenade, a concert venue, an art gallery, a tram street, a tiled café terrace, an event hall and a rooftop terrace) for the Places feature's sample guides, made with gpt-image-2 at medium quality in the same editorial style. Prompts are in `generated-image-templates.json`; all 293 images and thumbnails pass the asset checks.

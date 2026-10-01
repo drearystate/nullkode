@@ -60,6 +60,14 @@ tables: [
 Field types: `text`, `int`, `float`, `bool`, `timestamp`, `json`. Add `seed`
 rows to fill the table with examples on install.
 
+When the examples should depend on a setting (a "Use for" choice, say), add
+`seedByConfig`. The rows for the chosen value are used instead of `seed`:
+
+```ts
+{ name: "items", fields: [ /* … */ ], seed: TOURIST_ROWS,
+  seedByConfig: { key: "preset", rows: { restaurants: RESTAURANT_ROWS, tourist: TOURIST_ROWS } } },
+```
+
 ### 3. Flows (`flows`)
 
 The backend: steps that run on the server when a page calls them. A flow starts

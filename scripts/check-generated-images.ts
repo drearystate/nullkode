@@ -56,7 +56,7 @@ async function main() {
   }
   const assignments = generatedAssets.filter(a => a.replaces);
   assert.equal(assignments.length, 134, 'Expected 134 template picture assignments');
-  assert.equal(generatedAssets.length, 285, 'Expected 285 generated pictures');
+  assert.equal(generatedAssets.length, 293, 'Expected 293 generated pictures');
   for (const asset of generatedAssets) assert.ok(asset.width > 0 && asset.height > 0, `Missing size: ${asset.id}`);
   // Editor blocks and modules show only our own pictures: no outside photo
   // sites, and every library picture they name exists.

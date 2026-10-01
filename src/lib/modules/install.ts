@@ -203,7 +203,8 @@ export async function installModule(opts: {
     tableNames.set(t.name, realName);
 
     // Seed rows (interpolate {{config.*}} in every value)
-    const seedRows_ = opts.seed?.[t.name] ?? t.seed;
+    const byConfig = t.seedByConfig ? t.seedByConfig.rows[String(config[t.seedByConfig.key] ?? "")] : undefined;
+    const seedRows_ = opts.seed?.[t.name] ?? byConfig ?? t.seed;
     if (seedRows_ && seedRows_.length > 0) {
       const rendered = seedRows_.map((row) =>
         Object.fromEntries(

@@ -505,6 +505,7 @@ const GUIDE_LIST: Guide[] = [
         bullets: [
           "A card marked **Added** is already in your app. Adding it again makes another copy, with its own pages and lists.",
           "If a feature needs another one first, the message offers a button to add that one.",
+          "Some features let signed-in visitors send things that wait for your approval. In **Places**, for example, people suggest a venue under **My venues**, and it shows in the guide once you approve it on the **Manage places** page.",
           "Some features send email, and say **Needs email to be set up on the server**. If email isn't set up, ask whoever runs {app} for you.",
           "There's no one-step remove. You can delete the pages a feature added, like any page; what it saved stays on the Data tab.",
           "Adding a feature changes your draft. Visitors see it after you publish.",

@@ -69,6 +69,12 @@ export type ModuleTable = {
   name: string;
   fields: Array<{ name: string; type: ModuleFieldType }>;
   seed?: Array<Record<string, unknown>>;
+  /**
+   * Different sample rows depending on one of the module's settings, e.g. a
+   * "Use for" select: { key: "preset", rows: { restaurants: [...], tourist: [...] } }.
+   * Rows for the chosen value replace `seed`; any other value falls back to it.
+   */
+  seedByConfig?: { key: string; rows: Record<string, Array<Record<string, unknown>>> };
 };
 
 export type ModuleFlowNode = {
