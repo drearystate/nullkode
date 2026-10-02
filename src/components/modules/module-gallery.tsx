@@ -1,9 +1,11 @@
 "use client";
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import type { ModuleSummary } from "@/lib/modules/registry";
 import type { InstalledModule } from "@/lib/modules/installed";
 import { cn } from "@/lib/utils";
+import { useCatalog } from "@/lib/use-catalog";
 import { friendlyName, friendlySummary } from "./friendly";
 import { InstallDialog, requirementNote, type InstallResult } from "./install-dialog";
 
@@ -16,19 +18,14 @@ type Props = {
   installed?: InstalledModule[];
 };
 
-const CATEGORY_LABELS: Record<string, string> = {
-  all: "All",
-  communication: "Communication",
-  content: "Content",
-  media: "Media",
-  commerce: "Commerce",
-  productivity: "Productivity",
-  community: "Community",
-  utility: "Handy tools",
-};
+/** Categories with a label in messages (studio.modules.categories); others show as they are. */
+const CATEGORY_KEYS = new Set(["all", "communication", "content", "media", "commerce", "productivity", "community", "utility"]);
 
 export function ModuleGallery({ projectId, projectName, modules, installed = [] }: Props) {
   const router = useRouter();
+  const t = useTranslations("studio.modules");
+  const cat = useCatalog();
+  const categoryLabel = (c: string) => (CATEGORY_KEYS.has(c) ? t(`categories.${c}`) : c);
   const [category, setCategory] = useState<string>("all");
   const [query, setQuery] = useState<string>("");
   const [installing, setInstalling] = useState<ModuleSummary | null>(null);
@@ -50,6 +47,9 @@ export function ModuleGallery({ projectId, projectName, modules, installed = [] 
       if (category !== "all" && m.category !== category) return false;
       if (!q) return true;
       const hay = [
+        cat.moduleName(m),
+        cat.moduleSummary(m),
+        cat.moduleDescription(m),
         friendlyName(m),
         friendlySummary(m),
         m.name,
@@ -63,7 +63,7 @@ export function ModuleGallery({ projectId, projectName, modules, installed = [] 
         .toLowerCase();
       return hay.includes(q);
     });
-  }, [modules, category, query]);
+  }, [modules, category, query, cat]);
 
   return (
     <div className="mt-8">
@@ -71,19 +71,19 @@ export function ModuleGallery({ projectId, projectName, modules, installed = [] 
         <input
           type="search"
           autoFocus
-          placeholder="Search features, like bookings or shop…"
-          data-help="Type what you want your app to do, like bookings, shop or reviews, to find a matching feature."
+          placeholder={t("searchPlaceholder")}
+          data-help={t("searchHelp")}
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="w-full rounded-xl border border-surface-800 bg-surface-900/60 px-4 py-2.5 pr-10 text-sm placeholder:text-surface-500 focus:outline-none focus:border-brand-500"
+          className="w-full rounded-xl border border-surface-800 bg-surface-900/60 px-4 py-2.5 pe-10 text-sm placeholder:text-surface-500 focus:outline-none focus:border-brand-500"
         />
         {query && (
           <button
             type="button"
             onClick={() => setQuery("")}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-surface-500 hover:text-surface-300"
-            aria-label="Clear search"
-            data-help="Clear the search and show every feature again."
+            className="absolute end-3 top-1/2 -translate-y-1/2 text-surface-500 hover:text-surface-300"
+            aria-label={t("clearSearch")}
+            data-help={t("clearSearchHelp")}
           >
             ✕
           </button>
@@ -95,7 +95,7 @@ export function ModuleGallery({ projectId, projectName, modules, installed = [] 
           <button
             key={c}
             onClick={() => setCategory(c)}
-            data-help={c === "all" ? "Show every feature." : `Show only ${(CATEGORY_LABELS[c] ?? c).toLowerCase()} features.`}
+            data-help={c === "all" ? t("showAllHelp") : t("showCategoryHelp", { category: categoryLabel(c).toLocaleLowerCase() })}
             className={cn(
               "text-xs px-3 py-1.5 rounded-full border transition",
               category === c
@@ -103,21 +103,22 @@ export function ModuleGallery({ projectId, projectName, modules, installed = [] 
                 : "bg-surface-900 border-surface-800 text-surface-300 hover:border-surface-600"
             )}
           >
-            {CATEGORY_LABELS[c] ?? c}
+            {categoryLabel(c)}
           </button>
         ))}
       </div>
 
       {filtered.length !== modules.length && filtered.length > 0 && (
         <div className="mb-6 text-xs text-surface-500">
-          {filtered.length} {filtered.length === 1 ? "feature matches" : "features match"}
+          {t("matches", { count: filtered.length })}
         </div>
       )}
 
       {filtered.length === 0 && (
         <div className="rounded-xl border border-dashed border-surface-700 p-12 text-center text-surface-400">
-          No features match <span className="font-mono">"{query}"</span>
-          {category !== "all" && <> in <strong>{CATEGORY_LABELS[category] ?? category}</strong></>}.
+          {category !== "all"
+            ? t.rich("noMatchIn", { query, category: categoryLabel(category), q: (c) => <span className="font-mono">{c}</span>, b: (c) => <strong>{c}</strong> })
+            : t.rich("noMatch", { query, q: (c) => <span className="font-mono">{c}</span> })}
           <div className="mt-3">
             <button
               type="button"
@@ -125,10 +126,10 @@ export function ModuleGallery({ projectId, projectName, modules, installed = [] 
                 setQuery("");
                 setCategory("all");
               }}
-              data-help="Clear the search and category so every feature shows again."
+              data-help={t("clearFiltersHelp")}
               className="text-brand-300 hover:underline text-sm"
             >
-              Clear filters
+              {t("clearFilters")}
             </button>
           </div>
         </div>
@@ -142,43 +143,41 @@ export function ModuleGallery({ projectId, projectName, modules, installed = [] 
           >
             <div
               className={cn(
-                "pointer-events-none absolute -top-20 -right-20 h-40 w-40 rounded-full blur-3xl opacity-30 group-hover:opacity-60 transition bg-gradient-to-br",
+                "pointer-events-none absolute -top-20 -end-20 h-40 w-40 rounded-full blur-3xl opacity-30 group-hover:opacity-60 transition bg-gradient-to-br",
                 m.color
               )}
             />
             <button
               type="button"
               onClick={() => setInstalling(m)}
-              data-help={counts.has(m.id) ? "Your app already has this. Click to add another separate copy, with its own pages and saved items." : "Add this feature to your app. You may answer a few quick questions first, then its pages open so you can make them your own."}
-              className="relative block w-full p-6 pb-3 text-left"
+              data-help={counts.has(m.id) ? t("addAgainHelp") : t("addHelp")}
+              className="relative block w-full p-6 pb-3 text-start"
             >
               <div className="flex items-start justify-between gap-3">
                 <div className="w-10 h-10 rounded-lg bg-surface-800 border border-surface-700 flex items-center justify-center text-lg font-bold text-brand-300">
-                  {friendlyName(m).charAt(0)}
+                  {cat.moduleName(m).charAt(0)}
                 </div>
                 {counts.has(m.id) && (
-                  <span data-help="Your app already has this feature. The number shows how many copies you've added." className="rounded-full border border-emerald-400/30 bg-emerald-400/10 px-2.5 py-1 text-xs font-medium text-emerald-200">
-                    Added{(counts.get(m.id) ?? 0) > 1 ? ` ×${counts.get(m.id)}` : ""}
+                  <span data-help={t("addedHelp")} className="rounded-full border border-emerald-400/30 bg-emerald-400/10 px-2.5 py-1 text-xs font-medium text-emerald-200">
+                    {(counts.get(m.id) ?? 0) > 1 ? t("addedCount", { count: counts.get(m.id) ?? 0 }) : t("added")}
                   </span>
                 )}
               </div>
-              <div className="mt-3 font-semibold text-lg">{friendlyName(m)}</div>
-              <p className="mt-1 text-sm text-surface-300">{friendlySummary(m)}</p>
+              <div className="mt-3 font-semibold text-lg">{cat.moduleName(m)}</div>
+              <p className="mt-1 text-sm text-surface-300">{cat.moduleSummary(m)}</p>
               {m.requires.includes("email") && (
-                <p className="mt-2 text-xs text-amber-200/90">Needs email to be set up on the server.</p>
+                <p className="mt-2 text-xs text-amber-200/90">{t("needsEmail")}</p>
               )}
               <div className="mt-4 inline-flex items-center gap-1 text-brand-300 text-sm font-semibold">
-                {counts.has(m.id) ? "Add another copy →" : "Add to my app →"}
+                {counts.has(m.id) ? t("addAnother") : t("addToApp")} <span className="inline-block rtl:-scale-x-100" aria-hidden>→</span>
               </div>
             </button>
             <details className="relative px-6 pb-5 text-xs text-surface-400">
-              <summary data-help="See exactly what this feature adds to your app: how many pages, lists of saved items and automations." className="cursor-pointer select-none text-surface-500 hover:text-surface-300">Details</summary>
-              <p className="mt-2 leading-relaxed">{m.description}</p>
+              <summary data-help={t("detailsHelp")} className="cursor-pointer select-none text-surface-500 hover:text-surface-300">{t("details")}</summary>
+              <p className="mt-2 leading-relaxed">{cat.moduleDescription(m)}</p>
               <p className="mt-2 text-surface-500">
-                Adds {m.pageCount} {m.pageCount === 1 ? "page" : "pages"}
-                {m.tableCount > 0 && <>, {m.tableCount} {m.tableCount === 1 ? "list" : "lists"} of saved items</>}
-                {m.flowCount > 0 && <> and {m.flowCount} {m.flowCount === 1 ? "flow" : "flows"}</>}.
-                {requirementNote(m) && <> {requirementNote(m)}</>}
+                {t(m.tableCount > 0 ? (m.flowCount > 0 ? "addsAll" : "addsPagesTables") : m.flowCount > 0 ? "addsPagesFlows" : "addsPages", { pages: m.pageCount, tables: m.tableCount, flows: m.flowCount })}
+                {requirementNote(m, t) && <> {requirementNote(m, t)}</>}
               </p>
             </details>
           </div>

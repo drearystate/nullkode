@@ -1,0 +1,51 @@
+{
+  "appLanguage": {
+    "help": "Uygulamanızın ziyaretçilerine hitap ettiği dil. Yapay zekâ yeni sayfaları bu dilde yazar, eklediğiniz özellikler bu dile çevrilir ve uygulamanın yerleşik mesajları bu dili kullanır.",
+    "intro": "Ziyaretçilerinizin göreceği dil: yapay zekânın oluşturduğu sayfalar, eklediğiniz özellikler ve \"Üzgünüz, gönderilemedi\" gibi yerleşik mesajlar.",
+    "invalid": "Listedeki dillerden birini seçin.",
+    "label": "Bu uygulamanın dili",
+    "loadError": "Uygulamanın dili yüklenemedi.",
+    "notChosen": "Henüz dil seçilmediği için uygulama İngilizce.",
+    "note": "Mevcut sayfalarınızın metinleri değişmez. Değiştirmek için bir sayfa açıp yapay zekâdan çevirmesini isteyin.",
+    "rtl": "Sağdan sola yazılır: sayfalar bu dile göre aynalanır.",
+    "save": "Dili kaydet",
+    "saveError": "Dil kaydedilemedi. Lütfen tekrar deneyin.",
+    "saveHelp": "Dili kaydeder. Yerleşik mesajlar ve sayfanın dil ayarı, yayındaki uygulamada hemen değişir.",
+    "saved": "Kaydedildi. Yeni sayfalar ve özellikler {language} dilinde olacak.",
+    "selectHelp": "Uygulamanızın ziyaretçilerinin okuyacağı dili seçin.",
+    "title": "Uygulama dili"
+  },
+  "buildLanguage": {
+    "help": "Uygulamanızın ziyaretçilerinin okuyacağı dil. Yapay zekâ tüm sayfaları bu dilde yazar. Daha sonra başka diller ekleyebilirsiniz.",
+    "label": "Uygulama dili"
+  },
+  "languages": {
+    "add": "Dil ekle",
+    "addHelp": "Bu dili ekler ve yapay zekâdan her sayfayı bu dile çevirmesini ister. Her çeviriyi düzenleyicide düzenleyebilirsiniz.",
+    "adding": "Ekleniyor…",
+    "confirmRemove": "{language} dilini ve çevrilmiş sayfalarını kaldıralım mı? Yayınladıktan sonra ziyaretçiler bu dili göremez.",
+    "edited": "{count, plural, one {# tanesini siz düzenlediniz} other {# tanesini siz düzenlediniz}}",
+    "error": "İşlem başarısız oldu. Lütfen tekrar deneyin.",
+    "help": "Uygulamanızı birkaç dilde sunun. Ziyaretçiler uygulama menüsünden bir dil seçer ve o dildeki sayfayı kendi adresinde görür (ör. /es/).",
+    "intro": "Uygulamanızı daha fazla dilde de sunun. Yapay zekâ her sayfayı çevirir, ziyaretçiler de menüden bir dil seçer. Yeni dil, yayınladığınızda kullanıma açılır.",
+    "needUpdate": "{count, plural, one {# güncelleme gerekiyor} other {# güncelleme gerekiyor}}",
+    "none": "Uygulamanız yalnızca {language} dilinde.",
+    "pick": "Dil seçin",
+    "progress": "Çevriliyor… {done}/{total} sayfa",
+    "publishNote": "Dil değişikliklerini ziyaretçilere göstermek için uygulamanızı yayınlayın.",
+    "remove": "Kaldır",
+    "removeHelp": "Bu dili ve çevrilmiş sayfalarını uygulamanızdan kaldırır.",
+    "title": "Daha fazla dil",
+    "translated": "{ok, plural, one {# / {total} sayfa çevrildi} other {# / {total} sayfa çevrildi}}",
+    "update": "Çevirileri güncelle",
+    "updateHelp": "Yapay zekâ, çevirileri yapıldığından beri eklenen veya değiştirilen sayfaları çevirir. Bu dilde düzenlediğiniz sayfalar korunur."
+  },
+  "preview": {
+    "adminLogin": "Yönetici girişiniz",
+    "backToEditor": "Düzenleyiciye dön",
+    "latest": "Son düzenlemeleriniz",
+    "latestLive": "Son düzenlemeleriniz · ziyaretçiler {version} sürümünü görüyor",
+    "notPublished": "Önizleme · henüz yayınlanmadı",
+    "title": "{title} — Önizleme"
+  }
+}

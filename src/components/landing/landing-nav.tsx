@@ -5,8 +5,11 @@ import { BrandWordmark } from "@/components/brand-wordmark";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { LanguagePicker } from "@/components/language-picker";
+import { useTranslations } from "next-intl";
 
 export function LandingNav({ authed, name = "Nullkode", logo }: { authed: boolean; name?: string; logo?: string | null }) {
+  const t = useTranslations("landing.nav");
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -25,28 +28,29 @@ export function LandingNav({ authed, name = "Nullkode", logo }: { authed: boolea
       )}
     >
       <div className="mx-auto max-w-6xl px-6 flex items-center justify-between h-16">
-        <Link href="/" className="flex items-center gap-2 text-xl font-bold tracking-tight" aria-label={`${name} home`}>
+        <Link href="/" className="flex items-center gap-2 text-xl font-bold tracking-tight" aria-label={t("home", { app: name })}>
           {logo ? <><img src={logo} alt="" className="h-8 w-auto" />{name}</> : <BrandWordmark name={name} />}
         </Link>
         <nav className="hidden md:flex items-center gap-8 text-sm text-surface-400">
-          <a href="#product" className="hover:text-white transition">Product</a>
-          <a href="#backend" className="hover:text-white transition">Backend logic</a>
-          <a href="#pricing" className="hover:text-white transition">Pricing</a>
-          <a href="#faq" className="hover:text-white transition">FAQ</a>
+          <a href="#product" className="hover:text-white transition">{t("product")}</a>
+          <a href="#backend" className="hover:text-white transition">{t("backend")}</a>
+          <a href="#pricing" className="hover:text-white transition">{t("pricing")}</a>
+          <a href="#faq" className="hover:text-white transition">{t("faq")}</a>
         </nav>
         <div className="flex items-center gap-3">
+          <LanguagePicker signedIn={authed} compact collapse />
           <ThemeToggle signedIn={authed} className="rounded-full border border-white/10 !p-2 hover:border-white/20" />
           {authed ? (
             <Link href="/dashboard" className="btn-primary text-sm px-4 py-2">
-              Dashboard
+              {t("dashboard")}
             </Link>
           ) : (
             <>
               <Link href="/login" className="text-sm text-surface-400 hover:text-white transition hidden sm:inline">
-                Log in
+                {t("logIn")}
               </Link>
               <Link href="/signup" className="btn-primary text-sm px-4 py-2">
-                Start free
+                {t("startFree")}
               </Link>
             </>
           )}

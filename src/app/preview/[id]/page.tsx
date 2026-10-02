@@ -1,9 +1,13 @@
 import { notFound, redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { RUNTIME_JS } from "@/lib/public-page";
-import { documentAttributesScript, documentMarkup, splitDesignerDocument } from "@/lib/design-studio/document-split";
+import { appDocumentParts, RUNTIME_JS } from "@/lib/public-page";
+import { documentMarkup } from "@/lib/design-studio/document-split";
 import { withNext } from "@/lib/safe-next";
+import { getTranslations } from "next-intl/server";
+import { requestLocale } from "@/i18n/request";
+import { getAppLocale } from "@/lib/app-locale";
+import { isLocale, localeDir } from "@/i18n/locales";
 
 export const dynamic = "force-dynamic";
 
@@ -12,11 +16,11 @@ export default async function PreviewPage({
   searchParams,
 }: {
   params: Promise<{ id: string }>;
-  searchParams: Promise<{ page?: string; embed?: string }>;
+  searchParams: Promise<{ page?: string; embed?: string; lang?: string }>;
 }) {
   const user = await getCurrentUser();
   const { id } = await params;
-  const { page: pageSlug, embed } = await searchParams;
+  const { page: pageSlug, embed, lang: langParam } = await searchParams;
   // Back to this preview after signing in.
   if (!user) redirect(withNext("/login", `/preview/${encodeURIComponent(id)}${pageSlug ? `?page=${encodeURIComponent(pageSlug)}` : ""}`));
   const isEmbed = embed === "1";
@@ -58,20 +62,31 @@ export default async function PreviewPage({
     page = allPages.find((p) => p.isHome) || allPages[0] || null;
   }
   if (!page) notFound();
+  const t = await getTranslations({ locale: await requestLocale(), namespace: "apps.preview" });
+
+  // The app's language, like the published app (<html lang dir>, the
+  // runtime's texts); a multilingual app's other languages with ?lang=.
+  const app = await getAppLocale(id);
+  const lang = isLocale(langParam) && langParam !== app.locale && app.locales.includes(langParam) ? langParam : null;
+  if (lang) {
+    const translated = await db.pageTranslation.findUnique({ where: { pageId_locale: { pageId: page.id, locale: lang } }, select: { title: true, html: true } });
+    if (translated) page = { ...page, title: translated.title, html: translated.html };
+  }
+  const shown = lang ?? app.locale;
+  const view = { ...app, locale: shown, dir: localeDir(shown), locales: [shown] };
 
   const previewBase = `/preview/${id}`;
   // AI Designer pages are whole documents: the same split as the published
   // app (title and lang from their head, head elements ahead of the body).
-  const doc = splitDesignerDocument(page.html);
-  const docAttrs = documentAttributesScript(doc);
+  const { doc, docAttrs, localeScript } = appDocumentParts(page.html, view);
 
   return (
-    <html lang={doc.lang ?? "en"}>
+    <html lang={app.explicit ? shown : doc.lang ?? "en"} dir={app.explicit ? localeDir(shown) : undefined}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="robots" content="noindex" />
-        <title>{`${doc.title ?? page.title} — Preview`}</title>
+        <title>{t("title", { title: doc.title ?? page.title })}</title>
         {/* AI Designer apps bring their own complete CSS: no platform sheets. */}
         {project.kind === "DESIGNER" ? null : (
           <>
@@ -88,6 +103,7 @@ export default async function PreviewPage({
           (function(){
             window.__nkPreview = true;
             var base = '${previewBase}';
+            var lang = ${JSON.stringify(lang ? `&lang=${lang}` : "")};
             var map = ${JSON.stringify(slugMap)};
             window.__nkNavigate = function(path){
               if(!path || path.startsWith('http') || path.startsWith('#') || path.startsWith('mailto:')) {
@@ -97,7 +113,7 @@ export default async function PreviewPage({
               // "/inventory.html" but pages are keyed by extensionless slug.
               var slug = path.replace(/^\\//, '').split('?')[0].split('#')[0].replace(/\\.html?$/i, '');
               var resolved = map[slug] || slug;
-              window.location.href = base + '?page=' + encodeURIComponent(resolved);
+              window.location.href = base + '?page=' + encodeURIComponent(resolved) + lang;
             };
           })();
         `}} />
@@ -122,22 +138,23 @@ export default async function PreviewPage({
             boxShadow: "0 4px 24px rgba(0,0,0,0.4)",
           }}
         >
-          <span style={{ opacity: 0.7 }}>{project.published ? `Your latest edits${liveVersion ? ` · visitors see version ${liveVersion}` : ""}` : "Preview · not published yet"}</span>
+          <span style={{ opacity: 0.7 }}>{project.published ? (liveVersion ? t("latestLive", { version: liveVersion }) : t("latest")) : t("notPublished")}</span>
           <span style={{ opacity: 0.4 }}>|</span>
           <a
             href={`/projects/${id}#app-admin`}
             style={{ opacity: 0.7, fontSize: "11px", color: "#fff", textDecoration: "underline" }}
           >
-            Your admin login
+            {t("adminLogin")}
           </a>
           <a
-            href={`/projects/${id}/pages/${page.id}/edit`}
+            href={`/projects/${id}/pages/${page.id}/edit${lang ? `?lang=${lang}` : ""}`}
             style={{ color: "#a78bfa", fontWeight: 600, textDecoration: "none" }}
           >
-            Back to editor
+            {t("backToEditor")}
           </a>
         </div>}
 
+        <script dangerouslySetInnerHTML={{ __html: localeScript }} />
         {docAttrs && <script dangerouslySetInnerHTML={{ __html: docAttrs }} />}
         <div suppressHydrationWarning style={doc.isDocument ? { display: "contents" } : undefined} dangerouslySetInnerHTML={{ __html: documentMarkup(doc) }} />
 

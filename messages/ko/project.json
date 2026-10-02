@@ -1,0 +1,958 @@
+{
+  "alertsApi": {
+    "allOff": "모든 알림이 꺼져 있어요. 알림 카드에서 알림을 하나 켠 다음 다시 시도해 주세요.",
+    "badEmail": "\"{address}\"은(는) 이메일 주소 형식이 아닌 것 같아요.",
+    "emailOff": "이 서버에는 이메일이 설정되어 있지 않아 알림을 보낼 수 없어요. 이메일을 연결해 달라고 서비스 제공업체에 문의하세요.",
+    "invalid": "알림 설정을 확인하고 다시 시도해 주세요.",
+    "noTables": "아직 앱에서 방문자의 정보를 받지 않고 있어요. 먼저 양식이나 예약 같은 기능을 추가하세요.",
+    "sampleMessage": "출시 체크리스트에서 보낸 테스트 제출이에요. 실제로 보낸 사람은 없어요.",
+    "samplePerson": "테스트 사용자",
+    "sampleSubject": "테스트 제출",
+    "sampleText": "테스트",
+    "signedUpTable": "가입한 사람",
+    "testFailed": "테스트 알림을 보내지 못했어요.",
+    "testLimit": "지난 1시간 동안 테스트 제출이 {count}건 있었어요. 잠시 후 다시 시도해 주세요.",
+    "throttled": "이번 시간에 이 앱에서 보낼 수 있는 알림 이메일 {count}건을 모두 보냈어요. 테스트 알림은 잠시 보류되었고, 남은 알림은 매시간 끝날 때 이메일 하나로 함께 도착해요.",
+    "tooMany": "주소를 최대 {max}개 더 추가할 수 있어요.",
+    "unknownTable": "테이블 중 하나가 더 이상 이 앱에 없어요. 페이지를 새로고침하고 다시 시도해 주세요."
+  },
+  "alertsCard": {
+    "allOff": "모두 꺼짐",
+    "alsoSendTo": "함께 보낼 주소 <muted>(최대 {max}개, 쉼표로 구분)</muted>",
+    "defaultOn": "양식으로 보이므로 끄지 않는 한 켜져 있습니다",
+    "defaultTable": "제출",
+    "emailOff": "이 서버에서는 이메일이 설정되지 않아 알림을 보낼 수 없습니다. 제공업체에 이메일 연결을 요청하세요.",
+    "extraHelp": "비즈니스 파트너처럼 이 알림을 함께 받아야 하는 사람을 추가하세요. 이메일 주소는 쉼표로 구분하세요.",
+    "goesTo": "알림을 <b>{email}</b>(으)로 보냅니다.",
+    "intro": "누군가 앱에서 양식을 보내거나 예약 또는 주문을 하면 바로 이메일을 받아보세요.",
+    "loadFailed": "알림 설정을 불러오지 못했어요.",
+    "noTables": "아직 앱에서 방문자로부터 수집하는 정보가 없습니다. 양식이나 예약 같은 기능을 추가하면 여기서 알림을 설정할 수 있습니다.",
+    "off": "꺼짐",
+    "on": "켜짐",
+    "onCount": "{total}개 중 {on}개 켜짐",
+    "save": "알림 저장",
+    "saveFailed": "알림 설정을 저장하지 못했어요.",
+    "saveFirst": "먼저 저장",
+    "saveHelp": "알림을 보낼 테이블과 알림을 받을 사람을 저장합니다.",
+    "sending": "보내는 중…",
+    "setUpEmail": "이메일 설정",
+    "setUpEmailHelp": "서버 설정을 열어 이메일 서비스를 연결하면 앱에서 이메일을 보낼 수 있습니다.",
+    "step": "테스트 제출 보내기",
+    "stepDone": "(완료)",
+    "stepHelp": "양식을 누군가 사용할 때 받는 것과 같은 샘플 알림 이메일을 보내 받은편지함에 도착하는지 확인합니다.",
+    "stepHint": "누군가 양식을 사용하면 이메일을 받는지 확인하세요.",
+    "stepNeedsEmail": "이 서버에서 이메일을 설정해야 합니다.",
+    "stepSending": "테스트 제출을 보내는 중…",
+    "stepToDo": "(할 일)",
+    "switchHelp": "켜면 방문자가 이 테이블에 정보를 추가할 때마다 이메일을 받습니다. 변경 사항을 저장하려면 알림 저장을 누르세요.",
+    "test": "테스트 보내기",
+    "testFailed": "테스트 알림을 보내지 못했어요.",
+    "testHelp": "등록된 모든 주소로 샘플 알림 이메일을 보내 도착하는지 확인합니다. 먼저 변경 사항을 저장하세요.",
+    "testOffline": "테스트 알림을 보내지 못했어요. 연결을 확인하고 다시 시도해 주세요.",
+    "testSent": "{to}에게 {table} 테스트 알림을 보냈어요. (test) 표시가 있는 이메일을 확인해 주세요.",
+    "testSentToYou": "회원님에게 {table} 테스트 알림을 보냈어요. (test) 표시가 있는 이메일을 확인해 주세요.",
+    "title": "알림",
+    "titleHelp": "방문자가 앱에서 양식, 예약, 주문 등을 보내면 이메일로 알려드립니다. 알림을 받을 테이블을 선택할 수 있습니다.",
+    "tooMany": "주소를 최대 {max}개 더 추가할 수 있어요."
+  },
+  "appAdminApi": {
+    "checkDetails": "정보를 확인하고 다시 시도하세요.",
+    "invalidEmail": "올바른 이메일 주소를 입력하세요.",
+    "saveFailed": "관리자 로그인을 저장하지 못했어요.",
+    "shortPassword": "비밀번호는 {min}자 이상으로 입력하세요."
+  },
+  "appAdminCard": {
+    "add": "관리자 추가",
+    "addHelp": "이 이메일 주소로 앱 관리자 로그인을 만들어요. 이미 계정이 있다면 해당 계정이 관리자가 되고 비밀번호가 변경돼요.",
+    "admins": "관리자: <list>{admins}</list>",
+    "email": "이메일",
+    "emailHelp": "팀원이 앱에 로그인할 때 사용할 이메일 주소예요.",
+    "loginsIntro": "관리자 로그인을 받은 사람은 앱 로그인 페이지에서 로그인해 앱을 관리할 수 있어요.",
+    "loginsTitle": "팀 관리자 로그인",
+    "notPublished": "아직 앱을 게시하지 않아 이 페이지는 미리보기로 열려요.",
+    "note": "10자 이상이어야 해요. 앱에 이미 계정이 있는 이메일을 사용하면 해당 계정이 관리자가 되고 비밀번호가 변경돼요.",
+    "openHelp": "로그인하지 않아도 새 탭에서 팀 전용 페이지를 열 수 있어요. 방문자에게는 표시되지 않아요.",
+    "pagesIntro": "이 페이지는 나와 팀만 사용할 수 있어 방문자에게 보이지 않습니다. 앱에 로그인하지 않아도 언제든지 열 수 있습니다.",
+    "password": "비밀번호",
+    "passwordHelp": "팀원이 사용할 비밀번호예요. 10자 이상이어야 해요. 비밀번호는 따로 안전하게 공유해 주세요. 앱 로그인 페이지에서 이 비밀번호로 로그인할 수 있어요.",
+    "saveFailed": "관리자 로그인을 저장하지 못했습니다.",
+    "savedCreated": "저장되었습니다. 이 이메일과 비밀번호로 앱에 로그인할 수 있습니다.",
+    "savedUpdated": "저장되었습니다. 이 계정은 이제 새 비밀번호를 사용하는 관리자입니다.",
+    "title": "앱의 관리자 영역",
+    "titleHelp": "주문 관리처럼 나와 팀만 사용할 수 있는 앱 페이지와 팀에서 해당 페이지에 접속할 때 사용하는 로그인 정보입니다."
+  },
+  "deleteProject": {
+    "backup": "백업 다운로드",
+    "backupHelp": "모든 페이지, 데이터, 테마, 사진이 담긴 파일 하나를 기기에 저장해요. 나중에 앱 가져오기로 복원할 수 있어요.",
+    "buttonHelp": "이 앱을 삭제해요. 삭제되는 항목을 확인하고 먼저 백업을 다운로드할 수 있어요. 삭제는 되돌릴 수 없어요.",
+    "buttonLabel": "{name} 삭제",
+    "deleteApp": "앱 삭제",
+    "deleteHelp": "페이지, 데이터, 파일, 웹 주소를 포함한 앱을 영구 삭제해요. 방문자가 더 이상 앱을 열 수 없어요. 이 작업은 되돌릴 수 없어요.",
+    "deleting": "삭제 중…",
+    "details": "페이지, 워크플로, 앱을 통해 받은 모든 내용, 휴대폰 앱 빌드, 웹 주소가 모두 삭제돼요. 이 작업은 되돌릴 수 없어요.",
+    "failed": "앱을 삭제하지 못했어요 ({status}).",
+    "keyAck": "업로드 키를 다운로드했거나, 필요하지 않아요.",
+    "keyAckHelp": "업로드 키를 저장했거나 Google Play에서 이 앱을 업데이트할 필요가 없음을 확인하려면 체크하세요.",
+    "keyBody": "앱을 삭제하기 전에 다운로드하세요. 키가 없으면 Google Play에서 앱을 다시 업데이트할 수 없어요.",
+    "keyDownload": "업로드 키 다운로드",
+    "keyDownloadHelp": "Google Play 업데이트가 본인에게서 온 것임을 증명하는 비밀 파일을 저장하세요. 안전한 곳에 보관하세요.",
+    "keyTitle": "이 앱에는 Google Play 업로드 키가 있어요.",
+    "networkError": "네트워크 오류가 발생했어요. 앱은 삭제되지 않았어요.",
+    "summary": "앱과 데이터, 파일이 삭제돼요. 먼저 백업을 다운로드하세요.",
+    "title": "“{name}” 앱을 삭제할까요?"
+  },
+  "deploymentsApi": {
+    "versionMissing": "해당 버전이 없습니다."
+  },
+  "domains": {
+    "add": "도메인 추가",
+    "addFailed": "도메인을 추가하지 못했습니다.",
+    "addHelp": "이 웹 주소 연결을 시작하세요. 그러면 도메인을 구매한 업체에서 복사할 설정 두 가지가 표시됩니다.",
+    "adding": "추가 중…",
+    "checkHelp": "아래 설정이 적용되었는지 확인하세요. 설정을 추가한 후 적용되기까지 몇 분, 때로는 몇 시간이 걸릴 수 있습니다.",
+    "checkNow": "지금 확인",
+    "checking": "확인 중…",
+    "colName": "이름 / 호스트",
+    "colType": "유형",
+    "colValue": "값 / 연결 대상",
+    "confirmDisconnect": "이 앱에서 {host} 연결을 해제할까요?",
+    "connected": "연결됨 — 방문자가 <url>https://{host}</url>을 사용할 수 있습니다",
+    "copied": "복사됨",
+    "copy": "복사",
+    "copyHelp": "클릭해 복사한 다음 도메인 업체의 설정 페이지에 붙여넣으세요.",
+    "copyValue": "{value} 복사",
+    "disconnect": "{host} 연결 해제",
+    "disconnectHelp": "앱에서 이 웹 주소 사용을 중지합니다. 웹 주소는 계속 소유하며 앱은 무료 주소로 이용할 수 있습니다.",
+    "domain": "도메인",
+    "empty": "아직 도메인이 없습니다. 앱은 무료 주소로 계속 이용할 수 있습니다.",
+    "hostHelp": "이미 소유한 웹 주소(도메인)를 입력하세요. 예: www.yourbusiness.com. 먼저 도메인을 구매해야 합니다.",
+    "notOwned": "아직 TXT 레코드를 찾지 못했습니다.",
+    "notPointsHere": "도메인이 아직 이 서버를 가리키지 않습니다(CNAME/A 레코드).",
+    "owned": "소유권 확인됨(TXT 레코드를 찾았습니다).",
+    "ownershipRecordHelp": "이 설정은 웹 주소가 내 소유임을 확인합니다. 소유권이 확인된 후에 앱이 연결됩니다.",
+    "pointsHere": "도메인이 이 서버를 가리킵니다.",
+    "recordsHelp": "DNS 레코드는 도메인을 구매한 업체의 설정입니다. 각 레코드를 해당 업체의 DNS 또는 도메인 설정 페이지에 복사하세요.",
+    "recordsIntro": "이 도메인의 DNS를 관리하는 곳에서 아래 레코드를 추가하세요. 변경 사항은 보통 몇 분 안에, 때로는 몇 시간 안에 반영됩니다.",
+    "rootHint": "루트 도메인(www 없이 yourbusiness.com)을 사용하는 경우, DNS 호스트에서 CNAME을 지원하지 않으면 이 서버의 IP 주소를 가리키는 A 레코드를 사용하세요.",
+    "rootHintIp": "루트 도메인(www 없이 yourbusiness.com)을 사용하는 경우, DNS 호스트에서 CNAME을 지원하지 않으면 <code>{ip}</code>을 가리키는 A 레코드를 사용하세요.",
+    "routingRecordHelp": "이 설정은 웹 주소를 입력한 사람을 앱으로 연결합니다.",
+    "waiting": "DNS 레코드 대기 중"
+  },
+  "domainsApi": {
+    "alreadyConnected": "이 도메인은 이미 다른 앱에 연결되어 있습니다.",
+    "enterDomain": "도메인 이름을 입력하세요.",
+    "invalidDomain": "www.yourbusiness.com처럼 도메인을 입력하세요(https://나 경로는 제외).",
+    "notFound": "찾을 수 없습니다",
+    "platformAddress": "이 주소는 이 플랫폼에 속해 있습니다."
+  },
+  "domainsPage": {
+    "intro": "이 앱을 <domain>www.yourbusiness.com</domain>처럼 내 웹 주소에 연결하세요. 도메인을 구매한 곳에서 DNS 레코드 두 개를 추가한 다음 여기서 연결을 확인하세요.",
+    "title": "도메인"
+  },
+  "enablePush": {
+    "failed": "알림을 켜지 못했어요. 다시 시도해 주세요.",
+    "help": "방문자가 알림을 신청할 수 있는 ‘알림 받기’ 페이지를 앱에 추가해요. 그런 다음 여기나 자동화에서 메시지를 보낼 수 있어요.",
+    "turnOn": "알림 켜기",
+    "turningOn": "켜는 중…"
+  },
+  "exportApi": {
+    "notFound": "찾을 수 없습니다",
+    "unauthorized": "권한이 없습니다"
+  },
+  "iconApi": {
+    "generationFailed": "이미지 생성에 실패했어요",
+    "invalidForm": "잘못된 양식입니다",
+    "invalidInput": "잘못된 입력입니다",
+    "missingFile": "파일이 없습니다",
+    "noImage": "이미지가 반환되지 않았어요",
+    "notFound": "찾을 수 없습니다",
+    "tooBig": "아이콘은 5MB 미만이어야 합니다",
+    "unauthorized": "권한이 없습니다",
+    "wrongType": "PNG, JPG, WebP 또는 SVG 파일을 사용하세요"
+  },
+  "latestSubmissions": {
+    "empty": "아직 없습니다. 앱에서 양식을 제출하거나 예약하면 여기에 표시됩니다.",
+    "itemHelp": "출처가 된 테이블을 열어 자세히 확인하세요.",
+    "justNow": "방금",
+    "newEntry": "새 항목",
+    "seeAll": "모든 데이터 보기",
+    "seeAllHelp": "데이터 페이지를 열어 앱에 저장된 모든 정보를 확인하세요.",
+    "title": "최근 제출",
+    "titleHelp": "방문자가 앱에서 보낸 최신 정보 5개입니다. 양식 메시지나 예약 등이 표시됩니다."
+  },
+  "layout": {
+    "backToApps": "내 앱으로 돌아가기",
+    "backToAppsHelp": "내 모든 앱 목록으로 돌아가세요.",
+    "backToDesigner": "디자이너로 돌아가기",
+    "backToDesignerHelp": "AI 디자이너로 돌아가세요."
+  },
+  "modulesPage": {
+    "help": "예약이나 쇼핑몰 같은 기능은 앱에 완성된 페이지와 관련 데이터를 더해 주는 미리 만들어진 구성 요소예요.",
+    "intro": "예약, 쇼핑몰, 리뷰 등 다양한 기능이 있어요. 하나를 고르면 앱에 페이지가 추가돼요. 원하는 대로 꾸며 보세요.",
+    "title": "강력한 기능을 더해 보세요."
+  },
+  "nativeApi": {
+    "build": {
+      "publishFirst": "먼저 앱을 게시하세요. Android 앱은 게시된 주소를 불러옵니다.",
+      "startFailed": "빌드를 시작할 수 없습니다. 다시 시도해 주세요.",
+      "unavailable": "이 서버에서는 Android 빌드를 사용할 수 없습니다. {reason}",
+      "unknownBuild": "알 수 없는 빌드입니다"
+    },
+    "buildDownload": {
+      "fileGone": "이 빌드 파일이 없습니다. 다시 빌드해 주세요.",
+      "notReady": "빌드가 아직 준비되지 않았습니다"
+    },
+    "download": {
+      "publishFirst": "먼저 앱을 게시하세요. 모바일 앱은 게시된 URL을 불러옵니다."
+    },
+    "installer": {
+      "projectNotFound": "프로젝트를 찾을 수 없습니다",
+      "publishFirst": "먼저 프로젝트를 게시하세요. 설치 프로그램은 게시된 URL을 사용합니다.",
+      "unknownPlatform": "알 수 없는 플랫폼입니다"
+    },
+    "keystore": {
+      "chooseFile": "키 저장소 파일(.jks 또는 .keystore)을 선택하세요.",
+      "ownerOnly": "앱 소유자만 업로드 키를 변경할 수 있습니다.",
+      "saveFailed": "키 저장소를 저장할 수 없습니다. 다시 시도해 주세요.",
+      "tooManyTries": "시도 횟수가 너무 많습니다. 몇 분 후에 다시 시도해 주세요."
+    },
+    "keystoreDownload": {
+      "ownerOnly": "앱 소유자만 업로드 키를 다운로드할 수 있습니다."
+    },
+    "notFound": "찾을 수 없습니다",
+    "settings": {
+      "bundleId": "번들 ID는 com.company.app과 같은 역방향 DNS 형식이어야 합니다",
+      "invalidInput": "잘못된 입력입니다",
+      "versionFormat": "1.0.0과 같은 버전을 입력하세요"
+    },
+    "unauthorized": "권한이 없습니다"
+  },
+  "nativeApp": {
+    "android": {
+      "advancedDownload": "고급: 프로젝트를 다운로드해 Android Studio에서 직접 빌드",
+      "advancedDownloadHelp": "개발자용: Android 프로젝트 파일을 다운로드해 Android Studio에서 직접 앱을 빌드합니다. 대부분의 경우 이 작업은 필요하지 않습니다.",
+      "debugBlurb": "빠르게 테스트할 수 있는 파일입니다. Android 휴대전화에 바로 설치해 앱을 확인하세요. Google Play에는 이 파일을 사용할 수 없습니다.",
+      "debugButton": "테스트 APK 빌드",
+      "debugTitle": "휴대전화에서 테스트 (APK)",
+      "intro": "서버에서 앱을 빌드합니다. 원하는 작업을 선택하세요.",
+      "releaseBlurb": "Google Play에서 요구하는 파일이며, 앱 전용 업로드 키로 서명됩니다. 빌드할 때마다 빌드 번호가 올라갑니다 (다음 번호: {next}).",
+      "releaseButton": "Google Play용 빌드",
+      "releaseTitle": "Google Play에 게시 (AAB)"
+    },
+    "browserInstall": "<b>브라우저에서 바로 설치할 수 있습니다.</b> 게시된 사이트는 스토어를 거치지 않고 브라우저에서 바로 휴대폰 홈 화면에 추가할 수도 있습니다.",
+    "build": {
+      "again": "다시 빌드",
+      "againHelpDebug": "이름, 아이콘, 색상 등 최신 앱 세부 정보로 테스트 파일을 새로 만듭니다.",
+      "againHelpRelease": "최신 앱 세부 정보로 Google Play용 파일을 새로 만듭니다. 다음 빌드 번호가 적용되어 업데이트로 업로드할 수 있습니다.",
+      "buildFailed": "빌드 실패",
+      "building": "빌드 중…",
+      "buildingSeconds": "빌드 중… ({seconds}초)",
+      "couldNotStart": "빌드를 시작할 수 없습니다",
+      "debugNote": "휴대전화에서 파일을 열고 설치 허용을 선택하세요. Google Play에서 받은 앱이 휴대전화에 설치되어 있다면 먼저 삭제하세요. 두 앱은 서로 다른 키를 사용합니다.",
+      "downloadAab": "Google Play용 AAB 다운로드",
+      "downloadAabHelp": "Google Play에서 요구하는 Android 앱 파일(.aab)을 다운로드합니다. 아래 안내에 따라 Google Play Console에 업로드하세요.",
+      "downloadApk": "테스트 APK 다운로드",
+      "downloadApkHelp": "테스트용 Android 앱 파일(.apk)을 다운로드합니다. Android 휴대전화에서 파일을 열고 설치 허용을 선택하세요.",
+      "failed": "빌드에 실패했습니다.",
+      "iconNotUsed": "<b>아이콘을 사용하지 않았습니다.</b> {note} <link>아이콘 변경</link>",
+      "made": "버전 {version} · 생성일 {date}",
+      "madeWithBuild": "버전 {version} (빌드 {build}) · 생성일 {date}",
+      "rebuildNeeded": "<b>다시 빌드해야 합니다.</b> {reason}",
+      "releaseNote": "첫 빌드에서 앱의 업로드 키가 만들어집니다. 아래에서 키 백업을 다운로드하세요.",
+      "signedApk": "다른 스토어용 서명된 APK",
+      "signedApkHelp": "Google Play 외의 앱 스토어에 올릴 수 있도록, 키로 서명된 설치용 Android 앱 파일(.apk)을 다운로드합니다.",
+      "sizeKb": "{size}KB",
+      "sizeMb": "{size}MB",
+      "startHelpDebug": "휴대전화에 바로 설치할 수 있는 테스트용 Android 앱을 빌드합니다. 몇 분 정도 걸립니다.",
+      "startHelpRelease": "Google Play용 Android 앱 파일을 빌드합니다. 몇 분 정도 걸립니다. 키를 아직 추가하지 않았다면 첫 빌드에서 업로드 키가 만들어집니다.",
+      "withSize": "{label} ({size})"
+    },
+    "details": {
+      "appId": "번들 / 애플리케이션 ID",
+      "appIdHelp": "앱 스토어에서 앱을 구분하는 고유한 이름입니다. 예: com.yourbusiness.app. 방문자에게는 표시되지 않습니다. 앱을 스토어에 올린 후에는 변경하지 마세요.",
+      "appIdHint": "예: com.company.app처럼 소문자로 입력하세요. 앱을 스토어에 올린 후에는 변경하지 마세요.",
+      "appName": "앱 이름",
+      "appNameHelp": "휴대폰에서 앱 아이콘 아래에 표시되는 이름입니다. 최대 30자까지 입력할 수 있지만, 짧을수록 보기 좋습니다.",
+      "background": "배경",
+      "backgroundCode": "배경색 코드",
+      "backgroundHelp": "앱이 열리는 동안과 인터넷 연결이 없을 때 표시되는 화면의 배경색입니다.",
+      "buildNumber": "빌드 번호",
+      "buildNumberHelp": "스토어에서 업데이트를 구분하는 번호입니다. 업로드할 때마다 번호를 높여야 합니다. 여기서 만든 Google Play 빌드는 번호가 자동으로 올라갑니다.",
+      "buildNumberHint": "Google Play 빌드 번호는 여기서부터 자동으로 올라갑니다. 다음 번호: {next}.",
+      "colorCodeHelp": "원하는 색상 코드를 알고 있다면 여기에 입력하세요. 예: #1a73e8",
+      "couldNotSave": "저장할 수 없습니다",
+      "intro": "이 정보는 앱 스토어와 휴대폰 홈 화면에 표시됩니다.",
+      "orientation": "화면 방향",
+      "orientationDefault": "기기 설정 따르기",
+      "orientationHelp": "휴대전화를 돌릴 때 앱 화면도 돌아갈지 설정합니다. 기기 설정을 따르면 화면이 돌아가고, 다른 옵션을 선택하면 세로나 가로로 고정됩니다.",
+      "orientationLandscape": "가로 화면만",
+      "orientationPortrait": "세로 화면만",
+      "pickBackground": "배경색 선택",
+      "pickThemeColor": "테마 색상 선택",
+      "save": "설정 저장",
+      "saveHelp": "이 세부 정보를 저장합니다. 다음 빌드나 다운로드에 적용됩니다. 이미 설치된 앱은 업데이트를 배포할 때까지 바뀌지 않습니다.",
+      "themeColor": "테마 색상",
+      "themeColorCode": "테마 색상 코드",
+      "themeColorHelp": "휴대전화에서 앱의 기본 색상입니다. 로딩 화면과 인터넷 연결이 없을 때 표시되는 화면에 사용되며, 앱 아이콘을 사용할 수 없을 때는 기본 아이콘에도 사용됩니다.",
+      "title": "앱 세부 정보",
+      "titleHelp": "휴대폰 앱에 포함되는 이름, 색상, 스토어 정보입니다. 변경 사항은 다음 빌드나 다운로드에 반영되며, 이미 설치된 앱에는 적용되지 않습니다.",
+      "version": "버전",
+      "versionHelp": "스토어에 표시되는 버전 번호입니다. 예: 1.0.0. 업데이트를 제출할 때는 1.1.0처럼 버전을 올리세요."
+    },
+    "featureList": {
+      "three": "{a}, {b} 및 {c}",
+      "two": "{a} 및 {b}"
+    },
+    "features": {
+      "camera": {
+        "about": "QR 코드를 스캔하는 등 카메라를 표시하는 페이지가 있습니다. 휴대전화에서 먼저 사용자에게 권한을 요청합니다.",
+        "label": "카메라",
+        "name": "카메라"
+      },
+      "files": {
+        "about": "파일을 업로드하면 사진을 찍을 수도 있는 휴대전화의 파일 선택기가 열립니다. Android에서는 권한이 필요하지 않습니다.",
+        "label": "사진 및 파일",
+        "name": "사진 및 파일"
+      },
+      "location": {
+        "about": "주변 장소를 찾는 등 사용자의 위치를 확인하는 페이지가 있습니다. 휴대전화에서 먼저 사용자에게 권한을 요청합니다.",
+        "label": "위치",
+        "name": "위치"
+      },
+      "microphone": {
+        "about": "소리를 녹음하거나 음성을 듣는 페이지가 있습니다. 휴대전화에서 먼저 사용자에게 권한을 요청합니다.",
+        "label": "마이크",
+        "name": "마이크"
+      }
+    },
+    "ios": {
+      "download": "iPhone 프로젝트 다운로드",
+      "downloadHelp": "iPhone 앱 빌드에 필요한 파일을 다운로드합니다. Apple에 보내려면 Mac 또는 GitHub 계정과 유료 Apple Developer 계정이 필요합니다.",
+      "intro": "iPhone 프로젝트를 다운로드하세요. 설정 명령 없이 바로 Xcode에서 열립니다. Apple에 앱을 게시하려면 유료 Apple Developer 계정(연 {fee})이 필요하며, iPhone 앱은 Mac에서만 빌드할 수 있습니다. 두 가지 방법이 있습니다:",
+      "locationAdded": "이제 앱에서 위치를 사용합니다. iPhone 프로젝트를 다시 다운로드해 Apple에 새 빌드를 보내세요. 그렇지 않으면 앱에서 위치 권한을 요청할 수 없습니다.",
+      "locationRemoved": "이제 앱에서 위치를 사용하지 않습니다. 다음 빌드부터 위치 권한을 요청하지 않도록 iPhone 프로젝트를 다시 다운로드하세요.",
+      "newBuildNeeded": "<b>새 빌드가 필요합니다.</b> {reason}",
+      "readme": "다운로드에 포함된 README에서 두 가지 방법을 차근차근 안내합니다.",
+      "title": "iPhone 및 iPad",
+      "withMac": "<b>Mac이 있는 경우:</b> <mono>{path}</mono>을(를) 열고 팀을 선택한 다음 Product → Archive를 선택하세요.",
+      "withoutMac": "<b>Mac이 없는 경우:</b> 폴더를 GitHub에 올리고 Apple 키를 보안 비밀로 추가하세요. 함께 제공되는 워크플로가 GitHub의 Mac에서 앱을 빌드하고 TestFlight로 보냅니다."
+    },
+    "key": {
+      "alias": "키 별칭",
+      "aliasHelp": "파일 안에 있는 키의 이름입니다. 파일에 키가 하나만 있으면 비워 두세요.",
+      "aliasPlaceholder": "키가 하나뿐이면 비워 두세요",
+      "backupHint": "백업에는 키와 비밀번호가 들어 있으니 비밀번호 관리자처럼 안전한 곳에 저장하세요.",
+      "checking": "확인 중…",
+      "couldNotUse": "이 키를 사용할 수 없습니다",
+      "download": "키 백업 다운로드",
+      "downloadHelp": "업로드 키와 비밀번호를 복사해 저장하세요. 이 파일이 있으면 누구나 본인인 것처럼 업데이트에 서명할 수 있으니 안전한 곳에 보관하세요.",
+      "file": "키 저장소 파일(.jks 또는 .keystore)",
+      "fileHelp": "이전에 앱에 서명할 때 사용한 키 파일을 선택하세요. 파일 이름은 보통 .jks 또는 .keystore로 끝납니다.",
+      "fingerprint": "인증서 지문(SHA-256)",
+      "fingerprintHelp": "키를 식별하는 코드입니다. 일부 Google 서비스에서는 설정할 때 이 코드를 붙여넣으라고 합니다.",
+      "importedOn": "직접 추가한 키 · {date} · 별칭 <mono>{alias}</mono>",
+      "keepSafe": "잘 보관하세요. Google Play에서 업데이트할 때마다 필요합니다.",
+      "keyPassword": "키 비밀번호",
+      "keyPasswordHelp": "키 자체의 비밀번호입니다. 파일 비밀번호와 같으면 비워 두세요.",
+      "keyPasswordPlaceholder": "같은 비밀번호라면 비워 두세요",
+      "madeOn": "이 앱용으로 만든 키 · {date} · 별칭 <mono>{alias}</mono>",
+      "missing": "서버에서 키 파일을 찾을 수 없습니다. Google Play에서 앱을 계속 업데이트하려면 아래에 백업을 추가하세요(“이미 있는 키 사용”).",
+      "none": "Google Play는 업데이트할 때마다 이 키를 확인합니다. Google Play용 앱을 처음 빌드할 때 키를 만들어 드립니다. 이미 Google Play에 앱이 있고 직접 만든 키가 있나요? 먼저 여기에 추가하세요.",
+      "ownerOnly": "앱 소유자만 키를 다운로드할 수 있습니다.",
+      "replace": "현재 키 바꾸기. Google Play에서 다른 키를 요구하는 경우에만 진행하세요. 먼저 현재 키를 백업하세요.",
+      "replaceHelp": "현재 키를 이 키로 바꾸려면 확인하세요. 먼저 현재 키를 백업하세요.",
+      "save": "키 저장",
+      "saveHelp": "키와 비밀번호를 확인한 다음, 앞으로 모든 Google Play 빌드에 이 키를 사용합니다.",
+      "saved": "키를 저장했습니다. 이제 Google Play용 빌드에 이 키가 사용됩니다.",
+      "storePassword": "키 저장소 비밀번호",
+      "storePasswordHelp": "키 파일을 여는 비밀번호입니다.",
+      "title": "업로드 키",
+      "titleHelp": "Google Play에 앱 업데이트를 올리는 사람이 본인임을 증명하는 비밀 파일입니다. 이 파일을 잃어버리면 Google Play에서 앱을 업데이트할 수 없습니다.",
+      "toggleHelpClosed": "이미 Google Play에 앱이 있나요? 새 빌드로 기존 앱을 업데이트할 수 있도록 해당 앱에 사용한 키를 추가하세요.",
+      "toggleHelpOpen": "키를 변경하지 않고 이 양식을 닫습니다.",
+      "useDifferent": "다른 키 사용",
+      "useExisting": "이미 있는 키 사용"
+    },
+    "liveUrl": {
+      "help": "휴대폰 앱에서 여는 공개 웹 주소입니다. 해당 주소에 게시하는 내용은 휴대폰 앱에도 표시됩니다.",
+      "httpWarning": "휴대폰 앱은 보안 주소(https)에서만 열 수 있습니다. 이 주소는 http://로 시작하므로 휴대폰 앱에서 불러올 수 없습니다. 먼저 이 서버에 https를 설정하세요.",
+      "label": "앱에 표시되는 주소:"
+    },
+    "notPublished": {
+      "body": "모바일 앱에는 게시된 사이트가 표시되므로, 앱을 만들기 전에 사이트를 공개해야 합니다. 나중에 게시하는 내용은 새로 빌드하지 않아도 앱에 자동으로 반영됩니다.",
+      "goToPublish": "게시로 이동",
+      "goToPublishHelp": "게시로 이동해 앱을 온라인에 공개하세요. 그런 다음 여기로 돌아와 휴대폰 앱을 만드세요.",
+      "title": "먼저 앱을 게시하세요"
+    },
+    "phone": {
+      "checking": "앱 확인 중…",
+      "intro": "앱의 기능과 페이지를 바탕으로 확인했습니다. 앱은 빌드에서 요청한 기능만 사용할 수 있습니다. 목록이 바뀌면 앱을 다시 빌드하고 새 버전을 스토어에 제출하세요.",
+      "none": "현재 사용 중인 기능이 없습니다. 카메라, 마이크, 위치 또는 파일 업로드를 사용하는 페이지가 없습니다.",
+      "photoLibrary": "사진 보관함",
+      "save": "문구 저장",
+      "saveHelp": "이 안내 문구를 저장합니다. 다음 빌드와 iPhone 다운로드에 적용됩니다.",
+      "saved": "저장했습니다. 다음 빌드와 다운로드에 적용됩니다.",
+      "sourcePage": "“{name}” 페이지",
+      "title": "앱에서 사용하는 휴대전화 기능",
+      "titleHelp": "카메라나 위치처럼 앱에 필요한 휴대전화 기능입니다. 페이지와 기능을 확인해 목록을 만들었습니다. 앱에서 기능을 사용하기 전에 휴대전화가 사용자에게 권한을 요청합니다.",
+      "usedBy": "사용 위치: {sources}",
+      "wordingHelp": "앱에 이 기능이 필요한 이유를 “입구에서 티켓을 스캔하기 위해”처럼 알기 쉽게 적어 주세요. Apple이 확인합니다. 비워 두면 추천 문구가 사용됩니다.",
+      "wordingIntro": "앱이 각 기능을 요청할 때 iPhone에 이 문구가 표시되며, Apple의 심사를 받습니다. 앱에서 해당 기능을 사용하는 이유를 알기 쉽게 적어 주세요. 입력란을 비워 두면 추천 문구가 사용됩니다. Android 휴대전화에는 기본 안내 문구가 표시됩니다.",
+      "wordingSummary": "권한 요청 시 휴대전화에 표시되는 문구",
+      "wordingSummaryHelp": "앱에서 카메라, 마이크, 사진 또는 위치 사용을 요청할 때 iPhone에 표시되는 안내 문구를 작성하려면 여기를 여세요."
+    },
+    "play": {
+      "appContent": "<b>앱 콘텐츠</b>에서 개인정보 처리방침 링크를 추가하세요. 앱에서 회원가입을 지원한다면 Google에서 계정 삭제 링크도 요구합니다. <mono>{url}</mono>을(를) 사용하세요.",
+      "createApp": "<b>앱 만들기</b>를 클릭하고 앱 이름을 입력한 다음 간단한 질문에 답하세요.",
+      "listing": "스토어 등록 정보를 작성하세요. 간단한 설명과 자세한 설명, 아이콘(512 × 512), 대표 이미지(1024 × 500), 휴대전화 스크린샷 2개 이상이 필요합니다.",
+      "note": "개인 개발자 계정을 새로 만든 경우, Google에서 전체 공개를 허용하기 전에 최소 12명이 14일 동안 앱을 테스트해야 합니다.",
+      "release": "<b>테스트 및 출시</b>를 열고 트랙을 선택한 다음(<b>내부 테스트</b>가 가장 빠르게 시험해 볼 수 있는 방법입니다) <b>새 버전 만들기</b>를 클릭하세요.",
+      "signUp": "<link>{url}</link>에서 Google Play 개발자 계정을 만드세요. Google에서 {fee}의 일회성 수수료를 청구합니다.",
+      "signing": "Google에서 앱 서명 설정을 묻는 경우 <b>Google에서 앱 서명 키를 관리하고 보호하도록 허용</b>을 선택하세요.",
+      "title": "Google Play에 앱 등록하기",
+      "titleHelp": "Google Play 스토어에 앱을 등록하는 방법을 단계별로 안내합니다. 클릭하면 안내를 펼치거나 접을 수 있습니다.",
+      "updates": "나중에 업데이트하려면 여기서 변경 사항을 게시하면 앱에 자동으로 적용됩니다. 이름, 아이콘, 색상 또는 버전을 변경할 때만 새 AAB를 빌드해 같은 방법으로 업로드하세요. 빌드 번호는 자동으로 올라갑니다.",
+      "upload": "위의 <b>.aab</b> 파일을 업로드하고, 새로 추가된 내용을 간단히 적은 다음 버전을 저장하고 출시하세요."
+    },
+    "publishToEnable": "게시하면 사용할 수 있습니다",
+    "rebuild": {
+      "added": "앱에서 이제 {features}을(를) 사용하지만, 이 빌드에서는 {count, plural, one {이 기능} other {이 기능들}}에 대한 권한을 요청할 수 없습니다. 다시 빌드하세요.",
+      "addedRelease": "이제 앱에서 {features}을(를) 사용하지만, 이 빌드에서는 {count, plural, one {권한} other {권한}}을 요청할 수 없습니다. 앱을 다시 빌드하고 새 버전을 Google Play에 업로드하세요.",
+      "oldShell": "이 빌드는 앱에서 파일을 열거나 다운로드를 저장하고 휴대전화 기능을 사용할 수 있게 되기 전에 만들어졌습니다. 다시 빌드하세요.",
+      "oldShellRelease": "이 빌드는 앱에서 파일을 열거나 다운로드를 저장하고 휴대전화 기능을 사용할 수 있게 되기 전에 만들어졌습니다. 다시 빌드한 뒤 새 버전을 Google Play에 업로드하세요.",
+      "removed": "이 빌드에서는 앱이 더 이상 사용하지 않는 {features} 권한을 여전히 요청합니다. {count, plural, one {권한} other {권한}}을 없애려면 앱을 다시 빌드하세요.",
+      "removedRelease": "이 빌드에서는 앱이 더 이상 사용하지 않는 {features} 권한을 여전히 요청합니다. {count, plural, one {권한} other {권한}}을 없애려면 앱을 다시 빌드하고 새 버전을 Google Play에 업로드하세요."
+    },
+    "store": {
+      "before": "{store}에 보내기 전에",
+      "deleteAccount": "앱에서 회원가입을 지원한다면 스토어에서 계정 삭제 링크를 요구합니다. <mono>{url}</mono>을(를) 사용하세요.",
+      "privacy": "스토어에서 개인정보 처리방침 링크도 요구합니다. 앱에 개인정보 페이지를 추가하거나 웹사이트의 페이지를 사용한 다음, 스토어 등록 정보에 주소를 붙여 넣으세요."
+    },
+    "toolchain": {
+      "operator": "이 서버를 운영 중인 경우, 설치 프로그램을 다시 실행하고 Android 설정을 물으면 ‘예’를 선택해 켜세요. 설치한 폴더에서 <mono>{command}</mono>를 실행해도 됩니다. Docker 없이 설치했다면 {doc}을 참고하세요.",
+      "others": "서버 운영자에게 Android 빌드를 켜 달라고 요청하세요. 프로젝트를 다운로드해 직접 빌드할 수도 있습니다.",
+      "title": "이 서버에서는 Android 빌드가 꺼져 있습니다"
+    }
+  },
+  "nativePage": {
+    "eyebrow": "휴대전화 및 태블릿",
+    "intro": "이 프로젝트를 Google Play와 Apple App Store에서 배포할 실제 앱으로 만들어 보세요. 앱에는 현재 게시된 사이트가 표시되므로 변경 사항을 게시하면 새 빌드 없이 바로 적용됩니다.",
+    "title": "모바일 앱"
+  },
+  "newPageButton": {
+    "create": "만들기",
+    "createHelp": "페이지를 만들고 편집기에서 열어요.",
+    "newPage": "새 페이지",
+    "newPageHelp": "앱에 비어 있는 새 페이지를 추가해요. 이름을 입력하면 편집기에서 페이지가 열려요.",
+    "titleHelp": "새 페이지의 이름이에요. 예: “회사 소개”. 앱 메뉴와 브라우저 탭에 표시돼요.",
+    "titlePlaceholder": "페이지 제목"
+  },
+  "notificationComposer": {
+    "confirm": "지금 이 알림을 구독자 {count, plural, one {#명} other {#명}}에게 보낼까요?",
+    "delivered": "기기 {sent, plural, one {#대} other {#대}}에 전송됨{removed, plural, =0 {} one { (이전 구독 #개 삭제됨)} other { (이전 구독 #개 삭제됨)}}.",
+    "message": "메시지",
+    "messageHelp": "제목 아래에 표시되는 글이에요. 휴대폰에서는 긴 메시지가 잘릴 수 있으니 중요한 내용을 먼저 적어 주세요.",
+    "messagePlaceholder": "매진되기 전에 테이블을 예약하세요.",
+    "noSubscribers": "아직 구독자가 없어요",
+    "previewBody": "메시지가 여기에 표시돼요.",
+    "previewEyebrow": "미리보기",
+    "previewHelp": "알림이 어떻게 보일지 대략 확인할 수 있어요. 실제 모양은 각 사람의 휴대폰이나 컴퓨터에 따라 달라요.",
+    "previewLabel": "미리보기",
+    "previewTitle": "제목이 표시돼요",
+    "publishFirst": "먼저 앱을 게시해 주세요. 알림을 탭하면 게시된 앱이 열려요.",
+    "sendFailed": "보내지 못했어요. 다시 시도해 주세요.",
+    "sendHelp": "구독 중인 모든 사람에게 바로 전송해요. 먼저 확인을 요청하며, 전송한 뒤에는 취소할 수 없어요.",
+    "sendTo": "{count}명에게 보내기",
+    "sending": "보내는 중…",
+    "title": "제목",
+    "titleHelp": "사람들에게 굵게 표시되는 첫 줄이에요. 어떤 일이 언제 있는지 짧고 명확하게 적어 주세요.",
+    "titlePlaceholder": "오늘 저녁: 7시부터 라이브 음악",
+    "url": "탭하면 열 페이지 (선택사항)",
+    "urlHelp": "알림을 탭했을 때 열 앱 페이지예요. 예: /menu. 비워 두면 앱 홈 페이지가 열려요."
+  },
+  "notificationsPage": {
+    "eyebrow": "소식 전하기",
+    "goodToKnow": "참고",
+    "intro": "{name}의 알림을 켠 사람들의 휴대폰과 컴퓨터로 바로 메시지를 보내세요.",
+    "iosTip": "iPhone과 iPad에서는 먼저 앱을 홈 화면에 추가(공유 → 홈 화면에 추가)한 다음, 그곳에서 알림을 켜야 해요. Android와 컴퓨터에서는 브라우저에서 바로 사용할 수 있어요.",
+    "nothingSent": "아직 전송한 알림이 없어요.",
+    "offBody": "알림을 켜면 방문자가 신청할 수 있는 작은 ‘알림 받기’ 페이지가 추가돼요. 이후 여기에서 소식, 혜택, 알림 메시지를 보낼 수 있어요.",
+    "offTitle": "이 앱의 알림이 꺼져 있어요.",
+    "sent": "전송 기록",
+    "sentHelp": "전송한 알림을 최신순으로 표시하고, 각 알림을 받은 기기 수도 보여 줘요.",
+    "stats": "전송됨 {sent}{failed, plural, =0 {} other { · 실패 {failed}건}}{removed, plural, =0 {} other { · 구독 취소 {removed}건}} · {date}",
+    "subscribers": "구독자",
+    "subscribersHelp": "앱 알림을 켠 휴대폰과 컴퓨터 수예요. 한 사람이 기기 두 대를 사용하면 두 명으로 계산돼요.",
+    "title": "푸시 알림"
+  },
+  "offlineApi": {
+    "notFound": "찾을 수 없어요",
+    "readme": "{name} — 오프라인 앱 ({brand} {date}에서 내보냄)\n\n사용 방법\n  1. 이 폴더의 파일을 한곳에 모아 두세요. (바탕 화면, C:\\, USB 메모리 등 원하는 곳으로 옮겨도 돼요.)\n  2. 최신 브라우저에서 index.html을 여세요. 인터넷 연결 없이 바로 사용할 수 있어요.\n\n내 데이터\n  앱에는 프로젝트 데이터베이스의 복사본이 포함되어 있고, 모든 변경 사항은\n  브라우저에 로컬로 저장돼요(localStorage). 데이터는 같은 컴퓨터와 브라우저에서\n  계속 사용할 수 있지만, 다른 곳과 동기화되지는 않아요.\n\n오프라인에서 사용할 수 있는 기능\n  페이지, 탐색, 양식, 데이터 목록, 검색, 게임/스크립트, 가입 및 로그인\n  (오프라인 앱에서 만든 계정)\n\n사용할 수 없는 기능\n  - 온라인 버전의 계정: 비밀번호 정보는 내보내지 않으므로 오프라인 앱에서\n    새로 가입하세요.\n  - 이메일, Google Sheets, AI 기능, 푸시 알림, 외부 웹사이트에 연결하는\n    단계 (인터넷에 연결되어 있는 경우는 제외)\n",
+    "readmeKeysLeftOut": "  - 개인 키를 사용하는 단계 (예: 결제 또는 문자 메시지):\n    키는 이 파일에 포함되지 않으므로 안심하고 공유해도 돼요.\n",
+    "readmeNoBootstrap": "  - 참고: 내보내는 동안 Bootstrap CSS를 포함하지 못해 레이아웃이 다르게 보일 수 있어요.\n",
+    "unauthorized": "권한이 없어요"
+  },
+  "overview": {
+    "afterPublish": "게시한 후",
+    "askProvider": "서비스 제공업체에 이메일 연결을 요청하세요.",
+    "continueDesigner": "디자이너에서 계속하기",
+    "continueDesignerHelp": "AI 디자이너로 돌아가 앱을 계속 만들어 보세요.",
+    "continueEditing": "편집 계속하기",
+    "continueEditingHelp": "페이지 편집기를 열어 앱 작업을 계속하세요.",
+    "created": "만든 날짜",
+    "draft": "초안 — 아직 게시되지 않았어요.",
+    "emailOff": "앱에서 이메일을 보내지만({flows}), 이 서버에 이메일이 설정되어 있지 않아 전송되지 않습니다.",
+    "emailOffMore": "앱에서 이메일을 보내지만({flows} 외 {more}개), 이 서버에 이메일이 설정되어 있지 않아 전송되지 않습니다.",
+    "eyebrow": "앱 한눈에 보기",
+    "launch": {
+      "admin": {
+        "detail": "앱의 관리 페이지에 로그인할 수 있도록 설정하세요.",
+        "help": "아래 섹션으로 이동해 앱 관리 페이지에 로그인할 때 사용할 이메일과 비밀번호를 설정하세요.",
+        "title": "관리자 로그인 설정"
+      },
+      "build": {
+        "detail": "페이지, 데이터, 양식이 준비됐어요.",
+        "help": "페이지 편집기를 열어 앱의 문구, 사진, 레이아웃을 바꾸세요.",
+        "helpDesigner": "AI 디자이너를 열어 앱을 계속 만들어 보세요.",
+        "title": "앱 만들기"
+      },
+      "icon": {
+        "detail": "휴대폰, 브라우저 탭, Android 앱에 표시돼요.",
+        "help": "아래의 앱 아이콘 섹션으로 이동해 앱을 나타내는 작은 이미지를 추가하세요.",
+        "title": "앱 아이콘 추가"
+      },
+      "publish": {
+        "detail": "누구에게나 공유할 수 있는 링크를 받으세요.",
+        "detailDone": "링크가 있는 사람은 누구나 이용할 수 있어요.",
+        "help": "게시 메뉴로 이동해 앱을 온라인에 공개하고 공유 링크를 받으세요.",
+        "helpDone": "게시 메뉴에서 변경 사항을 공개하고, 링크를 공유하거나 이전 버전으로 돌아가세요.",
+        "title": "게시하기",
+        "titleDone": "게시됨"
+      },
+      "test": {
+        "title": "테스트 제출 보내기"
+      }
+    },
+    "launchEyebrow": "사람들이 앱을 사용할 수 있게 준비하세요",
+    "launchHelp": "앱을 준비하고 사람들에게 공개하기 위한 단계입니다. 완료한 단계는 자동으로 표시됩니다.",
+    "launchProgress": "{total}개 중 {done}개 완료",
+    "launchTitle": "출시 체크리스트",
+    "liveAt": "게시 주소: <link>{url}</link>",
+    "liveAtHelp": "앱의 실제 웹 주소예요. 방문자에게 보이는 모습으로 새 탭에서 열려요.",
+    "next": {
+      "domains": {
+        "detail": "예: www.yourbusiness.com",
+        "detailDone": "웹 주소 관리",
+        "help": "도메인에서 무료로 제공되는 주소 대신 소유한 웹 주소에 앱을 연결하세요.",
+        "title": "내 도메인 사용",
+        "titleDone": "내 도메인이 연결됨"
+      },
+      "feature": {
+        "detail": "예약, 쇼핑몰, 블로그, 가입 등 다양한 기능을 추가하세요.",
+        "help": "기능에서 바로 사용할 수 있는 구성 요소를 앱에 추가하세요. 각 구성 요소에는 자체 페이지가 있습니다.",
+        "title": "기능 추가"
+      },
+      "native": {
+        "detail": "설치하거나 Google Play에 올릴 수 있는 앱 파일을 다운로드하세요.",
+        "help": "모바일 앱에서 Android 앱 파일을 만드세요. 사람들이 휴대폰에 설치하거나 Google Play에 올릴 수 있습니다.",
+        "title": "Android 앱 받기"
+      },
+      "preview": {
+        "detail": "새 탭에서 미리보기를 엽니다.",
+        "help": "게시하지 않은 변경 사항까지 포함해 최신 상태의 앱을 새 탭에서 여세요.",
+        "title": "방문자처럼 사용해 보기"
+      },
+      "theme": {
+        "detail": "몇 번만 클릭해 브랜드에 맞춰 보세요.",
+        "help": "테마에서 앱 전체에 적용할 색상, 글꼴, 모서리 모양을 선택하세요.",
+        "title": "색상과 글꼴 변경"
+      }
+    },
+    "optional": "선택사항",
+    "phoneTitle": "휴대폰에서 열기",
+    "qrAlt": "{url} QR 코드",
+    "qrHelp": "휴대폰 카메라로 이 코드를 비추면 휴대폰에서 앱을 열 수 있습니다.",
+    "qrHint": "휴대폰 카메라로 코드를 비추세요. 그런 다음 “홈 화면에 추가”를 선택하면 앱처럼 열립니다.",
+    "qrPublishFirst": "먼저 게시한 다음, 여기서 코드를 스캔해 휴대폰에서 확인하세요.",
+    "quoted": "“{name}”",
+    "setUpEmail": "이메일 설정",
+    "settings": "설정",
+    "stats": {
+      "data": "데이터",
+      "dataHelp": "가입 정보와 주문처럼 앱에 저장된 정보를 확인하고 수정할 수 있어요.",
+      "domains": "내 도메인",
+      "domainsHelp": "내 웹 주소(도메인) 중 이 앱으로 연결되는 주소의 수입니다. 클릭해서 추가하거나 관리하세요.",
+      "flows": "자동화",
+      "flowsHelp": "새 메시지를 이메일로 알리는 것처럼 앱이 자동으로 하는 일의 수예요. 클릭하면 확인할 수 있어요.",
+      "pages": "페이지",
+      "pagesHelp": "앱에 있는 페이지 수예요. 클릭하면 편집기에서 열 수 있어요."
+    },
+    "stepDone": " (완료)",
+    "stepToDo": " (할 일)",
+    "webAddress": "웹 주소",
+    "webAddressHelp": "앱이 공개된 웹 주소입니다. 클릭하면 새 탭에서 열립니다."
+  },
+  "pagesApi": {
+    "designerAdd": "이 앱의 페이지는 AI 디자이너에서 관리하므로 거기에서 추가하세요.",
+    "designerChange": "이 앱의 페이지는 AI 디자이너에서 관리하므로 거기에서 변경하세요.",
+    "invalidInput": "입력값이 올바르지 않아요",
+    "notFound": "찾을 수 없어요"
+  },
+  "problemsCard": {
+    "activityHelp": "이 자동화의 활동을 열어 실행 내역과 사람들이 보낸 내용을 확인하고 답장을 보내세요.",
+    "askProvider": "제공업체에 이메일 연결을 요청하세요.",
+    "emailNotSetUp": "이 서버에서는 이메일이 설정되지 않았습니다.",
+    "emailOff": "“{flow}”이(가) {count, plural, =1 {한 번} =2 {두 번} other {#번}} 실행됐지만 이메일이 설정되지 않아 이메일은 전송되지 않았습니다.",
+    "emailOffAlso": "또한 {count, plural, =1 {한 번} =2 {두 번} other {#번}} 실행됐지만 이메일이 설정되지 않아 이메일은 전송되지 않았습니다.",
+    "failed": "{count, plural, one {#명} other {#명}}에게 “{flow}”이(가) 전달되지 않았습니다.",
+    "lastError": "마지막 오류: {error}",
+    "problem": "“{flow}”에서 {count, plural, =1 {한 번} =2 {두 번} other {#번}} 문제가 발생했습니다.",
+    "problemAlso": "또한 {count, plural, =1 {한 번} =2 {두 번} other {#번}} 문제가 발생했습니다.",
+    "problemAlsoWithWarning": "또한 {count, plural, =1 {한 번} =2 {두 번} other {#번}} 문제가 발생했습니다: {warning}.",
+    "problemWithWarning": "“{flow}”에서 {count, plural, =1 {한 번} =2 {두 번} other {#번}} 문제가 발생했습니다: {warning}.",
+    "seeWhat": "무슨 일이 있었는지 보기",
+    "seeWho": "누가 무엇을 보냈는지 보기",
+    "setUpEmail": "이메일 설정",
+    "setUpEmailHelp": "서버 설정을 열어 이메일 서비스를 연결하면 앱에서 이메일을 보낼 수 있습니다.",
+    "title": "지난 24시간 동안의 문제",
+    "titleHelp": "지난 하루 동안 자동화가 실패하거나 이메일 전송처럼 작업을 완료하지 못한 횟수입니다.",
+    "total": "{count, plural, one {문제 #개} other {문제 #개}}"
+  },
+  "projectApi": {
+    "deleteFailed": "앱을 삭제하지 못했어요. 다시 시도해 주세요.",
+    "invalidInput": "입력값이 올바르지 않아요",
+    "notFound": "찾을 수 없어요",
+    "unauthorized": "권한이 없어요",
+    "uploadKey": "이 앱에는 Google Play 업로드 키가 있어요. 앱을 삭제하기 전에 다운로드하세요. 키가 없으면 Google Play에서 앱을 다시 업데이트할 수 없어요."
+  },
+  "projectIcon": {
+    "generate": "생성",
+    "generateHelp": "설명을 바탕으로 AI가 아이콘을 그려요. 현재 아이콘을 대체하며, 다시 생성하거나 직접 업로드할 수 있어요.",
+    "generateIntro": "원하는 아이콘의 스타일, 색상, 기호를 설명하세요.",
+    "generateTitle": "또는 AI로 만들기",
+    "generating": "생성 중…",
+    "generationFailed": "생성하지 못했습니다",
+    "intro": "방문자가 기기에 앱을 PWA로 설치할 때 표시됩니다. 정사각형 이미지, 가능하면 512×512 PNG를 사용하세요.",
+    "promptHelp": "원하는 아이콘을 색상이나 간단한 기호로 설명해 주세요. AI가 그려 드려요.",
+    "promptLabel": "아이콘 설명",
+    "promptPlaceholder": "예: 보라색 그라데이션 배경 위의 미니멀한 로켓",
+    "remove": "삭제",
+    "removeConfirm": "앱 아이콘을 삭제할까요?",
+    "removeHelp": "앱에서 아이콘을 삭제합니다. 삭제 여부를 확인하는 메시지가 표시됩니다.",
+    "title": "앱 아이콘",
+    "titleHelp": "휴대폰 홈 화면, 브라우저 탭, Android 앱에서 앱을 나타내는 작은 정사각형 이미지입니다. 변경 사항은 바로 적용됩니다.",
+    "upload": "이미지 업로드",
+    "uploadFailed": "업로드하지 못했습니다",
+    "uploadHelp": "기기에서 정사각형 이미지를 선택하세요. 512×512픽셀을 권장합니다. 현재 아이콘이 새 이미지로 바뀝니다.",
+    "uploading": "업로드 중…"
+  },
+  "publishPage": {
+    "backup": {
+      "body": "모든 페이지, 흐름, 테이블과 행, 테마, 이미지가 하나의 파일에 담깁니다. 백업으로 보관하거나 {app} 또는 호환되는 서버로 가져오세요 (새 앱 → 다른 시작 방법 → 앱 가져오기). 앱 비밀번호는 포함되지 않으므로, 이동 후 사용자는 비밀번호를 재설정해야 합니다.",
+      "button": "백업 다운로드 (.zip)",
+      "help": "앱 전체가 담긴 파일 하나를 기기에 저장하세요. 백업으로 보관하거나 앱 가져오기를 사용해 복원하거나 옮길 수 있습니다.",
+      "title": "앱 백업 또는 이동"
+    },
+    "customDomain": "맞춤 도메인",
+    "customDomainHelp": "이 앱을 여는 나만의 웹 주소입니다. 도메인 탭에서 관리할 수 있습니다.",
+    "defaultUrl": "기본 URL",
+    "defaultUrlHelp": "앱에 무료로 제공되는 웹 주소입니다. 앱을 게시하면 누구에게나 공유할 수 있습니다.",
+    "draftNote": "방문자에게는 마지막으로 게시한 버전이 표시됩니다. AI가 수정한 내용을 포함한 모든 변경 사항은 게시를 클릭할 때까지 초안으로 유지됩니다. 아래에서 이전 버전을 복원할 수도 있습니다.",
+    "eyebrow": "세상에 선보일 준비 완료",
+    "history": {
+      "empty": "게시한 버전이 여기에 표시됩니다.",
+      "help": "게시한 버전이 최신순으로 표시됩니다. 변경 사항에 문제가 생기면 이전 버전의 게시를 선택해 다시 공개하세요.",
+      "live": "게시됨",
+      "title": "배포 기록"
+    },
+    "install": {
+      "desktopBody": "바탕 화면과 시작 메뉴에 바로가기를 추가하는 작은 설치 프로그램입니다. 게시된 앱을 별도 창에서 엽니다. 인터넷 연결이 필요하며, 게시할 때마다 최신 상태로 유지됩니다.",
+      "desktopTitle": "데스크톱 바로가기 (온라인)",
+      "intro": "데스크톱이나 홈 화면에 앱을 추가해 보세요. 오프라인 앱은 모든 파일과 자체 로컬 데이터베이스를 갖춘 완전한 독립형 앱으로, 인터넷 없이 사용할 수 있습니다.",
+      "macHelp": "Mac용 작은 설치 프로그램을 다운로드하세요. 열면 게시된 앱을 별도 창에서 여는 바로가기가 추가됩니다.",
+      "offlineBody": "모든 페이지, 업로드한 파일, 데이터베이스 사본이 들어 있는 폴더입니다. 어디든 압축을 풀어 보세요. 바탕 화면, C:\\ 또는 USB 메모리도 괜찮습니다. 그런 다음 index.html을 여세요. 인터넷이 없어도 양식, 목록, 가입 기능이 계속 작동하고 데이터는 해당 컴퓨터에 저장됩니다.",
+      "offlineDownload": "오프라인 앱 다운로드 (.zip)",
+      "offlineHelp": "앱 전체와 데이터 사본이 들어 있는 압축 폴더를 다운로드하세요. 인터넷이 연결되지 않은 컴퓨터에서 사용하려면 폴더 안의 index.html을 여세요.",
+      "offlineTitle": "오프라인 앱 (컴퓨터)",
+      "phoneBody": "휴대폰 카메라로 코드를 스캔해 앱을 연 다음, 브라우저 메뉴에서 \"홈 화면에 추가\"를 선택하세요. 아이콘과 함께 일반 앱처럼 설치됩니다. 설치하거나 Google Play에 등록할 수 있는 정식 Android 앱을 만들려면 아래 모바일 앱 빌더를 사용하세요.",
+      "phoneTitle": "휴대폰",
+      "publishFirst": "먼저 게시하세요. 설치 파일은 게시된 앱으로 연결됩니다.",
+      "qrAlt": "{url}의 QR 코드",
+      "qrHelp": "휴대폰 카메라로 이 QR 코드를 비추면 휴대폰에서 게시된 앱이 열립니다.",
+      "title": "기기에 설치",
+      "windowsHelp": "Windows용 작은 설치 프로그램을 다운로드하세요. 실행하면 게시된 앱을 별도 창에서 여는 바로가기가 추가됩니다."
+    },
+    "intro": "앱을 게시하고 링크를 공유하거나 홈 화면에 추가해 보세요.",
+    "legacyNote": "이 앱은 수정하는 내용이 바로 적용됩니다. 한 번 게시하면 안전한 게시 방식으로 전환됩니다. 그러면 방문자에게는 게시한 버전이 표시되고, 다시 게시할 때까지 수정 사항은 비공개로 유지됩니다.",
+    "live": "게시 중",
+    "liveUpToDate": "게시 중 · 최신 상태",
+    "liveWithChanges": "게시 중 · 게시하지 않은 변경 사항이 있습니다",
+    "mobile": {
+      "body": "이 앱을 Google Play 스토어와 Apple App Store에 올릴 수 있는 정식 Android 및 iOS 앱으로 만들어 보세요. 게시된 사이트를 앱으로 감싸는 방식이라 사이트를 다시 게시하면 앱도 자동으로 최신 상태가 됩니다.",
+      "button": "모바일 앱 만들기",
+      "help": "모바일 앱으로 이동해 Android 휴대폰과 iPhone용 앱을 만들어 보세요.",
+      "title": "모바일 앱으로 출시"
+    },
+    "notPublished": "아직 게시되지 않음",
+    "openLiveHelp": "방문자에게 보이는 그대로 새 탭에서 게시된 앱을 엽니다.",
+    "openPreviewHelp": "아직 앱이 온라인에 공개되지 않아 최신 변경 사항의 미리보기가 열립니다.",
+    "status": "상태",
+    "statusHelp": "앱이 온라인 상태인지, 방문자에게 최신 변경 사항이 표시되는지 아니면 이전 버전이 표시되는지 확인하세요.",
+    "title": "앱에 집을 마련해 주세요."
+  },
+  "publishPanel": {
+    "appLive": "앱이 게시되었습니다. 공유할 준비가 됐어요.",
+    "appOffline": "앱이 오프라인으로 전환되었습니다.",
+    "changesLive": "변경 사항이 게시되었습니다.",
+    "confirmOffline": "이 앱을 오프라인으로 전환할까요? 다시 게시할 때까지 방문자가 앱을 열 수 없습니다.",
+    "confirmRestore": "버전 {version}을(를) 다시 공개할까요? 방문자에게 바로 표시됩니다. 초안은 변경되지 않습니다.",
+    "connectionError": "연결을 확인한 뒤 다시 시도해 주세요.",
+    "copied": "복사됨",
+    "copyAppLink": "앱 링크 복사",
+    "copyLink": "링크 복사",
+    "copyLinkHelp": "앱 링크를 복사해 메시지, 이메일 또는 게시물에 붙여넣으세요.",
+    "copyManually": "링크를 선택해 직접 복사하세요.",
+    "linkCopied": "링크를 복사했습니다",
+    "makeLive": "공개하기",
+    "makeLiveHelp": "이전 버전을 다시 온라인에 공개합니다. 방문자에게 바로 표시되며, 작업 중인 수정 사항은 그대로 유지됩니다.",
+    "publishApp": "앱 게시",
+    "publishAppHelp": "앱을 온라인에 공개하면 링크가 있는 누구나 사용할 수 있습니다.",
+    "publishChanges": "변경 사항 게시 (v{version})",
+    "publishChangesHelp": "최신 변경 사항을 게시합니다. 방문자에게 바로 표시되며, 아래에서 이전 버전으로 되돌릴 수 있습니다.",
+    "restoreFailed": "해당 버전을 복원하지 못했습니다.",
+    "restoring": "복원 중…",
+    "takeOffline": "오프라인으로 전환",
+    "takeOfflineHelp": "모든 방문자에게 앱을 숨깁니다. 다시 게시할 때까지 방문자가 앱을 열 수 없습니다. 삭제되는 항목은 없습니다.",
+    "upToDate": "최신 상태",
+    "upToDateHelp": "방문자에게 이미 최신 변경 사항이 표시되고 있습니다. 새로 게시할 내용이 없습니다.",
+    "updateFailed": "게시 설정을 업데이트하지 못했습니다. 다시 시도해 주세요."
+  },
+  "pushApi": {
+    "addTitle": "제목을 입력하세요.",
+    "checkMessage": "메시지를 확인하세요.",
+    "publishFirst": "먼저 앱을 게시하세요. 알림을 누르면 게시된 앱이 열려요."
+  },
+  "renameProject": {
+    "edit": "수정",
+    "editHelp": "앱 이름을 변경하세요. 웹 주소는 그대로라 공유한 링크도 계속 사용할 수 있어요.",
+    "errorStatus": "오류 {status}",
+    "inputHelp": "새 앱 이름을 입력하세요. Enter를 눌러 저장하거나 Esc를 눌러 취소하세요.",
+    "inputLabel": "앱 이름",
+    "name": "이름",
+    "networkError": "네트워크 오류 — 다시 시도해 주세요.",
+    "note": "이름만 변경돼요. 앱의 웹 주소는 그대로라서 이름을 바꿔도 게시된 앱에 문제가 생기지 않아요.",
+    "saveHelp": "새 이름을 저장하세요. 웹 주소는 변경되지 않아요."
+  },
+  "searchSharing": {
+    "changeFailed": "변경하지 못했습니다. 다시 시도해 주세요.",
+    "chat": "WhatsApp 및 기타 채팅",
+    "chatHelp": "앱 링크를 채팅으로 보내거나 소셜 미디어에 게시할 때 표시되는 미리보기입니다.",
+    "chatPreviewLabel": "채팅에서 공유된 링크 미리보기",
+    "codeHelp": "Google Search Console에서 제공한 코드(HTML 태그 옵션)를 붙여넣으세요. 이 코드를 통해 앱이 내 소유임을 Google에 확인할 수 있습니다.",
+    "codeLabel": "Google 인증 코드",
+    "codeRemoved": "삭제되었습니다.",
+    "codeSaveFailed": "코드를 저장하지 못했습니다.",
+    "codeSaved": "저장되었습니다. Search Console로 돌아가 인증을 누르세요.",
+    "consoleBody": "Search Console에서 Google 검색을 통해 사람들이 앱을 찾는 방법을 확인할 수 있습니다. 앱 주소를 URL 접두어 속성으로 추가하고, HTML 태그 방식으로 인증한 다음 코드를(또는 태그 전체를) 여기에 붙여넣으세요.",
+    "consoleHelp": "선택사항입니다. Google Search Console은 사람들이 검색을 통해 앱을 찾는 방법을 보여주는 무료 Google 도구입니다. 열어서 앱을 연결하세요.",
+    "consoleTitle": "Google Search Console 연결",
+    "copied": "복사됨",
+    "copy": "복사",
+    "copySitemap": "사이트맵 주소 복사",
+    "copySitemapHelp": "앱의 모든 페이지 목록인 사이트맵 주소를 복사하세요. Search Console의 사이트맵에 붙여넣으세요.",
+    "description": "설명",
+    "descriptionEmptyHint": "비어 있음: 홈페이지의 첫 문단이 사용됩니다.",
+    "descriptionHelp": "앱에 대한 간단한 소개입니다. Google에서는 앱 이름 아래에, 채팅에서는 공유된 링크 아래에 표시됩니다. 160자 이내로 작성하는 것이 좋습니다.",
+    "descriptionHint": "무엇을 위한 앱인지, 누가 사용하면 좋은지 알려주세요.",
+    "descriptionPlaceholder": "앱에 대한 한두 문장을 입력하세요. 예: 가족이 운영하는 베이커리의 신선한 빵과 케이크. 온라인으로 주문하고 다음 날 아침에 찾아가세요.",
+    "descriptionSaveFailed": "설명을 저장하지 못했습니다.",
+    "descriptionSaveFailedRetry": "설명을 저장하지 못했습니다. 다시 시도해 주세요.",
+    "descriptionSaved": "저장되었습니다. 검색엔진이 다음에 방문할 때 반영됩니다.",
+    "designerDescription": "디자인에 자체 설명이 설정되어 있어 검색엔진과 링크 미리보기에 표시됩니다. 이 설명은 사람들이 앱을 설치할 때 사용됩니다.",
+    "google": "Google 검색",
+    "googleHelp": "Google 검색 결과에서 앱이 어떻게 보일지 미리 보여줍니다. 최종 표시 방식은 Google이 결정하므로 조금 다를 수 있습니다.",
+    "googleNoDescription": "사람들이 앱에서 무엇을 찾을 수 있는지 알 수 있도록 설명을 추가하세요.",
+    "googlePreviewLabel": "Google 검색 결과 미리보기",
+    "hiddenNote": "숨김: 앱이 검색 결과에 표시되지 않습니다.",
+    "hide": "검색엔진에서 숨기기",
+    "hideBody": "Google 및 기타 검색엔진에 앱이 표시되지 않습니다. 링크가 있는 사람은 계속 앱을 열 수 있습니다.",
+    "hideHelp": "Google 및 기타 검색엔진에 앱을 표시하지 않도록 요청하려면 켜세요. 링크가 있는 사람은 계속 앱을 열 수 있습니다. 바로 적용됩니다.",
+    "imageFallback": "홈페이지의 첫 번째 사진을 불러올 수 없어 앱 아이콘, 이름, 색상으로 만든 이미지가 표시됩니다.",
+    "imageFirst": "홈페이지에서 사진이 첫 번째로 표시됩니다.",
+    "imageIsCard": "앱 아이콘, 이름, 색상으로 이미지가 만들어집니다. 대신 홈페이지 사진을 사용하려면 사진을 추가하세요.",
+    "intro": "Google 검색과 링크 공유 시 앱이 표시되는 방식입니다. 변경 사항은 다시 게시하지 않아도 바로 적용됩니다.",
+    "length": "{count}/{max}",
+    "lengthTooLong": "{count}/{max} (더 긴 내용은 잘립니다)",
+    "notPublished": "아직 앱을 게시하지 않았습니다. 게시하면 링크가 이렇게 표시됩니다.",
+    "off": "꺼짐",
+    "on": "켜짐",
+    "saveCode": "코드 저장",
+    "saveCodeHelp": "앱에 코드를 저장한 다음 Search Console로 돌아가 인증을 누르세요. 코드를 삭제하려면 비워 둔 채 저장하세요.",
+    "saveDescription": "설명 저장",
+    "saveDescriptionHelp": "설명을 저장합니다. 바로 적용되므로 다시 게시할 필요가 없습니다. Google은 다음에 앱을 방문할 때 업데이트된 내용을 반영합니다.",
+    "saveFailed": "저장하지 못했습니다. 다시 시도해 주세요.",
+    "sitemapCopied": "사이트맵 주소를 복사했습니다",
+    "sitemapIntro": "그런 다음 Search Console에 사이트맵을 추가해 Google이 모든 페이지를 찾을 수 있게 하세요:",
+    "title": "검색 및 공유",
+    "titleHelp": "앱이 Google 검색 결과와 채팅으로 링크를 보낼 때 표시되는 미리보기에서 어떻게 보일지 설정하세요. 변경 사항은 바로 적용됩니다."
+  },
+  "seoApi": {
+    "invalidCode": "Google 인증 코드가 아닌 것 같습니다. HTML 태그 옵션의 코드를 붙여넣거나 태그 전체를 붙여넣으세요.",
+    "invalidInput": "입력값이 올바르지 않습니다"
+  },
+  "tabs": {
+    "data": {
+      "help": "가입 정보, 주문, 받은 메시지처럼 앱에 저장된 정보를 확인하고 수정하세요.",
+      "label": "데이터"
+    },
+    "designer": {
+      "help": "AI 디자이너로 돌아가 원하는 것을 설명하며 앱을 계속 만들어 보세요.",
+      "label": "디자이너"
+    },
+    "domains": {
+      "help": "www.yourbusiness.com처럼 내 웹 주소(도메인)로 앱을 운영하세요.",
+      "label": "도메인"
+    },
+    "features": {
+      "help": "예약, 쇼핑몰, 문의 양식 같은 바로 쓸 수 있는 기능을 앱에 추가하세요. 기능마다 전용 페이지가 제공돼요.",
+      "label": "기능"
+    },
+    "flows": {
+      "help": "누군가 양식을 작성하면 이메일을 보내는 것처럼 앱이 자동으로 할 일을 설정하세요.",
+      "label": "자동화"
+    },
+    "mobileApp": {
+      "help": "앱을 Android 또는 iPhone용 모바일 앱으로 만들어 사람들이 설치할 수 있게 하세요.",
+      "label": "모바일 앱"
+    },
+    "navLabel": "프로젝트 탐색",
+    "notifications": {
+      "help": "앱에서 알림을 허용한 사람의 휴대폰과 컴퓨터에 짧은 알림을 보내세요.",
+      "label": "알림"
+    },
+    "overview": {
+      "help": "앱 이름, 아이콘, 링크, 출시 체크리스트와 설정을 한눈에 확인하세요.",
+      "label": "개요"
+    },
+    "pages": {
+      "help": "페이지 편집기를 열어 앱의 각 페이지에 있는 문구, 사진, 레이아웃을 바꾸세요.",
+      "label": "페이지"
+    },
+    "preview": "미리보기",
+    "previewHelp": "최신 변경 사항이 반영된 앱을 새 탭에서 열어 방문자에게 보이기 전에 확인하세요.",
+    "publish": "게시",
+    "publishHelp": "게시 메뉴에서 최신 변경 사항을 방문자에게 공개하고 공유할 앱 링크를 확인하세요.",
+    "theme": {
+      "help": "앱 전체에 적용할 색상, 글꼴, 모서리 모양을 선택하세요.",
+      "label": "테마"
+    }
+  },
+  "themeEditor": {
+    "active": "활성",
+    "bodyFont": "본문 글꼴",
+    "bodyFontHelp": "문단, 버튼, 양식 등 일반 텍스트에 사용할 글꼴이에요.",
+    "colorCode": "{color} 색상 코드",
+    "colorCodeHelp": "원하는 색상을 알고 있다면 #1a73e8처럼 여기에 색상 코드를 입력해도 돼요.",
+    "colors": {
+      "accent": {
+        "help": "배지나 장식 요소처럼 작은 부분에 사용하는 보조 색상이에요.",
+        "label": "강조 색상"
+      },
+      "bg": {
+        "help": "페이지 전체의 바탕이 되는 색상이에요.",
+        "label": "배경"
+      },
+      "border": {
+        "help": "상자 둘레나 섹션 사이에 표시되는 얇은 선의 색상이에요.",
+        "label": "테두리"
+      },
+      "primary": {
+        "help": "버튼, 링크, 강조에 사용하는 대표 색상이에요. 변경하면 기본 색상 호버도 함께 어울리게 바뀌어요.",
+        "label": "기본 색상"
+      },
+      "primary2": {
+        "help": "버튼이나 링크에 마우스를 올렸을 때 표시되는 색상이에요.",
+        "label": "기본 색상 호버"
+      },
+      "surface": {
+        "help": "배경 위에 놓이는 카드와 상자의 색상이에요.",
+        "label": "표면"
+      },
+      "surface2": {
+        "help": "섹션이나 라벨을 구분할 때 사용하는 두 번째 상자 색상이에요.",
+        "label": "표면 2"
+      },
+      "text": {
+        "help": "페이지의 대부분의 글자에 사용하는 색상이에요.",
+        "label": "텍스트"
+      },
+      "textMuted": {
+        "help": "설명이나 짧은 안내처럼 덜 중요한 글자에 사용하는 은은한 색상이에요.",
+        "label": "보조 텍스트"
+      },
+      "title": "색상"
+    },
+    "corners": "모서리",
+    "customFont": "사용자 지정…",
+    "customize": "맞춤 설정",
+    "customizeHelp": "선택한 테마의 글꼴, 색상, 모서리를 세밀하게 조정하세요. 변경 사항은 자동으로 저장되고, 게시하면 방문자에게 표시돼요.",
+    "dark": "어둡게",
+    "darkThemes": "어두운 테마 · {count}",
+    "displayFont": "제목 글꼴",
+    "displayFontHelp": "제목에 사용할 글꼴이에요. 더 굵거나 개성 있는 글꼴로 앱의 분위기를 살려 보세요.",
+    "identity": "테마 정보",
+    "light": "밝게",
+    "lightThemes": "밝은 테마 · {count}",
+    "livePreview": "실시간 미리보기",
+    "livePreviewHelp": "이 테마가 앱에 어떻게 표시되는지 미리 확인하세요. 설정을 바꾸면 바로 업데이트돼요.",
+    "mode": "모드",
+    "modeHelp": "테마를 밝게 또는 어둡게 표시할지 정해요. 브라우저에서 입력란이나 스크롤 막대 등에 사용하지만, 색상은 바뀌지 않아요.",
+    "name": "이름",
+    "nameHelp": "테마를 구분하기 위한 이름이에요. 방문자에게는 표시되지 않아요.",
+    "presetHelp": "{name} 테마를 앱 전체에 적용해요. 기존 색상, 글꼴, 모서리 설정이 모두 바뀌며, 게시하면 방문자에게 표시돼요.",
+    "previewHome": "홈페이지",
+    "previewHomeHelp": "앱의 실제 홈페이지에 테마를 적용해 미리 봐요.",
+    "previewSample": "샘플",
+    "previewSampleHelp": "버튼, 카드, 양식이 있는 샘플 페이지에서 테마를 미리 보고 모든 색상을 한눈에 확인해요.",
+    "previewTitle": "테마 미리보기",
+    "previewWhat": "미리 볼 항목",
+    "radius": "둥근 정도",
+    "radiusHelp": "카드와 상자의 모서리가 얼마나 둥근지 정해요. 예: 14px. 모서리를 각지게 하려면 0px을 사용하세요.",
+    "radiusSm": "작은 요소의 둥근 정도",
+    "radiusSmHelp": "버튼이나 입력란처럼 작은 요소의 모서리가 얼마나 둥근지 정해요. 각지게 하려면 0px을 사용하세요.",
+    "reset": "초기화",
+    "resetHelp": "이 페이지를 연 뒤 변경한 테마를 모두 취소하고, 처음 상태로 되돌려요.",
+    "saveFailed": "저장하지 못했어요. 연결을 확인해 주세요.",
+    "saved": "저장됨",
+    "typography": "글꼴"
+  },
+  "themePage": {
+    "intro": "프리셋을 선택하거나 원하는 설정을 직접 맞춰 보세요. 색상, 글꼴, 모서리 둥글기는 이 앱의 모든 페이지에 적용됩니다. 편집기에서는 바로 확인할 수 있고, 방문자에게는 다음에 게시한 뒤 적용됩니다.",
+    "title": "테마"
+  },
+  "transferApi": {
+    "alreadyOwner": "이미 이 앱의 소유자예요.",
+    "invalidEmail": "올바른 이메일 주소를 입력하세요.",
+    "notEligible": "해당 이메일로 앱을 이전할 수 없어요. 주소를 확인해 주세요. 이곳에 계정이 있어야 하며, 해당 계정은 이 앱을 받을 수 있어야 해요.",
+    "notFound": "프로젝트를 찾을 수 없어요",
+    "ownerOnly": "앱 소유자만 앱을 이전할 수 있어요. 소유자에게 자기 계정에서 이전해 달라고 요청하세요.",
+    "tooManyTries": "이전을 너무 많이 시도했어요. 한 시간 기다린 후 다시 시도해 주세요.",
+    "unauthorized": "권한이 없어요"
+  },
+  "transferProject": {
+    "confirm": "<b>{name}</b> 앱을 <mono>{email}</mono>에게 이전할까요? 즉시 앱에 접근할 수 없게 돼요.",
+    "confirmButton": "예, 이전할게요",
+    "confirmHelp": "지금 앱을 넘겨요. 즉시 접근할 수 없게 되며, 직접 되돌릴 수 없어요.",
+    "emailHelp": "새 소유자가 이 사이트에 로그인할 때 사용하는 이메일 주소예요. 나와 같은 워크스페이스에 계정이 있어야 해요.",
+    "emailLabel": "새 소유자의 이메일",
+    "failed": "이전하지 못했어요. 다시 시도해 주세요.",
+    "intro": "페이지, 흐름, 데이터, 도메인, 게시된 사이트를 포함한 앱 전체를 이 사이트의 다른 계정으로 넘겨요. 그러면 더 이상 앱에 접근할 수 없어요. 이 작업은 되돌릴 수 없어요.",
+    "networkError": "네트워크 오류 — 다시 시도해 주세요.",
+    "requirements": "상대방은 먼저 이 사이트에서 계정을 만들어야 하고, 나와 같은 워크스페이스에 있어야 해요. 또 상대방의 요금제에 앱을 하나 더 추가할 자리가 있어야 해요.",
+    "title": "소유권 이전",
+    "titleHelp": "이 사이트에 계정이 있는 다른 사람에게 앱 전체를 넘겨요. 앱을 넘기면 더 이상 앱을 열거나 수정할 수 없어요.",
+    "transfer": "이전",
+    "transferHelp": "다음 단계에서 실제로 이전하기 전에 확인을 요청해요.",
+    "transferring": "이전 중…"
+  }
+}

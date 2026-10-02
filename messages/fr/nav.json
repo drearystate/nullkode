@@ -1,0 +1,41 @@
+{
+  "accountMenu": "Menu du compte",
+  "accountNavigation": "Navigation du compte",
+  "admin": "Administration",
+  "adminHelp": "Paramètres de toute la plateforme : marque, IA, e-mails, paiements, utilisateurs et revendeurs.",
+  "administration": "Administration",
+  "billing": "Facturation et forfait",
+  "designer": "Concepteur",
+  "designerHelp": "Décrivez un site web avec vos propres mots : l’IA le conçoit, puis le modifie selon vos demandes.",
+  "help": "Aide",
+  "helpGuides": "Aide et guides",
+  "helpHelp": "Des guides étape par étape. Ouvre le guide correspondant à l’écran affiché.",
+  "helpTips": {
+    "help": "Active ou désactive ces astuces. Lorsqu’elles sont activées, survolez un bouton avec la souris pour découvrir son rôle. Vous pouvez aussi modifier ce réglage dans les paramètres.",
+    "label": "Astuces d’aide",
+    "off": "DÉSACTIVÉES",
+    "on": "ACTIVÉES"
+  },
+  "home": "Accueil de {app}",
+  "impersonation": {
+    "backToClients": "Retour à vos clients",
+    "backToClientsHelp": "Quitte l’espace de travail de ce client et vous ramène à votre liste de clients. Les modifications apportées restent dans son compte.",
+    "impersonating": "Vous agissez au nom de",
+    "signedInAs": "· connecté en tant que {email}",
+    "stop": "Arrêter d’agir en son nom",
+    "stopHelp": "Arrête d’agir au nom de cette personne et vous ramène à l’administration. Les modifications apportées restent dans son compte.",
+    "viewingClient": "Vous consultez l’espace de travail de <b>{name}</b>. Les modifications que vous apportez sont enregistrées dans son compte."
+  },
+  "logOut": "Se déconnecter",
+  "myApps": "Mes applis",
+  "myAppsHelp": "Toutes vos applis au même endroit. Ouvrez-en une pour continuer, ou créez-en une nouvelle.",
+  "profile": "Profil",
+  "resellerDashboard": "Tableau de bord revendeur",
+  "resellerHelp": "Gérez vos clients, votre marque, vos tarifs et votre adresse web.",
+  "switchTheme": "Passer en mode clair ou sombre",
+  "switchToDark": "Passer en mode sombre",
+  "switchToLight": "Passer en mode clair",
+  "themeHelp": "Choisissez entre le mode clair et le mode sombre. Votre choix est mémorisé. Vous pouvez aussi choisir « Selon mon appareil » dans votre profil.",
+  "workspace": "Espace de travail",
+  "yourAccount": "Votre compte"
+}

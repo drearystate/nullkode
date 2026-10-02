@@ -1,0 +1,1153 @@
+{
+  "assets": {
+    "addHelp": "Ketuk untuk menambahkan foto ini di bawah bagian yang dipilih, atau seret ke halaman Anda.",
+    "addPhoto": "Tambahkan foto ini",
+    "addPhotoNamed": "Tambahkan foto ini: {alt}",
+    "aiOriginal": "Asli dari AI",
+    "categories": {
+      "agriculture": {
+        "help": "Pertanian dan hasil bumi segar.",
+        "label": "Pertanian"
+      },
+      "all": {
+        "help": "Tampilkan berbagai foto gratis yang bisa digunakan di halaman Anda.",
+        "label": "Semua"
+      },
+      "architecture": {
+        "help": "Tampilkan foto bangunan gratis.",
+        "label": "Arsitektur"
+      },
+      "automotive": {
+        "help": "Perbaikan kendaraan dan bengkel.",
+        "label": "Otomotif"
+      },
+      "beauty": {
+        "help": "Gambar perawatan kulit, spa, dan kecantikan.",
+        "label": "Kecantikan"
+      },
+      "business": {
+        "help": "Tampilkan foto kantor dan orang yang sedang bekerja secara gratis.",
+        "label": "Bisnis"
+      },
+      "cleaning": {
+        "help": "Layanan kebersihan profesional.",
+        "label": "Kebersihan"
+      },
+      "community": {
+        "help": "Pasar komunitas dan hasil bumi segar.",
+        "label": "Komunitas"
+      },
+      "education": {
+        "help": "Ruang kelas dan kegiatan belajar bersama.",
+        "label": "Belajar"
+      },
+      "events": {
+        "help": "Pernikahan dan layanan acara.",
+        "label": "Acara"
+      },
+      "fitness": {
+        "help": "Tampilkan foto pusat kebugaran dan olahraga gratis.",
+        "label": "Kebugaran"
+      },
+      "food": {
+        "help": "Tampilkan foto makanan dan restoran gratis.",
+        "label": "Makanan"
+      },
+      "landscaping": {
+        "help": "Layanan berkebun dan penataan taman.",
+        "label": "Taman"
+      },
+      "legal": {
+        "help": "Perpustakaan hukum dan arsitektur gedung pengadilan.",
+        "label": "Hukum"
+      },
+      "logistics": {
+        "help": "Gudang, pengiriman, dan ekspedisi.",
+        "label": "Logistik"
+      },
+      "medical": {
+        "help": "Tampilkan foto gratis tentang layanan kesehatan dan obat-obatan.",
+        "label": "Medis"
+      },
+      "nature": {
+        "help": "Tampilkan foto alam dan pemandangan gratis.",
+        "label": "Alam"
+      },
+      "originals": {
+        "help": "Jelajahi foto orisinal buatan AI yang disertakan dalam instalasi ini.",
+        "label": "Orisinal"
+      },
+      "people": {
+        "help": "Tampilkan foto orang gratis.",
+        "label": "Orang"
+      },
+      "pets": {
+        "help": "Perawatan dan grooming hewan peliharaan.",
+        "label": "Hewan peliharaan"
+      },
+      "products": {
+        "help": "Foto keramik dan produk.",
+        "label": "Produk"
+      },
+      "tech": {
+        "help": "Tampilkan foto komputer dan teknologi gratis.",
+        "label": "Teknologi"
+      },
+      "trades": {
+        "help": "Pekerjaan pipa, listrik, dan konstruksi.",
+        "label": "Jasa teknis"
+      },
+      "travel": {
+        "help": "Tampilkan foto gratis tentang perjalanan dan tempat wisata.",
+        "label": "Wisata"
+      }
+    },
+    "describeHelp": "Beberapa kata untuk menjelaskan isi gambar. Pembaca layar akan membacakannya kepada orang yang tidak bisa melihat gambar, dan mesin pencari juga menggunakannya.",
+    "describeLabel": "Gambar berubah. Jelaskan gambar ini untuk orang yang tidak bisa melihatnya:",
+    "describePlaceholder": "mis. Roti segar di meja toko kami",
+    "failedToLoad": "Gagal memuat aset",
+    "footerAdd": "Ketuk atau seret untuk menambahkan · Foto gratis",
+    "footerSwap": "Ketuk foto untuk mengganti gambar yang dipilih",
+    "noMatches": "Tidak ada gambar yang cocok. Coba kata yang lebih umum.",
+    "photoBy": "Foto oleh {name}",
+    "saveDescription": "Simpan deskripsi",
+    "saveDescriptionHelp": "Simpan deskripsi ini pada gambar.",
+    "searchHelp": "Ketik objek yang ingin Anda cari fotonya, seperti “kopi” atau “anjing”, untuk menemukan foto gratis yang bisa digunakan.",
+    "searchPlaceholder": "Cari foto...",
+    "skip": "Lewati",
+    "skipHelp": "Tetap gunakan gambar baru tanpa mengubah deskripsinya.",
+    "swapHelp": "Ketuk untuk mengganti gambar yang dipilih dengan foto ini. Ukuran dan posisinya tetap sama.",
+    "useInstead": "Gunakan foto ini",
+    "useInsteadNamed": "Gunakan foto ini: {alt}"
+  },
+  "blockCategories": {
+    "basic": {
+      "help": "Elemen sederhana untuk membuat halaman. Klik namanya untuk menampilkan atau menyembunyikannya.",
+      "label": "Dasar"
+    },
+    "commerce": {
+      "help": "Elemen untuk berjualan, seperti kartu produk dan harga. Klik namanya untuk menampilkan atau menyembunyikannya.",
+      "label": "Niaga"
+    },
+    "content": {
+      "help": "Judul, paragraf, daftar, dan catatan. Klik namanya untuk menampilkan atau menyembunyikannya.",
+      "label": "Konten"
+    },
+    "extra": {
+      "help": "Sekumpulan blok. Klik namanya untuk menampilkan atau menyembunyikannya.",
+      "label": "Tambahan"
+    },
+    "forms": {
+      "help": "Kotak yang diisi orang, seperti formulir kontak dan pendaftaran. Klik namanya untuk menampilkan atau menyembunyikannya.",
+      "label": "Formulir"
+    },
+    "interactive": {
+      "help": "Tombol, kartu, tab, pop-up, dan elemen lain yang bisa diklik. Klik namanya untuk menampilkan atau menyembunyikannya.",
+      "label": "Interaktif"
+    },
+    "layout": {
+      "help": "Kotak dan kolom untuk menampung elemen lain, serta elemen dasar seperti teks dan gambar. Klik namanya untuk menampilkan atau menyembunyikannya.",
+      "label": "Tata letak"
+    },
+    "liveData": {
+      "help": "Elemen yang menggunakan informasi aplikasi Anda: formulir yang menyimpan data, daftar yang terisi otomatis, dan area masuk. Klik namanya untuk menampilkan atau menyembunyikannya.",
+      "label": "Data langsung"
+    },
+    "media": {
+      "help": "Gambar, video, suara, dan peta. Klik namanya untuk menampilkan atau menyembunyikannya.",
+      "label": "Media"
+    },
+    "premade": {
+      "help": "Bagian siap pakai yang bisa ditambahkan lalu diubah. Klik namanya untuk menampilkan atau menyembunyikannya.",
+      "label": "Siap pakai"
+    },
+    "sections": {
+      "help": "Bagian halaman siap pakai, seperti pengantar, harga, atau footer. Klik namanya untuk menampilkan atau menyembunyikannya.",
+      "label": "Bagian"
+    },
+    "social": {
+      "help": "Tautan ke media sosial, tombol berbagi, dan konten dari situs web lain. Klik namanya untuk menampilkan atau menyembunyikannya.",
+      "label": "Sosial"
+    }
+  },
+  "blockHelp": {
+    "nkAccordion": "Pertanyaan atau judul yang bisa diklik untuk menampilkan isi lainnya.",
+    "nkApiCall": "Tombol yang menjalankan sesuatu di aplikasi saat ditekan. Atur tindakannya di Pengaturan.",
+    "nkAuthGate": "Kotak yang hanya bisa dilihat oleh orang yang sudah masuk.",
+    "nkBadge": "Label kecil berwarna, seperti “Baru” atau “Diskon”.",
+    "nkCarousel": "Gambar atau slide yang tampil bergantian.",
+    "nkContainer": "Kotak yang menjaga isi tetap nyaman dibaca di tengah halaman.",
+    "nkDataCards": "Kartu yang terisi otomatis dengan informasi aplikasi Anda. Atur isinya di Pengaturan.",
+    "nkDataList": "Daftar yang terisi otomatis dengan informasi aplikasi Anda, seperti produk atau pemesanan. Atur isinya di Pengaturan.",
+    "nkDataTable": "Tabel yang terisi otomatis dengan informasi aplikasi Anda. Atur isinya di Pengaturan.",
+    "nkDivider": "Garis tipis untuk memisahkan bagian halaman.",
+    "nkFlowForm": "Formulir yang jawabannya ditindaklanjuti oleh aplikasi, misalnya disimpan atau dikirim lewat email. Atur tindakannya di Pengaturan.",
+    "nkGrid": "Kotak-kotak yang berjajar dan otomatis pindah ke baris baru di layar yang lebih kecil.",
+    "nkIconChip": "Ikon di dalam lingkaran kecil berwarna.",
+    "nkIframe": "Menampilkan konten dari situs lain di halaman Anda, seperti fitur pemesanan atau pembayaran.",
+    "nkLead": "Paragraf yang sedikit lebih besar, cocok untuk pengantar.",
+    "nkMarqueeText": "Teks yang bergerak melintasi layar.",
+    "nkModal": "Tombol yang membuka jendela kecil di atas halaman.",
+    "nkSection": "Bagian halaman selebar halaman dengan judulnya sendiri.",
+    "nkSignout": "Tombol untuk mengeluarkan orang dari aplikasi Anda.",
+    "nkSpacer": "Ruang kosong untuk memberi jarak.",
+    "nkTabs": "Beberapa panel konten yang ditampilkan satu per satu dan bisa diganti lewat tab.",
+    "nkUserMenu": "Menu Akun untuk orang yang sudah masuk, dengan tautan seperti Profil dan Pengaturan."
+  },
+  "blocks": {
+    "button": "Tombol",
+    "checkbox": "Kotak centang",
+    "column1": "1 Kolom",
+    "column2": "2 Kolom",
+    "column3": "3 Kolom",
+    "column37": "2 Kolom 3/7",
+    "form": "Formulir",
+    "image": "Gambar",
+    "input": "Input",
+    "label": "Label",
+    "link": "Tautan",
+    "linkBlock": "Blok tautan",
+    "map": "Peta",
+    "navbar": "Bilah navigasi",
+    "nkAccordion": "Akordeon",
+    "nkAddCart": "Tambahkan ke keranjang",
+    "nkAlertDanger": "Peringatan · Error",
+    "nkAlertInfo": "Peringatan · Info",
+    "nkAlertSuccess": "Peringatan · Berhasil",
+    "nkAlertWarn": "Peringatan · Waspada",
+    "nkApiCall": "Tombol yang menjalankan alur",
+    "nkAudio": "Audio",
+    "nkAuthGate": "Area khusus anggota",
+    "nkBadge": "Lencana",
+    "nkBannerCard": "Kartu banner",
+    "nkBtnGroup": "Grup tombol",
+    "nkBtnLg": "Tombol · Besar",
+    "nkBtnOutline": "Tombol · Garis luar",
+    "nkBtnPrimary": "Tombol · Utama",
+    "nkCard": "Kartu",
+    "nkCardImage": "Kartu · dengan gambar",
+    "nkCarousel": "Karusel",
+    "nkCartIcon": "Ikon keranjang",
+    "nkClientLogos": "Logo klien",
+    "nkCode": "Blok kode",
+    "nkContactForm": "Formulir kontak",
+    "nkContainer": "Wadah",
+    "nkCta": "Ajakan bertindak",
+    "nkCtaBand": "Banner ajakan",
+    "nkDataCards": "Kisi item",
+    "nkDataList": "Daftar item",
+    "nkDataTable": "Tabel item",
+    "nkDivider": "Pemisah",
+    "nkEventCard": "Kartu acara",
+    "nkFancyHeading": "Judul bergaya",
+    "nkFaq": "Tanya Jawab",
+    "nkFaqAccordion": "Akordeon FAQ",
+    "nkFeatureCards": "Kartu fitur",
+    "nkFeatures3": "Fitur · 3 kolom",
+    "nkFeatures4": "Fitur · 2x2",
+    "nkFlowForm": "Formulir yang menjalankan alur",
+    "nkFooterMulti": "Footer · Beberapa kolom",
+    "nkFooterSimple": "Footer · Sederhana",
+    "nkFormContact": "Formulir kontak",
+    "nkFormLogin": "Formulir login",
+    "nkFormNewsletter": "Formulir buletin",
+    "nkFormSearch": "Bilah pencarian",
+    "nkFormSignup": "Formulir daftar",
+    "nkGallery": "Galeri · 3 kolom",
+    "nkGrid": "Grid Otomatis",
+    "nkH1": "Judul 1",
+    "nkH2": "Judul 2",
+    "nkH3": "Judul 3",
+    "nkHeroCentered": "Intro besar · Rata tengah",
+    "nkHeroForm": "Intro besar · Pendaftaran",
+    "nkHeroSplit": "Intro besar · Dengan gambar",
+    "nkIconChip": "Ikon",
+    "nkIconPicker": "Ikon",
+    "nkIframe": "Sematan (iframe)",
+    "nkImage": "Gambar",
+    "nkImageCaption": "Gambar dengan keterangan",
+    "nkImageGallery": "Galeri gambar",
+    "nkLead": "Teks pengantar",
+    "nkLink": "Tautan",
+    "nkListItems": "Item daftar",
+    "nkListOl": "Daftar bernomor",
+    "nkListUl": "Daftar berpoin",
+    "nkLithoAboutUs": "Tentang kami",
+    "nkLithoContactModern": "Kontak · Modern",
+    "nkLithoContactSimple": "Kontak · Sederhana",
+    "nkLithoFooterCentered": "Footer · Rata tengah",
+    "nkLithoFooterDark": "Footer · Gelap",
+    "nkLithoFooterNewsletter": "Footer · Buletin",
+    "nkLithoIconBoxOverline": "Kotak ikon · Teks atas",
+    "nkLithoInfoBanner": "Banner informasi",
+    "nkLithoLoginForm": "Formulir login",
+    "nkLithoMessageBox": "Kotak pesan",
+    "nkLithoNewsCards": "Kartu berita",
+    "nkLithoOurStory": "Kisah kami",
+    "nkLithoPieCharts": "Diagram lingkaran",
+    "nkLithoServicesShowcase": "Etalase layanan",
+    "nkLithoVideoSection": "Bagian video",
+    "nkLogoCloud": "Deretan logo",
+    "nkMap": "Peta",
+    "nkMarqueeText": "Teks berjalan",
+    "nkModal": "Pop-up",
+    "nkNavbar": "Bilah menu",
+    "nkNewsletter": "Buletin",
+    "nkParagraph": "Paragraf",
+    "nkPricing3": "Harga · 3 paket",
+    "nkPricing3col": "Tabel harga",
+    "nkPricingCard": "Kartu harga",
+    "nkProcessSteps": "Langkah-langkah proses",
+    "nkProduct": "Kartu produk",
+    "nkProductGrid": "Kisi produk",
+    "nkProgress": "Bilah progres",
+    "nkQuote": "Kutipan",
+    "nkReviews": "Ulasan",
+    "nkRow2": "2 Kolom",
+    "nkRow3": "3 Kolom",
+    "nkRow4": "4 Kolom",
+    "nkSection": "Bagian",
+    "nkServicesGrid": "Kisi layanan",
+    "nkShare": "Tombol bagikan",
+    "nkSignout": "Tombol keluar",
+    "nkSocialRow": "Ikon media sosial",
+    "nkSpacer": "Jarak",
+    "nkStats": "Deretan angka",
+    "nkStatsCounters": "Penghitung statistik",
+    "nkTabs": "Tab",
+    "nkTabsContent": "Konten tab",
+    "nkTeam": "Tim",
+    "nkTeamGrid": "Kisi tim",
+    "nkTestimonials": "Testimoni",
+    "nkUserMenu": "Menu pengguna",
+    "nkVideoFile": "File video",
+    "nkVimeo": "Vimeo",
+    "nkYoutube": "YouTube",
+    "quote": "Kutipan",
+    "radio": "Radio",
+    "select": "Pilihan",
+    "text": "Teks",
+    "textBasic": "Bagian teks",
+    "textarea": "Area teks",
+    "video": "Video"
+  },
+  "canvas": {
+    "advanced": "Lanjutan",
+    "advancedHelp": "Opsi desain yang lebih terperinci, seperti font, bayangan, dan tata letak bagian di dalam kotak. Anda tidak perlu sering menggunakannya.",
+    "blocksHint": "Ketuk blok untuk menambahkannya di bawah bagian yang dipilih, atau seret ke halaman.",
+    "devices": {
+      "desktop": {
+        "help": "Lihat tampilan halaman Anda di layar komputer besar.",
+        "label": "Desktop"
+      },
+      "mobile": {
+        "help": "Lihat tampilan halaman Anda di ponsel. Selalu periksa tampilan ini — kebanyakan pengunjung menggunakan ponsel!",
+        "label": "Ponsel"
+      },
+      "tablet": {
+        "help": "Lihat tampilan halaman Anda di tablet, seperti iPad.",
+        "label": "Tablet"
+      }
+    },
+    "discard": "Buang",
+    "discardHelp": "Buang perubahan yang belum disimpan dan biarkan halaman seperti sekarang. Perubahan ini tidak bisa dikembalikan.",
+    "draftNewer": "Ada perubahan yang belum disimpan. Pulihkan?",
+    "draftOlder": "Ada perubahan dari {when} yang belum disimpan. Halaman ini sudah berubah sejak saat itu. Tetap pulihkan?",
+    "element": "Elemen",
+    "importLabel": "Tempel HTML/CSS di sini, lalu klik impor.",
+    "importTitle": "Impor template",
+    "layersHelp": "Semua bagian di halaman Anda, secara berurutan. Klik baris untuk memilih bagian; seret baris untuk memindahkan bagian.",
+    "leftTabs": {
+      "assets": {
+        "help": "Foto gratis untuk halaman Anda. Ketuk atau seret: ketuk untuk menambahkannya, mengganti gambar yang dipilih, atau seret ke halaman.",
+        "label": "Aset"
+      },
+      "blocks": {
+        "help": "Bagian siap pakai untuk halaman Anda: teks, gambar, tombol, hingga seluruh bagian. Ketuk atau seret: ketuk untuk menambahkannya di bawah bagian yang dipilih, atau seret ke halaman.",
+        "label": "Blok"
+      },
+      "modules": {
+        "help": "Fitur siap pakai, seperti pemesanan atau toko. Tambahkan fitur dan halaman tersendiri yang siap digunakan akan disertakan.",
+        "label": "Fitur"
+      }
+    },
+    "noSettings": "Tidak ada yang perlu diatur di sini. Tautan, gambar, tombol, formulir, dan daftar memiliki setelan di tab ini.",
+    "preview": "Pratinjau",
+    "previewHelp": "Buka halaman ini di tab baru dan coba langsung—termasuk tombol dan formulir—seperti pengunjung Anda.",
+    "previewLabel": "Pratinjau halaman ini",
+    "redo": "Ulangi",
+    "redoHelp": "Kembalikan perubahan yang baru saja Anda urungkan.",
+    "restore": "Pulihkan",
+    "restoreHelp": "Kembalikan perubahan yang disimpan browser ini dari terakhir kali. Perubahan tersebut akan menggantikan isi halaman saat ini dan disimpan seperti biasa.",
+    "retry": "Coba lagi",
+    "retryHelp": "Coba simpan perubahan terbaru Anda sekarang.",
+    "rightTabs": {
+      "layers": {
+        "help": "Semua bagian di halaman Anda, dari atas ke bawah. Berguna untuk memilih bagian yang sulit diklik.",
+        "label": "Lapisan"
+      },
+      "styles": {
+        "help": "Ubah tampilan bagian yang dipilih: teks, warna, jarak, dan ukuran. Klik sesuatu di halaman terlebih dahulu.",
+        "label": "Desain"
+      },
+      "theme": {
+        "help": "Atur warna dan sudut untuk seluruh aplikasi, atau pilih tampilan siap pakai. Pengunjung akan melihat perubahan setelah Anda memublikasikannya.",
+        "label": "Tema"
+      },
+      "traits": {
+        "help": "Setelan untuk bagian yang dipilih, seperti tujuan tautan atau tindakan formulir setelah dikirim.",
+        "label": "Setelan"
+      }
+    },
+    "searchBlocks": "Cari blok...",
+    "searchBlocksHelp": "Ketik di sini untuk menemukan blok dengan cepat — coba kata seperti 'tombol' atau 'foto'.",
+    "selectForSettings": "Pilih tautan, gambar, tombol, formulir, atau daftar di halaman untuk melihat setelannya.",
+    "selectSomething": "Pilih sesuatu di halaman Anda",
+    "selectionHelp": "Bagian yang Anda pilih di halaman. Tab Desain dan Setelan mengubah bagian ini. Klik sesuatu di halaman untuk memilihnya.",
+    "sharedStyles": "Gaya bersama dan saat diarahkan",
+    "sharedStylesHelp": "Nama gaya yang digunakan bersama oleh bagian ini dan bagian lainnya, serta gaya saat kursor diarahkan ke bagian ini.",
+    "status": {
+      "error": "Belum tersimpan",
+      "idle": "Simpan otomatis aktif",
+      "pending": "Perubahan belum disimpan",
+      "saved": "Tersimpan",
+      "saving": "Menyimpan…"
+    },
+    "statusErrorHelp": "Perubahan terbaru Anda belum sampai ke server. Perubahan tersebut tersimpan di browser ini dan kami akan terus mencoba mengirimkannya. Periksa koneksi internet Anda.",
+    "statusHelp": "Perubahan Anda akan tersimpan otomatis beberapa saat setelah Anda berhenti mengetik. Pengunjung hanya bisa melihatnya setelah Anda menerbitkannya.",
+    "stylesHelp": "Tampilan bagian yang Anda pilih: teks, warna, jarak, dan ukuran. Ubah salah satunya dan halaman langsung diperbarui.",
+    "toggleLeft": "Tampilkan/sembunyikan panel blok",
+    "toggleLeftHelp": "Tampilkan atau sembunyikan panel kiri berisi blok, fitur, dan foto agar halaman Anda punya lebih banyak ruang.",
+    "toggleRight": "Tampilkan/sembunyikan panel properti",
+    "toggleRightHelp": "Tampilkan atau sembunyikan panel kanan dengan tab Desain, Lapisan, Setelan, dan Tema.",
+    "traitsHelp": "Setelan untuk bagian yang Anda pilih, seperti tujuan tautan atau tindakan formulir setelah dikirim.",
+    "undo": "Urungkan",
+    "undoHelp": "Batalkan perubahan terakhir di halaman ini. Tekan lagi untuk mengurungkan perubahan sebelumnya."
+  },
+  "design": {
+    "properties": {
+      "background": "Gambar atau gradasi latar",
+      "backgroundColor": "Warna latar belakang",
+      "border": "Garis tepi",
+      "borderRadius": "Sudut membulat",
+      "boxShadow": "Bayangan",
+      "color": "Warna teks",
+      "fontFamily": "Jenis huruf",
+      "fontSize": "Ukuran teks",
+      "fontWeight": "Ketebalan huruf",
+      "height": "Tinggi",
+      "letterSpacing": "Jarak antarhuruf",
+      "lineHeight": "Jarak antarbaris",
+      "margin": "Jarak di luar",
+      "maxWidth": "Lebar maksimum",
+      "minHeight": "Tinggi minimum",
+      "opacity": "Transparansi",
+      "padding": "Jarak di dalam",
+      "textAlign": "Perataan teks",
+      "textShadow": "Bayangan teks",
+      "transform": "Putar dan ubah ukuran",
+      "transition": "Perubahan halus",
+      "width": "Lebar"
+    },
+    "sectors": {
+      "advEffects": "Bayangan dan efek",
+      "advFlex": "Sejajarkan item di dalam",
+      "advLayout": "Penempatan",
+      "advSize": "Opsi ukuran lainnya",
+      "advText": "Opsi teks lainnya",
+      "colors": "Latar belakang",
+      "corners": "Sudut dan garis tepi",
+      "size": "Ukuran",
+      "spacing": "Jarak",
+      "text": "Teks"
+    }
+  },
+  "grapes": {
+    "assetManager": {
+      "addButton": "Tambah gambar",
+      "modalTitle": "Pilih Gambar",
+      "uploadTitle": "Seret file ke sini atau klik untuk mengunggah"
+    },
+    "names": {
+      "box": "Kotak",
+      "button": "Tombol",
+      "cell": "Sel tabel",
+      "checkbox": "Kotak centang",
+      "comment": "Komentar",
+      "form": "Formulir",
+      "iframe": "Iframe",
+      "image": "Gambar",
+      "input": "Masukan",
+      "label": "Label",
+      "link": "Tautan",
+      "map": "Peta",
+      "navbar": "Bilah navigasi",
+      "radio": "Radio",
+      "row": "Baris tabel",
+      "select": "Pilihan",
+      "svg": "Svg",
+      "table": "Tabel",
+      "tbody": "Isi tabel",
+      "text": "Teks",
+      "textarea": "Area teks",
+      "tfoot": "Kaki tabel",
+      "thead": "Kepala tabel",
+      "video": "Video",
+      "wrapper": "Isi"
+    },
+    "properties": {
+      "alignContent": "Perataan konten",
+      "alignItems": "Perataan item",
+      "alignSelf": "Perataan mandiri",
+      "backgroundAttachmentSub": "Lampiran",
+      "backgroundImageSub": "Gambar",
+      "backgroundPositionSub": "Posisi",
+      "backgroundRepeatSub": "Pengulangan",
+      "backgroundSizeSub": "Ukuran",
+      "borderBottomLeftRadiusSub": "Kiri Bawah",
+      "borderBottomRightRadiusSub": "Kanan Bawah",
+      "borderColorSub": "Warna",
+      "borderStyleSub": "Gaya",
+      "borderTopLeftRadiusSub": "Kiri Atas",
+      "borderTopRightRadiusSub": "Kanan Atas",
+      "borderWidthSub": "Lebar",
+      "bottom": "Bawah",
+      "boxShadowBlur": "Buram",
+      "boxShadowColor": "Warna",
+      "boxShadowH": "X",
+      "boxShadowSpread": "Sebaran",
+      "boxShadowType": "Jenis",
+      "boxShadowV": "Y",
+      "display": "Tampilan",
+      "flexBasis": "Dasar flex",
+      "flexDirection": "Arah flex",
+      "flexGrow": "Pertumbuhan flex",
+      "flexShrink": "Penyusutan flex",
+      "flexWrap": "Pembungkusan flex",
+      "float": "Mengambang",
+      "justifyContent": "Perataan konten",
+      "left": "Kiri",
+      "marginBottomSub": "Bawah",
+      "marginLeftSub": "Kiri",
+      "marginRightSub": "Kanan",
+      "marginTopSub": "Atas",
+      "order": "Urutan",
+      "paddingBottomSub": "Bawah",
+      "paddingLeftSub": "Kiri",
+      "paddingRightSub": "Kanan",
+      "paddingTopSub": "Atas",
+      "position": "Posisi",
+      "right": "Kanan",
+      "textShadowBlur": "Buram",
+      "textShadowColor": "Warna",
+      "textShadowH": "X",
+      "textShadowV": "Y",
+      "top": "Atas",
+      "transformRotateX": "Putar X",
+      "transformRotateY": "Putar Y",
+      "transformRotateZ": "Putar Z",
+      "transformScaleX": "Skala X",
+      "transformScaleY": "Skala Y",
+      "transformScaleZ": "Skala Z",
+      "transitionDurationSub": "Durasi",
+      "transitionPropertySub": "Properti",
+      "transitionTimingFunctionSub": "Waktu"
+    },
+    "selectorManager": {
+      "active": "Klik",
+      "emptyState": "- Status -",
+      "evenOdd": "Genap/Ganjil",
+      "hover": "Arahkan kursor",
+      "label": "Kelas",
+      "selected": "Dipilih"
+    },
+    "styleManager": {
+      "empty": "Pilih elemen sebelum menggunakan Pengelola Gaya",
+      "fileButton": "Gambar",
+      "layer": "Lapisan"
+    },
+    "traitManager": {
+      "empty": "Pilih elemen sebelum menggunakan Pengelola Atribut",
+      "label": "Setelan komponen",
+      "newWindow": "Jendela baru",
+      "thisWindow": "Jendela ini"
+    }
+  },
+  "iconPicker": {
+    "addHelp": "Tambahkan ikon ini ke halaman Anda.",
+    "changeIcon": "Ubah ikon",
+    "closeHelp": "Tutup tanpa memilih ikon.",
+    "noResults": "Tidak ada hasil",
+    "pickIcon": "Pilih ikon",
+    "replaceHelp": "Gunakan ikon ini sebagai pengganti ikon yang dipilih.",
+    "searchHelp": "Ketik gambar yang ingin ditampilkan, seperti “telepon”, “bintang”, atau “keranjang”.",
+    "searchPlaceholder": "Cari ikon...",
+    "useIcon": "Gunakan ikon {name}"
+  },
+  "iconSets": {
+    "all": {
+      "help": "Cari ikon dari semua gaya sekaligus.",
+      "label": "Semua"
+    },
+    "fa6Brands": {
+      "help": "Tampilkan hanya logo perusahaan terkenal dari koleksi Font Awesome.",
+      "label": "FA Brands"
+    },
+    "fa6Solid": {
+      "help": "Tampilkan hanya ikon berisi dari koleksi Font Awesome.",
+      "label": "FA Solid"
+    },
+    "heroicons": {
+      "help": "Tampilkan hanya ikon bergaya Heroicons: garis luar yang rapi.",
+      "label": "Heroicons"
+    },
+    "lucide": {
+      "help": "Tampilkan hanya ikon bergaya Lucide: garis luar sederhana dan tipis.",
+      "label": "Lucide"
+    },
+    "mdi": {
+      "help": "Tampilkan hanya ikon bergaya Material, seperti yang digunakan banyak aplikasi Android.",
+      "label": "Material"
+    },
+    "ph": {
+      "help": "Tampilkan hanya ikon bergaya Phosphor: garis luar yang ramah dan membulat.",
+      "label": "Phosphor"
+    },
+    "simpleIcons": {
+      "help": "Tampilkan hanya logo perusahaan, aplikasi, dan jejaring sosial terkenal.",
+      "label": "Merek"
+    },
+    "tabler": {
+      "help": "Tampilkan hanya ikon bergaya Tabler: garis luar sederhana dengan banyak pilihan.",
+      "label": "Tabler"
+    }
+  },
+  "iconsPanel": {
+    "addHelp": "Tambahkan ikon ini di bagian yang Anda pilih, atau di akhir halaman jika tidak ada yang dipilih.",
+    "addIcon": "Tambahkan ikon {name}",
+    "clickToInsert": "Klik untuk menyisipkan",
+    "failedToLoad": "Ikon gagal dimuat",
+    "noResults": "Tidak ada hasil",
+    "searchHelp": "Ketik gambar yang ingin ditampilkan, seperti “telepon”, “bintang”, atau “keranjang”.",
+    "searchPlaceholder": "Cari ikon..."
+  },
+  "languageTabs": {
+    "edited": "Anda mengedit halaman {language} ini sendiri. Perubahan pada versi {main} tidak akan menggantikannya.",
+    "help": "Aplikasi Anda tersedia dalam beberapa bahasa. Pilih bahasa untuk mengedit halaman ini; perubahan dari AI juga akan diterapkan ke bahasa itu.",
+    "label": "Bahasa",
+    "missing": "Halaman ini belum diterjemahkan ke {language}, jadi Anda melihat versi {main}. Perubahan di sini akan menjadi halaman {language}.",
+    "shared": "Gaya digunakan bersama oleh semua bahasa.",
+    "stale": "Versi {main} halaman ini berubah setelah diterjemahkan. Perbarui terjemahan dari Ringkasan aplikasi, atau edit halaman ini sendiri.",
+    "tabHelp": "Edit halaman ini dalam {language}."
+  },
+  "modules": {
+    "addHelp": "Ketuk untuk melihat fungsi fitur ini di aplikasi Anda. Tidak ada yang berubah sampai Anda mengonfirmasi. Halaman Anda akan disimpan terlebih dahulu.",
+    "added": "Ditambahkan",
+    "addedHelp": "Sudah ada di aplikasi Anda. Ketuk untuk melihat fungsinya, atau tambahkan lagi.",
+    "categories": {
+      "all": {
+        "help": "Tampilkan semua fitur yang bisa Anda tambahkan.",
+        "label": "Semua"
+      },
+      "commerce": {
+        "help": "Fitur untuk berjualan dan menerima pembayaran, seperti toko, pemesanan, kupon, atau donasi.",
+        "label": "Toko"
+      },
+      "communication": {
+        "help": "Fitur untuk berkomunikasi dengan pengunjung, seperti formulir kontak, buletin email, atau pesan teks.",
+        "label": "Komunikasi"
+      },
+      "community": {
+        "help": "Fitur untuk menyatukan orang, seperti acara, ulasan, obrolan, dan forum.",
+        "label": "Komunitas"
+      },
+      "content": {
+        "help": "Fitur untuk berbagi tulisan dan berita, seperti blog, FAQ, portofolio, atau kursus.",
+        "label": "Konten"
+      },
+      "media": {
+        "help": "Fitur untuk foto, video, musik, dan media lainnya.",
+        "label": "Media"
+      },
+      "productivity": {
+        "help": "Fitur untuk menyelesaikan berbagai hal, seperti daftar tugas, catatan, janji temu, dan survei.",
+        "label": "Produktivitas"
+      },
+      "utility": {
+        "help": "Fitur tambahan yang praktis, seperti login, peta, unggah file, dan widget cuaca.",
+        "label": "Alat"
+      }
+    },
+    "categoryHelp": "Tampilkan hanya fitur dalam grup ini.",
+    "empty": "Belum ada fitur di sini",
+    "footer": "Ketuk fitur untuk melihat fungsinya di aplikasi Anda",
+    "loading": "Memuat fitur…",
+    "nameAdded": "{name} (ditambahkan)",
+    "notSaved": "Perubahan terbaru Anda belum tersimpan, jadi kami tidak menambahkan apa pun. Periksa koneksi Anda, lalu coba lagi.",
+    "savingPage": "Menyimpan halaman Anda…",
+    "searchHelp": "Ketik hal yang ingin dilakukan aplikasi Anda, seperti “pemesanan” atau “buletin email”, untuk menemukan fitur siap pakai.",
+    "searchLabel": "Cari fitur",
+    "searchPlaceholder": "Cari fitur…"
+  },
+  "pageSettings": {
+    "audience": "Siapa yang bisa melihat halaman ini",
+    "audienceHelp": "Pilih siapa yang bisa membuka halaman ini di aplikasi aktif Anda: siapa saja, hanya yang sudah masuk, atau hanya admin.",
+    "audiences": {
+      "admin": {
+        "hint": "Hanya Anda dan orang yang Anda jadikan admin.",
+        "label": "Hanya admin"
+      },
+      "public": {
+        "hint": "Siapa saja yang memiliki tautannya bisa membukanya.",
+        "label": "Semua orang"
+      },
+      "role": {
+        "hint": "Diatur oleh halaman itu sendiri. Pilih opsi lain untuk mengubahnya.",
+        "label": "Orang dengan peran “{role}”"
+      },
+      "signedIn": {
+        "hint": "Pengunjung harus login terlebih dahulu. Siapa saja bisa membuat akun.",
+        "label": "Orang yang sudah login"
+      }
+    },
+    "buttonNote": "Halaman ini ditampilkan sebagai tombol di akhir menu.",
+    "close": "Tutup setelan halaman",
+    "designerNote": "Halaman di aplikasi ini dibuat oleh AI Designer. Ubah halaman di sana.",
+    "duplicate": "Duplikat",
+    "duplicateHelp": "Buat salinan halaman ini dengan nama “(salinan)”, lalu buka agar Anda bisa mengeditnya. Perubahan setelan yang belum disimpan tidak akan disalin.",
+    "goesAtEnd": "Halaman ini berada di akhir menu. Anda bisa memindahkannya setelah disimpan.",
+    "homeFirst": "Halaman beranda selalu berada di urutan pertama.",
+    "loadFailed": "Setelan halaman ini tidak dapat dimuat.",
+    "loadFailedRetry": "Setelan halaman ini tidak dapat dimuat. Coba lagi.",
+    "menu": "Menu",
+    "menuHelp": "Atur apakah halaman ini memiliki tautan di menu aplikasi dan letaknya.",
+    "moveDown": "Pindahkan ke bawah",
+    "moveDownHelp": "Pindahkan halaman ini satu posisi lebih akhir di menu. Perubahan berlaku setelah Anda menekan Simpan.",
+    "moveUp": "Pindahkan ke atas",
+    "moveUpHelp": "Pindahkan halaman ini satu posisi lebih awal di menu. Perubahan berlaku setelah Anda menekan Simpan.",
+    "name": "Nama",
+    "nameHint": "Ditampilkan di menu dan tab browser.",
+    "neverInMenu": "Halaman ini tidak pernah ditampilkan di menu.",
+    "noLogin": "Aplikasi Anda belum memiliki halaman masuk, jadi hanya Anda yang bisa membuka halaman ini. <link>Tambahkan “Masuk dan akun” dari Fitur.</link>",
+    "placeInManage": "Letak di menu “Kelola” admin: <b>{position}</b> dari {count}",
+    "placeInMenu": "Letak di menu: <b>{position}</b> dari {count}",
+    "privatePublic": "Halaman ini menampilkan data pribadi; siapa saja bisa melihatnya jika Anda menjadikannya publik.",
+    "privateSignedIn": "Halaman ini menampilkan data pribadi. Siapa pun yang mendaftar bisa melihatnya.",
+    "saveFirst": "Simpan dulu, lalu atur letaknya di menu.",
+    "saveHelp": "Simpan setelan ini. Menu aplikasi Anda akan diperbarui di semua halaman.",
+    "showInMenu": "Tampilkan di menu",
+    "showInMenuHelp": "Centang untuk menambahkan tautan ke halaman ini di menu aplikasi. Hapus centang untuk menyembunyikannya dari menu; orang yang memiliki tautannya tetap bisa membuka halaman ini.",
+    "title": "Setelan halaman"
+  },
+  "panelHelp": {
+    "blockTip": "{about} Ketuk untuk menambahkannya di bawah bagian yang Anda pilih, atau seret ke halaman.",
+    "blockTipGeneric": "Ketuk atau seret: ketuk “{label}” untuk menambahkannya di bawah bagian yang Anda pilih, atau seret ke tempat yang Anda inginkan.",
+    "categoryGeneric": "Kelompok blok. Klik namanya untuk menampilkan atau menyembunyikannya.",
+    "imagePicker": {
+      "addButton": "Tambahkan gambar dari alamat web yang Anda masukkan ke daftar di bawah. Lalu klik gambar untuk menggunakannya.",
+      "asset": "Klik untuk menggunakan gambar ini di halaman Anda. Klik dua kali untuk menggunakannya dan menutup jendela ini.",
+      "close": "Tutup jendela ini. Gambar yang sudah Anda klik tetap ada di halaman.",
+      "closeLabel": "Tutup",
+      "removeAsset": "Hapus gambar ini dari daftar. Gambar yang sudah ada di halaman Anda tetap di sana.",
+      "removeLabel": "Hapus dari daftar",
+      "upload": "Pilih gambar dari komputer atau ponsel, atau letakkan gambar di sini. Gambar akan disimpan di halaman Anda dan ditambahkan ke daftar di bawah.",
+      "urlInput": "Tempel alamat web gambar yang sudah online, lalu tekan Tambah gambar untuk memasukkannya ke daftar di bawah."
+    },
+    "layers": {
+      "layerRow": "Salah satu elemen di halaman Anda. Klik untuk memilihnya; klik panah untuk membuka elemen di dalamnya.",
+      "move": "Pegang di sini, lalu seret untuk memindahkan elemen ini ke bagian lain halaman.",
+      "visibility": "Klik ikon mata untuk menyembunyikan elemen ini saat Anda bekerja—elemen ini tetap ada, hanya tersembunyi. Klik lagi untuk menampilkannya."
+    },
+    "rte": {
+      "bold": "Tebalkan kata-kata yang disorot. Klik lagi untuk membatalkannya.",
+      "italic": "Miringkan kata-kata yang disorot. Klik lagi untuk membatalkannya.",
+      "link": "Jadikan kata-kata yang disorot sebagai tautan, atau hapus tautannya. Lalu atur tujuannya di tab Pengaturan.",
+      "strikeThrough": "Coret kata-kata yang disorot. Klik lagi untuk menghapus coretannya.",
+      "underline": "Garisbawahi kata-kata yang disorot. Klik lagi untuk menghapus garisnya.",
+      "wrapForStyle": "Pisahkan kata-kata yang disorot ke dalam elemen sendiri agar Anda bisa memberi warna atau ukuran berbeda di tab Desain."
+    },
+    "sectors": {
+      "advEffects": "Bayangan, efek pudar, gambar latar, dan animasi halus.",
+      "advFlex": "Cara bagian-bagian di dalam kotak ini disusun dalam baris atau kolom.",
+      "advLayout": "Posisi bagian ini dan cara menguncinya. Biasanya tidak perlu diatur untuk kebanyakan halaman.",
+      "advSize": "Batas lebar dan tinggi bagian ini di berbagai ukuran layar.",
+      "advText": "Font, jarak baris, jarak huruf, dan bayangan teks.",
+      "background": "Isi latar bagian ini — warna, gradasi, atau gambar.",
+      "colors": "Warna latar bagian ini.",
+      "corners": "Bulatkan sudut atau tambahkan garis di sekelilingnya.",
+      "decorations": "Tampilan hiasan: warna dan gambar latar, garis tepi, sudut membulat, dan bayangan.",
+      "dimension": "Ukuran dan jarak: seberapa besar bagian ini dan ruang kosong di sekitar serta di dalamnya.",
+      "extra": "Pengaturan tambahan seperti animasi halus dan kemiringan.",
+      "flex": "Alat untuk menyusun bagian-bagian di dalam kotak ini dalam baris atau kolom yang rapi.",
+      "general": "Pengaturan dasar: posisi bagian ini di halaman dan titik penahannya.",
+      "layout": "Cara bagian ini ditempatkan di halaman dan cara benda di sekitarnya disusun.",
+      "size": "Lebar dan tinggi bagian ini.",
+      "spacing": "Ruang di dalam bagian ini (antara tepi dan kontennya), serta ruang di luar (antara bagian ini dan bagian lain).",
+      "text": "Tampilan teks: ukuran, ketebalan, warna, dan perataannya.",
+      "typography": "Semua tentang teks: jenis huruf, ukuran, warna, dan perataannya."
+    },
+    "selectors": {
+      "addClass": "Beri nama gaya bersama pada bagian ini. Semua bagian dengan nama yang sama akan memiliki tampilan serupa, jadi perubahan pada satu bagian berlaku untuk semuanya.",
+      "selectedInfo": "Elemen yang sedang Anda atur, agar jelas perubahan akan diterapkan ke mana.",
+      "states": "Atur gaya untuk kondisi tertentu. Pilih 'hover' agar perubahan hanya terlihat saat kursor diarahkan ke bagian ini; pilih 'click' saat bagian ini ditekan. Pilih '- State -' untuk kembali ke gaya normal.",
+      "tag": "Nama gaya bersama yang digunakan elemen ini. Perubahan berlaku untuk semua elemen dengan nama ini. Klik x untuk menghapusnya dari elemen ini."
+    },
+    "styles": {
+      "alignContent": "Saat bagian-bagian membungkus ke baris tambahan, opsi ini mengatur jarak antarbaris: rapat, di tengah, atau tersebar.",
+      "alignItems": "Cara bagian-bagian disejajarkan MELINTASI baris: atas, tengah, bawah, atau direntangkan agar ukurannya sama.",
+      "alignSelf": "Mengatur posisi bagian ini secara terpisah dari yang lain — atas, tengah, bawah, atau direntangkan.",
+      "background": "Isian di belakang bagian ini — warna, gradasi, atau gambar. Kamu juga bisa menumpuk beberapa isian.",
+      "backgroundAttachment": "'Scroll' menggerakkan latar bersama halaman. 'Fixed' menahannya di tempat agar halaman bergerak di atasnya — memberi efek kedalaman yang menarik.",
+      "backgroundColor": "Warna isian di belakang konten bagian ini.",
+      "backgroundImage": "Gambar (atau gradasi warna) untuk latar bagian ini.",
+      "backgroundPosition": "Bagian gambar latar yang terlihat — geser ke kiri/kanan dan atas/bawah.",
+      "backgroundRepeat": "Menentukan apakah gambar latar diulang seperti pola ubin, atau hanya ditampilkan sekali.",
+      "backgroundSize": "Cara gambar mengisi ruang: 'cover' mengisi seluruh ruang (tepinya mungkin terpotong), 'contain' menampilkan seluruh gambar (mungkin menyisakan ruang kosong).",
+      "border": "Garis di tepi bagian ini. Atur ketebalan, gaya (solid, dashed, dotted), dan warnanya.",
+      "borderBottomLeftRadius": "Membulatkan sudut KIRI BAWAH saja.",
+      "borderBottomRightRadius": "Membulatkan sudut KANAN BAWAH saja.",
+      "borderColor": "Warna garis tepi.",
+      "borderRadius": "Tingkat kebulatan sudut. 0 = sudut tajam, makin besar = makin bulat. Angka sangat besar bisa mengubah kotak menjadi kapsul atau lingkaran.",
+      "borderStyle": "Tampilan garis tepi: solid, dashed (- - -), atau dotted (• • •).",
+      "borderTopLeftRadius": "Membulatkan sudut KIRI ATAS saja.",
+      "borderTopRightRadius": "Membulatkan sudut KANAN ATAS saja.",
+      "borderWidth": "Ketebalan garis tepi. 0 berarti tanpa garis.",
+      "bottom": "Jarak bagian ini dari BAWAH. Hanya berfungsi jika Position bukan 'static'.",
+      "boxShadow": "Bayangan lembut di belakang bagian ini agar tampak terangkat dari halaman, seperti kartu di atas meja. Atur posisi, tingkat blur, lebar, dan warnanya.",
+      "boxShadowBlur": "Tingkat blur bayangan. 0 berarti tepinya tajam; makin besar angkanya, makin lembut.",
+      "boxShadowColor": "Warna bayangan. Abu-abu lembut atau hitam transparan biasanya terlihat bagus.",
+      "boxShadowH": "Menggeser bayangan ke kiri atau kanan. Angka negatif menggesernya ke kiri.",
+      "boxShadowSpread": "Seberapa jauh bayangan melebar ke segala arah. Makin besar angkanya, makin lebar bayangan.",
+      "boxShadowType": "'Outside' menempatkan bayangan di belakang bagian ini. 'Inside' membuat bayangan masuk ke dalam bagian ini, seperti cekungan.",
+      "boxShadowV": "Menggeser bayangan ke atas atau bawah. Angka negatif menggesernya ke atas.",
+      "color": "Warna teks. Klik kotak warna untuk memilih warna yang kamu suka.",
+      "cursor": "Bentuk panah mouse saat berada di atas bagian ini. 'Pointer' (ikon tangan kecil) memberi tahu bahwa bagian ini bisa diklik.",
+      "display": "Cara bagian ini ditampilkan di halaman. 'Block' memakai satu baris penuh. 'Inline' berada di samping bagian lain, seperti kata dalam kalimat. 'Flex' menyusun bagian di dalamnya dengan rapi. 'None' menyembunyikannya sepenuhnya.",
+      "flexBasis": "Ukuran awal bagian ini, sebelum diperbesar atau diperkecil untuk membagi ruang.",
+      "flexDirection": "Susun bagian-bagian di dalam kotak ini dalam BARIS (bersebelahan) atau KOLOM (atas ke bawah). 'Reverse' membalik urutannya.",
+      "flexGrow": "Membuat bagian ini membesar untuk mengambil ruang kosong. Nilai 2 mengambil ruang dua kali lebih banyak dari nilai 1. 0 berarti tidak membesar.",
+      "flexShrink": "Membuat bagian ini menyusut saat ruang habis. Makin besar angkanya, makin banyak menyusut. 0 berarti tidak menyusut.",
+      "flexWrap": "Menentukan apakah bagian yang tidak muat pindah ke baris berikutnya ('wrap') atau tetap dipadatkan dalam satu baris ('nowrap').",
+      "float": "Mendorong bagian ini ke kiri atau kanan agar teks mengalir di sekelilingnya — seperti foto di koran. 'None' membiarkannya di posisi biasa.",
+      "fontFamily": "Gaya huruf. Font yang berbeda memberi kesan berbeda — ceria, serius, atau elegan. Pilih salah satu dan teks akan langsung berubah.",
+      "fontSize": "Ukuran huruf. Teks biasa untuk dibaca biasanya sekitar 16px; judul besar biasanya 32px atau lebih.",
+      "fontWeight": "Ketebalan huruf. 400 berarti normal, 700 berarti tebal. Teks yang lebih tebal lebih menonjol.",
+      "height": "Tinggi bagian ini. 'auto' berarti tingginya menyesuaikan isi — biasanya pilihan paling aman.",
+      "justifyContent": "Cara bagian-bagian diatur SEPANJANG baris atau kolom: berkumpul di awal, di tengah, atau tersebar merata.",
+      "left": "Jarak bagian ini dari KIRI. Hanya berfungsi jika Position bukan 'static'.",
+      "letterSpacing": "Jarak antarhuruf. Sedikit tambahan jarak bisa membuat judul terlihat menarik; terlalu banyak membuatnya sulit dibaca.",
+      "lineHeight": "Jarak antarbaris dalam paragraf. Sekitar 1.5 nyaman dibaca; 1 membuat baris terlalu rapat.",
+      "margin": "Ruang kosong DI LUAR bagian ini — mendorong bagian lain menjauh. Angka lebih besar = ruang di sekitarnya lebih lega.",
+      "marginBottom": "Ruang kosong DI BAWAH bagian ini, yang mendorong bagian berikutnya lebih jauh ke bawah.",
+      "marginLeft": "Ruang kosong di KIRI bagian ini, yang menjauhkan bagian lain di sisi itu.",
+      "marginRight": "Ruang kosong di KANAN bagian ini, yang menjauhkan bagian lain di sisi itu.",
+      "marginTop": "Ruang kosong DI ATAS bagian ini, yang mendorongnya menjauh dari bagian di atas.",
+      "maxHeight": "Tinggi maksimum. Konten yang berlebih akan dipotong atau bisa digulir.",
+      "maxWidth": "Lebar maksimum, bahkan di layar yang sangat besar. Berguna agar baris teks tidak terlalu panjang dan mudah dibaca.",
+      "minHeight": "Tinggi minimum, bahkan saat kosong. Berguna agar bagian tidak menyusut sampai hilang.",
+      "minWidth": "Lebar minimum, bahkan di layar yang sangat kecil.",
+      "opacity": "Tingkat tembus pandang bagian ini. 100 berarti pekat; makin kecil angkanya, makin pudar. 0 berarti tidak terlihat.",
+      "order": "Mengubah urutan bagian ini tanpa memindahkan bagian lain. Angka lebih kecil berada lebih dulu.",
+      "overflow": "Yang terjadi saat isi terlalu besar untuk kotaknya: 'hidden' memotong bagian yang berlebih, 'scroll'/'auto' menambahkan bilah gulir, 'visible' membiarkan isi meluber.",
+      "padding": "Ruang kosong DI DALAM bagian ini — antara tepi dan kontennya. Padding yang lebih besar membuat tombol dan kartu terasa lebih lega.",
+      "paddingBottom": "Ruang kosong di DALAM bagian ini, antara tepi bawah dan konten.",
+      "paddingLeft": "Ruang kosong di DALAM bagian ini, antara tepi kiri dan konten.",
+      "paddingRight": "Ruang kosong di DALAM bagian ini, antara tepi kanan dan konten.",
+      "paddingTop": "Ruang kosong di DALAM bagian ini, antara tepi atas dan konten.",
+      "perspective": "Menambahkan kedalaman 3D pada bagian yang dimiringkan. Angka lebih kecil memberi efek 3D lebih dramatis, seperti memegangnya dekat wajah.",
+      "position": "Cara bagian ini ditahan posisinya. 'Static' = posisi biasa. 'Relative' = sedikit menggeser dari posisi biasa. 'Absolute' = menempatkannya di mana saja di dalam kotaknya. 'Fixed' = menempelkannya ke layar agar tetap di tempat saat halaman digulir.",
+      "right": "Jarak bagian ini dari KANAN. Hanya berfungsi jika Position bukan 'static'.",
+      "textAlign": "Perataan teks: kiri, tengah, kanan, atau rata di kedua sisi (justify).",
+      "textDecoration": "Garis tambahan pada teks: garis bawah, coret, atau pilih 'none' untuk menghapus garis seperti pada tautan.",
+      "textShadow": "Bayangan lembut di belakang huruf agar tampak menonjol dari latar. Atur jarak, tingkat blur, dan warnanya.",
+      "textShadowBlur": "Tingkat blur bayangan huruf. 0 berarti tajam; makin besar angkanya, makin lembut bayangannya.",
+      "textShadowColor": "Warna bayangan huruf.",
+      "textShadowH": "Menggeser bayangan huruf ke kiri atau kanan. Angka negatif menggesernya ke kiri.",
+      "textShadowV": "Menggeser bayangan huruf ke atas atau bawah. Angka negatif menggesernya ke atas.",
+      "textTransform": "Mengubah huruf teks menjadi HURUF BESAR, huruf kecil, atau Huruf Awal Tiap Kata Kapital.",
+      "top": "Jarak bagian ini dari ATAS. Hanya berfungsi jika Position bukan 'static'.",
+      "transform": "Putar, miringkan, perbesar, atau perkecil bagian ini — tanpa menggeser bagian lain di sekitarnya.",
+      "transformRotateX": "Memiringkan bagian ini ke belakang atau depan, seperti pintu yang terjatuh.",
+      "transformRotateY": "Memutar bagian ini ke samping, seperti pintu yang berputar.",
+      "transformRotateZ": "Memutar bagian ini mendatar, seperti jarum jam. 180 membaliknya.",
+      "transformScaleX": "Meregangkan atau memampatkan bagian ini ke SAMPING. 1 berarti ukuran normal, 2 berarti dua kali lebih lebar.",
+      "transformScaleY": "Meregangkan atau memampatkan bagian ini ke ATAS DAN BAWAH. 1 berarti ukuran normal, 2 berarti dua kali lebih tinggi.",
+      "transformScaleZ": "Mengubah skala bagian ini dalam kedalaman 3D — efeknya hanya terlihat pada bagian yang diputar.",
+      "transition": "Membuat perubahan gaya berlangsung mulus, bukan seketika — seperti tombol yang perlahan berubah warna saat diarahkan.",
+      "transitionDuration": "Lama waktu perubahan berlangsung. 0.3s terasa cepat; 2s terasa lambat dan dramatis.",
+      "transitionProperty": "Gaya MANA yang berubah dengan mulus — misalnya 'all', hanya warna, atau hanya ukuran.",
+      "transitionTimingFunction": "Pola perubahan: stabil dari awal sampai akhir ('linear'), atau berangsur di awal dan akhir seperti mobil yang mengerem perlahan ('ease').",
+      "verticalAlign": "Menyejajarkan bagian ini dengan teks di sebelahnya — atas, tengah, atau bawah.",
+      "width": "Lebar bagian ini. Gunakan 100% untuk memenuhi ruang yang tersedia, atau ukuran tertentu seperti 300px.",
+      "zIndex": "Bagian mana yang berada di atas saat dua bagian bertumpuk. Angka lebih besar = lebih dekat ke depan, seperti kartu teratas dalam tumpukan."
+    },
+    "traits": {
+      "address": "Alamat web gambar atau video yang ditampilkan di sini.",
+      "answerName": "Nama yang digunakan aplikasi untuk menyimpan jawaban ini, seperti 'email'. Buat tetap singkat dan sederhana.",
+      "belongsToField": "Kotak formulir yang dijelaskan oleh label ini. Dengan mengeklik label, kursor akan berpindah ke kotak tersebut.",
+      "buttonWords": "Tulisan yang ditampilkan pada tombol ini.",
+      "goesTo": "Tujuan tautan ini. Gunakan /nama-halaman untuk halaman Anda sendiri, atau alamat https:// lengkap untuk situs lain.",
+      "hintText": "Petunjuk abu-abu yang muncul di dalam kotak saat masih kosong, seperti 'Ketik nama Anda'. Petunjuk ini hilang saat seseorang mulai mengetik.",
+      "hoverNote": "Catatan singkat yang muncul saat seseorang mengarahkan mouse ke elemen ini.",
+      "kind": "Jenis kotak ini: teks, email, kata sandi (menyembunyikan huruf), angka, dan lainnya. Jenis yang tepat membantu ponsel menampilkan papan ketik yang sesuai.",
+      "mustBeFilledIn": "Aktifkan ini agar formulir tidak bisa dikirim sebelum kotak ini diisi.",
+      "openInANewTab": "Centang untuk membuka tautan di tab baru agar aplikasi Anda tetap terbuka.",
+      "pictureDescription": "Kata-kata yang menjelaskan gambar untuk orang yang tidak bisa melihatnya dan mesin pencari. Jelaskan isi gambarnya.",
+      "showItemsFrom": "Pilih sumber item untuk daftar ini, seperti pemesanan atau produk Anda. Daftar akan diperbarui otomatis.",
+      "startingValue": "Isi yang sudah terisi saat halaman pertama kali dibuka.",
+      "tickedAtTheStart": "Apakah kotak ini sudah dicentang saat halaman dibuka.",
+      "whenPressed": "Fungsi tombol ini: mengirim formulir, mengosongkan formulir, atau tidak melakukan apa pun (untuk tombol yang punya fungsi lain).",
+      "whenPressedRun": "Pilih tindakan aplikasi saat tombol ini ditekan. Pengaturannya ada di bagian Alur.",
+      "whenSentRun": "Pilih tindakan aplikasi untuk jawaban saat formulir ini dikirim, seperti menyimpannya atau mengirim email. Pengaturannya ada di bagian Alur."
+    }
+  },
+  "rte": {
+    "bold": "Tebal",
+    "italic": "Miring",
+    "link": "Tautan",
+    "strikeThrough": "Coret",
+    "underline": "Garis bawah",
+    "wrapForStyle": "Bungkus untuk mengatur gaya"
+  },
+  "settings": {
+    "address": "Alamat",
+    "answerName": "Nama jawaban",
+    "belongsToField": "Milik kolom",
+    "buttonWords": "Teks tombol",
+    "goesTo": "Menuju ke",
+    "hintText": "Teks petunjuk",
+    "hoverNote": "Catatan saat diarahkan",
+    "kind": "Jenis",
+    "mustBeFilledIn": "Wajib diisi",
+    "nothing": "Tidak ada",
+    "openInANewTab": "Buka di tab baru",
+    "pictureDescription": "Deskripsi gambar",
+    "showItemsFrom": "Tampilkan item dari",
+    "startingValue": "Nilai awal",
+    "tickedAtTheStart": "Dicentang saat mulai",
+    "whenPressed": "Saat ditekan",
+    "whenPressedRun": "Saat ditekan, jalankan",
+    "whenSentRun": "Saat dikirim, jalankan"
+  },
+  "shell": {
+    "addPage": "Tambah halaman",
+    "addPageHelp": "Tambahkan halaman kosong baru ke aplikasi Anda. Masukkan namanya nanti, lalu halaman ini akan muncul di menu aplikasi.",
+    "closePages": "Tutup daftar halaman",
+    "confirmDeletePage": "Hapus “{title}”? Tindakan ini tidak dapat dibatalkan.",
+    "confirmDiscardSwitch": "Buang perubahan yang belum tersimpan di halaman ini dan beralih?",
+    "couldNotSave": "Perubahan Anda tidak dapat disimpan. Coba lagi.",
+    "deletePage": "Hapus halaman",
+    "deletePageFor": "Hapus {title}",
+    "deletePageHelp": "Hapus halaman ini beserta semua isinya. Anda akan diminta untuk mengonfirmasi. Tindakan ini tidak dapat dibatalkan.",
+    "discardSwitch": "Buang perubahan dan beralih",
+    "discardSwitchHelp": "Buang perubahan di halaman ini yang belum tersimpan, lalu buka halaman lain. Perubahan itu tidak dapat dipulihkan.",
+    "dismiss": "Tutup",
+    "dismissError": "Tutup pesan kesalahan",
+    "editing": "MENGEDIT",
+    "editsNotSaved": "Perubahan terbaru Anda belum tersimpan. Periksa koneksi Anda, lalu coba lagi.",
+    "featureAdded": "{name} telah ditambahkan.",
+    "featureAddedWithPages": "{name} telah ditambahkan beserta halamannya sendiri. Halamannya kini ada di menu.",
+    "findPage": "Cari halaman…",
+    "madeCopy": "Salinan telah dibuat. Anda kini mengedit “{title}”.",
+    "mobileTip": "Tips: ketuk bagian halaman, lalu ketuk blok untuk menambahkannya di bawah. Atau tekan <b>Tanya AI</b> dan beri tahu apa yang ingin diubah.",
+    "newPage": "Halaman baru",
+    "newPageHelp": "Tambahkan halaman kosong baru ke aplikasi Anda. Anda harus memberinya nama terlebih dahulu.",
+    "noMatchingPages": "Tidak ada halaman yang cocok.",
+    "notSaved": "<b>Belum disimpan</b> – periksa koneksi Anda. Kami akan terus mencoba.",
+    "open": "Buka",
+    "openHomePageHelp": "Buka halaman ini di editor. Ikon rumah menandakan ini halaman beranda, yaitu halaman pertama yang dilihat pengunjung.",
+    "openNewPage": "Buka halaman baru",
+    "openPageHelp": "Buka halaman ini di editor. Perubahan di halaman saat ini akan disimpan terlebih dahulu.",
+    "pageCount": "{count, plural, one {# halaman} other {# halaman}}",
+    "pageName": "Nama halaman",
+    "pageNameHelp": "Nama untuk halaman baru Anda. Nama ini ditampilkan di menu aplikasi dan tab browser, dan dapat diubah nanti.",
+    "pageNamePlaceholder": "mis. Tentang kami",
+    "pagePickerHelp": "Halaman yang sedang Anda edit. Klik untuk melihat semua halaman, beralih ke halaman lain, atau mengubah setelan halaman.",
+    "pageSettings": "Setelan halaman",
+    "pageSettingsFor": "Setelan halaman untuk {title}",
+    "pageSettingsHelp": "Ganti nama halaman ini, pilih siapa yang dapat melihatnya, tampilkan atau sembunyikan di menu aplikasi, atau buat salinannya.",
+    "pages": "Halaman",
+    "retry": "Coba lagi",
+    "retryHelp": "Coba simpan perubahan terbaru Anda sekarang, tanpa menunggu percobaan otomatis berikutnya.",
+    "savedSettings": "Setelan untuk “{title}” telah disimpan.",
+    "searchPages": "Cari halaman",
+    "searchPagesHelp": "Ketik sebagian nama halaman untuk mempersempit daftar.",
+    "setHome": "Jadikan halaman beranda",
+    "setHomeFor": "Jadikan {title} halaman beranda",
+    "setHomeHelp": "Jadikan halaman ini halaman pertama yang dilihat pengunjung saat membuka alamat web utama aplikasi Anda.",
+    "somethingWrong": "Terjadi kesalahan. Coba lagi.",
+    "theFeatureAdded": "Fitur telah ditambahkan.",
+    "theFeatureAddedWithPages": "Fitur telah ditambahkan beserta halamannya sendiri. Halamannya kini ada di menu.",
+    "updating": "Memperbarui ruang kerja Anda…",
+    "yourPages": "Halaman Anda"
+  },
+  "theme": {
+    "colorCodeHelp": "Atau ketik kode warna di sini, seperti #1a73e8, jika tahu warna yang diinginkan.",
+    "colorCodeLabel": "Kode warna {name}",
+    "colorLabel": "Warna {name}",
+    "colors": {
+      "accent": {
+        "help": "Warna kedua untuk detail kecil, seperti lencana dan hiasan.",
+        "label": "Aksen"
+      },
+      "bg": {
+        "help": "Warna di belakang semua konten halaman Anda.",
+        "label": "Latar belakang"
+      },
+      "border": {
+        "help": "Warna garis tipis di sekeliling kotak dan antarbagian.",
+        "label": "Garis tepi"
+      },
+      "primary": {
+        "help": "Warna utama merek Anda, digunakan untuk tombol, tautan, dan sorotan.",
+        "label": "Utama"
+      },
+      "primary2": {
+        "help": "Warna tombol dan tautan saat diarahkan.",
+        "label": "Sorotan utama"
+      },
+      "surface": {
+        "help": "Warna kartu dan kotak yang berada di atas latar belakang.",
+        "label": "Permukaan"
+      },
+      "surface2": {
+        "help": "Warna kotak kedua untuk membedakan beberapa bagian dan label.",
+        "label": "Permukaan alternatif"
+      },
+      "text": {
+        "help": "Warna sebagian besar tulisan di halaman Anda.",
+        "label": "Teks"
+      },
+      "textMuted": {
+        "help": "Warna yang lebih lembut untuk tulisan yang kurang penting, seperti keterangan dan catatan singkat.",
+        "label": "Teks redup"
+      }
+    },
+    "colorsTitle": "Warna",
+    "corners": "Sudut",
+    "dark": "Gelap",
+    "darkHelp": "Beralih ke tema gelap siap pakai pertama. Warna dan font saat ini akan diganti.",
+    "darkPair": "Pasangan mode gelap",
+    "darkPairAuto": "Otomatis (tema gelap siap pakai pertama)",
+    "darkPairHelp": "Warna yang digunakan aplikasi saat pengunjung mengaktifkan mode gelap dengan tombol matahari/bulan. Otomatis akan memilihkan satu untuk Anda.",
+    "darkPairNote": "Pengguna akan melihat tombol matahari/bulan di setiap halaman.",
+    "light": "Terang",
+    "lightHelp": "Beralih ke tema terang siap pakai pertama. Warna dan font saat ini akan diganti.",
+    "loading": "Memuat tema…",
+    "mode": "Mode",
+    "pickTheme": "Pilih tema…",
+    "preset": "Prasetel",
+    "presetButtonHelp": "Pilih tampilan siap pakai untuk seluruh aplikasi. Pilihan ini mengganti warna, font, dan sudut yang digunakan saat ini. Pengunjung akan melihatnya setelah Anda memublikasikannya.",
+    "presetHelp": "Kumpulan warna dan font siap pakai untuk seluruh aplikasi. Pilih satu sebagai awal, lalu sesuaikan warnanya di bawah.",
+    "radius": "Radius",
+    "roundness": "Kelengkungan sudut",
+    "roundnessHelp": "Atur seberapa bulat sudut tombol, kartu, dan kotak di aplikasi. Geser ke kiri agar siku-siku, atau ke kanan agar lebih bulat.",
+    "useLook": "Gunakan tampilan {name}: warna, font, dan sudutnya akan menggantikan yang digunakan saat ini."
+  },
+  "toolbar": {
+    "delete": {
+      "help": "Hapus bagian ini dari halaman. Berubah pikiran? Gunakan Urungkan di bagian atas.",
+      "title": "Hapus"
+    },
+    "drag": {
+      "help": "Tekan dan seret bagian ini ke mana saja di halaman. Di layar sentuh, gunakan Pindahkan ke atas dan Pindahkan ke bawah.",
+      "title": "Seret untuk memindahkan"
+    },
+    "duplicate": {
+      "help": "Buat salinan bagian ini tepat setelahnya.",
+      "title": "Duplikat"
+    },
+    "moveDown": {
+      "help": "Pindahkan bagian ini satu langkah ke bawah halaman, di bawah bagian berikutnya. Gunakan Urungkan untuk mengembalikannya.",
+      "title": "Pindahkan ke bawah"
+    },
+    "moveUp": {
+      "help": "Pindahkan bagian ini satu langkah ke atas halaman, di atas bagian sebelumnya. Gunakan Urungkan untuk mengembalikannya.",
+      "title": "Pindahkan ke atas"
+    },
+    "selectParent": {
+      "help": "Pilih kotak yang lebih besar tempat bagian ini berada, seperti seluruh bagian di sekitar tombol.",
+      "title": "Pilih bagian yang membungkus ini"
+    }
+  },
+  "welcome": {
+    "askAi": "Tekan Tanya AI untuk perubahan yang lebih besar, seperti “tambahkan bagian harga”.",
+    "clickWords": "Klik teks apa pun di halaman untuk mengubahnya. Klik dua kali gambar untuk menggantinya.",
+    "features": "Tambahkan fitur seperti pemesanan atau toko dari <link>Fitur</link>.",
+    "gotIt": "Mengerti",
+    "gotItHelp": "Sembunyikan kotak sambutan ini dan langsung mulai mengedit.",
+    "publish": "Jika sudah siap, <link>publikasikan</link> untuk mendapatkan tautan yang bisa dibagikan.",
+    "title": "Aplikasi Anda siap. Berikut cara menyesuaikannya:"
+  },
+  "wireUp": {
+    "blocks": {
+      "auth": {
+        "connectExisting": "<b>Hubungkan</b> — menghubungkan kedua formulir ke fitur masuk dan akun di aplikasi Anda. Tidak ada halaman tambahan yang dibuat.",
+        "connectNew": "<b>Hubungkan</b> — menambahkan akun, fitur masuk, dan pendaftaran ke aplikasi Anda, lalu menghubungkan kedua formulir ke fitur tersebut. Tidak ada halaman tambahan yang dibuat.",
+        "purpose": "Formulir ini bisa digunakan untuk masuk dan membuat akun baru."
+      },
+      "blog": {
+        "connectExisting": "<b>Hubungkan</b> — menghubungkan kartu ini ke postingan yang sudah ada di aplikasi Anda. Tidak ada halaman tambahan yang dibuat.",
+        "connectNew": "<b>Hubungkan</b> — menambahkan tabel postingan yang berisi tiga postingan yang ditampilkan di sini, lalu menghubungkan kartu ini ke tabel tersebut. Hanya postingan yang sudah diterbitkan yang ditampilkan; tambah atau ubah postingan di Data. Tidak ada halaman tambahan yang dibuat.",
+        "purpose": "Kartu ini bisa menampilkan postingan terbaru yang tersimpan di data aplikasi Anda."
+      },
+      "contactForm": {
+        "connectExisting": "<b>Hubungkan</b> — menghubungkan formulir ini ke tabel pesan yang sudah ada di aplikasi Anda. Tidak ada halaman tambahan yang dibuat.",
+        "connectNew": "<b>Hubungkan</b> — menambahkan tabel untuk menyimpan pesan dan otomatisasi untuk menyimpannya, lalu menghubungkan formulir ini ke tabel tersebut. Tidak ada halaman tambahan yang dibuat.",
+        "purpose": "Formulir ini bisa menyimpan pesan yang dikirim orang kepada Anda."
+      },
+      "contactFormModern": {
+        "connectExisting": "<b>Hubungkan</b> — menghubungkan formulir ini ke tabel pesan yang sudah ada di aplikasi Anda. Tidak ada halaman tambahan yang dibuat.",
+        "connectNew": "<b>Hubungkan</b> — menambahkan tabel untuk pesan (nama, email, dan pesan; nomor ponsel tidak disimpan) serta otomatisasi untuk menyimpannya, lalu menghubungkan formulir ini ke tabel tersebut. Tidak ada halaman tambahan yang dibuat.",
+        "purpose": "Formulir ini bisa menyimpan pesan yang dikirim orang kepada Anda."
+      },
+      "faq": {
+        "connectExisting": "<b>Hubungkan</b> — menghubungkan daftar ini ke pertanyaan yang sudah ada di aplikasi Anda. Tidak ada halaman tambahan yang dibuat.",
+        "connectNew": "<b>Hubungkan</b> — menambahkan tabel pertanyaan yang berisi empat pertanyaan yang ditampilkan di sini, lalu menghubungkan daftar ini ke tabel tersebut. Tambah atau ubah pertanyaan di Data. Tidak ada halaman tambahan yang dibuat.",
+        "purpose": "Daftar ini bisa menampilkan pertanyaan dan jawaban yang tersimpan di data aplikasi Anda."
+      },
+      "gallery": {
+        "connectExisting": "<b>Hubungkan</b> — menghubungkan galeri ini ke foto yang sudah ada di aplikasi Anda. Tidak ada halaman tambahan yang dibuat.",
+        "connectNew": "<b>Hubungkan</b> — menambahkan tabel foto yang berisi lima judul yang ditampilkan di sini, lalu menghubungkan galeri ini ke tabel tersebut. Tambahkan alamat web tiap gambar di Data. Tidak ada halaman tambahan yang dibuat.",
+        "purpose": "Galeri ini bisa menampilkan foto yang tersimpan di data aplikasi Anda."
+      },
+      "newsletter": {
+        "connectExisting": "<b>Hubungkan</b> — menghubungkan formulir ini ke daftar pelanggan yang sudah ada di aplikasi Anda. Tidak ada halaman tambahan yang dibuat.",
+        "connectNew": "<b>Hubungkan</b> — menambahkan tabel pelanggan dan otomatisasi untuk menyimpan setiap pendaftaran, lalu menghubungkan formulir ini ke tabel tersebut. Tidak ada halaman tambahan yang dibuat.",
+        "purpose": "Formulir ini bisa menyimpan alamat email semua orang yang mendaftar."
+      },
+      "reviews": {
+        "connectExisting": "<b>Hubungkan</b> — menghubungkan bagian ini ke ulasan yang disetujui dan sudah ada di aplikasi Anda. Tidak ada halaman tambahan yang dibuat.",
+        "connectNew": "<b>Hubungkan</b> — menambahkan tabel ulasan yang berisi tiga ulasan yang ditampilkan di sini, lalu menghubungkan bagian ini ke tabel tersebut. Hanya ulasan yang disetujui yang ditampilkan; kelola ulasan di Data. Tidak ada halaman tambahan yang dibuat.",
+        "purpose": "Bagian ini bisa menampilkan ulasan yang tersimpan di data aplikasi Anda."
+      },
+      "services": {
+        "connectExisting": "<b>Hubungkan</b> — menghubungkan kisi ini ke layanan yang sudah ada di aplikasi Anda. Tidak ada halaman tambahan yang dibuat.",
+        "connectNew": "<b>Hubungkan</b> — menambahkan tabel layanan yang berisi tiga layanan yang ditampilkan di sini, lalu menghubungkan kisi ini ke tabel tersebut. Tambah atau ubah layanan di Data. Tidak ada halaman tambahan yang dibuat.",
+        "purpose": "Kisi ini bisa menampilkan layanan yang tersimpan di data aplikasi Anda."
+      },
+      "team": {
+        "connectExisting": "<b>Hubungkan</b> — menghubungkan kisi ini ke anggota tim yang sudah ada di aplikasi Anda. Tidak ada halaman tambahan yang dibuat.",
+        "connectNew": "<b>Hubungkan</b> — menambahkan tabel tim yang berisi empat orang yang ditampilkan di sini, lalu menghubungkan kisi ini ke tabel tersebut. Tambah atau ubah anggota tim di Data. Tidak ada halaman tambahan yang dibuat.",
+        "purpose": "Kisi ini bisa menampilkan anggota tim yang tersimpan di data aplikasi Anda."
+      },
+      "testimonials": {
+        "connectExisting": "<b>Hubungkan</b> — menghubungkan bagian ini ke testimoni yang sudah ada di aplikasi Anda. Tidak ada halaman tambahan yang dibuat.",
+        "connectNew": "<b>Hubungkan</b> — menambahkan tabel testimoni berisi tiga kutipan yang ditampilkan di sini, lalu menghubungkan bagian ini ke tabel tersebut. Tambahkan atau ubah kutipan di Data. Tidak ada halaman tambahan yang dibuat.",
+        "purpose": "Bagian ini dapat menampilkan testimoni yang tersimpan di data aplikasi Anda, sehingga Anda dapat mengubahnya tanpa mengedit halaman."
+      }
+    },
+    "connect": "Ya, hubungkan",
+    "connectHelp": "Siapkan kebutuhan blok ini di balik layar, seperti tempat untuk menyimpan kiriman orang. Tidak ada halaman tambahan yang dibuat.",
+    "couldNotCheckFeatures": "Fitur aplikasi ini tidak dapat diperiksa. Silakan coba lagi.",
+    "couldNotLoadFlows": "Otomatisasi aplikasi ini tidak dapat dimuat. Silakan coba lagi.",
+    "failedStatus": "Gagal ({status})",
+    "handle": "Tidak, saya akan mengaturnya sendiri",
+    "handleHelp": "Biarkan blok tetap seperti ini di halaman Anda tanpa menyiapkan apa pun. Anda bisa menghubungkannya nanti di Alur atau dengan meminta bantuan AI.",
+    "handleLine": "<b>Atur sendiri</b> — membiarkan blok seperti ini tanpa menghubungkannya ke apa pun. Anda bisa menyiapkannya nanti di Alur atau dengan meminta bantuan AI.",
+    "partMissing": "Aplikasi Anda memiliki fitur ini, tetapi ada bagian yang belum tersedia. Anda bisa menghubungkan blok ini di Alur.",
+    "settingUp": "Sedang menyiapkan...",
+    "somethingWrong": "Terjadi kesalahan",
+    "title": "Hubungkan?"
+  }
+}

@@ -1,4 +1,6 @@
 import { z } from "zod";
+import { getTranslations } from "next-intl/server";
+import { requestLocale } from "@/i18n/request";
 import { Prisma } from "@prisma/client";
 import { db } from "@/lib/db";
 import { ownedProject } from "@/lib/guard";
@@ -25,6 +27,10 @@ const PatchBody = z.object({
   clientSeq: z.number().int().min(0).optional(),
 });
 
+function texts() {
+  return requestLocale().then((locale) => getTranslations({ locale, namespace: "project.pagesApi" }));
+}
+
 const MENU_SELECT = { id: true, slug: true, title: true, isHome: true, html: true, createdAt: true } as const;
 
 type LeanPage = { id: string; title: string; slug: string; isHome: boolean; updatedAt: Date };
@@ -38,7 +44,7 @@ export async function GET(
   const r = await ownedProject(id);
   if ("error" in r) return r.error;
   const page = await db.page.findFirst({ where: { id: pageId, projectId: id } });
-  if (!page) return json({ error: "Not found" }, { status: 404 });
+  if (!page) return json({ error: (await texts())("notFound") }, { status: 404 });
   if (new URL(req.url).searchParams.get("settings") === "1") {
     return json({ page: lean(page), settings: await pageSettings(id, page.id, r.project.kind === "DESIGNER") });
   }
@@ -53,7 +59,7 @@ export async function PATCH(
   const r = await ownedProject(id);
   if ("error" in r) return r.error;
   const parsed = PatchBody.safeParse(await req.json().catch(() => null));
-  if (!parsed.success) return json({ error: "Invalid input" }, { status: 400 });
+  if (!parsed.success) return json({ error: (await texts())("invalidInput") }, { status: 400 });
   // One change at a time per page, so saves are applied in the order the
   // editor made them (see isStale).
   return oneAtATime(pageId, () => applyPatch(id, pageId, parsed.data, r.project.kind === "DESIGNER"));
@@ -61,7 +67,7 @@ export async function PATCH(
 
 async function applyPatch(projectId: string, pageId: string, body: z.infer<typeof PatchBody>, designer: boolean) {
   const current = await db.page.findFirst({ where: { id: pageId, projectId } });
-  if (!current) return json({ error: "Not found" }, { status: 404 });
+  if (!current) return json({ error: (await texts())("notFound") }, { status: 404 });
   const { clientSession, clientSeq, visibility, hideInMenu, menuOrder, ...fields } = body;
 
   const content = fields.html !== undefined || fields.css !== undefined || fields.components !== undefined || fields.styles !== undefined;
@@ -94,7 +100,7 @@ async function applyPatch(projectId: string, pageId: string, body: z.infer<typeo
 
   const settingsChange = visibility !== undefined || hideInMenu !== undefined || menuOrder !== undefined;
   if (settingsChange && designer) {
-    return json({ error: "This app's pages come from the AI Designer, so change them there." }, { status: 409 });
+    return json({ error: (await texts())("designerChange") }, { status: 409 });
   }
   if (visibility !== undefined || hideInMenu !== undefined) {
     const before = (data.html as string | undefined) ?? current.html;
@@ -143,7 +149,7 @@ export async function DELETE(
   const r = await ownedProject(id);
   if ("error" in r) return r.error;
   const removed = await db.page.deleteMany({ where: { id: pageId, projectId: id } });
-  if (!removed.count) return json({ error: "Not found" }, { status: 404 });
+  if (!removed.count) return json({ error: (await texts())("notFound") }, { status: 404 });
   try {
     await syncProjectNav(id);
   } catch (err) {

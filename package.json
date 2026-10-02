@@ -46,9 +46,14 @@
     "check:docs": "node scripts/check-docs.mjs",
     "check:guides": "tsx scripts/check-guides.ts",
     "guides:build": "tsx scripts/build-guides.ts",
+    "guides:messages": "tsx scripts/build-guide-messages.ts",
+    "catalog:messages": "tsx scripts/build-catalog-messages.ts",
     "test:e2e": "tsx scripts/check-generated-js.ts && tsx scripts/check-middleware.ts && tsx scripts/e2e-resellers.ts && tsx scripts/e2e-publishing.ts && tsx scripts/e2e-push.ts && tsx scripts/e2e-security.ts && tsx scripts/e2e-data.ts && tsx scripts/e2e-backup.ts && node scripts/smoke-install.cjs",
     "test:runtime": "tsx scripts/test-bound-choices.ts",
-    "check:effects": "node scripts/check-effects.mjs"
+    "check:effects": "node scripts/check-effects.mjs",
+    "check:i18n": "node scripts/check-i18n.mjs",
+    "i18n:scopes": "tsx scripts/i18n-scopes.ts",
+    "i18n:translate": "tsx scripts/i18n-translate.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.1.0",
@@ -69,6 +74,7 @@
     "lucide-react": "^1.8.0",
     "nanoid": "^5.1.16",
     "next": "15.5.26",
+    "next-intl": "^4.14.9",
     "nodemailer": "^10.0.12",
     "openai": "^6.34.0",
     "pg": "^8.13.1",
@@ -108,6 +114,7 @@
     }
   },
   "devDependencies": {
+    "@formatjs/icu-messageformat-parser": "3.5.20",
     "@types/node": "^22.10.2",
     "@types/pg": "^8.11.10",
     "@types/qrcode": "^1.5.6",

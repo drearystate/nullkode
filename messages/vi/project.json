@@ -1,0 +1,958 @@
+{
+  "alertsApi": {
+    "allOff": "Tất cả thông báo đều đang tắt. Hãy bật một thông báo trong thẻ Thông báo rồi thử lại.",
+    "badEmail": "\"{address}\" có vẻ không phải địa chỉ email hợp lệ.",
+    "emailOff": "Máy chủ này chưa thiết lập email nên không thể gửi thông báo. Hãy nhờ nhà cung cấp kết nối email.",
+    "invalid": "Vui lòng kiểm tra cài đặt cảnh báo rồi thử lại.",
+    "noTables": "Ứng dụng của bạn chưa thu thập thông tin nào từ khách truy cập. Trước tiên, hãy thêm biểu mẫu hoặc tính năng như Đặt lịch.",
+    "sampleMessage": "Đây là bài gửi thử từ danh sách kiểm tra trước khi ra mắt. Không có ai gửi nội dung này.",
+    "samplePerson": "Người thử nghiệm",
+    "sampleSubject": "Bài gửi thử",
+    "sampleText": "Thử",
+    "signedUpTable": "Người đã đăng ký",
+    "testFailed": "Không thể gửi thông báo thử.",
+    "testLimit": "Bạn đã gửi {count} bài thử trong giờ qua. Vui lòng thử lại sau một chút.",
+    "throttled": "Ứng dụng này đã gửi {count} email thông báo trong giờ này nên bài thử chưa được gửi. Các thông báo còn lại sẽ được gửi chung trong một email vào cuối giờ.",
+    "tooMany": "Bạn có thể thêm tối đa {max} địa chỉ nữa.",
+    "unknownTable": "Một trong các bảng đó không còn trong ứng dụng này. Tải lại trang rồi thử lại."
+  },
+  "alertsCard": {
+    "allOff": "Tắt tất cả",
+    "alsoSendTo": "Gửi thêm đến <muted>(tối đa {max}, phân tách bằng dấu phẩy)</muted>",
+    "defaultOn": "Có vẻ đây là biểu mẫu nên đã bật sẵn. Bạn có thể tắt nếu muốn.",
+    "defaultTable": "bản gửi",
+    "emailOff": "Máy chủ này chưa thiết lập email nên không thể gửi thông báo. Hãy nhờ nhà cung cấp kết nối email.",
+    "extraHelp": "Những người khác cũng nên nhận thông báo này, chẳng hạn như đối tác kinh doanh. Phân tách địa chỉ bằng dấu phẩy.",
+    "goesTo": "Thông báo được gửi đến <b>{email}</b>.",
+    "intro": "Nhận email ngay khi có người gửi biểu mẫu, đặt chỗ hoặc đặt hàng trong ứng dụng.",
+    "loadFailed": "Không thể tải cài đặt thông báo.",
+    "noTables": "Ứng dụng của bạn chưa thu thập thông tin nào từ khách truy cập. Khi thêm biểu mẫu hoặc tính năng như Đặt chỗ, bạn có thể chọn thông báo tại đây.",
+    "off": "Tắt",
+    "on": "Bật",
+    "onCount": "Đang bật {on}/{total}",
+    "save": "Lưu thông báo",
+    "saveFailed": "Không thể lưu cài đặt thông báo.",
+    "saveFirst": "Lưu trước",
+    "saveHelp": "Lưu các bảng gửi thông báo và người nhận.",
+    "sending": "Đang gửi…",
+    "setUpEmail": "Thiết lập email",
+    "setUpEmailHelp": "Mở phần cài đặt máy chủ để kết nối dịch vụ email, giúp ứng dụng gửi email.",
+    "step": "Gửi thông tin thử",
+    "stepDone": "(xong)",
+    "stepHelp": "Gửi cho bạn email thông báo mẫu giống như email bạn nhận được khi có người dùng biểu mẫu, để bạn kiểm tra xem email có đến hộp thư đến không.",
+    "stepHint": "Kiểm tra xem bạn có nhận được email khi có người dùng biểu mẫu không.",
+    "stepNeedsEmail": "Cần thiết lập email trên máy chủ này.",
+    "stepSending": "Đang gửi thông tin thử…",
+    "stepToDo": "(cần làm)",
+    "switchHelp": "Khi bật, bạn sẽ nhận email mỗi khi khách truy cập thêm thông tin vào bảng này. Nhấn Lưu thông báo để lưu thay đổi.",
+    "test": "Gửi thử",
+    "testFailed": "Không thể gửi thông báo thử nghiệm.",
+    "testHelp": "Gửi email thông báo mẫu đến tất cả người nhận trong danh sách để bạn kiểm tra. Hãy lưu thay đổi trước.",
+    "testOffline": "Không thể gửi thông báo thử nghiệm. Hãy kiểm tra kết nối rồi thử lại.",
+    "testSent": "Đã gửi thông báo {table} thử nghiệm đến {to}. Hãy tìm email có ghi (test).",
+    "testSentToYou": "Đã gửi thông báo {table} thử nghiệm cho bạn. Hãy tìm email có ghi (test).",
+    "title": "Thông báo",
+    "titleHelp": "Gửi email cho bạn khi khách truy cập gửi thông tin qua ứng dụng, chẳng hạn như biểu mẫu, đặt chỗ hoặc đơn hàng. Bạn chọn bảng nào sẽ gửi thông báo.",
+    "tooMany": "Bạn có thể thêm tối đa {max} địa chỉ nữa."
+  },
+  "appAdminApi": {
+    "checkDetails": "Kiểm tra thông tin rồi thử lại.",
+    "invalidEmail": "Nhập địa chỉ email hợp lệ.",
+    "saveFailed": "Không thể lưu thông tin đăng nhập quản trị viên.",
+    "shortPassword": "Mật khẩu phải có ít nhất {min} ký tự."
+  },
+  "appAdminCard": {
+    "add": "Thêm quản trị viên",
+    "addHelp": "Cấp tài khoản quản trị cho địa chỉ email này trong ứng dụng. Nếu địa chỉ này đã có tài khoản, tài khoản đó sẽ trở thành tài khoản quản trị và mật khẩu sẽ được đổi.",
+    "admins": "Quản trị viên: <list>{admins}</list>",
+    "email": "Email",
+    "emailHelp": "Địa chỉ email mà thành viên trong nhóm sẽ dùng để đăng nhập vào ứng dụng.",
+    "loginsIntro": "Cấp cho ai đó tài khoản quản trị để họ có thể đăng nhập trên trang đăng nhập của ứng dụng và quản lý ứng dụng.",
+    "loginsTitle": "Tài khoản quản trị dành cho nhóm của bạn",
+    "notPublished": "Ứng dụng của bạn chưa được xuất bản, nên các mục này sẽ mở ở chế độ Xem trước.",
+    "note": "Ít nhất 10 ký tự. Nếu dùng email đã có tài khoản trong ứng dụng, tài khoản đó sẽ trở thành tài khoản quản trị và mật khẩu sẽ được đổi.",
+    "openHelp": "Mở trang chỉ dành cho nhóm này trong tab mới, không cần đăng nhập vào ứng dụng. Khách truy cập không thể xem trang này.",
+    "pagesIntro": "Các trang này chỉ dành cho bạn và nhóm của bạn, khách truy cập không thể xem. Bạn có thể mở bất cứ lúc nào mà không cần đăng nhập vào ứng dụng.",
+    "password": "Mật khẩu",
+    "passwordHelp": "Mật khẩu của họ, có ít nhất 10 ký tự. Hãy chia sẻ riêng với họ; họ sẽ dùng mật khẩu này để đăng nhập trên trang đăng nhập của ứng dụng.",
+    "saveFailed": "Không thể lưu thông tin đăng nhập quản trị viên.",
+    "savedCreated": "Đã lưu. Họ có thể đăng nhập vào ứng dụng bằng email và mật khẩu này.",
+    "savedUpdated": "Đã lưu. Tài khoản này hiện là quản trị viên và có mật khẩu mới.",
+    "title": "Khu vực quản trị ứng dụng",
+    "titleHelp": "Các trang trong ứng dụng chỉ bạn và nhóm của bạn có thể sử dụng, chẳng hạn như nơi quản lý đơn hàng, cùng thông tin đăng nhập để nhóm truy cập."
+  },
+  "deleteProject": {
+    "backup": "Tải bản sao lưu",
+    "backupHelp": "Lưu một tệp chứa tất cả trang, dữ liệu, giao diện và hình ảnh vào thiết bị. Bạn có thể khôi phục ứng dụng từ tệp đó sau này bằng cách chọn Nhập ứng dụng.",
+    "buttonHelp": "Xóa ứng dụng này. Bạn sẽ thấy những gì bị xóa và có thể tải bản sao lưu trước. Không thể hoàn tác việc xóa.",
+    "buttonLabel": "Xóa {name}",
+    "deleteApp": "Xóa ứng dụng",
+    "deleteHelp": "Xóa vĩnh viễn ứng dụng này, bao gồm các trang, dữ liệu, tệp và địa chỉ web. Khách truy cập sẽ không thể mở ứng dụng nữa. Bạn không thể hoàn tác việc này.",
+    "deleting": "Đang xóa…",
+    "details": "Các trang, quy trình, mọi nội dung mọi người đã gửi, bản dựng ứng dụng điện thoại và địa chỉ web đều sẽ bị xóa. Bạn không thể hoàn tác việc này.",
+    "failed": "Không thể xóa ứng dụng ({status}).",
+    "keyAck": "Tôi đã tải khóa tải lên xuống hoặc không cần đến khóa.",
+    "keyAckHelp": "Đánh dấu để xác nhận bạn đã lưu khóa tải lên hoặc sẽ không bao giờ cần cập nhật ứng dụng này trên Google Play.",
+    "keyBody": "Hãy tải khóa xuống trước khi xóa ứng dụng: nếu không có khóa, bạn sẽ không thể cập nhật ứng dụng trên Google Play nữa.",
+    "keyDownload": "Tải khóa tải lên",
+    "keyDownloadHelp": "Lưu tệp bí mật xác nhận rằng bản cập nhật trên Google Play là do bạn tải lên. Hãy cất tệp ở nơi an toàn.",
+    "keyTitle": "Ứng dụng này có khóa tải lên Google Play.",
+    "networkError": "Lỗi mạng. Ứng dụng chưa bị xóa.",
+    "summary": "Xóa ứng dụng, dữ liệu và tệp của ứng dụng. Hãy tải bản sao lưu trước.",
+    "title": "Xóa “{name}”?"
+  },
+  "deploymentsApi": {
+    "versionMissing": "Phiên bản này không tồn tại."
+  },
+  "domains": {
+    "add": "Thêm tên miền",
+    "addFailed": "Không thể thêm tên miền.",
+    "addHelp": "Bắt đầu kết nối địa chỉ web này. Sau đó, bạn sẽ thấy hai bản ghi cần sao chép vào nơi bạn đã mua tên miền.",
+    "adding": "Đang thêm…",
+    "checkHelp": "Kiểm tra xem bạn đã thêm các cài đặt bên dưới chưa. Sau khi thêm, có thể mất vài phút, đôi khi vài giờ để cập nhật.",
+    "checkNow": "Kiểm tra ngay",
+    "checking": "Đang kiểm tra…",
+    "colName": "Tên / máy chủ",
+    "colType": "Loại",
+    "colValue": "Giá trị / trỏ đến",
+    "confirmDisconnect": "Ngắt kết nối {host} khỏi ứng dụng này?",
+    "connected": "Đã kết nối — khách truy cập có thể dùng <url>https://{host}</url>",
+    "copied": "Đã sao chép",
+    "copy": "Sao chép",
+    "copyHelp": "Nhấn để sao chép, rồi dán vào trang cài đặt của nhà cung cấp tên miền.",
+    "copyValue": "Sao chép {value}",
+    "disconnect": "Ngắt kết nối {host}",
+    "disconnectHelp": "Ngừng dùng địa chỉ web này cho ứng dụng. Địa chỉ vẫn thuộc về bạn và ứng dụng vẫn giữ địa chỉ miễn phí.",
+    "domain": "Tên miền",
+    "empty": "Chưa có tên miền nào. Ứng dụng vẫn có địa chỉ miễn phí.",
+    "hostHelp": "Nhập địa chỉ web bạn đã sở hữu (tên miền), như www.yourbusiness.com. Bạn cần mua tên miền trước.",
+    "notOwned": "Chưa tìm thấy bản ghi TXT.",
+    "notPointsHere": "Tên miền chưa trỏ đến đây (bản ghi CNAME/A).",
+    "owned": "Đã xác nhận quyền sở hữu (đã tìm thấy bản ghi TXT).",
+    "ownershipRecordHelp": "Cài đặt này xác nhận địa chỉ web thuộc về bạn. Ứng dụng chỉ kết nối sau khi tìm thấy bản ghi này.",
+    "pointsHere": "Tên miền đang trỏ đến máy chủ này.",
+    "recordsHelp": "Bản ghi DNS là các cài đặt tại nơi bạn đã mua tên miền. Sao chép từng bản ghi vào trang cài đặt DNS hoặc tên miền của nhà cung cấp.",
+    "recordsIntro": "Thêm các bản ghi này tại nơi bạn quản lý DNS cho tên miền. Thay đổi thường cập nhật trong vài phút, đôi khi vài giờ.",
+    "rootHint": "Với tên miền gốc (yourbusiness.com không có www), hãy dùng bản ghi A trỏ đến địa chỉ IP của máy chủ này nếu nhà cung cấp DNS không hỗ trợ CNAME cho tên miền đó.",
+    "rootHintIp": "Với tên miền gốc (yourbusiness.com không có www), hãy dùng bản ghi A trỏ đến <code>{ip}</code> nếu nhà cung cấp DNS không hỗ trợ CNAME cho tên miền đó.",
+    "routingRecordHelp": "Cài đặt này đưa những người nhập địa chỉ web của bạn đến ứng dụng.",
+    "waiting": "Đang chờ bản ghi DNS"
+  },
+  "domainsApi": {
+    "alreadyConnected": "Tên miền này đã được kết nối với một ứng dụng khác.",
+    "enterDomain": "Nhập tên miền.",
+    "invalidDomain": "Nhập tên miền như www.yourbusiness.com (không có https:// hoặc đường dẫn).",
+    "notFound": "Không tìm thấy",
+    "platformAddress": "Địa chỉ này thuộc về nền tảng."
+  },
+  "domainsPage": {
+    "intro": "Dùng địa chỉ riêng cho ứng dụng này, như <domain>www.yourbusiness.com</domain>. Thêm hai bản ghi DNS tại nơi bạn đã mua tên miền, rồi kiểm tra kết nối tại đây.",
+    "title": "Tên miền"
+  },
+  "enablePush": {
+    "failed": "Không thể bật thông báo. Vui lòng thử lại.",
+    "help": "Thêm trang “Nhận thông báo” vào ứng dụng để khách truy cập có thể đăng ký. Sau đó, bạn có thể gửi tin nhắn cho họ từ đây hoặc từ quy trình tự động.",
+    "turnOn": "Bật thông báo",
+    "turningOn": "Đang bật…"
+  },
+  "exportApi": {
+    "notFound": "Không tìm thấy",
+    "unauthorized": "Không được phép"
+  },
+  "iconApi": {
+    "generationFailed": "Không tạo được ảnh",
+    "invalidForm": "Biểu mẫu không hợp lệ",
+    "invalidInput": "Thông tin nhập không hợp lệ",
+    "missingFile": "Thiếu tệp",
+    "noImage": "Không có ảnh nào được trả về",
+    "notFound": "Không tìm thấy",
+    "tooBig": "Biểu tượng phải nhỏ hơn 5MB",
+    "unauthorized": "Không được phép",
+    "wrongType": "Dùng PNG, JPG, WebP hoặc SVG"
+  },
+  "latestSubmissions": {
+    "empty": "Chưa có gì. Khi mọi người gửi biểu mẫu hoặc đặt chỗ trong ứng dụng, nội dung sẽ hiển thị tại đây.",
+    "itemHelp": "Mở bảng chứa nội dung này để xem đầy đủ.",
+    "justNow": "vừa xong",
+    "newEntry": "Mục mới",
+    "seeAll": "Xem tất cả dữ liệu",
+    "seeAllHelp": "Mở trang Dữ liệu để xem mọi thông tin ứng dụng đã lưu.",
+    "title": "Lượt gửi mới nhất",
+    "titleHelp": "Năm nội dung mới nhất khách truy cập gửi qua ứng dụng, chẳng hạn như tin nhắn từ biểu mẫu hoặc đặt chỗ."
+  },
+  "layout": {
+    "backToApps": "Quay lại ứng dụng của tôi",
+    "backToAppsHelp": "Quay lại danh sách tất cả ứng dụng của bạn.",
+    "backToDesigner": "Quay lại Trình thiết kế",
+    "backToDesignerHelp": "Quay lại Trình thiết kế AI."
+  },
+  "modulesPage": {
+    "help": "Tính năng là những phần có sẵn như đặt lịch hoặc cửa hàng, giúp thêm các trang hoàn chỉnh và dữ liệu đi kèm vào ứng dụng của bạn.",
+    "intro": "Đặt lịch, cửa hàng, đánh giá và nhiều tính năng khác. Chọn một tính năng, chúng tôi sẽ thêm các trang của tính năng đó vào ứng dụng để bạn tùy chỉnh.",
+    "title": "Thêm một chút siêu năng lực."
+  },
+  "nativeApi": {
+    "build": {
+      "publishFirst": "Trước tiên, hãy xuất bản ứng dụng — ứng dụng Android tải địa chỉ trực tiếp của ứng dụng.",
+      "startFailed": "Không thể bắt đầu tạo bản dựng. Vui lòng thử lại.",
+      "unavailable": "Không thể tạo bản dựng Android trên máy chủ này. {reason}",
+      "unknownBuild": "Bản dựng không xác định"
+    },
+    "buildDownload": {
+      "fileGone": "Tệp của bản dựng này không còn nữa. Vui lòng tạo lại bản dựng.",
+      "notReady": "Bản dựng chưa sẵn sàng"
+    },
+    "download": {
+      "publishFirst": "Trước tiên, hãy xuất bản ứng dụng — ứng dụng di động tải URL trực tiếp của ứng dụng."
+    },
+    "installer": {
+      "projectNotFound": "Không tìm thấy dự án",
+      "publishFirst": "Trước tiên, hãy xuất bản dự án — trình cài đặt sẽ dùng URL trực tiếp.",
+      "unknownPlatform": "Nền tảng không xác định"
+    },
+    "keystore": {
+      "chooseFile": "Chọn tệp keystore (.jks hoặc .keystore).",
+      "ownerOnly": "Chỉ chủ sở hữu ứng dụng mới có thể thay đổi khóa tải lên.",
+      "saveFailed": "Không thể lưu keystore này. Vui lòng thử lại.",
+      "tooManyTries": "Bạn đã thử quá nhiều lần. Vui lòng đợi vài phút."
+    },
+    "keystoreDownload": {
+      "ownerOnly": "Chỉ chủ sở hữu ứng dụng mới có thể tải khóa tải lên xuống."
+    },
+    "notFound": "Không tìm thấy",
+    "settings": {
+      "bundleId": "Bundle ID phải theo định dạng DNS đảo ngược, ví dụ com.company.app",
+      "invalidInput": "Thông tin nhập không hợp lệ",
+      "versionFormat": "Dùng phiên bản như 1.0.0"
+    },
+    "unauthorized": "Không được phép"
+  },
+  "nativeApp": {
+    "android": {
+      "advancedDownload": "Nâng cao: tải dự án xuống để tự tạo bằng Android Studio",
+      "advancedDownloadHelp": "Dành cho nhà phát triển: tải tệp dự án Android xuống để tự tạo ứng dụng bằng Android Studio. Hầu hết mọi người không cần tính năng này.",
+      "debugBlurb": "Bản dùng thử nhanh. Cài trực tiếp lên điện thoại Android để thử ứng dụng. Google Play không chấp nhận tệp này.",
+      "debugButton": "Tạo APK dùng thử",
+      "debugTitle": "Thử trên điện thoại (APK)",
+      "intro": "Chúng tôi sẽ tạo ứng dụng trên máy chủ. Chọn việc bạn muốn làm:",
+      "releaseBlurb": "Tệp Google Play yêu cầu, được ký bằng khóa tải lên riêng của ứng dụng. Mỗi bản dựng sẽ có số tiếp theo (số tiếp theo là {next}).",
+      "releaseButton": "Tạo bản dựng cho Google Play",
+      "releaseTitle": "Phát hành trên Google Play (AAB)"
+    },
+    "browserInstall": "<b>Đã có thể cài đặt từ trình duyệt.</b> Sau khi xuất bản, bạn cũng có thể thêm trang web vào màn hình chính của điện thoại ngay từ trình duyệt — không cần cửa hàng ứng dụng.",
+    "build": {
+      "again": "Tạo lại bản dựng",
+      "againHelpDebug": "Tạo tệp dùng thử mới với thông tin ứng dụng mới nhất, như tên, biểu tượng và màu sắc.",
+      "againHelpRelease": "Tạo tệp Google Play mới với thông tin ứng dụng mới nhất. Tệp sẽ có số bản dựng tiếp theo, sẵn sàng để tải lên làm bản cập nhật.",
+      "buildFailed": "Tạo bản dựng không thành công",
+      "building": "Đang tạo…",
+      "buildingSeconds": "Đang tạo… ({seconds} giây)",
+      "couldNotStart": "Không thể bắt đầu tạo bản dựng",
+      "debugNote": "Trên điện thoại, hãy mở tệp và cho phép cài đặt khi được hỏi. Nếu điện thoại đã có bản ứng dụng này từ Google Play, hãy gỡ bản đó trước vì hai bản dùng khóa khác nhau.",
+      "downloadAab": "Tải AAB cho Google Play",
+      "downloadAabHelp": "Tải tệp ứng dụng Android (.aab) mà Google Play yêu cầu. Tải tệp lên Google Play Console theo hướng dẫn bên dưới.",
+      "downloadApk": "Tải APK dùng thử",
+      "downloadApkHelp": "Tải tệp ứng dụng Android dùng thử (.apk). Mở tệp trên điện thoại Android và cho phép cài đặt khi được hỏi.",
+      "failed": "Tạo bản dựng không thành công.",
+      "iconNotUsed": "<b>Không dùng biểu tượng của bạn.</b> {note} <link>Đổi biểu tượng</link>",
+      "made": "Phiên bản {version} · tạo lúc {date}",
+      "madeWithBuild": "Phiên bản {version} (bản dựng {build}) · tạo lúc {date}",
+      "rebuildNeeded": "<b>Cần tạo lại bản dựng.</b> {reason}",
+      "releaseNote": "Bản dựng đầu tiên sẽ tạo khóa tải lên cho ứng dụng. Hãy tải bản sao lưu của khóa bên dưới.",
+      "signedApk": "APK đã ký cho cửa hàng khác",
+      "signedApkHelp": "Tải cùng ứng dụng dưới dạng tệp Android có thể cài đặt (.apk), được ký bằng khóa của bạn, dành cho các cửa hàng ứng dụng ngoài Google Play.",
+      "sizeKb": "{size} KB",
+      "sizeMb": "{size} MB",
+      "startHelpDebug": "Tạo ứng dụng Android dùng thử để bạn cài trực tiếp lên điện thoại. Quá trình này mất vài phút.",
+      "startHelpRelease": "Tạo tệp ứng dụng Android cho Google Play. Quá trình này mất vài phút. Nếu bạn chưa thêm khóa, bản dựng đầu tiên sẽ tạo khóa tải lên cho bạn.",
+      "withSize": "{label} ({size})"
+    },
+    "details": {
+      "appId": "Mã gói / mã ứng dụng",
+      "appIdHelp": "Tên duy nhất giúp cửa hàng ứng dụng phân biệt ứng dụng của bạn, ví dụ com.yourbusiness.app. Khách truy cập sẽ không thấy tên này. Đừng đổi tên sau khi đưa ứng dụng lên cửa hàng.",
+      "appIdHint": "Ví dụ: com.company.app, viết thường. Đừng đổi tên sau khi đưa ứng dụng lên cửa hàng.",
+      "appName": "Tên ứng dụng",
+      "appNameHelp": "Tên hiển thị bên dưới biểu tượng ứng dụng trên điện thoại. Tối đa 30 ký tự, nhưng tên ngắn sẽ vừa hơn.",
+      "background": "Màu nền",
+      "backgroundCode": "Mã màu nền",
+      "backgroundHelp": "Màu nền phía sau ứng dụng khi mở và trên màn hình hiển thị khi không có internet.",
+      "buildNumber": "Số bản dựng",
+      "buildNumberHelp": "Số dùng để phân biệt các bản cập nhật trên cửa hàng ứng dụng; mỗi lần tải lên, số này phải cao hơn. Số bản dựng Google Play được tạo ở đây sẽ tự tăng.",
+      "buildNumberHint": "Số bản dựng Google Play sẽ tự tăng từ đây. Số tiếp theo: {next}.",
+      "colorCodeHelp": "Hoặc nhập mã màu tại đây, chẳng hạn #1a73e8, nếu bạn biết chính xác màu mình muốn.",
+      "couldNotSave": "Không thể lưu",
+      "intro": "Thông tin này sẽ xuất hiện trong cửa hàng ứng dụng và trên màn hình chính của điện thoại.",
+      "orientation": "Hướng màn hình",
+      "orientationDefault": "Theo thiết bị",
+      "orientationHelp": "Chọn xem ứng dụng có xoay ngang khi bạn xoay điện thoại không. Theo thiết bị cho phép xoay; các lựa chọn còn lại giữ màn hình dọc hoặc ngang.",
+      "orientationLandscape": "Chỉ ngang",
+      "orientationPortrait": "Chỉ dọc",
+      "pickBackground": "Chọn màu nền",
+      "pickThemeColor": "Chọn màu giao diện",
+      "save": "Lưu cài đặt",
+      "saveHelp": "Lưu các thông tin này. Chúng sẽ có trong bản dựng hoặc bản tải xuống tiếp theo; ứng dụng đã cài trên thiết bị chỉ thay đổi sau khi bạn gửi bản cập nhật.",
+      "themeColor": "Màu giao diện",
+      "themeColorCode": "Mã màu giao diện",
+      "themeColorHelp": "Màu chính của ứng dụng trên điện thoại: dùng cho màn hình tải, màn hình không có internet và biểu tượng đơn giản được tạo nếu không dùng được biểu tượng của bạn.",
+      "title": "Chi tiết ứng dụng",
+      "titleHelp": "Tên, màu sắc và thông tin cửa hàng được tích hợp vào ứng dụng điện thoại. Các thay đổi sẽ có trong bản tạo hoặc bản tải xuống tiếp theo, không áp dụng cho ứng dụng đã cài đặt.",
+      "version": "Phiên bản",
+      "versionHelp": "Số phiên bản hiển thị trong cửa hàng, ví dụ 1.0.0. Tăng số này khi phát hành bản cập nhật, chẳng hạn lên 1.1.0."
+    },
+    "featureList": {
+      "three": "{a}, {b} và {c}",
+      "two": "{a} và {b}"
+    },
+    "features": {
+      "camera": {
+        "about": "Một trang hiển thị máy ảnh, chẳng hạn để quét mã QR. Điện thoại sẽ hỏi người dùng trước.",
+        "label": "Máy ảnh",
+        "name": "máy ảnh"
+      },
+      "files": {
+        "about": "Khi tải tệp lên, bộ chọn trên điện thoại sẽ mở ra và có tùy chọn chụp ảnh. Tính năng này không cần quyền trên Android.",
+        "label": "Ảnh và tệp",
+        "name": "ảnh và tệp"
+      },
+      "location": {
+        "about": "Một trang hỏi vị trí của người dùng, chẳng hạn để tìm địa điểm gần đó. Điện thoại sẽ hỏi người dùng trước.",
+        "label": "Vị trí",
+        "name": "vị trí"
+      },
+      "microphone": {
+        "about": "Một trang ghi âm hoặc nghe giọng nói. Điện thoại sẽ hỏi người dùng trước.",
+        "label": "Micrô",
+        "name": "micrô"
+      }
+    },
+    "ios": {
+      "download": "Tải dự án iPhone",
+      "downloadHelp": "Tải các tệp cần thiết để tạo ứng dụng iPhone. Bạn cần có máy Mac hoặc tài khoản GitHub, cùng tài khoản Apple Developer trả phí, để gửi ứng dụng cho Apple.",
+      "intro": "Tải dự án iPhone xuống. Dự án mở trực tiếp trong Xcode, không cần chạy lệnh thiết lập. Apple chỉ cho phép bạn phát hành ứng dụng khi có tài khoản Apple Developer trả phí ({fee} mỗi năm), và chỉ máy Mac mới có thể tạo ứng dụng iPhone. Bạn có hai cách:",
+      "locationAdded": "Ứng dụng của bạn hiện sử dụng vị trí. Hãy tải lại dự án iPhone và gửi bản dựng mới cho Apple, nếu không ứng dụng sẽ không thể xin quyền truy cập.",
+      "locationRemoved": "Ứng dụng của bạn không còn sử dụng vị trí. Hãy tải lại dự án iPhone cho bản dựng tiếp theo để ứng dụng không còn xin quyền này.",
+      "newBuildNeeded": "<b>Cần bản dựng mới.</b> {reason}",
+      "readme": "Tệp README trong gói tải xuống hướng dẫn bạn từng bước cả hai cách.",
+      "title": "iPhone và iPad",
+      "withMac": "<b>Với máy Mac:</b> mở <mono>{path}</mono>, chọn nhóm của bạn, rồi chọn Product → Archive.",
+      "withoutMac": "<b>Không có máy Mac:</b> đưa thư mục lên GitHub và thêm khóa Apple của bạn làm thông tin bí mật. Quy trình có sẵn sẽ tạo ứng dụng trên máy Mac của GitHub và gửi lên TestFlight."
+    },
+    "key": {
+      "alias": "Tên khóa",
+      "aliasHelp": "Tên khóa bên trong tệp. Để trống nếu tệp chỉ chứa một khóa.",
+      "aliasPlaceholder": "Để trống nếu chỉ có một khóa",
+      "backupHint": "Lưu bản sao lưu ở nơi riêng tư, chẳng hạn như trình quản lý mật khẩu. Bản sao lưu chứa khóa và mật khẩu của khóa.",
+      "checking": "Đang kiểm tra…",
+      "couldNotUse": "Không thể dùng khóa này",
+      "download": "Tải bản sao lưu khóa",
+      "downloadHelp": "Lưu bản sao khóa tải lên và mật khẩu của khóa. Hãy giữ bản sao ở nơi riêng tư: bất kỳ ai có bản sao đều có thể ký các bản cập nhật thay bạn.",
+      "file": "Tệp kho khóa (.jks hoặc .keystore)",
+      "fileHelp": "Chọn tệp khóa bạn đã dùng để ký ứng dụng. Tên tệp thường kết thúc bằng .jks hoặc .keystore.",
+      "fingerprint": "Dấu vân tay chứng chỉ (SHA-256)",
+      "fingerprintHelp": "Mã nhận dạng khóa của bạn. Một số dịch vụ của Google yêu cầu bạn dán mã này khi thiết lập.",
+      "importedOn": "Khóa riêng được thêm vào {date} · tên khóa <mono>{alias}</mono>",
+      "keepSafe": "Hãy giữ an toàn khóa này — bạn cần dùng khóa cho mỗi lần cập nhật trên Google Play.",
+      "keyPassword": "Mật khẩu khóa",
+      "keyPasswordHelp": "Mật khẩu của khóa. Để trống nếu mật khẩu này giống mật khẩu của tệp.",
+      "keyPasswordPlaceholder": "Để trống nếu mật khẩu giống nhau",
+      "madeOn": "Được tạo cho ứng dụng này vào {date} · tên khóa <mono>{alias}</mono>",
+      "missing": "Tệp khóa không có trên máy chủ. Thêm bản sao lưu bên dưới (\"Dùng khóa tôi đã có\") để tiếp tục cập nhật ứng dụng trên Google Play.",
+      "none": "Google Play kiểm tra khóa này mỗi lần cập nhật. Chúng tôi sẽ tạo khóa cho ứng dụng của bạn khi bạn tạo bản dựng đầu tiên cho Google Play. Ứng dụng của bạn đã có trên Google Play và bạn có khóa riêng? Hãy thêm khóa tại đây trước.",
+      "ownerOnly": "Chỉ chủ sở hữu ứng dụng mới có thể tải khóa xuống.",
+      "replace": "Thay khóa hiện tại. Chỉ làm vậy nếu Google Play yêu cầu khóa khác này: trước tiên, hãy tải bản sao lưu của khóa hiện tại.",
+      "replaceHelp": "Xác nhận bạn muốn thay khóa hiện tại bằng khóa này. Trước tiên, hãy tải bản sao lưu của khóa hiện tại.",
+      "save": "Lưu khóa",
+      "saveHelp": "Kiểm tra khóa và mật khẩu, sau đó dùng khóa này cho tất cả bản dựng Google Play từ giờ trở đi.",
+      "saved": "Đã lưu khóa. Các bản dựng cho Google Play sẽ dùng khóa này.",
+      "storePassword": "Mật khẩu kho khóa",
+      "storePasswordHelp": "Mật khẩu dùng để mở tệp khóa.",
+      "title": "Khóa tải lên của bạn",
+      "titleHelp": "Tệp bí mật xác nhận rằng các bản cập nhật ứng dụng trên Google Play là do bạn gửi. Nếu làm mất tệp này, bạn sẽ không thể cập nhật ứng dụng trên Google Play.",
+      "toggleHelpClosed": "Ứng dụng của bạn đã có trên Google Play? Hãy thêm khóa bạn đã dùng cho ứng dụng đó để các bản dựng mới có thể cập nhật ứng dụng.",
+      "toggleHelpOpen": "Đóng biểu mẫu này mà không thay đổi khóa.",
+      "useDifferent": "Dùng khóa khác",
+      "useExisting": "Dùng khóa tôi đã có"
+    },
+    "liveUrl": {
+      "help": "Địa chỉ web đang hoạt động mà ứng dụng điện thoại mở. Nội dung bạn xuất bản tại đó cũng sẽ hiển thị trong ứng dụng điện thoại.",
+      "httpWarning": "Điện thoại chỉ mở được ứng dụng từ địa chỉ an toàn (https). Địa chỉ này bắt đầu bằng http:// nên ứng dụng điện thoại không thể tải được. Trước tiên, hãy thiết lập https cho máy chủ này.",
+      "label": "Ứng dụng hiển thị:"
+    },
+    "notPublished": {
+      "body": "Ứng dụng di động hiển thị trang web đang hoạt động của bạn, vì vậy trang web cần hoạt động trước khi bạn có thể tạo ứng dụng. Mọi nội dung bạn xuất bản sau đó sẽ tự động cập nhật trong ứng dụng, không cần tạo bản mới.",
+      "goToPublish": "Đi đến Xuất bản",
+      "goToPublishHelp": "Đi đến Xuất bản để đưa ứng dụng lên mạng. Sau đó quay lại đây để tạo ứng dụng điện thoại.",
+      "title": "Hãy xuất bản ứng dụng trước"
+    },
+    "phone": {
+      "checking": "Đang kiểm tra ứng dụng…",
+      "intro": "Được xác định dựa trên các tính năng và trang của ứng dụng. Điện thoại chỉ cho phép ứng dụng dùng những gì bản dựng yêu cầu. Vì vậy, khi danh sách này thay đổi, hãy tạo lại ứng dụng và gửi phiên bản mới cho các cửa hàng.",
+      "none": "Hiện chưa có: không trang nào dùng máy ảnh, micrô, vị trí hoặc tải tệp lên.",
+      "photoLibrary": "Thư viện ảnh",
+      "save": "Lưu nội dung",
+      "saveHelp": "Lưu các thông báo này. Chúng sẽ được đưa vào bản dựng và bản tải xuống iPhone tiếp theo.",
+      "saved": "Đã lưu. Nội dung sẽ được đưa vào bản dựng và bản tải xuống tiếp theo.",
+      "sourcePage": "trang “{name}”",
+      "title": "Các tính năng điện thoại ứng dụng này dùng",
+      "titleHelp": "Các chức năng trên điện thoại mà ứng dụng cần, như máy ảnh hoặc vị trí, được xác định dựa trên các trang và tính năng của ứng dụng. Điện thoại sẽ hỏi người dùng trước khi cho phép ứng dụng sử dụng.",
+      "usedBy": "Được dùng trong {sources}",
+      "wordingHelp": "Hãy nói rõ vì sao ứng dụng cần tính năng này, chẳng hạn “Để quét vé ở cửa vào”. Apple sẽ kiểm tra nội dung. Để trống nếu bạn muốn dùng nội dung gợi ý.",
+      "wordingIntro": "iPhone hiển thị nội dung này khi ứng dụng xin quyền dùng từng tính năng, và Apple sẽ xem xét. Hãy nói rõ ứng dụng dùng tính năng đó để làm gì. Để trống ô nếu bạn muốn dùng nội dung gợi ý. Điện thoại Android sẽ hiển thị thông báo tiêu chuẩn riêng.",
+      "wordingSummary": "Thông báo điện thoại hiển thị khi ứng dụng yêu cầu quyền",
+      "wordingSummaryHelp": "Mở mục này để viết thông báo hiển thị trên iPhone khi ứng dụng yêu cầu dùng máy ảnh, micrô, ảnh hoặc vị trí."
+    },
+    "play": {
+      "appContent": "Trong mục <b>Nội dung ứng dụng</b>, thêm đường liên kết đến chính sách quyền riêng tư. Nếu mọi người có thể đăng ký trong ứng dụng, Google cũng yêu cầu đường liên kết để họ xóa tài khoản: dùng <mono>{url}</mono>.",
+      "createApp": "Nhấp <b>Tạo ứng dụng</b>, nhập tên ứng dụng và trả lời một vài câu hỏi ngắn.",
+      "listing": "Điền thông tin ứng dụng trên cửa hàng: mô tả ngắn và đầy đủ, biểu tượng (512 × 512), ảnh giới thiệu (1024 × 500) và ít nhất hai ảnh chụp màn hình điện thoại.",
+      "note": "Tài khoản nhà phát triển cá nhân mới phải cho ít nhất 12 người dùng thử ứng dụng trong 14 ngày trước khi Google cho phép phát hành rộng rãi.",
+      "release": "Mở mục <b>Kiểm thử và phát hành</b>, chọn kênh phát hành (<b>Kiểm thử nội bộ</b> là cách nhanh nhất để dùng thử), rồi nhấp <b>Tạo bản phát hành mới</b>.",
+      "signUp": "Đăng ký tài khoản nhà phát triển Google Play tại <link>{url}</link>. Google thu phí một lần là {fee}.",
+      "signing": "Nếu Google hỏi về việc ký ứng dụng, hãy giữ nguyên lựa chọn <b>Để Google quản lý và bảo vệ khóa ký ứng dụng của bạn</b>.",
+      "title": "Đưa ứng dụng lên Google Play",
+      "titleHelp": "Hướng dẫn từng bước cách đưa ứng dụng lên cửa hàng Google Play. Nhấp để xem hoặc ẩn hướng dẫn.",
+      "updates": "Các bản cập nhật sau: khi bạn xuất bản thay đổi tại đây, ứng dụng sẽ tự cập nhật. Chỉ tạo AAB mới khi bạn đổi tên, biểu tượng, màu sắc hoặc phiên bản, rồi tải lên theo cách tương tự. Số bản dựng sẽ tự tăng.",
+      "upload": "Tải tệp <b>.aab</b> ở trên lên, viết vài dòng về những điểm mới, rồi lưu và phát hành bản cập nhật."
+    },
+    "publishToEnable": "Xuất bản để bật",
+    "rebuild": {
+      "added": "Ứng dụng của bạn hiện dùng {features}, nhưng bản dựng này không thể yêu cầu {count, plural, one {tính năng đó} other {các tính năng đó}}. Hãy tạo lại bản dựng.",
+      "addedRelease": "Ứng dụng của bạn hiện dùng {features}, nhưng bản dựng này không thể yêu cầu {count, plural, one {quyền này} other {các quyền này}}. Hãy tạo bản dựng mới rồi tải phiên bản mới lên Google Play.",
+      "oldShell": "Bản dựng này được tạo trước khi ứng dụng có thể mở tệp, lưu nội dung tải xuống hoặc dùng các tính năng của điện thoại. Hãy tạo lại bản dựng.",
+      "oldShellRelease": "Bản dựng này được tạo trước khi ứng dụng có thể mở tệp, lưu nội dung tải xuống hoặc dùng các tính năng của điện thoại. Hãy tạo lại bản dựng và tải phiên bản mới lên Google Play.",
+      "removed": "Bản dựng này vẫn yêu cầu {features}, nhưng ứng dụng của bạn không còn dùng nữa. Hãy tạo bản dựng mới để bỏ {count, plural, one {quyền này} other {các quyền này}}.",
+      "removedRelease": "Bản dựng này vẫn yêu cầu {features}, nhưng ứng dụng của bạn không còn dùng nữa. Hãy tạo bản dựng mới rồi tải phiên bản mới lên Google Play để bỏ {count, plural, one {quyền này} other {các quyền này}}."
+    },
+    "store": {
+      "before": "Trước khi gửi ứng dụng lên {store}",
+      "deleteAccount": "Nếu mọi người có thể đăng ký trong ứng dụng, cửa hàng yêu cầu đường liên kết để họ xóa tài khoản. Dùng <mono>{url}</mono>",
+      "privacy": "Cửa hàng cũng yêu cầu đường liên kết đến chính sách quyền riêng tư. Thêm trang Quyền riêng tư vào ứng dụng (hoặc dùng trang trên website của bạn), rồi dán địa chỉ vào thông tin ứng dụng trên cửa hàng."
+    },
+    "toolchain": {
+      "operator": "Bạn quản lý máy chủ này. Để bật tính năng này, hãy chạy lại trình cài đặt và trả lời có khi được hỏi về Android. Bạn cũng có thể chạy <mono>{command}</mono> trong thư mục đã cài đặt. Cài đặt mà không dùng Docker? Xem {doc}.",
+      "others": "Hãy nhờ người quản lý máy chủ này bật tính năng đó. Bạn vẫn có thể tải dự án xuống và tự tạo ứng dụng.",
+      "title": "Máy chủ này đã tắt tính năng tạo bản dựng Android"
+    }
+  },
+  "nativePage": {
+    "eyebrow": "ĐIỆN THOẠI VÀ MÁY TÍNH BẢNG",
+    "intro": "Biến dự án này thành ứng dụng thật trên Google Play và Apple App Store. Ứng dụng hiển thị trang web đã xuất bản trực tiếp của bạn, nên các thay đổi sẽ cập nhật ngay mà không cần tạo bản dựng mới.",
+    "title": "Ứng dụng di động"
+  },
+  "newPageButton": {
+    "create": "Tạo",
+    "createHelp": "Tạo trang và mở trang trong trình chỉnh sửa.",
+    "newPage": "Trang mới",
+    "newPageHelp": "Thêm một trang trống mới vào ứng dụng. Bạn sẽ nhập tên trang, sau đó trang sẽ mở trong trình chỉnh sửa.",
+    "titleHelp": "Tên cho trang mới, chẳng hạn như “Về chúng tôi”. Tên này sẽ hiển thị trong menu ứng dụng và trên tab trình duyệt.",
+    "titlePlaceholder": "Tiêu đề trang"
+  },
+  "notificationComposer": {
+    "confirm": "Gửi thông báo này cho {count, plural, one {# người đăng ký} other {# người đăng ký}} ngay bây giờ?",
+    "delivered": "Đã gửi đến {sent, plural, one {# thiết bị} other {# thiết bị}}{removed, plural, =0 {} one { (đã xóa # đăng ký cũ)} other { (đã xóa # đăng ký cũ)}}.",
+    "message": "Nội dung",
+    "messageHelp": "Phần văn bản bên dưới tiêu đề. Điện thoại có thể cắt bớt nội dung dài, nên hãy đưa phần quan trọng lên đầu.",
+    "messagePlaceholder": "Đặt bàn trước khi hết chỗ.",
+    "noSubscribers": "Chưa có người đăng ký",
+    "previewBody": "Nội dung của bạn sẽ hiển thị ở đây.",
+    "previewEyebrow": "XEM TRƯỚC",
+    "previewHelp": "Hình dung sơ bộ thông báo sẽ hiển thị thế nào. Giao diện thực tế tùy thuộc vào điện thoại hoặc máy tính của mỗi người.",
+    "previewLabel": "Xem trước",
+    "previewTitle": "Tiêu đề của bạn",
+    "publishFirst": "Hãy xuất bản ứng dụng trước — nhấn vào thông báo sẽ mở ứng dụng đang hoạt động.",
+    "sendFailed": "Không thể gửi. Vui lòng thử lại.",
+    "sendHelp": "Gửi ngay cho tất cả người đã đăng ký. Bạn sẽ được yêu cầu xác nhận trước; sau khi gửi, không thể thu hồi.",
+    "sendTo": "Gửi cho {count} người",
+    "sending": "Đang gửi…",
+    "title": "Tiêu đề",
+    "titleHelp": "Dòng đầu tiên in đậm mà mọi người nhìn thấy. Hãy viết ngắn gọn, rõ ràng, chẳng hạn như sự kiện gì và diễn ra khi nào.",
+    "titlePlaceholder": "Tối nay: nhạc sống từ 7 giờ tối",
+    "url": "Mở trang này khi nhấn vào (không bắt buộc)",
+    "urlHelp": "Trang trong ứng dụng sẽ mở khi ai đó nhấn vào thông báo, chẳng hạn như /menu. Để trống để mở trang chủ của ứng dụng."
+  },
+  "notificationsPage": {
+    "eyebrow": "GIỮ LIÊN LẠC",
+    "goodToKnow": "Thông tin hữu ích",
+    "intro": "Gửi tin nhắn thẳng đến điện thoại và máy tính của những người đã bật thông báo cho {name}.",
+    "iosTip": "Trên iPhone và iPad, trước tiên mọi người cần thêm ứng dụng vào màn hình chính (Chia sẻ → Thêm vào màn hình chính), rồi bật thông báo tại đó. Trên Android và máy tính, có thể bật thông báo ngay trong trình duyệt.",
+    "nothingSent": "Chưa gửi thông báo nào.",
+    "offBody": "Bật thông báo sẽ thêm trang “Nhận thông báo” đơn giản để khách truy cập đăng ký. Sau đó, bạn có thể gửi tin tức, ưu đãi và lời nhắc cho họ từ đây.",
+    "offTitle": "Thông báo đang tắt cho ứng dụng này.",
+    "sent": "Đã gửi",
+    "sentHelp": "Các thông báo bạn đã gửi, mới nhất trước tiên, kèm số thiết bị đã nhận từng thông báo.",
+    "stats": "Đã gửi đến {sent} thiết bị{failed, plural, =0 {} other { · {failed} gửi không thành công}}{removed, plural, =0 {} other { · {removed} đã hủy đăng ký}} · {date}",
+    "subscribers": "Người đăng ký",
+    "subscribersHelp": "Số điện thoại và máy tính đã bật thông báo cho ứng dụng. Một người dùng hai thiết bị sẽ được tính là hai.",
+    "title": "Thông báo đẩy"
+  },
+  "offlineApi": {
+    "notFound": "Không tìm thấy",
+    "readme": "{name} — ứng dụng ngoại tuyến (được xuất từ {brand} {date})\n\nCÁCH SỬ DỤNG\n  1. Giữ tất cả tệp trong thư mục này cùng nhau (bạn có thể chuyển thư mục đến bất cứ đâu — Desktop, C:\\, USB).\n  2. Mở index.html bằng trình duyệt hiện đại bất kỳ. Vậy là xong — không cần internet.\n\nDỮ LIỆU CỦA BẠN\n  Ứng dụng đi kèm bản sao dữ liệu cơ sở dữ liệu của dự án và lưu mọi\n  thay đổi cục bộ trong trình duyệt (localStorage). Dữ liệu được giữ lại giữa\n  các phiên trên cùng một máy tính và trình duyệt. Dữ liệu KHÔNG được đồng bộ ở bất cứ đâu.\n\nCÁC TÍNH NĂNG HOẠT ĐỘNG NGOẠI TUYẾN\n  Trang, điều hướng, biểu mẫu, danh sách dữ liệu, tìm kiếm, trò chơi/kịch bản, đăng ký và\n  đăng nhập (tài khoản được tạo trong ứng dụng ngoại tuyến).\n\nCÁC TÍNH NĂNG KHÔNG HOẠT ĐỘNG\n  - Tài khoản từ phiên bản trực tuyến: mật khẩu đã mã hóa không được xuất, vì vậy\n    hãy đăng ký tài khoản mới trong ứng dụng ngoại tuyến.\n  - Email, Google Sheets, tính năng AI, thông báo đẩy và mọi bước trong quy trình\n    gọi đến trang web bên ngoài (trừ khi bạn đang trực tuyến).\n",
+    "readmeKeysLeftOut": "  - Các bước sử dụng khóa riêng tư của bạn (ví dụ: thanh toán hoặc tin nhắn):\n    khóa không được đưa vào tệp này nên bạn có thể yên tâm chia sẻ.\n",
+    "readmeNoBootstrap": "  - LƯU Ý: Không thể đóng gói Bootstrap CSS khi xuất, nên bố cục có thể không như mong đợi.\n",
+    "unauthorized": "Không được phép"
+  },
+  "overview": {
+    "afterPublish": "Sau khi xuất bản",
+    "askProvider": "Nhờ nhà cung cấp kết nối email.",
+    "continueDesigner": "Tiếp tục trong Trình thiết kế",
+    "continueDesignerHelp": "Quay lại Trình thiết kế AI để tiếp tục tạo ứng dụng.",
+    "continueEditing": "Tiếp tục chỉnh sửa",
+    "continueEditingHelp": "Mở trình chỉnh sửa trang để tiếp tục làm ứng dụng.",
+    "created": "Đã tạo",
+    "draft": "Bản nháp — chưa xuất bản.",
+    "emailOff": "Ứng dụng của bạn gửi email ({flows}), nhưng máy chủ này chưa được thiết lập để gửi email nên email chưa được gửi đi.",
+    "emailOffMore": "Ứng dụng của bạn gửi email ({flows} và {more} email khác), nhưng máy chủ này chưa được thiết lập để gửi email nên email chưa được gửi đi.",
+    "eyebrow": "XEM NHANH ỨNG DỤNG CỦA BẠN",
+    "launch": {
+      "admin": {
+        "detail": "Để bạn có thể đăng nhập vào các trang quản trị của ứng dụng.",
+        "help": "Đến mục bên dưới để thiết lập email và mật khẩu dùng để đăng nhập vào các trang quản trị của ứng dụng.",
+        "title": "Thiết lập thông tin đăng nhập quản trị"
+      },
+      "build": {
+        "detail": "Các trang, dữ liệu và biểu mẫu đã sẵn sàng.",
+        "help": "Mở trình chỉnh sửa trang để thay đổi nội dung, hình ảnh và bố cục ứng dụng.",
+        "helpDesigner": "Mở Trình thiết kế AI để tiếp tục tạo ứng dụng.",
+        "title": "Tạo ứng dụng"
+      },
+      "icon": {
+        "detail": "Biểu tượng hiển thị trên điện thoại, trong tab trình duyệt và trong ứng dụng Android.",
+        "help": "Đến mục biểu tượng ứng dụng bên dưới để thêm hình ảnh nhỏ đại diện cho ứng dụng.",
+        "title": "Thêm biểu tượng ứng dụng"
+      },
+      "publish": {
+        "detail": "Lấy đường liên kết để chia sẻ với mọi người.",
+        "detailDone": "Ai có đường liên kết đều có thể sử dụng ứng dụng.",
+        "help": "Mở mục Xuất bản để đưa ứng dụng lên mạng và lấy đường liên kết chia sẻ.",
+        "helpDone": "Mở mục Xuất bản để áp dụng thay đổi mới, chia sẻ đường liên kết hoặc quay lại phiên bản trước.",
+        "title": "Xuất bản ứng dụng",
+        "titleDone": "Đã xuất bản"
+      },
+      "test": {
+        "title": "Gửi nội dung thử nghiệm"
+      }
+    },
+    "launchEyebrow": "ĐƯA ỨNG DỤNG ĐẾN VỚI MỌI NGƯỜI",
+    "launchHelp": "Các bước chuẩn bị và giới thiệu ứng dụng của bạn đến mọi người. Mỗi bước sẽ tự động được đánh dấu hoàn tất khi xong.",
+    "launchProgress": "Đã xong {done}/{total} bước",
+    "launchTitle": "Danh sách kiểm tra trước khi ra mắt",
+    "liveAt": "Đang hoạt động tại <link>{url}</link>",
+    "liveAtHelp": "Địa chỉ web đang hoạt động của ứng dụng. Mở trong tab mới để xem đúng như khách truy cập.",
+    "next": {
+      "domains": {
+        "detail": "Ví dụ: www.yourbusiness.com.",
+        "detailDone": "Quản lý địa chỉ web của bạn.",
+        "help": "Vào Tên miền để dùng địa chỉ web riêng cho ứng dụng, thay vì địa chỉ miễn phí được cấp sẵn.",
+        "title": "Dùng tên miền riêng",
+        "titleDone": "Tên miền riêng đã được kết nối"
+      },
+      "feature": {
+        "detail": "Đặt lịch, cửa hàng, blog, đăng ký và nhiều tính năng khác.",
+        "help": "Vào Tính năng để thêm các phần có sẵn vào ứng dụng, mỗi phần có các trang riêng.",
+        "title": "Thêm tính năng"
+      },
+      "native": {
+        "detail": "Tải tệp ứng dụng để cài đặt hoặc đưa lên Google Play.",
+        "help": "Vào Ứng dụng di động để tạo tệp ứng dụng Android. Mọi người có thể cài đặt trên điện thoại hoặc bạn có thể đưa lên Google Play.",
+        "title": "Tạo ứng dụng Android"
+      },
+      "preview": {
+        "detail": "Mở bản xem trước trong thẻ mới.",
+        "help": "Mở ứng dụng trong thẻ mới với những thay đổi mới nhất, kể cả những thay đổi bạn chưa xuất bản.",
+        "title": "Dùng thử với tư cách khách truy cập"
+      },
+      "theme": {
+        "detail": "Phù hợp với thương hiệu của bạn chỉ bằng vài thao tác.",
+        "help": "Vào Giao diện để chọn màu sắc, phông chữ và hình dạng góc cho toàn bộ ứng dụng.",
+        "title": "Đổi màu sắc và phông chữ"
+      }
+    },
+    "optional": "Không bắt buộc",
+    "phoneTitle": "Mở ứng dụng trên điện thoại",
+    "qrAlt": "Mã QR cho {url}",
+    "qrHelp": "Dùng camera điện thoại quét mã vuông này để mở ứng dụng đang hoạt động trên điện thoại.",
+    "qrHint": "Dùng camera điện thoại quét mã. Sau đó chọn “Thêm vào Màn hình chính” để mở ứng dụng như một app.",
+    "qrPublishFirst": "Hãy xuất bản trước, rồi quét mã ở đây để dùng thử trên điện thoại.",
+    "quoted": "“{name}”",
+    "setUpEmail": "Thiết lập email",
+    "settings": "Cài đặt",
+    "stats": {
+      "data": "Dữ liệu",
+      "dataHelp": "Nơi ứng dụng lưu thông tin, như lượt đăng ký và đơn hàng. Nhấn để xem và chỉnh sửa.",
+      "domains": "Tên miền riêng",
+      "domainsHelp": "Có bao nhiêu địa chỉ web riêng (tên miền) của bạn đang trỏ đến ứng dụng này. Nhấp để thêm hoặc quản lý tên miền.",
+      "flows": "Luồng tự động",
+      "flowsHelp": "Số việc ứng dụng tự làm, như gửi email cho bạn khi có tin nhắn mới. Nhấn để xem.",
+      "pages": "Trang",
+      "pagesHelp": "Số trang trong ứng dụng. Nhấn để mở các trang trong trình chỉnh sửa."
+    },
+    "stepDone": " (đã xong)",
+    "stepToDo": " (cần làm)",
+    "webAddress": "Địa chỉ web",
+    "webAddressHelp": "Địa chỉ web đang hoạt động của ứng dụng. Mở trong thẻ mới."
+  },
+  "pagesApi": {
+    "designerAdd": "Các trang của ứng dụng này được tạo bằng AI Designer, hãy thêm trang tại đó.",
+    "designerChange": "Các trang của ứng dụng này được tạo bằng AI Designer, hãy thay đổi chúng tại đó.",
+    "invalidInput": "Thông tin nhập không hợp lệ",
+    "notFound": "Không tìm thấy"
+  },
+  "problemsCard": {
+    "activityHelp": "Mở Hoạt động của quy trình tự động này để xem từng lần chạy, bao gồm cả nội dung mọi người đã gửi, để bạn có thể phản hồi họ.",
+    "askProvider": "Hãy nhờ nhà cung cấp kết nối email.",
+    "emailNotSetUp": "Máy chủ này chưa thiết lập email.",
+    "emailOff": "“{flow}” đã hoàn tất {count, plural, =1 {một lần} =2 {hai lần} other {# lần}}, nhưng email chưa được gửi vì chưa thiết lập email.",
+    "emailOffAlso": "Quy trình cũng đã hoàn tất {count, plural, =1 {một lần} =2 {hai lần} other {# lần}}, nhưng email chưa được gửi vì chưa thiết lập email.",
+    "failed": "“{flow}” không hoàn tất với {count, plural, one {# người} other {# người}}.",
+    "lastError": "Lỗi gần nhất: {error}",
+    "problem": "“{flow}” gặp sự cố {count, plural, =1 {một lần} =2 {hai lần} other {# lần}}.",
+    "problemAlso": "Quy trình cũng gặp sự cố {count, plural, =1 {một lần} =2 {hai lần} other {# lần}}.",
+    "problemAlsoWithWarning": "Quy trình cũng gặp sự cố {count, plural, =1 {một lần} =2 {hai lần} other {# lần}}: {warning}.",
+    "problemWithWarning": "“{flow}” gặp sự cố {count, plural, =1 {một lần} =2 {hai lần} other {# lần}}: {warning}.",
+    "seeWhat": "Xem điều gì đã xảy ra",
+    "seeWho": "Xem đó là ai và họ đã gửi gì",
+    "setUpEmail": "Thiết lập email",
+    "setUpEmailHelp": "Mở phần cài đặt máy chủ để kết nối dịch vụ email, giúp ứng dụng gửi email.",
+    "title": "Sự cố trong 24 giờ qua",
+    "titleHelp": "Số lần trong ngày qua mà một quy trình tự động bị lỗi hoặc không thể hoàn tất việc gì đó, chẳng hạn như không gửi được email.",
+    "total": "{count, plural, one {# sự cố} other {# sự cố}}"
+  },
+  "projectApi": {
+    "deleteFailed": "Không thể xóa ứng dụng. Vui lòng thử lại.",
+    "invalidInput": "Thông tin nhập không hợp lệ",
+    "notFound": "Không tìm thấy",
+    "unauthorized": "Không được phép",
+    "uploadKey": "Ứng dụng này có khóa tải lên Google Play. Hãy tải khóa xuống trước khi xóa ứng dụng: nếu không, bạn sẽ không thể cập nhật ứng dụng trên Google Play nữa."
+  },
+  "projectIcon": {
+    "generate": "Tạo",
+    "generateHelp": "Để AI vẽ biểu tượng dựa trên mô tả của bạn. Biểu tượng mới sẽ thay thế biểu tượng hiện tại; bạn có thể tạo lại hoặc tải biểu tượng của riêng mình lên.",
+    "generateIntro": "Mô tả biểu tượng bạn muốn — phong cách, màu sắc, hình ảnh.",
+    "generateTitle": "Hoặc tạo bằng AI",
+    "generating": "Đang tạo…",
+    "generationFailed": "Tạo ảnh không thành công",
+    "intro": "Ảnh này sẽ hiển thị khi khách truy cập cài ứng dụng dưới dạng PWA trên thiết bị. Dùng ảnh vuông, tốt nhất là PNG 512×512.",
+    "promptHelp": "Mô tả biểu tượng bạn muốn, chẳng hạn như màu sắc và một hình đơn giản. AI sẽ vẽ biểu tượng cho bạn.",
+    "promptLabel": "Mô tả biểu tượng",
+    "promptPlaceholder": "ví dụ: tên lửa tối giản trên nền chuyển sắc tím",
+    "remove": "Xóa",
+    "removeConfirm": "Xóa biểu tượng ứng dụng?",
+    "removeHelp": "Xóa biểu tượng khỏi ứng dụng. Bạn sẽ được yêu cầu xác nhận.",
+    "title": "Biểu tượng ứng dụng",
+    "titleHelp": "Ảnh vuông nhỏ đại diện cho ứng dụng trên màn hình chính điện thoại, trong tab trình duyệt và trong ứng dụng Android. Thay đổi có hiệu lực ngay.",
+    "upload": "Tải ảnh lên",
+    "uploadFailed": "Tải ảnh lên không thành công",
+    "uploadHelp": "Chọn ảnh vuông trên thiết bị, tốt nhất là 512 × 512 pixel. Ảnh sẽ thay thế biểu tượng hiện tại.",
+    "uploading": "Đang tải lên…"
+  },
+  "publishPage": {
+    "backup": {
+      "body": "Một tệp chứa mọi trang, quy trình, bảng và hàng dữ liệu, giao diện cùng hình ảnh của bạn. Giữ tệp làm bản sao lưu hoặc nhập vào {app} hay máy chủ tương thích (Ứng dụng mới → Thêm cách bắt đầu → Nhập ứng dụng). Mật khẩu ứng dụng không được bao gồm, nên mọi người cần đặt lại mật khẩu sau khi chuyển.",
+      "button": "Tải bản sao lưu (.zip)",
+      "help": "Lưu toàn bộ ứng dụng vào một tệp trên thiết bị. Giữ tệp làm bản sao lưu hoặc dùng tính năng Nhập ứng dụng để khôi phục hay chuyển ứng dụng.",
+      "title": "Sao lưu hoặc chuyển ứng dụng"
+    },
+    "customDomain": "Tên miền riêng",
+    "customDomainHelp": "Địa chỉ web riêng cũng mở ứng dụng này. Quản lý tên miền trong thẻ Tên miền.",
+    "defaultUrl": "Địa chỉ mặc định",
+    "defaultUrlHelp": "Địa chỉ web miễn phí dành cho ứng dụng của bạn. Chia sẻ địa chỉ này với mọi người sau khi xuất bản ứng dụng.",
+    "draftNote": "Khách truy cập thấy phiên bản bạn xuất bản gần nhất. Các chỉnh sửa (kể cả những chỉnh sửa do AI thực hiện) vẫn nằm trong bản nháp cho đến khi bạn nhấp vào Xuất bản. Bạn có thể khôi phục bất kỳ phiên bản nào trước đó bên dưới.",
+    "eyebrow": "SẴN SÀNG RA MẮT",
+    "history": {
+      "empty": "Các bản phát hành sẽ xuất hiện ở đây sau khi bạn xuất bản.",
+      "help": "Các phiên bản bạn đã xuất bản, phiên bản mới nhất ở trên cùng. Nếu có thay đổi không như ý, hãy chọn Đưa lên trực tuyến để khôi phục phiên bản cũ.",
+      "live": "Đang hoạt động",
+      "title": "Lịch sử phát hành"
+    },
+    "install": {
+      "desktopBody": "Trình cài đặt nhỏ sẽ thêm lối tắt vào Desktop và Start Menu, mở ứng dụng đang trực tuyến trong cửa sổ riêng. Cần có internet — luôn cập nhật theo nội dung bạn xuất bản.",
+      "desktopTitle": "Lối tắt trên máy tính (trực tuyến)",
+      "intro": "Thêm ứng dụng vào máy tính hoặc màn hình chính. Ứng dụng ngoại tuyến hoạt động độc lập hoàn toàn — có tệp riêng, cơ sở dữ liệu cục bộ riêng và không cần internet để sử dụng.",
+      "macHelp": "Tải xuống trình cài đặt nhỏ dành cho Mac. Mở trình cài đặt để thêm lối tắt mở ứng dụng đang trực tuyến trong cửa sổ riêng.",
+      "offlineBody": "Một thư mục chứa mọi trang, tệp bạn đã tải lên và bản sao dữ liệu của bạn. Giải nén ở bất cứ đâu — Desktop, C:\\ hoặc USB — rồi mở index.html. Biểu mẫu, danh sách và đăng ký vẫn hoạt động mà không cần internet; dữ liệu được lưu trên máy tính đó.",
+      "offlineDownload": "Tải ứng dụng ngoại tuyến (.zip)",
+      "offlineHelp": "Tải xuống một thư mục nén chứa toàn bộ ứng dụng và bản sao dữ liệu. Mở index.html bên trong để sử dụng trên máy tính không có internet.",
+      "offlineTitle": "Ứng dụng ngoại tuyến (máy tính)",
+      "phoneBody": "Dùng camera điện thoại quét mã, mở ứng dụng rồi chọn \"Thêm vào màn hình chính\" trong menu trình duyệt — ứng dụng sẽ được cài như ứng dụng thông thường cùng biểu tượng của bạn. Để tạo ứng dụng Android thực sự có thể cài đặt hoặc đưa lên Google Play, hãy dùng trình tạo ứng dụng di động bên dưới.",
+      "phoneTitle": "Điện thoại",
+      "publishFirst": "Hãy xuất bản trước — trình cài đặt sẽ dẫn đến ứng dụng đang trực tuyến.",
+      "qrAlt": "Mã QR cho {url}",
+      "qrHelp": "Dùng camera điện thoại quét mã vuông này để mở ứng dụng đang trực tuyến trên điện thoại.",
+      "title": "Cài đặt trên thiết bị",
+      "windowsHelp": "Tải xuống trình cài đặt nhỏ dành cho Windows. Chạy trình cài đặt để thêm lối tắt mở ứng dụng đang trực tuyến trong cửa sổ riêng."
+    },
+    "intro": "Xuất bản ứng dụng, chia sẻ liên kết hoặc thêm ứng dụng vào màn hình chính.",
+    "legacyNote": "Ứng dụng này vẫn cập nhật trực tiếp khi bạn chỉnh sửa. Hãy xuất bản một lần để chuyển sang chế độ xuất bản an toàn: khách truy cập sẽ thấy phiên bản bạn xuất bản, còn các chỉnh sửa vẫn riêng tư cho đến lần xuất bản tiếp theo.",
+    "live": "Đang trực tuyến",
+    "liveUpToDate": "Đang trực tuyến · đã cập nhật",
+    "liveWithChanges": "Đang trực tuyến · có thay đổi chưa xuất bản",
+    "mobile": {
+      "body": "Biến ứng dụng này thành ứng dụng Android và iOS thực sự trên Google Play Store và Apple App Store. Ứng dụng dùng trang web đang trực tuyến của bạn, nên mỗi lần xuất bản lại sẽ tự động cập nhật ứng dụng.",
+      "button": "Tạo ứng dụng di động",
+      "help": "Mở mục Ứng dụng di động để tạo phiên bản ứng dụng cho điện thoại Android và iPhone.",
+      "title": "Phát hành dưới dạng ứng dụng di động"
+    },
+    "notPublished": "Chưa xuất bản",
+    "openLiveHelp": "Mở ứng dụng đang trực tuyến trong thẻ mới như khách truy cập nhìn thấy.",
+    "openPreviewHelp": "Ứng dụng chưa trực tuyến, nên thao tác này sẽ mở bản xem trước với những thay đổi mới nhất.",
+    "status": "Trạng thái",
+    "statusHelp": "Ứng dụng của bạn có đang trực tuyến không, và khách truy cập đang thấy thay đổi mới nhất hay phiên bản cũ hơn.",
+    "title": "Tạo chỗ đứng cho ứng dụng của bạn."
+  },
+  "publishPanel": {
+    "appLive": "Ứng dụng của bạn đã trực tuyến. Sẵn sàng chia sẻ.",
+    "appOffline": "Ứng dụng của bạn hiện đã ngoại tuyến.",
+    "changesLive": "Các thay đổi đã được đưa lên trực tuyến.",
+    "confirmOffline": "Đưa ứng dụng này ngoại tuyến? Khách truy cập sẽ không thể mở ứng dụng cho đến khi bạn xuất bản lại.",
+    "confirmRestore": "Đưa phiên bản {version} hoạt động trở lại? Khách truy cập sẽ thấy ngay. Bản nháp của bạn không thay đổi.",
+    "connectionError": "Kiểm tra kết nối rồi thử lại.",
+    "copied": "Đã sao chép",
+    "copyAppLink": "Sao chép liên kết ứng dụng",
+    "copyLink": "Sao chép liên kết",
+    "copyLinkHelp": "Sao chép liên kết ứng dụng để dán vào tin nhắn, email hoặc bài đăng.",
+    "copyManually": "Chọn liên kết để sao chép theo cách thủ công.",
+    "linkCopied": "Đã sao chép liên kết",
+    "makeLive": "Đưa lên hoạt động",
+    "makeLiveHelp": "Đưa phiên bản cũ này trở lại trực tuyến. Khách truy cập sẽ thấy ngay; các chỉnh sửa bạn đang thực hiện vẫn được giữ nguyên.",
+    "publishApp": "Xuất bản ứng dụng",
+    "publishAppHelp": "Đưa ứng dụng lên trực tuyến để bất kỳ ai có liên kết đều có thể sử dụng.",
+    "publishChanges": "Xuất bản thay đổi (v{version})",
+    "publishChangesHelp": "Đưa các thay đổi mới nhất lên trực tuyến. Khách truy cập sẽ thấy ngay, và bạn có thể khôi phục phiên bản cũ bên dưới.",
+    "restoreFailed": "Không thể khôi phục phiên bản đó.",
+    "restoring": "Đang khôi phục…",
+    "takeOffline": "Đưa ngoại tuyến",
+    "takeOfflineHelp": "Ẩn ứng dụng với mọi người. Khách truy cập không thể mở ứng dụng cho đến khi bạn xuất bản lại. Không có gì bị xóa.",
+    "upToDate": "Đã cập nhật",
+    "upToDateHelp": "Khách truy cập đã thấy các thay đổi mới nhất. Không có gì mới cần xuất bản.",
+    "updateFailed": "Không thể cập nhật trạng thái xuất bản. Vui lòng thử lại."
+  },
+  "pushApi": {
+    "addTitle": "Thêm tiêu đề.",
+    "checkMessage": "Kiểm tra tin nhắn.",
+    "publishFirst": "Trước tiên, hãy xuất bản ứng dụng — thông báo sẽ mở ứng dụng đang hoạt động của bạn."
+  },
+  "renameProject": {
+    "edit": "Chỉnh sửa",
+    "editHelp": "Đổi tên ứng dụng. Địa chỉ web vẫn giữ nguyên, nên các liên kết bạn đã chia sẻ vẫn hoạt động.",
+    "errorStatus": "Lỗi {status}",
+    "inputHelp": "Tên mới cho ứng dụng. Nhấn Enter để lưu hoặc Esc để hủy.",
+    "inputLabel": "Tên ứng dụng",
+    "name": "Tên",
+    "networkError": "Lỗi mạng — thử lại.",
+    "note": "Chỉ tên ứng dụng thay đổi. Địa chỉ web vẫn giữ nguyên, nên việc đổi tên sẽ không làm hỏng ứng dụng đã xuất bản.",
+    "saveHelp": "Lưu tên mới. Địa chỉ web không thay đổi."
+  },
+  "searchSharing": {
+    "changeFailed": "Không thể thay đổi. Vui lòng thử lại.",
+    "chat": "Trên WhatsApp và các ứng dụng chat khác",
+    "chatHelp": "Xem trước nội dung mọi người nhìn thấy khi liên kết ứng dụng được gửi qua chat hoặc đăng lên mạng xã hội.",
+    "chatPreviewLabel": "Xem trước liên kết được chia sẻ trong chat",
+    "codeHelp": "Dán mã Google Search Console cung cấp (tùy chọn thẻ HTML). Mã này chứng minh với Google rằng ứng dụng thuộc về bạn.",
+    "codeLabel": "Mã xác minh Google",
+    "codeRemoved": "Đã xóa.",
+    "codeSaveFailed": "Không thể lưu mã.",
+    "codeSaved": "Đã lưu. Quay lại Search Console và nhấn Xác minh.",
+    "consoleBody": "Search Console cho biết mọi người tìm thấy ứng dụng của bạn trên Google như thế nào. Thêm địa chỉ ứng dụng dưới dạng thuộc tính tiền tố URL, chọn cách xác minh bằng thẻ HTML rồi dán mã (hoặc toàn bộ thẻ) vào đây.",
+    "consoleHelp": "Không bắt buộc. Google Search Console là công cụ miễn phí của Google, cho biết mọi người tìm thấy ứng dụng của bạn qua tìm kiếm như thế nào. Mở mục này để liên kết ứng dụng.",
+    "consoleTitle": "Kết nối Google Search Console",
+    "copied": "Đã sao chép",
+    "copy": "Sao chép",
+    "copySitemap": "Sao chép địa chỉ sơ đồ trang web",
+    "copySitemapHelp": "Sao chép địa chỉ sơ đồ trang web của ứng dụng, nơi liệt kê tất cả các trang. Dán vào mục Sơ đồ trang web trong Search Console.",
+    "description": "Mô tả",
+    "descriptionEmptyHint": "Để trống: đoạn đầu tiên trên trang chủ sẽ được dùng.",
+    "descriptionHelp": "Tóm tắt ngắn về ứng dụng. Google hiển thị nội dung này bên dưới tên ứng dụng, còn ứng dụng chat hiển thị bên dưới liên kết được chia sẻ. Tốt nhất nên dùng khoảng 160 ký tự trở xuống.",
+    "descriptionHint": "Nêu ứng dụng là gì và dành cho ai.",
+    "descriptionPlaceholder": "Một hoặc hai câu giới thiệu về ứng dụng, ví dụ: Bánh mì và bánh ngọt tươi ngon từ tiệm bánh gia đình. Đặt hàng trực tuyến và nhận vào sáng hôm sau.",
+    "descriptionSaveFailed": "Không thể lưu mô tả.",
+    "descriptionSaveFailedRetry": "Không thể lưu mô tả. Vui lòng thử lại.",
+    "descriptionSaved": "Đã lưu. Công cụ tìm kiếm sẽ cập nhật vào lần tiếp theo truy cập.",
+    "designerDescription": "Thiết kế của bạn đặt mô tả riêng, được công cụ tìm kiếm và phần xem trước liên kết hiển thị. Mô tả này được dùng khi mọi người cài đặt ứng dụng.",
+    "google": "Trên Google",
+    "googleHelp": "Xem trước giao diện có thể có của ứng dụng trong kết quả tìm kiếm Google. Google quyết định giao diện cuối cùng nên có thể hơi khác.",
+    "googleNoDescription": "Thêm mô tả để mọi người biết họ sẽ tìm thấy gì.",
+    "googlePreviewLabel": "Xem trước kết quả tìm kiếm trên Google",
+    "hiddenNote": "Đang ẩn: ứng dụng sẽ không xuất hiện trong kết quả tìm kiếm.",
+    "hide": "Ẩn khỏi công cụ tìm kiếm",
+    "hideBody": "Google và các công cụ tìm kiếm khác sẽ không liệt kê ứng dụng của bạn. Ai có liên kết vẫn có thể mở ứng dụng.",
+    "hideHelp": "Bật để yêu cầu Google và các công cụ tìm kiếm khác không liệt kê ứng dụng. Người có liên kết vẫn có thể mở ứng dụng. Có hiệu lực ngay.",
+    "imageFallback": "Không tải được ảnh đầu tiên trên trang chủ, nên đang hiển thị ảnh tạo từ biểu tượng, tên và màu sắc của ứng dụng.",
+    "imageFirst": "Ảnh là ảnh đầu tiên trên trang chủ của bạn.",
+    "imageIsCard": "Hình ảnh được tạo từ biểu tượng, tên và màu sắc của ứng dụng. Thêm ảnh vào trang chủ để dùng ảnh đó thay thế.",
+    "intro": "Cách ứng dụng hiển thị trên Google và khi có người chia sẻ liên kết. Thay đổi tại đây có hiệu lực ngay, không cần xuất bản lại.",
+    "length": "{count}/{max}",
+    "lengthTooLong": "{count}/{max} (nội dung dài hơn sẽ bị cắt)",
+    "notPublished": "Ứng dụng của bạn chưa được xuất bản. Đây là giao diện của liên kết sau khi xuất bản.",
+    "off": "Tắt",
+    "on": "Bật",
+    "saveCode": "Lưu mã",
+    "saveCodeHelp": "Lưu mã vào ứng dụng, rồi quay lại Search Console và nhấn Xác minh. Để trống rồi lưu để xóa mã.",
+    "saveDescription": "Lưu mô tả",
+    "saveDescriptionHelp": "Lưu mô tả. Mô tả được dùng ngay, không cần xuất bản lại. Google sẽ cập nhật vào lần tiếp theo truy cập ứng dụng.",
+    "saveFailed": "Không thể lưu. Vui lòng thử lại.",
+    "sitemapCopied": "Đã sao chép địa chỉ sơ đồ trang web",
+    "sitemapIntro": "Tiếp theo, thêm sơ đồ trang web vào Search Console để Google tìm thấy mọi trang:",
+    "title": "Tìm kiếm và chia sẻ",
+    "titleHelp": "Kiểm soát giao diện ứng dụng trong kết quả Google và phần xem trước khi mọi người gửi liên kết qua chat. Thay đổi có hiệu lực ngay."
+  },
+  "seoApi": {
+    "invalidCode": "Mã này có vẻ không phải mã xác minh của Google. Dán mã từ tùy chọn thẻ HTML hoặc toàn bộ thẻ.",
+    "invalidInput": "Thông tin nhập không hợp lệ"
+  },
+  "tabs": {
+    "data": {
+      "help": "Xem và chỉnh sửa thông tin ứng dụng lưu lại, như lượt đăng ký, đơn hàng và tin nhắn mọi người gửi.",
+      "label": "Dữ liệu"
+    },
+    "designer": {
+      "help": "Quay lại Trình thiết kế AI để tiếp tục tạo ứng dụng bằng cách mô tả điều bạn muốn.",
+      "label": "Trình thiết kế"
+    },
+    "domains": {
+      "help": "Dùng địa chỉ web riêng (tên miền) cho ứng dụng, như www.yourbusiness.com.",
+      "label": "Tên miền"
+    },
+    "features": {
+      "help": "Thêm các tính năng có sẵn vào ứng dụng, như đặt chỗ, cửa hàng hoặc biểu mẫu liên hệ. Mỗi tính năng có các trang riêng.",
+      "label": "Tính năng"
+    },
+    "flows": {
+      "help": "Thiết lập những việc ứng dụng tự làm, như gửi email cho bạn khi có người điền biểu mẫu.",
+      "label": "Luồng tự động"
+    },
+    "mobileApp": {
+      "help": "Biến ứng dụng thành ứng dụng điện thoại cho Android hoặc iPhone để mọi người có thể cài đặt.",
+      "label": "Ứng dụng di động"
+    },
+    "navLabel": "Điều hướng dự án",
+    "notifications": {
+      "help": "Gửi thông báo ngắn bật lên trên điện thoại và máy tính của những người đã cho phép nhận thông báo từ ứng dụng.",
+      "label": "Thông báo"
+    },
+    "overview": {
+      "help": "Xem nhanh ứng dụng của bạn: tên, biểu tượng, đường liên kết, danh sách việc cần làm trước khi ra mắt và phần cài đặt.",
+      "label": "Tổng quan"
+    },
+    "pages": {
+      "help": "Mở trình chỉnh sửa trang để thay đổi nội dung, hình ảnh và bố cục của từng trang trong ứng dụng.",
+      "label": "Trang"
+    },
+    "preview": "Xem trước",
+    "previewHelp": "Mở ứng dụng trong tab mới với các thay đổi mới nhất để bạn dùng thử trước khi khách truy cập thấy chúng.",
+    "publish": "Xuất bản",
+    "publishHelp": "Mở mục Xuất bản để áp dụng các thay đổi mới nhất cho khách truy cập và lấy đường liên kết chia sẻ ứng dụng.",
+    "theme": {
+      "help": "Chọn màu sắc, phông chữ và kiểu bo góc cho toàn bộ ứng dụng.",
+      "label": "Giao diện"
+    }
+  },
+  "themeEditor": {
+    "active": "ĐANG DÙNG",
+    "bodyFont": "Phông chữ nội dung",
+    "bodyFontHelp": "Kiểu chữ dùng cho nội dung đọc thông thường, như đoạn văn, nút và biểu mẫu.",
+    "colorCode": "Mã màu {color}",
+    "colorCodeHelp": "Hoặc nhập mã màu tại đây, như #1a73e8, nếu bạn biết chính xác màu mình muốn.",
+    "colors": {
+      "accent": {
+        "help": "Màu phụ dùng cho những điểm nhấn nhỏ, như nhãn và hình trang trí.",
+        "label": "Màu nhấn"
+      },
+      "bg": {
+        "help": "Màu phía sau mọi nội dung trên trang của bạn.",
+        "label": "Màu nền"
+      },
+      "border": {
+        "help": "Màu của các đường mảnh quanh hộp và giữa các phần.",
+        "label": "Màu viền"
+      },
+      "primary": {
+        "help": "Màu thương hiệu chính, dùng cho nút, đường liên kết và phần cần làm nổi bật. Khi đổi màu này, Màu khi di chuột cũng sẽ tự cập nhật cho phù hợp.",
+        "label": "Màu chính"
+      },
+      "primary2": {
+        "help": "Màu của nút và đường liên kết khi có người di chuột lên.",
+        "label": "Màu khi di chuột"
+      },
+      "surface": {
+        "help": "Màu của thẻ và hộp nằm trên nền.",
+        "label": "Màu bề mặt"
+      },
+      "surface2": {
+        "help": "Màu hộp phụ, dùng để làm nổi bật một số phần và nhãn.",
+        "label": "Màu bề mặt 2"
+      },
+      "text": {
+        "help": "Màu của hầu hết chữ trên trang của bạn.",
+        "label": "Màu chữ"
+      },
+      "textMuted": {
+        "help": "Màu nhạt hơn cho những chữ ít quan trọng, như chú thích và ghi chú ngắn.",
+        "label": "Màu chữ phụ"
+      },
+      "title": "Màu sắc"
+    },
+    "corners": "Góc bo",
+    "customFont": "Tùy chỉnh…",
+    "customize": "Tùy chỉnh",
+    "customizeHelp": "Điều chỉnh giao diện bạn đã chọn: phông chữ, màu sắc và góc bo. Thay đổi được lưu tự động; khách truy cập sẽ thấy sau khi bạn xuất bản.",
+    "dark": "Tối",
+    "darkThemes": "Giao diện tối · {count}",
+    "displayFont": "Phông chữ tiêu đề",
+    "displayFontHelp": "Kiểu chữ dùng cho tiêu đề. Phông chữ đậm hoặc cầu kỳ hơn sẽ tạo nét riêng cho ứng dụng của bạn.",
+    "identity": "Thông tin",
+    "light": "Sáng",
+    "lightThemes": "Giao diện sáng · {count}",
+    "livePreview": "Xem trước trực tiếp",
+    "livePreviewHelp": "Xem nhanh ứng dụng của bạn sẽ trông thế nào với giao diện này. Bản xem trước cập nhật khi bạn thay đổi.",
+    "mode": "Chế độ",
+    "modeHelp": "Chọn giao diện sáng hay tối. Trình duyệt dùng lựa chọn này cho những thứ như hộp biểu mẫu và thanh cuộn. Màu sắc của bạn sẽ không thay đổi.",
+    "name": "Tên",
+    "nameHelp": "Đặt tên cho giao diện để bạn dễ phân biệt. Khách truy cập sẽ không thấy tên này.",
+    "presetHelp": "Dùng giao diện {name} cho toàn bộ ứng dụng: màu sắc, phông chữ và góc bo sẽ thay thế các lựa chọn hiện tại. Khách truy cập sẽ thấy sau khi bạn xuất bản.",
+    "previewHome": "Trang chủ của bạn",
+    "previewHomeHelp": "Xem trước giao diện trên trang chủ thật của ứng dụng.",
+    "previewSample": "Mẫu",
+    "previewSampleHelp": "Xem trước giao diện trên trang mẫu có nút, thẻ và biểu mẫu để xem tất cả màu sắc cùng lúc.",
+    "previewTitle": "Xem trước giao diện",
+    "previewWhat": "Xem trước nội dung nào",
+    "radius": "Độ bo góc",
+    "radiusHelp": "Độ cong của góc thẻ và hộp, chẳng hạn 14px. Dùng 0px để có góc vuông.",
+    "radiusSm": "Độ bo góc nhỏ",
+    "radiusSmHelp": "Độ cong góc của những thành phần nhỏ hơn, như nút và hộp biểu mẫu. Dùng 0px để có góc vuông.",
+    "reset": "Đặt lại",
+    "resetHelp": "Hoàn tác mọi thay đổi giao diện bạn đã thực hiện kể từ khi mở trang này, trở về trạng thái ban đầu.",
+    "saveFailed": "Không lưu được. Hãy kiểm tra kết nối.",
+    "saved": "Đã lưu",
+    "typography": "Kiểu chữ"
+  },
+  "themePage": {
+    "intro": "Chọn mẫu có sẵn hoặc tự chỉnh theo ý bạn. Màu sắc, phông chữ và độ bo góc áp dụng cho mọi trang trong ứng dụng này. Bạn sẽ thấy thay đổi ngay trong trình chỉnh sửa; khách truy cập sẽ thấy sau lần xuất bản tiếp theo.",
+    "title": "Giao diện"
+  },
+  "transferApi": {
+    "alreadyOwner": "Bạn đã sở hữu ứng dụng này.",
+    "invalidEmail": "Nhập địa chỉ email hợp lệ.",
+    "notEligible": "Không thể chuyển ứng dụng cho địa chỉ email đó. Hãy kiểm tra địa chỉ: email phải thuộc về một tài khoản ở đây có thể nhận ứng dụng từ bạn.",
+    "notFound": "Không tìm thấy dự án",
+    "ownerOnly": "Chỉ chủ sở hữu ứng dụng mới có thể chuyển ứng dụng. Hãy nhờ họ thực hiện từ tài khoản của mình.",
+    "tooManyTries": "Bạn đã thử chuyển quá nhiều lần. Vui lòng đợi một giờ rồi thử lại.",
+    "unauthorized": "Không được phép"
+  },
+  "transferProject": {
+    "confirm": "Chuyển <b>{name}</b> cho <mono>{email}</mono>? Bạn sẽ mất quyền truy cập ngay lập tức.",
+    "confirmButton": "Có, chuyển ứng dụng",
+    "confirmHelp": "Chuyển giao ứng dụng ngay bây giờ. Bạn sẽ mất quyền truy cập ngay và không thể tự hoàn tác.",
+    "emailHelp": "Địa chỉ email mà chủ sở hữu mới dùng để đăng nhập tại đây. Họ cần có tài khoản trong cùng không gian làm việc với bạn.",
+    "emailLabel": "Email của chủ sở hữu mới",
+    "failed": "Không thể chuyển quyền sở hữu. Vui lòng thử lại.",
+    "intro": "Chuyển toàn bộ ứng dụng này — các trang, quy trình, dữ liệu, tên miền và trang web đã xuất bản — sang một tài khoản khác trên trang này. Bạn sẽ mất quyền truy cập. Bạn không thể hoàn tác việc này.",
+    "networkError": "Lỗi mạng — thử lại.",
+    "requirements": "Người nhận cần có tài khoản riêng trong cùng không gian làm việc với bạn, và gói của họ cần còn chỗ cho thêm một ứng dụng.",
+    "title": "Chuyển quyền sở hữu",
+    "titleHelp": "Chuyển toàn bộ ứng dụng này cho người khác có tài khoản ở đây. Sau khi ứng dụng thuộc về họ, bạn sẽ không thể mở hoặc chỉnh sửa ứng dụng nữa.",
+    "transfer": "Chuyển",
+    "transferHelp": "Ở bước tiếp theo, bạn sẽ được yêu cầu xác nhận trước khi chuyển.",
+    "transferring": "Đang chuyển…"
+  }
+}

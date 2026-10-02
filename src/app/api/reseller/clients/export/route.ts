@@ -1,5 +1,7 @@
 import { requireReseller } from "@/lib/reseller-admin";
 import { clientsCsv, loadClientRows } from "@/lib/reseller-clients";
+import { getTranslations } from "next-intl/server";
+import { requestLocale } from "@/i18n/request";
 
 export const dynamic = "force-dynamic";
 
@@ -13,7 +15,8 @@ export async function GET() {
   if ("error" in r) return r.error;
   const rows = await loadClientRows(r.reseller);
   const date = new Date().toISOString().slice(0, 10);
-  return new Response(clientsCsv(rows), {
+  const t = await getTranslations({ locale: await requestLocale(), namespace: "reseller.csv" });
+  return new Response(clientsCsv(rows, (key) => t(key as never)), {
     headers: {
       "content-type": "text/csv; charset=utf-8",
       "content-disposition": `attachment; filename="clients-${date}.csv"`,

@@ -3,6 +3,8 @@ import { db } from "@/lib/db";
 import { ownedProject } from "@/lib/guard";
 import { json } from "@/lib/utils";
 import { ensureInternalTable } from "@/lib/datasources/postgres";
+import { getTranslations } from "next-intl/server";
+import { requestLocale } from "@/i18n/request";
 
 const CreateBody = z.object({
   name: z.string().min(1).max(80),
@@ -38,14 +40,15 @@ export async function POST(req: Request, ctx: { params: Promise<{ id: string }> 
   const r = await ownedProject(id);
   if ("error" in r) return r.error;
   const body = await req.json().catch(() => null);
+  const t = await getTranslations({ locale: await requestLocale(), namespace: "data.api" });
 
   if (body?._action === "create_table") {
     const parsed = TableBody.safeParse(body);
-    if (!parsed.success) return json({ error: "Invalid input" }, { status: 400 });
+    if (!parsed.success) return json({ error: t("invalidInput") }, { status: 400 });
     const source = await db.dataSource.findFirst({
       where: { id: parsed.data.datasourceId, projectId: id },
     });
-    if (!source) return json({ error: "Data source not found" }, { status: 404 });
+    if (!source) return json({ error: t("sourceNotFound") }, { status: 404 });
     if (source.kind === "POSTGRES_INTERNAL") {
       await ensureInternalTable(id, parsed.data.name, parsed.data.fields);
     }
@@ -60,7 +63,7 @@ export async function POST(req: Request, ctx: { params: Promise<{ id: string }> 
   }
 
   const parsed = CreateBody.safeParse(body);
-  if (!parsed.success) return json({ error: "Invalid input" }, { status: 400 });
+  if (!parsed.success) return json({ error: t("invalidInput") }, { status: 400 });
   const source = await db.dataSource.create({
     data: {
       projectId: id,

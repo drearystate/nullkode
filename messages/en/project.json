@@ -1,0 +1,958 @@
+{
+  "tabs": {
+    "overview": {
+      "label": "Overview",
+      "help": "Your app at a glance: its name, icon, link, launch checklist and settings."
+    },
+    "pages": {
+      "label": "Pages",
+      "help": "Open the page editor to change the words, pictures and layout of each page in your app."
+    },
+    "features": {
+      "label": "Features",
+      "help": "Add ready-made features to your app, like bookings, a shop or a contact form. Each comes with its own pages."
+    },
+    "flows": {
+      "label": "Flows",
+      "help": "Set up what your app does by itself, like sending you an email when someone fills in a form."
+    },
+    "data": {
+      "label": "Data",
+      "help": "See and edit the information your app keeps, like sign-ups, orders and messages people send."
+    },
+    "theme": {
+      "label": "Theme",
+      "help": "Choose the colors, fonts and corner shapes for your whole app."
+    },
+    "domains": {
+      "label": "Domains",
+      "help": "Put your app on your own web address (domain), like www.yourbusiness.com."
+    },
+    "mobileApp": {
+      "label": "Mobile app",
+      "help": "Turn your app into a phone app for Android or iPhone that people can install."
+    },
+    "notifications": {
+      "label": "Notifications",
+      "help": "Send short alerts that pop up on the phones and computers of people who allowed them from your app."
+    },
+    "designer": {
+      "label": "Designer",
+      "help": "Go back to the AI Designer to keep building your app by describing what you want."
+    },
+    "navLabel": "Project navigation",
+    "preview": "Preview",
+    "previewHelp": "Open your app in a new tab with your latest changes, to try it before your visitors see them.",
+    "publish": "Publish",
+    "publishHelp": "Go to Publish, where you make your latest changes live for visitors and get your app's link to share."
+  },
+  "layout": {
+    "backToDesigner": "Back to Designer",
+    "backToApps": "Back to my apps",
+    "backToDesignerHelp": "Go back to the AI Designer.",
+    "backToAppsHelp": "Go back to the list of all your apps."
+  },
+  "overview": {
+    "launch": {
+      "build": {
+        "title": "Build your app",
+        "detail": "Your pages, data and forms are in place.",
+        "help": "Open the page editor to change your app's words, pictures and layout.",
+        "helpDesigner": "Open the AI Designer to keep building your app."
+      },
+      "icon": {
+        "title": "Add your app icon",
+        "detail": "It shows on phones, in browser tabs and in the Android app.",
+        "help": "Jump to the app icon section below to add the small picture that stands for your app."
+      },
+      "admin": {
+        "title": "Set your admin login",
+        "detail": "So you can sign in to your app's admin pages.",
+        "help": "Jump to the section below where you set the email and password you use to sign in to your app's admin pages."
+      },
+      "test": {
+        "title": "Send a test submission"
+      },
+      "publish": {
+        "title": "Publish it",
+        "titleDone": "Published",
+        "detail": "Get a link you can share with anyone.",
+        "detailDone": "Anyone with the link can use it.",
+        "help": "Go to Publish to put your app online and get a link to share.",
+        "helpDone": "Go to Publish to make new changes live, share your link or go back to an earlier version."
+      }
+    },
+    "eyebrow": "YOUR APP, AT A GLANCE",
+    "liveAt": "Live at <link>{url}</link>",
+    "liveAtHelp": "Your app's live web address. Opens it in a new tab, just as visitors see it.",
+    "draft": "Draft — not yet published.",
+    "continueDesigner": "Continue in the Designer",
+    "continueDesignerHelp": "Go back to the AI Designer to keep building your app.",
+    "continueEditing": "Continue editing",
+    "continueEditingHelp": "Open the page editor to keep working on your app.",
+    "stats": {
+      "pages": "Pages",
+      "pagesHelp": "How many pages your app has. Click to open them in the editor.",
+      "flows": "Flows",
+      "flowsHelp": "How many things your app does by itself, like emailing you about a new message. Click to see them.",
+      "data": "Data",
+      "dataHelp": "Where your app keeps its information, like sign-ups and orders. Click to see and edit it.",
+      "domains": "Own domains",
+      "domainsHelp": "How many of your own web addresses (domains) point to this app. Click to add or manage them."
+    },
+    "quoted": "“{name}”",
+    "emailOff": "Your app sends emails ({flows}), but email isn't set up on this server, so they aren't being sent.",
+    "setUpEmail": "Set up email",
+    "askProvider": "Ask your provider to connect email.",
+    "launchEyebrow": "GET IT IN PEOPLE'S HANDS",
+    "launchProgress": "{done} of {total} done",
+    "launchTitle": "Launch checklist",
+    "launchHelp": "The steps to get your app ready and in front of people. Each ticks itself off when it's done.",
+    "stepDone": " (done)",
+    "stepToDo": " (to do)",
+    "phoneTitle": "Open it on your phone",
+    "qrAlt": "QR code for {url}",
+    "qrHelp": "Point your phone's camera at this square code to open your live app on your phone.",
+    "qrHint": "Point your phone's camera at the code. Then use “Add to Home Screen” and it opens like an app.",
+    "qrPublishFirst": "Publish first, then scan a code here to try it on your phone.",
+    "optional": "Optional",
+    "next": {
+      "theme": {
+        "title": "Change colours and fonts",
+        "detail": "Match your brand in a couple of clicks.",
+        "help": "Go to Theme to pick the colors, fonts and corner shapes for your whole app."
+      },
+      "domains": {
+        "title": "Use your own domain",
+        "titleDone": "Your own domain is connected",
+        "detail": "Like www.yourbusiness.com.",
+        "detailDone": "Manage your web addresses.",
+        "help": "Go to Domains to put your app on a web address you own, instead of the one it gets for free."
+      },
+      "native": {
+        "title": "Get the Android app",
+        "detail": "Download an app file you can install or put on Google Play.",
+        "help": "Go to Mobile app to build the Android app file, which people can install on their phones or you can put on Google Play."
+      },
+      "feature": {
+        "title": "Add a feature",
+        "detail": "Bookings, a shop, a blog, sign-ups and more.",
+        "help": "Go to Features to add ready-made parts to your app, each with its own pages."
+      },
+      "preview": {
+        "title": "Try it as a visitor",
+        "detail": "Opens a preview in a new tab.",
+        "help": "Open your app in a new tab with your latest changes, even ones you haven't published yet."
+      }
+    },
+    "settings": "Settings",
+    "webAddress": "Web address",
+    "webAddressHelp": "Your app's live web address. Opens it in a new tab.",
+    "afterPublish": "After you publish",
+    "created": "Created",
+    "emailOffMore": "Your app sends emails ({flows} and {more} more), but email isn't set up on this server, so they aren't being sent."
+  },
+  "nativeApp": {
+    "publishToEnable": "Publish to enable",
+    "browserInstall": "<b>Already installable from the browser.</b> Your published site can also be added to a phone's home screen straight from the browser — no store needed.",
+    "notPublished": {
+      "title": "Publish your app first",
+      "body": "The mobile app shows your live published site, so it needs to be live before you can build it. Anything you publish later updates the app by itself, with no new build.",
+      "goToPublish": "Go to Publish",
+      "goToPublishHelp": "Go to Publish to put your app online. Then come back here to build the phone app."
+    },
+    "liveUrl": {
+      "label": "Your app shows:",
+      "help": "The live web address your phone app opens. Whatever you publish there shows up in the phone app too.",
+      "httpWarning": "Phones only open apps from a secure address (https). This address starts with http://, so the phone app can't load it. Set up https for this server first."
+    },
+    "details": {
+      "title": "App details",
+      "titleHelp": "The name, colors and store details built into your phone app. Changes go into your next build or download, not into apps already installed.",
+      "intro": "These appear in the app stores and on the phone's home screen.",
+      "appName": "App name",
+      "appNameHelp": "The name shown under your app's icon on the phone. Up to 30 letters, but a short name fits best.",
+      "appId": "Bundle / Application ID",
+      "appIdHelp": "A one-of-a-kind name the app stores use to tell your app apart, like com.yourbusiness.app. Visitors never see it. Don't change it once your app is in a store.",
+      "appIdHint": "Like com.company.app, in lowercase. Once your app is in a store, never change it.",
+      "version": "Version",
+      "versionHelp": "The version number people see in the store, like 1.0.0. Raise it when you send an update, for example to 1.1.0.",
+      "buildNumber": "Build number",
+      "buildNumberHelp": "A counting number the stores use to tell updates apart; each upload needs a higher one. Google Play builds made here count up by themselves.",
+      "buildNumberHint": "Google Play builds count up from here by themselves. Next one: {next}.",
+      "orientation": "Orientation",
+      "orientationHelp": "Whether your app turns sideways when the phone does. Follow device lets it turn; the others keep it upright or sideways.",
+      "orientationDefault": "Follow device",
+      "orientationPortrait": "Portrait only",
+      "orientationLandscape": "Landscape only",
+      "themeColor": "Theme color",
+      "themeColorHelp": "Your app's main color on the phone: used on the loading screen, the no-internet screen and the plain icon made if yours can't be used.",
+      "pickThemeColor": "Pick theme color",
+      "themeColorCode": "Theme color code",
+      "background": "Background",
+      "backgroundHelp": "The color behind your app while it opens, and on the screen shown when there's no internet.",
+      "pickBackground": "Pick background",
+      "backgroundCode": "Background code",
+      "colorCodeHelp": "Or type a color code here, like #1a73e8, if you know the exact color you want.",
+      "save": "Save settings",
+      "saveHelp": "Save these details. They go into your next build or download; apps people already installed don't change until you send an update.",
+      "couldNotSave": "Could not save"
+    },
+    "android": {
+      "intro": "We build it on the server. Pick what you want to do:",
+      "debugTitle": "Test on your phone (APK)",
+      "debugBlurb": "A quick test copy. Install it straight on an Android phone to try your app. Google Play won't accept this file.",
+      "debugButton": "Build test APK",
+      "releaseTitle": "Publish on Google Play (AAB)",
+      "releaseBlurb": "The file Google Play asks for, signed with your app's own upload key. Each build gets the next build number ({next} next).",
+      "releaseButton": "Build for Google Play",
+      "advancedDownload": "Advanced: download the project to build it yourself in Android Studio",
+      "advancedDownloadHelp": "For developers: download the Android project files to build the app yourself with Android Studio. Most people don't need this."
+    },
+    "toolchain": {
+      "title": "Android builds are turned off on this server",
+      "operator": "You run this server. To turn them on, run the installer again and answer yes when it asks about Android. You can also run <mono>{command}</mono> in the folder you installed it in. Installed without Docker? See {doc}.",
+      "others": "Ask the person who runs this server to turn them on. You can still download the project and build it yourself."
+    },
+    "build": {
+      "building": "Building…",
+      "buildingSeconds": "Building… ({seconds}s)",
+      "made": "Version {version} · made {date}",
+      "madeWithBuild": "Version {version} (build {build}) · made {date}",
+      "downloadAab": "Download AAB for Google Play",
+      "downloadAabHelp": "Download the Android app file (.aab) that Google Play asks for. Upload it in the Google Play Console, as the steps below explain.",
+      "signedApk": "Signed APK for other stores",
+      "signedApkHelp": "Download the same app as an installable Android file (.apk), signed with your key, for app stores other than Google Play.",
+      "downloadApk": "Download test APK",
+      "downloadApkHelp": "Download the test Android app file (.apk). Open it on an Android phone and allow installing when asked.",
+      "withSize": "{label} ({size})",
+      "sizeMb": "{size} MB",
+      "sizeKb": "{size} KB",
+      "again": "Build again",
+      "againHelpRelease": "Make a new Google Play file with your latest app details. It gets the next build number, ready to upload as an update.",
+      "againHelpDebug": "Make a new test file with your latest app details, like name, icon and colors.",
+      "startHelpRelease": "Build the Android app file for Google Play. It takes a few minutes. If you haven't added a key, the first build makes your upload key.",
+      "startHelpDebug": "Build a test Android app you can install straight on a phone. It takes a few minutes.",
+      "failed": "The build failed.",
+      "buildFailed": "Build failed",
+      "couldNotStart": "Could not start the build",
+      "rebuildNeeded": "<b>Rebuild needed.</b> {reason}",
+      "iconNotUsed": "<b>Your icon wasn't used.</b> {note} <link>Change the icon</link>",
+      "debugNote": "On the phone, open the file and allow installing it when asked. If the phone has a Google Play copy of this app, remove that first: the two use different keys.",
+      "releaseNote": "The first build makes your app's upload key. Download a backup of it below."
+    },
+    "rebuild": {
+      "oldShell": "This build was made before the app could open files, save downloads or use phone features. Build again.",
+      "oldShellRelease": "This build was made before the app could open files, save downloads or use phone features. Build again and upload the new version to Google Play.",
+      "added": "Your app now uses the {features}, and this build can't ask for {count, plural, one {it} other {them}}. Build again.",
+      "addedRelease": "Your app now uses the {features}, and this build can't ask for {count, plural, one {it} other {them}}. Build again and upload the new version to Google Play.",
+      "removed": "This build still asks for the {features}, which your app no longer uses. Build again to remove {count, plural, one {it} other {them}}.",
+      "removedRelease": "This build still asks for the {features}, which your app no longer uses. Build again and upload the new version to Google Play to remove {count, plural, one {it} other {them}}."
+    },
+    "featureList": {
+      "two": "{a} and {b}",
+      "three": "{a}, {b} and {c}"
+    },
+    "features": {
+      "camera": {
+        "label": "Camera",
+        "name": "camera",
+        "about": "A page shows the camera, for example to scan QR codes. The phone asks the person first."
+      },
+      "microphone": {
+        "label": "Microphone",
+        "name": "microphone",
+        "about": "A page records sound or listens to speech. The phone asks the person first."
+      },
+      "location": {
+        "label": "Location",
+        "name": "location",
+        "about": "A page asks where the person is, for example to find places nearby. The phone asks the person first."
+      },
+      "files": {
+        "label": "Photos and files",
+        "name": "photos and files",
+        "about": "File uploads open the phone's picker, with the option to take a photo. This needs no permission on Android."
+      }
+    },
+    "key": {
+      "title": "Your upload key",
+      "titleHelp": "A secret file that proves updates to your app on Google Play come from you. If it's lost, you can't update the app on Google Play.",
+      "none": "Google Play checks this key on every update. We make one for your app the first time you build for Google Play. Already on Google Play with a key of your own? Add it here first.",
+      "importedOn": "Your own key on {date} · alias <mono>{alias}</mono>",
+      "madeOn": "Made for this app on {date} · alias <mono>{alias}</mono>",
+      "fingerprint": "Certificate fingerprint (SHA-256)",
+      "fingerprintHelp": "A code that identifies your key. Some Google services ask you to paste it in when you set them up.",
+      "missing": "The key file is missing from the server. Add your backup below (\"Use a key I already have\") to keep updating your app on Google Play.",
+      "keepSafe": "Keep this safe — you need it for every update on Google Play.",
+      "backupHint": "Save the backup somewhere private, like a password manager. It holds the key and its passwords.",
+      "download": "Download key backup",
+      "downloadHelp": "Save a copy of your upload key and its passwords. Keep it somewhere private: anyone with it could sign updates as you.",
+      "ownerOnly": "Only the app's owner can download the key.",
+      "saved": "Your key is saved. Google Play builds now use it.",
+      "couldNotUse": "Could not use this key",
+      "useDifferent": "Use a different key",
+      "useExisting": "Use a key I already have",
+      "toggleHelpOpen": "Close this form without changing your key.",
+      "toggleHelpClosed": "Already have an app on Google Play? Add the key you used for it, so new builds can update that app.",
+      "file": "Keystore file (.jks or .keystore)",
+      "fileHelp": "Choose the key file you signed your app with before. It usually ends in .jks or .keystore.",
+      "alias": "Key alias",
+      "aliasPlaceholder": "Leave empty if there's only one",
+      "aliasHelp": "The name of the key inside the file. Leave it empty if the file holds just one key.",
+      "storePassword": "Keystore password",
+      "storePasswordHelp": "The password that opens the key file.",
+      "keyPassword": "Key password",
+      "keyPasswordPlaceholder": "Leave empty if it's the same",
+      "keyPasswordHelp": "The password for the key itself. Leave it empty if it's the same as the file's password.",
+      "replace": "Replace my current key. Only do this if Google Play expects this other key: download a backup of the current one first.",
+      "replaceHelp": "Confirm you want to swap your current key for this one. Download a backup of the current key first.",
+      "checking": "Checking…",
+      "save": "Save key",
+      "saveHelp": "Check the key and passwords, then use this key for all your Google Play builds from now on."
+    },
+    "phone": {
+      "title": "Phone features this app uses",
+      "titleHelp": "The phone parts your app needs, like the camera or location, found by looking at your pages and features. The phone asks people before your app can use them.",
+      "intro": "Worked out from your app's features and pages. The phone only lets the app use what its build asks for, so when this list changes, build the app again and send the stores the new version.",
+      "checking": "Checking your app…",
+      "none": "None right now: no page uses the camera, microphone, location or file uploads.",
+      "usedBy": "Used by {sources}",
+      "sourcePage": "the “{name}” page",
+      "wordingSummary": "What the phone says when the app asks",
+      "wordingSummaryHelp": "Open this to write the message iPhones show when your app asks to use the camera, microphone, photos or location.",
+      "wordingIntro": "iPhones show this text when the app asks for each feature, and Apple reviews it. Say plainly what your app uses it for. Leave a box empty to use the suggested wording. Android phones show their own standard message.",
+      "photoLibrary": "Photo library",
+      "wordingHelp": "Say plainly why your app needs this, like “To scan tickets at the door.” Apple checks it. Leave empty to use the suggested words.",
+      "save": "Save wording",
+      "saveHelp": "Save these messages. They go into your next build and iPhone download.",
+      "saved": "Saved. It goes into your next build and download."
+    },
+    "ios": {
+      "title": "iPhone and iPad",
+      "intro": "Download the iPhone project. It opens straight in Xcode, with no setup commands. Apple only lets you publish with a paid Apple Developer account ({fee} a year), and only a Mac can build iPhone apps. You have two ways:",
+      "withMac": "<b>With a Mac:</b> open <mono>{path}</mono>, pick your team, then Product → Archive.",
+      "withoutMac": "<b>Without a Mac:</b> put the folder on GitHub and add your Apple keys as secrets. The included workflow builds your app on GitHub's Macs and sends it to TestFlight.",
+      "readme": "The README in the download walks you through both, step by step.",
+      "newBuildNeeded": "<b>New build needed.</b> {reason}",
+      "locationAdded": "Your app now uses the location. Download the iPhone project again and send Apple a new build, or the app can't ask for it.",
+      "locationRemoved": "Your app no longer uses the location. Download the iPhone project again for your next build, so it stops asking for it.",
+      "download": "Download iPhone project",
+      "downloadHelp": "Download the files needed to build your iPhone app. You'll need a Mac or a GitHub account, plus a paid Apple Developer account, to send it to Apple."
+    },
+    "store": {
+      "before": "Before you send it to {store}",
+      "deleteAccount": "If people can sign up in your app, the store asks for a link where they can delete their account. Use <mono>{url}</mono>",
+      "privacy": "The store also asks for a link to your privacy policy. Add a Privacy page to your app (or use one on your website) and paste its address in the store listing."
+    },
+    "play": {
+      "title": "Put your app on Google Play",
+      "titleHelp": "Step-by-step instructions for putting your app in the Google Play store. Click to show or hide them.",
+      "signUp": "Sign up for a Google Play developer account at <link>{url}</link>. Google charges a one-time fee of {fee}.",
+      "createApp": "Click <b>Create app</b>, type your app's name and answer the short questions.",
+      "listing": "Fill in the store listing: a short and a full description, an icon (512 × 512), a feature picture (1024 × 500) and at least two phone screenshots.",
+      "appContent": "Under <b>App content</b>, add your privacy policy link. If people can sign up in your app, Google also asks for a link where they can delete their account: use <mono>{url}</mono>.",
+      "release": "Open <b>Test and release</b>, pick a track (<b>Internal testing</b> is the quickest way to try it) and click <b>Create new release</b>.",
+      "signing": "If Google asks about app signing, keep <b>Let Google manage and protect your app signing key</b>.",
+      "upload": "Upload the <b>.aab</b> file from above, write a few words about what's new, then save and send the release out.",
+      "updates": "Later updates: publishing changes here updates your app by itself. Only build a new AAB when you change the name, icon, colors or version, and upload it the same way. The build number goes up by itself.",
+      "note": "New personal developer accounts must first test the app with at least 12 people for 14 days before Google lets them publish it to everyone."
+    }
+  },
+  "nativePage": {
+    "eyebrow": "PHONES AND TABLETS",
+    "title": "Mobile app",
+    "intro": "Turn this project into a real app for Google Play and the Apple App Store. The app shows your live published site, so publishing changes updates it right away, with no new build."
+  },
+  "nativeApi": {
+    "unauthorized": "Unauthorized",
+    "notFound": "Not found",
+    "settings": {
+      "versionFormat": "Use a version like 1.0.0",
+      "invalidInput": "Invalid input",
+      "bundleId": "Bundle ID must be reverse-DNS, e.g. com.company.app"
+    },
+    "keystore": {
+      "ownerOnly": "Only the app's owner can change its upload key.",
+      "tooManyTries": "Too many tries. Please wait a few minutes.",
+      "chooseFile": "Choose your keystore file (.jks or .keystore).",
+      "saveFailed": "This keystore couldn't be saved. Please try again."
+    },
+    "keystoreDownload": {
+      "ownerOnly": "Only the app's owner can download its upload key."
+    },
+    "build": {
+      "publishFirst": "Publish your app first — the Android app loads its live address.",
+      "unavailable": "Android builds aren't available on this server. {reason}",
+      "startFailed": "The build couldn't start. Please try again.",
+      "unknownBuild": "Unknown build"
+    },
+    "buildDownload": {
+      "notReady": "Build not ready",
+      "fileGone": "This build's file is gone. Please build again."
+    },
+    "download": {
+      "publishFirst": "Publish your app first — the mobile app loads its live URL."
+    },
+    "installer": {
+      "unknownPlatform": "Unknown platform",
+      "projectNotFound": "Project not found",
+      "publishFirst": "Publish the project first — the installer points at the live URL."
+    }
+  },
+  "iconApi": {
+    "unauthorized": "Unauthorized",
+    "notFound": "Not found",
+    "invalidForm": "Invalid form",
+    "missingFile": "Missing file",
+    "tooBig": "Icon must be under 5MB",
+    "wrongType": "Use PNG, JPG, WebP, or SVG",
+    "invalidInput": "Invalid input",
+    "generationFailed": "Image generation failed",
+    "noImage": "No image returned"
+  },
+  "themeEditor": {
+    "lightThemes": "Light themes · {count}",
+    "darkThemes": "Dark themes · {count}",
+    "saveFailed": "Couldn't save. Check your connection.",
+    "saved": "Saved",
+    "customize": "Customize",
+    "customizeHelp": "Fine-tune the look you picked: its fonts, colors and corners. Changes save by themselves; visitors see them after you publish.",
+    "reset": "Reset",
+    "resetHelp": "Undo all the theme changes you made since you opened this page, going back to how it was then.",
+    "identity": "Identity",
+    "name": "Name",
+    "nameHelp": "A name for this look, just to help you tell themes apart. Visitors don't see it.",
+    "mode": "Mode",
+    "modeHelp": "Whether this look is light or dark. Browsers use it for things like form boxes and scroll bars. It doesn't change your colors.",
+    "light": "Light",
+    "dark": "Dark",
+    "typography": "Typography",
+    "bodyFont": "Body font",
+    "bodyFontHelp": "The letter style for normal reading text, like paragraphs, buttons and forms.",
+    "displayFont": "Display font",
+    "displayFontHelp": "The letter style for headings and titles. A bolder or fancier font here gives your app its personality.",
+    "customFont": "Custom…",
+    "colors": {
+      "title": "Colors",
+      "primary": {
+        "label": "Primary",
+        "help": "Your main brand color, used for buttons, links and highlights. Changing it also updates Primary hover to match."
+      },
+      "primary2": {
+        "label": "Primary hover",
+        "help": "The color buttons and links turn when someone points at them."
+      },
+      "accent": {
+        "label": "Accent",
+        "help": "A second color for small touches, like badges and decorative shapes."
+      },
+      "bg": {
+        "label": "Background",
+        "help": "The color behind everything on your pages."
+      },
+      "surface": {
+        "label": "Surface",
+        "help": "The color of cards and boxes that sit on top of the background."
+      },
+      "surface2": {
+        "label": "Surface 2",
+        "help": "A second box color, used to set some sections and labels apart."
+      },
+      "border": {
+        "label": "Border",
+        "help": "The color of thin lines around boxes and between sections."
+      },
+      "text": {
+        "label": "Text",
+        "help": "The color of most of the words on your pages."
+      },
+      "textMuted": {
+        "label": "Text muted",
+        "help": "A softer color for less important words, like captions and small notes."
+      }
+    },
+    "colorCode": "{color} color code",
+    "colorCodeHelp": "Or type a color code here, like #1a73e8, if you know the exact color you want.",
+    "corners": "Corners",
+    "radius": "Radius",
+    "radiusHelp": "How round the corners of cards and boxes are, like 14px. Use 0px for square corners.",
+    "radiusSm": "Radius sm",
+    "radiusSmHelp": "How round the corners of smaller things are, like buttons and form boxes. Use 0px for square corners.",
+    "livePreview": "Live preview",
+    "livePreviewHelp": "A quick look at how your app appears in this theme. It updates as you change things.",
+    "previewWhat": "What to preview",
+    "previewHome": "Your home page",
+    "previewHomeHelp": "Preview the theme on your app's real home page.",
+    "previewSample": "Sample",
+    "previewSampleHelp": "Preview the theme on a sample page with buttons, cards and a form, so you can see every color at once.",
+    "previewTitle": "Theme preview",
+    "presetHelp": "Use the {name} look for your whole app: its colors, fonts and corners replace your current ones. Visitors see it after you publish.",
+    "active": "ACTIVE"
+  },
+  "themePage": {
+    "title": "Theme",
+    "intro": "Pick a preset or dial in your own. Colors, fonts, and corner radii apply to every page in this app. You see them in the editor right away; visitors see them after you next publish."
+  },
+  "publishPage": {
+    "eyebrow": "READY FOR THE WORLD",
+    "title": "Give your app a home.",
+    "intro": "Publish your app, share its link, or put it on a home screen.",
+    "status": "Status",
+    "statusHelp": "Whether your app is online, and whether visitors see your latest changes or an older version.",
+    "notPublished": "Not published yet",
+    "liveWithChanges": "Live · you have unpublished changes",
+    "live": "Live",
+    "liveUpToDate": "Live · up to date",
+    "legacyNote": "This app still updates live as you edit. Publish once to switch to safe publishing: visitors then see the version you publish, and your edits stay private until you publish again.",
+    "draftNote": "Visitors see the version you last published. Edits (including ones the AI made) stay in your draft until you click Publish, and you can bring back any earlier version below.",
+    "defaultUrl": "Default URL",
+    "defaultUrlHelp": "The web address your app gets for free. Share it with anyone once your app is published.",
+    "openLiveHelp": "Open your live app in a new tab, just as visitors see it.",
+    "openPreviewHelp": "Your app isn't online yet, so this opens a preview of your latest changes instead.",
+    "customDomain": "Custom domain",
+    "customDomainHelp": "Your own web address that also opens this app. Manage it on the Domains tab.",
+    "install": {
+      "title": "Install on devices",
+      "intro": "Give your app a place on the desktop or a home screen. The offline app is fully self-contained — its own files, its own local database, no internet needed to use it.",
+      "publishFirst": "Publish first — installers point at the live app.",
+      "offlineTitle": "Offline app (computer)",
+      "offlineBody": "A folder with every page, your uploaded files, and a snapshot of your database. Unzip it anywhere — Desktop, C:\\, a USB stick — and open index.html. Forms, lists, and sign-ups all keep working with zero internet; data saves locally on that computer.",
+      "offlineHelp": "Download a zipped folder with your whole app and a copy of its data. Open index.html inside to use it on a computer with no internet.",
+      "offlineDownload": "Download offline app (.zip)",
+      "desktopTitle": "Desktop shortcut (online)",
+      "desktopBody": "A tiny installer that puts a shortcut on the Desktop and Start Menu, opening the live app in its own window. Needs internet — always up to date with what you publish.",
+      "windowsHelp": "Download a small installer for Windows. Run it to add a shortcut that opens your live app in its own window.",
+      "macHelp": "Download a small installer for Mac. Open it to add a shortcut that opens your live app in its own window.",
+      "qrAlt": "QR code for {url}",
+      "qrHelp": "Point your phone's camera at this square code to open your live app on your phone.",
+      "phoneTitle": "Phone",
+      "phoneBody": "Scan with a phone camera, open the app, then choose \"Add to Home Screen\" in the browser menu — it installs like a normal app with your icon. To make a real Android app you can install or put on Google Play, use the mobile app builder below."
+    },
+    "mobile": {
+      "title": "Ship it as a mobile app",
+      "body": "Turn this app into a real Android & iOS app for the Google Play Store and Apple App Store. It wraps your live site, so re-publishing keeps the app up to date automatically.",
+      "help": "Go to Mobile app to build versions of your app for Android phones and iPhones.",
+      "button": "Build mobile app"
+    },
+    "backup": {
+      "title": "Back up or move your app",
+      "body": "One file with every page, flow, table and row, your theme and your images. Keep it as a backup, or import it into {app} or a compatible server (New app → More ways to start → Import an app). App passwords aren't included, so people reset theirs after a move.",
+      "help": "Save one file with your whole app to your device. Keep it as a backup, or use Import an app to bring it back or move it.",
+      "button": "Download backup (.zip)"
+    },
+    "history": {
+      "title": "Release history",
+      "help": "Every version you've published, newest first. If a change goes wrong, use Make live to put an earlier version back online.",
+      "empty": "Your releases will appear here after you publish.",
+      "live": "Live"
+    }
+  },
+  "publishPanel": {
+    "confirmOffline": "Take this app offline? Visitors won’t be able to open it until you publish again.",
+    "updateFailed": "Could not update publishing. Please try again.",
+    "connectionError": "Check your connection and try again.",
+    "changesLive": "Your changes are live.",
+    "appLive": "Your app is live. Ready to share.",
+    "appOffline": "Your app is now offline.",
+    "publishAppHelp": "Put your app online so anyone with its link can use it.",
+    "publishChangesHelp": "Make your latest changes live. Visitors see them right away, and you can go back to an earlier version below.",
+    "upToDateHelp": "Visitors already see your latest changes. Nothing new to publish.",
+    "publishApp": "Publish app",
+    "publishChanges": "Publish changes (v{version})",
+    "upToDate": "Up to date",
+    "takeOffline": "Take offline",
+    "takeOfflineHelp": "Hide your app from everyone. Visitors can't open it until you publish again. Nothing is deleted.",
+    "linkCopied": "Link copied",
+    "copyAppLink": "Copy app link",
+    "copied": "Copied",
+    "copyLink": "Copy link",
+    "copyLinkHelp": "Copy your app's link, ready to paste into a message, email or post.",
+    "copyManually": "Select the link to copy it manually.",
+    "confirmRestore": "Make version {version} live again? Visitors will see it immediately. Your draft isn't changed.",
+    "restoreFailed": "Couldn't restore that version.",
+    "restoring": "Restoring…",
+    "makeLive": "Make live",
+    "makeLiveHelp": "Put this earlier version back online. Visitors see it straight away; the edits you're working on stay as they are."
+  },
+  "searchSharing": {
+    "title": "Search and sharing",
+    "titleHelp": "Control how your app looks in Google results and in the preview people see when they send its link in a chat. Changes apply right away.",
+    "intro": "How your app shows up in Google and when someone shares its link. Changes here apply right away, without publishing again.",
+    "notPublished": "Your app isn't published yet. This is how its link will look once it is.",
+    "description": "Description",
+    "descriptionHelp": "A short summary of your app. Google shows it under your app's name, and chats show it under shared links. Around 160 letters or fewer works best.",
+    "descriptionPlaceholder": "One or two sentences about your app, for example: Fresh bread and cakes from our family bakery. Order online and pick up the next morning.",
+    "descriptionHint": "Say what it is and who it's for.",
+    "descriptionEmptyHint": "Empty: the first paragraph of your home page is used.",
+    "length": "{count}/{max}",
+    "lengthTooLong": "{count}/{max} (longer ones get cut off)",
+    "designerDescription": "Your design sets its own description, which search engines and link previews show. This one is used when people install your app.",
+    "saveDescription": "Save description",
+    "saveDescriptionHelp": "Save your description. It's used straight away, no need to publish again. Google updates it the next time it visits your app.",
+    "descriptionSaved": "Saved. Search engines pick it up the next time they visit.",
+    "descriptionSaveFailed": "Couldn't save the description.",
+    "descriptionSaveFailedRetry": "Couldn't save the description. Please try again.",
+    "saveFailed": "Couldn't save that. Please try again.",
+    "changeFailed": "Couldn't change that. Please try again.",
+    "hide": "Hide from search engines",
+    "hideBody": "Google and other search engines won't list your app. Anyone with the link can still open it.",
+    "hideHelp": "Turn on to ask Google and other search engines not to list your app. People with the link can still open it. Takes effect right away.",
+    "on": "On",
+    "off": "Off",
+    "consoleTitle": "Connect Google Search Console",
+    "consoleHelp": "Optional. Google Search Console is a free Google tool that shows how people find your app in search. Open this to link your app to it.",
+    "consoleBody": "Search Console shows how people find your app on Google. Add your app's address there as a URL-prefix property, choose the HTML tag way to verify, and paste the code (or the whole tag) here.",
+    "codeLabel": "Google verification code",
+    "codeHelp": "Paste the code Google Search Console gives you (the HTML tag option). It proves to Google that the app is yours.",
+    "saveCode": "Save code",
+    "saveCodeHelp": "Save the code on your app, then go back to Search Console and press Verify. Save it empty to remove the code.",
+    "codeSaved": "Saved. Go back to Search Console and press Verify.",
+    "codeRemoved": "Removed.",
+    "codeSaveFailed": "Couldn't save the code.",
+    "sitemapIntro": "Then add your sitemap in Search Console, so Google finds every page:",
+    "sitemapCopied": "Sitemap address copied",
+    "copySitemap": "Copy sitemap address",
+    "copySitemapHelp": "Copy the address of your app's sitemap, a list of all its pages. Paste it into Search Console under Sitemaps.",
+    "copied": "Copied",
+    "copy": "Copy",
+    "google": "In Google",
+    "googleHelp": "A preview of how your app may look in Google search results. Google makes the final choice, so it can look slightly different.",
+    "googlePreviewLabel": "Preview of a Google search result",
+    "googleNoDescription": "Add a description so people know what they'll find.",
+    "hiddenNote": "Hidden: your app won't appear in search results.",
+    "chat": "In WhatsApp and other chats",
+    "chatHelp": "A preview of what people see when your app's link is sent in a chat or posted on social media.",
+    "chatPreviewLabel": "Preview of a shared link in a chat",
+    "imageIsCard": "The picture is made from your app's icon, name and colour. Add a picture to your home page to use that instead.",
+    "imageFallback": "Your home page's first picture couldn't be loaded, so the picture made from your app's icon, name and colour is shown.",
+    "imageFirst": "The picture is the first one on your home page."
+  },
+  "domains": {
+    "addFailed": "Couldn't add the domain.",
+    "confirmDisconnect": "Disconnect {host} from this app?",
+    "domain": "Domain",
+    "hostHelp": "Type a web address you already own (a domain), like www.yourbusiness.com. You need to have bought it first.",
+    "add": "Add domain",
+    "adding": "Adding…",
+    "addHelp": "Start connecting this web address. You'll then see two settings to copy to the company where you bought it.",
+    "empty": "No domains yet. Your app is still available at its free address.",
+    "connected": "Connected — visitors can use <url>https://{host}</url>",
+    "waiting": "Waiting for DNS records",
+    "checkNow": "Check now",
+    "checking": "Checking…",
+    "checkHelp": "Check whether the settings below are in place yet. It can take a few minutes, sometimes a few hours, after you add them.",
+    "disconnect": "Disconnect {host}",
+    "disconnectHelp": "Stop using this web address for your app. The address itself stays yours, and your app keeps its free address.",
+    "recordsIntro": "Add these records where you manage DNS for this domain. Changes usually show up within minutes, sometimes a few hours.",
+    "recordsHelp": "DNS records are settings at the company where you bought your domain. Copy each one into their DNS or domain settings page.",
+    "colType": "Type",
+    "colName": "Name / host",
+    "colValue": "Value / points to",
+    "routingRecordHelp": "This setting sends people who type your web address to your app.",
+    "ownershipRecordHelp": "This setting proves the web address is yours. Your app only connects once it's found.",
+    "rootHintIp": "For a root domain (yourbusiness.com without www), use an A record pointing to <code>{ip}</code> if your DNS host doesn't support CNAME there.",
+    "rootHint": "For a root domain (yourbusiness.com without www), use an A record pointing to this server's IP address if your DNS host doesn't support CNAME there.",
+    "owned": "Ownership confirmed (TXT record found).",
+    "notOwned": "TXT record not found yet.",
+    "pointsHere": "The domain points to this server.",
+    "notPointsHere": "The domain doesn't point here yet (CNAME/A record).",
+    "copy": "Copy",
+    "copyValue": "Copy {value}",
+    "copyHelp": "Click to copy this, then paste it into your domain company's settings page.",
+    "copied": "Copied"
+  },
+  "domainsPage": {
+    "title": "Domains",
+    "intro": "Put this app on your own address, like <domain>www.yourbusiness.com</domain>. Add two DNS records where you bought the domain, then check the connection here."
+  },
+  "domainsApi": {
+    "enterDomain": "Enter a domain name.",
+    "invalidDomain": "Enter a domain like www.yourbusiness.com (no https:// or paths).",
+    "platformAddress": "That address belongs to this platform.",
+    "alreadyConnected": "That domain is already connected to another app.",
+    "notFound": "Not found"
+  },
+  "seoApi": {
+    "invalidInput": "Invalid input",
+    "invalidCode": "That doesn't look like a Google verification code. Paste the code from the HTML tag option, or the whole tag."
+  },
+  "deploymentsApi": {
+    "versionMissing": "That version doesn't exist."
+  },
+  "exportApi": {
+    "unauthorized": "Unauthorized",
+    "notFound": "Not found"
+  },
+  "projectIcon": {
+    "uploadFailed": "Upload failed",
+    "generationFailed": "Generation failed",
+    "removeConfirm": "Remove the app icon?",
+    "title": "App icon",
+    "titleHelp": "The small square picture that stands for your app on phone home screens, in browser tabs and in the Android app. Changes apply right away.",
+    "intro": "Shown when visitors install your app as a PWA on their device. Use a square image, ideally 512×512 PNG.",
+    "uploadHelp": "Choose a square picture from your device, ideally 512 by 512 pixels. It replaces your current icon.",
+    "uploading": "Uploading…",
+    "upload": "Upload image",
+    "removeHelp": "Take the icon off your app. You'll be asked to confirm.",
+    "remove": "Remove",
+    "generateTitle": "Or generate with AI",
+    "generateIntro": "Describe the icon you want — style, colors, symbols.",
+    "promptPlaceholder": "e.g. a minimalist rocket on purple gradient",
+    "promptLabel": "Describe your icon",
+    "promptHelp": "Describe the icon you'd like, such as its colors and a simple symbol. The AI draws it for you.",
+    "generateHelp": "Have the AI draw an icon from your description. It replaces your current icon; you can generate again or upload your own.",
+    "generating": "Generating…",
+    "generate": "Generate"
+  },
+  "renameProject": {
+    "errorStatus": "Error {status}",
+    "networkError": "Network error — try again.",
+    "name": "Name",
+    "editHelp": "Change your app's name. Its web address stays the same, so links you've shared keep working.",
+    "edit": "Edit",
+    "inputLabel": "App name",
+    "inputHelp": "Your app's new name. Press Enter to save or Esc to cancel.",
+    "saveHelp": "Save the new name. Its web address doesn't change.",
+    "note": "Only the name changes. Your app's web address stays the same, so renaming won't break a published app."
+  },
+  "transferProject": {
+    "failed": "The transfer didn't work. Please try again.",
+    "networkError": "Network error — try again.",
+    "title": "Transfer ownership",
+    "titleHelp": "Give this whole app to someone else who has an account here. Once it's theirs, you can't open or change it.",
+    "intro": "Hand this entire app — pages, flows, data, domains, and the published site — to another account on this site. You will lose access to it. This cannot be undone from your side.",
+    "requirements": "The other person needs their own account here first, in the same workspace as you, and their plan needs room for one more app.",
+    "emailLabel": "Email of the new owner",
+    "emailHelp": "The email address the new owner uses to sign in here. They need an account in the same workspace as you.",
+    "transferHelp": "Next step: you'll be asked to confirm before anything happens.",
+    "transfer": "Transfer",
+    "confirm": "Transfer <b>{name}</b> to <mono>{email}</mono>? You will lose access immediately.",
+    "confirmHelp": "Hand the app over now. You lose access straight away, and you can't undo this yourself.",
+    "transferring": "Transferring…",
+    "confirmButton": "Yes, transfer it"
+  },
+  "deleteProject": {
+    "failed": "Couldn't delete the app ({status}).",
+    "networkError": "Network error. The app wasn't deleted.",
+    "title": "Delete “{name}”?",
+    "summary": "Deletes the app, its data and its files. Download a backup first.",
+    "details": "Its pages, workflows, everything people sent through it, its phone-app builds and its web address all go. This can't be undone.",
+    "backupHelp": "Save one file with all your pages, data, theme and pictures to your device. You can bring the app back from it later with Import an app.",
+    "backup": "Download a backup",
+    "keyTitle": "This app has a Google Play upload key.",
+    "keyBody": "Download it before you delete the app: without it you can never update the app on Google Play again.",
+    "keyDownloadHelp": "Save the secret file that proves updates on Google Play come from you. Keep it somewhere safe.",
+    "keyDownload": "Download the upload key",
+    "keyAckHelp": "Tick this to confirm you've saved the upload key, or that you'll never need to update this app on Google Play.",
+    "keyAck": "I've downloaded the upload key, or I don't need it.",
+    "deleteHelp": "Delete this app for good: its pages, data, files and web address. Visitors can no longer open it. This can't be undone.",
+    "deleting": "Deleting…",
+    "deleteApp": "Delete app",
+    "buttonLabel": "Delete {name}",
+    "buttonHelp": "Delete this app. You'll see what gets removed and can download a backup first. Deleting can't be undone."
+  },
+  "newPageButton": {
+    "newPageHelp": "Add a new, empty page to your app. You'll type its name, then it opens in the editor.",
+    "newPage": "New page",
+    "titlePlaceholder": "Page title",
+    "titleHelp": "The name for your new page, like “About us”. It's shown in your app's menu and on the browser tab.",
+    "createHelp": "Make the page and open it in the editor.",
+    "create": "Create"
+  },
+  "alertsCard": {
+    "testFailed": "The test couldn't be sent.",
+    "defaultTable": "submission",
+    "testSent": "Sent a test {table} alert to {to}. Look for an email marked (test).",
+    "testSentToYou": "Sent a test {table} alert to you. Look for an email marked (test).",
+    "testOffline": "The test couldn't be sent. Check your connection and try again.",
+    "loadFailed": "Couldn't load the alert settings.",
+    "tooMany": "You can add up to {max} more addresses.",
+    "saveFailed": "Couldn't save the alert settings.",
+    "title": "Alerts",
+    "titleHelp": "Emails you when visitors send something through your app, like a form, booking or order. You choose which tables send alerts.",
+    "onCount": "{on} of {total} on",
+    "allOff": "All off",
+    "intro": "Get an email as soon as someone sends a form, books or orders in your app.",
+    "emailOff": "Email isn't set up on this server, so alerts can't be sent. Ask your provider to connect email.",
+    "setUpEmail": "Set up email",
+    "setUpEmailHelp": "Open the server settings to connect an email service, so apps can send emails.",
+    "noTables": "Your app doesn't collect anything from visitors yet. When you add a form or a feature such as Bookings, you can choose alerts for it here.",
+    "defaultOn": "Looks like a form, so it's on unless you turn it off",
+    "switchHelp": "When on, you get an email each time a visitor adds something to this table. Press Save alerts to keep your change.",
+    "on": "On",
+    "off": "Off",
+    "goesTo": "Alerts go to <b>{email}</b>.",
+    "alsoSendTo": "Also send to <muted>(up to {max}, separated by commas)</muted>",
+    "extraHelp": "Other people who should get these alerts too, like a business partner. Separate addresses with commas.",
+    "save": "Save alerts",
+    "saveHelp": "Saves which tables send alerts and who gets them.",
+    "saveFirst": "Save first",
+    "testHelp": "Sends a sample alert email to everyone listed, so you can check it arrives. Save your changes first.",
+    "sending": "Sending…",
+    "test": "Send a test",
+    "stepHelp": "Sends you a sample alert email, like the one you get when someone uses your form, so you can check it reaches your inbox.",
+    "stepSending": "Sending a test submission…",
+    "step": "Send a test submission",
+    "stepDone": "(done)",
+    "stepToDo": "(to do)",
+    "stepHint": "Check that you get an email when someone uses your form.",
+    "stepNeedsEmail": "Needs email to be set up on this server."
+  },
+  "latestSubmissions": {
+    "justNow": "just now",
+    "title": "Latest submissions",
+    "titleHelp": "The five newest things visitors sent through your app, like form messages or bookings.",
+    "seeAll": "See all data",
+    "seeAllHelp": "Open the Data page to see everything your app has saved.",
+    "empty": "Nothing yet. When people send a form or make a booking in your app, it shows up here.",
+    "itemHelp": "Open the table this came from to see it in full.",
+    "newEntry": "New entry"
+  },
+  "problemsCard": {
+    "failed": "“{flow}” didn't go through for {count, plural, one {# person} other {# people}}.",
+    "emailOff": "“{flow}” went through {count, plural, =1 {once} =2 {twice} other {# times}}, but the email wasn't sent because email isn't set up.",
+    "emailOffAlso": "It also went through {count, plural, =1 {once} =2 {twice} other {# times}}, but the email wasn't sent because email isn't set up.",
+    "problem": "“{flow}” had a problem {count, plural, =1 {once} =2 {twice} other {# times}}.",
+    "problemWithWarning": "“{flow}” had a problem {count, plural, =1 {once} =2 {twice} other {# times}}: {warning}.",
+    "problemAlso": "It also had a problem {count, plural, =1 {once} =2 {twice} other {# times}}.",
+    "problemAlsoWithWarning": "It also had a problem {count, plural, =1 {once} =2 {twice} other {# times}}: {warning}.",
+    "title": "Problems in the last 24 hours",
+    "titleHelp": "Times in the last day when one of your automations failed or couldn’t finish something, like an email that wasn’t sent.",
+    "total": "{count, plural, one {# problem} other {# problems}}",
+    "lastError": "Last error: {error}",
+    "activityHelp": "Open this automation’s Activity to see each run, including what people sent, so you can get back to them.",
+    "seeWho": "See who it was and what they sent",
+    "seeWhat": "See what happened",
+    "emailNotSetUp": "Email isn't set up on this server.",
+    "setUpEmail": "Set up email",
+    "setUpEmailHelp": "Open the server settings to connect an email service, so apps can send emails.",
+    "askProvider": "Ask your provider to connect email."
+  },
+  "appAdminCard": {
+    "saveFailed": "Couldn't save the admin login.",
+    "savedUpdated": "Saved. That account is an admin now, with the new password.",
+    "savedCreated": "Saved. They can sign in to your app with this email and password.",
+    "title": "Your app's admin area",
+    "titleHelp": "Pages in your app that only you and your team can use, like where you manage orders, and the logins your team uses to reach them.",
+    "pagesIntro": "These pages are only for you and your team, so visitors can't see them. You can open them any time without signing in to your app.",
+    "openHelp": "Opens this team-only page in a new tab, with no need to sign in to your app. Visitors can’t see it.",
+    "notPublished": "Your app isn't published yet, so these open in Preview.",
+    "loginsTitle": "Admin logins for your team",
+    "loginsIntro": "Give someone an admin login and they can sign in on your app's sign-in page to manage it.",
+    "admins": "Admins: <list>{admins}</list>",
+    "email": "Email",
+    "emailHelp": "The email address your team member will sign in to your app with.",
+    "password": "Password",
+    "passwordHelp": "Their password, at least 10 characters. Share it with them privately; they sign in with it on your app’s sign-in page.",
+    "addHelp": "Gives this email an admin login for your app. If it already has an account, that account becomes an admin and its password changes.",
+    "add": "Add admin",
+    "note": "At least 10 characters. Using an email that already has an account in your app makes that account an admin and changes its password."
+  },
+  "notificationComposer": {
+    "confirm": "Send this notification to {count, plural, one {# subscriber} other {# subscribers}} now?",
+    "sendFailed": "Couldn't send. Please try again.",
+    "delivered": "Delivered to {sent, plural, one {# device} other {# devices}}{removed, plural, =0 {} one { (# old subscription removed)} other { (# old subscriptions removed)}}.",
+    "title": "Title",
+    "titlePlaceholder": "Tonight: live music from 7pm",
+    "titleHelp": "The bold first line people see. Keep it short and clear, like what’s happening and when.",
+    "message": "Message",
+    "messagePlaceholder": "Book a table before they're gone.",
+    "messageHelp": "The text under the title. Phones may cut off long messages, so put the important part first.",
+    "url": "Open this page when tapped (optional)",
+    "urlHelp": "The page of your app to open when someone taps the notification, like /menu. Leave empty to open your app’s home page.",
+    "publishFirst": "Publish your app first — tapping a notification opens your live app.",
+    "sendHelp": "Sends this right away to everyone subscribed. You’ll be asked to confirm first; once sent, it can’t be taken back.",
+    "sending": "Sending…",
+    "noSubscribers": "No subscribers yet",
+    "sendTo": "Send to {count}",
+    "previewLabel": "Preview",
+    "previewHelp": "A rough idea of how your notification will look. The real look depends on each person’s phone or computer.",
+    "previewEyebrow": "PREVIEW",
+    "previewTitle": "Your title",
+    "previewBody": "Your message shows here."
+  },
+  "enablePush": {
+    "failed": "Couldn't turn notifications on. Please try again.",
+    "help": "Adds a “Get notified” page to your app where visitors can sign up. You can then send them messages from here or from an automation.",
+    "turningOn": "Turning on…",
+    "turnOn": "Turn on notifications"
+  },
+  "notificationsPage": {
+    "eyebrow": "STAY IN TOUCH",
+    "title": "Push notifications",
+    "intro": "Send a message straight to the phones and computers of people who turned on notifications for {name}.",
+    "offTitle": "Notifications are off for this app.",
+    "offBody": "Turning them on adds a small “Get notified” page your visitors can use to sign up. Then you can send them news, offers and reminders from here.",
+    "subscribers": "Subscribers",
+    "subscribersHelp": "How many phones and computers have turned on notifications for your app. Someone using two devices counts twice.",
+    "goodToKnow": "Good to know",
+    "iosTip": "On iPhone and iPad, people first add your app to their home screen (Share → Add to Home Screen), then turn on notifications there. Android and computers work from the browser.",
+    "sent": "Sent",
+    "sentHelp": "Notifications you’ve sent, newest first, with how many devices got each one.",
+    "nothingSent": "Nothing sent yet.",
+    "stats": "{sent} delivered{failed, plural, =0 {} other { · {failed} failed}}{removed, plural, =0 {} other { · {removed} unsubscribed}} · {date}"
+  },
+  "projectApi": {
+    "unauthorized": "Unauthorized",
+    "notFound": "Not found",
+    "invalidInput": "Invalid input",
+    "uploadKey": "This app has a Google Play upload key. Download it before you delete the app: without it you can never update the app on Google Play again.",
+    "deleteFailed": "The app couldn't be deleted. Please try again."
+  },
+  "alertsApi": {
+    "invalid": "Please check the alert settings and try again.",
+    "unknownTable": "One of those tables isn't in this app any more. Reload the page and try again.",
+    "badEmail": "\"{address}\" doesn't look like an email address.",
+    "tooMany": "You can add up to {max} more addresses.",
+    "signedUpTable": "People who signed up",
+    "emailOff": "Email isn't set up on this server, so alerts can't be sent. Ask your provider to connect email.",
+    "testLimit": "That's {count} test submissions in the last hour. Please try again a little later.",
+    "allOff": "All alerts are turned off. Turn one on in the Alerts card, then try again.",
+    "noTables": "Your app doesn't collect anything from visitors yet. Add a form, or a feature such as Bookings, first.",
+    "throttled": "This app has sent its {count} alert emails for this hour, so the test was held back. The rest arrive together in one email at the end of the hour.",
+    "testFailed": "The test alert couldn't be sent.",
+    "samplePerson": "Test Person",
+    "sampleMessage": "This is a test submission from your launch checklist. Nobody sent it.",
+    "sampleSubject": "Test submission",
+    "sampleText": "Test"
+  },
+  "appAdminApi": {
+    "invalidEmail": "Enter a valid email address.",
+    "shortPassword": "Use at least {min} characters for the password.",
+    "checkDetails": "Check the details and try again.",
+    "saveFailed": "Couldn't save the admin login."
+  },
+  "transferApi": {
+    "unauthorized": "Unauthorized",
+    "ownerOnly": "Only the app's owner can transfer it. Ask them to do it from their own account.",
+    "notFound": "Project not found",
+    "tooManyTries": "That's a lot of transfer attempts. Please wait an hour and try again.",
+    "invalidEmail": "Enter a valid email address.",
+    "alreadyOwner": "You already own this app.",
+    "notEligible": "We couldn't transfer the app to that email. Check the address: it must belong to an account here that can receive apps from you."
+  },
+  "pushApi": {
+    "addTitle": "Add a title.",
+    "checkMessage": "Check the message.",
+    "publishFirst": "Publish the app first — notifications open your live app."
+  },
+  "pagesApi": {
+    "invalidInput": "Invalid input",
+    "notFound": "Not found",
+    "designerChange": "This app's pages come from the AI Designer, so change them there.",
+    "designerAdd": "This app's pages come from the AI Designer, so add pages there."
+  },
+  "offlineApi": {
+    "unauthorized": "Unauthorized",
+    "notFound": "Not found",
+    "readme": "{name} — offline app (exported from {brand} {date})\n\nHOW TO USE\n  1. Keep this folder together (you can move it anywhere — Desktop, C:\\, a USB stick).\n  2. Open index.html in any modern browser. That's it — no internet needed.\n\nYOUR DATA\n  The app ships with a snapshot of the project's database and stores all\n  changes locally in your browser (localStorage). Data persists between\n  sessions on the same computer + browser. It does NOT sync anywhere.\n\nWHAT WORKS OFFLINE\n  Pages, navigation, forms, data lists, search, games/scripts, sign-up and\n  login (accounts created inside the offline app).\n\nWHAT DOESN'T\n  - Accounts from the online version: password hashes are not exported, so\n    sign up fresh inside the offline app.\n  - Emails, Google Sheets, AI features, push notifications, and any flow\n    step that calls an external website (unless you happen to be online).\n",
+    "readmeKeysLeftOut": "  - Steps that use your private keys (for example payments or text messages):\n    the keys are left out of this file, so it is safe to share.\n",
+    "readmeNoBootstrap": "  - NOTE: Bootstrap CSS could not be bundled at export time; layout may look off.\n"
+  },
+  "modulesPage": {
+    "title": "Add a little superpower.",
+    "help": "Features are ready-made parts, like bookings or a shop, that add finished pages and the data behind them to your app.",
+    "intro": "Bookings, a shop, reviews and more. Pick one and we’ll add its pages to your app, ready for you to make your own."
+  }
+}

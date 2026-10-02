@@ -1,6 +1,8 @@
 import { db } from "@/lib/db";
 import { Prisma } from "@prisma/client";
 import { readMenuMarkers } from "@/lib/page-visibility";
+import { getAppLocale, runtimeText } from "@/lib/app-locale";
+import type { Locale } from "@/i18n/locales";
 
 /**
  * Project-wide navigation sync.
@@ -155,10 +157,28 @@ function gateAttrs(p: NavPage): string {
   return "";
 }
 
-function linkFor(p: NavPage, currentSlug: string, cls: "nav-link" | "dropdown-item"): string {
+/**
+ * The menu's own words ("Home", "Log in", …) in the app's language, from
+ * messages/<locale>/runtime.json. English menus are unchanged.
+ */
+export type NavWords = (key: "navHome" | "navMore" | "navManage" | "navLogIn" | "navSignUp" | "navLogOut" | "navSkip" | "navMenu" | "navMain", english: string) => string;
+const ENGLISH: NavWords = (_key, english) => english;
+
+/** The menu's words in a language (English words for English). */
+export function navWords(locale: Locale): NavWords {
+  return locale === "en" ? ENGLISH : (key) => runtimeText(locale, key);
+}
+
+export type NavOptions = {
+  words?: NavWords;
+  /** Multilingual apps: a language switcher ([data-nk-lang-switcher], filled in by the page's locale script). */
+  switcher?: boolean;
+};
+
+function linkFor(p: NavPage, currentSlug: string, cls: "nav-link" | "dropdown-item", w: NavWords = ENGLISH): string {
   const href = p.isHome ? "/" : `/${p.slug}`;
   const active = p.slug === currentSlug;
-  const label = escHtml(p.isHome ? "Home" : p.title.trim().slice(0, 40) || p.slug);
+  const label = escHtml(p.isHome ? w("navHome", "Home") : p.title.trim().slice(0, 40) || p.slug);
   return (
     `<a class="${cls}${active ? " active" : ""}"` +
     (active ? ` aria-current="page"` : "") +
@@ -176,7 +196,8 @@ const TOGGLER_BAR =
  * hrefs — the publish layer namespaces them per host, and the runtime's
  * data-nk-auth / data-nk-role handling shows or hides the gated entries.
  */
-export function buildNavHtml(info: NavProjectInfo, currentSlug: string): string {
+export function buildNavHtml(info: NavProjectInfo, currentSlug: string, opts: NavOptions = {}): string {
+  const w = opts.words ?? ENGLISH;
   const home = info.pages.find((p) => p.isHome) ?? null;
   // Staff-only pages (orders, inbox, subscribers…) live in their own "Manage"
   // menu that only those roles see, so they never take a visitor's slots.
@@ -187,18 +208,18 @@ export function buildNavHtml(info: NavProjectInfo, currentSlug: string): string 
 
   const items: string[] = [];
   if (home) {
-    items.push(`<li class="nav-item">${linkFor(home, currentSlug, "nav-link")}</li>`);
+    items.push(`<li class="nav-item">${linkFor(home, currentSlug, "nav-link", w)}</li>`);
   }
   for (const p of primary) {
-    items.push(`<li class="nav-item"${gateAttrs(p)}>${linkFor(p, currentSlug, "nav-link")}</li>`);
+    items.push(`<li class="nav-item"${gateAttrs(p)}>${linkFor(p, currentSlug, "nav-link", w)}</li>`);
   }
   if (overflow.length > 0) {
     const inner = overflow
-      .map((p) => `<li${gateAttrs(p)}>${linkFor(p, currentSlug, "dropdown-item")}</li>`)
+      .map((p) => `<li${gateAttrs(p)}>${linkFor(p, currentSlug, "dropdown-item", w)}</li>`)
       .join("");
     items.push(
       `<li class="nav-item dropdown">` +
-        `<a class="nav-link" href="#" role="button" data-nk-nav-toggle="#nk-nav-more" aria-controls="nk-nav-more" aria-expanded="false" style="color: var(--nk-text);">More <span aria-hidden="true">&#9662;</span></a>` +
+        `<a class="nav-link" href="#" role="button" data-nk-nav-toggle="#nk-nav-more" aria-controls="nk-nav-more" aria-expanded="false" style="color: var(--nk-text);">${escHtml(w("navMore", "More"))} <span aria-hidden="true">&#9662;</span></a>` +
         `<ul class="dropdown-menu dropdown-menu-end" id="nk-nav-more" style="background: var(--nk-surface); border: 1px solid var(--nk-border);">${inner}</ul>` +
         `</li>`
     );
@@ -207,11 +228,11 @@ export function buildNavHtml(info: NavProjectInfo, currentSlug: string): string 
   if (staff.length > 0) {
     const roles = [...new Set(staff.map((p) => p.requiredRole!))].join(",");
     const inner = staff
-      .map((p) => `<li${gateAttrs(p)}>${linkFor(p, currentSlug, "dropdown-item")}</li>`)
+      .map((p) => `<li${gateAttrs(p)}>${linkFor(p, currentSlug, "dropdown-item", w)}</li>`)
       .join("");
     items.push(
       `<li class="nav-item dropdown" data-nk-role="${escHtml(roles)}" hidden>` +
-        `<a class="nav-link" href="#" role="button" data-nk-nav-toggle="#nk-nav-manage" aria-controls="nk-nav-manage" aria-expanded="false" style="color: var(--nk-text);">Manage <span aria-hidden="true">&#9662;</span></a>` +
+        `<a class="nav-link" href="#" role="button" data-nk-nav-toggle="#nk-nav-manage" aria-controls="nk-nav-manage" aria-expanded="false" style="color: var(--nk-text);">${escHtml(w("navManage", "Manage"))} <span aria-hidden="true">&#9662;</span></a>` +
         `<ul class="dropdown-menu dropdown-menu-end" id="nk-nav-manage" style="background: var(--nk-surface); border: 1px solid var(--nk-border);">${inner}</ul>` +
         `</li>`
     );
@@ -222,20 +243,23 @@ export function buildNavHtml(info: NavProjectInfo, currentSlug: string): string 
   if (info.loginSlug) {
     items.push(
       `<li class="nav-item" data-nk-auth="out" hidden>` +
-        `<a class="nav-link" href="/${info.loginSlug}" style="color: var(--nk-text);">Log in</a></li>`
+        `<a class="nav-link" href="/${info.loginSlug}" style="color: var(--nk-text);">${escHtml(w("navLogIn", "Log in"))}</a></li>`
     );
   }
   if (info.registerSlug) {
     items.push(
       `<li class="nav-item ms-lg-2" data-nk-auth="out" hidden>` +
-        `<a class="btn btn-sm" href="/${info.registerSlug}" style="background: var(--nk-primary); color: var(--nk-on-primary, #fff); border-radius: var(--nk-radius-sm, 8px); padding: .35rem .9rem;">Sign up</a></li>`
+        `<a class="btn btn-sm" href="/${info.registerSlug}" style="background: var(--nk-primary); color: var(--nk-on-primary, #fff); border-radius: var(--nk-radius-sm, 8px); padding: .35rem .9rem;">${escHtml(w("navSignUp", "Sign up"))}</a></li>`
     );
   }
   if (info.logoutFlowId) {
     items.push(
       `<li class="nav-item" data-nk-auth="in" hidden>` +
-        `<a class="nav-link" href="#" data-nk-logout="${escHtml(info.logoutFlowId)}" data-nk-redirect="/" style="color: var(--nk-text);">Log out</a></li>`
+        `<a class="nav-link" href="#" data-nk-logout="${escHtml(info.logoutFlowId)}" data-nk-redirect="/" style="color: var(--nk-text);">${escHtml(w("navLogOut", "Log out"))}</a></li>`
     );
+  }
+  if (opts.switcher) {
+    items.push(`<li class="nav-item ms-lg-2 nk-lang-item"><div data-nk-lang-switcher=""></div></li>`);
   }
 
   // "Skip to content" lets keyboard and screen-reader users jump past the
@@ -243,13 +267,13 @@ export function buildNavHtml(info: NavProjectInfo, currentSlug: string): string 
   // and lands on the empty marker at the end of the nav, so the next Tab
   // goes to the page's own content.
   return (
-    `<nav data-nk-nav="auto" class="navbar navbar-expand-lg nk-nav" aria-label="Main" style="background: var(--nk-surface); border-bottom: 1px solid var(--nk-border);">` +
-    `<a class="visually-hidden-focusable nk-skip-link" href="#nk-main" style="position: absolute; top: 8px; left: 8px; z-index: 1080; padding: .5rem 1rem; background: var(--nk-surface); color: var(--nk-text); border: 2px solid var(--nk-primary); border-radius: var(--nk-radius-sm, 8px); text-decoration: none;">Skip to content</a>` +
+    `<nav data-nk-nav="auto" class="navbar navbar-expand-lg nk-nav" aria-label="${escHtml(w("navMain", "Main"))}" style="background: var(--nk-surface); border-bottom: 1px solid var(--nk-border);">` +
+    `<a class="visually-hidden-focusable nk-skip-link" href="#nk-main" style="position: absolute; top: 8px; left: 8px; z-index: 1080; padding: .5rem 1rem; background: var(--nk-surface); color: var(--nk-text); border: 2px solid var(--nk-primary); border-radius: var(--nk-radius-sm, 8px); text-decoration: none;">${escHtml(w("navSkip", "Skip to content"))}</a>` +
     `<div class="container">` +
     `<a class="navbar-brand fw-bold" href="/" style="color: var(--nk-text); font-family: var(--nk-font-display, inherit);">${escHtml(
       info.projectName
     )}</a>` +
-    `<button class="navbar-toggler border-0 p-1" type="button" data-nk-nav-toggle="#nk-nav-menu" aria-controls="nk-nav-menu" aria-expanded="false" aria-label="Menu" style="color: var(--nk-text); box-shadow: none;">${TOGGLER_BAR}${TOGGLER_BAR}${TOGGLER_BAR}</button>` +
+    `<button class="navbar-toggler border-0 p-1" type="button" data-nk-nav-toggle="#nk-nav-menu" aria-controls="nk-nav-menu" aria-expanded="false" aria-label="${escHtml(w("navMenu", "Menu"))}" style="color: var(--nk-text); box-shadow: none;">${TOGGLER_BAR}${TOGGLER_BAR}${TOGGLER_BAR}</button>` +
     `<div class="collapse navbar-collapse" id="nk-nav-menu">` +
     `<ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">${items.join("")}</ul>` +
     `</div></div><span id="nk-main" tabindex="-1"></span></nav>`
@@ -314,9 +338,15 @@ export async function syncProjectNav(projectId: string): Promise<number> {
     logoutFlowId: logoutFlow?.id ?? null,
   };
 
+  // The app's language: the menu's words in it, and with more than one
+  // language a switcher, plus a menu in each language for its translations.
+  const app = await getAppLocale(projectId);
+  const switcher = app.locales.length > 1;
+  const opts: NavOptions = { words: navWords(app.locale), switcher };
+
   let changed = 0;
   for (const page of pages) {
-    const nav = buildNavHtml(info, page.slug);
+    const nav = buildNavHtml(info, page.slug, opts);
     const newHtml = stampNavIntoHtml(page.html, nav);
     if (newHtml === page.html) continue;
     // Clearing components/styles matters: the editor prefers the GrapesJS
@@ -331,6 +361,34 @@ export async function syncProjectNav(projectId: string): Promise<number> {
       },
     });
     changed++;
+  }
+  if (switcher) changed += await syncTranslationNavs(projectId, info, app.locales.slice(1));
+  return changed;
+}
+
+/**
+ * The menu in each of the app's other languages, stamped into that
+ * language's translated pages: the translated page titles (the default
+ * language's where a page has no translation yet) and the menu's words.
+ */
+async function syncTranslationNavs(projectId: string, info: NavProjectInfo, locales: Locale[]): Promise<number> {
+  let changed = 0;
+  for (const locale of locales) {
+    const rows = await db.pageTranslation.findMany({
+      where: { locale, page: { projectId } },
+      select: { id: true, title: true, html: true, page: { select: { slug: true } } },
+    });
+    if (rows.length === 0) continue;
+    const titles = new Map(rows.map((r) => [r.page.slug, r.title]));
+    const localized: NavProjectInfo = { ...info, pages: info.pages.map((p) => ({ ...p, title: titles.get(p.slug) || p.title })) };
+    const opts: NavOptions = { words: navWords(locale), switcher: true };
+    for (const row of rows) {
+      const html = stampNavIntoHtml(row.html, buildNavHtml(localized, row.page.slug, opts));
+      if (html === row.html) continue;
+      // The menu isn't the owner's work: an edited translation stays edited.
+      await db.pageTranslation.update({ where: { id: row.id }, data: { html } });
+      changed++;
+    }
   }
   return changed;
 }

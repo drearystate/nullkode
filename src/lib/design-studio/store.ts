@@ -106,7 +106,10 @@ export async function createDesign(userId: string, name?: string): Promise<Desig
 export async function renameDesign(userId: string, designId: string, name: string): Promise<DesignSummary> {
   await owned(userId, designId);
   const clean = name.trim().slice(0, 120);
-  if (!clean) throw new Error("Give the design a name.");
+  if (!clean) {
+    const { requestTranslator } = await import("../ai/i18n");
+    throw new Error((await requestTranslator("designer"))("server.nameRequired"));
+  }
   const d = await db.designerDesign.update({ where: { id: designId }, data: { name: clean } });
   return summary(d, true);
 }

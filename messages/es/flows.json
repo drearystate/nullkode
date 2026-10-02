@@ -1,0 +1,788 @@
+{
+  "activity": {
+    "all": "Todas las ejecuciones",
+    "allHelp": "Mostrar todas las ejecuciones recientes de esta automatización.",
+    "empty": "Todavía no hay nada. Las ejecuciones aparecerán aquí cuando alguien use esto en tu app o cuando pulses «Probar ejecución».",
+    "filterLabel": "Qué ejecuciones mostrar",
+    "intro": "Qué pasó cada vez que se ejecutó este flujo.",
+    "justNow": "ahora mismo",
+    "last24h": "Últimas 24 horas: {total, plural, one {# ejecución} other {# ejecuciones}}, {problems} con problemas.",
+    "loadError": "No se pudo cargar la actividad.",
+    "ms": "{n} ms",
+    "noProblems": "No hay problemas. Todas las ejecuciones recientes se completaron correctamente.",
+    "nothingSent": "No se envió nada en esta ejecución.",
+    "outcome": {
+      "answered": "Respondida",
+      "failed": "Fallida",
+      "ok": "Completada",
+      "warning": "Terminó con un problema"
+    },
+    "outcomeHelp": {
+      "answered": "Respondida: dio una respuesta negativa, como una contraseña incorrecta o datos que faltaban. Normalmente es lo esperado, no un error.",
+      "failed": "Fallida: esta ejecución se detuvo en un paso con un error y no terminó.",
+      "ok": "Completada: todos los pasos funcionaron.",
+      "warning": "Terminó con un problema: se completó, pero algo salió mal, como que no se enviara un correo."
+    },
+    "problemsOnly": "Solo problemas",
+    "problemsOnlyHelp": "Mostrar solo las ejecuciones que fallaron o terminaron con un problema, como un correo que no se envió.",
+    "refresh": "Actualizar actividad",
+    "refreshHelp": "Vuelve a comprobar si hay ejecuciones nuevas.",
+    "s": "{n} s",
+    "source": {
+      "event": "Desde tu app",
+      "live": "Desde tu app",
+      "schedule": "Según la programación",
+      "test": "Ejecución de prueba",
+      "test-submission": "Envío de prueba"
+    },
+    "title": "Actividad",
+    "titleHelp": "Cada vez que se ejecutó esta automatización: si funcionó, qué la inició y qué datos recibió. Útil para detectar problemas.",
+    "took": "tardó {duration}",
+    "whatTheySent": "Lo que enviaron",
+    "whatWasSent": "Lo que se envió",
+    "whatWasSentHelp": "La información que llegó con esta ejecución, como lo que alguien escribió en un formulario."
+  },
+  "api": {
+    "aiTooOften": "Este flujo usa IA, así que solo puede ejecutarse cada {minutes} minutos como mínimo. Así evitas agotar tu límite de IA con una programación.",
+    "chooseWhen": "Elige cuándo debe ejecutarse.",
+    "invalidInput": "Entrada no válida",
+    "notFound": "No se encontró"
+  },
+  "catalog": {
+    "aggregate": {
+      "help": "Cuenta los registros o suma una columna de una tabla, como el número de registros o las ventas totales. Los pasos siguientes pueden usar el resultado.",
+      "label": "Contar o sumar registros"
+    },
+    "ai_prompt": {
+      "help": "Pide a la IA que responda una pregunta o realice una tarea, como resumir un mensaje. Los pasos siguientes pueden usar su respuesta. Cada ejecución cuenta para tu límite de uso de IA.",
+      "label": "Preguntar a la IA"
+    },
+    "branch": {
+      "help": "Comprueba algo y divide la automatización en dos caminos: uno se ejecuta si se cumple la condición y el otro, si no se cumple.",
+      "label": "Si pasa esto, haz aquello"
+    },
+    "bulk_delete": {
+      "help": "Elimina permanentemente de una vez todas las filas de una tabla que cumplan tus condiciones. No se puede deshacer.",
+      "label": "Eliminar varias filas"
+    },
+    "bulk_insert": {
+      "help": "Añade varias filas a una tabla a la vez, a partir de una lista creada en un paso anterior.",
+      "label": "Añadir varias filas"
+    },
+    "bulk_update": {
+      "help": "Cambia de una vez todas las filas de una tabla que cumplan tus condiciones.",
+      "label": "Cambiar varias filas"
+    },
+    "check_role": {
+      "help": "Comprueba si la persona que inició sesión tiene un rol determinado, como el de administrador. Añade un paso «Si pasa esto, haz aquello» para decidir qué ocurre.",
+      "label": "Comprobar qué puede hacer la persona"
+    },
+    "clear_session": {
+      "help": "Cierra la sesión de la persona en este dispositivo.",
+      "label": "Cerrar sesión"
+    },
+    "custom_js": {
+      "help": "Para desarrolladores: ejecuta un fragmento de código JavaScript que escribas. Úsalo solo si ningún otro paso hace lo que necesitas.",
+      "label": "Código personalizado"
+    },
+    "delay": {
+      "help": "Pausa la automatización unos segundos (hasta 60) antes de ejecutar el siguiente paso.",
+      "label": "Esperar"
+    },
+    "delete": {
+      "help": "Elimina permanentemente los registros de una tabla que cumplan tus condiciones. No se puede deshacer.",
+      "label": "Eliminar registros"
+    },
+    "email": {
+      "help": "Envía un correo, como la confirmación de un pedido a un cliente o un aviso para ti.",
+      "label": "Enviar un correo"
+    },
+    "get_session": {
+      "help": "Averigua quién ha iniciado sesión ahora, si hay alguien, y consulta su nombre, correo y rol para que los pasos siguientes puedan usar esos datos.",
+      "label": "Quién ha iniciado sesión"
+    },
+    "hash_password": {
+      "help": "Codifica una contraseña para guardarla de forma segura. Úsalo antes de guardar la contraseña de una cuenta nueva; no se puede recuperar la contraseña original.",
+      "label": "Proteger una contraseña"
+    },
+    "http_request": {
+      "help": "Se comunica con otro sitio web o servicio en línea para obtener información o enviarle datos. Los pasos siguientes pueden usar la respuesta.",
+      "label": "Contactar con otro sitio web"
+    },
+    "insert": {
+      "help": "Guarda un registro nuevo (una fila nueva) en una de tus tablas, como los datos que alguien escribió en un formulario.",
+      "label": "Añadir un registro"
+    },
+    "lookup": {
+      "help": "Por cada registro que haya encontrado un paso anterior, busca el registro correspondiente en otra tabla, como los datos del cliente de cada pedido.",
+      "label": "Buscar un registro relacionado"
+    },
+    "math": {
+      "help": "Calcula un número a partir de dos valores: suma, resta, multiplica, divide o calcula el resto. Los pasos siguientes pueden usar el resultado.",
+      "label": "Hacer un cálculo"
+    },
+    "parse_json": {
+      "help": "Convierte texto con datos estructurados (a menudo enviados por otros sitios web) en valores separados que los pasos siguientes pueden usar.",
+      "label": "Leer datos de un texto"
+    },
+    "query": {
+      "help": "Busca registros guardados en una de tus tablas (una tabla es como una hoja de cálculo). Si quieres, puedes limitar la búsqueda a los que cumplan tus condiciones. Los pasos siguientes pueden usar lo que encuentre.",
+      "label": "Buscar registros"
+    },
+    "response": {
+      "help": "Envía una respuesta a la página o al formulario que inició la automatización, como un mensaje de éxito o los registros encontrados.",
+      "label": "Responder"
+    },
+    "send_push": {
+      "help": "Envía una notificación al teléfono o al ordenador de todas las personas que hayan activado las notificaciones de tu app.",
+      "label": "Enviar una notificación"
+    },
+    "set": {
+      "help": "Guarda un valor con el nombre que elijas para que los pasos siguientes puedan volver a usarlo, como una nota adhesiva para esta ejecución.",
+      "label": "Guardar un valor"
+    },
+    "set_session": {
+      "help": "Inicia la sesión de la persona en este dispositivo para que tu app la reconozca cuando vuelva.",
+      "label": "Iniciar sesión"
+    },
+    "sheets_append": {
+      "help": "Añade una fila nueva a una hoja de Google que hayas conectado, como un registro de cada formulario enviado. Solo funciona con hojas que tu app pueda editar, no con las de solo lectura.",
+      "label": "Añadir una fila a una hoja de Google"
+    },
+    "sheets_read": {
+      "help": "Lee las filas de una hoja de Google que hayas conectado (hasta 1.000) para que los pasos siguientes puedan usarlas.",
+      "label": "Leer una hoja de Google"
+    },
+    "trigger": {
+      "help": "Aquí empieza la automatización: cuando una página o un formulario de tu app lo usa, o según el horario que configures. Conéctalo al primer paso que quieras ejecutar.",
+      "label": "Cuando la app lo ejecuta"
+    },
+    "update": {
+      "help": "Cambia registros que ya están guardados en una tabla. Elige qué registros cambiar y cuáles serán sus nuevos valores.",
+      "label": "Cambiar registros"
+    },
+    "verify_password": {
+      "help": "Comprueba si la contraseña que alguien escribió coincide con la versión codificada que guardaste. Úsalo cuando las personas inicien sesión.",
+      "label": "Comprobar una contraseña"
+    }
+  },
+  "categories": {
+    "ai": "IA",
+    "auth": "Cuentas",
+    "data": "Datos guardados",
+    "integration": "Enviar y conectar",
+    "logic": "Decisiones y valores",
+    "response": "Finalizar",
+    "trigger": "Inicio"
+  },
+  "describe": {
+    "anEmailOff": "no se envió un correo porque el correo electrónico no está configurado",
+    "answered": "Respondió «{message}».",
+    "answeredCode": "Respondió con el código {status}.",
+    "didAndNote": "{did}; {note}.",
+    "done": {
+      "ai": "se consultó a la IA",
+      "deleted": "eliminado de {table}",
+      "emailed": "se envió un correo a {address}",
+      "http": "se contactó con otro servicio",
+      "saved": "guardado en {table}",
+      "sentEmail": "se envió un correo",
+      "sentPush": "se envió una notificación",
+      "sheetsAppend": "se añadió una fila a Google Sheets",
+      "signedIn": "se inició la sesión de alguien",
+      "signedOut": "se cerró la sesión de alguien",
+      "updated": "actualizado en {table}"
+    },
+    "emailNotSent": "el correo no se envió ({reason})",
+    "emailOff": "el correo no se envió porque el correo electrónico no está configurado",
+    "failed": {
+      "ai": "El paso de IA no respondió",
+      "delete": "No se pudo eliminar de {table}",
+      "didntFinish": "No se completó",
+      "email": "No se pudo enviar el correo",
+      "http": "No se pudo conectar con el otro servicio",
+      "push": "No se pudo enviar la notificación",
+      "read": "No se pudo leer {table}",
+      "save": "No se pudo guardar en {table}",
+      "stoppedAt": "Se detuvo en «{label}»",
+      "update": "No se pudo actualizar {table}"
+    },
+    "failedOnly": "{failed}.",
+    "failedWhy": "{failed}: {why}",
+    "failedWhyPeriod": "{failed}: {why}.",
+    "noProblems": "Se completó sin problemas.",
+    "sent": "Enviado",
+    "sentence": "{text}.",
+    "signUps": "registros",
+    "yourData": "tus datos"
+  },
+  "editor": {
+    "addStep": "Añadir paso",
+    "addStepHelp": "Lo que puede hacer tu automatización. Haz clic en un paso para añadirlo y luego arrastra desde su borde derecho hasta el siguiente para elegir el orden en que se ejecutan.",
+    "deleteStep": "Eliminar paso",
+    "deleteStepHelp": "Elimina este paso y sus conexiones. También puedes pulsar Suprimir en el teclado.",
+    "emptyBody": "Selecciona un paso para ajustar lo que hace. Añade más desde la izquierda y conéctalos en el orden en que deben ejecutarse.",
+    "emptyTitle": "Cada paso tiene un propósito.",
+    "flow": "Flujo",
+    "handleFalse": "Punto inferior: arrastra desde aquí hasta el paso que debe ejecutarse si la condición no se cumple.",
+    "handleIn": "Aquí se conecta el paso anterior.",
+    "handleOut": "Arrastra desde aquí hasta el siguiente paso para elegir qué ocurre después.",
+    "handleTrue": "Punto superior: arrastra desde aquí hasta el paso que debe ejecutarse si la condición se cumple.",
+    "pausedTest": "Esta automatización está en pausa. Actívala para probarla.",
+    "problemsBadge": "{count} con problemas en las últimas 24 horas",
+    "running": "Ejecutando...",
+    "saveFailed": "No se pudo guardar",
+    "saved": "Guardado",
+    "searchHelp": "Escribe una palabra, como «correo» o «guardar», para encontrar un paso rápidamente.",
+    "searchLabel": "Buscar pasos del flujo",
+    "searchPlaceholder": "Buscar un paso…",
+    "tabActivity": "Actividad",
+    "tabActivityHelp": "Consulta cada vez que se ejecutó esta automatización, si funcionó y qué enviaron las personas cuando algo salió mal.",
+    "tabSchedule": "Programación",
+    "tabScheduleHelp": "Elige si se ejecuta cuando se usa tu app o automáticamente a horas concretas, como cada mañana.",
+    "tabSteps": "Pasos",
+    "tabStepsHelp": "Crea la automatización: añade pasos y conéctalos en el orden en que deben ejecutarse.",
+    "tabsLabel": "Vistas del flujo",
+    "testRun": "Ejecución de prueba",
+    "testRunHelp": "Ejecuta esta automatización ahora mismo una vez con los últimos cambios guardados y muestra el resultado abajo. Realiza sus pasos de verdad (guardar, enviar correos, etc.) y aparece en Actividad.",
+    "webAddress": "Dirección web (para desarrolladores)",
+    "webAddressHelp": "La dirección web que otros servicios o tu propio código pueden usar para iniciar esta automatización. Solo la necesitas si conectas algo externo al estudio."
+  },
+  "enabledSwitch": {
+    "failed": "No se pudo cambiar. Inténtalo de nuevo.",
+    "help": "Cuando está en pausa, no se ejecuta nada y cualquier elemento de tu app que la use, como un formulario, dará un error. El cambio se aplica de inmediato a tu app publicada; no hace falta publicar.",
+    "helpScheduled": "Cuando está en pausa, se detienen las ejecuciones programadas y cualquier elemento de tu app que la use dará un error. El cambio se aplica de inmediato; no hace falta publicar.",
+    "label": "Ejecutar esta automatización",
+    "on": "Activada",
+    "paused": "En pausa"
+  },
+  "inspector": {
+    "add": "Añadir",
+    "addCondition": "Añadir condición",
+    "addConditionHelp": "Añade otra regla. Un registro debe cumplir todas las reglas para contar.",
+    "addField": "Añadir campo",
+    "addFieldHelp": "Añade otra fila con un nombre y un valor.",
+    "advanced": "Avanzado",
+    "agg": {
+      "avg": "Promedio de una columna",
+      "count": "Contar los registros",
+      "max": "Valor más grande de una columna",
+      "min": "Valor más pequeño de una columna",
+      "sum": "Sumar una columna"
+    },
+    "aggregateEmptyHint": "Déjalo vacío para incluir todas las filas. Deben cumplirse todas las condiciones.",
+    "biggestFirst": "Primero, el resultado más grande",
+    "body": "Cuerpo",
+    "bodyEmpty": "Añade los campos que quieres enviar en el cuerpo de la solicitud.",
+    "bodyHelp": "La información que se va a enviar. Cada fila tiene un nombre y un valor; la guía del otro servicio indica qué nombres espera.",
+    "branchHint": "Conecta el punto de arriba a lo que ocurre cuando esto es cierto, y el de abajo a lo que ocurre cuando no lo es.",
+    "bulkInsertHint": "El paso termina con un error si ese paso no generó una lista o si encuentra un elemento cuyo ID ya está en la tabla.",
+    "byAsc": "Por {column}, de la A a la Z",
+    "byDesc": "Por {column}, de la Z a la A",
+    "choose": "— elegir —",
+    "clearSession": "Cierra la sesión de quien esté usando tu app en este dispositivo, así que tendrá que volver a iniciarla la próxima vez. No hay nada que configurar aquí.",
+    "clearSessionHelp": "Este paso no tiene ajustes. Elimina el inicio de sesión que tu app guardó en el dispositivo de la persona.",
+    "closeHelp": "Cierra esta lista sin añadir nada.",
+    "columnHelp": "La columna que quieres comprobar, como correo electrónico o estado.",
+    "deleteHelp": "Elimina este paso y sus conexiones de la automatización. No se puede deshacer, así que tendrás que volver a añadirlo.",
+    "deleteNeedsCondition": "Hace falta una condición para eliminar; de lo contrario, el paso fallará.",
+    "fields": {
+      "aiPrompt": {
+        "help": "La pregunta o tarea para la IA. Inserta valores para incluir cosas como el mensaje del cliente.",
+        "label": "Instrucción"
+      },
+      "aiSystem": {
+        "help": "Indicaciones que la IA tendrá en cuenta cada vez, como «Responde con una frase amable» o «Trabajas en una panadería».",
+        "label": "Instrucciones del sistema (opcional)"
+      },
+      "dataSource": {
+        "help": "Dónde se guardan tus datos. La mayoría de las apps solo tienen su propia base de datos integrada; elige otra solo si la conectaste tú.",
+        "label": "Fuente de datos"
+      },
+      "emailFrom": {
+        "help": "La dirección que aparecerá como remitente. Déjalo vacío para usar la dirección de envío habitual del servidor.",
+        "label": "De (opcional)"
+      },
+      "emailMessage": {
+        "help": "El contenido del correo. Inserta valores para personalizarlo, como el nombre de la persona o los detalles de su pedido.",
+        "label": "Mensaje"
+      },
+      "emailSubject": {
+        "help": "El asunto del correo. Puedes insertar valores, como un número de pedido.",
+        "label": "Asunto"
+      },
+      "emailTo": {
+        "help": "Quién recibe el correo. Escribe una dirección o inserta una del formulario, como el correo de la persona. Separa varias direcciones con comas.",
+        "label": "Para"
+      },
+      "firstValue": {
+        "help": "El primer número. Escríbelo o inserta uno de un paso anterior.",
+        "label": "Primer valor"
+      },
+      "groupBy": {
+        "help": "Devuelve un resultado por cada valor de esta columna, como un recuento por estado. Déjalo en «Un total» para obtener un solo número.",
+        "label": "Dividir en grupos por"
+      },
+      "groupLimit": {
+        "help": "El número máximo de grupos que se devolverán, hasta 1.000. Se omiten los grupos que superen este número.",
+        "label": "Máximo de grupos"
+      },
+      "hashInput": {
+        "help": "La contraseña que quieres codificar, normalmente la que se escribió en el formulario de registro. Guarda el resultado codificado, nunca la contraseña original.",
+        "label": "Contraseña para codificar"
+      },
+      "is": {
+        "help": "Cómo comparar los dos valores. «contiene» busca el texto en cualquier parte; «existe» solo comprueba que el primer valor no esté vacío.",
+        "label": "Es"
+      },
+      "javascript": {
+        "help": "Tu código. Usa vars.name para los resultados de pasos anteriores y trigger.name para los datos recibidos. Lo que devuelvas se guardará para los pasos siguientes.",
+        "label": "JavaScript"
+      },
+      "jsonInput": {
+        "help": "Texto con datos en formato JSON, un formato común que envían otros sitios web. Suele ser la respuesta de un paso «Llamar a otro sitio web». El paso falla si el texto no tiene ese formato.",
+        "label": "Texto JSON para analizar"
+      },
+      "lookupAs": {
+        "help": "Un nombre para los detalles añadidos a cada registro, como cliente. Si hay una coincidencia, se guarda como un solo registro; si hay varias, como una lista de hasta 10.",
+        "label": "Guardar los detalles como"
+      },
+      "lookupDataSource": {
+        "help": "Dónde se guarda la otra lista. La mayoría de las apps solo tienen su propia base de datos integrada.",
+        "label": "Fuente de datos"
+      },
+      "lookupIn": {
+        "help": "La lista de registros de la que se obtienen los detalles, como Clientes.",
+        "label": "Buscar en"
+      },
+      "lookupMatch": {
+        "help": "La columna de esa lista cuyo valor debe coincidir con el de arriba. Suele ser id.",
+        "label": "Columna coincidente"
+      },
+      "lookupPointer": {
+        "help": "La columna de esos registros que contiene el ID del otro registro, como customer_id en un pedido. Los registros donde esté vacía no cambian.",
+        "label": "Columna que indica el otro registro"
+      },
+      "lookupSource": {
+        "help": "La lista encontrada por un paso anterior, como los pedidos de un paso «Buscar registros». El paso se detiene con un error si ese paso no devolvió una lista.",
+        "label": "Registros a los que añadir detalles"
+      },
+      "method": {
+        "help": "El tipo de solicitud. GET obtiene información, POST envía información nueva, PUT y PATCH la modifican, y DELETE la elimina. La guía del otro servicio indica cuál usar.",
+        "label": "Método"
+      },
+      "ofColumn": {
+        "help": "La columna con la que trabajar, como importe o precio. Sumar y calcular el promedio solo funciona con columnas numéricas.",
+        "label": "De esta columna"
+      },
+      "operator": {
+        "help": "Qué hacer con los dos números. El resto es lo que queda después de dividir (7 dividido entre 2 da un resto de 1). Dividir entre cero da 0.",
+        "label": "Operador"
+      },
+      "orderGroups": {
+        "help": "Qué grupos aparecen primero en el resultado, como el estado con más actividad en primer lugar.",
+        "label": "Orden de los grupos"
+      },
+      "plainPassword": {
+        "help": "La contraseña que la persona acaba de escribir en el formulario de inicio de sesión.",
+        "label": "Contraseña del usuario"
+      },
+      "pushMessage": {
+        "help": "El texto que aparece debajo del título. Procura que sea breve, ya que los teléfonos recortan los mensajes largos.",
+        "label": "Mensaje"
+      },
+      "pushTitle": {
+        "help": "La primera línea en negrita de la notificación. Puedes insertar valores, como un nombre de un paso anterior.",
+        "label": "Título"
+      },
+      "pushUrl": {
+        "help": "La página de tu app que se abrirá al tocar la notificación, como /menu. Déjalo vacío para abrir la página de inicio de tu app.",
+        "label": "Abrir esta página al tocar (opcional)"
+      },
+      "roleNeeded": {
+        "help": "El rol que debe tener la persona, como admin o gerente. No importa si usas mayúsculas o minúsculas.",
+        "label": "Rol necesario"
+      },
+      "roleSource": {
+        "help": "Déjalo vacío para usar el rol de la persona que inició sesión, obtenido con un paso anterior «Quién ha iniciado sesión». Cámbialo solo si un paso anterior guardó el rol con otro nombre.",
+        "label": "Dónde está su rol (opcional)"
+      },
+      "rowsToAdd": {
+        "help": "Una lista creada en un paso anterior, como los registros encontrados por un paso «Buscar registros». Cada elemento se convierte en una fila nueva, así que sus nombres deben coincidir con las columnas de esta tabla.",
+        "label": "Filas que añadir"
+      },
+      "secondValue": {
+        "help": "El segundo número. Escríbelo o inserta uno de un paso anterior.",
+        "label": "Segundo valor"
+      },
+      "seconds": {
+        "help": "Cuánto tiempo esperar antes del siguiente paso. La persona que usa tu app también tendrá que esperar, así que procura que sea poco.",
+        "label": "Segundos (0-60)"
+      },
+      "sheetSource": {
+        "help": "La hoja de Google Sheets conectada a tu app. Si la lista está vacía, primero añade una en la sección Avanzado de la página Datos de tu app.",
+        "label": "Fuente de datos de Google Sheets"
+      },
+      "sheetTab": {
+        "help": "El nombre de la pestaña en la parte inferior de la hoja de cálculo, tal como aparece, por ejemplo, Sheet1.",
+        "label": "Nombre de la pestaña"
+      },
+      "stepName": {
+        "help": "Nombre que aparece en el cuadro del paso en el diagrama para que puedas distinguirlo. No cambia lo que hace el paso.",
+        "label": "Nombre del paso"
+      },
+      "storedHash": {
+        "help": "La contraseña codificada que guardaste cuando la persona se registró. Suele venir de un paso «Buscar registros» que encontró su cuenta.",
+        "label": "Contraseña codificada guardada"
+      },
+      "table": {
+        "help": "Qué tabla usar. Una tabla es como una hoja de cálculo: una fila por registro, como un pedido o una inscripción.",
+        "label": "Lista de registros"
+      },
+      "thisValue": {
+        "help": "Con qué se compara. Escribe el valor sin comillas o inserta uno. «igual a» debe coincidir exactamente, incluidas las mayúsculas.",
+        "label": "Este valor"
+      },
+      "url": {
+        "help": "La dirección web del servicio, que debe empezar por https://. Puedes insertar valores.",
+        "label": "URL"
+      },
+      "userId": {
+        "help": "El ID de la cuenta para iniciar sesión. Suele venir del registro que encontró un paso «Buscar registros». Tu app recordará a esta persona hasta que cierre sesión.",
+        "label": "ID de usuario"
+      },
+      "value": {
+        "help": "Qué quieres guardar. Escribe texto, inserta un valor del formulario o de un paso anterior, o combina ambos.",
+        "label": "Valor"
+      },
+      "variableName": {
+        "help": "El nombre con el que se guardará el valor. Los pasos posteriores podrán elegirlo en su lista Insertar.",
+        "label": "Nombre de la variable"
+      },
+      "whatToWorkOut": {
+        "help": "Contar devuelve el número de registros. Sumar, calcular el promedio, el menor y el mayor se aplican a una columna, como el total de una columna de importes.",
+        "label": "Qué calcular"
+      },
+      "whenThisValue": {
+        "help": "El valor que se comprobará, normalmente algo del formulario o de un paso anterior. Usa Insertar para elegirlo.",
+        "label": "Cuando este valor"
+      }
+    },
+    "fromRequest": "De la solicitud",
+    "fromRequestHelp": "«La solicitud» es lo que la página o el formulario envió al iniciar esta automatización. Escribe el nombre de un campo, como email, y pulsa Intro o Añadir.",
+    "fromStepHelp": "Añade el resultado de este paso anterior, como los registros que encontró o la respuesta que obtuvo.",
+    "fromSteps": "De pasos anteriores",
+    "groupedResult": "El resultado es una lista con una fila por cada {column}, y cada una incluye su {column} y su valor.",
+    "helper": {
+      "date": "Fecha de hoy",
+      "dateHelp": "La fecha en que se ejecuta, sin la hora.",
+      "now": "Fecha y hora actuales",
+      "nowHelp": "La fecha y la hora exactas en el momento en que se ejecuta este paso.",
+      "uuid": "ID aleatorio",
+      "uuidHelp": "Un nuevo código aleatorio cada vez, útil como número de referencia único."
+    },
+    "helpers": "Utilidades",
+    "insert": "Insertar",
+    "insertHelp": "Añade un valor que cambia cada vez: algo que envió el formulario, el resultado de un paso anterior o la fecha de hoy.",
+    "insertLabel": "Insertar un valor",
+    "insertTitle": "Inserta un valor de la solicitud o de un paso anterior",
+    "insertValue": "Insertar valor",
+    "insertValuesHelp": "Qué guardar en cada columna del nuevo registro. Escribe un valor o inserta uno del formulario. El ID del registro y la fecha en que se añadió se rellenan automáticamente.",
+    "js": {
+      "available": "Valores disponibles",
+      "availableHelp": "Resultados de pasos anteriores que puedes usar en tu código. Haz clic en uno para añadirlo donde esté el cursor.",
+      "chipHint": "Haz clic en una etiqueta para insertarla donde esté el cursor.",
+      "examples": "Ejemplos",
+      "examplesHelp": "Fragmentos de código listos para tareas comunes. Haz clic en uno para añadirlo donde esté el cursor.",
+      "headsUp": "Ten en cuenta",
+      "how": "Cómo funciona",
+      "how1": "Tu código se ejecuta en el servidor dentro de un entorno aislado y restringido. No tiene acceso a la red ni al sistema de archivos, no puede usar <code>{require}</code> ni <code>{import}</code>, y no puede acceder a otros flujos.",
+      "how2": "Lee desde <code>{read}</code> para usar el resultado de un paso anterior. Asigna un valor a <code>{write}</code> para crear una variable que los pasos siguientes puedan leer. Lo que devuelvas con <code>{return}</code> se guarda en la variable de resultado que aparece abajo.",
+      "how3": "<code>{trigger}</code> es una copia de solo lectura de la solicitud recibida. Los registros de la consola se descartan.",
+      "how4": "Los scripts se detienen después de 3 segundos. Si tu código genera un error, todo el flujo falla y muestra el mensaje de error.",
+      "howHelp": "Lo que tu código puede y no puede hacer, y sus límites, como detenerse después de 3 segundos.",
+      "insertTrigger": "Insertar los datos de la solicitud",
+      "noSteps": "Aún no hay pasos anteriores. Conecta este paso después de uno que genere un valor.",
+      "syntax": "En el código, usa <code>{vars}</code> y <code>{trigger}</code> directamente, no la sintaxis <code>{template}</code> que se usa en otros pasos."
+    },
+    "math": {
+      "add": "sumar (+)",
+      "divide": "dividir (÷)",
+      "multiply": "multiplicar (×)",
+      "remainder": "resto (%)",
+      "subtract": "restar (−)"
+    },
+    "newRowValues": "Valores de la nueva fila",
+    "noColumns": "Esta tabla aún no tiene columnas. Añade campos a la tabla primero.",
+    "noConditions": "Sin condiciones: coincidirán todas las filas.",
+    "noEditableColumns": "Esta tabla no tiene columnas editables.",
+    "noSteps": "Todavía no hay pasos anteriores que generen un valor.",
+    "oneTotal": "Un total",
+    "ops": {
+      "contains": "contiene",
+      "eq": "igual a",
+      "exists": "existe (no está vacío)",
+      "gt": "mayor que",
+      "gte": "mayor o igual que",
+      "lt": "menor que",
+      "lte": "menor o igual que",
+      "ne": "distinto de"
+    },
+    "outputHelp": "Opcional: el nombre con el que se guarda el resultado de este paso. Cámbialo solo si dos pasos tendrían el mismo nombre, como dos pasos «Buscar registros».",
+    "outputName": "Nombre para hacer referencia al resultado de este paso en otros lugares.",
+    "pickTable": "Elige una lista de registros para configurar este paso.",
+    "placeholders": {
+      "aNumber": "un número",
+      "aiPrompt": "Resume este mensaje de un cliente...",
+      "aiSystem": "Eres un asistente útil...",
+      "eg10": "p. ej., 10",
+      "eg108": "p. ej., 1,08",
+      "egActive": "p. ej., activo",
+      "egGreeting": "p. ej., saludo",
+      "emailBody": "Hola, gracias por tu pedido...",
+      "emailSubject": "Tu pedido se ha enviado",
+      "fieldName": "nombre del campo (p. ej., email)",
+      "hashFromRow": "Elige el hash de la fila de la base de datos",
+      "helloThere": "Hola",
+      "jsonInput": "Elige un valor que contenga texto JSON",
+      "keepCurrent": "déjalo vacío para mantener el valor actual",
+      "name": "nombre",
+      "passwordFromRequest": "Elige la contraseña de la solicitud",
+      "pickSourceFirst": "Elige primero una fuente de datos",
+      "pickValue": "Elige un valor de un paso anterior",
+      "pushMessage": "Reserva una mesa antes de que se agoten.",
+      "pushTitle": "Esta noche: música en vivo desde las 19:00",
+      "stepName": "Qué hace este paso",
+      "trueOrFalse": "verdadero o falso",
+      "userIdFromStep": "Elige el ID de usuario de un paso anterior",
+      "value": "valor"
+    },
+    "pushIntro": "Envía una notificación a todas las personas que las hayan activado para esta app. Los usuarios de iPhone deben añadir la app a la pantalla de inicio.",
+    "queryEmptyHint": "Déjalo vacío para devolver todas las filas. Deben cumplirse todas las condiciones.",
+    "remove": "Eliminar",
+    "removeCondition": "Eliminar condición",
+    "removeConditionHelp": "Elimina esta regla.",
+    "removeRowHelp": "Elimina esta fila.",
+    "respondEmpty": "Elige qué enviar de vuelta. Cada fila se convierte en un campo de la respuesta.",
+    "respondHint": "Quien inició esto recibe una respuesta correcta de forma predeterminada. Añade un paso de ramificación anterior en el flujo si necesitas devolver un error.",
+    "respondWith": "Responder con",
+    "respondWithHelp": "Qué enviar de vuelta a la página o al formulario que inició esto. Cada fila tiene un nombre y un valor, como mensaje: Gracias, lo recibimos.",
+    "rolePassHint": "Añade un paso «Quién ha iniciado sesión» antes de este, o nadie podrá superar esta comprobación.",
+    "roleResult": "La respuesta, verdadera o falsa, se guarda como {name}. Añade después un paso «Si pasa esto, haz aquello» que compruebe si {token} es igual a true.",
+    "rowValues": "Valores de la fila",
+    "rowValuesEmpty": "Añade un campo por cada encabezado de columna de la hoja.",
+    "rowValuesHelp": "Qué poner en la nueva fila. Cada nombre debe coincidir con un encabezado de columna en la primera fila de la hoja; el valor es lo que irá debajo.",
+    "setFields": "Establecer estos campos",
+    "singleResult": "El resultado es una lista con una sola fila cuyo valor es la respuesta. Para usar el número en un paso posterior, escribe {token}.",
+    "smallestFirst": "Primero, el resultado más pequeño",
+    "snippets": {
+      "filter": {
+        "description": "Conservar solo las filas que cumplan una condición",
+        "label": "Filtrar filas"
+      },
+      "format": {
+        "description": "Crear un mensaje con los datos que activaron el flujo",
+        "label": "Dar formato a un texto"
+      },
+      "map": {
+        "description": "Transformar cada fila en un objeto más pequeño",
+        "label": "Convertir a un formato nuevo"
+      },
+      "split": {
+        "description": "Convertir un nombre completo en campos de nombre y apellido",
+        "label": "Separar el nombre en partes"
+      },
+      "sum": {
+        "description": "Sumar los números de todas las filas",
+        "label": "Sumar una columna"
+      },
+      "timestamp": {
+        "description": "Obtener la hora actual como texto ISO",
+        "label": "Marca de tiempo actual"
+      }
+    },
+    "step": "Paso",
+    "updateNeedsCondition": "Hace falta una condición para cambiar filas; de lo contrario, el paso fallará.",
+    "updateValuesHelp": "Los nuevos valores que quieres guardar. Deja una columna en blanco para conservar el valor actual.",
+    "where": {
+      "aggregate": {
+        "help": "Solo se cuentan los registros cuya columna coincide con el valor que indiques; deben cumplirse todas las reglas. Se omiten las reglas cuyo valor está vacío. Si no hay reglas, se cuentan todos los registros.",
+        "label": "Incluir solo filas donde"
+      },
+      "bulk_delete": {
+        "help": "Qué filas eliminar: todas las filas cuya columna coincide con el valor que indiques. Se necesita al menos una regla para evitar borrar toda la tabla.",
+        "label": "Eliminar filas donde"
+      },
+      "bulk_update": {
+        "help": "Qué filas cambiar: todas las filas cuya columna coincide con el valor que indiques. Se necesita al menos una regla para evitar cambiar toda la tabla por accidente.",
+        "label": "Cambiar filas donde"
+      },
+      "delete": {
+        "help": "Qué registros eliminar: solo aquellos cuya columna coincide con el valor que indiques. Se necesita al menos una regla para evitar borrar toda la tabla.",
+        "label": "Eliminar filas donde"
+      },
+      "query": {
+        "help": "Solo se encuentran los registros cuya columna coincide con el valor que indiques; deben cumplirse todas las reglas. Se omiten las reglas cuyo valor está vacío. Si no hay reglas, se encuentran todos los registros (hasta 100).",
+        "label": "Buscar filas donde"
+      },
+      "update": {
+        "help": "Qué registros cambiar: solo aquellos cuya columna coincide con el valor que indiques. Se necesita al menos una regla para evitar cambiar toda la tabla por accidente.",
+        "label": "Actualizar filas donde"
+      }
+    }
+  },
+  "list": {
+    "emptyBody": "Crea tu primer flujo o añade una función lista para usar con sus flujos ya conectados.",
+    "emptyTitle": "Una pequeña automatización puede hacer mucho.",
+    "explainerHelp": "Así funcionan las automatizaciones: ocurre algo en tu app, como el envío de un formulario; los pasos se ejecutan en orden y, al final, la persona recibe un resultado, como un mensaje de agradecimiento.",
+    "explore": "Explorar funciones",
+    "exploreHelp": "Explora funciones listas para usar, como reservas o un formulario de contacto. Ya incluyen sus automatizaciones configuradas.",
+    "eyebrow": "HAZ QUE PASEN COSAS",
+    "intro": "Convierte un clic en una acción. Guarda una reserva, envía un correo o dale vida a tus datos.",
+    "openHelp": "Abre esta automatización para ver y cambiar sus pasos, revisar qué ocurrió cada vez que se ejecutó o definir cuándo se ejecuta.",
+    "result": "Un resultado para quien usa tu app",
+    "somethingHappens": "Ocurre algo",
+    "steps": "{count, plural, one {# paso} other {# pasos}}",
+    "stepsRun": "Se ejecutan tus pasos",
+    "title": "Los flujos de tu app.",
+    "triggerEvent": "Empieza con un evento",
+    "triggerForm": "Empieza con un formulario",
+    "triggerRequest": "Empieza con una solicitud",
+    "triggerSchedule": "Se ejecuta según un horario"
+  },
+  "newFlow": {
+    "button": "Nuevo flujo",
+    "buttonHelp": "Crea una automatización vacía: algo que se ejecuta por sí solo cuando ocurre algo en tu app. Le pondrás un nombre y luego añadirás sus pasos.",
+    "create": "Crear",
+    "createHelp": "Crea la automatización y la abre para que puedas añadir sus pasos.",
+    "nameHelp": "Un nombre que describa lo que hace esta automatización, como Enviar confirmación de reserva. Pulsa Intro para crearla.",
+    "placeholder": "Por ejemplo, Enviar formulario de contacto"
+  },
+  "runtime": {
+    "aiBusy": "Esta aplicación está recibiendo demasiadas solicitudes de IA en este momento. Vuelve a intentarlo más tarde.",
+    "aiLimit": "Esta aplicación alcanzó el límite mensual de IA.",
+    "appDayLimit": "Esta aplicación ha enviado {count} correos hoy, así que este no se envió para evitar el spam.",
+    "appHourLimit": "Esta aplicación ha enviado {count} correos durante la última hora, así que este no se envió para evitar el spam.",
+    "emailFailed": "No se pudo enviar el correo electrónico.",
+    "emailOff": "El correo electrónico no está configurado en este servidor, así que no se envió el mensaje.",
+    "formula": "No se puede calcular la fórmula del paso «{step}»: {reason}",
+    "recipientLimit": "{to} ya recibió {count} correos de aplicaciones durante la última hora, así que este no se envió."
+  },
+  "schedule": {
+    "aiNote": "Los flujos que usan IA se ejecutan como máximo cada {minutes} minutos.",
+    "aiTooOften": "Este flujo usa IA, así que solo puede ejecutarse cada {minutes} minutos como mínimo.",
+    "appMode": "Cuando alguien usa tu app",
+    "appModeBody": "La inicia una página, un formulario u otro sitio.",
+    "appModeHelp": "Solo se ejecuta cuando algo en tu app la inicia, como cuando alguien envía un formulario.",
+    "connection": "Comprueba tu conexión y vuelve a intentarlo.",
+    "day": "Día",
+    "dayHelp": "Qué día de la semana se ejecuta.",
+    "describe": {
+      "daily": "Todos los días a las {time} ({zone})",
+      "everyHour": "Cada hora",
+      "everyHours": "Cada {count} horas",
+      "everyMinute": "Cada minuto",
+      "everyMinutes": "Cada {count} minutos",
+      "hourlyFull": "Cada hora en punto ({zone})",
+      "hourlyPast": "{minute, plural, one {Cada hora, al minuto # ({zone})} other {Cada hora, a los # minutos ({zone})}}",
+      "utc": "UTC",
+      "weekdays": "De lunes a viernes a las {time} ({zone})",
+      "weekly": "Todos los {day} a las {time} ({zone})",
+      "zoneTime": "hora de {zone}"
+    },
+    "every": "Cada",
+    "everyHelp": "El intervalo entre ejecuciones. Algunas opciones pueden aparecer atenuadas, por ejemplo, si esta automatización usa IA.",
+    "failing": "{count, plural, one {# ejecución fallida seguida; se pausará después de {max}.} other {# ejecuciones fallidas seguidas; se pausará después de {max}.}}",
+    "hour": "hora",
+    "hours": "{count} horas",
+    "howOften": "Frecuencia",
+    "howOftenHelp": "Cada cuánto se ejecuta. Elige un patrón y luego la hora exacta junto a él.",
+    "inZone": "{time} (hora de {zone})",
+    "kinds": {
+      "daily": "Todos los días",
+      "every": "Cada pocos minutos",
+      "hourly": "Cada hora",
+      "weekdays": "De lunes a viernes",
+      "weekly": "Una vez a la semana"
+    },
+    "lastFailed": "Última ejecución {when}: no se completó correctamente.",
+    "lastOk": "Última ejecución {when}: se completó correctamente.",
+    "lastTimeout": "Última ejecución {when}: tardó demasiado.",
+    "loadError": "No se pudo cargar la programación.",
+    "loading": "Cargando programación…",
+    "minute": "minuto",
+    "minutes": "{count} minutos",
+    "nextRun": "Próxima ejecución: {when}",
+    "noPlan": "Tu plan no incluye flujos programados, así que este no se ejecutará.",
+    "notInLive": "Este flujo aún no está en la aplicación publicada. <link>Publica tus cambios</link> para iniciar la programación.",
+    "notInPlan": "No está incluido en tu plan.",
+    "notPublished": "Guardado. <link>Publica tu aplicación</link> para iniciar esta programación.",
+    "onTheHour": "En punto (:00)",
+    "pastHour": "Minutos después de la hora",
+    "pastHourHelp": "En qué minuto de cada hora se ejecuta, por ejemplo, :15 para y cuarto.",
+    "pausedFailures": "En pausa después de {count} ejecuciones fallidas seguidas. Revisa los pasos del flujo y luego reanúdalo.",
+    "pending": "<link>Publica tus cambios</link> para usar esta programación.",
+    "pendingUntil": "Hasta entonces, se mantiene la programación publicada: {schedule}.",
+    "problems": {
+      "badZone": "No se reconoce esa zona horaria.",
+      "chooseHowOften": "Elige cada cuánto debe ejecutarse.",
+      "chooseWhen": "Elige cuándo debe ejecutarse.",
+      "minuteRange": "Elige un minuto de la hora entre 0 y 59.",
+      "minutesRange": "Elige un número de minutos entre {min} y {max}.",
+      "pickDay": "Elige un día de la semana.",
+      "pickTime": "Elige una hora del día, como las 09:00."
+    },
+    "resume": "Reanudar",
+    "resumeHelp": "Vuelve a activar la programación si se pausó porque fallaron varias ejecuciones. Primero, soluciona el problema en sus pasos.",
+    "saveError": "No se pudo guardar. Vuelve a intentarlo.",
+    "saveHelp": "Guarda cuándo se ejecuta. Una programación nueva o modificada se activa cuando publicas tu app.",
+    "saveSchedule": "Guardar programación",
+    "scheduleMode": "Con una programación",
+    "scheduleModeBody": "Se ejecuta por sí sola a las horas que elijas.",
+    "scheduleModeHelp": "Se ejecuta por sí sola a las horas que elijas. La programación se activa cuando publicas tu app con ella.",
+    "starting": "Empezará en menos de un minuto.",
+    "suspended": "Esta cuenta está suspendida, así que las ejecuciones programadas están en pausa.",
+    "time": "Hora",
+    "timeHelp": "A qué hora del día se ejecuta, según la zona horaria indicada abajo.",
+    "timeZone": "Zona horaria",
+    "timeZoneHelp": "El reloj que se usa para indicar las horas. Elige dónde estás tú o tus clientes, para que las 9:00 sean las 9:00 de allí.",
+    "title": "Cuándo se ejecuta",
+    "titleHelp": "Elige si esta automatización se ejecuta cuando alguien usa tu app o por sí sola a horas determinadas, como cada mañana.",
+    "turnedOff": "Programación desactivada. Ya no se ejecuta según un horario.",
+    "unreadable": "No se pudo leer esta programación. Elige nuevos horarios y guarda.",
+    "yours": "{zone} (tu zona)"
+  },
+  "summary": {
+    "aggregateFallback": "Contar o sumar registros",
+    "askAi": "Hacer una pregunta a la IA",
+    "bulkDeleteFallback": "Eliminar varias filas a la vez",
+    "bulkInsertFallback": "Añadir varias filas a la vez",
+    "bulkUpdateFallback": "Actualizar varias filas a la vez",
+    "checkPassword": "Verificar una contraseña",
+    "checkRoleFallback": "Comprobar qué puede hacer la persona",
+    "customJs": "Ejecutar tu propio código",
+    "from": "Desde {table}",
+    "in": "En {table}",
+    "into": "A {table}",
+    "lookupFallback": "Añadir detalles de otra lista",
+    "needsRole": "Necesita: {role}",
+    "noRecipient": "No hay destinatario",
+    "noSheet": "No hay ninguna hoja",
+    "noTable": "No hay ninguna tabla seleccionada",
+    "parseJson": "Convertir texto en datos",
+    "protectPassword": "Protege una contraseña antes de guardarla",
+    "pushEveryone": "Para todas las personas suscritas",
+    "pushTitle": "“{title}”",
+    "repliesWith": "{count, plural, one {Responde con # valor} other {Responde con # valores}}",
+    "reply": "Envía una respuesta",
+    "seconds": "{seconds} s",
+    "sheet": "Hoja {sheet}",
+    "signIn": "Iniciar sesión: {user}",
+    "signUserIn": "Iniciar sesión como usuario",
+    "signUserOut": "Cerrar la sesión del usuario",
+    "startsHere": "Empieza aquí",
+    "to": "Para {to}",
+    "unnamed": "Sin nombre",
+    "verifyVs": "{plain} frente a {hash} → {output}"
+  }
+}

@@ -1,6 +1,8 @@
 import { getCurrentUser } from "@/lib/auth";
 import { cleanPath, NotFound, readFile, versionFiles } from "@/lib/design-studio/store";
 import { readPreviewPass } from "@/lib/design-studio/preview-token";
+import { personLocale, translator } from "@/lib/ai/i18n";
+import { localeDir } from "@/i18n/locales";
 
 export const dynamic = "force-dynamic";
 
@@ -34,7 +36,9 @@ export async function GET(req: Request, ctx: { params: Promise<{ id: string; pat
   const passUser = parts[0]?.startsWith("~") ? readPreviewPass(parts[0], id) : null;
   const path = parts[0]?.startsWith("~") ? parts.slice(1) : parts;
   const userId = passUser ?? (await getCurrentUser())?.id ?? null;
-  if (!userId) return new Response("Please sign in.", { status: 401 });
+  const locale = await personLocale();
+  const t = translator(locale, "designer");
+  if (!userId) return new Response(t("server.signIn"), { status: 401 });
   const url = new URL(req.url);
   const version = url.searchParams.get("version");
   const pick = url.searchParams.get("pick") === "1";
@@ -49,7 +53,7 @@ export async function GET(req: Request, ctx: { params: Promise<{ id: string; pat
     throw err;
   }
   if (html === null) {
-    html = `<!doctype html><html><body style="font-family:system-ui;display:grid;place-items:center;min-height:90vh;color:#6b7280;background:#0f1017"><p>${file === "index.html" ? "Nothing here yet. Describe your app to build it." : "This page doesn't exist in this version."}</p></body></html>`;
+    html = `<!doctype html><html lang="${locale}" dir="${localeDir(locale)}"><body style="font-family:system-ui;display:grid;place-items:center;min-height:90vh;color:#6b7280;background:#0f1017"><p>${t(file === "index.html" ? "server.previewEmpty" : "server.previewMissing")}</p></body></html>`;
   }
 
   // "/about.html" and "/" point at the site root; inside the preview they

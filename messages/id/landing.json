@@ -1,0 +1,139 @@
+{
+  "cta": {
+    "body": "Berhenti berkutat dengan alat tanpa kode yang belum tuntas dan berantakan begitu Anda butuh logika sungguhan. {app} menyediakan UI, backend, dan data — semuanya visual.",
+    "heading": "Buat hal yang selama ini <accent>terus Anda tunda.</accent>",
+    "openDashboard": "Buka dasbor Anda",
+    "startFree": "Mulai membuat — gratis"
+  },
+  "faq": {
+    "bubble": {
+      "a": "Ceritakan aplikasi Anda dalam satu kalimat, lalu {app} akan membuat halaman, tabel database, dan alur kerja backend untuk Anda — lalu Anda bisa terus mengeditnya secara visual. Data Anda tersimpan di database Postgres standar yang bisa diekspor kapan saja.",
+      "q": "Apa bedanya dengan Bubble atau Adalo?"
+    },
+    "data": {
+      "a": "Jika menggunakan sumber data Postgres bawaan, setiap proyek mendapat skema terpisah di database PostgreSQL instalasi ini. Anda juga bisa menggunakan Postgres sendiri lewat string koneksi, atau menghubungkan Google Sheet. Data Anda, pilihan Anda.",
+      "q": "Di mana data saya disimpan?"
+    },
+    "domain": {
+      "a": "Bisa. Tambahkan domain, verifikasi dengan data DNS TXT, lalu {app} akan mengarahkan lalu lintas ke proyek Anda.",
+      "q": "Bisakah saya menggunakan domain sendiri?"
+    },
+    "export": {
+      "a": "Anda bisa mengekspor HTML dan CSS dari halaman mana pun, serta mengunduh data Postgres kapan saja. Alur disimpan sebagai grafik JSON portabel yang bisa Anda bawa.",
+      "q": "Bisakah saya mengekspor hasil yang saya buat?"
+    },
+    "eyebrow": "FAQ",
+    "heading": "Jawaban jujur untuk pertanyaan Anda.",
+    "noCode": {
+      "a": "Benar-benar tanpa kode. Editor UI dan mesin alur mencakup semua kebutuhan, dari halaman hingga logika backend. Anda bisa menyematkan potongan HTML jika mau, tetapi produk ini tidak mengharuskan Anda membaca atau menulis kode.",
+      "q": "Ini benar-benar tanpa kode, atau nanti saya harus menulis kode?"
+    },
+    "webflow": {
+      "a": "Keduanya adalah pembuat halaman. {app} adalah pembuat aplikasi: selain halaman, Anda mendapat mesin logika backend visual, sumber data bawaan, dan alur runtime yang benar-benar berjalan.",
+      "q": "Apa bedanya dengan Webflow atau Framer?"
+    }
+  },
+  "features": {
+    "ai": {
+      "body": "Jelaskan apa yang ingin Anda buat. {app} membuat halaman, skema database, dan alur backend — lalu Anda bisa menyempurnakannya.",
+      "title": "Pembuatan dasar dengan AI"
+    },
+    "domains": {
+      "body": "Gunakan domain Anda sendiri: tambahkan dua data DNS, lalu periksa koneksinya dari dasbor.",
+      "bodyAutoTls": "Gunakan domain Anda sendiri: tambahkan dua data DNS dan situs Anda langsung aktif dengan sertifikat HTTPS aman yang disiapkan otomatis.",
+      "title": "Domain khusus"
+    },
+    "editor": {
+      "body": "Blok, lapisan, tampilan responsif, panel gaya lengkap, dan atribut khusus. Setiap elemen bisa diedit — bukan templat yang itu-itu saja.",
+      "title": "Editor halaman visual"
+    },
+    "eyebrow": "Semua yang Anda butuhkan",
+    "flows": {
+      "body": "Susun endpoint HTTP, kueri database, percabangan, transformasi, dan panggilan API — dalam diagram alur visual. Tanpa kode.",
+      "title": "Alur backend sungguhan"
+    },
+    "heading": "Platform lengkap, bukan plugin.",
+    "intro": "Halaman, logika backend, data sungguhan, penerbitan, modul, AI — satu produk, tanpa perlu menyambungkan berbagai alat.",
+    "modules": {
+      "body": "Login, blog, toko, pemesanan, forum, radio — masing-masing dilengkapi tabel database, alur backend, dan halaman sungguhan. Pasang dalam sekali klik.",
+      "title": "{count} fitur siap pakai"
+    },
+    "postgres": {
+      "body": "Setiap proyek punya skema terpisah dengan kolom bertipe. Atau hubungkan Google Sheets sebagai backend untuk menambah, melihat, mengubah, dan menghapus data — tanpa konfigurasi.",
+      "title": "Postgres dalam sekali klik"
+    },
+    "publish": {
+      "body": "Saat diterbitkan, versi halaman, alur kerja, dan tema Anda disimpan. Teruskan mengedit secara pribadi, terbitkan saat siap, dan pulihkan versi sebelumnya dalam sekali klik.",
+      "title": "Terbitkan dalam sekali klik"
+    },
+    "sheets": {
+      "body": "Gunakan spreadsheet apa pun sebagai database. Baca, tulis, dan cari baris — tanpa migrasi, DevOps, atau penyiapan.",
+      "title": "Penghubung Google Sheets"
+    }
+  },
+  "footer": {
+    "copyright": "© {year} {app}",
+    "tagline": "Pembuat aplikasi visual dengan backend sungguhan. Luncurkan produk lengkap — bukan sekadar halaman pemasaran."
+  },
+  "hero": {
+    "badge": "Jelaskan, periksa rencananya, lalu luncurkan",
+    "charsLeft": "{count, plural, one {tersisa # karakter} other {tersisa # karakter}}",
+    "checkPlan": "Anda bisa memeriksa rencana sebelum apa pun dibuat.",
+    "freeForever": "Paket gratis selamanya",
+    "headline": "Buat aplikasi, <accent>bukan hanya halaman.</accent>",
+    "ideaHint": "Sebutkan siapa yang menggunakannya dan apa yang mereka lakukan.",
+    "ideaLabel": "Apa yang harus dilakukan aplikasi Anda?",
+    "ideaPlaceholder": "mis. Pelanggan memesan kue secara online, memilih hari pengambilan, dan saya melihat semua pesanan dalam satu daftar.",
+    "ideas": {
+      "bakery": {
+        "label": "Pesanan awal toko roti",
+        "prompt": "Halaman pemesanan awal untuk toko roti saya. Pelanggan memilih kue dan roti, menentukan hari pengambilan, lalu mengisi nama dan nomor telepon. Saya bisa melihat semua pesanan di halaman admin."
+      },
+      "gym": {
+        "label": "Jadwal kelas gym",
+        "prompt": "Jadwal kelas untuk gym saya. Anggota bisa melihat kelas minggu ini dan memesan tempat. Saya bisa menambahkan kelas dan melihat siapa saja yang akan hadir."
+      },
+      "salon": {
+        "label": "Pemesanan salon",
+        "prompt": "Aplikasi pemesanan untuk salon rambut saya. Pelanggan memilih layanan, penata rambut, dan waktu. Saya bisa melihat dan mengelola semua pemesanan di satu tempat."
+      },
+      "tutoring": {
+        "label": "Pendaftaran les",
+        "prompt": "Halaman pendaftaran untuk les saya. Orang tua memilih mata pelajaran dan jadwal mingguan, lalu mengisi detail kontak. Saya bisa melihat daftar murid dan les mereka."
+      }
+    },
+    "intro": "Atur UI dengan seret dan lepas. Hubungkan logika backend sungguhan secara visual. Gunakan database sungguhan atau Google Sheets. Terbitkan di domain Anda sendiri. Tanpa kode.",
+    "noCard": "Tanpa kartu kredit",
+    "openDashboard": "Buka dasbor",
+    "openYourDashboard": "Buka dasbor Anda",
+    "opening": "Membuka…",
+    "ownData": "Data milik Anda",
+    "planMyApp": "Rencanakan aplikasi saya",
+    "seeHow": "Lihat cara kerjanya",
+    "startFree": "Mulai membuat — gratis",
+    "stats": {
+      "features": "Fitur siap pakai",
+      "icons": "Ikon tersedia",
+      "platforms": "Aplikasi dari satu proyek",
+      "platformsValue": "Web + Android",
+      "ways": "Cara untuk mulai membuat"
+    },
+    "tryOne": "Coba salah satu:"
+  },
+  "nav": {
+    "backend": "Logika backend",
+    "dashboard": "Dasbor",
+    "faq": "FAQ",
+    "home": "Beranda {app}",
+    "logIn": "Masuk",
+    "pricing": "Harga",
+    "product": "Produk",
+    "startFree": "Mulai gratis"
+  },
+  "pricing": {
+    "heading": "Ruang untuk ide Anda berikutnya.",
+    "intro": "Pilih paket yang sesuai dengan kebutuhan Anda.",
+    "startBuilding": "Mulai membuat",
+    "viewPlan": "Lihat paket"
+  }
+}

@@ -1,9 +1,12 @@
+import { getTranslations } from "next-intl/server";
+import { requestLocale } from "@/i18n/request";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
 import { json } from "@/lib/utils";
 import { themeToCss, type ProjectTheme } from "@/lib/theme";
 import { readPublicAsset, referencedAssets, rewriteAssets } from "@/lib/bundle-assets";
 import { RUNTIME_JS, publicBootScript, pageRequiresAuth } from "@/lib/public-page";
+import { getAppLocale, localeBootScript } from "@/lib/app-locale";
 import { getRequestBrand } from "@/lib/reseller";
 import { newRedactionReport, redactFlowGraph, redactModuleConfig, redactRow } from "@/lib/export-secrets";
 import { Pool } from "pg";
@@ -77,7 +80,8 @@ function withoutHeaderComment(src: string): string {
 export async function GET(_req: Request, ctx: { params: Promise<{ id: string }> }) {
   const { id } = await ctx.params;
   const user = await getCurrentUser();
-  if (!user) return new Response("Unauthorized", { status: 401 });
+  const t = await getTranslations({ locale: await requestLocale(), namespace: "project.offlineApi" });
+  if (!user) return new Response(t("unauthorized"), { status: 401 });
 
   const project = await db.project.findUnique({
     where: { id },
@@ -89,7 +93,7 @@ export async function GET(_req: Request, ctx: { params: Promise<{ id: string }> 
     },
   });
   if (!project || project.ownerId !== user.id) {
-    return json({ error: "Not found" }, { status: 404 });
+    return json({ error: t("notFound") }, { status: 404 });
   }
 
   const zip = new JSZip();
@@ -149,6 +153,11 @@ export async function GET(_req: Request, ctx: { params: Promise<{ id: string }> 
   for (const m of project.modules) redactModuleConfig(m.config, secretValues, redaction);
   const flowsPayload = project.flows.map((f) => ({ id: f.id, graph: redactFlowGraph(f.graph, secretValues, redaction) }));
 
+  // The app's language (lib/app-locale.ts): <html lang dir> and the runtime's texts.
+  // The bundle is the default language only (its pages are local files).
+  const appLocale = await getAppLocale(project!.id);
+  const htmlAttrs = appLocale.explicit ? `lang="${appLocale.locale}" dir="${appLocale.dir}"` : `lang="en"`;
+
   function rewriteHtml(html: string): string {
     let out = html;
     // Images and files → the bundle's assets/ folder.
@@ -177,7 +186,7 @@ export async function GET(_req: Request, ctx: { params: Promise<{ id: string }> 
       loginSlug,
     };
     return `<!doctype html>
-<html lang="en">
+<html ${htmlAttrs}>
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -188,6 +197,7 @@ export async function GET(_req: Request, ctx: { params: Promise<{ id: string }> 
 <style>${styleSafe(rewriteAssets(page.css ?? "", bundled, "./assets"))}</style>
 </head>
 <body>
+<script>${localeBootScript({ ...appLocale, locales: [appLocale.locale] })}</script>
 ${rewriteHtml(inner)}
 <script>${publicBootScript(project!.id, "", pageSlugs)}</script>
 <script>window.__NK_OFFLINE__=${scriptSafe(JSON.stringify(offlineCfg))};</script>
@@ -208,27 +218,9 @@ ${rewriteHtml(inner)}
 
   zip.file(
     "README.txt",
-    `${project.name} — offline app (exported from ${brand.appName} ${new Date().toISOString().slice(0, 10)})
-
-HOW TO USE
-  1. Keep this folder together (you can move it anywhere — Desktop, C:\\, a USB stick).
-  2. Open index.html in any modern browser. That's it — no internet needed.
-
-YOUR DATA
-  The app ships with a snapshot of the project's database and stores all
-  changes locally in your browser (localStorage). Data persists between
-  sessions on the same computer + browser. It does NOT sync anywhere.
-
-WHAT WORKS OFFLINE
-  Pages, navigation, forms, data lists, search, games/scripts, sign-up and
-  login (accounts created inside the offline app).
-
-WHAT DOESN'T
-  - Accounts from the online version: password hashes are not exported, so
-    sign up fresh inside the offline app.
-  - Emails, Google Sheets, AI features, push notifications, and any flow
-    step that calls an external website (unless you happen to be online).
-${redaction.removed > 0 ? "  - Steps that use your private keys (for example payments or text messages):\n    the keys are left out of this file, so it is safe to share.\n" : ""}${bootstrap ? "" : "  - NOTE: Bootstrap CSS could not be bundled at export time; layout may look off.\n"}`
+    t("readme", { name: project.name, brand: brand.appName, date: new Date().toISOString().slice(0, 10) }) +
+      (redaction.removed > 0 ? t("readmeKeysLeftOut") : "") +
+      (bootstrap ? "" : t("readmeNoBootstrap")),
   );
 
   const blob = await zip.generateAsync({ type: "nodebuffer", compression: "DEFLATE" });

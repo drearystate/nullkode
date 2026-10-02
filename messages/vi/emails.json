@@ -1,0 +1,49 @@
+{
+  "aiQuota": {
+    "body80": "{reseller} đã dùng {used}/{max} lượt thao tác AI trong tháng này. Khi dùng hết, bạn và khách hàng sẽ không thể tạo và chỉnh sửa bằng AI cho đến {resets}.",
+    "bodyFull": "{reseller} đã dùng hết {max} lượt thao tác AI trong tháng này. Bạn và khách hàng sẽ không thể tạo và chỉnh sửa bằng AI cho đến {resets}.",
+    "includes": "Số lượt này bao gồm lượt thao tác AI của khách hàng và của bạn.",
+    "raise": "Để tăng giới hạn, hãy liên hệ với đơn vị vận hành nền tảng.",
+    "subject80": "{reseller}: bạn đã dùng 80% lượt thao tác AI trong tháng này",
+    "subjectFull": "{reseller}: bạn đã dùng hết lượt thao tác AI trong tháng này"
+  },
+  "alert": {
+    "field": "{name}: {value}",
+    "footer": "Bạn nhận được email này vì thông báo cho {table} đang bật. Bạn có thể tắt thông báo trên trang tổng quan của ứng dụng.",
+    "intro": "Ai đó vừa gửi {label} mới qua {app}.",
+    "introTest": "Đây là email thử nghiệm thông báo cho {app}. Chưa có ai gửi nội dung này.",
+    "reply": "Trả lời email này để phản hồi trực tiếp cho {email}.",
+    "see": "Xem trong dữ liệu ứng dụng của bạn:",
+    "subject": "{label} mới",
+    "subjectHeadline": "{label} mới: {headline}",
+    "subjectHeadlineTest": "(thử nghiệm) {label} mới: {headline}",
+    "subjectTest": "(thử nghiệm) {label} mới"
+  },
+  "alertSummary": {
+    "body": "{app} đã nhận thêm {count, plural, one {# mục gửi mới} other {# mục gửi mới}} trong giờ qua.",
+    "heldBack": "Chúng tôi đã tạm ngừng gửi từng email riêng để tránh làm đầy hộp thư đến. Bạn có thể xem tất cả trong dữ liệu ứng dụng:",
+    "subject": "{count, plural, one {còn # mục gửi mới} other {còn # mục gửi mới}} trong {app}"
+  },
+  "hi": "Xin chào,",
+  "hiName": "Xin chào {name},",
+  "invite": {
+    "body": "{inviter} đã tạo tài khoản cho bạn trên {app}, nơi bạn có thể tự tạo và xuất bản ứng dụng.",
+    "bodyPlatform": "Đội ngũ nền tảng đã tạo tài khoản cho bạn trên {app}, nơi bạn có thể tự tạo và xuất bản ứng dụng.",
+    "cta": "Đặt mật khẩu để bắt đầu:",
+    "expires": "Liên kết này chỉ dùng được một lần và hết hạn sau 7 ngày.",
+    "subject": "Bạn được mời tham gia {app}"
+  },
+  "reset": {
+    "forgotBody": "Có người đã yêu cầu đặt lại mật khẩu cho tài khoản {app} của bạn. Nếu đó là bạn, hãy chọn mật khẩu mới tại đây:",
+    "forgotExpires": "Liên kết này chỉ dùng được một lần và hết hạn sau 2 giờ. Nếu bạn không yêu cầu, hãy bỏ qua email này.",
+    "issuedBody": "Đây là liên kết để chọn mật khẩu mới cho tài khoản {app} của bạn:",
+    "issuedExpires": "Liên kết này chỉ dùng được một lần và hết hạn sau 2 giờ.",
+    "subject": "Đặt lại mật khẩu {app}"
+  },
+  "test": {
+    "body": "Đây là email thử nghiệm từ {app}. Nếu bạn đọc được email này, tính năng gửi email đang hoạt động: thư mời, liên kết đặt lại mật khẩu và thông báo ứng dụng sẽ được gửi từ {from}.",
+    "hello": "Xin chào,",
+    "noReply": "Bạn không cần trả lời email này.",
+    "subject": "Email thử nghiệm từ {app}"
+  }
+}

@@ -1,0 +1,958 @@
+{
+  "alertsApi": {
+    "allOff": "所有提醒都已关闭。请在“提醒”卡片中开启一项，然后重试。",
+    "badEmail": "“{address}”看起来不像邮箱地址。",
+    "emailOff": "此服务器尚未设置电子邮件，因此无法发送提醒。请联系服务提供商接入电子邮件。",
+    "invalid": "请检查提醒设置，然后重试。",
+    "noTables": "你的应用还没有收集访客提交的内容。请先添加表单或“预订”等功能。",
+    "sampleMessage": "这是来自发布清单的测试提交，没有人实际提交。",
+    "samplePerson": "测试用户",
+    "sampleSubject": "测试提交",
+    "sampleText": "测试",
+    "signedUpTable": "已注册用户",
+    "testFailed": "无法发送测试提醒。",
+    "testLimit": "过去一小时内已提交 {count} 次测试。请稍后再试。",
+    "throttled": "此应用本小时已发送 {count} 封提醒邮件，因此测试邮件暂缓发送。其余邮件会在本小时结束时合并发送。",
+    "tooMany": "你最多还可以添加 {max} 个邮箱地址。",
+    "unknownTable": "其中一个数据表已不在此应用中。请重新加载页面，然后重试。"
+  },
+  "alertsCard": {
+    "allOff": "全部关闭",
+    "alsoSendTo": "同时发送给 <muted>（最多 {max} 个地址，用逗号分隔）</muted>",
+    "defaultOn": "看起来这是一个表单，因此默认开启。你可以将它关闭。",
+    "defaultTable": "提交",
+    "emailOff": "此服务器尚未设置邮件服务，因此无法发送提醒。请联系服务提供商接入邮件服务。",
+    "extraHelp": "也需要收到这些提醒的人，例如业务伙伴。请用逗号分隔邮箱地址。",
+    "goesTo": "提醒将发送至 <b>{email}</b>。",
+    "intro": "有人通过你的应用提交表单、预订或下单后，你会立即收到邮件。",
+    "loadFailed": "无法加载提醒设置。",
+    "noTables": "你的应用目前还没有收集访客提交的内容。添加表单或预订等功能后，就可以在这里为它开启提醒。",
+    "off": "已关闭",
+    "on": "已开启",
+    "onCount": "已开启 {on}/{total} 项",
+    "save": "保存提醒",
+    "saveFailed": "无法保存提醒设置。",
+    "saveFirst": "请先保存",
+    "saveHelp": "保存哪些数据表发送提醒，以及提醒接收人。",
+    "sending": "正在发送…",
+    "setUpEmail": "设置邮件服务",
+    "setUpEmailHelp": "打开服务器设置并接入邮件服务，这样应用就能发送邮件。",
+    "step": "发送测试提交",
+    "stepDone": "（已完成）",
+    "stepHelp": "向你发送一封提醒测试邮件，就像有人使用表单时收到的邮件一样，方便你确认它能否送达收件箱。",
+    "stepHint": "检查有人使用表单时，你是否能收到邮件。",
+    "stepNeedsEmail": "需要先在此服务器上设置邮件服务。",
+    "stepSending": "正在发送测试提交…",
+    "stepToDo": "（待完成）",
+    "switchHelp": "开启后，每当访客向此数据表添加内容，你都会收到邮件。点击“保存提醒”以保存更改。",
+    "test": "发送测试邮件",
+    "testFailed": "无法发送测试提醒。",
+    "testHelp": "向列出的所有人发送一封提醒测试邮件，方便你确认是否能收到。请先保存更改。",
+    "testOffline": "无法发送测试提醒。请检查网络连接后重试。",
+    "testSent": "已向 {to} 发送测试 {table} 提醒。请查收主题标有（测试）的邮件。",
+    "testSentToYou": "已向你发送测试 {table} 提醒。请查收主题标有（测试）的邮件。",
+    "title": "提醒",
+    "titleHelp": "当访客通过你的应用提交内容时（例如表单、预订或订单），你会收到邮件。你可以选择哪些数据表发送提醒。",
+    "tooMany": "你最多还可以添加 {max} 个地址。"
+  },
+  "appAdminApi": {
+    "checkDetails": "请检查信息并重试。",
+    "invalidEmail": "请输入有效的电子邮件地址。",
+    "saveFailed": "无法保存管理员登录信息。",
+    "shortPassword": "密码至少需要 {min} 个字符。"
+  },
+  "appAdminCard": {
+    "add": "添加管理员",
+    "addHelp": "为此邮箱创建应用管理员登录账号。如果此邮箱已有账号，该账号会成为管理员，且密码会更改。",
+    "admins": "管理员：<list>{admins}</list>",
+    "email": "邮箱",
+    "emailHelp": "团队成员登录应用时使用的邮箱地址。",
+    "loginsIntro": "为某人创建管理员登录账号后，他们就可以在应用的登录页登录并管理应用。",
+    "loginsTitle": "团队管理员登录账号",
+    "notPublished": "你的应用尚未发布，因此这些内容会在预览中打开。",
+    "note": "至少需要 10 个字符。使用应用中已有账号的邮箱，会将该账号设为管理员并更改其密码。",
+    "openHelp": "在新标签页中打开这个仅团队可见的页面，无需登录你的应用。访客看不到它。",
+    "pagesIntro": "这些页面仅供你和团队使用，访客无法查看。你随时都可以打开这些页面，无需登录应用。",
+    "password": "密码",
+    "passwordHelp": "密码至少需要 10 个字符。请私下分享给对方；他们可在应用的登录页使用此密码登录。",
+    "saveFailed": "无法保存管理员登录信息。",
+    "savedCreated": "已保存。对方可以使用此邮箱和密码登录你的应用。",
+    "savedUpdated": "已保存。该账号现在是管理员，密码也已更新。",
+    "title": "应用管理区域",
+    "titleHelp": "应用中仅供你和团队使用的页面，例如管理订单的页面，以及团队成员用于访问这些页面的登录信息。"
+  },
+  "deleteProject": {
+    "backup": "下载备份",
+    "backupHelp": "将所有页面、数据、主题和图片保存为一个文件到你的设备。之后可以通过“导入应用”恢复应用。",
+    "buttonHelp": "删除此应用。你可以查看将删除的内容，并先下载备份。删除后无法撤销。",
+    "buttonLabel": "删除 {name}",
+    "deleteApp": "删除应用",
+    "deleteHelp": "永久删除此应用，包括页面、数据、文件和网址。访客将无法再打开它。此操作无法撤销。",
+    "deleting": "正在删除…",
+    "details": "应用的页面、工作流、所有人提交的内容、手机应用构建版本和网址都会被删除。此操作无法撤销。",
+    "failed": "无法删除应用（{status}）。",
+    "keyAck": "我已下载上传密钥，或不需要它。",
+    "keyAckHelp": "勾选此项，确认你已保存上传密钥，或以后不需要更新此应用的 Google Play 版本。",
+    "keyBody": "删除应用前请先下载密钥：没有它，你将永远无法再更新 Google Play 上的应用。",
+    "keyDownload": "下载上传密钥",
+    "keyDownloadHelp": "保存用于证明 Google Play 上的更新来自你的机密文件。请妥善保管。",
+    "keyTitle": "此应用有一个 Google Play 上传密钥。",
+    "networkError": "网络错误。应用未删除。",
+    "summary": "删除应用、其中的数据和文件。请先下载备份。",
+    "title": "要删除“{name}”吗？"
+  },
+  "deploymentsApi": {
+    "versionMissing": "此版本不存在。"
+  },
+  "domains": {
+    "add": "添加域名",
+    "addFailed": "无法添加域名。",
+    "addHelp": "开始连接此网址。接下来，你会看到两条设置，需要复制到购买域名的公司那里。",
+    "adding": "正在添加…",
+    "checkHelp": "检查以下设置是否已生效。添加后可能需要几分钟，有时甚至几小时。",
+    "checkNow": "立即检查",
+    "checking": "正在检查…",
+    "colName": "名称 / 主机",
+    "colType": "类型",
+    "colValue": "值 / 指向",
+    "confirmDisconnect": "要断开 {host} 与此应用的连接吗？",
+    "connected": "已连接 — 访客可以访问 <url>https://{host}</url>",
+    "copied": "已复制",
+    "copy": "复制",
+    "copyHelp": "点击复制，然后粘贴到域名服务商的设置页面。",
+    "copyValue": "复制 {value}",
+    "disconnect": "断开 {host}",
+    "disconnectHelp": "停止将此网址用于你的应用。网址仍归你所有，应用也会保留免费网址。",
+    "domain": "域名",
+    "empty": "还没有域名。你的应用仍可通过免费网址访问。",
+    "hostHelp": "输入你已拥有的网址（域名），例如 www.yourbusiness.com。你需要先购买域名。",
+    "notOwned": "尚未找到 TXT 记录。",
+    "notPointsHere": "域名尚未指向此处（CNAME/A 记录）。",
+    "owned": "已确认所有权（已找到 TXT 记录）。",
+    "ownershipRecordHelp": "此设置用于证明网址归你所有。找到此记录后，应用才会连接。",
+    "pointsHere": "域名已指向此服务器。",
+    "recordsHelp": "DNS 记录是在购买域名的公司那里设置的。将每条记录复制到他们的 DNS 或域名设置页面。",
+    "recordsIntro": "在管理此域名 DNS 的地方添加这些记录。更改通常几分钟内生效，有时需要几小时。",
+    "rootHint": "对于根域名（不带 www 的 yourbusiness.com），如果你的 DNS 服务商不支持在此处使用 CNAME，请使用指向此服务器 IP 地址的 A 记录。",
+    "rootHintIp": "对于根域名（不带 www 的 yourbusiness.com），如果你的 DNS 服务商不支持在此处使用 CNAME，请使用指向 <code>{ip}</code> 的 A 记录。",
+    "routingRecordHelp": "此设置会将输入你网址的人带到你的应用。",
+    "waiting": "正在等待 DNS 记录"
+  },
+  "domainsApi": {
+    "alreadyConnected": "此域名已连接到另一个应用。",
+    "enterDomain": "输入域名。",
+    "invalidDomain": "输入类似 www.yourbusiness.com 的域名（不要包含 https:// 或路径）。",
+    "notFound": "未找到",
+    "platformAddress": "此地址属于此平台。"
+  },
+  "domainsPage": {
+    "intro": "让此应用使用你自己的网址，例如 <domain>www.yourbusiness.com</domain>。在购买域名的地方添加两条 DNS 记录，然后在此处检查连接。",
+    "title": "域名"
+  },
+  "enablePush": {
+    "failed": "无法开启通知，请重试。",
+    "help": "在应用中添加“接收通知”页面，供访客注册。之后你可以在这里或通过自动化向他们发送消息。",
+    "turnOn": "开启通知",
+    "turningOn": "正在开启…"
+  },
+  "exportApi": {
+    "notFound": "未找到",
+    "unauthorized": "未获授权"
+  },
+  "iconApi": {
+    "generationFailed": "图片生成失败",
+    "invalidForm": "表单无效",
+    "invalidInput": "输入无效",
+    "missingFile": "缺少文件",
+    "noImage": "未返回图片",
+    "notFound": "未找到",
+    "tooBig": "图标必须小于 5MB",
+    "unauthorized": "未获授权",
+    "wrongType": "请使用 PNG、JPG、WebP 或 SVG 格式"
+  },
+  "latestSubmissions": {
+    "empty": "还没有内容。有人通过你的应用提交表单或预订后，内容就会显示在这里。",
+    "itemHelp": "打开来源数据表，查看完整内容。",
+    "justNow": "刚刚",
+    "newEntry": "新条目",
+    "seeAll": "查看所有数据",
+    "seeAllHelp": "打开“数据”页面，查看应用保存的所有内容。",
+    "title": "最新提交",
+    "titleHelp": "访客通过你的应用提交的最新五条内容，例如表单消息或预订。"
+  },
+  "layout": {
+    "backToApps": "返回我的应用",
+    "backToAppsHelp": "返回所有应用列表。",
+    "backToDesigner": "返回设计器",
+    "backToDesignerHelp": "返回 AI 设计器。"
+  },
+  "modulesPage": {
+    "help": "功能是现成的模块，比如预约或商店，可以为你的应用添加完整页面和相关数据。",
+    "intro": "预约、商店、评价等功能。选一个，我们就会把相应页面添加到你的应用中，你可以随心打造。",
+    "title": "为你的应用增添超能力。"
+  },
+  "nativeApi": {
+    "build": {
+      "publishFirst": "请先发布 app——Android app 会加载其线上地址。",
+      "startFailed": "无法开始构建。请重试。",
+      "unavailable": "此服务器不支持 Android 构建。{reason}",
+      "unknownBuild": "未知构建"
+    },
+    "buildDownload": {
+      "fileGone": "此构建文件已不存在。请重新构建。",
+      "notReady": "构建尚未就绪"
+    },
+    "download": {
+      "publishFirst": "请先发布 app——移动 app 会加载其线上网址。"
+    },
+    "installer": {
+      "projectNotFound": "未找到项目",
+      "publishFirst": "请先发布项目——安装程序会指向线上网址。",
+      "unknownPlatform": "未知平台"
+    },
+    "keystore": {
+      "chooseFile": "请选择密钥库文件（.jks 或 .keystore）。",
+      "ownerOnly": "只有 app 所有者才能更改上传密钥。",
+      "saveFailed": "无法保存此密钥库。请重试。",
+      "tooManyTries": "尝试次数过多。请稍等几分钟。"
+    },
+    "keystoreDownload": {
+      "ownerOnly": "只有 app 所有者才能下载上传密钥。"
+    },
+    "notFound": "未找到",
+    "settings": {
+      "bundleId": "Bundle ID 必须采用反向 DNS 格式，例如 com.company.app",
+      "invalidInput": "输入无效",
+      "versionFormat": "版本号格式示例：1.0.0"
+    },
+    "unauthorized": "未获授权"
+  },
+  "nativeApp": {
+    "android": {
+      "advancedDownload": "高级：下载项目并在 Android Studio 中自行构建",
+      "advancedDownloadHelp": "面向开发者：下载 Android 项目文件，然后使用 Android Studio 自行构建应用。大多数人不需要此操作。",
+      "debugBlurb": "这是一个快速测试版本。直接安装到 Android 手机上即可试用应用。Google Play 不接受此文件。",
+      "debugButton": "构建测试 APK",
+      "debugTitle": "在手机上测试（APK）",
+      "intro": "我们会在服务器上构建应用。选择你要进行的操作：",
+      "releaseBlurb": "这是 Google Play 要求的文件，并使用应用专属的上传密钥签名。每次构建都会使用下一个编号（下一个是 {next}）。",
+      "releaseButton": "构建 Google Play 版本",
+      "releaseTitle": "发布到 Google Play（AAB）"
+    },
+    "browserInstall": "<b>已可通过浏览器安装。</b>发布后，可以直接从浏览器将网站添加到手机主屏幕，无需经过应用商店。",
+    "build": {
+      "again": "重新构建",
+      "againHelpDebug": "使用最新的应用信息（如名称、图标和颜色）生成新的测试文件。",
+      "againHelpRelease": "使用最新的应用信息生成新的 Google Play 文件。文件会使用下一个构建编号，可直接作为更新上传。",
+      "buildFailed": "构建失败",
+      "building": "正在构建…",
+      "buildingSeconds": "正在构建…（{seconds} 秒）",
+      "couldNotStart": "无法开始构建",
+      "debugNote": "在手机上打开文件，并在出现提示时允许安装。如果手机上安装了从 Google Play 下载的此应用，请先卸载：这两个版本使用的密钥不同。",
+      "downloadAab": "下载 Google Play 的 AAB",
+      "downloadAabHelp": "下载 Google Play 要求的 Android 应用文件（.aab）。请按照下方说明，将文件上传到 Google Play Console。",
+      "downloadApk": "下载测试 APK",
+      "downloadApkHelp": "下载 Android 测试应用文件（.apk）。在 Android 手机上打开文件，并在出现提示时允许安装。",
+      "failed": "构建失败。",
+      "iconNotUsed": "<b>未使用你的图标。</b> {note} <link>更改图标</link>",
+      "made": "版本 {version} · 生成于 {date}",
+      "madeWithBuild": "版本 {version}（构建编号 {build}）· 生成于 {date}",
+      "rebuildNeeded": "<b>需要重新构建。</b> {reason}",
+      "releaseNote": "首次构建会生成应用的上传密钥。请在下方下载备份。",
+      "signedApk": "供其他应用商店使用的签名 APK",
+      "signedApkHelp": "下载同一应用的可安装 Android 文件（.apk），并使用你的密钥签名，供 Google Play 以外的应用商店使用。",
+      "sizeKb": "{size} KB",
+      "sizeMb": "{size} MB",
+      "startHelpDebug": "构建一个可直接安装到手机上的 Android 测试应用。需要几分钟。",
+      "startHelpRelease": "为 Google Play 构建 Android 应用文件。需要几分钟。如果你还没有添加密钥，首次构建时会生成上传密钥。",
+      "withSize": "{label}（{size}）"
+    },
+    "details": {
+      "appId": "包名 / 应用 ID",
+      "appIdHelp": "应用商店用来区分不同应用的唯一名称，例如 com.yourbusiness.app。访客看不到它。应用上架后请勿更改。",
+      "appIdHint": "例如 com.company.app，需使用小写字母。应用上架后请勿更改。",
+      "appName": "应用名称",
+      "appNameHelp": "显示在手机应用图标下方的名称。最多 30 个字符，名称短一些效果更好。",
+      "background": "背景",
+      "backgroundCode": "背景颜色代码",
+      "backgroundHelp": "应用打开时的背景颜色，也用于无网络时显示的页面。",
+      "buildNumber": "构建编号",
+      "buildNumberHelp": "应用商店用来区分更新的递增编号；每次上传都要使用更大的编号。在这里生成的 Google Play 版本会自动递增。",
+      "buildNumberHint": "Google Play 版本会从这里开始自动递增。下一个编号：{next}。",
+      "colorCodeHelp": "如果知道想要的确切颜色，也可以在这里输入颜色代码，例如 #1a73e8。",
+      "couldNotSave": "无法保存",
+      "intro": "这些信息会显示在应用商店和手机主屏幕上。",
+      "orientation": "屏幕方向",
+      "orientationDefault": "跟随设备",
+      "orientationHelp": "手机横过来时，应用是否也跟着转动。选择“跟随设备”即可跟着转动；其他选项会固定为竖屏或横屏。",
+      "orientationLandscape": "仅横屏",
+      "orientationPortrait": "仅竖屏",
+      "pickBackground": "选择背景颜色",
+      "pickThemeColor": "选择主题颜色",
+      "save": "保存设置",
+      "saveHelp": "保存这些信息。它们会用于下次构建或下载；已经安装应用的人需要等你发布更新后才会看到更改。",
+      "themeColor": "主题颜色",
+      "themeColorCode": "主题颜色代码",
+      "themeColorHelp": "应用在手机上的主色调：用于加载页面、无网络页面，以及无法使用你的图标时生成的简易图标。",
+      "title": "应用详情",
+      "titleHelp": "手机应用中包含的名称、颜色和应用商店信息。更改会在下次生成或下载时生效，不会影响已安装的应用。",
+      "version": "版本号",
+      "versionHelp": "应用商店中显示的版本号，例如 1.0.0。发布更新时请提高版本号，例如改为 1.1.0。"
+    },
+    "featureList": {
+      "three": "{a}、{b}和{c}",
+      "two": "{a}和{b}"
+    },
+    "features": {
+      "camera": {
+        "about": "某个页面会显示相机，例如用于扫描二维码。手机会先征求用户同意。",
+        "label": "相机",
+        "name": "相机"
+      },
+      "files": {
+        "about": "上传文件时会打开手机的选择器，也可以选择拍照。在 Android 上无需权限。",
+        "label": "照片和文件",
+        "name": "照片和文件"
+      },
+      "location": {
+        "about": "某个页面会请求用户的位置，例如查找附近的地点。手机会先征求用户同意。",
+        "label": "位置信息",
+        "name": "位置信息"
+      },
+      "microphone": {
+        "about": "某个页面会录音或收听语音。手机会先征求用户同意。",
+        "label": "麦克风",
+        "name": "麦克风"
+      }
+    },
+    "ios": {
+      "download": "下载 iPhone 项目",
+      "downloadHelp": "下载构建 iPhone app 所需的文件。你需要 Mac 或 GitHub 账户，以及付费 Apple Developer 账户，才能将 app 提交给 Apple。",
+      "intro": "下载 iPhone 项目。无需运行设置命令，直接用 Xcode 打开即可。Apple 仅允许付费 Apple Developer 账户发布 app（每年 {fee}），而且只能用 Mac 构建 iPhone app。你有两种方式：",
+      "locationAdded": "你的 app 现在会使用位置信息。请重新下载 iPhone 项目，并向 Apple 提交新构建，否则 app 无法请求使用位置信息。",
+      "locationRemoved": "你的 app 不再使用位置信息。请为下次构建重新下载 iPhone 项目，这样 app 就不会再请求使用位置信息。",
+      "newBuildNeeded": "<b>需要重新构建。</b> {reason}",
+      "readme": "下载文件中的 README 会分步介绍这两种方式。",
+      "title": "iPhone 和 iPad",
+      "withMac": "<b>使用 Mac：</b>打开 <mono>{path}</mono>，选择你的团队，然后点击 Product → Archive。",
+      "withoutMac": "<b>不使用 Mac：</b>将文件夹上传到 GitHub，并将 Apple 密钥添加为机密。随附的工作流会在 GitHub 的 Mac 上构建 app，并将其发送到 TestFlight。"
+    },
+    "key": {
+      "alias": "密钥别名",
+      "aliasHelp": "文件中密钥的名称。如果文件里只有一个密钥，请留空。",
+      "aliasPlaceholder": "如果只有一个密钥，请留空",
+      "backupHint": "请将备份保存在私密的位置，例如密码管理器中。备份包含密钥和密码。",
+      "checking": "正在检查…",
+      "couldNotUse": "无法使用此密钥",
+      "download": "下载密钥备份",
+      "downloadHelp": "保存上传密钥及其密码的副本。请妥善保存在私密位置：任何拥有它的人都能以你的名义签署更新。",
+      "file": "密钥库文件（.jks 或 .keystore）",
+      "fileHelp": "选择之前用于签署应用的密钥文件。文件扩展名通常为 .jks 或 .keystore。",
+      "fingerprint": "证书指纹 (SHA-256)",
+      "fingerprintHelp": "用于识别密钥的一串代码。设置某些 Google 服务时，可能需要粘贴这串代码。",
+      "importedOn": "你自己的密钥 · 添加于 {date} · 别名 <mono>{alias}</mono>",
+      "keepSafe": "请妥善保管——每次在 Google Play 上更新都需要用到它。",
+      "keyPassword": "密钥密码",
+      "keyPasswordHelp": "密钥本身的密码。如果与文件密码相同，请留空。",
+      "keyPasswordPlaceholder": "如果密码相同，请留空",
+      "madeOn": "为此应用生成 · 日期：{date} · 别名 <mono>{alias}</mono>",
+      "missing": "服务器上找不到密钥文件。请在下方添加备份（“使用已有密钥”），以便继续在 Google Play 上更新应用。",
+      "none": "Google Play 每次更新都会检查此密钥。首次为 Google Play 构建应用时，我们会为你生成一个。应用已上架 Google Play，并且你有自己的密钥？请先在这里添加。",
+      "ownerOnly": "只有应用所有者可以下载密钥。",
+      "replace": "替换我当前的密钥。只有在 Google Play 要求使用另一个密钥时才这样做：请先下载当前密钥的备份。",
+      "replaceHelp": "确认要将当前密钥替换为此密钥。请先下载当前密钥的备份。",
+      "save": "保存密钥",
+      "saveHelp": "检查密钥和密码，然后今后所有 Google Play 构建都使用此密钥。",
+      "saved": "密钥已保存。现在 Google Play 构建会使用此密钥。",
+      "storePassword": "密钥库密码",
+      "storePasswordHelp": "用于打开密钥文件的密码。",
+      "title": "你的上传密钥",
+      "titleHelp": "用于证明 Google Play 上的应用更新来自你的机密文件。如果丢失，你将无法在 Google Play 上更新应用。",
+      "toggleHelpClosed": "应用已上架 Google Play？请添加之前使用的密钥，这样新构建就能更新该应用。",
+      "toggleHelpOpen": "关闭此表单，不更改密钥。",
+      "useDifferent": "使用其他密钥",
+      "useExisting": "使用已有密钥"
+    },
+    "liveUrl": {
+      "help": "手机应用会打开的线上网址。在该网址发布的内容也会显示在手机应用中。",
+      "httpWarning": "手机只能打开使用安全地址（https）的应用。此地址以 http:// 开头，因此手机应用无法加载。请先为此服务器设置 https。",
+      "label": "应用显示："
+    },
+    "notPublished": {
+      "body": "手机应用展示的是已发布的网站，因此你需要先让网站上线才能生成手机应用。之后发布的任何更改都会自动更新到手机应用，无需重新生成。",
+      "goToPublish": "前往“发布”",
+      "goToPublishHelp": "前往“发布”让应用上线，然后回到这里生成手机应用。",
+      "title": "请先发布应用"
+    },
+    "phone": {
+      "checking": "正在检查应用…",
+      "intro": "根据应用的功能和页面整理而成。手机只允许应用使用构建版本中请求的功能，因此此列表发生变化时，请重新构建应用，并向应用商店提交新版本。",
+      "none": "目前没有：没有页面使用相机、麦克风、位置信息或文件上传功能。",
+      "photoLibrary": "照片图库",
+      "save": "保存文案",
+      "saveHelp": "保存这些提示。它们会加入下次构建，并用于 iPhone 下载。",
+      "saved": "已保存。内容会加入下次构建和下载。",
+      "sourcePage": "“{name}”页面",
+      "title": "此应用使用的手机功能",
+      "titleHelp": "通过检查页面和功能，找出应用需要使用的手机功能，例如相机或位置信息。应用使用这些功能前，手机会先征求用户同意。",
+      "usedBy": "由{sources}使用",
+      "wordingHelp": "请直接说明 app 为什么需要这项功能，例如“在门口扫描门票”。Apple 会审核这段文字。留空即可使用建议文案。",
+      "wordingIntro": "iPhone 会在 app 请求使用每项功能时显示这段文字，Apple 也会审核。请直接说明 app 会如何使用该功能。留空即可使用建议文案。Android 手机会显示自己的标准提示。",
+      "wordingSummary": "手机在应用发出请求时显示的提示",
+      "wordingSummaryHelp": "打开此项可编辑 iPhone 在应用请求使用相机、麦克风、照片或位置信息时显示的提示。"
+    },
+    "play": {
+      "appContent": "在 <b>App content</b> 中添加隐私政策链接。如果用户可以在 app 中注册，Google 还会要求提供账户删除链接：请使用 <mono>{url}</mono>。",
+      "createApp": "点击 <b>Create app</b>，输入 app 名称并回答几个简短问题。",
+      "listing": "填写应用商店列表：简短和完整的描述、一张图标（512 × 512）、一张功能图片（1024 × 500），以及至少两张手机截图。",
+      "note": "新的个人开发者账户必须先让至少 12 人测试 app 14 天，Google 才会允许将其发布给所有人。",
+      "release": "打开 <b>Test and release</b>，选择发布轨道（<b>Internal testing</b> 是最快的试用方式），然后点击 <b>Create new release</b>。",
+      "signUp": "前往 <link>{url}</link> 注册 Google Play 开发者账户。Google 会收取一次性费用 {fee}。",
+      "signing": "如果 Google 询问 app 签名，请保留 <b>Let Google manage and protect your app signing key</b> 选项。",
+      "title": "将 app 发布到 Google Play",
+      "titleHelp": "将 app 发布到 Google Play 商店的分步说明。点击可展开或收起。",
+      "updates": "后续更新：在此发布更改后，app 会自动更新。只有更改名称、图标、颜色或版本时，才需要重新构建 AAB 并按相同方式上传。构建编号会自动递增。",
+      "upload": "上传上方的 <b>.aab</b> 文件，简单写几句更新内容，然后保存并发布。"
+    },
+    "publishToEnable": "发布后即可使用",
+    "rebuild": {
+      "added": "你的应用现在可以使用{features}，而此版本无法请求{count, plural, one {它} other {它们}}。请重新构建。",
+      "addedRelease": "你的应用现在使用了{features}，而此版本无法请求{count, plural, one {它} other {它们}}。请重新构建，并将新版本上传到 Google Play。",
+      "oldShell": "此版本是在应用还不能打开文件、保存下载内容或使用手机功能时构建的。请重新构建。",
+      "oldShellRelease": "此版本是在应用还不能打开文件、保存下载内容或使用手机功能时构建的。请重新构建，并将新版本上传到 Google Play。",
+      "removed": "此版本仍会请求{features}，但你的应用已不再使用{features}。请重新构建以移除{count, plural, one {它} other {它们}}。",
+      "removedRelease": "此版本仍会请求{features}，但你的应用已不再使用{features}。请重新构建并将新版本上传到 Google Play，以移除{count, plural, one {它} other {它们}}。"
+    },
+    "store": {
+      "before": "提交到 {store} 前",
+      "deleteAccount": "如果用户可以在 app 中注册，应用商店会要求提供账户删除链接。请使用 <mono>{url}</mono>",
+      "privacy": "应用商店还会要求提供隐私政策链接。请在 app 中添加“隐私”页面（或使用网站上的页面），并将网址粘贴到应用商店的列表中。"
+    },
+    "toolchain": {
+      "operator": "你在管理此服务器。要开启此功能，请重新运行安装程序，并在询问 Android 相关选项时选择“是”。也可以在安装目录中运行 <mono>{command}</mono>。如果未使用 Docker 安装，请参阅 {doc}。",
+      "others": "请联系此服务器的管理员开启此功能。你仍然可以下载项目并自行构建。",
+      "title": "此服务器已关闭 Android 构建功能"
+    }
+  },
+  "nativePage": {
+    "eyebrow": "手机和平板",
+    "intro": "将此项目变成可在 Google Play 和 Apple App Store 上架的真正 app。app 会显示已发布的网站，因此发布更改后会立即更新，无需重新构建。",
+    "title": "移动 app"
+  },
+  "newPageButton": {
+    "create": "创建",
+    "createHelp": "创建页面并在编辑器中打开。",
+    "newPage": "新建页面",
+    "newPageHelp": "为应用添加一个空白页面。输入页面名称后，它会在编辑器中打开。",
+    "titleHelp": "新页面的名称，例如“关于我们”。它会显示在应用菜单和浏览器标签页上。",
+    "titlePlaceholder": "页面标题"
+  },
+  "notificationComposer": {
+    "confirm": "现在向 {count, plural, one {# 位订阅者} other {# 位订阅者}}发送此通知吗？",
+    "delivered": "已送达至 {sent, plural, one {# 台设备} other {# 台设备}}{removed, plural, =0 {} one {（已移除 # 个旧订阅）} other {（已移除 # 个旧订阅）}}。",
+    "message": "消息",
+    "messageHelp": "标题下方的文字。手机可能会截断较长的消息，请把重要内容放在前面。",
+    "messagePlaceholder": "趁还有位，赶紧订桌。",
+    "noSubscribers": "还没有订阅者",
+    "previewBody": "你的消息会显示在这里。",
+    "previewEyebrow": "预览",
+    "previewHelp": "大致展示通知的效果。实际显示效果取决于每个人使用的手机或电脑。",
+    "previewLabel": "预览",
+    "previewTitle": "你的标题",
+    "publishFirst": "请先发布应用——点按通知会打开已上线的应用。",
+    "sendFailed": "发送失败，请重试。",
+    "sendHelp": "立即发送给所有订阅者。发送前会请你确认；发送后无法撤回。",
+    "sendTo": "发送给 {count} 人",
+    "sending": "正在发送…",
+    "title": "标题",
+    "titleHelp": "用户看到的第一行加粗文字。请简短明了，比如活动内容和时间。",
+    "titlePlaceholder": "今晚：晚上 7 点开始现场音乐",
+    "url": "点按后打开此页面（可选）",
+    "urlHelp": "有人点按通知后要打开的应用页面，例如 /menu。留空则打开应用首页。"
+  },
+  "notificationsPage": {
+    "eyebrow": "保持联系",
+    "goodToKnow": "小提示",
+    "intro": "向为 {name} 开启通知的用户的手机和电脑直接发送消息。",
+    "iosTip": "在 iPhone 和 iPad 上，用户需要先将应用添加到主屏幕（分享 → 添加到主屏幕），然后再在那里开启通知。Android 和电脑用户可以直接通过浏览器操作。",
+    "nothingSent": "尚未发送任何通知。",
+    "offBody": "开启后，应用会添加一个小型的“接收通知”页面，供访客注册。之后你可以在这里向他们发送新闻、优惠和提醒。",
+    "offTitle": "此应用的通知功能已关闭。",
+    "sent": "已发送",
+    "sentHelp": "你发送过的通知，按时间从新到旧排列，并显示每条通知送达的设备数量。",
+    "stats": "已送达 {sent} 条{failed, plural, =0 {} other { · 失败 {failed} 条}}{removed, plural, =0 {} other { · 退订 {removed} 条}} · {date}",
+    "subscribers": "订阅者",
+    "subscribersHelp": "已为你的应用开启通知的手机和电脑数量。同一个人使用两台设备会计为两位。",
+    "title": "推送通知"
+  },
+  "offlineApi": {
+    "notFound": "未找到",
+    "readme": "{name} — 离线应用（从 {brand} {date} 导出）\n\n使用方法\n  1. 请将此文件夹中的文件放在一起（可移到任何位置，例如桌面、C:\\ 或 U 盘）。\n  2. 使用任意现代浏览器打开 index.html。就这么简单——无需联网。\n\n你的数据\n  应用内附有项目数据库的快照，所有更改都会保存在\n  浏览器本地（localStorage）。数据会保留在同一台电脑和浏览器中，\n  供下次使用，但不会同步到任何地方。\n\n离线可用\n  页面、导航、表单、数据列表、搜索、游戏/脚本、注册和登录\n  （在离线应用中创建的账号）。\n\n离线不可用\n  - 在线版本中的账号：导出时不会包含密码哈希，因此请在离线应用中\n    重新注册。\n  - 电子邮件、Google Sheets、AI 功能、推送通知，以及任何会访问外部\n    网站的流程步骤（除非你刚好处于联网状态）。\n",
+    "readmeKeysLeftOut": "  - 使用你的私有密钥的步骤（例如付款或短信）：密钥不会包含在此文件中，\n    因此可以放心分享。\n",
+    "readmeNoBootstrap": "  - 注意：导出时未能打包 Bootstrap CSS，页面布局可能会显示异常。\n",
+    "unauthorized": "未经授权"
+  },
+  "overview": {
+    "afterPublish": "发布后",
+    "askProvider": "请联系你的服务提供商设置邮件。",
+    "continueDesigner": "在设计器中继续",
+    "continueDesignerHelp": "返回 AI 设计器，继续创建应用。",
+    "continueEditing": "继续编辑",
+    "continueEditingHelp": "打开页面编辑器，继续制作应用。",
+    "created": "创建时间",
+    "draft": "草稿 — 尚未发布。",
+    "emailOff": "你的应用会发送邮件（{flows}），但此服务器尚未设置邮件功能，因此邮件无法发送。",
+    "emailOffMore": "你的应用会发送邮件（{flows} 等另外 {more} 项），但此服务器尚未设置邮件功能，因此邮件无法发送。",
+    "eyebrow": "应用概览",
+    "launch": {
+      "admin": {
+        "detail": "这样你就能登录应用的管理页面。",
+        "help": "跳转到下方的部分，设置用于登录应用管理页面的邮箱和密码。",
+        "title": "设置管理员登录信息"
+      },
+      "build": {
+        "detail": "页面、数据和表单都已准备就绪。",
+        "help": "打开页面编辑器，修改应用的文字、图片和布局。",
+        "helpDesigner": "打开 AI 设计器，继续创建应用。",
+        "title": "创建应用"
+      },
+      "icon": {
+        "detail": "图标会显示在手机、浏览器标签页和 Android 应用中。",
+        "help": "跳转到下方的应用图标部分，添加代表你应用的小图片。",
+        "title": "添加应用图标"
+      },
+      "publish": {
+        "detail": "获取可与任何人分享的链接。",
+        "detailDone": "任何拥有链接的人都可以使用它。",
+        "help": "前往“发布”，将应用上线并获取分享链接。",
+        "helpDone": "前往“发布”，让新更改上线、分享链接或恢复到早期版本。",
+        "title": "发布应用",
+        "titleDone": "已发布"
+      },
+      "test": {
+        "title": "发送测试提交"
+      }
+    },
+    "launchEyebrow": "让大家用起来",
+    "launchHelp": "让应用准备就绪并展示给大家的步骤。完成每一步后，清单会自动勾选。",
+    "launchProgress": "已完成 {done}/{total} 项",
+    "launchTitle": "发布清单",
+    "liveAt": "已上线：<link>{url}</link>",
+    "liveAtHelp": "应用已上线的网址。点击后会在新标签页中打开，显示访客看到的效果。",
+    "next": {
+      "domains": {
+        "detail": "例如 www.yourbusiness.com。",
+        "detailDone": "管理你的网址。",
+        "help": "前往“域名”，将应用放到你自己的网址上，而不是使用免费分配的网址。",
+        "title": "使用自有域名",
+        "titleDone": "自有域名已连接"
+      },
+      "feature": {
+        "detail": "预约、商店、博客、注册等更多功能。",
+        "help": "前往“功能”，为应用添加现成的功能模块，每个模块都有自己的页面。",
+        "title": "添加功能"
+      },
+      "native": {
+        "detail": "下载应用安装包，安装到手机或上传到 Google Play。",
+        "help": "前往“手机应用”生成 Android 应用安装包，供大家安装到手机，或上传到 Google Play。",
+        "title": "获取 Android 应用"
+      },
+      "preview": {
+        "detail": "在新标签页中打开预览。",
+        "help": "在新标签页中打开应用，查看最新更改，包括尚未发布的更改。",
+        "title": "以访客身份试用"
+      },
+      "theme": {
+        "detail": "只需点击几下，就能匹配你的品牌风格。",
+        "help": "前往“主题”，为整个应用选择颜色、字体和圆角样式。",
+        "title": "更改颜色和字体"
+      }
+    },
+    "optional": "可选",
+    "phoneTitle": "在手机上打开",
+    "qrAlt": "{url} 的二维码",
+    "qrHelp": "用手机摄像头扫描这个二维码，即可在手机上打开已上线的应用。",
+    "qrHint": "用手机摄像头扫描二维码，然后选择“添加到主屏幕”，就能像使用应用一样打开它。",
+    "qrPublishFirst": "先发布应用，然后扫描这里的二维码，在手机上试用。",
+    "quoted": "“{name}”",
+    "setUpEmail": "设置邮件",
+    "settings": "设置",
+    "stats": {
+      "data": "数据",
+      "dataHelp": "应用保存信息的位置，比如注册信息和订单。点击即可查看和编辑。",
+      "domains": "自有域名",
+      "domainsHelp": "有多少个自有网址（域名）指向此应用。点击即可添加或管理。",
+      "flows": "自动流程",
+      "flowsHelp": "应用自动执行的操作数量，比如有新消息时给你发邮件。点击即可查看。",
+      "pages": "页面",
+      "pagesHelp": "应用的页面数量。点击即可在编辑器中打开。"
+    },
+    "stepDone": "（已完成）",
+    "stepToDo": "（待完成）",
+    "webAddress": "网址",
+    "webAddressHelp": "应用已上线的网址。点击即可在新标签页中打开。"
+  },
+  "pagesApi": {
+    "designerAdd": "此应用的页面由 AI Designer 管理，请在那里添加页面。",
+    "designerChange": "此应用的页面由 AI Designer 管理，请在那里进行更改。",
+    "invalidInput": "输入无效",
+    "notFound": "未找到"
+  },
+  "problemsCard": {
+    "activityHelp": "打开此自动化的“活动”记录，查看每次运行的情况（包括用户提交的内容），以便及时回复。",
+    "askProvider": "请联系服务提供商接入邮件服务。",
+    "emailNotSetUp": "此服务器尚未设置邮件服务。",
+    "emailOff": "“{flow}”已完成 {count, plural, =1 {一次} =2 {两次} other {# 次}}，但由于尚未设置邮件服务，邮件未能发送。",
+    "emailOffAlso": "此外，它还完成了 {count, plural, =1 {一次} =2 {两次} other {# 次}}，但由于尚未设置邮件服务，邮件未能发送。",
+    "failed": "“{flow}”未能为 {count, plural, one {# 位用户} other {# 位用户}}完成。",
+    "lastError": "最近一次错误：{error}",
+    "problem": "“{flow}”发生问题，共 {count, plural, =1 {一次} =2 {两次} other {# 次}}。",
+    "problemAlso": "此外还发生了问题，共 {count, plural, =1 {一次} =2 {两次} other {# 次}}。",
+    "problemAlsoWithWarning": "此外还发生了问题，共 {count, plural, =1 {一次} =2 {两次} other {# 次}}：{warning}。",
+    "problemWithWarning": "“{flow}”发生问题，共 {count, plural, =1 {一次} =2 {两次} other {# 次}}：{warning}。",
+    "seeWhat": "查看发生了什么",
+    "seeWho": "查看提交人和提交内容",
+    "setUpEmail": "设置邮件服务",
+    "setUpEmailHelp": "打开服务器设置并接入邮件服务，这样应用就能发送邮件。",
+    "title": "过去 24 小时内的问题",
+    "titleHelp": "过去一天中自动化失败或未能完成任务的次数，例如邮件未能发送。",
+    "total": "{count, plural, one {# 个问题} other {# 个问题}}"
+  },
+  "projectApi": {
+    "deleteFailed": "无法删除应用，请重试。",
+    "invalidInput": "输入无效",
+    "notFound": "未找到",
+    "unauthorized": "未授权",
+    "uploadKey": "此应用有一个 Google Play 上传密钥。删除应用前请先下载；否则你将无法再更新 Google Play 上的应用。"
+  },
+  "projectIcon": {
+    "generate": "生成",
+    "generateHelp": "让 AI 根据你的描述绘制图标。新图标会替换当前图标；你可以重新生成，也可以上传自己的图标。",
+    "generateIntro": "描述你想要的图标，包括风格、颜色和符号。",
+    "generateTitle": "或用 AI 生成",
+    "generating": "正在生成…",
+    "generationFailed": "生成失败",
+    "intro": "当访客在设备上将你的应用安装为 PWA 时会显示此图标。请使用方形图片，最好是 512×512 的 PNG。",
+    "promptHelp": "描述你想要的图标，比如它的颜色和简单符号。AI 会为你绘制。",
+    "promptLabel": "描述你的图标",
+    "promptPlaceholder": "例如：紫色渐变背景上的极简火箭",
+    "remove": "移除",
+    "removeConfirm": "要移除应用图标吗？",
+    "removeHelp": "从应用中移除此图标。系统会要求你确认。",
+    "title": "应用图标",
+    "titleHelp": "显示在手机主屏幕、浏览器标签页和 Android 应用中的小方形图片，用来代表你的应用。更改会立即生效。",
+    "upload": "上传图片",
+    "uploadFailed": "上传失败",
+    "uploadHelp": "从设备中选择一张方形图片，最好为 512×512 像素。此图片会替换当前图标。",
+    "uploading": "正在上传…"
+  },
+  "publishPage": {
+    "backup": {
+      "body": "一个文件，包含所有页面、流程、数据表和行，以及主题和图片。可将它作为备份保存，也可以导入 {app} 或兼容的服务器（新建应用 → 更多启动方式 → 导入应用）。不会包含应用密码，因此迁移后用户需要重置密码。",
+      "button": "下载备份（.zip）",
+      "help": "将整个应用保存为一个文件到你的设备。可将它作为备份保存，也可以通过“导入应用”恢复或迁移应用。",
+      "title": "备份或迁移应用"
+    },
+    "customDomain": "自定义域名",
+    "customDomainHelp": "你自己的网址，也可以用来打开此应用。前往“域名”标签页进行管理。",
+    "defaultUrl": "默认网址",
+    "defaultUrlHelp": "应用免费获得的网址。应用发布后，你可以分享给任何人。",
+    "draftNote": "访客看到的是你上次发布的版本。编辑内容（包括 AI 所做的更改）会保留在草稿中，直到你点击“发布”。你也可以在下方恢复任何早期版本。",
+    "eyebrow": "准备好面向全世界",
+    "history": {
+      "empty": "发布后，你的版本会显示在这里。",
+      "help": "你发布过的所有版本，按时间从新到旧排列。如果更改出了问题，可以点击“设为线上版本”恢复早期版本。",
+      "live": "线上版本",
+      "title": "发布历史"
+    },
+    "install": {
+      "desktopBody": "一个小型安装程序，会在桌面和“开始”菜单中添加快捷方式，在独立窗口中打开线上应用。需要联网——始终保持与你发布的内容同步。",
+      "desktopTitle": "桌面快捷方式（在线）",
+      "intro": "将应用添加到电脑桌面或手机主屏幕。离线应用完全独立运行——拥有自己的文件和本地数据库，无需联网即可使用。",
+      "macHelp": "下载适用于 Mac 的小型安装程序。打开后会添加一个快捷方式，在独立窗口中打开线上应用。",
+      "offlineBody": "一个包含所有页面、已上传文件和数据库快照的文件夹。解压到任意位置——桌面、C:\\、U 盘都可以——然后打开 index.html。表单、列表和注册功能无需联网也能正常使用；数据会保存在这台电脑上。",
+      "offlineDownload": "下载离线应用（.zip）",
+      "offlineHelp": "下载包含整个应用和数据副本的压缩文件夹。打开其中的 index.html，即可在没有网络的电脑上使用。",
+      "offlineTitle": "离线应用（电脑）",
+      "phoneBody": "用手机摄像头扫描并打开应用，然后在浏览器菜单中选择“添加到主屏幕”——它会像普通应用一样安装，并使用你的图标。如需制作可安装或发布到 Google Play 的 Android 应用，请使用下方的移动应用构建器。",
+      "phoneTitle": "手机",
+      "publishFirst": "请先发布——安装程序会指向线上应用。",
+      "qrAlt": "{url} 的二维码",
+      "qrHelp": "用手机摄像头扫描此二维码，即可在手机上打开线上应用。",
+      "title": "安装到设备",
+      "windowsHelp": "下载适用于 Windows 的小型安装程序。运行后会添加一个快捷方式，在独立窗口中打开线上应用。"
+    },
+    "intro": "发布应用、分享链接，或将它添加到主屏幕。",
+    "legacyNote": "此应用仍会随着你的编辑实时更新。发布一次即可切换到安全发布模式：访客只会看到你发布的版本，在你再次发布之前，编辑内容都会保持私密。",
+    "live": "已上线",
+    "liveUpToDate": "已上线 · 已是最新版本",
+    "liveWithChanges": "已上线 · 有未发布的更改",
+    "mobile": {
+      "body": "将此应用转换为可发布到 Google Play 商店和 Apple App Store 的 Android 和 iOS 应用。它会封装你的线上网站，因此重新发布后，应用也会自动保持最新。",
+      "button": "构建移动应用",
+      "help": "前往“移动应用”，为 Android 手机和 iPhone 构建应用版本。",
+      "title": "将应用发布为移动应用"
+    },
+    "notPublished": "尚未发布",
+    "openLiveHelp": "在新标签页中打开线上应用，查看访客看到的效果。",
+    "openPreviewHelp": "应用尚未上线，因此这里会打开包含最新更改的预览。",
+    "status": "状态",
+    "statusHelp": "查看应用是否已上线，以及访客看到的是最新更改还是旧版本。",
+    "title": "为你的应用安个家。"
+  },
+  "publishPanel": {
+    "appLive": "应用已上线，可以分享了。",
+    "appOffline": "应用现已下线。",
+    "changesLive": "更改已上线。",
+    "confirmOffline": "要让此应用下线吗？在你再次发布之前，访客将无法打开它。",
+    "confirmRestore": "要让版本 {version} 重新上线吗？访客会立即看到。你的草稿不会更改。",
+    "connectionError": "请检查网络连接，然后重试。",
+    "copied": "已复制",
+    "copyAppLink": "复制应用链接",
+    "copyLink": "复制链接",
+    "copyLinkHelp": "复制应用链接，可粘贴到消息、邮件或帖子中。",
+    "copyManually": "选中链接即可手动复制。",
+    "linkCopied": "链接已复制",
+    "makeLive": "上线",
+    "makeLiveHelp": "让这个较早的版本重新上线。访客会立即看到，你正在编辑的内容不会改变。",
+    "publishApp": "发布应用",
+    "publishAppHelp": "将应用发布到网上，让任何拥有链接的人都能使用。",
+    "publishChanges": "发布更改（v{version}）",
+    "publishChangesHelp": "发布最新更改。访客会立即看到，你也可以在下方恢复早期版本。",
+    "restoreFailed": "无法恢复该版本。",
+    "restoring": "正在恢复…",
+    "takeOffline": "下线",
+    "takeOfflineHelp": "对所有人隐藏你的应用。访客在你再次发布前无法打开它。应用内容不会被删除。",
+    "upToDate": "已是最新版本",
+    "upToDateHelp": "访客已经看到最新更改，无需发布新内容。",
+    "updateFailed": "无法更新发布状态，请重试。"
+  },
+  "pushApi": {
+    "addTitle": "请添加标题。",
+    "checkMessage": "请检查消息内容。",
+    "publishFirst": "请先发布应用——通知会打开你的线上应用。"
+  },
+  "renameProject": {
+    "edit": "编辑",
+    "editHelp": "更改应用名称。网址保持不变，因此你分享过的链接仍然有效。",
+    "errorStatus": "出错 {status}",
+    "inputHelp": "应用的新名称。按 Enter 保存，或按 Esc 取消。",
+    "inputLabel": "应用名称",
+    "name": "名称",
+    "networkError": "网络错误 — 请重试。",
+    "note": "只有名称会改变。应用的网址保持不变，因此重命名不会影响已发布的应用。",
+    "saveHelp": "保存新名称。网址不会改变。"
+  },
+  "searchSharing": {
+    "changeFailed": "无法更改，请重试。",
+    "chat": "WhatsApp 和其他聊天应用",
+    "chatHelp": "预览别人通过聊天分享应用链接或在社交媒体上发布链接时看到的内容。",
+    "chatPreviewLabel": "聊天中的分享链接预览",
+    "codeHelp": "粘贴 Google Search Console 提供的代码（选择 HTML 标记验证方式）。这可以向 Google 证明该应用属于你。",
+    "codeLabel": "Google 验证代码",
+    "codeRemoved": "已移除。",
+    "codeSaveFailed": "无法保存代码。",
+    "codeSaved": "已保存。返回 Search Console 并点击“验证”。",
+    "consoleBody": "Google Search Console 可显示用户如何通过 Google 找到你的应用。先在其中将应用地址添加为“网址前缀”资源，选择 HTML 标记验证方式，然后在此处粘贴代码（或完整标记）。",
+    "consoleHelp": "选填。Google Search Console 是 Google 提供的免费工具，可查看用户如何通过搜索找到你的应用。打开此项即可将应用关联到该工具。",
+    "consoleTitle": "连接 Google Search Console",
+    "copied": "已复制",
+    "copy": "复制",
+    "copySitemap": "复制网站地图地址",
+    "copySitemapHelp": "复制应用网站地图的地址，其中列出了所有页面。将地址粘贴到 Search Console 的“网站地图”中。",
+    "description": "简介",
+    "descriptionEmptyHint": "留空时，将使用主页的第一段文字。",
+    "descriptionHelp": "简要介绍你的应用。Google 会将它显示在应用名称下方，聊天中也会将它显示在分享链接下方。建议控制在 160 个字符左右或更少。",
+    "descriptionHint": "说明它是什么，以及适合哪些人。",
+    "descriptionPlaceholder": "用一两句话介绍你的应用，例如：我们家族面包店新鲜出炉的面包和蛋糕。在线下单，次日早上取货。",
+    "descriptionSaveFailed": "无法保存简介。",
+    "descriptionSaveFailedRetry": "无法保存简介，请重试。",
+    "descriptionSaved": "已保存。搜索引擎下次访问时会获取此内容。",
+    "designerDescription": "你的设计已设置专属简介，搜索引擎和链接预览会显示该简介。此处的简介会用于用户安装你的应用时。",
+    "google": "Google 搜索结果",
+    "googleHelp": "预览应用在 Google 搜索结果中的显示效果。最终显示效果由 Google 决定，因此可能略有不同。",
+    "googleNoDescription": "添加简介，让大家知道应用里有什么。",
+    "googlePreviewLabel": "Google 搜索结果预览",
+    "hiddenNote": "已隐藏：你的应用不会出现在搜索结果中。",
+    "hide": "不显示在搜索结果中",
+    "hideBody": "Google 和其他搜索引擎不会列出你的应用。知道链接的人仍可打开应用。",
+    "hideHelp": "开启后，请求 Google 和其他搜索引擎不要列出你的应用。知道链接的人仍可打开应用。此设置会立即生效。",
+    "imageFallback": "无法加载主页的第一张图片，因此显示了由应用图标、名称和颜色生成的图片。",
+    "imageFirst": "这张图片是你主页上的第一张图片。",
+    "imageIsCard": "这张图片由应用图标、名称和颜色生成。要使用其他图片，请在主页添加图片。",
+    "intro": "设置应用在 Google 搜索结果中以及别人分享链接时的显示方式。更改会立即生效，无需重新发布。",
+    "length": "{count}/{max}",
+    "lengthTooLong": "{count}/{max}（超出部分会被截断）",
+    "notPublished": "你的应用尚未发布。发布后，链接会显示为这样。",
+    "off": "关",
+    "on": "开",
+    "saveCode": "保存代码",
+    "saveCodeHelp": "将代码保存到应用后，返回 Search Console 并点击“验证”。留空保存即可移除代码。",
+    "saveDescription": "保存简介",
+    "saveDescriptionHelp": "保存简介后会立即生效，无需重新发布。Google 下次访问你的应用时会更新简介。",
+    "saveFailed": "无法保存，请重试。",
+    "sitemapCopied": "已复制网站地图地址",
+    "sitemapIntro": "然后在 Search Console 中添加网站地图，让 Google 找到所有页面：",
+    "title": "搜索和分享",
+    "titleHelp": "控制应用在 Google 搜索结果中的显示方式，以及别人通过聊天分享链接时看到的预览。更改会立即生效。"
+  },
+  "seoApi": {
+    "invalidCode": "这看起来不像 Google 验证码。请粘贴 HTML 标记选项中的代码，或整个标记。",
+    "invalidInput": "输入无效"
+  },
+  "tabs": {
+    "data": {
+      "help": "查看和编辑应用保存的信息，比如注册信息、订单和用户发送的消息。",
+      "label": "数据"
+    },
+    "designer": {
+      "help": "返回 AI 设计器，继续通过描述你的想法来创建应用。",
+      "label": "设计器"
+    },
+    "domains": {
+      "help": "使用你自己的网址（域名）发布应用，比如 www.yourbusiness.com。",
+      "label": "域名"
+    },
+    "features": {
+      "help": "为应用添加现成的功能，比如预约、商店或联系表单。每项功能都有自己的页面。",
+      "label": "功能"
+    },
+    "flows": {
+      "help": "设置应用自动执行的操作，比如有人填写表单时给你发送邮件。",
+      "label": "自动流程"
+    },
+    "mobileApp": {
+      "help": "将应用变成可安装在 Android 或 iPhone 上的手机应用。",
+      "label": "移动应用"
+    },
+    "navLabel": "项目导航",
+    "notifications": {
+      "help": "向允许接收通知的人发送简短提醒，这些提醒会弹出在他们的手机或电脑上。",
+      "label": "通知"
+    },
+    "overview": {
+      "help": "快速了解你的应用：名称、图标、链接、上线清单和设置。",
+      "label": "概览"
+    },
+    "pages": {
+      "help": "打开页面编辑器，修改应用中每个页面的文字、图片和布局。",
+      "label": "页面"
+    },
+    "preview": "预览",
+    "previewHelp": "在新标签页中打开应用，查看最新更改，提前体验访客将看到的效果。",
+    "publish": "发布",
+    "publishHelp": "前往“发布”，让访客看到你的最新更改，并获取应用链接以便分享。",
+    "theme": {
+      "help": "为整个应用选择颜色、字体和圆角样式。",
+      "label": "主题"
+    }
+  },
+  "themeEditor": {
+    "active": "当前使用",
+    "bodyFont": "正文字体",
+    "bodyFontHelp": "用于段落、按钮和表单等正文内容的字体。",
+    "colorCode": "{color}颜色代码",
+    "colorCodeHelp": "也可以在这里输入颜色代码，例如 #1a73e8，指定你想要的颜色。",
+    "colors": {
+      "accent": {
+        "help": "用于徽章、装饰图形等细节的辅助颜色。",
+        "label": "点缀色"
+      },
+      "bg": {
+        "help": "页面所有内容背后的颜色。",
+        "label": "背景"
+      },
+      "border": {
+        "help": "方框周围和区域之间细线的颜色。",
+        "label": "边框"
+      },
+      "primary": {
+        "help": "品牌主色，用于按钮、链接和高亮。更改后，主色悬停也会同步更新。",
+        "label": "主色"
+      },
+      "primary2": {
+        "help": "鼠标指向按钮和链接时显示的颜色。",
+        "label": "主色悬停"
+      },
+      "surface": {
+        "help": "显示在背景上的卡片和方框的颜色。",
+        "label": "卡片"
+      },
+      "surface2": {
+        "help": "另一种卡片颜色，用于区分部分区域和标签。",
+        "label": "卡片 2"
+      },
+      "text": {
+        "help": "页面上大多数文字的颜色。",
+        "label": "文字"
+      },
+      "textMuted": {
+        "help": "用于说明文字和小字等次要内容的柔和颜色。",
+        "label": "次要文字"
+      },
+      "title": "颜色"
+    },
+    "corners": "圆角",
+    "customFont": "自定义…",
+    "customize": "自定义",
+    "customizeHelp": "微调所选外观的字体、颜色和圆角。更改会自动保存；发布后访客就能看到。",
+    "dark": "深色",
+    "darkThemes": "深色主题 · {count}",
+    "displayFont": "标题字体",
+    "displayFontHelp": "用于标题的字体。选用更粗或更有特色的字体，能展现应用的个性。",
+    "identity": "基本信息",
+    "light": "浅色",
+    "lightThemes": "浅色主题 · {count}",
+    "livePreview": "实时预览",
+    "livePreviewHelp": "快速预览应用使用此主题后的效果。更改时预览会同步更新。",
+    "mode": "模式",
+    "modeHelp": "设置此外观为浅色还是深色。浏览器会用它来设置表单框、滚动条等元素，但不会改变你的颜色。",
+    "name": "名称",
+    "nameHelp": "给此外观起个名字，方便区分主题。访客看不到。",
+    "presetHelp": "将{name}外观应用到整个应用：它的颜色、字体和圆角会替换当前设置。发布后访客就能看到。",
+    "previewHome": "应用首页",
+    "previewHomeHelp": "在应用的实际首页预览主题效果。",
+    "previewSample": "示例",
+    "previewSampleHelp": "在包含按钮、卡片和表单的示例页面预览主题，一次查看所有颜色。",
+    "previewTitle": "主题预览",
+    "previewWhat": "预览内容",
+    "radius": "圆角半径",
+    "radiusHelp": "设置卡片和方框的圆角大小，例如 14px。输入 0px 可设为直角。",
+    "radiusSm": "小圆角半径",
+    "radiusSmHelp": "设置按钮和表单框等小元素的圆角大小。输入 0px 可设为直角。",
+    "reset": "重置",
+    "resetHelp": "撤销打开此页面后所做的所有主题更改，恢复到打开时的状态。",
+    "saveFailed": "无法保存，请检查网络连接。",
+    "saved": "已保存",
+    "typography": "字体"
+  },
+  "themePage": {
+    "intro": "选择一个预设，也可以自定义。颜色、字体和圆角会应用到此应用的每个页面。你在编辑器中可以立即看到效果；访客会在你下次发布后看到这些更改。",
+    "title": "主题"
+  },
+  "transferApi": {
+    "alreadyOwner": "你已经是此应用的所有者。",
+    "invalidEmail": "请输入有效的电子邮件地址。",
+    "notEligible": "无法将应用转让给此电子邮件地址。请检查地址：它必须属于此处的一个账号，且该账号可以接收你转让的应用。",
+    "notFound": "未找到项目",
+    "ownerOnly": "只有应用所有者才能转让应用。请让所有者登录自己的账号进行操作。",
+    "tooManyTries": "转让尝试次数过多。请等待一小时后重试。",
+    "unauthorized": "未经授权"
+  },
+  "transferProject": {
+    "confirm": "要将 <b>{name}</b> 转让给 <mono>{email}</mono> 吗？你将立即失去访问权限。",
+    "confirmButton": "是，转让",
+    "confirmHelp": "立即转让应用。你会马上失去访问权限，而且无法自行撤销。",
+    "emailHelp": "新所有者用于登录此处的邮箱地址。对方需要拥有与你处于同一工作区的账户。",
+    "emailLabel": "新所有者的邮箱",
+    "failed": "转让失败，请重试。",
+    "intro": "将整个应用（包括页面、流程、数据、域名和已发布的网站）转给本网站上的另一个账户。你将失去访问权限。此操作无法撤销。",
+    "networkError": "网络错误 — 请重试。",
+    "requirements": "对方需要先拥有此处的账户，并且与你处于同一工作区；对方的套餐也需要能再容纳一个应用。",
+    "title": "转让所有权",
+    "titleHelp": "将整个应用转让给这里的其他账户。应用转到对方名下后，你将无法打开或修改它。",
+    "transfer": "转让",
+    "transferHelp": "下一步：系统会要求你确认，然后才会进行转让。",
+    "transferring": "正在转让…"
+  }
+}

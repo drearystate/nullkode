@@ -1,6 +1,8 @@
 import { z } from "zod";
 import { getRealUser } from "@/lib/auth";
 import { getBrand, safeDataUrl, updateBrand } from "@/lib/brand";
+import { getTranslations } from "next-intl/server";
+import { requestLocale } from "@/i18n/request";
 
 // Same shape as the reseller brand form (lib components/reseller/brand-form).
 const Body = z.object({
@@ -22,7 +24,10 @@ export async function GET() {
 export async function PATCH(req: Request) {
   if ((await getRealUser())?.role !== "ADMIN") return new Response("Forbidden", { status: 403 });
   const p = Body.safeParse(await req.json().catch(() => null));
-  if (!p.success) return Response.json({ error: "Check the name, colours, email and website address." }, { status: 400 });
+  if (!p.success) {
+    const t = await getTranslations({ locale: await requestLocale(), namespace: "admin.api" });
+    return Response.json({ error: t("checkBrand") }, { status: 400 });
+  }
   const b = p.data;
   const image = (v: string | null | undefined) => (v === undefined ? undefined : v === null ? null : safeDataUrl(v));
   return Response.json(

@@ -1,0 +1,22 @@
+{
+  "backToAll": "返回所有指南",
+  "clearSearch": "清除搜索",
+  "eyebrow": "帮助与指南",
+  "guideMetaTitle": "{title} · 帮助",
+  "heading": "需要什么帮助？",
+  "help": "帮助",
+  "helpGuides": "帮助与指南",
+  "intro": "了解 {app} 各项功能的分步指南。每个页面顶部的<b>帮助</b>链接会打开该页面的指南。",
+  "matches": "{count, plural, one {# 个指南匹配} other {# 个指南匹配}}",
+  "metaTitle": "帮助与指南",
+  "noMatch": "没有指南匹配“{query}”。",
+  "noMatchHint": "试试其他词，或浏览所有指南。",
+  "onThisPage": "本页内容",
+  "onThisPageEyebrow": "本页内容",
+  "related": "相关指南",
+  "searchHelp": "输入一两个词。下方的指南会随输入内容筛选。",
+  "searchLabel": "搜索指南",
+  "searchPlaceholder": "搜索指南，例如“发布”或“域名”",
+  "showAll": "显示所有指南",
+  "step": "步骤 {n}："
+}

@@ -1,0 +1,22 @@
+{
+  "backToAll": "すべてのガイドに戻る",
+  "clearSearch": "検索をクリア",
+  "eyebrow": "ヘルプとガイド",
+  "guideMetaTitle": "{title} · ヘルプ",
+  "heading": "お困りですか？",
+  "help": "ヘルプ",
+  "helpGuides": "ヘルプとガイド",
+  "intro": "{app}のすべてをステップごとに解説します。画面上部の<b>ヘルプ</b>リンクをクリックすると、その画面のガイドが開きます。",
+  "matches": "{count, plural, one {#件のガイドが見つかりました} other {#件のガイドが見つかりました}}",
+  "metaTitle": "ヘルプとガイド",
+  "noMatch": "「{query}」に一致するガイドはありません。",
+  "noMatchHint": "別の言葉で検索するか、すべてのガイドをご覧ください。",
+  "onThisPage": "このページの内容",
+  "onThisPageEyebrow": "このページの内容",
+  "related": "関連ガイド",
+  "searchHelp": "単語を入力すると、入力に合わせてガイドが絞り込まれます。",
+  "searchLabel": "ガイドを検索",
+  "searchPlaceholder": "「公開」や「ドメイン」などで検索",
+  "showAll": "すべてのガイドを表示",
+  "step": "ステップ{n}: "
+}

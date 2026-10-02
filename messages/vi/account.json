@@ -1,0 +1,84 @@
+{
+  "appearance": {
+    "intro": "Chọn giao diện studio. Tùy chọn này được lưu vào tài khoản để dùng trên các thiết bị khác.",
+    "title": "Giao diện"
+  },
+  "blocked": {
+    "impersonating": "Chỉ chủ tài khoản mới có thể xóa tài khoản. Với vai trò quản trị viên, bạn có thể xóa tài khoản trong mục Người dùng ở phần Quản trị.",
+    "onlyOperator": "Bạn là người vận hành duy nhất của nền tảng này, nên không thể xóa tài khoản.",
+    "reseller": "Bạn đang quản lý không gian làm việc dành cho đại lý, nên không thể xóa tài khoản tại đây. Hãy nhờ đơn vị vận hành nền tảng xóa không gian làm việc trước."
+  },
+  "delete": {
+    "backup": "Sao lưu",
+    "backupFirst": "Trước tiên, hãy tải bản sao lưu của từng ứng dụng. Sau này, bạn có thể khôi phục bản sao lưu bằng tính năng Nhập.",
+    "cancel": "Hủy",
+    "cannotUndo": "Bạn không thể hoàn tác thao tác này.",
+    "confirm": "Xóa tài khoản của tôi vĩnh viễn",
+    "deletesAccount": "Xóa tài khoản của bạn.",
+    "deletesApps": "{count, plural, one {Xóa tài khoản và ứng dụng của bạn, cùng mọi dữ liệu ứng dụng đã lưu, tệp và địa chỉ web.} other {Xóa tài khoản và tất cả # ứng dụng của bạn, cùng mọi dữ liệu ứng dụng đã lưu, tệp và địa chỉ web.}}",
+    "deleting": "Đang xóa…",
+    "failed": "Không thể xóa tài khoản của bạn ({status}).",
+    "keysAck": "{count, plural, one {Tôi đã tải khóa tải lên Google Play ở trên xuống, hoặc tôi không cần khóa này. Nếu không có khóa, bạn sẽ không thể cập nhật ứng dụng trên Google Play nữa.} other {Tôi đã tải các khóa tải lên Google Play ở trên xuống, hoặc tôi không cần các khóa này. Nếu không có khóa, bạn sẽ không thể cập nhật ứng dụng trên Google Play nữa.}}",
+    "networkError": "Lỗi mạng. Chưa có gì bị xóa.",
+    "start": "Xóa tài khoản của tôi…",
+    "startHelp": "Bắt đầu xóa tài khoản. Bạn sẽ được yêu cầu nhập địa chỉ email trước; chưa có gì bị xóa cho đến khi bạn xác nhận.",
+    "subscriptionCancelled": "Gói đăng ký của bạn sẽ bị hủy ngay lập tức.",
+    "title": "Xóa tài khoản của tôi",
+    "typeEmail": "Nhập địa chỉ email để xác nhận",
+    "uploadKey": "Khóa tải lên Google Play",
+    "uploadKeyHelp": "Tải khóa này xuống và cất ở nơi an toàn. Nếu không có khóa, bạn sẽ không thể cập nhật ứng dụng này trên Google Play nữa."
+  },
+  "helpPrefs": {
+    "guides": "Bạn có thể xem hướng dẫn từng bước cho mọi tính năng trong mục <link>Trợ giúp & hướng dẫn</link>.",
+    "saveFailed": "Không thể lưu. Tùy chọn này sẽ trở về như cũ vào lần tới bạn mở trang.",
+    "tips": "Mẹo trợ giúp",
+    "tipsIntro": "Các ghi chú ngắn xuất hiện khi bạn di chuột lên nút hoặc tùy chọn, giải thích công dụng bằng từ ngữ dễ hiểu.",
+    "title": "Trợ giúp"
+  },
+  "intro": "Ảnh, thông tin của bạn và cách giao diện studio hiển thị, hoạt động theo ý bạn.",
+  "language": {
+    "intro": "Ngôn ngữ hiển thị trong studio. Tùy chọn này được lưu vào tài khoản để dùng trên các thiết bị khác.",
+    "title": "Ngôn ngữ"
+  },
+  "metaTitle": "Hồ sơ",
+  "password": {
+    "change": "Đổi mật khẩu",
+    "changed": "Đã đổi mật khẩu. Bạn đã đăng xuất khỏi các thiết bị khác.",
+    "changing": "Đang đổi…",
+    "current": "Mật khẩu hiện tại",
+    "failed": "Không thể đổi mật khẩu. Vui lòng thử lại.",
+    "forgotNote": "Bạn không biết mật khẩu hiện tại (ví dụ: bạn đăng ký bằng Google)? Hãy đăng xuất rồi chọn <link>Quên mật khẩu</link> để đặt mật khẩu.",
+    "new": "Mật khẩu mới",
+    "newNote": "Tối thiểu 8 ký tự. Đổi mật khẩu sẽ đăng xuất bạn khỏi các thiết bị khác.",
+    "readOnly": "Chỉ chủ tài khoản mới có thể đổi mật khẩu.",
+    "title": "Mật khẩu"
+  },
+  "profile": {
+    "addPhoto": "Thêm ảnh",
+    "badPicture": "Không thể mở tệp này dưới dạng ảnh.",
+    "changePhoto": "Đổi ảnh",
+    "email": "Email",
+    "emailNote": "Bạn dùng địa chỉ này để đăng nhập.",
+    "name": "Tên",
+    "nameHelp": "Tên hiển thị trên tài khoản và trong email chúng tôi gửi cho bạn.",
+    "photoHelp": "Chọn ảnh của bạn (PNG, JPEG hoặc WebP). Ảnh sẽ được cắt thành hình vuông và hiển thị cạnh tên bạn.",
+    "photoRemoveFailed": "Không thể xóa ảnh. Vui lòng thử lại.",
+    "photoRemoved": "Đã xóa ảnh.",
+    "photoSaveFailed": "Không thể lưu ảnh. Vui lòng thử lại.",
+    "photoSaveFailedShort": "Không thể lưu ảnh.",
+    "photoSaved": "Đã lưu ảnh.",
+    "remove": "Xóa",
+    "removeHelp": "Xóa ảnh của bạn. Chữ cái đầu tên bạn sẽ hiển thị thay thế.",
+    "save": "Lưu",
+    "saveFailed": "Không thể lưu. Vui lòng thử lại.",
+    "saved": "Đã lưu.",
+    "saving": "Đang lưu…",
+    "title": "Hồ sơ của bạn"
+  },
+  "theme": {
+    "dark": "Tối",
+    "light": "Sáng",
+    "system": "Theo thiết bị"
+  },
+  "title": "Hồ sơ"
+}

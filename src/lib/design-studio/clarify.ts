@@ -4,6 +4,8 @@
 
 import { spawn } from "node:child_process";
 import { getClaudeBin } from "../settings";
+import type { Locale } from "@/i18n/locales";
+import { replyLanguageRule } from "../ai/i18n";
 
 export interface ClarifyQuestion {
   id: string;
@@ -33,10 +35,12 @@ function extractJson(s: string): string {
   return s.slice(start, end + 1);
 }
 
-export async function askClarifyingQuestions(prompt: string): Promise<{ questions: ClarifyQuestion[] }> {
+/** `locale` is the person's studio language: the questions and options are written in it. */
+export async function askClarifyingQuestions(prompt: string, locale: Locale = "en"): Promise<{ questions: ClarifyQuestion[] }> {
   const { providerComplete } = await import("../ai/provider");
+  const language = replyLanguageRule(locale, 'every "label" and "options" entry (the person reads and picks them); keep "id" in English kebab-case');
   try {
-    const text = await providerComplete({ systemPrompt: SYSTEM_PROMPT, userMessage: prompt.slice(0, 12000), json: true, maxTokens: 1024, signal: AbortSignal.timeout(20000) });
+    const text = await providerComplete({ systemPrompt: language ? `${SYSTEM_PROMPT}\n\n${language}` : SYSTEM_PROMPT, userMessage: prompt.slice(0, 12000), json: true, maxTokens: 1024, signal: AbortSignal.timeout(20000) });
     const result = JSON.parse(extractJson(text));
     const questions = (Array.isArray(result.questions) ? result.questions : []).filter((q: ClarifyQuestion) => typeof q?.id === "string" && typeof q?.label === "string").slice(0, 3).map((q: ClarifyQuestion) => ({ id: q.id.slice(0, 80), label: q.label.slice(0, 300), ...(Array.isArray(q.options) ? { options: q.options.filter(o => typeof o === "string").slice(0, 4) } : {}) }));
     return { questions };

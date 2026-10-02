@@ -1,0 +1,32 @@
+{
+  "aiUsage": "이번 달 AI 작업: <b>{used} / {limit}</b>",
+  "aiUsageLabel": "사용한 AI 작업",
+  "planNames": {
+    "FREE": "무료",
+    "PRO": "프로",
+    "STARTER": "스타터",
+    "TEAM": "팀"
+  },
+  "plans": {
+    "checkoutFailed": "결제를 시작할 수 없어요",
+    "comingSoon": "출시 예정",
+    "current": "현재 요금제",
+    "free": "무료",
+    "manage": "결제 관리",
+    "manageHelp": "Stripe의 보안 결제 페이지가 열려요. 여기서 카드를 업데이트하고, 지난 청구서를 확인하고, 변경 옵션이 제공되는 경우 요금제를 변경하거나 취소할 수 있어요.",
+    "notBuyable": "이 요금제는 아직 온라인에서 구매할 수 없어요.",
+    "portalFailed": "결제 페이지를 열 수 없어요",
+    "upgrade": "업그레이드",
+    "upgradeHelp": "이 요금제를 시작하는 보안 결제 페이지가 열리고, 요금은 매월 청구돼요. 이미 유료 요금제를 사용 중인가요? 요금제를 변경하려면 결제 관리 기능을 이용하세요."
+  },
+  "profileNote": "사진, 이름, 비밀번호, 화면 설정, 도움말 및 계정 삭제는 <link>프로필</link>에서 관리할 수 있어요.",
+  "status": {
+    "ACTIVE": "유료 사용 중",
+    "CANCELED": "취소됨",
+    "PAST_DUE": "결제 연체",
+    "TRIALING": "무료 체험",
+    "UNPAID": "미결제"
+  },
+  "title": "결제",
+  "yourPlan": "내 요금제: <b>{plan}</b>"
+}

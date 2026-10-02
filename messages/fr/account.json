@@ -1,0 +1,84 @@
+{
+  "appearance": {
+    "intro": "Choisissez l’apparence du studio. Elle est enregistrée sur votre compte et vous suit sur vos autres appareils.",
+    "title": "Apparence"
+  },
+  "blocked": {
+    "impersonating": "Seule la personne propriétaire de ce compte peut le supprimer. En tant qu’admin, vous pouvez supprimer des comptes dans Admin, sous Utilisateurs.",
+    "onlyOperator": "Vous êtes le seul opérateur de cette plateforme, votre compte ne peut donc pas être supprimé.",
+    "reseller": "Vous gérez un espace de travail revendeur, votre compte ne peut donc pas être supprimé ici. Demandez à l’opérateur de la plateforme de supprimer d’abord l’espace de travail."
+  },
+  "delete": {
+    "backup": "Sauvegarde",
+    "backupFirst": "Téléchargez d’abord une sauvegarde de chaque application. Vous pourrez la restaurer plus tard avec Importer.",
+    "cancel": "Annuler",
+    "cannotUndo": "Cette action est irréversible.",
+    "confirm": "Supprimer définitivement mon compte",
+    "deletesAccount": "Supprime votre compte.",
+    "deletesApps": "{count, plural, one {Supprime votre compte et votre application, ainsi que tout ce qu’elle a enregistré, ses fichiers et ses adresses web.} other {Supprime votre compte et vos # applications, ainsi que tout ce qu’elles ont enregistré, leurs fichiers et leurs adresses web.}}",
+    "deleting": "Suppression…",
+    "failed": "Impossible de supprimer votre compte ({status}).",
+    "keysAck": "{count, plural, one {J’ai téléchargé la clé de téléversement Google Play ci-dessus, ou je n’en ai pas besoin. Sans cette clé, une application ne pourra plus jamais être mise à jour sur Google Play.} other {J’ai téléchargé les clés de téléversement Google Play ci-dessus, ou je n’en ai pas besoin. Sans cette clé, une application ne pourra plus jamais être mise à jour sur Google Play.}}",
+    "networkError": "Erreur réseau. Rien n’a été supprimé.",
+    "start": "Supprimer mon compte…",
+    "startHelp": "Lance la suppression de votre compte. Vous devrez d’abord saisir votre adresse e-mail ; rien ne sera supprimé avant votre confirmation.",
+    "subscriptionCancelled": "Votre abonnement est annulé immédiatement.",
+    "title": "Supprimer mon compte",
+    "typeEmail": "Saisissez votre adresse e-mail pour confirmer",
+    "uploadKey": "Clé de téléversement Google Play",
+    "uploadKeyHelp": "Téléchargez cette clé et conservez-la en lieu sûr. Sans elle, cette application ne pourra plus jamais être mise à jour sur Google Play."
+  },
+  "helpPrefs": {
+    "guides": "Des guides pas à pas sont disponibles dans <link>Aide et guides</link>.",
+    "saveFailed": "Enregistrement impossible. Ce réglage sera réinitialisé à votre prochaine visite.",
+    "tips": "Conseils d’aide",
+    "tipsIntro": "De courtes explications s’affichent quand vous passez la souris sur un bouton ou un réglage. Elles vous indiquent simplement à quoi il sert.",
+    "title": "Aide"
+  },
+  "intro": "Votre photo, vos informations et l’apparence du studio, comme vous le souhaitez.",
+  "language": {
+    "intro": "La langue d’affichage du studio. Elle est enregistrée sur votre compte et vous suit sur vos autres appareils.",
+    "title": "Langue"
+  },
+  "metaTitle": "Profil",
+  "password": {
+    "change": "Modifier le mot de passe",
+    "changed": "Mot de passe modifié. Vous avez été déconnecté de vos autres appareils.",
+    "changing": "Modification…",
+    "current": "Mot de passe actuel",
+    "failed": "Modification impossible. Réessayez.",
+    "forgotNote": "Vous ne connaissez pas votre mot de passe actuel (par exemple, vous vous êtes inscrit avec Google) ? Déconnectez-vous et utilisez <link>Mot de passe oublié</link> pour en définir un.",
+    "new": "Nouveau mot de passe",
+    "newNote": "8 caractères minimum. Si vous le modifiez, vous serez déconnecté de tous vos autres appareils.",
+    "readOnly": "Seule la personne propriétaire de ce compte peut modifier son mot de passe.",
+    "title": "Mot de passe"
+  },
+  "profile": {
+    "addPhoto": "Ajouter une photo",
+    "badPicture": "Impossible d’ouvrir ce fichier image.",
+    "changePhoto": "Changer la photo",
+    "email": "E-mail",
+    "emailNote": "Vous vous connectez avec cette adresse.",
+    "name": "Nom",
+    "nameHelp": "Le nom affiché sur votre compte et dans les e-mails que nous vous envoyons.",
+    "photoHelp": "Choisissez une photo de vous (PNG, JPEG ou WebP). Elle sera recadrée en carré et affichée à côté de votre nom.",
+    "photoRemoveFailed": "Impossible de supprimer la photo. Réessayez.",
+    "photoRemoved": "Photo supprimée.",
+    "photoSaveFailed": "Impossible d’enregistrer la photo. Réessayez.",
+    "photoSaveFailedShort": "Impossible d’enregistrer la photo.",
+    "photoSaved": "Photo enregistrée.",
+    "remove": "Supprimer",
+    "removeHelp": "Supprimez votre photo. Votre initiale s’affichera à la place.",
+    "save": "Enregistrer",
+    "saveFailed": "Enregistrement impossible. Réessayez.",
+    "saved": "Enregistré.",
+    "saving": "Enregistrement…",
+    "title": "Votre profil"
+  },
+  "theme": {
+    "dark": "Sombre",
+    "light": "Clair",
+    "system": "Comme sur mon appareil"
+  },
+  "title": "Profil"
+}

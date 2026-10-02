@@ -14,10 +14,21 @@ import { resellerForHost } from "./reseller";
 
 export type SnapshotPage = Pick<Page, "id" | "title" | "slug" | "isHome" | "html" | "css"> & Partial<Pick<Page, "components" | "styles">>;
 export type SnapshotFlow = Pick<Flow, "id" | "name" | "slug" | "graph"> & Partial<Pick<Flow, "trigger" | "httpPath" | "httpMethod" | "schedule" | "enabled">>;
-export type Snapshot = { pages: SnapshotPage[]; flows: SnapshotFlow[]; theme?: unknown; hash?: string };
+/** A page in one of a multilingual app's other languages (lib/app-translations.ts). */
+export type SnapshotTranslation = { pageId: string; locale: string; title: string; html: string };
+export type Snapshot = {
+  pages: SnapshotPage[];
+  flows: SnapshotFlow[];
+  theme?: unknown;
+  hash?: string;
+  /** Multilingual apps only: every language published, the default first. */
+  locales?: string[];
+  /** Multilingual apps only: the translated pages, frozen like the pages. */
+  translations?: SnapshotTranslation[];
+};
 
 /** Fingerprint of everything a visitor can see or trigger. */
-export function contentHash(input: { pages: Array<Pick<Page, "slug" | "title" | "isHome" | "html" | "css">>; flows: Array<Pick<Flow, "id" | "slug" | "graph"> & Partial<Pick<Flow, "trigger" | "schedule" | "enabled">>>; theme: unknown }): string {
+export function contentHash(input: { pages: Array<Pick<Page, "slug" | "title" | "isHome" | "html" | "css">>; flows: Array<Pick<Flow, "id" | "slug" | "graph"> & Partial<Pick<Flow, "trigger" | "schedule" | "enabled">>>; theme: unknown; locales?: string[]; translations?: SnapshotTranslation[] }): string {
   const h = createHash("sha256");
   for (const p of [...input.pages].sort((a, b) => a.slug.localeCompare(b.slug))) h.update(`P|${p.slug}|${p.title}|${p.isHome}|${p.html}|${p.css}\n`);
   // A flow's schedule is published like its steps (the scheduler runs the
@@ -26,18 +37,30 @@ export function contentHash(input: { pages: Array<Pick<Page, "slug" | "title" | 
   const sched = (f: Partial<Pick<Flow, "trigger" | "schedule" | "enabled">>) => (f.trigger === "SCHEDULE" ? `|S|${f.schedule ?? ""}|${f.enabled === false ? 0 : 1}` : "");
   for (const f of [...input.flows].sort((a, b) => a.id.localeCompare(b.id))) h.update(`F|${f.id}|${f.slug}|${JSON.stringify(f.graph)}${sched(f)}\n`);
   h.update(`T|${JSON.stringify(input.theme ?? null)}`);
+  // Languages and translations count only for multilingual apps, so every
+  // other app's fingerprint stays as it was.
+  if (input.locales?.length) h.update(`\nL|${input.locales.join(",")}`);
+  for (const t of [...(input.translations ?? [])].sort((a, b) => `${a.pageId}|${a.locale}`.localeCompare(`${b.pageId}|${b.locale}`))) h.update(`\nX|${t.pageId}|${t.locale}|${t.title}|${t.html}`);
   return h.digest("hex");
 }
 
 /** The current draft, as a snapshot ready to publish. */
 export async function draftSnapshot(projectId: string): Promise<Snapshot> {
-  const [project, pages, flows] = await Promise.all([
+  const [project, pages, flows, app] = await Promise.all([
     db.project.findUnique({ where: { id: projectId }, select: { theme: true } }),
     db.page.findMany({ where: { projectId } }),
     db.flow.findMany({ where: { projectId } }),
+    import("./app-locale").then((m) => m.getAppLocale(projectId)),
   ]);
   const theme = project?.theme ?? null;
-  return { pages, flows, theme, hash: contentHash({ pages, flows, theme }) };
+  if (app.locales.length < 2) return { pages, flows, theme, hash: contentHash({ pages, flows, theme }) };
+  // A multilingual app publishes its languages and translated pages too.
+  const locales: string[] = app.locales;
+  const translations: SnapshotTranslation[] = await db.pageTranslation.findMany({
+    where: { page: { projectId }, locale: { in: locales.slice(1) } },
+    select: { pageId: true, locale: true, title: true, html: true },
+  });
+  return { pages, flows, theme, locales, translations, hash: contentHash({ pages, flows, theme, locales, translations }) };
 }
 
 // Deployments never change, so they can be cached by id indefinitely (with a
@@ -87,7 +110,7 @@ export async function publishDraft(projectId: string, userId: string | null): Pr
 export async function hasUnpublishedChanges(projectId: string): Promise<boolean> {
   const [live, draft] = await Promise.all([liveSnapshot(projectId), draftSnapshot(projectId)]);
   if (!live) return true;
-  return (live.hash ?? contentHash({ pages: live.pages, flows: live.flows, theme: live.theme })) !== draft.hash;
+  return (live.hash ?? contentHash({ pages: live.pages, flows: live.flows, theme: live.theme, locales: live.locales, translations: live.translations })) !== draft.hash;
 }
 
 /**

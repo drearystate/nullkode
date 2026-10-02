@@ -3,17 +3,19 @@ import { AuthForm } from "@/components/auth-form";
 import { AuthShell } from "@/components/auth-shell";
 import { getRequestBrand } from "@/lib/reseller";
 import { ideaFromNext, safeNext, withNext } from "@/lib/safe-next";
+import { getTranslations } from "next-intl/server";
 
 export default async function SignupPage({ searchParams }: { searchParams: Promise<{ next?: string | string[] }> }) {
   const { reseller } = await getRequestBrand(null);
+  const t = await getTranslations("auth.signup");
   const raw = (await searchParams).next;
   const next = safeNext(Array.isArray(raw) ? raw[0] : raw);
-  const logIn = <>Already have an account? <Link href={withNext("/login", next)} className="font-medium text-brand-300 hover:text-brand-200">Log in</Link></>;
+  const logIn = t.rich("haveAccount", { link: (c) => <Link href={withNext("/login", next)} className="font-medium text-brand-300 hover:text-brand-200">{c}</Link> });
   if (reseller && !reseller.allowSignup) {
     return (
       <AuthShell
-        title="Accounts are by invitation"
-        subtitle={`Ask ${reseller.name} to send you an invitation link.`}
+        title={t("inviteOnlyTitle")}
+        subtitle={t("inviteOnlySubtitle", { reseller: reseller.name })}
         footer={logIn}
       >
         <span />
@@ -24,8 +26,8 @@ export default async function SignupPage({ searchParams }: { searchParams: Promi
   const hasIdea = Boolean(ideaFromNext(next));
   return (
     <AuthShell
-      title="Create your account"
-      subtitle={hasIdea ? "Create your account and you'll see a plan for your idea next." : "Start on the free plan. Upgrade any time."}
+      title={t("title")}
+      subtitle={hasIdea ? t("subtitleIdea") : t("subtitle")}
       footer={logIn}
     >
       <AuthForm mode="signup" next={next} />

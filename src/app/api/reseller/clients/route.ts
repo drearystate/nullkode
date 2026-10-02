@@ -2,6 +2,8 @@ import { z } from "zod";
 import type { Plan, Reseller, User } from "@prisma/client";
 import { db } from "@/lib/db";
 import { json } from "@/lib/utils";
+import { getTranslations } from "next-intl/server";
+import { requestLocale } from "@/i18n/request";
 import { emailEnabled } from "@/lib/mailer";
 import { CLIENT_PLANS, issueAccountLink, normalizeEmail, placeholderPasswordHash, requireReseller } from "@/lib/reseller-admin";
 
@@ -27,8 +29,8 @@ type Outcome =
   | { email: string; status: "invited"; client: User }
   | { email: string; status: "skipped"; reason: string; code: "invalid" | "duplicate" | "own-client" | "taken" | "no-seats" };
 
-function seatsMessage(reseller: Pick<Reseller, "maxClients">): string {
-  return `Your plan includes ${reseller.maxClients} clients and they're all in use. Contact the platform operator to add more.`;
+function seatsMessage(reseller: Pick<Reseller, "maxClients">, t: (k: "seatsFull", v: { max: number }) => string): string {
+  return t("seatsFull", { max: reseller.maxClients ?? 0 });
 }
 
 /** "Jo Lee <jo@shop.test>" → "jo@shop.test"; anything else as typed. */
@@ -125,23 +127,24 @@ export async function POST(req: Request) {
   const { reseller, user: owner } = r;
   const body = await req.json().catch(() => null);
   const invitedBy = owner.name || reseller.name;
+  const t = await getTranslations({ locale: await requestLocale(), namespace: "reseller.api" });
 
   if (body && typeof body === "object" && "emails" in body) {
     const parsed = Bulk.safeParse(body);
-    if (!parsed.success) return json({ error: "Paste the email addresses, one per line or separated by commas." }, { status: 400 });
+    if (!parsed.success) return json({ error: t("pasteEmails") }, { status: 400 });
     const list = (Array.isArray(parsed.data.emails) ? parsed.data.emails : [parsed.data.emails])
       .flatMap((chunk) => chunk.split(/[\r\n,;]+/))
       .map((s) => s.trim())
       .filter(Boolean);
-    if (!list.length) return json({ error: "Paste at least one email address." }, { status: 400 });
-    if (list.length > MAX_BULK) return json({ error: `Paste up to ${MAX_BULK} addresses at a time.` }, { status: 400 });
+    if (!list.length) return json({ error: t("pasteOne") }, { status: 400 });
+    if (list.length > MAX_BULK) return json({ error: t("pasteMax", { max: MAX_BULK }) }, { status: 400 });
     if (reseller.maxClients !== null && (await db.user.count({ where: { resellerId: reseller.id } })) >= reseller.maxClients) {
-      return json({ error: seatsMessage(reseller) }, { status: 403 });
+      return json({ error: seatsMessage(reseller, t) }, { status: 403 });
     }
 
     const outcomes = await createClients(reseller, list.map((email) => ({ email })), (parsed.data.plan ?? "FREE") as Plan);
     const results = await inBatches(outcomes, 4, async (o) => {
-      if (o.status === "skipped") return { email: o.email, status: o.status, reason: o.reason, code: o.code };
+      if (o.status === "skipped") return { email: o.email, status: o.status, reason: t(`skip.${o.code}`), code: o.code };
       const { link, emailed } = await issueAccountLink(o.client, "invite", invitedBy);
       return {
         email: o.email,
@@ -162,16 +165,16 @@ export async function POST(req: Request) {
   }
 
   const parsed = Single.safeParse(body);
-  if (!parsed.success) return json({ error: "Enter a valid email address." }, { status: 400 });
+  if (!parsed.success) return json({ error: t("validEmail") }, { status: 400 });
   if (reseller.maxClients !== null && (await db.user.count({ where: { resellerId: reseller.id } })) >= reseller.maxClients) {
-    return json({ error: seatsMessage(reseller) }, { status: 403 });
+    return json({ error: seatsMessage(reseller, t) }, { status: 403 });
   }
   const [outcome] = await createClients(reseller, [{ email: parsed.data.email, name: parsed.data.name }], (parsed.data.plan ?? "FREE") as Plan);
   if (!outcome || outcome.status === "skipped") {
-    if (outcome?.code === "no-seats") return json({ error: seatsMessage(reseller) }, { status: 403 });
-    if (outcome?.code === "own-client") return json({ error: "That person is already one of your clients." }, { status: 409 });
-    if (outcome?.code === "taken") return json({ error: "That email already has an account, so it can't be added as a new client." }, { status: 409 });
-    return json({ error: "Enter a valid email address." }, { status: 400 });
+    if (outcome?.code === "no-seats") return json({ error: seatsMessage(reseller, t) }, { status: 403 });
+    if (outcome?.code === "own-client") return json({ error: t("alreadyClient") }, { status: 409 });
+    if (outcome?.code === "taken") return json({ error: t("emailTaken") }, { status: 409 });
+    return json({ error: t("validEmail") }, { status: 400 });
   }
   const client = outcome.client;
   const { link, emailed } = await issueAccountLink(client, "invite", invitedBy);

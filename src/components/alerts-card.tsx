@@ -2,6 +2,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { AlertTriangle, ArrowRight, BellRing, Check, Send } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 type Table = { name: string; label: string; mode: "instant" | "off"; defaultMode: "instant" | "off" };
 type View = {
@@ -14,17 +15,18 @@ type View = {
   testSentAt: string | null;
 };
 
-const EMAIL_OFF = "Email isn't set up on this server, so alerts can't be sent. Ask your provider to connect email.";
+type T = ReturnType<typeof useTranslations<"project.alertsCard">>;
 
-async function sendTest(projectId: string): Promise<{ ok: boolean; text: string }> {
+async function sendTest(projectId: string, t: T): Promise<{ ok: boolean; text: string }> {
   try {
     const r = await fetch(`/api/projects/${projectId}/alerts/test`, { method: "POST", headers: { "content-type": "application/json" }, body: "{}" });
     const d = await r.json().catch(() => null);
-    if (!d?.ok) return { ok: false, text: d?.error || "The test couldn't be sent." };
+    if (!d?.ok) return { ok: false, text: d?.error || t("testFailed") };
     const to: string[] = Array.isArray(d.to) ? d.to : [];
-    return { ok: true, text: `Sent a test ${String(d.table ?? "submission").toLowerCase()} alert to ${to.join(", ") || "you"}. Look for an email marked (test).` };
+    const table = String(d.table ?? t("defaultTable")).toLowerCase();
+    return { ok: true, text: to.length ? t("testSent", { table, to: to.join(", ") }) : t("testSentToYou", { table }) };
   } catch {
-    return { ok: false, text: "The test couldn't be sent. Check your connection and try again." };
+    return { ok: false, text: t("testOffline") };
   }
 }
 
@@ -36,6 +38,8 @@ export function AlertsCard({ projectId }: { projectId: string }) {
   const [busy, setBusy] = useState<"" | "save" | "test">("");
   const [message, setMessage] = useState<{ ok: boolean; text: string } | null>(null);
   const [loadError, setLoadError] = useState("");
+  const t = useTranslations("project.alertsCard");
+  const tc = useTranslations("common");
 
   const apply = useCallback((v: View) => {
     setView(v);
@@ -47,11 +51,11 @@ export function AlertsCard({ projectId }: { projectId: string }) {
     fetch(`/api/projects/${projectId}/alerts`, { cache: "no-store" })
       .then(async (r) => {
         const d = await r.json().catch(() => null);
-        if (!r.ok || !d) throw new Error(d?.error || "Couldn't load the alert settings.");
+        if (!r.ok || !d) throw new Error(d?.error || t("loadFailed"));
         apply(d as View);
       })
-      .catch((e) => setLoadError(e instanceof Error ? e.message : "Couldn't load the alert settings."));
-  }, [projectId, apply]);
+      .catch((e) => setLoadError(e instanceof Error ? e.message : t("loadFailed")));
+  }, [projectId, apply, t]);
 
   const extraList = useMemo(() => extra.split(/[,;\s]+/).map((s) => s.trim()).filter(Boolean), [extra]);
   const dirty = useMemo(() => {
@@ -65,7 +69,7 @@ export function AlertsCard({ projectId }: { projectId: string }) {
   async function save() {
     if (!view) return;
     if (extraList.length > view.maxExtra) {
-      setMessage({ ok: false, text: `You can add up to ${view.maxExtra} more addresses.` });
+      setMessage({ ok: false, text: t("tooMany", { max: view.maxExtra }) });
       return;
     }
     setBusy("save");
@@ -77,11 +81,11 @@ export function AlertsCard({ projectId }: { projectId: string }) {
         body: JSON.stringify({ tables: modes, extraRecipients: extraList }),
       });
       const d = await r.json().catch(() => null);
-      if (!r.ok || !d) throw new Error(d?.error || "Couldn't save the alert settings.");
+      if (!r.ok || !d) throw new Error(d?.error || t("saveFailed"));
       apply(d as View);
-      setMessage({ ok: true, text: "Saved." });
+      setMessage({ ok: true, text: tc("saved") });
     } catch (e) {
-      setMessage({ ok: false, text: e instanceof Error ? e.message : "Couldn't save the alert settings." });
+      setMessage({ ok: false, text: e instanceof Error ? e.message : t("saveFailed") });
     } finally {
       setBusy("");
     }
@@ -90,7 +94,7 @@ export function AlertsCard({ projectId }: { projectId: string }) {
   async function test() {
     setBusy("test");
     setMessage(null);
-    setMessage(await sendTest(projectId));
+    setMessage(await sendTest(projectId, t));
     setBusy("");
   }
 
@@ -99,51 +103,51 @@ export function AlertsCard({ projectId }: { projectId: string }) {
   return (
     <section className="card mt-6 p-6" aria-labelledby="alerts-heading" id="alerts" data-testid="alerts-card">
       <div className="flex flex-wrap items-baseline justify-between gap-3">
-        <h2 id="alerts-heading" className="flex items-center gap-2 font-semibold" data-help="Emails you when visitors send something through your app, like a form, booking or order. You choose which tables send alerts.">
+        <h2 id="alerts-heading" className="flex items-center gap-2 font-semibold" data-help={t("titleHelp")}>
           <BellRing size={17} className="text-brand-300" aria-hidden />
-          Alerts
+          {t("title")}
         </h2>
-        <span className="text-xs text-surface-400">{on ? `${on} of ${view.tables.length} on` : "All off"}</span>
+        <span className="text-xs text-surface-400">{on ? t("onCount", { on, total: view.tables.length }) : t("allOff")}</span>
       </div>
-      <p className="mt-1 text-sm text-surface-400">Get an email as soon as someone sends a form, books or orders in your app.</p>
+      <p className="mt-1 text-sm text-surface-400">{t("intro")}</p>
 
       {!view.emailOn && (
         <div className="mt-4 flex items-start gap-2 rounded-lg border border-amber-400/25 bg-amber-400/[0.07] p-3 text-sm text-amber-100" role="status">
           <AlertTriangle size={16} className="mt-0.5 shrink-0 text-amber-300" aria-hidden />
           <span>
-            {EMAIL_OFF}
-            {view.canSetUpEmail && <> <Link href="/admin/settings#email" className="font-medium underline" data-help="Open the server settings to connect an email service, so apps can send emails.">Set up email</Link></>}
+            {t("emailOff")}
+            {view.canSetUpEmail && <> <Link href="/admin/settings#email" className="font-medium underline" data-help={t("setUpEmailHelp")}>{t("setUpEmail")}</Link></>}
           </span>
         </div>
       )}
 
       {view.tables.length === 0 ? (
-        <p className="mt-4 text-sm text-surface-400">Your app doesn&apos;t collect anything from visitors yet. When you add a form or a feature such as Bookings, you can choose alerts for it here.</p>
+        <p className="mt-4 text-sm text-surface-400">{t("noTables")}</p>
       ) : (
         <ul className="mt-4 divide-y divide-white/[0.06]">
-          {view.tables.map((t) => {
-            const checked = modes[t.name] === "instant";
-            const id = `alert-${t.name}`;
+          {view.tables.map((tbl) => {
+            const checked = modes[tbl.name] === "instant";
+            const id = `alert-${tbl.name}`;
             return (
-              <li key={t.name} className="flex items-center justify-between gap-4 py-2.5">
+              <li key={tbl.name} className="flex items-center justify-between gap-4 py-2.5">
                 <span className="min-w-0">
-                  <span id={id} className="block truncate text-sm">{t.label}</span>
-                  {t.defaultMode === "instant" && <span className="block text-xs text-surface-400">Looks like a form, so it&apos;s on unless you turn it off</span>}
+                  <span id={id} className="block truncate text-sm">{tbl.label}</span>
+                  {tbl.defaultMode === "instant" && <span className="block text-xs text-surface-400">{t("defaultOn")}</span>}
                 </span>
                 <button
                   type="button"
                   role="switch"
                   aria-checked={checked}
                   aria-labelledby={id}
-                  data-help="When on, you get an email each time a visitor adds something to this table. Press Save alerts to keep your change."
+                  data-help={t("switchHelp")}
                   onClick={() => {
-                    setModes((m) => ({ ...m, [t.name]: checked ? "off" : "instant" }));
+                    setModes((m) => ({ ...m, [tbl.name]: checked ? "off" : "instant" }));
                     setMessage(null);
                   }}
                   className={`relative inline-flex h-6 w-11 shrink-0 items-center rounded-full border transition ${checked ? "border-brand-400 bg-brand-500" : "border-surface-600 bg-surface-800"}`}
                 >
-                  <span className={`inline-block h-4 w-4 rounded-full bg-fixed-white shadow transition ${checked ? "translate-x-6" : "translate-x-1"}`} />
-                  <span className="sr-only">{checked ? "On" : "Off"}</span>
+                  <span className={`inline-block h-4 w-4 rounded-full bg-fixed-white shadow transition ${checked ? "translate-x-6 rtl:-translate-x-6" : "translate-x-1 rtl:-translate-x-1"}`} />
+                  <span className="sr-only">{checked ? t("on") : t("off")}</span>
                 </button>
               </li>
             );
@@ -152,17 +156,17 @@ export function AlertsCard({ projectId }: { projectId: string }) {
       )}
 
       <div className="mt-4 text-sm">
-        <p className="text-surface-300">Alerts go to <span className="font-medium text-surface-100">{view.ownerEmail}</span>.</p>
+        <p className="text-surface-300">{t.rich("goesTo", { email: view.ownerEmail, b: (c) => <span className="font-medium text-surface-100" dir="ltr">{c}</span> })}</p>
         <label className="mt-3 block">
-          <span className="text-surface-300">Also send to <span className="text-surface-400">(up to {view.maxExtra}, separated by commas)</span></span>
-          <input className="input mt-1" type="text" inputMode="email" autoComplete="off" spellCheck={false} value={extra} onChange={(e) => { setExtra(e.target.value); setMessage(null); }} placeholder="partner@yourbusiness.com" data-help="Other people who should get these alerts too, like a business partner. Separate addresses with commas." />
+          <span className="text-surface-300">{t.rich("alsoSendTo", { max: view.maxExtra, muted: (c) => <span className="text-surface-400">{c}</span> })}</span>
+          <input className="input mt-1" type="text" inputMode="email" autoComplete="off" spellCheck={false} value={extra} onChange={(e) => { setExtra(e.target.value); setMessage(null); }} placeholder="partner@yourbusiness.com" data-help={t("extraHelp")} />
         </label>
       </div>
 
       <div className="mt-4 flex flex-wrap items-center gap-3">
-        <button type="button" className="btn-primary" onClick={save} disabled={busy !== "" || !dirty} data-help="Saves which tables send alerts and who gets them.">{busy === "save" ? "Saving…" : "Save alerts"}</button>
-        <button type="button" className="btn-secondary" onClick={test} disabled={busy !== "" || !view.emailOn || dirty} title={dirty ? "Save first" : undefined} data-help="Sends a sample alert email to everyone listed, so you can check it arrives. Save your changes first.">
-          <Send size={14} aria-hidden />{busy === "test" ? "Sending…" : "Send a test"}
+        <button type="button" className="btn-primary" onClick={save} disabled={busy !== "" || !dirty} data-help={t("saveHelp")}>{busy === "save" ? tc("saving") : t("save")}</button>
+        <button type="button" className="btn-secondary" onClick={test} disabled={busy !== "" || !view.emailOn || dirty} title={dirty ? t("saveFirst") : undefined} data-help={t("testHelp")}>
+          <Send size={14} aria-hidden />{busy === "test" ? t("sending") : t("test")}
         </button>
       </div>
       <div aria-live="polite">
@@ -177,11 +181,12 @@ export function TestSubmissionStep({ projectId, initiallyDone, emailOn }: { proj
   const [done, setDone] = useState(initiallyDone);
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState<{ ok: boolean; text: string } | null>(null);
+  const t = useTranslations("project.alertsCard");
 
   async function run() {
     setBusy(true);
     setMessage(null);
-    const r = await sendTest(projectId);
+    const r = await sendTest(projectId, t);
     setMessage(r);
     if (r.ok) setDone(true);
     setBusy(false);
@@ -189,15 +194,15 @@ export function TestSubmissionStep({ projectId, initiallyDone, emailOn }: { proj
 
   return (
     <>
-      <button type="button" onClick={run} disabled={busy} className="studio-next-step w-full text-left" aria-describedby={message ? "test-submission-result" : undefined} data-help="Sends you a sample alert email, like the one you get when someone uses your form, so you can check it reaches your inbox.">
+      <button type="button" onClick={run} disabled={busy} className="studio-next-step w-full text-start" aria-describedby={message ? "test-submission-result" : undefined} data-help={t("stepHelp")}>
         <span className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full ${done ? "bg-emerald-500/15 text-emerald-300" : "bg-white/[0.05] text-brand-300"}`}>{done ? <Check size={15} aria-hidden /> : <Send size={15} aria-hidden />}</span>
         <span className="flex-1">
-          <strong className={`block text-sm font-medium ${done ? "text-surface-300" : ""}`}>{busy ? "Sending a test submission…" : "Send a test submission"}<span className="sr-only">{done ? " (done)" : " (to do)"}</span></strong>
-          <span className="mt-0.5 block text-xs text-surface-400">{emailOn ? "Check that you get an email when someone uses your form." : "Needs email to be set up on this server."}</span>
+          <strong className={`block text-sm font-medium ${done ? "text-surface-300" : ""}`}>{busy ? t("stepSending") : t("step")}<span className="sr-only">{" "}{done ? t("stepDone") : t("stepToDo")}</span></strong>
+          <span className="mt-0.5 block text-xs text-surface-400">{emailOn ? t("stepHint") : t("stepNeedsEmail")}</span>
         </span>
-        <ArrowRight size={14} className="text-surface-500" aria-hidden />
+        <ArrowRight size={14} className="text-surface-500 rtl:-scale-x-100" aria-hidden />
       </button>
-      {message && <p id="test-submission-result" role={message.ok ? "status" : "alert"} className={`ml-[54px] mt-1 text-xs ${message.ok ? "text-emerald-300" : "text-red-300"}`}>{message.text}</p>}
+      {message && <p id="test-submission-result" role={message.ok ? "status" : "alert"} className={`ms-[54px] mt-1 text-xs ${message.ok ? "text-emerald-300" : "text-red-300"}`}>{message.text}</p>}
     </>
   );
 }

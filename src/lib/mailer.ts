@@ -17,6 +17,7 @@
  * re-read in the background once a minute.
  */
 import { db } from "./db";
+import { enErrors, renderMsg, type ErrMsg, type ErrT } from "./errors-i18n";
 import { decryptSecret, SETTING_KEYS } from "./settings";
 
 export type EmailProvider = "smtp" | "resend";
@@ -38,7 +39,8 @@ export type SendEmailOptions = {
   headers?: Record<string, string>;
 };
 
-export type SendEmailResult = { ok: boolean; error?: string; skipped?: boolean };
+/** `error` is English (logs, stored runs); `errorMsg` is the same as a message, for showing it in the reader's language. */
+export type SendEmailResult = { ok: boolean; error?: string; errorMsg?: ErrMsg; skipped?: boolean };
 
 export type EmailConfig = {
   provider: EmailProvider | null;
@@ -53,7 +55,11 @@ export type EmailConfig = {
   ready: boolean;
   /** What is missing or doubtful, in plain words (shown to the admin). */
   problem: string | null;
+  /** The same as a key in messages/<locale>/admin.json "emailProblem", for showing it in the admin's language. */
+  problemCode?: EmailProblemCode | null;
 };
+
+export type EmailProblemCode = "smtpHost" | "from" | "password" | "resendKey" | "resendFrom" | "notSetUp";
 
 export type EmailStats = {
   sent24h: number;
@@ -61,6 +67,8 @@ export type EmailStats = {
   /** Emails not sent because email isn't set up. */
   skipped24h: number;
   lastError: string | null;
+  /** lastError as a message (errors.mailer.*), when it was recorded with one. */
+  lastErrorMsg?: ErrMsg | null;
   lastErrorAt: string | null;
   lastAt: string | null;
   lastOkAt: string | null;
@@ -123,23 +131,28 @@ function toSecurity(v: unknown, port: number): SmtpSecurity {
 function finish(cfg: Omit<EmailConfig, "ready" | "problem">): EmailConfig {
   let ready = false;
   let problem: string | null = null;
+  let problemCode: EmailProblemCode | null = null;
+  const say = (code: EmailProblemCode, text: string) => {
+    problemCode = code;
+    problem = text;
+  };
   if (cfg.provider === "smtp") {
-    if (!cfg.smtp.host) problem = "Add the email server's address (for example smtp.example.com).";
-    else if (!cfg.from) problem = "Add the address emails are sent from.";
-    else if (cfg.smtp.user && !cfg.smtp.password) problem = "Add the password for the email account.";
+    if (!cfg.smtp.host) say("smtpHost", "Add the email server's address (for example smtp.example.com).");
+    else if (!cfg.from) say("from", "Add the address emails are sent from.");
+    else if (cfg.smtp.user && !cfg.smtp.password) say("password", "Add the password for the email account.");
     else ready = true;
   } else if (cfg.provider === "resend") {
-    if (!cfg.resendKey) problem = "Add your Resend API key.";
+    if (!cfg.resendKey) say("resendKey", "Add your Resend API key.");
     else {
       ready = true;
       if (cfg.from === PLACEHOLDER_FROM) {
-        problem = "No sender address is set, so emails go out from no-reply@example.com and Resend will refuse them. Add an address on a domain you verified in Resend.";
+        say("resendFrom", "No sender address is set, so emails go out from no-reply@example.com and Resend will refuse them. Add an address on a domain you verified in Resend.");
       }
     }
   } else {
-    problem = "Email isn't set up yet, so invitations and password links are shown on screen instead.";
+    say("notSetUp", "Email isn't set up yet, so invitations and password links are shown on screen instead.");
   }
-  return { ...cfg, ready, problem };
+  return { ...cfg, ready, problem, problemCode };
 }
 
 /** The configuration from the server's .env only. */
@@ -261,9 +274,9 @@ export function emailEnabled(): boolean {
 }
 
 /** Readiness and provider, for status lines. Never includes secrets. */
-export async function emailStatus(): Promise<{ ready: boolean; provider: EmailProvider | null; source: EmailConfig["source"]; problem: string | null; from: string }> {
+export async function emailStatus(): Promise<{ ready: boolean; provider: EmailProvider | null; source: EmailConfig["source"]; problem: string | null; problemCode: EmailProblemCode | null; from: string }> {
   const cfg = await loadEmailConfig();
-  return { ready: cfg.ready, provider: cfg.provider, source: cfg.source, problem: cfg.problem, from: cfg.from };
+  return { ready: cfg.ready, provider: cfg.provider, source: cfg.source, problem: cfg.problem, problemCode: cfg.problemCode ?? null, from: cfg.from };
 }
 
 // Warm the cache as soon as something that sends email loads (not during `next build`).
@@ -386,64 +399,57 @@ type MailError = Error & {
   cause?: unknown;
 };
 
-/** The real error from the email server or API, in plain words. */
-export function explainEmailError(err: unknown, cfg: Pick<EmailConfig, "provider" | "smtp" | "from">): string {
+/**
+ * The real error from the email server or API, in plain words, as a message
+ * (errors.mailer.*) so it can be shown in the reader's language.
+ */
+export function explainEmailErrorMsg(err: unknown, cfg: Pick<EmailConfig, "provider" | "smtp" | "from">): ErrMsg {
   const e = (err ?? {}) as MailError;
   const raw = `${e.message ?? ""} ${e.response ?? ""}`.replace(/\s+/g, " ").trim();
   const causeCode = String((e.cause as { code?: string } | undefined)?.code ?? "");
-  const where = `${cfg.smtp.host} on port ${cfg.smtp.port}`;
+  const m = (key: string, values?: ErrMsg["values"]): ErrMsg => ({ key: `mailer.${key}`, ...(values ? { values } : {}) });
+  const where = m("where", { host: cfg.smtp.host, port: String(cfg.smtp.port) });
+  // What the server said is its own text; only the sentence around it is translated.
+  const said = (key: string) => (raw ? m(key, { reply: raw.slice(0, 200) }) : m(`${key}Refused`));
 
   if (cfg.provider === "resend") {
     const code = e.resendCode ?? "";
-    if (/invalid_api_key|missing_api_key|restricted_api_key/.test(code) || e.statusCode === 401) {
-      return "Resend rejected the API key. Check that you copied the whole key and that it is allowed to send email.";
-    }
-    if (/testing emails to your own email address/i.test(raw)) {
-      return "Resend's test mode only sends to the address you signed up to Resend with. Verify a domain in Resend to email anyone else.";
-    }
-    if (code === "invalid_from_address" || /domain is not verified|not verified|verify your domain/i.test(raw)) {
-      return `Resend hasn't verified the sender address ${cfg.from}. Verify its domain in Resend, or send from an address on a domain you verified.`;
-    }
-    if (/quota|rate_limit/.test(code)) return "Resend's sending limit has been reached. Try again later, or raise the limit in your Resend account.";
+    if (/invalid_api_key|missing_api_key|restricted_api_key/.test(code) || e.statusCode === 401) return m("resendKey");
+    if (/testing emails to your own email address/i.test(raw)) return m("resendTestMode");
+    if (code === "invalid_from_address" || /domain is not verified|not verified|verify your domain/i.test(raw)) return m("resendFrom", { from: cfg.from });
+    if (/quota|rate_limit/.test(code)) return m("resendLimit");
     // The SDK reports a request that never got an answer as an application_error without a status.
     if (e.code === "RESEND_TIMEOUT" || causeCode || (code === "application_error" && e.statusCode == null) || /fetch failed|unable to fetch|could not be resolved|ENOTFOUND|ECONNREFUSED|ETIMEDOUT|network/i.test(raw)) {
-      return "Couldn't reach Resend. Check that this server can connect to the internet.";
+      return m("resendUnreachable");
     }
-    return `Resend said: ${raw.slice(0, 200) || "the message was refused."}`;
+    return said("resendSaid");
   }
 
   const code = String(e.code ?? "");
   const errno = `${e.errno ?? ""} ${causeCode}`;
   const rc = Number(e.responseCode ?? 0);
   const cmd = String(e.command ?? "").toUpperCase();
-  if (code === "EAUTH" || rc === 535 || rc === 534 || (cmd.startsWith("AUTH") && rc >= 500)) {
-    return "The email server rejected the username or password.";
-  }
-  if (code === "ENOAUTH" || rc === 530) return "The email server needs a username and password. Add them and try again.";
-  if (code === "EDNS" || /ENOTFOUND|EAI_AGAIN|getaddrinfo/i.test(`${errno} ${raw}`)) {
-    return `The email server name "${cfg.smtp.host}" couldn't be found. Check the spelling.`;
-  }
-  if (/wrong version number|ssl3_get_record|unknown protocol|packet length too long|tls_validate_record_header/i.test(raw)) {
-    return "The port and the encryption setting don't match. Use port 465 with SSL, or port 587 with automatic encryption.";
-  }
-  if (/certificate|self[- ]signed|CERT_|unable to verify/i.test(`${raw} ${errno}`)) {
-    return `The secure connection to ${cfg.smtp.host} failed because its certificate isn't trusted. Check that the server address is exactly the one your provider gives you.`;
-  }
-  if (code === "ETLS" || /STARTTLS/i.test(raw)) {
-    return "The email server doesn't offer a secure connection on this port. Try port 465 with SSL, or set encryption to automatic.";
-  }
-  if (/ECONNREFUSED/i.test(`${errno} ${raw}`)) {
-    return `Couldn't connect to ${where}: nothing answered there. Check the server address and port.`;
-  }
+  if (code === "EAUTH" || rc === 535 || rc === 534 || (cmd.startsWith("AUTH") && rc >= 500)) return m("auth");
+  if (code === "ENOAUTH" || rc === 530) return m("needsAuth");
+  if (code === "EDNS" || /ENOTFOUND|EAI_AGAIN|getaddrinfo/i.test(`${errno} ${raw}`)) return m("hostNotFound", { host: cfg.smtp.host });
+  if (/wrong version number|ssl3_get_record|unknown protocol|packet length too long|tls_validate_record_header/i.test(raw)) return m("portMismatch");
+  if (/certificate|self[- ]signed|CERT_|unable to verify/i.test(`${raw} ${errno}`)) return m("certificate", { host: cfg.smtp.host });
+  if (code === "ETLS" || /STARTTLS/i.test(raw)) return m("noTls");
+  if (/ECONNREFUSED/i.test(`${errno} ${raw}`)) return m("refused", { where });
   if (code === "ETIMEDOUT" || code === "ECONNECTION" || code === "ESOCKET" || /ETIMEDOUT|timed? ?out|ECONNRESET|EHOSTUNREACH|ENETUNREACH/i.test(`${errno} ${raw}`)) {
-    return `Couldn't reach ${where}. Many hosting companies block outgoing email ports (port 25 most of all). Try port 587 or 465, or ask your host to open the port.`;
+    return m("unreachable", { where });
   }
   if (cmd.startsWith("MAIL") || /sender (address )?(rejected|not|refused)|not owned|not verified|unverified|not authori[sz]ed to send|from address/i.test(raw)) {
-    return `The email server refused to send from ${cfg.from}. Use an address your email provider has verified for sending.`;
+    return m("senderRefused", { from: cfg.from });
   }
-  if (cmd.startsWith("RCPT") || code === "EENVELOPE") return "The email server refused the recipient address.";
-  if (rc === 552 || code === "EMESSAGE") return "The email server refused the message (it may be too large or look like spam).";
-  return `The email server said: ${raw.slice(0, 200) || "the message was refused."}`;
+  if (cmd.startsWith("RCPT") || code === "EENVELOPE") return m("recipientRefused");
+  if (rc === 552 || code === "EMESSAGE") return m("messageRefused");
+  return said("serverSaid");
+}
+
+/** explainEmailError's text in `t`'s language (English by default, as it is logged and stored). */
+export function explainEmailError(err: unknown, cfg: Pick<EmailConfig, "provider" | "smtp" | "from">, t: ErrT = enErrors()): string {
+  return renderMsg(explainEmailErrorMsg(err, cfg), t);
 }
 
 /**
@@ -470,10 +476,10 @@ async function sendWith(given: EmailConfig | null, opts: SendEmailOptions, recor
   }
   if (!cfg.ready) {
     if (recordStats) record("skipped", null);
-    return { ok: false, skipped: true, error: EMAIL_NOT_SET_UP };
+    return { ok: false, skipped: true, error: EMAIL_NOT_SET_UP, errorMsg: { key: "mailer.notSetUp" } };
   }
   const to = recipients(opts?.to);
-  if (!to) return { ok: false, error: "That email address doesn't look right, so the message was not sent." };
+  if (!to) return { ok: false, error: enErrors()("mailer.badRecipient"), errorMsg: { key: "mailer.badRecipient" } };
 
   const requested = opts.from ? parseAddress(opts.from) : null;
   const sameDomain = Boolean(requested && domainOf(requested.address) === domainOf(cfg.from));
@@ -500,11 +506,12 @@ async function sendWith(given: EmailConfig | null, opts: SendEmailOptions, recor
     if (recordStats) record("sent", null);
     return { ok: true };
   } catch (err) {
-    const error = explainEmailError(err, cfg);
+    const errorMsg = explainEmailErrorMsg(err, cfg);
+    const error = renderMsg(errorMsg, enErrors());
     const e = err as MailError;
     console.error(`[mailer] send failed (${cfg.provider}): ${error}`, [e?.code, e?.resendCode, e?.responseCode].filter(Boolean).join(" "));
-    if (recordStats) record("failed", error);
-    return { ok: false, error };
+    if (recordStats) record("failed", error, errorMsg);
+    return { ok: false, error, errorMsg };
   }
 }
 
@@ -520,6 +527,7 @@ type StoredStats = EmailStats & { hours?: Hour[] };
 type StatsState = {
   pending: Map<number, [number, number, number]>;
   lastError: string | null;
+  lastErrorMsg: ErrMsg | null;
   lastErrorAt: string | null;
   lastAt: string | null;
   lastOkAt: string | null;
@@ -528,12 +536,12 @@ type StatsState = {
 };
 
 function stats(): StatsState {
-  return (G.__nkEmailStats ??= { pending: new Map(), lastError: null, lastErrorAt: null, lastAt: null, lastOkAt: null, timer: null, chain: Promise.resolve() });
+  return (G.__nkEmailStats ??= { pending: new Map(), lastError: null, lastErrorMsg: null, lastErrorAt: null, lastAt: null, lastOkAt: null, timer: null, chain: Promise.resolve() });
 }
 
 const hourNow = () => Math.floor(Date.now() / 3_600_000);
 
-function record(kind: "sent" | "failed" | "skipped", error: string | null) {
+function record(kind: "sent" | "failed" | "skipped", error: string | null, errorMsg: ErrMsg | null = null) {
   const s = stats();
   const h = hourNow();
   const b = s.pending.get(h) ?? [0, 0, 0];
@@ -544,6 +552,7 @@ function record(kind: "sent" | "failed" | "skipped", error: string | null) {
   if (kind === "sent") s.lastOkAt = now;
   if (kind === "failed") {
     s.lastError = error;
+    s.lastErrorMsg = errorMsg;
     s.lastErrorAt = now;
   }
   if (!s.timer) {
@@ -597,15 +606,17 @@ export function flushEmailStats(): Promise<void> {
   s.chain = s.chain.then(async () => {
     if (!s.pending.size) return;
     const pending = s.pending;
-    const mine = { lastError: s.lastError, lastErrorAt: s.lastErrorAt, lastAt: s.lastAt, lastOkAt: s.lastOkAt };
+    const mine = { lastError: s.lastError, lastErrorMsg: s.lastErrorMsg, lastErrorAt: s.lastErrorAt, lastAt: s.lastAt, lastOkAt: s.lastOkAt };
     s.pending = new Map();
     try {
       const prev = await readStoredStats();
       const hours = mergeHours(prev?.hours ?? [], pending);
       const lastErrorAt = later(prev?.lastErrorAt, mine.lastErrorAt);
+      const ours = Boolean(lastErrorAt && lastErrorAt === mine.lastErrorAt);
       const value: StoredStats = {
         ...summarize(hours),
-        lastError: lastErrorAt && lastErrorAt === mine.lastErrorAt ? mine.lastError : prev?.lastError ?? null,
+        lastError: ours ? mine.lastError : prev?.lastError ?? null,
+        lastErrorMsg: ours ? mine.lastErrorMsg : prev?.lastErrorMsg ?? null,
         lastErrorAt,
         lastAt: later(prev?.lastAt, mine.lastAt),
         lastOkAt: later(prev?.lastOkAt, mine.lastOkAt),
@@ -634,9 +645,11 @@ export async function getEmailStats(): Promise<EmailStats> {
   const stored = await readStoredStats().catch(() => null);
   const hours = mergeHours(stored?.hours ?? [], s.pending);
   const lastErrorAt = later(stored?.lastErrorAt, s.lastErrorAt);
+  const ours = Boolean(lastErrorAt && lastErrorAt === s.lastErrorAt);
   return {
     ...summarize(hours),
-    lastError: lastErrorAt && lastErrorAt === s.lastErrorAt ? s.lastError : stored?.lastError ?? null,
+    lastError: ours ? s.lastError : stored?.lastError ?? null,
+    lastErrorMsg: ours ? s.lastErrorMsg : stored?.lastErrorMsg ?? null,
     lastErrorAt,
     lastAt: later(stored?.lastAt, s.lastAt),
     lastOkAt: later(stored?.lastOkAt, s.lastOkAt),

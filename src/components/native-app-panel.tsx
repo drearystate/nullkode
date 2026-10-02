@@ -3,6 +3,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Camera, FileUp, KeyRound, MapPin, Mic, ShieldCheck, Smartphone, TriangleAlert } from "lucide-react";
+import { useFormatter, useTranslations } from "next-intl";
+import { viewerTimeZone } from "@/components/data/format";
 
 type WordingKey = "camera" | "microphone" | "photos" | "location";
 
@@ -36,16 +38,15 @@ const PERMISSION_FEATURES: PhoneFeature[] = ["camera", "microphone", "location"]
 /** Builds before this version of the app shell can't open files, download or ask for permissions. */
 const SHELL_VERSION = 2;
 
-const FEATURE_TEXT: Record<PhoneFeature, { label: string; about: string }> = {
-  camera: { label: "Camera", about: "A page shows the camera, for example to scan QR codes. The phone asks the person first." },
-  microphone: { label: "Microphone", about: "A page records sound or listens to speech. The phone asks the person first." },
-  location: { label: "Location", about: "A page asks where the person is, for example to find places nearby. The phone asks the person first." },
-  files: { label: "Photos and files", about: "File uploads open the phone's picker, with the option to take a photo. This needs no permission on Android." },
-};
+/** The panel's messages (project.json, under nativeApp). */
+type T = ReturnType<typeof useTranslations>;
 
-function featureList(items: PhoneFeature[]): string {
-  const names = items.map((f) => FEATURE_TEXT[f].label.toLowerCase());
-  return names.length <= 1 ? names[0] ?? "" : `${names.slice(0, -1).join(", ")} and ${names[names.length - 1]}`;
+/** "camera", "camera and microphone", "camera, microphone and location" (at most the three permission features). */
+function featureList(items: PhoneFeature[], t: T): string {
+  const names = items.map((f) => t(`features.${f}.name`));
+  if (names.length <= 1) return names[0] ?? "";
+  if (names.length === 2) return t("featureList.two", { a: names[0], b: names[1] });
+  return t("featureList.three", { a: names[0], b: names[1], c: names.slice(2).join(", ") });
 }
 
 export type BuildKind = "debug" | "release";
@@ -72,18 +73,18 @@ export type BuildSummary = {
 };
 
 /** Why a finished build needs redoing for the store, or null. */
-function rebuildReason(build: BuildSummary | null, current: PhoneFeature[] | null, kind: BuildKind): string | null {
+function rebuildReason(build: BuildSummary | null, current: PhoneFeature[] | null, kind: BuildKind, t: T): string | null {
   if (!build || build.status !== "done" || !current) return null;
-  const upload = kind === "release" ? " and upload the new version to Google Play" : "";
+  const release = kind === "release";
   if (!build.shell || build.shell < SHELL_VERSION) {
-    return `This build was made before the app could open files, save downloads or use phone features. Build again${upload}.`;
+    return t(release ? "rebuild.oldShellRelease" : "rebuild.oldShell");
   }
   const had = PERMISSION_FEATURES.filter((f) => (build.features ?? []).includes(f));
   const need = PERMISSION_FEATURES.filter((f) => current.includes(f));
   const added = need.filter((f) => !had.includes(f));
   const removed = had.filter((f) => !need.includes(f));
-  if (added.length) return `Your app now uses the ${featureList(added)}, and this build can't ask for ${added.length === 1 ? "it" : "them"}. Build again${upload}.`;
-  if (removed.length) return `This build still asks for the ${featureList(removed)}, which your app no longer uses. Build again${upload} to remove ${removed.length === 1 ? "it" : "them"}.`;
+  if (added.length) return t(release ? "rebuild.addedRelease" : "rebuild.added", { features: featureList(added, t), count: added.length });
+  if (removed.length) return t(release ? "rebuild.removedRelease" : "rebuild.removed", { features: featureList(removed, t), count: removed.length });
   return null;
 }
 
@@ -127,6 +128,9 @@ export function NativeAppPanel({
   const [status, setStatus] = useState<{ kind: "ok" | "err"; msg: string } | null>(null);
   const [key, setKey] = useState<UploadKeySummary | null>(initialKey);
   const [phone, setPhone] = useState<PhoneInfo | null>(null);
+  const t = useTranslations("project.nativeApp");
+  const tc = useTranslations("common");
+  const format = useFormatter();
 
   // Phone features come from the app's modules and pages, worked out on the server.
   const loadPhone = useCallback(async () => {
@@ -153,9 +157,9 @@ export function NativeAppPanel({
         body: JSON.stringify(cfg),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Could not save");
+      if (!res.ok) throw new Error(data.error || t("details.couldNotSave"));
       setCfg(data.config);
-      setStatus({ kind: "ok", msg: "Saved." });
+      setStatus({ kind: "ok", msg: tc("saved") });
       void loadPhone();
     } catch (e) {
       setStatus({ kind: "err", msg: (e as Error).message });
@@ -181,129 +185,115 @@ export function NativeAppPanel({
     const had = phone.iosDownload.features.includes("location");
     const need = current.includes("location");
     if (had === need) return null;
-    return need
-      ? "Your app now uses the location. Download the iPhone project again and send Apple a new build, or the app can't ask for it."
-      : "Your app no longer uses the location. Download the iPhone project again for your next build, so it stops asking for it.";
+    return need ? t("ios.locationAdded") : t("ios.locationRemoved");
   })();
 
   return (
     <div className="space-y-6">
       {!published && (
         <div className="card p-5 border-amber-500/40 bg-amber-500/5">
-          <div className="font-semibold text-amber-300">Publish your app first</div>
-          <p className="mt-1 text-sm text-surface-300">
-            The mobile app shows your live published site, so it needs to be live before you can
-            build it. Anything you publish later updates the app by itself, with no new build.
-          </p>
-          <Link href={`/projects/${projectId}/publish`} className="btn-primary mt-3 inline-flex" data-help="Go to Publish to put your app online. Then come back here to build the phone app.">
-            Go to Publish
+          <div className="font-semibold text-amber-300">{t("notPublished.title")}</div>
+          <p className="mt-1 text-sm text-surface-300">{t("notPublished.body")}</p>
+          <Link href={`/projects/${projectId}/publish`} className="btn-primary mt-3 inline-flex" data-help={t("notPublished.goToPublishHelp")}>
+            {t("notPublished.goToPublish")}
           </Link>
         </div>
       )}
 
       {published && (
         <div className="card p-4 text-sm">
-          <span className="text-surface-400">Your app shows: </span>
-          <a href={liveUrl} target="_blank" rel="noreferrer" className="text-brand-400 hover:underline break-all" data-help="The live web address your phone app opens. Whatever you publish there shows up in the phone app too.">
+          <span className="text-surface-400">{t("liveUrl.label")} </span>
+          <a href={liveUrl} target="_blank" rel="noreferrer" dir="ltr" className="text-brand-400 hover:underline break-all" data-help={t("liveUrl.help")}>
             {liveUrl}
           </a>
           {liveUrl.startsWith("http://") && (
-            <p className="mt-2 text-amber-300">
-              Phones only open apps from a secure address (https). This address starts with
-              http://, so the phone app can&apos;t load it. Set up https for this server first.
-            </p>
+            <p className="mt-2 text-amber-300">{t("liveUrl.httpWarning")}</p>
           )}
         </div>
       )}
 
       {/* ── App identity ──────────────────────────────────────────── */}
       <div className="card p-6">
-        <h2 className="font-semibold" data-help="The name, colors and store details built into your phone app. Changes go into your next build or download, not into apps already installed.">App details</h2>
-        <p className="mt-1 text-sm text-surface-400">
-          These appear in the app stores and on the phone&apos;s home screen.
-        </p>
+        <h2 className="font-semibold" data-help={t("details.titleHelp")}>{t("details.title")}</h2>
+        <p className="mt-1 text-sm text-surface-400">{t("details.intro")}</p>
 
         <div className="mt-5 grid gap-4 sm:grid-cols-2">
           <div>
-            <label className="label">App name</label>
+            <label className="label">{t("details.appName")}</label>
             <input
               className="input"
               value={cfg.appName}
               maxLength={30}
-              aria-label="App name"
-              data-help="The name shown under your app's icon on the phone. Up to 30 letters, but a short name fits best."
+              aria-label={t("details.appName")}
+              data-help={t("details.appNameHelp")}
               onChange={(e) => set("appName", e.target.value)}
             />
           </div>
           <div>
-            <label className="label">Bundle / Application ID</label>
+            <label className="label">{t("details.appId")}</label>
             <input
               className="input font-mono"
               value={cfg.appId}
-              aria-label="Bundle / Application ID"
-              data-help="A one-of-a-kind name the app stores use to tell your app apart, like com.yourbusiness.app. Visitors never see it. Don't change it once your app is in a store."
+              aria-label={t("details.appId")}
+              data-help={t("details.appIdHelp")}
               onChange={(e) => set("appId", e.target.value)}
               placeholder="com.company.app"
             />
-            <p className="mt-1 text-xs text-surface-500">
-              Like com.company.app, in lowercase. Once your app is in a store, never change it.
-            </p>
+            <p className="mt-1 text-xs text-surface-500">{t("details.appIdHint")}</p>
           </div>
           <div>
-            <label className="label">Version</label>
+            <label className="label">{t("details.version")}</label>
             <input
               className="input font-mono"
               value={cfg.version}
-              aria-label="Version"
-              data-help="The version number people see in the store, like 1.0.0. Raise it when you send an update, for example to 1.1.0."
+              aria-label={t("details.version")}
+              data-help={t("details.versionHelp")}
               onChange={(e) => set("version", e.target.value)}
               placeholder="1.0.0"
             />
           </div>
           <div>
-            <label className="label">Build number</label>
+            <label className="label">{t("details.buildNumber")}</label>
             <input
               className="input font-mono"
               type="number"
               min={1}
               value={cfg.build}
-              aria-label="Build number"
-              data-help="A counting number the stores use to tell updates apart; each upload needs a higher one. Google Play builds made here count up by themselves."
+              aria-label={t("details.buildNumber")}
+              data-help={t("details.buildNumberHelp")}
               onChange={(e) => set("build", Math.max(1, Number(e.target.value) || 1))}
             />
-            <p className="mt-1 text-xs text-surface-500">
-              Google Play builds count up from here by themselves. Next one: {nextVersionCode}.
-            </p>
+            <p className="mt-1 text-xs text-surface-500">{t("details.buildNumberHint", { next: String(nextVersionCode) })}</p>
           </div>
           <div>
-            <label className="label">Orientation</label>
+            <label className="label">{t("details.orientation")}</label>
             <select
               className="input"
               value={cfg.orientation}
-              aria-label="Orientation"
-              data-help="Whether your app turns sideways when the phone does. Follow device lets it turn; the others keep it upright or sideways."
+              aria-label={t("details.orientation")}
+              data-help={t("details.orientationHelp")}
               onChange={(e) => set("orientation", e.target.value as NativeConfig["orientation"])}
             >
-              <option value="default">Follow device</option>
-              <option value="portrait">Portrait only</option>
-              <option value="landscape">Landscape only</option>
+              <option value="default">{t("details.orientationDefault")}</option>
+              <option value="portrait">{t("details.orientationPortrait")}</option>
+              <option value="landscape">{t("details.orientationLandscape")}</option>
             </select>
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="label">Theme color</label>
-              <ColorField value={cfg.themeColor} onChange={(v) => set("themeColor", v)} label="Theme color" help="Your app's main color on the phone: used on the loading screen, the no-internet screen and the plain icon made if yours can't be used." />
+              <label className="label">{t("details.themeColor")}</label>
+              <ColorField value={cfg.themeColor} onChange={(v) => set("themeColor", v)} pickLabel={t("details.pickThemeColor")} codeLabel={t("details.themeColorCode")} help={t("details.themeColorHelp")} />
             </div>
             <div>
-              <label className="label">Background</label>
-              <ColorField value={cfg.backgroundColor} onChange={(v) => set("backgroundColor", v)} label="Background" help="The color behind your app while it opens, and on the screen shown when there's no internet." />
+              <label className="label">{t("details.background")}</label>
+              <ColorField value={cfg.backgroundColor} onChange={(v) => set("backgroundColor", v)} pickLabel={t("details.pickBackground")} codeLabel={t("details.backgroundCode")} help={t("details.backgroundHelp")} />
             </div>
           </div>
         </div>
 
         <div className="mt-5 flex items-center gap-3">
-          <button className="btn-primary" disabled={saving} onClick={save} data-help="Save these details. They go into your next build or download; apps people already installed don't change until you send an update.">
-            {saving ? "Saving…" : "Save settings"}
+          <button className="btn-primary" disabled={saving} onClick={save} data-help={t("details.saveHelp")}>
+            {saving ? tc("saving") : t("details.save")}
           </button>
           {status && (
             <span className={status.kind === "ok" ? "text-sm text-green-400" : "text-sm text-red-400"}>
@@ -331,7 +321,7 @@ export function NativeAppPanel({
           </span>
           <div>
             <h2 className="text-lg font-semibold">Android</h2>
-            <p className="text-sm text-surface-400">We build it on the server. Pick what you want to do:</p>
+            <p className="text-sm text-surface-400">{t("android.intro")}</p>
           </div>
         </div>
 
@@ -341,9 +331,9 @@ export function NativeAppPanel({
           <BuildCard
             projectId={projectId}
             kind="debug"
-            title="Test on your phone (APK)"
-            blurb="A quick test copy. Install it straight on an Android phone to try your app. Google Play won't accept this file."
-            buttonLabel="Build test APK"
+            title={t("android.debugTitle")}
+            blurb={t("android.debugBlurb")}
+            buttonLabel={t("android.debugButton")}
             enabled={canBuild}
             published={published}
             initial={latest("debug")}
@@ -353,9 +343,9 @@ export function NativeAppPanel({
           <BuildCard
             projectId={projectId}
             kind="release"
-            title="Publish on Google Play (AAB)"
-            blurb={`The file Google Play asks for, signed with your app's own upload key. Each build gets the next build number (${nextVersionCode} next).`}
-            buttonLabel="Build for Google Play"
+            title={t("android.releaseTitle")}
+            blurb={t("android.releaseBlurb", { next: String(nextVersionCode) })}
+            buttonLabel={t("android.releaseButton")}
             enabled={canBuild && !(key?.missing ?? false)}
             published={published}
             initial={latest("release")}
@@ -374,12 +364,12 @@ export function NativeAppPanel({
           href={`/api/projects/${projectId}/native/download?platform=android`}
           className="inline-block text-xs text-surface-500 hover:text-surface-300"
           download={published ? true : undefined}
-          data-help="For developers: download the Android project files to build the app yourself with Android Studio. Most people don't need this."
+          data-help={t("android.advancedDownloadHelp")}
           onClick={(e) => {
             if (!published) e.preventDefault();
           }}
         >
-          Advanced: download the project to build it yourself in Android Studio
+          {t("android.advancedDownload")}
         </a>
       </section>
 
@@ -390,35 +380,31 @@ export function NativeAppPanel({
             <AppleIcon />
           </span>
           <div>
-            <h2 className="text-lg font-semibold">iPhone and iPad</h2>
+            <h2 className="text-lg font-semibold">{t("ios.title")}</h2>
             <div className="text-xs uppercase tracking-wider text-surface-500">App Store · TestFlight</div>
           </div>
         </div>
-        <p className="mt-3 text-sm text-surface-400">
-          Download the iPhone project. It opens straight in Xcode, with no setup commands. Apple
-          only lets you publish with a paid Apple Developer account ($99 a year), and only a Mac
-          can build iPhone apps. You have two ways:
+        <p className="mt-3 text-sm text-surface-400" suppressHydrationWarning>
+          {t("ios.intro", { fee: format.number(99, { style: "currency", currency: "USD", maximumFractionDigits: 0 }) })}
         </p>
         <ul className="mt-3 space-y-2 text-sm text-surface-300">
           <li>
-            <span className="font-medium text-surface-100">With a Mac:</span> open{" "}
-            <span className="font-mono text-xs">ios/App/App.xcodeproj</span>, pick your team, then
-            Product → Archive.
+            {t.rich("ios.withMac", {
+              b: (c) => <span className="font-medium text-surface-100">{c}</span>,
+              mono: (c) => <span className="font-mono text-xs" dir="ltr">{c}</span>,
+              path: "ios/App/App.xcodeproj",
+            })}
           </li>
           <li>
-            <span className="font-medium text-surface-100">Without a Mac:</span> put the folder on
-            GitHub and add your Apple keys as secrets. The included workflow builds your app on
-            GitHub&apos;s Macs and sends it to TestFlight.
+            {t.rich("ios.withoutMac", { b: (c) => <span className="font-medium text-surface-100">{c}</span> })}
           </li>
         </ul>
-        <p className="mt-3 text-sm text-surface-400">
-          The README in the download walks you through both, step by step.
-        </p>
+        <p className="mt-3 text-sm text-surface-400">{t("ios.readme")}</p>
         <StoreRequirements deleteAccountUrl={deleteAccountUrl} store="App Store Connect" />
         {iosLocationChange && (
           <p role="status" className="mt-4 flex items-start gap-2 rounded-lg border border-amber-500/40 bg-amber-500/5 p-3 text-sm text-amber-200">
             <TriangleAlert size={16} className="mt-0.5 shrink-0" aria-hidden />
-            <span><span className="font-semibold">New build needed.</span> {iosLocationChange}</span>
+            <span>{t.rich("ios.newBuildNeeded", { b: (c) => <span className="font-semibold">{c}</span>, reason: iosLocationChange })}</span>
           </p>
         )}
         {published ? (
@@ -426,47 +412,44 @@ export function NativeAppPanel({
             href={`/api/projects/${projectId}/native/download?platform=ios`}
             className="btn-primary mt-4 inline-flex items-center justify-center gap-2"
             download
-            data-help="Download the files needed to build your iPhone app. You'll need a Mac or a GitHub account, plus a paid Apple Developer account, to send it to Apple."
+            data-help={t("ios.downloadHelp")}
           >
             <DownloadIcon />
-            Download iPhone project
+            {t("ios.download")}
           </a>
         ) : (
           <button className="btn-ghost mt-4 cursor-not-allowed opacity-60" disabled>
-            Publish to enable
+            {t("publishToEnable")}
           </button>
         )}
       </section>
 
       <div className="card p-5 text-sm text-surface-400">
-        <span className="font-medium text-surface-200">Already installable from the browser.</span>{" "}
-        Your published site can also be added to a phone&apos;s home screen straight from the
-        browser — no store needed.
+        {t.rich("browserInstall", { b: (c) => <span className="font-medium text-surface-200">{c}</span> })}
       </div>
     </div>
   );
 }
 
 function ToolchainNotice({ reason, isOperator }: { reason?: string; isOperator: boolean }) {
+  const t = useTranslations("project.nativeApp");
   return (
     <div className="card p-5 border-amber-500/40 bg-amber-500/5 text-sm">
       <div className="flex items-center gap-2 font-semibold text-amber-300">
         <TriangleAlert size={16} aria-hidden />
-        Android builds are turned off on this server
+        {t("toolchain.title")}
       </div>
       {reason && <p className="mt-2 font-mono text-xs text-surface-400">{reason}</p>}
       {isOperator ? (
         <p className="mt-2 text-surface-300">
-          You run this server. To turn them on, run the installer again and answer yes when it
-          asks about Android. You can also run{" "}
-          <span className="font-mono text-xs">NULLKODE_ANDROID=1 bash install.sh</span> in the
-          folder you installed it in. Installed without Docker? See docs/mobile-apps.md.
+          {t.rich("toolchain.operator", {
+            mono: (c) => <span className="font-mono text-xs" dir="ltr">{c}</span>,
+            command: "NULLKODE_ANDROID=1 bash install.sh",
+            doc: "docs/mobile-apps.md",
+          })}
         </p>
       ) : (
-        <p className="mt-2 text-surface-300">
-          Ask the person who runs this server to turn them on. You can still download the project
-          and build it yourself.
-        </p>
+        <p className="mt-2 text-surface-300">{t("toolchain.others")}</p>
       )}
     </div>
   );
@@ -500,6 +483,8 @@ function BuildCard({
   const [build, setBuild] = useState<BuildSummary | null>(initial);
   const [error, setError] = useState<string | null>(null);
   const [starting, setStarting] = useState(false);
+  const t = useTranslations("project.nativeApp");
+  const format = useFormatter();
   const onUpdateRef = useRef(onUpdate);
   onUpdateRef.current = onUpdate;
 
@@ -510,7 +495,7 @@ function BuildCard({
       try {
         const res = await fetch(`/api/projects/${projectId}/native/build?buildId=${build.buildId}`);
         const data = await res.json();
-        if (!res.ok) throw new Error(data.error || "Build failed");
+        if (!res.ok) throw new Error(data.error || t("build.buildFailed"));
         setBuild(data);
         if (data.status !== "running") onUpdateRef.current?.();
       } catch (e) {
@@ -519,7 +504,7 @@ function BuildCard({
       }
     }, 3000);
     return () => window.clearTimeout(timer);
-  }, [build, projectId]);
+  }, [build, projectId, t]);
 
   async function start() {
     setStarting(true);
@@ -531,7 +516,7 @@ function BuildCard({
         body: JSON.stringify({ kind }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Could not start the build");
+      if (!res.ok) throw new Error(data.error || t("build.couldNotStart"));
       setBuild({
         buildId: data.buildId,
         kind,
@@ -549,10 +534,19 @@ function BuildCard({
   }
 
   const running = starting || build?.status === "running";
-  const rebuild = running ? null : rebuildReason(build, currentFeatures, kind);
+  const rebuild = running ? null : rebuildReason(build, currentFeatures, kind, t);
   const seconds = build?.status === "running" ? Math.max(0, Math.round((Date.now() - Date.parse(build.startedAt)) / 1000)) : 0;
   const download = (file: "apk" | "aab") =>
     `/api/projects/${projectId}/native/build/download?buildId=${build?.buildId}&file=${file}`;
+  // "Download test APK (4.2 MB)", or just the label when the size isn't known.
+  const sized = (label: string, bytes?: number) => {
+    if (!bytes) return label;
+    const size =
+      bytes >= 1024 * 1024
+        ? t("build.sizeMb", { size: format.number(bytes / 1024 / 1024, { minimumFractionDigits: 1, maximumFractionDigits: 1 }) })
+        : t("build.sizeKb", { size: format.number(Math.max(1, Math.round(bytes / 1024))) });
+    return t("build.withSize", { label, size });
+  };
 
   return (
     <div className="card p-6 flex flex-col">
@@ -561,39 +555,41 @@ function BuildCard({
 
       {!published ? (
         <button className="btn-ghost mt-4 cursor-not-allowed opacity-60" disabled>
-          Publish to enable
+          {t("publishToEnable")}
         </button>
       ) : running ? (
-        <button className="btn-primary mt-4 inline-flex items-center justify-center gap-2" disabled>
+        <button className="btn-primary mt-4 inline-flex items-center justify-center gap-2" disabled suppressHydrationWarning>
           <Spinner />
-          Building… {seconds > 0 ? `(${seconds}s)` : ""}
+          {seconds > 0 ? t("build.buildingSeconds", { seconds }) : t("build.building")}
         </button>
       ) : build?.status === "done" ? (
         <div className="mt-4 space-y-2">
-          <p className="text-xs text-surface-500">
-            Version {build.version}
-            {build.versionCode ? ` (build ${build.versionCode})` : ""} · made{" "}
-            {new Date(build.finishedAt ?? build.startedAt).toLocaleString()}
+          <p className="text-xs text-surface-500" suppressHydrationWarning>
+            {t(build.versionCode ? "build.madeWithBuild" : "build.made", {
+              version: build.version,
+              build: String(build.versionCode ?? ""),
+              date: format.dateTime(new Date(build.finishedAt ?? build.startedAt), { dateStyle: "medium", timeStyle: "short", timeZone: viewerTimeZone() }),
+            })}
           </p>
           {kind === "release" ? (
             <>
-              <a href={download("aab")} className="btn-primary w-full inline-flex items-center justify-center gap-2" download data-help="Download the Android app file (.aab) that Google Play asks for. Upload it in the Google Play Console, as the steps below explain.">
+              <a href={download("aab")} className="btn-primary w-full inline-flex items-center justify-center gap-2" download data-help={t("build.downloadAabHelp")}>
                 <DownloadIcon />
-                Download AAB for Google Play{size(build.files?.aab?.bytes)}
+                {sized(t("build.downloadAab"), build.files?.aab?.bytes)}
               </a>
-              <a href={download("apk")} className="btn-ghost w-full inline-flex items-center justify-center gap-2 text-sm" download data-help="Download the same app as an installable Android file (.apk), signed with your key, for app stores other than Google Play.">
+              <a href={download("apk")} className="btn-ghost w-full inline-flex items-center justify-center gap-2 text-sm" download data-help={t("build.signedApkHelp")}>
                 <DownloadIcon />
-                Signed APK for other stores{size(build.files?.apk?.bytes)}
+                {sized(t("build.signedApk"), build.files?.apk?.bytes)}
               </a>
             </>
           ) : (
-            <a href={download("apk")} className="btn-primary w-full inline-flex items-center justify-center gap-2" download data-help="Download the test Android app file (.apk). Open it on an Android phone and allow installing when asked.">
+            <a href={download("apk")} className="btn-primary w-full inline-flex items-center justify-center gap-2" download data-help={t("build.downloadApkHelp")}>
               <DownloadIcon />
-              Download test APK{size(build.apkBytes)}
+              {sized(t("build.downloadApk"), build.apkBytes)}
             </a>
           )}
-          <button className="btn-ghost w-full text-sm" onClick={start} disabled={!enabled} data-help={kind === "release" ? "Make a new Google Play file with your latest app details. It gets the next build number, ready to upload as an update." : "Make a new test file with your latest app details, like name, icon and colors."}>
-            Build again
+          <button className="btn-ghost w-full text-sm" onClick={start} disabled={!enabled} data-help={kind === "release" ? t("build.againHelpRelease") : t("build.againHelpDebug")}>
+            {t("build.again")}
           </button>
         </div>
       ) : (
@@ -601,7 +597,7 @@ function BuildCard({
           className="btn-primary mt-4 inline-flex items-center justify-center gap-2"
           onClick={start}
           disabled={!enabled}
-          data-help={kind === "release" ? "Build the Android app file for Google Play. It takes a few minutes. If you haven't added a key, the first build makes your upload key." : "Build a test Android app you can install straight on a phone. It takes a few minutes."}
+          data-help={kind === "release" ? t("build.startHelpRelease") : t("build.startHelpDebug")}
         >
           <AndroidIcon small />
           {buttonLabel}
@@ -609,13 +605,13 @@ function BuildCard({
       )}
 
       {(error || build?.status === "error") && (
-        <p className="mt-2 text-sm text-red-400">{error || build?.error || "The build failed."}</p>
+        <p className="mt-2 text-sm text-red-400">{error || build?.error || t("build.failed")}</p>
       )}
 
       {rebuild && (
         <p role="status" className="mt-3 flex items-start gap-2 rounded-lg border border-amber-500/40 bg-amber-500/5 p-3 text-sm text-amber-200">
           <TriangleAlert size={16} className="mt-0.5 shrink-0" aria-hidden />
-          <span><span className="font-semibold">Rebuild needed.</span> {rebuild}</span>
+          <span>{t.rich("build.rebuildNeeded", { b: (c) => <span className="font-semibold">{c}</span>, reason: rebuild })}</span>
         </p>
       )}
 
@@ -623,23 +619,23 @@ function BuildCard({
         <p role="status" className="mt-3 flex items-start gap-2 rounded-lg border border-amber-500/40 bg-amber-500/5 p-3 text-sm text-amber-200">
           <TriangleAlert size={16} className="mt-0.5 shrink-0" aria-hidden />
           <span>
-            <span className="font-semibold">Your icon wasn&apos;t used.</span> {build.iconNote}{" "}
-            <Link href={`/projects/${projectId}#app-icon`} className="underline hover:text-amber-100">
-              Change the icon
-            </Link>
+            {t.rich("build.iconNotUsed", {
+              b: (c) => <span className="font-semibold">{c}</span>,
+              note: build.iconNote,
+              link: (c) => (
+                <Link href={`/projects/${projectId}#app-icon`} className="underline hover:text-amber-100">
+                  {c}
+                </Link>
+              ),
+            })}
           </span>
         </p>
       )}
 
       {kind === "debug" ? (
-        <p className="mt-3 text-xs text-surface-500">
-          On the phone, open the file and allow installing it when asked. If the phone has a
-          Google Play copy of this app, remove that first: the two use different keys.
-        </p>
+        <p className="mt-3 text-xs text-surface-500">{t("build.debugNote")}</p>
       ) : (
-        <p className="mt-3 text-xs text-surface-500">
-          The first build makes your app&apos;s upload key. Download a backup of it below.
-        </p>
+        <p className="mt-3 text-xs text-surface-500">{t("build.releaseNote")}</p>
       )}
     </div>
   );
@@ -660,6 +656,9 @@ function UploadKeyCard({
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [done, setDone] = useState<string | null>(null);
+  const t = useTranslations("project.nativeApp");
+  const tc = useTranslations("common");
+  const format = useFormatter();
 
   async function importKey(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -671,10 +670,10 @@ function UploadKeyCard({
       form.set("replace", keyInfo && form.get("replace") ? "true" : "false");
       const res = await fetch(`/api/projects/${projectId}/native/keystore`, { method: "POST", body: form });
       const data = await res.json().catch(() => ({}));
-      if (!res.ok) throw new Error(data.error || "Could not use this key");
+      if (!res.ok) throw new Error(data.error || t("key.couldNotUse"));
       onChange(data.key);
       setOpen(false);
-      setDone("Your key is saved. Google Play builds now use it.");
+      setDone(t("key.saved"));
     } catch (err) {
       setError((err as Error).message);
     } finally {
@@ -686,52 +685,45 @@ function UploadKeyCard({
     <div className="card p-6">
       <div className="flex items-center gap-2">
         <KeyRound size={18} className="text-surface-300" aria-hidden />
-        <h3 className="font-semibold" data-help="A secret file that proves updates to your app on Google Play come from you. If it's lost, you can't update the app on Google Play.">Your upload key</h3>
+        <h3 className="font-semibold" data-help={t("key.titleHelp")}>{t("key.title")}</h3>
       </div>
 
       {!keyInfo ? (
-        <p className="mt-2 text-sm text-surface-400">
-          Google Play checks this key on every update. We make one for your app the first time you
-          build for Google Play. Already on Google Play with a key of your own? Add it here first.
-        </p>
+        <p className="mt-2 text-sm text-surface-400">{t("key.none")}</p>
       ) : (
         <div className="mt-2 space-y-3 text-sm">
-          <p className="text-surface-400">
-            {keyInfo.imported ? "Your own key" : "Made for this app"} on{" "}
-            {new Date(keyInfo.updatedAt).toLocaleDateString()} · alias{" "}
-            <span className="font-mono text-xs text-surface-300">{keyInfo.alias}</span>
+          <p className="text-surface-400" suppressHydrationWarning>
+            {t.rich(keyInfo.imported ? "key.importedOn" : "key.madeOn", {
+              date: format.dateTime(new Date(keyInfo.updatedAt), { dateStyle: "medium", timeZone: viewerTimeZone() }),
+              alias: keyInfo.alias,
+              mono: (c) => <span className="font-mono text-xs text-surface-300">{c}</span>,
+            })}
           </p>
           <div>
-            <div className="text-xs uppercase tracking-wider text-surface-500" data-help="A code that identifies your key. Some Google services ask you to paste it in when you set them up.">Certificate fingerprint (SHA-256)</div>
-            <div className="mt-1 break-all font-mono text-xs text-surface-300">{keyInfo.sha256}</div>
+            <div className="text-xs uppercase tracking-wider text-surface-500" data-help={t("key.fingerprintHelp")}>{t("key.fingerprint")}</div>
+            <div className="mt-1 break-all font-mono text-xs text-surface-300" dir="ltr">{keyInfo.sha256}</div>
           </div>
           {keyInfo.missing ? (
-            <p className="rounded-lg border border-red-500/40 bg-red-500/5 p-3 text-red-300">
-              The key file is missing from the server. Add your backup below (&quot;Use a key I
-              already have&quot;) to keep updating your app on Google Play.
-            </p>
+            <p className="rounded-lg border border-red-500/40 bg-red-500/5 p-3 text-red-300">{t("key.missing")}</p>
           ) : (
             <div className="rounded-lg border border-amber-500/40 bg-amber-500/5 p-3">
               <p className="flex items-center gap-2 font-medium text-amber-300">
                 <ShieldCheck size={16} aria-hidden />
-                Keep this safe — you need it for every update on Google Play.
+                {t("key.keepSafe")}
               </p>
-              <p className="mt-1 text-surface-400">
-                Save the backup somewhere private, like a password manager. It holds the key and
-                its passwords.
-              </p>
+              <p className="mt-1 text-surface-400">{t("key.backupHint")}</p>
               {ownerActions ? (
                 <a
                   href={`/api/projects/${projectId}/native/keystore/download`}
                   className="btn-ghost mt-3 inline-flex items-center gap-2"
                   download
-                  data-help="Save a copy of your upload key and its passwords. Keep it somewhere private: anyone with it could sign updates as you."
+                  data-help={t("key.downloadHelp")}
                 >
                   <DownloadIcon />
-                  Download key backup
+                  {t("key.download")}
                 </a>
               ) : (
-                <p className="mt-2 text-xs text-surface-500">Only the app&apos;s owner can download the key.</p>
+                <p className="mt-2 text-xs text-surface-500">{t("key.ownerOnly")}</p>
               )}
             </div>
           )}
@@ -742,39 +734,36 @@ function UploadKeyCard({
 
       {ownerActions && (
         <div className="mt-4">
-          <button className="text-sm text-brand-400 hover:underline" onClick={() => setOpen((o) => !o)} data-help={open ? "Close this form without changing your key." : "Already have an app on Google Play? Add the key you used for it, so new builds can update that app."}>
-            {open ? "Cancel" : keyInfo ? "Use a different key" : "Use a key I already have"}
+          <button className="text-sm text-brand-400 hover:underline" onClick={() => setOpen((o) => !o)} data-help={open ? t("key.toggleHelpOpen") : t("key.toggleHelpClosed")}>
+            {open ? tc("cancel") : keyInfo ? t("key.useDifferent") : t("key.useExisting")}
           </button>
           {open && (
             <form className="mt-3 grid gap-3 sm:grid-cols-2" onSubmit={importKey}>
               <div className="sm:col-span-2">
-                <label className="label" htmlFor="nk-keystore">Keystore file (.jks or .keystore)</label>
-                <input id="nk-keystore" name="keystore" type="file" accept=".jks,.keystore,.p12,.pfx" required className="input" data-help="Choose the key file you signed your app with before. It usually ends in .jks or .keystore." />
+                <label className="label" htmlFor="nk-keystore">{t("key.file")}</label>
+                <input id="nk-keystore" name="keystore" type="file" accept=".jks,.keystore,.p12,.pfx" required className="input" data-help={t("key.fileHelp")} />
               </div>
               <div>
-                <label className="label" htmlFor="nk-alias">Key alias</label>
-                <input id="nk-alias" name="alias" className="input font-mono" placeholder="Leave empty if there's only one" autoComplete="off" data-help="The name of the key inside the file. Leave it empty if the file holds just one key." />
+                <label className="label" htmlFor="nk-alias">{t("key.alias")}</label>
+                <input id="nk-alias" name="alias" className="input font-mono" placeholder={t("key.aliasPlaceholder")} autoComplete="off" data-help={t("key.aliasHelp")} />
               </div>
               <div>
-                <label className="label" htmlFor="nk-storepass">Keystore password</label>
-                <input id="nk-storepass" name="storePassword" type="password" required className="input" autoComplete="off" data-help="The password that opens the key file." />
+                <label className="label" htmlFor="nk-storepass">{t("key.storePassword")}</label>
+                <input id="nk-storepass" name="storePassword" type="password" required className="input" autoComplete="off" data-help={t("key.storePasswordHelp")} />
               </div>
               <div>
-                <label className="label" htmlFor="nk-keypass">Key password</label>
-                <input id="nk-keypass" name="keyPassword" type="password" className="input" placeholder="Leave empty if it's the same" autoComplete="off" data-help="The password for the key itself. Leave it empty if it's the same as the file's password." />
+                <label className="label" htmlFor="nk-keypass">{t("key.keyPassword")}</label>
+                <input id="nk-keypass" name="keyPassword" type="password" className="input" placeholder={t("key.keyPasswordPlaceholder")} autoComplete="off" data-help={t("key.keyPasswordHelp")} />
               </div>
               {keyInfo && (
                 <label className="sm:col-span-2 flex items-start gap-2 text-sm text-surface-300">
-                  <input type="checkbox" name="replace" value="true" required className="mt-1" data-help="Confirm you want to swap your current key for this one. Download a backup of the current key first." />
-                  <span>
-                    Replace my current key. Only do this if Google Play expects this other key:
-                    download a backup of the current one first.
-                  </span>
+                  <input type="checkbox" name="replace" value="true" required className="mt-1" data-help={t("key.replaceHelp")} />
+                  <span>{t("key.replace")}</span>
                 </label>
               )}
               <div className="sm:col-span-2 flex items-center gap-3">
-                <button className="btn-primary" disabled={busy} data-help="Check the key and passwords, then use this key for all your Google Play builds from now on.">
-                  {busy ? "Checking…" : "Save key"}
+                <button className="btn-primary" disabled={busy} data-help={t("key.saveHelp")}>
+                  {busy ? t("key.checking") : t("key.save")}
                 </button>
                 {error && <span className="text-sm text-red-400">{error}</span>}
               </div>
@@ -807,6 +796,9 @@ function PhoneFeaturesCard({
   const [texts, setTexts] = useState<Partial<Record<WordingKey, string>>>(wording);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<{ kind: "ok" | "err"; text: string } | null>(null);
+  const t = useTranslations("project.nativeApp");
+  const tc = useTranslations("common");
+  const format = useFormatter();
 
   const icons: Record<PhoneFeature, React.ReactNode> = {
     camera: <Camera size={16} aria-hidden />,
@@ -815,10 +807,10 @@ function PhoneFeaturesCard({
     files: <FileUp size={16} aria-hidden />,
   };
   const fields: Array<{ key: WordingKey; label: string; show: boolean }> = [
-    { key: "camera", label: "Camera", show: true },
-    { key: "photos", label: "Photo library", show: true },
-    { key: "microphone", label: "Microphone", show: true },
-    { key: "location", label: "Location", show: Boolean(phone?.features.includes("location") || wording.location) },
+    { key: "camera", label: t("features.camera.label"), show: true },
+    { key: "photos", label: t("phone.photoLibrary"), show: true },
+    { key: "microphone", label: t("features.microphone.label"), show: true },
+    { key: "location", label: t("features.location.label"), show: Boolean(phone?.features.includes("location") || wording.location) },
   ];
 
   async function save() {
@@ -832,9 +824,9 @@ function PhoneFeaturesCard({
         body: JSON.stringify({ permissionText }),
       });
       const data = await res.json().catch(() => ({}));
-      if (!res.ok) throw new Error(data.error || "Could not save");
+      if (!res.ok) throw new Error(data.error || t("details.couldNotSave"));
       onSaved(data.config);
-      setMessage({ kind: "ok", text: "Saved. It goes into your next build and download." });
+      setMessage({ kind: "ok", text: t("phone.saved") });
     } catch (e) {
       setMessage({ kind: "err", text: (e as Error).message });
     } finally {
@@ -846,20 +838,14 @@ function PhoneFeaturesCard({
     <section className="card p-6" aria-labelledby="phone-features-heading">
       <div className="flex items-center gap-2">
         <Smartphone size={18} className="text-surface-300" aria-hidden />
-        <h2 id="phone-features-heading" className="font-semibold" data-help="The phone parts your app needs, like the camera or location, found by looking at your pages and features. The phone asks people before your app can use them.">Phone features this app uses</h2>
+        <h2 id="phone-features-heading" className="font-semibold" data-help={t("phone.titleHelp")}>{t("phone.title")}</h2>
       </div>
-      <p className="mt-1 text-sm text-surface-400">
-        Worked out from your app&apos;s features and pages. The phone only lets the app use what its
-        build asks for, so when this list changes, build the app again and send the stores the new
-        version.
-      </p>
+      <p className="mt-1 text-sm text-surface-400">{t("phone.intro")}</p>
 
       {!phone ? (
-        <p className="mt-4 text-sm text-surface-500">Checking your app…</p>
+        <p className="mt-4 text-sm text-surface-500">{t("phone.checking")}</p>
       ) : phone.features.length === 0 ? (
-        <p className="mt-4 text-sm text-surface-300">
-          None right now: no page uses the camera, microphone, location or file uploads.
-        </p>
+        <p className="mt-4 text-sm text-surface-300">{t("phone.none")}</p>
       ) : (
         <ul className="mt-4 space-y-3">
           {phone.features.map((f) => {
@@ -868,11 +854,16 @@ function PhoneFeaturesCard({
               <li key={f} className="flex items-start gap-3 text-sm">
                 <span className="mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-white/5 text-surface-200">{icons[f]}</span>
                 <span className="min-w-0">
-                  <span className="block font-medium text-surface-100">{FEATURE_TEXT[f].label}</span>
-                  <span className="block text-surface-400">{FEATURE_TEXT[f].about}</span>
+                  <span className="block font-medium text-surface-100">{t(`features.${f}.label`)}</span>
+                  <span className="block text-surface-400">{t(`features.${f}.about`)}</span>
                   {sources.length > 0 && (
                     <span className="mt-0.5 block text-xs text-surface-500">
-                      Used by {sources.map((src) => (src.kind === "module" ? src.label : `the “${src.label}” page`)).join(", ")}
+                      {t("phone.usedBy", {
+                        sources: format.list(
+                          sources.map((src) => (src.kind === "module" ? src.label : t("phone.sourcePage", { name: src.label }))),
+                          { type: "unit" },
+                        ),
+                      })}
                     </span>
                   )}
                 </span>
@@ -883,14 +874,10 @@ function PhoneFeaturesCard({
       )}
 
       <details className="mt-5">
-        <summary className="cursor-pointer text-sm font-medium text-brand-400 hover:underline" data-help="Open this to write the message iPhones show when your app asks to use the camera, microphone, photos or location.">
-          What the phone says when the app asks
+        <summary className="cursor-pointer text-sm font-medium text-brand-400 hover:underline" data-help={t("phone.wordingSummaryHelp")}>
+          {t("phone.wordingSummary")}
         </summary>
-        <p className="mt-2 text-sm text-surface-400">
-          iPhones show this text when the app asks for each feature, and Apple reviews it. Say
-          plainly what your app uses it for. Leave a box empty to use the suggested wording.
-          Android phones show their own standard message.
-        </p>
+        <p className="mt-2 text-sm text-surface-400">{t("phone.wordingIntro")}</p>
         <div className="mt-3 grid gap-3">
           {fields.filter((f) => f.show).map((f) => (
             <label key={f.key} className="block text-sm">
@@ -898,11 +885,11 @@ function PhoneFeaturesCard({
               <textarea
                 className="input min-h-[60px] w-full"
                 maxLength={300}
-                data-help="Say plainly why your app needs this, like “To scan tickets at the door.” Apple checks it. Leave empty to use the suggested words."
+                data-help={t("phone.wordingHelp")}
                 value={texts[f.key] ?? ""}
                 placeholder={phone?.suggested[f.key] ?? ""}
                 onChange={(e) => {
-                  setTexts((t) => ({ ...t, [f.key]: e.target.value }));
+                  setTexts((prev) => ({ ...prev, [f.key]: e.target.value }));
                   setMessage(null);
                 }}
               />
@@ -910,8 +897,8 @@ function PhoneFeaturesCard({
           ))}
         </div>
         <div className="mt-3 flex items-center gap-3">
-          <button className="btn-primary" onClick={save} disabled={saving} data-help="Save these messages. They go into your next build and iPhone download.">
-            {saving ? "Saving…" : "Save wording"}
+          <button className="btn-primary" onClick={save} disabled={saving} data-help={t("phone.saveHelp")}>
+            {saving ? tc("saving") : t("phone.save")}
           </button>
           {message && (
             <span className={message.kind === "ok" ? "text-sm text-green-400" : "text-sm text-red-400"}>{message.text}</span>
@@ -924,75 +911,59 @@ function PhoneFeaturesCard({
 
 /** What both stores ask every app with sign-up for: an account deletion link and a privacy policy. */
 function StoreRequirements({ deleteAccountUrl, store }: { deleteAccountUrl: string; store: string }) {
+  const t = useTranslations("project.nativeApp");
   return (
     <div className="mt-4 rounded-lg border border-white/10 bg-white/[0.03] p-4 text-sm text-surface-300">
-      <p className="font-medium text-surface-100">Before you send it to {store}</p>
-      <ul className="mt-2 list-disc space-y-1.5 pl-5">
+      <p className="font-medium text-surface-100">{t("store.before", { store })}</p>
+      <ul className="mt-2 list-disc space-y-1.5 ps-5">
         <li>
-          If people can sign up in your app, the store asks for a link where they can delete their
-          account. Use{" "}
-          <span className="break-all font-mono text-xs text-surface-100">{deleteAccountUrl}</span>
+          {t.rich("store.deleteAccount", {
+            url: deleteAccountUrl,
+            mono: (c) => <span className="break-all font-mono text-xs text-surface-100" dir="ltr">{c}</span>,
+          })}
         </li>
-        <li>
-          The store also asks for a link to your privacy policy. Add a Privacy page to your app (or
-          use one on your website) and paste its address in the store listing.
-        </li>
+        <li>{t("store.privacy")}</li>
       </ul>
     </div>
   );
 }
 
 function PlaySteps({ deleteAccountUrl }: { deleteAccountUrl: string }) {
+  const t = useTranslations("project.nativeApp");
+  const format = useFormatter();
+  const b = (c: React.ReactNode) => <b>{c}</b>;
   return (
     <details className="card p-6 group" open>
-      <summary className="cursor-pointer font-semibold" data-help="Step-by-step instructions for putting your app in the Google Play store. Click to show or hide them.">Put your app on Google Play</summary>
-      <ol className="mt-3 list-decimal space-y-2 pl-5 text-sm text-surface-300">
-        <li>
-          Sign up for a Google Play developer account at{" "}
-          <a href="https://play.google.com/console" target="_blank" rel="noreferrer" className="text-brand-400 hover:underline">
-            play.google.com/console
-          </a>
-          . Google charges a one-time fee of $25.
+      <summary className="cursor-pointer font-semibold" data-help={t("play.titleHelp")}>{t("play.title")}</summary>
+      <ol className="mt-3 list-decimal space-y-2 ps-5 text-sm text-surface-300">
+        <li suppressHydrationWarning>
+          {t.rich("play.signUp", {
+            url: "play.google.com/console",
+            fee: format.number(25, { style: "currency", currency: "USD", maximumFractionDigits: 0 }),
+            link: (c) => (
+              <a href="https://play.google.com/console" target="_blank" rel="noreferrer" dir="ltr" className="text-brand-400 hover:underline">
+                {c}
+              </a>
+            ),
+          })}
         </li>
-        <li>Click <b>Create app</b>, type your app&apos;s name and answer the short questions.</li>
+        <li>{t.rich("play.createApp", { b })}</li>
+        <li>{t("play.listing")}</li>
         <li>
-          Fill in the store listing: a short and a full description, an icon (512 × 512), a
-          feature picture (1024 × 500) and at least two phone screenshots.
+          {t.rich("play.appContent", {
+            b,
+            url: deleteAccountUrl,
+            mono: (c) => <span className="break-all font-mono text-xs text-surface-100" dir="ltr">{c}</span>,
+          })}
         </li>
-        <li>
-          Under <b>App content</b>, add your privacy policy link. If people can sign up in your
-          app, Google also asks for a link where they can delete their account: use{" "}
-          <span className="break-all font-mono text-xs text-surface-100">{deleteAccountUrl}</span>.
-        </li>
-        <li>
-          Open <b>Test and release</b>, pick a track (<b>Internal testing</b> is the quickest way to
-          try it) and click <b>Create new release</b>.
-        </li>
-        <li>
-          If Google asks about app signing, keep <b>Let Google manage and protect your app signing
-          key</b>.
-        </li>
-        <li>
-          Upload the <b>.aab</b> file from above, write a few words about what&apos;s new, then save
-          and send the release out.
-        </li>
-        <li>
-          Later updates: publishing changes here updates your app by itself. Only build a new AAB
-          when you change the name, icon, colors or version, and upload it the same way. The build
-          number goes up by itself.
-        </li>
+        <li>{t.rich("play.release", { b })}</li>
+        <li>{t.rich("play.signing", { b })}</li>
+        <li>{t.rich("play.upload", { b })}</li>
+        <li>{t("play.updates")}</li>
       </ol>
-      <p className="mt-3 text-xs text-surface-500">
-        New personal developer accounts must first test the app with at least 12 people for 14
-        days before Google lets them publish it to everyone.
-      </p>
+      <p className="mt-3 text-xs text-surface-500">{t("play.note")}</p>
     </details>
   );
-}
-
-function size(bytes?: number): string {
-  if (!bytes) return "";
-  return bytes >= 1024 * 1024 ? ` (${(bytes / 1024 / 1024).toFixed(1)} MB)` : ` (${Math.max(1, Math.round(bytes / 1024))} KB)`;
 }
 
 function Spinner() {
@@ -1004,7 +975,8 @@ function Spinner() {
   );
 }
 
-function ColorField({ value, onChange, label, help }: { value: string; onChange: (v: string) => void; label?: string; help?: string }) {
+function ColorField({ value, onChange, pickLabel, codeLabel, help }: { value: string; onChange: (v: string) => void; pickLabel: string; codeLabel: string; help?: string }) {
+  const t = useTranslations("project.nativeApp");
   return (
     <div className="flex items-center gap-2">
       <input
@@ -1012,13 +984,13 @@ function ColorField({ value, onChange, label, help }: { value: string; onChange:
         value={/^#[0-9a-fA-F]{6}$/.test(value) ? value : "#0b0b0b"}
         onChange={(e) => onChange(e.target.value)}
         className="h-9 w-10 shrink-0 rounded border border-surface-700 bg-transparent p-0.5"
-        aria-label={label ? `Pick ${label.toLowerCase()}` : "Pick color"}
+        aria-label={pickLabel}
         data-help={help}
       />
       <input
         className="input font-mono"
-        aria-label={label ? `${label} code` : "Color code"}
-        data-help="Or type a color code here, like #1a73e8, if you know the exact color you want."
+        aria-label={codeLabel}
+        data-help={t("details.colorCodeHelp")}
         value={value}
         onChange={(e) => onChange(e.target.value)}
       />

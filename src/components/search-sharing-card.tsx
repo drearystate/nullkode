@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Check, Copy, Loader2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 /**
  * "Search and sharing" on the Publish screen: the app's description, how its
@@ -59,6 +60,7 @@ function breadcrumb(url: string): string {
 
 export function SearchSharingCard(props: SearchSharingProps) {
   const router = useRouter();
+  const t = useTranslations("project.searchSharing");
   const [description, setDescription] = useState(props.description);
   const [savedDescription, setSavedDescription] = useState(props.description);
   const [savingDescription, setSavingDescription] = useState(false);
@@ -94,13 +96,13 @@ export function SearchSharingCard(props: SearchSharingProps) {
         body: JSON.stringify({ description: trimmed }),
       });
       const data = await res.json().catch(() => ({}));
-      if (!res.ok) throw new Error(data.error || "Couldn't save the description.");
+      if (!res.ok) throw new Error(data.error || t("descriptionSaveFailed"));
       setSavedDescription(trimmed);
       setDescription(trimmed);
-      setDescriptionMessage({ ok: true, text: "Saved. Search engines pick it up the next time they visit." });
+      setDescriptionMessage({ ok: true, text: t("descriptionSaved") });
       router.refresh();
     } catch (err) {
-      setDescriptionMessage({ ok: false, text: err instanceof Error ? err.message : "Couldn't save the description. Please try again." });
+      setDescriptionMessage({ ok: false, text: err instanceof Error ? err.message : t("descriptionSaveFailedRetry") });
     } finally {
       setSavingDescription(false);
     }
@@ -113,7 +115,7 @@ export function SearchSharingCard(props: SearchSharingProps) {
       body: JSON.stringify(patch),
     });
     const data = await res.json().catch(() => ({}));
-    if (!res.ok) throw new Error(data.error || "Couldn't save that. Please try again.");
+    if (!res.ok) throw new Error(data.error || t("saveFailed"));
     return data as { noindex: boolean; searchConsoleToken: string | null };
   }
 
@@ -127,7 +129,7 @@ export function SearchSharingCard(props: SearchSharingProps) {
       setNoindex(saved.noindex);
     } catch (err) {
       setNoindex(!next);
-      setNoindexError(err instanceof Error ? err.message : "Couldn't change that. Please try again.");
+      setNoindexError(err instanceof Error ? err.message : t("changeFailed"));
     } finally {
       setSavingNoindex(false);
     }
@@ -139,9 +141,9 @@ export function SearchSharingCard(props: SearchSharingProps) {
     try {
       const saved = await saveSeo({ searchConsoleToken: token.trim() || null });
       setToken(saved.searchConsoleToken ?? "");
-      setTokenMessage({ ok: true, text: saved.searchConsoleToken ? "Saved. Go back to Search Console and press Verify." : "Removed." });
+      setTokenMessage({ ok: true, text: saved.searchConsoleToken ? t("codeSaved") : t("codeRemoved") });
     } catch (err) {
-      setTokenMessage({ ok: false, text: err instanceof Error ? err.message : "Couldn't save the code." });
+      setTokenMessage({ ok: false, text: err instanceof Error ? err.message : t("codeSaveFailed") });
     } finally {
       setSavingToken(false);
     }
@@ -161,39 +163,37 @@ export function SearchSharingCard(props: SearchSharingProps) {
 
   return (
     <section className="card p-6 mt-6" id="search-sharing" aria-labelledby="search-sharing-title">
-      <h2 id="search-sharing-title" className="font-semibold" data-help="Control how your app looks in Google results and in the preview people see when they send its link in a chat. Changes apply right away.">Search and sharing</h2>
-      <p className="mt-1 text-sm text-surface-400 max-w-2xl">
-        How your app shows up in Google and when someone shares its link. Changes here apply right away, without publishing again.
-      </p>
+      <h2 id="search-sharing-title" className="font-semibold" data-help={t("titleHelp")}>{t("title")}</h2>
+      <p className="mt-1 text-sm text-surface-400 max-w-2xl">{t("intro")}</p>
       {!props.published && (
-        <p className="mt-3 text-xs text-amber-300">Your app isn&apos;t published yet. This is how its link will look once it is.</p>
+        <p className="mt-3 text-xs text-amber-300">{t("notPublished")}</p>
       )}
 
       <div className="mt-5 grid gap-8 lg:grid-cols-2">
         <div className="min-w-0">
-          <label className="label" htmlFor="seo-description">Description</label>
+          <label className="label" htmlFor="seo-description">{t("description")}</label>
           <textarea
             id="seo-description"
             className="input min-h-[96px] resize-y"
             maxLength={300}
-            data-help="A short summary of your app. Google shows it under your app's name, and chats show it under shared links. Around 160 letters or fewer works best."
+            data-help={t("descriptionHelp")}
             value={description}
             onChange={(e) => { setDescription(e.target.value); setDescriptionMessage(null); }}
-            placeholder="One or two sentences about your app, for example: Fresh bread and cakes from our family bakery. Order online and pick up the next morning."
+            placeholder={t("descriptionPlaceholder")}
           />
           <div className="mt-1 flex flex-wrap items-center justify-between gap-2 text-xs text-surface-500">
-            <span>{trimmed ? "Say what it is and who it's for." : props.pageParagraph ? "Empty: the first paragraph of your home page is used." : "Say what it is and who it's for."}</span>
+            <span>{!trimmed && props.pageParagraph ? t("descriptionEmptyHint") : t("descriptionHint")}</span>
             <span className={trimmed.length > IDEAL_LENGTH ? "text-amber-300" : undefined}>
-              {trimmed.length}/{IDEAL_LENGTH}{trimmed.length > IDEAL_LENGTH ? " (longer ones get cut off)" : ""}
+              {trimmed.length > IDEAL_LENGTH ? t("lengthTooLong", { count: trimmed.length, max: IDEAL_LENGTH }) : t("length", { count: trimmed.length, max: IDEAL_LENGTH })}
             </span>
           </div>
           {props.designerDescription && (
-            <p className="mt-2 text-xs text-surface-400">Your design sets its own description, which search engines and link previews show. This one is used when people install your app.</p>
+            <p className="mt-2 text-xs text-surface-400">{t("designerDescription")}</p>
           )}
           <div className="mt-3 flex flex-wrap items-center gap-3">
-            <button type="button" className="btn-primary" disabled={!dirty || savingDescription} onClick={saveDescription} data-help="Save your description. It's used straight away, no need to publish again. Google updates it the next time it visits your app.">
+            <button type="button" className="btn-primary" disabled={!dirty || savingDescription} onClick={saveDescription} data-help={t("saveDescriptionHelp")}>
               {savingDescription && <Loader2 size={15} className="animate-spin" />}
-              Save description
+              {t("saveDescription")}
             </button>
             {descriptionMessage && (
               <span role={descriptionMessage.ok ? "status" : "alert"} className={`text-sm ${descriptionMessage.ok ? "text-emerald-300" : "text-red-300"}`}>{descriptionMessage.text}</span>
@@ -202,55 +202,54 @@ export function SearchSharingCard(props: SearchSharingProps) {
 
           <div className="mt-6 flex items-center justify-between gap-4 rounded-lg border border-surface-800 px-4 py-3">
             <span className="min-w-0">
-              <span id="seo-noindex-label" className="block text-sm font-medium">Hide from search engines</span>
-              <span className="block text-xs text-surface-400">Google and other search engines won&apos;t list your app. Anyone with the link can still open it.</span>
+              <span id="seo-noindex-label" className="block text-sm font-medium">{t("hide")}</span>
+              <span className="block text-xs text-surface-400">{t("hideBody")}</span>
             </span>
             <button
               type="button"
               role="switch"
               aria-checked={noindex}
               aria-labelledby="seo-noindex-label"
-              data-help="Turn on to ask Google and other search engines not to list your app. People with the link can still open it. Takes effect right away."
+              data-help={t("hideHelp")}
               disabled={savingNoindex}
               onClick={toggleNoindex}
               className={`relative inline-flex h-6 w-11 shrink-0 items-center rounded-full border transition disabled:opacity-60 ${noindex ? "border-brand-400 bg-brand-500" : "border-surface-600 bg-surface-800"}`}
             >
-              <span className={`inline-block h-4 w-4 rounded-full bg-fixed-white shadow transition ${noindex ? "translate-x-6" : "translate-x-1"}`} />
-              <span className="sr-only">{noindex ? "On" : "Off"}</span>
+              <span className={`inline-block h-4 w-4 rounded-full bg-fixed-white shadow transition ${noindex ? "translate-x-6 rtl:-translate-x-6" : "translate-x-1 rtl:-translate-x-1"}`} />
+              <span className="sr-only">{noindex ? t("on") : t("off")}</span>
             </button>
           </div>
           {noindexError && <p role="alert" className="mt-2 text-sm text-red-300">{noindexError}</p>}
 
           <details className="mt-4 rounded-lg border border-surface-800 px-4 py-3" open={Boolean(props.searchConsoleToken)}>
-            <summary className="cursor-pointer text-sm font-medium" data-help="Optional. Google Search Console is a free Google tool that shows how people find your app in search. Open this to link your app to it.">Connect Google Search Console</summary>
+            <summary className="cursor-pointer text-sm font-medium" data-help={t("consoleHelp")}>{t("consoleTitle")}</summary>
             <div className="mt-3 space-y-3 text-sm">
-              <p className="text-xs leading-relaxed text-surface-400">
-                Search Console shows how people find your app on Google. Add your app&apos;s address there as a URL-prefix property, choose the HTML tag way to verify, and paste the code (or the whole tag) here.
-              </p>
+              <p className="text-xs leading-relaxed text-surface-400">{t("consoleBody")}</p>
               <div className="flex flex-wrap gap-2">
                 <input
                   className="input min-w-0 flex-1"
-                  aria-label="Google verification code"
-                  data-help="Paste the code Google Search Console gives you (the HTML tag option). It proves to Google that the app is yours."
+                  aria-label={t("codeLabel")}
+                  data-help={t("codeHelp")}
+                  dir="ltr"
                   value={token}
                   onChange={(e) => { setToken(e.target.value); setTokenMessage(null); }}
                   placeholder='<meta name="google-site-verification" content="…">'
                   spellCheck={false}
                   autoComplete="off"
                 />
-                <button type="button" className="btn-ghost" disabled={savingToken || token.trim() === (props.searchConsoleToken ?? "")} onClick={saveToken} data-help="Save the code on your app, then go back to Search Console and press Verify. Save it empty to remove the code.">
+                <button type="button" className="btn-ghost" disabled={savingToken || token.trim() === (props.searchConsoleToken ?? "")} onClick={saveToken} data-help={t("saveCodeHelp")}>
                   {savingToken && <Loader2 size={15} className="animate-spin" />}
-                  Save code
+                  {t("saveCode")}
                 </button>
               </div>
               {tokenMessage && (
                 <p role={tokenMessage.ok ? "status" : "alert"} className={`text-xs ${tokenMessage.ok ? "text-emerald-300" : "text-red-300"}`}>{tokenMessage.text}</p>
               )}
               <div className="text-xs text-surface-400">
-                <span className="block">Then add your sitemap in Search Console, so Google finds every page:</span>
+                <span className="block">{t("sitemapIntro")}</span>
                 <span className="mt-1 flex min-w-0 items-center gap-2">
-                  <code className="min-w-0 break-all rounded bg-white/[0.04] px-1.5 py-0.5 text-surface-200">{props.sitemapUrl}</code>
-                  <button type="button" className="studio-icon-button" aria-label={copied ? "Sitemap address copied" : "Copy sitemap address"} title={copied ? "Copied" : "Copy"} data-help="Copy the address of your app's sitemap, a list of all its pages. Paste it into Search Console under Sitemaps." onClick={copySitemap}>
+                  <code dir="ltr" className="min-w-0 break-all rounded bg-white/[0.04] px-1.5 py-0.5 text-surface-200">{props.sitemapUrl}</code>
+                  <button type="button" className="studio-icon-button" aria-label={copied ? t("sitemapCopied") : t("copySitemap")} title={copied ? t("copied") : t("copy")} data-help={t("copySitemapHelp")} onClick={copySitemap}>
                     {copied ? <Check size={14} /> : <Copy size={14} />}
                   </button>
                 </span>
@@ -261,8 +260,8 @@ export function SearchSharingCard(props: SearchSharingProps) {
 
         <div className="min-w-0 space-y-5">
           <div>
-            <p className="label" data-help="A preview of how your app may look in Google search results. Google makes the final choice, so it can look slightly different.">In Google</p>
-            <div className="rounded-lg bg-fixed-white p-4 text-left shadow-sm [[data-theme=light]_&]:ring-1 [[data-theme=light]_&]:ring-surface-700" aria-label="Preview of a Google search result">
+            <p className="label" data-help={t("googleHelp")}>{t("google")}</p>
+            <div className="rounded-lg bg-fixed-white p-4 text-left shadow-sm [[data-theme=light]_&]:ring-1 [[data-theme=light]_&]:ring-surface-700" aria-label={t("googlePreviewLabel")}>
               <div className="flex items-center gap-2.5">
                 <span className="flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden rounded-full border border-[#dadce0] bg-[#f1f3f4]">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -274,14 +273,14 @@ export function SearchSharingCard(props: SearchSharingProps) {
                 </span>
               </div>
               <div className="mt-2 truncate text-[20px] leading-snug text-[#1a0dab]">{props.title}</div>
-              <div className="mt-1 line-clamp-2 text-[14px] leading-snug text-[#4d5156]">{shownDescription || "Add a description so people know what they'll find."}</div>
+              <div className="mt-1 line-clamp-2 text-[14px] leading-snug text-[#4d5156]">{shownDescription || t("googleNoDescription")}</div>
             </div>
-            {noindex && <p className="mt-2 text-xs text-amber-300">Hidden: your app won&apos;t appear in search results.</p>}
+            {noindex && <p className="mt-2 text-xs text-amber-300">{t("hiddenNote")}</p>}
           </div>
 
           <div>
-            <p className="label" data-help="A preview of what people see when your app's link is sent in a chat or posted on social media.">In WhatsApp and other chats</p>
-            <div className="rounded-xl bg-[#0b141a] p-3" aria-label="Preview of a shared link in a chat">
+            <p className="label" data-help={t("chatHelp")}>{t("chat")}</p>
+            <div className="rounded-xl bg-[#0b141a] p-3" aria-label={t("chatPreviewLabel")}>
               <div className="ml-auto max-w-[340px] rounded-lg bg-[#005c4b] p-1 text-left">
                 <div className="overflow-hidden rounded-md bg-[#025144]">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -303,10 +302,10 @@ export function SearchSharingCard(props: SearchSharingProps) {
             </div>
             <p className="mt-2 text-xs text-surface-500">
               {props.imageIsCard
-                ? "The picture is made from your app's icon, name and colour. Add a picture to your home page to use that instead."
+                ? t("imageIsCard")
                 : imageSrc === props.cardImage
-                  ? "Your home page's first picture couldn't be loaded, so the picture made from your app's icon, name and colour is shown."
-                  : "The picture is the first one on your home page."}
+                  ? t("imageFallback")
+                  : t("imageFirst")}
             </p>
           </div>
         </div>

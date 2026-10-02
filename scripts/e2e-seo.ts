@@ -241,13 +241,14 @@ async function main() {
 
     // ── The idea box and ?next= ─────────────────────────────────────────────
     r = await visitor.get("/");
-    ok("without an AI model, the home page has no idea box", r.status === 200 && !r.text.includes("What should your app do?"), r.status);
+    // The idea box itself (its words also travel with the page's translations).
+    ok("without an AI model, the home page has no idea box", r.status === 200 && !r.text.includes('id="landing-idea"'), r.status);
     // An OpenAI-compatible endpoint with a model: enough for aiReady().
     for (const [key, value] of [["ai.baseUrl", "http://127.0.0.1:9/v1"], ["ai.openai.model.scaffold", "e2e-model"], ["ai.openai.model.edit", "e2e-model"]] as const) {
       await inst.db.setting.upsert({ where: { key }, update: { value }, create: { key, value } });
     }
     r = await visitor.get("/");
-    ok("with a model, the idea box shows", r.text.includes("What should your app do?") && r.text.includes("Bakery pre-orders") && r.text.includes("Salon bookings") && r.text.includes("Gym timetable"));
+    ok("with a model, the idea box shows", r.text.includes('id="landing-idea"') && r.text.includes("What should your app do?") && r.text.includes("Bakery pre-orders") && r.text.includes("Salon bookings") && r.text.includes("Gym timetable"));
 
     r = await visitor.get(`/new?idea=${encodeURIComponent(IDEA)}`);
     const backToNew = `/new?${new URLSearchParams({ idea: IDEA })}`;

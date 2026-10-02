@@ -79,29 +79,38 @@ function csvCell(value: string | number | null | undefined): string {
   return /[",\r\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
 }
 
+/** Words for the CSV in the reseller's language (keys of messages/<locale>/reseller.json "csv"); English without it. */
+export type CsvT = (key: string) => string;
+
 /** The client list as CSV for Excel, Numbers or Google Sheets (UTF-8 with a BOM, Windows line endings). */
-export function clientsCsv(rows: ClientRow[]): string {
+export function clientsCsv(rows: ClientRow[], t?: CsvT): string {
+  const say = (key: string, english: string) => (t ? t(key) : english);
   const header = [
-    "Name", "Email", "Status", "Plan", "Payment", "Apps", "Live apps", "AI actions this month",
-    "AI actions included", "Last active (UTC)", "Joined (UTC)", "Renews (UTC)", "Needs attention",
+    say("name", "Name"), say("email", "Email"), say("status", "Status"), say("plan", "Plan"), say("payment", "Payment"),
+    say("apps", "Apps"), say("liveApps", "Live apps"), say("aiUsed", "AI actions this month"), say("aiIncluded", "AI actions included"),
+    say("lastActive", "Last active (UTC)"), say("joined", "Joined (UTC)"), say("renews", "Renews (UTC)"), say("attention", "Needs attention"),
   ];
+  const status = (r: ClientRow) => (t ? t(r.suspended ? "statusSuspended" : r.invited ? "statusInvited" : "statusActive") : statusLabel(r));
+  const plan = (p: string) => (t && ["FREE", "STARTER", "PRO", "TEAM"].includes(p) ? t(`plans.${p}`) : planLabel(p));
+  const payment = (s: SubscriptionStatus) => (t ? t(`pay.${s === "TRIALING" || s === "ACTIVE" || s === "PAST_DUE" || s === "CANCELED" || s === "UNPAID" ? s : "NONE"}`) : paymentLabel(s));
+  const flag = (f: AttentionFlag) => (t ? t(`flags.${f}`) : ATTENTION[f].label);
   const day = (iso: string | null) => (iso ? iso.slice(0, 10) : "");
   const moment = (iso: string | null) => (iso ? iso.slice(0, 16).replace("T", " ") : "");
   const lines = rows.map((r) =>
     [
       r.name ?? "",
       r.email,
-      statusLabel(r),
-      planLabel(r.plan),
-      paymentLabel(r.subscriptionStatus),
+      status(r),
+      plan(r.plan),
+      payment(r.subscriptionStatus),
       r.apps,
       r.liveApps,
       r.aiUsed,
-      r.aiLimit === null ? "Unlimited" : r.aiLimit,
+      r.aiLimit === null ? say("unlimited", "Unlimited") : r.aiLimit,
       moment(r.lastActiveAt),
       day(r.createdAt),
       day(r.renewsAt),
-      r.flags.map((f) => ATTENTION[f].label).join("; "),
+      r.flags.map(flag).join("; "),
     ]
       .map(csvCell)
       .join(","),

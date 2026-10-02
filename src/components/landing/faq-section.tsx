@@ -1,49 +1,27 @@
 "use client";
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
-const faqs = (name: string) => [
-  {
-    q: "Is this real no-code, or will I need to write code eventually?",
-    a: "Real no-code. The UI editor and the flow engine cover pages and backend logic end-to-end. You can embed snippets of HTML if you want to, but nothing in the product requires you to read or write code.",
-  },
-  {
-    q: "Where does my data actually live?",
-    a: "If you use the built-in Postgres data source, each project gets its own isolated schema on this installation’s PostgreSQL database. You can also bring your own Postgres via a connection string, or connect a Google Sheet. Your data, your choice.",
-  },
-  {
-    q: "Can I use my own domain?",
-    a: `Yes. Add a domain, verify it with a DNS TXT record, and ${name} routes traffic to your project.`,
-  },
-  {
-    q: "Can I export what I build?",
-    a: "You can export the HTML and CSS of any page, and download your Postgres data at any time. Flows are stored as a portable JSON graph you can take with you.",
-  },
-  {
-    q: "How are you different from Webflow or Framer?",
-    a: `Those are page builders. ${name} is an app builder: beyond pages, you get a real visual backend-logic engine, first-class data sources, and runtime flows that actually execute.`,
-  },
-  {
-    q: "How are you different from Bubble or Adalo?",
-    a: `Describe your app in a sentence and ${name} builds the pages, the database tables and the backend workflows for you \u2014 then you keep editing visually. Your data lives in a standard Postgres database you can export at any time.`,
-  },
-];
+/** The questions, in order (landing.faq.<id>.q / .a). */
+const FAQS = ["noCode", "data", "domain", "export", "webflow", "bubble"] as const;
 
 export function FaqSection({ name = "Nullkode" }: { name?: string }) {
+  const t = useTranslations("landing.faq");
   return (
     <section id="faq" className="bg-surface-900 py-24">
       <div className="mx-auto max-w-3xl px-6">
         <div className="text-center">
           <p className="text-xs uppercase tracking-[0.2em] text-blue-400 font-semibold">
-            FAQ
+            {t("eyebrow")}
           </p>
           <h2 className="mt-3 text-4xl md:text-5xl font-bold tracking-tight text-surface-50">
-            Questions, honestly answered.
+            {t("heading")}
           </h2>
         </div>
 
         <div className="mt-12 space-y-3">
-          {faqs(name).map((item, i) => (
-            <FaqItem key={i} item={item} />
+          {FAQS.map((id) => (
+            <FaqItem key={id} item={{ q: t(`${id}.q`), a: t(`${id}.a`, { app: name }) }} />
           ))}
         </div>
       </div>
@@ -58,7 +36,7 @@ function FaqItem({ item }: { item: { q: string; a: string } }) {
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="w-full flex items-center justify-between text-left px-5 py-4 text-surface-50 font-medium hover:bg-white/[0.03] transition"
+        className="w-full flex items-center justify-between text-start px-5 py-4 text-surface-50 font-medium hover:bg-white/[0.03] transition"
       >
         <span>{item.q}</span>
         <span

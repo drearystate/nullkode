@@ -1,0 +1,32 @@
+{
+  "aiUsage": "Azioni IA questo mese: <b>{used} di {limit}</b>",
+  "aiUsageLabel": "Azioni IA utilizzate",
+  "planNames": {
+    "FREE": "Gratis",
+    "PRO": "Pro",
+    "STARTER": "Starter",
+    "TEAM": "Team"
+  },
+  "plans": {
+    "checkoutFailed": "Impossibile avviare il pagamento",
+    "comingSoon": "Prossimamente",
+    "current": "Attuale",
+    "free": "Gratis",
+    "manage": "Gestisci fatturazione",
+    "manageHelp": "Apre la pagina di fatturazione sicura di Stripe, dove puoi aggiornare la carta, vedere le fatture precedenti e, se disponibile, cambiare o annullare il piano.",
+    "notBuyable": "Al momento non è possibile acquistare questo piano online.",
+    "portalFailed": "Impossibile aprire il portale",
+    "upgrade": "Passa a un piano superiore",
+    "upgradeHelp": "Apre una pagina di pagamento sicura di Stripe per attivare questo piano, con addebito mensile. Hai già un piano a pagamento? Usa Gestisci fatturazione per passare a un altro piano."
+  },
+  "profileNote": "La tua foto, il nome, la password, l'aspetto, i suggerimenti e l'eliminazione dell'account sono disponibili nel tuo <link>Profilo</link>.",
+  "status": {
+    "ACTIVE": "A pagamento e attivo",
+    "CANCELED": "Annullato",
+    "PAST_DUE": "Pagamento in ritardo",
+    "TRIALING": "Prova gratuita",
+    "UNPAID": "Non pagato"
+  },
+  "title": "Fatturazione",
+  "yourPlan": "Il tuo piano: <b>{plan}</b>"
+}

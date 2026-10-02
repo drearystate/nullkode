@@ -7,6 +7,7 @@ import { tmpdir } from "node:os";
 import { nanoid } from "nanoid";
 import type { Project } from "@prisma/client";
 import { db } from "@/lib/db";
+import { enErrors, renderMsg, LocalizedError, type ErrMsg } from "@/lib/errors-i18n";
 import { decryptSecret, encryptSecret } from "@/lib/settings";
 import {
   nativeConfigFor,
@@ -86,12 +87,20 @@ const KEYSTORE_MAX_BYTES = 1024 * 1024;
 // (the server restarted mid-build) can be reported as stopped.
 const PROCESS_TAG = `${process.pid}:${Math.round(performance.timeOrigin)}`;
 
-/** A problem to show the user as is (with an HTTP status for the API). */
+/**
+ * A problem to show the user (with an HTTP status for the API). Given as a
+ * message (errors.apk.*), it is English in `message` and shown in the
+ * person's language through `msg`.
+ */
 export class NativeBuildError extends Error {
-  constructor(message: string, readonly status = 400) {
-    super(message);
+  readonly msg?: ErrMsg;
+  constructor(message: string | ErrMsg, readonly status = 400) {
+    super(typeof message === "string" ? message : renderMsg(message, enErrors()));
+    if (typeof message !== "string") this.msg = message;
   }
 }
+
+const apkMsg = (key: string, values?: ErrMsg["values"]): ErrMsg => ({ key: `apk.${key}`, ...(values ? { values } : {}) });
 
 function sdkDir(): string {
   return process.env.ANDROID_HOME || process.env.ANDROID_SDK_ROOT || "/opt/android-sdk";
@@ -130,7 +139,10 @@ export type BuildStatus = {
   /** SHA-256 of the certificate that signed a Google Play build. */
   signer?: string;
   owner?: string;
+  /** Why the build failed, in English (logs). */
   error?: string;
+  /** The same as a message (errors.json), for showing it in the owner's language. */
+  errorMsg?: ErrMsg;
   /**
    * Phone features this build declared ("camera", "microphone", "location",
    * "files"; see src/lib/native-permissions.ts). Missing on builds made
@@ -146,6 +158,8 @@ export type BuildStatus = {
    * one instead: why, and what to do (shown on the build card).
    */
   iconNote?: string;
+  /** iconNote as a message (errors.json), for showing it in the owner's language. */
+  iconNoteMsg?: ErrMsg;
 };
 
 function templateDir(): string {
@@ -190,7 +204,7 @@ export function manifestWithFeatures(manifest: string, features: readonly string
 export async function launcherIcons(
   icon: { png: Buffer; problem?: string },
   colors: { themeColor: string; backgroundColor: string },
-): Promise<{ files: Array<{ path: string; png: Buffer }>; background: string; note?: string }> {
+): Promise<{ files: Array<{ path: string; png: Buffer }>; background: string; note?: string; noteMsg?: ErrMsg }> {
   const themeColor = normalizeHexColor(colors.themeColor);
   let problem = icon.problem;
   let image = await decodeIconPng(icon.png);
@@ -198,7 +212,7 @@ export async function launcherIcons(
     problem ??= ICON_PROBLEM.unreadable;
     image = decodePng(defaultAppIconPng(512, themeColor));
   }
-  if (!image) throw new Error("Could not draw the app icon.");
+  if (!image) throw new LocalizedError(apkMsg("iconDrawFailed"));
   const background = iconEdgeColor(image) ?? normalizeHexColor(colors.backgroundColor, themeColor);
   const files: Array<{ path: string; png: Buffer }> = [];
   for (const [folder, scale] of ICON_DENSITIES) {
@@ -215,7 +229,13 @@ export async function launcherIcons(
       },
     );
   }
-  return { files, background, ...(problem ? { note: iconNote(problem) } : {}) };
+  const problemKey = problem ? (Object.keys(ICON_PROBLEM) as Array<keyof typeof ICON_PROBLEM>).find((k) => ICON_PROBLEM[k] === problem) : undefined;
+  return {
+    files,
+    background,
+    ...(problem ? { note: iconNote(problem) } : {}),
+    ...(problemKey ? { noteMsg: apkMsg("iconNote", { problem: apkMsg(`iconProblem.${problemKey}`) }) } : {}),
+  };
 }
 
 // Words Java doesn't allow as package names.
@@ -321,7 +341,8 @@ export async function getBuildStatus(
       ...status,
       status: "error",
       finishedAt: new Date().toISOString(),
-      error: "This build stopped because the server restarted. Please build again.",
+      error: enErrors()("apk.restarted"),
+      errorMsg: apkMsg("restarted"),
     };
     await writeStatus(buildDir(projectId, buildId), status).catch(() => {});
   }
@@ -480,7 +501,7 @@ export async function startAndroidBuild(
         ...status,
         status: "error",
         finishedAt: new Date().toISOString(),
-        error: (err as Error).message || "Build failed",
+        ...buildError(err),
       }).catch(() => {});
     })
     .finally(() => pruneBuilds(project.id).catch(() => {}));
@@ -553,6 +574,7 @@ async function runBuild(
     if (launcher.note) {
       // On the status now, so the finished (or failed) build keeps it.
       status.iconNote = launcher.note;
+      if (launcher.noteMsg) status.iconNoteMsg = launcher.noteMsg;
       await writeStatus(dir, status);
     }
 
@@ -608,7 +630,7 @@ async function runBuild(
       const aabSigner = await jarSigner(aabDst);
       const apkSigner = await apkSignerDigest(apkDst);
       if (!key || aabSigner !== key.sha256 || apkSigner !== key.sha256) {
-        throw new Error("The build was not signed with this app's upload key.");
+        throw new LocalizedError(apkMsg("notSignedWithKey"));
       }
       done.signer = key.sha256;
       done.files = {
@@ -673,10 +695,11 @@ async function runGradle(cwd: string, args: string[], logPath: string, extraEnv:
       log.end(() => {
         if (code === 0) return resolve();
         if (timedOut) {
-          return reject(new Error(`Build stopped after ${BUILD_TIMEOUT_MS / 60_000} minutes.`));
+          return reject(new LocalizedError(apkMsg("timedOut", { minutes: BUILD_TIMEOUT_MS / 60_000 })));
         }
         void gradleFailure(logPath).then((why) =>
-          reject(new Error(`Gradle exited with code ${code}. ${why ?? "See build.log for details."}`)),
+          // Gradle's own explanation stays as Gradle wrote it.
+          reject(new LocalizedError(apkMsg("gradleFailed", { code: String(code), why: why ?? apkMsg("seeBuildLog") }))),
         );
       });
     });
@@ -722,7 +745,7 @@ export type UploadKeyInfo = {
 /** Runs the JDK's keytool. Passwords are passed in environment variables (`-storepass:env`). */
 async function keytool(args: string[], secrets: Record<string, string> = {}): Promise<string> {
   const javaHome = await findJavaHome();
-  if (!javaHome) throw new NativeBuildError("No Java JDK found on the server. Install JDK 17 or set JAVA_HOME.", 503);
+  if (!javaHome) throw new NativeBuildError(apkMsg("noJdk"), 503);
   return new Promise((resolve, reject) => {
     execFile(
       join(javaHome, "bin", "keytool"),
@@ -756,7 +779,7 @@ async function keyFingerprints(path: string, alias: string, storePassword: strin
 async function jarSigner(path: string): Promise<string> {
   const pem = await keytool(["-printcert", "-rfc", "-jarfile", path]);
   const first = /-----BEGIN CERTIFICATE-----[\s\S]+?-----END CERTIFICATE-----/.exec(pem);
-  if (!first) throw new Error("The app bundle is not signed.");
+  if (!first) throw new LocalizedError(apkMsg("bundleNotSigned"));
   return new X509Certificate(first[0]).fingerprint256;
 }
 
@@ -772,7 +795,7 @@ async function apkSignerDigest(path: string): Promise<string> {
     );
   });
   const hex = /certificate SHA-256 digest: ([0-9a-f]{64})/i.exec(out)?.[1];
-  if (!hex) throw new Error("The APK is not signed.");
+  if (!hex) throw new LocalizedError(apkMsg("apkNotSigned"));
   return hex.toUpperCase().match(/../g)!.join(":");
 }
 
@@ -800,23 +823,17 @@ export async function uploadKeyInfo(projectId: string): Promise<UploadKeyInfo | 
 async function loadUploadKey(project: Pick<Project, "id" | "name">, opts: { create: boolean }): Promise<UploadKey> {
   const row = await db.androidSigningKey.findUnique({ where: { projectId: project.id } });
   if (!row) {
-    if (!opts.create) throw new NativeBuildError("This app has no upload key yet.", 404);
+    if (!opts.create) throw new NativeBuildError(apkMsg("noUploadKey"), 404);
     return createUploadKey(project);
   }
   const path = join(signingDir(project.id), row.file);
   if (!(await exists(path))) {
-    throw new NativeBuildError(
-      "This app's upload key is missing from the server. Import your key backup under \"Your upload key\" to keep updating your app on Google Play.",
-      409,
-    );
+    throw new NativeBuildError(apkMsg("keyMissing"), 409);
   }
   const storePassword = decryptSecret(row.storePassword);
   const keyPassword = decryptSecret(row.keyPassword) || storePassword;
   if (!storePassword) {
-    throw new NativeBuildError(
-      "The server can't unlock this app's upload key (its AUTH_SECRET changed). Import your key backup under \"Your upload key\".",
-      409,
-    );
+    throw new NativeBuildError(apkMsg("keyLocked"), 409);
   }
   return { path, alias: row.keyAlias, storePassword, keyPassword, sha256: row.sha256 };
 }
@@ -888,8 +905,8 @@ async function nextVersionCode(projectId: string, floor: number): Promise<number
     WHERE "projectId" = ${projectId}
     RETURNING "lastVersionCode"`;
   const code = rows[0]?.lastVersionCode;
-  if (!code) throw new NativeBuildError("This app has no upload key yet.", 404);
-  if (code > MAX_VERSION_CODE) throw new NativeBuildError("The build number is too high for Google Play.", 409);
+  if (!code) throw new NativeBuildError(apkMsg("noUploadKey"), 404);
+  if (code > MAX_VERSION_CODE) throw new NativeBuildError(apkMsg("versionTooHigh"), 409);
   return code;
 }
 
@@ -903,12 +920,12 @@ export async function importUploadKey(
   project: Pick<Project, "id" | "name">,
   input: { data: Buffer; alias?: string; storePassword: string; keyPassword?: string; replace?: boolean },
 ): Promise<UploadKeyInfo> {
-  if (!input.data.length) throw new NativeBuildError("Choose your keystore file (.jks or .keystore).");
-  if (input.data.length > KEYSTORE_MAX_BYTES) throw new NativeBuildError("That file is too big to be a keystore.");
-  if (!input.storePassword) throw new NativeBuildError("Type the keystore password.");
+  if (!input.data.length) throw new NativeBuildError(apkMsg("chooseKeystore"));
+  if (input.data.length > KEYSTORE_MAX_BYTES) throw new NativeBuildError(apkMsg("keystoreTooBig"));
+  if (!input.storePassword) throw new NativeBuildError(apkMsg("typeStorePassword"));
   const existing = await db.androidSigningKey.findUnique({ where: { projectId: project.id } });
   if (existing && !input.replace) {
-    throw new NativeBuildError("This app already has an upload key. Tick \"Replace my current key\" to use this one instead.", 409);
+    throw new NativeBuildError(apkMsg("alreadyHasKey"), 409);
   }
 
   const dir = await privateDir(project.id);
@@ -930,13 +947,11 @@ export async function importUploadKey(
     let alias = (input.alias ?? "").trim();
     if (!alias) {
       if (keys.length !== 1) {
-        throw new NativeBuildError(
-          keys.length ? `This file has ${keys.length} keys. Type the alias of the one Google Play knows.` : "This file has no signing key in it.",
-        );
+        throw new NativeBuildError(keys.length ? apkMsg("severalKeys", { count: keys.length }) : apkMsg("noKeyInFile"));
       }
       alias = keys[0];
     } else if (!keys.some((k) => k.toLowerCase() === alias.toLowerCase())) {
-      throw new NativeBuildError(`There is no key called "${alias}" in this file.${keys.length ? ` It has: ${keys.join(", ")}.` : ""}`);
+      throw new NativeBuildError(keys.length ? apkMsg("noSuchAliasList", { alias, keys: keys.join(", ") }) : apkMsg("noSuchAlias", { alias }));
     }
     alias = keys.find((k) => k.toLowerCase() === alias.toLowerCase()) ?? alias;
 
@@ -983,14 +998,22 @@ export async function importUploadKey(
   }
 }
 
-function keytoolProblem(message: string, keyStep = false): string {
+function keytoolProblem(message: string, keyStep = false): ErrMsg {
   if (/password was incorrect|tampered|Cannot recover key|Given final block not properly padded|mac check failed/i.test(message)) {
-    return keyStep ? "The key password is wrong." : "The keystore password is wrong.";
+    return apkMsg(keyStep ? "wrongKeyPassword" : "wrongStorePassword");
   }
   if (/Invalid keystore format|Unrecognized keystore format|not a keystore|DerInputStream|toDerInputStream/i.test(message)) {
-    return "This file isn't a keystore. Choose the .jks or .keystore file you sign your app with.";
+    return apkMsg("notKeystore");
   }
-  return "This keystore can't be used. Check the file and the passwords.";
+  return apkMsg("keystoreUnusable");
+}
+
+/** A failed build's error for status.json: English, and the message when there is one. */
+function buildError(err: unknown): Pick<BuildStatus, "error" | "errorMsg"> {
+  const msg = (err as { msg?: ErrMsg } | null)?.msg;
+  const text = err instanceof Error ? err.message : "";
+  if (msg) return { error: text, errorMsg: msg };
+  return text ? { error: text } : { error: enErrors()("apk.buildFailed"), errorMsg: apkMsg("buildFailed") };
 }
 
 /** The owner's backup: the keystore file and a note with its passwords. */

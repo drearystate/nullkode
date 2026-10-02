@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Monitor, Moon, Sun } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export type ThemePref = "light" | "dark" | "system";
 const COOKIE = "nk-theme";
@@ -44,13 +45,14 @@ function useThemeState() {
 /** One button: switches between light and dark. */
 export function ThemeToggle({ signedIn = false, className = "" }: { signedIn?: boolean; className?: string }) {
   const state = useThemeState();
+  const t = useTranslations("nav");
   const next = state?.shown === "light" ? "dark" : "light";
   return (
     <button
       type="button"
       onClick={() => void setTheme(next, { signedIn })}
-      aria-label={state ? `Switch to ${next} mode` : "Switch light or dark mode"}
-      data-help="Switch between light and dark. Your choice is remembered; you can also pick “Match my device” in your profile."
+      aria-label={state ? t(next === "light" ? "switchToLight" : "switchToDark") : t("switchTheme")}
+      data-help={t("themeHelp")}
       className={`studio-top-link ${className}`}
     >
       {state?.shown === "light" ? <Moon size={15} /> : <Sun size={15} />}
@@ -61,13 +63,14 @@ export function ThemeToggle({ signedIn = false, className = "" }: { signedIn?: b
 /** Light / Dark / Match my device, for the profile page. */
 export function ThemeChoice({ signedIn = true }: { signedIn?: boolean }) {
   const state = useThemeState();
+  const t = useTranslations("account");
   const options: Array<{ value: ThemePref; label: string; icon: typeof Sun }> = [
-    { value: "light", label: "Light", icon: Sun },
-    { value: "dark", label: "Dark", icon: Moon },
-    { value: "system", label: "Match my device", icon: Monitor },
+    { value: "light", label: t("theme.light"), icon: Sun },
+    { value: "dark", label: t("theme.dark"), icon: Moon },
+    { value: "system", label: t("theme.system"), icon: Monitor },
   ];
   return (
-    <div role="radiogroup" aria-label="Appearance" className="flex flex-wrap gap-2">
+    <div role="radiogroup" aria-label={t("appearance.title")} className="flex flex-wrap gap-2">
       {options.map(({ value, label, icon: Icon }) => {
         const on = state?.pref === value;
         return (

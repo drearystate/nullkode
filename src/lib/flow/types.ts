@@ -426,6 +426,12 @@ export type RunContext = {
   warnings: string[];
   /** Set when only people with a role (the app's staff) can run the flow. */
   staffOnly?: boolean;
+  /**
+   * About the request that started the run: `lang` is the visitor's
+   * language (x-nk-lang from a multilingual app's pages; else the app's
+   * default). Templates read it as {{request.lang}}.
+   */
+  request?: { lang: string };
 };
 
 export type RunResult = {

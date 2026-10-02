@@ -1,0 +1,41 @@
+{
+  "home": "{app} home",
+  "workspace": "Workspace",
+  "accountNavigation": "Account navigation",
+  "myApps": "My apps",
+  "myAppsHelp": "All your apps in one place. Open one to keep working on it, or start a new one.",
+  "designer": "Designer",
+  "designerHelp": "Describe a website in your own words and the AI designs it, then keeps changing it as you ask.",
+  "resellerDashboard": "Reseller dashboard",
+  "resellerHelp": "Manage your clients, your brand, your prices and your web address.",
+  "admin": "Admin",
+  "adminHelp": "Settings for the whole platform: branding, AI, email, payments, users and resellers.",
+  "administration": "Administration",
+  "help": "Help",
+  "helpHelp": "Step-by-step guides. This opens the one for the screen you're on.",
+  "accountMenu": "Account menu",
+  "yourAccount": "Your account",
+  "profile": "Profile",
+  "billing": "Billing & plan",
+  "helpGuides": "Help & guides",
+  "logOut": "Log out",
+  "switchToLight": "Switch to light mode",
+  "switchToDark": "Switch to dark mode",
+  "switchTheme": "Switch light or dark mode",
+  "themeHelp": "Switch between light and dark. Your choice is remembered; you can also pick “Match my device” in your profile.",
+  "impersonation": {
+    "viewingClient": "You're viewing <b>{name}</b>'s workspace. Changes you make happen in their account.",
+    "impersonating": "Impersonating",
+    "signedInAs": "· signed in as {email}",
+    "backToClients": "Back to your clients",
+    "backToClientsHelp": "Leaves this client's workspace and takes you back to your client list. Changes you made stay in their account.",
+    "stop": "Stop impersonating",
+    "stopHelp": "Stops acting as this person and takes you back to Admin. Changes you made stay in their account."
+  },
+  "helpTips": {
+    "label": "Help tips",
+    "on": "ON",
+    "off": "OFF",
+    "help": "Turns these helper notes on or off. When they're on, hold your mouse over any button to learn what it does. You can also change this in Settings."
+  }
+}

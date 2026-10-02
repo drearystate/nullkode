@@ -1,0 +1,788 @@
+{
+  "activity": {
+    "all": "所有运行记录",
+    "allHelp": "显示此自动化最近的所有运行记录。",
+    "empty": "还没有记录。有人在你的应用中使用此功能，或你点击“测试运行”后，记录会显示在这里。",
+    "filterLabel": "显示哪些运行记录",
+    "intro": "查看此流程每次运行时发生的情况。",
+    "justNow": "刚刚",
+    "last24h": "过去 24 小时：共 {total, plural, one {# 次运行} other {# 次运行}}，其中 {problems} 次出现问题。",
+    "loadError": "无法加载活动记录。",
+    "ms": "{n} 毫秒",
+    "noProblems": "没有问题。最近的运行记录都已顺利完成。",
+    "nothingSent": "此次运行没有发送任何内容。",
+    "outcome": {
+      "answered": "已回复",
+      "failed": "失败",
+      "ok": "已顺利完成",
+      "warning": "已完成，但有问题"
+    },
+    "outcomeHelp": {
+      "answered": "已回复：系统回复了否定结果，例如密码错误或缺少信息。这通常是预期情况，并非故障。",
+      "failed": "失败：此运行在某个步骤出错并停止，未能完成。",
+      "ok": "已顺利完成：每个步骤都正常运行。",
+      "warning": "已完成，但有问题：运行已完成，但过程中出了点状况，例如邮件未能发送。"
+    },
+    "problemsOnly": "仅显示问题",
+    "problemsOnlyHelp": "仅显示失败或出现问题的运行记录，例如未能发送的邮件。",
+    "refresh": "刷新活动记录",
+    "refreshHelp": "再次检查是否有新的运行记录。",
+    "s": "{n} 秒",
+    "source": {
+      "event": "来自你的应用",
+      "live": "来自你的应用",
+      "schedule": "按计划运行",
+      "test": "测试运行",
+      "test-submission": "测试提交"
+    },
+    "title": "活动记录",
+    "titleHelp": "查看此自动化每次运行的情况：是否成功、由什么启动，以及收到哪些内容。可帮助你发现问题。",
+    "took": "耗时 {duration}",
+    "whatTheySent": "他们发送的内容",
+    "whatWasSent": "发送的内容",
+    "whatWasSentHelp": "此运行收到的信息，例如有人在表单中填写的内容。"
+  },
+  "api": {
+    "aiTooOften": "此流程使用了 AI，因此最多每 {minutes} 分钟运行一次。这样可以避免定时运行耗尽 AI 使用额度。",
+    "chooseWhen": "选择运行时间。",
+    "invalidInput": "输入无效",
+    "notFound": "未找到"
+  },
+  "catalog": {
+    "aggregate": {
+      "help": "统计数据表中的记录数，或汇总某一列的数值，例如注册人数或销售总额。后续步骤可以使用结果。",
+      "label": "统计或汇总记录"
+    },
+    "ai_prompt": {
+      "help": "向 AI 提出问题或交代任务，例如总结一条消息。后续步骤可以使用 AI 的回复。每次运行都会计入你的 AI 使用额度。",
+      "label": "询问 AI"
+    },
+    "branch": {
+      "help": "检查某项条件，并将自动化流程分成两条路径：条件成立时执行一条，不成立时执行另一条。",
+      "label": "满足条件就这样，否则那样"
+    },
+    "bulk_delete": {
+      "help": "一次性永久删除数据表中所有符合条件的行。此操作无法撤销。",
+      "label": "删除多行"
+    },
+    "bulk_insert": {
+      "help": "将前面步骤生成的列表一次性添加到数据表中，作为多行记录。",
+      "label": "添加多行"
+    },
+    "bulk_update": {
+      "help": "一次性修改数据表中所有符合条件的行。",
+      "label": "修改多行"
+    },
+    "check_role": {
+      "help": "检查已登录用户是否拥有特定角色，例如管理员。接着使用满足条件就这样，否则那样这一步来决定后续操作。",
+      "label": "检查用户权限"
+    },
+    "clear_session": {
+      "help": "让用户在此设备上退出登录。",
+      "label": "让用户退出登录"
+    },
+    "custom_js": {
+      "help": "适用于开发者：运行你编写的一小段 JavaScript 代码。只有在其他步骤都无法满足需求时才使用。",
+      "label": "自定义代码"
+    },
+    "delay": {
+      "help": "暂停自动化流程几秒钟（最多 60 秒），然后运行下一步。",
+      "label": "等待"
+    },
+    "delete": {
+      "help": "永久删除数据表中符合条件的记录。此操作无法撤销。",
+      "label": "删除记录"
+    },
+    "email": {
+      "help": "发送邮件，例如向客户发送订单确认，或给自己发送提醒。",
+      "label": "发送邮件"
+    },
+    "get_session": {
+      "help": "查看当前是否有人登录；如果有，则获取其姓名、邮箱和角色，供后续步骤使用。",
+      "label": "查看当前登录用户"
+    },
+    "hash_password": {
+      "help": "将密码转换为无法直接读取的形式，以便安全保存。保存新账号的密码前请使用此步骤；原始密码无法还原。",
+      "label": "保护密码"
+    },
+    "http_request": {
+      "help": "联系其他网站或在线服务，以获取或传递信息。后续步骤可以使用对方的回复。",
+      "label": "访问其他网站"
+    },
+    "insert": {
+      "help": "在其中一个数据表中保存一条新记录（新行），例如有人在表单中填写的信息。",
+      "label": "添加记录"
+    },
+    "lookup": {
+      "help": "对前面步骤找到的每条记录，从另一个数据表中获取匹配的记录，例如为每笔订单添加客户信息。",
+      "label": "查找关联记录"
+    },
+    "math": {
+      "help": "根据两个值计算结果：加、减、乘、除或求余数。后续步骤可以使用计算结果。",
+      "label": "计算数值"
+    },
+    "parse_json": {
+      "help": "将包含结构化数据的文本（通常由其他网站发送）转换为单独的值，供后续步骤选择使用。",
+      "label": "从文本中读取数据"
+    },
+    "query": {
+      "help": "在其中一个数据表中查找已保存的记录（数据表就像电子表格），也可以只查找符合条件的记录。后续步骤可以使用查找结果。",
+      "label": "查找记录"
+    },
+    "response": {
+      "help": "向启动自动化流程的页面或表单发送回复，例如成功消息或查找到的记录。",
+      "label": "回复"
+    },
+    "send_push": {
+      "help": "向所有已开启应用通知的人发送通知，通知会显示在他们的手机或电脑上。",
+      "label": "发送通知"
+    },
+    "set": {
+      "help": "按你选择的名称保存一个值，供后续步骤重复使用，就像为本次运行留一张便签。",
+      "label": "记住一个值"
+    },
+    "set_session": {
+      "help": "让用户在此设备上登录，这样应用在用户下次访问时就能记住他们。",
+      "label": "让用户登录"
+    },
+    "sheets_append": {
+      "help": "向你已连接的 Google 表格添加一行新内容，例如记录每次提交的表单。仅适用于应用有权编辑的表格，不适用于只读表格。",
+      "label": "向 Google 表格添加一行"
+    },
+    "sheets_read": {
+      "help": "读取你已连接的 Google 表格中的行（最多 1,000 行），供后续步骤使用。",
+      "label": "读取 Google 表格"
+    },
+    "trigger": {
+      "help": "自动化流程从这里开始：当应用中的页面或表单使用它时，或按你设置的时间表启动。将它连接到你希望执行的第一步。",
+      "label": "应用调用时"
+    },
+    "update": {
+      "help": "修改数据表中已保存的记录。选择要修改的记录，以及它们的新值。",
+      "label": "修改记录"
+    },
+    "verify_password": {
+      "help": "检查用户输入的密码是否与已保存的加密密码匹配。用户登录时请使用此步骤。",
+      "label": "验证密码"
+    }
+  },
+  "categories": {
+    "ai": "AI",
+    "auth": "账户",
+    "data": "已保存的数据",
+    "integration": "发送与连接",
+    "logic": "判断与数值",
+    "response": "完成",
+    "trigger": "开始"
+  },
+  "describe": {
+    "anEmailOff": "未发送邮件，因为尚未设置邮件功能",
+    "answered": "已回答“{message}”。",
+    "answeredCode": "已通过代码 {status} 作答。",
+    "didAndNote": "{did}；{note}。",
+    "done": {
+      "ai": "已向 AI 提问",
+      "deleted": "已从 {table} 中删除",
+      "emailed": "已发送邮件给 {address}",
+      "http": "已联系其他服务",
+      "saved": "已保存到 {table}",
+      "sentEmail": "已发送邮件",
+      "sentPush": "已发送通知",
+      "sheetsAppend": "已在 Google 表格中添加一行",
+      "signedIn": "已让某人登录",
+      "signedOut": "已让某人退出登录",
+      "updated": "已更新 {table}"
+    },
+    "emailNotSent": "未发送邮件（{reason}）",
+    "emailOff": "未发送邮件，因为尚未设置邮件功能",
+    "failed": {
+      "ai": "AI 步骤没有收到回复",
+      "delete": "无法从 {table} 中删除",
+      "didntFinish": "未完成",
+      "email": "无法发送邮件",
+      "http": "无法连接到其他服务",
+      "push": "无法发送通知",
+      "read": "无法读取 {table}",
+      "save": "无法保存到 {table}",
+      "stoppedAt": "在“{label}”处停止",
+      "update": "无法更新 {table}"
+    },
+    "failedOnly": "{failed}.",
+    "failedWhy": "{failed}：{why}",
+    "failedWhyPeriod": "{failed}：{why}。",
+    "noProblems": "顺利完成，没有遇到问题。",
+    "sent": "已发送",
+    "sentence": "{text}。",
+    "signUps": "注册信息",
+    "yourData": "你的数据"
+  },
+  "editor": {
+    "addStep": "添加步骤",
+    "addStepHelp": "自动化可以执行的操作。点击一项即可添加，然后从右侧边缘拖动到下一步，设置它们的运行顺序。",
+    "deleteStep": "删除步骤",
+    "deleteStepHelp": "删除此步骤及其连接。也可以按键盘上的 Delete 键。",
+    "emptyBody": "选择一个步骤来调整它的功能。从左侧添加更多步骤，再按运行顺序将它们连接起来。",
+    "emptyTitle": "每个步骤都有用途。",
+    "flow": "流程",
+    "handleFalse": "下方圆点：从这里拖到条件不成立时要运行的步骤。",
+    "handleIn": "上一步连接到这里。",
+    "handleOut": "从这里拖到下一步，选择此步骤之后要运行的步骤。",
+    "handleTrue": "上方圆点：从这里拖到条件成立时要运行的步骤。",
+    "pausedTest": "此自动化已暂停。请先开启再进行测试。",
+    "problemsBadge": "过去 24 小时内有 {count} 个问题",
+    "running": "正在运行…",
+    "saveFailed": "保存失败",
+    "saved": "已保存",
+    "searchHelp": "输入“邮件”或“保存”等关键词，快速查找步骤。",
+    "searchLabel": "搜索流程步骤",
+    "searchPlaceholder": "查找步骤…",
+    "tabActivity": "活动记录",
+    "tabActivityHelp": "查看每次自动化运行的情况、是否成功，以及出错时用户提交的内容。",
+    "tabSchedule": "计划",
+    "tabScheduleHelp": "选择自动化是在应用使用时运行，还是按设定时间自动运行，例如每天早上。",
+    "tabSteps": "步骤",
+    "tabStepsHelp": "创建自动化：添加步骤，并按运行顺序连接它们。",
+    "tabsLabel": "流程视图",
+    "testRun": "测试运行",
+    "testRunHelp": "现在使用最新保存的更改运行一次此自动化，并在下方显示结果。它会实际执行其中的步骤（保存、发送邮件等），运行记录也会显示在活动记录中。",
+    "webAddress": "网址（供开发者使用）",
+    "webAddressHelp": "其他服务或你自己的代码可以通过这个网址启动此自动化。只有在连接工作室以外的服务时才需要它。"
+  },
+  "enabledSwitch": {
+    "failed": "无法更改，请重试。",
+    "help": "暂停后，它不会运行，应用中使用它的功能（如表单）也会报错。更改会立即在正式应用中生效，无需发布。",
+    "helpScheduled": "暂停后，定时运行会停止，应用中使用它的功能也会报错。更改会立即生效，无需发布。",
+    "label": "运行此自动化",
+    "on": "开启",
+    "paused": "已暂停"
+  },
+  "inspector": {
+    "add": "添加",
+    "addCondition": "添加条件",
+    "addConditionHelp": "添加另一条规则。记录必须符合所有规则才会计入。",
+    "addField": "添加字段",
+    "addFieldHelp": "添加另一行，包含一个名称和一个值。",
+    "advanced": "高级",
+    "agg": {
+      "avg": "计算一列的平均值",
+      "count": "统计记录数",
+      "max": "查找一列中的最大值",
+      "min": "查找一列中的最小值",
+      "sum": "合计一列"
+    },
+    "aggregateEmptyHint": "留空则包含所有行。多个条件必须全部符合。",
+    "biggestFirst": "结果从大到小排列",
+    "body": "请求正文",
+    "bodyEmpty": "添加要在请求正文中发送的字段。",
+    "bodyHelp": "要发送的信息。每行包含一个名称和一个值；对方服务的指南会说明需要哪些名称。",
+    "branchHint": "将顶部圆点连接到条件为真时的后续操作，将底部圆点连接到条件不成立时的后续操作。",
+    "bulkInsertHint": "如果该步骤未生成列表，或列表中的某项 ID 已存在于表中，此步骤就会报错并停止。",
+    "byAsc": "按 {column} 排序，从 A 到 Z",
+    "byDesc": "按 {column} 排序，从 Z 到 A",
+    "choose": "— 选择 —",
+    "clearSession": "让当前设备上使用应用的人退出登录，下次使用时需要重新登录。无需设置。",
+    "clearSessionHelp": "此步骤没有设置项。它会移除应用保存在用户设备上的登录信息。",
+    "closeHelp": "关闭此列表，不添加任何内容。",
+    "columnHelp": "要检查的列，例如邮箱或状态。",
+    "deleteHelp": "移除此步骤及其在自动化流程中的连接。此操作无法撤销，只能重新添加。",
+    "deleteNeedsCondition": "必须设置条件才能删除，否则此步骤会失败。",
+    "fields": {
+      "aiPrompt": {
+        "help": "给 AI 的问题或任务。插入值可以加入用户消息等内容。",
+        "label": "提示词"
+      },
+      "aiSystem": {
+        "help": "每次都适用的 AI 背景说明，例如“用一句友好的话回答”或“你在一家面包店工作”。",
+        "label": "系统指令（可选）"
+      },
+      "dataSource": {
+        "help": "数据的存放位置。大多数应用只使用内置数据库；只有在你自己连接了其他数据源时，才选择其他来源。",
+        "label": "数据来源"
+      },
+      "emailFrom": {
+        "help": "邮件显示的发件地址。留空则使用服务器的默认发件地址。",
+        "label": "发件人（可选）"
+      },
+      "emailMessage": {
+        "help": "邮件正文。插入值可以让内容更贴合收件人，例如对方的姓名或订单详情。",
+        "label": "邮件内容"
+      },
+      "emailSubject": {
+        "help": "邮件的主题行。你可以插入值，例如订单号。",
+        "label": "主题"
+      },
+      "emailTo": {
+        "help": "邮件的接收对象。输入邮箱地址，或插入表单中的地址，例如用户自己的邮箱。多个地址请用逗号分隔。",
+        "label": "收件人"
+      },
+      "firstValue": {
+        "help": "第一个数字。直接输入，或插入之前步骤中的数字。",
+        "label": "第一个值"
+      },
+      "groupBy": {
+        "help": "按此列的值分别给出结果，比如统计每种状态的数量。要只显示一个数字，请选择“总计”。",
+        "label": "按此列分组"
+      },
+      "groupLimit": {
+        "help": "最多返回的分组数量，上限为 1,000。超出的分组不会显示。",
+        "label": "最多返回的分组数"
+      },
+      "hashInput": {
+        "help": "要转换成哈希值的密码，通常是用户在注册表单中输入的密码。只保存哈希结果，不要保存原始密码。",
+        "label": "要哈希处理的密码"
+      },
+      "is": {
+        "help": "选择比较两个值的方式。“包含”会查找其中是否有这段文字；“存在”只检查第一个值是否为空。",
+        "label": "条件"
+      },
+      "javascript": {
+        "help": "输入你的代码。使用 vars.name 获取前面步骤的结果，使用 trigger.name 获取收到的数据。返回的内容会保存下来，供后续步骤使用。",
+        "label": "JavaScript"
+      },
+      "jsonInput": {
+        "help": "以 JSON 格式保存数据的文本。JSON 是其他网站常用的数据格式，通常是“调用其他网站”步骤的返回结果。如果文本格式不正确，此步骤会失败。",
+        "label": "要解析的 JSON 文本"
+      },
+      "lookupAs": {
+        "help": "为每条记录添加的详情命名，比如 customer。只有一个匹配项时，会保存为单条记录；有多个匹配项时，会保存为最多包含 10 条记录的列表。",
+        "label": "将详情保存为"
+      },
+      "lookupDataSource": {
+        "help": "另一份列表所在的位置。大多数应用只有自己的内置数据库。",
+        "label": "数据源"
+      },
+      "lookupIn": {
+        "help": "要从中获取详情的记录列表，比如“客户”。",
+        "label": "查找范围"
+      },
+      "lookupMatch": {
+        "help": "此列表中必须与上方的值相同的列，通常是 id。",
+        "label": "用于匹配的列"
+      },
+      "lookupPointer": {
+        "help": "这些记录中存放其他记录 ID 的列，比如订单中的 customer_id。此列为空的记录会保持不变。",
+        "label": "指向其他记录的列"
+      },
+      "lookupSource": {
+        "help": "由前面的步骤找到的列表，比如“查找记录”步骤找到的订单。如果该步骤没有提供列表，此步骤会报错并停止。",
+        "label": "要补充详情的记录"
+      },
+      "method": {
+        "help": "选择请求类型。GET 用于获取信息，POST 用于发送新信息，PUT 和 PATCH 用于修改信息，DELETE 用于删除信息。请查看对方服务的指南，了解该使用哪种方式。",
+        "label": "请求方式"
+      },
+      "ofColumn": {
+        "help": "要使用的列，比如金额或价格。“求和”和“平均值”只能用于数字列。",
+        "label": "此列"
+      },
+      "operator": {
+        "help": "选择对两个数字进行什么运算。取余是除法后剩下的数（7 除以 2 的余数是 1）。除数为 0 时，结果为 0。",
+        "label": "运算符"
+      },
+      "orderGroups": {
+        "help": "设置结果中各组的排列顺序，比如让数量最多的状态排在最上面。",
+        "label": "分组排序"
+      },
+      "plainPassword": {
+        "help": "用户刚刚在登录表单中输入的密码。",
+        "label": "用户输入的密码"
+      },
+      "pushMessage": {
+        "help": "标题下方的文字。尽量简短，因为手机会截断过长的消息。",
+        "label": "消息"
+      },
+      "pushTitle": {
+        "help": "通知中加粗显示的第一行。你可以插入值，例如之前步骤中的姓名。",
+        "label": "标题"
+      },
+      "pushUrl": {
+        "help": "有人轻点通知时要打开的应用页面，例如 /menu。留空则打开应用首页。",
+        "label": "轻点后打开此页面（可选）"
+      },
+      "roleNeeded": {
+        "help": "用户必须拥有的角色，比如管理员或经理。大写字母不影响匹配。",
+        "label": "所需角色"
+      },
+      "roleSource": {
+        "help": "留空时，会使用前面“当前登录用户是谁”步骤获取的已登录用户角色。只有当前面的步骤将角色保存为其他名称时，才需要更改此项。",
+        "label": "角色所在位置（可选）"
+      },
+      "rowsToAdd": {
+        "help": "由前面的步骤生成的列表，比如“查找记录”步骤找到的记录。每一项都会变成一行新数据，因此其中的名称必须与此数据表的列名一致。",
+        "label": "要添加的行"
+      },
+      "secondValue": {
+        "help": "第二个数字。直接输入，或插入之前步骤中的数字。",
+        "label": "第二个值"
+      },
+      "seconds": {
+        "help": "下一步开始前要暂停多久。使用应用的人也要等待，所以时间尽量设短一些。",
+        "label": "秒数（0-60）"
+      },
+      "sheetSource": {
+        "help": "连接到应用的 Google 表格。如果列表为空，请先前往应用“数据”页面的“高级”设置中添加一个数据源。",
+        "label": "Google 表格数据源"
+      },
+      "sheetTab": {
+        "help": "电子表格底部标签的名称，必须与显示的名称完全一致，例如 Sheet1。",
+        "label": "工作表标签名称"
+      },
+      "stepName": {
+        "help": "为此步骤命名，名称会显示在流程图中的步骤框上，方便区分。不会改变步骤的作用。",
+        "label": "步骤名称"
+      },
+      "storedHash": {
+        "help": "用户注册时保存的密码哈希值，通常来自“查找记录”步骤找到的账户。",
+        "label": "已保存的哈希值"
+      },
+      "table": {
+        "help": "要使用哪个数据表。数据表就像电子表格，每行是一条记录，比如一笔订单或一次注册。",
+        "label": "记录列表"
+      },
+      "thisValue": {
+        "help": "要拿来比较的内容。直接输入文字（不要加引号），或插入一个值。“等于”要求完全一致，包括大小写。",
+        "label": "此值"
+      },
+      "url": {
+        "help": "要联系的服务的网址，开头为 https://。你可以在网址中插入值。",
+        "label": "网址"
+      },
+      "userId": {
+        "help": "要登录的账户 ID，通常来自“查找记录”步骤找到的记录。之后，应用会记住此用户，直到他们退出登录。",
+        "label": "用户 ID"
+      },
+      "value": {
+        "help": "要保存的内容。可以输入文字、插入表单或之前步骤中的值，或将两者组合起来。",
+        "label": "值"
+      },
+      "variableName": {
+        "help": "保存此值时使用的名称。之后的步骤可以从“插入”列表中选择它。",
+        "label": "变量名称"
+      },
+      "whatToWorkOut": {
+        "help": "“计数”会统计记录数量。“求和”“平均值”“最小值”和“最大值”会对一列进行计算，比如金额列的总和。",
+        "label": "要计算什么"
+      },
+      "whenThisValue": {
+        "help": "要检查的值，通常来自表单或之前的步骤。点击“插入”来选择。",
+        "label": "当此值"
+      }
+    },
+    "fromRequest": "来自请求",
+    "fromRequestHelp": "“请求”是启动此自动化流程时页面或表单发送的内容。输入字段名称（如 email），然后按 Enter 或点击“添加”。",
+    "fromStepHelp": "添加此较早步骤生成的内容，例如找到的记录或获取的答案。",
+    "fromSteps": "来自之前的步骤",
+    "groupedResult": "结果是一个列表，每个 {column} 对应一行，包含其 {column} 和数值。",
+    "helper": {
+      "date": "今天的日期",
+      "dateHelp": "此步骤运行当天的日期，不含时间。",
+      "now": "当前日期和时间",
+      "nowHelp": "此步骤运行时的准确日期和时间。",
+      "uuid": "随机 ID",
+      "uuidHelp": "每次生成一个新的随机代码，可用作唯一参考编号。"
+    },
+    "helpers": "辅助项",
+    "insert": "插入",
+    "insertHelp": "添加一个会随每次运行而变化的值：表单提交的内容、之前步骤的结果，或今天的日期。",
+    "insertLabel": "插入值",
+    "insertTitle": "插入请求或之前步骤中的值",
+    "insertValue": "插入值",
+    "insertValuesHelp": "设置新记录各列的内容。输入值，或从表单中插入值。记录 ID 和添加日期会自动填入。",
+    "js": {
+      "available": "可用值",
+      "availableHelp": "可在代码中使用的前序步骤结果。点击即可将其添加到光标所在位置。",
+      "chipHint": "点击标签即可将其插入光标所在位置。",
+      "examples": "示例",
+      "examplesHelp": "适用于常见任务的现成代码片段。点击即可将其添加到光标所在位置。",
+      "headsUp": "请注意",
+      "how": "使用方法",
+      "how1": "你的代码会在服务器的安全沙盒中运行。它无法联网、访问文件系统，也不能使用 <code>{require}</code> 或 <code>{import}</code>，还无法访问其他流程。",
+      "how2": "从 <code>{read}</code> 读取上一步的输出。将值赋给 <code>{write}</code>，创建后续步骤可读取的变量。你通过 <code>{return}</code> 返回的内容会保存到下方显示的输出变量中。",
+      "how3": "<code>{trigger}</code> 是传入请求的只读副本。控制台日志会被丢弃。",
+      "how4": "脚本会在 3 秒后停止。如果代码出错，整个流程都会失败，并显示错误信息。",
+      "howHelp": "你的代码能做什么、不能做什么，以及它的限制，比如 3 秒后停止。",
+      "insertTrigger": "插入请求数据",
+      "noSteps": "还没有前序步骤 — 请将此步骤连接到能生成值的步骤之后。",
+      "syntax": "在代码中直接使用 <code>{vars}</code> 和 <code>{trigger}</code>，不要使用其他步骤中的 <code>{template}</code> 语法。"
+    },
+    "math": {
+      "add": "加 (+)",
+      "divide": "除 (÷)",
+      "multiply": "乘 (×)",
+      "remainder": "取余 (%)",
+      "subtract": "减 (−)"
+    },
+    "newRowValues": "新行的值",
+    "noColumns": "此表还没有列。请先向表中添加字段。",
+    "noConditions": "没有条件 — 将匹配所有行。",
+    "noEditableColumns": "此表没有可编辑的列。",
+    "noSteps": "之前的步骤尚未生成任何值。",
+    "oneTotal": "合计一个总数",
+    "ops": {
+      "contains": "包含",
+      "eq": "等于",
+      "exists": "存在（不为空）",
+      "gt": "大于",
+      "gte": "大于或等于",
+      "lt": "小于",
+      "lte": "小于或等于",
+      "ne": "不等于"
+    },
+    "outputHelp": "可选：此步骤结果的保存名称。只有当两个步骤的名称会重复时才需要更改，例如两个“查找记录”步骤。",
+    "outputName": "在其他位置引用此步骤结果时使用的名称。",
+    "pickTable": "选择一个记录列表来设置此步骤。",
+    "placeholders": {
+      "aNumber": "一个数字",
+      "aiPrompt": "总结这条客户消息……",
+      "aiSystem": "你是一位乐于助人的助手……",
+      "eg10": "例如：10",
+      "eg108": "例如：1.08",
+      "egActive": "例如：active",
+      "egGreeting": "例如：greeting",
+      "emailBody": "你好，感谢你的订单……",
+      "emailSubject": "你的订单已发货",
+      "fieldName": "字段名称（例如：email）",
+      "hashFromRow": "从数据库行中选择哈希值",
+      "helloThere": "你好",
+      "jsonInput": "选择一个包含 JSON 文本的值",
+      "keepCurrent": "留空以保留当前值",
+      "name": "名称",
+      "passwordFromRequest": "从请求中选择密码",
+      "pickSourceFirst": "请先选择数据源",
+      "pickValue": "从前面的步骤中选择一个值",
+      "pushMessage": "趁还有空位，赶快预订餐桌。",
+      "pushTitle": "今晚：晚上 7 点开始现场音乐",
+      "stepName": "此步骤的作用",
+      "trueOrFalse": "true 或 false",
+      "userIdFromStep": "从前面的步骤中选择用户 ID",
+      "value": "值"
+    },
+    "pushIntro": "向所有开启了此应用通知的人发送通知。iPhone 用户需要先将应用添加到主屏幕。",
+    "queryEmptyHint": "留空则返回所有行。多个条件必须全部符合。",
+    "remove": "移除",
+    "removeCondition": "移除条件",
+    "removeConditionHelp": "移除此规则。",
+    "removeRowHelp": "移除此行。",
+    "respondEmpty": "选择要返回给调用方的内容。每行都会成为回复中的一个字段。",
+    "respondHint": "默认情况下，调用方会收到成功回复。如果需要返回错误，请在流程中提前添加分支步骤。",
+    "respondWith": "回复内容",
+    "respondWithHelp": "要返回给发起此操作的页面或表单的内容。每行包含一个名称和一个值，例如 message：谢谢，我们已收到。",
+    "rolePassHint": "请在这一步前添加“当前登录用户”步骤，否则没有人能通过此检查。",
+    "roleResult": "结果（true 或 false）会保存为 {name}。接下来添加“如果满足条件，否则……”步骤，检查 {token} 是否等于 true。",
+    "rowValues": "行的值",
+    "rowValuesEmpty": "为工作表中的每个列标题添加一个字段。",
+    "rowValuesHelp": "要填入新行的内容。每个名称都必须与工作表第一行中的列标题一致；对应的值会填入该列。",
+    "setFields": "设置这些字段",
+    "singleResult": "结果是一个仅包含一行的列表，该行的值就是答案。要在后续步骤中使用这个数字，请输入 {token}。",
+    "smallestFirst": "结果从小到大排列",
+    "snippets": {
+      "filter": {
+        "description": "仅保留符合条件的行",
+        "label": "筛选行"
+      },
+      "format": {
+        "description": "根据触发器数据生成消息",
+        "label": "格式化字符串"
+      },
+      "map": {
+        "description": "将每行转换为更精简的对象",
+        "label": "转换为新结构"
+      },
+      "split": {
+        "description": "将全名拆分为名和姓",
+        "label": "拆分姓名"
+      },
+      "sum": {
+        "description": "合计所有行中的数字",
+        "label": "合计一列"
+      },
+      "timestamp": {
+        "description": "获取 ISO 格式的当前时间",
+        "label": "当前时间戳"
+      }
+    },
+    "step": "步骤",
+    "updateNeedsCondition": "必须设置条件才能更改行，否则此步骤会失败。",
+    "updateValuesHelp": "要保存的新值。留空的列会保留现有内容。",
+    "where": {
+      "aggregate": {
+        "help": "只统计指定列等于给定值的记录；所有条件都必须符合。值为空的条件会被跳过。不添加条件时，会统计所有记录。",
+        "label": "仅统计符合以下条件的行"
+      },
+      "bulk_delete": {
+        "help": "选择要删除的行：删除指定列等于给定值的所有行。至少需要一条条件，避免删除整张表。",
+        "label": "删除符合以下条件的行"
+      },
+      "bulk_update": {
+        "help": "选择要更改的行：更改指定列等于给定值的所有行。至少需要一条条件，避免意外更改整张表。",
+        "label": "更改符合以下条件的行"
+      },
+      "delete": {
+        "help": "选择要删除的记录：只删除指定列等于给定值的记录。至少需要一条条件，避免删除整张表。",
+        "label": "删除符合以下条件的行"
+      },
+      "query": {
+        "help": "只查找指定列等于给定值的记录；所有条件都必须符合。值为空的条件会被跳过。不添加条件时，会查找所有记录（最多 100 条）。",
+        "label": "查找符合以下条件的行"
+      },
+      "update": {
+        "help": "选择要更改的记录：只更改指定列等于给定值的记录。至少需要一条条件，避免意外更改整张表。",
+        "label": "更新符合以下条件的行"
+      }
+    }
+  },
+  "list": {
+    "emptyBody": "创建第一个流程，或添加已连接好流程的现成功能。",
+    "emptyTitle": "小小的自动化，也能带来大变化。",
+    "explainerHelp": "自动化的工作方式：应用中发生某件事，比如有人提交表单；接着按顺序运行各个步骤；最后向用户展示结果，比如感谢消息。",
+    "explore": "探索功能",
+    "exploreHelp": "浏览现成功能，例如预约或联系表单。它们都已设置好相应的自动化。",
+    "eyebrow": "让一切运转起来",
+    "intro": "把一次点击变成行动。保存预约、发送邮件，或让数据发挥作用。",
+    "openHelp": "打开此自动化，查看和修改步骤、检查每次运行的结果，或设置运行时间。",
+    "result": "向用户展示结果",
+    "somethingHappens": "发生某件事",
+    "steps": "{count, plural, one {# 个步骤} other {# 个步骤}}",
+    "stepsRun": "运行各个步骤",
+    "title": "应用中的流程",
+    "triggerEvent": "由事件启动",
+    "triggerForm": "由表单启动",
+    "triggerRequest": "由请求启动",
+    "triggerSchedule": "按计划运行"
+  },
+  "newFlow": {
+    "button": "新建流程",
+    "buttonHelp": "新建一个空白自动化：当应用中发生某件事时，它会自动运行。先为它命名，再添加步骤。",
+    "create": "创建",
+    "createHelp": "创建自动化并打开它，以便添加步骤。",
+    "nameHelp": "给自动化起个能说明用途的名字，例如“发送预约确认”。按 Enter 键创建。",
+    "placeholder": "例如：提交联系表单"
+  },
+  "runtime": {
+    "aiBusy": "此应用当前收到的 AI 请求过多，请稍后再试。",
+    "aiLimit": "此应用已达到本月的 AI 使用上限。",
+    "appDayLimit": "此应用今天已发送 {count} 封邮件，因此为防止垃圾邮件，暂缓发送这封邮件。",
+    "appHourLimit": "此应用过去一小时内已发送 {count} 封邮件，因此为防止垃圾邮件，暂缓发送这封邮件。",
+    "emailFailed": "邮件发送失败。",
+    "emailOff": "此服务器尚未设置邮件功能，因此未发送消息。",
+    "formula": "无法计算步骤“{step}”中的公式：{reason}",
+    "recipientLimit": "过去一小时内，应用已向 {to} 发送 {count} 封邮件，因此暂缓发送这封邮件。"
+  },
+  "schedule": {
+    "aiNote": "使用 AI 的流程最多每 {minutes} 分钟运行一次。",
+    "aiTooOften": "此流程使用了 AI，因此最多每 {minutes} 分钟运行一次。",
+    "appMode": "应用使用时",
+    "appModeBody": "由页面、表单或其他网站启动。",
+    "appModeHelp": "只有应用中的某项操作启动它时才会运行，比如访客提交表单。",
+    "connection": "检查网络连接后重试。",
+    "day": "星期几",
+    "dayHelp": "选择每周运行的日期。",
+    "describe": {
+      "daily": "每天 {time} 运行（{zone}）",
+      "everyHour": "每小时",
+      "everyHours": "每 {count} 小时",
+      "everyMinute": "每分钟",
+      "everyMinutes": "每 {count} 分钟",
+      "hourlyFull": "每小时整点运行（{zone}）",
+      "hourlyPast": "{minute, plural, one {每小时过 # 分钟运行（{zone}）} other {每小时过 # 分钟运行（{zone}）}}",
+      "utc": "UTC",
+      "weekdays": "周一至周五 {time} 运行（{zone}）",
+      "weekly": "每周{day} {time} 运行（{zone}）",
+      "zoneTime": "{zone}时间"
+    },
+    "every": "间隔",
+    "everyHelp": "两次运行之间的间隔。有些选项可能无法选择，例如此自动化使用 AI 时。",
+    "failing": "{count, plural, one {已连续失败 # 次；连续失败 {max} 次后将暂停。} other {已连续失败 # 次；连续失败 {max} 次后将暂停。}}",
+    "hour": "小时",
+    "hours": "{count} 小时",
+    "howOften": "运行频率",
+    "howOftenHelp": "设置运行频率。先选择一种模式，再设置旁边的具体时间。",
+    "inZone": "{time}（{zone}时间）",
+    "kinds": {
+      "daily": "每天",
+      "every": "每隔几分钟",
+      "hourly": "每小时",
+      "weekdays": "周一至周五",
+      "weekly": "每周一次"
+    },
+    "lastFailed": "上次运行时间 {when}：失败。",
+    "lastOk": "上次运行时间 {when}：成功。",
+    "lastTimeout": "上次运行时间 {when}：耗时过长。",
+    "loadError": "无法加载日程安排。",
+    "loading": "正在加载日程安排…",
+    "minute": "分钟",
+    "minutes": "{count} 分钟",
+    "nextRun": "下次运行时间：{when}",
+    "noPlan": "你的套餐不包含定时流程，因此此流程不会运行。",
+    "notInLive": "此流程尚未加入已发布的应用。<link>发布你的更改</link>以启动日程安排。",
+    "notInPlan": "你的套餐不包含此功能。",
+    "notPublished": "已保存。<link>发布你的应用</link>以启动此日程安排。",
+    "onTheHour": "每小时整点（:00）",
+    "pastHour": "每小时过几分钟运行",
+    "pastHourHelp": "设置每小时的哪一分钟运行，例如 :15 表示过一刻钟。",
+    "pausedFailures": "连续失败 {count} 次后已暂停。请检查流程步骤，然后恢复运行。",
+    "pending": "<link>发布你的更改</link>以使用此日程安排。",
+    "pendingUntil": "在此之前，将继续使用已发布的日程安排：{schedule}。",
+    "problems": {
+      "badZone": "无法识别此时区。",
+      "chooseHowOften": "选择运行频率。",
+      "chooseWhen": "选择运行时间。",
+      "minuteRange": "选择每小时的第几分钟，范围为 0 到 59。",
+      "minutesRange": "选择 {min} 到 {max} 之间的分钟数。",
+      "pickDay": "选择星期几。",
+      "pickTime": "选择一天中的时间，例如 09:00。"
+    },
+    "resume": "恢复",
+    "resumeHelp": "如果运行一直失败，计划会暂停。先修复流程步骤中的问题，再重新开启计划。",
+    "saveError": "无法保存，请重试。",
+    "saveHelp": "保存运行时间。新建或更改的计划会在应用发布后生效。",
+    "saveSchedule": "保存计划",
+    "scheduleMode": "按计划运行",
+    "scheduleModeBody": "它会在你设定的时间自动运行。",
+    "scheduleModeHelp": "它会在你设定的时间自动运行。发布包含此计划的应用后，计划才会开始生效。",
+    "starting": "将在一分钟内开始。",
+    "suspended": "此账号已停用，定时运行已暂停。",
+    "time": "时间",
+    "timeHelp": "设置运行的时间，按下方时区的当地时间计算。",
+    "timeZone": "时区",
+    "timeZoneHelp": "选择要使用哪个地方的时间。选择你或客户所在的地方，这样 9:00 就表示当地时间 9:00。",
+    "title": "运行时间",
+    "titleHelp": "选择此自动化是在应用使用时运行，还是按设定时间自动运行，比如每天早上。",
+    "turnedOff": "日程安排已关闭，不再按计划运行。",
+    "unreadable": "无法读取此日程安排。请选择新的时间并保存。",
+    "yours": "{zone}（你的时区）"
+  },
+  "summary": {
+    "aggregateFallback": "统计记录或计算总数",
+    "askAi": "向 AI 提问",
+    "bulkDeleteFallback": "一次删除多行",
+    "bulkInsertFallback": "一次添加多行",
+    "bulkUpdateFallback": "一次更新多行",
+    "checkPassword": "检查密码",
+    "checkRoleFallback": "检查此人可以执行哪些操作",
+    "customJs": "运行你自己的代码",
+    "from": "来自 {table}",
+    "in": "在 {table} 中",
+    "into": "写入 {table}",
+    "lookupFallback": "从另一个列表添加详细信息",
+    "needsRole": "需要：{role}",
+    "noRecipient": "没有收件人",
+    "noSheet": "没有工作表",
+    "noTable": "未选择表格",
+    "parseJson": "将文本转换为数据",
+    "protectPassword": "保存密码前先对其进行保护",
+    "pushEveryone": "发送给所有已订阅的人",
+    "pushTitle": "“{title}”",
+    "repliesWith": "{count, plural, one {回复 # 个值} other {回复 # 个值}}",
+    "reply": "发送回复",
+    "seconds": "{seconds} 秒",
+    "sheet": "工作表 {sheet}",
+    "signIn": "登录 {user}",
+    "signUserIn": "让用户登录",
+    "signUserOut": "让用户退出登录",
+    "startsHere": "从这里开始",
+    "to": "发送给 {to}",
+    "unnamed": "未命名",
+    "verifyVs": "{plain} 与 {hash} → {output}"
+  }
+}

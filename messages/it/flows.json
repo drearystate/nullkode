@@ -1,0 +1,788 @@
+{
+  "activity": {
+    "all": "Tutte le esecuzioni",
+    "allHelp": "Mostra tutte le esecuzioni recenti di questa automazione.",
+    "empty": "Ancora niente. Le esecuzioni compariranno qui quando qualcuno userà questa funzione nella tua app o quando selezionerai Test di esecuzione.",
+    "filterLabel": "Quali esecuzioni mostrare",
+    "intro": "Cosa è successo ogni volta che si è avviato questo flusso.",
+    "justNow": "proprio ora",
+    "last24h": "Ultime 24 ore: {total, plural, one {# esecuzione} other {# esecuzioni}}, {problems} con un problema.",
+    "loadError": "Impossibile caricare l'attività.",
+    "ms": "{n} ms",
+    "noProblems": "Nessun problema. Tutte le esecuzioni recenti sono andate a buon fine.",
+    "nothingSent": "Questa esecuzione non ha inviato nulla.",
+    "outcome": {
+      "answered": "Risposta ricevuta",
+      "failed": "Non riuscita",
+      "ok": "Completata",
+      "warning": "Completata con un problema"
+    },
+    "outcomeHelp": {
+      "answered": "Risposta ricevuta: ha risposto di no, ad esempio perché la password era errata o mancavano alcune informazioni. Di solito è previsto, non è un errore.",
+      "failed": "Non riuscita: questa esecuzione si è interrotta durante un passaggio con un errore e non è stata completata.",
+      "ok": "Completata: tutti i passaggi sono riusciti.",
+      "warning": "Completata con un problema: l’esecuzione è andata a buon fine, ma qualcosa è andato storto, ad esempio un’email non è stata inviata."
+    },
+    "problemsOnly": "Solo problemi",
+    "problemsOnlyHelp": "Mostra solo le esecuzioni non riuscite o terminate con un problema, per esempio un'email non inviata.",
+    "refresh": "Aggiorna attività",
+    "refreshHelp": "Controlla di nuovo se ci sono nuove esecuzioni.",
+    "s": "{n} s",
+    "source": {
+      "event": "Dalla tua app",
+      "live": "Dalla tua app",
+      "schedule": "In base alla programmazione",
+      "test": "Esecuzione di prova",
+      "test-submission": "Invio di prova"
+    },
+    "title": "Attività",
+    "titleHelp": "Ogni volta che questa automazione si è avviata: se ha funzionato, cosa l'ha attivata e cosa ha ricevuto. Utile per individuare i problemi.",
+    "took": "durata: {duration}",
+    "whatTheySent": "Cosa hanno inviato",
+    "whatWasSent": "Cosa è stato inviato",
+    "whatWasSentHelp": "Le informazioni ricevute con questa esecuzione, ad esempio quello che qualcuno ha inserito in un modulo."
+  },
+  "api": {
+    "aiTooOften": "Questo flusso usa l'AI, quindi può essere eseguito al massimo ogni {minutes} minuti. In questo modo, la pianificazione non esaurirà la tua disponibilità di AI.",
+    "chooseWhen": "Scegli quando deve essere eseguito.",
+    "invalidInput": "Input non valido",
+    "notFound": "Non trovato"
+  },
+  "catalog": {
+    "aggregate": {
+      "help": "Conta i record o somma una colonna di una tabella, ad esempio il numero di iscrizioni o le vendite totali. I passaggi successivi possono usare il risultato.",
+      "label": "Conta o somma i record"
+    },
+    "ai_prompt": {
+      "help": "Assegna all'AI una domanda o un compito, ad esempio riassumere un messaggio. I passaggi successivi possono usare la risposta. Ogni esecuzione viene conteggiata nel tuo limite di utilizzo dell'AI.",
+      "label": "Chiedi all'AI"
+    },
+    "branch": {
+      "help": "Controlla una condizione e divide l'automazione in due: un percorso viene eseguito se è vera, l'altro se non lo è.",
+      "label": "Se succede questo, altrimenti quello"
+    },
+    "bulk_delete": {
+      "help": "Elimina definitivamente in una volta sola tutte le righe di una tabella che corrispondono alle tue condizioni. Non puoi annullare questa azione.",
+      "label": "Elimina più righe"
+    },
+    "bulk_insert": {
+      "help": "Aggiunge più righe a una tabella in una volta sola, usando un elenco creato da un passaggio precedente.",
+      "label": "Aggiungi più righe"
+    },
+    "bulk_update": {
+      "help": "Modifica in una volta sola tutte le righe di una tabella che corrispondono alle tue condizioni.",
+      "label": "Modifica più righe"
+    },
+    "check_role": {
+      "help": "Controlla se la persona che ha effettuato l'accesso ha un certo ruolo, ad esempio quello di amministratore. Aggiungi un passaggio “Se succede questo, altrimenti quello” per decidere cosa accade.",
+      "label": "Verifica cosa può fare la persona"
+    },
+    "clear_session": {
+      "help": "Disconnette la persona da questo dispositivo.",
+      "label": "Disconnetti la persona"
+    },
+    "custom_js": {
+      "help": "Per sviluppatori: esegue un breve codice JavaScript che scrivi tu. Usalo solo se nessun altro passaggio fa al caso tuo.",
+      "label": "Codice personalizzato"
+    },
+    "delay": {
+      "help": "Mette in pausa l'automazione per alcuni secondi (fino a 60) prima di eseguire il passaggio successivo.",
+      "label": "Attendi"
+    },
+    "delete": {
+      "help": "Rimuove definitivamente dalla tabella i record che corrispondono alle tue condizioni. Non puoi annullare questa azione.",
+      "label": "Elimina record"
+    },
+    "email": {
+      "help": "Invia un'email, ad esempio una conferma d'ordine a un cliente o un promemoria a te.",
+      "label": "Invia un'email"
+    },
+    "get_session": {
+      "help": "Scopre chi ha effettuato l'accesso in questo momento, se c'è qualcuno, e ne recupera nome, email e ruolo, così i passaggi successivi possono usarli.",
+      "label": "Chi ha effettuato l'accesso"
+    },
+    "hash_password": {
+      "help": "Codifica una password per poterla salvare in modo sicuro. Usalo prima di salvare la password di un nuovo account: non potrai recuperare quella originale.",
+      "label": "Proteggi una password"
+    },
+    "http_request": {
+      "help": "Contatta un altro sito o servizio online per recuperare o inviare informazioni. I passaggi successivi possono usare la risposta.",
+      "label": "Contatta un altro sito"
+    },
+    "insert": {
+      "help": "Salva un nuovo record (una nuova riga) in una delle tue tabelle, ad esempio i dati inseriti da qualcuno in un modulo.",
+      "label": "Aggiungi un record"
+    },
+    "lookup": {
+      "help": "Per ogni record trovato da un passaggio precedente, recupera il record corrispondente da un'altra tabella, ad esempio aggiungendo i dati del cliente a ogni ordine.",
+      "label": "Trova un record collegato"
+    },
+    "math": {
+      "help": "Calcola un numero a partire da due valori: somma, sottrazione, moltiplicazione, divisione o resto. I passaggi successivi possono usare il risultato.",
+      "label": "Calcola un numero"
+    },
+    "parse_json": {
+      "help": "Trasforma il testo che contiene dati organizzati (spesso inviati da altri siti) in valori separati che i passaggi successivi possono usare.",
+      "label": "Leggi i dati dal testo"
+    },
+    "query": {
+      "help": "Trova i record salvati in una delle tue tabelle (una tabella è come un foglio di calcolo), volendo solo quelli che corrispondono alle tue condizioni. I passaggi successivi possono usare i risultati.",
+      "label": "Trova record"
+    },
+    "response": {
+      "help": "Invia una risposta alla pagina o al modulo che ha avviato l'automazione, ad esempio un messaggio di conferma o i record trovati.",
+      "label": "Rispondi"
+    },
+    "send_push": {
+      "help": "Invia una notifica a chi ha attivato le notifiche della tua app, sul telefono o sul computer.",
+      "label": "Invia una notifica"
+    },
+    "set": {
+      "help": "Salva un valore con il nome che scegli, così i passaggi successivi possono riutilizzarlo: come un post-it per questa esecuzione.",
+      "label": "Salva un valore"
+    },
+    "set_session": {
+      "help": "Fa accedere la persona su questo dispositivo, così la tua app ricorda chi è la prossima volta che torna.",
+      "label": "Fai accedere la persona"
+    },
+    "sheets_append": {
+      "help": "Aggiunge una nuova riga a un Foglio Google che hai collegato, ad esempio per tenere traccia di ogni modulo inviato. Funziona solo con i fogli che la tua app può modificare, non con quelli di sola lettura.",
+      "label": "Aggiungi una riga a un Foglio Google"
+    },
+    "sheets_read": {
+      "help": "Legge le righe di un Foglio Google che hai collegato (fino a 1.000), così i passaggi successivi possono usarle.",
+      "label": "Leggi un Foglio Google"
+    },
+    "trigger": {
+      "help": "Da dove inizia l'automazione: quando una pagina o un modulo della tua app la usa, oppure all'orario programmato, se ne hai impostato uno. Collegala al primo passaggio che vuoi eseguire.",
+      "label": "Quando l'app richiama questa automazione"
+    },
+    "update": {
+      "help": "Modifica i record già salvati in una tabella. Scegli quali record modificare e quali saranno i nuovi valori.",
+      "label": "Modifica record"
+    },
+    "verify_password": {
+      "help": "Controlla se la password inserita da qualcuno corrisponde a quella codificata che hai salvato. Usalo quando le persone accedono.",
+      "label": "Verifica una password"
+    }
+  },
+  "categories": {
+    "ai": "AI",
+    "auth": "Account",
+    "data": "Dati salvati",
+    "integration": "Invia e collega",
+    "logic": "Decisioni e valori",
+    "response": "Concludi",
+    "trigger": "Avvio"
+  },
+  "describe": {
+    "anEmailOff": "un'email non è stata inviata perché l'invio di email non è configurato",
+    "answered": "Risposta: \"{message}\".",
+    "answeredCode": "Risposta con codice {status}.",
+    "didAndNote": "{did}; {note}.",
+    "done": {
+      "ai": "posta una domanda all’IA",
+      "deleted": "eliminato da {table}",
+      "emailed": "email inviata a {address}",
+      "http": "contattato un altro servizio",
+      "saved": "salvato in {table}",
+      "sentEmail": "email inviata",
+      "sentPush": "notifica inviata",
+      "sheetsAppend": "aggiunta una riga a Google Sheets",
+      "signedIn": "accesso effettuato per una persona",
+      "signedOut": "disconnessione effettuata per una persona",
+      "updated": "aggiornato in {table}"
+    },
+    "emailNotSent": "l'email non è stata inviata ({reason})",
+    "emailOff": "l'email non è stata inviata perché l'invio di email non è configurato",
+    "failed": {
+      "ai": "Lo step IA non ha risposto",
+      "delete": "Impossibile eliminare da {table}",
+      "didntFinish": "Operazione non completata",
+      "email": "Impossibile inviare l’email",
+      "http": "Impossibile raggiungere l’altro servizio",
+      "push": "Impossibile inviare la notifica",
+      "read": "Impossibile leggere {table}",
+      "save": "Impossibile salvare in {table}",
+      "stoppedAt": "Interrotto a “{label}”",
+      "update": "Impossibile aggiornare {table}"
+    },
+    "failedOnly": "{failed}.",
+    "failedWhy": "{failed}: {why}",
+    "failedWhyPeriod": "{failed}: {why}.",
+    "noProblems": "Completato senza problemi.",
+    "sent": "Inviato",
+    "sentence": "{text}.",
+    "signUps": "le iscrizioni",
+    "yourData": "i tuoi dati"
+  },
+  "editor": {
+    "addStep": "Aggiungi passaggio",
+    "addStepHelp": "Le azioni che può svolgere l’automazione. Fai clic su una per aggiungerla, poi trascina dal bordo destro al passaggio successivo per impostare l’ordine.",
+    "deleteStep": "Elimina passaggio",
+    "deleteStepHelp": "Rimuove questo passaggio e i collegamenti. Puoi anche premere Canc sulla tastiera.",
+    "emptyBody": "Seleziona un passaggio per modificarne le azioni. Aggiungine altri dal pannello a sinistra, poi collegali nell’ordine in cui devono essere eseguiti.",
+    "emptyTitle": "Ogni passaggio ha uno scopo.",
+    "flow": "Flusso",
+    "handleFalse": "Punto in basso: trascina da qui al passaggio da eseguire se la condizione è falsa.",
+    "handleIn": "Punto di collegamento del passaggio precedente.",
+    "handleOut": "Trascina da qui al passaggio successivo per scegliere cosa succede dopo.",
+    "handleTrue": "Punto in alto: trascina da qui al passaggio da eseguire se la condizione è vera.",
+    "pausedTest": "Questa automazione è in pausa. Attivala per eseguire un test.",
+    "problemsBadge": "{count} con un problema nelle ultime 24 ore",
+    "running": "In esecuzione...",
+    "saveFailed": "Salvataggio non riuscito",
+    "saved": "Salvato",
+    "searchHelp": "Scrivi una parola, come “email” o “salva”, per trovare subito un passaggio.",
+    "searchLabel": "Cerca passaggi del flusso",
+    "searchPlaceholder": "Trova un passaggio…",
+    "tabActivity": "Attività",
+    "tabActivityHelp": "Scopri quando è stata eseguita l’automazione, se tutto è andato bene e cosa hanno inviato le persone in caso di errore.",
+    "tabSchedule": "Programmazione",
+    "tabScheduleHelp": "Scegli se eseguire l’automazione quando usi l’app o automaticamente a orari prestabiliti, per esempio ogni mattina.",
+    "tabSteps": "Passaggi",
+    "tabStepsHelp": "Crea l’automazione: aggiungi i passaggi e collegali nell’ordine in cui devono essere eseguiti.",
+    "tabsLabel": "Viste del flusso",
+    "testRun": "Esegui test",
+    "testRunHelp": "Esegue l’automazione una volta, subito, usando le modifiche salvate più di recente e mostra il risultato qui sotto. I passaggi vengono eseguiti davvero (salvataggio, invio di email e così via) e l’esecuzione compare in Attività.",
+    "webAddress": "Indirizzo web (per sviluppatori)",
+    "webAddressHelp": "L’indirizzo web che altri servizi o il tuo codice possono chiamare per avviare questa automazione. Ti serve solo se colleghi qualcosa dall’esterno dell’editor."
+  },
+  "enabledSwitch": {
+    "failed": "Impossibile modificarla. Riprova.",
+    "help": "Quando è in pausa, non viene eseguito nulla e le funzioni dell’app che la usano, come un modulo, restituiscono un errore. La modifica si applica subito all’app online: non serve pubblicare.",
+    "helpScheduled": "Quando è in pausa, le esecuzioni programmate si interrompono e le funzioni dell’app che la usano restituiscono un errore. La modifica è immediata: non serve pubblicare.",
+    "label": "Esegui questa automazione",
+    "on": "Attiva",
+    "paused": "In pausa"
+  },
+  "inspector": {
+    "add": "Aggiungi",
+    "addCondition": "Aggiungi condizione",
+    "addConditionHelp": "Aggiunge un’altra regola. Un record deve rispettarle tutte per essere incluso.",
+    "addField": "Aggiungi campo",
+    "addFieldHelp": "Aggiunge un’altra riga con un nome e un valore.",
+    "advanced": "Avanzate",
+    "agg": {
+      "avg": "Media di una colonna",
+      "count": "Conta i record",
+      "max": "Valore più alto in una colonna",
+      "min": "Valore più basso in una colonna",
+      "sum": "Somma una colonna"
+    },
+    "aggregateEmptyHint": "Lascia vuoto per includere tutte le righe. Tutte le condizioni devono essere rispettate.",
+    "biggestFirst": "Risultato più alto per primo",
+    "body": "Corpo",
+    "bodyEmpty": "Aggiungi i campi da inviare nel corpo della richiesta.",
+    "bodyHelp": "Le informazioni da inviare. Ogni riga contiene un nome e un valore; la guida dell’altro servizio indica quali nomi si aspetta.",
+    "branchHint": "Collega il punto in alto a ciò che accade quando la condizione è vera e quello in basso a ciò che accade quando non lo è.",
+    "bulkInsertHint": "Il passaggio si interrompe con un errore se il passaggio precedente non ha creato un elenco o se un elemento ha un ID già presente nella tabella.",
+    "byAsc": "Per {column}, dalla A alla Z",
+    "byDesc": "Per {column}, dalla Z alla A",
+    "choose": "— scegli —",
+    "clearSession": "Disconnette chi sta usando l’app su questo dispositivo, quindi dovrà accedere di nuovo la prossima volta. Non c’è nulla da configurare.",
+    "clearSessionHelp": "Questo passaggio non ha impostazioni. Rimuove l’accesso salvato dall’app sul dispositivo della persona.",
+    "closeHelp": "Chiudi questo elenco senza aggiungere nulla.",
+    "columnHelp": "La colonna da controllare, ad esempio email o stato.",
+    "deleteHelp": "Rimuove questo passaggio e i suoi collegamenti dall’automazione. Non puoi annullare l’operazione, quindi dovrai aggiungerlo di nuovo.",
+    "deleteNeedsCondition": "Serve una condizione per eliminare, altrimenti il passaggio non andrà a buon fine.",
+    "fields": {
+      "aiPrompt": {
+        "help": "La domanda o l’attività per l’AI. Inserisci dei valori per includere, ad esempio, il messaggio del cliente.",
+        "label": "Prompt"
+      },
+      "aiSystem": {
+        "help": "Informazioni di contesto che restano uguali ogni volta, come “Rispondi con una frase cordiale” o “Lavori in una panetteria”.",
+        "label": "Istruzioni per l’AI (facoltative)"
+      },
+      "dataSource": {
+        "help": "Dove sono conservati i dati. La maggior parte delle app usa solo il database integrato; scegli un’altra fonte solo se l’hai collegata tu.",
+        "label": "Fonte dei dati"
+      },
+      "emailFrom": {
+        "help": "L’indirizzo che compare come mittente dell’email. Lascia vuoto per usare l’indirizzo di invio predefinito del server.",
+        "label": "Da (facoltativo)"
+      },
+      "emailMessage": {
+        "help": "Il testo dell’email. Inserisci dei valori per personalizzarlo, come il nome della persona o i dettagli dell’ordine.",
+        "label": "Messaggio"
+      },
+      "emailSubject": {
+        "help": "L’oggetto dell’email. Puoi inserire dei valori, come il numero di un ordine.",
+        "label": "Oggetto"
+      },
+      "emailTo": {
+        "help": "Chi riceve l’email. Scrivi un indirizzo o inseriscine uno dal modulo, ad esempio l’email della persona. Separa più indirizzi con una virgola.",
+        "label": "A"
+      },
+      "firstValue": {
+        "help": "Il primo numero. Scrivilo oppure inseriscilo da un passaggio precedente.",
+        "label": "Primo valore"
+      },
+      "groupBy": {
+        "help": "Restituisce un risultato per ogni valore di questa colonna, ad esempio un conteggio per ogni stato. Lascia «Un solo totale» per ottenere un unico numero.",
+        "label": "Dividi in gruppi per"
+      },
+      "groupLimit": {
+        "help": "Il numero massimo di gruppi da restituire, fino a 1.000. I gruppi oltre questo limite vengono esclusi.",
+        "label": "Numero massimo di gruppi da restituire"
+      },
+      "hashInput": {
+        "help": "La password da rendere illeggibile, di solito quella inserita nel modulo di registrazione. Salva il risultato trasformato, mai la password originale.",
+        "label": "Password da trasformare in hash"
+      },
+      "is": {
+        "help": "Come confrontare i due valori. “contiene” cerca il testo al loro interno; “esiste” controlla solo che il primo valore non sia vuoto.",
+        "label": "È"
+      },
+      "javascript": {
+        "help": "Il tuo codice. Usa vars.name per i risultati dei passaggi precedenti e trigger.name per i dati ricevuti. Qualunque valore restituisci verrà salvato per i passaggi successivi.",
+        "label": "JavaScript"
+      },
+      "jsonInput": {
+        "help": "Testo con dati in formato JSON, un formato comune usato da altri siti web. Di solito è la risposta di un passaggio “Chiama un altro sito web”. Il passaggio non riesce se il testo non è in questo formato.",
+        "label": "Testo JSON da analizzare"
+      },
+      "lookupAs": {
+        "help": "Un nome per i dettagli aggiunti a ogni record, ad esempio cliente. Una corrispondenza viene salvata come singolo record; più corrispondenze come elenco di massimo 10 elementi.",
+        "label": "Salva i dettagli come"
+      },
+      "lookupDataSource": {
+        "help": "Dove si trova l’altro elenco. La maggior parte delle app ha solo il proprio database integrato.",
+        "label": "Origine dati"
+      },
+      "lookupIn": {
+        "help": "L’elenco di record da cui provengono i dettagli, ad esempio Clienti.",
+        "label": "Cerca in"
+      },
+      "lookupMatch": {
+        "help": "La colonna dell’elenco che deve corrispondere al valore qui sopra. Di solito è id.",
+        "label": "Colonna corrispondente"
+      },
+      "lookupPointer": {
+        "help": "La colonna di questi record che contiene l’ID dell’altro record, ad esempio customer_id in un ordine. I record in cui è vuota non vengono modificati.",
+        "label": "Colonna che rimanda all’altro record"
+      },
+      "lookupSource": {
+        "help": "L’elenco trovato da un passaggio precedente, ad esempio gli ordini di un passaggio «Trova record». Il passaggio si interrompe con un errore se quel passaggio non ha restituito un elenco.",
+        "label": "Record a cui aggiungere dettagli"
+      },
+      "method": {
+        "help": "Il tipo di richiesta. GET recupera informazioni, POST ne invia di nuove, PUT e PATCH le modificano, DELETE le rimuove. Consulta la guida del servizio per sapere quale usare.",
+        "label": "Metodo"
+      },
+      "ofColumn": {
+        "help": "La colonna su cui lavorare, ad esempio importo o prezzo. Somma e media funzionano solo con le colonne numeriche.",
+        "label": "Di questa colonna"
+      },
+      "operator": {
+        "help": "Cosa fare con i due numeri. Il resto è ciò che rimane dopo una divisione (7 diviso 2 dà resto 1). La divisione per zero dà 0.",
+        "label": "Operatore"
+      },
+      "orderGroups": {
+        "help": "Quali gruppi mostrare per primi nel risultato, ad esempio lo stato più frequente in cima.",
+        "label": "Ordina i gruppi"
+      },
+      "plainPassword": {
+        "help": "La password appena inserita nel modulo di accesso.",
+        "label": "Password inserita dall’utente"
+      },
+      "pushMessage": {
+        "help": "Il testo sotto il titolo. Tienilo breve: sui telefoni i messaggi lunghi vengono tagliati.",
+        "label": "Messaggio"
+      },
+      "pushTitle": {
+        "help": "La prima riga in grassetto della notifica. Puoi inserire dei valori, come un nome da un passaggio precedente.",
+        "label": "Titolo"
+      },
+      "pushUrl": {
+        "help": "La pagina della tua app da aprire quando qualcuno tocca la notifica, ad esempio /menu. Lascia vuoto per aprire la home page dell’app.",
+        "label": "Apri questa pagina al tocco (facoltativo)"
+      },
+      "roleNeeded": {
+        "help": "Il ruolo che la persona deve avere, ad esempio admin o manager. Le maiuscole non fanno differenza.",
+        "label": "Ruolo richiesto"
+      },
+      "roleSource": {
+        "help": "Lascia vuoto per usare il ruolo della persona che ha effettuato l’accesso, da un passaggio «Chi ha effettuato l’accesso» precedente. Modificalo solo se un passaggio precedente ha salvato il ruolo con un altro nome.",
+        "label": "Dove si trova il suo ruolo (facoltativo)"
+      },
+      "rowsToAdd": {
+        "help": "Un elenco creato da un passaggio precedente, ad esempio i record trovati da un passaggio «Trova record». Ogni elemento diventa una nuova riga, quindi i suoi nomi devono corrispondere alle colonne di questa tabella.",
+        "label": "Righe da aggiungere"
+      },
+      "secondValue": {
+        "help": "Il secondo numero. Scrivilo oppure inseriscilo da un passaggio precedente.",
+        "label": "Secondo valore"
+      },
+      "seconds": {
+        "help": "Per quanto tempo aspettare prima del passaggio successivo. Anche chi usa l’app dovrà aspettare, quindi mantieni l’attesa breve.",
+        "label": "Secondi (0-60)"
+      },
+      "sheetSource": {
+        "help": "Il Google Sheet collegato alla tua app. Se l’elenco è vuoto, aggiungine uno nella sezione Avanzate della pagina Dati della tua app.",
+        "label": "Origine dati di Google Sheet"
+      },
+      "sheetTab": {
+        "help": "Il nome della scheda in fondo al foglio di calcolo, esattamente come appare, ad esempio Sheet1.",
+        "label": "Nome della scheda del foglio"
+      },
+      "stepName": {
+        "help": "Il nome mostrato nel riquadro del diagramma, così puoi distinguere i passaggi. Non cambia cosa fa il passaggio.",
+        "label": "Nome del passaggio"
+      },
+      "storedHash": {
+        "help": "La password trasformata e salvata al momento della registrazione, di solito da un passaggio “Trova record” che ha trovato l’account.",
+        "label": "Hash salvato"
+      },
+      "table": {
+        "help": "Quale tabella usare. Una tabella è come un foglio di calcolo: una riga per ogni record, ad esempio un ordine o un’iscrizione.",
+        "label": "Elenco di record"
+      },
+      "thisValue": {
+        "help": "Il valore da usare per il confronto. Scrivilo senza virgolette oppure inseriscilo. “uguale a” richiede una corrispondenza esatta, comprese le maiuscole.",
+        "label": "Questo valore"
+      },
+      "url": {
+        "help": "L’indirizzo web del servizio da contattare, che inizia con https://. Puoi inserire dei valori nell’indirizzo.",
+        "label": "URL"
+      },
+      "userId": {
+        "help": "L’ID dell’account a cui accedere, di solito preso dal record trovato con un passaggio “Trova record”. L’app ricorderà questa persona finché non esce dall’account.",
+        "label": "ID utente"
+      },
+      "value": {
+        "help": "Cosa salvare. Scrivi del testo, inserisci un valore del modulo o di un passaggio precedente, oppure combina le due cose.",
+        "label": "Valore"
+      },
+      "variableName": {
+        "help": "Il nome con cui salvare il valore. Potrai scegliere la variabile dall’elenco Inserisci nei passaggi successivi.",
+        "label": "Nome della variabile"
+      },
+      "whatToWorkOut": {
+        "help": "Il conteggio indica il numero di record. Somma, media, valore minimo e massimo si applicano a una colonna, ad esempio il totale di una colonna con gli importi.",
+        "label": "Cosa calcolare"
+      },
+      "whenThisValue": {
+        "help": "Il valore da controllare, di solito un dato del modulo o di un passaggio precedente. Usa Inserisci per sceglierlo.",
+        "label": "Quando questo valore"
+      }
+    },
+    "fromRequest": "Dalla richiesta",
+    "fromRequestHelp": "“La richiesta” è ciò che la pagina o il modulo ha inviato all’avvio dell’automazione. Scrivi il nome di un campo, ad esempio email, poi premi Invio o Aggiungi.",
+    "fromStepHelp": "Aggiunge il risultato di questo passaggio precedente, ad esempio i record trovati o la risposta ricevuta.",
+    "fromSteps": "Dai passaggi precedenti",
+    "groupedResult": "Il risultato è un elenco con una riga per ogni {column}, ciascuna con il proprio {column} e valore.",
+    "helper": {
+      "date": "Data di oggi",
+      "dateHelp": "La data di esecuzione, senza l’ora.",
+      "now": "Data e ora attuali",
+      "nowHelp": "La data e l’ora esatte in cui viene eseguito questo passaggio.",
+      "uuid": "ID casuale",
+      "uuidHelp": "Un nuovo codice casuale ogni volta, utile come numero di riferimento univoco."
+    },
+    "helpers": "Funzioni utili",
+    "insert": "Inserisci",
+    "insertHelp": "Aggiungi un valore che cambia ogni volta: un dato inviato dal modulo, il risultato di un passaggio precedente o la data di oggi.",
+    "insertLabel": "Inserisci un valore",
+    "insertTitle": "Inserisci un valore dalla richiesta o da un passaggio precedente",
+    "insertValue": "Inserisci valore",
+    "insertValuesHelp": "Cosa salvare in ogni colonna del nuovo record. Inserisci un valore o aggiungine uno dal modulo. L’ID del record e la data di aggiunta vengono compilati automaticamente.",
+    "js": {
+      "available": "Valori disponibili",
+      "availableHelp": "Risultati dei passaggi precedenti che puoi usare nel codice. Fai clic su un valore per inserirlo dove si trova il cursore.",
+      "chipHint": "Fai clic su un elemento per inserirlo in corrispondenza del cursore.",
+      "examples": "Esempi",
+      "examplesHelp": "Frammenti di codice pronti all’uso per le operazioni più comuni. Fai clic su uno per inserirlo dove si trova il cursore.",
+      "headsUp": "Attenzione",
+      "how": "Come funziona",
+      "how1": "Il tuo codice viene eseguito sul server in un ambiente protetto e isolato. Non può accedere alla rete o al file system, non può usare <code>{require}</code> o <code>{import}</code> e non può accedere ad altre automazioni.",
+      "how2": "Leggi da <code>{read}</code> per usare il risultato di un passaggio precedente. Assegna un valore a <code>{write}</code> per creare una variabile che i passaggi successivi possano leggere. Qualsiasi valore restituisci con <code>{return}</code> viene salvato nella variabile di output qui sotto.",
+      "how3": "<code>{trigger}</code> è una copia bloccata della richiesta in arrivo: puoi solo leggerla. I log della console vengono ignorati.",
+      "how4": "Gli script vengono interrotti dopo 3 secondi. Se il tuo codice genera un errore, l’intera automazione si interrompe e mostra il messaggio di errore.",
+      "howHelp": "Cosa può e non può fare il tuo codice e quali sono i suoi limiti, per esempio l’interruzione dopo 3 secondi.",
+      "insertTrigger": "Inserisci i dati della richiesta",
+      "noSteps": "Non ci sono ancora passaggi precedenti: collega questo passaggio dopo uno che produce un valore.",
+      "syntax": "Nel codice, usa direttamente <code>{vars}</code> e <code>{trigger}</code>, non la sintassi <code>{template}</code> usata negli altri passaggi."
+    },
+    "math": {
+      "add": "addizione (+)",
+      "divide": "divisione (÷)",
+      "multiply": "moltiplicazione (×)",
+      "remainder": "resto (%)",
+      "subtract": "sottrazione (−)"
+    },
+    "newRowValues": "Valori della nuova riga",
+    "noColumns": "Questa tabella non ha ancora colonne. Aggiungi prima dei campi alla tabella.",
+    "noConditions": "Nessuna condizione: verranno incluse tutte le righe.",
+    "noEditableColumns": "Questa tabella non ha colonne modificabili.",
+    "noSteps": "Nessun passaggio precedente ha ancora prodotto un valore.",
+    "oneTotal": "Un totale",
+    "ops": {
+      "contains": "contiene",
+      "eq": "uguale a",
+      "exists": "esiste (non è vuoto)",
+      "gt": "maggiore di",
+      "gte": "maggiore o uguale a",
+      "lt": "minore di",
+      "lte": "minore o uguale a",
+      "ne": "diverso da"
+    },
+    "outputHelp": "Facoltativo: il nome con cui viene salvato il risultato di questo passaggio. Cambialo solo se due passaggi avrebbero lo stesso nome, ad esempio due passaggi “Trova record”.",
+    "outputName": "Nome da usare per richiamare altrove il risultato di questo passaggio.",
+    "pickTable": "Scegli un elenco di record per configurare questo passaggio.",
+    "placeholders": {
+      "aNumber": "un numero",
+      "aiPrompt": "Riassumi questo messaggio del cliente...",
+      "aiSystem": "Sei un assistente utile...",
+      "eg10": "es. 10",
+      "eg108": "es. 1,08",
+      "egActive": "es. attivo",
+      "egGreeting": "es. saluto",
+      "emailBody": "Ciao, grazie per il tuo ordine...",
+      "emailSubject": "Il tuo ordine è stato spedito",
+      "fieldName": "nome del campo (es. email)",
+      "hashFromRow": "Scegli l’hash dalla riga del database",
+      "helloThere": "Ciao",
+      "jsonInput": "Scegli un valore che contiene testo JSON",
+      "keepCurrent": "lascia vuoto per mantenere il valore attuale",
+      "name": "nome",
+      "passwordFromRequest": "Scegli la password dalla richiesta",
+      "pickSourceFirst": "Scegli prima un’origine dati",
+      "pickValue": "Scegli un valore da un passaggio precedente",
+      "pushMessage": "Prenota un tavolo prima che finiscano.",
+      "pushTitle": "Stasera: musica dal vivo dalle 19",
+      "stepName": "Cosa fa questo passaggio",
+      "trueOrFalse": "vero o falso",
+      "userIdFromStep": "Scegli l’ID utente da un passaggio precedente",
+      "value": "valore"
+    },
+    "pushIntro": "Invia una notifica a tutti coloro che l’hanno attivata per questa app. Gli utenti iPhone devono aggiungere l’app alla schermata Home.",
+    "queryEmptyHint": "Lascia vuoto per mostrare tutte le righe. Tutte le condizioni devono essere rispettate.",
+    "remove": "Rimuovi",
+    "removeCondition": "Rimuovi condizione",
+    "removeConditionHelp": "Rimuove questa regola.",
+    "removeRowHelp": "Rimuove questa riga.",
+    "respondEmpty": "Scegli cosa inviare a chi ha avviato l’operazione. Ogni riga diventa un campo nella risposta.",
+    "respondHint": "Per impostazione predefinita, chi ha avviato l’operazione riceve una risposta di conferma. Aggiungi prima un passaggio di diramazione nel flusso se vuoi inviare un errore.",
+    "respondWith": "Rispondi con",
+    "respondWithHelp": "Cosa inviare alla pagina o al modulo che ha avviato questa operazione. Ogni riga contiene un nome e un valore, ad esempio messaggio: Grazie, abbiamo ricevuto la tua richiesta.",
+    "rolePassHint": "Aggiungi prima di questo passaggio uno step “Chi ha effettuato l’accesso”, altrimenti nessuno supererà questo controllo.",
+    "roleResult": "La risposta, vera o falsa, viene salvata come {name}. Aggiungi uno step “Se succede questo, altrimenti quello” per controllare se {token} è uguale a true.",
+    "rowValues": "Valori della riga",
+    "rowValuesEmpty": "Aggiungi un campo per ogni intestazione di colonna del foglio.",
+    "rowValuesHelp": "Cosa inserire nella nuova riga. Ogni nome deve corrispondere a un’intestazione di colonna nella prima riga del foglio; il valore viene inserito sotto di essa.",
+    "setFields": "Imposta questi campi",
+    "singleResult": "Il risultato è un elenco con una sola riga, il cui valore è la risposta. Per usare il numero in un passaggio successivo, inserisci {token}.",
+    "smallestFirst": "Risultato più basso per primo",
+    "snippets": {
+      "filter": {
+        "description": "Mantieni solo le righe che soddisfano una condizione",
+        "label": "Filtra righe"
+      },
+      "format": {
+        "description": "Crea un messaggio dai dati del trigger",
+        "label": "Formatta una stringa"
+      },
+      "map": {
+        "description": "Trasforma ogni riga in un oggetto più semplice",
+        "label": "Converti in una nuova struttura"
+      },
+      "split": {
+        "description": "Dividi un nome completo in nome e cognome",
+        "label": "Dividi il nome in parti"
+      },
+      "sum": {
+        "description": "Somma i numeri di tutte le righe",
+        "label": "Somma una colonna"
+      },
+      "timestamp": {
+        "description": "Ottieni l’ora attuale in formato ISO",
+        "label": "Data e ora attuali"
+      }
+    },
+    "step": "Passaggio",
+    "updateNeedsCondition": "Serve una condizione per modificare le righe, altrimenti il passaggio non andrà a buon fine.",
+    "updateValuesHelp": "I nuovi valori da salvare. Lascia vuota una colonna per mantenere il valore attuale.",
+    "where": {
+      "aggregate": {
+        "help": "Vengono conteggiati solo i record in cui la colonna corrisponde al valore indicato; tutte le regole devono essere rispettate. Le regole senza valore vengono ignorate e, se non imposti regole, vengono conteggiati tutti i record.",
+        "label": "Includi solo le righe in cui"
+      },
+      "bulk_delete": {
+        "help": "Quali righe eliminare: tutte quelle in cui la colonna corrisponde al valore indicato. Serve almeno una regola, così non puoi eliminare per sbaglio l’intera tabella.",
+        "label": "Elimina righe in cui"
+      },
+      "bulk_update": {
+        "help": "Quali righe modificare: tutte quelle in cui la colonna corrisponde al valore indicato. Serve almeno una regola, così non puoi modificare per sbaglio l’intera tabella.",
+        "label": "Modifica righe in cui"
+      },
+      "delete": {
+        "help": "Quali record eliminare: solo quelli in cui la colonna corrisponde al valore indicato. Serve almeno una regola, così non puoi eliminare per sbaglio l’intera tabella.",
+        "label": "Elimina righe in cui"
+      },
+      "query": {
+        "help": "Vengono trovati solo i record in cui la colonna corrisponde al valore indicato; tutte le regole devono essere rispettate. Le regole senza valore vengono ignorate. Se non imposti regole, vengono trovati tutti i record (fino a 100).",
+        "label": "Trova righe in cui"
+      },
+      "update": {
+        "help": "Quali record modificare: solo quelli in cui la colonna corrisponde al valore indicato. Serve almeno una regola, così non puoi modificare per sbaglio l’intera tabella.",
+        "label": "Aggiorna righe in cui"
+      }
+    }
+  },
+  "list": {
+    "emptyBody": "Crea la tua prima automazione oppure aggiungi una funzione già pronta con le automazioni collegate.",
+    "emptyTitle": "Una piccola automazione può fare molto.",
+    "explainerHelp": "Come funzionano le automazioni: succede qualcosa nella tua app, come l’invio di un modulo; i passaggi vengono eseguiti in ordine; poi la persona riceve un risultato, come un messaggio di ringraziamento.",
+    "explore": "Esplora le funzioni",
+    "exploreHelp": "Scopri le funzioni già pronte, come le prenotazioni o un modulo di contatto. Includono automazioni già configurate.",
+    "eyebrow": "FAI SUCCEDERE LE COSE",
+    "intro": "Trasforma un clic in un’azione. Salva una prenotazione, invia un’email o dai vita ai tuoi dati.",
+    "openHelp": "Apri questa automazione per vedere e modificare i passaggi, controllare cosa è successo a ogni esecuzione o scegliere quando eseguirla.",
+    "result": "Un risultato per chi usa la tua app",
+    "somethingHappens": "Succede qualcosa",
+    "steps": "{count, plural, one {# passaggio} other {# passaggi}}",
+    "stepsRun": "I passaggi vengono eseguiti",
+    "title": "Le automazioni della tua app.",
+    "triggerEvent": "Si avvia con un evento",
+    "triggerForm": "Si avvia con un modulo",
+    "triggerRequest": "Si avvia con una richiesta",
+    "triggerSchedule": "Si avvia in base a una programmazione"
+  },
+  "newFlow": {
+    "button": "Nuova automazione",
+    "buttonHelp": "Crea una nuova automazione vuota: qualcosa che si avvia da sola quando succede qualcosa nella tua app. Le darai un nome e poi aggiungerai i passaggi.",
+    "create": "Crea",
+    "createHelp": "Crea l’automazione e la apre, così puoi aggiungere i passaggi.",
+    "nameHelp": "Scegli un nome che descriva cosa fa questa automazione, come Invia conferma di prenotazione. Premi Invio per crearla.",
+    "placeholder": "es. Invia modulo di contatto"
+  },
+  "runtime": {
+    "aiBusy": "Al momento questa app sta ricevendo troppe richieste di AI. Riprova più tardi.",
+    "aiLimit": "Questa app ha raggiunto il limite mensile di AI.",
+    "appDayLimit": "Questa app ha inviato {count} email oggi, quindi questa email non è stata inviata per evitare lo spam.",
+    "appHourLimit": "Questa app ha inviato {count} email nell'ultima ora, quindi questa email non è stata inviata per evitare lo spam.",
+    "emailFailed": "Non è stato possibile inviare l'email.",
+    "emailOff": "L'invio di email non è configurato su questo server, quindi il messaggio non è stato inviato.",
+    "formula": "Non è possibile calcolare la formula nel passaggio \"{step}\": {reason}",
+    "recipientLimit": "A {to} sono già state inviate {count} email dalle app nell'ultima ora, quindi questa email non è stata inviata."
+  },
+  "schedule": {
+    "aiNote": "I flussi che usano l'IA si avviano al massimo ogni {minutes} minuti.",
+    "aiTooOften": "Questo flusso usa l'AI, quindi può essere eseguito al massimo ogni {minutes} minuti.",
+    "appMode": "Quando la usa la tua app",
+    "appModeBody": "La avvia una pagina, un modulo o un altro sito.",
+    "appModeHelp": "Si avvia solo quando qualcosa nella tua app la attiva, per esempio quando un visitatore invia un modulo.",
+    "connection": "Controlla la connessione e riprova.",
+    "day": "Giorno",
+    "dayHelp": "In quale giorno della settimana si avvia.",
+    "describe": {
+      "daily": "Ogni giorno alle {time} ({zone})",
+      "everyHour": "Ogni ora",
+      "everyHours": "Ogni {count} ore",
+      "everyMinute": "Ogni minuto",
+      "everyMinutes": "Ogni {count} minuti",
+      "hourlyFull": "Ogni ora allo scoccare dell'ora ({zone})",
+      "hourlyPast": "{minute, plural, one {Ogni ora al minuto # ({zone})} other {Ogni ora al minuto # ({zone})}}",
+      "utc": "UTC",
+      "weekdays": "Dal lunedì al venerdì alle {time} ({zone})",
+      "weekly": "Ogni {day} alle {time} ({zone})",
+      "zoneTime": "ora {zone}"
+    },
+    "every": "Ogni",
+    "everyHelp": "L'intervallo tra un avvio e l'altro. Alcune opzioni potrebbero non essere disponibili, per esempio se questa automazione usa l'IA.",
+    "failing": "{count, plural, one {# esecuzione non riuscita di seguito; la pianificazione si metterà in pausa dopo {max}.} other {# esecuzioni non riuscite di seguito; la pianificazione si metterà in pausa dopo {max}.}}",
+    "hour": "ora",
+    "hours": "{count} ore",
+    "howOften": "Frequenza",
+    "howOftenHelp": "Con quale frequenza si avvia. Scegli uno schema, poi l'orario preciso accanto.",
+    "inZone": "{time} (ora {zone})",
+    "kinds": {
+      "daily": "Ogni giorno",
+      "every": "Ogni pochi minuti",
+      "hourly": "Ogni ora",
+      "weekdays": "Dal lunedì al venerdì",
+      "weekly": "Una volta a settimana"
+    },
+    "lastFailed": "Ultima esecuzione {when}: non riuscita.",
+    "lastOk": "Ultima esecuzione {when}: riuscita.",
+    "lastTimeout": "Ultima esecuzione {when}: durata eccessiva.",
+    "loadError": "Impossibile caricare la pianificazione.",
+    "loading": "Caricamento della pianificazione…",
+    "minute": "minuto",
+    "minutes": "{count} minuti",
+    "nextRun": "Prossima esecuzione {when}",
+    "noPlan": "Il tuo piano non include i flussi pianificati, quindi questo flusso non verrà eseguito.",
+    "notInLive": "Questo flusso non è ancora nell'app pubblicata. <link>Pubblica le modifiche</link> per avviare la pianificazione.",
+    "notInPlan": "Non incluso nel tuo piano.",
+    "notPublished": "Salvato. <link>Pubblica la tua app</link> per avviare questa pianificazione.",
+    "onTheHour": "All'ora esatta (:00)",
+    "pastHour": "Minuti dopo l'ora",
+    "pastHourHelp": "A quale minuto di ogni ora si avvia, per esempio :15 per un quarto d'ora dopo.",
+    "pausedFailures": "In pausa dopo {count} esecuzioni non riuscite di seguito. Controlla i passaggi del flusso, poi riattivalo.",
+    "pending": "<link>Pubblica le modifiche</link> per usare questa pianificazione.",
+    "pendingUntil": "Fino ad allora, resta attiva la pianificazione pubblicata: {schedule}.",
+    "problems": {
+      "badZone": "Questo fuso orario non è riconosciuto.",
+      "chooseHowOften": "Scegli la frequenza di esecuzione.",
+      "chooseWhen": "Scegli quando deve essere eseguito.",
+      "minuteRange": "Scegli un minuto dell'ora tra 0 e 59.",
+      "minutesRange": "Scegli un numero di minuti tra {min} e {max}.",
+      "pickDay": "Scegli un giorno della settimana.",
+      "pickTime": "Scegli un orario, ad esempio 09:00."
+    },
+    "resume": "Riprendi",
+    "resumeHelp": "Riattiva la programmazione dopo che si è fermata perché gli avvii continuavano a non riuscire. Prima risolvi il problema nei passaggi.",
+    "saveError": "Impossibile salvare. Riprova.",
+    "saveHelp": "Salva gli orari di avvio. Una programmazione nuova o modificata entra in funzione quando pubblichi l'app.",
+    "saveSchedule": "Salva programmazione",
+    "scheduleMode": "A orari prestabiliti",
+    "scheduleModeBody": "Si avvia da sola agli orari che scegli.",
+    "scheduleModeHelp": "Si avvia da sola agli orari che scegli. La programmazione entra in funzione quando pubblichi l'app.",
+    "starting": "L'esecuzione inizierà entro un minuto.",
+    "suspended": "Questo account è sospeso, quindi le esecuzioni pianificate sono in pausa.",
+    "time": "Ora",
+    "timeHelp": "L'ora del giorno in cui si avvia, secondo il fuso orario indicato qui sotto.",
+    "timeZone": "Fuso orario",
+    "timeZoneHelp": "L'orologio da seguire per gli orari. Scegli dove ti trovi tu o dove si trovano i tuoi clienti, così le 9:00 corrispondono alle 9:00 del posto.",
+    "title": "Quando si avvia",
+    "titleHelp": "Scegli se questa automazione si avvia quando viene usata la tua app o da sola a orari prestabiliti, per esempio ogni mattina.",
+    "turnedOff": "Pianificazione disattivata. Non ci saranno più esecuzioni pianificate.",
+    "unreadable": "Impossibile leggere questa pianificazione. Scegli nuovi orari e salva.",
+    "yours": "{zone} (il tuo fuso orario)"
+  },
+  "summary": {
+    "aggregateFallback": "Conta i record o calcolane il totale",
+    "askAi": "Fai una domanda all’AI",
+    "bulkDeleteFallback": "Elimina più righe in una volta",
+    "bulkInsertFallback": "Aggiungi più righe in una volta",
+    "bulkUpdateFallback": "Aggiorna più righe in una volta",
+    "checkPassword": "Verifica una password",
+    "checkRoleFallback": "Verifica cosa può fare la persona",
+    "customJs": "Esegui il tuo codice",
+    "from": "Da {table}",
+    "in": "In {table}",
+    "into": "Verso {table}",
+    "lookupFallback": "Aggiungi dettagli da un altro elenco",
+    "needsRole": "Richiede: {role}",
+    "noRecipient": "Nessun destinatario",
+    "noSheet": "Nessun foglio",
+    "noTable": "Nessuna tabella selezionata",
+    "parseJson": "Trasforma il testo in dati",
+    "protectPassword": "Proteggi una password prima di salvarla",
+    "pushEveryone": "A tutti gli iscritti",
+    "pushTitle": "“{title}”",
+    "repliesWith": "{count, plural, one {Risponde con # valore} other {Risponde con # valori}}",
+    "reply": "Invia una risposta",
+    "seconds": "{seconds}s",
+    "sheet": "Foglio {sheet}",
+    "signIn": "Accedi come {user}",
+    "signUserIn": "Fai accedere l’utente",
+    "signUserOut": "Disconnetti l’utente",
+    "startsHere": "Inizia qui",
+    "to": "A {to}",
+    "unnamed": "Senza nome",
+    "verifyVs": "{plain} vs {hash} → {output}"
+  }
+}

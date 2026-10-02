@@ -1,0 +1,51 @@
+{
+  "appLanguage": {
+    "help": "Ngôn ngữ mà ứng dụng dùng với khách truy cập. AI sẽ viết trang mới bằng ngôn ngữ này, các tính năng bạn thêm sẽ được dịch sang ngôn ngữ này và các tin nhắn có sẵn trong ứng dụng cũng sẽ dùng ngôn ngữ này.",
+    "intro": "Ngôn ngữ khách truy cập nhìn thấy: các trang do AI tạo, tính năng bạn thêm và tin nhắn có sẵn như \"Rất tiếc, gửi không thành công\".",
+    "invalid": "Chọn một ngôn ngữ trong danh sách.",
+    "label": "Ngôn ngữ của ứng dụng này",
+    "loadError": "Không thể tải ngôn ngữ của ứng dụng.",
+    "notChosen": "Bạn chưa chọn ngôn ngữ, nên ứng dụng đang dùng tiếng Anh.",
+    "note": "Nội dung các trang hiện có sẽ được giữ nguyên. Để thay đổi, hãy mở một trang và yêu cầu AI dịch trang đó.",
+    "rtl": "Viết từ phải sang trái: các trang sẽ được lật ngược cho phù hợp.",
+    "save": "Lưu ngôn ngữ",
+    "saveError": "Không thể lưu ngôn ngữ. Vui lòng thử lại.",
+    "saveHelp": "Lưu ngôn ngữ. Tin nhắn có sẵn và cài đặt ngôn ngữ của trang sẽ thay đổi ngay trên ứng dụng đang hoạt động.",
+    "saved": "Đã lưu. Trang và tính năng mới sẽ dùng {language}.",
+    "selectHelp": "Chọn ngôn ngữ mà khách truy cập sẽ đọc trong ứng dụng.",
+    "title": "Ngôn ngữ ứng dụng"
+  },
+  "buildLanguage": {
+    "help": "Ngôn ngữ mà khách truy cập sẽ đọc trong ứng dụng. AI sẽ viết mọi trang bằng ngôn ngữ này. Bạn có thể thêm ngôn ngữ khác sau.",
+    "label": "Ngôn ngữ ứng dụng"
+  },
+  "languages": {
+    "add": "Thêm ngôn ngữ",
+    "addHelp": "Thêm ngôn ngữ và nhờ AI dịch mọi trang sang ngôn ngữ đó. Bạn có thể chỉnh sửa từng bản dịch trong trình chỉnh sửa.",
+    "adding": "Đang thêm…",
+    "confirmRemove": "Xóa {language} và các trang đã dịch? Khách truy cập sẽ không thấy ngôn ngữ này sau khi bạn xuất bản.",
+    "edited": "{count, plural, one {# trang do bạn chỉnh sửa} other {# trang do bạn chỉnh sửa}}",
+    "error": "Đã xảy ra lỗi. Vui lòng thử lại.",
+    "help": "Cung cấp ứng dụng bằng nhiều ngôn ngữ. Khách truy cập chọn ngôn ngữ trong menu của ứng dụng và xem ứng dụng tại địa chỉ riêng (như /es/).",
+    "intro": "Cung cấp ứng dụng bằng nhiều ngôn ngữ hơn. AI dịch mọi trang và khách truy cập chọn ngôn ngữ trong menu. Ngôn ngữ mới sẽ được đưa lên sau khi bạn xuất bản.",
+    "needUpdate": "{count, plural, one {# trang cần cập nhật} other {# trang cần cập nhật}}",
+    "none": "Ứng dụng của bạn chỉ có {language}.",
+    "pick": "Chọn ngôn ngữ",
+    "progress": "Đang dịch… {done}/{total} trang",
+    "publishNote": "Xuất bản ứng dụng để khách truy cập thấy các thay đổi về ngôn ngữ.",
+    "remove": "Xóa",
+    "removeHelp": "Xóa ngôn ngữ này và các trang đã dịch khỏi ứng dụng.",
+    "title": "Thêm ngôn ngữ",
+    "translated": "{ok, plural, one {# trong số {total} trang đã được dịch} other {# trong số {total} trang đã được dịch}}",
+    "update": "Cập nhật bản dịch",
+    "updateHelp": "Nhờ AI dịch các trang mới hoặc đã thay đổi kể từ lần dịch trước. Các trang bạn đã chỉnh sửa bằng ngôn ngữ này sẽ được giữ nguyên."
+  },
+  "preview": {
+    "adminLogin": "Thông tin đăng nhập quản trị viên",
+    "backToEditor": "Quay lại trình chỉnh sửa",
+    "latest": "Các chỉnh sửa mới nhất",
+    "latestLive": "Các chỉnh sửa mới nhất · khách truy cập thấy phiên bản {version}",
+    "notPublished": "Bản xem trước · chưa xuất bản",
+    "title": "{title} — Bản xem trước"
+  }
+}

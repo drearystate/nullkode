@@ -19,7 +19,11 @@ import type { User } from "@prisma/client";
 import { db } from "./db";
 import { getSetting } from "./settings";
 import { emailEnabled, sendEmailDetailed } from "./mailer";
+import { enErrors, type ErrMsg } from "./errors-i18n";
 import { SENSITIVE_COLUMN } from "./sensitive";
+import { ownerAlertEmail, ownerAlertSummaryEmail } from "./emails/studio";
+import { localeForUser } from "@/i18n/server-locale";
+import type { Locale } from "@/i18n/locales";
 
 export type AlertMode = "instant" | "off";
 export type AlertSettings = { tables: Record<string, AlertMode>; extraRecipients: string[] };
@@ -110,7 +114,7 @@ function singular(label: string): string {
 
 /* ── Throttle ──────────────────────────────────────────────────────────── */
 
-type Summary = { projectId: string; appName: string; recipients: string[]; fromName: string; link: string };
+type Summary = { projectId: string; appName: string; recipients: string[]; fromName: string; link: string; locale: Locale };
 type Window = { start: number; sent: number; held: number; timer: ReturnType<typeof setTimeout> | null; last: Summary | null };
 const HOUR = 60 * 60 * 1000;
 const G = globalThis as unknown as { __nkOwnerAlerts?: Map<string, Window> };
@@ -150,20 +154,14 @@ async function sendHeldSummary(projectId: string, w: Window): Promise<void> {
   w.held = 0;
   if (windows.get(projectId) === w && Date.now() - w.start >= HOUR) windows.delete(projectId);
   if (!held || !s) return;
-  const what = held === 1 ? "1 more new submission" : `${held} more new submissions`;
-  const text = [
-    `${s.appName} received ${what} in the last hour.`,
-    "",
-    "We held back the separate emails so your inbox doesn't fill up. You can see everything in your app's data:",
-    s.link,
-  ].join("\n");
-  const r = await sendEmailDetailed({ to: s.recipients.join(", "), subject: `${what} in ${s.appName}`, text, fromName: s.fromName || undefined }).catch(() => null);
+  const mail = ownerAlertSummaryEmail(s.locale, { app: s.appName, held, link: s.link });
+  const r = await sendEmailDetailed({ to: s.recipients.join(", "), subject: mail.subject, text: mail.text, html: mail.html, fromName: s.fromName || undefined }).catch(() => null);
   if (r && !r.ok && !r.skipped) console.error(`[owner-alerts] summary for ${projectId} not sent: ${r.error ?? "unknown error"}`);
 }
 
 /* ── Sending ───────────────────────────────────────────────────────────── */
 
-type Owner = Pick<User, "id" | "email" | "role" | "resellerId">;
+type Owner = Pick<User, "id" | "email" | "role" | "resellerId" | "prefs">;
 const SKIP_FIELDS = new Set(["id", "created_at", "updated_at", "created_by"]);
 
 function displayValue(v: unknown): string {
@@ -211,8 +209,10 @@ export type AlertResult = {
   ok: boolean;
   /** Why nothing was sent. */
   skipped?: "email-off" | "table-off" | "throttled" | "no-recipients" | "no-row";
-  /** The email server's answer when sending failed, in plain words. */
+  /** The email server's answer when sending failed, in plain words (English). */
   error?: string;
+  /** The same as a message (errors.json), for showing it in the owner's language. */
+  errorMsg?: ErrMsg;
   recipients?: number;
 };
 
@@ -241,7 +241,7 @@ export async function notifyVisitorInsert(opts: {
 
     const project = await db.project.findUnique({
       where: { id: projectId },
-      select: { name: true, owner: { select: { id: true, email: true, role: true, resellerId: true } } },
+      select: { name: true, owner: { select: { id: true, email: true, role: true, resellerId: true, prefs: true } } },
     });
     if (!project?.owner) return { ok: false, skipped: "no-recipients" };
     const recipients: string[] = [];
@@ -250,10 +250,10 @@ export async function notifyVisitorInsert(opts: {
     }
     if (!recipients.length) return { ok: false, skipped: "no-recipients" };
 
-    const [fromName, base] = await Promise.all([senderName(project.owner), dashboardBase(project.owner)]);
+    const [fromName, base, locale] = await Promise.all([senderName(project.owner), dashboardBase(project.owner), localeForUser(project.owner)]);
     const appName = oneLine(project.name || "your app", 80);
     const link = `${base}/projects/${projectId}/data?table=${encodeURIComponent(table)}`;
-    if (!takeSlot(projectId, { projectId, appName, recipients, fromName, link })) return { ok: false, skipped: "throttled" };
+    if (!takeSlot(projectId, { projectId, appName, recipients, fromName, link, locale })) return { ok: false, skipped: "throttled" };
 
     // The row as the owner sees it in the Data tab: no ids, no secrets.
     const fields = Object.entries(row)
@@ -266,7 +266,6 @@ export async function notifyVisitorInsert(opts: {
       .slice(0, 3)
       .map((f) => oneLine(f.shown, 40))
       .join(" · ");
-    const subject = `${test ? "(test) " : ""}New ${label}${headline ? `: ${headline}` : ""}`;
 
     let replyTo: string | null = null;
     for (const [k, v] of Object.entries(row)) {
@@ -276,26 +275,27 @@ export async function notifyVisitorInsert(opts: {
       }
     }
 
-    const lines = [
-      test ? `This is a test of your alerts for ${appName}. Nobody sent this.` : `Someone just sent a new ${label} through ${appName}.`,
-      "",
-      ...fields.map((f) => `${f.name}: ${f.shown}`),
-      "",
-      "See it in your app's data:",
+    // In the owner's language; the field names and values are the app's own data.
+    const mail = ownerAlertEmail(locale, {
+      test,
+      app: appName,
+      label,
+      tableLabel: friendlyName(table).toLowerCase(),
+      headline,
+      fields: fields.map((f) => ({ name: f.name, value: f.shown })),
       link,
-    ];
-    if (replyTo) lines.push("", `Reply to this email to answer ${replyTo} directly.`);
-    lines.push("", `You get these emails because alerts are on for ${friendlyName(table).toLowerCase()}. You can turn them off on your app's overview page.`);
+      replyTo,
+    });
 
-    const r = await sendEmailDetailed({ to: recipients.join(", "), subject, text: lines.join("\n"), fromName: fromName || undefined, replyTo });
+    const r = await sendEmailDetailed({ to: recipients.join(", "), subject: mail.subject, text: mail.text, html: mail.html, fromName: fromName || undefined, replyTo });
     if (r.skipped) return { ok: false, skipped: "email-off" };
     if (!r.ok) {
       console.error(`[owner-alerts] alert for ${projectId}/${table} not sent: ${r.error ?? "unknown error"}`);
-      return { ok: false, error: r.error, recipients: recipients.length };
+      return { ok: false, error: r.error, errorMsg: r.errorMsg, recipients: recipients.length };
     }
     return { ok: true, recipients: recipients.length };
   } catch (err) {
     console.error("[owner-alerts] failed:", err instanceof Error ? err.message : err);
-    return { ok: false, error: "The alert couldn't be sent." };
+    return { ok: false, error: enErrors()("ownerAlerts.notSent"), errorMsg: { key: "ownerAlerts.notSent" } };
   }
 }

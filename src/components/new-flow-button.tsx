@@ -1,12 +1,15 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 export function NewFlowButton({ projectId }: { projectId: string }) {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
   const [busy, setBusy] = useState(false);
   const router = useRouter();
+  const t = useTranslations("flows.newFlow");
+  const tc = useTranslations("common");
 
   async function create() {
     if (!name.trim()) return;
@@ -23,14 +26,14 @@ export function NewFlowButton({ projectId }: { projectId: string }) {
     }
   }
 
-  if (!open) return <button className="btn-primary" onClick={() => setOpen(true)} data-help="Start a new, empty automation: something that runs by itself when something happens in your app. You’ll name it, then add its steps.">New flow</button>;
+  if (!open) return <button className="btn-primary" onClick={() => setOpen(true)} data-help={t("buttonHelp")}>{t("button")}</button>;
   return (
     <div className="flex gap-2">
       <input
         className="input w-64"
         autoFocus
-        placeholder="e.g. Submit contact form"
-        data-help="A name that says what this automation does, like Send booking confirmation. Press Enter to create it."
+        placeholder={t("placeholder")}
+        data-help={t("nameHelp")}
         value={name}
         onChange={(e) => setName(e.target.value)}
         onKeyDown={(e) => {
@@ -38,8 +41,8 @@ export function NewFlowButton({ projectId }: { projectId: string }) {
           if (e.key === "Escape") setOpen(false);
         }}
       />
-      <button className="btn-primary" disabled={busy} onClick={create} data-help="Creates the automation and opens it so you can add its steps.">Create</button>
-      <button className="btn-ghost" onClick={() => setOpen(false)}>Cancel</button>
+      <button className="btn-primary" disabled={busy} onClick={create} data-help={t("createHelp")}>{t("create")}</button>
+      <button className="btn-ghost" onClick={() => setOpen(false)}>{tc("cancel")}</button>
     </div>
   );
 }

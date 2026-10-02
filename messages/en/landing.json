@@ -1,0 +1,139 @@
+{
+  "nav": {
+    "home": "{app} home",
+    "product": "Product",
+    "backend": "Backend logic",
+    "pricing": "Pricing",
+    "faq": "FAQ",
+    "dashboard": "Dashboard",
+    "logIn": "Log in",
+    "startFree": "Start free"
+  },
+  "hero": {
+    "ideas": {
+      "bakery": {
+        "label": "Bakery pre-orders",
+        "prompt": "A pre-order page for my bakery. Customers pick cakes and bread, choose a pickup day and leave their name and phone number. I see every order on an admin page."
+      },
+      "salon": {
+        "label": "Salon bookings",
+        "prompt": "A booking app for my hair salon. Clients pick a service, a stylist and a time, and I can see and manage all bookings in one place."
+      },
+      "gym": {
+        "label": "Gym timetable",
+        "prompt": "A class timetable for my gym. Members see this week's classes and book a spot. I can add classes and see who is coming to each one."
+      },
+      "tutoring": {
+        "label": "Tutoring sign-ups",
+        "prompt": "A sign-up page for my tutoring lessons. Parents pick a subject and a weekly time and leave their contact details. I see the list of students and their lessons."
+      }
+    },
+    "badge": "Describe it, check the plan, launch it",
+    "headline": "Build apps, <accent>not just pages.</accent>",
+    "intro": "Drag-and-drop the UI. Wire up real backend logic visually. Use a real database or your Google Sheets. Publish to your own domain. No code.",
+    "ideaLabel": "What should your app do?",
+    "ideaPlaceholder": "e.g. Customers order cakes online, choose a pickup day, and I see every order in one list.",
+    "charsLeft": "{count, plural, one {# character left} other {# characters left}}",
+    "ideaHint": "Say who uses it and what they do.",
+    "opening": "Opening…",
+    "planMyApp": "Plan my app",
+    "tryOne": "Try one:",
+    "checkPlan": "You'll check a plan before anything is built.",
+    "openYourDashboard": "Open your dashboard",
+    "seeHow": "See how it works",
+    "openDashboard": "Open dashboard",
+    "startFree": "Start building — it’s free",
+    "stats": {
+      "features": "Ready-made features",
+      "icons": "Icons built in",
+      "ways": "Ways to start building",
+      "platformsValue": "Web + Android",
+      "platforms": "Apps from one project"
+    },
+    "noCard": "No credit card",
+    "freeForever": "Free forever plan",
+    "ownData": "Own your data"
+  },
+  "features": {
+    "eyebrow": "Everything you need",
+    "heading": "A whole platform, not a plugin.",
+    "intro": "Pages, backend logic, real data, publishing, modules, AI — one product, no glue required.",
+    "editor": {
+      "title": "Visual page editor",
+      "body": "Blocks, layers, responsive devices, a full styles panel, and custom traits. Every element is editable — no cookie-cutter templates."
+    },
+    "flows": {
+      "title": "Real backend flows",
+      "body": "Compose HTTP endpoints, database queries, branches, transforms, and API calls — as a visual flow diagram. No code."
+    },
+    "postgres": {
+      "title": "Postgres in one click",
+      "body": "Each project gets its own isolated schema with typed columns. Or plug in Google Sheets as a CRUD backend — zero config."
+    },
+    "publish": {
+      "title": "One-click publish",
+      "body": "Publishing freezes a version of your pages, workflows and theme. Keep editing privately, publish when you're ready, and bring back any earlier version in one click."
+    },
+    "ai": {
+      "title": "AI scaffolding",
+      "body": "Describe what you want to build. {app} generates the pages, database schema, and backend flows — then you refine."
+    },
+    "modules": {
+      "title": "{count} ready-made features",
+      "body": "Auth, blog, shop, bookings, forum, radio — each ships real database tables, backend flows, and pages. One click to install."
+    },
+    "domains": {
+      "title": "Custom domains",
+      "bodyAutoTls": "Bring your own domain: add two DNS records and it's live, with a secure HTTPS certificate set up automatically.",
+      "body": "Bring your own domain: add two DNS records and check the connection from your dashboard."
+    },
+    "sheets": {
+      "title": "Google Sheets adapter",
+      "body": "Treat any spreadsheet as a database. Read, write, and query rows — no migration, no DevOps, no setup."
+    }
+  },
+  "pricing": {
+    "heading": "Room for your next idea.",
+    "intro": "Choose the plan that fits what you want to build.",
+    "startBuilding": "Start building",
+    "viewPlan": "View plan"
+  },
+  "faq": {
+    "eyebrow": "FAQ",
+    "heading": "Questions, honestly answered.",
+    "noCode": {
+      "q": "Is this real no-code, or will I need to write code eventually?",
+      "a": "Real no-code. The UI editor and the flow engine cover pages and backend logic end-to-end. You can embed snippets of HTML if you want to, but nothing in the product requires you to read or write code."
+    },
+    "data": {
+      "q": "Where does my data actually live?",
+      "a": "If you use the built-in Postgres data source, each project gets its own isolated schema on this installation’s PostgreSQL database. You can also bring your own Postgres via a connection string, or connect a Google Sheet. Your data, your choice."
+    },
+    "domain": {
+      "q": "Can I use my own domain?",
+      "a": "Yes. Add a domain, verify it with a DNS TXT record, and {app} routes traffic to your project."
+    },
+    "export": {
+      "q": "Can I export what I build?",
+      "a": "You can export the HTML and CSS of any page, and download your Postgres data at any time. Flows are stored as a portable JSON graph you can take with you."
+    },
+    "webflow": {
+      "q": "How are you different from Webflow or Framer?",
+      "a": "Those are page builders. {app} is an app builder: beyond pages, you get a real visual backend-logic engine, first-class data sources, and runtime flows that actually execute."
+    },
+    "bubble": {
+      "q": "How are you different from Bubble or Adalo?",
+      "a": "Describe your app in a sentence and {app} builds the pages, the database tables and the backend workflows for you — then you keep editing visually. Your data lives in a standard Postgres database you can export at any time."
+    }
+  },
+  "cta": {
+    "heading": "Build the thing you've been <accent>putting off.</accent>",
+    "body": "Stop wrestling with half-finished no-code tools that fall apart the moment you need real logic. {app} gives you the UI, the backend, and the data — all visual.",
+    "openDashboard": "Open your dashboard",
+    "startFree": "Start building — it’s free"
+  },
+  "footer": {
+    "tagline": "The visual app builder with a real backend. Ship complete products — not marketing pages.",
+    "copyright": "© {year} {app}"
+  }
+}

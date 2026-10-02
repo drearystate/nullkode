@@ -1,0 +1,41 @@
+{
+  "accountMenu": "Hesap menüsü",
+  "accountNavigation": "Hesap menüsü",
+  "admin": "Yönetici",
+  "adminHelp": "Platformun tamamına yönelik ayarlar: marka, yapay zekâ, e-posta, ödemeler, kullanıcılar ve bayiler.",
+  "administration": "Yönetim",
+  "billing": "Faturalandırma ve plan",
+  "designer": "Tasarım aracı",
+  "designerHelp": "Bir web sitesini kendi kelimelerinizle anlatın; yapay zekâ tasarlasın ve siz istedikçe değişiklikler yapsın.",
+  "help": "Yardım",
+  "helpGuides": "Yardım ve kılavuzlar",
+  "helpHelp": "Adım adım kılavuzlar. Bulunduğunuz ekranın kılavuzu açılır.",
+  "helpTips": {
+    "help": "Bu yardımcı notları açar veya kapatır. Açıkken, ne işe yaradığını öğrenmek için fareyi herhangi bir düğmenin üzerine getirin. Bunu Ayarlar'dan da değiştirebilirsiniz.",
+    "label": "Yardım ipuçları",
+    "off": "KAPALI",
+    "on": "AÇIK"
+  },
+  "home": "{app} ana sayfa",
+  "impersonation": {
+    "backToClients": "Müşterilerinize dön",
+    "backToClientsHelp": "Bu müşterinin çalışma alanından çıkıp müşteri listenize dönün. Yaptığınız değişiklikler onun hesabında kalır.",
+    "impersonating": "Başka biri olarak işlem yapıyorsunuz",
+    "signedInAs": "· {email} olarak oturum açıldı",
+    "stop": "Başka biri olarak işlem yapmayı bırak",
+    "stopHelp": "Bu kişi olarak işlem yapmayı bırakıp Yönetici sayfasına dönün. Yaptığınız değişiklikler onun hesabında kalır.",
+    "viewingClient": "<b>{name}</b> adlı kişinin çalışma alanını görüntülüyorsunuz. Yaptığınız değişiklikler onun hesabında geçerli olur."
+  },
+  "logOut": "Çıkış yap",
+  "myApps": "Uygulamalarım",
+  "myAppsHelp": "Tüm uygulamalarınız tek yerde. Çalışmaya devam etmek için birini açın ya da yeni bir uygulama oluşturun.",
+  "profile": "Profil",
+  "resellerDashboard": "Bayi paneli",
+  "resellerHelp": "Müşterilerinizi, markanızı, fiyatlarınızı ve web adresinizi yönetin.",
+  "switchTheme": "Açık veya koyu temaya geç",
+  "switchToDark": "Koyu temaya geç",
+  "switchToLight": "Açık temaya geç",
+  "themeHelp": "Açık ve koyu tema arasında geçiş yapın. Seçiminiz hatırlanır; profilinizden “Cihazımla eşleştir” seçeneğini de belirleyebilirsiniz.",
+  "workspace": "Çalışma alanı",
+  "yourAccount": "Hesabınız"
+}

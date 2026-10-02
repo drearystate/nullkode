@@ -1,0 +1,51 @@
+{
+  "appLanguage": {
+    "help": "Die Sprache, in der deine App mit ihren Besuchern spricht. Die KI erstellt neue Seiten in dieser Sprache, neue Funktionen werden in sie übersetzt und integrierte Nachrichten verwenden sie.",
+    "intro": "Die Sprache, die deine Besucher sehen: Seiten, die die KI erstellt, neue Funktionen und integrierte Nachrichten wie „Entschuldigung, das wurde nicht gesendet.“",
+    "invalid": "Wähle eine der Sprachen aus der Liste aus.",
+    "label": "Sprache dieser App",
+    "loadError": "Die App-Sprache konnte nicht geladen werden.",
+    "notChosen": "Noch keine Sprache ausgewählt, daher ist die App auf Englisch.",
+    "note": "Bereits vorhandene Seiten behalten ihren Text. Um ihn zu ändern, öffne eine Seite und bitte die KI, sie zu übersetzen.",
+    "rtl": "Schreibrichtung von rechts nach links: Seiten werden dafür gespiegelt.",
+    "save": "Sprache speichern",
+    "saveError": "Die Sprache konnte nicht gespeichert werden. Bitte versuche es erneut.",
+    "saveHelp": "Speichert die Sprache. Integrierte Nachrichten und die Spracheinstellung der Seite ändern sich sofort in der Live-App.",
+    "saved": "Gespeichert. Neue Seiten und Funktionen werden auf {language} sein.",
+    "selectHelp": "Wähle die Sprache, in der deine Besucher deine App lesen.",
+    "title": "App-Sprache"
+  },
+  "buildLanguage": {
+    "help": "Die Sprache, in der deine Besucher deine App lesen. Die KI erstellt alle Seiten in dieser Sprache. Du kannst später weitere Sprachen hinzufügen.",
+    "label": "App-Sprache"
+  },
+  "languages": {
+    "add": "Sprache hinzufügen",
+    "addHelp": "Fügt die Sprache hinzu und lässt die KI alle Seiten übersetzen. Du kannst jede Übersetzung im Editor bearbeiten.",
+    "adding": "Wird hinzugefügt…",
+    "confirmRemove": "{language} und die zugehörigen Übersetzungen entfernen? Nach dem Veröffentlichen sehen Besucher sie nicht mehr.",
+    "edited": "{count, plural, one {# von dir bearbeitet} other {# von dir bearbeitet}}",
+    "error": "Das hat nicht geklappt. Bitte versuche es erneut.",
+    "help": "Biete deine App in mehreren Sprachen an. Besucher wählen eine Sprache im App-Menü aus und sehen sie unter einer eigenen Adresse (wie /es/).",
+    "intro": "Biete deine App auch in weiteren Sprachen an. Die KI übersetzt jede Seite, und Besucher wählen eine Sprache im Menü aus. Eine neue Sprache ist nach dem Veröffentlichen verfügbar.",
+    "needUpdate": "{count, plural, one {# muss aktualisiert werden} other {# müssen aktualisiert werden}}",
+    "none": "Deine App ist nur auf {language} verfügbar.",
+    "pick": "Sprache auswählen",
+    "progress": "Wird übersetzt… {done} von {total} Seiten",
+    "publishNote": "Veröffentliche deine App, damit Besucher die Sprachänderungen sehen.",
+    "remove": "Entfernen",
+    "removeHelp": "Entfernt diese Sprache und ihre Übersetzungen aus deiner App.",
+    "title": "Weitere Sprachen",
+    "translated": "{ok, plural, one {# von {total} Seite übersetzt} other {# von {total} Seiten übersetzt}}",
+    "update": "Übersetzungen aktualisieren",
+    "updateHelp": "Die KI übersetzt Seiten, die seit ihrer letzten Übersetzung neu oder geändert wurden. Seiten, die du in dieser Sprache bearbeitet hast, bleiben erhalten."
+  },
+  "preview": {
+    "adminLogin": "Dein Admin-Login",
+    "backToEditor": "Zurück zum Editor",
+    "latest": "Deine neuesten Änderungen",
+    "latestLive": "Deine neuesten Änderungen · Besucher sehen Version {version}",
+    "notPublished": "Vorschau · noch nicht veröffentlicht",
+    "title": "{title} — Vorschau"
+  }
+}

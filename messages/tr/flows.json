@@ -1,0 +1,788 @@
+{
+  "activity": {
+    "all": "Tüm çalıştırmalar",
+    "allHelp": "Bu otomasyonun son çalıştırmalarının tümünü gösterir.",
+    "empty": "Henüz bir şey yok. Biri bunu uygulamanızda kullandığında veya Test çalıştırması'na bastığınızda çalıştırmalar burada görünür.",
+    "filterLabel": "Gösterilecek çalıştırmalar",
+    "intro": "Bu akış her çalıştığında neler olduğunu görün.",
+    "justNow": "az önce",
+    "last24h": "Son 24 saat: {total, plural, one {# çalıştırma} other {# çalıştırma}}, {problems} sorunlu.",
+    "loadError": "Etkinlikler yüklenemedi.",
+    "ms": "{n} ms",
+    "noProblems": "Sorun yok. Son çalıştırmaların hepsi başarıyla tamamlandı.",
+    "nothingSent": "Bu çalıştırmada hiçbir şey gönderilmedi.",
+    "outcome": {
+      "answered": "Yanıtlandı",
+      "failed": "Başarısız",
+      "ok": "Başarıyla tamamlandı",
+      "warning": "Sorunla tamamlandı"
+    },
+    "outcomeHelp": {
+      "answered": "Yanıtlandı: Yanlış parola veya eksik bilgi gibi bir nedenle olumsuz yanıt verdi. Bu genellikle beklenen bir durumdur, hata değildir.",
+      "failed": "Başarısız: Bu çalıştırma bir adımda hatayla durdu ve tamamlanmadı.",
+      "ok": "Başarıyla tamamlandı: Tüm adımlar sorunsuz çalıştı.",
+      "warning": "Sorunla tamamlandı: Çalıştırma tamamlandı ama yolda bir şeyler ters gitti; örneğin e-posta gönderilemedi."
+    },
+    "problemsOnly": "Yalnızca sorunlular",
+    "problemsOnlyHelp": "Başarısız olan veya e-posta gönderilememesi gibi bir sorunla biten çalıştırmaları gösterir.",
+    "refresh": "Etkinlikleri yenile",
+    "refreshHelp": "Yeni çalıştırmaları kontrol et.",
+    "s": "{n} sn",
+    "source": {
+      "event": "Uygulamanızdan",
+      "live": "Uygulamanızdan",
+      "schedule": "Zamanlamaya göre",
+      "test": "Test çalıştırmanız",
+      "test-submission": "Test gönderimi"
+    },
+    "title": "Etkinlikler",
+    "titleHelp": "Bu otomasyonun her çalıştırmasında ne olduğunu görün: başarılı olup olmadığını, neyin başlattığını ve nelerin gönderildiğini. Sorunları fark etmenize yardımcı olur.",
+    "took": "{duration} sürdü",
+    "whatTheySent": "Gönderdikleri",
+    "whatWasSent": "Gönderilenler",
+    "whatWasSentHelp": "Bu çalıştırmayla gelen bilgiler; örneğin birinin forma yazdıkları."
+  },
+  "api": {
+    "aiTooOften": "Bu akış AI kullanıyor, bu yüzden en fazla {minutes} dakikada bir çalışabilir. Böylece zamanlanmış akış AI kullanım hakkınızı tüketmez.",
+    "chooseWhen": "Ne zaman çalışacağını seçin.",
+    "invalidInput": "Geçersiz giriş",
+    "notFound": "Bulunamadı"
+  },
+  "catalog": {
+    "aggregate": {
+      "help": "Bir tablodaki kayıtları sayar veya bir sütundaki değerleri toplar. Örneğin, kayıt olan kişi sayısını ya da toplam satışları bulur. Sonraki adımlarda sonucu kullanabilirsiniz.",
+      "label": "Kayıtları say veya topla"
+    },
+    "ai_prompt": {
+      "help": "Yapay zekâya bir soru sorar veya mesajı özetlemek gibi bir görev verir. Sonraki adımlarda yanıtı kullanabilirsiniz. Her çalıştırma yapay zekâ kullanım hakkınızdan düşer.",
+      "label": "Yapay zekâya sor"
+    },
+    "branch": {
+      "help": "Bir şeyi kontrol eder ve otomasyonu iki yola ayırır: Koşul doğruysa bir yol, değilse diğer yol çalışır.",
+      "label": "Bu doğruysa, değilse"
+    },
+    "bulk_delete": {
+      "help": "Bir tablodaki koşullarınıza uyan tüm satırları tek seferde kalıcı olarak siler. Bu işlem geri alınamaz.",
+      "label": "Birden çok satırı sil"
+    },
+    "bulk_insert": {
+      "help": "Önceki bir adımın oluşturduğu listeden bir tabloya aynı anda birçok satır ekler.",
+      "label": "Birden çok satır ekle"
+    },
+    "bulk_update": {
+      "help": "Bir tablodaki koşullarınıza uyan tüm satırları tek seferde değiştirir.",
+      "label": "Birden çok satırı değiştir"
+    },
+    "check_role": {
+      "help": "Oturum açmış kişinin yönetici gibi belirli bir role sahip olup olmadığını kontrol eder. Ne olacağına karar vermek için ardından “Bu doğruysa, değilse” adımını ekleyin.",
+      "label": "Kişinin neler yapabileceğini kontrol et"
+    },
+    "clear_session": {
+      "help": "Bu cihazda kişinin oturumunu kapatır.",
+      "label": "Kişinin oturumunu kapat"
+    },
+    "custom_js": {
+      "help": "Geliştiriciler için: yazdığınız kısa bir JavaScript kodunu çalıştırır. Yalnızca ihtiyacınız olanı başka bir adımla yapamıyorsanız kullanın.",
+      "label": "Özel kod"
+    },
+    "delay": {
+      "help": "Sonraki adım başlamadan önce otomasyonu birkaç saniyeliğine duraklatır (en fazla 60 saniye).",
+      "label": "Bekle"
+    },
+    "delete": {
+      "help": "Bir tabloda koşullarınıza uyan kayıtları kalıcı olarak siler. Bu işlem geri alınamaz.",
+      "label": "Kayıtları sil"
+    },
+    "email": {
+      "help": "Müşteriye sipariş onayı göndermek veya kendinize bilgi vermek gibi durumlar için e-posta gönderir.",
+      "label": "E-posta gönder"
+    },
+    "get_session": {
+      "help": "Şu anda oturum açmış biri varsa adını, e-posta adresini ve rolünü bulur. Sonraki adımlarda bu bilgileri kullanabilirsiniz.",
+      "label": "Oturum açan kişi"
+    },
+    "hash_password": {
+      "help": "Parolayı güvenli biçimde saklanabilmesi için geri okunamayacak şekilde dönüştürür. Yeni bir hesabın parolasını kaydetmeden önce kullanın; özgün parola sonradan okunamaz.",
+      "label": "Parolayı güvenle sakla"
+    },
+    "http_request": {
+      "help": "Bilgi almak veya bilgi göndermek için başka bir web sitesiyle ya da çevrimiçi hizmetle iletişim kurar. Sonraki adımlarda gelen yanıtı kullanabilirsiniz.",
+      "label": "Başka bir web sitesiyle iletişim kur"
+    },
+    "insert": {
+      "help": "Tablolarınızdan birine yeni bir kayıt (yeni bir satır) ekler. Örneğin, birinin forma yazdığı bilgileri kaydeder.",
+      "label": "Kayıt ekle"
+    },
+    "lookup": {
+      "help": "Önceki bir adımın bulduğu her kayıt için başka bir tablodaki eşleşen kaydı getirir. Örneğin, her siparişe müşterisinin bilgilerini ekler.",
+      "label": "İlişkili bir kaydı bul"
+    },
+    "math": {
+      "help": "İki değeri kullanarak bir sayı hesaplar: toplama, çıkarma, çarpma, bölme veya kalan bulma. Sonraki adımlarda sonucu kullanabilirsiniz.",
+      "label": "Hesapla"
+    },
+    "parse_json": {
+      "help": "Yapılandırılmış veri içeren metni (genellikle başka web sitelerinden gönderilir) sonraki adımlarda seçebileceğiniz ayrı değerlere dönüştürür.",
+      "label": "Metindeki verileri oku"
+    },
+    "query": {
+      "help": "Tablolarınızdan birinde (tablo, elektronik tabloya benzer) kayıtları bulur. İsterseniz yalnızca belirlediğiniz koşullara uyanları bulur. Sonraki adımlarda bulduklarını kullanabilirsiniz.",
+      "label": "Kayıtları bul"
+    },
+    "response": {
+      "help": "Otomasyonu başlatan sayfaya veya forma, örneğin başarı mesajı ya da bulunan kayıtları yanıt olarak gönderir.",
+      "label": "Yanıt ver"
+    },
+    "send_push": {
+      "help": "Uygulamanız için bildirimleri açan herkese telefonundan veya bilgisayarından bildirim gönderir.",
+      "label": "Bildirim gönder"
+    },
+    "set": {
+      "help": "Sonraki adımlarda yeniden kullanabilmeniz için seçtiğiniz adla bir değer kaydeder. Bu çalışma için yapışkan nota benzer.",
+      "label": "Bir değeri kaydet"
+    },
+    "set_session": {
+      "help": "Bu cihazda kişinin oturumunu açar; böylece uygulamanız sonraki ziyaretlerinde kim olduğunu hatırlar.",
+      "label": "Kişinin oturumunu aç"
+    },
+    "sheets_append": {
+      "help": "Bağladığınız Google E-Tablolar'a yeni bir satır ekler. Örneğin, gönderilen her formu kaydedebilirsiniz. Yalnızca uygulamanızın düzenleme izni olan e-tablolarda çalışır; salt okunur e-tablolarda çalışmaz.",
+      "label": "Google E-Tablolar'a satır ekle"
+    },
+    "sheets_read": {
+      "help": "Bağladığınız Google E-Tablolar'daki satırları (en fazla 1.000) okur. Sonraki adımlarda bu satırları kullanabilirsiniz.",
+      "label": "Google E-Tablolar'ı oku"
+    },
+    "trigger": {
+      "help": "Otomasyonun nerede başlayacağını seçin: uygulamanızdaki bir sayfa veya form bunu kullandığında ya da bir zamanlama ayarladıysanız belirlediğiniz zamanda. Ardından olmasını istediğiniz ilk adıma bağlayın.",
+      "label": "Uygulama bunu çalıştırdığında"
+    },
+    "update": {
+      "help": "Bir tabloda kayıtlı olanları değiştirir. Hangi kayıtların değişeceğini ve yeni değerlerini siz seçersiniz.",
+      "label": "Kayıtları değiştir"
+    },
+    "verify_password": {
+      "help": "Birinin yazdığı parolanın kaydettiğiniz dönüştürülmüş parolayla eşleşip eşleşmediğini kontrol eder. Oturum açarken kullanın.",
+      "label": "Parolayı kontrol et"
+    }
+  },
+  "categories": {
+    "ai": "AI",
+    "auth": "Hesaplar",
+    "data": "Kayıtlı veriler",
+    "integration": "Gönder ve bağlan",
+    "logic": "Kararlar ve değerler",
+    "response": "Tamamla",
+    "trigger": "Başlangıç"
+  },
+  "describe": {
+    "anEmailOff": "e-posta ayarlanmadığı için e-posta gönderilmedi",
+    "answered": "\"{message}\" yanıtlandı.",
+    "answeredCode": "{status} koduyla yanıtlandı.",
+    "didAndNote": "{did}; {note}.",
+    "done": {
+      "ai": "Yapay zekâya soruldu",
+      "deleted": "{table} tablosundan silindi",
+      "emailed": "{address} adresine e-posta gönderildi",
+      "http": "Başka bir hizmetle iletişim kuruldu",
+      "saved": "{table} tablosuna kaydedildi",
+      "sentEmail": "E-posta gönderildi",
+      "sentPush": "Bildirim gönderildi",
+      "sheetsAppend": "Google Sheets'e bir satır eklendi",
+      "signedIn": "Bir kişinin oturumu açıldı",
+      "signedOut": "Bir kişinin oturumu kapatıldı",
+      "updated": "{table} güncellendi"
+    },
+    "emailNotSent": "e-posta gönderilmedi ({reason})",
+    "emailOff": "e-posta ayarlanmadığı için e-posta gönderilmedi",
+    "failed": {
+      "ai": "Yapay zekâ adımından yanıt alınamadı",
+      "delete": "{table} tablosundan silinemedi",
+      "didntFinish": "Tamamlanmadı",
+      "email": "E-posta gönderilemedi",
+      "http": "Diğer hizmete ulaşılamadı",
+      "push": "Bildirim gönderilemedi",
+      "read": "{table} okunamadı",
+      "save": "{table} tablosuna kaydedilemedi",
+      "stoppedAt": "“{label}” adımında durdu",
+      "update": "{table} güncellenemedi"
+    },
+    "failedOnly": "{failed}.",
+    "failedWhy": "{failed}: {why}",
+    "failedWhyPeriod": "{failed}: {why}.",
+    "noProblems": "Sorunsuz tamamlandı.",
+    "sent": "Gönderildi",
+    "sentence": "{text}.",
+    "signUps": "kayıtlar",
+    "yourData": "verileriniz"
+  },
+  "editor": {
+    "addStep": "Adım ekle",
+    "addStepHelp": "Otomasyonunuzun yapabilecekleri. Eklemek için birine tıklayın, ardından adımların çalışma sırasını belirlemek için sağ kenarından sonraki adıma sürükleyin.",
+    "deleteStep": "Adımı sil",
+    "deleteStepHelp": "Bu adımı ve bağlantılarını kaldırır. Klavyenizdeki Delete tuşuna da basabilirsiniz.",
+    "emptyBody": "Ne yaptığını düzenlemek için bir adım seçin. Soldan daha fazla adım ekleyin, ardından çalışma sırasına göre birbirine bağlayın.",
+    "emptyTitle": "Her adımın bir amacı vardır.",
+    "flow": "Akış",
+    "handleFalse": "Alttaki nokta: Koşul doğru değilse çalışması gereken adıma bağlamak için buradan tutup sürükleyin.",
+    "handleIn": "Önceki adımın bağlandığı yer.",
+    "handleOut": "Sonraki adımda ne olacağını seçmek için buradan tutup sürükleyin.",
+    "handleTrue": "Üstteki nokta: Koşul doğruysa çalışması gereken adıma bağlamak için buradan tutup sürükleyin.",
+    "pausedTest": "Bu otomasyon duraklatıldı. Test etmek için açın.",
+    "problemsBadge": "Son 24 saatte {count} sorun yaşadı",
+    "running": "Çalışıyor...",
+    "saveFailed": "Kaydedilemedi",
+    "saved": "Kaydedildi",
+    "searchHelp": "Bir adımı hızla bulmak için “e-posta” veya “kaydet” gibi bir kelime yazın.",
+    "searchLabel": "Akış adımlarında ara",
+    "searchPlaceholder": "Adım bul…",
+    "tabActivity": "Etkinlik",
+    "tabActivityHelp": "Bu otomasyonun her çalışmasını, başarılı olup olmadığını ve bir sorun oluştuğunda kişilerin neler gönderdiğini görün.",
+    "tabSchedule": "Zamanlama",
+    "tabScheduleHelp": "Uygulamanız kullanıldığında mı, yoksa her sabah gibi belirli zamanlarda kendi kendine mi çalışacağını seçin.",
+    "tabSteps": "Adımlar",
+    "tabStepsHelp": "Otomasyonu oluşturun: Adımlar ekleyin ve çalışma sırasına göre birbirine bağlayın.",
+    "tabsLabel": "Akış görünümleri",
+    "testRun": "Test çalıştırması",
+    "testRunHelp": "En son kaydedilen değişikliklerle bu otomasyonu şimdi bir kez çalıştırır ve sonucu aşağıda gösterir. Adımları gerçekten uygular (kaydeder, e-posta gönderir vb.) ve Etkinlik bölümünde görünür.",
+    "webAddress": "Web adresi (geliştiriciler için)",
+    "webAddressHelp": "Diğer hizmetlerin veya kendi kodunuzun bu otomasyonu başlatmak için kullanabileceği web adresi. Yalnızca stüdyo dışındaki bir şeyi bağlayacaksanız gerekir."
+  },
+  "enabledSwitch": {
+    "failed": "Değiştirilemedi. Tekrar deneyin.",
+    "help": "Duraklatıldığında hiçbir şey çalışmaz ve form gibi uygulamanızda bunu kullanan her şey hata verir. Değişiklik yayındaki uygulamanıza hemen uygulanır; yayınlamanız gerekmez.",
+    "helpScheduled": "Duraklatıldığında zamanlanmış çalışmaları durur ve uygulamanızda bunu kullanan her şey hata verir. Değişiklik hemen uygulanır; yayınlamanız gerekmez.",
+    "label": "Bu otomasyonu çalıştır",
+    "on": "Açık",
+    "paused": "Duraklatıldı"
+  },
+  "inspector": {
+    "add": "Ekle",
+    "addCondition": "Koşul ekle",
+    "addConditionHelp": "Başka bir kural ekler. Sayılması için bir kaydın tüm kurallara uyması gerekir.",
+    "addField": "Alan ekle",
+    "addFieldHelp": "Ad ve değer içeren başka bir satır ekler.",
+    "advanced": "Gelişmiş",
+    "agg": {
+      "avg": "Bir sütunun ortalamasını al",
+      "count": "Kayıtları say",
+      "max": "Bir sütundaki en büyük değer",
+      "min": "Bir sütundaki en küçük değer",
+      "sum": "Bir sütundaki değerleri topla"
+    },
+    "aggregateEmptyHint": "Tüm satırları dahil etmek için boş bırakın. Birden çok koşul varsa tümü karşılanmalıdır.",
+    "biggestFirst": "En büyük sonuç önce",
+    "body": "Gövde",
+    "bodyEmpty": "İstek gövdesinde gönderilecek alanları ekleyin.",
+    "bodyHelp": "Gönderilecek bilgiler. Her satır bir ad ve değer içerir; hangi adların gerektiğini diğer hizmetin kılavuzunda bulabilirsiniz.",
+    "branchHint": "Üstteki noktayı doğru olduğunda ne olacağına, alttaki noktayı doğru olmadığında ne olacağına bağlayın.",
+    "bulkInsertHint": "Bu adım, önceki adım bir liste oluşturmadıysa veya listedeki bir öğenin kimliği tabloda zaten varsa hata verir.",
+    "byAsc": "{column} sütununa göre, A'dan Z'ye",
+    "byDesc": "{column} sütununa göre, Z'den A'ya",
+    "choose": "— seçin —",
+    "clearSession": "Bu cihazda uygulamanızı kullanan kişinin oturumunu kapatır. Bir sonraki kullanımında yeniden oturum açması gerekir. Burada ayarlanacak bir şey yok.",
+    "clearSessionHelp": "Bu adımın ayarı yok. Uygulamanızın kişinin cihazına kaydettiği oturum açma bilgilerini kaldırır.",
+    "closeHelp": "Hiçbir şey eklemeden bu listeyi kapatın.",
+    "columnHelp": "Kontrol edilecek sütun; örneğin e-posta veya durum.",
+    "deleteHelp": "Bu adımı ve otomasyondaki bağlantılarını kaldırır. Geri alamazsınız; adımı yeniden eklemeniz gerekir.",
+    "deleteNeedsCondition": "Silmek için bir koşul gerekli — yoksa adım başarısız olur.",
+    "fields": {
+      "aiPrompt": {
+        "help": "Yapay zekâya sorulan soru veya verilen görev. Müşterinin mesajı gibi bilgileri eklemek için değer ekleyin.",
+        "label": "İstek"
+      },
+      "aiSystem": {
+        "help": "Yapay zekâya her seferinde verilen arka plan bilgisi. Örneğin: “Tek, samimi bir cümleyle yanıt ver” veya “Bir fırında çalışıyorsun”.",
+        "label": "Sistem talimatları (isteğe bağlı)"
+      },
+      "dataSource": {
+        "help": "Verilerinizin saklandığı yer. Çoğu uygulamada yalnızca kendi yerleşik veritabanı bulunur. Başka bir kaynak eklediyseniz onu seçin.",
+        "label": "Veri kaynağı"
+      },
+      "emailFrom": {
+        "help": "E-postanın kimden geldiğini gösteren adres. Sunucunun normal gönderim adresini kullanmak için boş bırakın.",
+        "label": "Gönderen (isteğe bağlı)"
+      },
+      "emailMessage": {
+        "help": "E-postanın içeriği. Kişinin adı veya sipariş ayrıntıları gibi değerler ekleyerek mesajı kişiselleştirin.",
+        "label": "Mesaj"
+      },
+      "emailSubject": {
+        "help": "E-postanın konu satırı. Sipariş numarası gibi değerler ekleyebilirsiniz.",
+        "label": "Konu"
+      },
+      "emailTo": {
+        "help": "E-postayı alacak kişi. Bir adres yazın veya kişinin kendi e-postası gibi formdan bir adres ekleyin. Birden fazla adresi virgülle ayırın.",
+        "label": "Alıcı"
+      },
+      "firstValue": {
+        "help": "İlk sayı. Yazın veya önceki bir adımdan ekleyin.",
+        "label": "İlk değer"
+      },
+      "groupBy": {
+        "help": "Bu sütundaki her değer için bir sonuç verir; örneğin her durum için bir sayı. Tek bir sayı için “Tek toplam” seçeneğini kullanın.",
+        "label": "Şuna göre gruplara ayır"
+      },
+      "groupLimit": {
+        "help": "Döndürülecek en fazla grup sayısı (1.000’e kadar). Bu sayıyı aşan gruplar eklenmez.",
+        "label": "Döndürülecek en fazla grup sayısı"
+      },
+      "hashInput": {
+        "help": "Genellikle kayıt formuna yazılan, geri döndürülemeyecek şekilde dönüştürülecek parola. Dönüştürülmüş hâlini kaydedin, asıl parolayı asla kaydetmeyin.",
+        "label": "Özeti alınacak parola"
+      },
+      "is": {
+        "help": "İki değeri nasıl karşılaştıracağınızı seçin. “İçerir”, metni herhangi bir yerde arar; “var”, yalnızca ilk değerin boş olup olmadığını kontrol eder.",
+        "label": "Karşılaştırma"
+      },
+      "javascript": {
+        "help": "Kodunuz. Önceki adımların sonuçları için vars.name, gönderilen veriler için trigger.name kullanın. Döndürdüğünüz her şey sonraki adımlar için kaydedilir.",
+        "label": "JavaScript"
+      },
+      "jsonInput": {
+        "help": "Verileri, başka web sitelerinin sıkça gönderdiği JSON biçiminde içeren metin. Genellikle “Başka bir web sitesini çağır” adımının yanıtıdır. Metin bu biçimde değilse adım başarısız olur.",
+        "label": "Ayrıştırılacak JSON metni"
+      },
+      "lookupAs": {
+        "help": "Her kayda eklenecek ayrıntılar için bir ad; örneğin müşteri. Tek eşleşme tek kayıt, birden fazla eşleşme ise en fazla 10 öğelik liste olarak kaydedilir.",
+        "label": "Ayrıntıları şu adla kaydet"
+      },
+      "lookupDataSource": {
+        "help": "Diğer listenin bulunduğu yer. Çoğu uygulamada yalnızca kendi yerleşik veritabanı bulunur.",
+        "label": "Veri kaynağı"
+      },
+      "lookupIn": {
+        "help": "Ayrıntıların alınacağı kayıt listesi; örneğin Müşteriler.",
+        "label": "Şurada ara"
+      },
+      "lookupMatch": {
+        "help": "Bu listedeki, yukarıdaki değerle eşleşmesi gereken sütun. Genellikle id olur.",
+        "label": "Eşleşecek sütun"
+      },
+      "lookupPointer": {
+        "help": "Bu kayıtlarda diğer kaydın kimliğini içeren sütun; örneğin siparişteki customer_id. Bu sütunu boş olan kayıtlar olduğu gibi bırakılır.",
+        "label": "Diğer kaydı gösteren sütun"
+      },
+      "lookupSource": {
+        "help": "Önceki bir adımın bulduğu liste; örneğin “Kayıtları bul” adımının bulduğu siparişler. Bu adım liste oluşturmadıysa hata verir.",
+        "label": "Ayrıntı eklenecek kayıtlar"
+      },
+      "method": {
+        "help": "İstek türü. GET bilgi alır, POST yeni bilgi gönderir, PUT ve PATCH bilgiyi değiştirir, DELETE ise kaldırır. Hangi yöntemi kullanacağınızı diğer hizmetin kılavuzundan öğrenebilirsiniz.",
+        "label": "Yöntem"
+      },
+      "ofColumn": {
+        "help": "Üzerinde işlem yapılacak sütun; örneğin tutar veya fiyat. Toplama ve ortalama alma yalnızca sayı sütunlarında çalışır.",
+        "label": "Bu sütunda"
+      },
+      "operator": {
+        "help": "İki sayıyla yapılacak işlem. Kalan, bölme işleminden sonra artan değerdir (7’nin 2’ye bölümünden kalan 1’dir). Sıfıra bölme işleminin sonucu 0 olur.",
+        "label": "İşlem"
+      },
+      "orderGroups": {
+        "help": "Sonuçta hangi grupların önce geleceği; örneğin en yoğun durum en üstte.",
+        "label": "Grupları sıralama"
+      },
+      "plainPassword": {
+        "help": "Kişinin giriş formunuza az önce yazdığı parola.",
+        "label": "Kullanıcının parolası"
+      },
+      "pushMessage": {
+        "help": "Başlığın altındaki metin. Telefonlar uzun mesajları kestiği için kısa tutun.",
+        "label": "Mesaj"
+      },
+      "pushTitle": {
+        "help": "Bildirimin kalın yazılan ilk satırı. Önceki bir adımdaki ad gibi değerler ekleyebilirsiniz.",
+        "label": "Başlık"
+      },
+      "pushUrl": {
+        "help": "Bildirime dokunulduğunda açılacak uygulama sayfası; örneğin /menu. Uygulamanızın ana sayfasının açılması için boş bırakın.",
+        "label": "Dokunulduğunda bu sayfayı aç (isteğe bağlı)"
+      },
+      "roleNeeded": {
+        "help": "Kişinin sahip olması gereken rol; örneğin admin veya yönetici. Büyük-küçük harf fark etmez.",
+        "label": "Gerekli rol"
+      },
+      "roleSource": {
+        "help": "Oturum açan kişinin rolünü bu adımdan önceki “Kim oturum açtı?” adımından kullanmak için boş bırakın. Yalnızca önceki bir adım rolü başka bir adla kaydettiyse değiştirin.",
+        "label": "Rolün bulunduğu yer (isteğe bağlı)"
+      },
+      "rowsToAdd": {
+        "help": "Önceki bir adımın oluşturduğu liste; örneğin “Kayıtları bul” adımının bulduğu kayıtlar. Her öğe yeni bir satır olur, bu yüzden adları bu tablonun sütunlarıyla eşleşmelidir.",
+        "label": "Eklenecek satırlar"
+      },
+      "secondValue": {
+        "help": "İkinci sayı. Yazın veya önceki bir adımdan ekleyin.",
+        "label": "İkinci değer"
+      },
+      "seconds": {
+        "help": "Sonraki adımdan önce beklenecek süre. Uygulamanızı kullanan kişi de bekleyeceği için kısa tutun.",
+        "label": "Saniye (0-60)"
+      },
+      "sheetSource": {
+        "help": "Uygulamanıza bağlı Google E-Tablolar dosyası. Liste boşsa önce uygulamanızın Veri sayfasındaki Gelişmiş bölümünden bir tane ekleyin.",
+        "label": "Google E-Tablolar veri kaynağı"
+      },
+      "sheetTab": {
+        "help": "E-tablonun altındaki sekmenin adı; Sheet1 gibi, ekranda göründüğü şekliyle aynen yazın.",
+        "label": "Sayfa sekmesinin adı"
+      },
+      "stepName": {
+        "help": "Bu adımı diğerlerinden ayırt edebilmeniz için kutusunda gösterilen ad. Adımın ne yaptığını değiştirmez.",
+        "label": "Adım adı"
+      },
+      "storedHash": {
+        "help": "Kişi kaydolduğunda kaydettiğiniz dönüştürülmüş parola. Genellikle hesabını bulan “Kayıtları bul” adımından gelir.",
+        "label": "Kayıtlı parola özeti"
+      },
+      "table": {
+        "help": "Kullanılacak tablo. Tablo, e-tablo gibidir: her satırda bir kayıt bulunur; örneğin her sipariş veya kayıt için bir satır.",
+        "label": "Kayıt listesi"
+      },
+      "thisValue": {
+        "help": "Karşılaştırılacak değer. Tırnak işareti kullanmadan yazın veya bir değer ekleyin. “Eşittir” seçeneğinde büyük-küçük harfler dâhil tam eşleşme gerekir.",
+        "label": "Şu değer"
+      },
+      "url": {
+        "help": "İletişim kurulacak hizmetin https:// ile başlayan web adresi. Adrese değer ekleyebilirsiniz.",
+        "label": "URL"
+      },
+      "userId": {
+        "help": "Giriş yapılacak hesabın kimliği. Genellikle “Kayıtları bul” adımının bulduğu kayıttan gelir. Kişi çıkış yapana kadar uygulamanız onu hatırlar.",
+        "label": "Kullanıcı kimliği"
+      },
+      "value": {
+        "help": "Kaydedilecek şey. Metin yazın, formdan veya önceki bir adımdan değer ekleyin ya da ikisini birlikte kullanın.",
+        "label": "Değer"
+      },
+      "variableName": {
+        "help": "Değeri hangi adla kaydedeceğinizi seçin. Sonraki adımlar bu değeri Ekle listesinden seçebilir.",
+        "label": "Değişken adı"
+      },
+      "whatToWorkOut": {
+        "help": "Say, kayıt sayısını verir. Toplam, ortalama, en küçük ve en büyük değerler tek bir sütunda çalışır; örneğin tutar sütununun toplamı.",
+        "label": "Hesaplanacak değer"
+      },
+      "whenThisValue": {
+        "help": "Kontrol edilecek değer; genellikle formdan veya önceki bir adımdan gelir. Seçmek için Ekle’yi kullanın.",
+        "label": "Bu değer"
+      }
+    },
+    "fromRequest": "İstekten",
+    "fromRequestHelp": "“İstek”, bu otomasyonu başlatırken sayfanın veya formun gönderdiği bilgilerdir. E-posta gibi bir alanın adını yazıp Enter'a veya Ekle'ye basın.",
+    "fromStepHelp": "Bu önceki adımın bulduğu kayıtlar veya aldığı yanıt gibi sonuçlarını ekler.",
+    "fromSteps": "Önceki adımlardan",
+    "groupedResult": "Sonuç, her {column} için bir satır içeren bir listedir. Her satırda {column} ve değeri bulunur.",
+    "helper": {
+      "date": "Bugünün tarihi",
+      "dateHelp": "Bu adımın çalıştığı tarih; saat bilgisi olmadan.",
+      "now": "Geçerli tarih ve saat",
+      "nowHelp": "Bu adım çalıştığı andaki tam tarih ve saat.",
+      "uuid": "Rastgele kimlik",
+      "uuidHelp": "Her seferinde yeni ve rastgele bir kod oluşturur; benzersiz bir referans numarası olarak kullanabilirsiniz."
+    },
+    "helpers": "Yardımcılar",
+    "insert": "Ekle",
+    "insertHelp": "Her seferinde değişen bir değer ekleyin: formun gönderdiği bir bilgi, önceki bir adımın sonucu veya bugünün tarihi.",
+    "insertLabel": "Değer ekle",
+    "insertTitle": "İstekten veya önceki bir adımdan değer ekleyin",
+    "insertValue": "Değer ekle",
+    "insertValuesHelp": "Yeni kaydın her sütununa ne kaydedileceği. Bir değer yazın veya formdan ekleyin. Kaydın kimliği ve eklendiği tarih sizin için doldurulur.",
+    "js": {
+      "available": "Kullanılabilir değerler",
+      "availableHelp": "Kodunuzda kullanabileceğiniz önceki adımların sonuçları. İmlecin bulunduğu yere eklemek için birine tıklayın.",
+      "chipHint": "İmlecin bulunduğu yere eklemek için bir etikete tıklayın.",
+      "examples": "Örnekler",
+      "examplesHelp": "Sık kullanılan işler için hazır kod parçaları. İmlecin bulunduğu yere eklemek için birine tıklayın.",
+      "headsUp": "Dikkat",
+      "how": "Nasıl çalışır",
+      "how1": "Kodunuz, sunucuda kısıtlı bir ortamda çalışır. Ağa veya dosya sistemine erişemez, <code>{require}</code> ya da <code>{import}</code> kullanamaz ve diğer akışlara erişemez.",
+      "how2": "Önceki bir adımın çıktısını kullanmak için <code>{read}</code> üzerinden okuyun. Sonraki adımlarda kullanılabilecek bir değişken oluşturmak için <code>{write}</code> değerine atayın. <code>{return}</code> ile döndürdüğünüz değer, aşağıda gösterilen çıktı değişkenine kaydedilir.",
+      "how3": "<code>{trigger}</code>, gelen isteğin değiştirilemeyen bir kopyasıdır ve salt okunurdur. Konsol günlükleri silinir.",
+      "how4": "Komut dosyaları 3 saniye sonra durdurulur. Kodunuz hata verirse tüm akış, hata mesajınızla birlikte başarısız olur.",
+      "howHelp": "Kodunuzun neler yapabileceğini, sınırlarını ve 3 saniye sonra durması gibi kısıtlamaları öğrenin.",
+      "insertTrigger": "İstek verilerini ekle",
+      "noSteps": "Henüz önceki adım yok — bu adımı değer üreten bir adımdan sonra bağlayın.",
+      "syntax": "Kodda, diğer adımlarda kullanılan <code>{template}</code> sözdizimi yerine doğrudan <code>{vars}</code> ve <code>{trigger}</code> kullanın."
+    },
+    "math": {
+      "add": "topla (+)",
+      "divide": "böl (÷)",
+      "multiply": "çarp (×)",
+      "remainder": "kalan (%)",
+      "subtract": "çıkar (−)"
+    },
+    "newRowValues": "Yeni satır değerleri",
+    "noColumns": "Bu tabloda henüz sütun yok. Önce tabloya alan ekleyin.",
+    "noConditions": "Koşul yok — tüm satırlarla eşleşir.",
+    "noEditableColumns": "Bu tabloda düzenlenebilir sütun yok.",
+    "noSteps": "Henüz hiçbir önceki adım bir değer üretmiyor.",
+    "oneTotal": "Tek toplam",
+    "ops": {
+      "contains": "içerir",
+      "eq": "eşittir",
+      "exists": "var (boş değil)",
+      "gt": "büyüktür",
+      "gte": "büyük veya eşittir",
+      "lt": "küçüktür",
+      "lte": "küçük veya eşittir",
+      "ne": "eşit değildir"
+    },
+    "outputHelp": "İsteğe bağlı: Bu adımın sonucunun kaydedileceği ad. Yalnızca iki adımın adı çakışacaksa değiştirin; örneğin iki “Kayıt bul” adımınız varsa.",
+    "outputName": "Bu adımın sonucuna başka yerlerde başvurmak için kullanılan ad.",
+    "pickTable": "Bu adımı ayarlamak için bir kayıt listesi seçin.",
+    "placeholders": {
+      "aNumber": "bir sayı",
+      "aiPrompt": "Bu müşteri mesajını özetleyin...",
+      "aiSystem": "Yardımcı bir asistansınız...",
+      "eg10": "örn. 10",
+      "eg108": "örn. 1,08",
+      "egActive": "örn. etkin",
+      "egGreeting": "örn. selamlama",
+      "emailBody": "Merhaba, siparişiniz için teşekkürler...",
+      "emailSubject": "Siparişiniz kargoya verildi",
+      "fieldName": "alan adı (örn. email)",
+      "hashFromRow": "Veritabanı satırından özeti seçin",
+      "helloThere": "Merhaba",
+      "jsonInput": "JSON metni içeren bir değer seçin",
+      "keepCurrent": "geçerli değeri korumak için boş bırakın",
+      "name": "ad",
+      "passwordFromRequest": "İstekten parolayı seçin",
+      "pickSourceFirst": "Önce bir veri kaynağı seçin",
+      "pickValue": "Önceki bir adımdan değer seçin",
+      "pushMessage": "Yerler dolmadan masa ayırtın.",
+      "pushTitle": "Bu akşam: saat 19.00’dan itibaren canlı müzik",
+      "stepName": "Bu adım ne yapıyor?",
+      "trueOrFalse": "true veya false",
+      "userIdFromStep": "Önceki bir adımdan kullanıcı kimliğini seçin",
+      "value": "değer"
+    },
+    "pushIntro": "Bu uygulamada bildirimleri açan herkese gönderir. iPhone kullanıcılarının uygulamayı ana ekrana eklemesi gerekir.",
+    "queryEmptyHint": "Tüm satırları getirmek için boş bırakın. Birden çok koşul varsa tümü karşılanmalıdır.",
+    "remove": "Kaldır",
+    "removeCondition": "Koşulu kaldır",
+    "removeConditionHelp": "Bu kuralı kaldırır.",
+    "removeRowHelp": "Bu satırı kaldırır.",
+    "respondEmpty": "İsteği başlatana ne göndereceğinizi seçin. Her satır yanıtta bir alan olur.",
+    "respondHint": "İsteği başlatan varsayılan olarak başarı yanıtı alır. Hata döndürmeniz gerekiyorsa akışa daha önce bir dallanma adımı ekleyin.",
+    "respondWith": "Şununla yanıt ver",
+    "respondWithHelp": "Bunu başlatan sayfaya veya forma ne gönderileceği. Her satır bir ad ve değer içerir; örneğin message: Teşekkürler, aldık.",
+    "rolePassHint": "Bu adımdan önce “Kim oturum açtı” adımını ekleyin; yoksa bu kontrolü kimse geçemez.",
+    "roleResult": "Doğru veya yanlış yanıtı {name} olarak kaydedilir. Ardından {token} değerinin true olup olmadığını kontrol eden bir “Bu olursa, yoksa şu” adımı ekleyin.",
+    "rowValues": "Satır değerleri",
+    "rowValuesEmpty": "Sayfadaki her sütun başlığı için bir alan ekleyin.",
+    "rowValuesHelp": "Yeni satıra ne yazılacağı. Her ad, sayfanın ilk satırındaki sütun başlıklarından biriyle eşleşmelidir. Değer de o sütunun altına yazılır.",
+    "setFields": "Bu alanları ayarla",
+    "singleResult": "Sonuç, yanıtı değer olarak içeren tek satırlı bir listedir. Sayıyı sonraki bir adımda kullanmak için {token} yazın.",
+    "smallestFirst": "En küçük sonuç önce",
+    "snippets": {
+      "filter": {
+        "description": "Yalnızca koşula uyan satırları tut",
+        "label": "Satırları filtrele"
+      },
+      "format": {
+        "description": "Tetikleyici verilerinden bir mesaj oluştur",
+        "label": "Metni biçimlendir"
+      },
+      "map": {
+        "description": "Her satırı daha küçük bir nesneye dönüştür",
+        "label": "Yeni bir biçime dönüştür"
+      },
+      "split": {
+        "description": "Tam adı ad ve soyadı alanlarına ayır",
+        "label": "Adı parçalara ayır"
+      },
+      "sum": {
+        "description": "Tüm satırlardaki sayıları topla",
+        "label": "Bir sütunu topla"
+      },
+      "timestamp": {
+        "description": "Geçerli saati ISO biçiminde al",
+        "label": "Geçerli zaman damgası"
+      }
+    },
+    "step": "Adım",
+    "updateNeedsCondition": "Satırları değiştirmek için bir koşul gerekli — yoksa adım başarısız olur.",
+    "updateValuesHelp": "Kaydedilecek yeni değerler. Mevcut değeri korumak için sütunu boş bırakın.",
+    "where": {
+      "aggregate": {
+        "help": "Yalnızca sütunu verdiğiniz değere eşit olan kayıtlar sayılır; tüm koşulların karşılanması gerekir. Değeri boş olan koşullar atlanır. Koşul yoksa tüm kayıtlar sayılır.",
+        "label": "Yalnızca şu koşulu sağlayan satırları dahil et"
+      },
+      "bulk_delete": {
+        "help": "Silinecek satırlar: sütunu verdiğiniz değere eşit olan tüm satırlar. Tüm tablonun yanlışlıkla silinmesini önlemek için en az bir koşul gerekir.",
+        "label": "Şu koşulu sağlayan satırları sil"
+      },
+      "bulk_update": {
+        "help": "Değiştirilecek satırlar: sütunu verdiğiniz değere eşit olan tüm satırlar. Tüm tablonun yanlışlıkla değiştirilmesini önlemek için en az bir koşul gerekir.",
+        "label": "Şu koşulu sağlayan satırları değiştir"
+      },
+      "delete": {
+        "help": "Silinecek kayıtlar: yalnızca sütunu verdiğiniz değere eşit olanlar. Tüm tablonun yanlışlıkla silinmesini önlemek için en az bir koşul gerekir.",
+        "label": "Şu koşulu sağlayan satırları sil"
+      },
+      "query": {
+        "help": "Yalnızca sütunu verdiğiniz değere eşit olan kayıtlar bulunur; tüm koşulların karşılanması gerekir. Değeri boş olan koşullar atlanır. Koşul yoksa tüm kayıtlar bulunur (en fazla 100).",
+        "label": "Şu koşulu sağlayan satırları bul"
+      },
+      "update": {
+        "help": "Değiştirilecek kayıtlar: yalnızca sütunu verdiğiniz değere eşit olanlar. Tüm tablonun yanlışlıkla değiştirilmesini önlemek için en az bir koşul gerekir.",
+        "label": "Şu koşulu sağlayan satırları güncelle"
+      }
+    }
+  },
+  "list": {
+    "emptyBody": "İlk akışınızı oluşturun veya akışları hazır şekilde bağlı bir özellik ekleyin.",
+    "emptyTitle": "Küçük bir otomasyon çok işe yarar.",
+    "explainerHelp": "Otomasyonlar şöyle çalışır: Uygulamanızda bir formun gönderilmesi gibi bir şey olur; adımlarınız sırayla çalışır; ardından kullanıcıya teşekkür mesajı gibi bir sonuç gösterilir.",
+    "explore": "Özellikleri keşfedin",
+    "exploreHelp": "Rezervasyon veya iletişim formu gibi hazır özelliklere göz atın. Otomasyonları önceden ayarlanmış olarak gelir.",
+    "eyebrow": "İŞLERİ HAREKETE GEÇİRİN",
+    "intro": "Bir tıklamayı işleme dönüştürün. Rezervasyon kaydedin, e-posta gönderin veya verilerinizi canlandırın.",
+    "openHelp": "Adımlarını görmek ve değiştirmek, her çalıştırmada neler olduğunu kontrol etmek veya ne zaman çalışacağını ayarlamak için bu otomasyonu açın.",
+    "result": "Kullanıcınıza bir sonuç sunulur",
+    "somethingHappens": "Bir şey olur",
+    "steps": "{count, plural, one {# adım} other {# adım}}",
+    "stepsRun": "Adımlarınız çalışır",
+    "title": "Uygulamanızın akışları.",
+    "triggerEvent": "Bir etkinlikle başlar",
+    "triggerForm": "Bir formla başlar",
+    "triggerRequest": "Bir istekle başlar",
+    "triggerSchedule": "Zamanlanmış olarak çalışır"
+  },
+  "newFlow": {
+    "button": "Yeni akış",
+    "buttonHelp": "Yeni ve boş bir otomasyon başlatın: uygulamanızda bir şey olduğunda kendi kendine çalışan bir işlem. Önce adını belirleyin, sonra adımlarını ekleyin.",
+    "create": "Oluştur",
+    "createHelp": "Otomasyonu oluşturur ve adımlarını ekleyebilmeniz için açar.",
+    "nameHelp": "Bu otomasyonun ne yaptığını anlatan bir ad yazın; ör. Rezervasyon onayı gönder. Oluşturmak için Enter'a basın.",
+    "placeholder": "ör. İletişim formunu gönder"
+  },
+  "runtime": {
+    "aiBusy": "Bu uygulama şu anda çok fazla AI isteği alıyor. Lütfen daha sonra tekrar deneyin.",
+    "aiLimit": "Bu uygulamanın aylık AI kullanım sınırına ulaşıldı.",
+    "appDayLimit": "Bu uygulama bugün {count} e-posta gönderdi. Spam'i önlemek için bu e-posta gönderilmedi.",
+    "appHourLimit": "Bu uygulama son bir saatte {count} e-posta gönderdi. Spam'i önlemek için bu e-posta gönderilmedi.",
+    "emailFailed": "E-posta gönderilemedi.",
+    "emailOff": "Bu sunucuda e-posta ayarlanmadığı için mesaj gönderilmedi.",
+    "formula": "\"{step}\" adımındaki formül hesaplanamıyor: {reason}",
+    "recipientLimit": "{to} son bir saatte uygulamalardan zaten {count} e-posta aldı. Bu nedenle bu e-posta gönderilmedi."
+  },
+  "schedule": {
+    "aiNote": "Yapay zekâ kullanan akışlar en fazla {minutes} dakikada bir çalışır.",
+    "aiTooOften": "Bu akış AI kullanıyor, bu yüzden en fazla {minutes} dakikada bir çalışabilir.",
+    "appMode": "Uygulamanız kullandığında",
+    "appModeBody": "Bir sayfa, form veya başka bir site başlatır.",
+    "appModeHelp": "Yalnızca uygulamanızda bir şey başlattığında çalışır; örneğin bir ziyaretçi form gönderdiğinde.",
+    "connection": "Bağlantınızı kontrol edip tekrar deneyin.",
+    "day": "Gün",
+    "dayHelp": "Haftanın hangi günü çalışacağını seçin.",
+    "describe": {
+      "daily": "Her gün {time} saatinde ({zone})",
+      "everyHour": "Her saat",
+      "everyHours": "{count} saatte bir",
+      "everyMinute": "Her dakika",
+      "everyMinutes": "{count} dakikada bir",
+      "hourlyFull": "Her saat başında ({zone})",
+      "hourlyPast": "{minute, plural, one {Her saatin #. dakikasında ({zone})} other {Her saatin #. dakikasında ({zone})}}",
+      "utc": "UTC",
+      "weekdays": "Hafta içi her gün {time} saatinde ({zone})",
+      "weekly": "Her {day} günü {time} saatinde ({zone})",
+      "zoneTime": "{zone} saati"
+    },
+    "every": "Her",
+    "everyHelp": "Çalıştırmalar arasındaki süre. Örneğin bu otomasyon yapay zekâ kullanıyorsa bazı seçenekler kullanılamayabilir.",
+    "failing": "{count, plural, one {Arka arkaya # başarısız çalıştırma; {max} olursa duraklatılır.} other {Arka arkaya # başarısız çalıştırma; {max} olursa duraklatılır.}}",
+    "hour": "saat",
+    "hours": "{count} saat",
+    "howOften": "Ne sıklıkta",
+    "howOftenHelp": "Ne sıklıkta çalışacağını seçin. Önce bir düzen, ardından yanından tam saati seçin.",
+    "inZone": "{time} ({zone} saati)",
+    "kinds": {
+      "daily": "Her gün",
+      "every": "Birkaç dakikada bir",
+      "hourly": "Saatte bir",
+      "weekdays": "Pazartesiden cumaya",
+      "weekly": "Haftada bir"
+    },
+    "lastFailed": "Son çalıştırma {when}: başarısız oldu.",
+    "lastOk": "Son çalıştırma {when}: başarılı.",
+    "lastTimeout": "Son çalıştırma {when}: çok uzun sürdü.",
+    "loadError": "Zamanlama yüklenemedi.",
+    "loading": "Zamanlama yükleniyor…",
+    "minute": "dakika",
+    "minutes": "{count} dakika",
+    "nextRun": "Sonraki çalıştırma {when}",
+    "noPlan": "Planınız zamanlanmış akışları kapsamıyor, bu nedenle bu akış çalışmayacak.",
+    "notInLive": "Bu akış henüz yayınlanan uygulamada yok. Zamanlamayı başlatmak için <link>değişikliklerinizi yayınlayın</link>.",
+    "notInPlan": "Planınıza dahil değil.",
+    "notPublished": "Kaydedildi. Bu zamanlamayı başlatmak için <link>uygulamanızı yayınlayın</link>.",
+    "onTheHour": "Saat başında (:00)",
+    "pastHour": "Saat geçtikten kaç dakika sonra",
+    "pastHourHelp": "Her saat kaçıncı dakikada çalışacağını seçin; örneğin çeyrek geçe için :15.",
+    "pausedFailures": "Arka arkaya {count} başarısız çalıştırmanın ardından duraklatıldı. Akışın adımlarını kontrol edip devam ettirin.",
+    "pending": "Bu zamanlamayı kullanmak için <link>değişikliklerinizi yayınlayın</link>.",
+    "pendingUntil": "O zamana kadar yayınlanmış zamanlama geçerli olmaya devam eder: {schedule}.",
+    "problems": {
+      "badZone": "Bu saat dilimi tanınmıyor.",
+      "chooseHowOften": "Ne sıklıkta çalışacağını seçin.",
+      "chooseWhen": "Ne zaman çalışacağını seçin.",
+      "minuteRange": "Saatin 0 ile 59 arasında bir dakikasını seçin.",
+      "minutesRange": "{min} ile {max} arasında bir dakika sayısı seçin.",
+      "pickDay": "Haftanın bir gününü seçin.",
+      "pickTime": "09:00 gibi bir saat seçin."
+    },
+    "resume": "Devam ettir",
+    "resumeHelp": "Çalıştırmalar art arda başarısız olduğu için duraklayan zamanlamayı yeniden başlatır. Önce adımlardaki sorunu giderin.",
+    "saveError": "Kaydedilemedi. Lütfen tekrar deneyin.",
+    "saveHelp": "Çalışma zamanını kaydeder. Yeni veya değiştirilen zamanlama, uygulamanızı yayınladığınızda devreye girer.",
+    "saveSchedule": "Zamanlamayı kaydet",
+    "scheduleMode": "Belirli zamanlarda",
+    "scheduleModeBody": "Seçtiğiniz saatlerde kendi kendine çalışır.",
+    "scheduleModeHelp": "Seçtiğiniz saatlerde kendi kendine çalışır. Uygulamanızı bu otomasyonla yayınladığınızda zamanlama başlar.",
+    "starting": "Bir dakika içinde başlayacak.",
+    "suspended": "Bu hesap askıya alındı, bu nedenle zamanlanmış çalıştırmalar beklemede.",
+    "time": "Saat",
+    "timeHelp": "Aşağıdaki saat dilimine göre günün hangi saatinde çalışacağını seçin.",
+    "timeZone": "Saat dilimi",
+    "timeZoneHelp": "Saatlerin hangi yerin saatine göre ayarlanacağını seçin. 9:00'ın bulunduğunuz yerde veya müşterileriniz için 9:00 olmasını istiyorsanız o yeri seçin.",
+    "title": "Ne zaman çalışır",
+    "titleHelp": "Bu otomasyonun uygulamanız kullanıldığında mı yoksa her sabah gibi belirli saatlerde kendi kendine mi çalışacağını seçin.",
+    "turnedOff": "Zamanlama kapatıldı. Artık belirli bir programa göre çalışmayacak.",
+    "unreadable": "Bu zamanlama okunamadı. Yeni zamanlar seçip kaydedin.",
+    "yours": "{zone} (sizin saat diliminiz)"
+  },
+  "summary": {
+    "aggregateFallback": "Kayıtları say veya değerlerini topla",
+    "askAi": "AI'ya soru sor",
+    "bulkDeleteFallback": "Tek seferde birçok satırı sil",
+    "bulkInsertFallback": "Tek seferde birçok satır ekle",
+    "bulkUpdateFallback": "Tek seferde birçok satırı güncelle",
+    "checkPassword": "Parolayı kontrol et",
+    "checkRoleFallback": "Kişinin neler yapabileceğini kontrol et",
+    "customJs": "Kendi kodunu çalıştır",
+    "from": "Şuradan: {table}",
+    "in": "İçinde: {table}",
+    "into": "Şuraya: {table}",
+    "lookupFallback": "Başka bir listeden ayrıntı ekle",
+    "needsRole": "Gerekli: {role}",
+    "noRecipient": "Alıcı yok",
+    "noSheet": "Sayfa yok",
+    "noTable": "Tablo seçilmedi",
+    "parseJson": "Metni veriye dönüştür",
+    "protectPassword": "Parolayı kaydetmeden önce güvenli hâle getir",
+    "pushEveryone": "Abone olan herkese gönder",
+    "pushTitle": "“{title}”",
+    "repliesWith": "{count, plural, one {# değerle yanıt verir} other {# değerle yanıt verir}}",
+    "reply": "Yanıt gönderir",
+    "seconds": "{seconds} sn",
+    "sheet": "Sayfa {sheet}",
+    "signIn": "{user} olarak oturum aç",
+    "signUserIn": "Kullanıcının oturumunu aç",
+    "signUserOut": "Kullanıcının oturumunu kapat",
+    "startsHere": "Buradan başlar",
+    "to": "Kime: {to}",
+    "unnamed": "Adsız",
+    "verifyVs": "{plain} ile {hash} → {output}"
+  }
+}

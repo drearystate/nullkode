@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import type { Editor, Block, Component } from "grapesjs";
 import { Check, Loader2, PanelLeft, PanelRight, Redo2, Undo2, MousePointer2, History } from "lucide-react";
+import { useFormatter, useLocale, useTranslations } from "next-intl";
 import { registerBlocks } from "./blocks";
 import { registerPremadeBlocks } from "./premade-blocks";
 import { AssetsPanel } from "./assets-panel";
@@ -10,9 +11,9 @@ import { IconPickerModal } from "./icon-picker-modal";
 import { ThemePanel } from "./theme-panel";
 import { WireUpModal, type WiredFlow } from "./wire-up-modal";
 import { connectBlock, getModuleForBlock, type BlockModuleMapping } from "./block-module-map";
-import { BLOCK_CATEGORY_HELP, BLOCK_HELP, annotateImagePicker, annotateTextToolbar, observePanelHelp } from "./panel-help";
+import { BLOCK_CATEGORY_IDS, annotateImagePicker, annotateTextToolbar, blockCategoryTip, blockKey, blockTip, messageKey, observePanelHelp } from "./panel-help";
+import { grapesI18n } from "./grapes-i18n";
 import {
-  STYLE_SECTORS,
   clickToEdit,
   isWholePartBlock,
   pageHtmlNow,
@@ -20,6 +21,7 @@ import {
   plainSettings,
   refreshSettings,
   scrollToPart,
+  styleSectors,
   syncEditingText,
   syncEditingTextNow,
   type FlowOption,
@@ -52,6 +54,13 @@ type Props = {
   initialStyles: object | null;
   /** When the server last saved this page, to tell whether a copy kept in the browser is newer. */
   updatedAt?: string | null;
+  /**
+   * A multilingual app's page in one of its other languages: edits save to
+   * that translation (and browser copies are kept apart from the page's own).
+   */
+  lang?: string;
+  /** The page's language and direction, so the canvas shows it as visitors see it (right to left for Arabic). */
+  canvasLanguage?: { lang: string; dir: "ltr" | "rtl" };
   onReady?: (editor: Editor) => void;
   onSaveReady?: (api: EditorSaveApi) => void;
   onStatusChange?: (status: SaveStatus) => void;
@@ -85,12 +94,16 @@ function setUnsafe(token: object, unsafe: boolean) {
   else if (!after && before) window.removeEventListener("beforeunload", warnBeforeLeaving);
 }
 
-const STATUS_TEXT: Record<SaveStatus, string> = {
-  idle: "Autosave on",
-  pending: "Unsaved changes",
-  saving: "Saving…",
-  saved: "Saved",
-  error: "Not saved",
+/** A block group, as GrapesJS's loosely typed category list hands it over. */
+type BlockCategory = { id: string | number; get: (key: string) => unknown };
+
+/** The toolbar's save status, by state (editor.json: canvas.status). */
+const STATUS_KEYS: Record<SaveStatus, string> = {
+  idle: "idle",
+  pending: "pending",
+  saving: "saving",
+  saved: "saved",
+  error: "error",
 };
 
 /**
@@ -119,6 +132,9 @@ export function GrapesEditor(props: Props) {
   // The latest props, for callbacks made from inside the editor's setup.
   const propsRef = useRef(props);
   propsRef.current = props;
+  const t = useTranslations("editor");
+  const locale = useLocale();
+  const format = useFormatter();
 
   const [status, setStatus] = useState<SaveStatus>("idle");
   const [rightTab, setRightTab] = useState<"styles" | "layers" | "traits" | "theme">("styles");
@@ -181,6 +197,36 @@ export function GrapesEditor(props: Props) {
       // A tapped block (phones and tablets can't drag): see tapToAdd below.
       let tapToAdd: (block: Block, ed: Editor) => void = () => {};
 
+      /** A block group's name as shown: its own when known, else GrapesJS's. */
+      const categoryName = (id: string, fallback: string) =>
+        locale !== "en" && BLOCK_CATEGORY_IDS.has(id) ? t(`blockCategories.${messageKey(id)}.label`) : fallback;
+      /**
+       * Every block's name and group in the studio's language (GrapesJS shows
+       * blockManager.labels/categories by id over the English ones kept on
+       * the blocks), and each tile's hover note.
+       */
+      const nameBlocks = (ed: Editor) => {
+        const labels: Record<string, string> = {};
+        const categories: Record<string, string> = {};
+        const blocks = ed.BlockManager.getAll().models as Block[];
+        for (const block of blocks) {
+          const id = block.getId();
+          const own = `blocks.${blockKey(id)}`;
+          // English keeps each block's own name (the source of blocks.*).
+          labels[id] = locale !== "en" && t.has(own) ? t(own) : String(block.get("label") ?? id);
+        }
+        ed.BlockManager.getCategories().forEach((c: BlockCategory) => {
+          categories[String(c.id)] = categoryName(String(c.id), String(c.get("label") ?? c.id));
+        });
+        if (locale !== "en") ed.I18n.addMessages({ [ed.I18n.getLocale()]: { blockManager: { labels, categories } } });
+        for (const block of blocks) {
+          const id = block.getId();
+          block.set("attributes", { ...(block.get("attributes") ?? {}), "data-help": blockTip(t, id, labels[id]) }, { silent: true });
+        }
+        // The tiles and group titles were drawn as the blocks were added: draw them again with these.
+        ed.BlockManager.render();
+      };
+
       const editor = grapes.init({
         container: editorHostRef.current,
         height: "100%",
@@ -222,7 +268,7 @@ export function GrapesEditor(props: Props) {
           // the radio player wires up, etc. Same file as the published viewer.
           scripts: ["/api/runtime"],
         },
-        plugins: [parserPostCss, blocksBasic, pluginForms, keepButtonContents, pluginNavbar, presetWebpage, plainSettings(flowOptions)],
+        plugins: [parserPostCss, blocksBasic, pluginForms, keepButtonContents, pluginNavbar, presetWebpage, plainSettings(flowOptions, t)],
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         pluginsOpts: {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -237,9 +283,8 @@ export function GrapesEditor(props: Props) {
           [pluginNavbar as any]: { category: "Sections" },
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           [presetWebpage as any]: {
-            modalImportTitle: "Import template",
-            modalImportLabel:
-              '<div style="margin-bottom:10px;font-size:13px;">Paste HTML/CSS here and hit import.</div>',
+            modalImportTitle: t("canvas.importTitle"),
+            modalImportLabel: `<div style="margin-bottom:10px;font-size:13px;">${t("canvas.importLabel")}</div>`,
             modalImportContent: (ed: Editor) =>
               `${ed.getHtml()}<style>${ed.getCss()}</style>`,
           },
@@ -257,10 +302,13 @@ export function GrapesEditor(props: Props) {
         },
         // Plain sections first (Text, Background, Spacing, Size, Corners);
         // the rest sits behind the panel's "Advanced" toggle.
-        styleManager: { appendTo: stylesHostRef.current!, sectors: STYLE_SECTORS },
+        styleManager: { appendTo: stylesHostRef.current!, sectors: styleSectors(t) },
         layerManager: { appendTo: layersHostRef.current! },
         traitManager: { appendTo: traitsHostRef.current! },
         selectorManager: { appendTo: selectorsHostRef.current! },
+        // GrapesJS's own words (Layers names, small Design fields, the class
+        // picker) in the studio's language.
+        i18n: grapesI18n(locale, t),
       });
 
       // Register the full Nullkode block library on top of the plugin defaults.
@@ -269,48 +317,48 @@ export function GrapesEditor(props: Props) {
       // One click on any words starts editing them.
       clickToEdit(editor);
 
-      // Give every block tile a friendly hover note (picked up by the
-      // HelpTips overlay via delegated data-help). GrapesJS owns this DOM,
-      // so we annotate it after render instead of via JSX.
+      // Group titles get a friendly hover note (picked up by the HelpTips
+      // overlay via delegated data-help); block tiles get theirs from
+      // nameBlocks() below. GrapesJS owns this DOM, so we annotate it after
+      // render instead of via JSX.
       editor.on("load", () => {
         const host = blocksHostRef.current;
         if (!host) return;
-        host.querySelectorAll<HTMLElement>(".gjs-block").forEach((el) => {
-          const label =
-            el.querySelector(".gjs-block-label")?.textContent?.trim() ??
-            el.getAttribute("title") ??
-            "this";
-          const about = BLOCK_HELP[label];
-          el.setAttribute(
-            "data-help",
-            about
-              ? `${about} Tap to add it below the part you picked, or drag it onto the page.`
-              : `Tap or drag: tap “${label}” to add it below the part you picked, or drag it to where you want it.`
-          );
+        const categoryIds = new Map<string, string>();
+        editor.BlockManager.getCategories().forEach((c: BlockCategory) => {
+          categoryIds.set(categoryName(String(c.id), String(c.get("label") ?? c.id)), String(c.id));
         });
-        host.querySelectorAll<HTMLElement>(".gjs-block-category .gjs-title").forEach((el) => {
-          el.setAttribute(
-            "data-help",
-            BLOCK_CATEGORY_HELP[el.textContent?.trim() ?? ""] ?? "A group of blocks. Click the name to show or hide them."
-          );
-        });
+        // The groups may be drawn after "load": note them whenever they appear.
+        const noteGroups = () => {
+          host.querySelectorAll<HTMLElement>(".gjs-block-category .gjs-title").forEach((el) => {
+            const help = blockCategoryTip(t, categoryIds.get(el.textContent?.trim() ?? "") ?? "");
+            if (el.getAttribute("data-help") !== help) el.setAttribute("data-help", help);
+          });
+        };
+        noteGroups();
+        const groupsObserver = new MutationObserver(noteGroups);
+        groupsObserver.observe(host, { childList: true, subtree: true });
 
         // Per-field notes for the style/selector/trait/layer panels.
         // GrapesJS rebuilds those panels on every selection change, so this
         // watches them and re-annotates each field as it appears.
-        panelHelpCleanupRef.current = observePanelHelp({
+        const stopPanelHelp = observePanelHelp({
           styles: stylesHostRef.current,
           selectors: selectorsHostRef.current,
           traits: traitsHostRef.current,
           layers: layersHostRef.current,
-        });
+        }, t);
+        panelHelpCleanupRef.current = () => {
+          stopPanelHelp();
+          groupsObserver.disconnect();
+        };
       });
 
       // The bold/italic/link bar shown while editing words: GrapesJS builds
       // its buttons the first time text is edited.
-      editor.on("rte:enable", () => annotateTextToolbar(editor.RichTextEditor.getToolbarEl()));
+      editor.on("rte:enable", () => annotateTextToolbar(editor.RichTextEditor.getToolbarEl(), t));
       // GrapesJS's picture window (double-click a picture).
-      const notePicturePicker = () => setTimeout(() => annotateImagePicker(editorHostRef.current), 0);
+      const notePicturePicker = () => setTimeout(() => annotateImagePicker(editorHostRef.current, t), 0);
       editor.on("run:open-assets", notePicturePicker);
       editor.on("asset:add", notePicturePicker);
 
@@ -367,6 +415,7 @@ export function GrapesEditor(props: Props) {
         content: `<span class="nk-icon" style="display:inline-block;width:32px;height:32px;color:var(--nk-primary);">⬡</span>`,
         activate: true,
       });
+      nameBlocks(editor);
 
       // Double-click on any SVG or .nk-icon → reopen the icon picker to swap it.
       editor.on("component:dblclick", (component: ReturnType<typeof editor.getSelected>) => {
@@ -397,9 +446,24 @@ export function GrapesEditor(props: Props) {
       editorRef.current = editor;
       setEditorReady(true);
       props.onReady?.(editor);
+      // The page in its own language and direction, as published.
+      const language = props.canvasLanguage;
+      if (language) {
+        editor.on("load", () => {
+          try {
+            const root = editor.Canvas.getDocument()?.documentElement;
+            if (root) {
+              root.setAttribute("lang", language.lang);
+              root.setAttribute("dir", language.dir);
+            }
+          } catch {
+            /* no canvas yet */
+          }
+        });
+      }
       editor.on("component:selected", () => {
         const sel = editor.getSelected();
-        setSelectedName(sel?.getName() || "Element");
+        setSelectedName(sel?.getName() || t("canvas.element"));
         setHasSettings((sel?.getTraits().length ?? 0) > 0);
         // On touch screens, a piece picked near the bottom edge is brought
         // up, so its toolbar (Move up, Move down…) isn't under a thumb, the
@@ -435,8 +499,11 @@ export function GrapesEditor(props: Props) {
      * a newer one (a slow save overtaken by the one sent as the tab closed).
      */
     function startSaving(editor: Editor): () => void {
-      const { projectId, pageId } = props;
-      const url = `/api/projects/${projectId}/pages/${pageId}`;
+      const { projectId } = props;
+      const pageId = props.lang ? `${props.pageId}:${props.lang}` : props.pageId;
+      const url = props.lang
+        ? `/api/projects/${projectId}/pages/${props.pageId}/translations/${encodeURIComponent(props.lang)}`
+        : `/api/projects/${projectId}/pages/${pageId}`;
       const token = {};
       const session = `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`;
       let seq = 0; // numbers every copy sent
@@ -706,9 +773,9 @@ export function GrapesEditor(props: Props) {
   }, [draftOffer]);
 
   const discardDraft = useCallback(() => {
-    void clearDraft(props.projectId, props.pageId);
+    void clearDraft(props.projectId, props.lang ? `${props.pageId}:${props.lang}` : props.pageId);
     setDraftOffer(null);
-  }, [props.projectId, props.pageId]);
+  }, [props.projectId, props.pageId, props.lang]);
 
   const flushNow = useCallback(() => saveApiRef.current?.flush() ?? Promise.resolve(true), []);
 
@@ -726,7 +793,8 @@ export function GrapesEditor(props: Props) {
     if (changed.length) markDirtyRef.current?.();
   };
 
-  const previewHref = `/preview/${props.projectId}${props.pageSlug ? `?page=${encodeURIComponent(props.pageSlug)}` : ""}`;
+  const previewQuery = [props.pageSlug ? `page=${encodeURIComponent(props.pageSlug)}` : "", props.lang ? `lang=${encodeURIComponent(props.lang)}` : ""].filter(Boolean).join("&");
+  const previewHref = `/preview/${props.projectId}${previewQuery ? `?${previewQuery}` : ""}`;
 
   return (
     <div className="studio-canvas-workspace absolute inset-0 flex bg-surface-950 text-surface-50">
@@ -755,7 +823,7 @@ export function GrapesEditor(props: Props) {
         .nk-design { flex-direction: column; }
         .nk-design .nk-styles, .nk-design .nk-styles > .gjs-sm-sectors { display: contents; }
         .nk-design .gjs-sm-sector { order: 0; }
-        .nk-design .nk-adv-toggle { order: 1; display: flex; align-items: center; gap: 8px; margin-top: 10px; padding: 10px 8px; font-size: 12px; font-weight: 600; color: rgb(var(--c-slate-300)); border-top: 1px solid rgb(var(--c-white) / 0.1); text-align: left; }
+        .nk-design .nk-adv-toggle { order: 1; display: flex; align-items: center; gap: 8px; margin-top: 10px; padding: 10px 8px; font-size: 12px; font-weight: 600; color: rgb(var(--c-slate-300)); border-top: 1px solid rgb(var(--c-white) / 0.1); text-align: start; }
         .nk-design .nk-adv-toggle:hover { color: rgb(var(--c-white)); }
         .nk-design .gjs-sm-sector[class*="gjs-sm-sector__adv-"] { order: 2; }
         .nk-design .nk-selectors-wrap { order: 3; padding: 12px 8px; border-top: 1px solid rgb(var(--c-white) / 0.08); }
@@ -794,26 +862,20 @@ export function GrapesEditor(props: Props) {
       )}
 
       {/* Left: blocks + modules + assets */}
-      <aside className={`studio-editor-library shrink-0 border-r border-surface-800 bg-surface-900 flex flex-col ${leftOpen ? "" : "!hidden"}`}>
+      <aside className={`studio-editor-library shrink-0 border-e border-surface-800 bg-surface-900 flex flex-col ${leftOpen ? "" : "!hidden"}`}>
         <div className="flex items-stretch border-b border-surface-800 shrink-0">
-          {(["blocks", "modules", "assets"] as const).map((t) => (
+          {(["blocks", "modules", "assets"] as const).map((tab) => (
             <button
-              key={t}
-              data-help={
-                t === "blocks"
-                  ? "Ready-made pieces for your page: text, pictures, buttons, whole sections. Tap or drag: tap one to add it below the part you picked, or drag it onto the page."
-                  : t === "modules"
-                    ? "Ready-made features, like bookings or a shop. Add one and it comes with its own pages, ready to use."
-                    : "Free photos for your page. Tap or drag: tap one to add it, or to swap the picture you picked, or drag it onto the page."
-              }
-              onClick={() => setLeftTab(t)}
+              key={tab}
+              data-help={t(`canvas.leftTabs.${tab}.help`)}
+              onClick={() => setLeftTab(tab)}
               className={`flex-1 py-2.5 text-[11px] uppercase tracking-wider font-semibold transition ${
-                leftTab === t
+                leftTab === tab
                   ? "text-white border-b-2 border-brand-500"
                   : "text-surface-500 hover:text-surface-200"
               }`}
             >
-              {t === "modules" ? "Features" : t}
+              {t(`canvas.leftTabs.${tab}.label`)}
             </button>
           ))}
         </div>
@@ -842,11 +904,11 @@ export function GrapesEditor(props: Props) {
                   cat.style.display = !lower || visible.length > 0 ? "" : "none";
                 });
               }}
-              placeholder="Search blocks..."
-              data-help="Type here to find a block fast — try words like 'button' or 'photo'."
+              placeholder={t("canvas.searchBlocks")}
+              data-help={t("canvas.searchBlocksHelp")}
               className="w-full bg-surface-950 border border-surface-800 rounded px-2.5 py-1.5 text-xs text-surface-100 placeholder:text-surface-600 focus:outline-none focus:border-brand-500"
             />
-            <p className="mt-1.5 text-[10px] leading-snug text-surface-500">Tap a block to add it below the part you picked, or drag it onto the page.</p>
+            <p className="mt-1.5 text-[10px] leading-snug text-surface-500">{t("canvas.blocksHint")}</p>
           </div>
           <div ref={blocksHostRef} className="nk-blocks flex-1 overflow-y-auto" />
         </div>
@@ -869,28 +931,28 @@ export function GrapesEditor(props: Props) {
       <div className="flex-1 min-w-0 flex flex-col">
         <div className="studio-canvas-toolbar">
           <div className="flex items-center gap-3">
-            <button className="studio-icon-button" aria-label="Toggle blocks panel" data-help="Show or hide the left panel with blocks, features and photos, to give your page more room." aria-pressed={leftOpen} onClick={() => setLeftOpen((v) => !v)}><PanelLeft size={16} /></button>
-            <button className="studio-icon-button" aria-label="Undo" title="Undo" data-help="Take back your last change on this page. Press it again to go further back." onClick={() => editorRef.current?.UndoManager.undo()}><Undo2 size={15} /></button>
-            <button className="studio-icon-button" aria-label="Redo" title="Redo" data-help="Bring back the change you just undid." onClick={() => editorRef.current?.UndoManager.redo()}><Redo2 size={15} /></button>
-            <span role="status" aria-live="polite" data-state={status} title={STATUS_TEXT[status]} data-help={status === "error" ? "Your latest edits didn’t reach the server. They’re kept in this browser, and we keep trying. Check your internet connection." : "Your edits save by themselves a moment after you stop typing. Visitors see them only after you publish."} className={`studio-save-status ${status === "error" ? "text-red-300" : "text-surface-400"}`}>
+            <button className="studio-icon-button" aria-label={t("canvas.toggleLeft")} data-help={t("canvas.toggleLeftHelp")} aria-pressed={leftOpen} onClick={() => setLeftOpen((v) => !v)}><PanelLeft size={16} /></button>
+            <button className="studio-icon-button" aria-label={t("canvas.undo")} title={t("canvas.undo")} data-help={t("canvas.undoHelp")} onClick={() => editorRef.current?.UndoManager.undo()}><Undo2 size={15} /></button>
+            <button className="studio-icon-button" aria-label={t("canvas.redo")} title={t("canvas.redo")} data-help={t("canvas.redoHelp")} onClick={() => editorRef.current?.UndoManager.redo()}><Redo2 size={15} /></button>
+            <span role="status" aria-live="polite" data-state={status} title={t(`canvas.status.${STATUS_KEYS[status]}`)} data-help={status === "error" ? t("canvas.statusErrorHelp") : t("canvas.statusHelp")} className={`studio-save-status ${status === "error" ? "text-red-300" : "text-surface-400"}`}>
               <span className="studio-save-dot" aria-hidden />
               {status === "saving" ? <Loader2 size={12} className="studio-save-icon animate-spin" aria-hidden /> : status === "idle" || status === "saved" ? <Check size={12} className="studio-save-icon" aria-hidden /> : null}
-              <span className="studio-save-text">{STATUS_TEXT[status]}</span>
-              {status === "error" && <button type="button" className="studio-save-retry" data-help="Try saving your latest edits again right now." onClick={() => void flushNow()}>Retry</button>}
+              <span className="studio-save-text">{t(`canvas.status.${STATUS_KEYS[status]}`)}</span>
+              {status === "error" && <button type="button" className="studio-save-retry" data-help={t("canvas.retryHelp")} onClick={() => void flushNow()}>{t("canvas.retry")}</button>}
             </span>
           </div>
           <div className="flex items-center gap-2">
-          <button className="studio-icon-button" aria-label="Toggle properties panel" data-help="Show or hide the right panel with the Design, Layers, Settings and Theme tabs." aria-pressed={rightOpen} onClick={() => setRightOpen((v) => !v)}><PanelRight size={16} /></button>
+          <button className="studio-icon-button" aria-label={t("canvas.toggleRight")} data-help={t("canvas.toggleRightHelp")} aria-pressed={rightOpen} onClick={() => setRightOpen((v) => !v)}><PanelRight size={16} /></button>
           <div className="flex items-center gap-1 bg-surface-900 rounded-md p-0.5 border border-surface-800">
             {(
               [
-                { id: "desktop" as const, label: "Desktop", icon: (
+                { id: "desktop" as const, icon: (
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="13" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
                   ) },
-                { id: "tablet" as const, label: "Tablet", icon: (
+                { id: "tablet" as const, icon: (
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18.01"/></svg>
                   ) },
-                { id: "mobile" as const, label: "Mobile", icon: (
+                { id: "mobile" as const, icon: (
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="6" y="2" width="12" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18.01"/></svg>
                   ) },
               ] as const
@@ -898,15 +960,9 @@ export function GrapesEditor(props: Props) {
               <button
                 key={d.id}
                 onClick={() => setEditorDevice(d.id)}
-                title={d.label}
-                aria-label={d.label}
-                data-help={
-                  d.id === "desktop"
-                    ? "See how your page looks on a big computer screen."
-                    : d.id === "tablet"
-                      ? "See how your page looks on a tablet, like an iPad."
-                      : "See how your page looks on a phone. Always check this — most visitors use phones!"
-                }
+                title={t(`canvas.devices.${d.id}.label`)}
+                aria-label={t(`canvas.devices.${d.id}.label`)}
+                data-help={t(`canvas.devices.${d.id}.help`)}
                 className={`studio-device-button flex items-center justify-center w-8 h-6 rounded transition ${
                   device === d.id
                     ? "bg-brand-500/25 text-brand-200"
@@ -921,12 +977,12 @@ export function GrapesEditor(props: Props) {
             href={previewHref}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Preview this page"
-            data-help="Open this page in a new tab and try it for real — buttons, forms and all — just like your visitors will."
+            aria-label={t("canvas.previewLabel")}
+            data-help={t("canvas.previewHelp")}
             className="studio-preview-button flex items-center gap-1.5 bg-brand-500 hover:bg-brand-400 text-fixed-white font-semibold px-3 py-1 rounded-md transition text-xs"
           >
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden><polygon points="5 3 19 12 5 21 5 3"/></svg>
-            <span>Preview</span>
+            <span>{t("canvas.preview")}</span>
           </a>
           </div>
         </div>
@@ -935,45 +991,39 @@ export function GrapesEditor(props: Props) {
             <History size={15} className="shrink-0 text-amber-300" aria-hidden />
             <span className="min-w-0 flex-1">
               {draftOffer.newer
-                ? "We found edits that didn't save. Restore them?"
-                : `We found edits from ${new Date(draftOffer.draft.savedAt).toLocaleString()} that didn't save. This page has changed since then. Restore them anyway?`}
+                ? t("canvas.draftNewer")
+                : t("canvas.draftOlder", { when: format.dateTime(new Date(draftOffer.draft.savedAt), { dateStyle: "medium", timeStyle: "short" }) })}
             </span>
             <span className="flex shrink-0 gap-2">
-              <button type="button" className="btn-primary !min-h-0 !px-3 !py-1.5 text-xs" data-help="Put back the edits this browser kept from last time. They replace what’s on the page now, and save as usual." onClick={restoreDraft}>Restore</button>
-              <button type="button" className="btn-ghost !min-h-0 !px-3 !py-1.5 text-xs" data-help="Throw away those unsaved edits and keep the page as it is. They can’t be brought back." onClick={discardDraft}>Discard</button>
+              <button type="button" className="btn-primary !min-h-0 !px-3 !py-1.5 text-xs" data-help={t("canvas.restoreHelp")} onClick={restoreDraft}>{t("canvas.restore")}</button>
+              <button type="button" className="btn-ghost !min-h-0 !px-3 !py-1.5 text-xs" data-help={t("canvas.discardHelp")} onClick={discardDraft}>{t("canvas.discard")}</button>
             </span>
           </div>
         )}
-        <div ref={editorHostRef} className="flex-1 min-h-0 relative" />
+        {/* The page itself never follows the studio's direction: GrapesJS
+            places its frame, outlines and toolbars from the left. */}
+        <div ref={editorHostRef} dir="ltr" className="flex-1 min-h-0 relative" />
       </div>
 
       {/* Right: styles/layers/traits */}
-      <aside className={`studio-editor-inspector shrink-0 border-l border-surface-800 bg-surface-900 flex flex-col ${rightOpen ? "" : "!hidden"}`}>
+      <aside className={`studio-editor-inspector shrink-0 border-s border-surface-800 bg-surface-900 flex flex-col ${rightOpen ? "" : "!hidden"}`}>
         <div className="flex items-stretch border-b border-surface-800 shrink-0">
-          {(["styles", "layers", "traits", "theme"] as const).map((t) => (
+          {(["styles", "layers", "traits", "theme"] as const).map((tab) => (
             <button
-              key={t}
-              data-help={
-                t === "styles"
-                  ? "Change how the selected piece looks: text, colors, spacing and size. Click something on the page first."
-                  : t === "layers"
-                    ? "Everything on your page in order, top to bottom. Handy for picking pieces that are hard to click."
-                    : t === "traits"
-                      ? "Settings for the selected piece, like where a link goes or what a form does when it's sent."
-                      : "Quick color and corner settings for your whole app, or a ready-made look. Visitors see changes after you publish."
-              }
-              onClick={() => setRightTab(t)}
+              key={tab}
+              data-help={t(`canvas.rightTabs.${tab}.help`)}
+              onClick={() => setRightTab(tab)}
               className={`flex-1 py-2.5 text-xs uppercase tracking-wider font-semibold transition ${
-                rightTab === t
+                rightTab === tab
                   ? "text-white border-b-2 border-brand-500"
                   : "text-surface-500 hover:text-surface-200"
               }`}
             >
-              {t === "traits" ? "Settings" : t === "styles" ? "Design" : t}
+              {t(`canvas.rightTabs.${tab}.label`)}
             </button>
           ))}
         </div>
-        <div className="studio-selection-label" data-help="The piece you picked on your page. The Design and Settings tabs change this piece. Click something on the page to pick it."><MousePointer2 size={13} /><span>{selectedName || "Select something on your page"}</span></div>
+        <div className="studio-selection-label" data-help={t("canvas.selectionHelp")}><MousePointer2 size={13} /><span>{selectedName || t("canvas.selectSomething")}</span></div>
         <div className="flex-1 overflow-y-auto">
           {/* Plain sections first; the "adv-" sections and the class/state
               picker only show once "Advanced" is opened. The GrapesJS
@@ -983,23 +1033,23 @@ export function GrapesEditor(props: Props) {
             <div
               ref={stylesHostRef}
               className="nk-styles"
-              data-help="How the piece you picked looks: text, colors, spacing and size. Change one and the page updates right away."
+              data-help={t("canvas.stylesHelp")}
             />
             <button
               type="button"
               className="nk-adv-toggle"
               aria-expanded={advancedOpen}
               onClick={() => setAdvancedOpen((v) => !v)}
-              data-help="More detailed design options, like fonts, shadows and how pieces line up inside a box. You won't need these often."
+              data-help={t("canvas.advancedHelp")}
             >
-              <span aria-hidden className={`inline-block transition ${advancedOpen ? "rotate-90" : ""}`}>›</span>
-              Advanced
+              <span aria-hidden className={`inline-block transition rtl:-scale-x-100 ${advancedOpen ? "rotate-90" : ""}`}>›</span>
+              {t("canvas.advanced")}
             </button>
             <div
               className="nk-selectors-wrap"
-              data-help="Style names this piece shares with others, and styles for when the mouse is over it."
+              data-help={t("canvas.sharedStylesHelp")}
             >
-              <div className="text-[10px] uppercase tracking-wider text-surface-400 mb-2">Shared styles and hover</div>
+              <div className="text-[10px] uppercase tracking-wider text-surface-400 mb-2">{t("canvas.sharedStyles")}</div>
               <div ref={selectorsHostRef} className="nk-selectors" />
             </div>
           </div>
@@ -1007,21 +1057,19 @@ export function GrapesEditor(props: Props) {
             <div
               ref={layersHostRef}
               className="nk-layers p-2"
-              data-help="Every piece of your page, in order. Click a row to select that piece; drag rows to move pieces around."
+              data-help={t("canvas.layersHelp")}
             />
           </div>
           <div className={rightTab === "traits" ? "block" : "hidden"}>
             {!hasSettings && (
               <p className="px-4 pt-4 text-xs leading-relaxed text-surface-400">
-                {selectedName
-                  ? "Nothing to set up here. Links, pictures, buttons, forms and lists have settings in this tab."
-                  : "Select a link, picture, button, form or list on your page to see its settings."}
+                {selectedName ? t("canvas.noSettings") : t("canvas.selectForSettings")}
               </p>
             )}
             <div
               ref={traitsHostRef}
               className="nk-traits p-3"
-              data-help="Settings for the piece you picked, like where a link goes or what a form does when it's sent."
+              data-help={t("canvas.traitsHelp")}
             />
           </div>
           <div className={rightTab === "theme" ? "block" : "hidden"}>

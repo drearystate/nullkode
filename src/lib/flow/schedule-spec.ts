@@ -46,11 +46,13 @@ export function isValidTimeZone(tz: unknown): tz is string {
   }
 }
 
-type Parsed = { ok: true; spec: ScheduleSpec } | { ok: false; error: string };
+/** Why a schedule isn't valid; the studio shows flows.schedule.problems.<code> (English text in `error`). */
+export type ScheduleProblem = "chooseWhen" | "minutesRange" | "minuteRange" | "badZone" | "pickTime" | "pickDay" | "chooseHowOften";
+type Parsed = { ok: true; spec: ScheduleSpec } | { ok: false; error: string; code: ScheduleProblem; values?: Record<string, number> };
 
 /** Checks a schedule sent by the picker (or read back from the database). Errors are plain language. */
 export function validateSchedule(input: unknown): Parsed {
-  if (!input || typeof input !== "object") return { ok: false, error: "Choose when this should run." };
+  if (!input || typeof input !== "object") return { ok: false, error: "Choose when this should run.", code: "chooseWhen" };
   const o = input as Record<string, unknown>;
   const tz = o.tz === undefined || o.tz === null || o.tz === "" ? "UTC" : o.tz;
   const needTz = (): string | null => (isValidTimeZone(tz) ? (tz as string) : null);
@@ -58,35 +60,35 @@ export function validateSchedule(input: unknown): Parsed {
   switch (o.kind) {
     case "every": {
       const n = Number(o.minutes);
-      if (!Number.isInteger(n) || n < MIN_MINUTES || n > MAX_MINUTES) return { ok: false, error: `Pick a number of minutes between ${MIN_MINUTES} and ${MAX_MINUTES}.` };
+      if (!Number.isInteger(n) || n < MIN_MINUTES || n > MAX_MINUTES) return { ok: false, error: `Pick a number of minutes between ${MIN_MINUTES} and ${MAX_MINUTES}.`, code: "minutesRange", values: { min: MIN_MINUTES, max: MAX_MINUTES } };
       return { ok: true, spec: { kind: "every", minutes: n } };
     }
     case "hourly": {
       const m = o.minute === undefined ? 0 : Number(o.minute);
-      if (!Number.isInteger(m) || m < 0 || m > 59) return { ok: false, error: "Pick a minute past the hour between 0 and 59." };
+      if (!Number.isInteger(m) || m < 0 || m > 59) return { ok: false, error: "Pick a minute past the hour between 0 and 59.", code: "minuteRange" };
       const z = needTz();
-      if (!z) return { ok: false, error: "That time zone isn't recognised." };
+      if (!z) return { ok: false, error: "That time zone isn't recognised.", code: "badZone" };
       return { ok: true, spec: { kind: "hourly", minute: m, tz: z } };
     }
     case "daily":
     case "weekdays": {
       const at = time();
-      if (!at) return { ok: false, error: "Pick a time of day, like 09:00." };
+      if (!at) return { ok: false, error: "Pick a time of day, like 09:00.", code: "pickTime" };
       const z = needTz();
-      if (!z) return { ok: false, error: "That time zone isn't recognised." };
+      if (!z) return { ok: false, error: "That time zone isn't recognised.", code: "badZone" };
       return { ok: true, spec: { kind: o.kind, at, tz: z } };
     }
     case "weekly": {
       const day = Number(o.day);
-      if (!Number.isInteger(day) || day < 0 || day > 6) return { ok: false, error: "Pick a day of the week." };
+      if (!Number.isInteger(day) || day < 0 || day > 6) return { ok: false, error: "Pick a day of the week.", code: "pickDay" };
       const at = time();
-      if (!at) return { ok: false, error: "Pick a time of day, like 09:00." };
+      if (!at) return { ok: false, error: "Pick a time of day, like 09:00.", code: "pickTime" };
       const z = needTz();
-      if (!z) return { ok: false, error: "That time zone isn't recognised." };
+      if (!z) return { ok: false, error: "That time zone isn't recognised.", code: "badZone" };
       return { ok: true, spec: { kind: "weekly", day, at, tz: z } };
     }
     default:
-      return { ok: false, error: "Choose how often this should run." };
+      return { ok: false, error: "Choose how often this should run.", code: "chooseHowOften" };
   }
 }
 

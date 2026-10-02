@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 /**
  * Turns a flow on or pauses it. /api/run and the scheduler both read the
@@ -18,6 +19,7 @@ export function FlowEnabledSwitch({
   scheduled?: boolean;
   onChange?: (enabled: boolean) => void;
 }) {
+  const t = useTranslations("flows.enabledSwitch");
   const [on, setOn] = useState(enabled);
   const [busy, setBusy] = useState(false);
   const [failed, setFailed] = useState(false);
@@ -43,9 +45,7 @@ export function FlowEnabledSwitch({
     }
   }
 
-  const help = scheduled
-    ? "When paused, its scheduled runs stop and anything in your app that uses it gets an error instead. It applies straight away; no need to publish."
-    : "When paused, nothing runs and anything in your app that uses it, like a form, gets an error instead. It applies to your live app straight away, with no need to publish.";
+  const help = scheduled ? t("helpScheduled") : t("help");
 
   return (
     <span className="inline-flex items-center gap-2" data-help={help}>
@@ -53,17 +53,17 @@ export function FlowEnabledSwitch({
         type="button"
         role="switch"
         aria-checked={on}
-        aria-label="Run this automation"
+        aria-label={t("label")}
         disabled={busy}
         onClick={toggle}
         className={`relative inline-flex h-5 w-9 shrink-0 items-center rounded-full border transition disabled:opacity-60 ${on ? "border-brand-400 bg-brand-500" : "border-surface-600 bg-surface-800"}`}
       >
-        <span className={`inline-block h-3.5 w-3.5 rounded-full bg-fixed-white shadow transition ${on ? "translate-x-[18px]" : "translate-x-0.5"}`} />
+        <span className={`inline-block h-3.5 w-3.5 rounded-full bg-fixed-white shadow transition ${on ? "translate-x-[18px] rtl:-translate-x-[18px]" : "translate-x-0.5 rtl:-translate-x-0.5"}`} />
       </button>
       <span className={`text-xs ${on ? "text-surface-200" : "text-amber-200"}`} aria-hidden>
-        {on ? "On" : "Paused"}
+        {on ? t("on") : t("paused")}
       </span>
-      {failed && <span className="text-xs text-red-300" role="alert">Couldn’t change it. Try again.</span>}
+      {failed && <span className="text-xs text-red-300" role="alert">{t("failed")}</span>}
     </span>
   );
 }

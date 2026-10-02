@@ -2,6 +2,7 @@ import { z } from "zod";
 import { db } from "@/lib/db";
 import { getCurrentUser, getImpersonation } from "@/lib/auth";
 import { json } from "@/lib/utils";
+import { requestErrorsT } from "@/lib/errors-i18n";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -18,22 +19,23 @@ const SIGNATURES: Array<{ type: string; ok: (b: Buffer) => boolean }> = [
 
 async function owner() {
   const user = await getCurrentUser();
-  if (!user) return { error: json({ error: "Please sign in again." }, { status: 401 }) };
-  if (await getImpersonation()) return { error: json({ error: "Only the person who owns this account can change its photo." }, { status: 403 }) };
-  return { user };
+  const t = await requestErrorsT();
+  if (!user) return { error: json({ error: t("common.signInAgain") }, { status: 401 }) };
+  if (await getImpersonation()) return { error: json({ error: t("account.ownerOnlyPhoto") }, { status: 403 }) };
+  return { user, t };
 }
 
 /** Sets the signed-in person's profile photo. */
 export async function POST(req: Request) {
-  const { user, error } = await owner();
+  const { user, error, t } = await owner();
   if (error) return error;
   const parsed = Body.safeParse(await req.json().catch(() => null));
   const m = parsed.success ? parsed.data.dataUrl.match(/^data:(image\/(?:png|jpeg|webp));base64,([A-Za-z0-9+/]+={0,2})$/) : null;
-  if (!m) return json({ error: "Choose a PNG, JPEG or WebP picture." }, { status: 400 });
+  if (!m) return json({ error: t!("account.choosePicture") }, { status: 400 });
   const bytes = Buffer.from(m[2], "base64");
-  if (bytes.length > MAX_BYTES) return json({ error: "That picture is too big. Try a smaller one." }, { status: 413 });
+  if (bytes.length > MAX_BYTES) return json({ error: t!("account.pictureTooBig") }, { status: 413 });
   // The declared type must match what the bytes really are.
-  if (!SIGNATURES.some((s) => s.type === m[1] && s.ok(bytes))) return json({ error: "That file isn't a picture we can use." }, { status: 400 });
+  if (!SIGNATURES.some((s) => s.type === m[1] && s.ok(bytes))) return json({ error: t!("account.notPicture") }, { status: 400 });
   await db.user.update({ where: { id: user!.id }, data: { avatarUrl: `data:${m[1]};base64,${bytes.toString("base64")}` } });
   return json({ ok: true });
 }

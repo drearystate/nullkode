@@ -4,6 +4,7 @@ import { getCurrentUser } from "@/lib/auth";
 import { getTemplate } from "@/lib/templates/registry";
 import { getModule } from "@/lib/modules/registry";
 import { installModule } from "@/lib/modules/install";
+import { requestErrorsT } from "@/lib/errors-i18n";
 import { json, slugify, projectSlug } from "@/lib/utils";
 import { syncProjectNav } from "@/lib/nav-sync";
 import { checkProjectLimit } from "@/lib/guard";
@@ -17,16 +18,17 @@ const Body = z.object({
 
 export async function POST(req: Request) {
   const user = await getCurrentUser();
-  if (!user) return json({ error: "Unauthorized" }, { status: 401 });
+  const t = await requestErrorsT();
+  if (!user) return json({ error: t("common.unauthorized") }, { status: 401 });
 
   const limitError = await checkProjectLimit(user);
   if (limitError) return limitError;
 
   const parsed = Body.safeParse(await req.json().catch(() => null));
-  if (!parsed.success) return json({ error: "Invalid input" }, { status: 400 });
+  if (!parsed.success) return json({ error: t("common.invalidInput") }, { status: 400 });
 
   const template = getTemplate(parsed.data.templateId);
-  if (!template) return json({ error: "Template not found" }, { status: 404 });
+  if (!template) return json({ error: t("templates.notFound") }, { status: 404 });
 
   const baseSlug = slugify(parsed.data.name || template.name) || "project";
   const newSlug = projectSlug(baseSlug);
@@ -110,7 +112,7 @@ export async function POST(req: Request) {
     // counting against the plan limit.
     console.error("Template create failed:", err);
     await eraseProject(project.id, project.slug).catch((e) => console.error("Template rollback failed:", e));
-    return json({ error: "Could not create the app from this template. Please try again." }, { status: 500 });
+    return json({ error: t("templates.createFailed") }, { status: 500 });
   }
 
   // Stamp the shared responsive menu into every page (template + module

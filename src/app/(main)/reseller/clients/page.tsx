@@ -4,6 +4,7 @@ import { db } from "@/lib/db";
 import { emailEnabled } from "@/lib/mailer";
 import { loadClientRows } from "@/lib/reseller-clients";
 import { ClientsManager } from "@/components/reseller/clients-manager";
+import { getTranslations } from "next-intl/server";
 
 export const dynamic = "force-dynamic";
 
@@ -15,20 +16,16 @@ export default async function ResellerClientsPage() {
   const clients = await loadClientRows(reseller, now);
   const paying = clients.filter((c) => c.paying).length;
   const pastDue = clients.filter((c) => c.subscriptionStatus === "PAST_DUE").length;
+  const t = await getTranslations("reseller.clientsPage");
   return (
     <div className="space-y-6">
       <header>
-        <p className="studio-eyebrow">CLIENTS</p>
-        <h1 className="mt-2 text-3xl font-semibold tracking-tight">Your clients</h1>
+        <p className="studio-eyebrow">{t("eyebrow")}</p>
+        <h1 className="mt-2 text-3xl font-semibold tracking-tight">{t("title")}</h1>
         <p className="mt-2 text-sm text-surface-400">
-          Invite clients, set their plan, and open their workspace to help them.
-          {reseller.maxClients !== null && <> You&apos;re using {clients.length} of {reseller.maxClients} client seats.</>}
-          {clients.length > 0 && (
-            <>
-              {" "}
-              {paying} paying{pastDue > 0 && <>, {pastDue} past due</>}.
-            </>
-          )}
+          {t("intro")}
+          {reseller.maxClients !== null && <> {t("seats", { used: clients.length, max: reseller.maxClients })}</>}
+          {clients.length > 0 && <> {pastDue > 0 ? t("payingPastDue", { paying, pastDue }) : t("paying", { paying })}</>}
         </p>
       </header>
       <ClientsManager

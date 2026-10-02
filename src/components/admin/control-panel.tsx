@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { Activity, Briefcase, Check, CreditCard, Globe, Mail, Palette, SlidersHorizontal, Sparkles, Users } from "lucide-react";
 
 export type ControlPanelStatus = {
@@ -20,99 +21,101 @@ export type ControlPanelStatus = {
 type Card = { href: string; icon: React.ReactNode; title: string; text: string; status: string; ok: boolean; bad?: boolean };
 
 /** The admin home's map of everything the operator can set up. */
-export function ControlPanel({ s }: { s: ControlPanelStatus }) {
+export async function ControlPanel({ s }: { s: ControlPanelStatus }) {
+  const t = await getTranslations("admin.controlPanel");
   const cards: Card[] = [
     {
       href: "/admin/settings#brand",
       icon: <Palette size={18} />,
-      title: "White-label branding",
-      text: "Your name, logo, browser icon, colours and help email. Shown on every studio page, email and sign-in screen.",
-      status: s.brandCustom ? `Custom brand: ${s.brandName}` : `Default look (${s.brandName})`,
+      title: t("brandTitle"),
+      text: t("brandText"),
+      status: s.brandCustom ? t("brandCustom", { name: s.brandName }) : t("brandDefault", { name: s.brandName }),
       ok: s.brandCustom,
     },
     {
       href: "/admin/resellers",
       icon: <Briefcase size={18} />,
-      title: "Resellers",
-      text: "Agencies that sell app building to their own customers under their own brand, domain and Stripe account.",
-      status: s.resellers ? `${s.resellers} reseller${s.resellers === 1 ? "" : "s"} · ${s.resellerClients} client${s.resellerClients === 1 ? "" : "s"}` : "None yet. Add your first reseller",
+      title: t("resellersTitle"),
+      text: t("resellersText"),
+      status: s.resellers ? t("resellersStatus", { resellers: s.resellers, clients: s.resellerClients }) : t("resellersNone"),
       ok: s.resellers > 0,
     },
     {
       href: "/admin/settings#payments",
       icon: <CreditCard size={18} />,
-      title: "Payments",
-      text: "Connect your Stripe account and set the price of each paid plan. Customers pay you directly.",
-      status: s.stripeConnected ? `Stripe connected · ${s.paidPlans} paid plan${s.paidPlans === 1 ? "" : "s"}` : "Not connected. Everyone is on the Free plan",
+      title: t("paymentsTitle"),
+      text: t("paymentsText"),
+      status: s.stripeConnected ? t("paymentsStatus", { count: s.paidPlans }) : t("paymentsNone"),
       ok: s.stripeConnected && s.paidPlans > 0,
     },
     {
       href: "/admin/settings#plans",
       icon: <SlidersHorizontal size={18} />,
-      title: "Plans & limits",
-      text: "What Free, Starter, Pro and Team include: apps, published apps, pages, own domains and AI actions.",
-      status: "Edit what each plan includes",
+      title: t("plansTitle"),
+      text: t("plansText"),
+      status: t("plansStatus"),
       ok: true,
     },
     {
       href: "/admin/settings#ai",
       icon: <Sparkles size={18} />,
-      title: "AI engine",
-      text: "Which AI builds apps and makes edits: a hosted service or a model running on your own server.",
-      status: s.aiReady ? "Ready" : "Not set up. Building with AI is off",
+      title: t("aiTitle"),
+      text: t("aiText"),
+      status: s.aiReady ? t("aiReady") : t("aiNone"),
       ok: s.aiReady,
     },
     {
       href: "/admin/settings#email",
       icon: <Mail size={18} />,
-      title: "Email",
-      text: "Send invitations, password links and app alerts from your own address, through any email provider.",
-      status: s.emailOn ? "On" : "Not set up. Links are shown on screen instead",
+      title: t("emailTitle"),
+      text: t("emailText"),
+      status: s.emailOn ? t("emailOn") : t("emailNone"),
       ok: s.emailOn,
     },
     {
       href: "#users",
       icon: <Users size={18} />,
-      title: "Users",
-      text: "Change anyone's plan, send a password link, or open their workspace to help them.",
-      status: `${s.users} ${s.users === 1 ? "person" : "people"}`,
+      title: t("usersTitle"),
+      text: t("usersText"),
+      status: t("usersStatus", { count: s.users }),
       ok: true,
     },
     {
       href: "/admin/system",
       icon: <Activity size={18} />,
-      title: "System",
-      text: "Server health in plain words: database, disk space, scheduled flows, backups, nightly clean-up and recent errors.",
+      title: t("systemTitle"),
+      text: t("systemText"),
       status:
         s.systemRed === undefined
-          ? "Open to check the server"
+          ? t("systemUnknown")
           : s.systemRed
-            ? `${s.systemRed} problem${s.systemRed === 1 ? "" : "s"} need${s.systemRed === 1 ? "s" : ""} attention`
+            ? t("systemRed", { count: s.systemRed })
             : s.systemAmber
-              ? `Working · ${s.systemAmber} thing${s.systemAmber === 1 ? "" : "s"} to look at`
-              : "All checks look fine",
+              ? t("systemAmber", { count: s.systemAmber })
+              : t("systemFine"),
       ok: s.systemRed === 0 && s.systemAmber === 0,
       bad: Boolean(s.systemRed),
     },
   ];
 
   const steps = [
-    { done: s.brandCustom, label: "Set your brand", href: "/admin/settings#brand" },
-    { done: s.aiReady, label: "Connect an AI engine", href: "/admin/settings#ai" },
-    { done: s.stripeConnected && s.paidPlans > 0, label: "Connect Stripe and price your plans", href: "/admin/settings#payments" },
-    { done: s.emailOn, label: "Turn on email so invites, password links and app alerts are sent for you", href: "/admin/settings#email" },
-    { done: Boolean(s.appsDomain), label: s.appsDomain ? `Apps get their own address (*.${s.appsDomain})` : "Give published apps their own address (APPS_DOMAIN)", href: null, help: "Gives every published app its own web address, kept apart from the studio. It's set in the server's settings file (.env), not on this screen." },
-    { done: s.resellers > 0, label: "Invite your first reseller", href: "/admin/resellers" },
+    { id: "brand", done: s.brandCustom, label: t("stepBrand"), href: "/admin/settings#brand" },
+    { id: "ai", done: s.aiReady, label: t("stepAi"), href: "/admin/settings#ai" },
+    { id: "stripe", done: s.stripeConnected && s.paidPlans > 0, label: t("stepStripe"), href: "/admin/settings#payments" },
+    { id: "email", done: s.emailOn, label: t("stepEmail"), href: "/admin/settings#email" },
+    { id: "apps", done: Boolean(s.appsDomain), label: s.appsDomain ? t("stepAppsDone", { domain: s.appsDomain }) : t("stepApps"), href: null, help: t("stepAppsHelp") },
+    { id: "reseller", done: s.resellers > 0, label: t("stepReseller"), href: "/admin/resellers" },
   ];
   const done = steps.filter((x) => x.done).length;
+  const b = (c: React.ReactNode) => <span className="font-medium text-surface-100">{c}</span>;
 
   return (
     <>
       <section className="mt-8" aria-labelledby="control-heading">
-        <h2 id="control-heading" className="text-lg font-semibold">Run your platform</h2>
+        <h2 id="control-heading" className="text-lg font-semibold">{t("heading")}</h2>
         <div className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {cards.map((c) => (
-            <Link key={c.title} href={c.href} className="card group flex flex-col p-5 transition hover:border-brand-500/50">
+            <Link key={c.href} href={c.href} className="card group flex flex-col p-5 transition hover:border-brand-500/50">
               <span className="flex items-center gap-2 font-semibold">
                 <span className="grid h-8 w-8 place-items-center rounded-lg bg-brand-500/10 text-brand-300">{c.icon}</span>
                 {c.title}
@@ -127,15 +130,15 @@ export function ControlPanel({ s }: { s: ControlPanelStatus }) {
       <div className="mt-6 grid gap-4 lg:grid-cols-2">
         <section className="card p-5" aria-labelledby="setup-heading">
           <div className="flex items-baseline justify-between gap-3">
-            <h2 id="setup-heading" className="font-semibold" data-help="The main steps to get your platform ready for customers. Each one ticks itself off once it's set up; click a step to go to its setting.">Setup checklist</h2>
-            <span className="text-xs text-surface-400">{done} of {steps.length} done</span>
+            <h2 id="setup-heading" className="font-semibold" data-help={t("checklistHelp")}>{t("checklist")}</h2>
+            <span className="text-xs text-surface-400">{t("checklistDone", { done, total: steps.length })}</span>
           </div>
           <ul className="mt-3 space-y-2 text-sm">
             {steps.map((x) => (
-              <li key={x.label} className="flex items-start gap-2" data-help={x.help}>
+              <li key={x.id} className="flex items-start gap-2" data-help={x.help}>
                 <span aria-hidden className={`mt-0.5 grid h-4 w-4 shrink-0 place-items-center rounded-full border ${x.done ? "border-emerald-400 bg-emerald-400/15 text-emerald-300" : "border-surface-600"}`}>{x.done && <Check size={10} />}</span>
                 <span className={x.done ? "text-surface-400" : ""}>
-                  <span className="sr-only">{x.done ? "Done: " : "To do: "}</span>
+                  <span className="sr-only">{x.done ? t("srDone") : t("srTodo")}</span>
                   {x.href && !x.done ? <Link href={x.href} className="text-brand-300 hover:underline">{x.label}</Link> : x.label}
                 </span>
               </li>
@@ -144,20 +147,20 @@ export function ControlPanel({ s }: { s: ControlPanelStatus }) {
           {!s.appsDomain && (
             <p className="mt-3 flex items-start gap-2 text-xs text-surface-400">
               <Globe size={13} className="mt-0.5 shrink-0" />
-              <span>The apps address is a server setting: add it to the <span className="font-mono">.env</span> file (the installer can do it) and restart.</span>
+              <span>{t.rich("appsDomainNote", { mono: (c) => <span className="font-mono">{c}</span> })}</span>
             </p>
           )}
         </section>
 
         <section className="card p-5" aria-labelledby="reselling-heading">
-          <h2 id="reselling-heading" className="font-semibold">How reselling works</h2>
+          <h2 id="reselling-heading" className="font-semibold">{t("howTitle")}</h2>
           <ol className="mt-3 space-y-2 text-sm text-surface-300">
-            <li><span className="font-medium text-surface-100">1. You</span> run the platform and set the plans, prices and limits.</li>
-            <li><span className="font-medium text-surface-100">2. Resellers</span> are agencies you add under <Link href="/admin/resellers" className="text-brand-300 hover:underline">Resellers</Link>. You choose how many clients, apps and AI actions each one gets.</li>
-            <li><span className="font-medium text-surface-100">3. App owners</span> are the reseller&apos;s clients. They sign in at the reseller&apos;s own domain and only ever see the reseller&apos;s name, logo and colours.</li>
-            <li><span className="font-medium text-surface-100">4. App users</span> use the published apps on the web, as an installable app, or on Android and iPhone.</li>
+            <li>{t.rich("how1", { b })}</li>
+            <li>{t.rich("how2", { b, link: (c) => <Link href="/admin/resellers" className="text-brand-300 hover:underline">{c}</Link> })}</li>
+            <li>{t.rich("how3", { b })}</li>
+            <li>{t.rich("how4", { b })}</li>
           </ol>
-          <p className="mt-3 text-xs text-surface-400">Each reseller gets their own dashboard for branding, their domain, their Stripe account and their clients. Clients pay the reseller directly; the platform takes no cut.</p>
+          <p className="mt-3 text-xs text-surface-400">{t("howNote")}</p>
         </section>
       </div>
     </>

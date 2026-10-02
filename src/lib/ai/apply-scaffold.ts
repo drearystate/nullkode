@@ -1,5 +1,6 @@
 import { db } from "../db";
 import { slugify, projectSlug } from "../utils";
+import { isLanguageSlug } from "../app-translations";
 import { ensureInternalTable } from "../datasources/postgres";
 import { THEME_PRESETS } from "../theme";
 import { getModule } from "../modules/registry";
@@ -7,6 +8,8 @@ import { installModule } from "../modules/install";
 import { syncProjectNav } from "../nav-sync";
 import type { ScaffoldResult } from "./schema";
 import { flowRefMap, resolveFlowRefsWith } from "./flow-refs";
+import { setAppLocale } from "../app-locale";
+import type { Locale } from "@/i18n/locales";
 
 type FieldType = "text" | "int" | "float" | "bool" | "timestamp" | "json";
 
@@ -182,7 +185,9 @@ export function rewriteFlowRefsInHtml(
 
 export async function applyScaffold(
   ownerId: string,
-  scaffold: ScaffoldResult
+  scaffold: ScaffoldResult,
+  /** locale: the language the app was built in; saved as the app's language before any module installs. */
+  opts: { locale?: Locale } = {},
 ): Promise<{ projectId: string; homePageId: string }> {
   // 1. Create project
   const baseSlug = slugify(scaffold.project.name) || "project";
@@ -203,6 +208,12 @@ export async function applyScaffold(
       theme: themePreset as unknown as object,
     },
   });
+
+  // The app's language first: the sign-in pages and their emails below are
+  // installed in it (lib/modules/install.ts).
+  if (opts.locale) {
+    await setAppLocale(project.id, opts.locale).catch((err) => console.error("Saving the app's language failed:", err));
+  }
 
   // 2. Pre-install the auth module — every app gets login, register,
   //    profile, forgot-password pages + users table + auth flows for free.
@@ -281,6 +292,8 @@ export async function applyScaffold(
   let pageIdx = 0;
   for (const p of scaffold.pages) {
     let pageSlug = sanitizeSlug(p.slug) || slugify(p.title) || `page-${pageIdx + 1}`;
+    // A language code (/es) is reserved for the app's other languages.
+    if (isLanguageSlug(pageSlug)) pageSlug = `${pageSlug}-page`;
     // Skip auth pages the AI might have generated despite being told not to
     const authSlugs = new Set(["login", "register", "profile", "forgot-password"]);
     if (authSlugs.has(pageSlug) && pageSlugs.has(pageSlug)) {

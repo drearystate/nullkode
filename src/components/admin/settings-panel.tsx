@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useFormatter, useTranslations } from "next-intl";
 
 type SettingsResponse = {
   settings: Record<string, unknown>;
@@ -37,22 +38,6 @@ const NUMERIC_FIELDS: Array<keyof PlanLimitsForUI> = [
   "maxCustomDomains",
   "aiActionsPerMonth",
 ];
-const FIELD_LABELS: Record<keyof PlanLimitsForUI, string> = {
-  maxProjects: "Apps",
-  maxPublished: "Published apps",
-  maxPagesPerProject: "Pages per app",
-  maxCustomDomains: "Custom domains",
-  aiActionsPerMonth: "AI actions / month",
-  scheduledFlows: "Scheduled workflows",
-};
-const FIELD_HELP: Record<keyof PlanLimitsForUI, string> = {
-  maxProjects: "How many apps someone on this plan can have in total, live or not.",
-  maxPublished: "How many of their apps can be live on the web at the same time.",
-  maxPagesPerProject: "The most pages a single app can have.",
-  maxCustomDomains: "How many of their own web addresses (like shop.theirbusiness.com) they can connect, across all their apps.",
-  aiActionsPerMonth: "How many times a month they can ask the AI to build or change something. The count starts again each month.",
-  scheduledFlows: "Whether workflows can run on a timer, like every hour. Turning it off stops scheduled workflows on that plan from running.",
-};
 
 const KEYS = {
   AI_PROVIDER: "ai.provider",
@@ -95,6 +80,10 @@ export function SettingsPanel({
   const [planSaving, setPlanSaving] = useState(false);
   const [planSavedAt, setPlanSavedAt] = useState<number | null>(null);
   const [planError, setPlanError] = useState<string | null>(null);
+  const t = useTranslations("admin.settings");
+  const tp = useTranslations("admin.plans");
+  const tc = useTranslations("common");
+  const format = useFormatter();
 
   // These sections render after the settings load, so a link like #plans
   // can't scroll on its own.
@@ -112,7 +101,7 @@ export function SettingsPanel({
         const p = (s[KEYS.AI_PROVIDER] as string) || (d.env.AI_PROVIDER === "claude-cli" || d.env.AI_PROVIDER === "claude" ? "claude-cli" : "openai");
         setProvider(p as "openai" | "claude-cli");
         setOpenaiKeySet(Boolean(s[`${KEYS.AI_OPENAI_API_KEY}.set`]) || d.env.OPENAI_API_KEY_set);
-        setOpenaiKeyMask((s[KEYS.AI_OPENAI_API_KEY] as string) || (d.env.OPENAI_API_KEY_set ? "(from .env)" : ""));
+        setOpenaiKeyMask((s[KEYS.AI_OPENAI_API_KEY] as string) || (d.env.OPENAI_API_KEY_set ? t("fromEnv") : ""));
         setBaseUrl((s["ai.baseUrl"] as string) || "");
         // Mirror the server default so a first save doesn't change behaviour:
         // strict schema on OpenAI, plain JSON mode on other endpoints.
@@ -126,7 +115,7 @@ export function SettingsPanel({
         setClaudeModel((s[KEYS.AI_CLAUDE_MODEL] as string) || "");
         setClaudeBin((s[KEYS.AI_CLAUDE_BIN] as string) || "");
       });
-  }, []);
+  }, [t]);
 
   async function save() {
     setSaving(true);
@@ -157,7 +146,7 @@ export function SettingsPanel({
       const d: SettingsResponse = await fetch("/api/admin/settings").then((r) => r.json());
       setData(d);
       setOpenaiKeySet(Boolean(d.settings[`${KEYS.AI_OPENAI_API_KEY}.set`]) || d.env.OPENAI_API_KEY_set);
-      setOpenaiKeyMask((d.settings[KEYS.AI_OPENAI_API_KEY] as string) || (d.env.OPENAI_API_KEY_set ? "(from .env)" : ""));
+      setOpenaiKeyMask((d.settings[KEYS.AI_OPENAI_API_KEY] as string) || (d.env.OPENAI_API_KEY_set ? t("fromEnv") : ""));
     }
   }
 
@@ -177,25 +166,25 @@ export function SettingsPanel({
   }
 
   if (!data) {
-    return <div className="text-sm text-surface-400">Loading settings…</div>;
+    return <div className="text-sm text-surface-400">{t("loading")}</div>;
   }
 
   return (
     <div className="space-y-10">
-      <Section id="ai" title="AI Provider" help="Chooses the AI that builds new apps and makes edits for everyone on the platform, including resellers and their clients." subtitle="Pick which engine builds new apps and answers in-editor edits.">
+      <Section id="ai" title={t("aiTitle")} help={t("aiHelp")} subtitle={t("aiSubtitle")}>
         <div className="space-y-4">
           <div className="grid gap-3 md:grid-cols-2">
             <ProviderCard
               label="OpenAI"
-              help="Use OpenAI, or an AI service or model on your own server that works the same way (OpenAI-compatible). You'll set its address, model name and usually a secret key."
-              description="OpenAI or any OpenAI-compatible server, including local models. Set the endpoint and model below."
+              help={t("openaiHelp")}
+              description={t("openaiDescription")}
               active={provider === "openai"}
               onSelect={() => setProvider("openai")}
             />
             <ProviderCard
-              label="Command-line AI agent"
-              help="Use a command-line AI tool installed on this server and signed in to its own subscription, instead of paying per use with a secret key."
-              description="Uses a locally installed, signed-in CLI subscription instead of per-token API billing."
+              label={t("cliLabel")}
+              help={t("cliHelp")}
+              description={t("cliDescription")}
               active={provider === "claude-cli"}
               onSelect={() => setProvider("claude-cli")}
             />
@@ -203,37 +192,37 @@ export function SettingsPanel({
 
           {provider === "openai" && (
             <div className="rounded-lg border border-surface-700 bg-surface-900 p-4 space-y-3">
-              <Field label="OpenAI / compatible API key" help="The secret key from your AI provider's account. It's kept hidden; leave the box empty to keep the key already saved.">
+              <Field label={t("apiKey")} help={t("apiKeyHelp")}>
                 <input
                   type="password"
                   className="form-input"
-                  placeholder={openaiKeySet ? `Stored: ${openaiKeyMask} — leave blank to keep` : "sk-..."}
+                  placeholder={openaiKeySet ? t("apiKeyStored", { mask: openaiKeyMask }) : "sk-..."}
                   value={openaiKey}
                   onChange={(e) => setOpenaiKey(e.target.value)}
                 />
                 <p className="text-xs text-surface-400 mt-1">
                   {openaiKeySet
-                    ? "A key is configured. Enter a new value to replace it, or leave blank to keep the current one."
-                    : "No key configured — add one or set OPENAI_API_KEY in .env."}
+                    ? t("apiKeySet")
+                    : t("apiKeyNone")}
                 </p>
               </Field>
               <div className="grid gap-3 md:grid-cols-2">
-                <Field label="API base URL" help="The web address of your AI service. Leave it empty to use OpenAI itself, or enter your own server's address to use a model you run yourself." hint="Empty = OpenAI. Local server example: http://host.docker.internal:11434/v1">
+                <Field label={t("baseUrl")} help={t("baseUrlHelp")} hint={t("baseUrlHint")}>
                   <input className="input" value={baseUrl} onChange={e => setBaseUrl(e.target.value)} placeholder="https://api.openai.com/v1" />
                 </Field>
-                <Field label="JSON support" help="How strictly the AI is asked to answer in the fixed format the builder reads. If builds fail with format errors on your AI service, try a looser option." hint="Use JSON mode for compatible servers; text mode if JSON mode is unsupported.">
-                  <select className="input" value={jsonMode} onChange={e => setJsonMode(e.target.value)}><option value="json">JSON mode</option><option value="schema">Strict JSON schema</option><option value="text">Prompt only</option></select>
+                <Field label={t("jsonSupport")} help={t("jsonSupportHelp")} hint={t("jsonSupportHint")}>
+                  <select className="input" value={jsonMode} onChange={e => setJsonMode(e.target.value)}><option value="json">{t("jsonMode")}</option><option value="schema">{t("jsonSchema")}</option><option value="text">{t("jsonText")}</option></select>
                 </Field>
-                <Field label="Model context size (tokens)" help="How much text the model can read at once. Leave it empty to detect it automatically. Small models get shorter instructions so they still work." hint="Leave blank to detect it automatically (use Test connection to see the result). Models under 24K get compact prompts.">
-                  <input className="input" type="number" min={2048} step={1024} placeholder="Auto-detect" value={contextWindow} onChange={e => setContextWindow(e.target.value)} />
+                <Field label={t("contextSize")} help={t("contextSizeHelp")} hint={t("contextSizeHint")}>
+                  <input className="input" type="number" min={2048} step={1024} placeholder={t("autoDetect")} value={contextWindow} onChange={e => setContextWindow(e.target.value)} />
                 </Field>
-                <Field label="Model thinking" help="Whether a “thinking” model may reason at length before it answers. Off is fastest; On may give better results but builds can take much longer." hint="Reasoning models (e.g. Qwen3) can spend minutes thinking before they answer. Automatic turns it off for local servers so builds stay fast.">
-                  <select className="input" value={reasoning} onChange={e => setReasoning(e.target.value)}><option value="auto">Automatic</option><option value="off">Off — fastest</option><option value="on">On — let the model think</option></select>
+                <Field label={t("thinking")} help={t("thinkingHelp")} hint={t("thinkingHint")}>
+                  <select className="input" value={reasoning} onChange={e => setReasoning(e.target.value)}><option value="auto">{t("thinkingAuto")}</option><option value="off">{t("thinkingOff")}</option><option value="on">{t("thinkingOn")}</option></select>
                 </Field>
-                <Field label="Maximum output tokens per call" help="Caps how long each AI reply can be (a token is roughly ¾ of a word). Leave it empty for no limit. Small models on your own server may need a cap." hint="Leave blank for no limit. Set one (e.g. 8192) for small local models.">
-                  <input className="input" type="number" min={512} max={32768} placeholder={data?.env.AI_MAX_OUTPUT_TOKENS ? `${data.env.AI_MAX_OUTPUT_TOKENS} (set on the server)` : "No limit"} value={maxTokens} onChange={e => setMaxTokens(e.target.value)} />
+                <Field label={t("maxTokens")} help={t("maxTokensHelp")} hint={t("maxTokensHint")}>
+                  <input className="input" type="number" min={512} max={32768} placeholder={data?.env.AI_MAX_OUTPUT_TOKENS ? t("maxTokensServer", { n: data.env.AI_MAX_OUTPUT_TOKENS }) : t("noLimit")} value={maxTokens} onChange={e => setMaxTokens(e.target.value)} />
                 </Field>
-                <Field label="Scaffold model" help="The exact model name used to build new apps from a description. Leave it empty for the default; for a service other than OpenAI you must enter it." hint="Empty = use code default">
+                <Field label={t("scaffoldModel")} help={t("scaffoldModelHelp")} hint={t("modelHint")}>
                   <input
                     className="form-input"
                     placeholder="gpt-6-luna"
@@ -241,7 +230,7 @@ export function SettingsPanel({
                     onChange={(e) => setScaffoldModel(e.target.value)}
                   />
                 </Field>
-                <Field label="Edit model" help="The exact model name used for AI edits in the page editor. Leave it empty for the default; for a service other than OpenAI you must enter it." hint="Empty = use code default">
+                <Field label={t("editModel")} help={t("editModelHelp")} hint={t("modelHint")}>
                   <input
                     className="form-input"
                     placeholder="gpt-6-luna"
@@ -253,11 +242,11 @@ export function SettingsPanel({
               <div>
                 <button
                   className="btn btn-secondary"
-                  data-help="Saves the settings above, then sends a short test message to your AI service and shows whether it replied, how fast, and how much text the model can read."
+                  data-help={t("testHelp")}
                   onClick={() => test("openai")}
                   disabled={testing !== null}
                 >
-                  {testing === "openai" ? "Testing…" : "Test connection"}
+                  {testing === "openai" ? t("testing") : t("test")}
                 </button>
               </div>
             </div>
@@ -266,19 +255,18 @@ export function SettingsPanel({
           {provider === "claude-cli" && (
             <div className="rounded-lg border border-surface-700 bg-surface-900 p-4 space-y-3">
               <p className="text-sm text-surface-300">
-                The command-line AI tool must be installed on this server and signed in, once, as the user that runs
-                this platform (or the dedicated runner account, if one is configured). See docs/deploy/plesk.md.
+                {t("cliNote")}
               </p>
               <div className="grid gap-3 md:grid-cols-2">
-                <Field label="Model" help="Which model the command-line AI tool should use, by its short name or full ID." hint="The tool's short model name or full ID">
+                <Field label={t("cliModel")} help={t("cliModelHelp")} hint={t("cliModelHint")}>
                   <input
                     className="form-input"
-                    placeholder="Model name"
+                    placeholder={t("cliModelPlaceholder")}
                     value={claudeModel}
                     onChange={(e) => setClaudeModel(e.target.value)}
                   />
                 </Field>
-                <Field label="Binary path" help="Where the command-line AI tool is installed on this server. Leave it empty to let the server find it by itself." hint="Empty = $PATH lookup">
+                <Field label={t("cliBin")} help={t("cliBinHelp")} hint={t("cliBinHint")}>
                   <input
                     className="form-input"
                     placeholder="/usr/local/bin/…"
@@ -290,11 +278,11 @@ export function SettingsPanel({
               <div>
                 <button
                   className="btn btn-secondary"
-                  data-help="Saves these settings, then checks that the command-line AI tool on this server starts, is signed in and replies."
+                  data-help={t("cliTestHelp")}
                   onClick={() => test("claude-cli")}
                   disabled={testing !== null}
                 >
-                  {testing === "claude-cli" ? "Testing…" : "Test the AI agent"}
+                  {testing === "claude-cli" ? t("testing") : t("cliTest")}
                 </button>
               </div>
             </div>
@@ -308,41 +296,41 @@ export function SettingsPanel({
                   : "border-red-700 bg-red-900/20 text-red-100"
               }`}
             >
-              <strong>{testResult.ok ? "OK" : "Failed"}</strong> — {testResult.message}
-              <span className="text-surface-400"> ({testResult.latencyMs}ms)</span>
+              <strong>{testResult.ok ? t("testOk") : t("testFailed")}</strong> — {testResult.message}
+              <span className="text-surface-400"> {t("latency", { ms: format.number(testResult.latencyMs) })}</span>
             </div>
           )}
 
 
           <div className="flex items-center gap-3 pt-2">
-            <button onClick={save} disabled={saving} className="btn btn-primary" data-help="Saves the AI settings. They apply to everyone on the platform, including resellers and their clients.">
-              {saving ? "Saving…" : "Save changes"}
+            <button onClick={save} disabled={saving} className="btn btn-primary" data-help={t("saveAiHelp")}>
+              {saving ? tc("saving") : t("saveChanges")}
             </button>
-            {savedAt && <span className="text-sm text-emerald-400">Saved.</span>}
+            {savedAt && <span className="text-sm text-emerald-400">{tc("saved")}</span>}
           </div>
         </div>
       </Section>
 
       <Section
         id="plans"
-        title="Plans & limits"
-        help="Sets what your direct customers get on each plan; resellers set their own for their clients. Lowering a limit never deletes anything, it only stops people adding more."
-        subtitle="What each plan includes. Tick unlimited for no limit. Reset returns a plan to the built-in defaults. You (and resellers) are never limited."
+        title={t("plansTitle")}
+        help={t("plansHelp")}
+        subtitle={t("plansSubtitle")}
       >
         <div className="overflow-x-auto rounded-lg border border-surface-700">
           <table className="w-full text-sm">
             <thead className="bg-surface-900 text-surface-400 uppercase tracking-wider text-xs">
               <tr>
-                <th className="px-3 py-2 text-left">Limit</th>
+                <th className="px-3 py-2 text-start">{t("limit")}</th>
                 {PLAN_ORDER.map((k) => (
-                  <th key={k} className="px-3 py-2 text-left">{k}</th>
+                  <th key={k} className="px-3 py-2 text-start">{tp(k)}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
               {NUMERIC_FIELDS.map((field) => (
                 <tr key={field} className="border-t border-surface-800">
-                  <td className="px-3 py-2 text-surface-200 text-sm whitespace-nowrap" data-help={FIELD_HELP[field]}>{FIELD_LABELS[field]}</td>
+                  <td className="px-3 py-2 text-surface-200 text-sm whitespace-nowrap" data-help={t(`limitHelp.${field}`)}>{t(`limitLabel.${field}`)}</td>
                   {PLAN_ORDER.map((plan) => {
                     const v = planLimits[plan][field] as number | null;
                     const unlimited = v === null;
@@ -354,7 +342,7 @@ export function SettingsPanel({
                             min={0}
                             step={1}
                             className="form-input w-24"
-                            aria-label={`${plan.charAt(0) + plan.slice(1).toLowerCase()}: ${FIELD_LABELS[field]}`}
+                            aria-label={t("limitAria", { plan: tp(plan), field: t(`limitLabel.${field}`) })}
                             disabled={unlimited}
                             value={unlimited ? "" : String(v ?? 0)}
                             onChange={(e) => updateNumericField(setPlanLimits, plan, field, e.target.value)}
@@ -362,11 +350,11 @@ export function SettingsPanel({
                           <label className="text-[11px] text-surface-400 flex items-center gap-1">
                             <input
                               type="checkbox"
-                              aria-label={`${plan.charAt(0) + plan.slice(1).toLowerCase()}: ${FIELD_LABELS[field]} unlimited`}
+                              aria-label={t("limitUnlimitedAria", { plan: tp(plan), field: t(`limitLabel.${field}`) })}
                               checked={unlimited}
                               onChange={(e) => toggleUnlimited(setPlanLimits, plan, field, e.target.checked)}
                             />
-                            unlimited
+                            {t("unlimited")}
                           </label>
                         </div>
                       </td>
@@ -375,7 +363,7 @@ export function SettingsPanel({
                 </tr>
               ))}
               <tr className="border-t border-surface-800">
-                <td className="px-3 py-2 text-surface-200 text-xs" data-help={FIELD_HELP.scheduledFlows}>Scheduled workflows</td>
+                <td className="px-3 py-2 text-surface-200 text-xs" data-help={t("limitHelp.scheduledFlows")}>{t("limitLabel.scheduledFlows")}</td>
                 {PLAN_ORDER.map((plan) => (
                   <td key={plan} className="px-3 py-2 align-top">
                     <label className="text-xs text-surface-300 flex items-center gap-2">
@@ -389,7 +377,7 @@ export function SettingsPanel({
                           }))
                         }
                       />
-                      enabled
+                      {t("enabled")}
                     </label>
                   </td>
                 ))}
@@ -412,14 +400,14 @@ export function SettingsPanel({
               if (res.ok) {
                 setPlanSavedAt(Date.now());
               } else {
-                setPlanError((await res.text().catch(() => "")) || "Save failed");
+                setPlanError((await res.text().catch(() => "")) || t("saveFailed"));
               }
             }}
             disabled={planSaving}
             className="btn btn-primary"
-            data-help="Saves the limits for all four plans. They apply to your direct customers straight away."
+            data-help={t("savePlansHelp")}
           >
-            {planSaving ? "Saving…" : "Save plan limits"}
+            {planSaving ? tc("saving") : t("savePlans")}
           </button>
           <button
             onClick={() => {
@@ -429,11 +417,11 @@ export function SettingsPanel({
             }}
             disabled={planSaving}
             className="btn btn-secondary"
-            data-help="Fills in the built-in standard limits. Nothing changes until you press Save plan limits."
+            data-help={t("resetHelp")}
           >
-            Reset to the standard limits
+            {t("reset")}
           </button>
-          {planSavedAt && <span className="text-sm text-emerald-400">Saved.</span>}
+          {planSavedAt && <span className="text-sm text-emerald-400">{tc("saved")}</span>}
           {planError && <span className="text-sm text-red-400">{planError}</span>}
         </div>
       </Section>
@@ -470,7 +458,7 @@ function ProviderCard({
       onClick={onSelect}
       type="button"
       data-help={help}
-      className={`text-left rounded-lg border p-4 transition ${
+      className={`text-start rounded-lg border p-4 transition ${
         active
           ? "border-indigo-500 bg-indigo-500/10 ring-1 ring-indigo-500"
           : "border-surface-700 bg-surface-900 hover:border-surface-600"

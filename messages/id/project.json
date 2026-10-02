@@ -1,0 +1,958 @@
+{
+  "alertsApi": {
+    "allOff": "Semua peringatan dinonaktifkan. Aktifkan salah satunya di kartu Peringatan, lalu coba lagi.",
+    "badEmail": "\"{address}\" sepertinya bukan alamat email.",
+    "emailOff": "Email belum disiapkan di server ini, jadi peringatan tidak bisa dikirim. Minta penyedia layanan Anda untuk menghubungkan email.",
+    "invalid": "Periksa setelan peringatan, lalu coba lagi.",
+    "noTables": "Aplikasi Anda belum mengumpulkan apa pun dari pengunjung. Tambahkan formulir atau fitur seperti Pemesanan terlebih dahulu.",
+    "sampleMessage": "Ini adalah kiriman uji dari daftar periksa peluncuran Anda. Tidak ada yang mengirimkannya.",
+    "samplePerson": "Orang Uji",
+    "sampleSubject": "Kiriman uji",
+    "sampleText": "Uji",
+    "signedUpTable": "Orang yang mendaftar",
+    "testFailed": "Peringatan uji tidak bisa dikirim.",
+    "testLimit": "Anda sudah mengirim {count} kiriman uji dalam satu jam terakhir. Coba lagi sebentar lagi.",
+    "throttled": "Aplikasi ini sudah mengirim {count} email peringatan selama satu jam ini, jadi pengujian ditunda. Sisanya akan dikirim sekaligus dalam satu email di akhir jam.",
+    "tooMany": "Anda bisa menambahkan hingga {max} alamat lagi.",
+    "unknownTable": "Salah satu tabel itu sudah tidak ada di aplikasi ini. Muat ulang halaman, lalu coba lagi."
+  },
+  "alertsCard": {
+    "allOff": "Semua nonaktif",
+    "alsoSendTo": "Kirim juga ke <muted>(maks. {max}, pisahkan dengan koma)</muted>",
+    "defaultOn": "Sepertinya ini formulir, jadi notifikasi aktif kecuali Anda menonaktifkannya",
+    "defaultTable": "submission",
+    "emailOff": "Email belum disiapkan di server ini, jadi notifikasi tidak bisa dikirim. Minta penyedia Anda untuk menghubungkan email.",
+    "extraHelp": "Orang lain yang juga perlu menerima notifikasi ini, seperti rekan bisnis. Pisahkan alamat email dengan koma.",
+    "goesTo": "Notifikasi dikirim ke <b>{email}</b>.",
+    "intro": "Dapatkan email segera setelah seseorang mengirim formulir, memesan, atau melakukan pemesanan di aplikasi Anda.",
+    "loadFailed": "Tidak bisa memuat setelan notifikasi.",
+    "noTables": "Aplikasi Anda belum mengumpulkan apa pun dari pengunjung. Setelah menambahkan formulir atau fitur seperti Pemesanan, Anda bisa memilih notifikasinya di sini.",
+    "off": "Nonaktif",
+    "on": "Aktif",
+    "onCount": "{on} dari {total} aktif",
+    "save": "Simpan notifikasi",
+    "saveFailed": "Tidak bisa menyimpan setelan notifikasi.",
+    "saveFirst": "Simpan dulu",
+    "saveHelp": "Menyimpan pilihan tabel yang mengirim notifikasi dan penerimanya.",
+    "sending": "Mengirim…",
+    "setUpEmail": "Siapkan email",
+    "setUpEmailHelp": "Buka pengaturan server untuk menghubungkan layanan email, agar aplikasi bisa mengirim email.",
+    "step": "Kirim kiriman tes",
+    "stepDone": "(selesai)",
+    "stepHelp": "Mengirim email notifikasi contoh seperti yang Anda terima saat seseorang menggunakan formulir, agar Anda bisa memastikan emailnya masuk ke kotak masuk.",
+    "stepHint": "Pastikan Anda menerima email saat seseorang menggunakan formulir.",
+    "stepNeedsEmail": "Email perlu disiapkan di server ini.",
+    "stepSending": "Mengirim kiriman tes…",
+    "stepToDo": "(belum selesai)",
+    "switchHelp": "Jika aktif, Anda akan menerima email setiap kali pengunjung menambahkan sesuatu ke tabel ini. Tekan Simpan notifikasi untuk menyimpan perubahan.",
+    "test": "Kirim tes",
+    "testFailed": "Tes tidak bisa dikirim.",
+    "testHelp": "Mengirim email notifikasi contoh ke semua penerima dalam daftar, agar Anda bisa memastikan emailnya diterima. Simpan perubahan terlebih dahulu.",
+    "testOffline": "Tes tidak bisa dikirim. Periksa koneksi Anda lalu coba lagi.",
+    "testSent": "Notifikasi {table} percobaan telah dikirim ke {to}. Cari email yang bertanda (test).",
+    "testSentToYou": "Notifikasi {table} percobaan telah dikirim kepada Anda. Cari email yang bertanda (test).",
+    "title": "Notifikasi",
+    "titleHelp": "Mengirimi Anda email saat pengunjung mengirim sesuatu melalui aplikasi, seperti formulir, pemesanan, atau pesanan. Anda bisa memilih tabel mana yang mengirimkan notifikasi.",
+    "tooMany": "Anda bisa menambahkan hingga {max} alamat lagi."
+  },
+  "appAdminApi": {
+    "checkDetails": "Periksa detailnya, lalu coba lagi.",
+    "invalidEmail": "Masukkan alamat email yang valid.",
+    "saveFailed": "Tidak bisa menyimpan info login admin.",
+    "shortPassword": "Gunakan kata sandi minimal {min} karakter."
+  },
+  "appAdminCard": {
+    "add": "Tambah admin",
+    "addHelp": "Memberikan login admin aplikasi kepada alamat email ini. Jika alamat tersebut sudah memiliki akun, akun itu akan menjadi admin dan kata sandinya akan diubah.",
+    "admins": "Admin: <list>{admins}</list>",
+    "email": "Email",
+    "emailHelp": "Alamat email yang akan digunakan anggota tim Anda untuk masuk ke aplikasi.",
+    "loginsIntro": "Berikan seseorang login admin agar mereka bisa masuk lewat halaman login aplikasi dan mengelolanya.",
+    "loginsTitle": "Login admin untuk tim Anda",
+    "notPublished": "Aplikasi Anda belum dipublikasikan, jadi halaman ini akan terbuka di Pratinjau.",
+    "note": "Minimal 10 karakter. Jika menggunakan email yang sudah memiliki akun di aplikasi, akun itu akan menjadi admin dan kata sandinya akan diubah.",
+    "openHelp": "Membuka halaman khusus tim ini di tab baru, tanpa perlu masuk ke aplikasi. Pengunjung tidak bisa melihatnya.",
+    "pagesIntro": "Halaman ini hanya untuk Anda dan tim, jadi pengunjung tidak bisa melihatnya. Anda bisa membukanya kapan saja tanpa perlu masuk ke aplikasi.",
+    "password": "Kata sandi",
+    "passwordHelp": "Kata sandi mereka, minimal 10 karakter. Bagikan secara pribadi; mereka bisa menggunakannya untuk masuk lewat halaman login aplikasi.",
+    "saveFailed": "Tidak bisa menyimpan login admin.",
+    "savedCreated": "Tersimpan. Mereka bisa masuk ke aplikasi dengan email dan kata sandi ini.",
+    "savedUpdated": "Tersimpan. Akun tersebut kini menjadi admin, dengan kata sandi baru.",
+    "title": "Area admin aplikasi Anda",
+    "titleHelp": "Halaman di aplikasi yang hanya bisa digunakan oleh Anda dan tim, seperti halaman untuk mengelola pesanan, serta login yang digunakan tim untuk membukanya."
+  },
+  "deleteProject": {
+    "backup": "Unduh cadangan",
+    "backupHelp": "Simpan satu file berisi semua halaman, data, tema, dan gambar ke perangkat Anda. Nanti, Anda bisa memulihkan aplikasi dari file itu dengan Impor aplikasi.",
+    "buttonHelp": "Hapus aplikasi ini. Anda akan melihat apa saja yang dihapus dan bisa mengunduh cadangan terlebih dahulu. Penghapusan tidak bisa dibatalkan.",
+    "buttonLabel": "Hapus {name}",
+    "deleteApp": "Hapus aplikasi",
+    "deleteHelp": "Hapus aplikasi ini secara permanen: halaman, data, file, dan alamat webnya. Pengunjung tidak akan bisa membukanya lagi. Tindakan ini tidak bisa dibatalkan.",
+    "deleting": "Menghapus…",
+    "details": "Halaman, alur kerja, semua yang dikirim orang melalui aplikasi, versi aplikasi ponsel, dan alamat webnya akan dihapus. Tindakan ini tidak bisa dibatalkan.",
+    "failed": "Tidak bisa menghapus aplikasi ({status}).",
+    "keyAck": "Saya sudah mengunduh kunci upload, atau tidak membutuhkannya.",
+    "keyAckHelp": "Centang untuk mengonfirmasi bahwa Anda sudah menyimpan kunci upload, atau tidak akan pernah perlu memperbarui aplikasi ini di Google Play.",
+    "keyBody": "Unduh sebelum menghapus aplikasi: tanpa kunci ini, Anda tidak akan bisa memperbarui aplikasi di Google Play lagi.",
+    "keyDownload": "Unduh kunci upload",
+    "keyDownloadHelp": "Simpan file rahasia yang membuktikan bahwa pembaruan di Google Play berasal dari Anda. Simpan di tempat yang aman.",
+    "keyTitle": "Aplikasi ini memiliki kunci upload Google Play.",
+    "networkError": "Masalah jaringan. Aplikasi tidak dihapus.",
+    "summary": "Menghapus aplikasi, data, dan filenya. Unduh cadangan terlebih dahulu.",
+    "title": "Hapus “{name}”?"
+  },
+  "deploymentsApi": {
+    "versionMissing": "Versi tersebut tidak ada."
+  },
+  "domains": {
+    "add": "Tambahkan domain",
+    "addFailed": "Tidak bisa menambahkan domain.",
+    "addHelp": "Mulai hubungkan alamat web ini. Setelah itu, Anda akan melihat dua pengaturan untuk disalin ke perusahaan tempat Anda membelinya.",
+    "adding": "Menambahkan…",
+    "checkHelp": "Periksa apakah pengaturan di bawah sudah diterapkan. Setelah ditambahkan, prosesnya bisa memakan waktu beberapa menit, terkadang beberapa jam.",
+    "checkNow": "Periksa sekarang",
+    "checking": "Memeriksa…",
+    "colName": "Nama / host",
+    "colType": "Jenis",
+    "colValue": "Nilai / mengarah ke",
+    "confirmDisconnect": "Putuskan koneksi {host} dari aplikasi ini?",
+    "connected": "Terhubung — pengunjung bisa membuka <url>https://{host}</url>",
+    "copied": "Disalin",
+    "copy": "Salin",
+    "copyHelp": "Klik untuk menyalin, lalu tempel ke halaman pengaturan di perusahaan tempat Anda membeli domain.",
+    "copyValue": "Salin {value}",
+    "disconnect": "Putuskan koneksi {host}",
+    "disconnectHelp": "Berhenti menggunakan alamat web ini untuk aplikasi Anda. Alamatnya tetap milik Anda, dan aplikasi tetap memiliki alamat gratisnya.",
+    "domain": "Domain",
+    "empty": "Belum ada domain. Aplikasi Anda masih bisa diakses melalui alamat gratisnya.",
+    "hostHelp": "Ketik alamat web yang sudah Anda miliki (domain), seperti www.yourbusiness.com. Anda harus membelinya terlebih dahulu.",
+    "notOwned": "Data TXT belum ditemukan.",
+    "notPointsHere": "Domain belum mengarah ke sini (data CNAME/A).",
+    "owned": "Kepemilikan dikonfirmasi (data TXT ditemukan).",
+    "ownershipRecordHelp": "Pengaturan ini membuktikan bahwa alamat web ini milik Anda. Aplikasi baru akan terhubung setelah alamat ini ditemukan.",
+    "pointsHere": "Domain mengarah ke server ini.",
+    "recordsHelp": "Data DNS adalah pengaturan di perusahaan tempat Anda membeli domain. Salin setiap data ke halaman pengaturan DNS atau domain mereka.",
+    "recordsIntro": "Tambahkan data ini di tempat Anda mengelola DNS untuk domain ini. Perubahan biasanya terlihat dalam beberapa menit, terkadang beberapa jam.",
+    "rootHint": "Untuk domain utama (yourbusiness.com tanpa www), gunakan data A yang mengarah ke alamat IP server ini jika penyedia DNS Anda tidak mendukung CNAME untuk domain tersebut.",
+    "rootHintIp": "Untuk domain utama (yourbusiness.com tanpa www), gunakan data A yang mengarah ke <code>{ip}</code> jika penyedia DNS Anda tidak mendukung CNAME untuk domain tersebut.",
+    "routingRecordHelp": "Pengaturan ini mengarahkan orang yang mengetik alamat web Anda ke aplikasi.",
+    "waiting": "Menunggu data DNS"
+  },
+  "domainsApi": {
+    "alreadyConnected": "Domain tersebut sudah terhubung ke aplikasi lain.",
+    "enterDomain": "Masukkan nama domain.",
+    "invalidDomain": "Masukkan domain seperti www.yourbusiness.com (tanpa https:// atau jalur).",
+    "notFound": "Tidak ditemukan",
+    "platformAddress": "Alamat tersebut milik platform ini."
+  },
+  "domainsPage": {
+    "intro": "Gunakan alamat Anda sendiri untuk aplikasi ini, seperti <domain>www.yourbusiness.com</domain>. Tambahkan dua data DNS di tempat Anda membeli domain, lalu periksa koneksinya di sini.",
+    "title": "Domain"
+  },
+  "enablePush": {
+    "failed": "Tidak dapat mengaktifkan notifikasi. Silakan coba lagi.",
+    "help": "Menambahkan halaman “Dapatkan notifikasi” ke aplikasi agar pengunjung bisa mendaftar. Setelah itu, Anda bisa mengirim pesan kepada mereka dari sini atau melalui otomatisasi.",
+    "turnOn": "Aktifkan notifikasi",
+    "turningOn": "Mengaktifkan…"
+  },
+  "exportApi": {
+    "notFound": "Tidak ditemukan",
+    "unauthorized": "Tidak diizinkan"
+  },
+  "iconApi": {
+    "generationFailed": "Gagal membuat gambar",
+    "invalidForm": "Formulir tidak valid",
+    "invalidInput": "Input tidak valid",
+    "missingFile": "File tidak ditemukan",
+    "noImage": "Tidak ada gambar yang dihasilkan",
+    "notFound": "Tidak ditemukan",
+    "tooBig": "Ukuran ikon harus di bawah 5 MB",
+    "unauthorized": "Tidak diizinkan",
+    "wrongType": "Gunakan PNG, JPG, WebP, atau SVG"
+  },
+  "latestSubmissions": {
+    "empty": "Belum ada. Saat orang mengirim formulir atau membuat pemesanan di aplikasi, kirimannya akan muncul di sini.",
+    "itemHelp": "Buka tabel asal kiriman ini untuk melihat detailnya.",
+    "justNow": "baru saja",
+    "newEntry": "Entri baru",
+    "seeAll": "Lihat semua data",
+    "seeAllHelp": "Buka halaman Data untuk melihat semua yang telah disimpan aplikasi Anda.",
+    "title": "Kiriman terbaru",
+    "titleHelp": "Lima kiriman terbaru dari pengunjung melalui aplikasi, seperti pesan formulir atau pemesanan."
+  },
+  "layout": {
+    "backToApps": "Kembali ke aplikasi saya",
+    "backToAppsHelp": "Kembali ke daftar semua aplikasi Anda.",
+    "backToDesigner": "Kembali ke Desainer",
+    "backToDesignerHelp": "Kembali ke Desainer AI."
+  },
+  "modulesPage": {
+    "help": "Fitur adalah bagian siap pakai, seperti pemesanan atau toko, yang menambahkan halaman lengkap dan data pendukungnya ke aplikasi Anda.",
+    "intro": "Pemesanan, toko, ulasan, dan lainnya. Pilih salah satu untuk menambahkan halamannya ke aplikasi, lalu sesuaikan dengan kebutuhan Anda.",
+    "title": "Tambahkan kemampuan hebat."
+  },
+  "nativeApi": {
+    "build": {
+      "publishFirst": "Terbitkan aplikasi Anda terlebih dahulu — aplikasi Android memuat alamat aktifnya.",
+      "startFailed": "Build tidak bisa dimulai. Silakan coba lagi.",
+      "unavailable": "Build Android tidak tersedia di server ini. {reason}",
+      "unknownBuild": "Build tidak dikenal"
+    },
+    "buildDownload": {
+      "fileGone": "File build ini sudah tidak ada. Silakan buat build lagi.",
+      "notReady": "Build belum siap"
+    },
+    "download": {
+      "publishFirst": "Terbitkan aplikasi Anda terlebih dahulu — aplikasi seluler memuat URL aktifnya."
+    },
+    "installer": {
+      "projectNotFound": "Proyek tidak ditemukan",
+      "publishFirst": "Terbitkan proyek terlebih dahulu — penginstal mengarah ke URL aktif.",
+      "unknownPlatform": "Platform tidak dikenal"
+    },
+    "keystore": {
+      "chooseFile": "Pilih file keystore Anda (.jks atau .keystore).",
+      "ownerOnly": "Hanya pemilik aplikasi yang bisa mengubah kunci upload-nya.",
+      "saveFailed": "Keystore ini tidak bisa disimpan. Silakan coba lagi.",
+      "tooManyTries": "Terlalu banyak percobaan. Tunggu beberapa menit."
+    },
+    "keystoreDownload": {
+      "ownerOnly": "Hanya pemilik aplikasi yang bisa mengunduh kunci upload-nya."
+    },
+    "notFound": "Tidak ditemukan",
+    "settings": {
+      "bundleId": "Bundle ID harus menggunakan format reverse-DNS, misalnya com.company.app",
+      "invalidInput": "Input tidak valid",
+      "versionFormat": "Gunakan versi seperti 1.0.0"
+    },
+    "unauthorized": "Tidak diizinkan"
+  },
+  "nativeApp": {
+    "android": {
+      "advancedDownload": "Lanjutan: unduh proyek untuk membuatnya sendiri di Android Studio",
+      "advancedDownloadHelp": "Untuk developer: unduh file proyek Android untuk membuat aplikasinya sendiri dengan Android Studio. Kebanyakan orang tidak memerlukannya.",
+      "debugBlurb": "Salinan untuk uji coba cepat. Pasang langsung di ponsel Android untuk mencoba aplikasi Anda. Google Play tidak menerima file ini.",
+      "debugButton": "Buat APK uji coba",
+      "debugTitle": "Uji di ponsel (APK)",
+      "intro": "Kami membuatnya di server. Pilih yang ingin Anda lakukan:",
+      "releaseBlurb": "File yang diminta Google Play, ditandatangani dengan kunci upload aplikasi Anda. Setiap build mendapat nomor build berikutnya (berikutnya: {next}).",
+      "releaseButton": "Buat untuk Google Play",
+      "releaseTitle": "Publikasikan di Google Play (AAB)"
+    },
+    "browserInstall": "<b>Sudah bisa dipasang dari browser.</b> Situs yang sudah dipublikasikan juga bisa ditambahkan ke layar utama ponsel langsung dari browser — tanpa perlu toko aplikasi.",
+    "build": {
+      "again": "Buat lagi",
+      "againHelpDebug": "Buat file uji coba baru dengan detail aplikasi terbaru, seperti nama, ikon, dan warna.",
+      "againHelpRelease": "Buat file Google Play baru dengan detail aplikasi terbaru Anda. File ini mendapat nomor build berikutnya dan siap diunggah sebagai pembaruan.",
+      "buildFailed": "Build gagal",
+      "building": "Sedang membuat…",
+      "buildingSeconds": "Sedang membuat… ({seconds} dtk)",
+      "couldNotStart": "Tidak dapat memulai build",
+      "debugNote": "Di ponsel, buka file dan izinkan pemasangan saat diminta. Jika ponsel sudah memiliki aplikasi ini dari Google Play, hapus dulu: keduanya menggunakan kunci yang berbeda.",
+      "downloadAab": "Unduh AAB untuk Google Play",
+      "downloadAabHelp": "Unduh file aplikasi Android (.aab) yang diminta Google Play. Unggah file ini di Google Play Console sesuai langkah-langkah di bawah.",
+      "downloadApk": "Unduh APK uji coba",
+      "downloadApkHelp": "Unduh file aplikasi Android untuk uji coba (.apk). Buka di ponsel Android dan izinkan pemasangan saat diminta.",
+      "failed": "Build gagal.",
+      "iconNotUsed": "<b>Ikon Anda tidak digunakan.</b> {note} <link>Ganti ikon</link>",
+      "made": "Versi {version} · dibuat {date}",
+      "madeWithBuild": "Versi {version} (build {build}) · dibuat {date}",
+      "rebuildNeeded": "<b>Perlu dibuat ulang.</b> {reason}",
+      "releaseNote": "Build pertama membuat kunci upload aplikasi Anda. Unduh salinan cadangannya di bawah.",
+      "signedApk": "APK bertanda tangan untuk toko aplikasi lain",
+      "signedApkHelp": "Unduh aplikasi yang sama sebagai file Android yang bisa dipasang (.apk), ditandatangani dengan kunci Anda, untuk toko aplikasi selain Google Play.",
+      "sizeKb": "{size} KB",
+      "sizeMb": "{size} MB",
+      "startHelpDebug": "Buat aplikasi Android untuk uji coba yang bisa langsung dipasang di ponsel. Proses ini perlu beberapa menit.",
+      "startHelpRelease": "Buat file aplikasi Android untuk Google Play. Proses ini perlu beberapa menit. Jika belum punya kunci, build pertama akan membuat kunci upload Anda.",
+      "withSize": "{label} ({size})"
+    },
+    "details": {
+      "appId": "ID Bundle / Aplikasi",
+      "appIdHelp": "Nama unik yang digunakan toko aplikasi untuk membedakan aplikasi Anda, seperti com.usahaanda.app. Pengunjung tidak akan melihatnya. Jangan ubah setelah aplikasi Anda tersedia di toko.",
+      "appIdHint": "Contohnya com.company.app, dengan huruf kecil. Setelah aplikasi tersedia di toko, jangan pernah mengubahnya.",
+      "appName": "Nama aplikasi",
+      "appNameHelp": "Nama yang ditampilkan di bawah ikon aplikasi di ponsel. Maksimal 30 huruf, tetapi nama pendek lebih pas.",
+      "background": "Latar belakang",
+      "backgroundCode": "Kode warna latar belakang",
+      "backgroundHelp": "Warna di belakang aplikasi saat dibuka dan di layar yang ditampilkan saat tidak ada internet.",
+      "buildNumber": "Nomor build",
+      "buildNumberHelp": "Nomor urut yang digunakan toko aplikasi untuk membedakan pembaruan; setiap kali mengunggah, nomornya harus lebih tinggi. Nomor build Google Play yang dibuat di sini naik otomatis.",
+      "buildNumberHint": "Nomor build Google Play naik otomatis dari sini. Berikutnya: {next}.",
+      "colorCodeHelp": "Atau masukkan kode warna di sini, seperti #1a73e8, jika Anda tahu warna yang diinginkan.",
+      "couldNotSave": "Tidak dapat menyimpan",
+      "intro": "Informasi ini akan muncul di toko aplikasi dan di layar utama ponsel.",
+      "orientation": "Orientasi",
+      "orientationDefault": "Ikuti perangkat",
+      "orientationHelp": "Mengatur apakah aplikasi berputar saat ponsel diputar. Ikuti perangkat memungkinkan layar berputar; opsi lain mengunci layar tegak atau menyamping.",
+      "orientationLandscape": "Menyamping saja",
+      "orientationPortrait": "Tegak saja",
+      "pickBackground": "Pilih latar belakang",
+      "pickThemeColor": "Pilih warna tema",
+      "save": "Simpan pengaturan",
+      "saveHelp": "Simpan detail ini. Perubahan akan diterapkan pada build atau unduhan berikutnya; aplikasi yang sudah dipasang tidak akan berubah sampai Anda mengirim pembaruan.",
+      "themeColor": "Warna tema",
+      "themeColorCode": "Kode warna tema",
+      "themeColorHelp": "Warna utama aplikasi di ponsel: digunakan di layar pemuatan, layar tanpa internet, dan ikon sederhana yang dibuat jika ikon Anda tidak bisa digunakan.",
+      "title": "Detail aplikasi",
+      "titleHelp": "Nama, warna, dan detail toko yang disertakan dalam aplikasi ponsel Anda. Perubahan akan diterapkan pada versi yang dibuat atau diunduh berikutnya, bukan pada aplikasi yang sudah terpasang.",
+      "version": "Versi",
+      "versionHelp": "Nomor versi yang dilihat orang di toko, seperti 1.0.0. Naikkan nomornya saat mengirim pembaruan, misalnya menjadi 1.1.0."
+    },
+    "featureList": {
+      "three": "{a}, {b} dan {c}",
+      "two": "{a} dan {b}"
+    },
+    "features": {
+      "camera": {
+        "about": "Sebuah halaman menampilkan kamera, misalnya untuk memindai kode QR. Ponsel akan meminta izin terlebih dahulu.",
+        "label": "Kamera",
+        "name": "kamera"
+      },
+      "files": {
+        "about": "Saat mengunggah file, pemilih file di ponsel akan terbuka, dengan opsi untuk mengambil foto. Fitur ini tidak memerlukan izin di Android.",
+        "label": "Foto dan file",
+        "name": "foto dan file"
+      },
+      "location": {
+        "about": "Sebuah halaman menanyakan lokasi seseorang, misalnya untuk menemukan tempat di sekitar. Ponsel akan meminta izin terlebih dahulu.",
+        "label": "Lokasi",
+        "name": "lokasi"
+      },
+      "microphone": {
+        "about": "Sebuah halaman merekam suara atau mendengarkan ucapan. Ponsel akan meminta izin terlebih dahulu.",
+        "label": "Mikrofon",
+        "name": "mikrofon"
+      }
+    },
+    "ios": {
+      "download": "Unduh proyek iPhone",
+      "downloadHelp": "Unduh file yang diperlukan untuk membuat aplikasi iPhone Anda. Anda perlu Mac atau akun GitHub, serta akun Apple Developer berbayar, untuk mengirimkannya ke Apple.",
+      "intro": "Unduh proyek iPhone. Proyek ini langsung terbuka di Xcode, tanpa perintah penyiapan. Apple hanya mengizinkan Anda menerbitkan aplikasi dengan akun Apple Developer berbayar ({fee} per tahun), dan hanya Mac yang bisa membuat aplikasi iPhone. Ada dua cara:",
+      "locationAdded": "Aplikasi Anda kini menggunakan lokasi. Unduh ulang proyek iPhone dan kirim build baru ke Apple. Jika tidak, aplikasi tidak bisa meminta akses lokasi.",
+      "locationRemoved": "Aplikasi Anda tidak lagi menggunakan lokasi. Unduh ulang proyek iPhone untuk build berikutnya agar aplikasi berhenti meminta akses lokasi.",
+      "newBuildNeeded": "<b>Perlu build baru.</b> {reason}",
+      "readme": "README di dalam unduhan menjelaskan kedua cara tersebut langkah demi langkah.",
+      "title": "iPhone dan iPad",
+      "withMac": "<b>Dengan Mac:</b> buka <mono>{path}</mono>, pilih tim Anda, lalu Product → Archive.",
+      "withoutMac": "<b>Tanpa Mac:</b> unggah folder ke GitHub dan tambahkan kunci Apple Anda sebagai rahasia. Alur kerja yang disertakan akan membuat aplikasi di Mac milik GitHub dan mengirimkannya ke TestFlight."
+    },
+    "key": {
+      "alias": "Alias kunci",
+      "aliasHelp": "Nama kunci di dalam file. Kosongkan jika file hanya berisi satu kunci.",
+      "aliasPlaceholder": "Kosongkan jika hanya ada satu",
+      "backupHint": "Simpan cadangan di tempat pribadi yang aman, seperti pengelola kata sandi. Cadangan ini berisi kunci dan kata sandinya.",
+      "checking": "Memeriksa…",
+      "couldNotUse": "Kunci ini tidak bisa digunakan",
+      "download": "Unduh cadangan kunci",
+      "downloadHelp": "Simpan salinan kunci upload dan kata sandinya. Simpan di tempat pribadi yang aman: siapa pun yang memilikinya bisa menandatangani pembaruan atas nama Anda.",
+      "file": "File keystore (.jks atau .keystore)",
+      "fileHelp": "Pilih file kunci yang sebelumnya digunakan untuk menandatangani aplikasi Anda. Biasanya, nama filenya berakhiran .jks atau .keystore.",
+      "fingerprint": "Sidik jari sertifikat (SHA-256)",
+      "fingerprintHelp": "Kode yang mengidentifikasi kunci Anda. Beberapa layanan Google meminta Anda memasukkan kode ini saat menyiapkannya.",
+      "importedOn": "Kunci Anda ditambahkan pada {date} · alias <mono>{alias}</mono>",
+      "keepSafe": "Simpan baik-baik — Anda memerlukannya untuk setiap pembaruan di Google Play.",
+      "keyPassword": "Kata sandi kunci",
+      "keyPasswordHelp": "Kata sandi untuk kuncinya. Kosongkan jika sama dengan kata sandi file.",
+      "keyPasswordPlaceholder": "Kosongkan jika sama",
+      "madeOn": "Dibuat untuk aplikasi ini pada {date} · alias <mono>{alias}</mono>",
+      "missing": "File kunci tidak ada di server. Tambahkan cadangan Anda di bawah (\"Gunakan kunci yang sudah saya punya\") agar Anda tetap bisa memperbarui aplikasi di Google Play.",
+      "none": "Google Play memeriksa kunci ini setiap kali ada pembaruan. Kami membuat kunci untuk aplikasi Anda saat pertama kali Anda membuat versi untuk Google Play. Aplikasi Anda sudah ada di Google Play dengan kunci sendiri? Tambahkan kuncinya di sini terlebih dahulu.",
+      "ownerOnly": "Hanya pemilik aplikasi yang bisa mengunduh kunci.",
+      "replace": "Ganti kunci saya saat ini. Lakukan ini hanya jika Google Play mengharuskan Anda menggunakan kunci lain ini. Unduh cadangan kunci saat ini terlebih dahulu.",
+      "replaceHelp": "Konfirmasikan bahwa Anda ingin mengganti kunci saat ini dengan kunci ini. Unduh cadangan kunci saat ini terlebih dahulu.",
+      "save": "Simpan kunci",
+      "saveHelp": "Periksa kunci dan kata sandinya, lalu gunakan kunci ini untuk semua versi aplikasi Anda di Google Play mulai sekarang.",
+      "saved": "Kunci Anda sudah disimpan. Versi aplikasi untuk Google Play kini menggunakan kunci ini.",
+      "storePassword": "Kata sandi keystore",
+      "storePasswordHelp": "Kata sandi untuk membuka file kunci.",
+      "title": "Kunci upload Anda",
+      "titleHelp": "File rahasia yang membuktikan bahwa pembaruan aplikasi Anda di Google Play berasal dari Anda. Jika file ini hilang, Anda tidak bisa memperbarui aplikasi di Google Play.",
+      "toggleHelpClosed": "Aplikasi Anda sudah ada di Google Play? Tambahkan kunci yang Anda gunakan untuk aplikasi itu agar versi baru bisa memperbaruinya.",
+      "toggleHelpOpen": "Tutup formulir ini tanpa mengubah kunci Anda.",
+      "useDifferent": "Gunakan kunci lain",
+      "useExisting": "Gunakan kunci yang sudah saya punya"
+    },
+    "liveUrl": {
+      "help": "Alamat web aktif yang dibuka oleh aplikasi ponsel Anda. Apa pun yang Anda publikasikan di sana juga akan muncul di aplikasi ponsel.",
+      "httpWarning": "Ponsel hanya bisa membuka aplikasi dari alamat aman (https). Alamat ini diawali http://, jadi aplikasi ponsel tidak bisa memuatnya. Siapkan https untuk server ini terlebih dahulu.",
+      "label": "Aplikasi Anda menampilkan:"
+    },
+    "notPublished": {
+      "body": "Aplikasi seluler menampilkan situs Anda yang sudah tayang, jadi situs harus tayang sebelum Anda bisa membuatnya. Apa pun yang Anda publikasikan nanti akan otomatis diperbarui di aplikasi, tanpa perlu membuatnya lagi.",
+      "goToPublish": "Buka Publikasikan",
+      "goToPublishHelp": "Buka Publikasikan untuk menayangkan aplikasi Anda. Lalu kembali ke sini untuk membuat aplikasi ponsel.",
+      "title": "Publikasikan aplikasi Anda dulu"
+    },
+    "phone": {
+      "checking": "Memeriksa aplikasi Anda…",
+      "intro": "Diketahui dari fitur dan halaman aplikasi Anda. Ponsel hanya mengizinkan aplikasi menggunakan fitur yang diminta versinya. Jadi, saat daftar ini berubah, buat ulang aplikasi dan kirim versi barunya ke toko aplikasi.",
+      "none": "Belum ada: tidak ada halaman yang menggunakan kamera, mikrofon, lokasi, atau unggahan file.",
+      "photoLibrary": "Galeri foto",
+      "save": "Simpan teks",
+      "saveHelp": "Simpan pesan ini. Pesan akan disertakan dalam build dan unduhan iPhone berikutnya.",
+      "saved": "Tersimpan. Pesan akan disertakan dalam build dan unduhan berikutnya.",
+      "sourcePage": "halaman “{name}”",
+      "title": "Fitur ponsel yang digunakan aplikasi ini",
+      "titleHelp": "Bagian ponsel yang dibutuhkan aplikasi Anda, seperti kamera atau lokasi, diketahui dari halaman dan fitur aplikasi. Ponsel akan meminta izin sebelum aplikasi bisa menggunakannya.",
+      "usedBy": "Digunakan oleh {sources}",
+      "wordingHelp": "Jelaskan dengan sederhana alasan aplikasi Anda memerlukannya, seperti “Untuk memindai tiket di pintu masuk.” Apple akan memeriksanya. Kosongkan kolom untuk memakai teks yang disarankan.",
+      "wordingIntro": "iPhone menampilkan teks ini saat aplikasi meminta akses ke setiap fitur, dan Apple meninjaunya. Jelaskan dengan sederhana untuk apa aplikasi Anda menggunakannya. Kosongkan kolom untuk memakai teks yang disarankan. Ponsel Android menampilkan pesan standar sendiri.",
+      "wordingSummary": "Pesan yang ditampilkan ponsel saat aplikasi meminta izin",
+      "wordingSummaryHelp": "Buka bagian ini untuk menulis pesan yang ditampilkan iPhone saat aplikasi meminta izin menggunakan kamera, mikrofon, foto, atau lokasi."
+    },
+    "play": {
+      "appContent": "Di bagian <b>Konten aplikasi</b>, tambahkan tautan kebijakan privasi Anda. Jika pengguna bisa mendaftar di aplikasi, Google juga meminta tautan untuk menghapus akun mereka: gunakan <mono>{url}</mono>.",
+      "createApp": "Klik <b>Buat aplikasi</b>, ketik nama aplikasi, lalu jawab beberapa pertanyaan singkat.",
+      "listing": "Lengkapi informasi aplikasi di toko: deskripsi singkat dan lengkap, ikon (512 × 512), gambar fitur (1024 × 500), dan setidaknya dua tangkapan layar ponsel.",
+      "note": "Akun developer pribadi baru harus menguji aplikasi terlebih dahulu dengan setidaknya 12 orang selama 14 hari sebelum Google mengizinkan aplikasi diterbitkan untuk semua orang.",
+      "release": "Buka <b>Uji dan rilis</b>, pilih jalur (<b>Pengujian internal</b> adalah cara tercepat untuk mencobanya), lalu klik <b>Buat rilis baru</b>.",
+      "signUp": "Daftar akun developer Google Play di <link>{url}</link>. Google mengenakan biaya satu kali sebesar {fee}.",
+      "signing": "Jika Google bertanya tentang penandatanganan aplikasi, biarkan <b>Izinkan Google mengelola dan melindungi kunci penandatanganan aplikasi</b> tetap dipilih.",
+      "title": "Pasang aplikasi di Google Play",
+      "titleHelp": "Petunjuk langkah demi langkah untuk memasang aplikasi di Google Play. Klik untuk menampilkan atau menyembunyikannya.",
+      "updates": "Pembaruan berikutnya: perubahan yang Anda terbitkan di sini akan memperbarui aplikasi secara otomatis. Buat AAB baru hanya jika Anda mengubah nama, ikon, warna, atau versi, lalu unggah dengan cara yang sama. Nomor build akan bertambah otomatis.",
+      "upload": "Unggah file <b>.aab</b> di atas, tulis beberapa kata tentang hal baru, lalu simpan dan kirim rilis."
+    },
+    "publishToEnable": "Publikasikan untuk mengaktifkan",
+    "rebuild": {
+      "added": "Aplikasi Anda kini menggunakan {features}, dan build ini tidak bisa meminta {count, plural, one {fitur ini} other {fitur-fitur ini}}. Buat lagi.",
+      "addedRelease": "Aplikasi Anda kini menggunakan {features}, tetapi versi ini tidak meminta izin untuk {count, plural, one {fitur tersebut} other {fitur-fitur tersebut}}. Buat ulang aplikasi dan unggah versi baru ke Google Play.",
+      "oldShell": "Build ini dibuat sebelum aplikasi bisa membuka file, menyimpan unduhan, atau menggunakan fitur ponsel. Buat lagi.",
+      "oldShellRelease": "Build ini dibuat sebelum aplikasi bisa membuka file, menyimpan unduhan, atau menggunakan fitur ponsel. Buat lagi dan unggah versi baru ke Google Play.",
+      "removed": "Versi ini masih meminta izin untuk {features}, yang sudah tidak digunakan aplikasi Anda. Buat ulang aplikasi untuk menghapus izin {count, plural, one {fitur tersebut} other {fitur-fitur tersebut}}.",
+      "removedRelease": "Versi ini masih meminta izin untuk {features}, yang sudah tidak digunakan aplikasi Anda. Buat ulang aplikasi dan unggah versi baru ke Google Play untuk menghapus izin {count, plural, one {fitur tersebut} other {fitur-fitur tersebut}}."
+    },
+    "store": {
+      "before": "Sebelum mengirim ke {store}",
+      "deleteAccount": "Jika pengguna bisa mendaftar di aplikasi Anda, toko aplikasi akan meminta tautan untuk menghapus akun mereka. Gunakan <mono>{url}</mono>",
+      "privacy": "Toko aplikasi juga meminta tautan ke kebijakan privasi Anda. Tambahkan halaman Privasi ke aplikasi (atau gunakan halaman di situs web Anda), lalu tempelkan alamatnya di informasi aplikasi di toko."
+    },
+    "toolchain": {
+      "operator": "Anda mengelola server ini. Untuk mengaktifkannya, jalankan lagi installer dan jawab ya saat ditanya tentang Android. Anda juga bisa menjalankan <mono>{command}</mono> di folder tempat Anda menginstalnya. Menginstal tanpa Docker? Lihat {doc}.",
+      "others": "Minta pengelola server ini untuk mengaktifkannya. Anda tetap bisa mengunduh proyek dan membuatnya sendiri.",
+      "title": "Build Android dinonaktifkan di server ini"
+    }
+  },
+  "nativePage": {
+    "eyebrow": "PONSEL DAN TABLET",
+    "intro": "Ubah proyek ini menjadi aplikasi sungguhan untuk Google Play dan Apple App Store. Aplikasi menampilkan situs Anda yang sudah dipublikasikan, jadi perubahan yang diterbitkan langsung terlihat tanpa perlu build baru.",
+    "title": "Aplikasi seluler"
+  },
+  "newPageButton": {
+    "create": "Buat",
+    "createHelp": "Buat halaman dan buka di editor.",
+    "newPage": "Halaman baru",
+    "newPageHelp": "Tambahkan halaman kosong baru ke aplikasi Anda. Masukkan namanya, lalu halaman akan terbuka di editor.",
+    "titleHelp": "Nama untuk halaman baru, seperti “Tentang kami”. Nama ini ditampilkan di menu aplikasi dan tab browser.",
+    "titlePlaceholder": "Judul halaman"
+  },
+  "notificationComposer": {
+    "confirm": "Kirim notifikasi ini sekarang kepada {count, plural, one {# pelanggan} other {# pelanggan}}?",
+    "delivered": "Terkirim ke {sent, plural, one {# perangkat} other {# perangkat}}{removed, plural, =0 {} one { (1 langganan lama dihapus)} other { (# langganan lama dihapus)}}.",
+    "message": "Pesan",
+    "messageHelp": "Teks di bawah judul. Ponsel mungkin memotong pesan yang panjang, jadi tulis bagian penting terlebih dahulu.",
+    "messagePlaceholder": "Pesan meja sebelum kehabisan.",
+    "noSubscribers": "Belum ada pelanggan",
+    "previewBody": "Pesan Anda akan muncul di sini.",
+    "previewEyebrow": "PRATINJAU",
+    "previewHelp": "Gambaran tampilan notifikasi Anda. Tampilan sebenarnya bergantung pada ponsel atau komputer masing-masing.",
+    "previewLabel": "Pratinjau",
+    "previewTitle": "Judul Anda",
+    "publishFirst": "Publikasikan aplikasi terlebih dahulu — notifikasi yang diketuk akan membuka aplikasi versi aktif.",
+    "sendFailed": "Tidak dapat mengirim. Silakan coba lagi.",
+    "sendHelp": "Langsung mengirim ke semua yang berlangganan. Anda akan diminta mengonfirmasi terlebih dahulu; setelah terkirim, notifikasi tidak bisa ditarik kembali.",
+    "sendTo": "Kirim ke {count}",
+    "sending": "Mengirim…",
+    "title": "Judul",
+    "titleHelp": "Baris pertama tebal yang dilihat orang. Buat singkat dan jelas, misalnya apa acaranya dan kapan.",
+    "titlePlaceholder": "Malam ini: musik live mulai pukul 19.00",
+    "url": "Buka halaman ini saat diketuk (opsional)",
+    "urlHelp": "Halaman aplikasi yang akan dibuka saat seseorang mengetuk notifikasi, misalnya /menu. Kosongkan untuk membuka halaman utama aplikasi."
+  },
+  "notificationsPage": {
+    "eyebrow": "TETAP TERHUBUNG",
+    "goodToKnow": "Perlu diketahui",
+    "intro": "Kirim pesan langsung ke ponsel dan komputer orang yang mengaktifkan notifikasi untuk {name}.",
+    "iosTip": "Di iPhone dan iPad, orang perlu menambahkan aplikasi ke layar utama terlebih dahulu (Bagikan → Tambahkan ke Layar Utama), lalu mengaktifkan notifikasi di sana. Di Android dan komputer, notifikasi bisa diaktifkan melalui browser.",
+    "nothingSent": "Belum ada yang dikirim.",
+    "offBody": "Mengaktifkannya akan menambahkan halaman kecil “Dapatkan notifikasi” yang bisa digunakan pengunjung untuk mendaftar. Setelah itu, Anda bisa mengirim kabar, penawaran, dan pengingat dari sini.",
+    "offTitle": "Notifikasi untuk aplikasi ini sedang nonaktif.",
+    "sent": "Terkirim",
+    "sentHelp": "Notifikasi yang telah Anda kirim, dari yang terbaru, beserta jumlah perangkat yang menerimanya.",
+    "stats": "{sent} terkirim{failed, plural, =0 {} other { · {failed} gagal}}{removed, plural, =0 {} other { · {removed} berhenti berlangganan}} · {date}",
+    "subscribers": "Pelanggan",
+    "subscribersHelp": "Jumlah ponsel dan komputer yang mengaktifkan notifikasi untuk aplikasi Anda. Seseorang yang menggunakan dua perangkat dihitung dua kali.",
+    "title": "Notifikasi push"
+  },
+  "offlineApi": {
+    "notFound": "Tidak ditemukan",
+    "readme": "{name} — aplikasi offline (diekspor dari {brand} {date})\n\nCARA PAKAI\n  1. Simpan semua file di folder ini bersama-sama (Anda bisa memindahkannya ke mana saja — Desktop, C:\\, atau flashdisk).\n  2. Buka index.html di browser modern apa pun. Selesai — tidak perlu internet.\n\nDATA ANDA\n  Aplikasi ini dilengkapi salinan database proyek dan menyimpan semua\n  perubahan secara lokal di browser Anda (localStorage). Data tetap tersimpan\n  antar sesi di komputer dan browser yang sama. Data TIDAK disinkronkan ke mana pun.\n\nYANG BISA DIGUNAKAN SAAT OFFLINE\n  Halaman, navigasi, formulir, daftar data, pencarian, game/skrip, pendaftaran, dan\n  login (akun yang dibuat di aplikasi offline).\n\nYANG TIDAK BISA\n  - Akun dari versi online: sandi terenkripsi tidak diekspor, jadi\n    buat akun baru di aplikasi offline.\n  - Email, Google Sheets, fitur AI, notifikasi push, dan langkah alur apa pun\n    yang terhubung ke situs eksternal (kecuali jika Anda sedang online).\n",
+    "readmeKeysLeftOut": "  - Langkah yang menggunakan kunci pribadi Anda (misalnya pembayaran atau pesan teks):\n    kunci tidak disertakan dalam file ini, jadi file ini aman untuk dibagikan.\n",
+    "readmeNoBootstrap": "  - CATATAN: CSS Bootstrap tidak dapat disertakan saat ekspor; tampilan mungkin kurang rapi.\n",
+    "unauthorized": "Tidak diizinkan"
+  },
+  "overview": {
+    "afterPublish": "Setelah dipublikasikan",
+    "askProvider": "Minta penyedia Anda menghubungkan email.",
+    "continueDesigner": "Lanjutkan di Desainer",
+    "continueDesignerHelp": "Kembali ke Desainer AI untuk terus membuat aplikasi Anda.",
+    "continueEditing": "Lanjutkan mengedit",
+    "continueEditingHelp": "Buka editor halaman untuk terus mengerjakan aplikasi Anda.",
+    "created": "Dibuat",
+    "draft": "Draf — belum dipublikasikan.",
+    "emailOff": "Aplikasi Anda mengirim email ({flows}), tetapi email belum disiapkan di server ini, jadi email tidak terkirim.",
+    "emailOffMore": "Aplikasi Anda mengirim email ({flows} dan {more} lainnya), tetapi email belum disiapkan di server ini, jadi email tidak terkirim.",
+    "eyebrow": "SEKILAS TENTANG APLIKASI ANDA",
+    "launch": {
+      "admin": {
+        "detail": "Agar Anda bisa masuk ke halaman admin aplikasi.",
+        "help": "Langsung ke bagian di bawah untuk mengatur email dan kata sandi yang digunakan untuk masuk ke halaman admin aplikasi.",
+        "title": "Atur login admin"
+      },
+      "build": {
+        "detail": "Halaman, data, dan formulir Anda sudah siap.",
+        "help": "Buka editor halaman untuk mengubah teks, gambar, dan tata letak aplikasi Anda.",
+        "helpDesigner": "Buka Desainer AI untuk terus membuat aplikasi Anda.",
+        "title": "Buat aplikasi Anda"
+      },
+      "icon": {
+        "detail": "Ikon ini muncul di ponsel, tab browser, dan aplikasi Android.",
+        "help": "Langsung ke bagian ikon aplikasi di bawah untuk menambahkan gambar kecil yang mewakili aplikasi Anda.",
+        "title": "Tambahkan ikon aplikasi"
+      },
+      "publish": {
+        "detail": "Dapatkan tautan untuk dibagikan kepada siapa saja.",
+        "detailDone": "Siapa saja yang memiliki tautan bisa menggunakannya.",
+        "help": "Buka Publikasikan untuk membuat aplikasi Anda online dan mendapatkan tautan untuk dibagikan.",
+        "helpDone": "Buka Publikasikan untuk menayangkan perubahan baru, membagikan tautan, atau kembali ke versi sebelumnya.",
+        "title": "Publikasikan",
+        "titleDone": "Sudah dipublikasikan"
+      },
+      "test": {
+        "title": "Kirim kiriman uji coba"
+      }
+    },
+    "launchEyebrow": "SIAPKAN UNTUK PENGGUNA",
+    "launchHelp": "Langkah-langkah untuk menyiapkan aplikasi dan memperkenalkannya kepada orang lain. Setiap langkah akan otomatis ditandai selesai setelah tuntas.",
+    "launchProgress": "{done} dari {total} selesai",
+    "launchTitle": "Daftar periksa peluncuran",
+    "liveAt": "Tayang di <link>{url}</link>",
+    "liveAtHelp": "Alamat web aplikasi Anda yang sudah tayang. Buka di tab baru untuk melihatnya seperti yang dilihat pengunjung.",
+    "next": {
+      "domains": {
+        "detail": "Contohnya, www.usahaanda.com.",
+        "detailDone": "Kelola alamat web Anda.",
+        "help": "Buka Domain untuk menggunakan alamat web milik Anda sendiri untuk aplikasi, bukan alamat gratis yang disediakan.",
+        "title": "Gunakan domain sendiri",
+        "titleDone": "Domain milik Anda sudah terhubung"
+      },
+      "feature": {
+        "detail": "Pemesanan, toko, blog, pendaftaran, dan lainnya.",
+        "help": "Buka Fitur untuk menambahkan bagian siap pakai ke aplikasi Anda. Setiap bagian punya halamannya sendiri.",
+        "title": "Tambahkan fitur"
+      },
+      "native": {
+        "detail": "Unduh file aplikasi untuk dipasang atau diunggah ke Google Play.",
+        "help": "Buka Aplikasi seluler untuk membuat file aplikasi Android yang bisa dipasang di ponsel atau diunggah ke Google Play.",
+        "title": "Dapatkan aplikasi Android"
+      },
+      "preview": {
+        "detail": "Membuka pratinjau di tab baru.",
+        "help": "Buka aplikasi Anda di tab baru dengan perubahan terbaru, termasuk perubahan yang belum dipublikasikan.",
+        "title": "Coba sebagai pengunjung"
+      },
+      "theme": {
+        "detail": "Sesuaikan dengan merek Anda hanya dalam beberapa klik.",
+        "help": "Buka Tema untuk memilih warna, font, dan bentuk sudut untuk seluruh aplikasi Anda.",
+        "title": "Ubah warna dan font"
+      }
+    },
+    "optional": "Opsional",
+    "phoneTitle": "Buka di ponsel Anda",
+    "qrAlt": "Kode QR untuk {url}",
+    "qrHelp": "Arahkan kamera ponsel ke kode ini untuk membuka aplikasi yang sudah tayang di ponsel Anda.",
+    "qrHint": "Arahkan kamera ponsel ke kode. Lalu pilih “Tambahkan ke Layar Utama” agar aplikasi terbuka seperti aplikasi biasa.",
+    "qrPublishFirst": "Publikasikan dulu, lalu pindai kode di sini untuk mencobanya di ponsel Anda.",
+    "quoted": "“{name}”",
+    "setUpEmail": "Siapkan email",
+    "settings": "Setelan",
+    "stats": {
+      "data": "Data",
+      "dataHelp": "Tempat aplikasi Anda menyimpan informasi, seperti pendaftaran dan pesanan. Klik untuk melihat dan mengeditnya.",
+      "domains": "Domain milik sendiri",
+      "domainsHelp": "Jumlah alamat web (domain) milik Anda yang mengarah ke aplikasi ini. Klik untuk menambahkan atau mengelolanya.",
+      "flows": "Alur",
+      "flowsHelp": "Jumlah tindakan otomatis di aplikasi Anda, seperti mengirim email saat ada pesan baru. Klik untuk melihatnya.",
+      "pages": "Halaman",
+      "pagesHelp": "Jumlah halaman di aplikasi Anda. Klik untuk membukanya di editor."
+    },
+    "stepDone": " (selesai)",
+    "stepToDo": " (belum selesai)",
+    "webAddress": "Alamat web",
+    "webAddressHelp": "Alamat web aplikasi Anda yang sudah tayang. Membuka alamat di tab baru."
+  },
+  "pagesApi": {
+    "designerAdd": "Halaman aplikasi ini dibuat dengan Perancang AI, jadi tambahkan halaman di sana.",
+    "designerChange": "Halaman aplikasi ini dibuat dengan Perancang AI, jadi ubah halaman di sana.",
+    "invalidInput": "Input tidak valid",
+    "notFound": "Tidak ditemukan"
+  },
+  "problemsCard": {
+    "activityHelp": "Buka Aktivitas otomatisasi ini untuk melihat setiap proses, termasuk kiriman orang, agar Anda bisa menanggapi mereka.",
+    "askProvider": "Minta penyedia Anda untuk menghubungkan email.",
+    "emailNotSetUp": "Email belum disiapkan di server ini.",
+    "emailOff": "“{flow}” berhasil {count, plural, =1 {sekali} =2 {dua kali} other {# kali}}, tetapi email tidak terkirim karena email belum disiapkan.",
+    "emailOffAlso": "Ini juga berhasil {count, plural, =1 {sekali} =2 {dua kali} other {# kali}}, tetapi email tidak terkirim karena email belum disiapkan.",
+    "failed": "“{flow}” gagal untuk {count, plural, one {# orang} other {# orang}}.",
+    "lastError": "Error terakhir: {error}",
+    "problem": "Terjadi masalah pada “{flow}” {count, plural, =1 {sekali} =2 {dua kali} other {# kali}}.",
+    "problemAlso": "Ini juga mengalami masalah {count, plural, =1 {sekali} =2 {dua kali} other {# kali}}.",
+    "problemAlsoWithWarning": "Ini juga mengalami masalah {count, plural, =1 {sekali} =2 {dua kali} other {# kali}}: {warning}.",
+    "problemWithWarning": "Terjadi masalah pada “{flow}” {count, plural, =1 {sekali} =2 {dua kali} other {# kali}}: {warning}.",
+    "seeWhat": "Lihat apa yang terjadi",
+    "seeWho": "Lihat siapa yang mengirim dan apa yang mereka kirim",
+    "setUpEmail": "Siapkan email",
+    "setUpEmailHelp": "Buka pengaturan server untuk menghubungkan layanan email, agar aplikasi bisa mengirim email.",
+    "title": "Masalah dalam 24 jam terakhir",
+    "titleHelp": "Kejadian dalam sehari terakhir saat otomatisasi Anda gagal atau tidak bisa menyelesaikan sesuatu, seperti email yang tidak terkirim.",
+    "total": "{count, plural, one {# masalah} other {# masalah}}"
+  },
+  "projectApi": {
+    "deleteFailed": "Aplikasi tidak dapat dihapus. Silakan coba lagi.",
+    "invalidInput": "Input tidak valid",
+    "notFound": "Tidak ditemukan",
+    "unauthorized": "Tidak diizinkan",
+    "uploadKey": "Aplikasi ini memiliki kunci upload Google Play. Unduh sebelum menghapus aplikasi: tanpa kunci ini, Anda tidak akan bisa memperbarui aplikasi di Google Play lagi."
+  },
+  "projectIcon": {
+    "generate": "Buat",
+    "generateHelp": "Minta AI menggambar ikon dari deskripsi Anda. Ikon ini akan menggantikan ikon saat ini; Anda bisa membuatnya lagi atau mengunggah ikon sendiri.",
+    "generateIntro": "Jelaskan ikon yang Anda inginkan — gaya, warna, simbol.",
+    "generateTitle": "Atau buat dengan AI",
+    "generating": "Membuat…",
+    "generationFailed": "Gagal membuat",
+    "intro": "Ditampilkan saat pengunjung memasang aplikasi sebagai PWA di perangkat mereka. Gunakan gambar persegi, idealnya PNG 512×512.",
+    "promptHelp": "Jelaskan ikon yang Anda inginkan, misalnya warnanya dan simbol sederhana. AI akan menggambarnya.",
+    "promptLabel": "Jelaskan ikon Anda",
+    "promptPlaceholder": "misalnya, roket minimalis dengan gradasi ungu",
+    "remove": "Hapus",
+    "removeConfirm": "Hapus ikon aplikasi?",
+    "removeHelp": "Hapus ikon dari aplikasi Anda. Anda akan diminta untuk mengonfirmasi.",
+    "title": "Ikon aplikasi",
+    "titleHelp": "Gambar persegi kecil yang mewakili aplikasi Anda di layar utama ponsel, tab browser, dan aplikasi Android. Perubahan langsung diterapkan.",
+    "upload": "Unggah gambar",
+    "uploadFailed": "Gagal mengunggah",
+    "uploadHelp": "Pilih gambar persegi dari perangkat Anda, idealnya berukuran 512 × 512 piksel. Gambar ini akan menggantikan ikon saat ini.",
+    "uploading": "Mengunggah…"
+  },
+  "publishPage": {
+    "backup": {
+      "body": "Satu file berisi semua halaman, alur, tabel dan baris, tema, serta gambar Anda. Simpan sebagai cadangan, atau impor ke {app} atau server yang kompatibel (Aplikasi baru → Cara lain untuk memulai → Impor aplikasi). Kata sandi aplikasi tidak disertakan, jadi pengguna perlu mengatur ulang kata sandi setelah dipindahkan.",
+      "button": "Unduh cadangan (.zip)",
+      "help": "Simpan seluruh aplikasi dalam satu file di perangkat. Simpan sebagai cadangan, atau gunakan Impor aplikasi untuk memulihkannya atau memindahkannya.",
+      "title": "Cadangkan atau pindahkan aplikasi"
+    },
+    "customDomain": "Domain kustom",
+    "customDomainHelp": "Alamat web milik Anda yang juga membuka aplikasi ini. Kelola di tab Domain.",
+    "defaultUrl": "URL default",
+    "defaultUrlHelp": "Alamat web gratis untuk aplikasi Anda. Bagikan kepada siapa saja setelah aplikasi diterbitkan.",
+    "draftNote": "Pengunjung melihat versi yang terakhir Anda terbitkan. Editan (termasuk yang dibuat AI) tetap tersimpan sebagai draf sampai Anda mengeklik Terbitkan. Anda juga bisa memulihkan versi sebelumnya di bawah.",
+    "eyebrow": "SIAP UNTUK SEMUA ORANG",
+    "history": {
+      "empty": "Rilis Anda akan muncul di sini setelah diterbitkan.",
+      "help": "Semua versi yang pernah Anda terbitkan, dari yang terbaru. Jika ada masalah setelah perubahan, pilih Jadikan aktif untuk memulihkan versi sebelumnya.",
+      "live": "Tayang",
+      "title": "Riwayat rilis"
+    },
+    "install": {
+      "desktopBody": "Penginstal kecil yang menambahkan pintasan ke Desktop dan Menu Mulai, lalu membuka aplikasi aktif di jendelanya sendiri. Perlu internet — selalu menggunakan versi terbaru yang Anda terbitkan.",
+      "desktopTitle": "Pintasan desktop (online)",
+      "intro": "Tambahkan aplikasi ke desktop atau layar utama. Aplikasi offline ini sepenuhnya mandiri — dengan file dan database lokalnya sendiri, tanpa perlu internet untuk digunakan.",
+      "macHelp": "Unduh penginstal kecil untuk Mac. Buka untuk menambahkan pintasan yang membuka aplikasi aktif di jendelanya sendiri.",
+      "offlineBody": "Folder berisi semua halaman, file yang Anda unggah, dan salinan database Anda. Ekstrak di mana saja — Desktop, C:\\, atau flash drive — lalu buka index.html. Formulir, daftar, dan pendaftaran tetap berfungsi tanpa internet; data disimpan secara lokal di komputer itu.",
+      "offlineDownload": "Unduh aplikasi offline (.zip)",
+      "offlineHelp": "Unduh folder ZIP berisi seluruh aplikasi dan salinan datanya. Buka index.html di dalamnya untuk menggunakan aplikasi di komputer tanpa internet.",
+      "offlineTitle": "Aplikasi offline (komputer)",
+      "phoneBody": "Pindai dengan kamera ponsel, buka aplikasinya, lalu pilih \"Tambahkan ke Layar Utama\" di menu browser — aplikasi akan terpasang seperti aplikasi biasa dengan ikon Anda. Untuk membuat aplikasi Android sungguhan yang bisa dipasang atau diunggah ke Google Play, gunakan pembuat aplikasi seluler di bawah.",
+      "phoneTitle": "Ponsel",
+      "publishFirst": "Terbitkan dulu — file pemasangan akan mengarah ke aplikasi aktif.",
+      "qrAlt": "Kode QR untuk {url}",
+      "qrHelp": "Arahkan kamera ponsel ke kode ini untuk membuka aplikasi aktif di ponsel.",
+      "title": "Pasang di perangkat",
+      "windowsHelp": "Unduh penginstal kecil untuk Windows. Jalankan untuk menambahkan pintasan yang membuka aplikasi aktif di jendelanya sendiri."
+    },
+    "intro": "Terbitkan aplikasi, bagikan tautannya, atau tambahkan ke layar utama.",
+    "legacyNote": "Aplikasi ini masih diperbarui langsung saat Anda mengedit. Terbitkan sekali untuk beralih ke penerbitan aman: pengunjung akan melihat versi yang Anda terbitkan, sementara editan Anda tetap pribadi sampai Anda menerbitkannya lagi.",
+    "live": "Aktif",
+    "liveUpToDate": "Aktif · sudah terbaru",
+    "liveWithChanges": "Aktif · ada perubahan yang belum diterbitkan",
+    "mobile": {
+      "body": "Ubah aplikasi ini menjadi aplikasi Android & iOS sungguhan untuk Google Play Store dan Apple App Store. Aplikasi ini menggunakan situs aktif Anda, jadi menerbitkan ulang akan otomatis memperbarui aplikasi.",
+      "button": "Buat aplikasi seluler",
+      "help": "Buka Aplikasi seluler untuk membuat versi aplikasi bagi ponsel Android dan iPhone.",
+      "title": "Jadikan aplikasi seluler"
+    },
+    "notPublished": "Belum diterbitkan",
+    "openLiveHelp": "Buka aplikasi aktif di tab baru, seperti yang dilihat pengunjung.",
+    "openPreviewHelp": "Aplikasi Anda belum online, jadi yang terbuka adalah pratinjau perubahan terbaru.",
+    "status": "Status",
+    "statusHelp": "Apakah aplikasi Anda online, dan apakah pengunjung melihat perubahan terbaru atau versi lama.",
+    "title": "Beri aplikasi Anda tempat."
+  },
+  "publishPanel": {
+    "appLive": "Aplikasi Anda sudah aktif. Siap dibagikan.",
+    "appOffline": "Aplikasi Anda sekarang nonaktif.",
+    "changesLive": "Perubahan Anda sudah aktif.",
+    "confirmOffline": "Nonaktifkan aplikasi ini? Pengunjung tidak bisa membukanya sampai Anda menerbitkan lagi.",
+    "confirmRestore": "Aktifkan kembali versi {version}? Pengunjung akan langsung melihatnya. Draf Anda tidak berubah.",
+    "connectionError": "Periksa koneksi Anda, lalu coba lagi.",
+    "copied": "Disalin",
+    "copyAppLink": "Salin link aplikasi",
+    "copyLink": "Salin link",
+    "copyLinkHelp": "Salin link aplikasi Anda, siap ditempel ke pesan, email, atau postingan.",
+    "copyManually": "Pilih link untuk menyalinnya secara manual.",
+    "linkCopied": "Tautan disalin",
+    "makeLive": "Tayangkan",
+    "makeLiveHelp": "Aktifkan kembali versi sebelumnya ini. Pengunjung akan langsung melihatnya; perubahan yang sedang Anda kerjakan tetap seperti semula.",
+    "publishApp": "Terbitkan aplikasi",
+    "publishAppHelp": "Aktifkan aplikasi agar siapa pun yang memiliki tautannya bisa menggunakannya.",
+    "publishChanges": "Terbitkan perubahan (v{version})",
+    "publishChangesHelp": "Aktifkan perubahan terbaru Anda. Pengunjung akan langsung melihatnya, dan Anda bisa memulihkan versi sebelumnya di bawah.",
+    "restoreFailed": "Tidak bisa memulihkan versi itu.",
+    "restoring": "Memulihkan…",
+    "takeOffline": "Nonaktifkan",
+    "takeOfflineHelp": "Sembunyikan aplikasi dari semua orang. Pengunjung tidak bisa membukanya sampai Anda menerbitkan lagi. Tidak ada yang dihapus.",
+    "upToDate": "Sudah terbaru",
+    "upToDateHelp": "Pengunjung sudah melihat perubahan terbaru Anda. Tidak ada yang perlu diterbitkan.",
+    "updateFailed": "Gagal memperbarui penerbitan. Coba lagi."
+  },
+  "pushApi": {
+    "addTitle": "Tambahkan judul.",
+    "checkMessage": "Periksa pesannya.",
+    "publishFirst": "Publikasikan aplikasi terlebih dahulu — notifikasi membuka aplikasi yang sudah tayang."
+  },
+  "renameProject": {
+    "edit": "Edit",
+    "editHelp": "Ubah nama aplikasi Anda. Alamat webnya tetap sama, jadi tautan yang sudah Anda bagikan tetap berfungsi.",
+    "errorStatus": "Error {status}",
+    "inputHelp": "Nama baru aplikasi Anda. Tekan Enter untuk menyimpan atau Esc untuk membatalkan.",
+    "inputLabel": "Nama aplikasi",
+    "name": "Nama",
+    "networkError": "Masalah jaringan — coba lagi.",
+    "note": "Hanya namanya yang berubah. Alamat web aplikasi Anda tetap sama, jadi mengganti nama tidak akan merusak aplikasi yang sudah dipublikasikan.",
+    "saveHelp": "Simpan nama baru. Alamat webnya tidak berubah."
+  },
+  "searchSharing": {
+    "changeFailed": "Tidak bisa mengubahnya. Silakan coba lagi.",
+    "chat": "Di WhatsApp dan aplikasi chat lainnya",
+    "chatHelp": "Pratinjau yang dilihat orang saat link aplikasi Anda dikirim lewat chat atau diposting di media sosial.",
+    "chatPreviewLabel": "Pratinjau link yang dibagikan di chat",
+    "codeHelp": "Tempel kode dari Google Search Console (opsi tag HTML). Kode ini membuktikan kepada Google bahwa aplikasi ini milik Anda.",
+    "codeLabel": "Kode verifikasi Google",
+    "codeRemoved": "Dihapus.",
+    "codeSaveFailed": "Tidak bisa menyimpan kode.",
+    "codeSaved": "Tersimpan. Kembali ke Search Console dan tekan Verifikasi.",
+    "consoleBody": "Search Console menunjukkan cara orang menemukan aplikasi Anda di Google. Tambahkan alamat aplikasi sebagai properti awalan URL, pilih metode verifikasi tag HTML, lalu tempel kodenya (atau seluruh tag) di sini.",
+    "consoleHelp": "Opsional. Google Search Console adalah alat gratis dari Google yang menunjukkan cara orang menemukan aplikasi Anda di penelusuran. Buka ini untuk menghubungkan aplikasi Anda.",
+    "consoleTitle": "Hubungkan Google Search Console",
+    "copied": "Disalin",
+    "copy": "Salin",
+    "copySitemap": "Salin alamat peta situs",
+    "copySitemapHelp": "Salin alamat peta situs aplikasi Anda, yang berisi daftar semua halamannya. Tempel di Search Console pada bagian Peta Situs.",
+    "description": "Deskripsi",
+    "descriptionEmptyHint": "Kosong: paragraf pertama halaman beranda Anda akan digunakan.",
+    "descriptionHelp": "Ringkasan singkat aplikasi Anda. Google menampilkannya di bawah nama aplikasi, dan aplikasi chat menampilkannya di bawah link yang dibagikan. Sebaiknya gunakan sekitar 160 karakter atau kurang.",
+    "descriptionHint": "Jelaskan aplikasinya dan siapa yang akan menggunakannya.",
+    "descriptionPlaceholder": "Satu atau dua kalimat tentang aplikasi Anda, misalnya: Roti dan kue segar dari toko roti keluarga kami. Pesan online dan ambil keesokan paginya.",
+    "descriptionSaveFailed": "Tidak bisa menyimpan deskripsi.",
+    "descriptionSaveFailedRetry": "Tidak bisa menyimpan deskripsi. Silakan coba lagi.",
+    "descriptionSaved": "Tersimpan. Mesin telusur akan mengambilnya saat berkunjung lagi.",
+    "designerDescription": "Desain Anda menentukan deskripsinya sendiri, yang akan ditampilkan di mesin telusur dan pratinjau link. Deskripsi ini digunakan saat orang menginstal aplikasi Anda.",
+    "google": "Di Google",
+    "googleHelp": "Pratinjau tampilan aplikasi Anda di hasil penelusuran Google. Google yang menentukan tampilan akhirnya, jadi hasilnya bisa sedikit berbeda.",
+    "googleNoDescription": "Tambahkan deskripsi agar orang tahu apa yang akan mereka temukan.",
+    "googlePreviewLabel": "Pratinjau hasil penelusuran Google",
+    "hiddenNote": "Disembunyikan: aplikasi Anda tidak akan muncul di hasil penelusuran.",
+    "hide": "Sembunyikan dari mesin telusur",
+    "hideBody": "Google dan mesin telusur lainnya tidak akan menampilkan aplikasi Anda. Siapa pun yang memiliki link tetap bisa membukanya.",
+    "hideHelp": "Aktifkan untuk meminta Google dan mesin telusur lainnya agar tidak menampilkan aplikasi Anda. Orang yang memiliki link tetap bisa membukanya. Perubahan langsung berlaku.",
+    "imageFallback": "Gambar pertama di halaman beranda Anda tidak bisa dimuat, jadi yang ditampilkan adalah gambar yang dibuat dari ikon, nama, dan warna aplikasi Anda.",
+    "imageFirst": "Gambar ini adalah gambar pertama di halaman beranda Anda.",
+    "imageIsCard": "Gambar ini dibuat dari ikon, nama, dan warna aplikasi Anda. Tambahkan gambar ke halaman beranda untuk menggunakannya.",
+    "intro": "Tampilan aplikasi Anda di Google dan saat seseorang membagikan link-nya. Perubahan di sini langsung berlaku tanpa perlu menerbitkan ulang.",
+    "length": "{count}/{max}",
+    "lengthTooLong": "{count}/{max} (teks yang lebih panjang akan dipotong)",
+    "notPublished": "Aplikasi Anda belum diterbitkan. Berikut tampilan link-nya nanti.",
+    "off": "Nonaktif",
+    "on": "Aktif",
+    "saveCode": "Simpan kode",
+    "saveCodeHelp": "Simpan kode di aplikasi Anda, lalu kembali ke Search Console dan tekan Verifikasi. Simpan dalam keadaan kosong untuk menghapus kode.",
+    "saveDescription": "Simpan deskripsi",
+    "saveDescriptionHelp": "Simpan deskripsi Anda. Deskripsi langsung digunakan, tanpa perlu menerbitkan ulang. Google akan memperbaruinya saat mengunjungi aplikasi Anda lagi.",
+    "saveFailed": "Tidak bisa menyimpan. Silakan coba lagi.",
+    "sitemapCopied": "Alamat peta situs disalin",
+    "sitemapIntro": "Lalu tambahkan peta situs di Search Console agar Google menemukan semua halaman:",
+    "title": "Penelusuran dan berbagi",
+    "titleHelp": "Atur tampilan aplikasi Anda di hasil Google dan di pratinjau yang dilihat orang saat mereka mengirim link-nya lewat chat. Perubahan langsung berlaku."
+  },
+  "seoApi": {
+    "invalidCode": "Sepertinya ini bukan kode verifikasi Google. Tempel kode dari opsi tag HTML, atau seluruh tag-nya.",
+    "invalidInput": "Input tidak valid"
+  },
+  "tabs": {
+    "data": {
+      "help": "Lihat dan edit informasi yang disimpan aplikasi Anda, seperti pendaftaran, pesanan, dan pesan yang dikirim orang.",
+      "label": "Data"
+    },
+    "designer": {
+      "help": "Kembali ke Desainer AI untuk terus membuat aplikasi dengan menjelaskan apa yang Anda inginkan.",
+      "label": "Desainer"
+    },
+    "domains": {
+      "help": "Gunakan alamat web Anda sendiri (domain) untuk aplikasi, seperti www.bisnisanda.com.",
+      "label": "Domain"
+    },
+    "features": {
+      "help": "Tambahkan fitur siap pakai ke aplikasi Anda, seperti pemesanan, toko, atau formulir kontak. Tiap fitur memiliki halamannya sendiri.",
+      "label": "Fitur"
+    },
+    "flows": {
+      "help": "Atur tindakan otomatis di aplikasi Anda, seperti mengirim email saat seseorang mengisi formulir.",
+      "label": "Alur"
+    },
+    "mobileApp": {
+      "help": "Ubah aplikasi Anda menjadi aplikasi ponsel untuk Android atau iPhone yang bisa dipasang orang.",
+      "label": "Aplikasi seluler"
+    },
+    "navLabel": "Navigasi proyek",
+    "notifications": {
+      "help": "Kirim pemberitahuan singkat yang muncul di ponsel dan komputer orang yang mengizinkannya dari aplikasi Anda.",
+      "label": "Notifikasi"
+    },
+    "overview": {
+      "help": "Lihat sekilas aplikasi Anda: nama, ikon, tautan, daftar persiapan peluncuran, dan setelan.",
+      "label": "Ringkasan"
+    },
+    "pages": {
+      "help": "Buka editor halaman untuk mengubah teks, gambar, dan tata letak tiap halaman di aplikasi Anda.",
+      "label": "Halaman"
+    },
+    "preview": "Pratinjau",
+    "previewHelp": "Buka aplikasi Anda di tab baru dengan perubahan terbaru untuk mencobanya sebelum pengunjung melihatnya.",
+    "publish": "Publikasikan",
+    "publishHelp": "Buka Publikasikan untuk menayangkan perubahan terbaru bagi pengunjung dan mendapatkan tautan aplikasi untuk dibagikan.",
+    "theme": {
+      "help": "Pilih warna, font, dan bentuk sudut untuk seluruh aplikasi Anda.",
+      "label": "Tema"
+    }
+  },
+  "themeEditor": {
+    "active": "AKTIF",
+    "bodyFont": "Font isi",
+    "bodyFontHelp": "Gaya huruf untuk teks biasa, seperti paragraf, tombol, dan formulir.",
+    "colorCode": "Kode warna {color}",
+    "colorCodeHelp": "Atau ketik kode warna di sini, seperti #1a73e8, jika Anda tahu warna yang diinginkan.",
+    "colors": {
+      "accent": {
+        "help": "Warna kedua untuk sentuhan kecil, seperti lencana dan bentuk dekoratif.",
+        "label": "Aksen"
+      },
+      "bg": {
+        "help": "Warna di balik semua konten di halaman Anda.",
+        "label": "Latar belakang"
+      },
+      "border": {
+        "help": "Warna garis tipis di sekitar kotak dan di antara bagian.",
+        "label": "Batas"
+      },
+      "primary": {
+        "help": "Warna utama merek Anda, untuk tombol, tautan, dan sorotan. Jika diubah, warna saat diarahkan juga akan menyesuaikan.",
+        "label": "Utama"
+      },
+      "primary2": {
+        "help": "Warna tombol dan tautan saat seseorang mengarahkan kursor ke atasnya.",
+        "label": "Saat diarahkan"
+      },
+      "surface": {
+        "help": "Warna kartu dan kotak yang berada di atas latar belakang.",
+        "label": "Permukaan"
+      },
+      "surface2": {
+        "help": "Warna kotak kedua untuk membedakan bagian dan label tertentu.",
+        "label": "Permukaan 2"
+      },
+      "text": {
+        "help": "Warna untuk sebagian besar teks di halaman Anda.",
+        "label": "Teks"
+      },
+      "textMuted": {
+        "help": "Warna yang lebih lembut untuk teks yang tidak terlalu penting, seperti keterangan dan catatan singkat.",
+        "label": "Teks redup"
+      },
+      "title": "Warna"
+    },
+    "corners": "Sudut",
+    "customFont": "Kustom…",
+    "customize": "Sesuaikan",
+    "customizeHelp": "Atur tampilan pilihan Anda: font, warna, dan sudutnya. Perubahan tersimpan otomatis; pengunjung bisa melihatnya setelah Anda memublikasikannya.",
+    "dark": "Gelap",
+    "darkThemes": "Tema gelap · {count}",
+    "displayFont": "Font judul",
+    "displayFontHelp": "Gaya huruf untuk judul dan tajuk. Font yang lebih tebal atau unik akan memberi karakter pada aplikasi Anda.",
+    "identity": "Identitas",
+    "light": "Terang",
+    "lightThemes": "Tema terang · {count}",
+    "livePreview": "Pratinjau langsung",
+    "livePreviewHelp": "Lihat sekilas tampilan aplikasi Anda dengan tema ini. Pratinjau diperbarui saat Anda mengubahnya.",
+    "mode": "Mode",
+    "modeHelp": "Menentukan apakah tampilan ini terang atau gelap. Browser menggunakannya untuk elemen seperti kotak formulir dan bilah gulir. Warna Anda tidak berubah.",
+    "name": "Nama",
+    "nameHelp": "Nama untuk tampilan ini, agar Anda mudah membedakan tema. Pengunjung tidak akan melihatnya.",
+    "presetHelp": "Gunakan tampilan {name} untuk seluruh aplikasi Anda: warna, font, dan sudutnya akan menggantikan pengaturan saat ini. Pengunjung bisa melihatnya setelah Anda memublikasikannya.",
+    "previewHome": "Halaman utama Anda",
+    "previewHomeHelp": "Pratinjau tema di halaman utama aplikasi Anda.",
+    "previewSample": "Contoh",
+    "previewSampleHelp": "Pratinjau tema di halaman contoh dengan tombol, kartu, dan formulir agar Anda bisa melihat semua warna sekaligus.",
+    "previewTitle": "Pratinjau tema",
+    "previewWhat": "Yang ingin dipratinjau",
+    "radius": "Radius",
+    "radiusHelp": "Tingkat kebulatan sudut kartu dan kotak, misalnya 14px. Gunakan 0px untuk sudut siku-siku.",
+    "radiusSm": "Radius kecil",
+    "radiusSmHelp": "Tingkat kebulatan sudut elemen kecil, seperti tombol dan kotak formulir. Gunakan 0px untuk sudut siku-siku.",
+    "reset": "Atur ulang",
+    "resetHelp": "Batalkan semua perubahan tema sejak Anda membuka halaman ini dan kembalikan seperti semula.",
+    "saveFailed": "Tidak bisa menyimpan. Periksa koneksi Anda.",
+    "saved": "Tersimpan",
+    "typography": "Tipografi"
+  },
+  "themePage": {
+    "intro": "Pilih preset atau atur sendiri. Warna, font, dan radius sudut berlaku untuk semua halaman di aplikasi ini. Perubahannya langsung terlihat di editor; pengunjung akan melihatnya setelah Anda menerbitkan lagi.",
+    "title": "Tema"
+  },
+  "transferApi": {
+    "alreadyOwner": "Anda sudah memiliki aplikasi ini.",
+    "invalidEmail": "Masukkan alamat email yang valid.",
+    "notEligible": "Kami tidak bisa mentransfer aplikasi ke alamat email tersebut. Periksa alamatnya: alamat itu harus milik akun di sini yang bisa menerima aplikasi dari Anda.",
+    "notFound": "Proyek tidak ditemukan",
+    "ownerOnly": "Hanya pemilik aplikasi yang bisa mentransfernya. Minta pemilik untuk melakukannya dari akunnya sendiri.",
+    "tooManyTries": "Anda sudah terlalu sering mencoba mentransfer. Tunggu satu jam, lalu coba lagi.",
+    "unauthorized": "Tidak diizinkan"
+  },
+  "transferProject": {
+    "confirm": "Transfer <b>{name}</b> ke <mono>{email}</mono>? Anda akan langsung kehilangan akses.",
+    "confirmButton": "Ya, transfer",
+    "confirmHelp": "Serahkan aplikasi sekarang. Anda akan langsung kehilangan akses dan tidak bisa membatalkannya sendiri.",
+    "emailHelp": "Alamat email yang digunakan pemilik baru untuk masuk ke sini. Mereka harus punya akun di ruang kerja yang sama dengan Anda.",
+    "emailLabel": "Email pemilik baru",
+    "failed": "Transfer gagal. Silakan coba lagi.",
+    "intro": "Serahkan seluruh aplikasi ini — halaman, alur kerja, data, domain, dan situs yang dipublikasikan — ke akun lain di situs ini. Anda akan kehilangan akses. Tindakan ini tidak bisa dibatalkan dari pihak Anda.",
+    "networkError": "Masalah jaringan — coba lagi.",
+    "requirements": "Orang tersebut harus punya akun sendiri di sini, berada di ruang kerja yang sama dengan Anda, dan paketnya harus memiliki ruang untuk satu aplikasi lagi.",
+    "title": "Pindahkan kepemilikan",
+    "titleHelp": "Berikan seluruh aplikasi ini kepada orang lain yang punya akun di sini. Setelah aplikasi menjadi miliknya, Anda tidak bisa membuka atau mengubahnya.",
+    "transfer": "Transfer",
+    "transferHelp": "Langkah berikutnya: Anda akan diminta mengonfirmasi sebelum apa pun dilakukan.",
+    "transferring": "Mentransfer…"
+  }
+}

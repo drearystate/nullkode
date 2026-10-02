@@ -1,6 +1,10 @@
 import { z } from "zod";
 import { db } from "@/lib/db";
 import { json } from "@/lib/utils";
+import { getTranslations } from "next-intl/server";
+import { requestLocale } from "@/i18n/request";
+
+const tr = async () => getTranslations({ locale: await requestLocale(), namespace: "reseller.api" });
 import { requireReseller } from "@/lib/reseller-admin";
 import { canReceiveApps, loadTransferAccount, transferProjectTo } from "@/lib/project-transfer";
 
@@ -19,18 +23,18 @@ export async function POST(req: Request, ctx: { params: Promise<{ id: string }> 
   const { reseller } = r;
   const { id } = await ctx.params;
   const parsed = Body.safeParse(await req.json().catch(() => null));
-  if (!parsed.success) return json({ error: "Pick a client." }, { status: 400 });
+  if (!parsed.success) return json({ error: (await tr())("pickClient") }, { status: 400 });
 
   const project = await db.project.findUnique({ where: { id }, select: { id: true, ownerId: true } });
   if (!project || project.ownerId !== reseller.ownerId) {
-    return json({ error: "App not found. You can only give away apps you own." }, { status: 404 });
+    return json({ error: (await tr())("appNotFound") }, { status: 404 });
   }
   const client = await loadTransferAccount({ id: parsed.data.clientId });
   if (!client || client.resellerId !== reseller.id) {
-    return json({ error: "Client not found." }, { status: 404 });
+    return json({ error: (await tr())("clientNotFound") }, { status: 404 });
   }
   if (!canReceiveApps(client)) {
-    return json({ error: "That client is suspended. Restore their access first." }, { status: 409 });
+    return json({ error: (await tr())("clientSuspended") }, { status: 409 });
   }
 
   const refused = await transferProjectTo(project.id, reseller.ownerId, client, { sameWorkspace: true });

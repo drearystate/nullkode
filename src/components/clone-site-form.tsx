@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 type Props = {
   onBack: () => void;
@@ -17,6 +18,7 @@ type CloneEvent =
 
 export function CloneSiteForm({ onBack }: Props) {
   const router = useRouter();
+  const t = useTranslations("studio.clone");
   const [url, setUrl] = useState("");
   const [status, setStatus] = useState<Status>({ kind: "idle" });
   const [error, setError] = useState<string | null>(null);
@@ -34,7 +36,7 @@ export function CloneSiteForm({ onBack }: Props) {
   function stop() {
     abortRef.current?.abort();
     setStatus({ kind: "idle" });
-    setError("Stopped. Nothing was saved.");
+    setError(t("stopped"));
   }
 
   async function submit() {
@@ -46,11 +48,11 @@ export function CloneSiteForm({ onBack }: Props) {
     try {
       new URL(target);
     } catch {
-      setError("That doesn't look like a web address. Try something like mybusiness.com");
+      setError(t("badAddress"));
       return;
     }
 
-    setStatus({ kind: "cloning", messages: [`Connecting to ${target}…`], pageCount: 0 });
+    setStatus({ kind: "cloning", messages: [t("connecting", { url: target })], pageCount: 0 });
     setError(null);
     const controller = new AbortController();
     abortRef.current = controller;
@@ -64,7 +66,7 @@ export function CloneSiteForm({ onBack }: Props) {
       });
       if (!res.ok || !res.body) {
         const data = await res.json().catch(() => ({}));
-        throw new Error(data.error || "We couldn't start copying that site. Please try again.");
+        throw new Error(data.error || t("startFailed"));
       }
 
       const reader = res.body.getReader();
@@ -101,10 +103,10 @@ export function CloneSiteForm({ onBack }: Props) {
           }
         }
       }
-      throw new Error("The copy stopped before it finished. Please try again.");
+      throw new Error(t("incomplete"));
     } catch (err) {
       if (controller.signal.aborted) return;
-      setError(friendly(err instanceof Error ? err.message : ""));
+      setError(friendly(err instanceof Error ? err.message : "", t));
       setStatus({ kind: "idle" });
     }
   }
@@ -121,13 +123,13 @@ export function CloneSiteForm({ onBack }: Props) {
           disabled={cloning}
           className="text-sm text-surface-400 hover:text-white transition mb-6 inline-flex items-center gap-1 disabled:opacity-30"
         >
-          ← Back
+          <span className="inline-block rtl:-scale-x-100" aria-hidden>←</span> {t("back")}
         </button>
 
         <div className="card p-8">
-          <h2 className="text-2xl font-bold mb-2">Copy your website</h2>
+          <h2 className="text-2xl font-bold mb-2">{t("title")}</h2>
           <p className="text-sm text-surface-400 mb-6">
-            Brings up to 30 pages of your site, with their pictures and styles, into an app you can edit here. Only copy sites you own or have permission to use.
+            {t("intro")}
           </p>
 
           {error && (
@@ -138,10 +140,10 @@ export function CloneSiteForm({ onBack }: Props) {
 
           {!cloning && (
             <>
-              <label htmlFor="clone-url" className="label">Your website&apos;s address</label>
+              <label htmlFor="clone-url" className="label">{t("addressLabel")}</label>
               <input
                 id="clone-url"
-                data-help="The address of the website to copy, like mybusiness.com. You don't need to type https://."
+                data-help={t("addressHelp")}
                 type="url"
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
@@ -149,16 +151,17 @@ export function CloneSiteForm({ onBack }: Props) {
                   if (e.key === "Enter") submit();
                 }}
                 placeholder="mybusiness.com"
+                dir="ltr"
                 className="w-full bg-surface-950 border border-surface-700 rounded-lg px-4 py-3 text-base text-surface-50 placeholder:text-surface-500 focus:outline-none focus:border-brand-500 mb-4"
                 autoFocus
               />
               <button
                 onClick={submit}
-                data-help="Starts copying the site into a new app. It can take a minute; the editor opens by itself when it's done."
+                data-help={t("startHelp")}
                 disabled={!url.trim()}
                 className="btn-primary w-full py-3 disabled:opacity-40"
               >
-                Copy my site
+                {t("start")}
               </button>
             </>
           )}
@@ -171,7 +174,7 @@ export function CloneSiteForm({ onBack }: Props) {
                   <div className="absolute inset-0 rounded-full border-2 border-transparent border-t-brand-400 animate-spin" />
                 </div>
                 <span className="text-sm font-semibold">
-                  Copying{status.pageCount > 0 ? ` (${status.pageCount} page${status.pageCount === 1 ? "" : "s"})` : "…"}
+                  {status.pageCount > 0 ? t("copyingPages", { count: status.pageCount }) : t("copying")}
                 </span>
               </div>
               <div
@@ -183,8 +186,8 @@ export function CloneSiteForm({ onBack }: Props) {
                 ))}
               </div>
               <div className="mt-3 flex items-center justify-between gap-3">
-                <p className="text-[11px] text-surface-500 leading-relaxed">We&apos;ll open the editor when it&apos;s done.</p>
-                <button type="button" onClick={stop} data-help="Stop copying. Nothing is saved, so you can try again with a different address." className="btn-ghost text-sm">Stop</button>
+                <p className="text-[11px] text-surface-500 leading-relaxed">{t("openWhenDone")}</p>
+                <button type="button" onClick={stop} data-help={t("stopHelp")} className="btn-ghost text-sm">{t("stop")}</button>
               </div>
             </>
           )}
@@ -195,10 +198,10 @@ export function CloneSiteForm({ onBack }: Props) {
 }
 
 /** Network jargon → something a person can act on. */
-function friendly(message: string): string {
+function friendly(message: string, t: (key: "unreachable" | "noPages" | "failed") => string): string {
   if (/ENOTFOUND|EAI_AGAIN|getaddrinfo|not resolve|fetch failed|Private network/i.test(message)) {
-    return "We couldn't reach that address. Check the spelling and that the site is online, then try again.";
+    return t("unreachable");
   }
-  if (/No pages could be cloned/i.test(message)) return "We reached the site but couldn't copy any pages from it.";
-  return message || "Something went wrong while copying. Please try again.";
+  if (/No pages could be cloned/i.test(message)) return t("noPages");
+  return message || t("failed");
 }

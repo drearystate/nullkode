@@ -7,11 +7,12 @@ import { emailEnabled } from "./mailer";
 import { aiReady } from "./ai/client";
 import { getAIProvider } from "./settings";
 import { appsDomain } from "./hosts";
-import { getSchemaStatus, describeMissing } from "./schema-check";
+import { getSchemaStatus } from "./schema-check";
 import { externalSchedulerOnly, lastTick } from "./flow/scheduler";
 import { formatBytes, lastMaintenance, maintenanceMode, RETENTION } from "./maintenance";
 import { neutral, recentDiagnostics, redact, type DiagnosticEntry } from "./diagnostics";
 import { APP_VERSION } from "./version";
+import { enErrors, joinSentences, localeOf, renderMsg, type ErrMsg, type ErrT } from "./errors-i18n";
 
 /**
  * Plain-language health checks for Admin > System, the admin home and
@@ -22,25 +23,53 @@ import { APP_VERSION } from "./version";
  */
 
 export type CheckStatus = "green" | "amber" | "red";
-export type HealthCheck = { id: string; title: string; status: CheckStatus; message: string; detail?: string };
+/**
+ * `title` and `message` are English (the /api/health answer and the support
+ * bundle); `text` holds the same words as messages (errors.health.*), for
+ * showing them in the admin's language with localizeCheck.
+ */
+export type HealthCheck = { id: string; title: string; status: CheckStatus; message: string; detail?: string; text?: { title: ErrMsg; message: ErrMsg[] } };
 
 const MINUTE = 60_000;
 const HOUR = 60 * MINUTE;
 
-function ago(ms: number): string {
-  if (ms < 90_000) return "just now";
-  if (ms < 90 * MINUTE) return `${Math.round(ms / MINUTE)} minutes ago`;
-  if (ms < 36 * HOUR) return `${Math.round(ms / HOUR)} hours ago`;
-  return `${Math.round(ms / (24 * HOUR))} days ago`;
+const m = (key: string, values?: ErrMsg["values"]): ErrMsg => ({ key: `health.${key}`, ...(values ? { values } : {}) });
+
+function ago(ms: number): ErrMsg {
+  if (ms < 90_000) return m("ago.justNow");
+  if (ms < 90 * MINUTE) return m("ago.minutes", { count: Math.round(ms / MINUTE) });
+  if (ms < 36 * HOUR) return m("ago.hours", { count: Math.round(ms / HOUR) });
+  return m("ago.days", { count: Math.round(ms / (24 * HOUR)) });
 }
 
-function duration(seconds: number): string {
+function duration(seconds: number): ErrMsg {
   const d = Math.floor(seconds / 86_400);
   const h = Math.floor((seconds % 86_400) / 3600);
-  const m = Math.floor((seconds % 3600) / 60);
-  if (d) return `${d} day${d === 1 ? "" : "s"}, ${h} hour${h === 1 ? "" : "s"}`;
-  if (h) return `${h} hour${h === 1 ? "" : "s"}, ${m} minute${m === 1 ? "" : "s"}`;
-  return `${m} minute${m === 1 ? "" : "s"}`;
+  const min = Math.floor((seconds % 3600) / 60);
+  if (d) return m("duration.daysHours", { days: d, hours: h });
+  if (h) return m("duration.hoursMinutes", { hours: h, minutes: min });
+  return m("duration.minutes", { minutes: min });
+}
+
+/** A check with its words as messages; title and message are filled in English. */
+function check(id: string, status: CheckStatus, message: Array<ErrMsg | null | false>, detail?: string): HealthCheck {
+  const en = enErrors();
+  const title = m(`titles.${id}`);
+  const parts = message.filter((x): x is ErrMsg => Boolean(x));
+  return {
+    id,
+    title: renderMsg(title, en),
+    status,
+    message: parts.map((x) => renderMsg(x, en)).join(" "),
+    ...(detail !== undefined ? { detail } : {}),
+    text: { title, message: parts },
+  };
+}
+
+/** The check's title and message in `t`'s language (Admin > System). */
+export function localizeCheck(c: HealthCheck, t: ErrT): HealthCheck {
+  if (!c.text) return c;
+  return { ...c, title: renderMsg(c.text.title, t), message: joinSentences(c.text.message.map((x) => renderMsg(x, t)), localeOf(t)) };
 }
 
 async function setting<T>(key: string): Promise<T | null> {
@@ -63,12 +92,12 @@ export function installType(): "docker" | "systemd" | "other" {
 /* ── The checks ───────────────────────────────────────────────────── */
 
 async function versionCheck(): Promise<HealthCheck> {
-  return { id: "version", title: "Version", status: "green", message: `Version ${APP_VERSION}`, detail: `Node ${process.version} on ${process.platform}/${process.arch}, ${installType()} install` };
+  return check("version", "green", [m("version", { version: APP_VERSION })], `Node ${process.version} on ${process.platform}/${process.arch}, ${installType()} install`);
 }
 
 async function uptimeCheck(): Promise<HealthCheck> {
   const started = new Date(Date.now() - process.uptime() * 1000);
-  return { id: "uptime", title: "Running for", status: "green", message: `Running for ${duration(process.uptime())}`, detail: `Started ${started.toISOString()}` };
+  return check("uptime", "green", [m("uptime", { duration: duration(process.uptime()) })], `Started ${started.toISOString()}`);
 }
 
 async function memoryCheck(): Promise<HealthCheck> {
@@ -76,38 +105,36 @@ async function memoryCheck(): Promise<HealthCheck> {
   const total = os.totalmem();
   const free = os.freemem();
   const share = free / total;
-  return {
-    id: "memory",
-    title: "Memory",
-    status: share < 0.05 ? "red" : share < 0.1 ? "amber" : "green",
-    message: `The app uses ${formatBytes(rss)}; the server has ${formatBytes(free)} free of ${formatBytes(total)}.${share < 0.1 ? " The server is nearly out of memory, so builds may fail." : ""}`,
-    detail: `heap ${formatBytes(process.memoryUsage().heapUsed)}, load ${os.loadavg().map((l) => l.toFixed(2)).join(" ")}`,
-  };
+  return check(
+    "memory",
+    share < 0.05 ? "red" : share < 0.1 ? "amber" : "green",
+    [m("memory", { used: formatBytes(rss), free: formatBytes(free), total: formatBytes(total) }), share < 0.1 && m("memoryLow")],
+    `heap ${formatBytes(process.memoryUsage().heapUsed)}, load ${os.loadavg().map((l) => l.toFixed(2)).join(" ")}`,
+  );
 }
 
 async function databaseCheck(): Promise<HealthCheck> {
   try {
     const [row] = await db.$queryRaw<{ bytes: bigint; version: string }[]>`
       SELECT pg_database_size(current_database())::bigint AS bytes, current_setting('server_version') AS version`;
-    return { id: "database", title: "Database", status: "green", message: `Connected. The database uses ${formatBytes(Number(row.bytes))}.`, detail: `PostgreSQL ${row.version}` };
+    return check("database", "green", [m("dbOk", { size: formatBytes(Number(row.bytes)) })], `PostgreSQL ${row.version}`);
   } catch (err) {
-    return { id: "database", title: "Database", status: "red", message: "The app can't reach its database, so nothing can be saved or shown.", detail: redact(err instanceof Error ? err.message.split("\n")[0] : String(err)) };
+    return check("database", "red", [m("dbDown")], redact(err instanceof Error ? err.message.split("\n")[0] : String(err)));
   }
+}
+
+function missingMsg(s: { missing: string[]; missingValues: string[] }): ErrMsg {
+  const columns = s.missing.length ? m("missingColumns", { count: s.missing.length }) : null;
+  const values = s.missingValues.length ? m("missingValues", { count: s.missingValues.length }) : null;
+  if (columns && values) return m("missingBoth", { columns, values });
+  return columns ?? values ?? m("missingNothing");
 }
 
 async function schemaCheck(): Promise<HealthCheck> {
   const s = await getSchemaStatus();
-  if (s.error) return { id: "schema", title: "Database structure", status: "amber", message: "The database structure couldn't be checked.", detail: redact(s.error) };
-  if (!s.ok) {
-    return {
-      id: "schema",
-      title: "Database structure",
-      status: "red",
-      message: `The database is missing ${describeMissing(s)} this version needs. Pages that use them fail until the database is updated.`,
-      detail: [...s.missing, ...s.missingValues].join(", "),
-    };
-  }
-  return { id: "schema", title: "Database structure", status: "green", message: "The database matches this version of the app." };
+  if (s.error) return check("schema", "amber", [m("schemaUnchecked")], redact(s.error));
+  if (!s.ok) return check("schema", "red", [m("schemaMissing", { what: missingMsg(s) })], [...s.missing, ...s.missingValues].join(", "));
+  return check("schema", "green", [m("schemaOk")]);
 }
 
 async function diskCheck(): Promise<HealthCheck> {
@@ -118,15 +145,14 @@ async function diskCheck(): Promise<HealthCheck> {
     const free = s.bavail * s.bsize;
     const share = total ? free / total : 1;
     const pct = Math.round(share * 100);
-    return {
-      id: "disk",
-      title: "Disk space",
-      status: share < 0.1 ? "red" : share < 0.2 ? "amber" : "green",
-      message: `${formatBytes(free)} free (${pct}%) where uploads and builds are stored.${share < 0.1 ? " Free up space soon: uploads, backups and app builds will start to fail." : share < 0.2 ? " Keep an eye on it." : ""}`,
-      detail: `${path}: ${formatBytes(free)} free of ${formatBytes(total)}`,
-    };
+    return check(
+      "disk",
+      share < 0.1 ? "red" : share < 0.2 ? "amber" : "green",
+      [m("diskFree", { free: formatBytes(free), pct }), share < 0.1 ? m("diskLow") : share < 0.2 && m("diskWatch")],
+      `${path}: ${formatBytes(free)} free of ${formatBytes(total)}`,
+    );
   } catch (err) {
-    return { id: "disk", title: "Disk space", status: "amber", message: "Free disk space couldn't be measured.", detail: redact(err instanceof Error ? err.message : String(err)) };
+    return check("disk", "amber", [m("diskUnmeasured")], redact(err instanceof Error ? err.message : String(err)));
   }
 }
 
@@ -136,28 +162,22 @@ async function schedulerCheck(): Promise<HealthCheck> {
     db.flow.count({ where: { trigger: "SCHEDULE", enabled: true, pausedReason: null } }),
     db.flow.count({ where: { trigger: "SCHEDULE", pausedReason: { not: null } } }),
   ]);
-  const flows = `${scheduled} scheduled flow${scheduled === 1 ? "" : "s"}${paused ? `, ${paused} paused after failing` : ""}`;
+  const flows = paused ? m("flowsPaused", { count: scheduled, paused }) : m("flows", { count: scheduled });
   const external = externalSchedulerOnly();
   if (!last) {
     const starting = process.uptime() < 180;
-    return {
-      id: "scheduler",
-      title: "Scheduler",
-      status: starting ? "green" : "amber",
-      message: starting ? `Starting. ${flows}.` : external ? `Waiting for the outside timer to call /api/cron (NK_EXTERNAL_SCHEDULER is set). ${flows}.` : `The scheduler hasn't run yet. ${flows}.`,
-    };
+    return check("scheduler", starting ? "green" : "amber", [
+      starting ? m("schedulerStarting", { flows }) : external ? m("schedulerWaitingExternal", { flows }) : m("schedulerNotRun", { flows }),
+    ]);
   }
   const age = Date.now() - Date.parse(last.at);
   const stale = age > 5 * MINUTE;
-  return {
-    id: "scheduler",
-    title: "Scheduler",
-    status: stale ? "amber" : paused ? "amber" : "green",
-    message: stale
-      ? `Scheduled flows last ran ${ago(age)}${external ? ". Check the outside timer that calls /api/cron" : ". It should check every minute"}. ${flows}.`
-      : `Checked ${ago(age)}. ${flows}.`,
-    detail: `last tick ${last.at} (${last.source}): ${last.claimed} claimed, ${last.queued} started, ${last.skipped} skipped${last.waiting ? `; ${last.waiting}` : ""}`,
-  };
+  return check(
+    "scheduler",
+    stale ? "amber" : paused ? "amber" : "green",
+    [stale ? m(external ? "schedulerStaleExternal" : "schedulerStale", { ago: ago(age), flows }) : m("schedulerChecked", { ago: ago(age), flows })],
+    `last tick ${last.at} (${last.source}): ${last.claimed} claimed, ${last.queued} started, ${last.skipped} skipped${last.waiting ? `; ${last.waiting}` : ""}`,
+  );
 }
 
 type BackupLast = { at?: string; bytes?: number; ok?: boolean; error?: string | null; offsite?: boolean | string | null };
@@ -165,24 +185,12 @@ type BackupLast = { at?: string; bytes?: number; ok?: boolean; error?: string | 
 async function backupCheck(): Promise<HealthCheck> {
   const last = await setting<BackupLast>("backup.last");
   const configured = Boolean(last) || Object.keys(process.env).some((k) => k.startsWith("BACKUP_"));
-  if (!last?.at) {
-    return {
-      id: "backup",
-      title: "Backups",
-      status: "green",
-      message: configured ? "Automatic backups are set up but haven't finished one yet." : "No automatic backups are recorded on this server. The backup guide explains how to set them up.",
-    };
-  }
+  if (!last?.at) return check("backup", "green", [m(configured ? "backupPending" : "backupNone")]);
   const age = Date.now() - Date.parse(last.at);
-  if (last.ok === false) return { id: "backup", title: "Backups", status: "red", message: `The last backup, ${ago(age)}, failed.`, detail: last.error ? redact(String(last.error)) : undefined };
-  const size = typeof last.bytes === "number" ? `, ${formatBytes(last.bytes)}` : "";
-  const offsite = last.offsite ? ", copied off-site" : "";
-  return {
-    id: "backup",
-    title: "Backups",
-    status: age > 48 * HOUR ? "amber" : "green",
-    message: `Last backup ${ago(age)}${size}${offsite}.${age > 48 * HOUR ? " That's more than two days ago." : ""}`,
-  };
+  if (last.ok === false) return check("backup", "red", [m("backupFailed", { ago: ago(age) })], last.error ? redact(String(last.error)) : undefined);
+  const size = typeof last.bytes === "number" ? formatBytes(last.bytes) : null;
+  const key = size ? (last.offsite ? "backupLastSizeOffsite" : "backupLastSize") : last.offsite ? "backupLastOffsite" : "backupLast";
+  return check("backup", age > 48 * HOUR ? "amber" : "green", [m(key, { ago: ago(age), ...(size ? { size } : {}) }), age > 48 * HOUR && m("backupOld")]);
 }
 
 type EmailStats = { sent24h?: number; failed24h?: number; lastError?: string | null; lastErrorAt?: string | null };
@@ -190,29 +198,20 @@ type EmailStats = { sent24h?: number; failed24h?: number; lastError?: string | n
 async function emailCheck(): Promise<HealthCheck> {
   const on = emailEnabled();
   const stats = await setting<EmailStats>("email.stats");
-  if (!on) {
-    return { id: "email", title: "Email", status: "amber", message: "Email isn't set up, so invitations and password links are shown on screen for you to pass on." };
-  }
+  if (!on) return check("email", "amber", [m("emailOff")]);
   const failed = stats?.failed24h ?? 0;
   const sent = stats?.sent24h ?? 0;
-  return {
-    id: "email",
-    title: "Email",
-    status: failed > 0 && sent === 0 ? "red" : failed > 0 ? "amber" : "green",
-    message: stats ? `Set up. In the last day ${sent} sent${failed ? ` and ${failed} failed` : ""}.` : "Set up.",
-    detail: stats?.lastError ? `last error${stats.lastErrorAt ? ` ${stats.lastErrorAt}` : ""}: ${redact(String(stats.lastError))}` : undefined,
-  };
+  return check(
+    "email",
+    failed > 0 && sent === 0 ? "red" : failed > 0 ? "amber" : "green",
+    [stats ? (failed ? m("emailSentFailed", { sent, failed }) : m("emailSent", { sent })) : m("emailSetUp")],
+    stats?.lastError ? `last error${stats.lastErrorAt ? ` ${stats.lastErrorAt}` : ""}: ${redact(String(stats.lastError))}` : undefined,
+  );
 }
 
 async function aiCheck(): Promise<HealthCheck> {
   const [provider, ready] = await Promise.all([getAIProvider(), aiReady().catch(() => false)]);
-  const kind = provider === "claude-cli" ? "the AI command-line tool on this server" : "an AI service over the internet or your network";
-  return {
-    id: "ai",
-    title: "AI connection",
-    status: ready ? "green" : "amber",
-    message: ready ? `Ready: uses ${kind}.` : "Not set up, so building and editing with AI is off. Connect one in Settings.",
-  };
+  return check("ai", ready ? "green" : "amber", [ready ? m(provider === "claude-cli" ? "aiReadyCli" : "aiReadyApi") : m("aiOff")]);
 }
 
 type RunsRegistry = { map: Map<string, { status: string }> };
@@ -254,51 +253,33 @@ async function buildsCheck(): Promise<HealthCheck> {
     runningApkBuilds(),
   ]);
   const parts = [
-    aiBuilds ? `${aiBuilds} app build${aiBuilds === 1 ? "" : "s"}` : "",
-    designer ? `${designer} design${designer === 1 ? "" : "s"}` : "",
-    apk ? `${apk} phone app build${apk === 1 ? "" : "s"}` : "",
-  ].filter(Boolean);
-  return {
-    id: "builds",
-    title: "Work in progress",
-    status: "green",
-    message: parts.length ? `Running now: ${parts.join(", ")}. Restarting the server would stop ${parts.length === 1 && !apk && aiBuilds + designer === 1 ? "it" : "them"}.` : "Nothing is being built right now, so it's a good time to restart or update.",
-  };
+    aiBuilds ? m("appBuilds", { count: aiBuilds }) : null,
+    designer ? m("designs", { count: designer }) : null,
+    apk ? m("phoneBuilds", { count: apk }) : null,
+  ].filter((x): x is ErrMsg => x !== null);
+  // "it" only for a single app build or design.
+  const one = parts.length === 1 && !apk && aiBuilds + designer === 1;
+  return check("builds", "green", [parts.length ? m("buildsRunning", { list: parts, count: one ? 1 : 2 }) : m("buildsIdle")]);
 }
 
 async function maintenanceCheck(): Promise<HealthCheck> {
   const [{ mode, source }, last] = await Promise.all([maintenanceMode(), lastMaintenance()]);
-  if (mode === "off") return { id: "maintenance", title: "Clean-up", status: "amber", message: "Nightly clean-up is turned off, so old run logs and deleted apps' files are kept forever.", detail: `mode off (${source})` };
-  if (!last) {
-    return {
-      id: "maintenance",
-      title: "Clean-up",
-      status: "green",
-      message: mode === "apply" ? "Nightly clean-up is on and will run tonight." : "Nightly clean-up will check tonight what it could remove, without removing anything.",
-      detail: `mode ${mode} (${source})`,
-    };
-  }
+  if (mode === "off") return check("maintenance", "amber", [m("cleanupOff")], `mode off (${source})`);
+  if (!last) return check("maintenance", "green", [m(mode === "apply" ? "cleanupTonight" : "cleanupTonightReport")], `mode ${mode} (${source})`);
   const age = Date.now() - Date.parse(last.finishedAt || last.startedAt);
   const total = Object.values(last.counts).reduce((a, b) => a + b, 0);
-  const summary = `${total} old record${total === 1 ? "" : "s"} and trash item${total === 1 ? "" : "s"} (${formatBytes(last.bytesFreed)})`;
-  const failed = last.errors?.length ? ` ${last.errors.length} step${last.errors.length === 1 ? "" : "s"} failed.` : "";
+  const summary = m("cleanupSummary", { count: total, size: formatBytes(last.bytesFreed) });
+  const failed = last.errors?.length ? m("cleanupStepsFailed", { count: last.errors.length }) : null;
   const stale = age > 48 * HOUR;
   if (mode === "report") {
-    return {
-      id: "maintenance",
-      title: "Clean-up",
-      status: "amber",
-      message: `Clean-up is in report-only mode. Last check ${ago(age)}: it would remove ${summary}. Turn it on to remove them.${failed}`,
-      detail: `mode report (${source}); last ${last.mode} run ${last.startedAt}`,
-    };
+    return check("maintenance", "amber", [m("cleanupReport", { ago: ago(age), summary }), failed], `mode report (${source}); last ${last.mode} run ${last.startedAt}`);
   }
-  return {
-    id: "maintenance",
-    title: "Clean-up",
-    status: failed ? "amber" : stale ? "amber" : "green",
-    message: `${last.mode === "apply" ? `Last clean-up ${ago(age)} removed ${summary}.` : `On. The last check (${ago(age)}) found ${summary}; it will be removed tonight.`}${stale ? " It hasn't run for more than two days." : ""}${failed}`,
-    detail: last.errors?.length ? redact(last.errors.join("; ")) : `mode apply (${source}); keeps run logs ${RETENTION.runDays} days, trash ${RETENTION.trashDays} days`,
-  };
+  return check(
+    "maintenance",
+    failed ? "amber" : stale ? "amber" : "green",
+    [last.mode === "apply" ? m("cleanupApplied", { ago: ago(age), summary }) : m("cleanupChecked", { ago: ago(age), summary }), stale && m("cleanupStale"), failed],
+    last.errors?.length ? redact(last.errors.join("; ")) : `mode apply (${source}); keeps run logs ${RETENTION.runDays} days, trash ${RETENTION.trashDays} days`,
+  );
 }
 
 /* ── Running them ─────────────────────────────────────────────────── */
@@ -306,11 +287,11 @@ async function maintenanceCheck(): Promise<HealthCheck> {
 const CACHE = Symbol.for("nullkode.systemHealth.v1");
 type Cache = { at: number; checks?: HealthCheck[]; inflight?: Promise<HealthCheck[]> };
 
-async function safe(id: string, title: string, fn: () => Promise<HealthCheck>): Promise<HealthCheck> {
+async function safe(id: string, fn: () => Promise<HealthCheck>): Promise<HealthCheck> {
   try {
     return await fn();
   } catch (err) {
-    return { id, title, status: "amber", message: "This couldn't be checked right now.", detail: redact(err instanceof Error ? err.message.split("\n")[0] : String(err)) };
+    return check(id, "amber", [m("couldntCheck")], redact(err instanceof Error ? err.message.split("\n")[0] : String(err)));
   }
 }
 
@@ -320,18 +301,18 @@ export async function runHealthChecks(maxAgeMs = 20_000): Promise<HealthCheck[]>
   const c = (g[CACHE] ??= { at: 0 });
   if (c.checks && Date.now() - c.at < maxAgeMs) return c.checks;
   c.inflight ??= Promise.all([
-    safe("schema", "Database structure", schemaCheck),
-    safe("database", "Database", databaseCheck),
-    safe("disk", "Disk space", diskCheck),
-    safe("scheduler", "Scheduler", schedulerCheck),
-    safe("maintenance", "Clean-up", maintenanceCheck),
-    safe("backup", "Backups", backupCheck),
-    safe("email", "Email", emailCheck),
-    safe("ai", "AI connection", aiCheck),
-    safe("builds", "Work in progress", buildsCheck),
-    safe("memory", "Memory", memoryCheck),
-    safe("uptime", "Running for", uptimeCheck),
-    safe("version", "Version", versionCheck),
+    safe("schema", schemaCheck),
+    safe("database", databaseCheck),
+    safe("disk", diskCheck),
+    safe("scheduler", schedulerCheck),
+    safe("maintenance", maintenanceCheck),
+    safe("backup", backupCheck),
+    safe("email", emailCheck),
+    safe("ai", aiCheck),
+    safe("builds", buildsCheck),
+    safe("memory", memoryCheck),
+    safe("uptime", uptimeCheck),
+    safe("version", versionCheck),
   ])
     .then((checks) => {
       c.checks = checks;

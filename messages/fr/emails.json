@@ -1,0 +1,49 @@
+{
+  "aiQuota": {
+    "body80": "{reseller} a utilisé {used} des {max} actions IA disponibles ce mois-ci. Une fois le quota épuisé, vous et vos clients ne pourrez plus créer ni modifier avec l'IA jusqu'au {resets}.",
+    "bodyFull": "{reseller} a utilisé les {max} actions IA disponibles pour ce mois. Vous et vos clients ne pouvez plus créer ni modifier avec l'IA jusqu'au {resets}.",
+    "includes": "Ce total inclut les actions IA de vos clients et les vôtres.",
+    "raise": "Pour augmenter la limite, contactez le responsable de la plateforme.",
+    "subject80": "{reseller} : 80 % de vos actions IA du mois ont été utilisées",
+    "subjectFull": "{reseller} : vos actions IA du mois sont épuisées"
+  },
+  "alert": {
+    "field": "{name} : {value}",
+    "footer": "Vous recevez ces e-mails parce que les alertes sont activées pour {table}. Vous pouvez les désactiver depuis la page Vue d'ensemble de votre app.",
+    "intro": "Une personne vient d'envoyer un nouveau formulaire {label} via {app}.",
+    "introTest": "Ceci est un test des alertes de {app}. Personne n'a rien envoyé.",
+    "reply": "Répondez à cet e-mail pour répondre directement à {email}.",
+    "see": "Consultez les données dans votre app :",
+    "subject": "Nouveau : {label}",
+    "subjectHeadline": "Nouveau : {label} : {headline}",
+    "subjectHeadlineTest": "(test) Nouveau : {label} : {headline}",
+    "subjectTest": "(test) Nouveau : {label}"
+  },
+  "alertSummary": {
+    "body": "{app} a reçu {count, plural, one {# nouvelle réponse} other {# nouvelles réponses}} au cours de la dernière heure.",
+    "heldBack": "Nous avons retenu les e-mails individuels pour éviter de remplir votre boîte de réception. Vous pouvez tout voir dans les données de votre app :",
+    "subject": "{count, plural, one {# nouvelle réponse} other {# nouvelles réponses}} dans {app}"
+  },
+  "hi": "Bonjour,",
+  "hiName": "Bonjour {name},",
+  "invite": {
+    "body": "{inviter} vous a créé un compte sur {app}, où vous pouvez créer et publier vos propres apps.",
+    "bodyPlatform": "L'équipe de la plateforme vous a créé un compte sur {app}, où vous pouvez créer et publier vos propres apps.",
+    "cta": "Choisissez un mot de passe pour commencer :",
+    "expires": "Ce lien est utilisable une seule fois et expire dans 7 jours.",
+    "subject": "Vous êtes invité sur {app}"
+  },
+  "reset": {
+    "forgotBody": "Quelqu'un a demandé à réinitialiser le mot de passe de votre compte {app}. Si c'était vous, choisissez un nouveau mot de passe ici :",
+    "forgotExpires": "Ce lien est utilisable une seule fois et expire dans 2 heures. Si vous n'avez pas fait cette demande, ignorez cet e-mail.",
+    "issuedBody": "Voici un lien pour choisir un nouveau mot de passe pour votre compte {app} :",
+    "issuedExpires": "Ce lien est utilisable une seule fois et expire dans 2 heures.",
+    "subject": "Réinitialiser votre mot de passe {app}"
+  },
+  "test": {
+    "body": "Ceci est un e-mail de test de {app}. Si vous pouvez le lire, les e-mails fonctionnent : les invitations, les liens de réinitialisation de mot de passe et les alertes de l'app seront envoyés depuis {from}.",
+    "hello": "Bonjour,",
+    "noReply": "Vous n'avez pas besoin de répondre.",
+    "subject": "E-mail de test de {app}"
+  }
+}

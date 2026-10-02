@@ -1,0 +1,51 @@
+{
+  "appLanguage": {
+    "help": "La langue que votre app utilise avec ses visiteurs. L’IA rédige les nouvelles pages dans cette langue, traduit les fonctionnalités que vous ajoutez et l’utilise dans les messages intégrés à l’app.",
+    "intro": "La langue que voient vos visiteurs : les pages créées par l’IA, les fonctionnalités que vous ajoutez et les messages intégrés, comme « Désolé, l’envoi a échoué ».",
+    "invalid": "Choisissez une des langues de la liste.",
+    "label": "Langue de cette app",
+    "loadError": "Impossible de charger la langue de l’app.",
+    "notChosen": "Aucune langue choisie pour le moment : l’app est donc en anglais.",
+    "note": "Les pages existantes gardent leur texte. Pour le modifier, ouvrez une page et demandez à l’IA de la traduire.",
+    "rtl": "Écriture de droite à gauche : les pages s’affichent en miroir.",
+    "save": "Enregistrer la langue",
+    "saveError": "Impossible d’enregistrer la langue. Veuillez réessayer.",
+    "saveHelp": "Enregistre la langue. Les messages intégrés et le réglage de langue de la page changent immédiatement sur l’app en ligne.",
+    "saved": "Enregistré. Les nouvelles pages et fonctionnalités seront en {language}.",
+    "selectHelp": "Choisissez la langue dans laquelle vos visiteurs lisent votre app.",
+    "title": "Langue de l’app"
+  },
+  "buildLanguage": {
+    "help": "La langue dans laquelle les visiteurs liront votre app. L’IA rédige toutes les pages dans cette langue. Vous pourrez ajouter d’autres langues plus tard.",
+    "label": "Langue de l’app"
+  },
+  "languages": {
+    "add": "Ajouter une langue",
+    "addHelp": "Ajoute la langue et demande à l’IA de traduire toutes les pages. Vous pouvez modifier chaque traduction dans l’éditeur.",
+    "adding": "Ajout…",
+    "confirmRemove": "Supprimer {language} et ses pages traduites ? Les visiteurs ne la verront plus après votre publication.",
+    "edited": "{count, plural, one {# modifiée par vous} other {# modifiées par vous}}",
+    "error": "Une erreur s’est produite. Veuillez réessayer.",
+    "help": "Proposez votre app dans plusieurs langues. Les visiteurs en choisissent une dans le menu de l’app et la retrouvent à sa propre adresse (comme /es/).",
+    "intro": "Proposez aussi votre app dans d’autres langues. L’IA traduit toutes les pages et les visiteurs choisissent une langue dans le menu. Une nouvelle langue est mise en ligne quand vous publiez.",
+    "needUpdate": "{count, plural, one {# à mettre à jour} other {# à mettre à jour}}",
+    "none": "Votre app est uniquement en {language}.",
+    "pick": "Choisir une langue",
+    "progress": "Traduction… {done} sur {total} pages",
+    "publishNote": "Publiez votre app pour que les visiteurs voient les changements apportés aux langues.",
+    "remove": "Supprimer",
+    "removeHelp": "Supprime cette langue et ses pages traduites de votre app.",
+    "title": "Autres langues",
+    "translated": "{ok, plural, one {# page traduite sur {total}} other {# pages traduites sur {total}}}",
+    "update": "Mettre à jour les traductions",
+    "updateHelp": "Demande à l’IA de traduire les pages ajoutées ou modifiées depuis leur dernière traduction. Les pages que vous avez modifiées dans cette langue sont conservées."
+  },
+  "preview": {
+    "adminLogin": "Votre identifiant admin",
+    "backToEditor": "Retour à l’éditeur",
+    "latest": "Vos dernières modifications",
+    "latestLive": "Vos dernières modifications · les visiteurs voient la version {version}",
+    "notPublished": "Aperçu · pas encore publiée",
+    "title": "{title} — Aperçu"
+  }
+}

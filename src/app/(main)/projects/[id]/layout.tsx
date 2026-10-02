@@ -5,6 +5,8 @@ import { db } from "@/lib/db";
 import { TopBar } from "@/components/top-bar";
 import { ProjectTabs } from "@/components/project-tabs";
 import { HelpTips } from "@/components/help-tips";
+import { getTranslations } from "next-intl/server";
+import { ScopedIntl } from "@/i18n/scoped-intl";
 
 export default async function ProjectLayout({
   children,
@@ -25,27 +27,30 @@ export default async function ProjectLayout({
   // the user came from (the user kept getting stranded in the GrapesJS
   // editor with no exit).
   const backHref = project.kind === "DESIGNER" ? "/designer" : "/dashboard";
-  const backLabel = project.kind === "DESIGNER" ? "Back to Designer" : "Back to my apps";
+  const t = await getTranslations("project.layout");
+  const backLabel = project.kind === "DESIGNER" ? t("backToDesigner") : t("backToApps");
 
   const hasPush = Boolean(await db.projectModule.findFirst({ where: { projectId: project.id, moduleId: "push-notifications" }, select: { id: true } }));
   return (
+    // Heavier pages below (editor, data, flows, modules) open their own ScopedIntl.
+    <ScopedIntl segment="(main)/projects/[id]">
     <div className="studio-shell min-h-screen">
       <TopBar user={user}>
         <div className="flex min-w-0 items-center gap-2 text-sm">
           <Link
             href={backHref}
             aria-label={backLabel}
-            data-help={project.kind === "DESIGNER" ? "Go back to the AI Designer." : "Go back to the list of all your apps."}
+            data-help={project.kind === "DESIGNER" ? t("backToDesignerHelp") : t("backToAppsHelp")}
             className="studio-back-link shrink-0"
           >
-            <span aria-hidden>←</span>
+            <span aria-hidden className="inline-block rtl:-scale-x-100">←</span>
             <span className="hidden xl:inline">{backLabel}</span>
           </Link>
           <span className="text-surface-400">/</span>
           <span className="truncate font-medium text-surface-100 max-w-[320px]">
             {project.name}
           </span>
-          <div className="ml-2 hidden lg:block">
+          <div className="ms-2 hidden lg:block">
             <HelpTips
               initialOn={
                 ((user.prefs as { helpTips?: boolean } | null)?.helpTips ?? true)
@@ -57,5 +62,6 @@ export default async function ProjectLayout({
       <ProjectTabs projectId={project.id} kind={project.kind} hasPush={hasPush} />
       <main id="main">{children}</main>
     </div>
+    </ScopedIntl>
   );
 }

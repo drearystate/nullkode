@@ -3,6 +3,8 @@ import Stripe from "stripe";
 import { getRealUser } from "@/lib/auth";
 import { getSetting, setSetting } from "@/lib/settings";
 import { getBrand } from "@/lib/brand";
+import { getTranslations } from "next-intl/server";
+import { requestLocale } from "@/i18n/request";
 import { BILLING_KEYS, priceFor, type Catalog, type PaidPlan } from "@/lib/stripe";
 import { CURRENCIES, PAID_PLANS, buildCatalog, catalogForForm, ensureWebhook, looksLikeStripeKey } from "@/lib/billing-sync";
 
@@ -56,17 +58,18 @@ export async function GET() {
 
 export async function POST(req: Request) {
   if ((await getRealUser())?.role !== "ADMIN") return new Response("Forbidden", { status: 403 });
+  const t = await getTranslations({ locale: await requestLocale(), namespace: "admin.api" });
   const body = Body.safeParse(await req.json().catch(() => null));
-  if (!body.success) return Response.json({ error: "Check the plan names and prices." }, { status: 400 });
+  if (!body.success) return Response.json({ error: t("checkPrices") }, { status: 400 });
   const newSecret = body.data.secret || "";
-  if (newSecret && !looksLikeStripeKey(newSecret)) return Response.json({ error: "That doesn't look like a Stripe secret key. It starts with sk_live_ or sk_test_." }, { status: 400 });
+  if (newSecret && !looksLikeStripeKey(newSecret)) return Response.json({ error: t("notStripeKey") }, { status: 400 });
   const secret = newSecret || (await currentSecret());
 
   if (newSecret) {
     try {
       await new Stripe(newSecret).balance.retrieve();
     } catch {
-      return Response.json({ error: "Stripe didn't accept that key. Copy the secret key again from Stripe → Developers → API keys." }, { status: 400 });
+      return Response.json({ error: t("stripeRejected") }, { status: 400 });
     }
   }
 
@@ -76,16 +79,16 @@ export async function POST(req: Request) {
     catalog = await buildCatalog({ secret: secret || null, plans: body.data.plans, previous: await currentCatalog(), productPrefix: brand.appName, scopeTag: "platform" });
   } catch (err) {
     const msg = err instanceof Error ? err.message : "";
-    return Response.json({ error: `Stripe couldn't create the prices${msg ? `: ${msg}` : ""}. Nothing was changed.` }, { status: 400 });
+    return Response.json({ error: msg ? t("stripePricesFailedWhy", { error: msg }) : t("stripePricesFailed") }, { status: 400 });
   }
 
   // The webhook tells Nullkode when someone pays, upgrades or cancels.
   let webhook = body.data.webhook || (await getSetting<string>(BILLING_KEYS.webhook)) || process.env.STRIPE_WEBHOOK_SECRET || "";
-  let webhookNote = "";
+  let webhookFailed = false;
   if (secret && !body.data.webhook) {
     const made = await ensureWebhook(secret, webhookUrl(), webhook || null);
     if (made) webhook = made;
-    else if (!webhook) webhookNote = " Stripe couldn't reach this site's address to send payment updates, so paste the webhook signing secret under Advanced.";
+    else if (!webhook) webhookFailed = true;
   }
 
   if (newSecret) await setSetting(BILLING_KEYS.secret, newSecret);
@@ -94,7 +97,7 @@ export async function POST(req: Request) {
 
   const priced = Object.keys(catalog).length;
   const text = !secret
-    ? `Saved. ${priced ? "Your prices show on the pricing page now; " : ""}connect Stripe to take payments.`
-    : `Saved. ${priced ? "Your plans are live in Stripe and on the pricing page." : "Paid plans are switched off."}${webhookNote}`;
+    ? (priced ? t("savedNoStripePriced") : t("savedNoStripe"))
+    : `${priced ? t("savedLive") : t("savedOff")}${webhookFailed ? ` ${t("webhookFailed")}` : ""}`;
   return Response.json({ ok: true, message: text, plans: await catalogForForm(secret || null, catalog), configured: Boolean(secret), webhookConfigured: Boolean(webhook) });
 }

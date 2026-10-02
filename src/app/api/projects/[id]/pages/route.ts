@@ -1,8 +1,11 @@
 import { z } from "zod";
+import { getTranslations } from "next-intl/server";
+import { requestLocale } from "@/i18n/request";
 import { db } from "@/lib/db";
 import { ownedProject, checkPageLimit } from "@/lib/guard";
 import { json, slugify } from "@/lib/utils";
 import { syncProjectNav } from "@/lib/nav-sync";
+import { isLanguageSlug } from "@/lib/app-translations";
 
 const CreateBody = z.object({ title: z.string().min(1).max(80) });
 
@@ -26,12 +29,16 @@ export async function POST(req: Request, ctx: { params: Promise<{ id: string }> 
   if (limitError) return limitError;
 
   const parsed = CreateBody.safeParse(await req.json().catch(() => null));
-  if (!parsed.success) return json({ error: "Invalid input" }, { status: 400 });
+  if (!parsed.success) {
+    const t = await getTranslations({ locale: await requestLocale(), namespace: "project.pagesApi" });
+    return json({ error: t("invalidInput") }, { status: 400 });
+  }
 
   let base = slugify(parsed.data.title) || "page";
   let slug = base;
   let n = 1;
-  while (await db.page.findUnique({ where: { projectId_slug: { projectId: id, slug } } })) {
+  // Language codes ("es", "pt-br") are the addresses of a multilingual app's languages.
+  while (isLanguageSlug(slug) || (await db.page.findUnique({ where: { projectId_slug: { projectId: id, slug } } }))) {
     n += 1;
     slug = `${base}-${n}`;
   }

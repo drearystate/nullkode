@@ -3,6 +3,7 @@ import { getCurrentUser } from "@/lib/auth";
 import { json } from "@/lib/utils";
 import { providerComplete } from "@/lib/ai/provider";
 import { hitLimit } from "@/lib/rate-limit";
+import { personLocale, replyLanguageRule, translator } from "@/lib/ai/i18n";
 
 export const runtime = "nodejs";
 export const maxDuration = 20;
@@ -24,16 +25,19 @@ const Body = z.object({
  */
 export async function POST(req: Request) {
   const user = await getCurrentUser();
-  if (!user) return json({ error: "Unauthorized" }, { status: 401 });
+  const locale = await personLocale();
+  const t = translator(locale, "ai");
+  if (!user) return json({ error: t("errors.unauthorized") }, { status: 401 });
 
   // Each Ask AI edit fires one of these; allow plenty, but not a free AI endpoint.
-  if (!hitLimit(`ai-ack:${user.id}`, 200, 60 * 60 * 1000).ok) return json({ error: "Too many requests" }, { status: 429 });
+  if (!hitLimit(`ai-ack:${user.id}`, 200, 60 * 60 * 1000).ok) return json({ error: t("errors.tooManyRequests") }, { status: 429 });
 
   const parsed = Body.safeParse(await req.json().catch(() => null));
-  if (!parsed.success) return json({ error: "Invalid input" }, { status: 400 });
+  if (!parsed.success) return json({ error: t("errors.invalidInput") }, { status: 400 });
   const { message, pageTitle, hasAttachments } = parsed.data;
 
-  const SYSTEM = `You confirm a website-edit instruction back to a non-technical user. Output ONE friendly sentence in first person, under 140 characters, starting with "I'll" — describing what you're about to do. No follow-up questions. No markdown. No prose around it. Just the sentence.`;
+  const language = replyLanguageRule(locale, 'the sentence (instead of starting with "I\'ll", start the way a first-person promise starts in that language)');
+  const SYSTEM = `You confirm a website-edit instruction back to a non-technical user. Output ONE friendly sentence in first person, under 140 characters, starting with "I'll" — describing what you're about to do. No follow-up questions. No markdown. No prose around it. Just the sentence.${language ? `\n\n${language}` : ""}`;
 
   const USER = `Page: ${pageTitle ?? "the current page"}
 ${hasAttachments ? "(User attached reference files.)\n" : ""}Instruction: ${message}
@@ -46,6 +50,6 @@ Return only the confirmation sentence.`;
   } catch (err) {
     // The client falls back to a generic label; provider details stay in the log.
     console.error("[ai/plan] acknowledgement failed", err instanceof Error ? err.message : err);
-    return json({ error: "Couldn't prepare a summary." }, { status: 500 });
+    return json({ error: t("errors.noSummary") }, { status: 500 });
   }
 }

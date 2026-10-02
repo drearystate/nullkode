@@ -1,4 +1,6 @@
 import { z } from "zod";
+import { getTranslations } from "next-intl/server";
+import { requestLocale } from "@/i18n/request";
 import { db } from "@/lib/db";
 import { getCurrentUser, getRealUser } from "@/lib/auth";
 import { json } from "@/lib/utils";
@@ -29,19 +31,17 @@ const Body = z.object({
 
 const TRIES_PER_HOUR = 10;
 
-const NOT_ELIGIBLE =
-  "We couldn't transfer the app to that email. Check the address: it must belong to an account here that can receive apps from you.";
-
 export async function POST(
   req: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
   const [user, real] = await Promise.all([getCurrentUser(), getRealUser()]);
-  if (!user || !real) return json({ error: "Unauthorized" }, { status: 401 });
+  const t = await getTranslations({ locale: await requestLocale(), namespace: "project.transferApi" });
+  if (!user || !real) return json({ error: t("unauthorized") }, { status: 401 });
   const operator = real.role === "ADMIN";
   if (real.id !== user.id && !operator) {
     return json(
-      { error: "Only the app's owner can transfer it. Ask them to do it from their own account." },
+      { error: t("ownerOnly") },
       { status: 403 }
     );
   }
@@ -52,19 +52,19 @@ export async function POST(
     select: { id: true, name: true, ownerId: true },
   });
   if (!project || project.ownerId !== user.id) {
-    return json({ error: "Project not found" }, { status: 404 });
+    return json({ error: t("notFound") }, { status: 404 });
   }
 
   if (!operator && !hitLimit(`transfer:${user.id}`, TRIES_PER_HOUR, 60 * 60_000).ok) {
     return json(
-      { error: "That's a lot of transfer attempts. Please wait an hour and try again." },
+      { error: t("tooManyTries") },
       { status: 429 }
     );
   }
 
   const parsed = Body.safeParse(await req.json().catch(() => null));
   if (!parsed.success) {
-    return json({ error: "Enter a valid email address." }, { status: 400 });
+    return json({ error: t("invalidEmail") }, { status: 400 });
   }
 
   const [target, sender] = await Promise.all([
@@ -72,11 +72,11 @@ export async function POST(
     loadTransferAccount({ id: user.id }),
   ]);
   if (target && target.id === user.id) {
-    return json({ error: "You already own this app." }, { status: 400 });
+    return json({ error: t("alreadyOwner") }, { status: 400 });
   }
   const sameWorkspace = Boolean(target && sender && workspaceKey(target) === workspaceKey(sender));
   if (!target || !sender || !canReceiveApps(target) || (!sameWorkspace && !operator)) {
-    return json({ error: NOT_ELIGIBLE }, { status: 400 });
+    return json({ error: t("notEligible") }, { status: 400 });
   }
 
   const refused = await transferProjectTo(project.id, user.id, target, { sameWorkspace });

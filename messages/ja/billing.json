@@ -1,0 +1,32 @@
+{
+  "aiUsage": "今月のAI操作回数：<b>{used} / {limit}</b>",
+  "aiUsageLabel": "AI操作の使用回数",
+  "planNames": {
+    "FREE": "無料",
+    "PRO": "プロ",
+    "STARTER": "スターター",
+    "TEAM": "チーム"
+  },
+  "plans": {
+    "checkoutFailed": "購入手続きを開始できませんでした",
+    "comingSoon": "近日公開",
+    "current": "現在",
+    "free": "無料",
+    "manage": "お支払いを管理",
+    "manageHelp": "Stripeの安全なお支払いページが開き、カードの更新や過去の請求書の確認、利用可能な場合はプランの変更や解約ができます。",
+    "notBuyable": "このプランはまだオンラインで購入できません。",
+    "portalFailed": "ポータルを開けませんでした",
+    "upgrade": "アップグレード",
+    "upgradeHelp": "安全なStripeの決済ページが開き、このプランを月払いで開始できます。有料プランをすでにご利用の場合は、「お支払いを管理」からプランを変更してください。"
+  },
+  "profileNote": "写真、名前、パスワード、表示設定、ヘルプのヒント、アカウントの削除は<link>プロフィール</link>から行えます。",
+  "status": {
+    "ACTIVE": "支払い済み・利用中",
+    "CANCELED": "キャンセル済み",
+    "PAST_DUE": "支払い期限超過",
+    "TRIALING": "無料トライアル",
+    "UNPAID": "未払い"
+  },
+  "title": "お支払い",
+  "yourPlan": "現在のプラン：<b>{plan}</b>"
+}

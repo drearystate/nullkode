@@ -1,5 +1,8 @@
 import { generatedImageContext } from "../assets/generated";
 import { DESIGN_RULES_COMPACT, DESIGN_SYSTEM_RULES } from "./design-system";
+import { replyLanguageRule, translator } from "./i18n";
+import type { Locale } from "@/i18n/locales";
+import { contentLanguageRule } from "../app-locale";
 import type { ProjectTheme } from "@/lib/theme";
 import type { ScaffoldTable, ScaffoldFlow } from "./apply-scaffold";
 import { providerEditPage } from "./provider";
@@ -454,6 +457,10 @@ export async function editPage(opts: {
   /** True when the page's stylesheet was too large to include. The model
    *  must not restyle or return CSS — the server preserves the original. */
   cssOmitted?: boolean;
+  /** The person's studio language: the explanation and suggestions are written in it. */
+  locale?: Locale;
+  /** The app's language (lib/app-locale.ts): new and changed page text is written in it. */
+  contentLocale?: Locale;
 }): Promise<EditPageResult> {
   // Small-context models (8-16K) get the compact prompt, and other pages'
   // full content only while it leaves room for the answer.
@@ -538,6 +545,12 @@ Radius: ${opts.theme.radius ?? "(default)"}
         .join("\n")}\n`
     : "";
 
+  const language = opts.locale ? replyLanguageRule(opts.locale, 'the "explanation" and the "suggestions" (the person reads them in the chat); keep the page\'s own text in the language it already uses') : "";
+  const languageBlock = language ? `\n${language}\n` : "";
+  // The page keeps its language: the app's, when the caller knows it.
+  const contentRule = contentLanguageRule(opts.contentLocale);
+  const contentBlock = `\n${contentRule || "PAGE LANGUAGE: write any text you add or change in the same language as the page's existing text."}\n`;
+
   const userContent = `CURRENT PAGE: "${opts.pageTitle}" (slug: ${opts.pageSlug})
 
 ${themeBlock}EXISTING TABLES:
@@ -563,7 +576,7 @@ INSTRUCTION:
 ${opts.message}${generatedImageContext(`${opts.message} ${opts.pageTitle}`, compact ? 3 : 6)}
 
 Return the complete JSON object. Populate newTables / newFlows / pageEdits only when the change genuinely requires them — otherwise use empty arrays.
-
+${languageBlock}${contentBlock}
 CRITICAL OUTPUT RULES: Your reply MUST start with the character "{" and end with the character "}". No preamble. No "Here's your..." text. No markdown code fences. No commentary. Just the raw JSON object.`;
 
   const content = await providerEditPage({
@@ -585,14 +598,14 @@ CRITICAL OUTPUT RULES: Your reply MUST start with the character "{" and end with
       `AI returned invalid JSON: ${err instanceof Error ? err.message : "parse error"}`
     );
   }
-  return normalizeEditResult(parsed);
+  return normalizeEditResult(parsed, opts.locale);
 }
 
 /**
  * Fills in what a loosely-following model left out (JSON mode on local
  * servers doesn't enforce the schema), so callers can rely on the shape.
  */
-function normalizeEditResult(parsed: Partial<EditPageResult> | null): EditPageResult {
+function normalizeEditResult(parsed: Partial<EditPageResult> | null, locale: Locale = "en"): EditPageResult {
   if (!parsed || typeof parsed !== "object" || typeof parsed.html !== "string") {
     throw new UnusableOutputError("The AI's answer couldn't be used (it had no page HTML). Please try again.");
   }
@@ -600,7 +613,7 @@ function normalizeEditResult(parsed: Partial<EditPageResult> | null): EditPageRe
   return {
     html: parsed.html,
     css: typeof parsed.css === "string" ? parsed.css : "",
-    explanation: typeof parsed.explanation === "string" && parsed.explanation.trim() ? parsed.explanation : "Updated the page.",
+    explanation: typeof parsed.explanation === "string" && parsed.explanation.trim() ? parsed.explanation : translator(locale, "errors")("ai.updatedPage"),
     newTables: list<ScaffoldTable>(parsed.newTables),
     newFlows: list<ScaffoldFlow>(parsed.newFlows),
     pageEdits: list<EditPageResult["pageEdits"][number]>(parsed.pageEdits).filter(

@@ -1,7 +1,10 @@
+import { getTranslations } from "next-intl/server";
+import { requestLocale } from "@/i18n/request";
 import { db } from "@/lib/db";
 import { ownedProject, checkPageLimit } from "@/lib/guard";
 import { json, slugify } from "@/lib/utils";
 import { RESERVED_PAGE_SLUGS, syncProjectNav } from "@/lib/nav-sync";
+import { isLanguageSlug } from "@/lib/app-translations";
 
 /**
  * Makes a copy of a page: same content, styles and settings (who can see it,
@@ -15,11 +18,12 @@ export async function POST(
   const { id, pageId } = await ctx.params;
   const r = await ownedProject(id);
   if ("error" in r) return r.error;
+  const t = await getTranslations({ locale: await requestLocale(), namespace: "project.pagesApi" });
   if (r.project.kind === "DESIGNER") {
-    return json({ error: "This app's pages come from the AI Designer, so add pages there." }, { status: 409 });
+    return json({ error: t("designerAdd") }, { status: 409 });
   }
   const source = await db.page.findFirst({ where: { id: pageId, projectId: id } });
-  if (!source) return json({ error: "Not found" }, { status: 404 });
+  if (!source) return json({ error: t("notFound") }, { status: 404 });
 
   const limitError = await checkPageLimit(r.user, id);
   if (limitError) return limitError;
@@ -27,7 +31,7 @@ export async function POST(
   const title = `${source.title.slice(0, 73)} (copy)`;
   const base = slugify(`${source.slug}-copy`) || "page-copy";
   let slug = base;
-  for (let n = 2; RESERVED_PAGE_SLUGS.has(slug) || (await db.page.findUnique({ where: { projectId_slug: { projectId: id, slug } } })); n++) {
+  for (let n = 2; RESERVED_PAGE_SLUGS.has(slug) || isLanguageSlug(slug) || (await db.page.findUnique({ where: { projectId_slug: { projectId: id, slug } } })); n++) {
     slug = `${base}-${n}`;
   }
 

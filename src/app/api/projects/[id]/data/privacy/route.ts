@@ -5,6 +5,9 @@ import { ownedProject } from "@/lib/guard";
 import { eraseUser, exportUserData, findUserRows, normalizeEmail, PersonError, phoneDigits } from "@/lib/app-account-data";
 import { recordPrivacyRequest, setPrivacyRequestDone } from "@/lib/privacy-store";
 import { json } from "@/lib/utils";
+import { getTranslations } from "next-intl/server";
+import { requestLocale } from "@/i18n/request";
+import { errorText, errorsT } from "@/lib/errors-i18n";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -50,17 +53,20 @@ export async function POST(req: Request, ctx: { params: Promise<{ id: string }> 
   const { id } = await ctx.params;
   const r = await ownedProject(id);
   if ("error" in r) return r.error;
+  const locale = await requestLocale();
+  const t = await getTranslations({ locale, namespace: "data.api" });
+  const te = errorsT(locale);
   const parsed = Body.safeParse(await req.json().catch(() => null));
-  if (!parsed.success) return json({ error: "Enter an email address or a phone number." }, { status: 400 });
+  if (!parsed.success) return json({ error: t("enterContact") }, { status: 400 });
   const who = person(parsed.data.query);
-  if (!who) return json({ error: "Enter a full email address, or a phone number with at least 6 digits." }, { status: 400 });
+  if (!who) return json({ error: t("enterFullContact") }, { status: 400 });
 
   try {
     if (parsed.data.action === "search") {
-      return json({ findings: await findUserRows(id, who, { mode: "owner", mentions: true }) });
+      return json({ findings: await findUserRows(id, who, { mode: "owner", mentions: true, t: te }) });
     }
     if (parsed.data.action === "export") {
-      const { zip } = await exportUserData(id, who, { mode: "owner", appName: r.project.name });
+      const { zip } = await exportUserData(id, who, { mode: "owner", appName: r.project.name, t: te });
       await logDone(id, "access", parsed.data.requestId, await handler(r.user));
       const tag = (who.email ?? who.phone ?? "person").replace(/[^a-zA-Z0-9]+/g, "-").slice(0, 40);
       return new Response(zip as unknown as BodyInit, {
@@ -72,13 +78,13 @@ export async function POST(req: Request, ctx: { params: Promise<{ id: string }> 
         },
       });
     }
-    if (!parsed.data.confirm) return json({ error: "Check what will be erased, then confirm." }, { status: 400 });
-    const result = await eraseUser(id, who, { mode: "owner", keep: parsed.data.keep ?? [] });
+    if (!parsed.data.confirm) return json({ error: t("confirmErase") }, { status: 400 });
+    const result = await eraseUser(id, who, { mode: "owner", keep: parsed.data.keep ?? [], t: te });
     await logDone(id, "erasure", parsed.data.requestId, await handler(r.user));
     return json({ result });
   } catch (err) {
-    if (err instanceof PersonError) return json({ error: err.message }, { status: err.status });
+    if (err instanceof PersonError) return json({ error: errorText(err, te) }, { status: err.status });
     console.error("[privacy] desk action failed", err);
-    return json({ error: "Something went wrong. Nothing was changed. Please try again." }, { status: 500 });
+    return json({ error: t("privacyFailed") }, { status: 500 });
   }
 }

@@ -4,26 +4,38 @@ import { db } from "@/lib/db";
 import { json } from "@/lib/utils";
 import { requireReseller } from "@/lib/reseller-admin";
 import { forgetResellerHosts } from "@/lib/reseller";
+import { isLocale } from "@/i18n/locales";
+import { getTranslations } from "next-intl/server";
+import { requestLocale } from "@/i18n/request";
 
-const hex = z.string().regex(/^#(?:[0-9a-f]{3}|[0-9a-f]{6})$/i, "Use a colour like #2563eb.");
-const image = z.string().max(200_000, "Images must be under 150 KB.").regex(/^data:image\/(png|jpeg|webp|svg\+xml|x-icon|vnd\.microsoft\.icon);base64,/, "Upload a PNG, JPG, WebP, SVG or ICO image.");
+// Error messages are keys in reseller.api.brand (translated when answering).
+const hex = z.string().regex(/^#(?:[0-9a-f]{3}|[0-9a-f]{6})$/i, "colour");
+const image = z.string().max(200_000, "imageSize").regex(/^data:image\/(png|jpeg|webp|svg\+xml|x-icon|vnd\.microsoft\.icon);base64,/, "imageType");
 const Body = z.object({
-  name: z.string().trim().min(2, "Enter your brand name.").max(60).optional(),
+  name: z.string().trim().min(2, "name").max(60).optional(),
   tagline: z.string().trim().max(160).nullable().optional(),
   logoDataUrl: image.nullable().optional(),
   faviconDataUrl: image.nullable().optional(),
   colorPrimary: hex.optional(),
   colorAccent: hex.optional(),
-  supportEmail: z.string().trim().email("Enter a valid support email.").nullable().optional().or(z.literal("")),
-  homepageUrl: z.string().trim().url("Enter a full URL, starting with https://").nullable().optional().or(z.literal("")),
+  supportEmail: z.string().trim().email("supportEmail").nullable().optional().or(z.literal("")),
+  homepageUrl: z.string().trim().url("homepage").nullable().optional().or(z.literal("")),
+  /** Default language for this reseller's clients and its domain's visitors (null = the platform's). */
+  defaultLocale: z.string().refine(isLocale, "locale").nullable().optional().or(z.literal("")),
 });
 
-/** The name, logo, colours and support contact the reseller's clients see. */
+const BRAND_ERRORS = new Set(["colour", "imageSize", "imageType", "name", "supportEmail", "homepage", "locale"]);
+
+/** The name, logo, colours, support contact and default language the reseller's clients see. */
 export async function PATCH(req: Request) {
   const r = await requireReseller();
   if ("error" in r) return r.error;
   const parsed = Body.safeParse(await req.json().catch(() => null));
-  if (!parsed.success) return json({ error: parsed.error.issues[0]?.message ?? "Check the form." }, { status: 400 });
+  if (!parsed.success) {
+    const t = await getTranslations({ locale: await requestLocale(), namespace: "reseller.api" });
+    const code = parsed.error.issues[0]?.message ?? "";
+    return json({ error: BRAND_ERRORS.has(code) ? t(`brand.${code}`) : t("checkForm") }, { status: 400 });
+  }
   const { name, ...rest } = parsed.data;
   const brand = { ...((r.reseller.brand ?? {}) as Record<string, unknown>) };
   for (const [k, v] of Object.entries(rest)) {

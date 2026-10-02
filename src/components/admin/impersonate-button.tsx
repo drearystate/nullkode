@@ -1,10 +1,11 @@
 "use client";
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 export function ImpersonateButton({
   userId,
   email,
-  label = "Impersonate",
+  label,
   redirectTo = "/dashboard",
 }: {
   userId: string;
@@ -13,9 +14,10 @@ export function ImpersonateButton({
   redirectTo?: string;
 }) {
   const [busy, setBusy] = useState(false);
+  const t = useTranslations("admin");
 
   async function go() {
-    if (!confirm(`Impersonate ${email}? Everything you do will happen as them.`)) return;
+    if (!confirm(t("impersonate.confirm", { email }))) return;
     setBusy(true);
     const res = await fetch("/api/admin/impersonate", {
       method: "POST",
@@ -26,13 +28,13 @@ export function ImpersonateButton({
       window.location.href = redirectTo;
     } else {
       setBusy(false);
-      alert("Failed to impersonate");
+      alert(t("impersonate.failed"));
     }
   }
 
   return (
-    <button className="btn-ghost text-xs px-3 py-1" disabled={busy} onClick={go} data-help="See the studio exactly as this person does, to help them. Anything you change happens in their account. Use the bar at the top of the page to switch back.">
-      {busy ? "..." : label}
+    <button className="btn-ghost text-xs px-3 py-1" disabled={busy} onClick={go} data-help={t("impersonate.help")}>
+      {busy ? "..." : (label ?? t("impersonate.label"))}
     </button>
   );
 }

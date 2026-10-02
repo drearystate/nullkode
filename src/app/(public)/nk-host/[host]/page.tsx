@@ -1,23 +1,21 @@
 import { notFound } from "next/navigation";
-import { appIconUrl } from "@/lib/app-icon";
-import { noteServedHost, projectForHostRequest, queryString, redirectToPrimary } from "@/lib/app-hosts";
 import { headers } from "next/headers";
-import { renderPublicPage, RUNTIME_JS, publicBootScript, PlatformStylesheets } from "@/lib/public-page";
-import { pwaBootScript } from "@/lib/pwa";
-import { buildMetadata, primaryUrl } from "@/lib/seo";
-import { documentAttributesScript, documentMarkup, splitDesignerDocument } from "@/lib/design-studio/document-split";
+import { noteServedHost, projectForHostRequest } from "@/lib/app-hosts";
+import { PublicAppPage, publicPageMetadata } from "@/lib/public-view";
 
 export const dynamic = "force-dynamic";
 
+/** <the app's own domain>/: its home page (lib/public-view.tsx). */
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ host: string }>;
 }) {
-  const { host } = await params;
-  const project = await projectForHostRequest(host);
+  const p = await params;
+  const project = await projectForHostRequest(p.host);
   if (!project) return { title: "Not found" };
-  return buildMetadata(project);
+  // The live (published) page's title, not the draft's.
+  return publicPageMetadata(project, []);
 }
 
 export default async function HostHome({
@@ -27,39 +25,11 @@ export default async function HostHome({
   params: Promise<{ host: string }>;
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
-  const { host } = await params;
-  const project = await projectForHostRequest(host);
+  const p = await params;
+  const project = await projectForHostRequest(p.host);
   if (!project || !project.published) notFound();
-  // Remember that this domain works, then send visitors on a second address
-  // (another domain, or the apps-domain label) to the app's primary one.
-  await noteServedHost(project.id, host, await headers());
-  await redirectToPrimary(project, await primaryUrl(project), { route: "host", requestHost: host, path: "/", search: queryString(await searchParams) });
-
-  const page = await renderPublicPage(project.id, "");
-  // AI Designer pages are whole documents: their head goes into metadata and
-  // ahead of the body, and the wrapper stays out of their layout.
-  const doc = splitDesignerDocument(page.html);
-  const docAttrs = documentAttributesScript(doc);
-  const themeColor =
-    (project.theme as { primary?: string } | null)?.primary ?? "#0b0b0b";
-
-  return (
-    <>
-      {/* Designer apps bring their own complete CSS: no platform sheets. */}
-      <PlatformStylesheets designerApp={project.kind === "DESIGNER"} themeHref={`/api/projects/${project.id}/theme.css?live=1`} />
-      <link rel="manifest" href="/manifest.webmanifest" />
-      <meta name="theme-color" content={themeColor} />
-      <link rel="apple-touch-icon" href={appIconUrl(project, 180)} />
-      <meta name="apple-mobile-web-app-capable" content="yes" />
-      <meta name="apple-mobile-web-app-title" content={project.name} />
-      <style dangerouslySetInnerHTML={{ __html: page.css }} />
-      {docAttrs && <script dangerouslySetInnerHTML={{ __html: docAttrs }} />}
-      <div suppressHydrationWarning style={doc.isDocument ? { display: "contents" } : undefined} dangerouslySetInnerHTML={{ __html: documentMarkup(doc) }} />
-      <script dangerouslySetInnerHTML={{ __html: publicBootScript(project.id, "", page.pageSlugs) }} />
-      <script dangerouslySetInnerHTML={{ __html: RUNTIME_JS }} />
-      <script
-        dangerouslySetInnerHTML={{ __html: pwaBootScript("/sw.js", "/") }}
-      />
-    </>
-  );
+  // Remember that this domain works (lib/app-hosts.ts); the page then sends
+  // visitors on a second address to the app's primary one.
+  await noteServedHost(project.id, p.host, await headers());
+  return <PublicAppPage project={project} route={{ kind: "host", host: p.host }} segments={[]} searchParams={await searchParams} />;
 }

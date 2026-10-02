@@ -1,0 +1,84 @@
+{
+  "appearance": {
+    "intro": "Stüdyonun nasıl görüneceğini seçin. Hesabınıza kaydedilir ve diğer cihazlarınızda da kullanılır.",
+    "title": "Görünüm"
+  },
+  "blocked": {
+    "impersonating": "Bu hesabı yalnızca sahibi silebilir. Yönetici olarak hesapları Yönetici bölümündeki Kullanıcılar sayfasından silebilirsiniz.",
+    "onlyOperator": "Bu platformun tek operatörü sizsiniz, bu yüzden hesabınız silinemez.",
+    "reseller": "Bayi çalışma alanı işletiyorsunuz, bu yüzden hesabınız buradan silinemez. Önce çalışma alanını kaldırması için platform operatörüne danışın."
+  },
+  "delete": {
+    "backup": "Yedek",
+    "backupFirst": "Önce her uygulamanın yedeğini indirin. Yedeği daha sonra İçe aktar ile geri yükleyebilirsiniz.",
+    "cancel": "İptal",
+    "cannotUndo": "Bu işlem geri alınamaz.",
+    "confirm": "Hesabımı kalıcı olarak sil",
+    "deletesAccount": "Hesabınızı siler.",
+    "deletesApps": "{count, plural, one {Hesabınızı ve kaydettiği her şey, dosyaları ve web adresleriyle birlikte uygulamanızı siler.} other {Hesabınızı ve kaydettikleri her şey, dosyaları ve web adresleriyle birlikte # uygulamanızın tamamını siler.}}",
+    "deleting": "Siliniyor…",
+    "failed": "Hesabınız silinemedi ({status}).",
+    "keysAck": "{count, plural, one {Yukarıdaki Google Play yükleme anahtarını indirdim veya anahtara ihtiyacım yok. Anahtar olmadan bir uygulama Google Play'de bir daha güncellenemez.} other {Yukarıdaki Google Play yükleme anahtarlarını indirdim veya anahtarlara ihtiyacım yok. Anahtar olmadan bir uygulama Google Play'de bir daha güncellenemez.}}",
+    "networkError": "Ağ hatası. Hiçbir şey silinmedi.",
+    "start": "Hesabımı sil…",
+    "startHelp": "Hesabınızı silme işlemini başlatır. Önce e-posta adresinizi yazmanız istenir; onaylayana kadar hiçbir şey silinmez.",
+    "subscriptionCancelled": "Aboneliğiniz hemen iptal edilir.",
+    "title": "Hesabımı sil",
+    "typeEmail": "Onaylamak için e-posta adresinizi yazın",
+    "uploadKey": "Google Play yükleme anahtarı",
+    "uploadKeyHelp": "Bu anahtarı indirin ve güvenli bir yerde saklayın. Bu anahtar olmadan uygulama Google Play'de bir daha güncellenemez."
+  },
+  "helpPrefs": {
+    "guides": "Her konuda adım adım kılavuzlara <link>Yardım ve kılavuzlar</link> bölümünden ulaşabilirsiniz.",
+    "saveFailed": "Kaydedilemedi. Bir sonraki sayfayı açışınızda önceki ayara dönülecek.",
+    "tips": "Yardım ipuçları",
+    "tipsIntro": "Bir düğmenin veya ayarın üzerine geldiğinizde görünen, ne işe yaradığını sade bir dille açıklayan kısa notlar.",
+    "title": "Yardım"
+  },
+  "intro": "Fotoğrafınız, bilgileriniz ve stüdyonun size nasıl görünüp çalıştığı.",
+  "language": {
+    "intro": "Stüdyonun görüntüleneceği dil. Hesabınıza kaydedilir ve diğer cihazlarınızda da kullanılır.",
+    "title": "Dil"
+  },
+  "metaTitle": "Profil",
+  "password": {
+    "change": "Şifreyi değiştir",
+    "changed": "Şifre değiştirildi. Diğer cihazlardaki oturumlarınız kapatıldı.",
+    "changing": "Değiştiriliyor…",
+    "current": "Mevcut şifre",
+    "failed": "Değiştirilemedi. Lütfen tekrar deneyin.",
+    "forgotNote": "Mevcut şifrenizi bilmiyor musunuz (örneğin Google ile kaydolduysanız)? Oturumu kapatın ve şifre belirlemek için <link>Şifremi unuttum</link> seçeneğini kullanın.",
+    "new": "Yeni şifre",
+    "newNote": "En az 8 karakter olmalı. Şifrenizi değiştirince diğer tüm cihazlardaki oturumlarınız kapatılır.",
+    "readOnly": "Bu hesabın şifresini yalnızca sahibi değiştirebilir.",
+    "title": "Şifre"
+  },
+  "profile": {
+    "addPhoto": "Fotoğraf ekle",
+    "badPicture": "Bu dosya açabileceğimiz bir resim değil.",
+    "changePhoto": "Fotoğrafı değiştir",
+    "email": "E-posta",
+    "emailNote": "Oturum açmak için bu adresi kullanırsınız.",
+    "name": "Ad",
+    "nameHelp": "Hesabınızda ve size gönderdiğimiz e-postalarda görünen ad.",
+    "photoHelp": "Kendinizin bir fotoğrafını seçin (PNG, JPEG veya WebP). Kare şeklinde kırpılır ve adınızın yanında gösterilir.",
+    "photoRemoveFailed": "Fotoğraf kaldırılamadı. Lütfen tekrar deneyin.",
+    "photoRemoved": "Fotoğraf kaldırıldı.",
+    "photoSaveFailed": "Fotoğraf kaydedilemedi. Lütfen tekrar deneyin.",
+    "photoSaveFailedShort": "Fotoğraf kaydedilemedi.",
+    "photoSaved": "Fotoğraf kaydedildi.",
+    "remove": "Kaldır",
+    "removeHelp": "Fotoğrafınızı kaldırın. Yerine adınızın baş harfi gösterilir.",
+    "save": "Kaydet",
+    "saveFailed": "Kaydedilemedi. Lütfen tekrar deneyin.",
+    "saved": "Kaydedildi.",
+    "saving": "Kaydediliyor…",
+    "title": "Profiliniz"
+  },
+  "theme": {
+    "dark": "Koyu",
+    "light": "Açık",
+    "system": "Cihazımla eşleşsin"
+  },
+  "title": "Profil"
+}

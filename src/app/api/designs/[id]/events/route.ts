@@ -1,6 +1,7 @@
 import { getCurrentUser } from "@/lib/auth";
 import { getDesign, NotFound } from "@/lib/design-studio/store";
 import { subscribe } from "@/lib/design-studio/events";
+import { requestTranslator } from "@/lib/ai/i18n";
 
 export const dynamic = "force-dynamic";
 
@@ -8,11 +9,12 @@ export const dynamic = "force-dynamic";
 export async function GET(req: Request, ctx: { params: Promise<{ id: string }> }) {
   const { id } = await ctx.params;
   const user = await getCurrentUser();
-  if (!user) return new Response("Please sign in.", { status: 401 });
+  const t = await requestTranslator("designer");
+  if (!user) return new Response(t("server.signIn"), { status: 401 });
   try {
     await getDesign(user.id, id);
   } catch (err) {
-    return new Response(err instanceof NotFound ? "Design not found." : "Error", { status: err instanceof NotFound ? 404 : 500 });
+    return new Response(err instanceof NotFound ? t("server.notFound") : t("server.error"), { status: err instanceof NotFound ? 404 : 500 });
   }
   const enc = new TextEncoder();
   let stop = () => {};

@@ -408,9 +408,33 @@ model Page {
   updatedAt DateTime @updatedAt
 
   project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  translations PageTranslation[]
 
   @@unique([projectId, slug])
   @@index([projectId])
+}
+
+/// A page in one of its app's other languages (multilingual apps,
+/// src/lib/app-translations.ts). The page itself holds the app's default
+/// language; CSS is shared. Frozen into deployment snapshots on publish.
+model PageTranslation {
+  id         String   @id @default(cuid())
+  pageId     String
+  locale     String
+  title      String
+  html       String   @default("")
+  /// Fingerprint of the page (title + html, shared menu left out) this was
+  /// made from: when the page changes, the translation needs updating.
+  sourceHash String   @default("")
+  /// "ai" (made by the AI) or "edited" (changed by the owner since).
+  origin     String   @default("ai")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  page Page @relation(fields: [pageId], references: [id], onDelete: Cascade)
+
+  @@unique([pageId, locale])
+  @@index([pageId])
 }
 
 model Flow {

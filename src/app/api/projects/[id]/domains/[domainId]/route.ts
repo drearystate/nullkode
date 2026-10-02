@@ -3,6 +3,13 @@ import { ownedProject } from "@/lib/guard";
 import { json } from "@/lib/utils";
 import { promises as dns } from "dns";
 import { platformTargetHost } from "@/lib/reseller";
+import { getTranslations } from "next-intl/server";
+import { requestLocale } from "@/i18n/request";
+
+async function notFoundMessage() {
+  const t = await getTranslations({ locale: await requestLocale(), namespace: "project.domainsApi" });
+  return t("notFound");
+}
 
 export async function PATCH(
   _req: Request,
@@ -14,7 +21,7 @@ export async function PATCH(
   const domain = await db.domain.findFirst({
     where: { id: domainId, projectId: id },
   });
-  if (!domain) return json({ error: "Not found" }, { status: 404 });
+  if (!domain) return json({ error: await notFoundMessage() }, { status: 404 });
 
   // Ownership: a TXT record at _verify.<host> (older setups used _nullkode.<host>).
   let verified = false;
@@ -50,6 +57,6 @@ export async function DELETE(
   const r = await ownedProject(id);
   if ("error" in r) return r.error;
   const removed = await db.domain.deleteMany({ where: { id: domainId, projectId: id } });
-  if (!removed.count) return json({ error: "Not found" }, { status: 404 });
+  if (!removed.count) return json({ error: await notFoundMessage() }, { status: 404 });
   return json({ ok: true });
 }

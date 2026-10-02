@@ -1,0 +1,51 @@
+{
+  "appLanguage": {
+    "title": "App language",
+    "help": "The language your app speaks to its visitors. The AI writes new pages in it, features you add are translated into it, and the app's built-in messages use it.",
+    "intro": "The language your visitors see: pages the AI builds, features you add, and built-in messages like \"Sorry, that didn't send\".",
+    "label": "Language of this app",
+    "selectHelp": "Pick the language your app's visitors read.",
+    "notChosen": "No language chosen yet, so the app is in English.",
+    "rtl": "Written right to left: pages are mirrored for it.",
+    "note": "Pages you already have keep their words. To change them, open a page and ask the AI to translate it.",
+    "save": "Save language",
+    "saveHelp": "Saves the language. Built-in messages and the page's language setting change on the live app straight away.",
+    "saved": "Saved. New pages and features will be in {language}.",
+    "loadError": "Couldn't load the app's language.",
+    "saveError": "Couldn't save the language. Please try again.",
+    "invalid": "Choose one of the languages in the list."
+  },
+  "buildLanguage": {
+    "label": "App language",
+    "help": "The language your app's visitors will read. The AI writes every page in it. You can add more languages later."
+  },
+  "preview": {
+    "title": "{title} — Preview",
+    "latest": "Your latest edits",
+    "latestLive": "Your latest edits · visitors see version {version}",
+    "notPublished": "Preview · not published yet",
+    "adminLogin": "Your admin login",
+    "backToEditor": "Back to editor"
+  },
+  "languages": {
+    "title": "More languages",
+    "help": "Offer your app in several languages. Visitors pick one from the app's menu, and see it at its own address (like /es/).",
+    "intro": "Offer your app in more languages too. The AI translates every page, and visitors choose a language from the menu. A new language goes live when you publish.",
+    "none": "Your app is only in {language}.",
+    "add": "Add language",
+    "addHelp": "Adds the language and has the AI translate every page into it. You can edit each translation in the editor.",
+    "pick": "Choose a language",
+    "adding": "Adding…",
+    "progress": "Translating… {done} of {total} pages",
+    "translated": "{ok, plural, one {# of {total} page translated} other {# of {total} pages translated}}",
+    "needUpdate": "{count, plural, one {# needs updating} other {# need updating}}",
+    "edited": "{count, plural, one {# edited by you} other {# edited by you}}",
+    "update": "Update translations",
+    "updateHelp": "Has the AI translate the pages that are new or changed since they were translated. Pages you edited in this language are kept.",
+    "remove": "Remove",
+    "removeHelp": "Removes this language and its translated pages from your app.",
+    "confirmRemove": "Remove {language} and its translated pages? Visitors won't see it after you publish.",
+    "publishNote": "Publish your app to show changes to languages to visitors.",
+    "error": "That didn't work. Please try again."
+  }
+}

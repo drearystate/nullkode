@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
+import { requestErrorsT } from "@/lib/errors-i18n";
 import { json } from "@/lib/utils";
 import { stripe, priceFor, billingScopeFor } from "@/lib/stripe";
 import { publicBaseUrlFor } from "@/lib/reseller";
@@ -11,19 +12,20 @@ const Body = z.object({
 
 export async function POST(req: Request) {
   const user = await getCurrentUser();
-  if (!user) return json({ error: "Unauthorized" }, { status: 401 });
+  const t = await requestErrorsT();
+  if (!user) return json({ error: t("common.unauthorized") }, { status: 401 });
 
   const parsed = Body.safeParse(await req.json().catch(() => null));
-  if (!parsed.success) return json({ error: "Invalid input" }, { status: 400 });
+  if (!parsed.success) return json({ error: t("common.invalidInput") }, { status: 400 });
 
   // A reseller's clients pay the reseller, on the reseller's Stripe account.
   const scope = billingScopeFor(user);
   const price = await priceFor(parsed.data.plan, scope);
-  if (!price) return json({ error: "Online payment isn't open yet for this plan. Please check back soon." }, { status: 400 });
+  if (!price) return json({ error: t("billing.notOpenYet") }, { status: 400 });
 
   const s = await stripe(scope);
 
-  if (user.stripeSubscriptionId && ["ACTIVE", "TRIALING", "PAST_DUE", "UNPAID"].includes(user.subscriptionStatus)) return json({ error: "Use Manage billing to change your existing subscription." }, { status: 409 });
+  if (user.stripeSubscriptionId && ["ACTIVE", "TRIALING", "PAST_DUE", "UNPAID"].includes(user.subscriptionStatus)) return json({ error: t("billing.useManage") }, { status: 409 });
   let customerId = user.stripeCustomerId ?? undefined;
   if (!customerId) {
     const customer = await s.customers.create({

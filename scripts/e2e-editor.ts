@@ -363,7 +363,7 @@ async function browserChecks(
     // Premade and Forms both have a "Contact form": pick by category when asked.
     const tapBlock = async (label: string, category?: string) => {
       await openBlocks();
-      await page.getByRole("button", { name: "blocks", exact: true }).tap();
+      await page.getByRole("button", { name: "Blocks", exact: true }).tap();
       await page.getByPlaceholder("Search blocks...").fill(label);
       const scope = category ? page.locator(".gjs-block-category").filter({ has: page.locator(".gjs-title", { hasText: new RegExp(`^\\s*${category}\\s*$`) }) }) : page;
       await scope.locator(".gjs-block").filter({ has: page.locator(".gjs-block-label", { hasText: new RegExp(`^${label}$`) }) }).first().tap();
@@ -400,7 +400,7 @@ async function browserChecks(
     const imgCount = await canvas.locator("img").count();
     await canvas.locator("#pic").tap();
     await openBlocks();
-    await page.getByRole("button", { name: "assets", exact: true }).tap();
+    await page.getByRole("button", { name: "Assets", exact: true }).tap();
     const photo = page.getByRole("button", { name: /^Use this photo instead/ }).first();
     await photo.waitFor();
     const newSrc = await photo.locator("img").getAttribute("src");

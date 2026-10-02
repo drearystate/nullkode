@@ -6,6 +6,8 @@ import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
 import { openai } from "@/lib/ai/client";
 import { json } from "@/lib/utils";
+import { getTranslations } from "next-intl/server";
+import { requestLocale } from "@/i18n/request";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -15,12 +17,17 @@ const ALLOWED_TYPES = new Set(["image/png", "image/jpeg", "image/webp", "image/s
 
 const ICON_MODEL = process.env.OPENAI_IMAGE_MODEL ?? "gpt-image-1.5-mini";
 
+/** Messages for people, in their language (only looked up when needed). */
+async function tr() {
+  return getTranslations({ locale: await requestLocale(), namespace: "project.iconApi" });
+}
+
 async function requireOwned(id: string) {
   const user = await getCurrentUser();
-  if (!user) return { error: json({ error: "Unauthorized" }, { status: 401 }) };
+  if (!user) return { error: json({ error: (await tr())("unauthorized") }, { status: 401 }) };
   const project = await db.project.findUnique({ where: { id } });
   if (!project || project.ownerId !== user.id) {
-    return { error: json({ error: "Not found" }, { status: 404 }) };
+    return { error: json({ error: (await tr())("notFound") }, { status: 404 }) };
   }
   return { user, project };
 }
@@ -50,16 +57,16 @@ export async function POST(req: Request, ctx: { params: Promise<{ id: string }> 
   // ── Multipart upload ────────────────────────────────────────
   if (ct.includes("multipart/form-data")) {
     const form = await req.formData().catch(() => null);
-    if (!form) return json({ error: "Invalid form" }, { status: 400 });
+    if (!form) return json({ error: (await tr())("invalidForm") }, { status: 400 });
     const file = form.get("icon");
     if (!(file instanceof File) || file.size === 0) {
-      return json({ error: "Missing file" }, { status: 400 });
+      return json({ error: (await tr())("missingFile") }, { status: 400 });
     }
     if (file.size > MAX_BYTES) {
-      return json({ error: "Icon must be under 5MB" }, { status: 413 });
+      return json({ error: (await tr())("tooBig") }, { status: 413 });
     }
     if (!ALLOWED_TYPES.has(file.type)) {
-      return json({ error: "Use PNG, JPG, WebP, or SVG" }, { status: 400 });
+      return json({ error: (await tr())("wrongType") }, { status: 400 });
     }
     const ext = file.type === "image/svg+xml" ? "svg"
       : file.type === "image/jpeg" ? "jpg"
@@ -77,7 +84,7 @@ export async function POST(req: Request, ctx: { params: Promise<{ id: string }> 
   // ── AI generation ───────────────────────────────────────────
   const Body = z.object({ prompt: z.string().min(3).max(500) });
   const parsed = Body.safeParse(await req.json().catch(() => null));
-  if (!parsed.success) return json({ error: "Invalid input" }, { status: 400 });
+  if (!parsed.success) return json({ error: (await tr())("invalidInput") }, { status: 400 });
 
   const fullPrompt =
     `App icon for "${r.project.name}". ${parsed.data.prompt}. ` +
@@ -103,11 +110,11 @@ export async function POST(req: Request, ctx: { params: Promise<{ id: string }> 
     }
   } catch (e) {
     return json(
-      { error: (e as Error).message || "Image generation failed" },
+      { error: (e as Error).message || (await tr())("generationFailed") },
       { status: 502 },
     );
   }
-  if (!b64) return json({ error: "No image returned" }, { status: 502 });
+  if (!b64) return json({ error: (await tr())("noImage") }, { status: 502 });
 
   const buf = Buffer.from(b64, "base64");
   const saved = await saveBuffer(buf, "png", "image/png");

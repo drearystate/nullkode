@@ -21,11 +21,11 @@ import {
 import { isNoOpEdit } from "@/lib/ai/html-diff";
 import { json } from "@/lib/utils";
 import type { ProjectTheme } from "@/lib/theme";
-import { aiErrorFor, classifyAiFailure } from "@/lib/ai/errors";
-
-/** Reply when the AI returned the page unchanged (see isNoOpEdit). */
-const NO_CHANGE_REFUNDED = "I couldn't make that change. Nothing was changed, and it wasn't counted.";
-const NO_CHANGE = "I couldn't make that change. Nothing was changed.";
+import { aiErrorFor, aiErrorWords, classifyAiFailure } from "@/lib/ai/errors";
+import { personLocale, translator } from "@/lib/ai/i18n";
+import { getAppLocale } from "@/lib/app-locale";
+import { pageSourceHash } from "@/lib/app-translations";
+import { isLocale } from "@/i18n/locales";
 
 export const runtime = "nodejs";
 // Give the model room to think when it has to add tables + flows + HTML.
@@ -76,6 +76,8 @@ const Body = z.object({
     .max(4)
     .optional()
     .default([]),
+  /** A multilingual app's page in one of its other languages (the editor's language tab). */
+  lang: z.string().max(16).optional(),
 });
 
 type TableFieldRow = { name?: unknown; type?: unknown };
@@ -83,7 +85,9 @@ type TableSchemaShape = { fields?: TableFieldRow[] };
 
 export async function POST(req: Request) {
   const user = await getCurrentUser();
-  if (!user) return json({ error: "Unauthorized" }, { status: 401 });
+  const locale = await personLocale();
+  const t = translator(locale, "ai");
+  if (!user) return json({ error: t("errors.unauthorized") }, { status: 401 });
   const quota = await checkAiQuota(user);
   if (quota) return quota;
 
@@ -92,7 +96,7 @@ export async function POST(req: Request) {
     const issue = parsed.error.issues[0];
     const where = issue?.path?.join(".") || "request";
     return json(
-      { error: `Invalid input (${where}: ${issue?.message ?? "unknown"})` },
+      { error: t("errors.invalidInputAt", { where, issue: issue?.message ?? "unknown" }) },
       { status: 400 }
     );
   }
@@ -105,6 +109,7 @@ export async function POST(req: Request) {
     currentCss,
     attachments,
     history,
+    lang,
   } = parsed.data;
 
   // Size policy with honest errors. HTML must go to the model in full (it
@@ -116,11 +121,7 @@ export async function POST(req: Request) {
   if (currentHtml.length > MAX_MODEL_HTML) {
     return json(
       {
-        error:
-          `This page is too large for the AI editor — its HTML is ` +
-          `${Math.round(currentHtml.length / 1024)}KB (limit ` +
-          `${Math.round(MAX_MODEL_HTML / 1024)}KB). Try the edit on a ` +
-          `smaller page, or ask me to trim this one down first.`,
+        error: t("edit.pageTooLarge", { size: Math.round(currentHtml.length / 1024), limit: Math.round(MAX_MODEL_HTML / 1024) }),
       },
       { status: 400 }
     );
@@ -139,7 +140,10 @@ export async function POST(req: Request) {
     },
     include: { project: { select: { theme: true } } },
   });
-  if (!page) return json({ error: "Page not found" }, { status: 404 });
+  if (!page) return json({ error: t("errors.pageNotFound") }, { status: 404 });
+  // Editing the page in one of a multilingual app's other languages.
+  const appLanguages = await getAppLocale(projectId).catch(() => null);
+  const variant = isLocale(lang) && appLanguages && lang !== appLanguages.locale && appLanguages.locales.includes(lang) ? lang : null;
 
   const [existingTables, existingFlows, existingPages] = await Promise.all([
     db.dataTable.findMany({
@@ -231,7 +235,7 @@ export async function POST(req: Request) {
   const fail = async (err: unknown, fallback: string) => {
     const refunded = await refundFailedAi(chargeId, user.id, classifyAiFailure(err));
     return json(
-      { error: aiErrorFor(user, err, fallback), refunded, usage: await usage() },
+      { error: aiErrorFor(user, err, fallback, aiErrorWords(t)), refunded, usage: await usage() },
       { status: 500 }
     );
   };
@@ -249,9 +253,12 @@ export async function POST(req: Request) {
       context,
       attachments,
       history,
+      locale,
+      // The app's language, when it has one: the page's text stays in it.
+      contentLocale: variant ?? (await getAppLocale(page.projectId).then((a) => (a.explicit ? a.locale : undefined), () => undefined)),
     });
   } catch (err) {
-    return fail(err, "The AI couldn't change this page. Please try again.");
+    return fail(err, t("edit.failed"));
   }
 
   // Nothing changed and nothing was added: say so honestly, and give the
@@ -269,7 +276,7 @@ export async function POST(req: Request) {
     return json({
       html: null,
       css: null,
-      explanation: refunded ? NO_CHANGE_REFUNDED : NO_CHANGE,
+      explanation: refunded ? t("edit.noChangeRefunded") : t("edit.noChange"),
       noChange: true,
       refunded,
       createdTables: [],
@@ -284,6 +291,8 @@ export async function POST(req: Request) {
     // When the stylesheet was too big to show the model, its returned css is
     // meaningless — keep the page's real stylesheet byte-for-byte.
     if (cssOmitted) result = { ...result, css: currentCss };
+    // A translation shares the page's styles and edits only itself.
+    if (variant) result = { ...result, css: currentCss, pageEdits: [] };
 
     // Wiring guard: don't let the edit break existing functionality. If the
     // new HTML lost data-nk-* bindings the old HTML had, run one focused
@@ -307,9 +316,10 @@ export async function POST(req: Request) {
       }
       if (lostWiring.length > 0) {
         const shown = lostWiring.slice(0, 4).join(", ");
-        const more = lostWiring.length > 4 ? ` and ${lostWiring.length - 4} more` : "";
         userNotes.push(
-          `Note: this change removed some existing wiring (${shown}${more}). If that wasn't intended, use undo (Ctrl+Z) or tell me to restore it.`
+          lostWiring.length > 4
+            ? t("edit.lostWiringMore", { list: shown, more: lostWiring.length - 4 })
+            : t("edit.lostWiring", { list: shown })
         );
       }
     }
@@ -342,7 +352,7 @@ export async function POST(req: Request) {
         }
       }
     } catch (err) {
-      return fail(err, "The AI couldn't add the parts behind this page. Please try again.");
+      return fail(err, t("edit.partsFailed"));
     }
 
     // Resolve every data-nk-*-ref="<slug>" (forms, lists, sign-out, kanban,
@@ -361,7 +371,14 @@ export async function POST(req: Request) {
     // write the whole edit would be silently lost. Clearing components/styles
     // matters: the editor prefers the components JSON over html on load, so
     // leaving the old JSON in place would show the pre-edit page.
-    await db.page.update({
+    if (variant) {
+      // The page in another language: the owner's wording from now on.
+      await db.pageTranslation.upsert({
+        where: { pageId_locale: { pageId, locale: variant } },
+        update: { html: rewrittenHtml, origin: "edited" },
+        create: { pageId, locale: variant, title: page.title, html: rewrittenHtml, origin: "edited", sourceHash: pageSourceHash(page) },
+      });
+    } else await db.page.update({
       where: { id: pageId },
       data: {
         html: rewrittenHtml,
@@ -408,7 +425,7 @@ export async function POST(req: Request) {
         }
         if (siblingLost.length > 0) {
           userNotes.push(
-            `Skipped updating "${target.title}" — the proposed change would have removed working functionality there (${siblingLost.slice(0, 3).join(", ")}${siblingLost.length > 3 ? ", …" : ""}). Open that page and ask me there if you still want it changed.`
+            t("edit.skippedPage", { title: target.title, list: `${siblingLost.slice(0, 3).join(", ")}${siblingLost.length > 3 ? ", …" : ""}` })
           );
           continue;
         }
@@ -431,7 +448,7 @@ export async function POST(req: Request) {
       }
     }
 
-    const note = unconnectedNote(unconnected);
+    const note = unconnectedNote(unconnected, t, locale);
     if (note) userNotes.push(note);
 
     return json({
@@ -449,6 +466,6 @@ export async function POST(req: Request) {
     });
   } catch (err) {
     console.error("[ai/edit-page] saving the edit failed", err);
-    return fail(err, "The AI's change couldn't be saved. Please try again.");
+    return fail(err, t("edit.saveFailed"));
   }
 }

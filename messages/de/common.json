@@ -1,0 +1,12 @@
+{
+  "cancel": "Abbrechen",
+  "close": "Schließen",
+  "delete": "Löschen",
+  "language": "Sprache",
+  "languageHelp": "Die Sprache, in der das Studio angezeigt wird. Sie wird in deinem Konto gespeichert.",
+  "loading": "Wird geladen…",
+  "save": "Speichern",
+  "saved": "Gespeichert.",
+  "saving": "Wird gespeichert…",
+  "tryAgain": "Etwas ist schiefgelaufen. Bitte versuche es erneut."
+}

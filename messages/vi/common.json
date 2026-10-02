@@ -1,0 +1,12 @@
+{
+  "cancel": "Hủy",
+  "close": "Đóng",
+  "delete": "Xóa",
+  "language": "Ngôn ngữ",
+  "languageHelp": "Ngôn ngữ hiển thị trong studio. Ngôn ngữ này được lưu vào tài khoản của bạn.",
+  "loading": "Đang tải…",
+  "save": "Lưu",
+  "saved": "Đã lưu.",
+  "saving": "Đang lưu…",
+  "tryAgain": "Đã xảy ra lỗi. Vui lòng thử lại."
+}

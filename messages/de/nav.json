@@ -1,0 +1,41 @@
+{
+  "accountMenu": "Kontomenü",
+  "accountNavigation": "Kontonavigation",
+  "admin": "Admin",
+  "adminHelp": "Einstellungen für die ganze Plattform: Branding, KI, E-Mail, Zahlungen, Nutzer und Reseller.",
+  "administration": "Verwaltung",
+  "billing": "Abrechnung & Tarif",
+  "designer": "Designer",
+  "designerHelp": "Beschreibe eine Website mit eigenen Worten. Die KI gestaltet sie und passt sie auf deine Wünsche hin an.",
+  "help": "Hilfe",
+  "helpGuides": "Hilfe & Anleitungen",
+  "helpHelp": "Schritt-für-Schritt-Anleitungen. Hier öffnet sich die Anleitung für die aktuelle Seite.",
+  "helpTips": {
+    "help": "Blende diese Hinweise ein oder aus. Wenn sie eingeblendet sind, fahre mit der Maus über eine Schaltfläche, um zu erfahren, was sie macht. Du kannst das auch in den Einstellungen ändern.",
+    "label": "Hilfetipps",
+    "off": "AUS",
+    "on": "AN"
+  },
+  "home": "{app} – Startseite",
+  "impersonation": {
+    "backToClients": "Zurück zu deinen Kunden",
+    "backToClientsHelp": "Du verlässt den Arbeitsbereich dieses Kunden und kehrst zu deiner Kundenliste zurück. Deine Änderungen bleiben im Konto des Kunden.",
+    "impersonating": "Du handelst als",
+    "signedInAs": "· angemeldet als {email}",
+    "stop": "Nicht mehr als diese Person handeln",
+    "stopHelp": "Du beendest die Anmeldung als diese Person und kehrst zum Admin-Bereich zurück. Deine Änderungen bleiben in ihrem Konto.",
+    "viewingClient": "Du siehst den Arbeitsbereich von <b>{name}</b>. Änderungen, die du vornimmst, werden im Konto der Person übernommen."
+  },
+  "logOut": "Abmelden",
+  "myApps": "Meine Apps",
+  "myAppsHelp": "Alle deine Apps an einem Ort. Öffne eine, um weiter daran zu arbeiten, oder erstelle eine neue.",
+  "profile": "Profil",
+  "resellerDashboard": "Reseller-Dashboard",
+  "resellerHelp": "Verwalte deine Kunden, deine Marke, deine Preise und deine Webadresse.",
+  "switchTheme": "Zwischen hellem und dunklem Modus wechseln",
+  "switchToDark": "Zum dunklen Modus wechseln",
+  "switchToLight": "Zum hellen Modus wechseln",
+  "themeHelp": "Wechsle zwischen hellem und dunklem Modus. Deine Auswahl wird gespeichert. In deinem Profil kannst du auch „Wie auf meinem Gerät“ auswählen.",
+  "workspace": "Arbeitsbereich",
+  "yourAccount": "Dein Konto"
+}

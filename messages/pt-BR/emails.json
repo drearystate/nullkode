@@ -1,0 +1,49 @@
+{
+  "aiQuota": {
+    "body80": "{reseller} usou {used} das {max} ações de IA deste mês. Quando elas acabarem, a criação e edição com IA ficarão pausadas para você e seus clientes até {resets}.",
+    "bodyFull": "{reseller} usou todas as {max} ações de IA deste mês. A criação e edição com IA ficarão pausadas para você e seus clientes até {resets}.",
+    "includes": "Essa contagem inclui as ações de IA dos seus clientes e as suas.",
+    "raise": "Para aumentar o limite, fale com o responsável pela plataforma.",
+    "subject80": "{reseller}: você usou 80% das ações de IA deste mês",
+    "subjectFull": "{reseller}: suas ações de IA deste mês acabaram"
+  },
+  "alert": {
+    "field": "{name}: {value}",
+    "footer": "Você recebe estes e-mails porque os alertas estão ativados para {table}. Você pode desativá-los na página inicial do seu app.",
+    "intro": "Alguém acabou de enviar um(a) novo(a) {label} pelo {app}.",
+    "introTest": "Este é um teste dos seus alertas do {app}. Ninguém enviou isso.",
+    "reply": "Responda a este e-mail para responder diretamente a {email}.",
+    "see": "Veja os dados no seu app:",
+    "subject": "Novo(a) {label}",
+    "subjectHeadline": "Novo(a) {label}: {headline}",
+    "subjectHeadlineTest": "(teste) Novo(a) {label}: {headline}",
+    "subjectTest": "(teste) Novo(a) {label}"
+  },
+  "alertSummary": {
+    "body": "O {app} recebeu {count, plural, one {mais # novo envio} other {mais # novos envios}} na última hora.",
+    "heldBack": "Não enviamos os e-mails separados para evitar lotar sua caixa de entrada. Você pode ver tudo nos dados do seu app:",
+    "subject": "{count, plural, one {mais # novo envio} other {mais # novos envios}} no {app}"
+  },
+  "hi": "Olá,",
+  "hiName": "Olá, {name},",
+  "invite": {
+    "body": "{inviter} criou uma conta para você no {app}, onde você pode criar e publicar seus próprios apps.",
+    "bodyPlatform": "A equipe da plataforma criou uma conta para você no {app}, onde você pode criar e publicar seus próprios apps.",
+    "cta": "Defina sua senha para começar:",
+    "expires": "Este link só pode ser usado uma vez e expira em 7 dias.",
+    "subject": "Você recebeu um convite para {app}"
+  },
+  "reset": {
+    "forgotBody": "Alguém pediu para redefinir a senha da sua conta do {app}. Se foi você, escolha uma nova senha aqui:",
+    "forgotExpires": "O link só pode ser usado uma vez e expira em 2 horas. Se você não fez esse pedido, pode ignorar este e-mail.",
+    "issuedBody": "Use este link para escolher uma nova senha para sua conta do {app}:",
+    "issuedExpires": "Ele só pode ser usado uma vez e expira em 2 horas.",
+    "subject": "Redefina sua senha do {app}"
+  },
+  "test": {
+    "body": "Este é um e-mail de teste do {app}. Se você consegue ler esta mensagem, o e-mail está funcionando: convites, links para redefinir senhas e alertas do app serão enviados por {from}.",
+    "hello": "Olá,",
+    "noReply": "Você não precisa responder.",
+    "subject": "E-mail de teste do {app}"
+  }
+}

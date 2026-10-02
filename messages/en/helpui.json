@@ -1,0 +1,22 @@
+{
+  "metaTitle": "Help & guides",
+  "guideMetaTitle": "{title} · Help",
+  "help": "Help",
+  "helpGuides": "Help & guides",
+  "eyebrow": "HELP & GUIDES",
+  "heading": "How can we help?",
+  "intro": "Step-by-step guides to everything in {app}. The <b>Help</b> link at the top of any screen opens the guide for that screen.",
+  "searchLabel": "Search the guides",
+  "searchPlaceholder": "Search the guides, like “publish” or “domain”",
+  "searchHelp": "Type a word or two. The guides below are filtered as you type.",
+  "clearSearch": "Clear search",
+  "matches": "{count, plural, one {# guide matches} other {# guides match}}",
+  "noMatch": "No guides match “{query}”.",
+  "noMatchHint": "Try a different word, or look through all of them.",
+  "showAll": "Show all guides",
+  "backToAll": "Back to all guides",
+  "onThisPage": "On this page",
+  "onThisPageEyebrow": "ON THIS PAGE",
+  "step": "Step {n}: ",
+  "related": "Related guides"
+}

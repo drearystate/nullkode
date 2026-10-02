@@ -1,0 +1,49 @@
+{
+  "aiQuota": {
+    "body80": "{reseller} usó {used} de sus {max} acciones de IA de este mes. Cuando se agoten, la creación y edición con IA se pausarán para ti y tus clientes hasta {resets}.",
+    "bodyFull": "{reseller} usó las {max} acciones de IA disponibles para este mes. La creación y edición con IA están pausadas para ti y tus clientes hasta {resets}.",
+    "includes": "Este total incluye las acciones de IA de tus clientes y las tuyas.",
+    "raise": "Para aumentar el límite, ponte en contacto con quien administra la plataforma.",
+    "subject80": "{reseller}: ya se usó el 80% de las acciones de IA de este mes",
+    "subjectFull": "{reseller}: se agotaron las acciones de IA de este mes"
+  },
+  "alert": {
+    "field": "{name}: {value}",
+    "footer": "Recibes estos correos porque las alertas están activadas para {table}. Puedes desactivarlas en la página de resumen de tu app.",
+    "intro": "Alguien acaba de enviar un nuevo {label} a través de {app}.",
+    "introTest": "Esta es una prueba de tus alertas de {app}. Nadie envió esto.",
+    "reply": "Responde a este correo para contestarle directamente a {email}.",
+    "see": "Consúltalo en los datos de tu app:",
+    "subject": "Nuevo {label}",
+    "subjectHeadline": "Nuevo {label}: {headline}",
+    "subjectHeadlineTest": "(prueba) Nuevo {label}: {headline}",
+    "subjectTest": "(prueba) Nuevo {label}"
+  },
+  "alertSummary": {
+    "body": "{app} recibió {count, plural, one {# envío nuevo más} other {# envíos nuevos más}} durante la última hora.",
+    "heldBack": "Retuvimos los correos por separado para que no se te llene la bandeja de entrada. Puedes ver todo en los datos de tu app:",
+    "subject": "{count, plural, one {# envío nuevo más} other {# envíos nuevos más}} en {app}"
+  },
+  "hi": "Hola,",
+  "hiName": "Hola {name},",
+  "invite": {
+    "body": "{inviter} creó una cuenta para ti en {app}, donde puedes crear y publicar tus propias apps.",
+    "bodyPlatform": "El equipo de la plataforma creó una cuenta para ti en {app}, donde puedes crear y publicar tus propias apps.",
+    "cta": "Crea una contraseña para empezar:",
+    "expires": "Este enlace se puede usar una sola vez y vence en 7 días.",
+    "subject": "Te han invitado a {app}"
+  },
+  "reset": {
+    "forgotBody": "Alguien pidió restablecer la contraseña de tu cuenta de {app}. Si fuiste tú, elige una nueva contraseña aquí:",
+    "forgotExpires": "El enlace se puede usar una sola vez y vence en 2 horas. Si no lo solicitaste, puedes ignorar este correo.",
+    "issuedBody": "Aquí tienes un enlace para elegir una nueva contraseña para tu cuenta de {app}:",
+    "issuedExpires": "Se puede usar una sola vez y vence en 2 horas.",
+    "subject": "Restablece tu contraseña de {app}"
+  },
+  "test": {
+    "body": "Este es un correo de prueba de {app}. Si puedes leerlo, el correo funciona: las invitaciones, los enlaces para cambiar contraseñas y las alertas de la app se enviarán desde {from}.",
+    "hello": "Hola,",
+    "noReply": "No hace falta que respondas.",
+    "subject": "Correo de prueba de {app}"
+  }
+}

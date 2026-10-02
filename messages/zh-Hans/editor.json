@@ -1,0 +1,1153 @@
+{
+  "assets": {
+    "addHelp": "点按即可将这张照片添加到所选部分下方，也可以将它拖到页面上。",
+    "addPhoto": "添加这张照片",
+    "addPhotoNamed": "添加这张照片：{alt}",
+    "aiOriginal": "AI 原图",
+    "categories": {
+      "agriculture": {
+        "help": "农场和新鲜农产品。",
+        "label": "农业"
+      },
+      "all": {
+        "help": "查看各种可用于页面的免费照片。",
+        "label": "全部"
+      },
+      "architecture": {
+        "help": "查看建筑物的免费照片。",
+        "label": "建筑"
+      },
+      "automotive": {
+        "help": "车辆维修和车库。",
+        "label": "汽车"
+      },
+      "beauty": {
+        "help": "护肤、水疗和美容图片。",
+        "label": "美容"
+      },
+      "business": {
+        "help": "查看办公室和工作场景的免费照片。",
+        "label": "商务"
+      },
+      "cleaning": {
+        "help": "专业清洁服务。",
+        "label": "清洁"
+      },
+      "community": {
+        "help": "社区集市和新鲜农产品。",
+        "label": "社区"
+      },
+      "education": {
+        "help": "教室和协作学习。",
+        "label": "学习"
+      },
+      "events": {
+        "help": "婚礼和活动服务。",
+        "label": "活动"
+      },
+      "fitness": {
+        "help": "查看健身房和运动的免费照片。",
+        "label": "健身"
+      },
+      "food": {
+        "help": "查看美食和餐厅的免费照片。",
+        "label": "美食"
+      },
+      "landscaping": {
+        "help": "园艺和景观设计服务。",
+        "label": "园艺"
+      },
+      "legal": {
+        "help": "法律图书馆和法院建筑。",
+        "label": "法律"
+      },
+      "logistics": {
+        "help": "仓库、配送和运输。",
+        "label": "物流"
+      },
+      "medical": {
+        "help": "展示免费的医疗保健和医学照片。",
+        "label": "医疗"
+      },
+      "nature": {
+        "help": "查看自然风光和景色的免费照片。",
+        "label": "自然"
+      },
+      "originals": {
+        "help": "浏览随此安装附带的 AI 原创照片。",
+        "label": "原创"
+      },
+      "people": {
+        "help": "查看人物的免费照片。",
+        "label": "人物"
+      },
+      "pets": {
+        "help": "宠物护理和美容。",
+        "label": "宠物"
+      },
+      "products": {
+        "help": "陶瓷和产品摄影。",
+        "label": "产品"
+      },
+      "tech": {
+        "help": "查看电脑和科技主题的免费照片。",
+        "label": "科技"
+      },
+      "trades": {
+        "help": "管道、电工和建筑施工。",
+        "label": "工程服务"
+      },
+      "travel": {
+        "help": "展示免费的旅行和旅游景点照片。",
+        "label": "旅行"
+      }
+    },
+    "describeHelp": "用几个词描述图片内容。屏幕阅读器会为看不到图片的人读出这段描述，搜索引擎也会使用它。",
+    "describeLabel": "图片已更换。请为看不到图片的人描述一下：",
+    "describePlaceholder": "例如：店铺柜台上的新鲜面包",
+    "failedToLoad": "素材加载失败",
+    "footerAdd": "点按或拖动即可添加 · 免费照片",
+    "footerSwap": "点按照片，即可替换你选中的图片",
+    "noMatches": "没有匹配的图片。试试更宽泛的主题。",
+    "photoBy": "摄影：{name}",
+    "saveDescription": "保存描述",
+    "saveDescriptionHelp": "将此描述保存到图片中。",
+    "searchHelp": "输入想查找的照片内容，例如“咖啡”或“狗”，即可找到可免费使用的照片。",
+    "searchPlaceholder": "搜索照片...",
+    "skip": "跳过",
+    "skipHelp": "保留新图片，不更改描述。",
+    "swapHelp": "点按即可用这张照片替换你选中的图片。尺寸和位置保持不变。",
+    "useInstead": "改用这张照片",
+    "useInsteadNamed": "改用这张照片：{alt}"
+  },
+  "blockCategories": {
+    "basic": {
+      "help": "简单的搭建元素。点击名称可展开或收起。",
+      "label": "基础"
+    },
+    "commerce": {
+      "help": "用于销售的元素，例如商品卡片和价格。点击名称可展开或收起。",
+      "label": "电商"
+    },
+    "content": {
+      "help": "标题、段落、列表和提示文字。点击名称可展开或收起。",
+      "label": "内容"
+    },
+    "extra": {
+      "help": "一组区块。点击名称可展开或收起。",
+      "label": "其他"
+    },
+    "forms": {
+      "help": "供用户填写的输入框，例如联系表单和注册表单。点击名称可展开或收起。",
+      "label": "表单"
+    },
+    "interactive": {
+      "help": "按钮、卡片、标签页、弹出窗口等可供用户点击的元素。点击名称可展开或收起。",
+      "label": "交互元素"
+    },
+    "layout": {
+      "help": "用于容纳其他元素的盒子和分栏，以及文本和图片等基础元素。点击名称可展开或收起。",
+      "label": "布局"
+    },
+    "liveData": {
+      "help": "与应用信息联动的元素：可保存信息的表单、自动填充的列表和登录区域。点击名称可展开或收起。",
+      "label": "实时数据"
+    },
+    "media": {
+      "help": "图片、视频、音频和地图。点击名称可展开或收起。",
+      "label": "媒体"
+    },
+    "premade": {
+      "help": "可直接添加并修改的设计区块。点击名称可展开或收起。",
+      "label": "预制内容"
+    },
+    "sections": {
+      "help": "可直接使用的完整页面部分，例如介绍、价格或页脚。点击名称可展开或收起。",
+      "label": "页面区块"
+    },
+    "social": {
+      "help": "社交媒体链接、分享按钮和来自其他网站的内容。点击名称可展开或收起。",
+      "label": "社交"
+    }
+  },
+  "blockHelp": {
+    "nkAccordion": "点击问题或标题即可展开查看更多内容。",
+    "nkApiCall": "点击后会让应用执行某项操作的按钮。可在“设置”中选择操作。",
+    "nkAuthGate": "只有已登录的用户才能看到的内容框。",
+    "nkBadge": "小巧的彩色标签，例如“新品”或“促销”。",
+    "nkCarousel": "轮流显示的图片或幻灯片。",
+    "nkContainer": "页面中间的内容框，让里面的内容保持合适的宽度。",
+    "nkDataCards": "自动填入应用信息的卡片。可在“设置”中选择显示内容。",
+    "nkDataList": "自动填入应用信息的列表，例如商品或预约。可在“设置”中选择显示内容。",
+    "nkDataTable": "自动填入应用信息的表格。可在“设置”中选择显示内容。",
+    "nkDivider": "用于分隔页面内容的细线。",
+    "nkFlowForm": "表单会让应用处理用户的回答，例如保存答案或通过邮件发送给你。可在“设置”中选择处理方式。",
+    "nkGrid": "并排排列的小框，在较小屏幕上会自动换行。",
+    "nkIconChip": "彩色小圆圈里的图标。",
+    "nkIframe": "在页面中显示其他网站的内容，例如预约或付款组件。",
+    "nkLead": "字号稍大的段落，适合用作介绍。",
+    "nkMarqueeText": "在屏幕上滚动显示的文字。",
+    "nkModal": "点击后会在页面上方打开小窗口的按钮。",
+    "nkSection": "页面中的全宽区域，带有自己的标题。",
+    "nkSignout": "让用户退出应用的按钮。",
+    "nkSpacer": "空白区域，用来拉开内容之间的距离。",
+    "nkTabs": "包含多个内容面板，一次显示一个，可通过标签切换。",
+    "nkUserMenu": "供已登录用户使用的账户菜单，包含“个人资料”和“设置”等链接。"
+  },
+  "blocks": {
+    "button": "按钮",
+    "checkbox": "复选框",
+    "column1": "单栏",
+    "column2": "双栏",
+    "column3": "三栏",
+    "column37": "双栏 3/7",
+    "form": "表单",
+    "image": "图片",
+    "input": "输入框",
+    "label": "标签",
+    "link": "链接",
+    "linkBlock": "链接块",
+    "map": "地图",
+    "navbar": "导航栏",
+    "nkAccordion": "折叠面板",
+    "nkAddCart": "加入购物车",
+    "nkAlertDanger": "提示 · 错误",
+    "nkAlertInfo": "提示 · 信息",
+    "nkAlertSuccess": "提示 · 成功",
+    "nkAlertWarn": "提示 · 警告",
+    "nkApiCall": "运行流程的按钮",
+    "nkAudio": "音频",
+    "nkAuthGate": "会员专属区域",
+    "nkBadge": "徽标",
+    "nkBannerCard": "横幅卡片",
+    "nkBtnGroup": "按钮组",
+    "nkBtnLg": "按钮 · 大号",
+    "nkBtnOutline": "按钮 · 描边",
+    "nkBtnPrimary": "按钮 · 主要",
+    "nkCard": "卡片",
+    "nkCardImage": "图片卡片",
+    "nkCarousel": "轮播图",
+    "nkCartIcon": "购物车图标",
+    "nkClientLogos": "客户 Logo",
+    "nkCode": "代码块",
+    "nkContactForm": "联系表单",
+    "nkContainer": "容器",
+    "nkCta": "行动号召",
+    "nkCtaBand": "行动号召横幅",
+    "nkDataCards": "项目网格",
+    "nkDataList": "项目列表",
+    "nkDataTable": "项目表格",
+    "nkDivider": "分隔线",
+    "nkEventCard": "活动卡片",
+    "nkFancyHeading": "创意标题",
+    "nkFaq": "常见问题",
+    "nkFaqAccordion": "常见问题折叠面板",
+    "nkFeatureCards": "功能卡片",
+    "nkFeatures3": "功能 · 3列",
+    "nkFeatures4": "功能 · 2×2",
+    "nkFlowForm": "运行流程的表单",
+    "nkFooterMulti": "页脚 · 多列",
+    "nkFooterSimple": "页脚 · 简单",
+    "nkFormContact": "联系表单",
+    "nkFormLogin": "登录表单",
+    "nkFormNewsletter": "内嵌订阅表单",
+    "nkFormSearch": "搜索栏",
+    "nkFormSignup": "注册表单",
+    "nkGallery": "图片库 · 3列",
+    "nkGrid": "自动网格",
+    "nkH1": "标题 1",
+    "nkH2": "标题 2",
+    "nkH3": "标题 3",
+    "nkHeroCentered": "主视觉 · 居中",
+    "nkHeroForm": "主视觉 · 注册",
+    "nkHeroSplit": "主视觉 · 带图片",
+    "nkIconChip": "图标标签",
+    "nkIconPicker": "图标",
+    "nkIframe": "嵌入内容（iframe）",
+    "nkImage": "图片",
+    "nkImageCaption": "图片 · 带说明",
+    "nkImageGallery": "图片库",
+    "nkLead": "引导文字",
+    "nkLink": "链接",
+    "nkListItems": "列表项",
+    "nkListOl": "编号列表",
+    "nkListUl": "项目符号列表",
+    "nkLithoAboutUs": "关于我们",
+    "nkLithoContactModern": "联系信息 · 现代风格",
+    "nkLithoContactSimple": "联系信息 · 简洁风格",
+    "nkLithoFooterCentered": "页脚 · 居中",
+    "nkLithoFooterDark": "页脚 · 深色",
+    "nkLithoFooterNewsletter": "页脚 · 订阅",
+    "nkLithoIconBoxOverline": "图标框 · 上方小标题",
+    "nkLithoInfoBanner": "信息横幅",
+    "nkLithoLoginForm": "登录表单",
+    "nkLithoMessageBox": "消息框",
+    "nkLithoNewsCards": "新闻卡片",
+    "nkLithoOurStory": "我们的故事",
+    "nkLithoPieCharts": "饼图",
+    "nkLithoServicesShowcase": "服务展示",
+    "nkLithoVideoSection": "视频区块",
+    "nkLogoCloud": "Logo 展示栏",
+    "nkMap": "地图",
+    "nkMarqueeText": "滚动文字",
+    "nkModal": "弹窗",
+    "nkNavbar": "导航栏",
+    "nkNewsletter": "邮件订阅",
+    "nkParagraph": "段落",
+    "nkPricing3": "定价 · 3档",
+    "nkPricing3col": "价格表",
+    "nkPricingCard": "价格卡片",
+    "nkProcessSteps": "流程步骤",
+    "nkProduct": "商品卡片",
+    "nkProductGrid": "商品网格",
+    "nkProgress": "进度条",
+    "nkQuote": "引用",
+    "nkReviews": "评价",
+    "nkRow2": "两列",
+    "nkRow3": "三列",
+    "nkRow4": "四列",
+    "nkSection": "区块",
+    "nkServicesGrid": "服务网格",
+    "nkShare": "分享按钮",
+    "nkSignout": "退出登录按钮",
+    "nkSocialRow": "社交媒体图标",
+    "nkSpacer": "间隔",
+    "nkStats": "数据栏",
+    "nkStatsCounters": "数据统计",
+    "nkTabs": "标签页",
+    "nkTabsContent": "标签页内容",
+    "nkTeam": "团队",
+    "nkTeamGrid": "团队成员网格",
+    "nkTestimonials": "用户评价",
+    "nkUserMenu": "用户菜单",
+    "nkVideoFile": "视频文件",
+    "nkVimeo": "Vimeo",
+    "nkYoutube": "YouTube",
+    "quote": "引用",
+    "radio": "单选框",
+    "select": "下拉选择框",
+    "text": "文本",
+    "textBasic": "文本区块",
+    "textarea": "多行文本框",
+    "video": "视频"
+  },
+  "canvas": {
+    "advanced": "高级",
+    "advancedHelp": "更详细的设计选项，例如字体、阴影和内容在框内的排列方式。通常不需要使用这些选项。",
+    "blocksHint": "点击区块，将其添加到所选内容下方；也可以拖到页面上。",
+    "devices": {
+      "desktop": {
+        "help": "查看页面在电脑大屏幕上的显示效果。",
+        "label": "桌面端"
+      },
+      "mobile": {
+        "help": "查看页面在手机上的显示效果。务必检查，访客大多使用手机！",
+        "label": "手机"
+      },
+      "tablet": {
+        "help": "查看页面在平板（如 iPad）上的显示效果。",
+        "label": "平板"
+      }
+    },
+    "discard": "放弃",
+    "discardHelp": "丢弃这些未保存的更改，保留页面当前内容。丢弃后无法恢复。",
+    "draftNewer": "我们发现有未保存的更改。要恢复吗？",
+    "draftOlder": "我们发现了 {when} 的未保存更改。此页面之后有过更改。仍要恢复吗？",
+    "element": "元素",
+    "importLabel": "在此粘贴 HTML/CSS，然后点击导入。",
+    "importTitle": "导入模板",
+    "layersHelp": "页面上的所有内容，按顺序排列。点击某一行可选中对应内容；拖动行可调整内容位置。",
+    "leftTabs": {
+      "assets": {
+        "help": "可用于页面的免费图片。点击或拖动即可添加：点击可添加图片或替换所选图片，也可以拖到页面上。",
+        "label": "素材"
+      },
+      "blocks": {
+        "help": "可直接使用的页面内容：文本、图片、按钮和完整区块。点击或拖动即可添加：点击后会添加到所选内容下方，也可以拖到页面上。",
+        "label": "区块"
+      },
+      "modules": {
+        "help": "可直接使用的功能，例如预约或商店。添加后会自带页面，可直接使用。",
+        "label": "功能"
+      }
+    },
+    "noSettings": "这里没有可设置的内容。链接、图片、按钮、表单和列表都可以在此标签页中设置。",
+    "preview": "预览",
+    "previewHelp": "在新标签页中打开此页面并实际体验，包括按钮、表单等，就像访客看到的一样。",
+    "previewLabel": "预览此页面",
+    "redo": "重做",
+    "redoHelp": "恢复刚刚撤销的更改。",
+    "restore": "恢复",
+    "restoreHelp": "恢复此浏览器上次保留的更改。这些更改会替换页面当前内容，并照常保存。",
+    "retry": "重试",
+    "retryHelp": "立即重新保存最新更改。",
+    "rightTabs": {
+      "layers": {
+        "help": "页面上的所有内容，按从上到下的顺序排列。可以用来选中难以点击的内容。",
+        "label": "图层"
+      },
+      "styles": {
+        "help": "更改所选内容的外观：文字、颜色、间距和大小。请先点击页面上的内容。",
+        "label": "设计"
+      },
+      "theme": {
+        "help": "快速调整整个应用的颜色和圆角，或使用现成的样式。发布后，访客就能看到更改。",
+        "label": "主题"
+      },
+      "traits": {
+        "help": "所选内容的设置，例如链接指向哪里，或表单提交后会执行什么操作。",
+        "label": "设置"
+      }
+    },
+    "searchBlocks": "搜索区块…",
+    "searchBlocksHelp": "在此输入内容，快速查找区块。试试“按钮”或“照片”。",
+    "selectForSettings": "选择页面上的链接、图片、按钮、表单或列表即可查看设置。",
+    "selectSomething": "选择页面上的内容",
+    "selectionHelp": "你在页面上选中的内容。“设计”和“设置”标签页可以更改此内容。点击页面上的内容即可选中。",
+    "sharedStyles": "共享样式和悬停效果",
+    "sharedStylesHelp": "此内容与其他内容共用的样式名称，以及鼠标悬停时使用的样式。",
+    "status": {
+      "error": "未保存",
+      "idle": "已开启自动保存",
+      "pending": "有未保存的更改",
+      "saved": "已保存",
+      "saving": "正在保存…"
+    },
+    "statusErrorHelp": "最新更改未能保存到服务器。更改已保存在此浏览器中，我们会继续尝试保存。请检查网络连接。",
+    "statusHelp": "停止输入片刻后，你的更改会自动保存。发布后，访客才能看到这些更改。",
+    "stylesHelp": "所选内容的外观：文字、颜色、间距和大小。更改后，页面会立即更新。",
+    "toggleLeft": "显示或隐藏区块面板",
+    "toggleLeftHelp": "显示或隐藏左侧的区块、功能和图片面板，为页面腾出更多空间。",
+    "toggleRight": "显示或隐藏属性面板",
+    "toggleRightHelp": "显示或隐藏右侧面板，其中包含“设计”“图层”“设置”和“主题”标签页。",
+    "traitsHelp": "你选中内容的设置，例如链接指向哪里，或表单提交后会执行什么操作。",
+    "undo": "撤销",
+    "undoHelp": "撤销此页面上的上一步更改。再次点击可继续撤销。"
+  },
+  "design": {
+    "properties": {
+      "background": "背景图片或渐变",
+      "backgroundColor": "背景颜色",
+      "border": "边框",
+      "borderRadius": "圆角",
+      "boxShadow": "阴影",
+      "color": "文字颜色",
+      "fontFamily": "字体",
+      "fontSize": "文字大小",
+      "fontWeight": "粗细",
+      "height": "高度",
+      "letterSpacing": "字间距",
+      "lineHeight": "行距",
+      "margin": "外部间距",
+      "maxWidth": "最大宽度",
+      "minHeight": "最小高度",
+      "opacity": "透明度",
+      "padding": "内部间距",
+      "textAlign": "对齐方式",
+      "textShadow": "文字阴影",
+      "transform": "旋转和缩放",
+      "transition": "平滑变化",
+      "width": "宽度"
+    },
+    "sectors": {
+      "advEffects": "阴影和效果",
+      "advFlex": "内部排列",
+      "advLayout": "位置",
+      "advSize": "更多大小选项",
+      "advText": "更多文字选项",
+      "colors": "背景",
+      "corners": "圆角和边框",
+      "size": "大小",
+      "spacing": "间距",
+      "text": "文字"
+    }
+  },
+  "grapes": {
+    "assetManager": {
+      "addButton": "添加图片",
+      "modalTitle": "选择图片",
+      "uploadTitle": "将文件拖到此处，或点击上传"
+    },
+    "names": {
+      "box": "容器",
+      "button": "按钮",
+      "cell": "表格单元格",
+      "checkbox": "复选框",
+      "comment": "评论",
+      "form": "表单",
+      "iframe": "内嵌框架",
+      "image": "图片",
+      "input": "输入框",
+      "label": "标签",
+      "link": "链接",
+      "map": "地图",
+      "navbar": "导航栏",
+      "radio": "单选框",
+      "row": "表格行",
+      "select": "下拉选择框",
+      "svg": "SVG",
+      "table": "表格",
+      "tbody": "表格主体",
+      "text": "文本",
+      "textarea": "多行文本框",
+      "tfoot": "表格页脚",
+      "thead": "表格表头",
+      "video": "视频",
+      "wrapper": "正文"
+    },
+    "properties": {
+      "alignContent": "内容对齐",
+      "alignItems": "项目对齐",
+      "alignSelf": "自身对齐",
+      "backgroundAttachmentSub": "附着方式",
+      "backgroundImageSub": "图片",
+      "backgroundPositionSub": "位置",
+      "backgroundRepeatSub": "重复",
+      "backgroundSizeSub": "尺寸",
+      "borderBottomLeftRadiusSub": "左下",
+      "borderBottomRightRadiusSub": "右下",
+      "borderColorSub": "颜色",
+      "borderStyleSub": "样式",
+      "borderTopLeftRadiusSub": "左上",
+      "borderTopRightRadiusSub": "右上",
+      "borderWidthSub": "宽度",
+      "bottom": "下",
+      "boxShadowBlur": "模糊",
+      "boxShadowColor": "颜色",
+      "boxShadowH": "X",
+      "boxShadowSpread": "扩展",
+      "boxShadowType": "类型",
+      "boxShadowV": "Y",
+      "display": "显示方式",
+      "flexBasis": "弹性基准值",
+      "flexDirection": "弹性布局方向",
+      "flexGrow": "弹性增长",
+      "flexShrink": "弹性收缩",
+      "flexWrap": "弹性换行",
+      "float": "浮动",
+      "justifyContent": "主轴对齐",
+      "left": "左",
+      "marginBottomSub": "下",
+      "marginLeftSub": "左",
+      "marginRightSub": "右",
+      "marginTopSub": "上",
+      "order": "顺序",
+      "paddingBottomSub": "下",
+      "paddingLeftSub": "左",
+      "paddingRightSub": "右",
+      "paddingTopSub": "上",
+      "position": "位置",
+      "right": "右",
+      "textShadowBlur": "模糊",
+      "textShadowColor": "颜色",
+      "textShadowH": "X",
+      "textShadowV": "Y",
+      "top": "上",
+      "transformRotateX": "旋转 X",
+      "transformRotateY": "旋转 Y",
+      "transformRotateZ": "旋转 Z",
+      "transformScaleX": "缩放 X",
+      "transformScaleY": "缩放 Y",
+      "transformScaleZ": "缩放 Z",
+      "transitionDurationSub": "时长",
+      "transitionPropertySub": "属性",
+      "transitionTimingFunctionSub": "时间函数"
+    },
+    "selectorManager": {
+      "active": "点击",
+      "emptyState": "- 状态 -",
+      "evenOdd": "偶数/奇数",
+      "hover": "悬停",
+      "label": "类",
+      "selected": "已选中"
+    },
+    "styleManager": {
+      "empty": "请先选择一个元素，再使用样式管理器",
+      "fileButton": "图片",
+      "layer": "图层"
+    },
+    "traitManager": {
+      "empty": "请先选择一个元素，再使用属性管理器",
+      "label": "组件设置",
+      "newWindow": "新窗口",
+      "thisWindow": "当前窗口"
+    }
+  },
+  "iconPicker": {
+    "addHelp": "将此图标添加到页面。",
+    "changeIcon": "更换图标",
+    "closeHelp": "关闭，不选择图标。",
+    "noResults": "没有结果",
+    "pickIcon": "选择图标",
+    "replaceHelp": "用此图标替换你选中的图标。",
+    "searchHelp": "输入图标代表的内容，例如“电话”“星星”或“购物车”。",
+    "searchPlaceholder": "搜索图标…",
+    "useIcon": "使用 {name} 图标"
+  },
+  "iconSets": {
+    "all": {
+      "help": "一次搜索所有风格的图标。",
+      "label": "全部"
+    },
+    "fa6Brands": {
+      "help": "仅显示 Font Awesome 图标集中知名公司的标志。",
+      "label": "FA 品牌"
+    },
+    "fa6Solid": {
+      "help": "仅显示 Font Awesome 图标集中的实心图标。",
+      "label": "FA 实心"
+    },
+    "heroicons": {
+      "help": "仅显示 Heroicons 风格的图标：简洁清晰的轮廓。",
+      "label": "Heroicons"
+    },
+    "lucide": {
+      "help": "仅显示 Lucide 风格的图标：简洁的细线轮廓。",
+      "label": "Lucide"
+    },
+    "mdi": {
+      "help": "仅显示 Material 风格的图标，这种风格常见于 Android 应用。",
+      "label": "Material"
+    },
+    "ph": {
+      "help": "仅显示 Phosphor 风格的图标：亲切、圆润的线条。",
+      "label": "Phosphor"
+    },
+    "simpleIcons": {
+      "help": "仅显示知名公司、应用和社交网络的标志。",
+      "label": "品牌"
+    },
+    "tabler": {
+      "help": "仅显示 Tabler 风格的图标：简洁的轮廓，选择丰富。",
+      "label": "Tabler"
+    }
+  },
+  "iconsPanel": {
+    "addHelp": "将此图标添加到你选中的部分；如果没有选中内容，则添加到页面末尾。",
+    "addIcon": "添加 {name} 图标",
+    "clickToInsert": "点击插入",
+    "failedToLoad": "图标加载失败",
+    "noResults": "没有结果",
+    "searchHelp": "输入图标代表的内容，例如“电话”“星星”或“购物车”。",
+    "searchPlaceholder": "搜索图标…"
+  },
+  "languageTabs": {
+    "edited": "你已自行编辑此 {language} 页面。{main} 版本更改时，此页面不会被替换。",
+    "help": "你的应用支持多种语言。选择一种语言来编辑此页面；AI 所做的更改也会应用到该语言。",
+    "label": "语言",
+    "missing": "此页面尚未翻译成 {language}，因此你看到的是 {main} 版本。在此处所做的更改会成为 {language} 页面。",
+    "shared": "所有语言共用样式。",
+    "stale": "此页面的 {main} 版本在翻译后有过更改。请在应用概览中更新翻译，或自行编辑此页面。",
+    "tabHelp": "用 {language} 编辑此页面。"
+  },
+  "modules": {
+    "addHelp": "点击查看此功能会为你的应用添加什么。确认前不会有任何更改。我们会先保存你的页面。",
+    "added": "已添加",
+    "addedHelp": "已添加到你的应用。点击查看它会添加什么，或再次添加。",
+    "categories": {
+      "all": {
+        "help": "显示所有可添加的功能。",
+        "label": "全部"
+      },
+      "commerce": {
+        "help": "用于销售和收款的功能，例如商店、预约、优惠券或捐款。",
+        "label": "商店"
+      },
+      "communication": {
+        "help": "用于与访客保持联系的功能，例如联系表单、新闻邮件或短信。",
+        "label": "沟通"
+      },
+      "community": {
+        "help": "用于凝聚人群的功能，例如活动、评价、聊天和论坛。",
+        "label": "社区"
+      },
+      "content": {
+        "help": "用于分享文字和消息的功能，例如博客、常见问题、作品集或课程。",
+        "label": "内容"
+      },
+      "media": {
+        "help": "用于照片、视频、音乐和其他媒体的功能。",
+        "label": "媒体"
+      },
+      "productivity": {
+        "help": "用于完成任务的功能，例如待办清单、笔记、预约和问卷。",
+        "label": "效率"
+      },
+      "utility": {
+        "help": "实用功能，例如登录、地图、文件上传和天气组件。",
+        "label": "工具"
+      }
+    },
+    "categoryHelp": "仅显示此分组中的功能。",
+    "empty": "这里还没有功能",
+    "footer": "点击某项功能，查看它会为你的应用添加什么",
+    "loading": "正在加载功能…",
+    "nameAdded": "{name}（已添加）",
+    "notSaved": "你最近的更改尚未保存，因此我们没有添加任何内容。请检查网络连接后重试。",
+    "savingPage": "正在保存页面…",
+    "searchHelp": "输入你希望应用实现的功能，例如“预约”或“新闻邮件”，查找现成的功能。",
+    "searchLabel": "搜索功能",
+    "searchPlaceholder": "搜索功能…"
+  },
+  "pageSettings": {
+    "audience": "谁可以查看此页面",
+    "audienceHelp": "选择谁可以在已发布的应用中打开此页面：所有人、仅限已登录用户，或仅限管理员。",
+    "audiences": {
+      "admin": {
+        "hint": "只有你和你设为管理员的人可以访问。",
+        "label": "仅限管理员"
+      },
+      "public": {
+        "hint": "任何拥有链接的人都可以打开。",
+        "label": "所有人"
+      },
+      "role": {
+        "hint": "由页面本身设置。选择其他选项即可更改。",
+        "label": "拥有“{role}”角色的人"
+      },
+      "signedIn": {
+        "hint": "访客需要先登录。任何人都可以创建账号。",
+        "label": "已登录用户"
+      }
+    },
+    "buttonNote": "它会作为按钮显示在菜单末尾。",
+    "close": "关闭页面设置",
+    "designerNote": "此应用的页面由 AI 设计器生成，请在那里进行更改。",
+    "duplicate": "复制",
+    "duplicateHelp": "复制此页面，命名为“（副本）”，并打开副本供你编辑。此处更改但未保存的设置不会复制。",
+    "goesAtEnd": "它会排在菜单末尾。保存后即可调整位置。",
+    "homeFirst": "首页始终排在最前面。",
+    "loadFailed": "无法加载此页面的设置。",
+    "loadFailedRetry": "无法加载此页面的设置，请重试。",
+    "menu": "菜单",
+    "menuHelp": "设置此页面是否在应用菜单中显示链接，以及它在菜单中的位置。",
+    "moveDown": "下移",
+    "moveDownHelp": "将此页面在菜单中向后移动一位。按“保存”后生效。",
+    "moveUp": "上移",
+    "moveUpHelp": "将此页面在菜单中向前移动一位。按“保存”后生效。",
+    "name": "名称",
+    "nameHint": "显示在菜单和浏览器标签页上。",
+    "neverInMenu": "此页面不会显示在菜单中。",
+    "noLogin": "你的应用还没有登录页面，因此只有你可以打开此页面。<link>在“功能”中添加“登录和账户”。</link>",
+    "placeInManage": "在管理员的“管理”菜单中的位置：第 <b>{position}</b> 个，共 {count} 个",
+    "placeInMenu": "在菜单中的位置：第 <b>{position}</b> 个，共 {count} 个",
+    "privatePublic": "此页面会显示私人数据，公开后任何人都能看到。",
+    "privateSignedIn": "此页面会显示私人数据。任何注册用户都能看到。",
+    "saveFirst": "请先保存，然后再设置它在菜单中的位置。",
+    "saveHelp": "保存这些设置。应用中所有页面的菜单都会随之更新。",
+    "showInMenu": "在菜单中显示",
+    "showInMenuHelp": "勾选后，此页面的链接会显示在应用菜单中。取消勾选后，链接会从菜单中隐藏，但知道链接的人仍可打开页面。",
+    "title": "页面设置"
+  },
+  "panelHelp": {
+    "blockTip": "{about} 点击可将它添加到所选部分的下方，也可以将它拖到页面上。",
+    "blockTipGeneric": "点击或拖动：点击“{label}”可将它添加到所选部分的下方，也可以将它拖到想要的位置。",
+    "categoryGeneric": "一组内容块。点击名称可展开或收起。",
+    "imagePicker": {
+      "addButton": "将你输入的网址对应的图片添加到下方列表。然后点击图片即可使用。",
+      "asset": "点击即可在页面中使用此图片。双击即可使用图片并关闭此窗口。",
+      "close": "关闭此窗口。你已点击使用的图片会保留在页面上。",
+      "closeLabel": "关闭",
+      "removeAsset": "将此图片从列表中移除。已放到页面上的图片不会受影响。",
+      "removeLabel": "从列表中移除",
+      "upload": "从电脑或手机中选择图片，或将图片拖到此处。图片会保存到你的页面中，并添加到下方列表。",
+      "urlInput": "粘贴已上传到网上的图片网址，然后点击“添加图片”，将图片加入下方列表。"
+    },
+    "layers": {
+      "layerRow": "页面中的一个元素。点击可选中它；点击箭头可展开其中的内容。",
+      "move": "按住这里并拖动，即可将此元素移到页面上的其他位置。",
+      "visibility": "点击眼睛图标可在编辑时隐藏此元素——它还在，只是暂时藏起来了。再点一次即可显示。"
+    },
+    "rte": {
+      "bold": "将选中的文字加粗。再点一次可取消加粗。",
+      "italic": "将选中的文字设为斜体。再点一次可取消斜体。",
+      "link": "将选中的文字设为链接，或移除链接。然后在“设置”标签页中选择链接目标。",
+      "strikeThrough": "为选中的文字添加删除线。再点一次可移除删除线。",
+      "underline": "为选中的文字添加下划线。再点一次可移除下划线。",
+      "wrapForStyle": "将选中的文字单独包成一个元素，这样你就能在“设计”标签页中单独更改它们的颜色或大小。"
+    },
+    "sectors": {
+      "advEffects": "阴影、淡化、背景图片和流畅动画。",
+      "advFlex": "设置这个方框中的内容如何排列成行或列。",
+      "advLayout": "这部分内容的位置和固定方式。大多数页面都不需要调整这些设置。",
+      "advSize": "限制这部分内容在不同屏幕上的宽度或高度。",
+      "advText": "字体、行距、字间距和文字阴影。",
+      "background": "这部分内容的背景：纯色、渐变或图片。",
+      "colors": "这部分内容背后的颜色。",
+      "corners": "设置圆角，或为边缘添加线条。",
+      "decorations": "外观设置：背景颜色和图片、边框、圆角和阴影。",
+      "dimension": "大小和间距：这部分内容的尺寸，以及内部和周围的留白。",
+      "extra": "流畅动画、倾斜等额外效果。",
+      "flex": "让这个方框中的内容整齐排列成行或列。",
+      "general": "基本设置：这部分内容在页面上的位置和固定位置。",
+      "layout": "这部分内容在页面上的位置，以及周围内容的排列方式。",
+      "size": "这部分内容的宽度和高度。",
+      "spacing": "这部分内容的内边距（边缘与内容之间的空间）和外边距（与周围内容之间的空间）。",
+      "text": "文字的样式：大小、粗细、颜色和对齐方式。",
+      "typography": "所有文字设置：字体、大小、颜色和对齐方式。"
+    },
+    "selectors": {
+      "addClass": "为这个元素设置一个共享样式名称。所有名称相同的元素都会使用相同样式，修改一个就会一起改变。",
+      "selectedInfo": "显示你当前正在设置样式的元素，清楚了解更改会影响什么。",
+      "states": "为特殊状态设置样式。选择“悬停”，更改只会在鼠标移到元素上时显示；选择“点击”，则会在按下时显示。选择“- 状态 -”可恢复普通样式。",
+      "tag": "此元素使用的共享样式名称。更改会应用到所有使用此名称的元素。点击 x 可将它从此元素中移除。"
+    },
+    "styles": {
+      "alignContent": "元素换到多行时，设置各行的分布方式：聚在一起、居中或分散排列。",
+      "alignItems": "设置元素沿横向的对齐方式：顶部、中间、底部，或拉伸到相同大小。",
+      "alignSelf": "让这个元素单独设置对齐方式，不受其他元素影响：顶部、中间、底部或拉伸。",
+      "background": "这个元素背后的填充内容，可以是颜色、渐变或图片。还可以叠加多层背景。",
+      "backgroundAttachment": "“滚动”会让背景随页面一起移动。“固定”会让背景停在原处，页面从它上面滑过，营造有趣的纵深感。",
+      "backgroundColor": "这个元素内容背后的填充颜色。",
+      "backgroundImage": "用作这个元素背景的图片或渐变。",
+      "backgroundPosition": "背景图片的显示位置，可以向左、向右、向上或向下调整。",
+      "backgroundRepeat": "背景图片是否像瓷砖一样重复铺满，还是只显示一次。",
+      "backgroundSize": "图片填充空间的方式：“覆盖”会铺满整个区域（可能裁掉边缘）；“包含”会显示整张图片（可能留下空白）。",
+      "border": "这个元素边缘的线条。可以设置粗细、样式（实线、虚线、点线）和颜色。",
+      "borderBottomLeftRadius": "只调整左下角的圆润程度。",
+      "borderBottomRightRadius": "只调整右下角的圆润程度。",
+      "borderColor": "边缘线条的颜色。",
+      "borderRadius": "边角的圆润程度。0 表示直角，数值越大越圆。数值足够大时，方框会变成胶囊形或圆形。",
+      "borderStyle": "边缘线条的样式：实线、虚线（- - -）或点线（• • •）。",
+      "borderTopLeftRadius": "只调整左上角的圆润程度。",
+      "borderTopRightRadius": "只调整右上角的圆润程度。",
+      "borderWidth": "边缘线条的粗细。0 表示不显示边框。",
+      "bottom": "这部分内容与底部的距离。只有“定位”不是“静态”时才有效。",
+      "boxShadow": "在这个元素后添加柔和的阴影，让它看起来像桌上的卡片一样浮在页面上。可以设置阴影偏移、模糊程度、大小和颜色。",
+      "boxShadowBlur": "阴影的模糊程度。0 表示边缘清晰；数值越大越柔和。",
+      "boxShadowColor": "阴影的颜色。柔和的灰色或半透明的黑色通常效果不错。",
+      "boxShadowH": "让阴影向左或向右移动。负数表示向左。",
+      "boxShadowSpread": "阴影向各个方向扩展的距离。数值越大，阴影范围越大。",
+      "boxShadowType": "“外部”会在元素后添加阴影。“内部”会让阴影嵌入元素，形成凹陷效果。",
+      "boxShadowV": "让阴影向上或向下移动。负数表示向上。",
+      "color": "文字颜色。点击颜色框，挑选你喜欢的颜色。",
+      "cursor": "鼠标指针移到这部分内容上时的样式。“指针”（小手）表示这里可以点击。",
+      "display": "这部分内容在页面上的排列方式。“块级”会独占一整行；“行内”会与其他内容并排，就像句子里的文字；“弹性”会整齐排列其中的内容；“无”会将其完全隐藏。",
+      "flexBasis": "这个元素在拉伸或缩小以分配空间之前的初始大小。",
+      "flexDirection": "设置这个框内元素的排列方向：按行排列（并排）或按列排列（从上到下）。“反向”会颠倒顺序。",
+      "flexGrow": "让这个元素占用多余空间。数值为 2 的元素会比数值为 1 的元素多占一倍空间。0 表示不拉伸。",
+      "flexShrink": "空间不足时，让这个元素缩小。数值越大，缩得越多。0 表示不缩小。",
+      "flexWrap": "放不下的元素是换到下一行（“换行”），还是挤在同一行（“不换行”）。",
+      "float": "将这部分内容推到左侧或右侧，并让文字环绕它，就像报纸里的图片。“无”会让它保持在原来的位置。",
+      "fontFamily": "字体样式。不同字体给人的感觉不同，可以俏皮、严肃或精致。选好字体后，文字会立即更新。",
+      "fontSize": "文字大小。常规正文约为 16px，大标题通常为 32px 或更大。",
+      "fontWeight": "文字粗细。400 为常规，700 为粗体。越粗的文字越醒目。",
+      "height": "这部分内容的高度。“自动”表示刚好容纳内部内容，通常是最稳妥的选择。",
+      "justifyContent": "设置元素沿行或列方向的分布方式：靠起点排列、居中或均匀分散。",
+      "left": "这部分内容与左侧的距离。只有“定位”不是“静态”时才有效。",
+      "letterSpacing": "字母之间的间距。稍微加宽会让标题更精致；太宽就不容易读了。",
+      "lineHeight": "段落中每行之间的距离。设为 1.5 左右读起来更舒服；设为 1 会让行挤在一起。",
+      "margin": "这部分内容外侧的留白，会把周围内容推开。数值越大，周围空隙越多。",
+      "marginBottom": "这部分内容下方的留白，会将后续内容往下推。",
+      "marginLeft": "这部分内容左侧的留白，会将左侧内容推开。",
+      "marginRight": "这部分内容右侧的留白，会将右侧内容推开。",
+      "marginTop": "这部分内容上方的留白，会将它与上方内容隔开。",
+      "maxHeight": "允许达到的最大高度。超出的内容会被裁掉或滚动查看。",
+      "maxWidth": "允许达到的最大宽度，即使在大屏幕上也不会超过。适合控制文字行长，让内容更易阅读。",
+      "minHeight": "允许达到的最小高度，即使内容为空也一样。适合防止区域收缩。",
+      "minWidth": "允许达到的最小宽度，即使在小屏幕上也不会更窄。",
+      "opacity": "这个元素的透明程度。100 表示完全不透明；数值越低越透明。0 表示完全不可见。",
+      "order": "调整这个元素的排列顺序，不移动其他元素。数值越小，位置越靠前。",
+      "overflow": "内部内容超出方框时的处理方式：“隐藏”会裁掉超出部分；“滚动”/“自动”会添加滚动条；“可见”会让超出部分继续显示。",
+      "padding": "这部分内容内部的留白，也就是边缘与内容之间的空间。增加内边距会让按钮和卡片显得更宽松。",
+      "paddingBottom": "底部内边距，也就是下边缘与内容之间的空间。",
+      "paddingLeft": "左侧内边距，也就是左边缘与内容之间的空间。",
+      "paddingRight": "右侧内边距，也就是右边缘与内容之间的空间。",
+      "paddingTop": "顶部内边距，也就是上边缘与内容之间的空间。",
+      "perspective": "为倾斜的元素添加 3D 纵深感。数值越小，3D 效果越明显，就像把东西拿到眼前一样。",
+      "position": "这部分内容的定位方式。“静态”表示保持默认位置；“相对”表示从默认位置稍微移动；“绝对”表示固定在方框内的任意位置；“固定”表示固定在屏幕上，滚动时也不会移动。",
+      "right": "这部分内容与右侧的距离。只有“定位”不是“静态”时才有效。",
+      "textAlign": "文字的对齐方式：左对齐、居中、右对齐，或两端对齐。",
+      "textDecoration": "给文字添加线条：下划线、删除线，或选“无”来移除链接通常带有的下划线。",
+      "textShadow": "在文字后添加柔和的阴影，让文字从背景中突出。可以设置阴影偏移距离、模糊程度和颜色。",
+      "textShadowBlur": "文字阴影的模糊程度。0 表示清晰锐利；数值越大越柔和。",
+      "textShadowColor": "文字阴影的颜色。",
+      "textShadowH": "让文字阴影向左或向右移动。负数表示向左。",
+      "textShadowV": "让文字阴影向上或向下移动。负数表示向上。",
+      "textTransform": "自动更改文字大小写：全部大写、全部小写，或每个单词首字母大写。",
+      "top": "这部分内容与顶部的距离。只有“定位”不是“静态”时才有效。",
+      "transform": "旋转、倾斜、放大或缩小这个元素，但不改变它周围其他元素的位置。",
+      "transformRotateX": "让元素向后或向前倾斜，像一扇门倒下。",
+      "transformRotateY": "让元素向侧面旋转，像一扇旋转的门。",
+      "transformRotateZ": "让元素平面旋转，像钟表指针。180 表示翻转过来。",
+      "transformScaleX": "让元素横向拉伸或压缩。1 表示原始大小，2 表示宽度变为两倍。",
+      "transformScaleY": "让元素纵向拉伸或压缩。1 表示原始大小，2 表示高度变为两倍。",
+      "transformScaleZ": "在 3D 深度方向缩放元素，只有旋转元素时才看得出来。",
+      "transition": "让样式平滑变化，而不是瞬间改变，比如鼠标悬停时按钮颜色缓缓变化。",
+      "transitionDuration": "平滑变化所需的时间。0.3 秒感觉利落；2 秒则更缓慢、更有戏剧感。",
+      "transitionProperty": "选择要平滑变化的样式，例如“全部”、仅颜色或仅大小。",
+      "transitionTimingFunction": "设置变化的节奏：全程均匀（“线性”），或像汽车轻轻刹车一样逐渐加速或减速（“缓动”）。",
+      "verticalAlign": "让这个元素与旁边的文字对齐：顶部、中间或底部。",
+      "width": "这部分内容的宽度。使用 100% 可填满可用空间，也可以设置具体尺寸，如 300px。",
+      "zIndex": "两个内容重叠时，哪个显示在上面。数值越大，位置越靠前，就像一叠卡片中最上面的那张。"
+    },
+    "traits": {
+      "address": "此处显示的图片或视频的网址。",
+      "answerName": "应用保存此答案时使用的名称，例如“邮箱”。尽量简短易懂。",
+      "belongsToField": "此标签描述表单中的哪个输入框。点击标签后，光标会移到对应的输入框中。",
+      "buttonWords": "此按钮上显示的文字。",
+      "goesTo": "此链接的目标位置。输入 /page-name 可链接到你自己的页面，或输入完整的 https:// 地址可链接到其他网站。",
+      "hintText": "输入框为空时显示的灰色提示，例如“输入你的名字”。开始输入后，提示就会消失。",
+      "hoverNote": "鼠标停留在此元素上时显示的简短提示。",
+      "kind": "输入框的类型，例如文本、邮箱、密码（隐藏输入内容）、数字等。选择合适的类型，手机就能显示合适的键盘。",
+      "mustBeFilledIn": "开启后，必须填写此输入框才能提交表单。",
+      "openInANewTab": "勾选后，链接会在新标签页中打开，你的应用也会保持打开。",
+      "pictureDescription": "为看不见图片的人和搜索引擎描述图片内容。说说图片里有什么。",
+      "showItemsFrom": "选择此列表从哪里获取内容，例如你的预订或商品。列表会自动更新。",
+      "startingValue": "页面首次打开时已填好的内容。",
+      "tickedAtTheStart": "页面打开时，此选框是否默认勾选。",
+      "whenPressed": "此按钮的作用：提交所在表单、清空表单，或不执行操作（适用于有其他用途的按钮）。",
+      "whenPressedRun": "选择点击此按钮后应用要执行的操作。你可以在“流程”中找到这些设置。",
+      "whenSentRun": "选择表单提交后应用如何处理答案，例如保存答案或发送邮件。你可以在“流程”中找到这些设置。"
+    }
+  },
+  "rte": {
+    "bold": "粗体",
+    "italic": "斜体",
+    "link": "链接",
+    "strikeThrough": "删除线",
+    "underline": "下划线",
+    "wrapForStyle": "添加样式容器"
+  },
+  "settings": {
+    "address": "地址",
+    "answerName": "答案名称",
+    "belongsToField": "所属字段",
+    "buttonWords": "按钮文字",
+    "goesTo": "跳转到",
+    "hintText": "提示文字",
+    "hoverNote": "悬停提示",
+    "kind": "类型",
+    "mustBeFilledIn": "必填",
+    "nothing": "无",
+    "openInANewTab": "在新标签页中打开",
+    "pictureDescription": "图片说明",
+    "showItemsFrom": "显示来自",
+    "startingValue": "初始值",
+    "tickedAtTheStart": "开始时已勾选",
+    "whenPressed": "点击时",
+    "whenPressedRun": "点击时运行",
+    "whenSentRun": "提交时运行"
+  },
+  "shell": {
+    "addPage": "添加页面",
+    "addPageHelp": "在应用中添加一个空白新页面。接下来输入页面名称，它就会显示在应用菜单中。",
+    "closePages": "关闭页面列表",
+    "confirmDeletePage": "删除“{title}”？此操作无法撤销。",
+    "confirmDiscardSwitch": "放弃此页面上未保存的更改并切换吗？",
+    "couldNotSave": "无法保存你的更改。请重试。",
+    "deletePage": "删除页面",
+    "deletePageFor": "删除{title}",
+    "deletePageHelp": "删除此页面及其所有内容。系统会要求你确认。此操作无法撤销。",
+    "discardSwitch": "放弃更改并切换",
+    "discardSwitchHelp": "丢弃此页面上未能保存的更改，然后打开其他页面。这些更改无法恢复。",
+    "dismiss": "关闭",
+    "dismissError": "关闭错误提示",
+    "editing": "正在编辑",
+    "editsNotSaved": "你最近的更改尚未保存。请检查网络连接后重试。",
+    "featureAdded": "已添加{name}。",
+    "featureAddedWithPages": "已添加{name}及其专属页面。现在可以在菜单中找到它们。",
+    "findPage": "查找页面…",
+    "madeCopy": "已创建副本。你现在正在编辑“{title}”。",
+    "mobileTip": "提示：点按页面上的某个部分，再点按一个区块即可将其添加到下方。或者按<b>询问 AI</b>，告诉它要更改什么。",
+    "newPage": "新建页面",
+    "newPageHelp": "在应用中添加一个空白新页面。请先为页面命名。",
+    "noMatchingPages": "没有匹配的页面。",
+    "notSaved": "<b>未保存</b> – 请检查网络连接。我们会继续尝试。",
+    "open": "打开",
+    "openHomePageHelp": "在编辑器中打开此页面。房子图标表示这是你的首页，也是访客看到的第一个页面。",
+    "openNewPage": "打开新页面",
+    "openPageHelp": "在编辑器中打开此页面。系统会先保存你在当前页面上的更改。",
+    "pageCount": "{count, plural, one {# 个页面} other {# 个页面}}",
+    "pageName": "页面名称",
+    "pageNameHelp": "新页面的名称。它会显示在应用菜单和浏览器标签页上，之后也可以更改。",
+    "pageNamePlaceholder": "例如：关于我们",
+    "pagePickerHelp": "这是你当前正在编辑的页面。点击即可查看所有页面、切换到其他页面或更改页面设置。",
+    "pageSettings": "页面设置",
+    "pageSettingsFor": "“{title}”的页面设置",
+    "pageSettingsHelp": "重命名此页面、选择谁可以查看、设置是否在应用菜单中显示，或创建副本。",
+    "pages": "页面",
+    "retry": "重试",
+    "retryHelp": "立即重新保存最近的更改，无需等待下一次自动保存。",
+    "savedSettings": "已保存“{title}”的设置。",
+    "searchPages": "搜索页面",
+    "searchPagesHelp": "输入部分页面名称以缩小列表范围。",
+    "setHome": "设为首页",
+    "setHomeFor": "将{title}设为首页",
+    "setHomeHelp": "将此页面设为访客打开应用主网址时看到的第一个页面。",
+    "somethingWrong": "出了点问题。请重试。",
+    "theFeatureAdded": "已添加此功能。",
+    "theFeatureAddedWithPages": "已添加此功能及其专属页面。现在可以在菜单中找到它们。",
+    "updating": "正在更新你的工作区…",
+    "yourPages": "你的页面"
+  },
+  "theme": {
+    "colorCodeHelp": "也可以在这里输入颜色代码，比如 #1a73e8，指定你想要的颜色。",
+    "colorCodeLabel": "{name}颜色代码",
+    "colorLabel": "{name}颜色",
+    "colors": {
+      "accent": {
+        "help": "用于徽章和装饰图形等细节的辅助颜色。",
+        "label": "强调色"
+      },
+      "bg": {
+        "help": "页面中所有内容后面的颜色。",
+        "label": "背景"
+      },
+      "border": {
+        "help": "方框边缘和内容区块之间细线的颜色。",
+        "label": "边框"
+      },
+      "primary": {
+        "help": "品牌的主要颜色，用于按钮、链接和重点内容。",
+        "label": "主色"
+      },
+      "primary2": {
+        "help": "有人将鼠标指向按钮或链接时，它们会变成此颜色。",
+        "label": "主色悬停"
+      },
+      "surface": {
+        "help": "背景上卡片和方框的颜色。",
+        "label": "表面"
+      },
+      "surface2": {
+        "help": "另一种方框颜色，用于区分部分内容和标签。",
+        "label": "替代表面"
+      },
+      "text": {
+        "help": "页面上大部分文字的颜色。",
+        "label": "文字"
+      },
+      "textMuted": {
+        "help": "用于说明文字和小提示等次要文字的柔和颜色。",
+        "label": "弱化文字"
+      }
+    },
+    "colorsTitle": "颜色",
+    "corners": "圆角",
+    "dark": "深色",
+    "darkHelp": "切换到第一个深色预设主题。当前颜色和字体会被替换。",
+    "darkPair": "深色模式配色",
+    "darkPairAuto": "自动（第一个深色预设）",
+    "darkPairHelp": "访客使用太阳/月亮按钮开启深色模式时，应用会切换到这些颜色。选择“自动”可由系统为你挑选。",
+    "darkPairNote": "用户可以在每个页面上看到太阳/月亮切换按钮。",
+    "light": "浅色",
+    "lightHelp": "切换到第一个浅色预设主题。当前颜色和字体会被替换。",
+    "loading": "正在加载主题…",
+    "mode": "模式",
+    "pickTheme": "选择主题…",
+    "preset": "预设",
+    "presetButtonHelp": "为整个应用选择一种现成风格。它会替换当前的颜色、字体和圆角。发布后，访客就能看到。",
+    "presetHelp": "适用于整个应用的现成配色和字体组合。先选一个，再调整下方的颜色。",
+    "radius": "半径",
+    "roundness": "圆角程度",
+    "roundnessHelp": "设置应用中按钮、卡片和方框的圆角程度。向左滑动会变方，向右滑动会更圆。",
+    "useLook": "使用“{name}”风格：它的颜色、字体和圆角会替换当前设置。"
+  },
+  "toolbar": {
+    "delete": {
+      "help": "从页面中移除此部分。想恢复？点击顶部的“撤销”。",
+      "title": "删除"
+    },
+    "drag": {
+      "help": "按住此处并拖动，即可将此部分移动到页面上的任意位置。在触摸屏上，请使用“上移”和“下移”。",
+      "title": "拖动以移动"
+    },
+    "duplicate": {
+      "help": "复制此部分，并将副本放在它后面。",
+      "title": "复制"
+    },
+    "moveDown": {
+      "help": "将此部分在页面上向下移动一格，放到后一部分下方。点击撤销即可恢复。",
+      "title": "下移"
+    },
+    "moveUp": {
+      "help": "将此部分在页面上向上移动一格，放到前一部分上方。点击撤销即可恢复。",
+      "title": "上移"
+    },
+    "selectParent": {
+      "help": "选择包含此部分的较大容器，例如按钮所在的整个区块。",
+      "title": "选择外层部分"
+    }
+  },
+  "welcome": {
+    "askAi": "按“询问 AI”进行较大的更改，例如“添加一个价格介绍版块”。",
+    "clickWords": "点击页面上的任意文字即可更改。双击图片即可替换。",
+    "features": "在<link>功能</link>中添加预约、商店等内容。",
+    "gotIt": "知道了",
+    "gotItHelp": "隐藏此欢迎框，开始编辑。",
+    "publish": "准备好后，<link>发布应用</link>并获取分享链接。",
+    "title": "你的应用已准备就绪。下面介绍如何按自己的想法打造："
+  },
+  "wireUp": {
+    "blocks": {
+      "auth": {
+        "connectExisting": "<b>连接</b> — 将两个表单连接到应用的登录和账号功能。不会添加额外页面。",
+        "connectNew": "<b>连接</b> — 为应用添加账号、登录和注册功能，并将两个表单连接到这些功能。不会添加额外页面。",
+        "purpose": "这些表单可以让用户登录和创建新账号。"
+      },
+      "blog": {
+        "connectExisting": "<b>连接</b> — 将这些卡片连接到应用中已有的文章。不会添加额外页面。",
+        "connectNew": "<b>连接</b> — 添加一个文章表格，预置此处显示的三篇文章，并将这些卡片连接到表格。只有已发布的文章才会显示；可在“数据”中添加或修改文章。不会添加额外页面。",
+        "purpose": "这些卡片可以显示保存在应用数据中的最新文章。"
+      },
+      "contactForm": {
+        "connectExisting": "<b>连接</b> — 将此表单连接到应用中已有的消息表格。不会添加额外页面。",
+        "connectNew": "<b>连接</b> — 添加一个消息表格和用于保存消息的自动化流程，并将此表单连接到它们。不会添加额外页面。",
+        "purpose": "此表单可以保存用户发送给你的消息。"
+      },
+      "contactFormModern": {
+        "connectExisting": "<b>连接</b> — 将此表单连接到应用中已有的消息表格。不会添加额外页面。",
+        "connectNew": "<b>连接</b> — 添加一个消息表格（姓名、邮箱和消息；不会保存手机号）和用于保存消息的自动化流程，并将此表单连接到它们。不会添加额外页面。",
+        "purpose": "此表单可以保存用户发送给你的消息。"
+      },
+      "faq": {
+        "connectExisting": "<b>连接</b> — 将此列表连接到应用中已有的问题。不会添加额外页面。",
+        "connectNew": "<b>连接</b> — 添加一个问题表格，预置此处显示的四个问题，并将此列表连接到表格。可在“数据”中添加或修改问题。不会添加额外页面。",
+        "purpose": "此列表可以显示保存在应用数据中的问题和答案。"
+      },
+      "gallery": {
+        "connectExisting": "<b>连接</b> — 将此图库连接到应用中已有的照片。不会添加额外页面。",
+        "connectNew": "<b>连接</b> — 添加一个照片表格，预置此处显示的五个标题，并将此图库连接到表格。可在“数据”中添加每张图片的网址。不会添加额外页面。",
+        "purpose": "此图库可以显示保存在应用数据中的照片。"
+      },
+      "newsletter": {
+        "connectExisting": "<b>连接</b> — 将此表单连接到应用中已有的订阅者列表。不会添加额外页面。",
+        "connectNew": "<b>连接</b> — 添加一个订阅者表格和用于保存每次订阅的自动化流程，并将此表单连接到它们。不会添加额外页面。",
+        "purpose": "此表单可以保存所有订阅者的邮箱地址。"
+      },
+      "reviews": {
+        "connectExisting": "<b>连接</b> — 将此版块连接到应用中已有的已批准评价。不会添加额外页面。",
+        "connectNew": "<b>连接</b> — 添加一个评价表格，预置此处显示的三条评价，并将此版块连接到表格。只有标记为已批准的评价才会显示；可在“数据”中管理。不会添加额外页面。",
+        "purpose": "此版块可以显示保存在应用数据中的评价。"
+      },
+      "services": {
+        "connectExisting": "<b>连接</b> — 将此网格连接到应用中已有的服务。不会添加额外页面。",
+        "connectNew": "<b>连接</b> — 添加一个服务表格，预置此处显示的三项服务，并将此网格连接到表格。可在“数据”中添加或修改服务。不会添加额外页面。",
+        "purpose": "此网格可以显示保存在应用数据中的服务。"
+      },
+      "team": {
+        "connectExisting": "<b>连接</b> — 将此网格连接到应用中已有的团队成员。不会添加额外页面。",
+        "connectNew": "<b>连接</b> — 添加一个团队表格，预置此处显示的四个人，并将此网格连接到表格。可在“数据”中添加或修改成员。不会添加额外页面。",
+        "purpose": "此网格可以显示保存在应用数据中的团队成员。"
+      },
+      "testimonials": {
+        "connectExisting": "<b>连接</b> — 将此版块连接到应用中已有的用户评价。此操作不会额外添加页面。",
+        "connectNew": "<b>连接</b> — 添加一个用户评价表格，其中包含此处显示的三条评价，并将此版块连接到该表格。你可以在“数据”中添加或更改评价。此操作不会额外添加页面。",
+        "purpose": "此版块可以显示保存在应用数据中的用户评价，这样你无需编辑页面就能更改评价。"
+      }
+    },
+    "connect": "是，连接",
+    "connectHelp": "设置此版块所需的幕后功能，例如保存用户提交内容的位置。不会添加额外页面。",
+    "couldNotCheckFeatures": "无法检查此应用的功能，请重试。",
+    "couldNotLoadFlows": "无法加载此应用的自动化流程，请重试。",
+    "failedStatus": "失败（{status}）",
+    "handle": "不了，我自己处理",
+    "handleHelp": "保持页面上的版块不变，不进行任何设置。你可以稍后在“流程”中连接，或向 AI 提出请求。",
+    "handleLine": "<b>自己处理</b> — 保持版块不变，不连接任何内容。你可以稍后在“流程”中设置，或向 AI 提出请求。",
+    "partMissing": "你的应用有此功能，但有部分内容缺失。你可以改为在“流程”中连接此版块。",
+    "settingUp": "正在设置…",
+    "somethingWrong": "出了点问题",
+    "title": "连接此版块？"
+  }
+}

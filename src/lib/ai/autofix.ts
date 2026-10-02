@@ -454,7 +454,8 @@ export async function checkAndFixScaffold(
   input: ScaffoldResult,
   opts: {
     repairPage?: (page: Page, violations: Violation[], scaffold: ScaffoldResult) => Promise<{ html: string; css: string } | null>;
-    onProgress?: (message: string) => void;
+    /** `pageTitle` lets the caller word the message in the person's language. */
+    onProgress?: (message: string, pageTitle: string) => void;
     /** Most pages to send back to the AI (each is one more AI call). */
     maxRepairs?: number;
   } = {},
@@ -470,7 +471,7 @@ export async function checkAndFixScaffold(
       const before = pageViolations(scaffold, slug);
       const page = scaffold.pages.find((p) => p.slug === slug);
       if (!page || before.length === 0) continue;
-      opts.onProgress?.(`Fixing the "${page.title}" page...`);
+      opts.onProgress?.(`Fixing the "${page.title}" page...`, page.title);
       let redone: { html: string; css: string } | null = null;
       try {
         redone = await opts.repairPage(page, before, scaffold);

@@ -3,6 +3,10 @@ import { nanoid } from "nanoid";
 import { z } from "zod";
 import { db } from "@/lib/db";
 import { json } from "@/lib/utils";
+import { getTranslations } from "next-intl/server";
+import { requestLocale } from "@/i18n/request";
+
+const tr = async () => getTranslations({ locale: await requestLocale(), namespace: "reseller.api" });
 import { isPlatformHost, isValidDomainName, normalizeHost } from "@/lib/hosts";
 import { requireReseller } from "@/lib/reseller-admin";
 import { forgetResellerHosts, platformTargetHost } from "@/lib/reseller";
@@ -14,7 +18,7 @@ export async function PATCH(req: Request) {
   const r = await requireReseller();
   if ("error" in r) return r.error;
   const parsed = Body.safeParse(await req.json().catch(() => null));
-  if (!parsed.success) return json({ error: "Enter a domain name." }, { status: 400 });
+  if (!parsed.success) return json({ error: (await tr())("domainName") }, { status: 400 });
   const raw = parsed.data.domain?.trim() ?? "";
   if (!raw) {
     await db.reseller.update({ where: { id: r.reseller.id }, data: { domain: null, domainToken: null, domainVerifiedAt: null } });
@@ -22,13 +26,13 @@ export async function PATCH(req: Request) {
     return json({ ok: true, domain: null });
   }
   const domain = normalizeHost(raw.replace(/^https?:\/\//i, "").split("/")[0]);
-  if (!isValidDomainName(domain)) return json({ error: "Enter a domain like apps.youragency.com (no https:// or paths)." }, { status: 400 });
-  if (isPlatformHost(domain)) return json({ error: "That domain belongs to the platform." }, { status: 400 });
+  if (!isValidDomainName(domain)) return json({ error: (await tr())("domainFormat") }, { status: 400 });
+  if (isPlatformHost(domain)) return json({ error: (await tr())("domainPlatform") }, { status: 400 });
   const [otherReseller, appDomain] = await Promise.all([
     db.reseller.findFirst({ where: { domain, id: { not: r.reseller.id } }, select: { id: true } }),
     db.domain.findFirst({ where: { host: domain }, select: { id: true } }),
   ]);
-  if (otherReseller || appDomain) return json({ error: "That domain is already in use here." }, { status: 409 });
+  if (otherReseller || appDomain) return json({ error: (await tr())("domainInUse") }, { status: 409 });
   if (domain === r.reseller.domain) return json({ ok: true, domain, token: r.reseller.domainToken });
   const token = `verify-${nanoid(24)}`;
   await db.reseller.update({ where: { id: r.reseller.id }, data: { domain, domainToken: token, domainVerifiedAt: null } });
@@ -48,7 +52,7 @@ export async function POST() {
   const r = await requireReseller();
   if ("error" in r) return r.error;
   const { domain, domainToken } = r.reseller;
-  if (!domain || !domainToken) return json({ error: "Add a domain first." }, { status: 400 });
+  if (!domain || !domainToken) return json({ error: (await tr())("domainFirst") }, { status: 400 });
   let owned = false;
   try {
     owned = (await dns.resolveTxt(`_verify.${domain}`)).flat().join(" ").includes(domainToken);

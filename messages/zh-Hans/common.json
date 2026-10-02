@@ -1,0 +1,12 @@
+{
+  "cancel": "取消",
+  "close": "关闭",
+  "delete": "删除",
+  "language": "语言",
+  "languageHelp": "工作室显示的语言。此设置会保存到你的账户。",
+  "loading": "正在加载…",
+  "save": "保存",
+  "saved": "已保存。",
+  "saving": "正在保存…",
+  "tryAgain": "出了点问题，请重试。"
+}

@@ -1,30 +1,28 @@
 import Link from "next/link";
 import { AlertTriangle, ArrowRight } from "lucide-react";
-import { problemsByFlow, type FlowProblem } from "@/lib/flow-activity";
+import { getTranslations } from "next-intl/server";
+import { localizeRuntimeText, problemsByFlow, type ActivityWords, type FlowProblem } from "@/lib/flow-activity";
 
-function times(n: number) {
-  return n === 1 ? "once" : n === 2 ? "twice" : `${n} times`;
-}
-
-function people(n: number) {
-  return n === 1 ? "1 person" : `${n} people`;
-}
+type T = Awaited<ReturnType<typeof getTranslations<"project.problemsCard">>>;
 
 /**
  * Plain sentences per flow, e.g. "“Book a table” went through once, but the
  * email wasn't sent because email isn't set up. It also had a problem once:
  * The email server rejected the username or password."
  */
-function line(p: FlowProblem): string {
-  const clauses: string[] = [];
-  if (p.failed) clauses.push(`didn't go through for ${people(p.failed)}`);
-  if (p.emailOff) clauses.push(`went through ${times(p.emailOff)}, but the email wasn't sent because email isn't set up`);
+function line(p: FlowProblem, t: T, w: ActivityWords): string {
+  const sentences: string[] = [];
+  const flow = p.flowName;
+  if (p.failed) sentences.push(t("failed", { flow, count: p.failed }));
+  if (p.emailOff) sentences.push(sentences.length ? t("emailOffAlso", { count: p.emailOff }) : t("emailOff", { flow, count: p.emailOff }));
   const other = p.warned - p.emailOff;
   if (other > 0) {
-    const what = p.lastWarning && !/email isn't set up/i.test(p.lastWarning) ? `: ${p.lastWarning.replace(/[.\s]+$/, "")}` : "";
-    clauses.push(`had a problem ${times(other)}${what}`);
+    const warning = p.lastWarning && !/email isn't set up/i.test(p.lastWarning) ? localizeRuntimeText(p.lastWarning, w).replace(/[.。\s]+$/, "") : "";
+    const first = sentences.length === 0;
+    if (warning) sentences.push(first ? t("problemWithWarning", { flow, count: other, warning }) : t("problemAlsoWithWarning", { count: other, warning }));
+    else sentences.push(first ? t("problem", { flow, count: other }) : t("problemAlso", { count: other }));
   }
-  return clauses.map((c, i) => (i === 0 ? `“${p.flowName}” ${c}.` : `It also ${c}.`)).join(" ");
+  return sentences.join(" ");
 }
 
 /**
@@ -38,33 +36,37 @@ export async function ProblemsCard({ projectId, emailOn, canSetUpEmail }: { proj
     return [] as FlowProblem[];
   });
   if (!problems.length) return null;
+  const t = await getTranslations("project.problemsCard");
+  // Stored run errors and warnings are English; the common ones are shown in the owner's language.
+  const tf = await getTranslations("flows");
+  const w: ActivityWords = { t: (key, values) => tf(key as never, values as never), list: (parts) => parts.join(", ") };
   const total = problems.reduce((n, p) => n + p.failed + p.warned, 0);
   const emailIssue = !emailOn && problems.some((p) => p.emailOff > 0);
   return (
     <section id="problems" className="card mt-6 scroll-mt-24 border-amber-400/25 p-6" aria-labelledby="problems-heading" data-testid="problems-card">
       <div className="flex flex-wrap items-baseline justify-between gap-3">
-        <h2 id="problems-heading" className="flex items-center gap-2 font-semibold" data-help="Times in the last day when one of your automations failed or couldn’t finish something, like an email that wasn’t sent.">
+        <h2 id="problems-heading" className="flex items-center gap-2 font-semibold" data-help={t("titleHelp")}>
           <AlertTriangle size={17} className="text-amber-300" aria-hidden />
-          Problems in the last 24 hours
+          {t("title")}
         </h2>
-        <span className="text-xs text-surface-400" data-testid="problems-total">{total} {total === 1 ? "problem" : "problems"}</span>
+        <span className="text-xs text-surface-400" data-testid="problems-total">{t("total", { count: total })}</span>
       </div>
       <ul className="mt-3 divide-y divide-white/[0.06]">
         {problems.map((p) => (
           <li key={p.flowId} className="py-3" data-testid="problem-line">
-            <p className="text-sm text-surface-100">{line(p)}</p>
-            {p.failed > 0 && p.lastError && <p className="mt-1 text-xs text-surface-400">Last error: {p.lastError.slice(0, 200)}</p>}
-            <Link href={`/projects/${projectId}/flows/${p.flowId}?tab=activity`} className="mt-1.5 inline-flex items-center gap-1 text-xs font-medium text-brand-300 hover:underline" data-help="Open this automation’s Activity to see each run, including what people sent, so you can get back to them.">
-              {p.failed ? "See who it was and what they sent" : "See what happened"}
-              <ArrowRight size={12} aria-hidden />
+            <p className="text-sm text-surface-100">{line(p, t, w)}</p>
+            {p.failed > 0 && p.lastError && <p className="mt-1 text-xs text-surface-400">{t("lastError", { error: localizeRuntimeText(p.lastError, w).slice(0, 200) })}</p>}
+            <Link href={`/projects/${projectId}/flows/${p.flowId}?tab=activity`} className="mt-1.5 inline-flex items-center gap-1 text-xs font-medium text-brand-300 hover:underline" data-help={t("activityHelp")}>
+              {p.failed ? t("seeWho") : t("seeWhat")}
+              <ArrowRight size={12} className="rtl:-scale-x-100" aria-hidden />
             </Link>
           </li>
         ))}
       </ul>
       {emailIssue && (
         <p className="mt-2 text-xs text-surface-400">
-          Email isn&apos;t set up on this server.{" "}
-          {canSetUpEmail ? <Link href="/admin/settings#email" className="text-brand-300 hover:underline" data-help="Open the server settings to connect an email service, so apps can send emails.">Set up email</Link> : "Ask your provider to connect email."}
+          {t("emailNotSetUp")}{" "}
+          {canSetUpEmail ? <Link href="/admin/settings#email" className="text-brand-300 hover:underline" data-help={t("setUpEmailHelp")}>{t("setUpEmail")}</Link> : t("askProvider")}
         </p>
       )}
     </section>

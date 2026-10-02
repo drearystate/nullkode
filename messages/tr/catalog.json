@@ -1,0 +1,1908 @@
+{
+  "modules": {
+    "abandoned-cart": {
+      "description": "Ziyaretçi ürün ekleyip ödeme adımına geçmeden ayrıldığında sepeti kaydedin. Bir saat sonra gönderilen hatırlatma e-postası, sepete tek tıklamayla dönme bağlantısı içerir. Her sepet için özel bir kurtarma bağlantısı oluşturulur ve müşterinin geri dönüp dönmediği kaydedilir.",
+      "fields": {
+        "delayMinutes": {
+          "label": "Hatırlatma öncesi bekleme (dakika)"
+        },
+        "fromEmail": {
+          "label": "Gönderen adresi"
+        },
+        "subject": {
+          "label": "E-posta konusu"
+        }
+      },
+      "name": "Terk edilen sepeti kurtarma",
+      "summary": "Sepetinde ürün bırakıp çıkan müşterilere hatırlatma gönderin."
+    },
+    "acknowledgments": {
+      "description": "Her ziyaretçinin kapatmadan önce açıkça onaylaması gereken bir mesaj (politika güncellemesi, şart değişikliği, güvenlik bildirimi) yayınlayın. Her onay, denetim amacıyla zaman damgası ve isteğe bağlı user_id ile kaydedilir. Yönetici, uyum sayılarını gerçek zamanlı olarak görür.",
+      "name": "Okundu Onayları",
+      "summary": "Önemli mesajların okunduğundan emin olun."
+    },
+    "ai-assistant": {
+      "description": "Sitenize bir yapay zekâ soru kutusu ekleyin. Ziyaretçiler soru sorar, yapay zekâ belirlediğiniz talimatları kullanarak yanıt verir ve yanıt formun hemen altında görünür. Tüm soru ve yanıtlar yalnızca sizin açabileceğiniz özel bir sayfaya kaydedilir.",
+      "fields": {
+        "assistantName": {
+          "label": "Asistanın adı"
+        },
+        "disclosure": {
+          "help": "Ziyaretçilere bir yapay zekâyla konuştuklarını bildirir.",
+          "label": "Başlığın altında gösterilen not"
+        },
+        "systemPrompt": {
+          "label": "Yapay zekâ için talimatlar"
+        }
+      },
+      "name": "Sohbet Asistanı",
+      "summary": "Ziyaretçilerin yardımcı bir asistanla sohbet etmesini sağlayın."
+    },
+    "analytics-dashboard": {
+      "description": "Sayfa görüntülemelerini ve özel etkinlikleri (“kayıt”, “satın alma”) takip edin. Her sayfadan çağrılabilen bir takip adresi, sayaç API'si ve toplamları, en çok görüntülenen sayfaları ve son 7 günlük eğilimi gösteren yönetici paneli içerir.",
+      "name": "Ziyaretçi istatistikleri",
+      "summary": "Sayfalarınızı kaç kişinin ziyaret ettiğini görün."
+    },
+    "app-walkthrough": {
+      "description": "İlk kez gelen ziyaretçilere uygulamanızı tanıtan bir katman. Sıralı adımları (başlık, metin, hedef seçici) tanımlayın; katman, her öğeyi vurgulayarak “İleri / Atla” düğmelerini gösterir. Atlanma durumu tarayıcıda saklanır; böylece geri dönen ziyaretçiler rahatsız edilmez.",
+      "fields": {
+        "doneLabel": {
+          "label": "Son adım metni"
+        },
+        "skipLabel": {
+          "label": "Atla düğmesi metni"
+        }
+      },
+      "name": "Uygulama turu",
+      "summary": "Yeni ziyaretçilere uygulamanızın kısa bir turunu gösterin."
+    },
+    "appointments": {
+      "description": "Süre ve fiyat bilgileri olan hizmetleri listeleyin ve hizmet verenlere atayın. Müşteriler belirli bir saat için randevu alabilir. Rezervasyonlara göre daha esnektir; salonlar, klinikler ve danışmanlık hizmetleri için idealdir.",
+      "fields": {
+        "businessName": {
+          "label": "İşletme adı"
+        },
+        "currency": {
+          "label": "Para birimi simgesi"
+        }
+      },
+      "name": "Randevular",
+      "summary": "Müşterilerin ekibinizden biriyle randevu almasını sağlayın."
+    },
+    "archive": {
+      "description": "Tamamlanan projeler, eski gönderiler, kullanımdan kaldırılan ürünler gibi etkin akışlarda göstermek istemediğiniz ama saklamak istediğiniz her şey için uzun süreli arşiv. Yıla/aya göre göz atın, başlık ve metinde tam metin araması yapın. “Ana akışa geri yükle” seçeneği, sonraki modüllerde kullanılmak üzere ayrılmıştır.",
+      "fields": {
+        "heading": {
+          "label": "Arşiv başlığı"
+        }
+      },
+      "name": "İçerik Arşivi",
+      "summary": "Eski içerikleri yıla göre aranabilir şekilde saklayın."
+    },
+    "audio": {
+      "description": "Başlık, sanatçı ve yayın URL'si içeren ses parçalarını listeleyen bir çalma listesi sayfası. Her parçada, ziyaretçilerin doğrudan önizleme yapabilmesi için bir HTML5 ses oynatıcısı bulunur.",
+      "fields": {
+        "playlistName": {
+          "label": "Çalma listesi adı"
+        }
+      },
+      "name": "Ses Çalma Listesi",
+      "summary": "Şarkı veya kayıt çalma listesi paylaşın."
+    },
+    "auth": {
+      "description": "Kayıt olma, giriş yapma ve çıkış yapma sayfaları ekler; hesabı olan kişilerin listesini tutar. Parolalar güvenle saklanır. Kişiler profil sayfalarından verilerini indirebilir veya hesaplarını silebilir. Favoriler ya da özel mesajlar gibi giriş yapılmasını gerektiren özellikler bu hesapları otomatik olarak kullanır.",
+      "fields": {
+        "appName": {
+          "label": "Uygulama adı"
+        }
+      },
+      "name": "Giriş ve hesaplar",
+      "summary": "Kişilerin uygulamanızda hesap oluşturup oturum açmasını sağlayın."
+    },
+    "before-after": {
+      "description": "Dönüşümleri sergileyin. Her karşılaştırmada bir “önce” ve bir “sonra” görseli bulunur; ziyaretçiler aradaki çizgiyi sürükleyerek görseller arasında geçiş yapar. Yönetici istediği kadar karşılaştırma ekleyebilir. Tadilat, spor, saç ve fotoğraf düzenlemeleri için idealdir.",
+      "fields": {
+        "heading": {
+          "label": "Sayfa başlığı"
+        }
+      },
+      "name": "Önce / Sonra Kaydırıcısı",
+      "summary": "İki fotoğrafı kaydırıcıyla yan yana karşılaştırın."
+    },
+    "birthdays": {
+      "description": "Kullanıcıların doğum günlerini alın, ardından doğum günü bugün olan herkese otomatik e-posta gönderin. Müşterilerinize kendilerini özel hissettirmek (bir “doğum günün kutlu olsun” notu + indirim kodu) veya ekip/İK sayfaları için kullanışlıdır. /api/run/send-today adresine istek gönderen günlük bir cron ile birlikte kullanın.",
+      "fields": {
+        "body": {
+          "label": "E-posta metni ('{{'name'}}' yer tutucusunu kullanın)"
+        },
+        "fromEmail": {
+          "label": "Gönderen"
+        },
+        "subject": {
+          "label": "E-posta konusu"
+        }
+      },
+      "name": "Doğum Günleri",
+      "summary": "Müşterilerinizin doğum gününü kutlayın."
+    },
+    "blog": {
+      "description": "Son yazıların listelendiği bir blog ana sayfası, yeni yazılar yayımlamak için bir yönetici sayfası ve yazı akışını sunan bir akış içerir. Görsel düzenleyicide düzenleyerek daha sonra her yazı için ayrı bir ayrıntı sayfası ekleyebilirsiniz.",
+      "fields": {
+        "author": {
+          "label": "Varsayılan yazar adı"
+        },
+        "blogTitle": {
+          "label": "Blog başlığı"
+        }
+      },
+      "name": "Blog",
+      "summary": "Ziyaretçileriniz için yazılar ve haberler paylaşın."
+    },
+    "bookings": {
+      "description": "Müşterilerin tarih ve saat seçip bilgilerini ekleyerek rezervasyon gönderebildiği bir sayfa. Çifte rezervasyon koruması, isteği kabul etmeden önce seçilen saat için mevcut bir rezervasyon olup olmadığını kontrol eder. Yaklaşan rezervasyonları görüntüleyebileceğiniz bir rezervasyon tablosu ve yönetim sayfası içerir.",
+      "fields": {
+        "businessName": {
+          "label": "İşletme adı"
+        },
+        "serviceLabel": {
+          "help": "ör. 'Saç kesimi', 'Köpek gezdirme', 'Randevu'",
+          "label": "Ne için rezervasyon yapılıyor?"
+        }
+      },
+      "name": "Rezervasyonlar",
+      "summary": "İnsanların sizden randevu almasını sağlayın."
+    },
+    "budget": {
+      "description": "Basit bir kişisel bütçe: Gelir ve giderlerinizi kategorilere göre kaydedin, son işlemlerinizi görün ve paranızı nereye harcadığınızı anlayın.",
+      "fields": {
+        "currency": {
+          "label": "Para birimi"
+        }
+      },
+      "name": "Kişisel Bütçe",
+      "summary": "Gelir ve giderlerinizi takip edin."
+    },
+    "business-card-wallet": {
+      "description": "Her kullanıcının adını, unvanını, şirketini, iletişim bilgilerini ve fotoğrafını içeren dijital bir kartviziti ile başkalarından kaydettiği kartların bulunduğu bir cüzdanı vardır. Kartınızı QR koduyla paylaşın; alan kişiler kodu tarayıp tek dokunuşla cüzdanlarına kaydedebilir (ve telefonlarının adres defteri için vCard dosyası olarak dışa aktarabilir).",
+      "name": "Kartvizit cüzdanı",
+      "summary": "Dijital kartvizitleri paylaşın ve kaydedin."
+    },
+    "calculator-builder": {
+      "description": "Özel giriş alanları ve bir formülle mini hesap makineleri oluşturun (ör. konut kredisi taksiti, vücut kitle indeksi, birikim tahmini, bahşiş hesaplama, para birimi dönüştürme). Her hesap makinesinin kendine özgü bir kısa adı vardır; /calc?slug=… adresiyle istediğiniz yere ekleyin.",
+      "name": "Hesap makinesi oluşturucu",
+      "summary": "Fiyat veya kredi tahmini gibi bir hesap makinesi ekleyin."
+    },
+    "catalog": {
+      "description": "Ürün adı, fiyatı, görseli ve açıklamasıyla sade bir katalog. Müşterilerin internetten satın almak yerine bilgi almak için başvurduğu menüler, broşürler ve showroom tarzı sayfalar için ideal.",
+      "fields": {
+        "currency": {
+          "label": "Para birimi simgesi"
+        },
+        "title": {
+          "label": "Katalog başlığı"
+        }
+      },
+      "name": "Ürün Kataloğu",
+      "summary": "Ödeme almadan ürünlerinizi sergileyin."
+    },
+    "channel-feed": {
+      "description": "Bir YouTube veya Vimeo kanal akışına abone olun ve en yeni videoları otomatik olarak ızgarada gösterin. Yenileme akışı, kanalın RSS adresini düzenli olarak kontrol eder; önbelleğe alınan içerikler hızlıca yüklenir. Bir videoya tıklayarak gömülü oynatıcıda açın.",
+      "fields": {
+        "channelId": {
+          "label": "Kanal kimliği"
+        },
+        "channelKind": {
+          "label": "Kanal türü",
+          "options": {
+            "vimeo": "Vimeo",
+            "youtube": "YouTube"
+          }
+        },
+        "heading": {
+          "label": "Bölüm başlığı"
+        }
+      },
+      "name": "Video kanal akışı",
+      "summary": "YouTube veya Vimeo kanalınızdaki en yeni videoları gösterin."
+    },
+    "chat": {
+      "description": "Ziyaretçilerin mesaj gönderdiği ortak bir sohbet odası. Mesajlar en yeniden eskiye sıralanır ve chat_messages tablosu ile mesaj gönderme/listeleme akışı kullanılır. Topluluğunuzdan erken geri bildirim almak veya bekleme listesi hakkında sohbet etmek için ideal.",
+      "fields": {
+        "roomTitle": {
+          "label": "Sohbet odası başlığı"
+        },
+        "welcome": {
+          "label": "Karşılama mesajı"
+        }
+      },
+      "name": "Topluluk Sohbeti",
+      "summary": "Topluluğunuz için ortak bir sohbet odası oluşturun."
+    },
+    "chores": {
+      "description": "Aile için ev işleri tablosu: Çocuklara işler atayın, tamamlandıkça işaretleyin ve yıldız kazanın. Günlük işleri görünür ve ödüllendirilebilir bir rutine dönüştürün.",
+      "fields": {
+        "familyName": {
+          "label": "Aile adı"
+        }
+      },
+      "name": "Ev İşleri Tablosu",
+      "summary": "Ev işlerini paylaşın, ödüller verin."
+    },
+    "claims": {
+      "description": "Müşteriler veya çalışanlar açıklama, tutar ve fotoğraf bağlantısıyla başvuru ya da makbuz gönderir. Görevliler durum adımlarını (alındı → inceleniyor → onaylandı/reddedildi) ilerletir ve herkese açık yanıt yazar. Garanti başvuruları, masraf iadeleri veya sigorta makbuzları için idealdir.",
+      "fields": {
+        "queueName": {
+          "label": "Başvuru kuyruğu başlığı"
+        }
+      },
+      "name": "Başvurular ve Makbuzlar",
+      "summary": "Kişilerin fotoğraflı başvuru göndermesini ve süreci takip etmesini sağlayın."
+    },
+    "classifieds": {
+      "description": "Craigslist tarzı bir ilan panosu. Ziyaretçiler başlık, fiyat ve iletişim bilgileriyle ilan verir; akış sayfasında yayındaki tüm ilanlar görünür.",
+      "fields": {
+        "boardName": {
+          "label": "Pano adı"
+        }
+      },
+      "name": "İlanlar",
+      "summary": "İnsanların kendi ilanlarını paylaşmasını sağlayın."
+    },
+    "contact-form": {
+      "description": "Gönderilen mesajları veritabanına kaydeden, tam genişlikte bir form içeren şık bir iletişim sayfası. Her mesajı inceleyebileceğiniz bir yönetici gelen kutusu sayfası da içerir.",
+      "fields": {
+        "heading": {
+          "label": "Sayfa başlığı"
+        },
+        "subheading": {
+          "label": "Kısa alt başlık"
+        }
+      },
+      "name": "İletişim Formu",
+      "summary": "Ziyaretçilerin size mesaj göndermesini sağlayın."
+    },
+    "countdown": {
+      "description": "Gelecekteki bir zaman damgasına kadar canlı olarak güncellenen bir geri sayım sayfası. İsteğe bağlı başlık, alt başlık ve süre bitince gösterilecek bir CTA ile günleri/saatleri/dakikaları/saniyeleri büyük biçimde gösterir. Birden fazla kampanya aynı anda çalışabilir; ?id=... ile birini seçin.",
+      "name": "Geri Sayım Sayacı",
+      "summary": "Bir lansman, indirim veya etkinlik için geri sayım yapın."
+    },
+    "coupons": {
+      "description": "Müşterilerin herkese açık bir sayfada kullanabileceği indirim kodları oluşturun. Kullanılan kodları, indirim tutarlarını ve kullanım geçmişini takip edin.",
+      "fields": {
+        "brand": {
+          "label": "Marka adı"
+        }
+      },
+      "name": "Kuponlar",
+      "summary": "İndirim kodları dağıtın."
+    },
+    "course": {
+      "description": "Mini bir e-öğrenme platformu: Her biri başlık, açıklama, video URL'si ve isteğe bağlı süre içeren sıralı derslerden oluşur. Kısa kurslar ve eğitim içerikleri için ideal.",
+      "fields": {
+        "courseTitle": {
+          "label": "Kurs başlığı"
+        },
+        "instructor": {
+          "label": "Eğitmenin adı"
+        }
+      },
+      "name": "Çevrim İçi Kurs",
+      "summary": "Ders ders çevrim içi eğitim verin."
+    },
+    "delivery-tracking": {
+      "description": "Teslimatı alımdan teslimata kadar takip edin. Sürücüler konum bilgisi gönderir; müşteriler haritada son konumu ve durum akışını (atandı → alındı → yolda → teslim edildi) görür. Her teslimatın herkese açık bir takip bağlantısı vardır.",
+      "fields": {
+        "businessName": {
+          "label": "İşletme adı"
+        }
+      },
+      "name": "Teslimat Takibi",
+      "summary": "Müşterilerin teslimatlarını takip etmesini sağlayın."
+    },
+    "delivery-zones": {
+      "description": "Posta koduna veya mağazanızdan olan uzaklığa göre teslimat bölgeleri tanımlayın. Her bölgenin kendi teslimat ücreti ve minimum sipariş tutarı olur. Bir adresi (veya posta kodunu) alan teklif akışı, teslimatın mümkün olup olmadığını ve ücretini bildirir.",
+      "fields": {
+        "shopLat": {
+          "label": "Mağaza enlemi"
+        },
+        "shopLng": {
+          "label": "Mağaza boylamı"
+        }
+      },
+      "name": "Teslimat Bölgeleri",
+      "summary": "Farklı bölgeler için teslimat ücretleri belirleyin."
+    },
+    "donations": {
+      "description": "Bir amaç açıklaması, hedefinize doğru ilerlemeyi gösteren çubuk ve herkese açık bağışçı listesi içeren bağış sayfası. Bağışçının adını, e-postasını, tutarı ve isteğe bağlı mesajını alır. Ödeme entegrasyonu ayrı bir Stripe modülüyle sağlanır.",
+      "fields": {
+        "causeName": {
+          "label": "Bağış amacı"
+        },
+        "currency": {
+          "label": "Para birimi simgesi"
+        },
+        "goal": {
+          "label": "Bağış hedefi ($)"
+        }
+      },
+      "name": "Bağışlar",
+      "summary": "Bir hedef için bağış toplayın ve bağışçılara teşekkür edin."
+    },
+    "drip-content": {
+      "description": "Kullanıcıların kaydolduklarından itibaren geçen gün sayısına göre açılan bir ders dizisi oluşturun. 1. ders 0. gün, 2. ders 3. gün açılır. Başlangıç süreci, eğitim kursları ve e-posta modülüyle birlikte kullanılabilecek aşamalı e-posta gönderimleri için idealdir.",
+      "fields": {
+        "programName": {
+          "label": "Program adı"
+        }
+      },
+      "name": "Aşamalı İçerik",
+      "summary": "Dersleri birkaç gün arayla yayınlayın."
+    },
+    "dynamic-list": {
+      "description": "Mini bir içerik yönetim sistemi: Yönetici bir liste tanımlar (ad ve JSON alan şemasıyla), ardından oluşturulan formu kullanarak satırlar ekler. Her listenin herkese açık bir görüntüleme sayfası ve bir yönetici düzenleme sayfası olur. “Kendi modülünü oluştur” modülü — diğer seçenekler uymadığında idealdir.",
+      "name": "Özel Liste",
+      "summary": "İstediğiniz şey için kendi listenizi oluşturun ve düzenlemek için bir sayfa ekleyin."
+    },
+    "e-signature": {
+      "description": "Metin tabanlı bir belgeyi (koşullar, NDA, fiyat teklifi) e-postayla alıcıya gönderin ve tarayıcıda çizerek imzalamasını sağlayın. İmzalı imza görselini, imzalayanın adını ve IP adresini, ayrıca imzalanma tarihini kaydeder.",
+      "fields": {
+        "companyName": {
+          "label": "Şirketinizin adı"
+        }
+      },
+      "name": "E-imza",
+      "summary": "Belge gönderin ve çevrimiçi imzalatın."
+    },
+    "e-wallet": {
+      "description": "Her kullanıcı için kredi bakiyesi oluşturun. Kredi yükleyin, kredi harcayın (bakiyeden düşürün) ve tüm işlemlerin kaydını görüntüleyin. Diğer modüller, harcama akışı üzerinden oturum açmış kullanıcı adına kredi harcayabilir.",
+      "fields": {
+        "currencySymbol": {
+          "label": "Para birimi simgesi"
+        }
+      },
+      "name": "Mağaza kredisi",
+      "summary": "Müşterilerinize yükleyip harcayabilecekleri mağaza kredisi verin."
+    },
+    "email-verify": {
+      "description": "E-postayla 6 haneli bir doğrulama kodu gönderin ve kısa bir süre geçerli olacak şekilde kaydedin. Kullanıcının sonraki isteğinde kodu doğrulayın. Kimlik doğrulama modülüyle birlikte kullanıldığında, kullanıcı onay verdikten sonra e-posta adresini doğrulanmış olarak işaretler.",
+      "fields": {
+        "appName": {
+          "label": "Uygulama adı"
+        },
+        "codeTtlMinutes": {
+          "label": "Kodun geçerlilik süresi (dakika)"
+        },
+        "fromEmail": {
+          "label": "Gönderen adresi"
+        }
+      },
+      "name": "E-posta doğrulama",
+      "summary": "E-posta adreslerinin gerçek olup olmadığını kontrol edin."
+    },
+    "emergency-contacts": {
+      "description": "Ad, yakınlık ve telefon numarası içeren bir acil durum kişileri listesi. Mobilde dokunarak arayın. Okullar, kamplar, ofis resepsiyonları ve aileler için ideal.",
+      "fields": {
+        "heading": {
+          "label": "Başlık"
+        }
+      },
+      "name": "Acil Durum Kişileri",
+      "summary": "Önemli telefon numaraları tek dokunuş uzağınızda olsun."
+    },
+    "event-tickets": {
+      "description": "Genel, VIP gibi farklı kategorilerde etkinlik bileti satın. Kesilen her bilete benzersiz bir kod verilir; bilet sahibi için bu kodu QR olarak gösterin. Girişte QR'ı tarayarak bileti doğrulayın ve kullanıldı olarak işaretleyin.",
+      "fields": {
+        "eventDate": {
+          "label": "Etkinlik tarihi"
+        },
+        "eventName": {
+          "label": "Etkinlik adı"
+        },
+        "venue": {
+          "label": "Etkinlik yeri"
+        }
+      },
+      "name": "Etkinlik Biletleri",
+      "summary": "Bilet satın ve girişte biletleri kontrol edin."
+    },
+    "events": {
+      "description": "Yaklaşan etkinlikleri tarih, konum ve açıklamalarıyla listeleyin. Ziyaretçiler adları ve e-posta adresleriyle katılım yanıtı verebilir; yanıtlar yöneticinin incelemesi için bir tabloda saklanır.",
+      "fields": {
+        "calendarName": {
+          "label": "Takvim adı"
+        }
+      },
+      "name": "Etkinlik Takvimi",
+      "summary": "Yaklaşan etkinlikleri gösterin, katılım yanıtı alın."
+    },
+    "expenses": {
+      "description": "İşletme giderlerini tarih, kategori, tutar ve notlarla kaydedin. Aylık inceleme ve vergi hazırlığı için tüm giderleri tek bir listede görüntüleyin.",
+      "name": "Giderler",
+      "summary": "İşletme harcamalarınızı takip edin."
+    },
+    "fanwall": {
+      "description": "Ziyaretçilerin adlarını ve isteğe bağlı bir görseli ekleyerek kısa mesajlar paylaştığı, herkese açık tek konulu bir duvar. En yeni paylaşımlar üstte görünür. Hesap gerektirmeyen bir Twitter/Facebook duvarına benzer.",
+      "fields": {
+        "wallTitle": {
+          "label": "Duvar başlığı"
+        }
+      },
+      "name": "Hayran Duvarı",
+      "summary": "Topluluğunuzun ortak bir duvarda paylaşım yapmasını sağlayın."
+    },
+    "faq": {
+      "description": "Kategorilere ayrılmış bir soru-cevap sayfası. Yeni soru-cevaplar eklemek için bir yönetici formu ve yayımlanan tüm içerikleri listeleyen herkese açık bir akış içerir.",
+      "fields": {
+        "heading": {
+          "label": "Sayfa başlığı"
+        }
+      },
+      "name": "SSS",
+      "summary": "İnsanların en sık sorduğu soruları yanıtlayın."
+    },
+    "feature-voting": {
+      "description": "Kullanıcıların fikir paylaşıp başkalarının fikirlerine oy verebildiği herkese açık bir özellik istek panosu. Ürün ekipleri sırada ne geliştireceklerine karar vermek için kullanır.",
+      "fields": {
+        "productName": {
+          "label": "Ürün adı"
+        }
+      },
+      "name": "Özellik Oylaması",
+      "summary": "Fikir önerin, favorilerinize oy verin."
+    },
+    "file-upload": {
+      "description": "Ziyaretçilerin sürükle bırak formuyla dosya yüklemesine izin verin. Dosyalar projeye özel bir depolama klasörüne kaydedilir, URL'leri de göz atabileceğiniz bir tabloya eklenir.",
+      "fields": {
+        "heading": {
+          "label": "Sayfa başlığı"
+        }
+      },
+      "name": "Dosya Yükleme",
+      "summary": "İnsanların size dosya göndermesini sağlayın."
+    },
+    "food-truck-finder": {
+      "description": "Bir yemek kamyonu uygulamasında gereken her şey. Kamyon sahipleri kayıt olur, kamyonlarını haritaya ekler, menülerini güncel tutar ve fırsatlar paylaşır. Müşteriler yakındaki kamyonları haritada görür, yorumları okur ve fırsatlardan yararlanır. Kendi kayıt olma ve giriş yapma özelliklerini içerir.",
+      "fields": {
+        "brandName": {
+          "label": "Site adı"
+        },
+        "cityName": {
+          "label": "Şehir / bölge adı"
+        },
+        "defaultLat": {
+          "label": "Şehir merkezinin enlemi"
+        },
+        "defaultLng": {
+          "label": "Şehir merkezinin boylamı"
+        },
+        "defaultZoom": {
+          "label": "Varsayılan harita yakınlaştırması"
+        }
+      },
+      "name": "Yemek Kamyonu Bulucu",
+      "summary": "Canlı haritayla insanların yakındaki yemek kamyonlarını bulmasına yardımcı olun."
+    },
+    "forum": {
+      "description": "Konuların ve gerçek yanıtların bulunduğu bir topluluk forumu. Ziyaretçiler forum ana sayfasından konu açar, ayrıntı sayfasına geçer ve yanıt gönderir. Yanıt sayıları her yanıtla birlikte otomatik güncellenir.",
+      "fields": {
+        "forumName": {
+          "label": "Forum adı"
+        }
+      },
+      "name": "Forum",
+      "summary": "İnsanların konu açıp birbirine yanıt vermesini sağlayın."
+    },
+    "gallery": {
+      "description": "Her öğe için başlık, açıklama ve görsel URL'si içeren duyarlı bir fotoğraf galerisi. URL ile yeni fotoğraf eklemek için bir yükleme sayfası da içerir.",
+      "fields": {
+        "galleryIntro": {
+          "label": "Kısa giriş"
+        },
+        "galleryTitle": {
+          "label": "Galeri başlığı"
+        }
+      },
+      "name": "Fotoğraf Galerisi",
+      "summary": "Bir fotoğraf koleksiyonu gösterin."
+    },
+    "geofencer": {
+      "description": "Dairesel konum sınırları tanımlayın (merkez enlem/boylam + yarıçap). Ziyaretçiler konumlarını paylaşır; sınırın içindeyseler ilgili içerik veya mesaj gösterilir. Yoğun bölgeleri görebilmeniz için her varış kaydedilir. Anlık bildirimler veya kuponlarla birlikte kullanışlıdır.",
+      "fields": {
+        "heading": {
+          "label": "Başlık"
+        }
+      },
+      "name": "Konum uyarıları",
+      "summary": "Kişiler bir yere vardığında özel bir içerik gösterin."
+    },
+    "gift-registry": {
+      "description": "Misafirlerin ürünlere göz atıp ayırtabileceği bir hediye listesi. Her üründe ad, fiyat, mağaza bağlantısı ve hâlâ alınabilir olup olmadığı yer alır.",
+      "fields": {
+        "occasion": {
+          "label": "Etkinlik"
+        }
+      },
+      "name": "Hediye Listesi",
+      "summary": "Misafirlerin hediye ayırtabileceği bir düğün veya bebek hediyesi listesi oluşturun."
+    },
+    "guestbook": {
+      "description": "Ziyaretçilerin adlarını ve kısa bir mesajı bıraktığı klasik bir ziyaretçi defteri. En yeni mesajlar önce gösterilir. Kişisel siteler, anma sayfaları ve etkinlik sayfaları için idealdir.",
+      "fields": {
+        "heading": {
+          "label": "Başlık"
+        }
+      },
+      "name": "Ziyaretçi Defteri",
+      "summary": "Ziyaretçilerin size içten bir not bırakmasını sağlayın."
+    },
+    "gym": {
+      "description": "Küçük spor salonları veya stüdyolar için araçlar: üyelik paketleri (aylık, 10'lu paket), kontenjanlı ders programı ve girişleri kaydetmek için üye tarama akışı. İşletme sahibi günün katılımını ve aktif üyeleri görür.",
+      "fields": {
+        "gymName": {
+          "label": "Spor salonunun adı"
+        }
+      },
+      "name": "Spor Salonu / Üyelik",
+      "summary": "Üyelikleri, dersleri ve girişleri yönetin."
+    },
+    "habits": {
+      "description": "Alışkanlıklarınızı adları, mevcut serileri ve son kontrol tarihleriyle takip edin. Serinizi uzatmak için her gün giriş yapın.",
+      "name": "Alışkanlık Takibi",
+      "summary": "Günlük alışkanlıklarınızı takip edin, serinizi uzatın."
+    },
+    "help-desk": {
+      "description": "Müşteriler konu, açıklama ve öncelik belirterek destek talebi gönderir. Talepleri yönetici bölümündeki listeden inceleyip çözüme kavuşturun.",
+      "name": "Destek Masası",
+      "summary": "Müşteri destek taleplerini alın ve yanıtlayın."
+    },
+    "in-app-ads": {
+      "description": "Harici bir reklam ağı kullanmadan sayfalarınızda kendi banner reklamlarınızı sırayla gösterin. Yönetici reklam öğelerini (görsel + başlık + tıklama URL'si + yayın tarihleri) yükler. Sistem, her sayfa görüntülemesinde ağırlıklı rastgele seçimle bir reklam gösterir ve tıklama oranını analiz edebilmeniz için tüm gösterim ve tıklamaları kaydeder. Kod parçasını istediğiniz yere ekleyin.",
+      "fields": {
+        "placement": {
+          "label": "Varsayılan yerleşim etiketi"
+        }
+      },
+      "name": "Banner reklamlar",
+      "summary": "Kendi banner reklamlarınızı gösterin ve kimlerin tıkladığını görün."
+    },
+    "inbox": {
+      "description": "Oturum açmış kullanıcılar arasında bire bir özel mesajlaşma. Alıcı seçin, mesaj gönderin ve konuşmaların okunup okunmadığını görün. Aynı gönderen-alıcı ikilisi için yinelenen konuşmalar oluşturulmaz.",
+      "name": "Özel Mesajlar",
+      "summary": "Üyelerin birbirlerine özel mesaj göndermesini sağlayın."
+    },
+    "inventory": {
+      "description": "Her SKU için stok takibi yapın. Miktarları güncelleyin (yeni stok girişi, satış kaydı veya manuel düzeltme), azalan stokları görün ve CSV indirin. Mağaza modülüyle birlikte kullanarak vitrindeki stok bilgilerini güncel tutun.",
+      "fields": {
+        "lowThreshold": {
+          "label": "Düşük stok sınırı"
+        }
+      },
+      "name": "Stok",
+      "summary": "Stok durumunu takip edin ve azaldığında haberdar olun."
+    },
+    "invoice": {
+      "description": "Tutar, son ödeme tarihi ve durum bilgilerini içeren müşteri faturaları oluşturun. Hangilerinin ödendiğini, beklediğini veya vadesinin geçtiğini tek bir yönetim sayfasından görün.",
+      "fields": {
+        "businessName": {
+          "label": "İşletme adı"
+        }
+      },
+      "name": "Faturalar",
+      "summary": "Fatura gönderin ve kimin ödeme yaptığını takip edin."
+    },
+    "jobs": {
+      "description": "Açık pozisyonları ve başvuru formu bulunan bir kariyer sayfası. Adaylar adını, e-posta adresini, özgeçmiş bağlantısını ve kısa bir ön yazıyı gönderir; başvurular yönetici panelinde inceleyebileceğiniz bir tabloya kaydedilir.",
+      "fields": {
+        "companyName": {
+          "label": "Şirket adı"
+        }
+      },
+      "name": "İş İlanları",
+      "summary": "Açık pozisyonları paylaşın ve başvuru alın."
+    },
+    "journal": {
+      "description": "Ruh hâli seçimi, etiketler ve serbest metin alanı içeren özel günlük. Geçmiş kayıtlarınıza tarih sırasıyla göz atın.",
+      "name": "Günlük",
+      "summary": "Her gün ruh hâlinizi de kaydederek günlük tutun."
+    },
+    "kanban": {
+      "description": "Yapılacaklar, Devam Ediyor ve Tamamlandı sütunlarından oluşan bir görev panosu. Kartlara başlık, açıklama ve öncelik ekleyin. Sütununu değiştirerek kartları taşıyın.",
+      "fields": {
+        "boardName": {
+          "label": "Pano adı"
+        }
+      },
+      "name": "Görev Panosu",
+      "summary": "Görevleri yapılacaklardan tamamlananlara kadar panoda ilerletin."
+    },
+    "kb": {
+      "description": "Kategorilere ayrılmış yazılar içeren bir yardım merkezi. Herkese açık bir yazı listesi ve yeni yazılar yayımlamak için basit bir yönetici sayfası içerir.",
+      "fields": {
+        "title": {
+          "label": "Yardım merkezi başlığı"
+        }
+      },
+      "name": "Bilgi Bankası",
+      "summary": "Müşterilerinizin arayabileceği yardım yazıları yayımlayın."
+    },
+    "leaderboard": {
+      "description": "Genel amaçlı bir liderlik tablosu. Bir user_label (e-posta, ad, spor salonu üyesi, çalışan gibi herhangi bir metin) için puan ekleyin; puanlar azalan sırada listelenir. Birden fazla tablo oluşturmak için kategoriye göre filtreleyin (adım, satış, puan). Puan gönderme uç noktası başka herhangi bir modülden çağrılabilir.",
+      "fields": {
+        "boardTitle": {
+          "label": "Tablo başlığı"
+        },
+        "defaultCategory": {
+          "label": "Varsayılan kategori"
+        }
+      },
+      "name": "Liderlik Tablosu",
+      "summary": "En yüksek puanları sıralı olarak gösterin."
+    },
+    "leads": {
+      "description": "Basit bir CRM: Potansiyel müşterilerin adını, şirketini, e-posta adresini ve aşamasını kaydedin. Satış sürecinizi aşamalara göre görüntüleyin ve kiminle yeniden iletişime geçmeniz gerektiğini görün.",
+      "name": "Potansiyel Müşteriler",
+      "summary": "Potansiyel müşterileri takip edin, onlarla yeniden iletişime geçin."
+    },
+    "link-tracker": {
+      "description": "Pazarlama kampanyalarınız için tıklamaları izlenebilir bağlantılar oluşturun. Her tıklama zaman damgasıyla kaydedilir; böylece en çok ziyaretçi getiren kanalları görebilirsiniz.",
+      "name": "Bağlantı tıklamaları",
+      "summary": "Bağlantılarınıza kaç kişinin tıkladığını görün."
+    },
+    "links": {
+      "description": "Başlık, simge ve açıklama içeren, özenle seçilmiş basit bir harici bağlantı listesi. Linktree tarzı sayfalar, seçilmiş kaynak listeleri veya biyografi bağlantı uygulamaları için ideal.",
+      "fields": {
+        "heading": {
+          "label": "Başlık"
+        }
+      },
+      "name": "Bağlantı Rehberi",
+      "summary": "Önemli bağlantılarınızın yer aldığı basit bir sayfa paylaşın."
+    },
+    "live-stream": {
+      "description": "HLS .m3u8, YouTube Live URL'si veya Twitch kanalı ekleyebileceğiniz bir canlı yayın sayfası oluşturun. Sayfada, gerçek zamanlı sohbet akışını düzenli olarak kontrol eden bir sohbet kenar çubuğu da bulunur. Yönetici yayın türünü ve URL'sini belirler; izleyiciler oynatıcıyı ve sohbeti görür.",
+      "fields": {
+        "streamKind": {
+          "label": "Yayın türü",
+          "options": {
+            "hls": "HLS (.m3u8)",
+            "twitch": "Twitch",
+            "youtube": "YouTube Live"
+          }
+        },
+        "streamUrl": {
+          "label": "Yayın URL'si / kanal kimliği"
+        },
+        "title": {
+          "label": "Yayın başlığı"
+        }
+      },
+      "name": "Canlı Yayın",
+      "summary": "Canlı video yayını gösterin."
+    },
+    "lost-found": {
+      "description": "Topluluk için kayıp eşya panosu. Kullanıcılar kaybettikleri veya buldukları eşyaları konum ve iletişim bilgileriyle bildirir. Pano, eşleşmeleri kolaylaştırmak için tüm bildirimleri tek bir yerde gösterir.",
+      "fields": {
+        "communityName": {
+          "label": "Topluluk adı"
+        }
+      },
+      "name": "Kayıp Eşya",
+      "summary": "Topluluğunuzun kayıp ve bulunan eşyaları bildirmesini sağlayın."
+    },
+    "loyalty-card": {
+      "description": "Mağazanız için dijital damga kartı. Müşteriler kasada telefon numaralarını verir, siz kartlarına damga eklersiniz. Hedefe ulaştıklarında ücretsiz bir ürün kazanırlar. Tüm müşterileri ve damgaları takip eder.",
+      "fields": {
+        "punchGoal": {
+          "label": "Ödül için gereken damga sayısı"
+        },
+        "rewardText": {
+          "label": "Ödül açıklaması"
+        },
+        "shopName": {
+          "label": "Mağaza adı"
+        }
+      },
+      "name": "Sadakat Kartı",
+      "summary": "Düzenli müşterilerinizi dijital damga kartıyla ödüllendirin."
+    },
+    "map": {
+      "description": "Leaflet ve OpenStreetMap destekli, etkileşimli bir harita. İşletmenizin konumunu işaretçi ve adresle gösterir. Ücretsizdir, API anahtarı gerekmez.",
+      "fields": {
+        "address": {
+          "label": "Açık adres"
+        },
+        "label": {
+          "label": "İşaretçi etiketi"
+        },
+        "lat": {
+          "label": "Enlem"
+        },
+        "lng": {
+          "label": "Boylam"
+        },
+        "title": {
+          "label": "Sayfa başlığı"
+        },
+        "zoom": {
+          "label": "Yakınlaştırma (1-19)"
+        }
+      },
+      "name": "Harita ve Konum Bulucu",
+      "summary": "Konumlarınızı haritada gösterin."
+    },
+    "marketplace": {
+      "description": "Tek satıcılı mağazanızı çok satıcılı bir pazaryerine dönüştürün. Satıcılar kaydolur, kendi mağazalarında ürün listeler; yönetici ise tüm mağazaların siparişlerini ve komisyonlarını görür. Her ürün bir satıcıya aittir ve komisyon otomatik olarak bölüştürülür.",
+      "fields": {
+        "commissionPct": {
+          "label": "Platform komisyonu %"
+        },
+        "marketName": {
+          "label": "Pazaryeri adı"
+        }
+      },
+      "name": "Pazaryeri",
+      "summary": "Diğer satıcıların mağazanız üzerinden satış yapmasını sağlayın."
+    },
+    "media-playlist": {
+      "description": "Ses ve video içeriklerini tek bir oynatıcıda birleştiren, yönetici tarafından düzenlenen bir oynatma listesi. Oynatıcı sıradaki içeriğe otomatik geçer, atlama / yeniden oynatma seçenekleri sunar ve küçük resimlerle bir sıra paneli gösterir.",
+      "fields": {
+        "playlistName": {
+          "label": "Oynatma listesi adı"
+        }
+      },
+      "name": "Medya oynatma listesi",
+      "summary": "Şarkıları ve videoları tek bir oynatma listesinde bir araya getirin."
+    },
+    "member-id-card": {
+      "description": "Üyelere dijital kimlik kartları verin. Her kartta ad, fotoğraf, benzersiz üye numarası, üyelik seviyesi, düzenlenme ve son kullanma tarihi ile taranabilir bir barkod (Code 128) bulunur. Üyeler kartlarını telefonlarında açar; personel doğrulamak için kapıda tarar (barkod/QR modülünün akışını kullanır).",
+      "fields": {
+        "cardTagline": {
+          "label": "Kart sloganı"
+        },
+        "orgName": {
+          "label": "Kuruluş adı"
+        }
+      },
+      "name": "Üye kimlik kartı",
+      "summary": "Üyelere dijital kimlik kartı verin."
+    },
+    "menu": {
+      "description": "Başlangıçlar, ana yemekler ve içecekler gibi kategorilere ayrılmış; ürün adı, açıklaması ve fiyatını içeren restoran veya kafe menüsü. Yönetim sayfasından telefonunuzla yeni ürünler ekleyebilirsiniz.",
+      "fields": {
+        "currency": {
+          "label": "Para birimi"
+        },
+        "restaurantName": {
+          "label": "Restoran adı"
+        }
+      },
+      "name": "Restoran Menüsü",
+      "summary": "Yiyecek ve içecek menünüzü sergileyin."
+    },
+    "newsletter": {
+      "description": "Tek bir e-posta alanı, giderek büyüyen bir abone listesi ve zaman bilgileriyle tüm kayıtları gösteren bir yönetici sayfası içeren dikkat çekici bir kayıt sayfası.",
+      "fields": {
+        "buttonText": {
+          "label": "Düğme metni"
+        },
+        "pitch": {
+          "label": "Tek cümlelik tanıtım"
+        },
+        "title": {
+          "label": "Ana başlık"
+        }
+      },
+      "name": "E-bülten",
+      "summary": "Haberleriniz ve fırsatlarınız için e-posta adresleri toplayın."
+    },
+    "notes": {
+      "description": "Etiketlerle kısa notlar alın. Fikirleri, bağlantıları, hatırlatmaları ve uzun bir belgede yeri olmayan ufak notları kaydetmek için ideal.",
+      "name": "Notlar",
+      "summary": "Kısa notlar alın."
+    },
+    "nutrition-tracker": {
+      "description": "Öğünlerinizi kalori, protein, karbonhidrat ve yağ değerleriyle kaydedin. Günlük toplamlarınızı hedeflerinizle karşılaştırın ve son 7 günün grafiğini görün. Hızlı kayıt için yaygın yiyecekler önceden eklenmiştir. Seri takibi için alışkanlık takibiyle birlikte kullanın.",
+      "fields": {
+        "kcalGoal": {
+          "label": "Günlük kalori hedefi"
+        },
+        "proteinGoal": {
+          "label": "Günlük protein hedefi (g)"
+        }
+      },
+      "name": "Beslenme takibi",
+      "summary": "Öğünlerinizi kaydedin ve kalori sayın."
+    },
+    "password-vault": {
+      "description": "Paylaşılan gizli bilgileri (Wi-Fi şifreleri, lisans anahtarları, kapı kodları) saklamak için basit bir kasa. Ana PIN, argon2 özeti olarak saklanır; hiçbir zaman düz metin olarak tutulmaz.",
+      "fields": {
+        "masterPin": {
+          "help": "argon2 özeti olarak saklanır. Geri alınamaz.",
+          "label": "Ana PIN",
+          "placeholder": "4-6 haneli bir PIN seçin"
+        },
+        "vaultName": {
+          "label": "Kasa adı"
+        }
+      },
+      "name": "Şifre Kasası",
+      "summary": "Özel notlarınızı PIN ile koruyun."
+    },
+    "paywall": {
+      "description": "Özel içerikleri bir erişim kodunun veya oturum açmış bir hesabın arkasında tutun. Açma kodları tanımlayın (tek kullanımlık veya ortak) ve data-nk-paywall etiketi olan tüm sayfaları ziyaretçi geçerli bir kod girene veya oturum açana kadar gizleyin. Erişim, ziyaretçi için localStorage'da hatırlanır.",
+      "fields": {
+        "ctaCopy": {
+          "label": "Kilit ekranı başlığı"
+        },
+        "subCopy": {
+          "label": "Kilit ekranı alt başlığı"
+        }
+      },
+      "name": "Ücretli Erişim",
+      "summary": "Bazı sayfaları ücretli üyelere veya kodu olan kişilere özel tutun."
+    },
+    "pdf-embed": {
+      "description": "Fiyat listeleri, broşürler, kılavuzlar ve sözleşmeler gibi PDF belgelerden oluşan küçük bir kitaplık oluşturun. Her PDF için tarayıcının yerleşik PDF görüntüleyicisinin kullanıldığı herkese açık bir sayfa oluşturulur. Ziyaretçiler belgeleri sayfada açabilir veya indirebilir.",
+      "fields": {
+        "heading": {
+          "label": "Kütüphane başlığı"
+        }
+      },
+      "name": "PDF Kitaplığı",
+      "summary": "Belgeleri sayfada okunabilecek şekilde paylaşın."
+    },
+    "personalized-dashboard": {
+      "description": "Oturum açan kullanıcıyı adıyla karşılayan ve sabitlediği araçları gösteren kişiselleştirilmiş bir ana sayfa. Bir aracı sabitleyin (etiket + URL + simge), panelinizde görünsün. Diğer modüller de araç oluşturma adımıyla araçları otomatik olarak sabitleyebilir (ör. “okunmamış gelen kutusu sayınız”).",
+      "fields": {
+        "greeting": {
+          "label": "Karşılama ön eki"
+        }
+      },
+      "name": "Kişiselleştirilmiş panel",
+      "summary": "Oturum açan herkese kendine ait bir ana sayfa sunun."
+    },
+    "petitions": {
+      "description": "Başlık, açıklama ve imza formu içeren bir imza kampanyası sayfası. İmza verenlerin adı, e-posta adresi ve isteğe bağlı yorumu kaydedilir; imza sayısı gösterilir.",
+      "fields": {
+        "target": {
+          "label": "İmza hedefi"
+        },
+        "title": {
+          "label": "İmza kampanyası başlığı"
+        }
+      },
+      "name": "İmza Kampanyası",
+      "summary": "Bir amaç için imza toplayın."
+    },
+    "phonebook": {
+      "description": "Çalışanlar veya üyeler için aranabilir bir dizin. Her kayıtta fotoğraf, ad, unvan, departman, e-posta, telefon ve kısa bir biyografi bulunur. Departmana göre filtreleyin, ada göre arayın. Şirket içi ağlar, okul personeli sayfaları veya ticaret odası üye listeleri için idealdir.",
+      "fields": {
+        "heading": {
+          "label": "Dizin başlığı"
+        }
+      },
+      "name": "Telefon Rehberi / Dizin",
+      "summary": "Aranabilir bir kişi listesi oluşturun."
+    },
+    "places": {
+      "description": "Telefonlarda kullanımı kolay mekan rehberi: liste, kategoriler ve fotoğraflı işaretçilerin bulunduğu bir harita. Ziyaretçiler arama yapabilir, en yakın mekanları önce görmek için konumlarını paylaşabilir ve fotoğraflar, çalışma saatleri, arama düğmesi ve yol tarifi için bir mekanı açabilir. Giriş yapan ziyaretçiler kendi mekanlarını önerebilir; önerileriniz onayınızı bekler. Beş dilde sunulur ve turist rehberi, restoranlar, işletme rehberi veya düğün ve etkinlik mekanları için hazır örnekler içerir.",
+      "fields": {
+        "accent": {
+          "help": "Rehberin başlığında, düğmelerinde ve harita işaretlerinde kullanılır. Metin ve arka plan renkleri her zaman uygulamanızın temasına uyar.",
+          "label": "Renk",
+          "options": {
+            "blue": "Mavi",
+            "theme": "Uygulamamın ana rengi"
+          }
+        },
+        "languages": {
+          "help": "Ziyaretçiler dünya simgesine dokunarak dil değiştirebilir. Destekleniyorsa telefonlarının dili, desteklenmiyorsa listedeki ilk dil kullanılır. Yer adları ve açıklamalar sizin yazdığınız şekilde görünür.",
+          "label": "Diller",
+          "options": {
+            "de_en_es_pt_fr": "Beş dilin tümü, önce Almanca",
+            "en": "Yalnızca İngilizce",
+            "en_de": "İngilizce ve Almanca",
+            "en_es": "İngilizce ve İspanyolca",
+            "en_es_pt_fr_de": "Beş dilin tümü, önce İngilizce",
+            "en_fr": "İngilizce ve Fransızca",
+            "en_pt": "İngilizce ve Portekizce",
+            "es_en_pt_fr_de": "Beş dilin tümü, önce İspanyolca",
+            "fr_en_es_pt_de": "Beş dilin tümü, önce Fransızca",
+            "pt_en_es_fr_de": "Beş dilin tümü, önce Portekizce"
+          }
+        },
+        "preset": {
+          "help": "Kategorileri, metinleri ve başlangıçta gösterilen örnek mekanları belirler. Bunların tümünü daha sonra değiştirebilirsiniz.",
+          "label": "Şunun için kullan",
+          "options": {
+            "directory": "İşletme rehberi",
+            "restaurants": "Restoranlar",
+            "tourist": "Turist veya şehir rehberi",
+            "venues": "Düğün ve etkinlik mekânları"
+          }
+        },
+        "sortBy": {
+          "help": "Ziyaretçi konumunu paylaştığında en yakın yerler her zaman ilk sırada gösterilir.",
+          "label": "Liste sıralaması",
+          "options": {
+            "featured": "Önce öne çıkan yerler, sonra belirlediğiniz sıra",
+            "name": "A'dan Z'ye"
+          }
+        },
+        "title": {
+          "help": "Rehberin en üstünde görünür. Boş bırakırsanız ziyaretçinin dilinde amacına uygun bir başlık kullanılır.",
+          "label": "Rehber başlığı",
+          "placeholder": "Şehir Rehberi"
+        },
+        "units": {
+          "label": "Mesafe birimi",
+          "options": {
+            "km": "Kilometre",
+            "mi": "Mil"
+          }
+        }
+      },
+      "name": "Mekanlar",
+      "summary": "Harita üzerinde fotoğraflı mekan rehberi; en yakın mekanlar önce gösterilir."
+    },
+    "podcast": {
+      "description": "Her bölümün başlık, açıklama, süre ve ses URL'siyle listelendiği bir podcast giriş sayfası. Ziyaretçiler bölümleri doğrudan sayfada dinleyebilir.",
+      "fields": {
+        "showName": {
+          "label": "Program adı"
+        },
+        "tagline": {
+          "label": "Program sloganı"
+        }
+      },
+      "name": "Podcast",
+      "summary": "Dinleyebilecekleri podcast bölümlerini paylaşın."
+    },
+    "polls": {
+      "description": "Bir soru ve seçenekler listesi oluşturun; ziyaretçiler oy versin, sonuçlar anında güncellensin. Toplulukla hızlıca karar almak için ideal.",
+      "name": "Anketler",
+      "summary": "Bir soru sorun ve insanların oy vermesini sağlayın."
+    },
+    "portfolio": {
+      "description": "Başlık, görsel, açıklama ve isteğe bağlı harici bağlantı içeren bir proje portfolyosu. Tasarımcılar, geliştiriciler, fotoğrafçılar ve ajanslar için idealdir.",
+      "fields": {
+        "intro": {
+          "label": "Kısa tanıtım"
+        },
+        "name": {
+          "label": "Adınız veya markanız"
+        }
+      },
+      "name": "Portfolyo",
+      "summary": "En iyi çalışmalarınızı sergileyin."
+    },
+    "pricing": {
+      "description": "Üç seçenekli, düzenleyicide dilediğiniz gibi değiştirebileceğiniz şık bir fiyatlandırma sayfası ve seçilen her plan için e-posta adreslerini toplayan bir ilgi formu.",
+      "fields": {
+        "heading": {
+          "label": "Sayfa başlığı"
+        },
+        "sub": {
+          "label": "Alt başlık"
+        }
+      },
+      "name": "Fiyatlandırma Planları",
+      "summary": "Fiyatlarınızı gösterin, müşterilerin kaydolmasını sağlayın."
+    },
+    "project-portfolio": {
+      "description": "Birden fazla projeyi tek bir portföy görünümünde takip edin. Her projede ad, sorumlu kişi, durum (planlandı/aktif/engellendi/tamamlandı), tamamlanma yüzdesi, teslim tarihi ve görev sayısı bulunur. Küçük bir ekibi veya serbest çalışma sürecinizi yönetmek için kullanın. Tek panolu kanban modülünden farklıdır.",
+      "fields": {
+        "portfolioName": {
+          "label": "Portföy adı"
+        }
+      },
+      "name": "Proje portföyü",
+      "summary": "Projelerinizi ve ilerleme durumlarını takip edin."
+    },
+    "properties": {
+      "description": "Fotoğraflar, fiyat, yatak odası ve banyo sayısı, metrekare ve adres bilgileri içeren emlak ilanları sayfası. İlgilenen alıcıların size ulaşabilmesi için bir iletişim formu da bulunur.",
+      "fields": {
+        "agencyName": {
+          "label": "Emlak ofisinin adı"
+        }
+      },
+      "name": "Emlak İlanları",
+      "summary": "Satılık veya kiralık evleri ve mülkleri listeleyin."
+    },
+    "purchase-order": {
+      "description": "İşletmeler arası satın alma siparişleri için sade bir iş akışı. Çalışanlar bir sipariş (tedarikçi, kalemler, toplam tutar, gerekçe) gönderir; onaylayanlar sıradakileri görüp onaylar veya reddeder; finans ekibi siparişi tamamlandı ve ödendi olarak işaretler. Her siparişe muhasebe için sıralı bir numara verilir.",
+      "fields": {
+        "approverEmail": {
+          "label": "Onaylayanın e-postası"
+        }
+      },
+      "name": "Satın alma siparişleri",
+      "summary": "Tedarikçilerden sipariş isteyin, onaylayın ve takip edin."
+    },
+    "push-notifications": {
+      "description": "Bir “Bildirimleri aç” düğmesi ekleyin. Ziyaretçiler tarayıcılarından (iPhone'da ise ana ekranlarına ekledikleri uygulamadan) bildirimlere izin verir. Ardından uygulamanın Bildirimler ekranından veya bir iş akışıyla güncellemeler gönderebilirsiniz.",
+      "fields": {
+        "heading": {
+          "label": "Sayfa başlığı"
+        },
+        "pitch": {
+          "label": "Tanıtım metni"
+        }
+      },
+      "name": "Anlık Bildirimler",
+      "summary": "Telefonlara ve bilgisayarlara bildirim gönderin."
+    },
+    "qr-scanner": {
+      "description": "jsQR destekli, kamerayla çalışan bir QR kod tarayıcı. Taranan kodlar gönderebileceğiniz bir form alanına eklenir. Giriş kontrolü, kuponlar ve yoklama için idealdir.",
+      "fields": {
+        "heading": {
+          "label": "Başlık"
+        }
+      },
+      "name": "QR Kod Tarayıcı",
+      "summary": "Telefon kamerasıyla QR kodlarını tarayın."
+    },
+    "queue": {
+      "description": "Sanal bekleme sırası. Müşteriler telefonlarından kuyruğa katılır, sıra numaralarını ve anlık sıra durumlarını görür. Görevliler sayfasından “sonraki” çağrısı yaparak sırayı ilerletin; sıradaki numara bekleyen herkese anında gösterilir.",
+      "fields": {
+        "businessName": {
+          "label": "İşletme adı"
+        }
+      },
+      "name": "Sanal Sıra",
+      "summary": "Müşterilerinizin sırada beklemeden kuyruğa katılmasını sağlayın."
+    },
+    "quiz": {
+      "description": "Birden fazla sorusu olan tek sayfalık bir bilgi yarışması. Her yanıt; kullanıcının adı, verdiği yanıtlar ve istemci tarafında ya da bir akışta hesaplayabileceğiniz puanla birlikte saklanır.",
+      "fields": {
+        "title": {
+          "label": "Yarışma başlığı"
+        }
+      },
+      "name": "Bilgi Yarışması",
+      "summary": "Puanlı, eğlenceli bir bilgi yarışması düzenleyin."
+    },
+    "quote-request": {
+      "description": "Hizmet sunan işletmeler için fiyat teklifi talep formu. Proje ayrıntılarını, bütçeyi ve zaman planını toplayın. Yönetim sayfasında tüm talepleri durum sütunuyla birlikte görüntüleyin.",
+      "fields": {
+        "businessName": {
+          "label": "İşletme adı"
+        }
+      },
+      "name": "Fiyat Teklifi Talebi",
+      "summary": "Müşterilerin sizden fiyat teklifi istemesini sağlayın."
+    },
+    "radio": {
+      "description": "Büyük bir oynat düğmesi, dinleyicilerin canlı yayın yapan istasyonlar arasında geçiş yapabileceği bir istasyon listesi ve şarkı isteği formu içeren bir radyo sayfası. Ayarlarınızdan eklenen bir istasyonla başlar; yönetim sayfasından yenilerini ekleyerek büyütebilirsiniz.",
+      "fields": {
+        "stationName": {
+          "label": "Varsayılan istasyon adı"
+        },
+        "streamUrl": {
+          "label": "Varsayılan yayın URL'si (https)"
+        },
+        "tagline": {
+          "label": "Varsayılan istasyon sloganı"
+        }
+      },
+      "name": "Radyo Oynatıcı",
+      "summary": "Canlı radyo istasyonlarını dinletin."
+    },
+    "reactions": {
+      "description": "Farklı içerik türleriyle çalışabilen bir tepki sistemi. Herhangi bir tablodaki herhangi bir satıra emoji tepkileri eklenebilir (     …). Her tepki; (entity_table, entity_id, emoji, isteğe bağlı user_id) bilgilerini içeren tek bir satırdır. Fanwall, forum, blog, galeri — tüm modüller bu özelliği kullanabilir.",
+      "name": "Tepkiler",
+      "summary": "İnsanların gönderilere hızlıca emojiyle tepki vermesini sağlayın."
+    },
+    "reading": {
+      "description": "Kişisel kitap takip listeniz. Her kitapta başlık, yazar, kapak ve okuma durumu bulunur; bitirdiğinizde isteğe bağlı olarak puan verebilirsiniz.",
+      "name": "Okuma Listesi",
+      "summary": "Okuyacaklarınızı, okuduklarınızı ve bitirdiklerinizi takip edin."
+    },
+    "realtime-chat": {
+      "description": "Yeni mesajları birkaç saniyede bir kontrol eden herkese açık bir sohbet odası; böylece konuşmalar anında gerçekleşiyormuş gibi hissettirir. Ziyaretçilerin gerçek zamanlı sohbet etmesini istediğiniz her yere ekleyin.",
+      "fields": {
+        "refreshMs": {
+          "label": "Yenileme aralığı (ms)"
+        },
+        "roomTitle": {
+          "label": "Oda başlığı"
+        }
+      },
+      "name": "Canlı Sohbet",
+      "summary": "Mesajların anında göründüğü bir sohbet odası."
+    },
+    "recipes": {
+      "description": "Bir tarif koleksiyonu. Her tarifte başlık, kapak görseli, malzeme listesi, yapılış adımları, hazırlık süresi ve porsiyon sayısı bulunur. Evde yemek yapanlar veya yemek blogları için ideal.",
+      "fields": {
+        "kitchenName": {
+          "label": "Koleksiyon adı"
+        }
+      },
+      "name": "Tarifler",
+      "summary": "Malzemeleri ve adımlarıyla tarifler paylaşın."
+    },
+    "referrals": {
+      "description": "Her kullanıcıya özel bir davet kodu ve paylaşım bağlantısı verilir. Bir kişi bu kodla kaydolduğunda, davet eden kullanıcı için kayıt tutulur. En çok davet edenlerin listesi ve kodunuzu paylaşabileceğiniz bir “kodum” sayfası içerir.",
+      "fields": {
+        "appName": {
+          "label": "Uygulama adı"
+        },
+        "rewardCopy": {
+          "label": "Ödül metni"
+        }
+      },
+      "name": "Davetler",
+      "summary": "Arkadaşlarını davet eden kişileri ödüllendirin."
+    },
+    "reminders": {
+      "description": "Kullanıcıların veya yöneticilerin “Cuma saat 16.00'da X'i e-postayla hatırlat” gibi hatırlatıcılar planlamasını sağlayın. Hatırlatıcılar, gönderim zamanı ve e-posta metniyle kaydedilir. Zamanı geldiğinde ayrı bir işlem ya da “zamanı gelenleri şimdi gönder” akışı gönderir.",
+      "fields": {
+        "fromEmail": {
+          "label": "Gönderen adresi"
+        }
+      },
+      "name": "Hatırlatıcılar",
+      "summary": "Seçtiğiniz saatte e-posta hatırlatıcıları gönderin."
+    },
+    "rentals": {
+      "description": "Airbnb tarzı kısa süreli kiralık yer ilanları. Her ilanda fotoğraflar, gecelik fiyat, konaklayabilecek kişi sayısı, olanaklar ve rezervasyon isteği formu bulunur.",
+      "name": "Tatil Kiralamaları",
+      "summary": "İnsanların rezervasyon isteği gönderebileceği tatil kiralıklarını listeleyin."
+    },
+    "reviews": {
+      "description": "Yıldız puanı ve yorum içeren bir değerlendirme gönderme sayfası; ayrıca onaylanan tüm değerlendirmeleri listeleyen herkese açık bir sayfa. Sitenize müşteri güveni katmak için ideal.",
+      "fields": {
+        "brand": {
+          "label": "Marka / işletme adı"
+        }
+      },
+      "name": "Değerlendirmeler",
+      "summary": "Müşterilerden yıldız puanı ve değerlendirme alın."
+    },
+    "routes": {
+      "description": "Birden fazla duraktan oluşan bir gezi planı veya rota oluşturun: durakları sırayla ekleyin (ad, adres, enlem/boylam, notlar), haritada durakları birleştiren çizgiyle görün ve tamamlanan rotayı yazdırmaya uygun sade bir sayfada herkese açık olarak paylaşın.",
+      "fields": {
+        "heading": {
+          "label": "Başlık"
+        }
+      },
+      "name": "Rotalar ve Gezi Planları",
+      "summary": "Bir rotayı veya gezi planını durak durak paylaşın."
+    },
+    "rss-reader": {
+      "description": "Bir veya daha fazla harici RSS / Atom akışına abone olun ve en yeni içerikleri uygulamanızda bir arada gösterin. Yenileme işlemi akışları alır (zamanlanmış çalıştırmaya uygun), içerikleri ayrıştırır ve okuyucunun hızlı kalması için yerel olarak kaydeder.",
+      "fields": {
+        "heading": {
+          "label": "Okuyucu başlığı"
+        }
+      },
+      "name": "Haber akışı okuyucusu",
+      "summary": "Başka bir web sitesinin haber akışındaki son gönderileri gösterin."
+    },
+    "scheduled-content": {
+      "description": "İçeriği (başlık + metin) taslak olarak yazın, bir publish_at zamanı belirleyin. İçerik, yalnızca bu saatten sonra herkese açık akışta görünür. Taslakları yayınlamak için “publish-due” akışı cron isteğiyle tetiklenebilir; herkese açık akışta da gerçek zamanlı filtreleme yapılır.",
+      "fields": {
+        "heading": {
+          "label": "Akış başlığı"
+        }
+      },
+      "name": "Zamanlanmış İçerik",
+      "summary": "Şimdi yazın, daha sonra yayınlayın."
+    },
+    "scratch-card": {
+      "description": "Kazı kazan promosyonu. Ziyaretçiler e-posta adreslerini girip sanal bir kazı kazan kartı alır; kartı kazıyınca ödül havuzunuzdan rastgele bir ödül çıkar (stok miktarına göre belirlenir). Verilen her ödül, kazananın e-posta adresi ve ödülü almak için kullanacağı kodla birlikte kaydedilir.",
+      "fields": {
+        "campaignName": {
+          "label": "Kampanya adı"
+        }
+      },
+      "name": "Kazı Kazan Kartı",
+      "summary": "Kazı kazan kartıyla ödüller dağıtın."
+    },
+    "service-menu": {
+      "description": "Her hizmetin adı, süresi, fiyatı ve açıklamasının yer aldığı salon veya spa tarzı bir hizmet listesi. Randevu sayfasıyla birlikte kullanmak için ideal.",
+      "fields": {
+        "businessName": {
+          "label": "İşletme adı"
+        },
+        "currency": {
+          "label": "Para birimi"
+        }
+      },
+      "name": "Hizmet Listesi",
+      "summary": "Hizmetlerinizi fiyatlarıyla listeleyin."
+    },
+    "share-app": {
+      "description": "Yerleşik Web Share API (mobil), panoya kopyalama ve Twitter/X, Facebook, WhatsApp, e-posta ve LinkedIn için hazır paylaşım bağlantıları içeren, doğrudan eklenebilir bir “Bu uygulamayı paylaş” sayfası. Her paylaşımı hedefine göre izleyerek hangi kanalların işe yaradığını görün.",
+      "fields": {
+        "appName": {
+          "label": "Uygulama adı"
+        },
+        "appUrl": {
+          "label": "Paylaşım URL'si"
+        },
+        "shareText": {
+          "label": "Varsayılan paylaşım metni"
+        }
+      },
+      "name": "Uygulamayı Paylaş",
+      "summary": "İnsanların uygulamanızı kolayca paylaşmasını sağlayın."
+    },
+    "shop": {
+      "description": "Alışveriş sepeti içeren bir ürün listesi. Ziyaretçiler ürünleri sepete ekler, sepeti inceler ve bilgilerini, sepetin tüm içeriğini ve hesaplanan toplam tutarı içeren bir sipariş gönderir. Siparişler, inceleyebileceğiniz bir yönetici tablosuna kaydedilir.",
+      "fields": {
+        "currency": {
+          "label": "Para birimi simgesi"
+        },
+        "storeName": {
+          "label": "Mağaza adı"
+        }
+      },
+      "name": "Basit Mağaza",
+      "summary": "Gerçek bir alışveriş sepetiyle ürünlerinizi çevrimiçi satın."
+    },
+    "slider": {
+      "description": "Yöneticinin koda dokunmadan düzenleyebileceği bir ana sayfa görsel alanı. Slayt ekleyin (görsel, başlık, alt başlık, eylem düğmesi ve bağlantı), sıralarını değiştirin; herkese açık alan slaytları otomatik oynatır. Harici bir kaydırıcı kütüphanesi gerektirmeyen yalın JavaScript ile hazırlanmıştır.",
+      "fields": {
+        "intervalMs": {
+          "label": "Slayt aralığı (ms)"
+        }
+      },
+      "name": "Görsel Kaydırıcısı",
+      "summary": "Görselleri sırayla kaydırarak gösterin."
+    },
+    "sms": {
+      "description": "Twilio REST API üzerinden bir telefon numarasına SMS gönderin. Denetim için tüm gönderimleri giden mesajlar tablosuna kaydedin. Hatırlatmalar, iki faktörlü doğrulama veya e-posta yerine mesaj gönderen akışlarla birlikte kullanın.",
+      "fields": {
+        "fromNumber": {
+          "label": "Gönderen numara (E.164)"
+        },
+        "twilioAccountSid": {
+          "label": "Twilio hesap SID'si"
+        },
+        "twilioAuthToken": {
+          "label": "Twilio kimlik doğrulama jetonu"
+        }
+      },
+      "name": "SMS",
+      "summary": "Müşterilerinize kısa mesaj gönderin."
+    },
+    "status-page": {
+      "description": "statuspage.io gibi bir durum sayfası. Bir hizmet listesi tanımlayın (API, Web, Veritabanı…), her hizmetin güncel durum göstergesi olsun. Araştırılıyor → tespit edildi → çözüldü aşamalarından geçen olaylar yayınlayın ve herkese açık güncellemeleri etkilenen hizmetlere sabitleyin.",
+      "fields": {
+        "appName": {
+          "label": "Uygulama / hizmet adı"
+        }
+      },
+      "name": "Durum Sayfası",
+      "summary": "Her şeyin normal çalışıp çalışmadığını müşterilerinize bildirin."
+    },
+    "store-locator": {
+      "description": "Çalışma saatlerini ve hizmetleri gösteren, kullanıcının konumuna göre mesafeye göre sıralama yapan ve Google/Apple Haritalar'da yol tarifi için tek dokunuşla bağlantı sunan çok konumlu mağaza bulucu. Genel amaçlı `places` modülünden farklıdır; perakende zincirleri, bayilikler, şubeler ve iş ortağı konumları için özel olarak tasarlanmıştır.",
+      "fields": {
+        "brandName": {
+          "label": "Marka adı"
+        }
+      },
+      "name": "Mağaza Bulucu",
+      "summary": "İnsanların size en yakın mağazayı bulmasına yardımcı olun."
+    },
+    "stripe-checkout": {
+      "description": "Ödeme düğmesiyle gerçek bir Stripe Checkout oturumu oluşturan ve müşteriyi ödeme sayfasına yönlendiren ürün sayfası. Modül ayarlarına kendi Stripe gizli anahtarınızı ekleyin.",
+      "fields": {
+        "cancelUrl": {
+          "help": "Ödemeyi iptal edenlerin yönlendirileceği yer: genellikle uygulamanızın ana sayfası.",
+          "label": "İptal yönlendirme URL'si"
+        },
+        "currency": {
+          "label": "Para birimi kodu"
+        },
+        "priceCents": {
+          "label": "Fiyat (sent)"
+        },
+        "productName": {
+          "label": "Ürün adı"
+        },
+        "stripeSecret": {
+          "help": "Stripe gizli anahtarınız. Başlamak için test anahtarı kullanın.",
+          "label": "Stripe gizli anahtarı"
+        },
+        "successUrl": {
+          "help": "Ödeme yapanların yönlendirileceği yer: örneğin uygulamanızdaki teşekkür sayfası. Adresi uygulamanızın Yayınla sekmesinden kopyalayın.",
+          "label": "Başarılı ödeme yönlendirme URL'si"
+        }
+      },
+      "name": "Online ödemeler",
+      "summary": "Sattığınız her şey için kartla ödeme alın."
+    },
+    "submissions-queue": {
+      "description": "Reddit tarzı bir gönderi akışı: Ziyaretçiler içerik gönderir (başlık + metin + isteğe bağlı görsel), içerik moderasyon kuyruğuna düşer ve bir yönetici onaylar ya da reddeder. Yalnızca onaylanan içerikler herkese açık akışta görünür. Ret nedenleri kaydedilir. Sadece gelen kutusu olan iletişim formundan farklıdır.",
+      "fields": {
+        "feedHeading": {
+          "label": "Herkese açık akış başlığı"
+        },
+        "guidelines": {
+          "label": "Gönderi kuralları"
+        }
+      },
+      "name": "Gönderi kuyruğu",
+      "summary": "Gönderileri toplayın ve yayına almadan önce onaylayın."
+    },
+    "subscription": {
+      "description": "Plan seçimi, teslimat bilgileri ve onay adımlarını içeren aylık abonelik kayıt sayfası. Ücretlendirme ve gönderim işlemleri için üyeleri bir tabloda saklar.",
+      "fields": {
+        "boxName": {
+          "label": "Kutu adı"
+        }
+      },
+      "name": "Abonelik Kutusu",
+      "summary": "Müşterilerin aylık kutu veya plana kaydolmasını sağlayın."
+    },
+    "survey": {
+      "description": "Birden fazla sorusu ve serbest metin yanıtları olan bir anket. Her yanıtı JSON verisi olarak saklayın ve yönetim bölümünde inceleyin.",
+      "fields": {
+        "intro": {
+          "label": "Giriş metni"
+        },
+        "title": {
+          "label": "Anket başlığı"
+        }
+      },
+      "name": "Anket",
+      "summary": "Müşterilerinize birkaç soru sorun, yanıtlarını toplayın."
+    },
+    "table-reservations": {
+      "description": "Restoranlara özel masa rezervasyonu (genel randevu sistemlerinden farklıdır). Masalarınızı (kişi sayılarıyla birlikte) tanımlayın, tarih + saat + kişi sayısına göre rezervasyon alın ve çifte rezervasyonu önleyin. İşletme sahibi günün rezervasyonlarını tabloda görür; misafirler bir onay sayfası alır.",
+      "fields": {
+        "restaurantName": {
+          "label": "Restoran adı"
+        },
+        "slotMinutes": {
+          "label": "Hizmet süresi (dk)"
+        }
+      },
+      "name": "Masa rezervasyonları",
+      "summary": "Misafirlerin restoranınızda masa ayırtmasını sağlayın."
+    },
+    "tags": {
+      "description": "Basit bir etiketleme sistemi. İsteğe bağlı renklerle etiketler tanımlayın, ardından bunları her tablodaki satırlara ekleyin. Potansiyel müşterileri, projeleri veya içerikleri kategorilere ayırmak için kullanışlıdır.",
+      "name": "Etiketler",
+      "summary": "Öğeleri kolayca düzenleyip bulmak için etiket ekleyin."
+    },
+    "team": {
+      "description": "Fotoğraf, ad, görev ve kısa biyografi içeren bir ekip rehberi. Hakkımızda sayfaları ve şirket içi intranetler için ideal.",
+      "fields": {
+        "heading": {
+          "label": "Sayfa başlığı"
+        }
+      },
+      "name": "Ekip Rehberi",
+      "summary": "Ekibinizdeki kişileri tanıtın."
+    },
+    "testimonials": {
+      "description": "Müşteri alıntılarını toplayıp gösterin. Yorum sisteminden daha basittir: puan yıldızları yoktur; yalnızca ad, fotoğraf ve yorum metni bulunur. Açılış sayfasına eklemek için idealdir.",
+      "name": "Müşteri Yorumları",
+      "summary": "Memnun müşterilerinizin sizin hakkınızda söylediklerini gösterin."
+    },
+    "timeline": {
+      "description": "Değişiklik günlüğü tarzında dikey bir zaman çizelgesi. Sürüm notları, şirket geçmişi, proje dönüm noktaları veya tarihli etkinlik listeleri için idealdir.",
+      "fields": {
+        "subtitle": {
+          "label": "Alt başlık"
+        },
+        "title": {
+          "label": "Zaman çizelgesi başlığı"
+        }
+      },
+      "name": "Zaman Çizelgesi",
+      "summary": "Hikâyenizi tarih ve dönüm noktalarından oluşan bir listeyle anlatın."
+    },
+    "todo": {
+      "description": "Kişisel veya paylaşılan yapılacaklar listesi. Başlık, notlar, öncelik ve tamamlanma durumu ekleyin. Liste, sorgulayabileceğiniz, filtreleyebileceğiniz ve geliştirebileceğiniz gerçek bir görev tablosunda tutulur.",
+      "fields": {
+        "listName": {
+          "label": "Liste adı"
+        }
+      },
+      "name": "Yapılacaklar Listesi",
+      "summary": "Yapılacaklarınızı listeleyin, tamamladıklarınızı işaretleyin."
+    },
+    "two-factor": {
+      "description": "Girişe ek bir adım ekler: kullanıcı oturum açtıktan sonra e-postayla 6 haneli bir kod göndeririz. Kod onaylanana kadar oturum doğrulanmamış olarak işaretlenir. Hesap güvenliğini artırmak için kimlik doğrulama modülünü kullanan projelere ekleyin.",
+      "fields": {
+        "appName": {
+          "label": "Uygulama adı"
+        },
+        "fromEmail": {
+          "label": "Gönderen adresi"
+        }
+      },
+      "name": "Ek giriş doğrulaması",
+      "summary": "Girişte e-postayla gönderilen bir kod isteyin."
+    },
+    "user-favorites": {
+      "description": "Kullanıcıların ürün, araç, gönderi veya makale gibi öğeleri favorilerine eklemesini ve kişisel listelerine göz atmasını sağlar. Projede yüklü olan kimlik doğrulama modülünü kullanır. Önce Auth / Accounts (veya başka bir oturum sağlayıcısı) yüklemelisiniz.",
+      "name": "Favoriler",
+      "summary": "Oturum açanların favori öğelerini kaydetmesini sağlayın."
+    },
+    "user-groups": {
+      "description": "Kimlik doğrulama modülündeki tek rol alanına ek olarak üyelere birden fazla grup üyeliği ekleyin. Gruplar tanımlayın (Premium, Beta, VIP, Personel…) ve kullanıcıları bir veya daha fazla gruba ekleyin. Diğer modüller, bir özelliğe erişimi kısıtlamadan önce grup üyeliğini kontrol edebilir.",
+      "name": "Üye grupları",
+      "summary": "Üyeleri VIP veya personel gibi gruplara ayırın."
+    },
+    "user-profile-card": {
+      "description": "Oturum açan kullanıcının adını, avatarını ve biyografisini gösteren küçük bir profil kartı. Yüklü olan kullanıcı kimlik doğrulama modülünü kullanır; kendine ait bir veritabanı yoktur. Ziyaretçilerin kimin oturum açtığını hemen görmesi için bir sayfaya ekleyin.",
+      "name": "Profil kartı",
+      "summary": "Oturum açan kişilere kendi profillerini gösterin."
+    },
+    "video": {
+      "description": "YouTube ve Vimeo videolarını gömülü olarak gösteren bir video galerisi. Ziyaretçiler küçük resimlerden oluşan bir ızgara görür; tıkladıklarında video oynatıcı sayfa içinde açılır. Her videonun başlığını ve açıklamasını yönetim sayfasından düzenleyin.",
+      "fields": {
+        "title": {
+          "label": "Kitaplık başlığı"
+        }
+      },
+      "name": "Video Kitaplığı",
+      "summary": "YouTube veya Vimeo videolarınızı gösterin."
+    },
+    "waitlist": {
+      "description": "Bekleme listesine katılmak için tek bir e-posta alanı içeren dikkat çekici bir açılış öncesi sayfası. Adı, e-postayı ve isteğe bağlı davet kaynağını kaydeder. Yayına çıkmadan önce hazırlanan açılış sayfaları için idealdir.",
+      "fields": {
+        "productName": {
+          "label": "Ürün adı"
+        },
+        "tagline": {
+          "label": "Slogan"
+        }
+      },
+      "name": "Bekleme Listesi",
+      "summary": "Açıldığınızda haber almak isteyenlerin kaydolmasını sağlayın."
+    },
+    "weather": {
+      "description": "OpenWeatherMap API anahtarıyla bir konumun güncel hava durumunu alın. Sıcaklığı, hava koşullarını ve bir simgeyi gösterir. Modül ayarlarında kendi ücretsiz API anahtarınızı kullanın.",
+      "fields": {
+        "apiKey": {
+          "label": "OpenWeatherMap API anahtarı",
+          "placeholder": "openweathermap.org'da ücretsiz"
+        },
+        "city": {
+          "label": "Şehir"
+        },
+        "units": {
+          "label": "Birimler",
+          "options": {
+            "imperial": "Fahrenhayt (°F)",
+            "metric": "Santigrat (°C)"
+          }
+        }
+      },
+      "name": "Hava Durumu",
+      "summary": "Bugünün hava durumunu gösterin."
+    },
+    "webhooks-in": {
+      "description": "Harici hizmetlerden (Stripe etkinlikleri, GitHub kancaları, Zapier vb.) gelen JSON verilerini bir tabloya kaydeden herkese açık bir webhook adresi oluşturun. Yönetici panelinden verilere göz atın ve yeniden işleyin.",
+      "name": "Diğer uygulamalardan veri alın",
+      "summary": "Diğer uygulama ve hizmetlerden gönderilen bilgileri alın."
+    },
+    "webview": {
+      "description": "Harici bir URL’yi, güvenli bir iframe içinde uygulamanıza ekleyen basit bir çerçeve. Henüz yerleşik modülü olmayan mevcut belgeleri, panoları veya üçüncü taraf uygulamaları eklemek için kullanışlıdır. Her sayfa için ayarlanabilir; güvenlik için yalnızca izin verilen kaynakları destekler.",
+      "name": "Başka Bir Web Sitesi Göster",
+      "summary": "Uygulamanızda başka bir web sitesini gösterin."
+    },
+    "wedding": {
+      "description": "Tarih, mekân, hikâye ve konukların adını, katılım durumunu, yemek seçimini ve yanlarında getirecekleri kişiyi belirtebildiği bir yanıt formu içeren şık bir düğün sayfası.",
+      "fields": {
+        "coupleNames": {
+          "label": "Çiftin adları"
+        },
+        "venue": {
+          "label": "Mekan"
+        },
+        "weddingDate": {
+          "label": "Düğün tarihi"
+        }
+      },
+      "name": "Düğün Katılım Yanıtı",
+      "summary": "Davetinize yanıt verilebilen bir düğün sayfası oluşturun."
+    },
+    "whatsapp-order": {
+      "description": "Müşteriler herkese açık bir sayfada ürünleri sepete ekler; ardından “WhatsApp'tan sipariş ver” seçeneği, siparişin tamamının hazır mesaj olarak yazıldığı bir sohbeti işletmenizle açar. Siparişler sunucu tarafına da kaydedilir; böylece WhatsApp sohbeti dışında da kayıt tutulur.",
+      "fields": {
+        "businessName": {
+          "label": "İşletme adı"
+        },
+        "whatsappNumber": {
+          "label": "WhatsApp numarası (yalnızca rakamlar, ülke koduyla)"
+        }
+      },
+      "name": "WhatsApp Siparişi",
+      "summary": "Müşterilerin size WhatsApp'tan sipariş vermesini sağlayın."
+    },
+    "wishlist": {
+      "description": "Ürün adı, fiyatı, mağaza bağlantısı ve isteğe bağlı görsel içeren bir istek listesi. Hediye almak isteyenlerle paylaşın ya da daha sonra bakmak için gizli tutun.",
+      "fields": {
+        "heading": {
+          "label": "İstek listesi başlığı"
+        }
+      },
+      "name": "İstek Listesi",
+      "summary": "İnsanların istedikleri şeylerin listesini tutmasını sağlayın."
+    }
+  },
+  "templates": {
+    "crafto-application": {
+      "name": "Uygulama",
+      "tagline": "Renk geçişli kartlar ve fiyatlandırma içeren modern mobil uygulama açılış sayfası"
+    },
+    "crafto-architecture": {
+      "name": "Mimarlık",
+      "tagline": "Neon sarısı vurgular ve dergi tarzı düzeni olan iddialı, koyu temalı mimarlık stüdyosu"
+    },
+    "crafto-barber": {
+      "name": "Berber",
+      "tagline": "Sıcak altın tonları ve vintage yazı karakterleriyle klasik berber dükkânı"
+    },
+    "crafto-beauty-salon": {
+      "name": "Güzellik Salonu",
+      "tagline": "Sıcak şeftali tonları ve tırnaklı başlıklarıyla zarif güzellik salonu"
+    },
+    "crafto-branding-agency": {
+      "name": "Marka Ajansı",
+      "tagline": "Kehribar vurguları ve bölünmüş açılış alanı düzeniyle iddialı marka ajansı"
+    },
+    "crafto-branding-studio": {
+      "name": "Marka Stüdyosu",
+      "tagline": "Canlı turuncu vurguları ve sade yazı karakterleriyle modern marka stüdyosu"
+    },
+    "crafto-business": {
+      "name": "İşletme",
+      "tagline": "Hizmet sekmeleri ve fiyatlandırma sunan profesyonel kurumsal ajans"
+    },
+    "crafto-charity": {
+      "name": "Yardım Vakfı",
+      "tagline": "Destek alanları, bağış ve gönüllülük bölümleri olan sıcak, kâr amacı gütmeyen kuruluş şablonu"
+    },
+    "crafto-clothing-store": {
+      "name": "Giyim Mağazası",
+      "tagline": "Sıcak tonlar ve dergi tarzı ürün düzenleriyle doğal görünümlü moda butiği"
+    },
+    "crafto-conference": {
+      "name": "Konferans",
+      "tagline": "İddialı kırmızı vurgular ve konuşmacı kartlarıyla dinamik konferans ve etkinlik sayfası"
+    },
+    "crafto-consulting": {
+      "name": "Danışmanlık",
+      "tagline": "Sıcak turuncu vurgular ve iddialı yazı karakterleriyle profesyonel danışmanlık firması"
+    },
+    "crafto-corporate": {
+      "name": "Kurumsal",
+      "tagline": "Koyu çivit mavisi markası ve sade ızgara düzeniyle şık kurumsal şirket sitesi"
+    },
+    "crafto-cryptocurrency": {
+      "name": "Kripto Para",
+      "tagline": "Neon yeşili vurgular ve modern arayüzüyle koyu temalı kripto alım satım platformu"
+    },
+    "crafto-data-analysis": {
+      "name": "Veri Analizi",
+      "tagline": "Canlı renk geçişleri ve sade düzeniyle modern veri analizi SaaS açılış sayfası"
+    },
+    "crafto-decor-store": {
+      "name": "Dekorasyon Mağazası",
+      "tagline": "Zarif lacivert markası ve sade ürün ızgarasıyla şık ev dekorasyonu e-ticaret şablonu"
+    },
+    "crafto-design-agency": {
+      "name": "Tasarım Ajansı",
+      "tagline": "Büyük boy yazı karakterleri ve sıcak turuncu vurgularıyla iddialı yaratıcı ajans şablonu"
+    },
+    "crafto-digital-agency": {
+      "name": "Dijital Ajans",
+      "tagline": "Portfolyo ızgarası ve hizmet tanıtımıyla iddialı yaratıcı ajans"
+    },
+    "crafto-ebook": {
+      "name": "eKitap",
+      "tagline": "Altın rengi vurguları ve iddialı Oswald yazı karakteriyle koyu temalı eKitap açılış sayfası"
+    },
+    "crafto-elder-care": {
+      "name": "Yaşlı Bakımı",
+      "tagline": "Koyu lacivert ve kırmızı vurgularıyla sıcak, şefkatli yaşlı bakım sitesi"
+    },
+    "crafto-elearning": {
+      "name": "Çevrimiçi Eğitim",
+      "tagline": "Kurs kataloğu, eğitmen profilleri ve öğrenci yorumlarıyla modern çevrimiçi eğitim platformu"
+    },
+    "crafto-fashion-store": {
+      "name": "Moda Mağazası",
+      "tagline": "İddialı sarı vurgularıyla şık moda e-ticaret mağazası"
+    },
+    "crafto-finance": {
+      "name": "Finans",
+      "tagline": "Sıcak altın ve yeşil tonlarında premium finans danışmanlığı"
+    },
+    "crafto-fitness": {
+      "name": "Spor Salonu ve Fitness",
+      "tagline": "Ders programları, eğitmen profilleri ve üyelik paketleriyle iddialı spor salonu şablonu"
+    },
+    "crafto-freelancer": {
+      "name": "Serbest Çalışan",
+      "tagline": "Kırmızı vurgularla yaratıcı serbest çalışanlara özel iddialı kişisel portföy"
+    },
+    "crafto-green-energy": {
+      "name": "Yeşil Enerji",
+      "tagline": "Doğal yeşil paletiyle yenilenebilir enerji şirketi sitesi"
+    },
+    "crafto-hosting": {
+      "name": "Hosting Sağlayıcısı",
+      "tagline": "Fiyat tabloları ve özellik kartları içeren koyu SaaS hosting şablonu"
+    },
+    "crafto-hotel": {
+      "name": "Otel ve Tatil Köyü",
+      "tagline": "Oda tanıtımları, olanaklar ve rezervasyon özellikleriyle zarif lüks otel ve tatil köyü şablonu"
+    },
+    "crafto-it-business": {
+      "name": "BT Şirketi",
+      "tagline": "Koyu mavi geçişler ve dalga animasyonlarıyla modern BT çözümleri şirketi"
+    },
+    "crafto-jewellery-store": {
+      "name": "Mücevher Mağazası",
+      "tagline": "Sıcak şeftali ve rose gold tonlarında zarif mücevher butiği"
+    },
+    "crafto-lawyer": {
+      "name": "Avukat",
+      "tagline": "Klasik serif yazı tipleri ve altın vurgularıyla prestijli hukuk bürosu sitesi"
+    },
+    "crafto-logistics": {
+      "name": "Lojistik",
+      "tagline": "Canlı sarı ve koyu tonlarda iddialı lojistik ve nakliye şirketi"
+    },
+    "crafto-magazine": {
+      "name": "Dergi",
+      "tagline": "Öne çıkan yazılar ve kategoriler içeren iddialı dergi düzeni"
+    },
+    "crafto-marketing": {
+      "name": "Pazarlama",
+      "tagline": "İddialı yazı tipleriyle dönüşüm odaklı dijital pazarlama ajansı açılış sayfası"
+    },
+    "crafto-medical": {
+      "name": "Tıp Merkezi",
+      "tagline": "Randevu alma ve doktor profilleri içeren sade sağlık şablonu"
+    },
+    "crafto-modern-business": {
+      "name": "Modern İşletme",
+      "tagline": "Mor vurgulara ve sade kurumsal düzene sahip profesyonel işletme şablonu"
+    },
+    "crafto-music": {
+      "name": "Müzik",
+      "tagline": "Canlı pembe vurgulara sahip koyu ve iddialı tek sayfalık müzik ve grup şablonu"
+    },
+    "crafto-photography": {
+      "name": "Fotoğrafçılık",
+      "tagline": "Tam ekran galeri panelleri içeren sade ve koyu fotoğrafçılık portföyü"
+    },
+    "crafto-pizza": {
+      "name": "Pizzacı",
+      "tagline": "İddialı kırmızı ve altın vurgularıyla sıcak ve iştah açıcı pizza restoranı şablonu"
+    },
+    "crafto-product-showcase": {
+      "name": "Ürün Tanıtımı",
+      "tagline": "Geçiş efektleri ve iddialı görsellerle şık ürün lansmanı açılış sayfası"
+    },
+    "crafto-realestate-v2": {
+      "name": "Gayrimenkul v2",
+      "tagline": "Üst bölüm kaydırıcısı, ilan kartları ve emlak danışmanı profilleriyle modern emlak pazaryeri"
+    },
+    "crafto-realestate": {
+      "name": "Gayrimenkul",
+      "tagline": "İlanlar, emlak danışmanı profilleri ve gelişmiş arama özellikleriyle profesyonel gayrimenkul platformu"
+    },
+    "crafto-restaurant": {
+      "name": "Restoran",
+      "tagline": "Menü tanıtımları ve rezervasyon düğmesiyle sıcak ve şık restoran"
+    },
+    "crafto-seo-agency": {
+      "name": "SEO Ajansı",
+      "tagline": "Renkli geçiş efektleri ve eylem düğmeleriyle SEO ve dijital pazarlama ajansı şablonu"
+    },
+    "crafto-spa": {
+      "name": "Spa ve Güzellik Salonu",
+      "tagline": "Hizmet menüleri ve müşteri yorumlarıyla zarif spa ve sağlıklı yaşam stüdyosu"
+    },
+    "crafto-startup": {
+      "name": "Girişim",
+      "tagline": "Geçiş efektlerine sahip sade SaaS ve girişim açılış sayfası"
+    },
+    "crafto-travel-agency": {
+      "name": "Seyahat Acentesi",
+      "tagline": "Sıcak altın vurguları ve destinasyon tanıtımlarıyla zarif seyahat acentesi şablonu"
+    },
+    "crafto-web-agency": {
+      "name": "Web Ajansı",
+      "tagline": "Neon yeşil vurgular ve koyu bölümlerle iddialı yaratıcı dijital ajans"
+    },
+    "crafto-wedding": {
+      "name": "Düğün Davetiyesi",
+      "tagline": "Romantik mercan ve somon renk paletiyle zarif düğün davetiyesi sayfası ve zaman çizelgesi"
+    },
+    "crafto-yoga": {
+      "name": "Yoga ve Meditasyon",
+      "tagline": "Mercan pembesi üst bölümü ve toprak tonlarıyla sıcak bir sağlıklı yaşam stüdyosu sayfası"
+    },
+    "litho-application": {
+      "name": "Uygulama",
+      "tagline": "Özellik kartları, fiyat tabloları ve müşteri yorumları içeren modern SaaS uygulaması açılış sayfası"
+    },
+    "litho-architecture": {
+      "name": "Mimarlık",
+      "tagline": "Tam ekran üst bölümü, proje tanıtımları ve müşteri logolarıyla iddialı mimarlık stüdyosu şablonu"
+    },
+    "litho-beauty-salon": {
+      "name": "Güzellik Salonu",
+      "tagline": "Hizmetlerinizi, ekibinizi ve randevu almayı öne çıkaran şık güzellik salonu şablonu"
+    },
+    "litho-branding-agency": {
+      "name": "Marka Ajansı",
+      "tagline": "Dikkat çekici yazı karakterleri, çalışma adımları ve portföy galerisiyle yaratıcı marka ajansı şablonu"
+    },
+    "litho-business": {
+      "name": "İşletme",
+      "tagline": "Açılış kaydırıcısı, özellik kutuları, etkileşimli banner’lar ve müşteri logolarıyla profesyonel işletme şablonu"
+    },
+    "litho-cafe": {
+      "name": "Kafe",
+      "tagline": "Menü sekmeleri, şef profilleri ve müşteri yorumlarıyla sıcak kafe ve restoran şablonu"
+    },
+    "litho-consulting": {
+      "name": "Danışmanlık",
+      "tagline": "Açılış banner’ı, sekmeli hizmetler, istatistik sayaçları ve ekip bölümüyle profesyonel danışmanlık şirketi şablonu"
+    },
+    "litho-corporate": {
+      "name": "Kurumsal",
+      "tagline": "Paralaks açılış alanı, hizmet simgeleri, ilerleme çubukları ve proje tanıtımlarıyla kurumsal şablon"
+    },
+    "litho-creative-agency": {
+      "name": "Yaratıcı Ajans",
+      "tagline": "Portföy galerisi, müşteri yorumları ve blog bölümüyle dikkat çekici, koyu temalı yaratıcı ajans şablonu"
+    },
+    "litho-decor": {
+      "name": "Ev Dekorasyonu",
+      "tagline": "Ürün tanıtımları, kategoriler ve bülten kaydıyla şık ev dekorasyonu ve mobilya mağazası şablonu"
+    },
+    "litho-dentist": {
+      "name": "Diş Hekimi",
+      "tagline": "Randevu alma, hizmet kartları, ekip profilleri ve müşteri yorumlarıyla sade diş kliniği şablonu"
+    },
+    "litho-design-agency": {
+      "name": "Tasarım Ajansı",
+      "tagline": "Tam ekran açılış alanı, portföy galerisi, yetenek tanıtımı ve müşteri yorumlarıyla dikkat çekici tasarım ajansı şablonu"
+    },
+    "litho-digital-agency": {
+      "name": "Dijital Ajans",
+      "tagline": "Hizmet banner’ları, portföy tanıtımı ve müşteri yorumlarıyla dikkat çekici dijital ajans şablonu"
+    },
+    "litho-elearning": {
+      "name": "Çevrimiçi Eğitim",
+      "tagline": "Kurs listeleri, eğitmen profilleri ve öğrenci yorumlarıyla modern çevrimiçi eğitim platformu"
+    },
+    "litho-events": {
+      "name": "Etkinlik ve Konferans",
+      "tagline": "Konuşmacı profilleri, program ve bilet almayla profesyonel etkinlik ve konferans şablonu"
+    },
+    "litho-fashion-shop": {
+      "name": "Moda Mağazası",
+      "tagline": "Ürün galerileri, kombin önerileri ve sezon koleksiyonlarıyla şık moda mağazası şablonu"
+    },
+    "litho-finance": {
+      "name": "Finans",
+      "tagline": "Hizmetler, sektör galerisi, müşteri yorumları ve blog bölümüyle profesyonel finans şablonu"
+    },
+    "litho-freelancer": {
+      "name": "Serbest Çalışan",
+      "tagline": "Proje tanıtımı, beceri alanı ve iletişim formuyla sade serbest çalışan portföyü"
+    },
+    "litho-furniture-shop": {
+      "name": "Mobilya Mağazası",
+      "tagline": "Ürün kataloğu, oda fikirleri ve marka hikâyesiyle modern mobilya mağazası şablonu"
+    },
+    "litho-gym-fitness": {
+      "name": "Spor Salonu ve Fitness",
+      "tagline": "Ders programları, eğitmen profilleri ve üyelik planlarıyla enerjik spor salonu ve fitness şablonu"
+    },
+    "litho-hotel-resort": {
+      "name": "Otel ve Tatil Köyü",
+      "tagline": "Oda tanıtımları, olanaklar ve rezervasyon özellikleriyle lüks otel ve tatil köyü şablonu"
+    },
+    "litho-interior-design": {
+      "name": "İç Mekân Tasarımı",
+      "tagline": "Proje galerisi, çalışma süreci ve danışmanlık randevusu alma özelliğiyle sofistike iç mekân tasarımı şablonu"
+    },
+    "litho-marketing-agency": {
+      "name": "Pazarlama Ajansı",
+      "tagline": "Hizmet tanıtımları, ilerleme çubukları, müşteri logoları ve yorumlarıyla dikkat çekici pazarlama ajansı şablonu"
+    },
+    "litho-photography": {
+      "name": "Fotoğrafçılık",
+      "tagline": "Tam ekran galeriler, müşteri logoları ve blog bölümüyle şık fotoğrafçılık portföyü"
+    },
+    "litho-restaurant": {
+      "name": "Restoran",
+      "tagline": "Sekmeli menüler, şef profilleri, rezervasyon ve müşteri yorumlarıyla seçkin restoran şablonu"
+    },
+    "litho-seo-agency": {
+      "name": "SEO Ajansı",
+      "tagline": "Çalışma adımları, özellik kutuları, fiyat tabloları ve müşteri yorumlarıyla veriye dayalı SEO ajansı şablonu"
+    },
+    "litho-spa-salon": {
+      "name": "Spa Salonu",
+      "tagline": "Hizmet tanıtımları, fiyatlar, ekip profilleri ve randevu çağrısıyla huzurlu spa ve wellness şablonu"
+    },
+    "litho-startup": {
+      "name": "Girişim",
+      "tagline": "Öne çıkan özellikler, fiyat planları, ilerleme çubukları, müşteri yorumları ve blog bölümüyle modern girişim şablonu"
+    },
+    "litho-travel-agency": {
+      "name": "Seyahat Acentesi",
+      "tagline": "Destinasyon tanıtımları, tur paketleri, müşteri yorumları ve blog bölümüyle canlı seyahat acentesi şablonu"
+    },
+    "litho-web-agency": {
+      "name": "Web Ajansı",
+      "tagline": "Portföy galerisi, çalışma adımları, ekip profilleri ve müşteri yorumlarıyla yaratıcı web ajansı şablonu"
+    },
+    "litho-yoga": {
+      "name": "Yoga ve Meditasyon",
+      "tagline": "Dersler, müşteri yorumları, açılır sık sorulan sorular ve iletişim formuyla huzurlu yoga ve meditasyon şablonu"
+    },
+    "original-beauty": {
+      "tagline": "Fiyatlı bakım menüsü, üyelik ve çevrimiçi randevu sunan sıcak, dergi tarzı cilt bakım stüdyosu"
+    },
+    "original-corporate": {
+      "tagline": "Yetenekler, sektörler, sonuçlar, yönetim ekibi, kariyer ve iletişim bölümleri olan mühendislik ve altyapı grubu sitesi"
+    },
+    "original-creative": {
+      "tagline": "Tipografik iş dizini, büyük vaka incelemeleri, manifesto, kariyer ve proje formu olan iddialı marka ve hareket tasarımı stüdyosu sitesi"
+    },
+    "original-ecommerce": {
+      "tagline": "Ürün ızgarası, sepet, koleksiyonlar ve fırın partisi bildirimleri sunan galeri tarzı seramik mağazası"
+    },
+    "original-education": {
+      "tagline": "Kurs kartları, haftalık program, eğitmenler, dönem tarihleri, ücretler ve tanıtım akşamı kaydı sunan akşam okulu sitesi"
+    },
+    "original-finance": {
+      "tagline": "Projeksiyon paneli, sabit ücret karşılaştırması, planlar, danışmanlar ve tanışma görüşmesi randevusu sunan yalnızca ücretli finansal planlama sitesi"
+    },
+    "original-fitness": {
+      "tagline": "Haftalık ders programı, üyelik seçenekleri ve ücretsiz deneme randevusu sunan enerjik güç antrenmanı salonu"
+    },
+    "original-food": {
+      "tagline": "Günlük fırın ürünleri panosu, haftalık özel lezzetler ve gel-al siparişi olan güneşli mahalle fırını"
+    },
+    "original-health": {
+      "tagline": "Muayene türleri ve fiyatları, sağlık uzmanı profilleri ve çevrimiçi randevular sunan sakin aile sağlığı merkezi sitesi"
+    },
+    "original-hospitality": {
+      "tagline": "Oda kartları, gecelik ücretler, olanaklar ve rezervasyon talepleri sunan ferah sahil butik oteli"
+    },
+    "original-legal": {
+      "tagline": "Hukuk alanları dizini, sonuçlar dosyası, avukat biyografileri, peşin danışmanlık ücretleri ve randevu sunan hukuk bürosu sitesi"
+    },
+    "original-nonprofit": {
+      "tagline": "Etki göstergeleri, bağış makbuzu, gönüllü vardiyaları, yıllık etki raporu ve bağış seçenekleri sunan gıda kurtarma derneği sitesi"
+    },
+    "original-personal": {
+      "tagline": "Hizmet paketleri, bülten önizlemesi, CSS kitabı, okur mektupları ve görüşme randevusu sunan koç ve yazar kişisel markası"
+    },
+    "original-portfolio": {
+      "tagline": "Asimetrik iş ızgarası, proje dizini, çizilmiş kat planı içeren bir vaka incelemesi ve iletişim formu olan iç mimar portfolyosu"
+    },
+    "original-realestate": {
+      "tagline": "Filtrelenebilir ilanlar, piyasa verileri, mahalle rehberi ve değerleme randevuları sunan modern emlak ofisi sitesi"
+    },
+    "original-restaurant": {
+      "tagline": "Fiyatlı menüsü, beslenme etiketleri ve masa rezervasyonları olan mum ışığında odun ateşinde restoran"
+    },
+    "original-saas": {
+      "tagline": "Canlı görünen ürün zaman çizelgesi, fiyatlandırma seçeneği, sürüm notları ve herkese açık yol haritası olan SaaS tanıtım sitesi"
+    },
+    "original-travel": {
+      "tagline": "Kalkış panosu, etap etap gezi planı ve fiyatları olan küçük gruplu doğa yürüyüşü turları"
+    }
+  }
+}

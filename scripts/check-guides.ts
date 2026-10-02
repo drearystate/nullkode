@@ -3,8 +3,11 @@
  *
  * Run: pnpm check:guides   (or: npx tsx scripts/check-guides.ts)
  */
+import { readFileSync } from "node:fs";
+import path from "node:path";
 import { GUIDE_SLUGS, guideForPath } from "../src/lib/help/where";
 import { GUIDES, GROUPS, allScreenshots, type Guide } from "../src/lib/help/guides";
+import { allGuideMessages, flatten, fromMessage } from "../src/lib/help/guide-messages";
 
 const problems: string[] = [];
 const fail = (msg: string) => problems.push(msg);
@@ -101,6 +104,31 @@ for (const slug of Object.keys(GUIDES)) {
 for (const p of ["/dashboard", "/new", "/designer", "/billing", "/account", "/admin", "/reseller", "/reseller/billing", "/reseller/branding", "/projects/x", "/projects/x/pages/y/edit", "/projects/x/native"]) {
   const slug = guideForPath(p);
   if (slug && !GUIDES[slug]) fail(`guideForPath("${p}") gives "${slug}", which has no guide`);
+}
+
+// "groups" is the message key for the group titles, so no guide may use it as a slug.
+if ((GUIDE_SLUGS as readonly string[]).includes("groups")) fail(`"groups" can't be a guide slug (messages/*/guides.json uses it for group titles)`);
+
+// messages/en/guides.json (what gets translated) matches guides.ts.
+{
+  const want = allGuideMessages();
+  let have: Record<string, string> | null = null;
+  try {
+    have = flatten(JSON.parse(readFileSync(path.join(process.cwd(), "messages", "en", "guides.json"), "utf8")));
+  } catch {
+    fail("messages/en/guides.json is missing or not valid JSON: run pnpm guides:messages");
+  }
+  if (have) {
+    const stale = [
+      ...Object.keys(want).filter((k) => have![k] !== want[k]),
+      ...Object.keys(have).filter((k) => !(k in want)),
+    ];
+    if (stale.length) fail(`messages/en/guides.json is out of date (${stale.length} message${stale.length === 1 ? "" : "s"}, e.g. ${stale.slice(0, 3).join(", ")}): run pnpm guides:messages`);
+  }
+  for (const [k, v] of Object.entries(want)) {
+    if (fromMessage(v) === null) fail(`guides message ${k}: bold (**) doesn't survive as <b> tags`);
+    if (/[<>]/.test(v.replace(/<\/?b>/g, ""))) fail(`guides message ${k}: contains < or >, which translation would read as a tag`);
+  }
 }
 
 if (problems.length) {

@@ -14,8 +14,9 @@ import { BILLING_KEYS, priceFor, type PaidPlan } from "@/lib/stripe";
 import { getSetting } from "@/lib/settings";
 import { aiReady } from "@/lib/ai/client";
 import { emailEnabled } from "@/lib/mailer";
-import { describeMissing, getSchemaStatus, type SchemaStatus } from "@/lib/schema-check";
+import { getSchemaStatus, type SchemaStatus } from "@/lib/schema-check";
 import { runHealthChecks, summarize } from "@/lib/system-health";
+import { getFormatter, getTranslations } from "next-intl/server";
 
 export const dynamic = "force-dynamic";
 
@@ -83,17 +84,20 @@ export default async function AdminDashboard() {
     console.error("[admin] the admin home couldn't load:", err instanceof Error ? err.message.split("\n")[0] : err);
   }
   const system = await runHealthChecks().then(summarize).catch(() => null);
+  const t = await getTranslations("admin");
+  const format = await getFormatter();
+  const link = (c: React.ReactNode) => <Link href="/admin/system" className="underline">{c}</Link>;
+  const mono = (c: React.ReactNode) => <span className="font-mono">{c}</span>;
 
   if (!data) {
     return (
       <main className="min-h-screen">
         <TopBar user={real} />
         <div className="mx-auto max-w-6xl px-6 py-10">
-          <h1 className="text-2xl font-semibold">Admin</h1>
+          <h1 className="text-2xl font-semibold">{t("home.title")}</h1>
           <SchemaBanner schema={schema} />
           <div role="alert" className="mt-6 rounded-xl border border-red-500/40 bg-red-500/10 p-4 text-sm text-red-100">
-            This page couldn&apos;t load everything. {schema.missing.length || schema.missingValues.length ? "It needs the database update described above. " : ""}
-            <Link href="/admin/system" className="underline">Open System</Link> for the details.
+            {schema.missing.length || schema.missingValues.length ? t.rich("home.loadFailedSchema", { link }) : t.rich("home.loadFailed", { link })}
           </div>
         </div>
       </main>
@@ -104,7 +108,8 @@ export default async function AdminDashboard() {
   const [userCount, projectCount, flowCount, runCount, paidCount] = data.counts;
   // Sign-ups that started from the home page's "What should your app do?" box.
   const arrivedWithIdea = (funnel as { arrivedWithIdea?: unknown }).arrivedWithIdea;
-  const pct = (n: number) => (funnel.signups ? `${Math.round((n / funnel.signups) * 100)}%` : "—");
+  const pct = (n: number) => (funnel.signups ? format.number(Math.round((n / funnel.signups) * 100) / 100, { style: "percent" }) : "—");
+  const dateOpts = { year: "numeric", month: "numeric", day: "numeric" } as const;
 
   return (
     <main className="min-h-screen">
@@ -112,12 +117,12 @@ export default async function AdminDashboard() {
       <div className="mx-auto max-w-6xl px-6 py-10">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-2xl font-semibold">Admin</h1>
+            <h1 className="text-2xl font-semibold">{t("home.title")}</h1>
             <p className="text-sm text-surface-400 mt-1">
-              Everything about your platform: branding, resellers, payments, AI and the people using it.
+              {t("home.subtitle")}
             </p>
           </div>
-          <div className="flex shrink-0 flex-wrap gap-2 whitespace-nowrap"><Link href="/admin/resellers" className="btn-secondary">Resellers</Link><Link href="/admin/system" className="btn-secondary">System</Link><Link href="/admin/settings" className="btn-secondary">All settings</Link></div>
+          <div className="flex shrink-0 flex-wrap gap-2 whitespace-nowrap"><Link href="/admin/resellers" className="btn-secondary">{t("home.resellers")}</Link><Link href="/admin/system" className="btn-secondary">{t("home.system")}</Link><Link href="/admin/settings" className="btn-secondary">{t("home.allSettings")}</Link></div>
         </div>
 
         <SchemaBanner schema={schema} />
@@ -141,45 +146,45 @@ export default async function AdminDashboard() {
 
         {!appsDomain() && userCount > 1 && (
           <div role="status" className="mt-6 rounded-xl border border-amber-400/25 bg-amber-400/10 p-4 text-sm text-amber-100">
-            <p className="font-semibold">Give apps their own web address</p>
+            <p className="font-semibold">{t("home.appsDomainTitle")}</p>
             <p className="mt-1 text-amber-100/80">
-              Published apps currently run on the studio&apos;s own address. Because other people build apps here, set <span className="font-mono">APPS_DOMAIN</span> (for example <span className="font-mono">myapps.site</span>, with a wildcard DNS record <span className="font-mono">*.myapps.site</span> pointing at this server) so every app runs on its own address and can never reach the studio or other apps. The installer can do this for you.
+              {t.rich("home.appsDomainBody", { mono })}
             </p>
           </div>
         )}
 
         <div className="mt-8 grid gap-4 md:grid-cols-5">
-          <Stat label="Users" value={userCount} />
-          <Stat label="Paid users" value={paidCount} help="People on any plan other than Free, whether they pay through Stripe or you set the plan by hand." />
-          <Stat label="Projects" value={projectCount} />
-          <Stat label="Flows" value={flowCount} help="Workflows: automated steps people have set up in their apps, like sending an email when a form is filled in." />
-          <Stat label="Flow runs" value={runCount} help="How many times workflows have run, as far back as the saved run logs go." />
+          <Stat label={t("home.statUsers")} value={userCount} />
+          <Stat label={t("home.statPaidUsers")} value={paidCount} help={t("home.statPaidUsersHelp")} />
+          <Stat label={t("home.statProjects")} value={projectCount} />
+          <Stat label={t("home.statFlows")} value={flowCount} help={t("home.statFlowsHelp")} />
+          <Stat label={t("home.statFlowRuns")} value={runCount} help={t("home.statFlowRunsHelp")} />
         </div>
 
         <section className="mt-8" aria-labelledby="funnel-heading">
-          <h2 id="funnel-heading" className="font-semibold text-lg">New people, last {funnel.days} days</h2>
-          <p className="mt-1 text-sm text-surface-400">How quickly people who sign up get an app live. Measured from sign-up to their first published app.</p>
+          <h2 id="funnel-heading" className="font-semibold text-lg">{t("home.funnelTitle", { days: funnel.days })}</h2>
+          <p className="mt-1 text-sm text-surface-400">{t("home.funnelBody")}</p>
           <div className={`mt-3 grid gap-4 ${typeof arrivedWithIdea === "number" ? "md:grid-cols-5" : "md:grid-cols-4"}`}>
-            <Stat label="Signed up" value={funnel.signups} />
-            {typeof arrivedWithIdea === "number" && <StatText label="Came with an idea" help="People who signed up after typing an app idea into the box on the home page." value={`${arrivedWithIdea} · ${pct(arrivedWithIdea)}`} />}
-            <StatText label="Made an app" value={`${funnel.madeApp} · ${pct(funnel.madeApp)}`} />
-            <StatText label="Published one" value={`${funnel.published} · ${pct(funnel.published)}`} />
-            <StatText label="Median time to publish" help="The typical time from signing up to publishing a first app: half of people are quicker, half slower." value={funnel.medianMinutesToPublish === null ? "—" : funnel.medianMinutesToPublish < 120 ? `${funnel.medianMinutesToPublish} min` : `${Math.round(funnel.medianMinutesToPublish / 60)} h`} />
+            <Stat label={t("home.signedUp")} value={funnel.signups} />
+            {typeof arrivedWithIdea === "number" && <StatText label={t("home.cameWithIdea")} help={t("home.cameWithIdeaHelp")} value={`${format.number(arrivedWithIdea)} · ${pct(arrivedWithIdea)}`} />}
+            <StatText label={t("home.madeApp")} value={`${format.number(funnel.madeApp)} · ${pct(funnel.madeApp)}`} />
+            <StatText label={t("home.publishedOne")} value={`${format.number(funnel.published)} · ${pct(funnel.published)}`} />
+            <StatText label={t("home.medianTime")} help={t("home.medianTimeHelp")} value={funnel.medianMinutesToPublish === null ? "—" : funnel.medianMinutesToPublish < 120 ? t("home.minutes", { n: funnel.medianMinutesToPublish }) : t("home.hours", { n: Math.round(funnel.medianMinutesToPublish / 60) })} />
           </div>
         </section>
 
         <section id="users" className="mt-10 scroll-mt-20">
-          <h2 className="font-semibold text-lg" data-help="Everyone with an account, newest 50 first. Change someone's plan, send a password link, open their workspace to help them, or delete them.">Users</h2>
+          <h2 className="font-semibold text-lg" data-help={t("home.usersHelp")}>{t("home.users")}</h2>
           <div className="mt-3 card overflow-hidden">
             <table className="w-full text-sm">
               <thead className="bg-surface-900 text-surface-400 text-xs uppercase tracking-wider">
                 <tr>
-                  <th className="text-left px-4 py-2">Email</th>
-                  <th className="text-left px-4 py-2">Name</th>
-                  <th className="text-left px-4 py-2">Plan</th>
-                  <th className="text-left px-4 py-2">Projects</th>
-                  <th className="text-left px-4 py-2">Joined</th>
-                  <th className="text-right px-4 py-2">Action</th>
+                  <th className="text-start px-4 py-2">{t("home.colEmail")}</th>
+                  <th className="text-start px-4 py-2">{t("home.colName")}</th>
+                  <th className="text-start px-4 py-2">{t("home.colPlan")}</th>
+                  <th className="text-start px-4 py-2">{t("home.colProjects")}</th>
+                  <th className="text-start px-4 py-2">{t("home.colJoined")}</th>
+                  <th className="text-end px-4 py-2">{t("home.colAction")}</th>
                 </tr>
               </thead>
               <tbody>
@@ -188,18 +193,18 @@ export default async function AdminDashboard() {
                     <td className="px-4 py-2">
                       <span className="font-medium">{u.email}</span>
                       {u.role === "ADMIN" && (
-                        <span className="ml-2 text-[10px] uppercase tracking-wider bg-brand-500/10 text-brand-300 border border-brand-500/30 rounded px-2 py-0.5">
-                          admin
+                        <span className="ms-2 text-[10px] uppercase tracking-wider bg-brand-500/10 text-brand-300 border border-brand-500/30 rounded px-2 py-0.5">
+                          {t("home.adminBadge")}
                         </span>
                       )}
                     </td>
                     <td className="px-4 py-2 text-surface-300">{u.name ?? "—"}</td>
                     <td className="px-4 py-2">{u.role === "ADMIN" ? "—" : <UserPlanSelect userId={u.id} plan={u.plan} />}</td>
-                    <td className="px-4 py-2">{u._count.projects}</td>
+                    <td className="px-4 py-2">{format.number(u._count.projects)}</td>
                     <td className="px-4 py-2 text-surface-400">
-                      {new Date(u.createdAt).toLocaleDateString()}
+                      {format.dateTime(new Date(u.createdAt), dateOpts)}
                     </td>
-                    <td className="px-4 py-2 text-right">
+                    <td className="px-4 py-2 text-end">
                       {u.id !== real.id && (
                         <span className="inline-flex flex-wrap items-center justify-end gap-2">
                           <PasswordLinkButton userId={u.id} email={u.email} />
@@ -216,7 +221,7 @@ export default async function AdminDashboard() {
         </section>
 
         <section className="mt-10">
-          <h2 className="font-semibold text-lg">Recent apps</h2>
+          <h2 className="font-semibold text-lg">{t("home.recentApps")}</h2>
           <div className="mt-3 grid gap-3 md:grid-cols-2">
             {projects.map((p) => (
               <div key={p.id} className="card p-4">
@@ -229,25 +234,25 @@ export default async function AdminDashboard() {
                   </div>
                   {p.published ? (
                     <span className="text-[10px] uppercase tracking-wider bg-green-500/10 text-green-400 border border-green-500/30 rounded px-2 py-0.5">
-                      live
+                      {t("home.live")}
                     </span>
                   ) : (
                     <span className="text-[10px] uppercase tracking-wider bg-surface-700 text-surface-300 border border-surface-600 rounded px-2 py-0.5">
-                      draft
+                      {t("home.draft")}
                     </span>
                   )}
                 </div>
                 <div className="mt-3 flex gap-4 text-xs text-surface-400">
-                  <span>{p._count.pages} pages</span>
-                  <span>{p._count.flows} flows</span>
-                  <span>{p._count.datasources} data</span>
-                  <span>{p._count.domains} domains</span>
+                  <span>{t("home.pages", { count: p._count.pages })}</span>
+                  <span>{t("home.flows", { count: p._count.flows })}</span>
+                  <span>{t("home.data", { count: p._count.datasources })}</span>
+                  <span>{t("home.domains", { count: p._count.domains })}</span>
                 </div>
                 <div className="mt-3 flex gap-2">
                   <ImpersonateButton
                     userId={p.owner.id}
                     email={p.owner.email}
-                    label="Jump in"
+                    label={t("home.jumpIn")}
                     redirectTo={`/projects/${p.id}`}
                   />
                 </div>
@@ -257,30 +262,30 @@ export default async function AdminDashboard() {
         </section>
 
         <section className="mt-10">
-          <h2 className="font-semibold text-lg" data-help="The latest 20 times any workflow ran. A status in the 200s (green) means it worked; anything else (red) means it failed.">Recent flow runs</h2>
+          <h2 className="font-semibold text-lg" data-help={t("home.recentRunsHelp")}>{t("home.recentRuns")}</h2>
           <div className="mt-3 card overflow-hidden">
             <table className="w-full text-sm">
               <thead className="bg-surface-900 text-surface-400 text-xs uppercase tracking-wider">
                 <tr>
-                  <th className="text-left px-4 py-2">When</th>
-                  <th className="text-left px-4 py-2">User</th>
-                  <th className="text-left px-4 py-2">Project</th>
-                  <th className="text-left px-4 py-2">Flow</th>
-                  <th className="text-left px-4 py-2">Status</th>
+                  <th className="text-start px-4 py-2">{t("home.colWhen")}</th>
+                  <th className="text-start px-4 py-2">{t("home.colUser")}</th>
+                  <th className="text-start px-4 py-2">{t("home.colProject")}</th>
+                  <th className="text-start px-4 py-2">{t("home.colFlow")}</th>
+                  <th className="text-start px-4 py-2">{t("home.colStatus")}</th>
                 </tr>
               </thead>
               <tbody>
                 {recentRuns.length === 0 && (
                   <tr>
                     <td colSpan={5} className="px-4 py-6 text-center text-surface-500">
-                      No runs yet.
+                      {t("home.noRuns")}
                     </td>
                   </tr>
                 )}
                 {recentRuns.map((r) => (
                   <tr key={r.id} className="border-t border-surface-800">
                     <td className="px-4 py-2 text-surface-400">
-                      {new Date(r.createdAt).toLocaleString()}
+                      {format.dateTime(new Date(r.createdAt), { ...dateOpts, hour: "numeric", minute: "2-digit", second: "2-digit" })}
                     </td>
                     <td className="px-4 py-2">{r.flow.project.owner.email}</td>
                     <td className="px-4 py-2">
@@ -318,17 +323,22 @@ export default async function AdminDashboard() {
  * Red banner when the database lacks columns this version needs (it wasn't
  * updated along with the code). Operators only: this page is admin-only.
  */
-function SchemaBanner({ schema }: { schema: SchemaStatus }) {
+async function SchemaBanner({ schema }: { schema: SchemaStatus }) {
   const missing = [...schema.missing, ...schema.missingValues];
   if (!missing.length) return null;
+  const t = await getTranslations("admin");
+  const mono = (c: React.ReactNode) => <span className="font-mono">{c}</span>;
+  const what = schema.missing.length && schema.missingValues.length
+    ? t("schema.both", { columns: schema.missing.length, values: schema.missingValues.length })
+    : schema.missing.length ? t("schema.columns", { count: schema.missing.length }) : t("schema.values", { count: schema.missingValues.length });
   return (
     <div role="alert" className="mt-6 rounded-xl border border-red-500/40 bg-red-500/10 p-4 text-sm text-red-100">
       <p className="flex items-center gap-2 font-semibold">
-        <AlertTriangle size={16} aria-hidden /> The database is missing {describeMissing(schema)}; the site will fail until it is updated.
+        <AlertTriangle size={16} aria-hidden /> {t("schema.title", { what })}
       </p>
       <p className="mt-2 break-words font-mono text-xs text-red-100/90">{missing.join(", ")}</p>
       <p className="mt-2 text-red-100/80">
-        Back up the database, then run <span className="font-mono">pnpm exec prisma db push</span> in the app folder and restart the app. Docker installs do this by themselves when the app restarts (<span className="font-mono">docker compose up -d</span>).
+        {t.rich("schema.fix", { mono })}
       </p>
     </div>
   );
@@ -347,7 +357,12 @@ function Stat({ label, value, help }: { label: string; value: number; help?: str
   return (
     <div className="card p-5" data-help={help}>
       <div className="text-xs uppercase tracking-wider text-surface-400">{label}</div>
-      <div className="text-3xl font-bold mt-2">{value}</div>
+      <div className="text-3xl font-bold mt-2"><NumberText value={value} /></div>
     </div>
   );
+}
+
+async function NumberText({ value }: { value: number }) {
+  const format = await getFormatter();
+  return <>{format.number(value)}</>;
 }

@@ -4,6 +4,8 @@ import { db } from "@/lib/db";
 import { createSession, hashPassword, verifyPassword } from "@/lib/auth";
 import { INSTALL_OWNER_KEY, isInstallComplete, validInstallToken } from "@/lib/install";
 import { SETTING_KEYS } from "@/lib/settings";
+import { getTranslations } from "next-intl/server";
+import { requestLocale } from "@/i18n/request";
 
 export const runtime = "nodejs";
 const Body = z.object({
@@ -14,10 +16,11 @@ const Body = z.object({
 });
 
 export async function POST(req: Request) {
-  if (await isInstallComplete()) return NextResponse.json({ error: "Setup is already complete." }, { status: 409 });
+  const t = await getTranslations({ locale: await requestLocale(), namespace: "install.api" });
+  if (await isInstallComplete()) return NextResponse.json({ error: t("complete") }, { status: 409 });
   const parsed = Body.safeParse(await req.json().catch(() => null));
-  if (!parsed.success) return NextResponse.json({ error: "Enter your setup code, name, email, and a password of at least 12 characters." }, { status: 400 });
-  if (!validInstallToken(parsed.data.token)) return NextResponse.json({ error: "The setup code doesn't match. Copy INSTALL_TOKEN from your installation's .env file." }, { status: 403 });
+  if (!parsed.success) return NextResponse.json({ error: t("adminFields") }, { status: 400 });
+  if (!validInstallToken(parsed.data.token)) return NextResponse.json({ error: t("badToken") }, { status: 403 });
   const { name, email, password } = parsed.data;
   const passwordHash = await hashPassword(password);
   // One owner, even when two setup requests arrive together. The marker and
@@ -37,7 +40,7 @@ export async function POST(req: Request) {
     await tx.setting.create({ data: { key: INSTALL_OWNER_KEY, value: owner.id } });
     return owner.id;
   });
-  if (!result) return NextResponse.json({ error: "Setup already has an owner. To resume, enter the same owner email and password." }, { status: 409 });
+  if (!result) return NextResponse.json({ error: t("hasOwner") }, { status: 409 });
   await createSession(result);
   return NextResponse.json({ ok: true });
 }

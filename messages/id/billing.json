@@ -1,0 +1,32 @@
+{
+  "aiUsage": "Tindakan AI bulan ini: <b>{used} dari {limit}</b>",
+  "aiUsageLabel": "Tindakan AI yang digunakan",
+  "planNames": {
+    "FREE": "Gratis",
+    "PRO": "Pro",
+    "STARTER": "Starter",
+    "TEAM": "Team"
+  },
+  "plans": {
+    "checkoutFailed": "Tidak dapat memulai pembayaran",
+    "comingSoon": "Segera hadir",
+    "current": "Saat ini",
+    "free": "Gratis",
+    "manage": "Kelola penagihan",
+    "manageHelp": "Membuka halaman penagihan Stripe yang aman. Anda bisa memperbarui kartu, melihat faktur sebelumnya, serta mengubah atau membatalkan paket jika tersedia.",
+    "notBuyable": "Paket ini belum bisa dibeli secara online.",
+    "portalFailed": "Tidak dapat membuka halaman penagihan",
+    "upgrade": "Tingkatkan",
+    "upgradeHelp": "Membuka halaman pembayaran Stripe yang aman untuk memulai paket ini dengan tagihan bulanan. Sudah menggunakan paket berbayar? Gunakan Kelola penagihan untuk mengganti paket."
+  },
+  "profileNote": "Foto, nama, kata sandi, tampilan, tips bantuan, dan penghapusan akun Anda ada di <link>Profil</link>.",
+  "status": {
+    "ACTIVE": "Berbayar dan aktif",
+    "CANCELED": "Dibatalkan",
+    "PAST_DUE": "Pembayaran terlambat",
+    "TRIALING": "Uji coba gratis",
+    "UNPAID": "Belum dibayar"
+  },
+  "title": "Penagihan",
+  "yourPlan": "Paket Anda: <b>{plan}</b>"
+}

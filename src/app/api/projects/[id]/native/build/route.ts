@@ -1,6 +1,9 @@
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
 import { json } from "@/lib/utils";
+import { getTranslations } from "next-intl/server";
+import { requestLocale } from "@/i18n/request";
+import { errorText, renderMsg, requestErrorsT, type ErrMsg, type ErrT } from "@/lib/errors-i18n";
 import {
   startAndroidBuild,
   getBuildStatus,
@@ -12,12 +15,17 @@ import {
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
+/** Messages for people, in their language (only looked up when needed). */
+async function tr() {
+  return getTranslations({ locale: await requestLocale(), namespace: "project.nativeApi" });
+}
+
 async function owned(id: string) {
   const user = await getCurrentUser();
-  if (!user) return { error: "Unauthorized" as const, status: 401 };
+  if (!user) return { error: (await tr())("unauthorized"), status: 401 };
   const project = await db.project.findUnique({ where: { id } });
   if (!project || project.ownerId !== user.id)
-    return { error: "Not found" as const, status: 404 };
+    return { error: (await tr())("notFound"), status: 404 };
   return { project };
 }
 
@@ -37,14 +45,14 @@ export async function POST(req: Request, ctx: { params: Promise<{ id: string }> 
 
   if (!project.published) {
     return json(
-      { error: "Publish your app first — the Android app loads its live address." },
+      { error: (await tr())("build.publishFirst") },
       { status: 409 },
     );
   }
   const toolchain = await androidToolchainStatus();
   if (!toolchain.ready) {
     return json(
-      { error: `Android builds aren't available on this server. ${toolchain.reason}` },
+      { error: (await tr())("build.unavailable", { reason: toolchain.reason ?? "" }) },
       { status: 503 },
     );
   }
@@ -53,9 +61,9 @@ export async function POST(req: Request, ctx: { params: Promise<{ id: string }> 
     const started = await startAndroidBuild(project, kind);
     return json({ ...started, kind });
   } catch (err) {
-    if (err instanceof NativeBuildError) return json({ error: err.message }, { status: err.status });
+    if (err instanceof NativeBuildError) return json({ error: errorText(err, await requestErrorsT()) }, { status: err.status });
     console.error("[native/build]", err);
-    return json({ error: "The build couldn't start. Please try again." }, { status: 500 });
+    return json({ error: (await tr())("build.startFailed") }, { status: 500 });
   }
 }
 
@@ -66,15 +74,20 @@ export async function GET(req: Request, ctx: { params: Promise<{ id: string }> }
   if ("error" in res) return json({ error: res.error }, { status: res.status });
 
   const buildId = new URL(req.url).searchParams.get("buildId");
-  if (!buildId) return json({ builds: (await listBuilds(id)).map(publicStatus) });
+  const te = await requestErrorsT();
+  if (!buildId) return json({ builds: (await listBuilds(id)).map((b) => publicStatus(b, te)) });
 
   const status = await getBuildStatus(id, buildId);
-  if (!status) return json({ error: "Unknown build" }, { status: 404 });
-  return json(publicStatus(status));
+  if (!status) return json({ error: (await tr())("build.unknownBuild") }, { status: 404 });
+  return json(publicStatus(status, te));
 }
 
-/** A build's status without server details. */
-function publicStatus<T extends { owner?: string }>(status: T): Omit<T, "owner"> {
-  const { owner: _owner, ...rest } = status;
-  return rest;
+/** A build's status without server details, its error and icon note in the person's language. */
+function publicStatus<T extends { owner?: string; error?: string; errorMsg?: ErrMsg; iconNote?: string; iconNoteMsg?: ErrMsg }>(status: T, te: ErrT) {
+  const { owner: _owner, errorMsg, iconNoteMsg, ...rest } = status;
+  return {
+    ...rest,
+    ...(errorMsg ? { error: renderMsg(errorMsg, te) } : {}),
+    ...(iconNoteMsg ? { iconNote: renderMsg(iconNoteMsg, te) } : {}),
+  };
 }

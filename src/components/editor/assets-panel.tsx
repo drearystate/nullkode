@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState, useCallback, useRef } from "react";
 import type { Editor, Component } from "grapesjs";
+import { useTranslations } from "next-intl";
 import { placeForBlock, scrollToPart } from "./plain-editor";
 
 type Asset = {
@@ -12,42 +13,42 @@ type Asset = {
   source: "unsplash" | "pexels" | "pixabay" | "generated" | "stock";
 };
 
+/** A photo category; its name and hover note are in editor.json under assets.categories.<id>. */
 type Category = {
   id: string;
-  label: string;
   query: string;
-  /** Hover note for the category button. */
-  help: string;
 };
 
 const CATEGORIES: Category[] = [
-  { id: "all", label: "All", query: "", help: "Show a mix of free photos you can use on your page." },
-  { id: "originals", label: "Originals", query: "originals", help: "Browse original AI-generated photos included with this installation." },
-  { id: "nature", label: "Nature", query: "nature landscape", help: "Show free photos of nature and landscapes." },
-  { id: "people", label: "People", query: "people portrait", help: "Show free photos of people." },
-  { id: "business", label: "Business", query: "business office", help: "Show free photos of offices and people at work." },
-  { id: "tech", label: "Tech", query: "technology computer", help: "Show free photos of computers and technology." },
-  { id: "food", label: "Food", query: "food restaurant", help: "Show free photos of food and restaurants." },
-  { id: "architecture", label: "Architecture", query: "architecture building", help: "Show free photos of buildings." },
-  { id: "fitness", label: "Fitness", query: "gym fitness", help: "Show free photos of gyms and exercise." },
-  { id: "medical", label: "Medical", query: "medical health", help: "Show free photos of health care and medicine." },
-  { id: "beauty", label: "Beauty", query: "beauty", help: "Skincare, spa and beauty images." },
-  { id: "products", label: "Products", query: "ecommerce", help: "Ceramics and product photography." },
-  { id: "education", label: "Learning", query: "education", help: "Classrooms and collaborative learning." },
-  { id: "legal", label: "Legal", query: "legal", help: "Law libraries and courthouse architecture." },
-  { id: "community", label: "Community", query: "nonprofit", help: "Community markets and fresh produce." },
-  { id: "travel", label: "Travel", query: "travel", help: "Show free photos of travel and places to visit." },
-  { id: "trades", label: "Trades", query: "trades", help: "Plumbing, electrical work and construction." },
-  { id: "automotive", label: "Auto", query: "automotive", help: "Vehicle repair and garages." },
-  { id: "cleaning", label: "Cleaning", query: "cleaning", help: "Professional cleaning services." },
-  { id: "pets", label: "Pets", query: "pets", help: "Pet care and grooming." },
-  { id: "landscaping", label: "Gardens", query: "landscaping", help: "Gardening and landscaping services." },
-  { id: "logistics", label: "Logistics", query: "logistics", help: "Warehouses, delivery and shipping." },
-  { id: "agriculture", label: "Farming", query: "agriculture", help: "Farms and fresh produce." },
-  { id: "events", label: "Events", query: "events", help: "Weddings and event services." },
+  { id: "all", query: "" },
+  { id: "originals", query: "originals" },
+  { id: "nature", query: "nature landscape" },
+  { id: "people", query: "people portrait" },
+  { id: "business", query: "business office" },
+  { id: "tech", query: "technology computer" },
+  { id: "food", query: "food restaurant" },
+  { id: "architecture", query: "architecture building" },
+  { id: "fitness", query: "gym fitness" },
+  { id: "medical", query: "medical health" },
+  { id: "beauty", query: "beauty" },
+  { id: "products", query: "ecommerce" },
+  { id: "education", query: "education" },
+  { id: "legal", query: "legal" },
+  { id: "community", query: "nonprofit" },
+  { id: "travel", query: "travel" },
+  { id: "trades", query: "trades" },
+  { id: "automotive", query: "automotive" },
+  { id: "cleaning", query: "cleaning" },
+  { id: "pets", query: "pets" },
+  { id: "landscaping", query: "landscaping" },
+  { id: "logistics", query: "logistics" },
+  { id: "agriculture", query: "agriculture" },
+  { id: "events", query: "events" },
 ];
 
 export function AssetsPanel({ editor }: { editor: Editor }) {
+  const t = useTranslations("editor.assets");
+  const tc = useTranslations("common");
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<string>("all");
   const [assets, setAssets] = useState<Asset[]>([]);
@@ -80,13 +81,13 @@ export function AssetsPanel({ editor }: { editor: Editor }) {
       if (id === requestId.current) setAssets(data.assets ?? []);
     } catch (e) {
       if (id === requestId.current) {
-        setError(e instanceof Error ? e.message : "Failed to load assets");
+        setError(e instanceof Error ? e.message : t("failedToLoad"));
         setAssets([]);
       }
     } finally {
       if (id === requestId.current) setLoading(false);
     }
-  }, []);
+  }, [t]);
 
   useEffect(() => {
     const q = query.trim() || CATEGORIES.find((c) => c.id === category)?.query || "";
@@ -141,8 +142,8 @@ export function AssetsPanel({ editor }: { editor: Editor }) {
           type="search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search photos..."
-          data-help="Type what you want a photo of, like “coffee” or “dog”, to find free photos you can use."
+          placeholder={t("searchPlaceholder")}
+          data-help={t("searchHelp")}
           className="w-full bg-surface-950 border border-surface-800 rounded px-2.5 py-1.5 text-xs text-surface-100 placeholder:text-surface-600 focus:outline-none focus:border-brand-500"
         />
         <div className="flex flex-wrap gap-1">
@@ -150,14 +151,14 @@ export function AssetsPanel({ editor }: { editor: Editor }) {
             <button
               key={c.id}
               onClick={() => setCategory(c.id)}
-              data-help={c.help}
+              data-help={t(`categories.${c.id}.help`)}
               className={`text-[10px] px-2 py-0.5 rounded-full border transition ${
                 category === c.id
                   ? "bg-brand-500/20 border-brand-500 text-brand-200"
                   : "border-surface-800 text-surface-500 hover:text-surface-200 hover:border-surface-700"
               }`}
             >
-              {c.label}
+              {t(`categories.${c.id}.label`)}
             </button>
           ))}
         </div>
@@ -172,7 +173,7 @@ export function AssetsPanel({ editor }: { editor: Editor }) {
           }}
         >
           <label htmlFor="nk-picture-description" className="block text-[11px] font-semibold text-surface-100">
-            Picture changed. Describe it for people who can&apos;t see it:
+            {t("describeLabel")}
           </label>
           <input
             id="nk-picture-description"
@@ -180,26 +181,26 @@ export function AssetsPanel({ editor }: { editor: Editor }) {
             value={describing.alt}
             maxLength={200}
             onChange={(e) => setDescribing({ ...describing, alt: e.target.value })}
-            placeholder="e.g. Fresh bread on our shop counter"
-            data-help="A few words saying what’s in the picture. Screen readers read it out to people who can’t see it, and search engines use it too."
+            placeholder={t("describePlaceholder")}
+            data-help={t("describeHelp")}
             className="w-full rounded border border-surface-800 bg-surface-950 px-2 py-1.5 text-xs text-surface-100 placeholder:text-surface-600 focus:border-brand-500 focus:outline-none"
           />
           <div className="flex gap-2">
-            <button type="submit" data-help="Save this description on the picture." className="rounded bg-brand-500 px-2.5 py-1 text-[11px] font-semibold text-fixed-white hover:bg-brand-400">Save description</button>
-            <button type="button" className="rounded px-2 py-1 text-[11px] text-surface-400 hover:text-surface-100" onClick={() => setDescribing(null)} data-help="Keep the new picture without changing its description.">Skip</button>
+            <button type="submit" data-help={t("saveDescriptionHelp")} className="rounded bg-brand-500 px-2.5 py-1 text-[11px] font-semibold text-fixed-white hover:bg-brand-400">{t("saveDescription")}</button>
+            <button type="button" className="rounded px-2 py-1 text-[11px] text-surface-400 hover:text-surface-100" onClick={() => setDescribing(null)} data-help={t("skipHelp")}>{t("skip")}</button>
           </div>
         </form>
       )}
 
       <div className="flex-1 overflow-y-auto p-2">
         {loading && (
-          <div className="text-center text-surface-500 text-xs py-8">Loading…</div>
+          <div className="text-center text-surface-500 text-xs py-8">{tc("loading")}</div>
         )}
         {error && !loading && (
           <div className="text-center text-red-400 text-xs py-8">{error}</div>
         )}
         {!loading && !error && assets.length === 0 && (
-          <div className="text-center text-surface-500 text-xs py-8">No matching images. Try a broader subject.</div>
+          <div className="text-center text-surface-500 text-xs py-8">{t("noMatches")}</div>
         )}
         <div className="grid grid-cols-2 gap-2">
           {assets.map((a) => (
@@ -208,9 +209,9 @@ export function AssetsPanel({ editor }: { editor: Editor }) {
               draggable
               onDragStart={(e) => onDragStart(e, a)}
               onClick={() => insertImage(a)}
-              data-help={imageSelected ? "Tap to put this photo in place of the picture you picked. It keeps the same size and spot." : "Tap to add this photo below the part you picked, or drag it onto your page."}
-              title={a.credit ? `Photo by ${a.credit.name}` : a.alt}
-              aria-label={`${imageSelected ? "Use this photo instead" : "Add this photo"}${a.alt ? `: ${a.alt}` : ""}`}
+              data-help={imageSelected ? t("swapHelp") : t("addHelp")}
+              title={a.credit ? t("photoBy", { name: a.credit.name }) : a.alt}
+              aria-label={a.alt ? (imageSelected ? t("useInsteadNamed", { alt: a.alt }) : t("addPhotoNamed", { alt: a.alt })) : imageSelected ? t("useInstead") : t("addPhoto")}
               className="group relative aspect-square overflow-hidden rounded border border-surface-800 bg-surface-950 hover:border-brand-500 transition"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -221,7 +222,7 @@ export function AssetsPanel({ editor }: { editor: Editor }) {
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
               />
               {a.source === "generated" && (
-                <span className="absolute bottom-1 left-1 rounded bg-black/70 px-1.5 py-0.5 text-[9px] text-fixed-white">AI original</span>
+                <span className="absolute bottom-1 start-1 rounded bg-black/70 px-1.5 py-0.5 text-[9px] text-fixed-white">{t("aiOriginal")}</span>
               )}
               {a.credit && (
                 <span className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 to-transparent px-1.5 py-1 text-[9px] text-fixed-white opacity-0 group-hover:opacity-100 transition truncate">
@@ -234,7 +235,7 @@ export function AssetsPanel({ editor }: { editor: Editor }) {
       </div>
 
       <div className="px-3 py-2 border-t border-surface-800 text-[10px] text-surface-600 [[data-theme=light]_&]:text-surface-500 text-center">
-        {imageSelected ? "Tap a photo to use it instead of the picture you picked" : "Tap or drag to add · Free photos"}
+        {imageSelected ? t("footerSwap") : t("footerAdd")}
       </div>
     </div>
   );

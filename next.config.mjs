@@ -1,4 +1,5 @@
 import { dirname } from "node:path";
+import createNextIntlPlugin from "next-intl/plugin";
 import { fileURLToPath } from "node:url";
 
 // The folder this file is in. Next otherwise guesses the workspace root from
@@ -29,4 +30,7 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+// The studio's languages (src/i18n/request.ts picks one per request).
+const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
+
+export default withNextIntl(nextConfig);

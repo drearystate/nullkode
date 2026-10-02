@@ -4,6 +4,8 @@
  * default (tables that look like form submissions alert; chat, votes,
  * counters and sign-ins don't).
  */
+import { getTranslations } from "next-intl/server";
+import { requestLocale } from "@/i18n/request";
 import { db } from "@/lib/db";
 import { getSetting } from "@/lib/settings";
 import { alertSettingKey, looksLikeSubmissionTable, normalizeAlertSettings, type AlertMode, type AlertSettings } from "@/lib/owner-alerts";
@@ -17,8 +19,9 @@ export function testSettingKey(projectId: string) {
   return `alerts-test:${projectId}`;
 }
 
-export function tableLabel(name: string) {
-  if (name === "auth_users") return "People who signed up";
+/** `signedUp` is the (translated) label for the app's sign-up table. */
+export function tableLabel(name: string, signedUp = "People who signed up") {
+  if (name === "auth_users") return signedUp;
   const parts = name
     .replace(/([a-z])([A-Z])/g, "$1 $2")
     .split(/[_\s-]+/)
@@ -35,6 +38,7 @@ export async function alertSettings(projectId: string): Promise<AlertSettings> {
 /** The app's built-in tables with their columns, oldest first. */
 export async function alertTables(projectId: string, settings?: AlertSettings): Promise<AlertTable[]> {
   const s = settings ?? (await alertSettings(projectId));
+  const t = await getTranslations({ locale: await requestLocale(), namespace: "project.alertsApi" });
   const tables = await db.dataTable.findMany({
     where: { datasource: { projectId, kind: "POSTGRES_INTERNAL" } },
     orderBy: { createdAt: "asc" },
@@ -61,6 +65,6 @@ export async function alertTables(projectId: string, settings?: AlertSettings): 
       .map((f) => ({ name: f.name as string, type: String(f.type ?? "text") }));
     const columns = fromDb ?? fields;
     const defaultMode: AlertMode = looksLikeSubmissionTable(name, columns.map((c) => c.name)) ? "instant" : "off";
-    return { name, label: tableLabel(name), mode: s.tables[name] ?? defaultMode, defaultMode, columns };
+    return { name, label: tableLabel(name, t("signedUpTable")), mode: s.tables[name] ?? defaultMode, defaultMode, columns };
   });
 }

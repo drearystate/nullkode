@@ -1,0 +1,1276 @@
+{
+  "account-and-billing": {
+    "sections": {
+      "0": {
+        "heading": "Votre photo, vos informations et votre mot de passe",
+        "shot": {
+          "alt": "La page Profil avec votre photo, vos informations, votre mot de passe, l’apparence et les conseils.",
+          "caption": "Profil : votre photo, votre nom, votre mot de passe, le thème clair ou sombre et les conseils."
+        },
+        "steps": {
+          "0": "Cliquez sur votre photo (ou votre initiale) en haut à droite, puis sur <b>Profil</b>.",
+          "1": "Appuyez sur <b>Ajouter une photo</b> et choisissez une photo de vous. Elle sera recadrée en carré et affichée à côté de votre nom. Vous pouvez la <b>Modifier</b> ou la <b>Supprimer</b> à tout moment.",
+          "2": "Modifiez votre <b>Nom</b>, puis appuyez sur <b>Enregistrer</b>. Votre adresse e-mail est celle que vous utilisez pour vous connecter et ne peut pas être modifiée ici.",
+          "3": "Sous <b>Mot de passe</b>, saisissez votre <b>Mot de passe actuel</b> et un <b>Nouveau mot de passe</b> d’au moins 8 caractères, puis appuyez sur <b>Changer le mot de passe</b>. Vous serez déconnecté de vos autres appareils."
+        }
+      },
+      "1": {
+        "body": {
+          "0": "Si vous ne connaissez pas votre mot de passe actuel, par exemple parce que vous vous êtes inscrit avec Google, déconnectez-vous et utilisez <b>Mot de passe oublié</b> sur la page de connexion pour en créer un."
+        },
+        "heading": "Vous vous êtes inscrit avec Google ?"
+      },
+      "2": {
+        "body": {
+          "0": "Appuyez sur le bouton soleil ou lune dans la barre supérieure pour passer du thème clair au thème sombre. Dans votre <b>Profil</b>, sous <b>Apparence</b>, vous pouvez aussi choisir <b>Suivre les paramètres de mon appareil</b>, pour reprendre le réglage de votre ordinateur ou téléphone. Votre choix est enregistré sur votre compte et vous suit sur vos autres appareils."
+        },
+        "heading": "Thème clair ou sombre"
+      },
+      "3": {
+        "body": {
+          "0": "Les conseils sont de courtes notes qui s’affichent quand vous passez la souris sur un bouton ou un paramètre. Activez-les ou désactivez-les dans votre <b>Profil</b>, sous <b>Aide</b>. Dans une app, le bouton <b>Conseils</b> en haut permet de faire la même chose.",
+          "1": "Le lien <b>Aide</b> dans la barre supérieure ouvre le guide de la page affichée. La rubrique <b>Aide et guides</b> du menu du compte répertorie tous les guides."
+        },
+        "heading": "Conseils et guides"
+      },
+      "4": {
+        "body": {
+          "0": "Cliquez sur votre initiale, puis sur <b>Facturation et offre</b>. Vous y trouverez votre offre et, si elle comprend un forfait mensuel, le nombre d’actions d’IA utilisées ce mois-ci. La planification, la création et les modifications avec l’IA utilisent des actions d’IA.",
+          "1": "Quand vous n’avez plus d’actions, l’IA se met en pause jusqu’au mois suivant. Les modèles et l’éditeur de pages restent disponibles. Si d’autres offres sont proposées, vous pouvez en choisir une sur la même page. Après avoir souscrit une offre, <b>Gérer la facturation</b> vous permet de modifier vos informations de paiement."
+        },
+        "heading": "Votre offre et votre utilisation de l’IA",
+        "shot": {
+          "alt": "La page Facturation affiche votre offre et le nombre d’actions d’IA utilisées ce mois-ci.",
+          "caption": "Facturation et offre : votre offre et votre utilisation de l’IA ce mois-ci."
+        }
+      },
+      "5": {
+        "body": {
+          "0": "Votre compte et toutes vos apps seront supprimés, ainsi que les données qu’elles ont enregistrées, leurs fichiers et leurs adresses Web. Cette action est irréversible."
+        },
+        "heading": "Supprimer votre compte",
+        "steps": {
+          "0": "Accédez à votre <b>Profil</b>, puis cherchez <b>Supprimer mon compte</b>.",
+          "1": "Téléchargez une <b>Sauvegarde</b> de chaque app que vous voudrez peut-être conserver. Si une app est sur Google Play, téléchargez aussi sa <b>clé d’envoi Google Play</b>.",
+          "2": "Appuyez sur <b>Supprimer mon compte…</b>.",
+          "3": "Saisissez votre adresse e-mail pour confirmer et cochez la case de la clé d’envoi si elle s’affiche.",
+          "4": "Appuyez sur <b>Supprimer définitivement mon compte</b>."
+        }
+      },
+      "6": {
+        "bullets": {
+          "0": "Changer votre mot de passe vous déconnecte de tous vos autres appareils.",
+          "1": "Un forfait payant est annulé dès que vous supprimez votre compte.",
+          "2": "Si vous ne pouvez pas supprimer votre compte ici, par exemple parce que vous gérez un espace de travail pour d’autres personnes, la page Profil vous en explique la raison."
+        },
+        "heading": "Bon à savoir"
+      }
+    },
+    "summary": "Ajoutez une photo, changez de nom ou de mot de passe, choisissez le thème clair ou sombre, activez ou désactivez les conseils, consultez votre offre et votre utilisation de l’IA, ou supprimez votre compte.",
+    "title": "Votre profil, votre offre et vos paramètres"
+  },
+  "ai-designer": {
+    "sections": {
+      "0": {
+        "heading": "Commencer une création",
+        "shot": {
+          "alt": "La page d’accueil du Designer IA, avec un champ pour décrire votre app, des idées d’exemple et une liste de vos créations.",
+          "caption": "Décrivez ce que vous voulez, puis cliquez sur Concevoir."
+        },
+        "steps": {
+          "0": "Cliquez sur <b>Designer</b> dans la barre du haut. Sur un téléphone, ouvrez <b>Autres façons de commencer</b> depuis le tableau de bord et choisissez <b>Créer avec l’IA</b>.",
+          "1": "Sous <b>Que voulez-vous créer ?</b>, décrivez votre app. Indiquez à qui elle s’adresse et ce que les visiteurs pourront y faire, par exemple réserver un créneau ou envoyer un message. Vous pouvez aussi toucher l’une des idées proposées et la modifier.",
+          "2": "Cliquez sur <b>Concevoir</b>.",
+          "3": "L’IA peut vous poser <b>Quelques questions rapides</b>. Touchez une réponse, saisissez la vôtre ou ignorez certaines questions. Cliquez sur <b>Créer</b>, ou sur <b>Ignorer les questions</b> pour laisser l’IA décider."
+        }
+      },
+      "1": {
+        "body": {
+          "0": "Pendant que l’IA travaille, la conversation à gauche affiche <b>En cours…</b> et les étapes au fur et à mesure. L’aperçu à droite se complète en même temps. Une première création peut prendre quelques minutes.",
+          "1": "Pour arrêter en cours de route, cliquez sur le bouton carré d’arrêt à côté du champ de message. Rien de cette tentative ne sera conservé.",
+          "2": "Une fois la première création terminée, votre design dispose de sa propre app. Le bouton <b>Ouvrir l’app</b> en haut de la conversation vous y emmène. Vous y trouverez ses données, ses flux et ses options de publication."
+        },
+        "heading": "Suivre la création"
+      },
+      "2": {
+        "heading": "Demander des modifications",
+        "shot": {
+          "alt": "Un design ouvert dans le Designer IA : la conversation à gauche et un aperçu de l’application à droite.",
+          "caption": "La conversation à gauche, l’aperçu en direct à droite."
+        },
+        "steps": {
+          "0": "Décrivez les changements souhaités avec vos propres mots dans la zone <b>Demander une modification</b>. Par exemple : « assombrir l’en-tête » ou « ajouter une page avec nos tarifs ».",
+          "1": "Appuyez sur Entrée ou sur le bouton d’envoi. Maj+Entrée permet de passer à la ligne.",
+          "2": "L’IA met à jour le design et l’enregistre en tant que nouvelle version."
+        }
+      },
+      "3": {
+        "body": {
+          "0": "Parfois, il est plus facile de montrer à l’IA que de lui décrire ce que vous voulez."
+        },
+        "heading": "Indiquer ce que vous voulez modifier",
+        "steps": {
+          "0": "Appuyez sur <b>Commenter</b> au-dessus de l’aperçu. Le bouton devient <b>Cliquez sur un élément pour le commenter</b>.",
+          "1": "Cliquez sur la partie de l’aperçu que vous voulez modifier.",
+          "2": "Indiquez ce qui doit changer, par exemple « agrandir cet élément », puis appuyez sur <b>Ajouter</b>. Votre note apparaît au-dessus de la zone de message.",
+          "3": "Ajoutez autant de notes que vous voulez, puis appuyez sur le bouton d’envoi pour appliquer toutes les modifications en même temps. Pour supprimer une note, appuyez sur son x."
+        }
+      },
+      "4": {
+        "body": {
+          "0": "Utilisez le menu <b>Page</b> au-dessus de l’aperçu pour voir chaque page de votre design. Les trois boutons d’écran affichent le rendu sur ordinateur, tablette et téléphone. Le bouton en forme de flèche ouvre la page seule dans un nouvel onglet.",
+          "1": "Sur un téléphone, passez de <b>Conversation</b> à <b>Aperçu</b> en haut de l’écran."
+        },
+        "heading": "Vérifier chaque page et taille d’écran"
+      },
+      "5": {
+        "body": {
+          "0": "Chaque modification est enregistrée comme une version : vous pouvez donc toujours revenir en arrière."
+        },
+        "heading": "Revenir à une version précédente",
+        "shot": {
+          "alt": "La liste des versions affichée à côté de l’aperçu, avec les boutons Afficher et Restaurer pour chaque version.",
+          "caption": "Versions : consultez une version précédente et restaurez-la."
+        },
+        "steps": {
+          "0": "Appuyez sur <b>Versions</b>. Elles sont toutes répertoriées, de la plus récente à la plus ancienne.",
+          "1": "Appuyez sur <b>Afficher</b> pour voir une ancienne version dans l’aperçu. Vous pouvez aussi appuyer sur <b>Voir cette version</b> sous un message de la conversation.",
+          "2": "Appuyez sur <b>Restaurer</b> (ou sur <b>La restaurer</b> dans la barre jaune) pour définir cette version comme version actuelle. Votre version précédente reste dans la liste : vous pouvez donc y revenir.",
+          "3": "Pour quitter l’ancienne version, appuyez sur <b>Revenir à la version actuelle</b>."
+        }
+      },
+      "6": {
+        "body": {
+          "0": "<b>Télécharger</b> enregistre toutes les pages de votre design dans un seul fichier .zip.",
+          "1": "<b>Transférer vers l’éditeur de pages</b> ouvre l’application dans l’éditeur de pages par glisser-déposer. Après cela, le Designer IA ne peut plus la modifier. Pour continuer à créer avec l’IA, appuyez sur <b>Créer une copie pour continuer</b> : vous obtiendrez une copie distincte, et l’application dans l’éditeur de pages restera inchangée."
+        },
+        "heading": "Télécharger ou transférer vers l’éditeur de pages"
+      },
+      "7": {
+        "body": {
+          "0": "La page d’accueil du Designer répertorie <b>Vos designs</b>. Cliquez sur une carte pour l’ouvrir. Le bouton <b>…</b> d’une carte vous permet de la <b>Renommer</b>, d’en <b>Créer une copie</b> ou de la <b>Supprimer</b>.",
+          "1": "La suppression d’un design supprime aussi son application, sauf si elle a été transférée vers l’éditeur de pages. Cette action est irréversible."
+        },
+        "heading": "Vos designs"
+      },
+      "8": {
+        "bullets": {
+          "0": "Demander à l’IA de créer ou de modifier un design utilise le crédit IA mensuel de votre forfait, s’il en comprend un.",
+          "1": "Dans une application Designer, les pages sont définies par le design. Modifiez-les ici, et non dans l’éditeur de pages.",
+          "2": "Les données, les flux, les domaines et la publication de votre application se trouvent dans ses onglets, comme pour toutes les autres applications. Publiez-la avec le bouton <b>Publier</b>."
+        },
+        "heading": "Bon à savoir"
+      }
+    },
+    "summary": "Décrivez votre app simplement, puis peaufinez-la en discutant avec l’IA et en cliquant sur ce que vous voulez modifier.",
+    "title": "Concevoir avec le Designer IA"
+  },
+  "ai-settings": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Dans Admin, ouvrez <b>Tous les paramètres</b>, puis accédez à <b>Moteur d’IA</b>. Tant qu’aucun moteur n’est connecté, la création avec l’IA est désactivée : les utilisateurs partent de modèles et de l’éditeur de pages, et le concepteur IA ne peut pas créer d’app."
+        },
+        "heading": "Où le trouver"
+      },
+      "1": {
+        "body": {
+          "0": "Deux options s’offrent à vous :"
+        },
+        "bullets": {
+          "0": "<b>OpenAI</b> : le service OpenAI ou tout serveur compatible, y compris les modèles exécutés sur votre propre matériel.",
+          "1": "<b>Agent IA en ligne de commande</b> : un outil d’IA en ligne de commande installé sur ce serveur et connecté avec son propre abonnement, au lieu de payer chaque requête."
+        },
+        "heading": "Choisir un fournisseur",
+        "shot": {
+          "alt": "Les paramètres du fournisseur d’IA avec les deux options, les détails de connexion et un bouton de test.",
+          "caption": "Choisissez un fournisseur, renseignez ses informations et faites un test."
+        }
+      },
+      "2": {
+        "heading": "Connecter un service hébergé ou compatible",
+        "steps": {
+          "0": "Choisissez <b>OpenAI</b>.",
+          "1": "Collez votre clé dans <b>Clé API OpenAI / compatible</b>. Si une clé est déjà enregistrée, laissez le champ vide pour la conserver.",
+          "2": "Laissez <b>URL de base de l’API</b> vide pour utiliser le service OpenAI, ou saisissez l’adresse d’un serveur compatible.",
+          "3": "Saisissez le nom des modèles dans <b>Modèle de création</b> (pour planifier et créer de nouvelles apps) et <b>Modèle de modification</b> (pour les changements dans l’éditeur), ou laissez les champs vides pour utiliser les valeurs par défaut.",
+          "4": "Cliquez sur <b>Tester la connexion</b>. Vos paramètres sont d’abord enregistrés, puis le résultat affiche <b>OK</b> ou <b>Échec</b>, avec la raison.",
+          "5": "Cliquez sur <b>Enregistrer les modifications</b>."
+        }
+      },
+      "3": {
+        "body": {
+          "0": "Tout serveur de modèles compatible avec le service OpenAI convient, comme Ollama, LM Studio, vLLM ou le serveur de llama.cpp. Saisissez son adresse dans <b>URL de base de l’API</b> (pour un modèle sur le même ordinateur que les conteneurs Docker de {app}, une adresse comme http://host.docker.internal:11434/v1 convient), laissez la clé vide sauf si le serveur en a besoin, et saisissez le nom exact du modèle.",
+          "1": "Laissez <b>Taille du contexte du modèle</b> et <b>Nombre maximal de jetons de sortie par requête</b> vides, et gardez <b>Réflexion du modèle</b> sur <b>Automatique</b> : {app} choisit des valeurs adaptées. Si les tests ou la création indiquent que la réponse est illisible, réglez <b>Prise en charge du JSON</b> sur <b>Invite uniquement</b>.",
+          "2": "La vitesse dépend de votre matériel. Les modèles plus grands produisent de meilleures pages ; essayez de créer un exemple d’app avant d’inviter des personnes."
+        },
+        "heading": "Exécuter l’IA sur votre propre matériel"
+      },
+      "4": {
+        "heading": "Utiliser un outil d’IA en ligne de commande",
+        "steps": {
+          "0": "Installez l’outil sur ce serveur et connectez-vous avec le compte qui exécute {app} (ou avec son compte d’exécution dédié).",
+          "1": "Choisissez <b>Agent IA en ligne de commande</b>.",
+          "2": "Modifiez <b>Modèle</b> si vous en voulez un autre, et renseignez <b>Chemin du programme</b> uniquement si l’outil n’est pas détecté automatiquement.",
+          "3": "Cliquez sur <b>Tester l’agent IA</b>, puis sur <b>Enregistrer les modifications</b>."
+        }
+      },
+      "5": {
+        "bullets": {
+          "0": "Chaque planification, création et modification utilise des actions IA de la limite mensuelle de la personne (voir <b>Forfaits et limites</b>). Les clients d’un revendeur partagent la limite mensuelle de celui-ci.",
+          "1": "Les clés enregistrées ne sont jamais affichées à nouveau ; seul un indice masqué apparaît.",
+          "2": "Une clé dans le fichier .env du serveur (OPENAI_API_KEY) est utilisée si aucune clé n’est enregistrée ici.",
+          "3": "Le guide fourni avec le téléchargement (docs/local-ai.md) explique plus en détail comment exécuter vos propres modèles."
+        },
+        "heading": "Bon à savoir"
+      }
+    },
+    "summary": "Choisissez le moteur d’IA qui planifie, crée et modifie les apps, et vérifiez qu’il fonctionne.",
+    "title": "Paramètres de l’IA"
+  },
+  "custom-domains": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Vous avez besoin d’un nom de domaine acheté auprès d’un fournisseur de domaines et de pouvoir modifier ses paramètres DNS. Le DNS est le répertoire d’adresses d’Internet : deux entrées indiquent que votre domaine est associé à votre app. Le site web de votre fournisseur de domaines comporte une page pour cela, souvent appelée DNS, enregistrements DNS ou zone.",
+          "1": "Votre app conserve aussi son adresse gratuite."
+        },
+        "heading": "Avant de commencer"
+      },
+      "1": {
+        "heading": "Connecter votre domaine",
+        "shot": {
+          "alt": "L’onglet Domaines avec un champ pour ajouter un domaine et les enregistrements DNS à ajouter chez votre fournisseur de domaines.",
+          "caption": "Ajoutez votre domaine, puis copiez les deux enregistrements chez votre fournisseur de domaines."
+        },
+        "steps": {
+          "0": "Ouvrez l’onglet <b>Domaines</b>.",
+          "1": "Saisissez votre adresse, par exemple www.votreentreprise.com (sans https://), puis appuyez sur <b>Ajouter un domaine</b>.",
+          "2": "Deux enregistrements s’afficheront : un enregistrement CNAME (ou A) et un enregistrement TXT. Chacun comporte un <b>Nom / hôte</b> et une <b>Valeur / pointe vers</b>. Cliquez sur une valeur pour la copier.",
+          "3": "Dans un autre onglet, connectez-vous au site de votre fournisseur de domaines, ouvrez les paramètres DNS de votre domaine et ajoutez les deux enregistrements exactement comme indiqué.",
+          "4": "Revenez ici et appuyez sur <b>Vérifier maintenant</b>. Lorsque les deux enregistrements sont trouvés, le statut indique <b>Connecté</b> et les visiteurs peuvent utiliser votre adresse."
+        }
+      },
+      "2": {
+        "bullets": {
+          "0": "Les modifications DNS sont généralement prises en compte en quelques minutes, mais cela peut prendre quelques heures. Réessayez plus tard en appuyant sur <b>Vérifier maintenant</b>.",
+          "1": "La vérification indique quel enregistrement est introuvable : l’enregistrement TXT ou celui qui pointe vers votre domaine.",
+          "2": "Certains fournisseurs de domaines ajoutent automatiquement votre domaine à la fin du nom. Si c’est le cas du vôtre, saisissez uniquement le début du nom, comme www ou _verify.www.",
+          "3": "Pour une adresse sans www (votreentreprise.com), certains fournisseurs de domaines n’autorisent pas l’enregistrement CNAME. Utilisez plutôt un enregistrement A qui pointe vers l’adresse IP de ce serveur. Demandez l’adresse à la personne qui gère {app} pour vous."
+        },
+        "heading": "Si la connexion ne fonctionne pas encore"
+      },
+      "3": {
+        "body": {
+          "0": "Appuyez sur la corbeille à côté du domaine, puis confirmez. Votre app reste accessible à son adresse gratuite."
+        },
+        "heading": "Déconnecter un domaine"
+      },
+      "4": {
+        "bullets": {
+          "0": "Un domaine ne peut être connecté qu’à une seule app.",
+          "1": "Votre forfait peut limiter le nombre de domaines que vous pouvez connecter.",
+          "2": "Les visiteurs voient la version publiée de votre app sur votre domaine. Pensez donc à publier avant de partager l’adresse."
+        },
+        "heading": "Bon à savoir"
+      }
+    },
+    "summary": "Utilisez une adresse web qui vous appartient pour votre app, comme www.votreentreprise.com.",
+    "title": "Utiliser votre propre domaine"
+  },
+  "email": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Une fois l’e-mail configuré, {app} envoie des liens de réinitialisation de mot de passe et des invitations (pour vous, les revendeurs et leurs clients), des alertes aux propriétaires d’app lorsqu’une personne envoie un formulaire ou prend rendez-vous, ainsi que les e-mails envoyés par les apps avec l’étape <b>Envoyer un e-mail</b>.",
+          "1": "Sans cette configuration, les liens d’invitation et de réinitialisation de mot de passe s’affichent à l’écran pour que vous puissiez les transmettre, et les apps ignorent leurs étapes d’envoi d’e-mail. Les propriétaires d’app en sont informés sur la page d’aperçu de leur app."
+        },
+        "heading": "À quoi sert l’e-mail"
+      },
+      "1": {
+        "heading": "Configurer un fournisseur de messagerie",
+        "shot": {
+          "alt": "Les paramètres d’e-mail : activation de l’e-mail, choix du fournisseur, détails du serveur et bouton de test.",
+          "caption": "Renseignez les informations de votre fournisseur et envoyez-vous un e-mail de test."
+        },
+        "steps": {
+          "0": "Dans Admin, ouvrez <b>Tous les paramètres</b>, puis accédez à <b>E-mail</b>.",
+          "1": "Sous <b>Comment envoyer les e-mails ?</b>, choisissez <b>N’importe quel fournisseur de messagerie (SMTP)</b>.",
+          "2": "Saisissez le <b>Serveur de messagerie</b> fourni par votre fournisseur, par exemple smtp.example.com.",
+          "3": "Choisissez le <b>Port</b>. Utilisez <b>587 (recommandé)</b>, sauf indication contraire de votre fournisseur.",
+          "4": "Saisissez le <b>Nom d’utilisateur</b> et le <b>Mot de passe</b>. Google et Microsoft nécessitent un mot de passe d’application, et non votre mot de passe habituel.",
+          "5": "Saisissez l’adresse d’expédition dans <b>Adresse d’expédition</b>, en utilisant une adresse autorisée par votre fournisseur, puis un <b>Nom d’expéditeur</b> si vous le souhaitez. Laissez ce champ vide pour utiliser le nom de votre marque ou de l’app.",
+          "6": "Cliquez sur <b>M’envoyer un e-mail de test</b>. Le test utilise les informations affichées à l’écran : vous pouvez donc vérifier que tout fonctionne avant d’enregistrer.",
+          "7": "Cliquez sur <b>Enregistrer les paramètres d’e-mail</b>."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Choisissez <b>Resend</b>, collez votre <b>Clé API Resend</b>, puis envoyez les e-mails depuis une adresse associée à un domaine que vous avez vérifié dans Resend. Faites ensuite un test et enregistrez les paramètres comme indiqué ci-dessus."
+        },
+        "heading": "Ou utiliser Resend"
+      },
+      "3": {
+        "body": {
+          "0": "L’encadré en haut indique <b>Les e-mails sont activés</b> et affiche l’adresse d’envoi, ainsi que les dernières 24 heures : le nombre d’e-mails envoyés et en échec, et le dernier problème rencontré, le cas échéant. La carte E-mail de la page Système affiche les mêmes informations."
+        },
+        "heading": "Vérifier que tout fonctionne"
+      },
+      "4": {
+        "bullets": {
+          "0": "<b>Nom d’utilisateur ou mot de passe refusé</b> : vérifiez les deux. Google et Microsoft nécessitent un mot de passe d’application ; les services de messagerie fournissent souvent une clé SMTP à la place du mot de passe de votre compte.",
+          "1": "<b>Impossible de joindre le serveur sur ce port</b> : essayez 587, puis 465, puis 2525, ou demandez à votre hébergeur d’ouvrir le port.",
+          "2": "<b>Le port et le chiffrement ne correspondent pas</b> : utilisez le port 465 avec SSL, ou le port 587 avec le chiffrement automatique (sous <b>Plus d’options</b>).",
+          "3": "<b>Envoi refusé depuis cette adresse</b> : votre fournisseur n’a pas vérifié cette adresse ou son domaine. Faites-les vérifier, ou utilisez une adresse qu’il connaît.",
+          "4": "<b>Mode test de Resend</b> : un nouveau compte Resend ne peut envoyer des e-mails qu’à sa propre adresse tant qu’aucun domaine n’est vérifié."
+        },
+        "heading": "Si le test échoue"
+      },
+      "5": {
+        "bullets": {
+          "0": "Tous les e-mails sont envoyés depuis votre adresse <b>Adresse d’envoi</b>. Lorsqu’une app demande à envoyer un e-mail depuis une adresse d’un autre domaine, cette adresse devient l’adresse de réponse, afin que les réponses parviennent toujours au propriétaire de l’app.",
+          "1": "Les paramètres du fichier .env du serveur sont utilisés jusqu’à ce que vous les enregistriez ici ; les paramètres enregistrés ici les remplacent.",
+          "2": "<b>Supprimer ces paramètres</b> désactive les e-mails (ou rétablit les paramètres du fichier .env, s’il y en a).",
+          "3": "L’adresse e-mail d’assistance indiquée dans votre identité visuelle est l’adresse de réponse des e-mails d’invitation et de réinitialisation du mot de passe."
+        },
+        "heading": "Bon à savoir"
+      }
+    },
+    "summary": "Envoyez des invitations, des liens de réinitialisation de mot de passe, des alertes et les e-mails de vos apps depuis votre propre adresse.",
+    "title": "E-mail"
+  },
+  "features": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Une fonctionnalité est un élément prêt à l’emploi pour votre application, comme les réservations, une boutique, un formulaire de contact ou un blog. En l’ajoutant, vous donnez à votre application de nouvelles pages, des listes pour conserver les informations envoyées et des automatisations qui font fonctionner ses boutons et formulaires. Vous pouvez ensuite modifier ses pages comme n’importe quelle autre page."
+        },
+        "heading": "Qu’est-ce qu’une fonctionnalité ?"
+      },
+      "1": {
+        "heading": "Ajouter une fonctionnalité",
+        "shot": {
+          "alt": "L’onglet Fonctionnalités : une barre de recherche, des boutons de catégories et une grille de fonctionnalités à ajouter.",
+          "caption": "Choisissez une fonctionnalité. La section Détails indique ce qu’elle ajoute."
+        },
+        "steps": {
+          "0": "Ouvrez l’onglet <b>Fonctionnalités</b>.",
+          "1": "Recherchez, par exemple, « réservations » ou « boutique », ou choisissez une catégorie comme Commerce ou Communauté.",
+          "2": "Pour voir ce qu’ajoute une fonctionnalité, ouvrez <b>Détails</b> sur sa carte. Vous y trouverez le nombre de pages, de listes de données enregistrées et d’automatisations qu’elle ajoute.",
+          "3": "Cliquez sur la carte (<b>Ajouter à mon application</b>).",
+          "4": "Répondez aux quelques questions, s’il y en a. Les champs marqués d’un * sont obligatoires. Le nom de votre application est déjà indiqué lorsqu’on vous demande le nom de l’entreprise.",
+          "5": "Appuyez sur <b>Ajouter à mon application</b>. L’éditeur s’ouvre sur la première page de la fonctionnalité."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Dans l’éditeur de page, l’onglet <b>Fonctionnalités</b> à gauche permet de faire la même chose. Une fois la fonctionnalité ajoutée, un message indique que ses pages se trouvent dans le menu et propose un bouton <b>Ouvrir la nouvelle page</b>."
+        },
+        "heading": "Ajouter une fonctionnalité pendant la modification",
+        "shot": {
+          "alt": "La fenêtre Ajouter une fonctionnalité, avec quelques questions et les boutons Annuler et Ajouter à mon application.",
+          "caption": "Répondez à quelques questions pour ajouter la fonctionnalité."
+        }
+      },
+      "3": {
+        "body": {
+          "0": "Ses pages se trouvent dans le menu de votre application et dans la liste des pages de l’éditeur. Les données qu’elle enregistre (par exemple, les réservations) se trouvent dans l’onglet <b>Données</b>. Ses automatisations se trouvent dans l’onglet <b>Automatisations</b>. Les pages réservées à vous, comme la liste des réservations, sont répertoriées dans l’aperçu, sous <b>Espace d’administration de votre application</b>."
+        },
+        "heading": "Où trouver les éléments ajoutés"
+      },
+      "4": {
+        "bullets": {
+          "0": "Une carte marquée <b>Ajouté</b> est déjà dans votre application. Si vous l’ajoutez à nouveau, une autre copie sera créée, avec ses propres pages et listes.",
+          "1": "Si une fonctionnalité en nécessite une autre, un bouton vous propose de l’ajouter d’abord.",
+          "2": "Certaines fonctionnalités permettent aux visiteurs connectés d’envoyer des éléments en attente de votre approbation. Dans <b>Lieux</b>, par exemple, les visiteurs peuvent suggérer un lieu sous <b>Mes lieux</b>. Il apparaît dans le guide une fois que vous l’avez approuvé sur la page <b>Gérer les lieux</b>.",
+          "3": "Certaines fonctionnalités envoient des e-mails et indiquent <b>La messagerie doit être configurée sur le serveur</b>. Si ce n’est pas le cas, demandez à la personne qui gère {app} pour vous de la configurer.",
+          "4": "Il n’existe pas d’option pour tout supprimer d’un coup. Vous pouvez supprimer les pages ajoutées par une fonctionnalité, comme n’importe quelle page. Les données qu’elle a enregistrées restent dans l’onglet Données.",
+          "5": "L’ajout d’une fonctionnalité modifie votre brouillon. Les visiteurs la verront une fois que vous l’aurez publiée."
+        },
+        "heading": "Bon à savoir"
+      }
+    },
+    "summary": "Ajoutez des éléments prêts à l’emploi comme les réservations, une boutique ou un blog, avec leurs propres pages et données enregistrées.",
+    "title": "Ajouter des fonctionnalités"
+  },
+  "flows": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Une automatisation est une courte liste d’étapes que votre application suit automatiquement. Un événement se produit (quelqu’un envoie un formulaire ou clique sur un bouton, ou une heure programmée arrive), les étapes s’exécutent (enregistrer les réponses, envoyer un e-mail), puis votre visiteur reçoit un résultat (un message de remerciement).",
+          "1": "Les applications créées par l’IA et les fonctionnalités que vous ajoutez sont déjà configurées avec leurs automatisations. Vous pouvez les ouvrir et les modifier comme n’importe quelle automatisation."
+        },
+        "heading": "Qu’est-ce qu’une automatisation ?"
+      },
+      "1": {
+        "body": {
+          "0": "L’onglet <b>Automatisations</b> répertorie chacune d’elles, avec son déclencheur (un formulaire, une requête ou une programmation) et son nombre d’étapes. Cliquez sur l’une d’elles pour l’ouvrir.",
+          "1": "Chaque automatisation dispose d’un bouton <b>Activée</b> / <b>En pause</b>, dans la liste et dans l’automatisation elle-même. Une automatisation en pause ne s’exécute pas : les éléments de votre application qui l’utilisent, comme un formulaire, affichent alors une erreur. La mise en pause et la réactivation prennent effet immédiatement sur votre application publiée, sans qu’il soit nécessaire de la publier à nouveau."
+        },
+        "heading": "Vos automatisations",
+        "shot": {
+          "alt": "L’onglet Automatisations répertorie celles de l’application, avec leur déclencheur et leur nombre d’étapes.",
+          "caption": "Les automatisations de votre application."
+        }
+      },
+      "2": {
+        "heading": "Créer une automatisation",
+        "shot": {
+          "alt": "Une automatisation ouverte dans l’éditeur : les étapes à ajouter à gauche, les étapes reliées au centre et les paramètres à droite.",
+          "caption": "Ajoutez des étapes à gauche, reliez-les et configurez-les à droite."
+        },
+        "steps": {
+          "0": "Dans l’onglet Automatisations, cliquez sur <b>Nouvelle automatisation</b>, saisissez un nom comme « Envoyer le formulaire de contact », puis cliquez sur <b>Créer</b>.",
+          "1": "L’automatisation s’ouvre avec son étape de départ, <b>Quand l’application appelle cette automatisation</b>.",
+          "2": "Sous <b>Ajouter une étape</b> à gauche, cliquez sur une étape pour l’ajouter. Saisissez du texte dans <b>Rechercher une étape…</b> pour faire une recherche. Les étapes sont regroupées par catégorie : Départ, Données enregistrées, Choix et valeurs, Envoyer et connecter, IA, Comptes et Fin.",
+          "3": "Reliez les étapes dans l’ordre où elles doivent s’exécuter : faites glisser depuis le bord droit d’une étape jusqu’à la suivante.",
+          "4": "Cliquez sur une étape pour la configurer dans le panneau de droite, par exemple pour choisir le tableau où enregistrer les données.",
+          "5": "Vos modifications sont enregistrées automatiquement."
+        }
+      },
+      "3": {
+        "body": {
+          "0": "La plupart des paramètres d’étape vous permettent d’insérer des valeurs au lieu de saisir du texte fixe. Sous <b>Depuis la requête</b>, saisissez le nom d’un champ du formulaire, comme e-mail, puis cliquez sur <b>Ajouter</b>. <b>Depuis les étapes précédentes</b> répertorie les valeurs produites par les étapes précédentes, comme l’enregistrement trouvé par une étape."
+        },
+        "heading": "Utiliser les réponses saisies"
+      },
+      "4": {
+        "heading": "Connecter un formulaire ou un bouton",
+        "steps": {
+          "0": "Ouvrez la page dans l’éditeur de pages et sélectionnez le formulaire ou le bouton.",
+          "1": "Ouvrez <b>Paramètres</b> à droite.",
+          "2": "Pour un formulaire, choisissez votre flux sous <b>À l’envoi, exécuter</b>. Pour un bouton, utilisez <b>À l’appui, exécuter</b>. Pour une liste, <b>Afficher les éléments de</b> sélectionne un flux qui trouve les éléments."
+        }
+      },
+      "5": {
+        "body": {
+          "0": "Voici les modèles les plus courants. Les fonctionnalités configurent la plupart d’entre eux pour vous."
+        },
+        "bullets": {
+          "0": "<b>Formulaire de contact qui vous envoie un e-mail</b> : Quand l’application appelle ce flux, puis <b>Ajouter un enregistrement</b> (votre table de messages), puis <b>Envoyer un e-mail</b> à votre adresse avec le message de la personne, puis <b>Répondre</b> avec un message de remerciement.",
+          "1": "<b>Réservation</b> : Quand l’application appelle ce flux, puis <b>Compter ou additionner des enregistrements</b> pour compter les réservations à cette heure, puis <b>Si ceci, sinon cela</b>. Si le créneau est libre, <b>Ajouter un enregistrement</b> et <b>Envoyer un e-mail</b> de confirmation ; sinon, <b>Répondre</b> pour indiquer qu’il est déjà pris. La fonctionnalité Réservations s’occupe de tout pour vous.",
+          "2": "<b>Connexion</b> : la fonctionnalité Connexion et comptes ajoute ces flux. L’inscription utilise <b>Sécuriser un mot de passe</b>, <b>Ajouter un enregistrement</b> et <b>Connecter la personne</b>. La connexion utilise <b>Trouver des enregistrements</b>, <b>Vérifier un mot de passe</b> et <b>Connecter la personne</b>.",
+          "3": "<b>Récapitulatif quotidien</b> : dans l’onglet <b>Programmation</b>, choisissez <b>Selon un calendrier</b> et <b>Tous les jours</b>, puis <b>Compter ou additionner des enregistrements</b> et <b>Envoyer un e-mail</b> avec le total."
+        },
+        "heading": "Exemples courants"
+      },
+      "6": {
+        "body": {
+          "0": "Appuyez sur <b>Exécuter un test</b> pour lancer le flux une fois, immédiatement, avec vos dernières modifications. Le résultat s’affiche sous les étapes. Le flux exécute réellement ses étapes : il enregistre donc des données et envoie des e-mails, et son exécution apparaît dans Activité."
+        },
+        "heading": "Essayez avec un test"
+      },
+      "7": {
+        "body": {
+          "0": "L’onglet <b>Activité</b> répertorie chaque exécution du flux : <b>Exécution réussie</b>, <b>Réponse envoyée</b>, <b>Terminé avec un problème</b> ou <b>Échec</b>. Appuyez sur <b>Problèmes uniquement</b> pour afficher seulement les exécutions qui ont rencontré un problème, puis ouvrez-en une pour voir ce que la personne a envoyé.",
+          "1": "Les problèmes apparaissent aussi dans la Vue d’ensemble de votre application, sous <b>Problèmes des dernières 24 heures</b>, ainsi qu’en chiffre sur la fiche de l’application dans votre tableau de bord."
+        },
+        "heading": "Voir ce qui s’est passé",
+        "shot": {
+          "alt": "L’onglet Activité d’un flux, avec la liste des exécutions récentes et leur résultat.",
+          "caption": "Activité : chaque exécution et les problèmes éventuels."
+        }
+      },
+      "8": {
+        "heading": "Exécuter selon un calendrier",
+        "steps": {
+          "0": "Ouvrez l’onglet <b>Programmation</b> du flux.",
+          "1": "Choisissez <b>Selon un calendrier</b> plutôt que <b>Quand votre application l’utilise</b>.",
+          "2": "Sous <b>Fréquence</b>, choisissez <b>Toutes les quelques minutes</b>, <b>Toutes les heures</b>, <b>Tous les jours</b>, <b>Du lundi au vendredi</b> ou <b>Une fois par semaine</b>, puis indiquez l’heure et votre fuseau horaire.",
+          "3": "Enregistrez, puis publiez votre application. Les tâches planifiées ne s’exécutent que dans l’application publiée."
+        }
+      },
+      "9": {
+        "bullets": {
+          "0": "Pour supprimer une étape, sélectionnez-la et appuyez sur sa corbeille, ou appuyez sur Suppr sur votre clavier.",
+          "1": "Les modifications des flux font partie de votre brouillon. Les visiteurs les verront après la publication.",
+          "2": "<b>Envoyer un e-mail</b> fonctionne uniquement si l’envoi d’e-mails est configuré sur le serveur. Sinon, un avertissement apparaît dans la Vue d’ensemble de votre application.",
+          "3": "L’étape <b>Demander à l’IA</b> utilise le quota d’IA de votre forfait à chaque exécution.",
+          "4": "La mise en pause d’un flux ou sa réactivation prend effet immédiatement, y compris pour sa programmation. Pas besoin de publier.",
+          "5": "Certains forfaits ne comprennent pas les flux planifiés. L’onglet Programmation vous l’indique.",
+          "6": "<b>Adresse Web (pour les développeurs)</b> est uniquement nécessaire pour lancer un flux depuis l’extérieur de {app}."
+        },
+        "heading": "Bon à savoir"
+      }
+    },
+    "summary": "Faites en sorte que certaines actions se déclenchent automatiquement lorsque quelqu’un utilise votre application, comme enregistrer une réservation et vous envoyer un e-mail, ou planifier des tâches.",
+    "title": "Automatiser avec des automatisations"
+  },
+  "forms-and-data": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Lorsqu’une personne envoie un formulaire, réserve ou s’inscrit, votre application enregistre ses réponses dans une ligne d’un tableau. Un tableau ressemble à une feuille de calcul : une ligne par entrée et une colonne par réponse. Les tableaux se trouvent dans l’onglet <b>Données</b>. Les cinq entrées les plus récentes apparaissent aussi dans l’aperçu de votre application, sous <b>Derniers envois</b>.",
+          "1": "Un formulaire enregistre les réponses s’il est relié à une automatisation qui les enregistre. Les formulaires inclus avec les fonctionnalités et ceux des applications créées par l’IA sont déjà reliés. Pour un formulaire que vous ajoutez vous-même, sélectionnez-le dans l’éditeur de pages, ouvrez les <b>Paramètres</b>, puis choisissez une automatisation sous <b>À l’envoi, exécuter</b>."
+        },
+        "heading": "Où vont les réponses aux formulaires"
+      },
+      "1": {
+        "heading": "Ouvrir un tableau",
+        "shot": {
+          "alt": "L’onglet Données affiche les tableaux de l’application et le nombre de lignes de chacun.",
+          "caption": "Toutes les données enregistrées par votre application, un tableau à la fois."
+        },
+        "steps": {
+          "0": "Ouvrez l’onglet <b>Données</b>.",
+          "1": "Cliquez sur un tableau. Le nombre de lignes s’affiche, ou la mention <b>Vide</b>.",
+          "2": "Pour revenir à la liste, cliquez sur <b>Tous les tableaux</b>."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Saisissez du texte dans <b>Rechercher</b> pour trouver des lignes. Cliquez sur le nom d’une colonne pour trier par cette colonne. S’il y a beaucoup de lignes, utilisez <b>Plus récentes</b> et <b>Plus anciennes</b> en bas."
+        },
+        "heading": "Rechercher, modifier et ajouter des lignes",
+        "shot": {
+          "alt": "Un tableau ouvert dans l’onglet Données, avec un champ de recherche, les boutons Ajouter une ligne et Télécharger le CSV, et les lignes en dessous.",
+          "caption": "Un tableau : recherchez, modifiez ou téléchargez vos données."
+        },
+        "steps": {
+          "0": "Pour modifier une réponse, cliquez dessus, saisissez la nouvelle valeur et enregistrez.",
+          "1": "Pour modifier toute une ligne, cliquez sur le crayon à son extrémité.",
+          "2": "Pour ajouter vous-même une ligne, cliquez sur <b>Ajouter une ligne</b>.",
+          "3": "Pour supprimer des lignes, cochez-les, cliquez sur <b>Supprimer</b> (le nombre de lignes s’affiche), puis sur <b>Oui, supprimer</b>. Si vous changez d’avis, cliquez sur <b>Les conserver</b>."
+        }
+      },
+      "3": {
+        "body": {
+          "0": "<b>Télécharger le CSV</b> enregistre le tableau dans un fichier que vous pouvez ouvrir avec Excel, Numbers ou Google Sheets. Le fichier contient les données affichées. Faites donc une recherche ou un tri d’abord si vous ne voulez télécharger que certaines lignes."
+        },
+        "heading": "Télécharger une copie"
+      },
+      "4": {
+        "body": {
+          "0": "Dans l’aperçu de votre application, la section <b>Alertes</b> répertorie chaque tableau qui recueille des informations auprès des visiteurs, avec un bouton pour activer ou désactiver les alertes. Elles sont envoyées à l’adresse e-mail de votre compte. Vous pouvez en ajouter jusqu’à trois sous <b>Envoyer aussi à</b>. Cliquez sur <b>Enregistrer les alertes</b>, puis sur <b>Envoyer un test</b> pour vérifier que tout fonctionne.",
+          "1": "Les alertes nécessitent que la messagerie soit configurée sur le serveur. Si ce n’est pas le cas, un message s’affiche sur la carte."
+        },
+        "heading": "Recevoir un e-mail pour chaque nouvelle entrée"
+      },
+      "5": {
+        "body": {
+          "0": "Les personnes peuvent demander à savoir ce que votre application conserve à leur sujet ou demander la suppression de leurs données. Ouvrez <b>Demandes de confidentialité</b> dans l’onglet Données pour trouver une personne par son adresse e-mail ou son numéro de téléphone, puis <b>Télécharger une copie</b> de ses données ou les <b>Effacer</b>. Les personnes qui ont demandé la suppression de leur compte dans votre application sont répertoriées sous <b>En attente de votre approbation</b>."
+        },
+        "heading": "Demandes de confidentialité"
+      },
+      "6": {
+        "bullets": {
+          "0": "La suppression de lignes ou l’effacement des données d’une personne est définitif.",
+          "1": "Certains tableaux sont consultables ici uniquement, par exemple ceux enregistrés dans une feuille Google Sheets.",
+          "2": "La section <b>Avancé</b>, en bas de l’onglet Données, indique où vos données sont stockées et vous permet de créer des tableaux manuellement. La plupart des gens n’en ont pas besoin.",
+          "3": "Une sauvegarde depuis l’onglet Publier inclut tous les tableaux et toutes les lignes."
+        },
+        "heading": "Bon à savoir"
+      }
+    },
+    "summary": "Consultez, recherchez, modifiez et téléchargez tout ce que votre application enregistre, comme les messages, les réservations et les inscriptions.",
+    "title": "Formulaires et données"
+  },
+  "getting-started": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "À votre connexion, vous arrivez sur votre tableau de bord. Vous pouvez toujours y revenir en cliquant sur <b>Mes apps</b> dans la barre du haut.",
+          "1": "Sous <b>Vos apps</b>, chaque app apparaît sur une carte avec une petite image de sa page d’accueil, le nombre de pages et de flux, et son statut : <b>En ligne</b> (publiée) ou <b>Brouillon</b> (visible uniquement par vous). Utilisez <b>Toutes les apps</b>, <b>En ligne</b> et <b>Brouillons</b>, ainsi que le champ <b>Rechercher une app…</b>, pour filtrer la liste.",
+          "2": "Cliquez sur l’image d’une carte pour reprendre les modifications. Cliquez sur le nom de l’app pour ouvrir sa vue d’ensemble. La ligne à côté de <b>Vos apps</b> indique votre forfait, le nombre d’apps que vous avez et le nombre d’actions IA utilisées ce mois-ci. Cliquez dessus pour ouvrir <b>Facturation et forfait</b>."
+        },
+        "heading": "Votre tableau de bord",
+        "shot": {
+          "alt": "Le tableau de bord, avec le champ de description en haut et une carte pour chaque app en dessous.",
+          "caption": "Votre tableau de bord. Chaque carte correspond à l’une de vos apps."
+        }
+      },
+      "1": {
+        "body": {
+          "0": "Choisissez la méthode qui vous convient. Dans tous les cas, vous pourrez ensuite continuer à modifier votre app avec les mêmes outils."
+        },
+        "bullets": {
+          "0": "<b>Décrivez votre app.</b> Expliquez ce que vous voulez avec vos propres mots. L’IA vous propose un plan que vous pouvez vérifier et modifier, puis crée les pages, les formulaires et les données.",
+          "1": "<b>Designer IA.</b> Discutez avec l’IA et créez votre app étape par étape. Consultez le guide Concevoir avec le Designer IA.",
+          "2": "<b>Modèles.</b> Partez d’un modèle prêt à l’emploi, comme un site de restaurant ou un portfolio, puis modifiez les textes, les images et les couleurs.",
+          "3": "<b>Copier un site web.</b> Importez jusqu’à 30 pages d’un site web qui vous appartient dans une nouvelle app que vous pourrez modifier.",
+          "4": "<b>App vierge.</b> Commencez avec une page simple et créez votre app en faisant glisser des blocs.",
+          "5": "<b>Importer une app.</b> Restaurez une app à partir d’un fichier de sauvegarde .zip créé sur ce serveur ou un autre."
+        },
+        "heading": "Six façons de créer une app"
+      },
+      "2": {
+        "body": {
+          "0": "Si l’IA n’est pas configurée sur ce serveur, cette méthode et le Designer IA ne sont pas proposés. Choisissez plutôt un modèle."
+        },
+        "heading": "Décrivez votre app et vérifiez le plan",
+        "shot": {
+          "alt": "L’écran de création d’app, avec la question Que voulez-vous créer ?, un grand champ de texte et des idées d’exemple.",
+          "caption": "Décrivez votre app avec vos propres mots. Vous pouvez vérifier le plan avant sa création."
+        },
+        "steps": {
+          "0": "Sur votre tableau de bord, décrivez votre app dans le champ, par exemple « Réservations pour mon entreprise de promenade de chiens », puis cliquez sur <b>Planifier mon app</b>. Vous pouvez aussi cliquer sur <b>Autres façons de commencer</b> et utiliser le grand champ qui s’affiche.",
+          "1": "Indiquez qui utilisera l’app et ce qu’on pourra y faire. Vous ne savez pas quoi écrire ? Touchez l’une des idées proposées sous le champ, puis modifiez-la.",
+          "2": "Patientez un instant pendant que l’IA examine votre idée. Rien n’est encore créé.",
+          "3": "Vérifiez le plan sous <b>Voici ce que je vais créer</b> : le nom de l’app, son apparence (cliquez sur la pastille de couleur pour en choisir une autre), ses <b>Pages</b>, les <b>Données enregistrées</b> et les <b>Hypothèses</b>. Supprimez une page dont vous ne voulez pas avec l’icône de la corbeille.",
+          "4": "Vous voulez autre chose ? Saisissez votre demande sous <b>Vous voulez autre chose ?</b>, par exemple « Ajouter une page de tarifs », puis cliquez sur <b>Mettre à jour le plan</b>.",
+          "5": "Cliquez sur <b>Créer mon app</b>. Cela prend généralement quelques minutes. Vous pouvez quitter la page : la création continue et vous retrouverez votre app à votre retour.",
+          "6": "Une fois l’app prête, elle s’ouvre dans l’éditeur de pages avec un court message de bienvenue."
+        }
+      },
+      "3": {
+        "body": {
+          "0": "<b>Modèles.</b> Cliquez sur un modèle pour l’agrandir, saisissez le nom de votre app et cliquez sur <b>Créer une app à partir de ce modèle</b>. Utilisez le champ de recherche et les boutons de catégorie pour filtrer la liste.",
+          "1": "<b>Copier un site web.</b> Saisissez l’adresse du site, par exemple monentreprise.com, puis cliquez sur <b>Copier mon site</b>. Copiez uniquement les sites qui vous appartiennent ou que vous avez le droit d’utiliser. Cliquez sur <b>Arrêter</b> pour annuler ; rien ne sera enregistré.",
+          "2": "<b>App vierge.</b> Saisissez un nom et cliquez sur <b>Créer l’app</b>. Vous obtenez une page d’accueil simple avec le nom de votre app, que vous pouvez personnaliser, ainsi que des pages de connexion et d’inscription.",
+          "3": "<b>Importer une app.</b> Choisissez le fichier de sauvegarde .zip, saisissez un nouveau nom si vous le souhaitez, puis cliquez sur <b>Importer l’app</b>. Vous obtenez une copie avec ses pages, ses flux, ses données et ses images. Les sauvegardes ne contiennent pas les mots de passe des membres de l’app : ils devront utiliser « Mot de passe oublié » une fois."
+        },
+        "heading": "Les autres façons de commencer"
+      },
+      "4": {
+        "body": {
+          "0": "Chaque app comporte des onglets en haut : <b>Vue d’ensemble</b>, <b>Pages</b>, <b>Fonctionnalités</b>, <b>Flux</b>, <b>Données</b>, <b>Notifications</b>, <b>Thème</b>, <b>Domaines</b> et <b>App mobile</b>, ainsi que <b>Aperçu</b> et <b>Publier</b> à droite. Les apps créées avec le Designer IA ont un onglet <b>Designer</b> à la place de la vue d’ensemble.",
+          "1": "La vue d’ensemble indique si votre app est en ligne et affiche son adresse, une <b>Liste de lancement</b> des prochaines étapes, un code à scanner pour l’ouvrir sur votre téléphone, l’icône de votre app, les derniers messages envoyés par les visiteurs et les alertes par e-mail. <b>Continuer les modifications</b> vous ramène à vos pages."
+        },
+        "heading": "La vue d’ensemble de votre app",
+        "shot": {
+          "alt": "L’onglet Vue d’ensemble d’une app, avec son nom, le nombre de pages et de flux, et la liste de lancement.",
+          "caption": "La vue d’ensemble : votre app en un coup d’œil et la liste des prochaines étapes."
+        }
+      },
+      "5": {
+        "bullets": {
+          "0": "Votre travail s’enregistre au fur et à mesure. L’éditeur de pages n’a pas de bouton Enregistrer.",
+          "1": "Rien n’est visible par tout le monde tant que vous n’avez pas publié votre app. <b>Aperçu</b> vous permet de l’essayer avant.",
+          "2": "Pour supprimer une app, utilisez l’icône de la corbeille sur sa carte dans le tableau de bord. Téléchargez d’abord une sauvegarde : la suppression est définitive.",
+          "3": "Votre forfait peut limiter le nombre d’apps que vous pouvez créer. Si vous atteignez cette limite, consultez <b>Facturation et forfait</b>.",
+          "4": "Laissez le pointeur de la souris sur un bouton pour afficher une courte aide. Vous pouvez désactiver ces conseils dans votre <b>Profil</b>."
+        },
+        "heading": "Bon à savoir"
+      }
+    },
+    "summary": "Découvrez {app} et créez votre première app comme vous le souhaitez.",
+    "title": "Bien démarrer"
+  },
+  "groups": {
+    "account": "Votre compte",
+    "build": "Créer votre app",
+    "platform": "Gérer la plateforme",
+    "publish": "Publier et développer"
+  },
+  "look-and-feel": {
+    "sections": {
+      "0": {
+        "heading": "Choisir un thème",
+        "shot": {
+          "alt": "L’onglet Thème, avec des thèmes clairs et sombres à gauche et un aperçu en direct à droite.",
+          "caption": "Cliquez sur un thème pour actualiser l’aperçu immédiatement."
+        },
+        "steps": {
+          "0": "Ouvrez l’onglet <b>Thème</b>.",
+          "1": "Parcourez les <b>Thèmes clairs</b> et les <b>Thèmes sombres</b>.",
+          "2": "Cliquez sur un thème. L’<b>Aperçu en direct</b> à droite se met aussitôt à jour. Passez de <b>Votre page d’accueil</b> à <b>Exemple</b> pour voir le résultat sur différents éléments.",
+          "3": "Et voilà : les modifications s’enregistrent automatiquement et <b>Enregistré</b> apparaît en haut."
+        }
+      },
+      "1": {
+        "body": {
+          "0": "Dans <b>Personnaliser</b>, vous pouvez modifier tous les éléments du thème :"
+        },
+        "bullets": {
+          "0": "<b>Mode</b> : clair ou sombre.",
+          "1": "<b>Police du texte</b> pour le texte courant et <b>Police des titres</b> pour les titres. Une ligne d’exemple montre le rendu de chacune.",
+          "2": "<b>Couleurs</b> : <b>Principale</b> est votre couleur dominante, utilisée pour les boutons et les liens. <b>Survol de la couleur principale</b> est la nuance affichée quand on les survole ; elle suit la couleur principale lorsque vous la modifiez. Vous trouverez aussi <b>Accentuation</b>, <b>Arrière-plan</b>, <b>Surface</b> et <b>Surface 2</b> (cartes et panneaux), <b>Bordure</b>, <b>Texte</b> et <b>Texte atténué</b>.",
+          "3": "<b>Arrondis</b> : <b>Rayon</b> pour les boutons et les cartes, et <b>Petit rayon</b> pour les petits éléments. 0 donne des angles droits ; plus le chiffre est élevé, plus les angles sont arrondis."
+        },
+        "heading": "Personnalisez votre thème"
+      },
+      "2": {
+        "body": {
+          "0": "Dans l’éditeur de page, l’onglet <b>Thème</b> à droite contient les mêmes réglages de couleurs et de polices. Vous pouvez donc les modifier sans quitter votre page."
+        },
+        "heading": "Modifiez le thème pendant que vous travaillez"
+      },
+      "3": {
+        "bullets": {
+          "0": "Le thème s’applique à toutes les pages de votre application.",
+          "1": "Cliquez sur une case de couleur pour choisir une couleur, ou saisissez un code couleur comme #3366ff.",
+          "2": "<b>Réinitialiser</b> rétablit le thème utilisé à l’ouverture de l’onglet Thème.",
+          "3": "Les visiteurs verront les changements de thème après leur publication."
+        },
+        "heading": "Bon à savoir"
+      }
+    },
+    "summary": "Choisissez un thème prêt à l’emploi ou définissez vos couleurs, polices et arrondis pour toutes les pages de votre application.",
+    "title": "Couleurs et polices"
+  },
+  "members-and-sign-in": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "La fonctionnalité <b>Connexion et comptes</b> ajoute à votre application les pages <b>Se connecter</b>, <b>S’inscrire</b> et <b>Profil</b>, ainsi que les flux associés. Elle est généralement déjà activée dans les nouvelles applications. Si ce n’est pas le cas pour la vôtre, ajoutez-la depuis l’onglet Fonctionnalités.",
+          "1": "Les personnes qui s’inscrivent deviennent membres de votre application. Leur compte est distinct de votre propre compte {app}."
+        },
+        "heading": "Pages de connexion"
+      },
+      "1": {
+        "heading": "Rendre une page privée",
+        "shot": {
+          "alt": "La fenêtre Paramètres de la page, avec son nom, les personnes autorisées à la voir et sa place dans le menu.",
+          "caption": "Paramètres de la page : choisissez qui peut l’ouvrir."
+        },
+        "steps": {
+          "0": "Dans l’éditeur de pages, cliquez sur le nom de la page en haut pour ouvrir <b>Vos pages</b>.",
+          "1": "Appuyez sur la roue dentée à côté de la page (<b>Paramètres de la page</b>).",
+          "2": "Sous <b>Qui peut voir cette page</b>, choisissez <b>Tout le monde</b>, <b>Personnes connectées</b> (les visiteurs doivent d’abord se connecter ; tout le monde peut créer un compte) ou <b>Admins uniquement</b> (vous et les personnes que vous nommez admins).",
+          "3": "Appuyez sur <b>Enregistrer</b>."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Dans les <b>Paramètres de la page</b>, <b>Afficher dans le menu</b> ajoute un lien vers la page dans le menu de votre application. <b>Monter</b> et <b>Descendre</b> permettent de choisir son emplacement. La page d’accueil est toujours en premier. Une page absente du menu reste accessible à toute personne qui possède son lien, si elle est autorisée à la voir."
+        },
+        "heading": "Le menu"
+      },
+      "3": {
+        "body": {
+          "0": "Dans la Vue d’ensemble de votre application, la section <b>Espace admin de votre application</b> répertorie les pages réservées à vous et à votre équipe, comme une liste de réservations. Cliquez sur une page pour l’ouvrir sans vous connecter à votre application. Avant la publication, elles s’ouvrent en aperçu."
+        },
+        "heading": "Espace admin de votre application"
+      },
+      "4": {
+        "heading": "Créer un accès admin pour votre équipe",
+        "shot": {
+          "alt": "La fiche Espace admin de votre application dans la Vue d’ensemble, avec les pages admin et un formulaire pour ajouter un accès admin.",
+          "caption": "Ouvrez vos pages admin ou créez un accès admin pour quelqu’un."
+        },
+        "steps": {
+          "0": "Dans la Vue d’ensemble de votre application, repérez <b>Accès admin pour votre équipe</b>.",
+          "1": "Saisissez son <b>E-mail</b> et un <b>Mot de passe</b> d’au moins 10 caractères.",
+          "2": "Appuyez sur <b>Ajouter un admin</b>. Cette personne peut maintenant se connecter depuis la page de connexion de votre application et ouvrir ses pages admin."
+        }
+      },
+      "5": {
+        "bullets": {
+          "0": "Si vous utilisez l’adresse e-mail d’une personne qui a déjà un compte dans votre application, elle devient admin et son mot de passe est modifié.",
+          "1": "Si une page est privée mais que votre application n’a pas encore de page de connexion, vous seul pouvez l’ouvrir. Les paramètres de la page vous en avertissent.",
+          "2": "Les modifications des personnes autorisées à voir une page font partie de votre brouillon. Publiez pour les appliquer.",
+          "3": "Les membres peuvent supprimer leur propre compte. Les demandes de suppression apparaissent dans l’onglet Données, sous <b>Demandes de confidentialité</b>.",
+          "4": "Les mots de passe des membres ne sont pas inclus dans les sauvegardes. Après une importation, les membres doivent utiliser une fois la fonction Mot de passe oublié."
+        },
+        "heading": "Bon à savoir"
+      }
+    },
+    "summary": "Permettez aux personnes de créer un compte dans votre application et choisissez quelles pages sont accessibles à tout le monde, aux membres connectés ou aux admins uniquement.",
+    "title": "Membres, connexion et pages privées"
+  },
+  "page-editor": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Ouvrez l’onglet <b>Pages</b>. À gauche, vous trouverez les <b>Blocs</b>, les <b>Fonctionnalités</b> et les <b>Ressources</b> (photos gratuites). Votre page se trouve au centre. À droite, vous trouverez <b>Design</b>, <b>Calques</b>, <b>Paramètres</b> et <b>Thème</b>.",
+          "1": "La barre au-dessus de votre page contient les boutons Annuler et Rétablir, l’état d’enregistrement, les boutons de taille d’écran et <b>Aperçu</b>. Les boutons aux extrémités masquent ou affichent les panneaux latéraux pour vous donner plus d’espace."
+        },
+        "heading": "Se repérer dans l’éditeur",
+        "shot": {
+          "alt": "L’éditeur de pages : les blocs à gauche, la page au centre et les paramètres de design à droite.",
+          "caption": "L’éditeur de pages. Cliquez sur un élément de votre page pour le modifier."
+        }
+      },
+      "1": {
+        "body": {
+          "0": "Cliquez sur un texte de la page et saisissez-en un nouveau pour le modifier.",
+          "1": "Double-cliquez sur une image pour la remplacer. Vous pouvez aussi sélectionner une image, puis choisir une photo dans <b>Ressources</b>. Double-cliquez sur une icône pour en choisir une autre."
+        },
+        "heading": "Modifier les textes et les images"
+      },
+      "2": {
+        "heading": "Ajouter des blocs",
+        "steps": {
+          "0": "Cliquez sur la partie de votre page sous laquelle vous voulez ajouter le nouvel élément.",
+          "1": "Dans <b>Blocs</b> à gauche, trouvez l’élément voulu. Les blocs sont regroupés par catégorie, par exemple Mise en page, Sections, Contenu, Formulaires et Médias. Saisissez un terme dans <b>Rechercher des blocs...</b> pour en trouver un rapidement, comme « bouton » ou « photo ».",
+          "2": "Appuyez sur le bloc pour l’ajouter sous la partie sélectionnée, ou faites-le glisser à l’endroit voulu."
+        }
+      },
+      "3": {
+        "body": {
+          "0": "Cliquez sur un élément de votre page pour le sélectionner. Son nom apparaît en haut du panneau de droite et une petite barre d’outils s’affiche à côté : <b>Sélectionner la section parente</b>, <b>Monter</b>, <b>Descendre</b>, <b>Faire glisser pour déplacer</b>, <b>Dupliquer</b> et <b>Supprimer</b>.",
+          "1": "L’onglet <b>Calques</b> répertorie tous les éléments de votre page dans l’ordre. Cliquez sur une ligne pour sélectionner un élément difficile à cliquer, ou faites glisser les lignes pour déplacer les éléments. L’icône en forme d’œil masque un élément pendant que vous travaillez sur le reste."
+        },
+        "heading": "Sélectionner, déplacer et supprimer"
+      },
+      "4": {
+        "body": {
+          "0": "Sélectionnez un élément et ouvrez <b>Design</b> à droite. Modifiez son texte, ses couleurs, ses espacements, sa taille et ses coins : la page se met à jour immédiatement.",
+          "1": "<b>Avancé</b> affiche plus d’options, comme les polices, les ombres et l’alignement des éléments dans une zone, ainsi que les styles au survol. Pour modifier les couleurs et les polices de toute votre application, utilisez <b>Thème</b>."
+        },
+        "heading": "Modifier l’apparence des éléments"
+      },
+      "5": {
+        "body": {
+          "0": "Sélectionnez un lien, une image, un bouton, un formulaire ou une liste, puis ouvrez <b>Paramètres</b> à droite. Par exemple :"
+        },
+        "bullets": {
+          "0": "<b>Destination</b> définit la page ouverte par un lien. Utilisez /nom-de-page pour vos propres pages, ou une adresse https:// complète pour un autre site.",
+          "1": "<b>Description de l’image</b> décrit l’image pour les personnes qui ne peuvent pas la voir et pour les moteurs de recherche.",
+          "2": "<b>Action à l’envoi</b> (pour un formulaire) permet de choisir le flux lancé lorsque quelqu’un l’envoie. <b>Action au clic</b> fait la même chose pour un bouton.",
+          "3": "<b>Afficher les éléments de</b> (pour une liste) permet de choisir la source des éléments de la liste, par exemple vos réservations ou vos produits."
+        },
+        "heading": "Paramètres des liens, boutons, formulaires et listes"
+      },
+      "6": {
+        "heading": "Demander à l’IA",
+        "shot": {
+          "alt": "Le panneau Assistant IA ouvert sur l’éditeur de page, avec des suggestions de modifications à essayer.",
+          "caption": "Demandez à l’IA ce que vous voulez changer et elle s’en charge."
+        },
+        "steps": {
+          "0": "Appuyez sur <b>Demander à l’IA</b> en bas à droite.",
+          "1": "Pour modifier une seule partie, sélectionnez-la d’abord sur la page. Le panneau indique alors <b>Les modifications s’appliquent à la sélection…</b>. Appuyez sur <b>Modifier toute la page</b> pour changer toute la page.",
+          "2": "Décrivez ce que vous voulez, par exemple « ajouter une section de tarifs », puis appuyez sur Entrée ou sur <b>Envoyer</b>. Vous pouvez aussi joindre une image, comme une capture d’écran d’un design qui vous plaît.",
+          "3": "La page change dans l’éditeur. Si le résultat ne vous plaît pas, appuyez sur Annuler."
+        }
+      },
+      "7": {
+        "body": {
+          "0": "Cliquez sur le nom de la page en haut, à côté de <b>MODIFICATION</b>, pour afficher <b>Vos pages</b>. Cliquez sur une page pour l’ouvrir. Vos modifications sont d’abord enregistrées avant de quitter la page.",
+          "1": "Pour ajouter une page, appuyez sur <b>Ajouter une page</b>, saisissez son nom, puis appuyez de nouveau sur <b>Ajouter une page</b>. Elle apparaît dans le menu de votre application.",
+          "2": "À côté de chaque page : l’engrenage ouvre les <b>Paramètres de la page</b> (pour la renommer, choisir qui peut la voir, définir sa place dans le menu ou la <b>Dupliquer</b>), la maison en fait votre page d’accueil, et la corbeille la supprime après confirmation. La suppression d’une page est définitive."
+        },
+        "heading": "Vos pages"
+      },
+      "8": {
+        "body": {
+          "0": "Les boutons <b>Ordinateur</b>, <b>Tablette</b> et <b>Mobile</b> affichent votre page dans chaque format. Vérifiez toujours le format Mobile : la plupart des visiteurs utilisent leur téléphone.",
+          "1": "<b>Aperçu</b> ouvre la page dans un nouvel onglet pour vous permettre de l’essayer, avec ses boutons et formulaires fonctionnels. Il affiche vos dernières modifications. Les visiteurs ne les verront qu’après leur publication."
+        },
+        "heading": "Vérifiez l’affichage sur téléphone, puis prévisualisez"
+      },
+      "9": {
+        "body": {
+          "0": "Les flèches courbées en haut à gauche permettent d’annuler ou de rétablir vos dernières modifications, y compris celles faites par l’IA.",
+          "1": "Vos modifications s’enregistrent automatiquement. La barre affiche <b>Enregistrement…</b>, puis <b>Enregistré</b>. Si elle indique <b>Non enregistré</b>, vérifiez votre connexion : l’enregistrement continue d’être tenté, et <b>Réessayer</b> relance l’opération immédiatement. Si vos modifications n’ont pas été envoyées au serveur avant la fermeture de l’onglet, vous pourrez les <b>Restaurer</b> la prochaine fois que vous ouvrirez la page."
+        },
+        "heading": "Annuler et enregistrer"
+      },
+      "10": {
+        "bullets": {
+          "0": "Les modifications restent dans votre brouillon. Les visiteurs les verront après leur publication.",
+          "1": "Les applications créées avec le Designer IA tirent leurs pages du design. Modifiez-les donc dans le Designer.",
+          "2": "Si un bloc prêt à l’emploi demande <b>Connecter ça ?</b>, <b>Oui, connecter</b> crée un espace pour conserver les informations envoyées et connecte le formulaire. <b>Non, je m’en occupe</b> ajoute le bloc tel quel."
+        },
+        "heading": "Bon à savoir"
+      }
+    },
+    "summary": "Modifiez les textes, les images et la mise en page en cliquant et en faisant glisser des éléments, ou demandez à l’IA de le faire.",
+    "title": "Modifier vos pages"
+  },
+  "phone-apps": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Toutes les apps publiées peuvent être installées directement depuis le navigateur, sans passer par une boutique d’apps. Ouvrez votre app sur le téléphone (scannez le code dans l’aperçu ou l’onglet Publier), puis choisissez <b>Ajouter à l’écran d’accueil</b> dans le menu du navigateur. Sur iPhone, cette option se trouve sous le bouton Partager. L’app s’ouvre alors comme n’importe quelle autre app, avec son icône.",
+          "1": "Définissez l’icône de votre app dans l’aperçu, sous <b>Icône de l’app</b>. Vous pouvez importer une image ou demander à l’IA d’en créer une."
+        },
+        "heading": "Ajouter l’app à l’écran d’accueil"
+      },
+      "1": {
+        "heading": "Envoyer des notifications",
+        "shot": {
+          "alt": "L’onglet Notifications affiche le nombre d’abonnés et un formulaire pour rédiger et envoyer une notification.",
+          "caption": "Rédigez une notification et envoyez-la à toutes les personnes inscrites."
+        },
+        "steps": {
+          "0": "Ouvrez l’onglet <b>Notifications</b>.",
+          "1": "Si les notifications sont désactivées, appuyez sur <b>Activer les notifications</b>. Une petite page « Recevoir des notifications » s’ajoute pour permettre à vos visiteurs de s’inscrire.",
+          "2": "Publiez votre app pour que vos visiteurs puissent s’inscrire.",
+          "3": "Saisissez un <b>Titre</b> et un <b>Message</b>. Vous pouvez ajouter une page à ouvrir quand on appuie sur la notification, comme /menu.",
+          "4": "Appuyez sur <b>Envoyer à</b> (le nombre de destinataires s’affiche). La liste <b>Envoyées</b> indique ce que vous avez envoyé et combien de notifications ont été distribuées."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Sur les téléphones Android et les ordinateurs, les utilisateurs activent les notifications depuis leur navigateur. Sur iPhone et iPad, ils doivent d’abord ajouter votre app à l’écran d’accueil, puis y activer les notifications.",
+          "1": "Les flux peuvent aussi envoyer des notifications avec l’étape <b>Envoyer une notification</b>."
+        },
+        "heading": "Qui peut recevoir des notifications"
+      },
+      "3": {
+        "body": {
+          "0": "L’app mobile affiche votre app publiée et en ligne. Publiez vos modifications pour les mettre à jour, sans avoir à créer une nouvelle version."
+        },
+        "heading": "Créer une app Android",
+        "shot": {
+          "alt": "L’onglet App mobile affiche les détails de l’app et des boutons pour créer des versions Android.",
+          "caption": "Créez une copie de test ou le fichier demandé par Google Play."
+        },
+        "steps": {
+          "0": "Publiez d’abord votre app.",
+          "1": "Ouvrez l’onglet <b>App mobile</b>.",
+          "2": "Dans <b>Détails de l’app</b>, vérifiez le <b>Nom de l’app</b>, l’<b>ID de bundle / d’application</b> (comme com.votreentreprise.app ; ne le changez jamais après la mise en ligne de votre app sur une boutique), la <b>Version</b>, l’<b>Orientation</b> et les couleurs, puis appuyez sur <b>Enregistrer les paramètres</b>.",
+          "3": "Appuyez sur <b>Créer un APK de test</b> pour obtenir une copie à installer directement sur un téléphone Android.",
+          "4": "Quand vous êtes prêt à publier sur Google Play, appuyez sur <b>Créer pour Google Play</b>. Le guide <b>Publier votre app sur Google Play</b> vous accompagne dans les étapes de la boutique."
+        }
+      },
+      "4": {
+        "body": {
+          "0": "Google Play reconnaît votre app grâce à sa clé d’envoi, un fichier secret créé lors de votre première version pour Google Play. Appuyez sur <b>Télécharger une copie de la clé</b> et conservez-la dans un endroit sûr, comme un gestionnaire de mots de passe. Sans cette clé, vous ne pourrez plus jamais mettre à jour votre app sur Google Play. Seul le propriétaire de l’app peut la télécharger."
+        },
+        "heading": "Gardez votre clé d’envoi en lieu sûr"
+      },
+      "5": {
+        "body": {
+          "0": "Appuyez sur <b>Télécharger le projet iPhone</b> dans l’onglet App mobile. Pour créer une app iPhone, vous avez besoin d’un compte Apple Developer payant et d’un Mac ou d’un compte GitHub gratuit. Le guide inclus dans le téléchargement vous explique les deux options, étape par étape."
+        },
+        "heading": "iPhone et iPad"
+      },
+      "6": {
+        "bullets": {
+          "0": "<b>Fonctionnalités du téléphone utilisées par cette app</b> indique les accès demandés par votre app, comme l’appareil photo ou la localisation. Si cette liste change, créez une nouvelle version et envoyez-la aux boutiques.",
+          "1": "Les téléphones n’ouvrent que les apps provenant d’une adresse sécurisée (https). L’onglet App mobile vous avertit si ce n’est pas le cas.",
+          "2": "Si le message <b>La création de versions Android est désactivée sur ce serveur</b> s’affiche, contactez la personne qui gère {app} pour vous.",
+          "3": "Avant de supprimer une app ou votre compte, téléchargez sa clé d’envoi Google Play."
+        },
+        "heading": "Bon à savoir"
+      }
+    },
+    "summary": "Ajoutez votre app à l’écran d’accueil, envoyez des notifications et créez des versions Android et iPhone.",
+    "title": "Apps pour téléphone et notifications"
+  },
+  "prices-and-payments": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "<b>Si vous gérez la plateforme :</b> Admin, <b>Tous les réglages</b>, puis <b>Paiements</b> pour les prix et Stripe, et <b>Offres et limites</b> pour le contenu de chaque offre.",
+          "1": "<b>Si vous êtes revendeur :</b> ouvrez votre tableau de bord revendeur, puis <b>Facturation et offres</b>. Vous y trouverez <b>1. Vos prix</b> et <b>2. Le contenu de chaque offre</b>.",
+          "2": "Les paiements passent par Stripe, un service de paiement en ligne. Vous devez avoir votre propre compte Stripe."
+        },
+        "heading": "Où trouver ces réglages"
+      },
+      "1": {
+        "heading": "Connecter Stripe",
+        "steps": {
+          "0": "Dans Stripe, ouvrez Développeurs, puis Clés API et copiez la <b>Clé secrète</b>. Pour commencer par faire un essai, utilisez une clé de test (elle commence par sk_test_).",
+          "1": "Collez-la dans le champ <b>Clé secrète</b>, sous <b>Stripe</b>.",
+          "2": "Cliquez sur <b>Enregistrer les prix</b>. {app} configure automatiquement les mises à jour de paiement depuis Stripe."
+        }
+      },
+      "2": {
+        "heading": "Définir vos prix",
+        "shot": {
+          "alt": "La section Paiements avec un nom, un prix mensuel et une devise pour chaque offre payante, ainsi que la clé Stripe.",
+          "caption": "Nommez et tarifiez chaque offre, puis connectez Stripe."
+        },
+        "steps": {
+          "0": "Sous <b>Offres et prix</b>, chaque offre payante comporte un <b>Nom de l’offre</b>, un <b>Prix mensuel</b> et une <b>Devise</b>.",
+          "1": "Saisissez un prix pour chaque offre que vous souhaitez proposer. Laissez le prix vide pour masquer l’offre. L’offre Gratuite est toujours disponible.",
+          "2": "Cliquez sur <b>Enregistrer les prix</b>. Les prix sont automatiquement ajoutés à votre compte Stripe."
+        }
+      },
+      "3": {
+        "body": {
+          "0": "Pour chaque offre, définissez le nombre d’<b>Apps</b>, d’<b>Apps publiées</b>, de <b>Pages par app</b>, de <b>Domaines personnalisés</b> et d’<b>Actions IA / mois</b>, et indiquez si les <b>Workflows planifiés</b> sont inclus.",
+          "1": "Dans <b>Offres et limites</b> du gestionnaire, cochez <b>illimité</b> pour supprimer une limite, puis cliquez sur <b>Enregistrer les limites des offres</b>. Dans <b>Facturation et offres</b> d’un revendeur, laissez un champ vide pour ne pas fixer de limite, puis cliquez sur <b>Enregistrer les offres</b>.",
+          "2": "Les revendeurs peuvent aussi décocher <b>Autoriser les nouveaux clients à s’inscrire sur votre domaine</b> pour que la création de comptes se fasse uniquement sur invitation."
+        },
+        "heading": "Définir le contenu de chaque offre",
+        "shot": {
+          "alt": "Le tableau des forfaits et des limites, avec une colonne par forfait et une ligne par limite.",
+          "caption": "Ce qui est inclus dans chaque forfait."
+        }
+      },
+      "4": {
+        "body": {
+          "0": "Les clients voient les forfaits que vous proposez sur leur page <b>Facturation et forfait</b>, avec un bouton <b>Changer de forfait</b> qui les redirige vers Stripe pour payer. Les clients qui paient ont accès à <b>Gérer la facturation</b> pour changer de carte ou résilier. Tant que Stripe n’est pas connecté, vos tarifs restent visibles. Le paiement fonctionne dès que Stripe est connecté.",
+          "1": "Vous pouvez aussi changer le forfait d’une personne manuellement : celui de l’opérateur depuis la liste des utilisateurs, ou celui d’un revendeur depuis la liste des clients."
+        },
+        "heading": "Ce que voient les clients"
+      },
+      "5": {
+        "bullets": {
+          "0": "Les clients vous paient directement sur votre propre compte Stripe. La plateforme ne prélève aucuns frais.",
+          "1": "Si la configuration automatique des mises à jour de paiement Stripe échoue, <b>Avancé : mises à jour de paiement (webhook)</b> indique l’adresse à ajouter manuellement dans Stripe.",
+          "2": "Testez tout avec une clé de test Stripe avant de passer à votre clé de production."
+        },
+        "heading": "Bon à savoir"
+      }
+    },
+    "summary": "Connectez Stripe et définissez le prix et le contenu de chaque offre pour que les clients vous paient directement.",
+    "title": "Prix et paiements"
+  },
+  "publishing": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Vous travaillez toujours sur un brouillon. Les visiteurs voient la dernière version que vous avez publiée. Vos modifications, y compris celles de l'IA, restent dans le brouillon jusqu'à votre prochaine publication. Ainsi, personne ne voit de pages inachevées."
+        },
+        "heading": "Brouillon et version en ligne"
+      },
+      "1": {
+        "heading": "Publier pour la première fois",
+        "shot": {
+          "alt": "L’onglet Publier avec le statut de l’app, le bouton de publication et son adresse web.",
+          "caption": "Publiez votre app, puis copiez son lien pour la partager."
+        },
+        "steps": {
+          "0": "Appuyez sur <b>Publier</b> en haut à droite des onglets de votre app.",
+          "1": "Appuyez sur <b>Publier l’app</b>.",
+          "2": "Vous verrez <b>Votre app est en ligne. Vous pouvez la partager.</b> et son statut passera à <b>En ligne</b>."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "L’adresse web de votre app se trouve dans l’onglet Publier, avec un bouton pour la copier. Dans l’aperçu, vous trouverez un code à scanner avec l’appareil photo de votre téléphone pour ouvrir l’app.",
+          "1": "La section <b>Recherche et partage</b> définit la description affichée par les moteurs de recherche et les apps de messagerie avec votre lien. Activez <b>Masquer des moteurs de recherche</b> si vous ne voulez pas que votre app apparaisse sur Google. Les personnes qui ont le lien pourront quand même l’ouvrir."
+        },
+        "heading": "Partager le lien"
+      },
+      "3": {
+        "body": {
+          "0": "Si vous avez apporté des modifications depuis la dernière publication, le statut indique <b>En ligne · modifications non publiées</b>. Appuyez sur <b>Publier les modifications</b> pour les mettre en ligne. S’il n’y a rien de nouveau, le bouton indique <b>À jour</b>.",
+          "1": "Vous voulez d’abord essayer vos modifications ? Le bouton <b>Aperçu</b>, en haut à droite, ouvre votre brouillon dans un nouvel onglet. Vous seul pouvez l’ouvrir."
+        },
+        "heading": "Publier vos modifications"
+      },
+      "4": {
+        "body": {
+          "0": "Chaque fois que vous publiez, la version est conservée dans l’<b>Historique des versions</b>, de la plus récente à la plus ancienne. La version en ligne est indiquée par la mention <b>En ligne</b>."
+        },
+        "heading": "Revenir à une version précédente",
+        "shot": {
+          "alt": "La liste de l’historique des versions, avec un bouton Mettre en ligne à côté des versions précédentes.",
+          "caption": "Historique des versions : rétablissez n’importe laquelle de vos versions récentes."
+        },
+        "steps": {
+          "0": "Trouvez la version souhaitée dans l’<b>Historique des versions</b>.",
+          "1": "Appuyez sur <b>Mettre en ligne</b>, puis confirmez.",
+          "2": "Les visiteurs verront cette version immédiatement. Votre brouillon reste inchangé : vous pouvez donc apporter des corrections et publier à nouveau."
+        }
+      },
+      "5": {
+        "body": {
+          "0": "<b>Mettre hors ligne</b> empêche les visiteurs d’ouvrir votre app jusqu’à sa prochaine publication. Rien n’est supprimé."
+        },
+        "heading": "Mettre hors ligne"
+      },
+      "6": {
+        "body": {
+          "0": "<b>Télécharger une sauvegarde (.zip)</b> enregistre dans un seul fichier toutes vos pages, vos parcours, vos tableaux et leurs lignes, ainsi que votre thème et vos images. Conservez ce fichier en lieu sûr ou restaurez-le avec <b>Importer une app</b> lorsque vous créez une app, ici ou sur un autre serveur {app}. Les mots de passe des membres ne sont pas inclus."
+        },
+        "heading": "Sauvegarder ou déplacer votre app"
+      },
+      "7": {
+        "body": {
+          "0": "Dans la section <b>Installer sur des appareils</b> : <b>Télécharger l’app hors ligne (.zip)</b> crée une copie qui fonctionne sur un ordinateur sans connexion Internet et conserve ses données sur cet ordinateur. <b>Raccourci sur le bureau (en ligne)</b> ajoute un raccourci vers votre app en ligne sur un ordinateur Windows ou Mac. Pour les téléphones, consultez le guide Apps pour téléphone et notifications."
+        },
+        "heading": "Installer sur des ordinateurs et des téléphones"
+      },
+      "8": {
+        "bullets": {
+          "0": "Votre forfait peut limiter le nombre d’apps que vous pouvez publier en même temps.",
+          "1": "L’historique des versions affiche vos 20 versions les plus récentes.",
+          "2": "Les parcours programmés ne s’exécutent que lorsque votre app est publiée.",
+          "3": "Vous pouvez connecter votre propre adresse web dans l’onglet Domaines."
+        },
+        "heading": "Bon à savoir"
+      }
+    },
+    "summary": "Mettez votre application en ligne, partagez son lien, mettez-la à jour en toute sécurité et restaurez une version précédente si nécessaire.",
+    "title": "Publier et partager votre application"
+  },
+  "resellers": {
+    "sections": {
+      "0": {
+        "bullets": {
+          "0": "<b>Le gestionnaire</b> gère la plateforme et définit les offres, les prix et les limites.",
+          "1": "<b>Les revendeurs</b> sont des agences ajoutées par le gestionnaire. Chacun a sa propre marque, son adresse, son compte Stripe et ses clients.",
+          "2": "<b>Les clients</b> sont les clients du revendeur. Ils créent des apps et ne voient que la marque du revendeur.",
+          "3": "<b>Les utilisateurs des apps</b> sont les personnes qui utilisent les apps publiées.",
+          "4": "Les clients paient directement le revendeur. La plateforme ne prélève aucune commission."
+        },
+        "heading": "Comment ça fonctionne"
+      },
+      "1": {
+        "heading": "Gestionnaires : ajouter un revendeur",
+        "shot": {
+          "alt": "La page Revendeurs avec un formulaire pour ajouter un revendeur et un tableau indiquant les clients, les apps et l’utilisation de l’IA de chaque revendeur.",
+          "caption": "Ajoutez des revendeurs et définissez leurs limites."
+        },
+        "steps": {
+          "0": "Dans Admin, ouvrez <b>Revendeurs</b>.",
+          "1": "Sous <b>Ajouter un revendeur</b>, saisissez le <b>Nom de la marque</b>, l’<b>Adresse e-mail du revendeur</b> et, si vous le souhaitez, <b>Son nom</b>.",
+          "2": "Définissez le <b>Nombre max. de clients</b>, le <b>Nombre max. d’apps</b> et les <b>Actions IA / mois</b>, ou laissez les champs vides pour ne pas fixer de limite.",
+          "3": "Cliquez sur <b>Créer le revendeur</b>. Une invitation lui est envoyée par e-mail si l’envoi d’e-mails est configuré. Sinon, vous obtenez un lien à lui transmettre."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Le tableau affiche les clients de chaque revendeur, ses apps, ses actions IA du mois, son domaine et son statut. Cliquez sur un nombre comme 3 / 10 pour modifier cette limite. Les boutons à la fin de chaque ligne permettent de se connecter en tant que revendeur, de créer un lien d’invitation ou de réinitialisation du mot de passe, de suspendre ou réactiver le revendeur et de le supprimer.",
+          "1": "La limite mensuelle d’IA s’applique au revendeur et à tous ses clients. Une fois la limite atteinte, l’IA est suspendue pour tout le monde jusqu’au mois suivant. Le revendeur reçoit un e-mail lorsque la limite atteint 80 % et 100 %, si l’envoi d’e-mails est configuré.",
+          "2": "Suspendre un revendeur déconnecte le revendeur et tous ses clients. Pour le supprimer, vous devez saisir son nom. Ses clients conservent leurs comptes et leurs apps et deviennent vos clients directs avec l’offre Gratuite."
+        },
+        "heading": "Gestionnaires : gérer les revendeurs"
+      },
+      "3": {
+        "body": {
+          "0": "Cliquez sur <b>Tableau de bord revendeur</b> dans la barre du haut. La section <b>Aperçu</b> contient une liste <b>Bien démarrer</b> (logo et couleurs, votre domaine, paiements, premier client) et indique le nombre de clients, d’apps et d’actions IA que vous utilisez. Le menu de gauche contient <b>Clients</b>, <b>Apps</b>, <b>Image de marque</b>, <b>Domaine</b> et <b>Facturation et offres</b>."
+        },
+        "heading": "Revendeurs : votre tableau de bord"
+      },
+      "4": {
+        "heading": "Revendeurs : inviter des clients",
+        "steps": {
+          "0": "Ouvrez <b>Clients</b>.",
+          "1": "Sous <b>Inviter un client</b>, saisissez son <b>Adresse e-mail</b>, son <b>Nom</b> si vous le souhaitez, puis choisissez son <b>Offre</b>.",
+          "2": "Cliquez sur <b>Envoyer l’invitation</b>. Le client reçoit un e-mail contenant un lien pour définir son mot de passe. Si l’envoi d’e-mails n’est pas configuré, vous obtenez le lien à lui transmettre.",
+          "3": "Pour inviter plusieurs personnes, cliquez sur <b>Inviter plusieurs personnes</b> et collez jusqu’à 50 adresses e-mail."
+        }
+      },
+      "5": {
+        "body": {
+          "0": "La liste des clients indique le statut, l’offre, les apps, l’utilisation de l’IA et la dernière activité de chacun. Filtrez-la par statut, offre et paiement, ou cochez <b>Inactif depuis 30 jours</b> ou <b>Ne s’est jamais connecté</b>. La section <b>À suivre</b> signale les clients qui pourraient avoir besoin d’un rappel.",
+          "1": "Modifiez l’offre d’un client depuis le menu de sa ligne. Les boutons de chaque ligne permettent d’<b>Ouvrir son espace de travail</b> (cliquez sur <b>Retour à vos clients</b> pour revenir), de renvoyer une invitation ou un lien de réinitialisation du mot de passe, de suspendre ou rétablir son accès et de le supprimer.",
+          "2": "Supprimer un client efface toutes ses apps. Vous devrez saisir son adresse e-mail pour confirmer."
+        },
+        "heading": "Revendeurs : aider un client"
+      },
+      "6": {
+        "body": {
+          "0": "La section <b>Apps</b> répertorie toutes les apps créées par vos clients. Cliquez sur <b>Ouvrir</b> pour en modifier une dans l’espace de travail du client. Les apps que vous avez créées vous-même proposent l’option <b>Transférer au client</b>, qui déplace l’app dans l’espace de travail d’un client. Vous pourrez toujours l’ouvrir pour lui."
+        },
+        "heading": "Revendeurs : apps des clients"
+      },
+      "7": {
+        "bullets": {
+          "0": "Un revendeur ne voit que ses propres clients, jamais les autres clients ni les réglages du gestionnaire.",
+          "1": "Les clients se connectent à l’adresse du revendeur et ne voient que sa marque.",
+          "2": "Quand toutes vos places client sont utilisées, les invitations sont bloquées jusqu’à ce que le gestionnaire en ajoute."
+        },
+        "heading": "Bon à savoir"
+      }
+    },
+    "summary": "Vendez la création d’apps sous une autre marque : le gestionnaire ajoute des revendeurs, et chaque revendeur invite ses clients et s’en occupe.",
+    "title": "Revendeurs et clients"
+  },
+  "running-your-platform": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Cliquez sur <b>Administration</b> dans la barre du haut. La section <b>Gérer votre plateforme</b> contient une carte pour chaque domaine et indique son état : <b>Marque blanche</b>, <b>Revendeurs</b>, <b>Paiements</b>, <b>Forfaits et limites</b>, <b>Moteur d’IA</b>, <b>E-mails</b>, <b>Utilisateurs</b> et <b>Système</b>. Cliquez sur une carte pour l’ouvrir. <b>Tous les paramètres</b>, en haut, affiche tous les paramètres sur une seule page."
+        },
+        "heading": "L’espace d’administration",
+        "shot": {
+          "alt": "L’espace d’administration avec des cartes pour la marque, les revendeurs, les paiements, les forfaits, l’IA, les e-mails, les utilisateurs et le système, ainsi qu’une liste de configuration.",
+          "caption": "L’espace d’administration : tous les domaines de la plateforme et ce qu’il reste à faire."
+        }
+      },
+      "1": {
+        "body": {
+          "0": "La <b>Liste de configuration</b> se coche au fur et à mesure. Cliquez sur une étape pour ouvrir le paramètre correspondant."
+        },
+        "heading": "Liste de configuration",
+        "steps": {
+          "0": "<b>Définissez votre marque</b> : votre nom, votre logo et vos couleurs. Consultez la rubrique Votre marque (marque blanche).",
+          "1": "<b>Connectez un moteur d’IA</b> pour que les utilisateurs puissent créer une application en la décrivant. Consultez la rubrique Paramètres de l’IA.",
+          "2": "<b>Connectez Stripe et définissez le prix de vos forfaits</b>, si vous faites payer. Consultez la rubrique Prix et paiements.",
+          "3": "<b>Activez les e-mails</b> pour que les invitations, les liens de réinitialisation du mot de passe et les alertes soient envoyés automatiquement. Consultez la rubrique E-mails.",
+          "4": "<b>Attribuez une adresse à chaque application publiée</b>. Ce paramètre se règle sur le serveur (APPS_DOMAIN dans le fichier .env), pas sur cet écran ; la personne qui installe la plateforme peut le configurer. Avec un enregistrement DNS générique, chaque application publiée a sa propre adresse, séparée de celle du studio.",
+          "5": "<b>Invitez votre premier revendeur</b>, si vous passez par des agences pour vendre. Consultez la rubrique Revendeurs et clients."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Dans <b>Tous les paramètres</b>, <b>Forfaits et limites</b> définit ce qui est inclus dans les forfaits Gratuit, Starter, Pro et Team : <b>Applications</b>, <b>Applications publiées</b>, <b>Pages par application</b>, <b>Domaines personnalisés</b>, <b>Actions d’IA par mois</b> et <b>Flux de travail planifiés</b>. Cochez <b>illimité</b> pour supprimer la limite, puis cliquez sur <b>Enregistrer les limites des forfaits</b>. <b>Rétablir les limites standard</b> rétablit les valeurs intégrées. Vous et vos revendeurs n’êtes jamais soumis à ces limites."
+        },
+        "heading": "Contenu de chaque forfait"
+      },
+      "3": {
+        "body": {
+          "0": "La liste <b>Utilisateurs</b> de l’espace d’administration affiche toutes les personnes inscrites. Pour chaque personne, vous pouvez :"
+        },
+        "bullets": {
+          "0": "Modifier son forfait depuis le menu. La modification est enregistrée immédiatement.",
+          "1": "Cliquez sur <b>Lien de connexion</b> pour créer un lien utilisable une seule fois et valable 2 heures. Il est envoyé par e-mail si cette fonction est activée, ou copié pour que vous puissiez l’envoyer.",
+          "2": "Cliquez sur <b>Se faire passer pour cet utilisateur</b> pour ouvrir son espace de travail et l’aider. Une bannière s’affiche pendant que vous y êtes et toute modification est apportée à son compte. Cliquez sur <b>Arrêter</b> pour revenir à votre compte.",
+          "3": "Cliquez sur <b>Supprimer</b> pour supprimer son compte. Vous verrez ce qui sera supprimé et devrez saisir son adresse e-mail pour confirmer."
+        },
+        "heading": "Accompagner les utilisateurs"
+      },
+      "4": {
+        "body": {
+          "0": "<b>Nouveaux utilisateurs, 30 derniers jours</b> indique combien de personnes se sont inscrites, ont créé une application et en ont publié une. <b>Projets récents</b> répertorie les dernières applications, avec le bouton <b>Ouvrir</b> pour accéder à l’espace de travail de leur propriétaire. <b>Exécutions récentes des flux</b> affiche les dernières automatisations et indique si elles ont fonctionné."
+        },
+        "heading": "Garder un œil sur la situation"
+      },
+      "5": {
+        "body": {
+          "0": "Ouvrez <b>Système</b> pour consulter l’état du serveur en termes simples. Chaque vérification apparaît sur une carte : le vert signifie que tout va bien, l’orange qu’un contrôle est recommandé, et le rouge qu’il faut intervenir. Les vérifications couvrent la base de données, l’espace disque, les flux planifiés, les sauvegardes, les e-mails, la connexion à l’IA, la mémoire et plus encore.",
+          "1": "Le <b>Nettoyage nocturne</b> supprime les anciens journaux d’exécution, les connexions expirées, les anciennes versions publiées et les fichiers des applications supprimées. Choisissez <b>Rapport uniquement</b> (compte sans rien supprimer), <b>Supprimer les anciennes données</b> ou <b>Désactivé</b>, puis cliquez sur <b>Enregistrer</b>. <b>Vérifier maintenant</b> ou <b>Lancer le nettoyage maintenant</b> lance l’opération immédiatement. Faites une sauvegarde avant d’activer la suppression pour la première fois : les données supprimées ne peuvent pas être récupérées.",
+          "2": "En cas de problème, <b>Informations pour l’assistance</b> copie ou télécharge un résumé sans données privées, que vous pourrez envoyer à la personne chargée de vous aider."
+        },
+        "heading": "État du serveur",
+        "shot": {
+          "alt": "La page Système : un résumé, des cartes de vérification de l’état et les paramètres du nettoyage nocturne.",
+          "caption": "Système : l’état du serveur en termes simples."
+        }
+      },
+      "6": {
+        "bullets": {
+          "0": "Si la base de données doit être mise à jour après une mise à niveau, une bannière en haut de l’espace d’administration vous l’indique et la section Système explique la marche à suivre.",
+          "1": "Les installations effectuées avec l’installateur standard sont sauvegardées chaque nuit. Pensez à copier les sauvegardes sur un autre appareil de temps en temps.",
+          "2": "Les outils de surveillance peuvent vérifier /api/health pour s’assurer que le serveur fonctionne.",
+          "3": "Le guide d’exploitation pour la personne qui gère la plateforme se trouve dans le téléchargement (docs/operations.md)."
+        },
+        "heading": "Bon à savoir"
+      }
+    },
+    "summary": "Votre espace d’administration : configurez {app}, accompagnez les personnes qui l’utilisent et veillez au bon fonctionnement du serveur.",
+    "title": "Gérer votre plateforme"
+  },
+  "white-label": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Par défaut, la personne qui gère la plateforme définit la marque que tout le monde voit. Chaque revendeur définit sa propre marque, que ses clients voient toujours à la place de celle de la plateforme.",
+          "1": "<b>Si vous gérez la plateforme :</b> accédez à Administration, puis à <b>Tous les paramètres</b> et <b>Marque</b>.",
+          "2": "<b>Si vous êtes revendeur :</b> ouvrez votre <b>Tableau de bord revendeur</b> et choisissez <b>Marque</b>."
+        },
+        "heading": "La marque affichée aux utilisateurs"
+      },
+      "1": {
+        "heading": "Définir votre marque",
+        "shot": {
+          "alt": "Le formulaire de marque blanche avec le nom, la signature, le logo, l’icône, les couleurs et l’adresse e-mail d’assistance, ainsi qu’un aperçu de l’écran de connexion.",
+          "caption": "Votre marque, avec un aperçu en direct de l’écran de connexion."
+        },
+        "steps": {
+          "0": "Saisissez le <b>Nom de la marque</b>. Il s’affiche en haut de chaque écran, dans les e-mails et sur la page de connexion.",
+          "1": "Ajoutez une <b>Signature (facultatif)</b>, une courte phrase qui présente votre offre. Elle s’ajoute au titre de l’onglet du navigateur.",
+          "2": "Importez un <b>Logo</b>. Les logos horizontaux donnent les meilleurs résultats. Utilisez un fichier PNG ou SVG de moins de 150 Ko. Le logo s’affiche à la place du nom de la marque.",
+          "3": "Importez une <b>Icône de navigateur</b> : elle doit être carrée et mesurer au moins 64 × 64 pixels.",
+          "4": "Choisissez une <b>Couleur principale</b> (boutons et éléments mis en évidence) et une <b>Couleur d’accent</b> (petites touches de couleur).",
+          "5": "Ajoutez une <b>Adresse e-mail d’assistance</b>. Elle s’affiche pour les personnes qui ont besoin d’aide et sert d’adresse de réponse pour les e-mails. Vous pouvez aussi ajouter <b>Votre site web</b>.",
+          "6": "Vérifiez l’<b>Aperçu</b> de l’écran de connexion, puis cliquez sur <b>Enregistrer la marque</b>."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Vos clients peuvent se connecter et créer des applications à une adresse qui vous appartient, comme apps.youragency.com. Leurs applications publiées sont également accessibles depuis cette adresse."
+        },
+        "heading": "Revendeurs : utiliser votre propre adresse",
+        "steps": {
+          "0": "Dans votre tableau de bord revendeur, ouvrez <b>Domaine</b>.",
+          "1": "Saisissez un sous-domaine que vous contrôlez, comme apps.youragency.com, puis cliquez sur <b>Utiliser ce domaine</b>.",
+          "2": "Ajoutez les deux enregistrements affichés (un enregistrement CNAME ou A, et un enregistrement TXT) dans l’outil où vous gérez le DNS de votre domaine.",
+          "3": "Cliquez sur <b>Vérifier maintenant</b>. Lorsque le statut indique <b>Connecté</b>, vos clients peuvent se connecter à cette adresse."
+        }
+      },
+      "3": {
+        "bullets": {
+          "0": "Les changements s’affichent au prochain chargement de la page.",
+          "1": "Les images de plus de 150 Ko sont refusées. Exportez une version plus légère et réessayez.",
+          "2": "L’adresse d’un revendeur reçoit automatiquement un certificat sécurisé (https) sur les serveurs configurés pour cela. Si elle ne s’ouvre pas de façon sécurisée, contactez la personne qui gère la plateforme.",
+          "3": "Pour ne plus utiliser une adresse de revendeur, videz le champ et enregistrez.",
+          "4": "Gestionnaires : donnez aux apps publiées une adresse neutre (APPS_DOMAIN) pour que les liens des apps des clients des revendeurs n’affichent pas le nom de la plateforme."
+        },
+        "heading": "Bon à savoir"
+      }
+    },
+    "summary": "Personnalisez le studio, ses e-mails et ses pages de connexion avec votre nom, votre logo et vos couleurs.",
+    "title": "Votre marque (marque blanche)"
+  }
+}

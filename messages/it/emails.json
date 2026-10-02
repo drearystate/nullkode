@@ -1,0 +1,49 @@
+{
+  "aiQuota": {
+    "body80": "{reseller} ha usato {used} delle {max} azioni AI disponibili questo mese. Quando saranno esaurite, tu e i tuoi clienti non potrete creare e modificare con l'AI fino al {resets}.",
+    "bodyFull": "{reseller} ha usato tutte le {max} azioni AI disponibili per questo mese. Tu e i tuoi clienti non potrete creare e modificare con l'AI fino al {resets}.",
+    "includes": "Questo conteggio include le azioni AI dei tuoi clienti e le tue.",
+    "raise": "Per aumentare il limite, contatta il gestore della piattaforma.",
+    "subject80": "{reseller}: hai usato l'80% delle azioni AI di questo mese",
+    "subjectFull": "{reseller}: hai esaurito le azioni AI di questo mese"
+  },
+  "alert": {
+    "field": "{name}: {value}",
+    "footer": "Ricevi queste email perché gli avvisi sono attivi per {table}. Puoi disattivarli dalla pagina di riepilogo della tua app.",
+    "intro": "Qualcuno ha appena inviato un nuovo {label} tramite {app}.",
+    "introTest": "Questo è un test degli avvisi per {app}. Nessuno ha inviato nulla.",
+    "reply": "Rispondi a questa email per rispondere direttamente a {email}.",
+    "see": "Visualizzalo nei dati della tua app:",
+    "subject": "Nuovo {label}",
+    "subjectHeadline": "Nuovo {label}: {headline}",
+    "subjectHeadlineTest": "(test) Nuovo {label}: {headline}",
+    "subjectTest": "(test) Nuovo {label}"
+  },
+  "alertSummary": {
+    "body": "{app} ha ricevuto {count, plural, one {# nuovo invio} other {# nuovi invii}} nell'ultima ora.",
+    "heldBack": "Abbiamo evitato di inviarti email separate per non riempire la tua casella. Puoi vedere tutto nei dati della tua app:",
+    "subject": "{count, plural, one {# nuovo invio} other {# nuovi invii}} in {app}"
+  },
+  "hi": "Ciao,",
+  "hiName": "Ciao {name},",
+  "invite": {
+    "body": "{inviter} ha creato un account per te su {app}, dove puoi creare e pubblicare le tue app.",
+    "bodyPlatform": "Il team della piattaforma ha creato un account per te su {app}, dove puoi creare e pubblicare le tue app.",
+    "cta": "Imposta la password per iniziare:",
+    "expires": "Questo link può essere usato una sola volta e scade tra 7 giorni.",
+    "subject": "Ti hanno invitato su {app}"
+  },
+  "reset": {
+    "forgotBody": "Qualcuno ha chiesto di reimpostare la password del tuo account {app}. Se sei stato tu, scegli una nuova password qui:",
+    "forgotExpires": "Il link può essere usato una sola volta e scade tra 2 ore. Se non hai fatto tu la richiesta, puoi ignorare questa email.",
+    "issuedBody": "Ecco un link per scegliere una nuova password per il tuo account {app}:",
+    "issuedExpires": "Può essere usato una sola volta e scade tra 2 ore.",
+    "subject": "Reimposta la password di {app}"
+  },
+  "test": {
+    "body": "Questa è un'email di prova da {app}. Se riesci a leggerla, la posta elettronica funziona: inviti, link per le password e avvisi dell'app saranno inviati da {from}.",
+    "hello": "Ciao,",
+    "noReply": "Non serve rispondere.",
+    "subject": "Email di prova da {app}"
+  }
+}

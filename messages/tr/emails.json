@@ -1,0 +1,49 @@
+{
+  "aiQuota": {
+    "body80": "{reseller}, bu ay tanımlanan {max} yapay zekâ işleminin {used} kadarını kullandı. İşlemler tükendiğinde {resets} tarihine kadar siz ve müşterileriniz yapay zekâyla uygulama oluşturup düzenleyemeyeceksiniz.",
+    "bodyFull": "{reseller}, bu ay için tanımlanan {max} yapay zekâ işleminin tamamını kullandı. {resets} tarihine kadar siz ve müşterileriniz yapay zekâyla uygulama oluşturup düzenleyemeyeceksiniz.",
+    "includes": "Bu sayıya müşterilerinizin ve sizin yapay zekâ işlemleriniz dahildir.",
+    "raise": "Limiti artırmak için platform yöneticisiyle iletişime geçin.",
+    "subject80": "{reseller}: bu ayki yapay zekâ işlemlerinin %80'i kullanıldı",
+    "subjectFull": "{reseller}: bu ayki yapay zekâ işlemleri tükendi"
+  },
+  "alert": {
+    "field": "{name}: {value}",
+    "footer": "Bu e-postaları, {table} için bildirimler açık olduğu için alıyorsunuz. Uygulamanızın genel bakış sayfasından bildirimleri kapatabilirsiniz.",
+    "intro": "Birisi az önce {app} üzerinden yeni bir {label} gönderdi.",
+    "introTest": "Bu, {app} için bildirimlerinizin testidir. Kimse gönderim yapmadı.",
+    "reply": "{email} kişisine doğrudan yanıt vermek için bu e-postayı yanıtlayın.",
+    "see": "Uygulamanızın verilerinde görün:",
+    "subject": "Yeni {label}",
+    "subjectHeadline": "Yeni {label}: {headline}",
+    "subjectHeadlineTest": "(test) Yeni {label}: {headline}",
+    "subjectTest": "(test) Yeni {label}"
+  },
+  "alertSummary": {
+    "body": "Son bir saatte {app} uygulamasına {count, plural, one {# yeni gönderim daha} other {# yeni gönderim daha}} geldi.",
+    "heldBack": "Gelen kutunuz dolmasın diye ayrı e-postaları göndermedik. Tümünü uygulamanızın verilerinde görebilirsiniz:",
+    "subject": "{app} uygulamasında {count, plural, one {# yeni gönderim daha} other {# yeni gönderim daha}}"
+  },
+  "hi": "Merhaba,",
+  "hiName": "Merhaba {name},",
+  "invite": {
+    "body": "{inviter}, kendi uygulamalarınızı oluşturup yayınlayabileceğiniz {app} üzerinde sizin için bir hesap oluşturdu.",
+    "bodyPlatform": "Platform ekibi, kendi uygulamalarınızı oluşturup yayınlayabileceğiniz {app} üzerinde sizin için bir hesap oluşturdu.",
+    "cta": "Başlamak için şifrenizi belirleyin:",
+    "expires": "Bu bağlantı tek kullanımlıktır ve 7 gün içinde geçerliliğini yitirir.",
+    "subject": "{app} için davet edildiniz"
+  },
+  "reset": {
+    "forgotBody": "Birisi {app} hesabınızın şifresini sıfırlamak istedi. Bu sizseniz, buradan yeni bir şifre belirleyin:",
+    "forgotExpires": "Bağlantı tek kullanımlıktır ve 2 saat içinde geçerliliğini yitirir. Bu isteği siz yapmadıysanız bu e-postayı yok sayabilirsiniz.",
+    "issuedBody": "{app} hesabınız için yeni bir şifre belirleyebileceğiniz bağlantı:",
+    "issuedExpires": "Bu bağlantı tek kullanımlıktır ve 2 saat içinde geçerliliğini yitirir.",
+    "subject": "{app} şifrenizi sıfırlayın"
+  },
+  "test": {
+    "body": "Bu, {app} uygulamasından gönderilen bir test e-postasıdır. Bunu okuyabiliyorsanız e-posta gönderimi çalışıyor demektir: davetler, şifre bağlantıları ve uygulama bildirimleri {from} adresinden gönderilecek.",
+    "hello": "Merhaba,",
+    "noReply": "Yanıtlamanız gerekmiyor.",
+    "subject": "{app} uygulamasından test e-postası"
+  }
+}

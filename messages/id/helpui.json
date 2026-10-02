@@ -1,0 +1,22 @@
+{
+  "backToAll": "Kembali ke semua panduan",
+  "clearSearch": "Hapus pencarian",
+  "eyebrow": "BANTUAN & PANDUAN",
+  "guideMetaTitle": "{title} · Bantuan",
+  "heading": "Ada yang bisa kami bantu?",
+  "help": "Bantuan",
+  "helpGuides": "Bantuan & panduan",
+  "intro": "Panduan langkah demi langkah untuk semua hal di {app}. Tautan <b>Bantuan</b> di bagian atas setiap layar membuka panduan untuk layar tersebut.",
+  "matches": "{count, plural, one {# panduan cocok} other {# panduan cocok}}",
+  "metaTitle": "Bantuan & panduan",
+  "noMatch": "Tidak ada panduan yang cocok dengan “{query}”.",
+  "noMatchHint": "Coba kata lain, atau lihat semua panduan.",
+  "onThisPage": "Di halaman ini",
+  "onThisPageEyebrow": "DI HALAMAN INI",
+  "related": "Panduan terkait",
+  "searchHelp": "Ketik satu atau dua kata. Panduan di bawah akan difilter saat Anda mengetik.",
+  "searchLabel": "Cari panduan",
+  "searchPlaceholder": "Cari panduan, seperti “publikasikan” atau “domain”",
+  "showAll": "Tampilkan semua panduan",
+  "step": "Langkah {n}: "
+}

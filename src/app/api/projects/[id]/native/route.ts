@@ -1,6 +1,8 @@
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
 import { json } from "@/lib/utils";
+import { getTranslations } from "next-intl/server";
+import { requestLocale } from "@/i18n/request";
 import { z } from "zod";
 import {
   cleanPermissionText,
@@ -14,14 +16,21 @@ import { nativeNeedsFor, suggestedUsageTexts, usageTextsFor } from "@/lib/native
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
+/** Messages for people, in their language (only looked up when needed). */
+async function tr() {
+  return getTranslations({ locale: await requestLocale(), namespace: "project.nativeApi" });
+}
+
 const Wording = z.string().max(300);
+/** The version rule's message; swapped for the person's language when it's the problem. */
+const VERSION_RULE = "Use a version like 1.0.0";
 
 const Body = z.object({
   appId: z.string().min(3).max(120).optional(),
   appName: z.string().min(1).max(30).optional(),
   version: z
     .string()
-    .regex(/^\d+(\.\d+){0,2}$/, "Use a version like 1.0.0")
+    .regex(/^\d+(\.\d+){0,2}$/, VERSION_RULE)
     .optional(),
   build: z.number().int().min(1).max(2_000_000).optional(),
   orientation: z.enum(["default", "portrait", "landscape"]).optional(),
@@ -38,10 +47,10 @@ const Body = z.object({
 
 async function load(id: string) {
   const user = await getCurrentUser();
-  if (!user) return { error: "Unauthorized" as const, status: 401 };
+  if (!user) return { error: (await tr())("unauthorized"), status: 401 };
   const project = await db.project.findUnique({ where: { id } });
   if (!project || project.ownerId !== user.id)
-    return { error: "Not found" as const, status: 404 };
+    return { error: (await tr())("notFound"), status: 404 };
   return { project };
 }
 
@@ -89,7 +98,10 @@ export async function PATCH(req: Request, ctx: { params: Promise<{ id: string }>
 
   const parsed = Body.safeParse(await req.json().catch(() => null));
   if (!parsed.success) {
-    return json({ error: parsed.error.issues[0]?.message ?? "Invalid input" }, { status: 400 });
+    // zod's own messages for other problems stay as they are (the studio's form never sends them).
+    const message = parsed.error.issues[0]?.message;
+    const t = await tr();
+    return json({ error: message === VERSION_RULE ? t("settings.versionFormat") : message ?? t("settings.invalidInput") }, { status: 400 });
   }
 
   // Normalize a user-supplied bundle id; reject if it can't be made valid.
@@ -104,7 +116,7 @@ export async function PATCH(req: Request, ctx: { params: Promise<{ id: string }>
         .join(".");
       if (!isValidBundleId(appId)) {
         return json(
-          { error: "Bundle ID must be reverse-DNS, e.g. com.company.app" },
+          { error: (await tr())("settings.bundleId") },
           { status: 400 },
         );
       }

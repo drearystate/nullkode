@@ -3,6 +3,7 @@ import { getRealUser } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { resellerPlanLimits } from "@/lib/plan-limits";
 import { ResellerBillingForm } from "@/components/reseller/billing-form";
+import { getTranslations } from "next-intl/server";
 
 export const dynamic = "force-dynamic";
 
@@ -12,12 +13,13 @@ export default async function ResellerBillingPage() {
   if (!user || !reseller) redirect("/dashboard");
   const limits = await resellerPlanLimits(reseller.planLimits);
   const encode = (n: number) => (Number.isFinite(n) ? n : null);
+  const t = await getTranslations("reseller.billingPage");
   return (
     <div className="space-y-6">
       <header>
-        <p className="studio-eyebrow">BILLING & PLANS</p>
-        <h1 className="mt-2 text-3xl font-semibold tracking-tight">Your prices, your revenue</h1>
-        <p className="mt-2 text-sm text-surface-400">Clients subscribe on your own Stripe account, so payments go straight to you. You decide what each plan costs and what it includes.</p>
+        <p className="studio-eyebrow">{t("eyebrow")}</p>
+        <h1 className="mt-2 text-3xl font-semibold tracking-tight">{t("title")}</h1>
+        <p className="mt-2 text-sm text-surface-400">{t("intro")}</p>
       </header>
       <ResellerBillingForm
         allowSignup={reseller.allowSignup}

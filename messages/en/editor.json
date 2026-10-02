@@ -1,0 +1,1153 @@
+{
+  "shell": {
+    "couldNotSave": "Could not save your change. Please try again.",
+    "somethingWrong": "Something went wrong. Please try again.",
+    "editsNotSaved": "Your latest edits haven’t saved. Check your connection and try again.",
+    "confirmDiscardSwitch": "Discard your unsaved edits on this page and switch?",
+    "confirmDeletePage": "Delete “{title}”? This cannot be undone.",
+    "featureAddedWithPages": "{name} is added, with its own pages. They're in the menu now.",
+    "theFeatureAddedWithPages": "The feature is added, with its own pages. They're in the menu now.",
+    "featureAdded": "{name} is added.",
+    "theFeatureAdded": "The feature is added.",
+    "openNewPage": "Open the new page",
+    "savedSettings": "Saved the settings for “{title}”.",
+    "madeCopy": "Made a copy. You're now editing “{title}”.",
+    "mobileTip": "Tip: tap part of your page, then tap a block to add it below. Or press <b>Ask AI</b> and say what to change.",
+    "editing": "EDITING",
+    "pagePickerHelp": "The page you’re editing now. Click to see all your pages, switch to another one, or change a page’s settings.",
+    "pageCount": "{count, plural, one {# page} other {# pages}}",
+    "addPage": "Add page",
+    "addPageHelp": "Add a new, empty page to your app. You’ll type its name next, and it shows up in your app’s menu.",
+    "notSaved": "<b>Not saved</b> – check your connection. We'll keep trying.",
+    "retry": "Retry",
+    "retryHelp": "Try saving your latest edits again right now, instead of waiting for the next automatic try.",
+    "discardSwitch": "Discard changes and switch",
+    "discardSwitchHelp": "Throw away the edits on this page that didn’t save, then open the other page. Those edits can’t be brought back.",
+    "dismissError": "Dismiss error",
+    "dismiss": "Dismiss",
+    "open": "Open",
+    "pages": "Pages",
+    "yourPages": "Your pages",
+    "closePages": "Close pages",
+    "searchPages": "Search pages",
+    "searchPagesHelp": "Type part of a page name to narrow the list.",
+    "findPage": "Find a page…",
+    "openHomePageHelp": "Open this page in the editor. The house icon means it’s your home page, the first page visitors see.",
+    "openPageHelp": "Open this page in the editor. Your edits on the current page are saved first.",
+    "pageSettings": "Page settings",
+    "pageSettingsFor": "Page settings for {title}",
+    "pageSettingsHelp": "Rename this page, choose who can see it, show or hide it in your app’s menu, or make a copy.",
+    "setHome": "Set as home page",
+    "setHomeFor": "Set {title} as home page",
+    "setHomeHelp": "Make this the first page visitors see when they open your app’s main web address.",
+    "deletePage": "Delete page",
+    "deletePageFor": "Delete {title}",
+    "deletePageHelp": "Delete this page and everything on it. You’ll be asked to confirm. This can’t be undone.",
+    "noMatchingPages": "No matching pages.",
+    "pageName": "Page name",
+    "pageNameHelp": "The name for your new page. It’s shown in your app’s menu and on the browser tab, and you can change it later.",
+    "pageNamePlaceholder": "e.g. About us",
+    "newPage": "New page",
+    "newPageHelp": "Add a new, empty page to your app. You’ll give it a name first.",
+    "updating": "Updating your workspace…"
+  },
+  "welcome": {
+    "title": "Your app is ready. Here's how to make it yours:",
+    "clickWords": "Click any words on the page to change them. Double-click a picture to swap it.",
+    "features": "Add things like bookings or a shop from <link>Features</link>.",
+    "askAi": "Press Ask AI for bigger changes, like “add a prices section”.",
+    "publish": "When you're happy, <link>publish it</link> to get a link to share.",
+    "gotIt": "Got it",
+    "gotItHelp": "Hide this welcome box and get straight to editing."
+  },
+  "wireUp": {
+    "blocks": {
+      "testimonials": {
+        "purpose": "This section can show testimonials you keep in your app's data, so you can change them without editing the page.",
+        "connectNew": "<b>Connect it</b> — adds a testimonials table, starting with the three quotes shown here, and connects this section to it. Add or change quotes in Data. It doesn't add extra pages.",
+        "connectExisting": "<b>Connect it</b> — connects this section to the testimonials your app already has. It doesn't add extra pages."
+      },
+      "reviews": {
+        "purpose": "This section can show reviews you keep in your app's data.",
+        "connectNew": "<b>Connect it</b> — adds a reviews table, starting with the three reviews shown here, and connects this section to it. Only reviews marked approved are shown; manage them in Data. It doesn't add extra pages.",
+        "connectExisting": "<b>Connect it</b> — connects this section to the approved reviews your app already has. It doesn't add extra pages."
+      },
+      "team": {
+        "purpose": "This grid can show the team members you keep in your app's data.",
+        "connectNew": "<b>Connect it</b> — adds a team table, starting with the four people shown here, and connects this grid to it. Add or change people in Data. It doesn't add extra pages.",
+        "connectExisting": "<b>Connect it</b> — connects this grid to the team members your app already has. It doesn't add extra pages."
+      },
+      "faq": {
+        "purpose": "This list can show questions and answers you keep in your app's data.",
+        "connectNew": "<b>Connect it</b> — adds a questions table, starting with the four questions shown here, and connects this list to it. Add or change questions in Data. It doesn't add extra pages.",
+        "connectExisting": "<b>Connect it</b> — connects this list to the questions your app already has. It doesn't add extra pages."
+      },
+      "gallery": {
+        "purpose": "This gallery can show photos you keep in your app's data.",
+        "connectNew": "<b>Connect it</b> — adds a photos table, starting with the five titles shown here, and connects this gallery to it. Add each picture's web address in Data. It doesn't add extra pages.",
+        "connectExisting": "<b>Connect it</b> — connects this gallery to the photos your app already has. It doesn't add extra pages."
+      },
+      "blog": {
+        "purpose": "These cards can show the latest posts you keep in your app's data.",
+        "connectNew": "<b>Connect it</b> — adds a posts table, starting with the three posts shown here, and connects these cards to it. Only published posts are shown; add or change posts in Data. It doesn't add extra pages.",
+        "connectExisting": "<b>Connect it</b> — connects these cards to the posts your app already has. It doesn't add extra pages."
+      },
+      "services": {
+        "purpose": "This grid can show the services you keep in your app's data.",
+        "connectNew": "<b>Connect it</b> — adds a services table, starting with the three services shown here, and connects this grid to it. Add or change services in Data. It doesn't add extra pages.",
+        "connectExisting": "<b>Connect it</b> — connects this grid to the services your app already has. It doesn't add extra pages."
+      },
+      "auth": {
+        "purpose": "These forms can sign people in and create new accounts.",
+        "connectNew": "<b>Connect it</b> — adds accounts, sign-in and sign-up to your app, and connects both forms to them. It doesn't add extra pages.",
+        "connectExisting": "<b>Connect it</b> — connects both forms to your app's sign-in and accounts. It doesn't add extra pages."
+      },
+      "contactForm": {
+        "purpose": "This form can save the messages people send you.",
+        "connectNew": "<b>Connect it</b> — adds a table for the messages and the automation that saves them, and connects this form to it. It doesn't add extra pages.",
+        "connectExisting": "<b>Connect it</b> — connects this form to the messages table your app already has. It doesn't add extra pages."
+      },
+      "contactFormModern": {
+        "purpose": "This form can save the messages people send you.",
+        "connectNew": "<b>Connect it</b> — adds a table for the messages (name, email and message; the mobile number isn't kept) and the automation that saves them, and connects this form to it. It doesn't add extra pages.",
+        "connectExisting": "<b>Connect it</b> — connects this form to the messages table your app already has. It doesn't add extra pages."
+      },
+      "newsletter": {
+        "purpose": "This form can save the email address of everyone who signs up.",
+        "connectNew": "<b>Connect it</b> — adds a table for subscribers and the automation that saves each signup, and connects this form to it. It doesn't add extra pages.",
+        "connectExisting": "<b>Connect it</b> — connects this form to the subscriber list your app already has. It doesn't add extra pages."
+      }
+    },
+    "couldNotLoadFlows": "We couldn't load this app's automations. Please try again.",
+    "couldNotCheckFeatures": "We couldn't check this app's features. Please try again.",
+    "failedStatus": "Failed ({status})",
+    "partMissing": "Your app has this feature, but part of it is missing. You can connect this block in Flows instead.",
+    "somethingWrong": "Something went wrong",
+    "title": "Wire this up?",
+    "connectHelp": "Set up what this block needs behind the scenes, like a place to keep what people send. No extra pages are added.",
+    "settingUp": "Setting up...",
+    "connect": "Yes, connect it",
+    "handleHelp": "Keep the block on your page as it is, without setting anything up. You can connect it later in Flows or by asking the AI.",
+    "handle": "No, I'll handle it",
+    "handleLine": "<b>Handle it</b> — keeps the block as it is, not connected to anything. You can set it up later in Flows or by asking the AI."
+  },
+  "assets": {
+    "categories": {
+      "all": {
+        "label": "All",
+        "help": "Show a mix of free photos you can use on your page."
+      },
+      "originals": {
+        "label": "Originals",
+        "help": "Browse original AI-generated photos included with this installation."
+      },
+      "nature": {
+        "label": "Nature",
+        "help": "Show free photos of nature and landscapes."
+      },
+      "people": {
+        "label": "People",
+        "help": "Show free photos of people."
+      },
+      "business": {
+        "label": "Business",
+        "help": "Show free photos of offices and people at work."
+      },
+      "tech": {
+        "label": "Tech",
+        "help": "Show free photos of computers and technology."
+      },
+      "food": {
+        "label": "Food",
+        "help": "Show free photos of food and restaurants."
+      },
+      "architecture": {
+        "label": "Architecture",
+        "help": "Show free photos of buildings."
+      },
+      "fitness": {
+        "label": "Fitness",
+        "help": "Show free photos of gyms and exercise."
+      },
+      "medical": {
+        "label": "Medical",
+        "help": "Show free photos of health care and medicine."
+      },
+      "beauty": {
+        "label": "Beauty",
+        "help": "Skincare, spa and beauty images."
+      },
+      "products": {
+        "label": "Products",
+        "help": "Ceramics and product photography."
+      },
+      "education": {
+        "label": "Learning",
+        "help": "Classrooms and collaborative learning."
+      },
+      "legal": {
+        "label": "Legal",
+        "help": "Law libraries and courthouse architecture."
+      },
+      "community": {
+        "label": "Community",
+        "help": "Community markets and fresh produce."
+      },
+      "travel": {
+        "label": "Travel",
+        "help": "Show free photos of travel and places to visit."
+      },
+      "trades": {
+        "label": "Trades",
+        "help": "Plumbing, electrical work and construction."
+      },
+      "automotive": {
+        "label": "Auto",
+        "help": "Vehicle repair and garages."
+      },
+      "cleaning": {
+        "label": "Cleaning",
+        "help": "Professional cleaning services."
+      },
+      "pets": {
+        "label": "Pets",
+        "help": "Pet care and grooming."
+      },
+      "landscaping": {
+        "label": "Gardens",
+        "help": "Gardening and landscaping services."
+      },
+      "logistics": {
+        "label": "Logistics",
+        "help": "Warehouses, delivery and shipping."
+      },
+      "agriculture": {
+        "label": "Farming",
+        "help": "Farms and fresh produce."
+      },
+      "events": {
+        "label": "Events",
+        "help": "Weddings and event services."
+      }
+    },
+    "failedToLoad": "Failed to load assets",
+    "searchPlaceholder": "Search photos...",
+    "searchHelp": "Type what you want a photo of, like “coffee” or “dog”, to find free photos you can use.",
+    "describeLabel": "Picture changed. Describe it for people who can't see it:",
+    "describePlaceholder": "e.g. Fresh bread on our shop counter",
+    "describeHelp": "A few words saying what’s in the picture. Screen readers read it out to people who can’t see it, and search engines use it too.",
+    "saveDescription": "Save description",
+    "saveDescriptionHelp": "Save this description on the picture.",
+    "skip": "Skip",
+    "skipHelp": "Keep the new picture without changing its description.",
+    "noMatches": "No matching images. Try a broader subject.",
+    "swapHelp": "Tap to put this photo in place of the picture you picked. It keeps the same size and spot.",
+    "addHelp": "Tap to add this photo below the part you picked, or drag it onto your page.",
+    "photoBy": "Photo by {name}",
+    "useInstead": "Use this photo instead",
+    "useInsteadNamed": "Use this photo instead: {alt}",
+    "addPhoto": "Add this photo",
+    "addPhotoNamed": "Add this photo: {alt}",
+    "aiOriginal": "AI original",
+    "footerSwap": "Tap a photo to use it instead of the picture you picked",
+    "footerAdd": "Tap or drag to add · Free photos"
+  },
+  "iconSets": {
+    "all": {
+      "label": "All",
+      "help": "Search icons in every style at once."
+    },
+    "lucide": {
+      "label": "Lucide",
+      "help": "Show only icons in the Lucide style: simple, thin outlines."
+    },
+    "heroicons": {
+      "label": "Heroicons",
+      "help": "Show only icons in the Heroicons style: clean outlines."
+    },
+    "tabler": {
+      "label": "Tabler",
+      "help": "Show only icons in the Tabler style: simple outlines, lots of choice."
+    },
+    "ph": {
+      "label": "Phosphor",
+      "help": "Show only icons in the Phosphor style: friendly, rounded outlines."
+    },
+    "mdi": {
+      "label": "Material",
+      "help": "Show only icons in the Material style, the look used by many Android apps."
+    },
+    "fa6Solid": {
+      "label": "FA Solid",
+      "help": "Show only filled-in icons from the Font Awesome collection."
+    },
+    "fa6Brands": {
+      "label": "FA Brands",
+      "help": "Show only logos of well-known companies from the Font Awesome collection."
+    },
+    "simpleIcons": {
+      "label": "Brands",
+      "help": "Show only logos of well-known companies, apps and social networks."
+    }
+  },
+  "iconPicker": {
+    "changeIcon": "Change icon",
+    "pickIcon": "Pick an icon",
+    "closeHelp": "Close without picking an icon.",
+    "searchPlaceholder": "Search icons...",
+    "searchHelp": "Type what the icon should show, like “phone”, “star” or “cart”.",
+    "noResults": "No results",
+    "useIcon": "Use the {name} icon",
+    "replaceHelp": "Use this icon instead of the one you picked.",
+    "addHelp": "Add this icon to your page."
+  },
+  "iconsPanel": {
+    "failedToLoad": "Failed to load icons",
+    "searchPlaceholder": "Search icons...",
+    "searchHelp": "Type what the icon should show, like “phone”, “star” or “cart”.",
+    "noResults": "No results",
+    "addIcon": "Add the {name} icon",
+    "addHelp": "Add this icon inside the part you picked, or at the end of the page if nothing is picked.",
+    "clickToInsert": "Click to insert"
+  },
+  "modules": {
+    "categories": {
+      "all": {
+        "label": "All",
+        "help": "Show every feature you can add."
+      },
+      "communication": {
+        "label": "Talk",
+        "help": "Features for keeping in touch with visitors, like a contact form, newsletter or text messages."
+      },
+      "content": {
+        "label": "Content",
+        "help": "Features for sharing words and news, like a blog, FAQs, a portfolio or a course."
+      },
+      "media": {
+        "label": "Media",
+        "help": "Features for photos, video, music and other media."
+      },
+      "commerce": {
+        "label": "Shop",
+        "help": "Features for selling and taking payments, like a shop, bookings, coupons or donations."
+      },
+      "productivity": {
+        "label": "Productivity",
+        "help": "Features for getting things done, like to-do lists, notes, appointments and surveys."
+      },
+      "community": {
+        "label": "Community",
+        "help": "Features that bring people together, like events, reviews, chat and forums."
+      },
+      "utility": {
+        "label": "Tools",
+        "help": "Handy extras, like sign-in, maps, file uploads and a weather widget."
+      }
+    },
+    "categoryHelp": "Show only features in this group.",
+    "notSaved": "Your latest edits haven't saved yet, so we didn't add anything. Check your connection and try again.",
+    "loading": "Loading features…",
+    "searchPlaceholder": "Search features…",
+    "searchLabel": "Search features",
+    "searchHelp": "Type what you want your app to do, like “bookings” or “newsletter”, to find a ready-made feature.",
+    "nameAdded": "{name} (added)",
+    "addedHelp": "Already in your app. Tap to see what it adds, or add it again.",
+    "addHelp": "Tap to see what this feature adds to your app. Nothing changes until you confirm. Your page is saved first.",
+    "added": "Added",
+    "savingPage": "Saving your page…",
+    "empty": "No features here yet",
+    "footer": "Tap a feature to see what it adds to your app"
+  },
+  "pageSettings": {
+    "audiences": {
+      "public": {
+        "label": "Everyone",
+        "hint": "Anyone with the link can open it."
+      },
+      "signedIn": {
+        "label": "Signed-in people",
+        "hint": "Visitors sign in first. Anyone can make an account."
+      },
+      "admin": {
+        "label": "Admins only",
+        "hint": "Only you and the people you make admins."
+      },
+      "role": {
+        "label": "People with the “{role}” role",
+        "hint": "Set by the page itself. Pick another option to change it."
+      }
+    },
+    "loadFailedRetry": "We couldn't load this page's settings. Please try again.",
+    "loadFailed": "We couldn't load this page's settings.",
+    "title": "Page settings",
+    "close": "Close page settings",
+    "designerNote": "This app's pages come from the AI Designer, so change them there.",
+    "name": "Name",
+    "nameHint": "Shown in the menu and on the browser tab.",
+    "audience": "Who can see this page",
+    "audienceHelp": "Choose who can open this page in your live app: anyone, only people who have signed in, or only admins.",
+    "privatePublic": "This page shows private data; making it public exposes it.",
+    "privateSignedIn": "This page shows private data. Anyone who signs up would be able to see it.",
+    "noLogin": "Your app has no sign-in page yet, so only you can open this page. <link>Add “Sign-in and accounts” from Features.</link>",
+    "menu": "Menu",
+    "menuHelp": "Whether this page has a link in your app’s menu, and where in the menu it sits.",
+    "showInMenu": "Show in menu",
+    "showInMenuHelp": "Tick to put a link to this page in your app’s menu. Untick to hide it from the menu; people with the link can still open it.",
+    "buttonNote": "It shows as a button at the end of the menu.",
+    "neverInMenu": "This page never appears in the menu.",
+    "homeFirst": "The home page always comes first.",
+    "goesAtEnd": "It goes at the end of the menu. You can move it once it's saved.",
+    "saveFirst": "Save first, then set its place in the menu.",
+    "placeInMenu": "Place in the menu: <b>{position}</b> of {count}",
+    "placeInManage": "Place in the admins’ “Manage” menu: <b>{position}</b> of {count}",
+    "moveUp": "Move up",
+    "moveUpHelp": "Move this page one place earlier in the menu. It changes when you press Save.",
+    "moveDown": "Move down",
+    "moveDownHelp": "Move this page one place later in the menu. It changes when you press Save.",
+    "duplicate": "Duplicate",
+    "duplicateHelp": "Make a copy of this page, named “(copy)”, and open it so you can edit it. Settings changed here but not saved aren’t copied.",
+    "saveHelp": "Save these settings. Your app’s menu is updated on every page to match."
+  },
+  "theme": {
+    "colors": {
+      "primary": {
+        "label": "Primary",
+        "help": "Your main brand color, used for buttons, links and highlights."
+      },
+      "primary2": {
+        "label": "Primary hover",
+        "help": "The color buttons and links turn when someone points at them."
+      },
+      "accent": {
+        "label": "Accent",
+        "help": "A second color for small touches, like badges and decorative shapes."
+      },
+      "bg": {
+        "label": "Background",
+        "help": "The color behind everything on your pages."
+      },
+      "surface": {
+        "label": "Surface",
+        "help": "The color of cards and boxes that sit on top of the background."
+      },
+      "surface2": {
+        "label": "Surface alt",
+        "help": "A second box color, used to set some sections and labels apart."
+      },
+      "border": {
+        "label": "Border",
+        "help": "The color of thin lines around boxes and between sections."
+      },
+      "text": {
+        "label": "Text",
+        "help": "The color of most of the words on your pages."
+      },
+      "textMuted": {
+        "label": "Text muted",
+        "help": "A softer color for less important words, like captions and small notes."
+      }
+    },
+    "loading": "Loading theme…",
+    "preset": "Preset",
+    "presetHelp": "Ready-made color and font sets for your whole app. Pick one to start, then fine-tune the colors below.",
+    "presetButtonHelp": "Choose a ready-made look for your whole app. It replaces your current colors, fonts and corners. Visitors see it after you publish.",
+    "pickTheme": "Pick a theme…",
+    "light": "Light",
+    "dark": "Dark",
+    "useLook": "Use the {name} look: its colors, fonts and corners replace your current ones.",
+    "darkPair": "Dark mode pair",
+    "darkPairHelp": "The colors your app switches to when a visitor turns on dark mode with the sun/moon button. Auto picks one for you.",
+    "darkPairAuto": "Auto (first dark preset)",
+    "darkPairNote": "Users see a sun/moon toggle on every page.",
+    "colorsTitle": "Colors",
+    "colorLabel": "{name} color",
+    "colorCodeLabel": "{name} color code",
+    "colorCodeHelp": "Or type a color code here, like #1a73e8, if you know the exact color you want.",
+    "corners": "Corners",
+    "radius": "Radius",
+    "roundness": "Corner roundness",
+    "roundnessHelp": "How round the corners of buttons, cards and boxes are across your app. Slide left for square, right for rounder.",
+    "mode": "Mode",
+    "lightHelp": "Switch to the first light ready-made theme. This replaces your current colors and fonts.",
+    "darkHelp": "Switch to the first dark ready-made theme. This replaces your current colors and fonts."
+  },
+  "panelHelp": {
+    "sectors": {
+      "text": "How the words look: size, boldness, color, and which way they line up.",
+      "colors": "The color behind this piece.",
+      "spacing": "Room inside this piece (between its edge and its content) and room outside it (between it and its neighbours).",
+      "size": "How wide and how tall this piece is.",
+      "corners": "Round the corners, or add a line around the edge.",
+      "advText": "Fonts, line spacing, letter spacing and text shadows.",
+      "advSize": "Limits on how wide or how short this piece can get on different screens.",
+      "advEffects": "Shadows, fading, background pictures and smooth animations.",
+      "advLayout": "Where this piece sits and how it's pinned in place. Most pages never need these.",
+      "advFlex": "How the pieces inside this box line up in rows or columns.",
+      "general": "The basics: how this piece sits on the page and where it's anchored.",
+      "layout": "How this piece is placed on the page and how things line up around it.",
+      "dimension": "Sizes and spacing: how big this piece is and how much empty room it keeps around and inside itself.",
+      "typography": "Everything about the text: which letters, how big, what color, and how the words line up.",
+      "decorations": "The pretty stuff: background colors and pictures, borders, round corners, and shadows.",
+      "extra": "Extras like smooth animations and tilts.",
+      "flex": "Tools for lining up the pieces inside this box in neat rows or columns.",
+      "background": "What fills the back of this piece — a color, a fade, or a picture."
+    },
+    "styles": {
+      "display": "How this piece sits on the page. 'Block' takes a whole row by itself. 'Inline' sits next to things, like a word in a sentence. 'Flex' neatly lines up the pieces inside it. 'None' hides it completely.",
+      "float": "Pushes this piece to the left or right and lets text wrap around it — like a photo in a newspaper. 'None' keeps it in its normal spot.",
+      "position": "How this piece is anchored. 'Static' = the normal spot. 'Relative' = nudge it from its normal spot. 'Absolute' = pin it anywhere inside its box. 'Fixed' = glue it to the screen so it stays put while you scroll.",
+      "top": "How far this piece sits from the TOP. Only works when Position isn't 'static'.",
+      "right": "How far this piece sits from the RIGHT. Only works when Position isn't 'static'.",
+      "bottom": "How far this piece sits from the BOTTOM. Only works when Position isn't 'static'.",
+      "left": "How far this piece sits from the LEFT. Only works when Position isn't 'static'.",
+      "zIndex": "Which piece wins when two overlap. Bigger number = closer to you, like the top card in a pile.",
+      "overflow": "What happens when the stuff inside is too big for the box: 'hidden' cuts it off, 'scroll'/'auto' adds scrollbars, 'visible' lets it spill out.",
+      "cursor": "What the mouse arrow turns into over this piece. 'Pointer' (the little hand) tells people it's clickable.",
+      "width": "How wide this piece is. Use 100% to fill all the space it's given, or an exact size like 300px.",
+      "height": "How tall this piece is. 'auto' means it grows just enough to fit what's inside — usually the safest choice.",
+      "maxWidth": "The widest it's ever allowed to get, even on a huge screen. Great for keeping lines of text short enough to read.",
+      "minWidth": "The narrowest it's allowed to get, even on a tiny screen.",
+      "maxHeight": "The tallest it's ever allowed to get. Extra content gets cut off or scrolls.",
+      "minHeight": "The shortest it's allowed to be, even when it's empty. Handy for making sections that don't collapse.",
+      "margin": "The empty space OUTSIDE this piece — it pushes the neighbors away. Bigger number = more breathing room around it.",
+      "marginTop": "Empty space ABOVE this piece, pushing it down from whatever is on top.",
+      "marginRight": "Empty space to the RIGHT of this piece, pushing neighbors away on that side.",
+      "marginBottom": "Empty space BELOW this piece, pushing whatever comes next further down.",
+      "marginLeft": "Empty space to the LEFT of this piece, pushing neighbors away on that side.",
+      "padding": "The cushion INSIDE this piece — space between its edge and its content. More padding makes buttons and cards feel roomier.",
+      "paddingTop": "Inside cushion at the TOP, between the edge and the content.",
+      "paddingRight": "Inside cushion on the RIGHT, between the edge and the content.",
+      "paddingBottom": "Inside cushion at the BOTTOM, between the edge and the content.",
+      "paddingLeft": "Inside cushion on the LEFT, between the edge and the content.",
+      "fontFamily": "The letter style. Different fonts feel different — playful, serious, fancy. Pick one and the text changes right away.",
+      "fontSize": "How big the letters are. Normal reading text is around 16px; big titles are 32px or more.",
+      "fontWeight": "How thick the letters are. 400 is normal, 700 is bold. Bolder text shouts louder.",
+      "letterSpacing": "The gap between letters. A little extra space can make titles look fancy; too much gets hard to read.",
+      "color": "The color of the text. Click the color box to pick any color you like.",
+      "lineHeight": "The space between lines in a paragraph. Around 1.5 makes text comfy to read; 1 squishes lines together.",
+      "textAlign": "Which way the text lines up: left, center, right, or stretched to touch both edges (justify).",
+      "textDecoration": "Extra lines on text: underline it, cross it out, or pick 'none' to remove the line links usually have.",
+      "textShadow": "A soft shadow behind the letters so they pop off the background. Set how far it falls, how blurry, and its color.",
+      "textShadowH": "Slides the letter shadow left or right. Negative numbers go left.",
+      "textShadowV": "Slides the letter shadow up or down. Negative numbers go up.",
+      "textShadowBlur": "How fuzzy the letter shadow is. 0 is sharp; bigger is softer.",
+      "textShadowColor": "The color of the letter shadow.",
+      "textTransform": "Rewrites the text's case for you: ALL CAPS, all lowercase, or Capitalize Each Word.",
+      "verticalAlign": "Lines this piece up with the text next to it — top, middle, or bottom.",
+      "opacity": "How see-through this piece is. 100 is solid; lower numbers fade it out like a ghost. 0 is invisible.",
+      "borderRadius": "How round the corners are. 0 = sharp corners, bigger = rounder. Go really big to turn a box into a pill or circle.",
+      "borderTopLeftRadius": "Rounds just the TOP-LEFT corner.",
+      "borderTopRightRadius": "Rounds just the TOP-RIGHT corner.",
+      "borderBottomLeftRadius": "Rounds just the BOTTOM-LEFT corner.",
+      "borderBottomRightRadius": "Rounds just the BOTTOM-RIGHT corner.",
+      "border": "The line around the edge of this piece. Set how thick it is, its style (solid, dashed, dotted), and its color.",
+      "borderWidth": "How thick the edge line is. 0 means no line at all.",
+      "borderStyle": "What the edge line looks like: solid, dashed (- - -), or dotted (• • •).",
+      "borderColor": "The color of the edge line.",
+      "boxShadow": "A soft shadow behind this piece so it looks lifted off the page, like a card on a table. Set where it falls, how blurry and wide, and its color.",
+      "boxShadowH": "Slides the shadow left or right. Negative numbers go left.",
+      "boxShadowV": "Slides the shadow up or down. Negative numbers go up.",
+      "boxShadowBlur": "How fuzzy the shadow is. 0 is a hard edge; bigger is softer and dreamier.",
+      "boxShadowSpread": "How far the shadow grows in every direction. Bigger = a wider shadow.",
+      "boxShadowColor": "The color of the shadow. Soft gray or see-through black usually looks best.",
+      "boxShadowType": "'Outside' puts the shadow behind the piece. 'Inside' carves it into the piece, like a dent.",
+      "background": "What fills the back of this piece — a color, a smooth fade, or a picture. You can even stack more than one.",
+      "backgroundColor": "The fill color behind this piece's content.",
+      "backgroundImage": "A picture (or color fade) used as the back of this piece.",
+      "backgroundRepeat": "Whether the background picture tiles over and over like bathroom tiles, or shows just once.",
+      "backgroundPosition": "Which part of the background picture you see — slide it left/right and up/down.",
+      "backgroundAttachment": "'Scroll' moves the background with the page. 'Fixed' glues it in place so the page slides over it — a cool depth trick.",
+      "backgroundSize": "How the picture fills the space: 'cover' fills everything (may crop the edges), 'contain' shows the whole picture (may leave gaps).",
+      "flexDirection": "Stack the pieces inside this box in a ROW (side by side) or a COLUMN (top to bottom). 'Reverse' flips the order.",
+      "justifyContent": "How the pieces spread out ALONG the row or column: bunched at the start, centered, or spaced apart evenly.",
+      "alignItems": "How the pieces line up ACROSS the row: top, middle, bottom, or stretched to all be the same size.",
+      "alignContent": "When the pieces wrap onto extra lines, this spreads those lines out: together, centered, or spaced apart.",
+      "flexWrap": "Whether pieces that don't fit hop onto the next line ('wrap') or squish together on one line ('nowrap').",
+      "alignSelf": "Lets THIS one piece break from the group and line up its own way — top, middle, bottom, or stretched.",
+      "flexBasis": "This piece's starting size, before it grows or shrinks to share the space.",
+      "flexGrow": "Lets this piece grow to grab extra empty space. A piece with 2 grabs twice as much as a piece with 1. 0 means don't grow.",
+      "flexShrink": "Lets this piece squish when space runs out. Bigger numbers squish more. 0 means never squish.",
+      "order": "Changes this piece's place in line without moving the others. Lower numbers go first.",
+      "transition": "Makes style changes happen smoothly instead of instantly — like a button that gently changes color when you hover on it.",
+      "transitionProperty": "WHICH style should animate smoothly — like 'all', or just the color, or just the size.",
+      "transitionDuration": "How long the smooth change takes. 0.3s feels snappy; 2s feels slow and dramatic.",
+      "transitionTimingFunction": "The rhythm of the change: steady all the way ('linear'), or easing in/out like a car braking gently ('ease').",
+      "perspective": "Adds 3D depth for tilted pieces. Smaller numbers = more dramatic 3D, like holding it close to your face.",
+      "transform": "Spin, tilt, grow, or shrink this piece — without moving anything around it.",
+      "transformRotateX": "Tips the piece backward/forward, like a door falling over.",
+      "transformRotateY": "Turns the piece sideways, like a spinning door.",
+      "transformRotateZ": "Spins the piece flat, like a clock hand. 180 turns it upside-down.",
+      "transformScaleX": "Stretches or squishes the piece SIDEWAYS. 1 is normal, 2 is twice as wide.",
+      "transformScaleY": "Stretches or squishes the piece UP AND DOWN. 1 is normal, 2 is twice as tall.",
+      "transformScaleZ": "Scales the piece in 3D depth — you'll only notice it with rotated pieces."
+    },
+    "selectors": {
+      "states": "Style a special moment. Pick 'hover' and your changes only show while the mouse is over the piece; 'click' while it's pressed. Pick '- State -' to go back to normal styling.",
+      "addClass": "Give this piece a shared style name. Every piece with the same name shares the same look, so changing one changes them all.",
+      "tag": "A shared style name this piece uses. Changes apply to every piece with this name. Click the x to remove it from this piece.",
+      "selectedInfo": "Exactly what you're styling right now, so there are no surprises about what changes."
+    },
+    "traits": {
+      "hoverNote": "A short note that pops up when someone rests their mouse on this piece.",
+      "goesTo": "Where this link takes people. Use /page-name for your own pages, or a full https:// address for other sites.",
+      "openInANewTab": "Tick this to open the link in a new tab, so your app stays open too.",
+      "pictureDescription": "Words that describe the picture for people who can't see it, and for search engines. Say what's in the picture.",
+      "address": "The web address of the picture or video shown here.",
+      "answerName": "The name your app saves this answer under, like 'email'. Keep it short and simple.",
+      "hintText": "The grey hint shown inside the box while it's empty, like 'Type your name'. It disappears when someone starts typing.",
+      "startingValue": "What's already filled in when the page first opens.",
+      "mustBeFilledIn": "Turn this on and the form won't send until this box is filled in.",
+      "kind": "What kind of box this is: text, email, password (hides the letters), number and more. The right kind helps phones show the right keyboard.",
+      "tickedAtTheStart": "Whether this box starts already ticked when the page opens.",
+      "buttonWords": "The words shown on this button.",
+      "whenPressed": "What this button does: send the form it's in, clear the form, or nothing (for buttons that do something else).",
+      "whenSentRun": "Pick what your app does with the answers when this form is sent, like saving them or sending an email. You'll find these under Flows.",
+      "whenPressedRun": "Pick what your app does when this button is pressed. You'll find these under Flows.",
+      "belongsToField": "Which box on the form this label describes. Clicking the label then puts the cursor in that box.",
+      "showItemsFrom": "Pick where this list gets its items from, like your bookings or products. It updates by itself."
+    },
+    "layers": {
+      "visibility": "Click the eye to hide this piece while you work — it's still there, just sleeping. Click again to wake it up.",
+      "move": "Grab here and drag to move this piece somewhere else on the page.",
+      "layerRow": "One piece of your page. Click to select it; the arrow opens what's nested inside it."
+    },
+    "rte": {
+      "bold": "Make the highlighted words bold. Click again to undo it.",
+      "italic": "Make the highlighted words slanted (italic). Click again to undo it.",
+      "underline": "Underline the highlighted words. Click again to remove the line.",
+      "strikeThrough": "Cross out the highlighted words with a line. Click again to remove it.",
+      "link": "Turn the highlighted words into a link, or remove the link. Then set where it goes in the Settings tab.",
+      "wrapForStyle": "Wrap the highlighted words in their own piece, so you can give just those words a different color or size in the Design tab."
+    },
+    "imagePicker": {
+      "urlInput": "Paste the web address of a picture that's already online, then press Add image to put it in the list below.",
+      "addButton": "Add the picture from the web address you typed to the list below. Then click it to use it.",
+      "upload": "Choose a picture from your computer or phone, or drop one here. It's saved inside your page and added to the list below.",
+      "asset": "Click to use this picture on your page. Double-click to use it and close this window.",
+      "removeAsset": "Take this picture off the list. Pictures already on your page stay there.",
+      "close": "Close this window. Any picture you already clicked stays on your page.",
+      "removeLabel": "Remove from list",
+      "closeLabel": "Close"
+    },
+    "blockTip": "{about} Tap to add it below the part you picked, or drag it onto the page.",
+    "blockTipGeneric": "Tap or drag: tap “{label}” to add it below the part you picked, or drag it to where you want it.",
+    "categoryGeneric": "A group of blocks. Click the name to show or hide them."
+  },
+  "blockCategories": {
+    "basic": {
+      "label": "Basic",
+      "help": "Simple building pieces. Click the name to show or hide them."
+    },
+    "layout": {
+      "label": "Layout",
+      "help": "Boxes and columns that hold other pieces, plus basics like text and pictures. Click the name to show or hide them."
+    },
+    "sections": {
+      "label": "Sections",
+      "help": "Whole ready-made parts of a page, like an intro, prices or a footer. Click the name to show or hide them."
+    },
+    "content": {
+      "label": "Content",
+      "help": "Headings, paragraphs, lists and notes. Click the name to show or hide them."
+    },
+    "media": {
+      "label": "Media",
+      "help": "Pictures, videos, sound and maps. Click the name to show or hide them."
+    },
+    "interactive": {
+      "label": "Interactive",
+      "help": "Buttons, cards, tabs, pop-ups and other pieces people click. Click the name to show or hide them."
+    },
+    "forms": {
+      "label": "Forms",
+      "help": "Boxes people fill in, like contact and sign-up forms. Click the name to show or hide them."
+    },
+    "commerce": {
+      "label": "Commerce",
+      "help": "Pieces for selling, like product cards and prices. Click the name to show or hide them."
+    },
+    "social": {
+      "label": "Social",
+      "help": "Links to your social media, share buttons, and content from other websites. Click the name to show or hide them."
+    },
+    "liveData": {
+      "label": "Live data",
+      "help": "Pieces that work with your app's information: forms that save, lists that fill themselves, sign-in areas. Click the name to show or hide them."
+    },
+    "premade": {
+      "label": "Premade",
+      "help": "Designed sections you can drop in and then change. Click the name to show or hide them."
+    },
+    "extra": {
+      "label": "Extra",
+      "help": "A group of blocks. Click the name to show or hide them."
+    }
+  },
+  "blockHelp": {
+    "nkSection": "A full-width band of the page with its own heading.",
+    "nkContainer": "A box that keeps what's inside at a comfortable width in the middle of the page.",
+    "nkGrid": "Boxes that sit side by side and wrap onto new rows by themselves on smaller screens.",
+    "nkSpacer": "Empty space, to push things apart.",
+    "nkDivider": "A thin line to separate parts of the page.",
+    "nkLead": "A slightly bigger paragraph, good for an introduction.",
+    "nkBadge": "A small colored label, like “New” or “Sale”.",
+    "nkIconChip": "An icon in a small colored circle.",
+    "nkAccordion": "Questions or headings that open when clicked to show more.",
+    "nkTabs": "Several panels of content, one shown at a time, switched with tabs.",
+    "nkCarousel": "Pictures or slides that take turns.",
+    "nkModal": "A button that opens a small window on top of the page.",
+    "nkIframe": "Shows content from another website inside your page, like a booking or payment widget.",
+    "nkFlowForm": "A form whose answers your app acts on, like saving them or emailing you. Pick what it does in Settings.",
+    "nkDataList": "A list that fills itself with your app's information, like products or bookings. Pick what it shows in Settings.",
+    "nkDataTable": "A table that fills itself with your app's information. Pick what it shows in Settings.",
+    "nkDataCards": "Cards that fill themselves with your app's information. Pick what they show in Settings.",
+    "nkAuthGate": "A box only signed-in people can see.",
+    "nkUserMenu": "An Account menu for signed-in people, with links like Profile and Settings.",
+    "nkSignout": "A button that signs the person out of your app.",
+    "nkApiCall": "A button that makes your app do something when pressed. Pick what in Settings.",
+    "nkMarqueeText": "Words that scroll across the screen."
+  },
+  "design": {
+    "sectors": {
+      "text": "Text",
+      "colors": "Background",
+      "spacing": "Spacing",
+      "size": "Size",
+      "corners": "Corners and border",
+      "advText": "More text options",
+      "advSize": "More size options",
+      "advEffects": "Shadow and effects",
+      "advLayout": "Placement",
+      "advFlex": "Line up items inside"
+    },
+    "properties": {
+      "fontSize": "Text size",
+      "fontWeight": "Boldness",
+      "color": "Text color",
+      "textAlign": "Line up",
+      "backgroundColor": "Background color",
+      "padding": "Space inside",
+      "margin": "Space outside",
+      "width": "Width",
+      "height": "Height",
+      "borderRadius": "Round corners",
+      "border": "Border",
+      "fontFamily": "Font",
+      "lineHeight": "Line spacing",
+      "letterSpacing": "Letter spacing",
+      "textShadow": "Text shadow",
+      "maxWidth": "Widest it can get",
+      "minHeight": "Shortest it can get",
+      "boxShadow": "Shadow",
+      "opacity": "See-through",
+      "background": "Background picture or fade",
+      "transition": "Smooth changes",
+      "transform": "Turn and resize"
+    }
+  },
+  "settings": {
+    "hoverNote": "Hover note",
+    "goesTo": "Goes to",
+    "openInANewTab": "Open in a new tab",
+    "pictureDescription": "Picture description",
+    "address": "Address",
+    "answerName": "Answer name",
+    "hintText": "Hint text",
+    "startingValue": "Starting value",
+    "mustBeFilledIn": "Must be filled in",
+    "kind": "Kind",
+    "tickedAtTheStart": "Ticked at the start",
+    "buttonWords": "Button words",
+    "whenPressed": "When pressed",
+    "whenSentRun": "When sent, run",
+    "whenPressedRun": "When pressed, run",
+    "belongsToField": "Belongs to field",
+    "showItemsFrom": "Show items from",
+    "nothing": "Nothing"
+  },
+  "toolbar": {
+    "selectParent": {
+      "title": "Select the part around this",
+      "help": "Pick the bigger box this piece sits in, like the whole section around a button."
+    },
+    "moveUp": {
+      "title": "Move up",
+      "help": "Move this piece one step up the page, above the piece before it. Undo puts it back."
+    },
+    "moveDown": {
+      "title": "Move down",
+      "help": "Move this piece one step down the page, below the piece after it. Undo puts it back."
+    },
+    "drag": {
+      "title": "Drag to move",
+      "help": "Hold here and drag to move this piece anywhere on the page. On a touch screen, use Move up and Move down."
+    },
+    "duplicate": {
+      "title": "Duplicate",
+      "help": "Make a copy of this piece, placed right after it."
+    },
+    "delete": {
+      "title": "Delete",
+      "help": "Remove this piece from the page. Changed your mind? Use Undo at the top."
+    }
+  },
+  "rte": {
+    "bold": "Bold",
+    "italic": "Italic",
+    "underline": "Underline",
+    "strikeThrough": "Strike-through",
+    "link": "Link",
+    "wrapForStyle": "Wrap for style"
+  },
+  "grapes": {
+    "properties": {
+      "display": "Display",
+      "float": "Float",
+      "position": "Position",
+      "top": "Top",
+      "right": "Right",
+      "left": "Left",
+      "bottom": "Bottom",
+      "flexDirection": "Flex direction",
+      "flexWrap": "Flex wrap",
+      "justifyContent": "Justify content",
+      "alignItems": "Align items",
+      "alignContent": "Align content",
+      "order": "Order",
+      "flexBasis": "Flex basis",
+      "flexGrow": "Flex grow",
+      "flexShrink": "Flex shrink",
+      "alignSelf": "Align self",
+      "textShadowH": "X",
+      "textShadowV": "Y",
+      "textShadowBlur": "Blur",
+      "textShadowColor": "Color",
+      "boxShadowH": "X",
+      "boxShadowV": "Y",
+      "boxShadowBlur": "Blur",
+      "boxShadowSpread": "Spread",
+      "boxShadowColor": "Color",
+      "boxShadowType": "Type",
+      "marginTopSub": "Top",
+      "marginRightSub": "Right",
+      "marginBottomSub": "Bottom",
+      "marginLeftSub": "Left",
+      "paddingTopSub": "Top",
+      "paddingRightSub": "Right",
+      "paddingBottomSub": "Bottom",
+      "paddingLeftSub": "Left",
+      "borderWidthSub": "Width",
+      "borderStyleSub": "Style",
+      "borderColorSub": "Color",
+      "borderTopLeftRadiusSub": "Top Left",
+      "borderTopRightRadiusSub": "Top Right",
+      "borderBottomRightRadiusSub": "Bottom Right",
+      "borderBottomLeftRadiusSub": "Bottom Left",
+      "transformRotateX": "Rotate X",
+      "transformRotateY": "Rotate Y",
+      "transformRotateZ": "Rotate Z",
+      "transformScaleX": "Scale X",
+      "transformScaleY": "Scale Y",
+      "transformScaleZ": "Scale Z",
+      "transitionPropertySub": "Property",
+      "transitionDurationSub": "Duration",
+      "transitionTimingFunctionSub": "Timing",
+      "backgroundImageSub": "Image",
+      "backgroundRepeatSub": "Repeat",
+      "backgroundPositionSub": "Position",
+      "backgroundAttachmentSub": "Attachment",
+      "backgroundSizeSub": "Size"
+    },
+    "names": {
+      "box": "Box",
+      "wrapper": "Body",
+      "text": "Text",
+      "comment": "Comment",
+      "image": "Image",
+      "video": "Video",
+      "label": "Label",
+      "link": "Link",
+      "map": "Map",
+      "tfoot": "Table foot",
+      "tbody": "Table body",
+      "thead": "Table head",
+      "table": "Table",
+      "row": "Table row",
+      "cell": "Table cell",
+      "form": "Form",
+      "input": "Input",
+      "textarea": "Textarea",
+      "select": "Select",
+      "checkbox": "Checkbox",
+      "radio": "Radio",
+      "button": "Button",
+      "iframe": "Iframe",
+      "svg": "Svg",
+      "navbar": "Navbar"
+    },
+    "assetManager": {
+      "addButton": "Add image",
+      "modalTitle": "Select Image",
+      "uploadTitle": "Drop files here or click to upload"
+    },
+    "selectorManager": {
+      "label": "Classes",
+      "selected": "Selected",
+      "emptyState": "- State -",
+      "hover": "Hover",
+      "active": "Click",
+      "evenOdd": "Even/Odd"
+    },
+    "styleManager": {
+      "empty": "Select an element before using Style Manager",
+      "layer": "Layer",
+      "fileButton": "Images"
+    },
+    "traitManager": {
+      "empty": "Select an element before using Trait Manager",
+      "label": "Component settings",
+      "thisWindow": "This window",
+      "newWindow": "New window"
+    }
+  },
+  "blocks": {
+    "nkSection": "Section",
+    "nkContainer": "Container",
+    "nkRow2": "2 Columns",
+    "nkRow3": "3 Columns",
+    "nkRow4": "4 Columns",
+    "nkGrid": "Auto Grid",
+    "nkSpacer": "Spacer",
+    "nkDivider": "Divider",
+    "nkHeroCentered": "Big intro · Centered",
+    "nkHeroSplit": "Big intro · With picture",
+    "nkHeroForm": "Big intro · Sign-up",
+    "nkCtaBand": "Action banner",
+    "nkFeatures3": "Features · 3 col",
+    "nkFeatures4": "Features · 2x2",
+    "nkPricing3": "Pricing · 3 tier",
+    "nkTestimonials": "Testimonials",
+    "nkTeam": "Team",
+    "nkFaq": "FAQ",
+    "nkStats": "Numbers strip",
+    "nkLogoCloud": "Logo row",
+    "nkNewsletter": "Newsletter",
+    "nkNavbar": "Menu bar",
+    "nkFooterSimple": "Footer · Simple",
+    "nkFooterMulti": "Footer · Multi-col",
+    "nkH1": "Heading 1",
+    "nkH2": "Heading 2",
+    "nkH3": "Heading 3",
+    "nkParagraph": "Paragraph",
+    "nkLead": "Lead text",
+    "nkListUl": "Bullet list",
+    "nkListOl": "Numbered list",
+    "nkQuote": "Quote",
+    "nkCode": "Code block",
+    "nkAlertInfo": "Alert · Info",
+    "nkAlertSuccess": "Alert · Success",
+    "nkAlertWarn": "Alert · Warning",
+    "nkAlertDanger": "Alert · Error",
+    "nkBadge": "Badge",
+    "nkImage": "Image",
+    "nkImageCaption": "Image w/ caption",
+    "nkGallery": "Gallery · 3 col",
+    "nkYoutube": "YouTube",
+    "nkVimeo": "Vimeo",
+    "nkVideoFile": "Video file",
+    "nkAudio": "Audio",
+    "nkIconChip": "Icon chip",
+    "nkMap": "Map",
+    "nkBtnPrimary": "Button · Primary",
+    "nkBtnOutline": "Button · Outline",
+    "nkBtnLg": "Button · Large",
+    "nkBtnGroup": "Button group",
+    "nkLink": "Link",
+    "nkCard": "Card",
+    "nkCardImage": "Card · with image",
+    "nkAccordion": "Accordion",
+    "nkTabs": "Tabs",
+    "nkCarousel": "Carousel",
+    "nkModal": "Pop-up",
+    "nkProgress": "Progress bar",
+    "nkFormContact": "Contact form",
+    "nkFormNewsletter": "Newsletter inline",
+    "nkFormLogin": "Login form",
+    "nkFormSignup": "Signup form",
+    "nkFormSearch": "Search bar",
+    "nkProduct": "Product card",
+    "nkProductGrid": "Product grid",
+    "nkPricingCard": "Pricing card",
+    "nkAddCart": "Add to cart",
+    "nkCartIcon": "Cart icon",
+    "nkSocialRow": "Social icons",
+    "nkShare": "Share buttons",
+    "nkIframe": "Embed (iframe)",
+    "nkFlowForm": "Form that runs a flow",
+    "nkDataList": "List of items",
+    "nkDataTable": "Table of items",
+    "nkDataCards": "Grid of items",
+    "nkAuthGate": "Members-only area",
+    "nkUserMenu": "User menu",
+    "nkSignout": "Sign out button",
+    "nkApiCall": "Button that runs a flow",
+    "nkPricing3col": "Pricing table",
+    "nkTeamGrid": "Team grid",
+    "nkProcessSteps": "Process steps",
+    "nkStatsCounters": "Stats counters",
+    "nkCta": "Call to action",
+    "nkFaqAccordion": "FAQ accordion",
+    "nkClientLogos": "Client logos",
+    "nkImageGallery": "Image gallery",
+    "nkFeatureCards": "Feature cards",
+    "nkTabsContent": "Tabs content",
+    "nkReviews": "Reviews",
+    "nkServicesGrid": "Services grid",
+    "nkContactForm": "Contact form",
+    "nkBannerCard": "Banner card",
+    "nkEventCard": "Event card",
+    "nkFancyHeading": "Fancy heading",
+    "nkMarqueeText": "Marquee text",
+    "nkListItems": "List items",
+    "nkLithoFooterDark": "Footer · Dark",
+    "nkLithoFooterCentered": "Footer · Centered",
+    "nkLithoFooterNewsletter": "Footer · Newsletter",
+    "nkLithoContactModern": "Contact · Modern",
+    "nkLithoContactSimple": "Contact · Simple",
+    "nkLithoInfoBanner": "Info banner",
+    "nkLithoAboutUs": "About us",
+    "nkLithoOurStory": "Our story",
+    "nkLithoServicesShowcase": "Services showcase",
+    "nkLithoIconBoxOverline": "Icon box · Overline",
+    "nkLithoLoginForm": "Login form",
+    "nkLithoNewsCards": "News cards",
+    "nkLithoMessageBox": "Message box",
+    "nkLithoVideoSection": "Video section",
+    "nkLithoPieCharts": "Pie charts",
+    "column1": "1 Column",
+    "column2": "2 Columns",
+    "column3": "3 Columns",
+    "column37": "2 Columns 3/7",
+    "text": "Text",
+    "link": "Link",
+    "image": "Image",
+    "video": "Video",
+    "map": "Map",
+    "form": "Form",
+    "input": "Input",
+    "textarea": "Textarea",
+    "select": "Select",
+    "button": "Button",
+    "label": "Label",
+    "checkbox": "Checkbox",
+    "radio": "Radio",
+    "navbar": "Navbar",
+    "linkBlock": "Link Block",
+    "quote": "Quote",
+    "textBasic": "Text section",
+    "nkIconPicker": "Icon"
+  },
+  "canvas": {
+    "status": {
+      "idle": "Autosave on",
+      "pending": "Unsaved changes",
+      "saving": "Saving…",
+      "saved": "Saved",
+      "error": "Not saved"
+    },
+    "statusHelp": "Your edits save by themselves a moment after you stop typing. Visitors see them only after you publish.",
+    "statusErrorHelp": "Your latest edits didn’t reach the server. They’re kept in this browser, and we keep trying. Check your internet connection.",
+    "retry": "Retry",
+    "retryHelp": "Try saving your latest edits again right now.",
+    "importTitle": "Import template",
+    "importLabel": "Paste HTML/CSS here and hit import.",
+    "element": "Element",
+    "leftTabs": {
+      "blocks": {
+        "label": "Blocks",
+        "help": "Ready-made pieces for your page: text, pictures, buttons, whole sections. Tap or drag: tap one to add it below the part you picked, or drag it onto the page."
+      },
+      "modules": {
+        "label": "Features",
+        "help": "Ready-made features, like bookings or a shop. Add one and it comes with its own pages, ready to use."
+      },
+      "assets": {
+        "label": "Assets",
+        "help": "Free photos for your page. Tap or drag: tap one to add it, or to swap the picture you picked, or drag it onto the page."
+      }
+    },
+    "searchBlocks": "Search blocks...",
+    "searchBlocksHelp": "Type here to find a block fast — try words like 'button' or 'photo'.",
+    "blocksHint": "Tap a block to add it below the part you picked, or drag it onto the page.",
+    "toggleLeft": "Toggle blocks panel",
+    "toggleLeftHelp": "Show or hide the left panel with blocks, features and photos, to give your page more room.",
+    "undo": "Undo",
+    "undoHelp": "Take back your last change on this page. Press it again to go further back.",
+    "redo": "Redo",
+    "redoHelp": "Bring back the change you just undid.",
+    "toggleRight": "Toggle properties panel",
+    "toggleRightHelp": "Show or hide the right panel with the Design, Layers, Settings and Theme tabs.",
+    "devices": {
+      "desktop": {
+        "label": "Desktop",
+        "help": "See how your page looks on a big computer screen."
+      },
+      "tablet": {
+        "label": "Tablet",
+        "help": "See how your page looks on a tablet, like an iPad."
+      },
+      "mobile": {
+        "label": "Mobile",
+        "help": "See how your page looks on a phone. Always check this — most visitors use phones!"
+      }
+    },
+    "preview": "Preview",
+    "previewLabel": "Preview this page",
+    "previewHelp": "Open this page in a new tab and try it for real — buttons, forms and all — just like your visitors will.",
+    "draftNewer": "We found edits that didn't save. Restore them?",
+    "draftOlder": "We found edits from {when} that didn't save. This page has changed since then. Restore them anyway?",
+    "restore": "Restore",
+    "restoreHelp": "Put back the edits this browser kept from last time. They replace what’s on the page now, and save as usual.",
+    "discard": "Discard",
+    "discardHelp": "Throw away those unsaved edits and keep the page as it is. They can’t be brought back.",
+    "rightTabs": {
+      "styles": {
+        "label": "Design",
+        "help": "Change how the selected piece looks: text, colors, spacing and size. Click something on the page first."
+      },
+      "layers": {
+        "label": "Layers",
+        "help": "Everything on your page in order, top to bottom. Handy for picking pieces that are hard to click."
+      },
+      "traits": {
+        "label": "Settings",
+        "help": "Settings for the selected piece, like where a link goes or what a form does when it's sent."
+      },
+      "theme": {
+        "label": "Theme",
+        "help": "Quick color and corner settings for your whole app, or a ready-made look. Visitors see changes after you publish."
+      }
+    },
+    "selectionHelp": "The piece you picked on your page. The Design and Settings tabs change this piece. Click something on the page to pick it.",
+    "selectSomething": "Select something on your page",
+    "stylesHelp": "How the piece you picked looks: text, colors, spacing and size. Change one and the page updates right away.",
+    "advanced": "Advanced",
+    "advancedHelp": "More detailed design options, like fonts, shadows and how pieces line up inside a box. You won't need these often.",
+    "sharedStyles": "Shared styles and hover",
+    "sharedStylesHelp": "Style names this piece shares with others, and styles for when the mouse is over it.",
+    "layersHelp": "Every piece of your page, in order. Click a row to select that piece; drag rows to move pieces around.",
+    "noSettings": "Nothing to set up here. Links, pictures, buttons, forms and lists have settings in this tab.",
+    "selectForSettings": "Select a link, picture, button, form or list on your page to see its settings.",
+    "traitsHelp": "Settings for the piece you picked, like where a link goes or what a form does when it's sent."
+  },
+  "languageTabs": {
+    "label": "Language",
+    "help": "Your app is in several languages. Pick one to edit this page in it; the AI's changes go to that language too.",
+    "tabHelp": "Edit this page in {language}.",
+    "missing": "This page isn't translated into {language} yet, so you see the {main} version. What you change here becomes the {language} page.",
+    "stale": "The {main} version of this page changed after it was translated. Update the translations from the app's Overview, or edit this one yourself.",
+    "edited": "You've edited this {language} page yourself. It isn't replaced when the {main} version changes.",
+    "shared": "Styles are shared by every language."
+  }
+}

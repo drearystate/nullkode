@@ -5,6 +5,7 @@ import { existsSync } from "fs";
 import { join } from "path";
 import { createHash } from "crypto";
 import { chromium, type Browser, type Page } from "playwright";
+import { enErrors, renderMsg, type ErrMsg } from "./errors-i18n";
 
 const USER_AGENT =
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36";
@@ -32,9 +33,14 @@ export async function cloneSite(
   targetUrl: string,
   projectSlug: string,
   maxPages = 30,
-  onProgress?: (message: string, pageCount?: number) => void
+  /** `words` is the same line as a message (errors.clone.*), for showing it in the person's language. */
+  onProgress?: (message: string, pageCount?: number, words?: ErrMsg) => void
 ): Promise<CloneResult> {
   const progress = onProgress ?? (() => {});
+  const say = (key: string, values: ErrMsg["values"], pageCount?: number) => {
+    const words: ErrMsg = { key: `clone.${key}`, values };
+    progress(renderMsg(words, enErrors()), pageCount, words);
+  };
   const baseUrl = await assertPublicUrl(targetUrl);
 
   // Per-clone asset folder
@@ -312,7 +318,7 @@ export async function cloneSite(
   }
 
   // Launch a single browser instance for the whole crawl
-  progress(" Launching headless browser...");
+  say("launching", {});
   const browser = await chromium.launch({ headless: true });
 
   // Crawl: BFS from the start URL, max maxPages
@@ -377,7 +383,7 @@ export async function cloneSite(
 
     visited.add(normalized);
 
-    progress(`⏳ Loading: ${new URL(pageUrl).pathname || "/"}`, pages.length);
+    say("loading", { path: new URL(pageUrl).pathname || "/" }, pages.length);
 
     // Hard timeout per page so the whole crawl can't hang
     const result = await Promise.race([
@@ -385,7 +391,7 @@ export async function cloneSite(
       new Promise<null>((resolve) => setTimeout(() => resolve(null), 45000)),
     ]);
     if (!result) {
-      progress(` Skipped (timeout or error): ${new URL(pageUrl).pathname}`, pages.length);
+      say("skipped", { path: new URL(pageUrl).pathname }, pages.length);
       continue;
     }
 
@@ -411,7 +417,7 @@ export async function cloneSite(
       isHome,
     });
 
-    progress(` Cloned: ${result.title}`, pages.length);
+    say("cloned", { title: result.title }, pages.length);
 
     // Enqueue new internal links
     for (const link of result.links) {
@@ -421,7 +427,7 @@ export async function cloneSite(
     }
   }
 
-  progress(` Rewriting internal links across ${pages.length} pages...`, pages.length);
+  say("rewriting", { count: pages.length }, pages.length);
 
   // Build a map from original URLs → local slugs so we can rewrite all <a href> tags
   const urlToSlug = new Map<string, string>();

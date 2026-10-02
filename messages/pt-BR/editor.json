@@ -1,0 +1,1153 @@
+{
+  "assets": {
+    "addHelp": "Toque para adicionar esta foto abaixo da parte escolhida ou arraste-a para a página.",
+    "addPhoto": "Adicionar esta foto",
+    "addPhotoNamed": "Adicionar esta foto: {alt}",
+    "aiOriginal": "Original de IA",
+    "categories": {
+      "agriculture": {
+        "help": "Fazendas e produtos frescos.",
+        "label": "Agricultura"
+      },
+      "all": {
+        "help": "Mostra uma seleção de fotos gratuitas que você pode usar na sua página.",
+        "label": "Todas"
+      },
+      "architecture": {
+        "help": "Mostra fotos gratuitas de edifícios.",
+        "label": "Arquitetura"
+      },
+      "automotive": {
+        "help": "Conserto de veículos e oficinas.",
+        "label": "Automóveis"
+      },
+      "beauty": {
+        "help": "Imagens de cuidados com a pele, spa e beleza.",
+        "label": "Beleza"
+      },
+      "business": {
+        "help": "Mostra fotos gratuitas de escritórios e pessoas trabalhando.",
+        "label": "Negócios"
+      },
+      "cleaning": {
+        "help": "Serviços profissionais de limpeza.",
+        "label": "Limpeza"
+      },
+      "community": {
+        "help": "Feiras comunitárias e produtos frescos.",
+        "label": "Comunidade"
+      },
+      "education": {
+        "help": "Salas de aula e aprendizagem colaborativa.",
+        "label": "Educação"
+      },
+      "events": {
+        "help": "Casamentos e serviços para eventos.",
+        "label": "Eventos"
+      },
+      "fitness": {
+        "help": "Mostra fotos gratuitas de academias e exercícios.",
+        "label": "Fitness"
+      },
+      "food": {
+        "help": "Mostra fotos gratuitas de comida e restaurantes.",
+        "label": "Comida"
+      },
+      "landscaping": {
+        "help": "Serviços de jardinagem e paisagismo.",
+        "label": "Jardins"
+      },
+      "legal": {
+        "help": "Bibliotecas jurídicas e arquitetura de tribunais.",
+        "label": "Jurídico"
+      },
+      "logistics": {
+        "help": "Armazéns, entregas e envios.",
+        "label": "Logística"
+      },
+      "medical": {
+        "help": "Veja fotos gratuitas de saúde e medicina.",
+        "label": "Saúde"
+      },
+      "nature": {
+        "help": "Mostra fotos gratuitas da natureza e de paisagens.",
+        "label": "Natureza"
+      },
+      "originals": {
+        "help": "Explore fotos originais geradas por IA e incluídas nesta instalação.",
+        "label": "Originais"
+      },
+      "people": {
+        "help": "Mostra fotos gratuitas de pessoas.",
+        "label": "Pessoas"
+      },
+      "pets": {
+        "help": "Cuidados e banho e tosa para pets.",
+        "label": "Pets"
+      },
+      "products": {
+        "help": "Cerâmicas e fotos de produtos.",
+        "label": "Produtos"
+      },
+      "tech": {
+        "help": "Mostra fotos gratuitas de computadores e tecnologia.",
+        "label": "Tecnologia"
+      },
+      "trades": {
+        "help": "Encanamento, serviços elétricos e construção.",
+        "label": "Serviços"
+      },
+      "travel": {
+        "help": "Veja fotos gratuitas de viagens e lugares para visitar.",
+        "label": "Viagens"
+      }
+    },
+    "describeHelp": "Escreva algumas palavras sobre o que aparece na imagem. Leitores de tela leem a descrição para pessoas que não conseguem vê-la, e os mecanismos de busca também a usam.",
+    "describeLabel": "Imagem alterada. Descreva-a para pessoas que não conseguem vê-la:",
+    "describePlaceholder": "Ex.: Pães frescos no balcão da nossa loja",
+    "failedToLoad": "Não foi possível carregar os arquivos",
+    "footerAdd": "Toque ou arraste para adicionar · Fotos gratuitas",
+    "footerSwap": "Toque em uma foto para substituir a imagem escolhida",
+    "noMatches": "Nenhuma imagem encontrada. Tente buscar algo mais amplo.",
+    "photoBy": "Foto de {name}",
+    "saveDescription": "Salvar descrição",
+    "saveDescriptionHelp": "Salve esta descrição na imagem.",
+    "searchHelp": "Digite o que você quer ver em uma foto, como “café” ou “cachorro”, para encontrar fotos gratuitas que você pode usar.",
+    "searchPlaceholder": "Buscar fotos...",
+    "skip": "Pular",
+    "skipHelp": "Manter a nova imagem sem alterar a descrição.",
+    "swapHelp": "Toque para substituir a imagem escolhida por esta foto. Ela manterá o mesmo tamanho e posição.",
+    "useInstead": "Usar esta foto",
+    "useInsteadNamed": "Usar esta foto: {alt}"
+  },
+  "blockCategories": {
+    "basic": {
+      "help": "Elementos simples para montar sua página. Clique no nome para mostrá-los ou ocultá-los.",
+      "label": "Básico"
+    },
+    "commerce": {
+      "help": "Elementos para vender, como cartões de produtos e preços. Clique no nome para mostrá-los ou ocultá-los.",
+      "label": "Comércio"
+    },
+    "content": {
+      "help": "Títulos, parágrafos, listas e notas. Clique no nome para mostrá-los ou ocultá-los.",
+      "label": "Conteúdo"
+    },
+    "extra": {
+      "help": "Um grupo de blocos. Clique no nome para mostrar ou ocultar.",
+      "label": "Extra"
+    },
+    "forms": {
+      "help": "Campos para preencher, como formulários de contato e cadastro. Clique no nome para mostrá-los ou ocultá-los.",
+      "label": "Formulários"
+    },
+    "interactive": {
+      "help": "Botões, cartões, abas, janelas pop-up e outros elementos em que as pessoas clicam. Clique no nome para mostrá-los ou ocultá-los.",
+      "label": "Interativos"
+    },
+    "layout": {
+      "help": "Caixas e colunas que contêm outros elementos, além de itens básicos como texto e imagens. Clique no nome para mostrá-los ou ocultá-los.",
+      "label": "Layout"
+    },
+    "liveData": {
+      "help": "Elementos que usam as informações do seu app: formulários que salvam respostas, listas que se preenchem sozinhas e áreas de login. Clique no nome para mostrá-los ou ocultá-los.",
+      "label": "Dados em tempo real"
+    },
+    "media": {
+      "help": "Imagens, vídeos, áudio e mapas. Clique no nome para mostrá-los ou ocultá-los.",
+      "label": "Mídia"
+    },
+    "premade": {
+      "help": "Seções prontas para adicionar e personalizar. Clique no nome para mostrar ou ocultar.",
+      "label": "Prontos"
+    },
+    "sections": {
+      "help": "Partes prontas de uma página, como uma introdução, preços ou rodapé. Clique no nome para mostrá-las ou ocultá-las.",
+      "label": "Seções"
+    },
+    "social": {
+      "help": "Links para suas redes sociais, botões de compartilhamento e conteúdo de outros sites. Clique no nome para mostrá-los ou ocultá-los.",
+      "label": "Redes sociais"
+    }
+  },
+  "blockHelp": {
+    "nkAccordion": "Perguntas ou títulos que abrem ao clicar para mostrar mais informações.",
+    "nkApiCall": "Um botão que faz seu app executar uma ação ao ser pressionado. Escolha o que ele faz em Configurações.",
+    "nkAuthGate": "Uma caixa visível apenas para quem está conectado.",
+    "nkBadge": "Um rótulo pequeno e colorido, como “Novo” ou “Oferta”.",
+    "nkCarousel": "Imagens ou slides que aparecem um após o outro.",
+    "nkContainer": "Uma caixa que mantém o conteúdo em uma largura confortável, no meio da página.",
+    "nkDataCards": "Cartões preenchidos automaticamente com informações do seu app. Escolha o que eles mostram em Configurações.",
+    "nkDataList": "Uma lista preenchida automaticamente com informações do seu app, como produtos ou reservas. Escolha o que ela mostra em Configurações.",
+    "nkDataTable": "Uma tabela preenchida automaticamente com informações do seu app. Escolha o que ela mostra em Configurações.",
+    "nkDivider": "Uma linha fina para separar partes da página.",
+    "nkFlowForm": "Um formulário com respostas que seu app pode usar, como para salvar informações ou enviar um e-mail. Escolha o que ele faz em Configurações.",
+    "nkGrid": "Caixas lado a lado que se organizam em novas linhas automaticamente em telas menores.",
+    "nkIconChip": "Um ícone em um pequeno círculo colorido.",
+    "nkIframe": "Mostra conteúdo de outro site dentro da sua página, como um widget de reservas ou pagamentos.",
+    "nkLead": "Um parágrafo um pouco maior, ideal para uma introdução.",
+    "nkMarqueeText": "Palavras que rolam pela tela.",
+    "nkModal": "Um botão que abre uma pequena janela sobre a página.",
+    "nkSection": "Uma faixa que ocupa toda a largura da página e tem seu próprio título.",
+    "nkSignout": "Um botão para desconectar a pessoa do seu app.",
+    "nkSpacer": "Espaço vazio para separar elementos.",
+    "nkTabs": "Vários painéis de conteúdo, exibidos um por vez e alternados pelas guias.",
+    "nkUserMenu": "Um menu da conta para quem está conectado, com links como Perfil e Configurações."
+  },
+  "blocks": {
+    "button": "Botão",
+    "checkbox": "Caixa de seleção",
+    "column1": "1 coluna",
+    "column2": "2 colunas",
+    "column3": "3 colunas",
+    "column37": "2 colunas 3/7",
+    "form": "Formulário",
+    "image": "Imagem",
+    "input": "Campo de entrada",
+    "label": "Rótulo",
+    "link": "Link",
+    "linkBlock": "Bloco de link",
+    "map": "Mapa",
+    "navbar": "Barra de navegação",
+    "nkAccordion": "Acordeão",
+    "nkAddCart": "Adicionar ao carrinho",
+    "nkAlertDanger": "Aviso · Erro",
+    "nkAlertInfo": "Aviso · Informação",
+    "nkAlertSuccess": "Aviso · Sucesso",
+    "nkAlertWarn": "Aviso · Atenção",
+    "nkApiCall": "Botão que executa um fluxo",
+    "nkAudio": "Áudio",
+    "nkAuthGate": "Área exclusiva para membros",
+    "nkBadge": "Etiqueta",
+    "nkBannerCard": "Cartão de banner",
+    "nkBtnGroup": "Grupo de botões",
+    "nkBtnLg": "Botão · Grande",
+    "nkBtnOutline": "Botão · Contorno",
+    "nkBtnPrimary": "Botão · Principal",
+    "nkCard": "Cartão",
+    "nkCardImage": "Cartão · com imagem",
+    "nkCarousel": "Carrossel",
+    "nkCartIcon": "Ícone do carrinho",
+    "nkClientLogos": "Logos de clientes",
+    "nkCode": "Bloco de código",
+    "nkContactForm": "Formulário de contato",
+    "nkContainer": "Contêiner",
+    "nkCta": "Chamada para ação",
+    "nkCtaBand": "Banner de ação",
+    "nkDataCards": "Grade de itens",
+    "nkDataList": "Lista de itens",
+    "nkDataTable": "Tabela de itens",
+    "nkDivider": "Divisor",
+    "nkEventCard": "Cartão de evento",
+    "nkFancyHeading": "Título estilizado",
+    "nkFaq": "Perguntas frequentes",
+    "nkFaqAccordion": "Acordeão de perguntas frequentes",
+    "nkFeatureCards": "Cartões de recursos",
+    "nkFeatures3": "Recursos · 3 colunas",
+    "nkFeatures4": "Recursos · 2x2",
+    "nkFlowForm": "Formulário que executa um fluxo",
+    "nkFooterMulti": "Rodapé · Várias colunas",
+    "nkFooterSimple": "Rodapé · Simples",
+    "nkFormContact": "Formulário de contato",
+    "nkFormLogin": "Formulário de login",
+    "nkFormNewsletter": "Newsletter em linha",
+    "nkFormSearch": "Barra de pesquisa",
+    "nkFormSignup": "Formulário de cadastro",
+    "nkGallery": "Galeria · 3 colunas",
+    "nkGrid": "Grade automática",
+    "nkH1": "Título 1",
+    "nkH2": "Título 2",
+    "nkH3": "Título 3",
+    "nkHeroCentered": "Destaque · Centralizado",
+    "nkHeroForm": "Destaque · Cadastro",
+    "nkHeroSplit": "Destaque · Com imagem",
+    "nkIconChip": "Ícone",
+    "nkIconPicker": "Ícone",
+    "nkIframe": "Incorporar (iframe)",
+    "nkImage": "Imagem",
+    "nkImageCaption": "Imagem com legenda",
+    "nkImageGallery": "Galeria de imagens",
+    "nkLead": "Texto de destaque",
+    "nkLink": "Link",
+    "nkListItems": "Lista de itens",
+    "nkListOl": "Lista numerada",
+    "nkListUl": "Lista com marcadores",
+    "nkLithoAboutUs": "Sobre nós",
+    "nkLithoContactModern": "Contato · Moderno",
+    "nkLithoContactSimple": "Contato · Simples",
+    "nkLithoFooterCentered": "Rodapé · Centralizado",
+    "nkLithoFooterDark": "Rodapé · Escuro",
+    "nkLithoFooterNewsletter": "Rodapé · Newsletter",
+    "nkLithoIconBoxOverline": "Caixa de ícone · Linha superior",
+    "nkLithoInfoBanner": "Banner informativo",
+    "nkLithoLoginForm": "Formulário de login",
+    "nkLithoMessageBox": "Caixa de mensagem",
+    "nkLithoNewsCards": "Cartões de notícias",
+    "nkLithoOurStory": "Nossa história",
+    "nkLithoPieCharts": "Gráficos de pizza",
+    "nkLithoServicesShowcase": "Destaque de serviços",
+    "nkLithoVideoSection": "Seção de vídeo",
+    "nkLogoCloud": "Faixa de logos",
+    "nkMap": "Mapa",
+    "nkMarqueeText": "Texto em movimento",
+    "nkModal": "Janela pop-up",
+    "nkNavbar": "Barra de menu",
+    "nkNewsletter": "Newsletter",
+    "nkParagraph": "Parágrafo",
+    "nkPricing3": "Preços · 3 planos",
+    "nkPricing3col": "Tabela de preços",
+    "nkPricingCard": "Cartão de preços",
+    "nkProcessSteps": "Etapas do processo",
+    "nkProduct": "Cartão de produto",
+    "nkProductGrid": "Grade de produtos",
+    "nkProgress": "Barra de progresso",
+    "nkQuote": "Citação",
+    "nkReviews": "Avaliações",
+    "nkRow2": "2 colunas",
+    "nkRow3": "3 colunas",
+    "nkRow4": "4 colunas",
+    "nkSection": "Seção",
+    "nkServicesGrid": "Grade de serviços",
+    "nkShare": "Botões de compartilhamento",
+    "nkSignout": "Botão para sair",
+    "nkSocialRow": "Ícones de redes sociais",
+    "nkSpacer": "Espaçador",
+    "nkStats": "Faixa de números",
+    "nkStatsCounters": "Contadores de estatísticas",
+    "nkTabs": "Abas",
+    "nkTabsContent": "Conteúdo das abas",
+    "nkTeam": "Equipe",
+    "nkTeamGrid": "Grade da equipe",
+    "nkTestimonials": "Depoimentos",
+    "nkUserMenu": "Menu do usuário",
+    "nkVideoFile": "Arquivo de vídeo",
+    "nkVimeo": "Vimeo",
+    "nkYoutube": "YouTube",
+    "quote": "Citação",
+    "radio": "Botão de opção",
+    "select": "Seletor",
+    "text": "Texto",
+    "textBasic": "Seção de texto",
+    "textarea": "Área de texto",
+    "video": "Vídeo"
+  },
+  "canvas": {
+    "advanced": "Avançado",
+    "advancedHelp": "Opções de design mais detalhadas, como fontes, sombras e alinhamento dos itens dentro de uma caixa. Você não vai precisar delas com frequência.",
+    "blocksHint": "Clique em um bloco para adicioná-lo abaixo da parte selecionada ou arraste-o para a página.",
+    "devices": {
+      "desktop": {
+        "help": "Veja como sua página fica em uma tela grande de computador.",
+        "label": "Computador"
+      },
+      "mobile": {
+        "help": "Veja como sua página fica em um celular. Confira sempre — a maioria dos visitantes usa o celular!",
+        "label": "Celular"
+      },
+      "tablet": {
+        "help": "Veja como sua página fica em um tablet, como um iPad.",
+        "label": "Tablet"
+      }
+    },
+    "discard": "Descartar",
+    "discardHelp": "Descarte essas alterações não salvas e mantenha a página como está. Não será possível recuperá-las.",
+    "draftNewer": "Encontramos alterações que não foram salvas. Quer restaurá-las?",
+    "draftOlder": "Encontramos alterações de {when} que não foram salvas. Esta página mudou desde então. Quer restaurá-las mesmo assim?",
+    "element": "Elemento",
+    "importLabel": "Cole o HTML/CSS aqui e clique em Importar.",
+    "importTitle": "Importar modelo",
+    "layersHelp": "Todos os itens da sua página, em ordem. Clique em uma linha para selecionar o item ou arraste as linhas para mover os itens.",
+    "leftTabs": {
+      "assets": {
+        "help": "Fotos grátis para sua página. Clique ou arraste: clique em uma para adicioná-la ou trocar a imagem selecionada, ou arraste-a para a página.",
+        "label": "Imagens"
+      },
+      "blocks": {
+        "help": "Elementos prontos para sua página: textos, imagens, botões e seções inteiras. Clique ou arraste: clique em um para adicioná-lo abaixo da parte selecionada ou arraste-o para a página.",
+        "label": "Blocos"
+      },
+      "modules": {
+        "help": "Recursos prontos, como reservas ou uma loja. Adicione um e ele virá com páginas próprias, prontas para usar.",
+        "label": "Recursos"
+      }
+    },
+    "noSettings": "Não há nada para configurar aqui. Links, imagens, botões, formulários e listas têm configurações nesta aba.",
+    "preview": "Visualizar",
+    "previewHelp": "Abra esta página em uma nova aba e teste tudo de verdade — botões, formulários e muito mais — como seus visitantes farão.",
+    "previewLabel": "Visualizar esta página",
+    "redo": "Refazer",
+    "redoHelp": "Restaure a alteração que você acabou de desfazer.",
+    "restore": "Restaurar",
+    "restoreHelp": "Recupere as alterações que este navegador guardou da última vez. Elas substituem o conteúdo atual da página e são salvas normalmente.",
+    "retry": "Tentar novamente",
+    "retryHelp": "Tente salvar suas alterações mais recentes agora.",
+    "rightTabs": {
+      "layers": {
+        "help": "Tudo o que está na sua página, de cima para baixo. Ideal para selecionar itens difíceis de clicar.",
+        "label": "Camadas"
+      },
+      "styles": {
+        "help": "Mude a aparência do item selecionado: texto, cores, espaçamento e tamanho. Primeiro, clique em algo na página.",
+        "label": "Design"
+      },
+      "theme": {
+        "help": "Ajuste rapidamente as cores e os cantos do app inteiro ou escolha um visual pronto. As alterações aparecem para os visitantes quando você publicar.",
+        "label": "Tema"
+      },
+      "traits": {
+        "help": "Configurações do item selecionado, como o destino de um link ou o que acontece quando um formulário é enviado.",
+        "label": "Configurações"
+      }
+    },
+    "searchBlocks": "Buscar blocos...",
+    "searchBlocksHelp": "Digite aqui para encontrar um bloco rapidinho — tente palavras como “botão” ou “foto”.",
+    "selectForSettings": "Selecione um link, uma imagem, um botão, um formulário ou uma lista na página para ver as configurações.",
+    "selectSomething": "Selecione algo na página",
+    "selectionHelp": "O item que você selecionou na página. As abas Design e Configurações alteram esse item. Clique em algo na página para selecioná-lo.",
+    "sharedStyles": "Estilos compartilhados e ao passar o mouse",
+    "sharedStylesHelp": "Nomes dos estilos compartilhados com outros itens e estilos que aparecem quando o mouse está sobre o item.",
+    "status": {
+      "error": "Não foi salvo",
+      "idle": "Salvamento automático ativado",
+      "pending": "Alterações não salvas",
+      "saved": "Salvo",
+      "saving": "Salvando…"
+    },
+    "statusErrorHelp": "Suas alterações mais recentes não chegaram ao servidor. Elas estão salvas neste navegador, e vamos continuar tentando. Confira sua conexão com a internet.",
+    "statusHelp": "Suas alterações são salvas automaticamente logo depois que você para de digitar. Os visitantes só conseguem vê-las depois que você publicar.",
+    "stylesHelp": "A aparência do item selecionado: texto, cores, espaçamento e tamanho. A página é atualizada na hora quando você faz uma alteração.",
+    "toggleLeft": "Mostrar ou ocultar painel de blocos",
+    "toggleLeftHelp": "Mostre ou oculte o painel à esquerda com blocos, recursos e fotos para liberar mais espaço para sua página.",
+    "toggleRight": "Mostrar ou ocultar painel de propriedades",
+    "toggleRightHelp": "Mostre ou oculte o painel à direita com as abas Design, Camadas, Configurações e Tema.",
+    "traitsHelp": "Configurações do item selecionado, como o destino de um link ou o que acontece quando um formulário é enviado.",
+    "undo": "Desfazer",
+    "undoHelp": "Desfaça sua última alteração nesta página. Clique novamente para voltar ainda mais."
+  },
+  "design": {
+    "properties": {
+      "background": "Imagem ou gradiente de fundo",
+      "backgroundColor": "Cor de fundo",
+      "border": "Borda",
+      "borderRadius": "Cantos arredondados",
+      "boxShadow": "Sombra",
+      "color": "Cor do texto",
+      "fontFamily": "Fonte",
+      "fontSize": "Tamanho do texto",
+      "fontWeight": "Negrito",
+      "height": "Altura",
+      "letterSpacing": "Espaçamento entre letras",
+      "lineHeight": "Espaçamento entre linhas",
+      "margin": "Espaço externo",
+      "maxWidth": "Largura máxima",
+      "minHeight": "Altura mínima",
+      "opacity": "Transparência",
+      "padding": "Espaço interno",
+      "textAlign": "Alinhamento",
+      "textShadow": "Sombra do texto",
+      "transform": "Rotação e tamanho",
+      "transition": "Transições suaves",
+      "width": "Largura"
+    },
+    "sectors": {
+      "advEffects": "Sombra e efeitos",
+      "advFlex": "Alinhamento dos itens internos",
+      "advLayout": "Posicionamento",
+      "advSize": "Mais opções de tamanho",
+      "advText": "Mais opções de texto",
+      "colors": "Fundo",
+      "corners": "Cantos e borda",
+      "size": "Tamanho",
+      "spacing": "Espaçamento",
+      "text": "Texto"
+    }
+  },
+  "grapes": {
+    "assetManager": {
+      "addButton": "Adicionar imagem",
+      "modalTitle": "Selecionar imagem",
+      "uploadTitle": "Solte os arquivos aqui ou clique para enviar"
+    },
+    "names": {
+      "box": "Caixa",
+      "button": "Botão",
+      "cell": "Célula da tabela",
+      "checkbox": "Caixa de seleção",
+      "comment": "Comentário",
+      "form": "Formulário",
+      "iframe": "Quadro incorporado",
+      "image": "Imagem",
+      "input": "Campo",
+      "label": "Rótulo",
+      "link": "Link",
+      "map": "Mapa",
+      "navbar": "Barra de navegação",
+      "radio": "Botão de opção",
+      "row": "Linha da tabela",
+      "select": "Lista suspensa",
+      "svg": "SVG",
+      "table": "Tabela",
+      "tbody": "Corpo da tabela",
+      "text": "Texto",
+      "textarea": "Área de texto",
+      "tfoot": "Rodapé da tabela",
+      "thead": "Cabeçalho da tabela",
+      "video": "Vídeo",
+      "wrapper": "Corpo"
+    },
+    "properties": {
+      "alignContent": "Alinhar conteúdo",
+      "alignItems": "Alinhar itens",
+      "alignSelf": "Alinhamento próprio",
+      "backgroundAttachmentSub": "Fixação",
+      "backgroundImageSub": "Imagem",
+      "backgroundPositionSub": "Posição",
+      "backgroundRepeatSub": "Repetição",
+      "backgroundSizeSub": "Tamanho",
+      "borderBottomLeftRadiusSub": "Inferior esquerdo",
+      "borderBottomRightRadiusSub": "Inferior direito",
+      "borderColorSub": "Cor",
+      "borderStyleSub": "Estilo",
+      "borderTopLeftRadiusSub": "Superior esquerdo",
+      "borderTopRightRadiusSub": "Superior direito",
+      "borderWidthSub": "Largura",
+      "bottom": "Inferior",
+      "boxShadowBlur": "Desfoque",
+      "boxShadowColor": "Cor",
+      "boxShadowH": "X",
+      "boxShadowSpread": "Expansão",
+      "boxShadowType": "Tipo",
+      "boxShadowV": "Y",
+      "display": "Exibição",
+      "flexBasis": "Base do flex",
+      "flexDirection": "Direção do flex",
+      "flexGrow": "Crescimento do flex",
+      "flexShrink": "Redução do flex",
+      "flexWrap": "Quebra do flex",
+      "float": "Flutuação",
+      "justifyContent": "Alinhar conteúdo",
+      "left": "Esquerda",
+      "marginBottomSub": "Inferior",
+      "marginLeftSub": "Esquerda",
+      "marginRightSub": "Direita",
+      "marginTopSub": "Superior",
+      "order": "Ordem",
+      "paddingBottomSub": "Inferior",
+      "paddingLeftSub": "Esquerda",
+      "paddingRightSub": "Direita",
+      "paddingTopSub": "Superior",
+      "position": "Posição",
+      "right": "Direita",
+      "textShadowBlur": "Desfoque",
+      "textShadowColor": "Cor",
+      "textShadowH": "X",
+      "textShadowV": "Y",
+      "top": "Superior",
+      "transformRotateX": "Rotação X",
+      "transformRotateY": "Rotação Y",
+      "transformRotateZ": "Rotação Z",
+      "transformScaleX": "Escala X",
+      "transformScaleY": "Escala Y",
+      "transformScaleZ": "Escala Z",
+      "transitionDurationSub": "Duração",
+      "transitionPropertySub": "Propriedade",
+      "transitionTimingFunctionSub": "Temporização"
+    },
+    "selectorManager": {
+      "active": "Clique",
+      "emptyState": "- Estado -",
+      "evenOdd": "Par/ímpar",
+      "hover": "Ao passar o mouse",
+      "label": "Classes",
+      "selected": "Selecionado"
+    },
+    "styleManager": {
+      "empty": "Selecione um elemento para usar o gerenciador de estilos",
+      "fileButton": "Imagens",
+      "layer": "Camada"
+    },
+    "traitManager": {
+      "empty": "Selecione um elemento para usar o gerenciador de propriedades",
+      "label": "Configurações do componente",
+      "newWindow": "Nova janela",
+      "thisWindow": "Esta janela"
+    }
+  },
+  "iconPicker": {
+    "addHelp": "Adicione este ícone à sua página.",
+    "changeIcon": "Trocar ícone",
+    "closeHelp": "Feche sem escolher um ícone.",
+    "noResults": "Nenhum resultado",
+    "pickIcon": "Escolher um ícone",
+    "replaceHelp": "Use este ícone no lugar do que você escolheu.",
+    "searchHelp": "Digite o que o ícone deve mostrar, como “telefone”, “estrela” ou “carrinho”.",
+    "searchPlaceholder": "Buscar ícones...",
+    "useIcon": "Usar o ícone {name}"
+  },
+  "iconSets": {
+    "all": {
+      "help": "Busque ícones de todos os estilos de uma só vez.",
+      "label": "Todos"
+    },
+    "fa6Brands": {
+      "help": "Mostre apenas logos de empresas conhecidas da coleção Font Awesome.",
+      "label": "Marcas FA"
+    },
+    "fa6Solid": {
+      "help": "Mostre apenas ícones preenchidos da coleção Font Awesome.",
+      "label": "FA sólido"
+    },
+    "heroicons": {
+      "help": "Mostrar apenas ícones no estilo Heroicons: contornos elegantes.",
+      "label": "Heroicons"
+    },
+    "lucide": {
+      "help": "Mostrar apenas ícones no estilo Lucide: contornos simples e finos.",
+      "label": "Lucide"
+    },
+    "mdi": {
+      "help": "Mostre apenas ícones no estilo Material, usado em muitos apps Android.",
+      "label": "Material"
+    },
+    "ph": {
+      "help": "Mostre apenas ícones no estilo Phosphor: contornos arredondados e amigáveis.",
+      "label": "Phosphor"
+    },
+    "simpleIcons": {
+      "help": "Mostre apenas logos de empresas, apps e redes sociais conhecidos.",
+      "label": "Marcas"
+    },
+    "tabler": {
+      "help": "Mostrar apenas ícones no estilo Tabler: contornos simples e muitas opções.",
+      "label": "Tabler"
+    }
+  },
+  "iconsPanel": {
+    "addHelp": "Adicione este ícone na parte escolhida ou no fim da página, se nenhuma parte estiver selecionada.",
+    "addIcon": "Adicionar o ícone {name}",
+    "clickToInsert": "Clique para inserir",
+    "failedToLoad": "Não foi possível carregar os ícones",
+    "noResults": "Nenhum resultado",
+    "searchHelp": "Digite o que o ícone deve mostrar, como “telefone”, “estrela” ou “carrinho”.",
+    "searchPlaceholder": "Buscar ícones..."
+  },
+  "languageTabs": {
+    "edited": "Você editou esta página em {language}. Ela não será substituída quando a versão em {main} mudar.",
+    "help": "Seu app está disponível em vários idiomas. Escolha um para editar esta página nesse idioma; as alterações da IA também serão feitas nele.",
+    "label": "Idioma",
+    "missing": "Esta página ainda não foi traduzida para {language}, então você está vendo a versão em {main}. O que você alterar aqui será a página em {language}.",
+    "shared": "Os estilos são compartilhados entre todos os idiomas.",
+    "stale": "A versão em {main} desta página mudou depois da tradução. Atualize as traduções na Visão geral do app ou edite esta página você mesmo.",
+    "tabHelp": "Edite esta página em {language}."
+  },
+  "modules": {
+    "addHelp": "Toque para ver o que este recurso adiciona ao seu app. Nada muda até você confirmar. Sua página será salva primeiro.",
+    "added": "Adicionado",
+    "addedHelp": "Já está no seu app. Toque para ver o que ele adiciona ou adicione novamente.",
+    "categories": {
+      "all": {
+        "help": "Mostre todos os recursos que você pode adicionar.",
+        "label": "Tudo"
+      },
+      "commerce": {
+        "help": "Recursos para vender e receber pagamentos, como loja, agendamentos, cupons ou doações.",
+        "label": "Loja"
+      },
+      "communication": {
+        "help": "Recursos para manter contato com visitantes, como formulário de contato, newsletter ou mensagens de texto.",
+        "label": "Comunicação"
+      },
+      "community": {
+        "help": "Recursos que aproximam as pessoas, como eventos, avaliações, chat e fóruns.",
+        "label": "Comunidade"
+      },
+      "content": {
+        "help": "Recursos para compartilhar textos e novidades, como blog, perguntas frequentes, portfólio ou curso.",
+        "label": "Conteúdo"
+      },
+      "media": {
+        "help": "Recursos para fotos, vídeos, músicas e outras mídias.",
+        "label": "Mídia"
+      },
+      "productivity": {
+        "help": "Recursos para organizar tarefas, como listas de afazeres, notas, compromissos e pesquisas.",
+        "label": "Produtividade"
+      },
+      "utility": {
+        "help": "Recursos úteis, como login, mapas, envio de arquivos e previsão do tempo.",
+        "label": "Ferramentas"
+      }
+    },
+    "categoryHelp": "Mostre apenas os recursos deste grupo.",
+    "empty": "Ainda não há recursos aqui",
+    "footer": "Toque em um recurso para ver o que ele adiciona ao seu app",
+    "loading": "Carregando recursos…",
+    "nameAdded": "{name} (adicionado)",
+    "notSaved": "Suas edições mais recentes ainda não foram salvas, então não adicionamos nada. Verifique sua conexão e tente novamente.",
+    "savingPage": "Salvando sua página…",
+    "searchHelp": "Digite o que você quer que seu app faça, como “agendamentos” ou “newsletter”, para encontrar um recurso pronto.",
+    "searchLabel": "Buscar recursos",
+    "searchPlaceholder": "Buscar recursos…"
+  },
+  "pageSettings": {
+    "audience": "Quem pode ver esta página",
+    "audienceHelp": "Escolha quem pode abrir esta página no app publicado: qualquer pessoa, apenas quem tiver feito login ou apenas administradores.",
+    "audiences": {
+      "admin": {
+        "hint": "Só você e as pessoas que você tornar admins.",
+        "label": "Apenas admins"
+      },
+      "public": {
+        "hint": "Qualquer pessoa com o link pode abrir.",
+        "label": "Todas as pessoas"
+      },
+      "role": {
+        "hint": "Definido pela própria página. Escolha outra opção para mudar.",
+        "label": "Pessoas com o cargo “{role}”"
+      },
+      "signedIn": {
+        "hint": "Os visitantes precisam entrar primeiro. Qualquer pessoa pode criar uma conta.",
+        "label": "Pessoas conectadas"
+      }
+    },
+    "buttonNote": "Ela aparece como um botão no fim do menu.",
+    "close": "Fechar configurações da página",
+    "designerNote": "As páginas deste app vêm do Designer de IA. Altere-as por lá.",
+    "duplicate": "Duplicar",
+    "duplicateHelp": "Crie uma cópia desta página com o nome “(cópia)” e abra-a para editar. As alterações feitas aqui, mas não salvas, não serão copiadas.",
+    "goesAtEnd": "Ela fica no fim do menu. Você poderá movê-la depois de salvar.",
+    "homeFirst": "A página inicial sempre aparece primeiro.",
+    "loadFailed": "Não foi possível carregar as configurações desta página.",
+    "loadFailedRetry": "Não foi possível carregar as configurações desta página. Tente novamente.",
+    "menu": "Menu",
+    "menuHelp": "Escolha se esta página terá um link no menu do app e onde ele ficará.",
+    "moveDown": "Mover para baixo",
+    "moveDownHelp": "Mova esta página uma posição para baixo no menu. A mudança acontece quando você clica em Salvar.",
+    "moveUp": "Mover para cima",
+    "moveUpHelp": "Mova esta página uma posição para cima no menu. A mudança acontece quando você clica em Salvar.",
+    "name": "Nome",
+    "nameHint": "Exibido no menu e na aba do navegador.",
+    "neverInMenu": "Esta página nunca aparece no menu.",
+    "noLogin": "Seu app ainda não tem uma página de login, então só você pode abrir esta página. <link>Adicione “Login e contas” em Recursos.</link>",
+    "placeInManage": "Posição no menu “Gerenciar” dos administradores: <b>{position}</b> de {count}",
+    "placeInMenu": "Posição no menu: <b>{position}</b> de {count}",
+    "privatePublic": "Esta página mostra dados privados. Torná-la pública vai expor esses dados.",
+    "privateSignedIn": "Esta página mostra dados privados. Qualquer pessoa que se cadastrar poderá vê-los.",
+    "saveFirst": "Salve primeiro e depois escolha a posição no menu.",
+    "saveHelp": "Salve estas configurações. O menu do app será atualizado em todas as páginas.",
+    "showInMenu": "Exibir no menu",
+    "showInMenuHelp": "Marque para incluir um link para esta página no menu do app. Desmarque para ocultá-la; quem tiver o link ainda poderá abrir a página.",
+    "title": "Configurações da página"
+  },
+  "panelHelp": {
+    "blockTip": "{about} Toque para adicionar abaixo do elemento escolhido ou arraste até a página.",
+    "blockTipGeneric": "Toque ou arraste: toque em “{label}” para adicionar abaixo do elemento escolhido ou arraste até onde quiser.",
+    "categoryGeneric": "Um grupo de blocos. Clique no nome para mostrá-los ou ocultá-los.",
+    "imagePicker": {
+      "addButton": "Adicione à lista abaixo a imagem do endereço que você digitou. Depois, clique nela para usá-la.",
+      "asset": "Clique para usar esta imagem na sua página. Dê um duplo clique para usá-la e fechar esta janela.",
+      "close": "Feche esta janela. As imagens em que você já clicou continuam na sua página.",
+      "closeLabel": "Fechar",
+      "removeAsset": "Remova esta imagem da lista. As imagens que já estão na sua página continuam lá.",
+      "removeLabel": "Remover da lista",
+      "upload": "Escolha uma imagem do computador ou celular, ou solte uma aqui. Ela será salva na sua página e adicionada à lista abaixo.",
+      "urlInput": "Cole o endereço de uma imagem que já esteja na internet e pressione Adicionar imagem para colocá-la na lista abaixo."
+    },
+    "layers": {
+      "layerRow": "Um elemento da sua página. Clique para selecioná-lo; a seta mostra o que está dentro dele.",
+      "move": "Clique aqui e arraste para mover este elemento para outro lugar da página.",
+      "visibility": "Clique no olho para ocultar este elemento enquanto trabalha — ele continua lá, só fica escondido. Clique novamente para mostrá-lo."
+    },
+    "rte": {
+      "bold": "Deixe o texto selecionado em negrito. Clique novamente para desfazer.",
+      "italic": "Deixe o texto selecionado em itálico. Clique novamente para desfazer.",
+      "link": "Transforme o texto selecionado em um link ou remova o link. Depois, escolha para onde ele leva na aba Configurações.",
+      "strikeThrough": "Risque o texto selecionado. Clique novamente para remover o risco.",
+      "underline": "Sublinhe o texto selecionado. Clique novamente para remover o sublinhado.",
+      "wrapForStyle": "Coloque o texto selecionado em um elemento próprio para mudar apenas a cor ou o tamanho dele na aba Design."
+    },
+    "sectors": {
+      "advEffects": "Sombras, transparência, imagens de fundo e animações suaves.",
+      "advFlex": "Como os elementos dentro desta caixa se alinham em linhas ou colunas.",
+      "advLayout": "Onde este elemento fica e como ele é fixado no lugar. A maioria das páginas não precisa dessas opções.",
+      "advSize": "Limites de largura e altura deste elemento em diferentes telas.",
+      "advText": "Fontes, espaçamento entre linhas e letras e sombras no texto.",
+      "background": "O que preenche o fundo deste elemento: uma cor, um gradiente ou uma imagem.",
+      "colors": "A cor de fundo deste elemento.",
+      "corners": "Arredonde os cantos ou adicione uma linha ao redor da borda.",
+      "decorations": "Os detalhes visuais: cores e imagens de fundo, bordas, cantos arredondados e sombras.",
+      "dimension": "Tamanho e espaçamento: o tamanho deste elemento e o espaço vazio ao redor e dentro dele.",
+      "extra": "Extras, como animações suaves e inclinações.",
+      "flex": "Ferramentas para alinhar os elementos dentro desta caixa em linhas ou colunas organizadas.",
+      "general": "O básico: como este elemento fica na página e onde está ancorado.",
+      "layout": "Como este elemento é posicionado na página e como os outros elementos se alinham ao redor dele.",
+      "size": "A largura e a altura deste elemento.",
+      "spacing": "O espaço dentro deste elemento (entre a borda e o conteúdo) e fora dele (entre ele e os elementos ao redor).",
+      "text": "A aparência das palavras: tamanho, negrito, cor e alinhamento.",
+      "typography": "Tudo sobre o texto: fonte, tamanho, cor e alinhamento das palavras."
+    },
+    "selectors": {
+      "addClass": "Dê a este elemento um nome de estilo compartilhado. Todos os elementos com o mesmo nome terão a mesma aparência; mudar um altera todos.",
+      "selectedInfo": "Exatamente o que você está estilizando agora, para não ter surpresas com as alterações.",
+      "states": "Defina o estilo para uma situação específica. Escolha 'hover' para mostrar as mudanças só quando o mouse estiver sobre o elemento; 'click', enquanto ele estiver pressionado. Escolha '- State -' para voltar ao estilo normal.",
+      "tag": "Um nome de estilo compartilhado usado por este elemento. As alterações se aplicam a todos os elementos com esse nome. Clique no x para removê-lo deste elemento."
+    },
+    "styles": {
+      "alignContent": "Quando os elementos passam para linhas extras, distribui essas linhas: juntas, centralizadas ou espaçadas.",
+      "alignItems": "Como os elementos se alinham AO LONGO da linha: em cima, no meio, embaixo ou esticados para ficarem do mesmo tamanho.",
+      "alignSelf": "Permite que ESTE elemento se alinhe de um jeito diferente dos outros — em cima, no meio, embaixo ou esticado.",
+      "background": "O que preenche o fundo deste elemento — uma cor, um degradê ou uma imagem. Você pode até combinar mais de um.",
+      "backgroundAttachment": "'Rolagem' move o fundo junto com a página. 'Fixo' mantém o fundo no lugar enquanto a página passa por cima — um efeito de profundidade interessante.",
+      "backgroundColor": "A cor de preenchimento atrás do conteúdo deste elemento.",
+      "backgroundImage": "Uma imagem (ou um degradê) usada como fundo deste elemento.",
+      "backgroundPosition": "Qual parte da imagem de fundo aparece — mova-a para a esquerda ou direita, para cima ou para baixo.",
+      "backgroundRepeat": "Define se a imagem de fundo se repete como um padrão ou aparece uma só vez.",
+      "backgroundSize": "Como a imagem preenche o espaço: 'cover' preenche tudo (pode cortar as bordas); 'contain' mostra a imagem inteira (pode deixar espaços vazios).",
+      "border": "A linha ao redor deste elemento. Defina a espessura, o estilo (sólido, tracejado ou pontilhado) e a cor.",
+      "borderBottomLeftRadius": "Arredonda apenas o canto INFERIOR ESQUERDO.",
+      "borderBottomRightRadius": "Arredonda apenas o canto INFERIOR DIREITO.",
+      "borderColor": "A cor da linha da borda.",
+      "borderRadius": "O quanto os cantos ficam arredondados. 0 = cantos retos; quanto maior, mais arredondados. Um valor bem alto transforma uma caixa em pílula ou círculo.",
+      "borderStyle": "A aparência da linha da borda: sólida, tracejada (- - -) ou pontilhada (• • •).",
+      "borderTopLeftRadius": "Arredonda apenas o canto SUPERIOR ESQUERDO.",
+      "borderTopRightRadius": "Arredonda apenas o canto SUPERIOR DIREITO.",
+      "borderWidth": "A espessura da linha da borda. 0 significa sem linha.",
+      "bottom": "A distância deste elemento em relação à BASE. Só funciona quando Position não é 'static'.",
+      "boxShadow": "Uma sombra suave atrás deste elemento para dar a impressão de que está flutuando, como um cartão sobre a mesa. Defina o deslocamento, o desfoque, a largura e a cor.",
+      "boxShadowBlur": "O quanto a sombra fica desfocada. 0 tem bordas nítidas; quanto maior o valor, mais suave.",
+      "boxShadowColor": "A cor da sombra. Cinza suave ou preto transparente costuma ficar melhor.",
+      "boxShadowH": "Move a sombra para a esquerda ou para a direita. Números negativos movem para a esquerda.",
+      "boxShadowSpread": "O quanto a sombra se expande em todas as direções. Quanto maior, mais larga a sombra.",
+      "boxShadowType": "'Externa' coloca a sombra atrás do elemento. 'Interna' cria a sombra dentro do elemento, como um relevo para dentro.",
+      "boxShadowV": "Move a sombra para cima ou para baixo. Números negativos movem para cima.",
+      "color": "A cor do texto. Clique no quadrado de cor para escolher a que quiser.",
+      "cursor": "Como o ponteiro do mouse muda ao passar por este elemento. 'Pointer' (a mãozinha) indica que ele pode ser clicado.",
+      "display": "Como este elemento fica na página. 'Block' ocupa uma linha inteira. 'Inline' fica ao lado de outros elementos, como uma palavra em uma frase. 'Flex' alinha os elementos dentro dele. 'None' oculta o elemento completamente.",
+      "flexBasis": "O tamanho inicial deste elemento, antes de ele aumentar ou diminuir para dividir o espaço.",
+      "flexDirection": "Organiza os elementos dentro desta caixa em uma LINHA (lado a lado) ou COLUNA (de cima para baixo). 'Inverter' muda a ordem.",
+      "flexGrow": "Permite que este elemento cresça para ocupar o espaço vazio. Um elemento com 2 ocupa o dobro do espaço de um com 1. 0 significa que não cresce.",
+      "flexShrink": "Permite que este elemento encolha quando faltar espaço. Quanto maior o valor, mais ele encolhe. 0 significa que não encolhe.",
+      "flexWrap": "Define se os elementos que não couberem passam para a linha seguinte ('wrap') ou ficam apertados em uma só linha ('nowrap').",
+      "float": "Empurra este elemento para a esquerda ou para a direita e faz o texto contorná-lo, como uma foto em um jornal. 'None' mantém o elemento no lugar normal.",
+      "fontFamily": "O estilo das letras. Cada fonte tem um jeito — descontraído, sério ou elegante. Escolha uma e o texto muda na hora.",
+      "fontSize": "O tamanho das letras. O texto normal para leitura costuma ter cerca de 16px; títulos grandes têm 32px ou mais.",
+      "fontWeight": "A espessura das letras. 400 é normal e 700 é negrito. Quanto mais grossas as letras, mais destaque elas têm.",
+      "height": "A altura deste elemento. 'auto' faz com que ele cresça apenas o necessário para caber o conteúdo — geralmente, é a opção mais segura.",
+      "justifyContent": "Como os elementos se distribuem AO LONGO da linha ou coluna: juntos no início, centralizados ou espaçados por igual.",
+      "left": "A distância deste elemento em relação à ESQUERDA. Só funciona quando Position não é 'static'.",
+      "letterSpacing": "O espaço entre as letras. Um pouco mais de espaço pode deixar os títulos elegantes; demais dificulta a leitura.",
+      "lineHeight": "O espaço entre as linhas de um parágrafo. Cerca de 1,5 deixa o texto confortável de ler; 1 junta as linhas.",
+      "margin": "O espaço vazio FORA deste elemento, que afasta os elementos ao redor. Quanto maior o valor, mais espaço fica ao redor dele.",
+      "marginBottom": "O espaço vazio ABAIXO deste elemento, que empurra o próximo elemento para baixo.",
+      "marginLeft": "O espaço vazio à ESQUERDA deste elemento, que afasta os elementos ao redor desse lado.",
+      "marginRight": "O espaço vazio à DIREITA deste elemento, que afasta os elementos ao redor desse lado.",
+      "marginTop": "O espaço vazio ACIMA deste elemento, que o afasta do que estiver em cima.",
+      "maxHeight": "A altura máxima permitida. O conteúdo que ultrapassar esse limite será cortado ou terá rolagem.",
+      "maxWidth": "A largura máxima permitida, mesmo em uma tela enorme. Ajuda a manter as linhas de texto curtas e fáceis de ler.",
+      "minHeight": "A altura mínima permitida, mesmo quando o elemento está vazio. Útil para evitar que seções encolham demais.",
+      "minWidth": "A largura mínima permitida, mesmo em uma tela minúscula.",
+      "opacity": "O quanto este elemento fica transparente. 100 é totalmente opaco; valores menores deixam mais transparente. 0 é invisível.",
+      "order": "Muda a posição deste elemento na fila sem mover os outros. Valores menores aparecem primeiro.",
+      "overflow": "O que acontece quando o conteúdo é grande demais para a caixa: 'hidden' corta o excesso, 'scroll'/'auto' adiciona barras de rolagem e 'visible' deixa o conteúdo ultrapassar a caixa.",
+      "padding": "O espaço interno deste elemento, entre a borda e o conteúdo. Mais espaço interno deixa botões e cartões mais confortáveis.",
+      "paddingBottom": "O espaço interno na BASE, entre a borda e o conteúdo.",
+      "paddingLeft": "O espaço interno à ESQUERDA, entre a borda e o conteúdo.",
+      "paddingRight": "O espaço interno à DIREITA, entre a borda e o conteúdo.",
+      "paddingTop": "O espaço interno no TOPO, entre a borda e o conteúdo.",
+      "perspective": "Adiciona profundidade 3D a elementos inclinados. Valores menores criam um efeito 3D mais dramático, como se o elemento estivesse perto do seu rosto.",
+      "position": "Como este elemento é ancorado. 'Static' = posição normal. 'Relative' = desloca o elemento da posição normal. 'Absolute' = fixa o elemento em qualquer lugar dentro da caixa. 'Fixed' = prende o elemento à tela para que ele não se mova durante a rolagem.",
+      "right": "A distância deste elemento em relação à DIREITA. Só funciona quando Position não é 'static'.",
+      "textAlign": "Como o texto fica alinhado: à esquerda, no centro, à direita ou encostado nas duas margens (justificado).",
+      "textDecoration": "Linhas extras no texto: sublinhe, risque ou escolha 'nenhum' para tirar a linha que costuma aparecer nos links.",
+      "textShadow": "Uma sombra suave atrás das letras para destacá-las do fundo. Defina o deslocamento, o desfoque e a cor.",
+      "textShadowBlur": "O quanto a sombra das letras fica desfocada. 0 é nítido; quanto maior o valor, mais suave.",
+      "textShadowColor": "A cor da sombra das letras.",
+      "textShadowH": "Move a sombra das letras para a esquerda ou para a direita. Números negativos movem para a esquerda.",
+      "textShadowV": "Move a sombra das letras para cima ou para baixo. Números negativos movem para cima.",
+      "textTransform": "Altera maiúsculas e minúsculas do texto: TUDO EM MAIÚSCULAS, tudo em minúsculas ou Iniciais De Cada Palavra.",
+      "top": "A distância deste elemento em relação ao TOPO. Só funciona quando Position não é 'static'.",
+      "transform": "Gire, incline, aumente ou diminua este elemento — sem mover os elementos ao redor.",
+      "transformRotateX": "Inclina o elemento para trás ou para a frente, como uma porta tombando.",
+      "transformRotateY": "Vira o elemento de lado, como uma porta giratória.",
+      "transformRotateZ": "Gira o elemento no plano, como o ponteiro de um relógio. 180 o vira de cabeça para baixo.",
+      "transformScaleX": "Estica ou aperta o elemento NA HORIZONTAL. 1 é o tamanho normal; 2 é o dobro da largura.",
+      "transformScaleY": "Estica ou aperta o elemento NA VERTICAL. 1 é o tamanho normal; 2 é o dobro da altura.",
+      "transformScaleZ": "Altera o tamanho do elemento em profundidade 3D — você só vai notar isso em elementos girados.",
+      "transition": "Faz as mudanças de estilo acontecerem suavemente, em vez de na hora — como um botão que muda de cor ao passar o mouse.",
+      "transitionDuration": "Quanto tempo dura a mudança suave. 0,3s é rápido; 2s é lento e dramático.",
+      "transitionProperty": "QUAL estilo deve mudar suavemente — por exemplo, 'all' (todos), só a cor ou só o tamanho.",
+      "transitionTimingFunction": "O ritmo da mudança: constante ('linear') ou acelerando e desacelerando, como um carro freando suavemente ('ease').",
+      "verticalAlign": "Alinha este elemento ao texto ao lado — em cima, no meio ou embaixo.",
+      "width": "A largura deste elemento. Use 100% para preencher todo o espaço disponível ou um tamanho exato, como 300px.",
+      "zIndex": "Define qual elemento fica na frente quando dois se sobrepõem. Quanto maior o número, mais perto de você, como o cartão de cima em uma pilha."
+    },
+    "traits": {
+      "address": "O endereço da imagem ou do vídeo exibido aqui.",
+      "answerName": "O nome com que seu app salva esta resposta, como 'email'. Use algo curto e simples.",
+      "belongsToField": "A qual campo do formulário este rótulo se refere. Ao clicar no rótulo, o cursor vai para esse campo.",
+      "buttonWords": "O texto exibido neste botão.",
+      "goesTo": "Para onde este link leva. Use /nome-da-pagina para suas próprias páginas ou um endereço https:// completo para outros sites.",
+      "hintText": "A dica em cinza exibida dentro do campo enquanto ele está vazio, como 'Digite seu nome'. Ela desaparece quando alguém começa a digitar.",
+      "hoverNote": "Uma nota curta que aparece quando alguém deixa o mouse sobre este elemento.",
+      "kind": "O tipo de campo: texto, email, senha (oculta as letras), número e outros. O tipo certo ajuda os celulares a mostrar o teclado adequado.",
+      "mustBeFilledIn": "Ative esta opção para impedir o envio do formulário até que este campo seja preenchido.",
+      "openInANewTab": "Marque para abrir o link em uma nova aba e manter seu app aberto também.",
+      "pictureDescription": "Palavras que descrevem a imagem para quem não consegue vê-la e para mecanismos de busca. Diga o que aparece na imagem.",
+      "showItemsFrom": "Escolha de onde esta lista recebe os itens, como suas reservas ou produtos. Ela se atualiza sozinha.",
+      "startingValue": "O que já aparece preenchido quando a página é aberta pela primeira vez.",
+      "tickedAtTheStart": "Define se este campo já aparece marcado quando a página é aberta.",
+      "whenPressed": "O que este botão faz: envia o formulário em que está, limpa o formulário ou nada (para botões que fazem outra coisa).",
+      "whenPressedRun": "Escolha o que seu app faz quando este botão é pressionado. Você encontra essas opções em Fluxos.",
+      "whenSentRun": "Escolha o que seu app faz com as respostas quando este formulário é enviado, como salvá-las ou enviar um email. Você encontra essas opções em Fluxos."
+    }
+  },
+  "rte": {
+    "bold": "Negrito",
+    "italic": "Itálico",
+    "link": "Link",
+    "strikeThrough": "Tachado",
+    "underline": "Sublinhado",
+    "wrapForStyle": "Agrupar para aplicar estilo"
+  },
+  "settings": {
+    "address": "Endereço",
+    "answerName": "Nome da resposta",
+    "belongsToField": "Pertence ao campo",
+    "buttonWords": "Texto do botão",
+    "goesTo": "Leva a",
+    "hintText": "Texto de dica",
+    "hoverNote": "Dica ao passar o mouse",
+    "kind": "Tipo",
+    "mustBeFilledIn": "Obrigatório",
+    "nothing": "Nada",
+    "openInANewTab": "Abrir em uma nova guia",
+    "pictureDescription": "Descrição da imagem",
+    "showItemsFrom": "Mostrar itens de",
+    "startingValue": "Valor inicial",
+    "tickedAtTheStart": "Marcado inicialmente",
+    "whenPressed": "Ao clicar",
+    "whenPressedRun": "Ao clicar, executar",
+    "whenSentRun": "Ao enviar, executar"
+  },
+  "shell": {
+    "addPage": "Adicionar página",
+    "addPageHelp": "Adicione uma página em branco ao seu app. Depois, você dará um nome a ela, e ela aparecerá no menu do app.",
+    "closePages": "Fechar páginas",
+    "confirmDeletePage": "Excluir “{title}”? Não é possível desfazer essa ação.",
+    "confirmDiscardSwitch": "Descartar as alterações não salvas desta página e trocar de página?",
+    "couldNotSave": "Não foi possível salvar sua alteração. Tente novamente.",
+    "deletePage": "Excluir página",
+    "deletePageFor": "Excluir {title}",
+    "deletePageHelp": "Exclua esta página e tudo o que há nela. Você precisará confirmar. Não é possível desfazer essa ação.",
+    "discardSwitch": "Descartar alterações e trocar de página",
+    "discardSwitchHelp": "Descarte as alterações não salvas desta página e abra a outra. Não será possível recuperá-las.",
+    "dismiss": "Fechar",
+    "dismissError": "Fechar aviso de erro",
+    "editing": "EDITANDO",
+    "editsNotSaved": "Suas alterações mais recentes não foram salvas. Verifique sua conexão e tente novamente.",
+    "featureAdded": "{name} foi adicionado.",
+    "featureAddedWithPages": "{name} foi adicionado, com páginas próprias. Elas já estão no menu.",
+    "findPage": "Encontrar uma página…",
+    "madeCopy": "Cópia criada. Você está editando “{title}”.",
+    "mobileTip": "Dica: toque em uma parte da página e depois em um bloco para adicioná-lo abaixo. Ou toque em <b>Pedir à IA</b> e diga o que quer mudar.",
+    "newPage": "Nova página",
+    "newPageHelp": "Adicione uma página em branco ao seu app. Primeiro, você dará um nome a ela.",
+    "noMatchingPages": "Nenhuma página encontrada.",
+    "notSaved": "<b>Não foi salvo</b> – verifique sua conexão. Vamos continuar tentando.",
+    "open": "Abrir",
+    "openHomePageHelp": "Abra esta página no editor. O ícone de casa indica que ela é sua página inicial, a primeira que os visitantes veem.",
+    "openNewPage": "Abrir a nova página",
+    "openPageHelp": "Abra esta página no editor. Suas alterações na página atual serão salvas primeiro.",
+    "pageCount": "{count, plural, one {# página} other {# páginas}}",
+    "pageName": "Nome da página",
+    "pageNameHelp": "O nome da nova página. Ele aparece no menu do app e na aba do navegador, e você pode alterá-lo depois.",
+    "pageNamePlaceholder": "ex.: Sobre nós",
+    "pagePickerHelp": "A página que você está editando. Clique para ver todas as páginas, trocar de página ou alterar as configurações de uma página.",
+    "pageSettings": "Configurações da página",
+    "pageSettingsFor": "Configurações da página {title}",
+    "pageSettingsHelp": "Renomeie esta página, escolha quem pode vê-la, mostre ou oculte-a no menu do app ou faça uma cópia.",
+    "pages": "Páginas",
+    "retry": "Tentar novamente",
+    "retryHelp": "Tente salvar suas alterações mais recentes agora, sem esperar pela próxima tentativa automática.",
+    "savedSettings": "As configurações de “{title}” foram salvas.",
+    "searchPages": "Buscar páginas",
+    "searchPagesHelp": "Digite parte do nome de uma página para filtrar a lista.",
+    "setHome": "Definir como página inicial",
+    "setHomeFor": "Definir {title} como página inicial",
+    "setHomeHelp": "Faça desta a primeira página que os visitantes veem ao acessar o endereço principal do seu app.",
+    "somethingWrong": "Algo deu errado. Tente novamente.",
+    "theFeatureAdded": "O recurso foi adicionado.",
+    "theFeatureAddedWithPages": "O recurso foi adicionado, com páginas próprias. Elas já estão no menu.",
+    "updating": "Atualizando seu espaço de trabalho…",
+    "yourPages": "Suas páginas"
+  },
+  "theme": {
+    "colorCodeHelp": "Ou digite um código de cor aqui, como #1a73e8, se souber exatamente qual cor quer.",
+    "colorCodeLabel": "Código da cor de {name}",
+    "colorLabel": "Cor de {name}",
+    "colors": {
+      "accent": {
+        "help": "Uma segunda cor para pequenos detalhes, como selos e formas decorativas.",
+        "label": "Destaque"
+      },
+      "bg": {
+        "help": "A cor que fica atrás de tudo nas suas páginas.",
+        "label": "Plano de fundo"
+      },
+      "border": {
+        "help": "A cor das linhas finas ao redor das caixas e entre as seções.",
+        "label": "Borda"
+      },
+      "primary": {
+        "help": "A cor principal da sua marca, usada em botões, links e destaques.",
+        "label": "Principal"
+      },
+      "primary2": {
+        "help": "A cor que os botões e links assumem quando alguém passa o cursor sobre eles.",
+        "label": "Principal ao passar o cursor"
+      },
+      "surface": {
+        "help": "A cor dos cartões e caixas que ficam sobre o plano de fundo.",
+        "label": "Superfície"
+      },
+      "surface2": {
+        "help": "Uma segunda cor para caixas, usada para destacar algumas seções e rótulos.",
+        "label": "Superfície alternativa"
+      },
+      "text": {
+        "help": "A cor da maioria dos textos nas suas páginas.",
+        "label": "Texto"
+      },
+      "textMuted": {
+        "help": "Uma cor mais suave para textos menos importantes, como legendas e observações.",
+        "label": "Texto secundário"
+      }
+    },
+    "colorsTitle": "Cores",
+    "corners": "Cantos",
+    "dark": "Escuro",
+    "darkHelp": "Mude para o primeiro tema escuro pronto. Isso substitui suas cores e fontes atuais.",
+    "darkPair": "Par do modo escuro",
+    "darkPairAuto": "Automático (primeiro tema escuro pronto)",
+    "darkPairHelp": "As cores usadas pelo app quando um visitante ativa o modo escuro pelo botão de sol/lua. A opção Automático escolhe uma combinação para você.",
+    "darkPairNote": "As pessoas veem um botão de sol e lua em todas as páginas.",
+    "light": "Claro",
+    "lightHelp": "Mude para o primeiro tema claro pronto. Isso substitui suas cores e fontes atuais.",
+    "loading": "Carregando tema…",
+    "mode": "Modo",
+    "pickTheme": "Escolha um tema…",
+    "preset": "Predefinição",
+    "presetButtonHelp": "Escolha um visual pronto para o app todo. Ele substitui as cores, fontes e cantos atuais. Os visitantes verão o novo visual depois que você publicar.",
+    "presetHelp": "Combinações prontas de cores e fontes para o app todo. Escolha uma para começar e ajuste as cores abaixo.",
+    "radius": "Raio",
+    "roundness": "Arredondamento dos cantos",
+    "roundnessHelp": "Define o arredondamento dos cantos de botões, cartões e caixas no app. Deslize para a esquerda para deixar mais reto ou para a direita para arredondar mais.",
+    "useLook": "Use o visual {name}: as cores, fontes e cantos dele vão substituir os atuais."
+  },
+  "toolbar": {
+    "delete": {
+      "help": "Remova este elemento da página. Mudou de ideia? Use Desfazer no topo.",
+      "title": "Excluir"
+    },
+    "drag": {
+      "help": "Segure aqui e arraste para mover este elemento para qualquer lugar da página. Em uma tela sensível ao toque, use Mover para cima e Mover para baixo.",
+      "title": "Arrastar para mover"
+    },
+    "duplicate": {
+      "help": "Crie uma cópia deste elemento logo depois dele.",
+      "title": "Duplicar"
+    },
+    "moveDown": {
+      "help": "Mova este elemento uma posição para baixo na página, abaixo do próximo elemento. Use Desfazer para voltar.",
+      "title": "Mover para baixo"
+    },
+    "moveUp": {
+      "help": "Mova este elemento uma posição para cima na página, acima do elemento anterior. Use Desfazer para voltar.",
+      "title": "Mover para cima"
+    },
+    "selectParent": {
+      "help": "Escolha a caixa maior que contém este elemento, como a seção inteira ao redor de um botão.",
+      "title": "Selecionar o elemento ao redor"
+    }
+  },
+  "welcome": {
+    "askAi": "Use Pedir à IA para fazer mudanças maiores, como “adicionar uma seção de preços”.",
+    "clickWords": "Clique em qualquer texto da página para alterá-lo. Clique duas vezes em uma imagem para trocá-la.",
+    "features": "Adicione recursos, como agendamentos ou uma loja, em <link>Recursos</link>.",
+    "gotIt": "Entendi",
+    "gotItHelp": "Feche esta mensagem de boas-vindas e comece a editar.",
+    "publish": "Quando estiver tudo certo, <link>publique</link> seu app para gerar um link para compartilhar.",
+    "title": "Seu app está pronto. Veja como deixá-lo com a sua cara:"
+  },
+  "wireUp": {
+    "blocks": {
+      "auth": {
+        "connectExisting": "<b>Conectar</b> — conecta os dois formulários ao acesso e às contas do seu app. Isso não adiciona páginas extras.",
+        "connectNew": "<b>Conectar</b> — adiciona contas, acesso e cadastro ao seu app e conecta os dois formulários a eles. Isso não adiciona páginas extras.",
+        "purpose": "Estes formulários permitem que as pessoas entrem e criem contas."
+      },
+      "blog": {
+        "connectExisting": "<b>Conectar</b> — conecta estes cartões às publicações que seu app já tem. Isso não adiciona páginas extras.",
+        "connectNew": "<b>Conectar</b> — adiciona uma tabela de publicações, começando com as três publicações mostradas aqui, e conecta estes cartões a ela. Só publicações publicadas são exibidas; adicione ou altere publicações em Dados. Isso não adiciona páginas extras.",
+        "purpose": "Estes cartões podem mostrar as publicações mais recentes salvas nos dados do seu app."
+      },
+      "contactForm": {
+        "connectExisting": "<b>Conectar</b> — conecta este formulário à tabela de mensagens que seu app já tem. Isso não adiciona páginas extras.",
+        "connectNew": "<b>Conectar</b> — adiciona uma tabela para as mensagens e a automação que as salva, e conecta este formulário a ela. Isso não adiciona páginas extras.",
+        "purpose": "Este formulário pode salvar as mensagens que as pessoas enviam para você."
+      },
+      "contactFormModern": {
+        "connectExisting": "<b>Conectar</b> — conecta este formulário à tabela de mensagens que seu app já tem. Isso não adiciona páginas extras.",
+        "connectNew": "<b>Conectar</b> — adiciona uma tabela para as mensagens (nome, e-mail e mensagem; o número de celular não é salvo) e a automação que as salva, e conecta este formulário a ela. Isso não adiciona páginas extras.",
+        "purpose": "Este formulário pode salvar as mensagens que as pessoas enviam para você."
+      },
+      "faq": {
+        "connectExisting": "<b>Conectar</b> — conecta esta lista às perguntas que seu app já tem. Isso não adiciona páginas extras.",
+        "connectNew": "<b>Conectar</b> — adiciona uma tabela de perguntas, começando com as quatro perguntas mostradas aqui, e conecta esta lista a ela. Adicione ou altere perguntas em Dados. Isso não adiciona páginas extras.",
+        "purpose": "Esta lista pode mostrar perguntas e respostas salvas nos dados do seu app."
+      },
+      "gallery": {
+        "connectExisting": "<b>Conectar</b> — conecta esta galeria às fotos que seu app já tem. Isso não adiciona páginas extras.",
+        "connectNew": "<b>Conectar</b> — adiciona uma tabela de fotos, começando com os cinco títulos mostrados aqui, e conecta esta galeria a ela. Adicione o endereço da web de cada imagem em Dados. Isso não adiciona páginas extras.",
+        "purpose": "Esta galeria pode mostrar fotos salvas nos dados do seu app."
+      },
+      "newsletter": {
+        "connectExisting": "<b>Conectar</b> — conecta este formulário à lista de inscritos que seu app já tem. Isso não adiciona páginas extras.",
+        "connectNew": "<b>Conectar</b> — adiciona uma tabela de inscritos e a automação que salva cada inscrição, e conecta este formulário a ela. Isso não adiciona páginas extras.",
+        "purpose": "Este formulário pode salvar o endereço de e-mail de todas as pessoas que se inscreverem."
+      },
+      "reviews": {
+        "connectExisting": "<b>Conectar</b> — conecta esta seção às avaliações aprovadas que seu app já tem. Isso não adiciona páginas extras.",
+        "connectNew": "<b>Conectar</b> — adiciona uma tabela de avaliações, começando com as três avaliações mostradas aqui, e conecta esta seção a ela. Só avaliações aprovadas são exibidas; gerencie-as em Dados. Isso não adiciona páginas extras.",
+        "purpose": "Esta seção pode mostrar avaliações salvas nos dados do seu app."
+      },
+      "services": {
+        "connectExisting": "<b>Conectar</b> — conecta esta grade aos serviços que seu app já tem. Isso não adiciona páginas extras.",
+        "connectNew": "<b>Conectar</b> — adiciona uma tabela de serviços, começando com os três serviços mostrados aqui, e conecta esta grade a ela. Adicione ou altere serviços em Dados. Isso não adiciona páginas extras.",
+        "purpose": "Esta grade pode mostrar os serviços salvos nos dados do seu app."
+      },
+      "team": {
+        "connectExisting": "<b>Conectar</b> — conecta esta grade aos integrantes da equipe que seu app já tem. Isso não adiciona páginas extras.",
+        "connectNew": "<b>Conectar</b> — adiciona uma tabela da equipe, começando com as quatro pessoas mostradas aqui, e conecta esta grade a ela. Adicione ou altere pessoas em Dados. Isso não adiciona páginas extras.",
+        "purpose": "Esta grade pode mostrar integrantes da equipe salvos nos dados do seu app."
+      },
+      "testimonials": {
+        "connectExisting": "<b>Conectar</b> — conecta esta seção aos depoimentos que seu app já tem. Isso não adiciona outras páginas.",
+        "connectNew": "<b>Conectar</b> — adiciona uma tabela de depoimentos com as três citações exibidas aqui e conecta esta seção a ela. Adicione ou altere citações em Dados. Isso não adiciona outras páginas.",
+        "purpose": "Esta seção pode mostrar depoimentos salvos nos dados do seu app. Assim, você pode alterá-los sem editar a página."
+      }
+    },
+    "connect": "Sim, conectar",
+    "connectHelp": "Configure o que este bloco precisa nos bastidores, como um lugar para salvar o que as pessoas enviarem. Nenhuma página extra será adicionada.",
+    "couldNotCheckFeatures": "Não foi possível verificar os recursos deste app. Tente novamente.",
+    "couldNotLoadFlows": "Não foi possível carregar as automações deste app. Tente novamente.",
+    "failedStatus": "Falha ({status})",
+    "handle": "Não, vou cuidar disso",
+    "handleHelp": "Mantenha o bloco na sua página como está, sem configurar nada. Você pode conectá-lo depois em Fluxos ou pedindo à IA.",
+    "handleLine": "<b>Cuidar disso</b> — mantém o bloco como está, sem conectá-lo a nada. Você pode configurá-lo depois em Fluxos ou pedindo à IA.",
+    "partMissing": "Seu app tem este recurso, mas falta uma parte dele. Você pode conectar este bloco em Fluxos.",
+    "settingUp": "Configurando...",
+    "somethingWrong": "Algo deu errado",
+    "title": "Conectar isso?"
+  }
+}

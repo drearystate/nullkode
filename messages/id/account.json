@@ -1,0 +1,84 @@
+{
+  "appearance": {
+    "intro": "Pilih tampilan studio. Pengaturan ini tersimpan di akun Anda, jadi tetap sama di perangkat lain.",
+    "title": "Tampilan"
+  },
+  "blocked": {
+    "impersonating": "Hanya pemilik akun yang bisa menghapusnya. Sebagai admin, Anda bisa menghapus akun di Admin, bagian Pengguna.",
+    "onlyOperator": "Anda satu-satunya operator platform ini, jadi akun Anda tidak bisa dihapus.",
+    "reseller": "Anda menggunakan ruang kerja reseller, jadi akun Anda tidak bisa dihapus di sini. Minta operator platform menghapus ruang kerja terlebih dahulu."
+  },
+  "delete": {
+    "backup": "Cadangan",
+    "backupFirst": "Unduh cadangan setiap aplikasi terlebih dahulu. Anda bisa memulihkan cadangan nanti dengan Impor.",
+    "cancel": "Batal",
+    "cannotUndo": "Tindakan ini tidak bisa dibatalkan.",
+    "confirm": "Hapus akun saya selamanya",
+    "deletesAccount": "Menghapus akun Anda.",
+    "deletesApps": "{count, plural, one {Menghapus akun dan aplikasi Anda, termasuk semua data yang tersimpan, file, dan alamat webnya.} other {Menghapus akun dan semua # aplikasi Anda, termasuk semua data yang tersimpan, file, dan alamat webnya.}}",
+    "deleting": "Menghapus…",
+    "failed": "Akun Anda tidak dapat dihapus ({status}).",
+    "keysAck": "{count, plural, one {Saya sudah mengunduh kunci upload Google Play di atas, atau tidak membutuhkannya. Tanpa kunci ini, aplikasi tidak akan bisa diperbarui lagi di Google Play.} other {Saya sudah mengunduh kunci-kunci upload Google Play di atas, atau tidak membutuhkannya. Tanpa kunci ini, aplikasi tidak akan bisa diperbarui lagi di Google Play.}}",
+    "networkError": "Terjadi kesalahan jaringan. Tidak ada yang dihapus.",
+    "start": "Hapus akun saya…",
+    "startHelp": "Memulai penghapusan akun Anda. Anda akan diminta mengetik alamat email terlebih dahulu; tidak ada yang dihapus sampai Anda mengonfirmasi.",
+    "subscriptionCancelled": "Langganan Anda langsung dibatalkan.",
+    "title": "Hapus akun saya",
+    "typeEmail": "Masukkan alamat email Anda untuk mengonfirmasi",
+    "uploadKey": "Kunci upload Google Play",
+    "uploadKeyHelp": "Unduh kunci ini dan simpan di tempat yang aman. Tanpa kunci ini, aplikasi ini tidak akan bisa diperbarui lagi di Google Play."
+  },
+  "helpPrefs": {
+    "guides": "Panduan langkah demi langkah tersedia di <link>Bantuan & panduan</link>.",
+    "saveFailed": "Tidak bisa menyimpan. Pengaturan akan kembali seperti semula saat Anda membuka halaman lagi.",
+    "tips": "Tips bantuan",
+    "tipsIntro": "Catatan singkat yang muncul saat Anda mengarahkan mouse ke tombol atau pengaturan untuk menjelaskan fungsinya dengan bahasa sederhana.",
+    "title": "Bantuan"
+  },
+  "intro": "Foto, detail, dan tampilan studio Anda.",
+  "language": {
+    "intro": "Bahasa yang digunakan di studio. Pengaturan ini tersimpan di akun Anda, jadi tetap sama di perangkat lain.",
+    "title": "Bahasa"
+  },
+  "metaTitle": "Profil",
+  "password": {
+    "change": "Ubah kata sandi",
+    "changed": "Kata sandi diubah. Anda telah keluar dari perangkat lain.",
+    "changing": "Mengubah…",
+    "current": "Kata sandi saat ini",
+    "failed": "Tidak bisa mengubahnya. Coba lagi.",
+    "forgotNote": "Tidak tahu kata sandi saat ini (misalnya, Anda mendaftar dengan Google)? Keluar, lalu gunakan <link>Lupa kata sandi</link> untuk membuat kata sandi.",
+    "new": "Kata sandi baru",
+    "newNote": "Minimal 8 karakter. Mengubahnya akan membuat Anda keluar dari semua perangkat lain.",
+    "readOnly": "Hanya pemilik akun yang bisa mengubah kata sandinya.",
+    "title": "Kata sandi"
+  },
+  "profile": {
+    "addPhoto": "Tambahkan foto",
+    "badPicture": "File itu bukan gambar yang bisa kami buka.",
+    "changePhoto": "Ganti foto",
+    "email": "Email",
+    "emailNote": "Anda masuk dengan alamat ini.",
+    "name": "Nama",
+    "nameHelp": "Nama yang ditampilkan di akun dan email yang kami kirimkan kepada Anda.",
+    "photoHelp": "Pilih foto diri Anda (PNG, JPEG, atau WebP). Foto akan dipotong menjadi persegi dan ditampilkan di samping nama Anda.",
+    "photoRemoveFailed": "Tidak bisa menghapus foto. Coba lagi.",
+    "photoRemoved": "Foto dihapus.",
+    "photoSaveFailed": "Tidak bisa menyimpan foto. Coba lagi.",
+    "photoSaveFailedShort": "Tidak bisa menyimpan foto.",
+    "photoSaved": "Foto tersimpan.",
+    "remove": "Hapus",
+    "removeHelp": "Hapus foto Anda. Inisial Anda akan ditampilkan sebagai gantinya.",
+    "save": "Simpan",
+    "saveFailed": "Tidak bisa menyimpan. Coba lagi.",
+    "saved": "Tersimpan.",
+    "saving": "Menyimpan…",
+    "title": "Profil Anda"
+  },
+  "theme": {
+    "dark": "Gelap",
+    "light": "Terang",
+    "system": "Ikuti perangkat saya"
+  },
+  "title": "Profil"
+}

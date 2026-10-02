@@ -7,6 +7,8 @@ import JSZip from "jszip";
 import { readPublicAsset, referencedAssets } from "@/lib/bundle-assets";
 import { getRequestBrand } from "@/lib/reseller";
 import { newRedactionReport, redactFlowGraph, redactModuleConfig, redactRow } from "@/lib/export-secrets";
+import { getTranslations } from "next-intl/server";
+import { requestLocale } from "@/i18n/request";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -40,7 +42,8 @@ export const dynamic = "force-dynamic";
 export async function GET(_req: Request, ctx: { params: Promise<{ id: string }> }) {
   const { id } = await ctx.params;
   const user = await getCurrentUser();
-  if (!user) return new Response("Unauthorized", { status: 401 });
+  const tr = await getTranslations({ locale: await requestLocale(), namespace: "project.exportApi" });
+  if (!user) return new Response(tr("unauthorized"), { status: 401 });
   const project = await db.project.findUnique({
     where: { id },
     include: {
@@ -51,7 +54,7 @@ export async function GET(_req: Request, ctx: { params: Promise<{ id: string }> 
     },
   });
   if (!project || project.ownerId !== user.id) {
-    return json({ error: "Not found" }, { status: 404 });
+    return json({ error: tr("notFound") }, { status: 404 });
   }
 
   const zip = new JSZip();

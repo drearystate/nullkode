@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
 import { deleteAccountUrl } from "@/lib/app-account-data";
@@ -30,14 +31,13 @@ export default async function DataPage({
   }
   // The public delete-account page only answers once the app is published.
   const deletionPage = project.published ? await deleteAccountUrl(project).catch(() => null) : null;
+  const t = await getTranslations("data");
 
   return (
     <div className="mx-auto max-w-6xl px-6 py-10">
-      <p className="studio-eyebrow mb-3 text-brand-300">WHAT PEOPLE SENT YOU</p>
-      <h1 className="text-3xl font-semibold tracking-tight">Your app&apos;s data.</h1>
-      <p className="mt-3 max-w-xl text-sm leading-relaxed text-surface-400">
-        Everything your app saves, like messages, bookings and sign-ups. Open a table to see it, change it or download it.
-      </p>
+      <p className="studio-eyebrow mb-3 text-brand-300">{t("page.eyebrow")}</p>
+      <h1 className="text-3xl font-semibold tracking-tight">{t("page.title")}</h1>
+      <p className="mt-3 max-w-xl text-sm leading-relaxed text-surface-400">{t("page.intro")}</p>
       <DataPanel
         projectId={id}
         tables={tables}

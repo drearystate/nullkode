@@ -1,0 +1,22 @@
+{
+  "backToAll": "모든 가이드로 돌아가기",
+  "clearSearch": "검색어 지우기",
+  "eyebrow": "도움말 및 가이드",
+  "guideMetaTitle": "{title} · 도움말",
+  "heading": "무엇을 도와드릴까요?",
+  "help": "도움말",
+  "helpGuides": "도움말 및 가이드",
+  "intro": "{app}의 모든 기능을 단계별로 안내해 드려요. 화면 상단의 <b>도움말</b>을 누르면 해당 화면의 가이드가 열려요.",
+  "matches": "{count, plural, one {가이드 #개가 일치해요} other {가이드 #개가 일치해요}}",
+  "metaTitle": "도움말 및 가이드",
+  "noMatch": "“{query}”와 일치하는 가이드가 없어요.",
+  "noMatchHint": "다른 검색어를 입력하거나 전체 가이드를 살펴보세요.",
+  "onThisPage": "이 페이지의 내용",
+  "onThisPageEyebrow": "이 페이지의 내용",
+  "related": "관련 가이드",
+  "searchHelp": "검색어를 한두 개 입력하세요. 입력하면 아래 가이드가 필터링돼요.",
+  "searchLabel": "가이드 검색",
+  "searchPlaceholder": "“게시” 또는 “도메인”처럼 검색어를 입력하세요",
+  "showAll": "모든 가이드 보기",
+  "step": "단계 {n}: "
+}

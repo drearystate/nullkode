@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Gift } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export type ClientChoice = { id: string; label: string };
 
@@ -24,6 +25,8 @@ export function GiveToClientButton({
   const [clientId, setClientId] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const t = useTranslations("reseller.give");
+  const tc = useTranslations("common");
 
   if (clients.length === 0) return null;
   const chosen = clients.find((c) => c.id === clientId);
@@ -40,13 +43,13 @@ export function GiveToClientButton({
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
-        setError(data.error || "Couldn't give the app away. Please try again.");
+        setError(data.error || t("failed"));
         return;
       }
       setOpen(false);
       router.refresh();
     } catch {
-      setError("Network error — try again.");
+      setError(t("network"));
     } finally {
       setBusy(false);
     }
@@ -54,18 +57,18 @@ export function GiveToClientButton({
 
   if (!open) {
     return (
-      <button type="button" className="btn-ghost text-xs" onClick={() => setOpen(true)} data-help="Moves this app into one of your clients' accounts. It shows on their dashboard and counts toward their plan; you can still open it for them.">
-        <Gift size={14} aria-hidden /> Give to client
+      <button type="button" className="btn-ghost text-xs" onClick={() => setOpen(true)} data-help={t("help")}>
+        <Gift size={14} aria-hidden /> {t("button")}
       </button>
     );
   }
 
   return (
-    <div className="mt-2 flex flex-col items-end gap-2 text-left">
+    <div className="mt-2 flex flex-col items-end gap-2 text-start">
       <label className="flex w-full max-w-xs flex-col text-xs text-surface-400">
-        <span className="mb-1">Give &quot;{projectName}&quot; to</span>
+        <span className="mb-1">{t("giveTo", { name: projectName })}</span>
         <select className="input py-1 text-sm" value={clientId} onChange={(e) => setClientId(e.target.value)} disabled={busy} autoFocus>
-          <option value="">Choose a client…</option>
+          <option value="">{t("choose")}</option>
           {clients.map((c) => (
             <option key={c.id} value={c.id}>{c.label}</option>
           ))}
@@ -73,15 +76,15 @@ export function GiveToClientButton({
       </label>
       {chosen && (
         <p className="max-w-xs text-xs text-surface-400">
-          The app moves to {chosen.label}&apos;s workspace and shows on their dashboard. You can still open it for them.
+          {t("explain", { client: chosen.label })}
         </p>
       )}
       <div className="flex gap-2">
         <button type="button" className="btn-primary text-xs" onClick={give} disabled={busy || !chosen}>
-          {busy ? "Giving…" : "Give app"}
+          {busy ? t("giving") : t("give")}
         </button>
         <button type="button" className="btn-ghost text-xs" onClick={() => { setOpen(false); setError(null); }} disabled={busy}>
-          Cancel
+          {tc("cancel")}
         </button>
       </div>
       {error && <p role="alert" className="max-w-xs text-xs text-red-300">{error}</p>}

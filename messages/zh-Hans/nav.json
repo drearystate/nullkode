@@ -1,0 +1,41 @@
+{
+  "accountMenu": "账户菜单",
+  "accountNavigation": "账户导航",
+  "admin": "管理员",
+  "adminHelp": "整个平台的设置：品牌、AI、电子邮件、付款、用户和经销商。",
+  "administration": "管理",
+  "billing": "账单和套餐",
+  "designer": "设计器",
+  "designerHelp": "用自己的话描述网站，AI 会为你设计，并根据你的要求持续修改。",
+  "help": "帮助",
+  "helpGuides": "帮助与指南",
+  "helpHelp": "分步指南。打开当前页面对应的指南。",
+  "helpTips": {
+    "help": "开启或关闭这些提示。开启后，将鼠标悬停在任意按钮上即可了解它的作用。你也可以在设置中更改此选项。",
+    "label": "帮助提示",
+    "off": "关闭",
+    "on": "开启"
+  },
+  "home": "{app} 主页",
+  "impersonation": {
+    "backToClients": "返回客户列表",
+    "backToClientsHelp": "离开此客户的工作区并返回客户列表。你所做的更改会保留在对方的账户中。",
+    "impersonating": "正在代入身份",
+    "signedInAs": "· 已登录为 {email}",
+    "stop": "停止代入身份",
+    "stopHelp": "停止以此人的身份操作并返回管理员页面。你所做的更改会保留在对方的账户中。",
+    "viewingClient": "你正在查看 <b>{name}</b> 的工作区。你所做的更改会应用到对方的账户。"
+  },
+  "logOut": "退出登录",
+  "myApps": "我的应用",
+  "myAppsHelp": "所有应用都在这里。打开一个继续编辑，或创建新应用。",
+  "profile": "个人资料",
+  "resellerDashboard": "经销商控制面板",
+  "resellerHelp": "管理客户、品牌、价格和网址。",
+  "switchTheme": "切换浅色或深色模式",
+  "switchToDark": "切换到深色模式",
+  "switchToLight": "切换到浅色模式",
+  "themeHelp": "在浅色和深色模式之间切换。系统会记住你的选择；你也可以在个人资料中选择“跟随设备”。",
+  "workspace": "工作区",
+  "yourAccount": "你的账户"
+}

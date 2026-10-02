@@ -7,6 +7,9 @@ import {
   type AIProvider,
 } from "@/lib/settings";
 import { PLAN_LIMITS_KEY, parsePlanLimits, setPlanLimits } from "@/lib/plan-limits";
+import { getTranslations } from "next-intl/server";
+import { requestLocale } from "@/i18n/request";
+import { isLocale } from "@/i18n/locales";
 
 export const runtime = "nodejs";
 
@@ -46,33 +49,34 @@ export async function PATCH(req: Request) {
   const admin = await requireAdmin();
   if (!admin) return new NextResponse("Forbidden", { status: 403 });
 
+  const t = await getTranslations({ locale: await requestLocale(), namespace: "admin.api" });
   const body = (await req.json().catch(() => null)) as Record<string, unknown> | null;
-  if (!body) return new NextResponse("Invalid body", { status: 400 });
+  if (!body) return new NextResponse(t("invalidBody"), { status: 400 });
 
   const endpoint = body[SETTING_KEYS.AI_BASE_URL];
   if (endpoint !== undefined) {
-    if (typeof endpoint !== "string") return new NextResponse("Invalid AI endpoint", { status: 400 });
+    if (typeof endpoint !== "string") return new NextResponse(t("invalidEndpoint"), { status: 400 });
     if (endpoint.trim()) {
       try { const u = new URL(endpoint); if (!["http:", "https:"].includes(u.protocol) || u.username || u.password || u.search || u.hash) throw new Error(); }
-      catch { return new NextResponse("Use an HTTP(S) API base URL without credentials or query parameters.", { status: 400 }); }
+      catch { return new NextResponse(t("badBaseUrl"), { status: 400 }); }
     }
     await setSetting(SETTING_KEYS.AI_BASE_URL, endpoint.trim().replace(/\/$/, ""));
   }
   const mode = body[SETTING_KEYS.AI_JSON_MODE];
   if (mode !== undefined) {
-    if (!["schema", "json", "text"].includes(String(mode))) return new NextResponse("Invalid JSON mode", { status: 400 });
+    if (!["schema", "json", "text"].includes(String(mode))) return new NextResponse(t("invalidJsonMode"), { status: 400 });
     await setSetting(SETTING_KEYS.AI_JSON_MODE, mode);
   }
   const context = body[SETTING_KEYS.AI_CONTEXT_WINDOW];
   if (context === null || context === "") {
     await setSetting(SETTING_KEYS.AI_CONTEXT_WINDOW, "");
   } else if (context !== undefined) {
-    if (typeof context !== "number" || !Number.isInteger(context) || context < 2048 || context > 2_000_000) return new NextResponse("Context size must be a whole number of tokens (2048 or more).", { status: 400 });
+    if (typeof context !== "number" || !Number.isInteger(context) || context < 2048 || context > 2_000_000) return new NextResponse(t("badContext"), { status: 400 });
     await setSetting(SETTING_KEYS.AI_CONTEXT_WINDOW, context);
   }
   const reasoning = body[SETTING_KEYS.AI_REASONING];
   if (reasoning !== undefined) {
-    if (!["auto", "on", "off"].includes(String(reasoning))) return new NextResponse("Invalid reasoning mode", { status: 400 });
+    if (!["auto", "on", "off"].includes(String(reasoning))) return new NextResponse(t("invalidReasoning"), { status: 400 });
     await setSetting(SETTING_KEYS.AI_REASONING, reasoning);
   }
   const tokens = body[SETTING_KEYS.AI_MAX_TOKENS];
@@ -80,14 +84,14 @@ export async function PATCH(req: Request) {
   if (tokens === null || tokens === "") {
     await setSetting(SETTING_KEYS.AI_MAX_TOKENS, "");
   } else if (tokens !== undefined) {
-    if (typeof tokens !== "number" || !Number.isInteger(tokens) || tokens < 512 || tokens > 32768) return new NextResponse("Output token limit must be 512–32768.", { status: 400 });
+    if (typeof tokens !== "number" || !Number.isInteger(tokens) || tokens < 512 || tokens > 32768) return new NextResponse(t("badTokens"), { status: 400 });
     await setSetting(SETTING_KEYS.AI_MAX_TOKENS, tokens);
   }
   // Whitelist what can be set, with light validation per key.
   if (typeof body[SETTING_KEYS.AI_PROVIDER] === "string") {
     const v = body[SETTING_KEYS.AI_PROVIDER] as string;
     if (!VALID_PROVIDERS.includes(v as AIProvider)) {
-      return new NextResponse("Invalid provider", { status: 400 });
+      return new NextResponse(t("invalidProvider"), { status: 400 });
     }
     await setSetting(SETTING_KEYS.AI_PROVIDER, v);
   }
@@ -121,6 +125,13 @@ export async function PATCH(req: Request) {
       SETTING_KEYS.AI_CLAUDE_BIN,
       (body[SETTING_KEYS.AI_CLAUDE_BIN] as string).trim(),
     );
+  }
+
+  // The language new visitors see before they choose one ("" = their browser's).
+  const defaultLocale = body["i18n.defaultLocale"];
+  if (defaultLocale !== undefined) {
+    if (defaultLocale !== null && defaultLocale !== "" && !isLocale(defaultLocale)) return new NextResponse(t("invalidLanguage"), { status: 400 });
+    await setSetting("i18n.defaultLocale", isLocale(defaultLocale) ? defaultLocale : "");
   }
 
   if (body[PLAN_LIMITS_KEY] && typeof body[PLAN_LIMITS_KEY] === "object") {

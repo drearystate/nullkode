@@ -2,6 +2,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { Editor } from "grapesjs";
 import { Sparkles } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 type Attachment = {
   id: string;
@@ -68,11 +69,11 @@ function formatBytes(n: number): string {
   return `${(n / 1024 / 1024).toFixed(1)} MB`;
 }
 
-function readAsDataUrl(file: File): Promise<string> {
+function readAsDataUrl(file: File, errorText: string): Promise<string> {
   return new Promise((resolve, reject) => {
     const r = new FileReader();
     r.onload = () => resolve(String(r.result));
-    r.onerror = () => reject(new Error("Could not read file"));
+    r.onerror = () => reject(new Error(errorText));
     r.readAsDataURL(file);
   });
 }
@@ -82,17 +83,14 @@ type Props = {
   pageId: string;
   pageTitle: string;
   getEditor: () => Editor | null;
+  /** The language tab being edited (a multilingual app's translation); undefined for the main language. */
+  lang?: string;
 };
 
-const QUICK_SUGGESTIONS = [
-  "Make the heading bigger",
-  "Change the background to dark",
-  "Add a call-to-action button",
-  "Make it look friendlier",
-  "Add a pricing section",
-];
+const QUICK_SUGGESTIONS = ["heading", "dark", "cta", "friendly", "pricing"] as const;
 
-export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor }: Props) {
+export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor, lang }: Props) {
+  const t = useTranslations("ai");
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
@@ -154,23 +152,23 @@ export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor }: Pr
     let total = next.reduce((s, a) => s + a.size, 0);
     for (const f of incoming) {
       if (next.length >= MAX_FILES) {
-        setAttachError(`Max ${MAX_FILES} files`);
+        setAttachError(t("assistant.maxFiles", { count: MAX_FILES }));
         break;
       }
       if (!ACCEPT.split(",").includes(f.type)) {
-        setAttachError(`${f.name}: unsupported type`);
+        setAttachError(t("assistant.unsupportedType", { name: f.name }));
         continue;
       }
       if (f.size > MAX_BYTES_PER_FILE) {
-        setAttachError(`${f.name}: over ${formatBytes(MAX_BYTES_PER_FILE)}`);
+        setAttachError(t("assistant.fileTooBig", { name: f.name, size: formatBytes(MAX_BYTES_PER_FILE) }));
         continue;
       }
       if (total + f.size > MAX_TOTAL_BYTES) {
-        setAttachError(`Total over ${formatBytes(MAX_TOTAL_BYTES)}`);
+        setAttachError(t("assistant.totalTooBig", { size: formatBytes(MAX_TOTAL_BYTES) }));
         break;
       }
       try {
-        const dataUrl = await readAsDataUrl(f);
+        const dataUrl = await readAsDataUrl(f, t("assistant.readFileError"));
         next.push({
           id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
           name: f.name,
@@ -180,7 +178,7 @@ export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor }: Pr
         });
         total += f.size;
       } catch {
-        setAttachError(`${f.name}: read failed`);
+        setAttachError(t("assistant.readFailed", { name: f.name }));
       }
     }
     setAttachments(next);
@@ -199,7 +197,7 @@ export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor }: Pr
         ...m,
         {
           role: "assistant",
-          text: "The editor is still loading — give it a second and try again.",
+          text: t("assistant.editorLoading"),
           status: "error",
         },
       ]);
@@ -230,14 +228,14 @@ export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor }: Pr
     const selectedComp = !isSeed && sentAttachments.length === 0 ? editor.getSelected() : undefined;
     const scopedComp = selectedComp && selectedComp !== editor.getWrapper() ? selectedComp : undefined;
     const thinkingLabel = isSeed
-      ? "Generating sample data…"
-      : scopedComp ? "Updating the selected section…" : "Working on it…";
+      ? t("assistant.thinkingSeed")
+      : scopedComp ? t("assistant.thinkingSection") : t("assistant.thinking");
 
     // For seed we already know exactly what we're doing — skip the LLM
     // ack call entirely and show a canned, instant plan. For general
     // edits we fire /api/ai/plan in parallel with the real work below.
     const cannedPlan = isSeed
-      ? "I'll generate realistic sample rows for every table and insert them."
+      ? t("assistant.seedPlan")
       : null;
 
     setMessages((m) => [
@@ -306,7 +304,7 @@ export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor }: Pr
         ? await fetch("/api/ai/edit-section", {
             method: "POST",
             headers: { "content-type": "application/json" },
-            body: JSON.stringify({ projectId, pageId, message: msg, sectionHtml: scopedComp.toHTML(), history: sentHistory }),
+            body: JSON.stringify({ projectId, pageId, message: msg, sectionHtml: scopedComp.toHTML(), history: sentHistory, ...(lang ? { lang } : {}) }),
           })
         : await fetch("/api/ai/edit-page", {
             method: "POST",
@@ -314,10 +312,11 @@ export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor }: Pr
             body: JSON.stringify({
               projectId,
               pageId,
-              message: msg || "(see attached files)",
+              message: msg || t("assistant.seeAttached"),
               currentHtml,
               currentCss,
               history: sentHistory,
+              ...(lang ? { lang } : {}),
               attachments: sentAttachments.map((a) => ({
                 name: a.name,
                 mediaType: a.mediaType,
@@ -330,8 +329,9 @@ export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor }: Pr
         const data = (await res.json().catch(() => ({}))) as { error?: string; code?: string; refunded?: boolean; usage?: Usage | null };
         if (data.usage) setUsage(data.usage);
         else void refreshUsage();
-        let text = data.error ?? `Error ${res.status}`;
-        if (data.refunded && !/didn't count|wasn't counted/i.test(text)) text += " This one didn't count.";
+        let text = data.error ?? t("assistant.httpError", { status: res.status });
+        // The server says so itself when it can; otherwise add it here.
+        if (data.refunded && !/didn't count|wasn't counted/i.test(text) && !text.includes(t("assistant.didntCount", { message: "" }).trim())) text = t("assistant.didntCount", { message: text });
         throw new AiRequestError(text, data.code === "ai_quota");
       }
 
@@ -395,31 +395,23 @@ export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor }: Pr
       // Surface any backend work the AI did, so users understand that a
       // "feature" request actually wired tables + flows behind the scenes.
       const wiredBits: string[] = [];
-      if (createdTables.length > 0) {
-        wiredBits.push(
-          `${createdTables.length} ${createdTables.length === 1 ? "table" : "tables"}`
-        );
-      }
-      if (createdFlowSlugs.length > 0) {
-        wiredBits.push(
-          `${createdFlowSlugs.length} ${createdFlowSlugs.length === 1 ? "flow" : "flows"}`
-        );
-      }
+      if (createdTables.length > 0) wiredBits.push(t("assistant.createdTables", { count: createdTables.length }));
+      if (createdFlowSlugs.length > 0) wiredBits.push(t("assistant.createdFlows", { count: createdFlowSlugs.length }));
       const alsoDid: string[] = [];
-      if (wiredBits.length > 0) alsoDid.push(`created ${wiredBits.join(", ")}`);
+      if (wiredBits.length > 0) alsoDid.push(t("assistant.alsoCreated", { things: listOf(wiredBits, "unit") }));
       if (updatedPages.length > 0) {
         alsoDid.push(
           updatedPages.length === 1
-            ? `updated the "${updatedPages[0].slug}" page`
-            : `updated ${updatedPages.length} other pages`
+            ? t("assistant.alsoUpdatedPage", { slug: updatedPages[0].slug })
+            : t("assistant.alsoUpdatedPages", { count: updatedPages.length })
         );
       }
       let summary =
         alsoDid.length > 0
-          ? `${explanation} (Also ${alsoDid.join(" and ")}.)`
+          ? t("assistant.alsoDid", { explanation, things: listOf(alsoDid, "conjunction") })
           : explanation;
       if (html !== null && html !== undefined && !appliedToCanvas) {
-        summary += ` (Saved to "${sentPageTitle}" — open that page to see the change.)`;
+        summary = t("assistant.savedElsewhere", { summary, page: sentPageTitle });
       }
 
       // An answer that changed nothing counts toward the "stuck" tip.
@@ -445,7 +437,7 @@ export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor }: Pr
           ...next,
           {
             role: "assistant",
-            text: err instanceof Error ? err.message : "Something went wrong",
+            text: err instanceof Error ? err.message : t("assistant.genericError"),
             status: "error",
             upgrade: quota,
           },
@@ -470,38 +462,38 @@ export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor }: Pr
     return (
       <button
         onClick={() => setOpen(true)}
-        data-help="Your AI helper. Tell it what you want in normal words — like 'make the title bigger' — and it changes the page for you."
-        className="fixed bottom-6 right-6 z-50 rounded-full bg-gradient-to-br from-brand-400 via-brand-600 to-brand-800 text-fixed-white [[data-theme=light]_&]:from-brand-600 [[data-theme=light]_&]:via-brand-400 [[data-theme=light]_&]:to-brand-200 px-5 py-3 shadow-2xl shadow-brand-700/50 hover:scale-105 transition flex items-center gap-2 font-semibold"
+        data-help={t("assistant.openHelp")}
+        className="fixed bottom-6 end-6 z-50 rounded-full bg-gradient-to-br from-brand-400 via-brand-600 to-brand-800 text-fixed-white [[data-theme=light]_&]:from-brand-600 [[data-theme=light]_&]:via-brand-400 [[data-theme=light]_&]:to-brand-200 px-5 py-3 shadow-2xl shadow-brand-700/50 hover:scale-105 transition flex items-center gap-2 font-semibold"
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Sparkles size={20} aria-hidden />
-        Ask AI
+        {t("assistant.openButton")}
       </button>
     );
   }
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 w-[min(420px,calc(100vw-32px))] h-[min(640px,calc(100vh-64px))] rounded-2xl border border-surface-700 bg-surface-900/95 backdrop-blur-xl shadow-2xl shadow-black/80 [[data-theme=light]_&]:shadow-black/20 flex flex-col overflow-hidden">
+    <div className="fixed bottom-6 end-6 z-50 w-[min(420px,calc(100vw-32px))] h-[min(640px,calc(100vh-64px))] rounded-2xl border border-surface-700 bg-surface-900/95 backdrop-blur-xl shadow-2xl shadow-black/80 [[data-theme=light]_&]:shadow-black/20 flex flex-col overflow-hidden">
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 border-b border-surface-800 bg-gradient-to-r from-brand-900/30 to-transparent">
+      <div className="flex items-center justify-between px-4 py-3 border-b border-surface-800 bg-gradient-to-r rtl:bg-gradient-to-l from-brand-900/30 to-transparent">
         <div className="flex items-center gap-2">
           <div className="h-8 w-8 rounded-full bg-surface-950 ring-1 ring-surface-700 flex items-center justify-center overflow-hidden">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <Sparkles size={24} aria-hidden className="text-brand-300" />
           </div>
           <div>
-            <div className="font-semibold text-sm">AI Assistant</div>
+            <div className="font-semibold text-sm">{t("assistant.title")}</div>
             <div className="text-[11px] text-surface-400 truncate max-w-[220px]">
-              Editing: {pageTitle}
+              {t("assistant.editing", { page: pageTitle })}
             </div>
           </div>
         </div>
         <button
           onClick={() => setOpen(false)}
           className="text-surface-400 hover:text-white text-xl leading-none"
-          title="Minimize"
-          aria-label="Minimize"
-          data-help="Shrink the AI helper back to its button. Your chat stays here while this page is open."
+          title={t("assistant.minimize")}
+          aria-label={t("assistant.minimize")}
+          data-help={t("assistant.minimizeHelp")}
         >
           ×
         </button>
@@ -512,20 +504,19 @@ export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor }: Pr
         {messages.length === 0 && (
           <div className="text-center py-6">
             <p className="text-sm text-surface-300 font-medium">
-              Tell me what to change about this page.
+              {t("assistant.emptyTitle")}
             </p>
             <p className="text-xs text-surface-500 mt-1">
-              I&apos;ll apply it right in the editor — or name another page
-              (&quot;on the about page…&quot;) and I&apos;ll edit that one.
+              {t("assistant.emptyHint")}
             </p>
             <div className="mt-5 space-y-1.5">
-              {QUICK_SUGGESTIONS.map((s) => (
+              {QUICK_SUGGESTIONS.map((k) => t(`assistant.suggestions.${k}`)).map((s) => (
                 <button
                   key={s}
                   onClick={() => send(s)}
                   disabled={busy}
-                  data-help="Send this request to the AI right away. It changes the page in the editor."
-                  className="block w-full text-left text-xs bg-surface-800/60 hover:bg-surface-800 border border-surface-700 rounded-lg px-3 py-2 text-surface-200 transition disabled:opacity-50"
+                  data-help={t("assistant.quickHelp")}
+                  className="block w-full text-start text-xs bg-surface-800/60 hover:bg-surface-800 border border-surface-700 rounded-lg px-3 py-2 text-surface-200 transition disabled:opacity-50"
                 >
                   {s}
                 </button>
@@ -538,7 +529,7 @@ export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor }: Pr
           if (m.role === "user") {
             return (
               <div key={i} className="flex justify-end">
-                <div className="max-w-[85%] rounded-2xl rounded-br-sm bg-brand-600 text-fixed-white [[data-theme=light]_&]:bg-brand-400 px-4 py-2 text-sm">
+                <div className="max-w-[85%] rounded-2xl rounded-ee-sm bg-brand-600 text-fixed-white [[data-theme=light]_&]:bg-brand-400 px-4 py-2 text-sm">
                   {m.attachments && m.attachments.length > 0 && (
                     <div className="mb-1.5 flex flex-wrap gap-1">
                       {m.attachments.map((a, j) => (
@@ -553,7 +544,7 @@ export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor }: Pr
                       ))}
                     </div>
                   )}
-                  {m.text}
+                  <span dir="auto">{m.text}</span>
                 </div>
               </div>
             );
@@ -561,8 +552,8 @@ export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor }: Pr
           if (m.role === "assistant-plan") {
             return (
               <div key={i} className="flex">
-                <div className="max-w-[85%] rounded-2xl rounded-bl-sm bg-brand-900/30 border border-brand-700/40 text-surface-100 px-4 py-2 text-sm">
-                  {m.text}
+                <div className="max-w-[85%] rounded-2xl rounded-es-sm bg-brand-900/30 border border-brand-700/40 text-surface-100 px-4 py-2 text-sm">
+                  <span dir="auto">{m.text}</span>
                 </div>
               </div>
             );
@@ -570,11 +561,11 @@ export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor }: Pr
           if (m.role === "assistant-thinking") {
             return (
               <div key={i} className="flex">
-                <div className="max-w-[85%] rounded-2xl rounded-bl-sm bg-surface-800 text-surface-200 px-4 py-3 text-sm flex items-center gap-2">
+                <div className="max-w-[85%] rounded-2xl rounded-es-sm bg-surface-800 text-surface-200 px-4 py-3 text-sm flex items-center gap-2">
                   <Dot />
                   <Dot delay={150} />
                   <Dot delay={300} />
-                  <span className="ml-1 text-xs text-surface-400">{m.label}</span>
+                  <span className="ms-1 text-xs text-surface-400">{m.label}</span>
                 </div>
               </div>
             );
@@ -582,15 +573,15 @@ export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor }: Pr
           if (m.role === "assistant-tip") {
             return (
               <div key={i} className="flex">
-                <div className="max-w-[85%] rounded-2xl rounded-bl-sm border border-amber-400/30 bg-amber-400/10 px-4 py-2 text-sm text-amber-100">
-                  <p>This doesn&apos;t seem to be working. You could:</p>
-                  <ul className="mt-1 list-disc space-y-0.5 pl-5 text-xs">
-                    <li>say it another way, in a few simple words</li>
-                    <li>select a smaller part of the page first, then ask again</li>
-                    <li>undo the last change if the page looks wrong</li>
+                <div className="max-w-[85%] rounded-2xl rounded-es-sm border border-amber-400/30 bg-amber-400/10 px-4 py-2 text-sm text-amber-100">
+                  <p>{t("assistant.tipIntro")}</p>
+                  <ul className="mt-1 list-disc space-y-0.5 ps-5 text-xs">
+                    <li>{t("assistant.tipReword")}</li>
+                    <li>{t("assistant.tipSelect")}</li>
+                    <li>{t("assistant.tipUndo")}</li>
                   </ul>
-                  <button type="button" onClick={undoLast} data-help="Undo the most recent change in the editor, in case the page now looks wrong." className="mt-2 rounded-md border border-amber-300/40 px-2 py-1 text-xs hover:bg-amber-300/10">
-                    Undo last change
+                  <button type="button" onClick={undoLast} data-help={t("assistant.undoHelp")} className="mt-2 rounded-md border border-amber-300/40 px-2 py-1 text-xs hover:bg-amber-300/10">
+                    {t("assistant.undo")}
                   </button>
                 </div>
               </div>
@@ -606,7 +597,7 @@ export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor }: Pr
           return (
             <div key={i} className="flex flex-col items-start gap-2">
               <div
-                className={`max-w-[85%] rounded-2xl rounded-bl-sm px-4 py-2 text-sm ${
+                className={`max-w-[85%] rounded-2xl rounded-es-sm px-4 py-2 text-sm ${
                   m.status === "ok"
                     ? "bg-surface-800 text-surface-100"
                     : m.status === "info"
@@ -614,24 +605,24 @@ export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor }: Pr
                       : "bg-red-500/10 border border-red-500/30 text-red-300"
                 }`}
               >
-                {m.status === "ok" && <span className="mr-1">✓</span>}
-                {m.text}
+                {m.status === "ok" && <span className="me-1">✓</span>}
+                <span dir="auto">{m.text}</span>
                 {m.upgrade && canUpgrade(usage) && (
-                  <a href="/billing" className="ml-1 underline hover:text-red-100" data-help="Compare plans that include more AI actions each month.">See plans</a>
+                  <a href="/billing" className="ms-1 underline hover:text-red-100" data-help={t("assistant.seePlansHelp")}>{t("assistant.seePlans")}</a>
                 )}
               </div>
               {showSuggestions && (
-                <div className="w-full space-y-1.5 pl-1">
+                <div className="w-full space-y-1.5 ps-1">
                   <div className="text-[10px] uppercase tracking-wide text-surface-500">
-                    Suggested next steps
+                    {t("assistant.nextSteps")}
                   </div>
                   {m.suggestions!.map((s) => (
                     <button
                       key={s}
                       onClick={() => send(s)}
                       disabled={busy}
-                      data-help="An idea for what to do next. Click to send it to the AI as your next request."
-                      className="block w-full text-left text-xs bg-surface-800/40 hover:bg-surface-800 border border-surface-700 hover:border-brand-500/60 rounded-lg px-3 py-2 text-surface-200 transition disabled:opacity-50"
+                      data-help={t("assistant.nextStepHelp")}
+                      className="block w-full text-start text-xs bg-surface-800/40 hover:bg-surface-800 border border-surface-700 hover:border-brand-500/60 rounded-lg px-3 py-2 text-surface-200 transition disabled:opacity-50"
                     >
                       {s}
                     </button>
@@ -656,8 +647,8 @@ export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor }: Pr
       >
         {selection && (
           <div className="mb-2 flex items-center justify-between gap-2 rounded-md border border-brand-500/30 bg-brand-500/10 px-2 py-1.5 text-xs text-brand-100">
-            <span className="truncate">Changes apply to the selected <strong>{selection}</strong></span>
-            <button type="button" className="shrink-0 text-surface-300 underline hover:text-white" onClick={() => getEditor()?.select([])} data-help="Unselect the part you picked, so the AI can change anything on the whole page.">Whole page instead</button>
+            <span className="truncate">{t.rich("assistant.selection", { name: selection, b: (c) => <strong>{c}</strong> })}</span>
+            <button type="button" className="shrink-0 text-surface-300 underline hover:text-white" onClick={() => getEditor()?.select([])} data-help={t("assistant.wholePageHelp")}>{t("assistant.wholePage")}</button>
           </div>
         )}
         {attachments.length > 0 && (
@@ -666,7 +657,7 @@ export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor }: Pr
               <div
                 key={a.id}
                 className="group relative flex items-center gap-1.5 rounded-md border border-surface-700 bg-surface-900 px-2 py-1 text-xs text-surface-200"
-                title={`${a.name} · ${formatBytes(a.size)}`}
+                title={t("assistant.attachmentTitle", { name: a.name, size: formatBytes(a.size) })}
               >
                 {a.mediaType.startsWith("image/") ? (
                   // eslint-disable-next-line @next/next/no-img-element
@@ -676,7 +667,7 @@ export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor }: Pr
                     className="h-6 w-6 rounded object-cover"
                   />
                 ) : (
-                  <span className="text-[10px] uppercase text-surface-500">file</span>
+                  <span className="text-[10px] uppercase text-surface-500">{t("assistant.file")}</span>
                 )}
                 <span className="max-w-[140px] truncate">{a.name}</span>
                 <span className="text-[10px] text-surface-500">
@@ -686,10 +677,10 @@ export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor }: Pr
                   onClick={() =>
                     setAttachments((a0) => a0.filter((x) => x.id !== a.id))
                   }
-                  className="ml-1 text-surface-500 hover:text-white"
-                  title="Remove"
-                  aria-label={`Remove ${a.name}`}
-                  data-help="Remove this picture so it isn't sent with your message."
+                  className="ms-1 text-surface-500 hover:text-white"
+                  title={t("assistant.remove")}
+                  aria-label={t("assistant.removeFile", { name: a.name })}
+                  data-help={t("assistant.removeFileHelp")}
                 >
                   ×
                 </button>
@@ -716,9 +707,9 @@ export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor }: Pr
             onClick={() => fileInputRef.current?.click()}
             disabled={busy || attachments.length >= MAX_FILES}
             className="shrink-0 h-9 w-9 rounded-lg border border-surface-700 bg-surface-900 text-surface-300 hover:text-white hover:border-surface-600 disabled:opacity-40 flex items-center justify-center"
-            title="Attach images"
-            aria-label="Attach files"
-            data-help="Attach a picture to show the helper what you mean — like a screenshot of a design you want to copy."
+            title={t("assistant.attachTitle")}
+            aria-label={t("assistant.attachLabel")}
+            data-help={t("assistant.attachHelp")}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -750,8 +741,8 @@ export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor }: Pr
                 send();
               }
             }}
-            placeholder="Tell me what to change..."
-            data-help="Type what you want changed, in your own words. Press Enter to send it."
+            placeholder={t("assistant.placeholder")}
+            data-help={t("assistant.inputHelp")}
             rows={1}
             disabled={busy}
             className="flex-1 bg-surface-900 border border-surface-700 rounded-lg px-3 py-2 text-sm text-surface-50 placeholder:text-surface-500 focus:outline-none focus:border-brand-500 resize-none max-h-32 disabled:opacity-50"
@@ -759,14 +750,14 @@ export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor }: Pr
           <button
             onClick={() => send()}
             disabled={busy || (!input.trim() && attachments.length === 0)}
-            data-help="Send your request, and any pictures you attached, to the AI. It makes the change for you."
+            data-help={t("assistant.sendHelp")}
             className="btn-primary disabled:opacity-40 shrink-0"
           >
-            {busy ? "..." : "Send"}
+            {busy ? "..." : t("assistant.send")}
           </button>
         </div>
         <div className="mt-1.5 text-[10px] text-surface-500 text-center">
-          Enter to send · Attach images for context (drop or paste)
+          {t("assistant.footer")}
         </div>
         <UsageLine usage={usage} />
       </div>
@@ -779,29 +770,40 @@ export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor }: Pr
  * are left (or AI is paused) it says why and where to get more.
  */
 function UsageLine({ usage }: { usage: Usage | null }) {
+  const t = useTranslations("ai");
   if (!usage || usage.limit === null) return null;
   const left = Math.max(0, usage.limit - usage.used);
-  const shared = usage.scope === "workspace" ? " (shared with your clients)" : "";
+  const shared = usage.scope === "workspace";
   if (usage.paused || left === 0) {
     return (
-      <div className="mt-1 text-center text-[11px] text-red-300" role="status" data-help="You can't send more AI requests right now. You can still edit the page yourself in the editor.">
-        {usage.problem ?? `No AI actions left this month${shared}.`}
+      <div className="mt-1 text-center text-[11px] text-red-300" role="status" data-help={t("assistant.noneLeftHelp")}>
+        {usage.problem ?? t(shared ? "assistant.noneLeftShared" : "assistant.noneLeft")}
         {canUpgrade(usage) && (
           <>
             {" "}
-            <a href="/billing" className="underline hover:text-red-100">See plans</a>
+            <a href="/billing" className="underline hover:text-red-100">{t("assistant.seePlans")}</a>
           </>
         )}
       </div>
     );
   }
   const low = usage.used >= usage.limit * 0.8;
+  const line = t(shared ? "assistant.leftShared" : "assistant.left", { count: left, limit: usage.limit });
   return (
-    <div className={`mt-1 text-center text-[11px] ${low ? "text-amber-300" : "text-surface-500"}`} role="status" data-help="How many more requests you can send to the AI this month. The count starts again next month.">
-      {left} of {usage.limit} AI actions left this month{shared}
-      {low ? (usage.contact ? ` — ask ${usage.contact} if you need more` : " — running low") : ""}
+    <div className={`mt-1 text-center text-[11px] ${low ? "text-amber-300" : "text-surface-500"}`} role="status" data-help={t("assistant.usageHelp")}>
+      {low ? (usage.contact ? t("assistant.askContact", { line, contact: usage.contact }) : t("assistant.runningLow", { line })) : line}
     </div>
   );
+}
+
+/** "a, b and c" in the studio's language (falls back to commas). */
+function listOf(items: string[], type: "conjunction" | "unit"): string {
+  try {
+    const lang = typeof document !== "undefined" ? document.documentElement.lang || "en" : "en";
+    return new Intl.ListFormat(lang, { style: "long", type }).format(items);
+  } catch {
+    return items.join(", ");
+  }
 }
 
 /** A plan with more AI changes can be bought (the plan's own allowance ran out, not a workspace cap). */

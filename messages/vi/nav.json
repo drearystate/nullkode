@@ -1,0 +1,41 @@
+{
+  "accountMenu": "Menu tài khoản",
+  "accountNavigation": "Điều hướng tài khoản",
+  "admin": "Quản trị",
+  "adminHelp": "Cài đặt cho toàn bộ nền tảng: thương hiệu, AI, email, thanh toán, người dùng và đại lý.",
+  "administration": "Quản trị",
+  "billing": "Thanh toán và gói dịch vụ",
+  "designer": "Trình thiết kế",
+  "designerHelp": "Mô tả trang web bằng lời của bạn, AI sẽ thiết kế trang web đó rồi tiếp tục chỉnh sửa theo yêu cầu của bạn.",
+  "help": "Trợ giúp",
+  "helpGuides": "Trợ giúp và hướng dẫn",
+  "helpHelp": "Hướng dẫn từng bước. Mở hướng dẫn dành cho màn hình bạn đang xem.",
+  "helpTips": {
+    "help": "Bật hoặc tắt các ghi chú trợ giúp này. Khi bật, di chuột lên nút bất kỳ để tìm hiểu chức năng của nút đó. Bạn cũng có thể thay đổi cài đặt này trong phần Cài đặt.",
+    "label": "Mẹo trợ giúp",
+    "off": "TẮT",
+    "on": "BẬT"
+  },
+  "home": "Trang chủ {app}",
+  "impersonation": {
+    "backToClients": "Quay lại danh sách khách hàng",
+    "backToClientsHelp": "Rời khỏi không gian làm việc của khách hàng này và quay lại danh sách khách hàng. Những thay đổi bạn đã thực hiện vẫn được lưu trong tài khoản của họ.",
+    "impersonating": "Đang đóng vai",
+    "signedInAs": "· đã đăng nhập với tư cách {email}",
+    "stop": "Dừng đóng vai",
+    "stopHelp": "Dừng thao tác với tư cách người này và quay lại trang Quản trị. Những thay đổi bạn đã thực hiện vẫn được lưu trong tài khoản của họ.",
+    "viewingClient": "Bạn đang xem không gian làm việc của <b>{name}</b>. Những thay đổi bạn thực hiện sẽ áp dụng cho tài khoản của họ."
+  },
+  "logOut": "Đăng xuất",
+  "myApps": "Ứng dụng của tôi",
+  "myAppsHelp": "Tất cả ứng dụng của bạn ở cùng một nơi. Mở ứng dụng để tiếp tục làm việc hoặc tạo ứng dụng mới.",
+  "profile": "Hồ sơ",
+  "resellerDashboard": "Bảng điều khiển đại lý",
+  "resellerHelp": "Quản lý khách hàng, thương hiệu, giá và địa chỉ web của bạn.",
+  "switchTheme": "Chuyển giữa giao diện sáng và tối",
+  "switchToDark": "Chuyển sang giao diện tối",
+  "switchToLight": "Chuyển sang giao diện sáng",
+  "themeHelp": "Chuyển giữa giao diện sáng và tối. Lựa chọn của bạn sẽ được lưu; bạn cũng có thể chọn “Theo thiết bị của tôi” trong hồ sơ.",
+  "workspace": "Không gian làm việc",
+  "yourAccount": "Tài khoản của bạn"
+}

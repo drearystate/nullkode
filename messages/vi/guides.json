@@ -1,0 +1,1276 @@
+{
+  "account-and-billing": {
+    "sections": {
+      "0": {
+        "heading": "Ảnh, thông tin và mật khẩu",
+        "shot": {
+          "alt": "Trang Hồ sơ hiển thị ảnh, thông tin, mật khẩu, giao diện và mẹo trợ giúp.",
+          "caption": "Hồ sơ: ảnh, tên, mật khẩu, giao diện sáng hoặc tối và mẹo trợ giúp."
+        },
+        "steps": {
+          "0": "Nhấn vào ảnh (hoặc chữ cái đầu tên) ở góc trên bên phải, rồi chọn <b>Hồ sơ</b>.",
+          "1": "Nhấn <b>Thêm ảnh</b> và chọn ảnh của bạn. Ảnh sẽ được cắt thành hình vuông và hiển thị bên cạnh tên. Bạn có thể <b>Đổi ảnh</b> hoặc <b>Xóa</b> bất cứ lúc nào.",
+          "2": "Đổi <b>Tên</b> rồi nhấn <b>Lưu</b>. Email là địa chỉ bạn dùng để đăng nhập và không thể đổi tại đây.",
+          "3": "Trong mục <b>Mật khẩu</b>, nhập <b>Mật khẩu hiện tại</b> và <b>Mật khẩu mới</b> có ít nhất 8 ký tự, rồi nhấn <b>Đổi mật khẩu</b>. Bạn sẽ bị đăng xuất khỏi các thiết bị khác."
+        }
+      },
+      "1": {
+        "body": {
+          "0": "Nếu bạn không biết mật khẩu hiện tại, chẳng hạn vì đã đăng ký bằng Google, hãy đăng xuất rồi chọn <b>Quên mật khẩu</b> trên trang đăng nhập để đặt mật khẩu mới."
+        },
+        "heading": "Đăng ký bằng Google?"
+      },
+      "2": {
+        "body": {
+          "0": "Nhấn nút mặt trời hoặc mặt trăng trên thanh trên cùng để chuyển giữa giao diện sáng và tối. Trong <b>Hồ sơ</b>, mục <b>Giao diện</b>, bạn cũng có thể chọn <b>Dùng giao diện theo thiết bị</b> để đồng bộ với máy tính hoặc điện thoại. Lựa chọn của bạn được lưu vào tài khoản và áp dụng trên các thiết bị khác."
+        },
+        "heading": "Giao diện sáng hoặc tối"
+      },
+      "3": {
+        "body": {
+          "0": "Mẹo trợ giúp là những ghi chú ngắn hiện ra khi bạn di chuột lên nút hoặc cài đặt. Bật hoặc tắt mẹo trong mục <b>Trợ giúp</b> của <b>Hồ sơ</b>. Khi ở trong ứng dụng, nút <b>Mẹo trợ giúp</b> phía trên cũng có tác dụng tương tự.",
+          "1": "Liên kết <b>Trợ giúp</b> trên thanh trên cùng sẽ mở hướng dẫn cho màn hình bạn đang xem. Mục <b>Trợ giúp và hướng dẫn</b> trong menu tài khoản liệt kê tất cả hướng dẫn."
+        },
+        "heading": "Mẹo và hướng dẫn trợ giúp"
+      },
+      "4": {
+        "body": {
+          "0": "Nhấn vào chữ cái đầu tên, rồi chọn <b>Thanh toán và gói dịch vụ</b>. Tại đây, bạn có thể xem gói dịch vụ và số lượt thao tác AI đã dùng trong tháng này, nếu gói của bạn có giới hạn hằng tháng. Lập kế hoạch, tạo và chỉnh sửa bằng AI đều sử dụng lượt thao tác AI.",
+          "1": "Khi dùng hết lượt, AI sẽ tạm dừng đến tháng sau. Mẫu và trình chỉnh sửa trang vẫn hoạt động. Nếu có gói dịch vụ khác, bạn có thể chọn ngay trên trang này. Sau khi trả phí cho một gói, mục <b>Quản lý thanh toán</b> cho phép bạn thay đổi thông tin thanh toán."
+        },
+        "heading": "Gói dịch vụ và mức sử dụng AI",
+        "shot": {
+          "alt": "Trang Thanh toán hiển thị gói dịch vụ và số lượt thao tác AI bạn đã dùng trong tháng này.",
+          "caption": "Thanh toán và gói dịch vụ: gói dịch vụ và mức sử dụng AI trong tháng này."
+        }
+      },
+      "5": {
+        "body": {
+          "0": "Thao tác này sẽ xóa tài khoản và tất cả ứng dụng của bạn, cùng mọi dữ liệu đã lưu, tệp và địa chỉ web. Bạn không thể hoàn tác."
+        },
+        "heading": "Xóa tài khoản",
+        "steps": {
+          "0": "Mở <b>Hồ sơ</b> và tìm mục <b>Xóa tài khoản của tôi</b>.",
+          "1": "Tải <b>Bản sao lưu</b> của từng ứng dụng bạn có thể cần sau này. Nếu ứng dụng có trên Google Play, hãy tải cả <b>Khóa tải lên Google Play</b>.",
+          "2": "Nhấn <b>Xóa tài khoản của tôi…</b>.",
+          "3": "Nhập địa chỉ email để xác nhận và đánh dấu vào ô khóa tải lên nếu ô này xuất hiện.",
+          "4": "Nhấn <b>Xóa tài khoản của tôi vĩnh viễn</b>."
+        }
+      },
+      "6": {
+        "bullets": {
+          "0": "Đổi mật khẩu sẽ đăng xuất bạn khỏi tất cả thiết bị khác.",
+          "1": "Gói trả phí sẽ bị hủy ngay khi bạn xóa tài khoản.",
+          "2": "Nếu bạn không thể xóa tài khoản tại đây, chẳng hạn vì bạn quản lý không gian làm việc cho người khác, trang Hồ sơ sẽ giải thích lý do."
+        },
+        "heading": "Thông tin cần biết"
+      }
+    },
+    "summary": "Thêm ảnh, đổi tên và mật khẩu, chọn giao diện sáng hoặc tối, bật hoặc tắt mẹo trợ giúp, xem gói dịch vụ và mức sử dụng AI, hoặc xóa tài khoản.",
+    "title": "Hồ sơ, gói dịch vụ và cài đặt"
+  },
+  "ai-designer": {
+    "sections": {
+      "0": {
+        "heading": "Bắt đầu thiết kế",
+        "shot": {
+          "alt": "Trang chủ AI Designer, với ô mô tả ứng dụng, các ý tưởng mẫu và danh sách thiết kế của bạn.",
+          "caption": "Mô tả điều bạn muốn, rồi nhấn Bắt đầu thiết kế."
+        },
+        "steps": {
+          "0": "Nhấp vào <b>Designer</b> trên thanh trên cùng. Trên điện thoại, vào <b>Xem thêm cách bắt đầu</b> trên trang tổng quan rồi chọn <b>Cùng thiết kế</b>.",
+          "1": "Trong mục <b>Bạn muốn tạo gì?</b>, hãy mô tả ứng dụng. Cho biết ứng dụng dành cho ai và khách truy cập có thể làm gì, chẳng hạn như đặt lịch hoặc gửi tin nhắn. Bạn cũng có thể nhấn vào một ý tưởng mẫu rồi chỉnh sửa.",
+          "2": "Nhấn <b>Bắt đầu thiết kế</b>.",
+          "3": "AI có thể hỏi <b>Trả lời nhanh vài câu hỏi trước nhé</b>. Nhấn vào câu trả lời, nhập câu trả lời của riêng bạn hoặc bỏ qua câu hỏi bất kỳ. Nhấn <b>Tạo ứng dụng</b>, hoặc <b>Bỏ qua câu hỏi</b> để AI tự quyết định."
+        }
+      },
+      "1": {
+        "body": {
+          "0": "Trong khi AI làm việc, cuộc trò chuyện bên trái sẽ hiển thị <b>Đang thực hiện…</b> cùng từng bước khi diễn ra, còn bản xem trước bên phải sẽ dần hoàn thiện. Bản thiết kế đầu tiên có thể mất vài phút.",
+          "1": "Để dừng giữa chừng, nhấn nút dừng hình vuông cạnh ô nhập tin nhắn. Nội dung từ lần chạy đó sẽ không được lưu.",
+          "2": "Sau khi tạo xong bản đầu tiên, thiết kế của bạn sẽ có ứng dụng riêng. Nút <b>Mở ứng dụng</b> ở đầu cuộc trò chuyện sẽ đưa bạn đến ứng dụng, nơi bạn có thể xem dữ liệu, luồng và tùy chọn xuất bản."
+        },
+        "heading": "Theo dõi quá trình tạo ứng dụng"
+      },
+      "2": {
+        "heading": "Yêu cầu chỉnh sửa",
+        "shot": {
+          "alt": "Một thiết kế đang mở trong Trình thiết kế AI: cuộc trò chuyện bên trái và bản xem trước ứng dụng bên phải.",
+          "caption": "Cuộc trò chuyện ở bên trái, bản xem trước trực tiếp ở bên phải."
+        },
+        "steps": {
+          "0": "Nhập nội dung bạn muốn chỉnh sửa vào ô <b>Yêu cầu chỉnh sửa</b> bằng lời của bạn. Ví dụ: “làm phần đầu trang tối màu hơn” hoặc “thêm trang bảng giá”.",
+          "1": "Nhấn Enter hoặc nút gửi. Nhấn Shift+Enter để xuống dòng.",
+          "2": "AI cập nhật thiết kế và lưu thành phiên bản mới."
+        }
+      },
+      "3": {
+        "body": {
+          "0": "Đôi khi, cho AI xem sẽ dễ hơn là mô tả bằng lời."
+        },
+        "heading": "Chỉ vào nội dung bạn muốn chỉnh sửa",
+        "steps": {
+          "0": "Nhấn <b>Bình luận</b> phía trên bản xem trước. Nút sẽ đổi thành <b>Nhấp vào nội dung bất kỳ để bình luận</b>.",
+          "1": "Nhấp vào phần bạn muốn chỉnh sửa trong bản xem trước.",
+          "2": "Nhập nội dung cần chỉnh sửa, ví dụ “làm phần này lớn hơn”, rồi nhấn <b>Thêm</b>. Ghi chú sẽ chờ phía trên ô tin nhắn.",
+          "3": "Thêm bao nhiêu ghi chú tùy thích, rồi nhấn gửi để thực hiện tất cả thay đổi cùng lúc. Để xóa ghi chú, nhấn dấu x."
+        }
+      },
+      "4": {
+        "body": {
+          "0": "Dùng menu <b>Trang</b> phía trên bản xem trước để xem từng trang trong thiết kế. Ba nút màn hình hiển thị thiết kế theo chiều rộng máy tính, máy tính bảng và điện thoại. Nút mũi tên sẽ mở riêng trang trong thẻ mới.",
+          "1": "Trên điện thoại, chuyển giữa <b>Cuộc trò chuyện</b> và <b>Xem trước</b> ở đầu màn hình."
+        },
+        "heading": "Kiểm tra mọi trang và kích thước màn hình"
+      },
+      "5": {
+        "body": {
+          "0": "Mọi thay đổi đều được lưu thành phiên bản, nên bạn luôn có thể quay lại."
+        },
+        "heading": "Quay lại phiên bản trước",
+        "shot": {
+          "alt": "Danh sách Phiên bản đang mở cạnh bản xem trước, mỗi phiên bản có nút Xem và Khôi phục.",
+          "caption": "Phiên bản: xem lại và khôi phục bất kỳ phiên bản nào trước đó."
+        },
+        "steps": {
+          "0": "Nhấn <b>Phiên bản</b>. Các phiên bản được liệt kê từ mới nhất trở về trước.",
+          "1": "Nhấn <b>Xem</b> để hiển thị phiên bản cũ trong bản xem trước. Bạn cũng có thể nhấn <b>Xem phiên bản này</b> bên dưới tin nhắn trong cuộc trò chuyện.",
+          "2": "Nhấn <b>Khôi phục</b> (hoặc <b>Khôi phục phiên bản này</b> trên thanh màu vàng) để đặt phiên bản đó làm phiên bản hiện tại. Phiên bản bạn đang dùng vẫn nằm trong danh sách, nên bạn có thể quay lại.",
+          "3": "Để ngừng xem phiên bản cũ, nhấn <b>Quay lại phiên bản hiện tại</b>."
+        }
+      },
+      "6": {
+        "body": {
+          "0": "<b>Tải xuống</b> sẽ lưu mọi trang trong thiết kế của bạn vào một tệp .zip.",
+          "1": "<b>Chuyển sang trình tạo trang</b> sẽ chuyển ứng dụng sang trình chỉnh sửa trang kéo thả. Sau đó, bạn sẽ không thể chỉnh sửa ứng dụng bằng Trình thiết kế AI nữa. Nếu muốn tiếp tục thiết kế bằng AI, nhấn <b>Tạo bản sao để tiếp tục thiết kế</b>: bạn sẽ có một bản sao riêng, còn ứng dụng trong trình tạo trang vẫn được giữ nguyên."
+        },
+        "heading": "Tải xuống hoặc chuyển sang trình tạo trang"
+      },
+      "7": {
+        "body": {
+          "0": "Trang chủ Trình thiết kế liệt kê <b>Thiết kế của bạn</b>. Nhấp vào thẻ để mở một thiết kế. Nút <b>…</b> trên thẻ cho phép bạn <b>Đổi tên</b>, <b>Tạo bản sao</b> hoặc <b>Xóa</b> thiết kế.",
+          "1": "Xóa thiết kế cũng sẽ xóa ứng dụng của thiết kế đó, trừ khi ứng dụng đã được chuyển sang trình tạo trang. Bạn không thể hoàn tác thao tác này."
+        },
+        "heading": "Thiết kế của bạn"
+      },
+      "8": {
+        "bullets": {
+          "0": "Yêu cầu AI tạo thiết kế hoặc chỉnh sửa sẽ dùng hạn mức AI hằng tháng trong gói của bạn, nếu có.",
+          "1": "Trong ứng dụng được tạo bằng Trình thiết kế, các trang lấy từ thiết kế. Hãy chỉnh sửa trang tại đây, không phải trong trình chỉnh sửa trang.",
+          "2": "Dữ liệu, luồng, tên miền và tính năng xuất bản của ứng dụng nằm trong các thẻ riêng, giống như mọi ứng dụng khác. Xuất bản bằng nút <b>Xuất bản</b>."
+        },
+        "heading": "Thông tin cần biết"
+      }
+    },
+    "summary": "Mô tả ứng dụng bằng lời đơn giản, rồi hoàn thiện bằng cách trò chuyện với AI và nhấp vào nội dung bạn muốn thay đổi.",
+    "title": "Thiết kế với AI Designer"
+  },
+  "ai-settings": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Trong mục Quản trị, mở <b>Tất cả cài đặt</b> rồi chọn <b>Công cụ AI</b>. Khi chưa kết nối công cụ, tính năng tạo ứng dụng bằng AI sẽ tắt: mọi người có thể bắt đầu từ mẫu và trình chỉnh sửa trang, nhưng AI Designer không thể tạo ứng dụng."
+        },
+        "heading": "Tìm ở đâu"
+      },
+      "1": {
+        "body": {
+          "0": "Có hai lựa chọn:"
+        },
+        "bullets": {
+          "0": "<b>OpenAI</b>: Dịch vụ của OpenAI hoặc bất kỳ máy chủ nào hoạt động tương tự, bao gồm cả các mô hình chạy trên thiết bị của bạn.",
+          "1": "<b>Tác nhân AI dòng lệnh</b>: Công cụ AI dòng lệnh được cài trên máy chủ này và đăng nhập bằng gói đăng ký riêng, thay vì trả phí theo từng yêu cầu."
+        },
+        "heading": "Chọn nhà cung cấp",
+        "shot": {
+          "alt": "Cài đặt nhà cung cấp AI với hai lựa chọn, thông tin kết nối và nút kiểm tra.",
+          "caption": "Chọn nhà cung cấp, điền thông tin rồi kiểm tra kết nối."
+        }
+      },
+      "2": {
+        "heading": "Kết nối dịch vụ lưu trữ hoặc dịch vụ tương thích",
+        "steps": {
+          "0": "Chọn <b>OpenAI</b>.",
+          "1": "Dán khóa vào mục <b>Khóa API OpenAI / tương thích</b>. Nếu đã lưu khóa, hãy để trống ô này để giữ nguyên khóa.",
+          "2": "Để trống mục <b>URL cơ sở API</b> nếu dùng dịch vụ của OpenAI, hoặc nhập địa chỉ của máy chủ tương thích.",
+          "3": "Nhập tên mô hình vào mục <b>Mô hình tạo khung</b> (lên kế hoạch và tạo ứng dụng mới) và <b>Mô hình chỉnh sửa</b> (thay đổi trong trình chỉnh sửa), hoặc để trống để dùng mặc định.",
+          "4": "Nhấn <b>Kiểm tra kết nối</b>. Cài đặt sẽ được lưu trước, sau đó bạn sẽ thấy <b>Thành công</b> hoặc <b>Không thành công</b> kèm lý do.",
+          "5": "Nhấn <b>Lưu thay đổi</b>."
+        }
+      },
+      "3": {
+        "body": {
+          "0": "Bất kỳ máy chủ mô hình nào dùng cùng giao thức với dịch vụ của OpenAI đều hoạt động, chẳng hạn như Ollama, LM Studio, vLLM hoặc máy chủ của llama.cpp. Nhập địa chỉ máy chủ vào mục <b>URL cơ sở API</b> (nếu mô hình chạy trên cùng máy tính với các vùng chứa Docker của {app}, địa chỉ có thể là http://host.docker.internal:11434/v1), để trống khóa trừ khi máy chủ yêu cầu khóa, rồi nhập chính xác tên mô hình.",
+          "1": "Để trống mục <b>Kích thước ngữ cảnh mô hình</b> và <b>Số token đầu ra tối đa mỗi lần gọi</b>, đồng thời đặt <b>Khả năng suy luận của mô hình</b> thành <b>Tự động</b>: {app} sẽ tự chọn giá trị phù hợp. Nếu kết quả kiểm tra hoặc tạo ứng dụng không đọc được, hãy đặt <b>Hỗ trợ JSON</b> thành <b>Chỉ nhắc trong câu lệnh</b>.",
+          "2": "Tốc độ phụ thuộc vào thiết bị của bạn. Mô hình lớn hơn tạo trang tốt hơn; hãy thử tạo một ứng dụng mẫu trước khi mời mọi người."
+        },
+        "heading": "Chạy AI trên thiết bị của bạn"
+      },
+      "4": {
+        "heading": "Dùng công cụ AI dòng lệnh",
+        "steps": {
+          "0": "Cài công cụ trên máy chủ này và đăng nhập bằng tài khoản chạy {app} (hoặc tài khoản chạy riêng dành cho công cụ).",
+          "1": "Chọn <b>Tác nhân AI dòng lệnh</b>.",
+          "2": "Đặt mục <b>Mô hình</b> nếu bạn muốn dùng mô hình khác; chỉ đặt <b>Đường dẫn tệp thực thi</b> nếu công cụ không tự được tìm thấy.",
+          "3": "Nhấn <b>Kiểm tra tác nhân AI</b>, rồi nhấn <b>Lưu thay đổi</b>."
+        }
+      },
+      "5": {
+        "bullets": {
+          "0": "Mỗi lần lên kế hoạch, tạo ứng dụng hoặc chỉnh sửa đều dùng lượt AI trong hạn mức hằng tháng của người đó (xem <b>Gói và giới hạn</b>); khách hàng của đại lý cùng dùng chung hạn mức hằng tháng của đại lý.",
+          "1": "Khóa đã lưu sẽ không hiển thị lại, chỉ có gợi ý được che bớt.",
+          "2": "Khóa trong tệp .env trên máy chủ (OPENAI_API_KEY) sẽ được dùng nếu bạn chưa lưu khóa ở đây.",
+          "3": "Tài liệu hướng dẫn trong gói tải xuống (docs/local-ai.md) có thêm thông tin về cách tự chạy mô hình."
+        },
+        "heading": "Thông tin cần biết"
+      }
+    },
+    "summary": "Chọn công cụ AI dùng để lên kế hoạch, tạo và chỉnh sửa ứng dụng, rồi kiểm tra xem công cụ có hoạt động không.",
+    "title": "Cài đặt AI"
+  },
+  "custom-domains": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Bạn cần có tên miền đã mua từ một nhà cung cấp tên miền và cách thay đổi cài đặt DNS. DNS là danh bạ địa chỉ của internet: hai bản ghi ở đó cho biết miền của bạn thuộc về ứng dụng. Trang web của nhà cung cấp tên miền có mục cài đặt này, thường gọi là DNS, bản ghi DNS hoặc vùng.",
+          "1": "Ứng dụng của bạn vẫn giữ địa chỉ miễn phí."
+        },
+        "heading": "Trước khi bắt đầu"
+      },
+      "1": {
+        "heading": "Kết nối miền",
+        "shot": {
+          "alt": "Tab Miền có ô thêm miền và các bản ghi DNS cần thêm tại nhà cung cấp tên miền.",
+          "caption": "Thêm miền, rồi sao chép hai bản ghi vào nhà cung cấp tên miền."
+        },
+        "steps": {
+          "0": "Mở tab <b>Miền</b>.",
+          "1": "Nhập địa chỉ, ví dụ www.yourbusiness.com (không có https://), rồi nhấn <b>Thêm miền</b>.",
+          "2": "Bạn sẽ thấy hai bản ghi cần thêm: bản ghi CNAME (hoặc A) và bản ghi TXT. Mỗi bản ghi có <b>Tên / máy chủ</b> và <b>Giá trị / trỏ đến</b>. Nhấp vào giá trị để sao chép.",
+          "3": "Mở tab khác, đăng nhập vào nhà cung cấp tên miền, mở cài đặt DNS cho miền rồi thêm cả hai bản ghi đúng như hướng dẫn.",
+          "4": "Quay lại và nhấn <b>Kiểm tra ngay</b>. Khi tìm thấy cả hai bản ghi, trạng thái sẽ là <b>Đã kết nối</b> và khách truy cập có thể dùng địa chỉ của bạn."
+        }
+      },
+      "2": {
+        "bullets": {
+          "0": "Thay đổi DNS thường có hiệu lực trong vài phút nhưng đôi khi mất vài giờ. Hãy nhấn <b>Kiểm tra ngay</b> lần nữa sau.",
+          "1": "Kết quả kiểm tra sẽ cho biết bản ghi nào chưa tìm thấy: bản ghi TXT hoặc bản ghi trỏ miền của bạn đến đây.",
+          "2": "Một số nhà cung cấp tên miền tự thêm miền của bạn vào cuối tên. Nếu nhà cung cấp của bạn làm vậy, chỉ nhập phần đầu của tên, như www hoặc _verify.www.",
+          "3": "Với địa chỉ không có www (yourbusiness.com), một số nhà cung cấp tên miền không cho phép dùng bản ghi CNAME. Thay vào đó, hãy dùng bản ghi A trỏ đến địa chỉ IP của máy chủ này; hãy hỏi người quản lý {app} cho bạn để biết địa chỉ."
+        },
+        "heading": "Nếu chưa kết nối được"
+      },
+      "3": {
+        "body": {
+          "0": "Nhấn biểu tượng thùng rác cạnh miền rồi xác nhận. Ứng dụng vẫn dùng địa chỉ miễn phí."
+        },
+        "heading": "Ngắt kết nối miền"
+      },
+      "4": {
+        "bullets": {
+          "0": "Mỗi miền chỉ có thể kết nối với một ứng dụng.",
+          "1": "Gói của bạn có thể giới hạn số miền được kết nối.",
+          "2": "Khách truy cập sẽ thấy ứng dụng đã đăng tại miền của bạn, vì vậy hãy đăng ứng dụng trước khi chia sẻ."
+        },
+        "heading": "Thông tin hữu ích"
+      }
+    },
+    "summary": "Đưa ứng dụng lên địa chỉ web bạn sở hữu, như www.yourbusiness.com.",
+    "title": "Dùng miền riêng"
+  },
+  "email": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Sau khi thiết lập email, {app} sẽ gửi liên kết đặt lại mật khẩu và lời mời (cho bạn, đại lý và khách hàng của họ), thông báo cho chủ ứng dụng khi có người gửi biểu mẫu hoặc đặt lịch, cùng email do ứng dụng tự gửi bằng bước <b>Gửi email</b>.",
+          "1": "Nếu chưa thiết lập, lời mời và liên kết đặt lại mật khẩu sẽ hiện trên màn hình để bạn chuyển tiếp, còn ứng dụng sẽ bỏ qua các bước gửi email. Chủ ứng dụng sẽ thấy thông báo về việc này trong trang Tổng quan của ứng dụng."
+        },
+        "heading": "Email được dùng để làm gì"
+      },
+      "1": {
+        "heading": "Thiết lập với bất kỳ nhà cung cấp email nào",
+        "shot": {
+          "alt": "Cài đặt Email: trạng thái bật email, lựa chọn nhà cung cấp, thông tin máy chủ và nút kiểm tra.",
+          "caption": "Nhập thông tin nhà cung cấp rồi gửi email thử cho chính bạn."
+        },
+        "steps": {
+          "0": "Trong mục Quản trị, mở <b>Tất cả cài đặt</b> rồi chọn <b>Email</b>.",
+          "1": "Trong mục <b>Bạn muốn gửi email bằng cách nào?</b>, chọn <b>Bất kỳ nhà cung cấp email nào (SMTP)</b>.",
+          "2": "Nhập <b>Máy chủ email</b> do nhà cung cấp cung cấp, chẳng hạn smtp.example.com.",
+          "3": "Chọn <b>Cổng</b>. Dùng <b>587 (khuyên dùng)</b> trừ khi nhà cung cấp hướng dẫn cách khác.",
+          "4": "Nhập <b>Tên người dùng</b> và <b>Mật khẩu</b>. Google và Microsoft yêu cầu mật khẩu ứng dụng, không phải mật khẩu thông thường của bạn.",
+          "5": "Nhập địa chỉ vào mục <b>Địa chỉ gửi</b>—địa chỉ mà nhà cung cấp cho phép bạn gửi email—và <b>Tên người gửi</b> nếu muốn. Để trống tên để dùng tên thương hiệu hoặc tên ứng dụng.",
+          "6": "Nhấn <b>Gửi email thử cho tôi</b>. Email sẽ dùng thông tin đang hiển thị để bạn kiểm tra trước khi lưu.",
+          "7": "Nhấn <b>Lưu cài đặt email</b>."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Chọn <b>Resend</b>, dán <b>Khóa API Resend</b> rồi gửi từ địa chỉ thuộc miền bạn đã xác minh trong Resend. Sau đó kiểm tra và lưu như trên."
+        },
+        "heading": "Hoặc dùng Resend"
+      },
+      "3": {
+        "body": {
+          "0": "Khung ở trên ghi <b>Email đang bật</b>, kèm địa chỉ gửi email, và hiển thị số liệu trong 24 giờ qua: số email đã gửi, số email gửi không thành công và sự cố gần nhất (nếu có). Thẻ Email trên trang Hệ thống cũng hiển thị thông tin tương tự."
+        },
+        "heading": "Kiểm tra xem email có hoạt động không"
+      },
+      "4": {
+        "bullets": {
+          "0": "<b>Tên người dùng hoặc mật khẩu bị từ chối</b>: hãy kiểm tra cả hai. Google và Microsoft yêu cầu mật khẩu ứng dụng; các dịch vụ email thường cung cấp khóa SMTP thay vì mật khẩu tài khoản.",
+          "1": "<b>Không kết nối được với máy chủ qua cổng đó</b>: hãy thử cổng 587, rồi 465, rồi 2525; hoặc nhờ nhà cung cấp dịch vụ mở cổng.",
+          "2": "<b>Cổng và kiểu mã hóa không khớp</b>: dùng cổng 465 với SSL hoặc cổng 587 với mã hóa tự động (trong <b>Tùy chọn khác</b>).",
+          "3": "<b>Không thể gửi từ địa chỉ đó</b>: nhà cung cấp chưa xác minh địa chỉ gửi hoặc tên miền. Hãy xác minh địa chỉ, hoặc dùng địa chỉ đã được nhà cung cấp chấp nhận.",
+          "4": "<b>Chế độ thử nghiệm của Resend</b>: tài khoản Resend mới chỉ có thể gửi email đến địa chỉ của chính tài khoản đó cho đến khi bạn xác minh tên miền."
+        },
+        "heading": "Khi gửi email thử không thành công"
+      },
+      "5": {
+        "bullets": {
+          "0": "Mọi email đều được gửi từ địa chỉ <b>Gửi từ</b> của bạn. Khi ứng dụng yêu cầu gửi từ địa chỉ thuộc tên miền khác, địa chỉ đó sẽ được dùng làm địa chỉ trả lời để phản hồi vẫn đến được chủ sở hữu ứng dụng.",
+          "1": "Các chế độ cài đặt trong tệp .env của máy chủ sẽ được dùng cho đến khi bạn lưu cài đặt tại đây; sau đó, cài đặt tại đây sẽ được ưu tiên.",
+          "2": "<b>Xóa các chế độ cài đặt này</b> sẽ tắt email (hoặc dùng lại cài đặt trong tệp .env, nếu có).",
+          "3": "Email hỗ trợ trong phần thương hiệu của bạn sẽ được dùng làm địa chỉ trả lời trong email mời và email đặt lại mật khẩu."
+        },
+        "heading": "Thông tin cần biết"
+      }
+    },
+    "summary": "Gửi lời mời, liên kết đặt lại mật khẩu, thông báo ứng dụng và email do ứng dụng của bạn gửi từ địa chỉ riêng của bạn.",
+    "title": "Email"
+  },
+  "features": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Tính năng là một phần có sẵn của ứng dụng, chẳng hạn như đặt lịch, cửa hàng, biểu mẫu liên hệ hoặc blog. Khi thêm một tính năng, ứng dụng sẽ có trang mới, danh sách lưu nội dung mọi người gửi và quy trình giúp các nút cùng biểu mẫu hoạt động. Sau đó, bạn có thể chỉnh sửa trang của tính năng như mọi trang khác."
+        },
+        "heading": "Tính năng là gì"
+      },
+      "1": {
+        "heading": "Thêm tính năng",
+        "shot": {
+          "alt": "Thẻ Tính năng: ô tìm kiếm, các nút danh mục và lưới tính năng có thể thêm.",
+          "caption": "Chọn một tính năng. Mục Chi tiết cho biết tính năng đó sẽ thêm gì."
+        },
+        "steps": {
+          "0": "Mở thẻ <b>Tính năng</b>.",
+          "1": "Tìm kiếm, chẳng hạn “đặt lịch” hoặc “cửa hàng”, hoặc chọn một nhóm như Thương mại hay Cộng đồng.",
+          "2": "Để xem tính năng sẽ thêm gì, mở <b>Chi tiết</b> trên thẻ tính năng. Tại đây có thông tin về số trang, danh sách nội dung được lưu và quy trình mà tính năng thêm vào.",
+          "3": "Nhấp vào thẻ (<b>Thêm vào ứng dụng của tôi</b>).",
+          "4": "Trả lời một vài câu hỏi nếu có. Bạn phải điền các trường có dấu *. Tên ứng dụng sẽ được điền sẵn khi cần tên doanh nghiệp.",
+          "5": "Nhấn <b>Thêm vào ứng dụng của tôi</b>. Trình chỉnh sửa sẽ mở trang đầu tiên của tính năng."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Trong trình chỉnh sửa trang, thẻ <b>Tính năng</b> ở bên trái cũng có chức năng tương tự. Khi thêm xong tính năng, một thông báo cho biết các trang của tính năng đã có trong menu, kèm theo nút <b>Mở trang mới</b>."
+        },
+        "heading": "Thêm tính năng khi đang chỉnh sửa",
+        "shot": {
+          "alt": "Hộp thoại Thêm tính năng với một vài câu hỏi và các nút Hủy cùng Thêm vào ứng dụng của tôi.",
+          "caption": "Trả lời một vài câu hỏi để thêm tính năng."
+        }
+      },
+      "3": {
+        "body": {
+          "0": "Các trang của tính năng nằm trong menu ứng dụng và danh sách trang trong trình chỉnh sửa. Dữ liệu tính năng lưu (ví dụ: lượt đặt chỗ) nằm trong thẻ <b>Dữ liệu</b>. Các luồng nằm trong thẻ <b>Luồng</b>. Những trang chỉ dành cho bạn, như danh sách lượt đặt chỗ, được liệt kê trong mục Tổng quan, bên dưới <b>Khu vực quản trị ứng dụng</b>."
+        },
+        "heading": "Tìm nội dung tính năng đã thêm ở đâu"
+      },
+      "4": {
+        "bullets": {
+          "0": "Thẻ có nhãn <b>Đã thêm</b> đã có trong ứng dụng của bạn. Nếu thêm lại, bạn sẽ có một bản sao khác với các trang và danh sách riêng.",
+          "1": "Nếu một tính năng cần có tính năng khác trước, thông báo sẽ có nút để thêm tính năng đó.",
+          "2": "Một số tính năng cho phép khách đã đăng nhập gửi nội dung để bạn duyệt. Ví dụ, trong <b>Địa điểm</b>, mọi người có thể đề xuất địa điểm trong mục <b>Địa điểm của tôi</b>. Địa điểm sẽ xuất hiện trong cẩm nang sau khi bạn duyệt trên trang <b>Quản lý địa điểm</b>.",
+          "3": "Một số tính năng gửi email và có thông báo <b>Cần thiết lập email trên máy chủ</b>. Nếu email chưa được thiết lập, hãy hỏi người quản lý {app} cho bạn.",
+          "4": "Không thể xóa tính năng chỉ bằng một thao tác. Bạn có thể xóa các trang mà tính năng đã thêm như mọi trang khác; dữ liệu tính năng đã lưu vẫn nằm trong thẻ Dữ liệu.",
+          "5": "Thêm tính năng sẽ thay đổi bản nháp. Khách truy cập sẽ thấy tính năng đó sau khi bạn xuất bản."
+        },
+        "heading": "Điều cần biết"
+      }
+    },
+    "summary": "Thêm các phần có sẵn như đặt lịch, cửa hàng hoặc blog, kèm theo các trang và dữ liệu riêng.",
+    "title": "Thêm tính năng"
+  },
+  "flows": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Luồng là danh sách ngắn các bước mà ứng dụng tự thực hiện. Một sự kiện xảy ra (ai đó gửi biểu mẫu, nhấn nút hoặc đến thời điểm đã hẹn), các bước sẽ chạy (lưu câu trả lời, gửi email) và khách truy cập sẽ nhận được kết quả (tin nhắn cảm ơn).",
+          "1": "Ứng dụng do AI tạo và tính năng bạn thêm đều có sẵn các luồng được thiết lập. Bạn có thể mở và chỉnh sửa chúng như mọi luồng khác."
+        },
+        "heading": "Luồng là gì"
+      },
+      "1": {
+        "body": {
+          "0": "Thẻ <b>Luồng</b> liệt kê từng luồng, cho biết luồng bắt đầu như thế nào (bằng biểu mẫu, yêu cầu hoặc theo lịch) và có bao nhiêu bước. Nhấp vào một luồng để mở.",
+          "1": "Mỗi luồng có nút chuyển đổi <b>Bật</b> / <b>Tạm dừng</b> trong danh sách và bên trong luồng. Luồng tạm dừng sẽ không chạy: mọi thứ trong ứng dụng sử dụng luồng đó, như biểu mẫu, sẽ báo lỗi. Việc tạm dừng hoặc bật lại áp dụng ngay cho ứng dụng đang hoạt động, không cần xuất bản."
+        },
+        "heading": "Luồng của bạn",
+        "shot": {
+          "alt": "Thẻ Luồng liệt kê các luồng của ứng dụng, mỗi luồng có cách bắt đầu và số bước.",
+          "caption": "Các luồng trong ứng dụng của bạn."
+        }
+      },
+      "2": {
+        "heading": "Tạo luồng",
+        "shot": {
+          "alt": "Một luồng đang mở trong trình chỉnh sửa luồng: các bước để thêm ở bên trái, các bước đã kết nối ở giữa, phần cài đặt ở bên phải.",
+          "caption": "Thêm bước ở bên trái, kết nối các bước rồi thiết lập từng bước ở bên phải."
+        },
+        "steps": {
+          "0": "Trong thẻ Luồng, nhấn <b>Luồng mới</b>, nhập tên như “Gửi biểu mẫu liên hệ”, rồi nhấn <b>Tạo</b>.",
+          "1": "Luồng mở ra với bước bắt đầu <b>Khi ứng dụng gọi luồng này</b>.",
+          "2": "Trong mục <b>Thêm bước</b> bên trái, nhấp vào một bước để thêm. Nhập vào ô <b>Tìm bước…</b> để tìm kiếm. Các bước được chia thành nhóm: Bắt đầu, Dữ liệu đã lưu, Điều kiện và giá trị, Gửi và kết nối, AI, Tài khoản và Kết thúc.",
+          "3": "Kết nối các bước theo thứ tự bạn muốn chúng chạy: kéo từ cạnh phải của một bước đến bước tiếp theo.",
+          "4": "Nhấp vào một bước để thiết lập trong bảng bên phải, chẳng hạn như chọn bảng để lưu vào.",
+          "5": "Các thay đổi của bạn được tự động lưu."
+        }
+      },
+      "3": {
+        "body": {
+          "0": "Hầu hết cài đặt bước cho phép bạn chèn giá trị thay vì nhập nội dung cố định. Trong mục <b>Từ yêu cầu</b>, nhập tên trường trong biểu mẫu, chẳng hạn như email, rồi nhấn <b>Thêm</b>. Mục <b>Từ các bước trước</b> liệt kê các giá trị được tạo ở những bước trước đó, như mục ghi được một bước tìm thấy."
+        },
+        "heading": "Dùng nội dung mọi người đã nhập"
+      },
+      "4": {
+        "heading": "Kết nối biểu mẫu hoặc nút",
+        "steps": {
+          "0": "Mở trang trong trình chỉnh sửa trang, rồi chọn biểu mẫu hoặc nút.",
+          "1": "Mở <b>Cài đặt</b> ở bên phải.",
+          "2": "Với biểu mẫu, chọn quy trình trong mục <b>Khi gửi, chạy</b>. Với nút, dùng mục <b>Khi nhấn, chạy</b>. Với danh sách, mục <b>Hiển thị mục từ</b> chọn quy trình tìm các mục."
+        }
+      },
+      "5": {
+        "body": {
+          "0": "Đây là những cách thiết lập thường gặp. Các tính năng sẽ tự thiết lập hầu hết những quy trình này cho bạn."
+        },
+        "bullets": {
+          "0": "<b>Biểu mẫu liên hệ gửi email cho bạn</b>: Khi ứng dụng gọi quy trình này, dùng <b>Thêm bản ghi</b> (bảng tin nhắn của bạn), rồi <b>Gửi email</b> cho chính bạn, kèm tin nhắn của người gửi, sau đó <b>Trả lời</b> bằng lời cảm ơn.",
+          "1": "<b>Đặt chỗ</b>: Khi ứng dụng gọi quy trình này, dùng <b>Đếm hoặc tính tổng bản ghi</b> để đếm số lượt đặt chỗ vào thời điểm đó, rồi dùng <b>Nếu điều này, nếu không thì điều kia</b>. Nếu còn chỗ, dùng <b>Thêm bản ghi</b> và <b>Gửi email</b> để xác nhận; nếu không, <b>Trả lời</b> rằng đã kín chỗ. Tính năng Đặt chỗ sẽ lo mọi việc này cho bạn.",
+          "2": "<b>Đăng nhập</b>: tính năng Đăng nhập và tài khoản thêm các quy trình này. Đăng ký dùng <b>Bảo vệ mật khẩu</b>, <b>Thêm bản ghi</b> và <b>Đăng nhập cho người đó</b>. Đăng nhập dùng <b>Tìm bản ghi</b>, <b>Kiểm tra mật khẩu</b> và <b>Đăng nhập cho người đó</b>.",
+          "3": "<b>Tóm tắt hằng ngày</b>: trong thẻ <b>Lịch</b>, chọn <b>Theo lịch</b> và <b>Mỗi ngày</b>, rồi dùng <b>Đếm hoặc tính tổng bản ghi</b> và <b>Gửi email</b> kèm tổng số."
+        },
+        "heading": "Một số quy trình phổ biến"
+      },
+      "6": {
+        "body": {
+          "0": "Nhấn <b>Chạy thử</b> để chạy quy trình ngay một lần với những thay đổi mới nhất. Kết quả sẽ hiển thị bên dưới các bước. Quy trình sẽ thực hiện các bước thật, nên sẽ lưu bản ghi và gửi email; đồng thời, lượt chạy sẽ xuất hiện trong mục Hoạt động."
+        },
+        "heading": "Thử chạy quy trình"
+      },
+      "7": {
+        "body": {
+          "0": "Thẻ <b>Hoạt động</b> liệt kê mỗi lần quy trình chạy: <b>Đã chạy xong</b>, <b>Đã trả lời</b>, <b>Kết thúc với sự cố</b> hoặc <b>Không thành công</b>. Nhấn <b>Chỉ sự cố</b> để xem những lượt chạy gặp vấn đề, rồi mở một lượt để xem nội dung người dùng đã gửi.",
+          "1": "Sự cố cũng hiển thị trong mục Tổng quan của ứng dụng, bên dưới <b>Sự cố trong 24 giờ qua</b>, và dưới dạng một con số trên thẻ ứng dụng ở trang tổng quan."
+        },
+        "heading": "Xem kết quả",
+        "shot": {
+          "alt": "Thẻ Hoạt động của một quy trình, liệt kê các lượt chạy gần đây và trạng thái của từng lượt.",
+          "caption": "Hoạt động: mọi lượt chạy và sự cố đã xảy ra."
+        }
+      },
+      "8": {
+        "heading": "Chạy theo lịch",
+        "steps": {
+          "0": "Mở thẻ <b>Lịch</b> của quy trình.",
+          "1": "Chọn <b>Theo lịch</b> thay vì <b>Khi ứng dụng sử dụng quy trình</b>.",
+          "2": "Trong mục <b>Tần suất</b>, chọn <b>Vài phút một lần</b>, <b>Mỗi giờ</b>, <b>Mỗi ngày</b>, <b>Từ thứ Hai đến thứ Sáu</b> hoặc <b>Mỗi tuần một lần</b>, rồi chọn thời gian và múi giờ.",
+          "3": "Lưu, rồi xuất bản ứng dụng. Lịch chỉ chạy trong ứng dụng đã xuất bản."
+        }
+      },
+      "9": {
+        "bullets": {
+          "0": "Để xóa một bước, chọn bước đó rồi nhấn biểu tượng thùng rác, hoặc nhấn Delete trên bàn phím.",
+          "1": "Các thay đổi trong quy trình sẽ nằm trong bản nháp. Người dùng sẽ thấy chúng sau khi bạn xuất bản.",
+          "2": "<b>Gửi email</b> chỉ hoạt động khi máy chủ đã được thiết lập để gửi email. Nếu chưa, mục Tổng quan của ứng dụng sẽ cảnh báo bạn.",
+          "3": "Mỗi lần chạy bước <b>Hỏi AI</b>, bạn sẽ dùng hạn mức AI của gói mình.",
+          "4": "Tạm dừng hoặc bật lại quy trình sẽ có hiệu lực ngay, kể cả với lịch chạy. Bạn không cần xuất bản.",
+          "5": "Một số gói không hỗ trợ quy trình chạy theo lịch. Thẻ Lịch sẽ cho bạn biết.",
+          "6": "<b>Địa chỉ web (dành cho nhà phát triển)</b> chỉ cần thiết nếu muốn bắt đầu quy trình từ bên ngoài {app}."
+        },
+        "heading": "Thông tin hữu ích"
+      }
+    },
+    "summary": "Tự động thực hiện các việc khi có người dùng ứng dụng, chẳng hạn như lưu lượt đặt chỗ và gửi email cho bạn, hoặc chạy tác vụ theo lịch.",
+    "title": "Tự động hóa bằng luồng"
+  },
+  "forms-and-data": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Khi ai đó gửi biểu mẫu, đặt chỗ hoặc đăng ký, ứng dụng sẽ lưu thông tin đó thành một hàng trong bảng. Bảng giống như bảng tính: mỗi mục là một hàng, mỗi câu trả lời là một cột. Bạn có thể tìm thấy các bảng trong thẻ <b>Dữ liệu</b>. Năm mục mới nhất cũng xuất hiện trong mục Tổng quan của ứng dụng, bên dưới <b>Thông tin gửi mới nhất</b>.",
+          "1": "Biểu mẫu sẽ lưu câu trả lời khi được kết nối với một luồng có bước lưu câu trả lời. Các biểu mẫu đi kèm tính năng và biểu mẫu trong ứng dụng do AI tạo đã được kết nối sẵn. Với biểu mẫu bạn tự thêm, hãy chọn biểu mẫu trong trình chỉnh sửa trang, mở <b>Cài đặt</b> và chọn một luồng trong mục <b>Khi gửi, chạy</b>."
+        },
+        "heading": "Câu trả lời trong biểu mẫu được lưu ở đâu"
+      },
+      "1": {
+        "heading": "Mở bảng",
+        "shot": {
+          "alt": "Thẻ Dữ liệu liệt kê các bảng của ứng dụng, mỗi bảng có số hàng.",
+          "caption": "Mọi thứ ứng dụng lưu, xem từng bảng một."
+        },
+        "steps": {
+          "0": "Mở thẻ <b>Dữ liệu</b>.",
+          "1": "Nhấp vào một bảng. Bảng sẽ hiển thị số hàng hoặc trạng thái <b>Trống</b>.",
+          "2": "Để quay lại danh sách, nhấn <b>Tất cả bảng</b>."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Nhập vào ô <b>Tìm kiếm</b> để tìm hàng. Nhấp vào tên cột để sắp xếp theo cột đó. Nếu có nhiều hàng, hãy dùng <b>Mới hơn</b> và <b>Cũ hơn</b> ở cuối trang."
+        },
+        "heading": "Tìm, chỉnh sửa và thêm hàng",
+        "shot": {
+          "alt": "Một bảng đang mở trong thẻ Dữ liệu, có ô tìm kiếm, các nút Thêm hàng và Tải CSV xuống, cùng các hàng bên dưới.",
+          "caption": "Một bảng: tìm kiếm, chỉnh sửa hoặc tải xuống."
+        },
+        "steps": {
+          "0": "Để đổi một câu trả lời, nhấp vào câu trả lời đó, nhập giá trị mới rồi lưu.",
+          "1": "Để chỉnh sửa cả hàng, nhấn biểu tượng bút chì ở cuối hàng.",
+          "2": "Để tự thêm hàng, nhấn <b>Thêm hàng</b>.",
+          "3": "Để xóa hàng, đánh dấu chọn hàng, nhấn <b>Xóa</b> (nút sẽ cho biết số hàng), rồi nhấn <b>Đúng, xóa</b>. Nếu đổi ý, nhấn <b>Giữ lại</b>."
+        }
+      },
+      "3": {
+        "body": {
+          "0": "<b>Tải CSV xuống</b> lưu bảng thành một tệp mà bạn có thể mở bằng Excel, Numbers hoặc Google Sheets. Tệp sẽ tải xuống dữ liệu đang hiển thị, vì vậy hãy tìm kiếm hoặc sắp xếp trước nếu bạn chỉ muốn lấy một số hàng."
+        },
+        "heading": "Tải bản sao xuống"
+      },
+      "4": {
+        "body": {
+          "0": "Trong mục Tổng quan của ứng dụng, phần <b>Thông báo</b> liệt kê từng bảng nhận thông tin từ khách truy cập, cùng nút bật/tắt. Thông báo sẽ được gửi đến địa chỉ email trong tài khoản của bạn. Bạn có thể thêm tối đa ba địa chỉ khác trong mục <b>Gửi thêm đến</b>. Nhấn <b>Lưu thông báo</b>, rồi nhấn <b>Gửi email thử</b> để kiểm tra.",
+          "1": "Cần thiết lập email trên máy chủ để gửi thông báo. Nếu chưa thiết lập, thẻ sẽ cho bạn biết."
+        },
+        "heading": "Nhận email mỗi khi có mục mới"
+      },
+      "5": {
+        "body": {
+          "0": "Mọi người có thể hỏi ứng dụng lưu thông tin gì về họ hoặc yêu cầu xóa thông tin đó. Mở <b>Yêu cầu về quyền riêng tư</b> trong thẻ Dữ liệu để tìm một người bằng email hoặc số điện thoại, rồi <b>Tải bản sao xuống</b> dữ liệu của họ hoặc <b>Xóa</b> dữ liệu. Những người yêu cầu xóa tài khoản khỏi ứng dụng của bạn sẽ được liệt kê trong mục <b>Đang chờ bạn duyệt</b>."
+        },
+        "heading": "Yêu cầu về quyền riêng tư"
+      },
+      "6": {
+        "bullets": {
+          "0": "Không thể khôi phục các hàng đã xóa hoặc thông tin của một người đã xóa.",
+          "1": "Một số bảng chỉ có thể xem tại đây, chẳng hạn như bảng được lưu trong Google Sheets.",
+          "2": "Mục <b>Nâng cao</b> ở cuối thẻ Dữ liệu cho biết dữ liệu của bạn được lưu ở đâu và cho phép bạn tự tạo bảng mới. Hầu hết mọi người không cần dùng đến mục này.",
+          "3": "Bản sao lưu trong thẻ Xuất bản bao gồm tất cả các bảng và hàng."
+        },
+        "heading": "Điều cần biết"
+      }
+    },
+    "summary": "Xem, tìm kiếm, chỉnh sửa và tải xuống mọi thứ ứng dụng lưu, như tin nhắn, lượt đặt chỗ và thông tin đăng ký.",
+    "title": "Biểu mẫu và dữ liệu"
+  },
+  "getting-started": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Sau khi đăng nhập, bạn sẽ đến trang tổng quan. Bạn có thể quay lại bất cứ lúc nào bằng cách chọn <b>Ứng dụng của tôi</b> trên thanh trên cùng.",
+          "1": "Trong mục <b>Ứng dụng của bạn</b>, mỗi ứng dụng có một thẻ hiển thị ảnh nhỏ của trang chủ, số lượng trang và luồng, cùng trạng thái <b>Đang hoạt động</b> (đã xuất bản) hoặc <b>Bản nháp</b> (chỉ bạn xem được). Dùng các mục <b>Tất cả ứng dụng</b>, <b>Đang hoạt động</b> và <b>Bản nháp</b>, cùng ô <b>Tìm ứng dụng…</b> để lọc danh sách.",
+          "2": "Nhấp vào ảnh trên thẻ để tiếp tục chỉnh sửa. Nhấp vào tên ứng dụng để mở trang Tổng quan. Dòng bên cạnh <b>Ứng dụng của bạn</b> cho biết gói của bạn, số ứng dụng hiện có và số lượt AI bạn đã dùng trong tháng này. Nhấp vào đó để mở <b>Thanh toán và gói</b>."
+        },
+        "heading": "Trang tổng quan",
+        "shot": {
+          "alt": "Trang tổng quan, với ô nhập ý tưởng ở trên cùng và các thẻ ứng dụng bên dưới.",
+          "caption": "Trang tổng quan của bạn. Mỗi thẻ là một ứng dụng của bạn."
+        }
+      },
+      "1": {
+        "body": {
+          "0": "Chọn cách phù hợp với bạn. Dù chọn cách nào, bạn cũng sẽ có một ứng dụng có thể tiếp tục chỉnh sửa bằng cùng bộ công cụ."
+        },
+        "bullets": {
+          "0": "<b>Mô tả ứng dụng.</b> Nhập điều bạn muốn bằng lời của mình. AI sẽ đề xuất một kế hoạch để bạn xem và chỉnh sửa, sau đó tạo các trang, biểu mẫu và dữ liệu.",
+          "1": "<b>AI Designer.</b> Trò chuyện với AI và tạo ứng dụng từng bước. Xem hướng dẫn Thiết kế với AI Designer.",
+          "2": "<b>Mẫu.</b> Bắt đầu với một thiết kế có sẵn, chẳng hạn như nhà hàng hoặc hồ sơ cá nhân, rồi thay đổi mọi dòng chữ, hình ảnh và màu sắc.",
+          "3": "<b>Sao chép trang web.</b> Đưa tối đa 30 trang từ trang web của bạn vào một ứng dụng mới để chỉnh sửa.",
+          "4": "<b>Ứng dụng trống.</b> Bắt đầu với một trang đơn giản rồi tự tạo ứng dụng bằng cách kéo thả các khối.",
+          "5": "<b>Nhập ứng dụng.</b> Khôi phục ứng dụng từ tệp sao lưu .zip được tạo trên máy chủ này hoặc máy chủ khác."
+        },
+        "heading": "Sáu cách bắt đầu tạo ứng dụng"
+      },
+      "2": {
+        "body": {
+          "0": "Nếu AI chưa được thiết lập trên máy chủ này, bạn sẽ không thấy cách này và AI Designer. Thay vào đó, hãy bắt đầu từ một mẫu."
+        },
+        "heading": "Mô tả ứng dụng và xem kế hoạch",
+        "shot": {
+          "alt": "Màn hình tạo ứng dụng mới, hỏi Bạn muốn tạo gì?, với ô nhập văn bản lớn và các ý tưởng mẫu.",
+          "caption": "Mô tả ứng dụng bằng lời của bạn. Bạn sẽ xem kế hoạch trước khi ứng dụng được tạo."
+        },
+        "steps": {
+          "0": "Trên trang tổng quan, nhập một câu mô tả ứng dụng vào ô, chẳng hạn “Đặt lịch cho dịch vụ dắt chó đi dạo của tôi”, rồi nhấn <b>Lên kế hoạch cho ứng dụng</b>. Bạn cũng có thể nhấn <b>Xem thêm cách bắt đầu</b> rồi dùng ô lớn ở đó.",
+          "1": "Cho biết ai sẽ dùng ứng dụng và họ sẽ làm gì trong đó. Chưa biết viết gì? Nhấn vào một ý tưởng mẫu bên dưới ô rồi chỉnh sửa.",
+          "2": "Chờ một chút để AI đọc ý tưởng của bạn. Chưa có gì được tạo ở bước này.",
+          "3": "Xem kế hoạch trong mục <b>Đây là những gì tôi sẽ tạo</b>: tên ứng dụng, giao diện (nhấp vào ô màu để chọn màu khác), <b>Trang</b>, <b>Dữ liệu cần lưu</b> và <b>Giả định của tôi</b>. Xóa trang không cần dùng bằng biểu tượng thùng rác bên cạnh.",
+          "4": "Muốn thay đổi điều gì? Nhập yêu cầu bên dưới mục <b>Muốn thay đổi điều gì?</b>, chẳng hạn “Thêm trang bảng giá”, rồi nhấn <b>Cập nhật kế hoạch</b>.",
+          "5": "Nhấn <b>Tạo ứng dụng của tôi</b>. Quá trình thường mất vài phút. Bạn có thể rời khỏi trang; quá trình tạo vẫn tiếp tục và ứng dụng sẽ sẵn sàng khi bạn quay lại.",
+          "6": "Khi hoàn tất, ứng dụng sẽ mở trong trình chỉnh sửa trang kèm lời chào ngắn."
+        }
+      },
+      "3": {
+        "body": {
+          "0": "<b>Mẫu.</b> Nhấp vào mẫu để xem lớn hơn, nhập tên ứng dụng rồi nhấn <b>Tạo ứng dụng từ mẫu này</b>. Dùng ô tìm kiếm và các nút danh mục để lọc danh sách.",
+          "1": "<b>Sao chép trang web.</b> Nhập địa chỉ trang web, chẳng hạn mybusiness.com, rồi nhấn <b>Sao chép trang web của tôi</b>. Chỉ sao chép trang web thuộc sở hữu của bạn hoặc bạn được phép sử dụng. Nhấn <b>Dừng</b> để hủy; sẽ không có gì được lưu.",
+          "2": "<b>Ứng dụng trống.</b> Nhập tên rồi nhấn <b>Tạo ứng dụng</b>. Bạn sẽ có một trang chào mừng đơn giản với tên ứng dụng để bắt đầu, cùng các trang đăng nhập và đăng ký.",
+          "3": "<b>Nhập ứng dụng.</b> Chọn tệp sao lưu .zip, nhập tên mới nếu muốn rồi nhấn <b>Nhập ứng dụng</b>. Bạn sẽ có một bản sao gồm các trang, luồng, dữ liệu và hình ảnh. Mật khẩu của thành viên trong ứng dụng không có trong bản sao lưu, vì vậy họ cần dùng chức năng Quên mật khẩu một lần."
+        },
+        "heading": "Các cách bắt đầu khác"
+      },
+      "4": {
+        "body": {
+          "0": "Mỗi ứng dụng có các thẻ ở phía trên: <b>Tổng quan</b>, <b>Trang</b>, <b>Tính năng</b>, <b>Luồng</b>, <b>Dữ liệu</b>, <b>Thông báo</b>, <b>Giao diện</b>, <b>Tên miền</b> và <b>Ứng dụng di động</b>, cùng với <b>Xem trước</b> và <b>Xuất bản</b> ở bên phải. Ứng dụng được tạo bằng AI Designer có thẻ <b>Designer</b> thay cho Tổng quan.",
+          "1": "Trang Tổng quan cho biết ứng dụng có đang hoạt động hay không và địa chỉ của ứng dụng; <b>Danh sách việc cần làm để ra mắt</b> cho bạn biết các bước tiếp theo; mã để quét và mở ứng dụng trên điện thoại; biểu tượng ứng dụng; nội dung mới nhất khách truy cập đã gửi; và thông báo qua email. <b>Tiếp tục chỉnh sửa</b> sẽ đưa bạn trở lại các trang."
+        },
+        "heading": "Trang Tổng quan của ứng dụng",
+        "shot": {
+          "alt": "Thẻ Tổng quan của một ứng dụng, hiển thị tên ứng dụng, số lượng trang và luồng, cùng danh sách việc cần làm để ra mắt.",
+          "caption": "Trang Tổng quan: xem nhanh ứng dụng và danh sách các bước tiếp theo."
+        }
+      },
+      "5": {
+        "bullets": {
+          "0": "Công việc của bạn được lưu tự động khi bạn làm. Trình chỉnh sửa trang không có nút Lưu.",
+          "1": "Ứng dụng chưa được công khai cho đến khi bạn xuất bản. Dùng <b>Xem trước</b> để dùng thử ứng dụng trước.",
+          "2": "Để xóa ứng dụng, dùng biểu tượng thùng rác trên thẻ ứng dụng ở trang tổng quan. Hãy tải bản sao lưu xuống trước: bạn không thể hoàn tác việc xóa.",
+          "3": "Gói của bạn có thể giới hạn số ứng dụng bạn được tạo. Khi đạt giới hạn, hãy xem <b>Thanh toán và gói</b>.",
+          "4": "Di chuột lên nút để xem mẹo ngắn về nút đó. Bạn có thể tắt mẹo trong <b>Hồ sơ</b>."
+        },
+        "heading": "Thông tin hữu ích"
+      }
+    },
+    "summary": "Làm quen với {app} và tạo ứng dụng đầu tiên theo cách phù hợp với bạn.",
+    "title": "Bắt đầu"
+  },
+  "groups": {
+    "account": "Tài khoản của bạn",
+    "build": "Tạo ứng dụng",
+    "platform": "Vận hành nền tảng",
+    "publish": "Xuất bản và phát triển"
+  },
+  "look-and-feel": {
+    "sections": {
+      "0": {
+        "heading": "Chọn giao diện",
+        "shot": {
+          "alt": "Thẻ Giao diện với các lựa chọn giao diện sáng và tối ở bên trái, cùng phần xem trước trực tiếp ở bên phải.",
+          "caption": "Nhấp vào giao diện để cập nhật phần xem trước ngay lập tức."
+        },
+        "steps": {
+          "0": "Mở thẻ <b>Giao diện</b>.",
+          "1": "Xem các lựa chọn trong <b>Giao diện sáng</b> và <b>Giao diện tối</b>.",
+          "2": "Nhấp vào một giao diện. <b>Xem trước trực tiếp</b> ở bên phải sẽ cập nhật ngay. Chuyển đổi giữa <b>Trang chủ của bạn</b> và <b>Mẫu</b> để xem giao diện trên các nội dung khác nhau.",
+          "3": "Vậy là xong: các thay đổi sẽ tự động được lưu và trạng thái <b>Đã lưu</b> sẽ xuất hiện ở trên cùng."
+        }
+      },
+      "1": {
+        "body": {
+          "0": "Trong mục <b>Tùy chỉnh</b>, bạn có thể thay đổi bất kỳ phần nào của giao diện:"
+        },
+        "bullets": {
+          "0": "<b>Chế độ</b>: sáng hoặc tối.",
+          "1": "<b>Phông chữ nội dung</b> cho văn bản thông thường và <b>Phông chữ tiêu đề</b> cho tiêu đề. Mỗi phông chữ đều có một dòng mẫu.",
+          "2": "<b>Màu sắc</b>: <b>Màu chính</b> là màu chủ đạo, dùng cho nút và liên kết. <b>Màu chính khi di chuột</b> là sắc độ hiển thị khi ai đó di chuột lên chúng; màu này sẽ thay đổi theo Màu chính. Tiếp theo là <b>Màu nhấn</b>, <b>Nền</b>, <b>Bề mặt</b> và <b>Bề mặt 2</b> (thẻ và bảng), <b>Viền</b>, <b>Văn bản</b> và <b>Văn bản phụ</b>.",
+          "3": "<b>Góc bo</b>: <b>Bán kính</b> cho nút và thẻ, và <b>Bán kính nhỏ</b> cho các thành phần nhỏ. 0 là góc vuông; số càng lớn thì góc càng tròn."
+        },
+        "heading": "Tùy chỉnh theo ý bạn"
+      },
+      "2": {
+        "body": {
+          "0": "Trong trình chỉnh sửa trang, thẻ <b>Giao diện</b> ở bên phải có cùng các cài đặt màu sắc và phông chữ, giúp bạn điều chỉnh mà không cần rời khỏi trang."
+        },
+        "heading": "Thay đổi ngay khi chỉnh sửa"
+      },
+      "3": {
+        "bullets": {
+          "0": "Giao diện áp dụng cho mọi trang trong ứng dụng.",
+          "1": "Nhấp vào ô màu để chọn màu hoặc nhập mã màu như #3366ff.",
+          "2": "<b>Đặt lại</b> sẽ khôi phục giao diện bạn đã chọn khi mở thẻ Giao diện.",
+          "3": "Khách truy cập sẽ thấy các thay đổi về giao diện sau khi bạn xuất bản."
+        },
+        "heading": "Thông tin hữu ích"
+      }
+    },
+    "summary": "Chọn giao diện có sẵn hoặc tự đặt màu sắc, phông chữ và độ bo góc cho mọi trang trong ứng dụng.",
+    "title": "Màu sắc và phông chữ"
+  },
+  "members-and-sign-in": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Tính năng <b>Đăng nhập và tài khoản</b> thêm các trang <b>Đăng nhập</b>, <b>Đăng ký</b> và <b>Hồ sơ</b> vào ứng dụng, cùng các quy trình hỗ trợ. Ứng dụng mới thường đã có tính năng này. Nếu chưa có, hãy thêm tính năng trong thẻ Tính năng.",
+          "1": "Những người đăng ký sẽ trở thành thành viên của ứng dụng. Tài khoản của họ tách biệt với tài khoản {app} của bạn."
+        },
+        "heading": "Trang đăng nhập"
+      },
+      "1": {
+        "heading": "Đặt trang ở chế độ riêng tư",
+        "shot": {
+          "alt": "Hộp thoại Cài đặt trang, hiển thị tên trang, những người có thể xem và vị trí của trang trong menu.",
+          "caption": "Cài đặt trang: chọn người có thể mở trang."
+        },
+        "steps": {
+          "0": "Trong trình chỉnh sửa trang, nhấn vào tên trang ở trên cùng để mở mục <b>Trang của bạn</b>.",
+          "1": "Nhấn biểu tượng bánh răng bên cạnh trang (<b>Cài đặt trang</b>).",
+          "2": "Trong mục <b>Ai có thể xem trang này</b>, chọn <b>Mọi người</b>, <b>Người đã đăng nhập</b> (khách cần đăng nhập trước; ai cũng có thể tạo tài khoản) hoặc <b>Chỉ quản trị viên</b> (chỉ bạn và những người bạn cấp quyền quản trị).",
+          "3": "Nhấn <b>Lưu</b>."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Trong <b>Cài đặt trang</b>, tùy chọn <b>Hiển thị trong menu</b> thêm liên kết đến trang vào menu ứng dụng, còn <b>Di chuyển lên</b> và <b>Di chuyển xuống</b> giúp đổi vị trí trang. Trang chủ luôn ở đầu tiên. Trang không có trong menu vẫn có thể được mở bằng liên kết, nếu người mở được phép xem trang."
+        },
+        "heading": "Menu"
+      },
+      "3": {
+        "body": {
+          "0": "Trong mục Tổng quan của ứng dụng, <b>Khu vực quản trị ứng dụng</b> liệt kê những trang chỉ bạn và nhóm của bạn có thể dùng, chẳng hạn như danh sách đặt chỗ. Nhấn vào một trang để mở mà không cần đăng nhập vào ứng dụng. Trước khi xuất bản, các trang này sẽ mở trong bản xem trước."
+        },
+        "heading": "Khu vực quản trị ứng dụng"
+      },
+      "4": {
+        "heading": "Tạo tài khoản quản trị cho nhóm",
+        "shot": {
+          "alt": "Thẻ Khu vực quản trị ứng dụng trong mục Tổng quan, có các trang quản trị và biểu mẫu để thêm tài khoản quản trị.",
+          "caption": "Mở trang quản trị hoặc tạo tài khoản quản trị cho người khác."
+        },
+        "steps": {
+          "0": "Trong mục Tổng quan của ứng dụng, tìm <b>Tài khoản quản trị cho nhóm</b>.",
+          "1": "Nhập <b>Email</b> và <b>Mật khẩu</b> có ít nhất 10 ký tự.",
+          "2": "Nhấn <b>Thêm quản trị viên</b>. Giờ đây, họ có thể đăng nhập qua trang đăng nhập của ứng dụng và mở các trang quản trị."
+        }
+      },
+      "5": {
+        "bullets": {
+          "0": "Nếu dùng email của người đã có tài khoản trong ứng dụng, người đó sẽ trở thành quản trị viên và mật khẩu của họ sẽ thay đổi.",
+          "1": "Nếu trang ở chế độ riêng tư nhưng ứng dụng chưa có trang đăng nhập, chỉ bạn mới có thể mở trang đó. Cài đặt trang sẽ hiển thị cảnh báo.",
+          "2": "Thay đổi quyền xem trang sẽ nằm trong bản nháp. Hãy xuất bản để áp dụng.",
+          "3": "Thành viên có thể xóa tài khoản của mình. Yêu cầu xóa sẽ hiển thị trong thẻ Dữ liệu, bên dưới mục <b>Yêu cầu về quyền riêng tư</b>.",
+          "4": "Mật khẩu của thành viên không có trong bản sao lưu. Sau khi nhập dữ liệu, thành viên cần dùng tính năng Quên mật khẩu một lần."
+        },
+        "heading": "Thông tin hữu ích"
+      }
+    },
+    "summary": "Cho phép mọi người tạo tài khoản trong ứng dụng của bạn và chọn những trang mà tất cả mọi người, thành viên đã đăng nhập hoặc chỉ quản trị viên được phép mở.",
+    "title": "Thành viên, đăng nhập và trang riêng tư"
+  },
+  "page-editor": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Mở thẻ <b>Trang</b>. Bên trái là <b>Khối</b>, <b>Tính năng</b> và <b>Tài nguyên</b> (ảnh miễn phí). Ở giữa là trang của bạn. Bên phải là <b>Thiết kế</b>, <b>Lớp</b>, <b>Cài đặt</b> và <b>Giao diện</b>.",
+          "1": "Thanh phía trên trang có các nút hoàn tác và làm lại, trạng thái lưu, nút chọn kích thước màn hình và <b>Xem trước</b>. Các nút ở hai đầu bảng điều khiển sẽ ẩn hoặc hiện bảng bên khi bạn cần thêm không gian."
+        },
+        "heading": "Làm quen với giao diện",
+        "shot": {
+          "alt": "Trình chỉnh sửa trang: các khối bên trái, trang ở giữa và cài đặt thiết kế bên phải.",
+          "caption": "Trình chỉnh sửa trang. Nhấp vào nội dung bất kỳ trên trang để chỉnh sửa."
+        }
+      },
+      "1": {
+        "body": {
+          "0": "Nhấp vào nội dung trên trang rồi nhập để thay đổi.",
+          "1": "Nhấp đúp vào ảnh để thay bằng ảnh khác. Bạn cũng có thể chọn ảnh, rồi nhấn vào ảnh trong mục <b>Tài nguyên</b>. Nhấp đúp vào biểu tượng để chọn biểu tượng khác."
+        },
+        "heading": "Thay đổi nội dung và hình ảnh"
+      },
+      "2": {
+        "heading": "Thêm khối",
+        "steps": {
+          "0": "Nhấp vào phần trên trang mà bạn muốn đặt nội dung mới bên dưới.",
+          "1": "Trong mục <b>Khối</b> bên trái, tìm nội dung bạn cần. Các khối được chia theo nhóm, chẳng hạn như Bố cục, Mục, Nội dung, Biểu mẫu và Phương tiện. Nhập vào ô <b>Tìm khối...</b> để tìm nhanh, chẳng hạn “nút” hoặc “ảnh”.",
+          "2": "Nhấn vào khối để thêm vào bên dưới phần đã chọn, hoặc kéo khối đến đúng vị trí bạn muốn."
+        }
+      },
+      "3": {
+        "body": {
+          "0": "Nhấp vào nội dung trên trang để chọn. Tên nội dung sẽ hiển thị ở đầu bảng bên phải, cùng một thanh công cụ nhỏ: <b>Chọn phần bao quanh nội dung này</b>, <b>Di chuyển lên</b>, <b>Di chuyển xuống</b>, <b>Kéo để di chuyển</b>, <b>Nhân bản</b> và <b>Xóa</b>.",
+          "1": "Thẻ <b>Lớp</b> liệt kê mọi phần trên trang theo thứ tự. Nhấp vào một hàng để chọn phần khó nhấp, hoặc kéo các hàng để di chuyển phần đó. Biểu tượng con mắt sẽ ẩn một phần trong khi bạn chỉnh sửa những phần còn lại."
+        },
+        "heading": "Chọn, di chuyển và xóa"
+      },
+      "4": {
+        "body": {
+          "0": "Chọn một nội dung rồi mở mục <b>Thiết kế</b> ở bên phải. Thay đổi văn bản, màu sắc, khoảng cách, kích thước và góc bo; trang sẽ cập nhật ngay.",
+          "1": "Mục <b>Nâng cao</b> có thêm tùy chọn như phông chữ, bóng đổ, cách căn chỉnh các phần bên trong hộp và kiểu hiển thị khi di chuột lên nội dung. Để thay đổi màu sắc và phông chữ cho toàn bộ ứng dụng, hãy dùng mục <b>Giao diện</b>."
+        },
+        "heading": "Thay đổi giao diện"
+      },
+      "5": {
+        "body": {
+          "0": "Chọn liên kết, ảnh, nút, biểu mẫu hoặc danh sách rồi mở mục <b>Cài đặt</b> ở bên phải. Ví dụ:"
+        },
+        "bullets": {
+          "0": "<b>Dẫn đến</b> đặt trang mà liên kết sẽ mở. Dùng /ten-trang cho trang của bạn hoặc địa chỉ https:// đầy đủ cho trang khác.",
+          "1": "<b>Mô tả hình ảnh</b> mô tả ảnh cho người không thể nhìn thấy ảnh và cho công cụ tìm kiếm.",
+          "2": "<b>Khi gửi, chạy</b> (trong biểu mẫu) chọn luồng chạy khi có người gửi biểu mẫu. <b>Khi nhấn, chạy</b> cũng làm tương tự với nút.",
+          "3": "<b>Hiển thị mục từ</b> (trong danh sách) chọn nơi danh sách lấy các mục, chẳng hạn như lịch đặt chỗ hoặc sản phẩm của bạn."
+        },
+        "heading": "Cài đặt liên kết, nút, biểu mẫu và danh sách"
+      },
+      "6": {
+        "heading": "Hỏi AI",
+        "shot": {
+          "alt": "Bảng Trợ lý AI đang mở trong trình chỉnh sửa trang, với các thay đổi gợi ý để thử.",
+          "caption": "Hỏi AI: nói bạn muốn thay đổi gì, AI sẽ chỉnh sửa trang giúp bạn."
+        },
+        "steps": {
+          "0": "Nhấn <b>Hỏi AI</b> ở góc dưới bên phải.",
+          "1": "Để chỉ thay đổi một phần, hãy chọn phần đó trên trang trước. Bảng điều khiển sẽ hiện <b>Áp dụng thay đổi cho phần đã chọn…</b>. Nhấn <b>Thay vào đó, chọn cả trang</b> để thay đổi toàn bộ trang.",
+          "2": "Nhập điều bạn muốn, chẳng hạn “thêm mục bảng giá”, rồi nhấn Enter hoặc <b>Gửi</b>. Bạn cũng có thể đính kèm ảnh, chẳng hạn ảnh chụp màn hình của một thiết kế bạn thích.",
+          "3": "Trang sẽ thay đổi trong trình chỉnh sửa. Nếu không thích, hãy nhấn hoàn tác."
+        }
+      },
+      "7": {
+        "body": {
+          "0": "Nhấp vào tên trang ở trên cùng, cạnh <b>ĐANG CHỈNH SỬA</b>, để xem <b>Các trang của bạn</b>. Nhấp vào một trang để mở trang đó. Các thay đổi trên trang bạn sắp rời đi sẽ được lưu trước.",
+          "1": "Để thêm trang, nhấn <b>Thêm trang</b>, nhập tên rồi nhấn <b>Thêm trang</b> lần nữa. Trang sẽ xuất hiện trong menu ứng dụng của bạn.",
+          "2": "Bên cạnh mỗi trang: biểu tượng bánh răng mở <b>Cài đặt trang</b> (đổi tên, chọn người có thể xem, vị trí trong menu hoặc <b>Nhân bản</b> trang); biểu tượng ngôi nhà đặt trang làm trang chủ; biểu tượng thùng rác xóa trang sau khi bạn xác nhận. Không thể hoàn tác việc xóa trang."
+        },
+        "heading": "Các trang của bạn"
+      },
+      "8": {
+        "body": {
+          "0": "Các nút <b>Máy tính</b>, <b>Máy tính bảng</b> và <b>Điện thoại</b> hiển thị trang ở từng kích thước. Hãy luôn kiểm tra trên điện thoại: hầu hết khách truy cập dùng điện thoại.",
+          "1": "<b>Xem trước</b> mở trang trong thẻ mới để bạn dùng thử; các nút và biểu mẫu đều hoạt động. Trang hiển thị những thay đổi mới nhất. Khách truy cập chưa thấy các thay đổi này cho đến khi bạn xuất bản."
+        },
+        "heading": "Kiểm tra trên điện thoại, rồi xem trước"
+      },
+      "9": {
+        "body": {
+          "0": "Các mũi tên cong ở góc trên bên trái sẽ hoàn tác hoặc làm lại những thay đổi gần nhất, bao gồm cả thay đổi do AI thực hiện.",
+          "1": "Các thay đổi sẽ tự động được lưu. Thanh trạng thái hiển thị <b>Đang lưu…</b>, rồi đến <b>Đã lưu</b>. Nếu thấy <b>Chưa lưu</b>, hãy kiểm tra kết nối: hệ thống vẫn tiếp tục thử lưu và <b>Thử lại</b> sẽ thực hiện ngay. Nếu thay đổi chưa được gửi đến máy chủ trước khi bạn đóng thẻ, lần tới khi mở trang, bạn sẽ được đề nghị <b>Khôi phục</b> thay đổi."
+        },
+        "heading": "Hoàn tác và lưu"
+      },
+      "10": {
+        "bullets": {
+          "0": "Các thay đổi sẽ nằm trong bản nháp. Khách truy cập sẽ thấy chúng sau khi bạn xuất bản.",
+          "1": "Các ứng dụng được tạo bằng AI Designer lấy trang từ bản thiết kế, nên hãy chỉnh sửa chúng trong Designer.",
+          "2": "Nếu một khối có sẵn hỏi <b>Kết nối phần này?</b>, chọn <b>Có, kết nối</b> để thiết lập nơi lưu nội dung mọi người gửi và kết nối biểu mẫu. Chọn <b>Không, tôi sẽ tự xử lý</b> để thêm nguyên trạng khối đó."
+        },
+        "heading": "Thông tin hữu ích"
+      }
+    },
+    "summary": "Thay đổi nội dung, hình ảnh và bố cục bằng cách nhấp và kéo, hoặc nhờ AI thực hiện.",
+    "title": "Chỉnh sửa trang"
+  },
+  "phone-apps": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Bạn có thể cài đặt mọi ứng dụng đã đăng trực tiếp từ trình duyệt mà không cần cửa hàng ứng dụng. Mở ứng dụng trên điện thoại (quét mã trong mục Tổng quan hoặc tab Đăng), rồi chọn <b>Thêm vào Màn hình chính</b> trong menu trình duyệt. Trên iPhone, tùy chọn này nằm dưới nút Chia sẻ. Sau đó, ứng dụng sẽ mở như mọi ứng dụng khác, với biểu tượng của bạn.",
+          "1": "Đặt biểu tượng ứng dụng trong mục Tổng quan, bên dưới <b>Biểu tượng ứng dụng</b>. Bạn có thể tải ảnh lên hoặc nhờ AI tạo ảnh."
+        },
+        "heading": "Thêm vào màn hình chính"
+      },
+      "1": {
+        "heading": "Gửi thông báo",
+        "shot": {
+          "alt": "Thẻ Thông báo hiển thị số người đăng ký cùng biểu mẫu viết và gửi thông báo.",
+          "caption": "Viết thông báo và gửi cho tất cả những người đã đăng ký."
+        },
+        "steps": {
+          "0": "Mở thẻ <b>Thông báo</b>.",
+          "1": "Nếu thông báo đang tắt, hãy nhấn <b>Bật thông báo</b>. Thao tác này sẽ thêm một trang nhỏ có tên “Nhận thông báo” để khách truy cập đăng ký.",
+          "2": "Xuất bản ứng dụng để khách truy cập có thể đăng ký.",
+          "3": "Viết <b>Tiêu đề</b> và <b>Tin nhắn</b>. Bạn có thể thêm trang sẽ mở ra khi nhấn vào thông báo, chẳng hạn như /menu.",
+          "4": "Nhấn <b>Gửi đến</b> (số người sẽ nhận được thông báo sẽ hiển thị ở đây). Mục <b>Đã gửi</b> liệt kê những thông báo bạn đã gửi và số lượt gửi thành công."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Trên điện thoại Android và máy tính, mọi người bật thông báo trong trình duyệt. Trên iPhone và iPad, họ cần thêm ứng dụng vào màn hình chính trước, rồi bật thông báo tại đó.",
+          "1": "Luồng cũng có thể gửi thông báo bằng bước <b>Gửi thông báo</b>."
+        },
+        "heading": "Ai có thể nhận thông báo"
+      },
+      "3": {
+        "body": {
+          "0": "Ứng dụng trên điện thoại hiển thị phiên bản ứng dụng đã xuất bản và đang hoạt động, nên các thay đổi sau khi xuất bản sẽ cập nhật mà không cần tạo bản mới."
+        },
+        "heading": "Tạo ứng dụng Android",
+        "shot": {
+          "alt": "Thẻ Ứng dụng di động hiển thị chi tiết ứng dụng và các nút tạo phiên bản Android.",
+          "caption": "Tạo bản dùng thử hoặc tệp Google Play yêu cầu."
+        },
+        "steps": {
+          "0": "Trước tiên, hãy xuất bản ứng dụng.",
+          "1": "Mở thẻ <b>Ứng dụng di động</b>.",
+          "2": "Trong mục <b>Chi tiết ứng dụng</b>, kiểm tra <b>Tên ứng dụng</b>, <b>Mã gói / mã ứng dụng</b> (chẳng hạn com.yourbusiness.app; không bao giờ thay đổi mã này sau khi ứng dụng đã có trên cửa hàng), <b>Phiên bản</b>, <b>Hướng màn hình</b> và màu sắc, rồi nhấn <b>Lưu cài đặt</b>.",
+          "3": "Nhấn <b>Tạo APK thử nghiệm</b> để có bản sao cài trực tiếp lên điện thoại Android và dùng thử.",
+          "4": "Khi sẵn sàng đưa ứng dụng lên Google Play, hãy nhấn <b>Tạo bản dành cho Google Play</b>. Hướng dẫn <b>Đưa ứng dụng lên Google Play</b> sẽ giúp bạn thực hiện các bước trên cửa hàng."
+        }
+      },
+      "4": {
+        "body": {
+          "0": "Google Play nhận diện ứng dụng của bạn bằng khóa tải lên. Đây là tệp bí mật được tạo khi bạn tạo bản dành cho Google Play lần đầu. Nhấn <b>Tải bản sao lưu khóa xuống</b> và cất ở nơi riêng tư, chẳng hạn như ứng dụng quản lý mật khẩu. Nếu mất khóa, bạn sẽ không thể cập nhật ứng dụng trên Google Play nữa. Chỉ chủ sở hữu ứng dụng mới có thể tải khóa xuống."
+        },
+        "heading": "Giữ an toàn khóa tải lên"
+      },
+      "5": {
+        "body": {
+          "0": "Nhấn <b>Tải dự án iPhone xuống</b> trong thẻ Ứng dụng di động. Để tạo ứng dụng iPhone, bạn cần có tài khoản Apple Developer trả phí và máy Mac hoặc tài khoản GitHub miễn phí. Hướng dẫn trong tệp tải xuống sẽ giải thích từng bước cho cả hai cách."
+        },
+        "heading": "iPhone và iPad"
+      },
+      "6": {
+        "bullets": {
+          "0": "<b>Tính năng điện thoại ứng dụng này sử dụng</b> liệt kê những quyền ứng dụng yêu cầu trên điện thoại, chẳng hạn như máy ảnh hoặc vị trí. Khi danh sách này thay đổi, hãy tạo lại ứng dụng rồi gửi phiên bản mới lên cửa hàng.",
+          "1": "Điện thoại chỉ mở ứng dụng từ địa chỉ an toàn (https). Thẻ Ứng dụng di động sẽ cảnh báo nếu địa chỉ của bạn không an toàn.",
+          "2": "Nếu thấy thông báo <b>Máy chủ này đã tắt tính năng tạo bản Android</b>, hãy liên hệ người quản lý {app} cho bạn.",
+          "3": "Trước khi xóa ứng dụng hoặc tài khoản, hãy tải khóa tải lên Google Play xuống."
+        },
+        "heading": "Thông tin cần biết"
+      }
+    },
+    "summary": "Thêm ứng dụng vào màn hình chính, gửi thông báo và tạo phiên bản Android và iPhone.",
+    "title": "Ứng dụng điện thoại và thông báo"
+  },
+  "prices-and-payments": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "<b>Nếu bạn vận hành nền tảng:</b> vào Quản trị, chọn <b>Tất cả cài đặt</b>, rồi chọn <b>Thanh toán</b> để cài đặt giá và Stripe, hoặc <b>Gói và giới hạn</b> để chọn nội dung của từng gói.",
+          "1": "<b>Nếu bạn là đại lý:</b> vào trang tổng quan đại lý, chọn <b>Thanh toán và gói</b>. Tại đây có mục <b>1. Giá của bạn</b> và <b>2. Nội dung của từng gói</b>.",
+          "2": "Thanh toán được xử lý qua Stripe, một dịch vụ thanh toán trực tuyến. Bạn cần có tài khoản Stripe riêng."
+        },
+        "heading": "Tìm ở đâu"
+      },
+      "1": {
+        "heading": "Kết nối Stripe",
+        "steps": {
+          "0": "Trong Stripe, vào mục Developers, chọn API keys rồi sao chép <b>Khóa bí mật</b>. Nếu muốn dùng thử trước, hãy dùng khóa thử nghiệm (bắt đầu bằng sk_test_).",
+          "1": "Dán khóa vào ô <b>Khóa bí mật</b> trong mục <b>Stripe</b>.",
+          "2": "Nhấn <b>Lưu giá</b>. {app} sẽ tự thiết lập các cập nhật thanh toán từ Stripe cho bạn."
+        }
+      },
+      "2": {
+        "heading": "Đặt giá",
+        "shot": {
+          "alt": "Mục Thanh toán với tên, giá hàng tháng và đơn vị tiền tệ cho từng gói trả phí, cùng khóa Stripe.",
+          "caption": "Đặt tên và giá cho từng gói, rồi kết nối Stripe."
+        },
+        "steps": {
+          "0": "Trong mục <b>Gói và giá</b>, mỗi gói trả phí có <b>Tên gói</b>, <b>Giá mỗi tháng</b> và <b>Đơn vị tiền tệ</b>.",
+          "1": "Nhập giá cho từng gói bạn muốn cung cấp. Để trống giá nếu muốn ẩn gói đó. Gói Miễn phí luôn có sẵn.",
+          "2": "Nhấn <b>Lưu giá</b>. Giá sẽ được tự động tạo trong tài khoản Stripe của bạn."
+        }
+      },
+      "3": {
+        "body": {
+          "0": "Với mỗi gói, hãy đặt số lượng <b>Ứng dụng</b>, <b>Ứng dụng đã xuất bản</b>, <b>Trang cho mỗi ứng dụng</b>, <b>Tên miền tùy chỉnh</b> và <b>Thao tác AI / tháng</b>, đồng thời chọn có bao gồm <b>Quy trình làm việc theo lịch</b> hay không.",
+          "1": "Trong mục <b>Gói và giới hạn</b> của đơn vị vận hành, đánh dấu <b>không giới hạn</b> nếu không muốn đặt giới hạn, rồi nhấn <b>Lưu giới hạn gói</b>. Trong mục <b>Thanh toán và gói</b> của đại lý, để trống ô nếu không muốn đặt giới hạn, rồi nhấn <b>Lưu gói</b>.",
+          "2": "Đại lý cũng có thể bỏ chọn <b>Cho phép khách hàng mới tự đăng ký trên tên miền của bạn</b> để chỉ cho phép tạo tài khoản theo thư mời."
+        },
+        "heading": "Chọn nội dung của từng gói",
+        "shot": {
+          "alt": "Bảng Gói và giới hạn, có một cột cho mỗi gói và một hàng cho mỗi giới hạn.",
+          "caption": "Nội dung của từng gói."
+        }
+      },
+      "4": {
+        "body": {
+          "0": "Khách hàng thấy các gói bạn cung cấp trên trang <b>Thanh toán và gói</b>, cùng nút <b>Nâng cấp</b> đưa họ đến Stripe để thanh toán. Khách hàng đã thanh toán sẽ thấy nút <b>Quản lý thanh toán</b> để đổi thẻ hoặc hủy gói. Trước khi kết nối Stripe, giá vẫn hiển thị; trang thanh toán sẽ hoạt động sau khi kết nối.",
+          "1": "Bạn cũng có thể tự đổi gói cho người khác: đổi gói cho người vận hành từ danh sách Người dùng, hoặc cho đại lý từ danh sách khách hàng."
+        },
+        "heading": "Khách hàng nhìn thấy gì"
+      },
+      "5": {
+        "bullets": {
+          "0": "Khách hàng thanh toán trực tiếp cho bạn qua tài khoản Stripe của bạn. Nền tảng không thu phí.",
+          "1": "Nếu không thể tự thiết lập cập nhật thanh toán của Stripe, mục <b>Nâng cao: cập nhật thanh toán (webhook)</b> sẽ hiển thị địa chỉ để bạn thêm thủ công trong Stripe.",
+          "2": "Hãy thử mọi thứ bằng khóa thử nghiệm Stripe trước khi chuyển sang khóa thật."
+        },
+        "heading": "Thông tin cần biết"
+      }
+    },
+    "summary": "Kết nối Stripe và đặt giá cũng như nội dung của từng gói để khách hàng thanh toán trực tiếp cho bạn.",
+    "title": "Giá và thanh toán"
+  },
+  "publishing": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Bạn luôn chỉnh sửa bản nháp. Khách truy cập sẽ thấy phiên bản bạn đã đăng gần nhất. Mọi thay đổi, kể cả thay đổi do AI thực hiện, đều nằm trong bản nháp cho đến khi bạn đăng lại, nên không ai thấy những trang chưa hoàn thiện."
+        },
+        "heading": "Bản nháp và bản đang hoạt động"
+      },
+      "1": {
+        "heading": "Đăng lần đầu",
+        "shot": {
+          "alt": "Tab Đăng hiển thị trạng thái ứng dụng, nút đăng và địa chỉ web của ứng dụng.",
+          "caption": "Đăng ứng dụng, rồi sao chép liên kết để chia sẻ."
+        },
+        "steps": {
+          "0": "Nhấn <b>Đăng</b> ở góc trên bên phải, cạnh các tab của ứng dụng.",
+          "1": "Nhấn <b>Đăng ứng dụng</b>.",
+          "2": "Bạn sẽ thấy <b>Ứng dụng của bạn đã hoạt động. Sẵn sàng chia sẻ.</b> và trạng thái chuyển thành <b>Đang hoạt động</b>."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Địa chỉ web của ứng dụng nằm trong tab Đăng, kèm nút sao chép. Trong mục Tổng quan có mã để bạn quét bằng camera điện thoại và mở ứng dụng.",
+          "1": "<b>Tìm kiếm và chia sẻ</b> cho phép bạn đặt nội dung mô tả mà công cụ tìm kiếm và ứng dụng trò chuyện hiển thị cùng liên kết. Bật <b>Ẩn khỏi công cụ tìm kiếm</b> nếu bạn không muốn ứng dụng xuất hiện trên Google; bất kỳ ai có liên kết vẫn mở được ứng dụng."
+        },
+        "heading": "Chia sẻ liên kết"
+      },
+      "3": {
+        "body": {
+          "0": "Khi bạn đã thay đổi nội dung kể từ lần đăng trước, trạng thái sẽ là <b>Đang hoạt động · có thay đổi chưa đăng</b>. Nhấn <b>Đăng thay đổi</b> để áp dụng. Khi không có gì mới, nút sẽ hiện <b>Đã cập nhật</b>.",
+          "1": "Muốn dùng thử các thay đổi trước? Nút <b>Xem trước</b> ở góc trên bên phải sẽ mở bản nháp trong tab mới. Chỉ bạn mới mở được."
+        },
+        "heading": "Đăng các thay đổi"
+      },
+      "4": {
+        "body": {
+          "0": "Mỗi lần bạn đăng, phiên bản đó sẽ được lưu trong mục <b>Lịch sử bản phát hành</b>, bản mới nhất ở trên cùng. Phiên bản đang hoạt động được đánh dấu <b>Đang hoạt động</b>."
+        },
+        "heading": "Quay lại phiên bản trước",
+        "shot": {
+          "alt": "Danh sách Lịch sử bản phát hành, có nút Đặt làm bản đang hoạt động bên cạnh các phiên bản trước.",
+          "caption": "Lịch sử bản phát hành: khôi phục bất kỳ phiên bản gần đây nào."
+        },
+        "steps": {
+          "0": "Tìm phiên bản bạn muốn trong mục <b>Lịch sử bản phát hành</b>.",
+          "1": "Nhấn <b>Đặt làm bản đang hoạt động</b> rồi xác nhận.",
+          "2": "Khách truy cập sẽ thấy phiên bản đó ngay. Bản nháp của bạn không thay đổi, nên bạn có thể chỉnh sửa rồi đăng lại."
+        }
+      },
+      "5": {
+        "body": {
+          "0": "<b>Ngừng hoạt động</b> sẽ khiến khách truy cập không mở được ứng dụng cho đến khi bạn đăng lại. Không có gì bị xóa."
+        },
+        "heading": "Ngừng hoạt động"
+      },
+      "6": {
+        "body": {
+          "0": "<b>Tải bản sao lưu (.zip)</b> lưu tất cả trang, luồng, bảng và hàng, giao diện cùng hình ảnh của bạn vào một tệp. Hãy cất tệp ở nơi an toàn hoặc khôi phục bằng <b>Nhập ứng dụng</b> khi tạo ứng dụng mới, tại đây hoặc trên một máy chủ {app} khác. Không bao gồm mật khẩu của thành viên."
+        },
+        "heading": "Sao lưu hoặc chuyển ứng dụng"
+      },
+      "7": {
+        "body": {
+          "0": "Trong mục <b>Cài đặt trên thiết bị</b>: <b>Tải ứng dụng dùng ngoại tuyến (.zip)</b> tạo bản sao hoạt động trên một máy tính mà không cần internet và lưu dữ liệu trên máy tính đó. <b>Lối tắt trên máy tính (trực tuyến)</b> tạo lối tắt đến ứng dụng đang hoạt động trên màn hình Windows hoặc Mac. Với điện thoại, xem hướng dẫn Ứng dụng điện thoại và thông báo."
+        },
+        "heading": "Cài đặt trên máy tính và điện thoại"
+      },
+      "8": {
+        "bullets": {
+          "0": "Gói của bạn có thể giới hạn số ứng dụng được đăng cùng lúc.",
+          "1": "Lịch sử bản phát hành hiển thị 20 phiên bản gần đây nhất.",
+          "2": "Luồng đã lên lịch chỉ chạy khi ứng dụng được đăng.",
+          "3": "Bạn có thể kết nối địa chỉ web riêng trong tab Miền."
+        },
+        "heading": "Thông tin hữu ích"
+      }
+    },
+    "summary": "Đưa ứng dụng lên mạng, chia sẻ liên kết, cập nhật an toàn và khôi phục phiên bản cũ nếu cần.",
+    "title": "Xuất bản và chia sẻ ứng dụng"
+  },
+  "resellers": {
+    "sections": {
+      "0": {
+        "bullets": {
+          "0": "<b>Đơn vị vận hành</b> quản lý nền tảng và thiết lập các gói, giá và giới hạn.",
+          "1": "<b>Đại lý</b> là các công ty do đơn vị vận hành thêm vào. Mỗi đại lý có thương hiệu, địa chỉ, tài khoản Stripe và khách hàng riêng.",
+          "2": "<b>Khách hàng</b> là khách của đại lý. Họ tạo ứng dụng và chỉ thấy thương hiệu của đại lý.",
+          "3": "<b>Người dùng ứng dụng</b> là những người sử dụng ứng dụng đã xuất bản.",
+          "4": "Khách hàng thanh toán trực tiếp cho đại lý. Nền tảng không thu phần trăm nào."
+        },
+        "heading": "Cách hoạt động"
+      },
+      "1": {
+        "heading": "Đơn vị vận hành: thêm đại lý",
+        "shot": {
+          "alt": "Trang Đại lý với biểu mẫu thêm đại lý và bảng liệt kê đại lý cùng số khách hàng, ứng dụng và mức sử dụng AI.",
+          "caption": "Thêm đại lý và đặt giới hạn cho họ."
+        },
+        "steps": {
+          "0": "Trong mục Quản trị, mở <b>Đại lý</b>.",
+          "1": "Trong phần <b>Thêm đại lý</b>, nhập <b>Tên thương hiệu</b>, <b>Email của đại lý</b> và, nếu muốn, <b>Tên của họ</b>.",
+          "2": "Đặt <b>Số khách hàng tối đa</b>, <b>Số ứng dụng tối đa</b> và <b>Thao tác AI / tháng</b>, hoặc để trống để không giới hạn.",
+          "3": "Nhấn <b>Tạo đại lý</b>. Đại lý sẽ nhận email mời nếu email đã được thiết lập; nếu chưa, bạn sẽ nhận được liên kết để gửi cho họ."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Bảng hiển thị số khách hàng, ứng dụng, thao tác AI trong tháng này, tên miền và trạng thái của từng đại lý. Nhấn vào số như 3 / 10 để thay đổi giới hạn đó. Các nút ở cuối hàng cho phép bạn đăng nhập với tư cách đại lý, tạo liên kết mời hoặc đặt lại mật khẩu, tạm ngưng hoặc kích hoạt lại đại lý và xóa họ.",
+          "1": "Giới hạn AI hàng tháng áp dụng chung cho đại lý và tất cả khách hàng của họ. Khi dùng hết, AI sẽ tạm dừng với tất cả mọi người cho đến tháng sau. Đại lý sẽ nhận email khi đạt 80% và 100% giới hạn, nếu email đã được thiết lập.",
+          "2": "Tạm ngưng đại lý sẽ đăng xuất đại lý và tất cả khách hàng của họ. Khi xóa đại lý, bạn cần nhập tên của họ để xác nhận; khách hàng của họ vẫn giữ tài khoản và ứng dụng, đồng thời trở thành khách hàng trực tiếp của bạn theo gói Miễn phí."
+        },
+        "heading": "Đơn vị vận hành: quản lý đại lý"
+      },
+      "3": {
+        "body": {
+          "0": "Nhấn <b>Trang tổng quan đại lý</b> trên thanh trên cùng. Mục <b>Tổng quan</b> có danh sách <b>Thiết lập tài khoản</b> (logo và màu sắc, tên miền riêng, thanh toán, khách hàng đầu tiên) cùng số lượng khách hàng, ứng dụng và thao tác AI bạn đang dùng. Menu bên trái có các mục <b>Khách hàng</b>, <b>Ứng dụng</b>, <b>Thương hiệu</b>, <b>Tên miền</b> và <b>Thanh toán và gói</b>."
+        },
+        "heading": "Đại lý: trang tổng quan"
+      },
+      "4": {
+        "heading": "Đại lý: mời khách hàng",
+        "steps": {
+          "0": "Mở <b>Khách hàng</b>.",
+          "1": "Trong phần <b>Mời khách hàng</b>, nhập <b>Email</b>, <b>Tên</b> nếu muốn, rồi chọn <b>Gói</b> cho họ.",
+          "2": "Nhấn <b>Gửi lời mời</b>. Họ sẽ nhận email có liên kết để đặt mật khẩu; nếu email chưa được thiết lập, bạn sẽ nhận được liên kết để gửi cho họ.",
+          "3": "Để mời nhiều người cùng lúc, nhấn <b>Mời nhiều người cùng lúc</b> rồi dán tối đa 50 địa chỉ email."
+        }
+      },
+      "5": {
+        "body": {
+          "0": "Danh sách khách hàng hiển thị trạng thái, gói, ứng dụng, mức sử dụng AI và lần hoạt động gần nhất của từng người. Lọc danh sách theo trạng thái, gói và thanh toán, hoặc đánh dấu <b>Chưa truy cập trong 30 ngày</b> hay <b>Chưa từng đăng nhập</b>. Mục <b>Cần chú ý</b> cho biết những khách hàng có thể cần bạn nhắc.",
+          "1": "Đổi gói của khách hàng bằng menu trong hàng của họ. Các nút trong mỗi hàng cho phép bạn <b>Mở không gian làm việc của họ</b> (nhấn <b>Quay lại danh sách khách hàng</b> để trở về), gửi lời mời mới hoặc liên kết đặt lại mật khẩu, tạm ngưng hoặc khôi phục quyền truy cập và xóa họ.",
+          "2": "Xóa khách hàng cũng sẽ xóa tất cả ứng dụng của họ. Bạn cần nhập email của họ để xác nhận."
+        },
+        "heading": "Đại lý: hỗ trợ khách hàng"
+      },
+      "6": {
+        "body": {
+          "0": "Mục <b>Ứng dụng</b> liệt kê tất cả ứng dụng khách hàng của bạn đã tạo. Nhấn <b>Mở</b> để chỉnh sửa ứng dụng trong không gian làm việc của khách hàng. Ứng dụng do bạn tự tạo sẽ có nút <b>Chuyển cho khách hàng</b>, giúp chuyển ứng dụng vào không gian làm việc của khách hàng; bạn vẫn có thể mở ứng dụng để hỗ trợ họ."
+        },
+        "heading": "Đại lý: ứng dụng của khách hàng"
+      },
+      "7": {
+        "bullets": {
+          "0": "Đại lý chỉ thấy khách hàng của mình, không thấy khách hàng hay cài đặt khác của đơn vị vận hành.",
+          "1": "Khách hàng đăng nhập tại địa chỉ của đại lý và chỉ thấy thương hiệu của đại lý.",
+          "2": "Khi đã dùng hết chỗ dành cho khách hàng, bạn không thể gửi lời mời mới cho đến khi đơn vị vận hành tăng giới hạn."
+        },
+        "heading": "Thông tin cần biết"
+      }
+    },
+    "summary": "Kinh doanh dịch vụ tạo ứng dụng dưới thương hiệu khác: đơn vị vận hành thêm đại lý, rồi mỗi đại lý mời và hỗ trợ khách hàng của mình.",
+    "title": "Đại lý và khách hàng"
+  },
+  "running-your-platform": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Nhấp vào <b>Quản trị</b> trên thanh trên cùng. <b>Vận hành nền tảng</b> có một thẻ cho từng mục, kèm trạng thái hiện tại: <b>Thương hiệu riêng</b>, <b>Đại lý</b>, <b>Thanh toán</b>, <b>Gói và giới hạn</b>, <b>Công cụ AI</b>, <b>Email</b>, <b>Người dùng</b> và <b>Hệ thống</b>. Nhấp vào thẻ để mở. <b>Tất cả cài đặt</b> ở trên cùng sẽ mở mọi cài đặt trên cùng một trang."
+        },
+        "heading": "Trang quản trị chính",
+        "shot": {
+          "alt": "Trang quản trị chính với các thẻ về thương hiệu, đại lý, thanh toán, gói, AI, email, người dùng và hệ thống, cùng danh sách việc cần làm khi thiết lập.",
+          "caption": "Trang quản trị chính: mọi mục của nền tảng và những việc còn cần làm."
+        }
+      },
+      "1": {
+        "body": {
+          "0": "Danh sách <b>Việc cần làm khi thiết lập</b> sẽ tự đánh dấu hoàn tất khi bạn làm xong. Nhấp vào một bước để mở cài đặt tương ứng."
+        },
+        "heading": "Danh sách việc cần làm khi thiết lập",
+        "steps": {
+          "0": "<b>Thiết lập thương hiệu</b>: tên, logo và màu sắc. Xem mục Thương hiệu của bạn (thương hiệu riêng).",
+          "1": "<b>Kết nối công cụ AI</b> để mọi người có thể tạo ứng dụng bằng cách mô tả ứng dụng. Xem mục Cài đặt AI.",
+          "2": "<b>Kết nối Stripe và đặt giá cho các gói</b> nếu bạn thu phí. Xem mục Giá và thanh toán.",
+          "3": "<b>Bật email</b> để lời mời, liên kết đặt lại mật khẩu và thông báo được gửi tự động. Xem mục Email.",
+          "4": "<b>Cấp địa chỉ riêng cho các ứng dụng đã xuất bản</b>. Đây là cài đặt máy chủ (APPS_DOMAIN trong tệp .env), không có trên màn hình này; trình cài đặt có thể thiết lập giúp bạn. Với bản ghi DNS ký tự đại diện, mỗi ứng dụng đã xuất bản sẽ có địa chỉ riêng, tách biệt với studio.",
+          "5": "<b>Mời đại lý đầu tiên</b> nếu bạn bán hàng qua các công ty đối tác. Xem mục Đại lý và khách hàng."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Trong mục <b>Tất cả cài đặt</b>, <b>Gói và giới hạn</b> cho phép bạn chọn những gì các gói Free, Starter, Pro và Team bao gồm: <b>Ứng dụng</b>, <b>Ứng dụng đã xuất bản</b>, <b>Trang trong mỗi ứng dụng</b>, <b>Tên miền tùy chỉnh</b>, <b>Lượt dùng AI mỗi tháng</b> và <b>Quy trình tự động theo lịch</b>. Đánh dấu <b>không giới hạn</b> nếu không muốn đặt giới hạn, rồi nhấn <b>Lưu giới hạn gói</b>. <b>Đặt lại giới hạn tiêu chuẩn</b> sẽ khôi phục các giá trị có sẵn. Bạn và các đại lý của bạn không bao giờ bị giới hạn."
+        },
+        "heading": "Mỗi gói bao gồm những gì"
+      },
+      "3": {
+        "body": {
+          "0": "Danh sách <b>Người dùng</b> trên trang quản trị chính hiển thị tất cả những người đã đăng ký. Với mỗi người, bạn có thể:"
+        },
+        "bullets": {
+          "0": "Đổi gói của họ từ menu. Thay đổi được lưu ngay.",
+          "1": "Nhấn <b>Liên kết đặt lại mật khẩu</b> để tạo liên kết đăng nhập chỉ dùng được một lần trong 2 giờ. Nếu email đã bật, liên kết sẽ được gửi qua email; nếu chưa, liên kết sẽ được sao chép để bạn gửi.",
+          "2": "Nhấn <b>Đăng nhập với tư cách người dùng</b> để mở không gian làm việc của họ và hỗ trợ họ. Một biểu ngữ sẽ hiện khi bạn đang ở trong đó, và mọi thay đổi bạn thực hiện sẽ ảnh hưởng đến tài khoản của họ. Nhấn <b>Dừng đăng nhập với tư cách người dùng</b> để quay lại.",
+          "3": "Nhấn <b>Xóa</b> để xóa tài khoản của họ. Bạn sẽ thấy những gì bị xóa cùng tài khoản và cần nhập email của họ để xác nhận."
+        },
+        "heading": "Hỗ trợ người dùng"
+      },
+      "4": {
+        "body": {
+          "0": "<b>Người dùng mới trong 30 ngày qua</b> hiển thị số người đã đăng ký, tạo ứng dụng và xuất bản ứng dụng. <b>Dự án gần đây</b> liệt kê các ứng dụng mới nhất, kèm nút <b>Mở</b> để mở ứng dụng trong không gian làm việc của chủ sở hữu. <b>Lượt chạy quy trình gần đây</b> hiển thị các quy trình tự động mới nhất và trạng thái của chúng."
+        },
+        "heading": "Theo dõi hoạt động"
+      },
+      "5": {
+        "body": {
+          "0": "Mở <b>Hệ thống</b> để xem tình trạng máy chủ bằng ngôn từ dễ hiểu. Mỗi mục kiểm tra là một thẻ: màu xanh là ổn, màu vàng cần chú ý, màu đỏ cần xử lý ngay. Các mục bao gồm cơ sở dữ liệu, dung lượng ổ đĩa, quy trình theo lịch, bản sao lưu, email, kết nối AI, bộ nhớ và nhiều mục khác.",
+          "1": "<b>Dọn dẹp hằng đêm</b> sẽ xóa nhật ký chạy cũ, phiên đăng nhập hết hạn, phiên bản đã xuất bản cũ và tệp của ứng dụng đã xóa. Chọn <b>Chỉ báo cáo</b> (đếm, không xóa), <b>Xóa bản ghi cũ</b> hoặc <b>Tắt</b>, rồi nhấn <b>Lưu</b>. <b>Kiểm tra ngay</b> hoặc <b>Dọn dẹp ngay</b> sẽ chạy ngay lập tức. Hãy sao lưu trước khi bật tính năng xóa lần đầu: không thể khôi phục các bản ghi đã xóa.",
+          "2": "Nếu có sự cố, <b>Thông tin gửi bộ phận hỗ trợ</b> sẽ sao chép hoặc tải xuống bản tóm tắt đã ẩn thông tin riêng tư để bạn gửi cho người hỗ trợ."
+        },
+        "heading": "Tình trạng máy chủ",
+        "shot": {
+          "alt": "Trang Hệ thống: dòng tóm tắt, các thẻ kiểm tra tình trạng và cài đặt dọn dẹp hằng đêm.",
+          "caption": "Hệ thống: tình trạng máy chủ được trình bày dễ hiểu."
+        }
+      },
+      "6": {
+        "bullets": {
+          "0": "Nếu cần cập nhật cơ sở dữ liệu sau khi nâng cấp, biểu ngữ ở đầu trang quản trị chính sẽ thông báo và mục Hệ thống sẽ hướng dẫn bạn cần làm gì.",
+          "1": "Các bản cài đặt bằng trình cài đặt tiêu chuẩn sẽ tự sao lưu mỗi đêm. Thỉnh thoảng, hãy sao chép bản sao lưu sang một thiết bị khác.",
+          "2": "Các công cụ giám sát có thể kiểm tra /api/health để biết máy chủ có đang hoạt động hay không.",
+          "3": "Tài liệu vận hành dành cho quản trị viên trong gói tải xuống (docs/operations.md) giải thích chi tiết."
+        },
+        "heading": "Thông tin cần biết"
+      }
+    },
+    "summary": "Trang quản trị chính của bạn: thiết lập {app}, hỗ trợ người dùng và giữ cho máy chủ hoạt động ổn định.",
+    "title": "Vận hành nền tảng"
+  },
+  "white-label": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Đơn vị vận hành nền tảng thiết lập thương hiệu mặc định mà mọi người nhìn thấy. Mỗi đại lý có thể thiết lập thương hiệu riêng, và khách hàng của họ chỉ thấy thương hiệu đó, không bao giờ thấy thương hiệu của nền tảng.",
+          "1": "<b>Nếu bạn vận hành nền tảng:</b> vào Quản trị, <b>Tất cả cài đặt</b>, <b>Thương hiệu</b>.",
+          "2": "<b>Nếu bạn là đại lý:</b> mở <b>Bảng điều khiển đại lý</b> rồi chọn <b>Thương hiệu</b>."
+        },
+        "heading": "Mọi người sẽ thấy thương hiệu nào"
+      },
+      "1": {
+        "heading": "Thiết lập thương hiệu",
+        "shot": {
+          "alt": "Biểu mẫu thương hiệu riêng với tên, câu giới thiệu, logo, biểu tượng, màu sắc và email hỗ trợ, cùng bản xem trước trang đăng nhập.",
+          "caption": "Thương hiệu của bạn cùng bản xem trước trực tiếp trang đăng nhập."
+        },
+        "steps": {
+          "0": "Nhập <b>Tên thương hiệu</b>. Tên này hiển thị ở đầu mỗi màn hình, trong email và trên trang đăng nhập.",
+          "1": "Thêm <b>Câu giới thiệu (không bắt buộc)</b>, một câu ngắn mô tả dịch vụ bạn cung cấp. Câu này sẽ được thêm vào tiêu đề thẻ trình duyệt.",
+          "2": "Tải lên <b>Logo</b>. Logo ngang sẽ đẹp nhất; dùng PNG hoặc SVG, dung lượng dưới 150 KB. Logo sẽ thay cho tên thương hiệu.",
+          "3": "Tải lên <b>Biểu tượng trình duyệt</b>: hình vuông, kích thước ít nhất 64 × 64 pixel.",
+          "4": "Chọn <b>Màu chính</b> (nút và phần nổi bật) và <b>Màu nhấn</b> (các chi tiết nhỏ).",
+          "5": "Thêm <b>Email hỗ trợ</b>. Email này hiển thị với những người cần trợ giúp và được dùng làm địa chỉ nhận thư trả lời. Bạn cũng có thể thêm <b>Trang web của bạn</b>.",
+          "6": "Kiểm tra <b>Xem trước</b> trang đăng nhập, rồi nhấn <b>Lưu thương hiệu</b>."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Khách hàng của bạn có thể đăng nhập và tạo ứng dụng tại địa chỉ do bạn sở hữu, chẳng hạn apps.youragency.com. Ứng dụng đã xuất bản của họ cũng được chia sẻ từ địa chỉ này."
+        },
+        "heading": "Đại lý: dùng địa chỉ riêng",
+        "steps": {
+          "0": "Trong Bảng điều khiển đại lý, mở <b>Tên miền</b>.",
+          "1": "Nhập tên miền phụ bạn quản lý, chẳng hạn apps.youragency.com, rồi nhấn <b>Dùng tên miền này</b>.",
+          "2": "Thêm hai bản ghi được hiển thị (bản ghi CNAME hoặc A và bản ghi TXT) tại nơi bạn quản lý DNS của tên miền.",
+          "3": "Nhấn <b>Kiểm tra ngay</b>. Khi trạng thái là <b>Đã kết nối</b>, khách hàng của bạn có thể đăng nhập tại đó."
+        }
+      },
+      "3": {
+        "bullets": {
+          "0": "Thay đổi sẽ hiển thị vào lần tải trang tiếp theo.",
+          "1": "Không chấp nhận ảnh lớn hơn 150 KB. Hãy xuất ảnh với dung lượng nhỏ hơn rồi thử lại.",
+          "2": "Địa chỉ của đại lý sẽ tự động được cấp chứng chỉ bảo mật (https) trên các máy chủ đã thiết lập tính năng này. Nếu địa chỉ không mở an toàn, hãy liên hệ với đơn vị vận hành nền tảng.",
+          "3": "Để ngừng dùng địa chỉ của đại lý, hãy xóa nội dung trong ô rồi lưu.",
+          "4": "Đơn vị vận hành: hãy cấp cho ứng dụng đã xuất bản một địa chỉ trung tính (APPS_DOMAIN) để liên kết ứng dụng của khách hàng đại lý không hiển thị tên nền tảng."
+        },
+        "heading": "Thông tin cần biết"
+      }
+    },
+    "summary": "Dùng tên, logo và màu sắc của riêng bạn cho studio, email và trang đăng nhập.",
+    "title": "Thương hiệu của bạn (thương hiệu riêng)"
+  }
+}

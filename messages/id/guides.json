@@ -1,0 +1,1276 @@
+{
+  "account-and-billing": {
+    "sections": {
+      "0": {
+        "heading": "Foto, detail, dan kata sandi",
+        "shot": {
+          "alt": "Halaman Profil dengan foto, detail, kata sandi, tampilan, dan tips bantuan.",
+          "caption": "Profil: foto, nama, kata sandi, tema terang atau gelap, dan tips bantuan."
+        },
+        "steps": {
+          "0": "Klik foto (atau inisial) Anda di kanan atas, lalu pilih <b>Profil</b>.",
+          "1": "Tekan <b>Tambahkan foto</b>, lalu pilih foto Anda. Foto akan dipotong menjadi persegi dan ditampilkan di samping nama Anda. Anda bisa <b>Ganti foto</b> atau <b>Hapus</b> kapan saja.",
+          "2": "Ubah <b>Nama</b>, lalu tekan <b>Simpan</b>. Email Anda adalah alamat yang digunakan untuk masuk dan tidak bisa diubah di sini.",
+          "3": "Di bagian <b>Kata sandi</b>, masukkan <b>Kata sandi saat ini</b> dan <b>Kata sandi baru</b> dengan minimal 8 karakter, lalu tekan <b>Ubah kata sandi</b>. Anda akan keluar dari akun di perangkat lain."
+        }
+      },
+      "1": {
+        "body": {
+          "0": "Jika Anda tidak tahu kata sandi saat ini, misalnya karena mendaftar dengan Google, keluar dari akun lalu pilih <b>Lupa kata sandi</b> di halaman masuk untuk membuat kata sandi."
+        },
+        "heading": "Mendaftar dengan Google?"
+      },
+      "2": {
+        "body": {
+          "0": "Tekan tombol matahari atau bulan di bilah atas untuk beralih antara tema terang dan gelap. Di <b>Profil</b>, pada bagian <b>Tampilan</b>, Anda juga bisa memilih <b>Ikuti setelan perangkat</b> agar tema mengikuti komputer atau ponsel Anda. Pilihan ini tersimpan di akun, jadi akan digunakan juga di perangkat lain."
+        },
+        "heading": "Tema terang atau gelap"
+      },
+      "3": {
+        "body": {
+          "0": "Tips bantuan adalah catatan singkat yang muncul saat Anda mengarahkan kursor ke tombol atau setelan. Aktifkan atau nonaktifkan di <b>Profil</b>, pada bagian <b>Bantuan</b>. Di dalam aplikasi, tombol <b>Tips bantuan</b> di bagian atas memiliki fungsi yang sama.",
+          "1": "Tautan <b>Bantuan</b> di bilah atas membuka panduan untuk layar yang sedang Anda lihat. <b>Bantuan & panduan</b> di menu akun menampilkan semua panduan."
+        },
+        "heading": "Tips dan panduan bantuan"
+      },
+      "4": {
+        "body": {
+          "0": "Klik inisial Anda, lalu pilih <b>Tagihan & paket</b>. Di sana Anda bisa melihat paket dan, jika paket Anda memiliki batas penggunaan bulanan, jumlah tindakan AI yang sudah digunakan bulan ini. Merencanakan, membuat, dan mengubah sesuatu dengan AI akan menggunakan tindakan AI.",
+          "1": "Jika jatah habis, AI akan berhenti sementara hingga bulan depan. Template dan editor halaman tetap bisa digunakan. Jika ada paket lain, Anda bisa memilihnya di halaman yang sama. Setelah berlangganan, <b>Kelola tagihan</b> memungkinkan Anda mengubah detail pembayaran."
+        },
+        "heading": "Paket dan penggunaan AI",
+        "shot": {
+          "alt": "Halaman Tagihan yang menampilkan paket dan tindakan AI yang sudah digunakan bulan ini.",
+          "caption": "Tagihan & paket: paket Anda dan penggunaan AI bulan ini."
+        }
+      },
+      "5": {
+        "body": {
+          "0": "Tindakan ini akan menghapus akun dan semua aplikasi Anda, termasuk data yang tersimpan, file, dan alamat webnya. Tindakan ini tidak bisa dibatalkan."
+        },
+        "heading": "Hapus akun",
+        "steps": {
+          "0": "Buka <b>Profil</b>, lalu cari <b>Hapus akun saya</b>.",
+          "1": "Unduh <b>Cadangan</b> untuk setiap aplikasi yang mungkin ingin Anda gunakan lagi nanti. Jika aplikasi tersedia di Google Play, unduh juga <b>kunci upload Google Play</b>-nya.",
+          "2": "Tekan <b>Hapus akun saya…</b>.",
+          "3": "Masukkan alamat email untuk mengonfirmasi, lalu centang kotak kunci upload jika ditampilkan.",
+          "4": "Tekan <b>Hapus akun saya secara permanen</b>."
+        }
+      },
+      "6": {
+        "bullets": {
+          "0": "Mengubah kata sandi akan mengeluarkan Anda dari akun di semua perangkat lain.",
+          "1": "Paket berbayar langsung dibatalkan saat Anda menghapus akun.",
+          "2": "Jika akun Anda tidak bisa dihapus di sini, misalnya karena Anda mengelola ruang kerja untuk orang lain, halaman Profil menjelaskan alasannya."
+        },
+        "heading": "Perlu diketahui"
+      }
+    },
+    "summary": "Tambahkan foto, ubah nama dan kata sandi, pilih tema terang atau gelap, aktifkan atau nonaktifkan tips bantuan, lihat paket dan penggunaan AI, atau hapus akun.",
+    "title": "Profil, paket, dan setelan Anda"
+  },
+  "ai-designer": {
+    "sections": {
+      "0": {
+        "heading": "Mulai merancang",
+        "shot": {
+          "alt": "Beranda Desainer AI dengan kotak untuk menjelaskan aplikasi, contoh ide, dan daftar desain Anda.",
+          "caption": "Jelaskan keinginan Anda, lalu tekan Rancang."
+        },
+        "steps": {
+          "0": "Klik <b>Desainer</b> di bilah atas. Di ponsel, buka <b>Cara lain untuk memulai</b> di dasbor, lalu pilih <b>Rancang bersama</b>.",
+          "1": "Di bagian <b>Apa yang ingin Anda buat?</b>, jelaskan aplikasi Anda. Ceritakan siapa yang akan menggunakannya dan apa yang bisa dilakukan pengunjung, seperti memesan waktu atau mengirim pesan. Anda juga bisa mengetuk salah satu contoh ide, lalu mengubahnya.",
+          "2": "Tekan <b>Rancang</b>.",
+          "3": "AI mungkin akan bertanya <b>Beberapa pertanyaan singkat</b>. Ketuk jawaban, ketik jawaban sendiri, atau lewati pertanyaan. Tekan <b>Buat</b>, atau <b>Lewati pertanyaan</b> agar AI yang memutuskan."
+        }
+      },
+      "1": {
+        "body": {
+          "0": "Saat AI bekerja, percakapan di sebelah kiri menampilkan <b>Sedang dikerjakan…</b> beserta setiap langkahnya, sementara pratinjau di sebelah kanan mulai terisi. Desain pertama bisa memerlukan waktu beberapa menit.",
+          "1": "Untuk menghentikan proses, tekan tombol berhenti berbentuk persegi di samping kotak pesan. Hasil dari proses tersebut tidak akan disimpan.",
+          "2": "Setelah proses pertama selesai, desain Anda akan memiliki aplikasi sendiri. <b>Buka aplikasi</b> di bagian atas percakapan akan membawa Anda ke aplikasi tersebut. Di sana, Anda bisa menemukan data, alur, dan fitur publikasi."
+        },
+        "heading": "Lihat proses pembuatannya"
+      },
+      "2": {
+        "heading": "Minta perubahan",
+        "shot": {
+          "alt": "Desain terbuka di Desainer AI: percakapan di kiri dan pratinjau aplikasi di kanan.",
+          "caption": "Percakapan di kiri, pratinjau langsung di kanan."
+        },
+        "steps": {
+          "0": "Ketik perubahan yang Anda inginkan di kotak <b>Minta perubahan</b> dengan kata-kata Anda sendiri. Contohnya: “buat header lebih gelap” atau “tambahkan halaman berisi harga kami”.",
+          "1": "Tekan Enter atau tombol kirim. Shift+Enter membuat baris baru.",
+          "2": "AI memperbarui desain dan menyimpannya sebagai versi baru."
+        }
+      },
+      "3": {
+        "body": {
+          "0": "Terkadang, menunjukkan langsung kepada AI lebih mudah daripada menjelaskannya."
+        },
+        "heading": "Tunjuk bagian yang ingin diubah",
+        "steps": {
+          "0": "Tekan <b>Komentar</b> di atas pratinjau. Tombol akan berubah menjadi <b>Klik apa saja untuk memberi komentar</b>.",
+          "1": "Klik bagian pratinjau yang ingin diubah.",
+          "2": "Ketik perubahan yang diinginkan, misalnya “buat ini lebih besar”, lalu tekan <b>Tambahkan</b>. Catatan Anda akan menunggu di atas kotak pesan.",
+          "3": "Tambahkan catatan sebanyak yang Anda mau, lalu tekan kirim untuk menerapkan semua perubahan sekaligus. Untuk menghapus catatan, tekan x pada catatan tersebut."
+        }
+      },
+      "4": {
+        "body": {
+          "0": "Gunakan menu <b>Halaman</b> di atas pratinjau untuk melihat setiap halaman desain Anda. Tiga tombol layar menampilkan desain dalam ukuran komputer, tablet, dan ponsel. Tombol panah akan membuka halaman itu sendiri di tab baru.",
+          "1": "Di ponsel, beralihlah antara <b>Percakapan</b> dan <b>Pratinjau</b> di bagian atas layar."
+        },
+        "heading": "Periksa setiap halaman dan ukuran layar"
+      },
+      "5": {
+        "body": {
+          "0": "Setiap perubahan disimpan sebagai versi, jadi Anda selalu bisa kembali ke versi sebelumnya."
+        },
+        "heading": "Kembali ke versi sebelumnya",
+        "shot": {
+          "alt": "Daftar Versi terbuka di samping pratinjau, dengan tombol Lihat dan Pulihkan untuk setiap versi.",
+          "caption": "Versi: lihat versi sebelumnya dan pulihkan kapan saja."
+        },
+        "steps": {
+          "0": "Tekan <b>Versi</b>. Semua versi akan ditampilkan, dari yang terbaru.",
+          "1": "Tekan <b>Lihat</b> untuk menampilkan versi lama di pratinjau. Anda juga bisa menekan <b>Lihat versi ini</b> di bawah pesan dalam percakapan.",
+          "2": "Tekan <b>Pulihkan</b> (atau <b>Pulihkan versi ini</b> di bilah kuning) untuk menjadikan versi tersebut sebagai versi saat ini. Versi yang sedang Anda gunakan tetap ada dalam daftar, jadi Anda bisa kembali ke versi itu.",
+          "3": "Untuk berhenti melihat versi lama, tekan <b>Kembali ke versi saat ini</b>."
+        }
+      },
+      "6": {
+        "body": {
+          "0": "<b>Unduh</b> menyimpan semua halaman desain Anda dalam satu file .zip.",
+          "1": "<b>Pindahkan ke pembuat halaman</b> akan mengalihkan aplikasi ke editor halaman seret dan lepas. Setelah itu, Desainer AI tidak bisa lagi mengubahnya. Jika Anda ingin terus mendesain dengan AI, tekan <b>Buat salinan untuk melanjutkan desain</b>: Anda akan mendapat salinan terpisah, dan aplikasi di pembuat halaman tetap seperti semula."
+        },
+        "heading": "Unduh atau pindahkan ke pembuat halaman"
+      },
+      "7": {
+        "body": {
+          "0": "Beranda Desainer menampilkan <b>Desain Anda</b>. Klik kartu untuk membukanya. Tombol <b>…</b> pada kartu memungkinkan Anda <b>Mengganti nama</b>, <b>Membuat salinan</b>, atau <b>Menghapus</b> desain.",
+          "1": "Menghapus desain juga akan menghapus aplikasinya, kecuali aplikasi tersebut sudah dipindahkan ke pembuat halaman. Tindakan ini tidak bisa dibatalkan."
+        },
+        "heading": "Desain Anda"
+      },
+      "8": {
+        "bullets": {
+          "0": "Meminta AI membuat desain atau perubahan akan menggunakan jatah AI bulanan paket Anda, jika tersedia.",
+          "1": "Di aplikasi Desainer, halaman dibuat dari desain. Ubah halaman di sini, bukan di editor halaman.",
+          "2": "Data, alur, domain, dan publikasi aplikasi Anda ada di tabnya masing-masing, seperti aplikasi lainnya. Publikasikan dengan tombol <b>Publikasikan</b>."
+        },
+        "heading": "Perlu diketahui"
+      }
+    },
+    "summary": "Jelaskan aplikasi Anda dengan kata-kata sederhana, lalu sempurnakan dengan mengobrol bersama AI dan mengeklik bagian yang ingin diubah.",
+    "title": "Rancang dengan Desainer AI"
+  },
+  "ai-settings": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Di Admin, buka <b>Semua setelan</b>, lalu pilih <b>Mesin AI</b>. Sebelum mesin terhubung, pembuatan dengan AI tidak aktif: orang-orang bisa mulai dari templat dan editor halaman, tetapi AI Designer tidak bisa membuat aplikasi."
+        },
+        "heading": "Lokasinya"
+      },
+      "1": {
+        "body": {
+          "0": "Ada dua pilihan:"
+        },
+        "bullets": {
+          "0": "<b>OpenAI</b>: layanan OpenAI atau server lain yang bekerja dengan cara serupa, termasuk model yang berjalan di perangkat keras Anda sendiri.",
+          "1": "<b>Agen AI baris perintah</b>: alat AI baris perintah yang dipasang di server ini dan masuk dengan langganannya sendiri, sehingga Anda tidak perlu membayar per permintaan."
+        },
+        "heading": "Pilih penyedia",
+        "shot": {
+          "alt": "Setelan penyedia AI dengan dua pilihan penyedia, detail koneksi, dan tombol uji.",
+          "caption": "Pilih penyedia, isi detailnya, lalu uji koneksi."
+        }
+      },
+      "2": {
+        "heading": "Hubungkan layanan hosted atau yang kompatibel",
+        "steps": {
+          "0": "Pilih <b>OpenAI</b>.",
+          "1": "Tempel kunci Anda di <b>Kunci API OpenAI/kompatibel</b>. Jika kunci sudah tersimpan, biarkan kotak ini kosong untuk tetap menggunakannya.",
+          "2": "Biarkan <b>URL dasar API</b> kosong untuk menggunakan layanan OpenAI, atau masukkan alamat server yang kompatibel.",
+          "3": "Masukkan nama model di <b>Model Scaffold</b> (untuk merencanakan dan membuat aplikasi baru) dan <b>Model Edit</b> (untuk perubahan di editor), atau biarkan kosong untuk menggunakan setelan default.",
+          "4": "Tekan <b>Uji koneksi</b>. Setelan akan disimpan terlebih dahulu, lalu hasilnya akan ditampilkan sebagai <b>Berhasil</b> atau <b>Gagal</b> beserta alasannya.",
+          "5": "Tekan <b>Simpan perubahan</b>."
+        }
+      },
+      "3": {
+        "body": {
+          "0": "Server model apa pun yang menggunakan cara kerja sama dengan layanan OpenAI bisa digunakan, seperti Ollama, LM Studio, vLLM, atau server llama.cpp. Masukkan alamatnya di <b>URL dasar API</b> (untuk model di komputer yang sama dengan kontainer Docker {app}, gunakan alamat seperti http://host.docker.internal:11434/v1), biarkan kunci kosong kecuali server memerlukannya, lalu masukkan nama model persis seperti yang tertera.",
+          "1": "Biarkan <b>Ukuran konteks model</b> dan <b>Token keluaran maksimum per panggilan</b> kosong, dan atur <b>Penalaran model</b> ke <b>Otomatis</b>: {app} akan menentukan nilai yang sesuai. Jika pengujian atau proses pembuatan menghasilkan jawaban yang tidak terbaca, atur <b>Dukungan JSON</b> ke <b>Hanya perintah</b>.",
+          "2": "Kecepatan bergantung pada perangkat keras Anda. Model yang lebih besar menghasilkan halaman yang lebih baik; coba buat aplikasi contoh sebelum mengundang orang lain."
+        },
+        "heading": "Jalankan AI di perangkat keras Anda sendiri"
+      },
+      "4": {
+        "heading": "Gunakan alat AI baris perintah",
+        "steps": {
+          "0": "Pasang alat tersebut di server ini dan masuk sebagai akun yang menjalankan {app} (atau akun khusus yang menjalankannya).",
+          "1": "Pilih <b>Agen AI baris perintah</b>.",
+          "2": "Atur <b>Model</b> jika ingin menggunakan model lain, dan isi <b>Jalur biner</b> hanya jika alat tidak ditemukan secara otomatis.",
+          "3": "Tekan <b>Uji agen AI</b>, lalu <b>Simpan perubahan</b>."
+        }
+      },
+      "5": {
+        "bullets": {
+          "0": "Setiap rencana, pembuatan, dan perubahan menggunakan tindakan AI dari jatah bulanan pengguna (lihat <b>Paket & batas penggunaan</b>). Klien reseller berbagi batas bulanan reseller tersebut.",
+          "1": "Kunci yang tersimpan tidak akan ditampilkan lagi, hanya petunjuk yang disamarkan.",
+          "2": "Kunci dalam file .env server (OPENAI_API_KEY) akan digunakan jika belum ada kunci yang disimpan di sini.",
+          "3": "Panduan di unduhan (docs/local-ai.md) berisi informasi selengkapnya tentang menjalankan model sendiri."
+        },
+        "heading": "Perlu diketahui"
+      }
+    },
+    "summary": "Pilih mesin AI untuk merencanakan, membuat, dan mengubah aplikasi, lalu periksa apakah berfungsi.",
+    "title": "Setelan AI"
+  },
+  "custom-domains": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Anda perlu nama domain yang dibeli dari penyedia domain dan akses untuk mengubah setelan DNS-nya. DNS adalah buku alamat internet: dua catatan di dalamnya memberi tahu internet bahwa domain Anda terhubung ke aplikasi. Situs web penyedia domain Anda memiliki halaman untuk mengatur DNS, yang biasanya disebut DNS, catatan DNS, atau zona.",
+          "1": "Aplikasi Anda tetap memiliki alamat gratisnya."
+        },
+        "heading": "Sebelum mulai"
+      },
+      "1": {
+        "heading": "Hubungkan domain",
+        "shot": {
+          "alt": "Tab Domain dengan kotak untuk menambahkan domain dan catatan DNS yang perlu ditambahkan di penyedia domain Anda.",
+          "caption": "Tambahkan domain, lalu salin kedua catatan ke penyedia domain Anda."
+        },
+        "steps": {
+          "0": "Buka tab <b>Domain</b>.",
+          "1": "Ketik alamat Anda, misalnya www.usahaanda.com (tanpa https://), lalu tekan <b>Tambahkan domain</b>.",
+          "2": "Anda akan melihat dua catatan yang perlu ditambahkan: catatan CNAME (atau A) dan catatan TXT. Masing-masing memiliki <b>Nama / host</b> dan <b>Nilai / mengarah ke</b>. Klik nilainya untuk menyalinnya.",
+          "3": "Di tab lain, masuk ke akun penyedia domain Anda, buka setelan DNS untuk domain tersebut, lalu tambahkan kedua catatan persis seperti yang ditampilkan.",
+          "4": "Kembali ke sini, lalu tekan <b>Periksa sekarang</b>. Jika kedua catatan ditemukan, statusnya akan bertuliskan <b>Terhubung</b> dan pengunjung bisa menggunakan alamat Anda."
+        }
+      },
+      "2": {
+        "bullets": {
+          "0": "Perubahan DNS biasanya terlihat dalam beberapa menit, tetapi bisa memerlukan waktu hingga beberapa jam. Tekan <b>Periksa sekarang</b> lagi nanti.",
+          "1": "Pemeriksaan akan menunjukkan catatan yang belum ditemukan: catatan TXT atau catatan yang mengarahkan domain Anda ke sini.",
+          "2": "Beberapa penyedia domain otomatis menambahkan domain Anda di akhir nama. Jika demikian, ketik bagian awal nama saja, seperti www atau _verify.www.",
+          "3": "Untuk alamat tanpa www (usahaanda.com), beberapa penyedia domain tidak mengizinkan catatan CNAME. Gunakan catatan A yang mengarah ke alamat IP server ini. Tanyakan alamatnya kepada pengelola {app} Anda."
+        },
+        "heading": "Jika domain belum terhubung"
+      },
+      "3": {
+        "body": {
+          "0": "Tekan ikon tempat sampah di samping domain, lalu konfirmasi. Aplikasi Anda tetap bisa diakses melalui alamat gratisnya."
+        },
+        "heading": "Putuskan koneksi domain"
+      },
+      "4": {
+        "bullets": {
+          "0": "Satu domain hanya bisa dihubungkan ke satu aplikasi.",
+          "1": "Paket Anda mungkin membatasi jumlah domain yang bisa dihubungkan.",
+          "2": "Pengunjung akan melihat aplikasi yang sudah diterbitkan di domain Anda, jadi terbitkan aplikasi sebelum membagikannya."
+        },
+        "heading": "Perlu diketahui"
+      }
+    },
+    "summary": "Gunakan alamat web milik Anda untuk aplikasi, seperti www.usahaanda.com.",
+    "title": "Gunakan domain sendiri"
+  },
+  "email": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Setelah email disiapkan, {app} akan mengirim tautan untuk mengatur ulang kata sandi dan undangan (untuk Anda, reseller, dan klien mereka), pemberitahuan kepada pemilik aplikasi saat seseorang mengirim formulir atau membuat janji, serta email yang dikirim aplikasi menggunakan langkah <b>Kirim email</b>.",
+          "1": "Tanpa email, tautan undangan dan pengaturan ulang kata sandi akan ditampilkan di layar agar bisa Anda teruskan, dan aplikasi tidak akan menjalankan langkah emailnya. Pemilik aplikasi akan melihat catatan tentang hal ini di Ringkasan aplikasi."
+        },
+        "heading": "Kegunaan email"
+      },
+      "1": {
+        "heading": "Siapkan dengan penyedia email apa pun",
+        "shot": {
+          "alt": "Setelan Email: status email, pilihan penyedia, detail server, dan tombol uji.",
+          "caption": "Isi detail penyedia, lalu kirim email percobaan kepada diri sendiri."
+        },
+        "steps": {
+          "0": "Di Admin, buka <b>Semua setelan</b>, lalu pilih <b>Email</b>.",
+          "1": "Di bagian <b>Bagaimana email harus dikirim?</b>, pilih <b>Penyedia email apa pun (SMTP)</b>.",
+          "2": "Masukkan <b>Server email</b> dari penyedia Anda, misalnya smtp.example.com.",
+          "3": "Pilih <b>Port</b>. Gunakan <b>587 (disarankan)</b>, kecuali penyedia Anda menyarankan yang lain.",
+          "4": "Masukkan <b>Nama pengguna</b> dan <b>Kata sandi</b>. Google dan Microsoft memerlukan kata sandi aplikasi, bukan kata sandi biasa Anda.",
+          "5": "Masukkan alamat untuk <b>Kirim dari</b> yang diizinkan oleh penyedia Anda, dan <b>Nama pengirim</b> jika mau. Biarkan nama kosong untuk menggunakan nama merek atau nama aplikasi Anda.",
+          "6": "Tekan <b>Kirim email percobaan ke saya</b>. Pengiriman menggunakan setelan yang tampil di layar, jadi Anda bisa memeriksanya sebelum menyimpan.",
+          "7": "Tekan <b>Simpan setelan email</b>."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Pilih <b>Resend</b>, tempel <b>Kunci API Resend</b>, lalu kirim dari alamat di domain yang sudah Anda verifikasi di Resend. Setelah itu, uji dan simpan seperti langkah di atas."
+        },
+        "heading": "Atau gunakan Resend"
+      },
+      "3": {
+        "body": {
+          "0": "Kotak di bagian atas menampilkan <b>Email aktif</b> beserta alamat pengirimnya, dan menunjukkan aktivitas selama 24 jam terakhir: jumlah email yang terkirim dan gagal, serta masalah terakhir jika ada. Kartu Email di halaman Sistem menampilkan informasi yang sama."
+        },
+        "heading": "Periksa apakah email berfungsi"
+      },
+      "4": {
+        "bullets": {
+          "0": "<b>Nama pengguna atau sandi ditolak</b>: periksa keduanya. Google dan Microsoft memerlukan sandi aplikasi; layanan email sering memberikan kunci SMTP, bukan sandi akun Anda.",
+          "1": "<b>Tidak bisa terhubung ke server melalui port tersebut</b>: coba port 587, lalu 465, lalu 2525, atau minta penyedia hosting Anda membuka port tersebut.",
+          "2": "<b>Port dan enkripsi tidak cocok</b>: gunakan 465 dengan SSL, atau 587 dengan enkripsi otomatis (di <b>Opsi lainnya</b>).",
+          "3": "<b>Pengiriman dari alamat tersebut ditolak</b>: penyedia Anda belum memverifikasi alamat pengirim atau domainnya. Verifikasi alamat tersebut, atau gunakan alamat pengirim yang dikenali penyedia Anda.",
+          "4": "<b>Mode pengujian Resend</b>: akun Resend baru hanya bisa mengirim email ke alamatnya sendiri sampai Anda memverifikasi domain."
+        },
+        "heading": "Jika pengujian gagal"
+      },
+      "5": {
+        "bullets": {
+          "0": "Semua email dikirim dari alamat <b>Kirim dari</b> Anda. Saat aplikasi meminta pengiriman dari alamat di domain lain, alamat aplikasi akan digunakan sebagai alamat balasan agar balasan tetap diterima oleh pemilik aplikasi.",
+          "1": "Pengaturan dalam file .env server digunakan sampai Anda menyimpan pengaturan di sini. Setelah itu, pengaturan di sini yang berlaku.",
+          "2": "<b>Hapus pengaturan ini</b> akan menonaktifkan email (atau menggunakan pengaturan .env, jika ada).",
+          "3": "Email dukungan di pengaturan merek Anda digunakan sebagai alamat balasan untuk email undangan dan kata sandi."
+        },
+        "heading": "Perlu diketahui"
+      }
+    },
+    "summary": "Kirim undangan, tautan untuk mengatur ulang kata sandi, pemberitahuan aplikasi, dan email dari aplikasi Anda menggunakan alamat email sendiri.",
+    "title": "Email"
+  },
+  "features": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Fitur adalah bagian aplikasi siap pakai, seperti pemesanan, toko, formulir kontak, atau blog. Menambahkan fitur akan memberi aplikasi Anda halaman baru, daftar untuk menyimpan kiriman, dan alur yang membuat tombol serta formulirnya berfungsi. Setelah itu, Anda bisa mengubah halamannya seperti halaman lainnya."
+        },
+        "heading": "Apa itu fitur"
+      },
+      "1": {
+        "heading": "Tambahkan fitur",
+        "shot": {
+          "alt": "Tab Fitur dengan kotak pencarian, tombol kategori, dan kisi fitur yang bisa ditambahkan.",
+          "caption": "Pilih fitur. Lihat apa yang ditambahkan di bagian Detail."
+        },
+        "steps": {
+          "0": "Buka tab <b>Fitur</b>.",
+          "1": "Cari, misalnya “pemesanan” atau “toko”, atau pilih kategori seperti Belanja atau Komunitas.",
+          "2": "Untuk melihat apa saja yang ditambahkan, buka <b>Detail</b> pada kartunya. Di sana tertulis jumlah halaman, daftar item tersimpan, dan alur yang akan ditambahkan.",
+          "3": "Klik kartu (<b>Tambahkan ke aplikasi saya</b>).",
+          "4": "Jawab beberapa pertanyaan jika ada. Kolom bertanda * wajib diisi. Nama aplikasi Anda akan terisi otomatis saat diminta memasukkan nama bisnis.",
+          "5": "Tekan <b>Tambahkan ke aplikasi saya</b>. Editor akan terbuka di halaman pertama fitur tersebut."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Di editor halaman, tab <b>Fitur</b> di sebelah kiri berfungsi dengan cara yang sama. Setelah fitur ditambahkan, sebuah pesan akan memberi tahu bahwa halamannya ada di menu, beserta tombol untuk <b>Buka halaman baru</b>."
+        },
+        "heading": "Tambahkan fitur saat mengedit",
+        "shot": {
+          "alt": "Dialog Tambahkan fitur yang menampilkan beberapa pertanyaan, dengan tombol Batal dan Tambahkan ke aplikasi saya.",
+          "caption": "Jawab beberapa pertanyaan, lalu fitur akan ditambahkan."
+        }
+      },
+      "3": {
+        "body": {
+          "0": "Halaman fitur ini ada di menu aplikasi dan daftar halaman di editor. Data yang disimpan (misalnya pemesanan) ada di tab <b>Data</b>. Alurnya ada di tab <b>Alur</b>. Halaman yang hanya untuk Anda, seperti daftar pemesanan, tercantum di Ikhtisar, di bagian <b>Area admin aplikasi Anda</b>."
+        },
+        "heading": "Temukan yang ditambahkan"
+      },
+      "4": {
+        "bullets": {
+          "0": "Kartu bertanda <b>Ditambahkan</b> sudah ada di aplikasi Anda. Jika menambahkannya lagi, Anda akan mendapat salinan lain dengan halaman dan daftarnya sendiri.",
+          "1": "Jika fitur memerlukan fitur lain terlebih dahulu, pesan yang muncul akan menawarkan tombol untuk menambahkan fitur tersebut.",
+          "2": "Beberapa fitur memungkinkan pengunjung yang sudah login mengirimkan sesuatu untuk menunggu persetujuan Anda. Misalnya, di <b>Tempat</b>, orang bisa mengusulkan tempat di bagian <b>Tempat saya</b>. Tempat itu akan muncul di panduan setelah Anda menyetujuinya di halaman <b>Kelola tempat</b>.",
+          "3": "Beberapa fitur mengirim email dan menampilkan pesan <b>Email perlu disiapkan di server</b>. Jika email belum disiapkan, hubungi orang yang mengelola {app} untuk Anda.",
+          "4": "Tidak ada cara untuk menghapus semuanya sekaligus. Anda bisa menghapus halaman yang ditambahkan fitur seperti halaman lainnya; data yang disimpan tetap ada di tab Data.",
+          "5": "Menambahkan fitur akan mengubah draf Anda. Pengunjung akan melihatnya setelah Anda memublikasikannya."
+        },
+        "heading": "Perlu diketahui"
+      }
+    },
+    "summary": "Tambahkan bagian siap pakai seperti pemesanan, toko, atau blog, lengkap dengan halaman dan data tersimpannya sendiri.",
+    "title": "Tambahkan fitur"
+  },
+  "flows": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Alur adalah daftar singkat langkah yang dijalankan aplikasi Anda secara otomatis. Sesuatu terjadi (seseorang mengirim formulir atau menekan tombol, atau waktunya sudah tiba), langkah-langkah Anda dijalankan (menyimpan jawaban, mengirim email), lalu pengunjung menerima hasilnya (pesan terima kasih).",
+          "1": "Aplikasi yang dibuat AI dan fitur yang Anda tambahkan sudah dilengkapi alur yang disiapkan sebelumnya. Anda bisa membuka dan mengubahnya seperti alur lainnya."
+        },
+        "heading": "Apa itu alur"
+      },
+      "1": {
+        "body": {
+          "0": "Tab <b>Alur</b> menampilkan setiap alur, cara alur dimulai (melalui formulir, permintaan, atau jadwal), dan jumlah langkahnya. Klik alur untuk membukanya.",
+          "1": "Setiap alur memiliki tombol <b>Aktif</b> / <b>Dijeda</b>, baik di daftar maupun di dalam alur. Alur yang dijeda tidak akan berjalan. Apa pun di aplikasi Anda yang menggunakannya, seperti formulir, akan menampilkan error. Menjeda dan mengaktifkan kembali alur langsung berlaku di aplikasi yang sudah dipublikasikan tanpa perlu memublikasikannya lagi."
+        },
+        "heading": "Alur Anda",
+        "shot": {
+          "alt": "Tab Alur menampilkan alur-alur aplikasi, cara masing-masing dimulai, dan jumlah langkahnya.",
+          "caption": "Alur aplikasi Anda."
+        }
+      },
+      "2": {
+        "heading": "Buat alur",
+        "shot": {
+          "alt": "Alur terbuka di editor alur: langkah yang bisa ditambahkan di sebelah kiri, langkah-langkah yang terhubung di tengah, dan pengaturan di sebelah kanan.",
+          "caption": "Tambahkan langkah di sebelah kiri, hubungkan, lalu atur masing-masing di sebelah kanan."
+        },
+        "steps": {
+          "0": "Di tab Alur, tekan <b>Alur baru</b>, ketik nama seperti “Kirim formulir kontak”, lalu tekan <b>Buat</b>.",
+          "1": "Alur terbuka dengan langkah awalnya, <b>Saat aplikasi memanggil ini</b>.",
+          "2": "Di bagian <b>Tambahkan langkah</b> di sebelah kiri, klik langkah untuk menambahkannya. Ketik di <b>Cari langkah…</b> untuk mencari. Langkah dikelompokkan menjadi: Mulai, Data tersimpan, Keputusan dan nilai, Kirim dan hubungkan, AI, Akun, dan Selesai.",
+          "3": "Hubungkan langkah sesuai urutan yang diinginkan: seret dari tepi kanan satu langkah ke langkah berikutnya.",
+          "4": "Klik langkah untuk mengaturnya di panel sebelah kanan, misalnya memilih tabel untuk menyimpan data.",
+          "5": "Perubahan Anda disimpan otomatis."
+        }
+      },
+      "3": {
+        "body": {
+          "0": "Sebagian besar pengaturan langkah memungkinkan Anda memasukkan nilai, bukan mengetik teks tetap. Di bagian <b>Dari permintaan</b>, ketik nama kolom formulir, seperti email, lalu tekan <b>Tambahkan</b>. <b>Dari langkah sebelumnya</b> menampilkan nilai yang dihasilkan langkah sebelumnya, seperti data yang ditemukan oleh suatu langkah."
+        },
+        "heading": "Gunakan isian yang diketik orang"
+      },
+      "4": {
+        "heading": "Hubungkan formulir atau tombol",
+        "steps": {
+          "0": "Buka halaman di editor halaman, lalu pilih formulir atau tombol.",
+          "1": "Buka <b>Setelan</b> di sebelah kanan.",
+          "2": "Untuk formulir, pilih alur di bagian <b>Saat dikirim, jalankan</b>. Untuk tombol, gunakan <b>Saat ditekan, jalankan</b>. Untuk daftar, <b>Tampilkan item dari</b> memilih alur untuk menemukan item."
+        }
+      },
+      "5": {
+        "body": {
+          "0": "Berikut beberapa pola yang umum digunakan. Fitur akan menyiapkan sebagian besar untuk Anda."
+        },
+        "bullets": {
+          "0": "<b>Formulir kontak yang mengirim email kepada Anda</b>: Saat aplikasi memanggil alur ini, <b>Tambahkan catatan</b> (tabel pesan Anda), lalu <b>Kirim email</b> kepada diri sendiri dengan pesan orang tersebut, kemudian <b>Balas</b> dengan ucapan terima kasih.",
+          "1": "<b>Pemesanan</b>: Saat aplikasi memanggil alur ini, <b>Hitung atau jumlahkan catatan</b> untuk menghitung pemesanan pada waktu tersebut, lalu <b>Jika ini, lakukan itu</b>. Jika waktunya tersedia, <b>Tambahkan catatan</b> dan <b>Kirim email</b> untuk mengonfirmasi; jika tidak, <b>Balas</b> bahwa waktu tersebut sudah dipesan. Fitur Pemesanan melakukan semua ini untuk Anda.",
+          "2": "<b>Login</b>: Fitur Login dan akun menambahkan alur ini. Proses pendaftaran menggunakan <b>Lindungi kata sandi</b>, <b>Tambahkan catatan</b>, dan <b>Login-kan orang tersebut</b>. Proses login menggunakan <b>Temukan catatan</b>, <b>Periksa kata sandi</b>, dan <b>Login-kan orang tersebut</b>.",
+          "3": "<b>Ringkasan harian</b>: di tab <b>Jadwal</b>, pilih <b>Sesuai jadwal</b> dan <b>Setiap hari</b>, lalu <b>Hitung atau jumlahkan catatan</b> dan <b>Kirim email</b> berisi jumlahnya."
+        },
+        "heading": "Contoh yang umum"
+      },
+      "6": {
+        "body": {
+          "0": "Tekan <b>Uji coba</b> untuk langsung menjalankan alur sekali dengan perubahan terbaru. Hasilnya akan muncul di bawah langkah-langkah. Langkah-langkahnya benar-benar dijalankan, jadi catatan akan disimpan dan email akan dikirim. Alur ini juga akan muncul di Aktivitas."
+        },
+        "heading": "Coba jalankan alur"
+      },
+      "7": {
+        "body": {
+          "0": "Tab <b>Aktivitas</b> menampilkan setiap kali alur dijalankan: <b>Berjalan lancar</b>, <b>Memberi jawaban</b>, <b>Selesai dengan masalah</b>, atau <b>Gagal</b>. Tekan <b>Hanya masalah</b> untuk melihat alur yang bermasalah, lalu buka satu proses untuk melihat kiriman orang tersebut.",
+          "1": "Masalah juga muncul di Ringkasan aplikasi Anda, di bagian <b>Masalah dalam 24 jam terakhir</b>, dan sebagai angka pada kartu aplikasi di dasbor."
+        },
+        "heading": "Lihat yang terjadi",
+        "shot": {
+          "alt": "Tab Aktivitas pada alur, menampilkan proses terbaru dan statusnya.",
+          "caption": "Aktivitas: setiap proses, dan masalah yang terjadi."
+        }
+      },
+      "8": {
+        "heading": "Jalankan sesuai jadwal",
+        "steps": {
+          "0": "Buka tab <b>Jadwal</b> pada alur.",
+          "1": "Pilih <b>Sesuai jadwal</b>, bukan <b>Saat aplikasi Anda menggunakannya</b>.",
+          "2": "Di bagian <b>Seberapa sering</b>, pilih <b>Setiap beberapa menit</b>, <b>Setiap jam</b>, <b>Setiap hari</b>, <b>Senin sampai Jumat</b>, atau <b>Seminggu sekali</b>, lalu pilih waktu dan zona waktu Anda.",
+          "3": "Simpan, lalu publikasikan aplikasi Anda. Jadwal hanya berjalan di aplikasi yang sudah dipublikasikan."
+        }
+      },
+      "9": {
+        "bullets": {
+          "0": "Untuk menghapus langkah, pilih langkah tersebut lalu tekan ikon tempat sampah, atau tekan Delete di keyboard.",
+          "1": "Perubahan alur menjadi bagian dari draf Anda. Pengunjung akan melihatnya setelah Anda memublikasikan aplikasi.",
+          "2": "<b>Kirim email</b> hanya berfungsi jika email sudah disiapkan di server. Jika belum, Ringkasan aplikasi akan memberi tahu Anda.",
+          "3": "Langkah <b>Tanya AI</b> menggunakan jatah AI paket Anda setiap kali dijalankan.",
+          "4": "Menjeda atau mengaktifkan kembali alur langsung berlaku, termasuk jadwalnya. Anda tidak perlu memublikasikan aplikasi.",
+          "5": "Beberapa paket tidak menyertakan alur terjadwal. Tab Jadwal akan memberi tahu Anda.",
+          "6": "<b>Alamat web (untuk developer)</b> hanya diperlukan untuk memulai alur dari luar {app}."
+        },
+        "heading": "Yang perlu diketahui"
+      }
+    },
+    "summary": "Atur agar sesuatu terjadi otomatis saat seseorang menggunakan aplikasi Anda, seperti menyimpan pemesanan dan mengirim email kepada Anda, atau jalankan tugas sesuai jadwal.",
+    "title": "Otomatiskan dengan alur"
+  },
+  "forms-and-data": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Saat seseorang mengirim formulir, membuat pemesanan, atau mendaftar, aplikasi Anda menyimpannya sebagai baris di dalam tabel. Tabel seperti spreadsheet: satu baris untuk setiap entri dan satu kolom untuk setiap jawaban. Tabel ada di tab <b>Data</b>. Lima entri terbaru juga muncul di Ikhtisar aplikasi Anda, di bagian <b>Kiriman terbaru</b>.",
+          "1": "Formulir akan menyimpan jawaban jika terhubung ke alur yang menyimpannya. Formulir bawaan fitur dan formulir di aplikasi yang dibuat AI sudah terhubung. Untuk formulir yang Anda tambahkan sendiri, pilih formulir itu di editor halaman, buka <b>Pengaturan</b>, lalu pilih alur di bagian <b>Saat dikirim, jalankan</b>."
+        },
+        "heading": "Tempat jawaban formulir disimpan"
+      },
+      "1": {
+        "heading": "Buka tabel",
+        "shot": {
+          "alt": "Tab Data menampilkan tabel-tabel aplikasi beserta jumlah barisnya.",
+          "caption": "Semua data yang disimpan aplikasi Anda, satu tabel demi satu tabel."
+        },
+        "steps": {
+          "0": "Buka tab <b>Data</b>.",
+          "1": "Klik tabel. Setiap tabel menampilkan jumlah barisnya atau tulisan <b>Kosong</b>.",
+          "2": "Untuk kembali ke daftar, tekan <b>Semua tabel</b>."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Ketik di <b>Cari</b> untuk menemukan baris. Klik nama kolom untuk mengurutkan berdasarkan kolom tersebut. Jika ada banyak baris, gunakan <b>Lebih baru</b> dan <b>Lebih lama</b> di bagian bawah."
+        },
+        "heading": "Cari, ubah, dan tambahkan baris",
+        "shot": {
+          "alt": "Tabel terbuka di tab Data, dengan kotak pencarian, tombol Tambahkan baris dan Unduh CSV, serta baris-baris di bawahnya.",
+          "caption": "Tabel: cari, ubah, atau unduh datanya."
+        },
+        "steps": {
+          "0": "Untuk mengubah satu jawaban, klik jawaban itu, ketik nilai baru, lalu simpan.",
+          "1": "Untuk mengubah seluruh baris, tekan ikon pensil di ujung baris.",
+          "2": "Untuk menambahkan baris sendiri, tekan <b>Tambahkan baris</b>.",
+          "3": "Untuk menghapus baris, centang barisnya, tekan <b>Hapus</b> (jumlah baris akan ditampilkan), lalu tekan <b>Ya, hapus</b>. Tekan <b>Biarkan saja</b> jika berubah pikiran."
+        }
+      },
+      "3": {
+        "body": {
+          "0": "<b>Unduh CSV</b> menyimpan tabel sebagai file yang bisa dibuka di Excel, Numbers, atau Google Sheets. Data yang diunduh sesuai dengan yang sedang Anda lihat. Jadi, lakukan pencarian atau pengurutan terlebih dahulu jika hanya ingin mengunduh beberapa baris."
+        },
+        "heading": "Unduh salinan"
+      },
+      "4": {
+        "body": {
+          "0": "Di Ikhtisar aplikasi Anda, bagian <b>Peringatan</b> menampilkan setiap tabel yang mengumpulkan data dari pengunjung, dengan tombol untuk mengaktifkan atau menonaktifkannya. Peringatan dikirim ke alamat email akun Anda. Anda juga bisa menambahkan hingga tiga alamat di bagian <b>Kirim juga ke</b>. Tekan <b>Simpan peringatan</b>, lalu <b>Kirim tes</b> untuk memastikan semuanya berfungsi.",
+          "1": "Peringatan memerlukan email yang sudah disiapkan di server. Jika belum, kartu akan menampilkan pesan tersebut."
+        },
+        "heading": "Dapatkan email untuk setiap entri baru"
+      },
+      "5": {
+        "body": {
+          "0": "Orang bisa menanyakan data mereka yang disimpan aplikasi Anda atau meminta agar data tersebut dihapus. Buka <b>Permintaan privasi</b> di tab Data untuk mencari seseorang menggunakan email atau nomor teleponnya, lalu <b>Unduh salinan</b> datanya atau <b>Hapus</b> data tersebut. Orang yang meminta penghapusan akun dari aplikasi Anda tercantum di bagian <b>Menunggu persetujuan Anda</b>."
+        },
+        "heading": "Permintaan privasi"
+      },
+      "6": {
+        "bullets": {
+          "0": "Baris yang dihapus dan data seseorang yang dihapus tidak bisa dipulihkan.",
+          "1": "Beberapa tabel hanya bisa dilihat di sini, misalnya tabel yang disimpan di Google Sheets.",
+          "2": "<b>Lanjutan</b> di bagian bawah tab Data menunjukkan tempat data Anda disimpan dan memungkinkan Anda membuat tabel baru secara manual. Kebanyakan orang tidak perlu menggunakannya.",
+          "3": "Cadangan dari tab Publikasikan mencakup semua tabel dan baris."
+        },
+        "heading": "Perlu diketahui"
+      }
+    },
+    "summary": "Lihat, cari, ubah, dan unduh semua yang disimpan aplikasi Anda, seperti pesan, pemesanan, dan pendaftaran.",
+    "title": "Formulir dan data Anda"
+  },
+  "getting-started": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Saat masuk, Anda akan membuka dasbor. Kapan saja, Anda bisa kembali ke dasbor dengan mengeklik <b>Aplikasi saya</b> di bilah atas.",
+          "1": "Di bagian <b>Aplikasi Anda</b>, setiap aplikasi memiliki kartu berisi gambar kecil halaman beranda, jumlah halaman dan alur, serta statusnya: <b>Aktif</b> (sudah dipublikasikan) atau <b>Draf</b> (hanya bisa dilihat oleh Anda). Gunakan <b>Semua aplikasi</b>, <b>Aktif</b>, dan <b>Draf</b>, serta kotak <b>Cari aplikasi…</b> untuk mempersempit daftar.",
+          "2": "Klik gambar di kartu untuk melanjutkan pengeditan. Klik nama aplikasi untuk membuka Ringkasannya. Baris di samping <b>Aplikasi Anda</b> menunjukkan paket Anda, jumlah aplikasi yang dimiliki, dan jumlah tindakan AI yang sudah digunakan bulan ini. Klik baris itu untuk membuka <b>Tagihan & paket</b>."
+        },
+        "heading": "Dasbor Anda",
+        "shot": {
+          "alt": "Dasbor dengan kotak ide di bagian atas dan kartu untuk setiap aplikasi di bawahnya.",
+          "caption": "Dasbor Anda. Setiap kartu mewakili salah satu aplikasi Anda."
+        }
+      },
+      "1": {
+        "body": {
+          "0": "Pilih cara yang paling cocok untuk Anda. Apa pun caranya, Anda akan mendapatkan aplikasi yang bisa terus diubah dengan alat yang sama."
+        },
+        "bullets": {
+          "0": "<b>Jelaskan ide Anda.</b> Ketik keinginan Anda dengan kata-kata sendiri. AI akan menyarankan rencana yang bisa Anda periksa dan ubah, lalu membuat halaman, formulir, dan data.",
+          "1": "<b>Desainer AI.</b> Ngobrol dengan AI dan rancang aplikasi selangkah demi selangkah. Lihat panduan Rancang dengan Desainer AI.",
+          "2": "<b>Template.</b> Mulai dari desain yang sudah jadi, seperti restoran atau portofolio, lalu ubah teks, gambar, dan warnanya.",
+          "3": "<b>Salin situs web.</b> Salin hingga 30 halaman dari situs web milik Anda ke aplikasi baru yang bisa diedit.",
+          "4": "<b>Aplikasi kosong.</b> Mulai dengan halaman sederhana, lalu buat sendiri menggunakan blok seret dan lepas.",
+          "5": "<b>Impor aplikasi.</b> Pulihkan aplikasi dari file cadangan .zip yang dibuat di server ini atau server lain."
+        },
+        "heading": "Enam cara memulai aplikasi"
+      },
+      "2": {
+        "body": {
+          "0": "Jika AI belum disiapkan di server ini, cara ini dan Desainer AI tidak tersedia. Sebagai gantinya, mulai dari template."
+        },
+        "heading": "Jelaskan aplikasi Anda dan periksa rencananya",
+        "shot": {
+          "alt": "Layar aplikasi baru yang bertanya Apa yang ingin Anda buat?, dengan kotak teks besar dan contoh ide.",
+          "caption": "Jelaskan aplikasi Anda dengan kata-kata sendiri. Anda bisa melihat rencananya sebelum aplikasi dibuat."
+        },
+        "steps": {
+          "0": "Di dasbor, ketik satu kalimat tentang aplikasi Anda di kotak, misalnya “Pemesanan untuk bisnis jalan-jalan anjing saya”, lalu tekan <b>Rencanakan aplikasi saya</b>. Anda juga bisa menekan <b>Cara lain untuk memulai</b>, lalu gunakan kotak besar di sana.",
+          "1": "Ceritakan siapa yang akan menggunakan aplikasi dan apa yang bisa mereka lakukan di dalamnya. Bingung? Ketuk salah satu contoh ide di bawah kotak, lalu ubah sesuai keinginan.",
+          "2": "Tunggu sebentar selagi AI membaca ide Anda. Belum ada yang dibuat.",
+          "3": "Periksa rencana di bagian <b>Ini yang akan saya buat</b>: nama aplikasi, tampilannya (klik contoh warna untuk memilih warna lain), <b>Halaman</b>, <b>Data yang disimpan</b>, dan <b>Asumsi saya</b>. Hapus halaman yang tidak diinginkan dengan mengeklik ikon tempat sampahnya.",
+          "4": "Ingin hasil yang berbeda? Ketik permintaan di bagian <b>Ingin mengubah sesuatu?</b>, misalnya “Tambahkan halaman harga”, lalu tekan <b>Perbarui rencana</b>.",
+          "5": "Tekan <b>Buat aplikasi saya</b>. Biasanya proses ini perlu waktu beberapa menit. Anda bisa meninggalkan halaman ini. Proses pembuatan akan terus berjalan dan hasilnya tersedia saat Anda kembali.",
+          "6": "Setelah siap, aplikasi Anda akan terbuka di editor halaman dengan pesan sambutan singkat."
+        }
+      },
+      "3": {
+        "body": {
+          "0": "<b>Template.</b> Klik template untuk melihatnya lebih besar, ketik nama aplikasi, lalu tekan <b>Buat aplikasi dari template ini</b>. Gunakan kotak pencarian dan tombol kategori untuk mempersempit daftar.",
+          "1": "<b>Salin situs web.</b> Ketik alamat situs, misalnya bisnisanda.com, lalu tekan <b>Salin situs saya</b>. Salin hanya situs milik Anda atau yang boleh Anda gunakan. Tekan <b>Berhenti</b> untuk membatalkan. Tidak ada yang disimpan.",
+          "2": "<b>Aplikasi kosong.</b> Ketik nama, lalu tekan <b>Buat aplikasi</b>. Anda akan mendapatkan halaman sambutan sederhana dengan nama aplikasi untuk mulai membangun, serta halaman untuk masuk dan mendaftar.",
+          "3": "<b>Impor aplikasi.</b> Pilih file cadangan .zip, ketik nama baru jika mau, lalu tekan <b>Impor aplikasi</b>. Anda akan mendapatkan salinan yang berisi halaman, alur, data, dan gambar. Kata sandi anggota aplikasi tidak disertakan dalam cadangan, jadi mereka perlu menggunakan fitur Lupa kata sandi satu kali."
+        },
+        "heading": "Cara lain untuk memulai"
+      },
+      "4": {
+        "body": {
+          "0": "Setiap aplikasi memiliki tab di bagian atas: <b>Ringkasan</b>, <b>Halaman</b>, <b>Fitur</b>, <b>Alur</b>, <b>Data</b>, <b>Notifikasi</b>, <b>Tema</b>, <b>Domain</b>, dan <b>Aplikasi seluler</b>, dengan <b>Pratinjau</b> dan <b>Publikasikan</b> di sebelah kanan. Aplikasi yang dibuat dengan Desainer AI memiliki tab <b>Desainer</b> sebagai pengganti Ringkasan.",
+          "1": "Ringkasan menampilkan status dan alamat aplikasi, <b>Daftar periksa peluncuran</b> berisi hal-hal yang perlu dilakukan berikutnya, kode yang bisa dipindai untuk membuka aplikasi di ponsel, ikon aplikasi, kiriman terbaru dari pengunjung, dan pemberitahuan email. <b>Lanjutkan mengedit</b> akan membawa Anda kembali ke halaman aplikasi."
+        },
+        "heading": "Ringkasan aplikasi",
+        "shot": {
+          "alt": "Tab Ringkasan aplikasi dengan nama aplikasi, jumlah halaman dan alur, serta daftar periksa peluncuran.",
+          "caption": "Ringkasan: lihat aplikasi Anda sekilas dan periksa langkah selanjutnya."
+        }
+      },
+      "5": {
+        "bullets": {
+          "0": "Perubahan Anda tersimpan otomatis. Editor halaman tidak memiliki tombol Simpan.",
+          "1": "Aplikasi belum bisa dilihat publik sebelum dipublikasikan. Gunakan <b>Pratinjau</b> untuk mencoba aplikasi terlebih dahulu.",
+          "2": "Untuk menghapus aplikasi, gunakan ikon tempat sampah di kartunya pada dasbor. Unduh cadangan terlebih dahulu karena aplikasi yang dihapus tidak bisa dipulihkan.",
+          "3": "Paket Anda mungkin membatasi jumlah aplikasi yang bisa dibuat. Jika mencapai batas, buka <b>Tagihan & paket</b>.",
+          "4": "Arahkan kursor ke tombol untuk melihat tips singkat. Anda bisa menonaktifkan tips di <b>Profil</b>."
+        },
+        "heading": "Yang perlu diketahui"
+      }
+    },
+    "summary": "Kenali {app} dan buat aplikasi pertama Anda dengan cara yang paling cocok.",
+    "title": "Memulai"
+  },
+  "groups": {
+    "account": "Akun Anda",
+    "build": "Buat aplikasi",
+    "platform": "Menjalankan platform",
+    "publish": "Publikasikan dan kembangkan"
+  },
+  "look-and-feel": {
+    "sections": {
+      "0": {
+        "heading": "Pilih tema",
+        "shot": {
+          "alt": "Tab Tema dengan pilihan tema terang dan gelap di kiri serta pratinjau langsung di kanan.",
+          "caption": "Klik tema, lalu pratinjau langsung diperbarui."
+        },
+        "steps": {
+          "0": "Buka tab <b>Tema</b>.",
+          "1": "Lihat pilihan di bagian <b>Tema terang</b> dan <b>Tema gelap</b>.",
+          "2": "Klik salah satunya. <b>Pratinjau langsung</b> di sebelah kanan akan langsung menampilkannya. Beralih antara <b>Halaman beranda Anda</b> dan <b>Contoh</b> untuk melihat tampilannya di berbagai halaman.",
+          "3": "Selesai: perubahan tersimpan otomatis dan tulisan <b>Tersimpan</b> muncul di bagian atas."
+        }
+      },
+      "1": {
+        "body": {
+          "0": "Di bagian <b>Sesuaikan</b>, Anda bisa mengubah bagian mana pun dari tema:"
+        },
+        "bullets": {
+          "0": "<b>Mode</b>: terang atau gelap.",
+          "1": "<b>Font isi</b> untuk teks biasa dan <b>Font tampilan</b> untuk judul. Contoh teks menunjukkan tampilan masing-masing.",
+          "2": "<b>Warna</b>: <b>Utama</b> adalah warna utama yang digunakan untuk tombol dan tautan. <b>Sorotan utama</b> adalah warna yang muncul saat kursor diarahkan ke tombol atau tautan; warnanya mengikuti warna Utama saat Anda mengubahnya. Berikutnya ada <b>Aksen</b>, <b>Latar belakang</b>, <b>Permukaan</b> dan <b>Permukaan 2</b> (kartu dan panel), <b>Garis tepi</b>, <b>Teks</b>, dan <b>Teks redup</b>.",
+          "3": "<b>Sudut</b>: <b>Radius</b> untuk tombol dan kartu, serta <b>Radius kecil</b> untuk elemen kecil. Nilai 0 berarti sudut siku-siku; makin besar nilainya, makin bulat sudutnya."
+        },
+        "heading": "Sesuaikan sesuai keinginan"
+      },
+      "2": {
+        "body": {
+          "0": "Di editor halaman, tab <b>Tema</b> di sebelah kanan memiliki pengaturan warna dan font yang sama, jadi Anda bisa menyesuaikannya tanpa meninggalkan halaman."
+        },
+        "heading": "Ubah saat mengedit"
+      },
+      "3": {
+        "bullets": {
+          "0": "Tema diterapkan ke semua halaman aplikasi Anda.",
+          "1": "Klik kotak warna untuk memilih warna, atau ketik kode warna seperti #3366ff.",
+          "2": "<b>Atur ulang</b> mengembalikan tema yang digunakan saat Anda membuka tab Tema.",
+          "3": "Pengunjung bisa melihat perubahan tema setelah Anda memublikasikannya."
+        },
+        "heading": "Info penting"
+      }
+    },
+    "summary": "Pilih tema siap pakai, atau atur sendiri warna, font, dan sudut untuk semua halaman aplikasi Anda.",
+    "title": "Warna dan font"
+  },
+  "members-and-sign-in": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Fitur <b>Login dan akun</b> menambahkan halaman <b>Login</b>, <b>Daftar</b>, dan <b>Profil</b> ke aplikasi Anda, beserta alur yang menjalankannya. Biasanya fitur ini sudah tersedia di aplikasi baru. Jika belum, tambahkan dari tab Fitur.",
+          "1": "Orang yang mendaftar akan menjadi anggota aplikasi Anda. Akun mereka berbeda dari akun {app} Anda."
+        },
+        "heading": "Halaman login"
+      },
+      "1": {
+        "heading": "Jadikan halaman privat",
+        "shot": {
+          "alt": "Dialog Setelan halaman, berisi nama halaman, siapa yang bisa melihatnya, dan posisinya di menu.",
+          "caption": "Setelan halaman: pilih siapa yang dapat membuka halaman."
+        },
+        "steps": {
+          "0": "Di editor halaman, klik nama halaman di bagian atas untuk membuka <b>Halaman Anda</b>.",
+          "1": "Tekan ikon roda gigi di samping halaman (<b>Setelan halaman</b>).",
+          "2": "Di bagian <b>Siapa yang dapat melihat halaman ini</b>, pilih <b>Semua orang</b>, <b>Orang yang sudah login</b> (pengunjung harus login terlebih dahulu; siapa saja bisa membuat akun), atau <b>Hanya admin</b> (hanya Anda dan orang yang Anda jadikan admin).",
+          "3": "Tekan <b>Simpan</b>."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Di <b>Setelan halaman</b>, <b>Tampilkan di menu</b> akan menambahkan tautan ke halaman di menu aplikasi Anda. <b>Pindahkan ke atas</b> dan <b>Pindahkan ke bawah</b> akan mengatur posisinya. Halaman utama selalu berada paling atas. Halaman yang tidak ada di menu tetap bisa dibuka oleh siapa saja yang memiliki tautannya, selama mereka diizinkan melihatnya."
+        },
+        "heading": "Menu"
+      },
+      "3": {
+        "body": {
+          "0": "Di Ringkasan aplikasi, bagian <b>Bagian admin aplikasi Anda</b> menampilkan halaman yang hanya bisa dibuka oleh Anda dan tim, seperti daftar pemesanan. Klik halaman untuk membukanya tanpa login ke aplikasi. Sebelum dipublikasikan, halaman tersebut terbuka dalam Pratinjau."
+        },
+        "heading": "Bagian admin aplikasi Anda"
+      },
+      "4": {
+        "heading": "Buat login admin untuk tim Anda",
+        "shot": {
+          "alt": "Kartu Bagian admin aplikasi Anda di Ringkasan, berisi halaman admin dan formulir untuk menambahkan login admin.",
+          "caption": "Buka halaman admin atau buat login admin untuk seseorang."
+        },
+        "steps": {
+          "0": "Di Ringkasan aplikasi, cari <b>Login admin untuk tim Anda</b>.",
+          "1": "Masukkan <b>Email</b> dan <b>Kata sandi</b> minimal 10 karakter.",
+          "2": "Tekan <b>Tambahkan admin</b>. Mereka kini bisa login di halaman login aplikasi dan membuka halaman admin."
+        }
+      },
+      "5": {
+        "bullets": {
+          "0": "Jika Anda menggunakan email seseorang yang sudah memiliki akun di aplikasi, orang tersebut akan menjadi admin dan kata sandinya akan berubah.",
+          "1": "Jika halaman bersifat privat, tetapi aplikasi Anda belum memiliki halaman login, hanya Anda yang bisa membukanya. Setelan halaman akan memberi tahu Anda.",
+          "2": "Perubahan pada siapa yang dapat melihat halaman menjadi bagian dari draf Anda. Publikasikan aplikasi untuk menerapkannya.",
+          "3": "Anggota dapat menghapus akunnya sendiri. Permintaan penghapusan akan muncul di tab Data, di bagian <b>Permintaan privasi</b>.",
+          "4": "Kata sandi anggota tidak disertakan dalam cadangan. Setelah mengimpor data, anggota perlu menggunakan Lupa kata sandi satu kali."
+        },
+        "heading": "Yang perlu diketahui"
+      }
+    },
+    "summary": "Izinkan orang membuat akun di aplikasi Anda, lalu pilih halaman yang bisa dibuka semua orang, anggota yang sudah login, atau hanya admin.",
+    "title": "Anggota, login, dan halaman privat"
+  },
+  "page-editor": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Buka tab <b>Halaman</b>. Di sebelah kiri ada <b>Blok</b>, <b>Fitur</b>, dan <b>Aset</b> (foto gratis). Halaman Anda ada di tengah. Di sebelah kanan ada <b>Desain</b>, <b>Lapisan</b>, <b>Pengaturan</b>, dan <b>Tema</b>.",
+          "1": "Bilah di atas halaman berisi tombol urungkan dan ulangi, status penyimpanan, tombol ukuran layar, serta <b>Pratinjau</b>. Tombol panel di kedua ujung akan menyembunyikan atau menampilkan panel samping agar ruang kerja lebih luas."
+        },
+        "heading": "Kenali tampilan editor",
+        "shot": {
+          "alt": "Editor halaman: blok di kiri, halaman di tengah, dan pengaturan desain di kanan.",
+          "caption": "Editor halaman. Klik apa saja di halaman untuk mengubahnya."
+        }
+      },
+      "1": {
+        "body": {
+          "0": "Klik teks apa pun di halaman, lalu ketik untuk mengubahnya.",
+          "1": "Klik dua kali gambar untuk menggantinya dengan gambar lain. Anda juga bisa memilih gambar, lalu mengetuk foto di <b>Aset</b>. Klik dua kali ikon untuk memilih ikon lain."
+        },
+        "heading": "Ubah teks dan gambar"
+      },
+      "2": {
+        "heading": "Tambahkan blok",
+        "steps": {
+          "0": "Klik bagian halaman tempat Anda ingin menambahkan bagian baru di bawahnya.",
+          "1": "Cari yang Anda inginkan di <b>Blok</b> di sebelah kiri. Blok dikelompokkan, misalnya Tata letak, Bagian, Konten, Formulir, dan Media. Ketik di <b>Cari blok...</b> untuk menemukannya dengan cepat, seperti “tombol” atau “foto”.",
+          "2": "Ketuk blok untuk menambahkannya di bawah bagian yang dipilih, atau seret ke posisi yang diinginkan."
+        }
+      },
+      "3": {
+        "body": {
+          "0": "Klik sesuatu di halaman untuk memilihnya. Namanya akan muncul di bagian atas panel kanan, dan bilah alat kecil akan muncul di sebelahnya: <b>Pilih bagian di sekelilingnya</b>, <b>Pindahkan ke atas</b>, <b>Pindahkan ke bawah</b>, <b>Seret untuk memindahkan</b>, <b>Duplikat</b>, dan <b>Hapus</b>.",
+          "1": "Tab <b>Lapisan</b> menampilkan semua bagian halaman sesuai urutannya. Klik baris untuk memilih bagian yang sulit diklik, atau seret baris untuk memindahkan bagian. Ikon mata menyembunyikan bagian saat Anda mengerjakan bagian lain."
+        },
+        "heading": "Pilih, pindahkan, dan hapus"
+      },
+      "4": {
+        "body": {
+          "0": "Pilih sesuatu, lalu buka <b>Desain</b> di sebelah kanan. Ubah teks, warna, jarak, ukuran, dan sudutnya. Halaman akan langsung diperbarui.",
+          "1": "<b>Lanjutan</b> menampilkan opsi lainnya, seperti font, bayangan, dan cara bagian ditata di dalam kotak, serta gaya saat penunjuk tetikus berada di atas sesuatu. Untuk mengatur warna dan font di seluruh aplikasi, gunakan <b>Tema</b>."
+        },
+        "heading": "Ubah tampilan"
+      },
+      "5": {
+        "body": {
+          "0": "Pilih tautan, gambar, tombol, formulir, atau daftar, lalu buka <b>Pengaturan</b> di sebelah kanan. Contohnya:"
+        },
+        "bullets": {
+          "0": "<b>Mengarah ke</b> menentukan tujuan tautan. Gunakan /nama-halaman untuk halaman Anda sendiri, atau alamat https:// lengkap untuk situs lain.",
+          "1": "<b>Deskripsi gambar</b> menjelaskan gambar bagi orang yang tidak bisa melihatnya dan mesin pencari.",
+          "2": "<b>Saat dikirim, jalankan</b> (pada formulir) memilih alur yang dijalankan saat seseorang mengirim formulir. <b>Saat ditekan, jalankan</b> melakukan hal yang sama untuk tombol.",
+          "3": "<b>Tampilkan item dari</b> (pada daftar) memilih sumber item daftar, seperti pemesanan atau produk Anda."
+        },
+        "heading": "Pengaturan untuk tautan, tombol, formulir, dan daftar"
+      },
+      "6": {
+        "heading": "Minta bantuan AI",
+        "shot": {
+          "alt": "Panel Asisten AI terbuka di atas editor halaman, dengan saran perubahan yang bisa dicoba.",
+          "caption": "Tanya AI: sebutkan perubahan yang Anda inginkan, lalu AI akan mengubah halaman untuk Anda."
+        },
+        "steps": {
+          "0": "Tekan <b>Tanya AI</b> di kanan bawah.",
+          "1": "Untuk mengubah satu bagian saja, pilih dulu bagian itu di halaman. Panel akan menampilkan <b>Perubahan berlaku untuk pilihan…</b>. Tekan <b>Seluruh halaman saja</b> untuk mengubah seluruh halaman.",
+          "2": "Ketik perubahan yang Anda inginkan, seperti “tambahkan bagian harga”, lalu tekan Enter atau <b>Kirim</b>. Anda juga bisa melampirkan gambar, misalnya tangkapan layar desain yang Anda suka.",
+          "3": "Perubahan muncul di editor. Jika tidak suka hasilnya, tekan urungkan."
+        }
+      },
+      "7": {
+        "body": {
+          "0": "Klik nama halaman di bagian atas, di samping <b>SEDANG DIEDIT</b>, untuk melihat <b>Halaman Anda</b>. Klik halaman untuk membukanya. Perubahan di halaman yang akan Anda tinggalkan disimpan terlebih dahulu.",
+          "1": "Untuk menambahkan halaman, tekan <b>Tambah halaman</b>, ketik namanya, lalu tekan <b>Tambah halaman</b> lagi. Halaman itu akan muncul di menu aplikasi Anda.",
+          "2": "Di samping setiap halaman: ikon roda gigi membuka <b>Setelan halaman</b> (untuk mengganti nama, memilih siapa yang bisa melihatnya, mengatur posisinya di menu, atau <b>Menduplikasi</b> halaman), ikon rumah menjadikannya halaman beranda, dan ikon tempat sampah menghapusnya setelah Anda mengonfirmasi. Halaman yang dihapus tidak bisa dipulihkan."
+        },
+        "heading": "Halaman Anda"
+      },
+      "8": {
+        "body": {
+          "0": "Tombol <b>Desktop</b>, <b>Tablet</b>, dan <b>Seluler</b> menampilkan halaman dalam berbagai ukuran. Selalu periksa tampilan Seluler: kebanyakan pengunjung menggunakan ponsel.",
+          "1": "<b>Pratinjau</b> membuka halaman di tab baru agar Anda bisa mencobanya, termasuk tombol dan formulirnya. Pratinjau menampilkan perubahan terbaru Anda. Pengunjung belum bisa melihat perubahan itu sampai Anda memublikasikannya."
+        },
+        "heading": "Periksa di ponsel, lalu pratinjau"
+      },
+      "9": {
+        "body": {
+          "0": "Panah melengkung di kiri atas berfungsi untuk mengurungkan dan mengulangi perubahan terakhir, termasuk perubahan yang dibuat AI.",
+          "1": "Perubahan Anda tersimpan otomatis. Bilah menampilkan <b>Menyimpan…</b>, lalu <b>Tersimpan</b>. Jika tertulis <b>Belum tersimpan</b>, periksa koneksi Anda: sistem akan terus mencoba menyimpan, dan tombol <b>Coba lagi</b> akan langsung mencobanya. Jika perubahan belum terkirim ke server sebelum Anda menutup tab, Anda akan ditawari opsi <b>Pulihkan</b> saat membuka halaman lagi."
+        },
+        "heading": "Mengurungkan dan menyimpan"
+      },
+      "10": {
+        "bullets": {
+          "0": "Perubahan tersimpan sebagai draf. Pengunjung bisa melihatnya setelah Anda memublikasikannya.",
+          "1": "Halaman aplikasi yang dibuat dengan AI Designer berasal dari desainnya, jadi ubahlah melalui Designer.",
+          "2": "Jika blok siap pakai menanyakan <b>Hubungkan?</b>, pilih <b>Ya, hubungkan</b> untuk menyiapkan tempat menyimpan kiriman dan menghubungkan formulir. Pilih <b>Tidak, saya yang atur</b> untuk menambahkan blok apa adanya."
+        },
+        "heading": "Info penting"
+      }
+    },
+    "summary": "Ubah teks, gambar, dan tata letak dengan mengeklik dan menyeret, atau minta AI melakukannya untuk Anda.",
+    "title": "Edit halaman Anda"
+  },
+  "phone-apps": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Semua aplikasi yang sudah diterbitkan bisa dipasang langsung dari browser, tanpa toko aplikasi. Buka aplikasi di ponsel (pindai kode di tab Ringkasan atau Terbitkan), lalu pilih <b>Tambahkan ke Layar Utama</b> dari menu browser. Di iPhone, pilih opsi ini melalui tombol Bagikan. Aplikasi akan terbuka seperti aplikasi lainnya, lengkap dengan ikon Anda.",
+          "1": "Atur ikon aplikasi di Ringkasan, pada bagian <b>Ikon aplikasi</b>. Anda bisa mengunggah gambar atau meminta AI membuatkannya."
+        },
+        "heading": "Tambahkan ke layar utama"
+      },
+      "1": {
+        "heading": "Kirim notifikasi",
+        "shot": {
+          "alt": "Tab Notifikasi yang menampilkan jumlah pelanggan dan formulir untuk menulis serta mengirim notifikasi.",
+          "caption": "Tulis notifikasi dan kirim ke semua orang yang sudah mendaftar."
+        },
+        "steps": {
+          "0": "Buka tab <b>Notifikasi</b>.",
+          "1": "Jika notifikasi belum aktif, tekan <b>Aktifkan notifikasi</b>. Ini akan menambahkan halaman kecil “Dapatkan notifikasi” yang bisa digunakan pengunjung untuk mendaftar.",
+          "2": "Publikasikan aplikasi agar pengunjung bisa mendaftar.",
+          "3": "Tulis <b>Judul</b> dan <b>Pesan</b>. Anda bisa menambahkan halaman yang akan terbuka saat notifikasi diketuk, seperti /menu.",
+          "4": "Tekan <b>Kirim ke</b> (jumlah penerima akan ditampilkan). <b>Terkirim</b> menampilkan notifikasi yang sudah Anda kirim dan jumlah yang berhasil diterima."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Di ponsel Android dan komputer, orang mengaktifkan notifikasi lewat browser. Di iPhone dan iPad, mereka harus menambahkan aplikasi ke layar utama terlebih dahulu, lalu mengaktifkan notifikasi di sana.",
+          "1": "Alur juga bisa mengirim notifikasi menggunakan langkah <b>Kirim notifikasi</b>."
+        },
+        "heading": "Siapa yang bisa menerima notifikasi"
+      },
+      "3": {
+        "body": {
+          "0": "Aplikasi di ponsel menampilkan aplikasi Anda yang sudah dipublikasikan, jadi perubahan yang dipublikasikan akan langsung muncul tanpa perlu membuat versi baru."
+        },
+        "heading": "Buat aplikasi Android",
+        "shot": {
+          "alt": "Tab Aplikasi seluler yang menampilkan detail aplikasi dan tombol untuk membuat versi Android.",
+          "caption": "Buat salinan untuk uji coba atau file yang diminta Google Play."
+        },
+        "steps": {
+          "0": "Publikasikan aplikasi terlebih dahulu.",
+          "1": "Buka tab <b>Aplikasi seluler</b>.",
+          "2": "Di bagian <b>Detail aplikasi</b>, periksa <b>Nama aplikasi</b>, <b>Bundle / ID Aplikasi</b> (seperti com.yourbusiness.app; jangan pernah mengubahnya setelah aplikasi tersedia di toko), <b>Versi</b>, <b>Orientasi</b>, dan warna, lalu tekan <b>Simpan setelan</b>.",
+          "3": "Tekan <b>Buat APK uji coba</b> untuk mendapatkan salinan yang bisa langsung dipasang di ponsel Android untuk dicoba.",
+          "4": "Jika sudah siap menggunakan Google Play, tekan <b>Buat untuk Google Play</b>. Panduan <b>Publikasikan aplikasi di Google Play</b> akan memandu Anda melalui langkah-langkah di toko."
+        }
+      },
+      "4": {
+        "body": {
+          "0": "Google Play mengenali aplikasi Anda melalui kunci upload, yaitu file rahasia yang dibuat saat pertama kali Anda membuat versi untuk Google Play. Tekan <b>Unduh cadangan kunci</b> dan simpan di tempat pribadi, seperti pengelola kata sandi. Tanpa kunci ini, Anda tidak akan bisa memperbarui aplikasi di Google Play. Hanya pemilik aplikasi yang bisa mengunduhnya."
+        },
+        "heading": "Simpan kunci upload dengan aman"
+      },
+      "5": {
+        "body": {
+          "0": "Tekan <b>Unduh proyek iPhone</b> di tab Aplikasi seluler. Untuk membuat aplikasi iPhone, Anda perlu akun Apple Developer berbayar serta Mac atau akun GitHub gratis. Petunjuk di dalam unduhan akan menjelaskan keduanya langkah demi langkah."
+        },
+        "heading": "iPhone dan iPad"
+      },
+      "6": {
+        "bullets": {
+          "0": "<b>Fitur ponsel yang digunakan aplikasi ini</b> mencantumkan hal-hal yang diminta aplikasi dari ponsel, seperti kamera atau lokasi. Jika daftar ini berubah, buat ulang aplikasi dan kirim versi baru ke toko.",
+          "1": "Ponsel hanya bisa membuka aplikasi dari alamat aman (https). Tab Aplikasi seluler akan memberi tahu Anda jika alamatnya belum aman.",
+          "2": "Jika muncul pesan <b>Pembuatan Android dinonaktifkan di server ini</b>, hubungi orang yang mengelola {app} untuk Anda.",
+          "3": "Sebelum menghapus aplikasi atau akun, unduh kunci upload Google Play-nya."
+        },
+        "heading": "Perlu diketahui"
+      }
+    },
+    "summary": "Tambahkan aplikasi ke layar utama, kirim notifikasi, dan buat versi Android serta iPhone.",
+    "title": "Aplikasi ponsel dan notifikasi"
+  },
+  "prices-and-payments": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "<b>Jika Anda mengelola platform:</b> buka Admin, <b>Semua setelan</b>, lalu <b>Pembayaran</b> untuk mengatur harga dan Stripe, serta <b>Paket & batas</b> untuk mengatur isi setiap paket.",
+          "1": "<b>Jika Anda reseller:</b> buka Dasbor reseller, lalu <b>Tagihan & paket</b>. Di sana ada bagian <b>1. Harga Anda</b> dan <b>2. Isi setiap paket</b>.",
+          "2": "Pembayaran diproses melalui Stripe, layanan pembayaran online. Anda perlu memiliki akun Stripe sendiri."
+        },
+        "heading": "Tempat menemukannya"
+      },
+      "1": {
+        "heading": "Hubungkan Stripe",
+        "steps": {
+          "0": "Di Stripe, buka Developers, API keys, lalu salin <b>Secret key</b>. Untuk mencoba lebih dulu, gunakan kunci uji coba (diawali dengan sk_test_).",
+          "1": "Tempel kunci ke <b>Secret key</b> di bagian <b>Stripe</b>.",
+          "2": "Tekan <b>Simpan harga</b>. {app} akan menyiapkan pembaruan pembayaran dari Stripe untuk Anda."
+        }
+      },
+      "2": {
+        "heading": "Atur harga",
+        "shot": {
+          "alt": "Bagian Pembayaran dengan nama, harga bulanan, dan mata uang untuk setiap paket berbayar, serta kunci Stripe.",
+          "caption": "Beri nama dan harga untuk setiap paket, lalu hubungkan Stripe."
+        },
+        "steps": {
+          "0": "Di bagian <b>Paket dan harga</b>, setiap paket berbayar memiliki <b>Nama paket</b>, <b>Harga per bulan</b>, dan <b>Mata uang</b>.",
+          "1": "Masukkan harga untuk setiap paket yang ingin Anda tawarkan. Kosongkan harga untuk menyembunyikan paket tersebut. Paket Gratis selalu tersedia.",
+          "2": "Tekan <b>Simpan harga</b>. Harga akan dibuatkan di akun Stripe Anda."
+        }
+      },
+      "3": {
+        "body": {
+          "0": "Untuk setiap paket, atur jumlah <b>Aplikasi</b>, <b>Aplikasi yang dipublikasikan</b>, <b>Halaman per aplikasi</b>, <b>Domain khusus</b>, dan <b>Tindakan AI / bulan</b>, serta tentukan apakah paket menyertakan <b>Alur kerja terjadwal</b>.",
+          "1": "Di bagian <b>Paket & batas</b> milik pengelola, centang <b>tanpa batas</b> jika tidak ingin menetapkan batas, lalu tekan <b>Simpan batas paket</b>. Di bagian <b>Tagihan & paket</b> milik reseller, kosongkan kotak untuk tanpa batas, lalu tekan <b>Simpan paket</b>.",
+          "2": "Reseller juga bisa menghapus centang <b>Izinkan klien baru mendaftar sendiri di domain Anda</b> agar akun hanya bisa dibuat melalui undangan."
+        },
+        "heading": "Tentukan isi setiap paket",
+        "shot": {
+          "alt": "Tabel Paket dan batas penggunaan, dengan kolom untuk setiap paket dan baris untuk setiap batas penggunaan.",
+          "caption": "Yang disertakan di setiap paket."
+        }
+      },
+      "4": {
+        "body": {
+          "0": "Pelanggan melihat paket yang Anda tawarkan di halaman <b>Tagihan & paket</b>, dengan tombol <b>Upgrade</b> yang mengarahkan mereka ke Stripe untuk membayar. Pelanggan berbayar bisa memilih <b>Kelola tagihan</b> untuk mengganti kartu atau membatalkan langganan. Sebelum Stripe terhubung, harga tetap ditampilkan. Proses pembayaran akan berfungsi setelah Stripe terhubung.",
+          "1": "Anda juga bisa mengubah paket seseorang secara manual: operator dari daftar Pengguna, reseller dari daftar klien."
+        },
+        "heading": "Yang dilihat pelanggan"
+      },
+      "5": {
+        "bullets": {
+          "0": "Pelanggan membayar langsung kepada Anda melalui akun Stripe Anda sendiri. Platform tidak mengenakan biaya.",
+          "1": "Jika pembaruan pembayaran Stripe gagal disiapkan, <b>Lanjutan: pembaruan pembayaran (webhook)</b> menampilkan alamat yang perlu ditambahkan secara manual di Stripe.",
+          "2": "Coba semua fitur dengan kunci uji Stripe sebelum beralih ke kunci aktif."
+        },
+        "heading": "Perlu diketahui"
+      }
+    },
+    "summary": "Hubungkan Stripe, lalu atur harga dan isi setiap paket agar pelanggan membayar Anda secara langsung.",
+    "title": "Harga dan pembayaran"
+  },
+  "publishing": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Anda selalu mengedit draf. Pengunjung melihat versi terakhir yang Anda terbitkan. Perubahan Anda, termasuk perubahan dari AI, tetap di draf sampai Anda menerbitkannya lagi. Jadi, pengunjung tidak akan melihat halaman yang belum selesai."
+        },
+        "heading": "Draf dan tayang"
+      },
+      "1": {
+        "heading": "Terbitkan untuk pertama kali",
+        "shot": {
+          "alt": "Tab Terbitkan yang menampilkan status aplikasi, tombol terbitkan, dan alamat webnya.",
+          "caption": "Terbitkan aplikasi, lalu salin tautannya untuk dibagikan."
+        },
+        "steps": {
+          "0": "Tekan <b>Terbitkan</b> di kanan atas tab aplikasi Anda.",
+          "1": "Tekan <b>Terbitkan aplikasi</b>.",
+          "2": "Anda akan melihat <b>Aplikasi Anda sudah tayang. Siap dibagikan.</b> dan statusnya berubah menjadi <b>Tayang</b>."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Alamat web aplikasi Anda ada di tab Terbitkan, beserta tombol untuk menyalinnya. Di Ringkasan, ada kode yang bisa dipindai dengan kamera ponsel untuk membuka aplikasi.",
+          "1": "<b>Pencarian dan berbagi</b> mengatur deskripsi yang ditampilkan mesin pencari dan aplikasi chat saat tautan Anda dibagikan. Aktifkan <b>Sembunyikan dari mesin pencari</b> jika Anda tidak ingin aplikasi muncul di Google. Siapa pun yang memiliki tautannya tetap bisa membukanya."
+        },
+        "heading": "Bagikan tautan"
+      },
+      "3": {
+        "body": {
+          "0": "Jika Anda mengubah sesuatu setelah menerbitkan aplikasi, statusnya akan bertuliskan <b>Tayang · ada perubahan yang belum diterbitkan</b>. Tekan <b>Terbitkan perubahan</b> agar perubahan tersebut tayang. Jika tidak ada perubahan baru, tombolnya bertuliskan <b>Sudah terbaru</b>.",
+          "1": "Ingin mencoba perubahan lebih dulu? <b>Pratinjau</b> di kanan atas akan membuka draf Anda di tab baru. Hanya Anda yang bisa membukanya."
+        },
+        "heading": "Terbitkan perubahan"
+      },
+      "4": {
+        "body": {
+          "0": "Setiap kali Anda menerbitkan aplikasi, versinya disimpan di <b>Riwayat rilis</b>, dengan versi terbaru di urutan pertama. Versi yang sedang tayang ditandai <b>Tayang</b>."
+        },
+        "heading": "Kembali ke versi sebelumnya",
+        "shot": {
+          "alt": "Daftar Riwayat rilis, dengan tombol Jadikan tayang di samping versi sebelumnya.",
+          "caption": "Riwayat rilis: kembalikan versi terbaru mana pun."
+        },
+        "steps": {
+          "0": "Cari versi yang Anda inginkan di <b>Riwayat rilis</b>.",
+          "1": "Tekan <b>Jadikan tayang</b>, lalu konfirmasi.",
+          "2": "Pengunjung akan langsung melihat versi tersebut. Draf Anda tidak berubah, jadi Anda bisa memperbaikinya dan menerbitkannya lagi."
+        }
+      },
+      "5": {
+        "body": {
+          "0": "<b>Jadikan offline</b> mencegah pengunjung membuka aplikasi Anda sampai Anda menerbitkannya lagi. Tidak ada yang dihapus."
+        },
+        "heading": "Jadikan offline"
+      },
+      "6": {
+        "body": {
+          "0": "<b>Unduh cadangan (.zip)</b> menyimpan semua halaman, alur, tabel dan baris, tema, serta gambar Anda dalam satu file. Simpan file ini di tempat aman, atau pulihkan dengan <b>Impor aplikasi</b> saat membuat aplikasi baru, di sini atau di server {app} lain. Kata sandi anggota tidak disertakan."
+        },
+        "heading": "Cadangkan atau pindahkan aplikasi"
+      },
+      "7": {
+        "body": {
+          "0": "Di bagian <b>Pasang di perangkat</b>: <b>Unduh aplikasi offline (.zip)</b> memberikan salinan yang bisa digunakan di satu komputer tanpa internet. Data aplikasi disimpan di komputer tersebut. <b>Pintasan desktop (online)</b> menambahkan pintasan ke aplikasi Anda yang sedang tayang di desktop Windows atau Mac. Untuk ponsel, lihat panduan Aplikasi ponsel dan notifikasi."
+        },
+        "heading": "Pasang di komputer dan ponsel"
+      },
+      "8": {
+        "bullets": {
+          "0": "Paket Anda mungkin membatasi jumlah aplikasi yang bisa tayang sekaligus.",
+          "1": "Riwayat rilis menampilkan 20 versi terbaru Anda.",
+          "2": "Alur terjadwal hanya berjalan setelah aplikasi diterbitkan.",
+          "3": "Anda bisa menghubungkan alamat web sendiri di tab Domain."
+        },
+        "heading": "Perlu diketahui"
+      }
+    },
+    "summary": "Tampilkan aplikasi Anda secara online, bagikan tautannya, perbarui dengan aman, dan pulihkan versi sebelumnya jika perlu.",
+    "title": "Publikasikan dan bagikan aplikasi Anda"
+  },
+  "resellers": {
+    "sections": {
+      "0": {
+        "bullets": {
+          "0": "<b>Pengelola</b> menjalankan platform dan menentukan paket, harga, serta batasnya.",
+          "1": "<b>Reseller</b> adalah agensi yang ditambahkan oleh pengelola. Masing-masing memiliki merek, alamat, akun Stripe, dan klien sendiri.",
+          "2": "<b>Klien</b> adalah pelanggan reseller. Mereka membuat aplikasi dan hanya melihat merek reseller.",
+          "3": "<b>Pengguna aplikasi</b> adalah orang yang menggunakan aplikasi yang dipublikasikan.",
+          "4": "Klien membayar reseller secara langsung. Platform tidak mengambil bagian."
+        },
+        "heading": "Cara kerjanya"
+      },
+      "1": {
+        "heading": "Pengelola: tambahkan reseller",
+        "shot": {
+          "alt": "Halaman Reseller dengan formulir untuk menambahkan reseller dan tabel reseller beserta klien, aplikasi, dan penggunaan AI mereka.",
+          "caption": "Tambahkan reseller dan atur batasnya."
+        },
+        "steps": {
+          "0": "Di Admin, buka <b>Reseller</b>.",
+          "1": "Di bagian <b>Tambahkan reseller</b>, masukkan <b>Nama merek</b>, <b>Email reseller</b>, dan jika mau, <b>Nama mereka</b>.",
+          "2": "Atur <b>Klien maks.</b>, <b>Aplikasi maks.</b>, dan <b>Tindakan AI / bulan</b>, atau biarkan kosong agar tidak ada batas.",
+          "3": "Tekan <b>Buat reseller</b>. Mereka akan menerima email undangan jika email sudah disiapkan; jika belum, Anda akan mendapat tautan untuk dikirim."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Tabel menampilkan klien, aplikasi, tindakan AI bulan ini, domain, dan status setiap reseller. Klik angka seperti 3 / 10 untuk mengubah batas tersebut. Tombol di ujung baris memungkinkan Anda masuk sebagai reseller, membuat tautan undangan atau reset kata sandi, menangguhkan atau mengaktifkan kembali reseller, dan menghapusnya.",
+          "1": "Batas AI bulanan berlaku untuk reseller dan semua kliennya. Jika batas tercapai, AI akan berhenti untuk mereka semua hingga bulan depan. Reseller akan menerima email saat penggunaan mencapai 80% dan 100%, jika email sudah disiapkan.",
+          "2": "Menangguhkan reseller akan mengeluarkan reseller dan semua kliennya dari akun. Untuk menghapus reseller, Anda harus mengetik namanya; kliennya tetap memiliki akun dan aplikasi, lalu menjadi pelanggan langsung Anda dengan paket Gratis."
+        },
+        "heading": "Pengelola: kelola reseller"
+      },
+      "3": {
+        "body": {
+          "0": "Klik <b>Dasbor reseller</b> di bilah atas. <b>Ringkasan</b> berisi daftar periksa <b>Mulai siapkan</b> (logo dan warna, domain sendiri, pembayaran, klien pertama) serta jumlah klien, aplikasi, dan tindakan AI yang Anda gunakan. Menu di sebelah kiri berisi <b>Klien</b>, <b>Aplikasi</b>, <b>Merek</b>, <b>Domain</b>, dan <b>Tagihan & paket</b>."
+        },
+        "heading": "Reseller: dasbor Anda"
+      },
+      "4": {
+        "heading": "Reseller: undang klien",
+        "steps": {
+          "0": "Buka <b>Klien</b>.",
+          "1": "Di bagian <b>Undang klien</b>, masukkan <b>Email</b>, <b>Nama</b> jika mau, lalu pilih <b>Paket</b> mereka.",
+          "2": "Tekan <b>Kirim undangan</b>. Mereka akan menerima email berisi tautan untuk membuat kata sandi. Jika email belum disiapkan, Anda akan mendapat tautan untuk dikirim.",
+          "3": "Untuk mengundang banyak orang sekaligus, tekan <b>Undang beberapa orang sekaligus</b>, lalu tempel hingga 50 alamat email."
+        }
+      },
+      "5": {
+        "body": {
+          "0": "Daftar klien menampilkan status, paket, aplikasi, penggunaan AI, dan waktu terakhir aktif setiap klien. Filter berdasarkan status, paket, dan pembayaran, atau centang <b>Belum terlihat selama 30 hari</b> atau <b>Belum pernah masuk</b>. <b>Perlu perhatian</b> menandai klien yang mungkin perlu diingatkan.",
+          "1": "Ubah paket klien dari menu di barisnya. Tombol di setiap baris memungkinkan Anda <b>Membuka ruang kerja mereka</b> (tekan <b>Kembali ke klien Anda</b> untuk kembali), mengirim tautan undangan atau reset kata sandi baru, menangguhkan atau memulihkan akses mereka, dan menghapusnya.",
+          "2": "Menghapus klien juga akan menghapus semua aplikasinya. Anda akan diminta mengetik email mereka untuk mengonfirmasi."
+        },
+        "heading": "Reseller: bantu klien"
+      },
+      "6": {
+        "body": {
+          "0": "<b>Aplikasi</b> menampilkan semua aplikasi yang dibuat klien Anda. Tekan <b>Buka</b> untuk mengedit aplikasi di ruang kerja klien. Aplikasi yang Anda buat sendiri memiliki tombol <b>Berikan kepada klien</b>, yang memindahkan aplikasi ke ruang kerja klien; Anda tetap bisa membukanya untuk mereka."
+        },
+        "heading": "Reseller: aplikasi klien"
+      },
+      "7": {
+        "bullets": {
+          "0": "Reseller hanya dapat melihat kliennya sendiri, bukan pelanggan atau setelan lain milik pengelola.",
+          "1": "Klien masuk melalui alamat reseller dan hanya melihat merek reseller.",
+          "2": "Jika semua slot klien sudah terpakai, undangan akan dihentikan sampai pengelola menambahkan slot lagi."
+        },
+        "heading": "Perlu diketahui"
+      }
+    },
+    "summary": "Jual layanan pembuatan aplikasi dengan merek lain: pengelola menambahkan reseller, lalu setiap reseller mengundang dan mengelola kliennya sendiri.",
+    "title": "Reseller dan klien"
+  },
+  "running-your-platform": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Klik <b>Admin</b> di bilah atas. <b>Kelola platform Anda</b> memiliki kartu untuk setiap bagian dan statusnya saat ini: <b>Branding white-label</b>, <b>Reseller</b>, <b>Pembayaran</b>, <b>Paket & batas</b>, <b>Mesin AI</b>, <b>Email</b>, <b>Pengguna</b>, dan <b>Sistem</b>. Klik kartu untuk membukanya. <b>Semua setelan</b> di bagian atas membuka semua setelan di satu halaman."
+        },
+        "heading": "Beranda Admin",
+        "shot": {
+          "alt": "Beranda Admin dengan kartu untuk branding, reseller, pembayaran, paket, AI, email, pengguna, dan sistem, serta daftar periksa penyiapan.",
+          "caption": "Beranda Admin: semua bagian platform dan hal yang masih perlu dilakukan."
+        }
+      },
+      "1": {
+        "body": {
+          "0": "<b>Daftar periksa penyiapan</b> akan otomatis mencentang langkah yang sudah Anda selesaikan. Klik langkah untuk membuka setelannya."
+        },
+        "heading": "Daftar periksa penyiapan",
+        "steps": {
+          "0": "<b>Atur merek Anda</b>: nama, logo, dan warna. Lihat Merek Anda (white-label).",
+          "1": "<b>Hubungkan mesin AI</b> agar orang bisa membuat aplikasi dengan menjelaskan keinginannya. Lihat Setelan AI.",
+          "2": "<b>Hubungkan Stripe dan tentukan harga paket</b> jika Anda mengenakan biaya. Lihat Harga dan pembayaran.",
+          "3": "<b>Aktifkan email</b> agar undangan, tautan kata sandi, dan pemberitahuan dikirim secara otomatis. Lihat Email.",
+          "4": "<b>Beri aplikasi yang dipublikasikan alamatnya sendiri</b>. Ini adalah setelan server (APPS_DOMAIN di file .env), bukan di layar ini; petugas instalasi dapat mengaturnya. Dengan catatan DNS wildcard, setiap aplikasi yang dipublikasikan mendapat alamat sendiri, terpisah dari studio.",
+          "5": "<b>Undang reseller pertama Anda</b> jika Anda menjual melalui agensi. Lihat Reseller dan klien."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Di <b>Semua setelan</b>, bagian <b>Paket & batas</b> menentukan isi paket Free, Starter, Pro, dan Team: <b>Aplikasi</b>, <b>Aplikasi yang dipublikasikan</b>, <b>Halaman per aplikasi</b>, <b>Domain khusus</b>, <b>Tindakan AI / bulan</b>, dan <b>Alur kerja terjadwal</b>. Centang <b>tanpa batas</b> jika tidak ingin menetapkan batas, lalu tekan <b>Simpan batas paket</b>. <b>Kembalikan ke batas standar</b> akan mengembalikan nilai bawaan. Anda dan reseller Anda tidak pernah terkena batas."
+        },
+        "heading": "Isi setiap paket"
+      },
+      "3": {
+        "body": {
+          "0": "Daftar <b>Pengguna</b> di beranda Admin menampilkan semua orang yang mendaftar. Untuk setiap orang, Anda bisa:"
+        },
+        "bullets": {
+          "0": "Ubah paketnya lewat menu. Perubahan langsung disimpan.",
+          "1": "Tekan <b>Tautan kata sandi</b> untuk membuat tautan masuk yang hanya bisa digunakan sekali dan berlaku selama 2 jam. Jika email aktif, tautan akan dikirim lewat email. Jika tidak, tautan akan disalin agar bisa Anda kirim sendiri.",
+          "2": "Tekan <b>Masuk sebagai pengguna</b> untuk membuka ruang kerjanya dan membantunya. Spanduk akan muncul selama Anda berada di sana, dan perubahan yang Anda buat akan diterapkan ke akunnya. Tekan <b>Berhenti masuk sebagai pengguna</b> untuk kembali.",
+          "3": "Tekan <b>Hapus</b> untuk menghapus akunnya. Anda akan melihat apa saja yang ikut dihapus, lalu diminta mengetik emailnya untuk mengonfirmasi."
+        },
+        "heading": "Bantu orang yang menggunakannya"
+      },
+      "4": {
+        "body": {
+          "0": "<b>Pengguna baru, 30 hari terakhir</b> menampilkan jumlah orang yang mendaftar, membuat aplikasi, dan memublikasikannya. <b>Proyek terbaru</b> menampilkan aplikasi terbaru, dengan tombol <b>Buka</b> untuk membukanya di ruang kerja pemiliknya. <b>Eksekusi alur terbaru</b> menampilkan otomatisasi terbaru dan statusnya."
+        },
+        "heading": "Pantau aktivitas"
+      },
+      "5": {
+        "body": {
+          "0": "Buka <b>Sistem</b> untuk melihat kondisi server dengan bahasa yang mudah dipahami. Setiap pemeriksaan ditampilkan sebagai kartu: hijau berarti aman, kuning berarti perlu diperiksa, merah berarti harus segera ditangani. Pemeriksaan mencakup database, ruang disk, alur terjadwal, cadangan, email, koneksi AI, memori, dan lainnya.",
+          "1": "<b>Pembersihan malam</b> menghapus log eksekusi lama, sesi masuk yang kedaluwarsa, versi aplikasi lama yang dipublikasikan, dan file dari aplikasi yang dihapus. Pilih <b>Laporkan saja</b> (hitung tanpa menghapus), <b>Hapus data lama</b>, atau <b>Nonaktif</b>, lalu tekan <b>Simpan</b>. <b>Periksa sekarang</b> atau <b>Jalankan pembersihan sekarang</b> akan langsung menjalankannya. Buat cadangan sebelum mengaktifkan penghapusan untuk pertama kali: data yang dihapus tidak bisa dipulihkan.",
+          "2": "Jika terjadi masalah, <b>Detail untuk dukungan</b> akan menyalin atau mengunduh ringkasan yang menyembunyikan informasi pribadi, siap dikirim kepada tim dukungan Anda."
+        },
+        "heading": "Kondisi server",
+        "shot": {
+          "alt": "Halaman Sistem: ringkasan, kartu pemeriksaan kondisi, dan setelan pembersihan malam.",
+          "caption": "Sistem: kondisi server dalam bahasa yang mudah dipahami."
+        }
+      },
+      "6": {
+        "bullets": {
+          "0": "Jika database perlu diperbarui setelah Anda melakukan upgrade, akan muncul spanduk di bagian atas beranda Admin. Halaman Sistem menjelaskan tindakan yang perlu dilakukan.",
+          "1": "Instalasi dengan penginstal standar akan membuat cadangan setiap malam. Sesekali, salin cadangan ke perangkat lain.",
+          "2": "Alat pemantauan bisa memeriksa /api/health untuk mengetahui apakah server aktif.",
+          "3": "Panduan operasional untuk operator di file unduhan (docs/operations.md) menjelaskan detailnya."
+        },
+        "heading": "Perlu diketahui"
+      }
+    },
+    "summary": "Beranda admin Anda: siapkan {app}, bantu orang yang menggunakannya, dan jaga server tetap berjalan dengan baik.",
+    "title": "Mengelola platform Anda"
+  },
+  "white-label": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Operator platform menentukan merek bawaan yang dilihat semua orang. Setiap reseller bisa memakai mereknya sendiri, dan klien mereka hanya akan melihat merek itu, bukan merek platform.",
+          "1": "<b>Jika Anda mengelola platform:</b> buka Admin, <b>Semua setelan</b>, lalu <b>Branding</b>.",
+          "2": "<b>Jika Anda reseller:</b> buka <b>Dasbor reseller</b>, lalu pilih <b>Branding</b>."
+        },
+        "heading": "Merek yang dilihat orang"
+      },
+      "1": {
+        "heading": "Atur merek Anda",
+        "shot": {
+          "alt": "Formulir branding white-label dengan nama, slogan, logo, ikon, warna, dan email dukungan, serta pratinjau layar masuk.",
+          "caption": "Merek Anda, dengan pratinjau langsung layar masuk."
+        },
+        "steps": {
+          "0": "Masukkan <b>Nama merek</b>. Nama ini ditampilkan di bagian atas setiap layar, di email, dan di halaman masuk.",
+          "1": "Tambahkan <b>Slogan (opsional)</b>, kalimat singkat tentang yang Anda tawarkan. Slogan ini akan ditambahkan ke judul tab browser.",
+          "2": "Unggah <b>Logo</b>. Logo lebar paling cocok; gunakan PNG atau SVG berukuran di bawah 150 KB. Logo akan ditampilkan sebagai pengganti nama merek.",
+          "3": "Unggah <b>Ikon browser</b>: berbentuk persegi, minimal 64 x 64 piksel.",
+          "4": "Pilih <b>Warna utama</b> (untuk tombol dan sorotan) dan <b>Warna aksen</b> (untuk sentuhan kecil).",
+          "5": "Tambahkan <b>Email dukungan</b>. Alamat ini akan ditampilkan kepada orang yang membutuhkan bantuan dan digunakan sebagai alamat balasan email. Tambahkan <b>Situs web Anda</b> jika diinginkan.",
+          "6": "Periksa <b>Pratinjau</b> layar masuk, lalu tekan <b>Simpan branding</b>."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Klien Anda bisa masuk dan membuat aplikasi di alamat milik Anda, seperti apps.youragency.com. Aplikasi yang mereka publikasikan juga akan dibagikan dari alamat tersebut."
+        },
+        "heading": "Reseller: gunakan alamat Anda sendiri",
+        "steps": {
+          "0": "Di Dasbor reseller, buka <b>Domain</b>.",
+          "1": "Masukkan subdomain yang Anda miliki, seperti apps.youragency.com, lalu tekan <b>Gunakan domain ini</b>.",
+          "2": "Tambahkan dua data yang ditampilkan (data CNAME atau A, dan data TXT) di tempat Anda mengelola DNS domain.",
+          "3": "Tekan <b>Periksa sekarang</b>. Setelah statusnya <b>Terhubung</b>, klien Anda bisa masuk melalui alamat tersebut."
+        }
+      },
+      "3": {
+        "bullets": {
+          "0": "Perubahan akan terlihat saat halaman dimuat lagi.",
+          "1": "Gambar di atas 150 KB ditolak. Ekspor versi yang lebih kecil, lalu coba lagi.",
+          "2": "Alamat reseller otomatis mendapat sertifikat aman (https) di server yang mendukungnya. Jika alamatnya tidak terbuka dengan aman, hubungi pengelola platform.",
+          "3": "Untuk berhenti menggunakan alamat reseller, kosongkan kotak lalu simpan.",
+          "4": "Pengelola: gunakan alamat netral (APPS_DOMAIN) untuk aplikasi yang dipublikasikan agar tautan aplikasi klien reseller tidak menampilkan nama platform."
+        },
+        "heading": "Perlu diketahui"
+      }
+    },
+    "summary": "Gunakan nama, logo, dan warna Anda sendiri di studio, email, dan halaman masuk.",
+    "title": "Merek Anda (white-label)"
+  }
+}

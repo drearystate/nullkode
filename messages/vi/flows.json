@@ -1,0 +1,788 @@
+{
+  "activity": {
+    "all": "Tất cả lần chạy",
+    "allHelp": "Hiển thị mọi lần chạy gần đây của mục tự động hóa này.",
+    "empty": "Chưa có gì. Lượt chạy sẽ xuất hiện ở đây khi có người dùng mục này trong ứng dụng của bạn hoặc khi bạn nhấn Chạy thử.",
+    "filterLabel": "Chọn lần chạy cần hiển thị",
+    "intro": "Những gì đã xảy ra mỗi lần luồng này chạy.",
+    "justNow": "vừa xong",
+    "last24h": "24 giờ qua: {total, plural, one {# lần chạy} other {# lần chạy}}, {problems} gặp sự cố.",
+    "loadError": "Không thể tải hoạt động.",
+    "ms": "{n} ms",
+    "noProblems": "Không có vấn đề gì. Tất cả lượt chạy gần đây đều thành công.",
+    "nothingSent": "Không có gì được gửi trong lần chạy này.",
+    "outcome": {
+      "answered": "Đã phản hồi",
+      "failed": "Thất bại",
+      "ok": "Thành công",
+      "warning": "Hoàn tất nhưng có vấn đề"
+    },
+    "outcomeHelp": {
+      "answered": "Đã phản hồi: hệ thống trả lời từ chối, chẳng hạn như do mật khẩu sai hoặc thiếu thông tin. Đây thường là điều bình thường, không phải lỗi.",
+      "failed": "Thất bại: lượt chạy dừng ở một bước do gặp lỗi và chưa hoàn tất.",
+      "ok": "Thành công: mọi bước đều hoạt động bình thường.",
+      "warning": "Hoàn tất nhưng có vấn đề: lượt chạy đã thành công, nhưng có sự cố xảy ra, chẳng hạn như email không được gửi."
+    },
+    "problemsOnly": "Chỉ sự cố",
+    "problemsOnlyHelp": "Chỉ hiển thị các lần chạy thất bại hoặc gặp sự cố, chẳng hạn email không được gửi.",
+    "refresh": "Làm mới hoạt động",
+    "refreshHelp": "Kiểm tra lại xem có lượt chạy mới không.",
+    "s": "{n} giây",
+    "source": {
+      "event": "Từ ứng dụng của bạn",
+      "live": "Từ ứng dụng của bạn",
+      "schedule": "Theo lịch",
+      "test": "Lần chạy thử của bạn",
+      "test-submission": "Lần gửi thử"
+    },
+    "title": "Hoạt động",
+    "titleHelp": "Mỗi lần mục tự động hóa này chạy: kết quả, thao tác khởi chạy và dữ liệu được gửi. Rất hữu ích để tìm sự cố.",
+    "took": "mất {duration}",
+    "whatTheySent": "Thông tin họ đã gửi",
+    "whatWasSent": "Thông tin đã gửi",
+    "whatWasSentHelp": "Thông tin được gửi kèm lượt chạy này, chẳng hạn như nội dung ai đó nhập vào biểu mẫu."
+  },
+  "api": {
+    "aiTooOften": "Quy trình này dùng AI nên chỉ có thể chạy tối đa mỗi {minutes} phút. Nhờ vậy, lịch chạy không dùng hết hạn mức AI của bạn.",
+    "chooseWhen": "Chọn thời điểm chạy.",
+    "invalidInput": "Thông tin nhập không hợp lệ",
+    "notFound": "Không tìm thấy"
+  },
+  "catalog": {
+    "aggregate": {
+      "help": "Đếm bản ghi hoặc tính tổng một cột trong bảng, chẳng hạn số lượt đăng ký hoặc tổng doanh số. Các bước sau có thể dùng kết quả.",
+      "label": "Đếm hoặc tính tổng bản ghi"
+    },
+    "ai_prompt": {
+      "help": "Giao cho AI một câu hỏi hoặc nhiệm vụ, chẳng hạn tóm tắt tin nhắn. Các bước sau có thể dùng kết quả. Mỗi lần chạy sẽ tính vào hạn mức AI của bạn.",
+      "label": "Hỏi AI"
+    },
+    "branch": {
+      "help": "Kiểm tra một điều kiện rồi chia quy trình tự động thành hai hướng: một hướng chạy khi điều kiện đúng, hướng còn lại chạy khi điều kiện không đúng.",
+      "label": "Nếu đúng thì làm việc này, nếu không thì làm việc kia"
+    },
+    "bulk_delete": {
+      "help": "Xóa vĩnh viễn cùng lúc mọi hàng trong bảng khớp với điều kiện bạn đặt. Bạn không thể hoàn tác.",
+      "label": "Xóa nhiều hàng"
+    },
+    "bulk_insert": {
+      "help": "Thêm cùng lúc nhiều hàng vào bảng từ danh sách được tạo ở bước trước.",
+      "label": "Thêm nhiều hàng"
+    },
+    "bulk_update": {
+      "help": "Thay đổi cùng lúc mọi hàng trong bảng khớp với điều kiện bạn đặt.",
+      "label": "Thay đổi nhiều hàng"
+    },
+    "check_role": {
+      "help": "Kiểm tra xem người đang đăng nhập có vai trò nhất định hay không, chẳng hạn quản trị viên. Tiếp theo, dùng bước “Nếu đúng thì làm việc này, nếu không thì làm việc kia” để quyết định việc cần làm.",
+      "label": "Kiểm tra quyền của người dùng"
+    },
+    "clear_session": {
+      "help": "Đăng xuất người dùng trên thiết bị này.",
+      "label": "Đăng xuất người dùng"
+    },
+    "custom_js": {
+      "help": "Dành cho nhà phát triển: chạy một đoạn mã JavaScript ngắn do bạn viết. Chỉ dùng khi không có bước nào khác đáp ứng được nhu cầu của bạn.",
+      "label": "Mã tùy chỉnh"
+    },
+    "delay": {
+      "help": "Tạm dừng quy trình tự động vài giây (tối đa 60 giây) trước khi chạy bước tiếp theo.",
+      "label": "Chờ"
+    },
+    "delete": {
+      "help": "Xóa vĩnh viễn các bản ghi trong bảng khớp với điều kiện bạn đặt. Bạn không thể hoàn tác.",
+      "label": "Xóa bản ghi"
+    },
+    "email": {
+      "help": "Gửi email, chẳng hạn email xác nhận đơn hàng cho khách hoặc thông báo cho bạn.",
+      "label": "Gửi email"
+    },
+    "get_session": {
+      "help": "Tìm hiểu ai đang đăng nhập, nếu có, cùng tên, email và vai trò của họ để các bước sau sử dụng.",
+      "label": "Ai đang đăng nhập"
+    },
+    "hash_password": {
+      "help": "Chuyển mật khẩu thành dạng an toàn để lưu. Hãy dùng bước này trước khi lưu mật khẩu cho tài khoản mới; bạn không thể đọc lại mật khẩu ban đầu.",
+      "label": "Bảo vệ mật khẩu"
+    },
+    "http_request": {
+      "help": "Kết nối với một trang web hoặc dịch vụ trực tuyến khác để lấy hoặc gửi thông tin. Các bước sau có thể dùng kết quả trả về.",
+      "label": "Gọi một trang web khác"
+    },
+    "insert": {
+      "help": "Lưu một bản ghi mới (một hàng mới) vào bảng, chẳng hạn thông tin ai đó đã nhập vào biểu mẫu.",
+      "label": "Thêm bản ghi"
+    },
+    "lookup": {
+      "help": "Với mỗi bản ghi được tìm thấy ở bước trước, lấy bản ghi khớp từ một bảng khác, chẳng hạn thêm thông tin khách hàng vào từng đơn hàng.",
+      "label": "Tìm bản ghi liên quan"
+    },
+    "math": {
+      "help": "Tính kết quả từ hai giá trị: cộng, trừ, nhân, chia hoặc lấy số dư. Các bước sau có thể dùng kết quả.",
+      "label": "Tính toán"
+    },
+    "parse_json": {
+      "help": "Chuyển văn bản chứa dữ liệu có cấu trúc (thường do trang web khác gửi) thành các giá trị riêng để các bước sau chọn dùng.",
+      "label": "Đọc dữ liệu từ văn bản"
+    },
+    "query": {
+      "help": "Tìm bản ghi đã lưu trong một bảng (bảng giống như bảng tính), có thể chỉ tìm những bản ghi khớp với điều kiện bạn đặt. Các bước sau có thể dùng kết quả tìm được.",
+      "label": "Tìm bản ghi"
+    },
+    "response": {
+      "help": "Gửi câu trả lời về trang hoặc biểu mẫu đã bắt đầu quy trình tự động, chẳng hạn thông báo thành công hoặc các bản ghi tìm được.",
+      "label": "Phản hồi"
+    },
+    "send_push": {
+      "help": "Gửi thông báo đến mọi người đã bật thông báo cho ứng dụng của bạn trên điện thoại hoặc máy tính.",
+      "label": "Gửi thông báo"
+    },
+    "set": {
+      "help": "Lưu một giá trị dưới tên bạn chọn để các bước sau dùng lại, giống như ghi chú cho lần chạy này.",
+      "label": "Lưu một giá trị"
+    },
+    "set_session": {
+      "help": "Đăng nhập cho người dùng trên thiết bị này để ứng dụng nhận ra họ trong những lần truy cập sau.",
+      "label": "Đăng nhập cho người dùng"
+    },
+    "sheets_append": {
+      "help": "Thêm một hàng mới vào Google Sheet bạn đã kết nối, chẳng hạn để ghi lại mọi biểu mẫu được gửi. Chỉ dùng được với trang tính mà ứng dụng của bạn được phép chỉnh sửa, không phải trang chỉ đọc.",
+      "label": "Thêm hàng vào Google Sheet"
+    },
+    "sheets_read": {
+      "help": "Đọc các hàng trong Google Sheet bạn đã kết nối (tối đa 1.000 hàng) để các bước sau có thể dùng chúng.",
+      "label": "Đọc Google Sheet"
+    },
+    "trigger": {
+      "help": "Chọn cách bắt đầu quy trình tự động: khi một trang hoặc biểu mẫu trong ứng dụng sử dụng bước này, hoặc theo lịch bạn đặt. Kết nối bước này với bước đầu tiên bạn muốn chạy.",
+      "label": "Khi ứng dụng gọi bước này"
+    },
+    "update": {
+      "help": "Thay đổi bản ghi đã lưu trong bảng. Bạn chọn bản ghi cần thay đổi và giá trị mới cho chúng.",
+      "label": "Thay đổi bản ghi"
+    },
+    "verify_password": {
+      "help": "Kiểm tra xem mật khẩu người dùng nhập có khớp với mật khẩu đã chuyển sang dạng mã hóa bạn lưu hay không. Dùng bước này khi mọi người đăng nhập.",
+      "label": "Kiểm tra mật khẩu"
+    }
+  },
+  "categories": {
+    "ai": "AI",
+    "auth": "Tài khoản",
+    "data": "Dữ liệu đã lưu",
+    "integration": "Gửi và kết nối",
+    "logic": "Quyết định và giá trị",
+    "response": "Kết thúc",
+    "trigger": "Bắt đầu"
+  },
+  "describe": {
+    "anEmailOff": "email chưa được gửi vì chưa thiết lập email",
+    "answered": "Đã trả lời \"{message}\".",
+    "answeredCode": "Đã trả lời bằng mã {status}.",
+    "didAndNote": "{did}; {note}.",
+    "done": {
+      "ai": "đã hỏi AI",
+      "deleted": "đã xóa khỏi {table}",
+      "emailed": "đã gửi email đến {address}",
+      "http": "đã liên hệ với dịch vụ khác",
+      "saved": "đã lưu vào {table}",
+      "sentEmail": "đã gửi email",
+      "sentPush": "đã gửi thông báo",
+      "sheetsAppend": "đã thêm một hàng vào Google Sheets",
+      "signedIn": "đã đăng nhập cho một người",
+      "signedOut": "đã đăng xuất một người",
+      "updated": "đã cập nhật {table}"
+    },
+    "emailNotSent": "email chưa được gửi ({reason})",
+    "emailOff": "email chưa được gửi vì chưa thiết lập email",
+    "failed": {
+      "ai": "Bước AI không trả lời",
+      "delete": "Không thể xóa khỏi {table}",
+      "didntFinish": "Chưa hoàn tất",
+      "email": "Không thể gửi email",
+      "http": "Không thể kết nối với dịch vụ khác",
+      "push": "Không thể gửi thông báo",
+      "read": "Không thể đọc {table}",
+      "save": "Không thể lưu vào {table}",
+      "stoppedAt": "Đã dừng tại “{label}”",
+      "update": "Không thể cập nhật {table}"
+    },
+    "failedOnly": "{failed}.",
+    "failedWhy": "{failed}: {why}",
+    "failedWhyPeriod": "{failed}: {why}.",
+    "noProblems": "Đã chạy xong mà không gặp vấn đề nào.",
+    "sent": "Đã gửi",
+    "sentence": "{text}.",
+    "signUps": "lượt đăng ký",
+    "yourData": "dữ liệu của bạn"
+  },
+  "editor": {
+    "addStep": "Thêm bước",
+    "addStepHelp": "Các việc mà quy trình tự động có thể làm. Nhấp để thêm một bước, rồi kéo từ cạnh phải của bước đó đến bước tiếp theo để sắp xếp thứ tự chạy.",
+    "deleteStep": "Xóa bước",
+    "deleteStepHelp": "Xóa bước này và các kết nối của bước. Bạn cũng có thể nhấn Delete trên bàn phím.",
+    "emptyBody": "Chọn một bước để chỉnh sửa chức năng của bước đó. Thêm bước từ bên trái, rồi kết nối theo thứ tự cần chạy.",
+    "emptyTitle": "Mỗi bước đều có mục đích.",
+    "flow": "Luồng",
+    "handleFalse": "Chấm dưới: kéo từ đây đến bước sẽ chạy khi điều kiện không đúng.",
+    "handleIn": "Nơi bước trước đó kết nối vào.",
+    "handleOut": "Kéo từ đây đến bước tiếp theo để chọn việc sẽ chạy sau bước này.",
+    "handleTrue": "Chấm trên: kéo từ đây đến bước sẽ chạy khi điều kiện đúng.",
+    "pausedTest": "Quy trình tự động này đang tạm dừng. Hãy bật để chạy thử.",
+    "problemsBadge": "{count} mục gặp sự cố trong 24 giờ qua",
+    "running": "Đang chạy...",
+    "saveFailed": "Lưu không thành công",
+    "saved": "Đã lưu",
+    "searchHelp": "Nhập một từ như “email” hoặc “lưu” để nhanh chóng tìm bước.",
+    "searchLabel": "Tìm bước trong luồng",
+    "searchPlaceholder": "Tìm bước…",
+    "tabActivity": "Hoạt động",
+    "tabActivityHelp": "Xem mỗi lần quy trình tự động chạy, kết quả và nội dung mọi người gửi khi có sự cố.",
+    "tabSchedule": "Lịch chạy",
+    "tabScheduleHelp": "Chọn chạy quy trình khi ứng dụng sử dụng hoặc tự chạy vào những thời điểm đã đặt, chẳng hạn mỗi sáng.",
+    "tabSteps": "Các bước",
+    "tabStepsHelp": "Tạo quy trình tự động: thêm các bước và kết nối theo thứ tự cần chạy.",
+    "tabsLabel": "Chế độ xem luồng",
+    "testRun": "Chạy thử",
+    "testRunHelp": "Chạy quy trình tự động một lần ngay bây giờ bằng những thay đổi đã lưu gần nhất và hiển thị kết quả bên dưới. Các bước sẽ được thực hiện thật (lưu, gửi email, v.v.) và kết quả sẽ xuất hiện trong mục Hoạt động.",
+    "webAddress": "Địa chỉ web (dành cho nhà phát triển)",
+    "webAddressHelp": "Địa chỉ web mà dịch vụ khác hoặc mã của bạn có thể gọi để bắt đầu tự động hóa này. Bạn chỉ cần địa chỉ này nếu kết nối với thứ gì đó bên ngoài studio."
+  },
+  "enabledSwitch": {
+    "failed": "Không thể thay đổi. Hãy thử lại.",
+    "help": "Khi tạm dừng, tính năng sẽ ngừng chạy và mọi thứ trong ứng dụng dùng tính năng này, như biểu mẫu, sẽ gặp lỗi. Thay đổi có hiệu lực ngay trên ứng dụng đang hoạt động, không cần xuất bản.",
+    "helpScheduled": "Khi tạm dừng, các lần chạy theo lịch sẽ dừng và mọi thứ trong ứng dụng dùng tính năng này sẽ gặp lỗi. Thay đổi có hiệu lực ngay, không cần xuất bản.",
+    "label": "Chạy tự động hóa này",
+    "on": "Bật",
+    "paused": "Đã tạm dừng"
+  },
+  "inspector": {
+    "add": "Thêm",
+    "addCondition": "Thêm điều kiện",
+    "addConditionHelp": "Thêm quy tắc khác. Bản ghi phải khớp với tất cả quy tắc mới được tính.",
+    "addField": "Thêm trường",
+    "addFieldHelp": "Thêm hàng khác gồm tên và giá trị.",
+    "advanced": "Nâng cao",
+    "agg": {
+      "avg": "Tính trung bình một cột",
+      "count": "Đếm bản ghi",
+      "max": "Giá trị lớn nhất trong một cột",
+      "min": "Giá trị nhỏ nhất trong một cột",
+      "sum": "Tính tổng một cột"
+    },
+    "aggregateEmptyHint": "Để trống để tính tất cả hàng. Tất cả điều kiện phải khớp.",
+    "biggestFirst": "Kết quả lớn nhất trước",
+    "body": "Nội dung",
+    "bodyEmpty": "Thêm các trường cần gửi trong nội dung yêu cầu.",
+    "bodyHelp": "Thông tin cần gửi kèm. Mỗi hàng gồm một tên và một giá trị; hướng dẫn của dịch vụ kia cho biết dịch vụ cần những tên nào.",
+    "branchHint": "Nối chấm phía trên với việc cần làm khi điều kiện đúng, và chấm phía dưới với việc cần làm khi điều kiện không đúng.",
+    "bulkInsertHint": "Bước này sẽ dừng và báo lỗi nếu bước đó không tạo ra danh sách, hoặc nếu có mục trùng ID với mục đã có trong bảng.",
+    "byAsc": "Theo {column}, từ A đến Z",
+    "byDesc": "Theo {column}, từ Z đến A",
+    "choose": "— chọn —",
+    "clearSession": "Đăng xuất người đang dùng ứng dụng trên thiết bị này. Lần sau, họ sẽ cần đăng nhập lại. Bạn không cần cài đặt gì ở đây.",
+    "clearSessionHelp": "Bước này không có cài đặt. Bước này xóa thông tin đăng nhập mà ứng dụng đã lưu trên thiết bị của người dùng.",
+    "closeHelp": "Đóng danh sách này mà không thêm gì.",
+    "columnHelp": "Cột cần kiểm tra, chẳng hạn như email hoặc trạng thái.",
+    "deleteHelp": "Xóa bước này và các kết nối của nó khỏi quy trình tự động. Không thể hoàn tác, nên bạn sẽ phải thêm lại bước này.",
+    "deleteNeedsCondition": "Cần có điều kiện để xóa — nếu không, bước này sẽ bị lỗi.",
+    "fields": {
+      "aiPrompt": {
+        "help": "Câu hỏi hoặc nhiệm vụ dành cho AI. Chèn giá trị để thêm thông tin như tin nhắn của khách hàng.",
+        "label": "Lời nhắc"
+      },
+      "aiSystem": {
+        "help": "Thông tin nền cho AI, luôn giữ nguyên mỗi lần chạy, chẳng hạn “Trả lời bằng một câu thân thiện” hoặc “Bạn làm việc tại một tiệm bánh”.",
+        "label": "Chỉ dẫn hệ thống (không bắt buộc)"
+      },
+      "dataSource": {
+        "help": "Nơi lưu dữ liệu của bạn. Hầu hết ứng dụng chỉ có cơ sở dữ liệu tích hợp sẵn; chỉ chọn nguồn khác nếu bạn đã tự kết nối.",
+        "label": "Nguồn dữ liệu"
+      },
+      "emailFrom": {
+        "help": "Địa chỉ email hiển thị là người gửi. Để trống để dùng địa chỉ gửi mặc định của máy chủ.",
+        "label": "Người gửi (không bắt buộc)"
+      },
+      "emailMessage": {
+        "help": "Nội dung email. Chèn giá trị để cá nhân hóa, chẳng hạn tên người nhận hoặc thông tin đơn hàng.",
+        "label": "Tin nhắn"
+      },
+      "emailSubject": {
+        "help": "Dòng tiêu đề email. Bạn có thể chèn giá trị, chẳng hạn mã đơn hàng.",
+        "label": "Tiêu đề"
+      },
+      "emailTo": {
+        "help": "Người nhận email. Nhập địa chỉ hoặc chèn địa chỉ từ biểu mẫu, chẳng hạn email của chính người đó. Ngăn cách nhiều địa chỉ bằng dấu phẩy.",
+        "label": "Người nhận"
+      },
+      "firstValue": {
+        "help": "Số thứ nhất. Nhập số hoặc chèn giá trị từ bước trước đó.",
+        "label": "Giá trị thứ nhất"
+      },
+      "groupBy": {
+        "help": "Trả về một kết quả cho mỗi giá trị trong cột này, chẳng hạn số lượng theo từng trạng thái. Chọn “Một tổng duy nhất” để có một con số duy nhất.",
+        "label": "Chia nhóm theo"
+      },
+      "groupLimit": {
+        "help": "Số nhóm tối đa được trả về, lên đến 1.000. Các nhóm vượt quá giới hạn này sẽ bị bỏ qua.",
+        "label": "Số nhóm tối đa cần trả về"
+      },
+      "hashInput": {
+        "help": "Mật khẩu cần biến đổi, thường là mật khẩu được nhập vào biểu mẫu đăng ký. Hãy lưu kết quả đã biến đổi, không bao giờ lưu mật khẩu ban đầu.",
+        "label": "Mật khẩu cần mã hóa"
+      },
+      "is": {
+        "help": "Cách so sánh hai giá trị. “có chứa” tìm văn bản ở bất kỳ vị trí nào; “tồn tại” chỉ kiểm tra xem giá trị đầu tiên có trống không.",
+        "label": "Là"
+      },
+      "javascript": {
+        "help": "Mã của bạn. Dùng vars.name cho kết quả từ các bước trước và trigger.name cho dữ liệu được gửi vào. Giá trị bạn trả về sẽ được lưu để dùng trong các bước sau.",
+        "label": "JavaScript"
+      },
+      "jsonInput": {
+        "help": "Văn bản chứa dữ liệu theo định dạng JSON, một định dạng phổ biến do các trang web khác gửi, thường là câu trả lời từ bước “Gọi trang web khác”. Bước này sẽ thất bại nếu văn bản không đúng định dạng.",
+        "label": "Văn bản JSON cần phân tích"
+      },
+      "lookupAs": {
+        "help": "Tên dùng cho thông tin bổ sung trong mỗi bản ghi, chẳng hạn customer. Nếu khớp một bản ghi, thông tin sẽ được lưu dưới dạng một bản ghi; nếu khớp nhiều bản ghi, thông tin sẽ được lưu dưới dạng danh sách tối đa 10 mục.",
+        "label": "Lưu thông tin bổ sung với tên"
+      },
+      "lookupDataSource": {
+        "help": "Nơi lưu danh sách còn lại. Hầu hết ứng dụng chỉ có cơ sở dữ liệu tích hợp của riêng mình.",
+        "label": "Nguồn dữ liệu"
+      },
+      "lookupIn": {
+        "help": "Danh sách bản ghi có chứa thông tin cần thêm, chẳng hạn Khách hàng.",
+        "label": "Tìm trong"
+      },
+      "lookupMatch": {
+        "help": "Cột trong danh sách đó phải khớp với giá trị ở trên. Thường là id.",
+        "label": "Cột cần khớp ở đó"
+      },
+      "lookupPointer": {
+        "help": "Cột trong các bản ghi đó chứa ID của bản ghi khác, chẳng hạn customer_id trong đơn hàng. Các bản ghi không có giá trị ở cột này sẽ được giữ nguyên.",
+        "label": "Cột liên kết đến bản ghi khác"
+      },
+      "lookupSource": {
+        "help": "Danh sách được tìm thấy ở bước trước, chẳng hạn các đơn hàng từ bước “Tìm bản ghi”. Bước này sẽ dừng và báo lỗi nếu bước đó không trả về danh sách.",
+        "label": "Bản ghi cần bổ sung thông tin"
+      },
+      "method": {
+        "help": "Loại yêu cầu. GET lấy thông tin, POST gửi thông tin mới, PUT và PATCH thay đổi thông tin, DELETE xóa thông tin. Hướng dẫn của dịch vụ kia sẽ cho biết nên dùng loại nào.",
+        "label": "Phương thức"
+      },
+      "ofColumn": {
+        "help": "Cột cần tính, chẳng hạn số tiền hoặc giá. Chỉ có thể cộng và tính trung bình trên các cột số.",
+        "label": "Trong cột này"
+      },
+      "operator": {
+        "help": "Cách xử lý hai số. Số dư là phần còn lại sau phép chia (7 chia lấy dư 2 bằng 1). Chia cho 0 sẽ cho kết quả 0.",
+        "label": "Phép toán"
+      },
+      "orderGroups": {
+        "help": "Chọn nhóm nào xuất hiện trước trong kết quả, chẳng hạn trạng thái có nhiều bản ghi nhất ở trên cùng.",
+        "label": "Sắp xếp các nhóm"
+      },
+      "plainPassword": {
+        "help": "Mật khẩu người dùng vừa nhập vào biểu mẫu đăng nhập.",
+        "label": "Mật khẩu từ người dùng"
+      },
+      "pushMessage": {
+        "help": "Văn bản bên dưới tiêu đề. Hãy viết ngắn vì điện thoại sẽ cắt bớt tin nhắn dài.",
+        "label": "Tin nhắn"
+      },
+      "pushTitle": {
+        "help": "Dòng đầu tiên in đậm trong thông báo. Bạn có thể chèn giá trị, như tên từ một bước trước đó.",
+        "label": "Tiêu đề"
+      },
+      "pushUrl": {
+        "help": "Trang trong ứng dụng sẽ mở ra khi có người nhấn vào thông báo, chẳng hạn /menu. Để trống để mở trang chủ của ứng dụng.",
+        "label": "Mở trang này khi nhấn (không bắt buộc)"
+      },
+      "roleNeeded": {
+        "help": "Vai trò người dùng cần có, chẳng hạn admin hoặc manager. Không phân biệt chữ hoa chữ thường.",
+        "label": "Vai trò cần có"
+      },
+      "roleSource": {
+        "help": "Để trống để dùng vai trò của người đang đăng nhập, từ bước “Ai đang đăng nhập” ở trước bước này. Chỉ thay đổi nếu bước trước đã lưu vai trò bằng một tên khác.",
+        "label": "Nơi lưu vai trò (không bắt buộc)"
+      },
+      "rowsToAdd": {
+        "help": "Danh sách được tạo ở bước trước, chẳng hạn các bản ghi mà bước “Tìm bản ghi” tìm thấy. Mỗi mục sẽ trở thành một hàng mới, nên tên của chúng phải khớp với các cột trong bảng này.",
+        "label": "Các hàng cần thêm"
+      },
+      "secondValue": {
+        "help": "Số thứ hai. Nhập số hoặc chèn giá trị từ bước trước đó.",
+        "label": "Giá trị thứ hai"
+      },
+      "seconds": {
+        "help": "Thời gian tạm dừng trước bước tiếp theo. Người dùng ứng dụng cũng phải chờ, nên hãy để thời gian ngắn.",
+        "label": "Số giây (0–60)"
+      },
+      "sheetSource": {
+        "help": "Google Sheet được kết nối với ứng dụng của bạn. Nếu danh sách trống, trước tiên hãy thêm một nguồn trong mục Nâng cao trên trang Dữ liệu của ứng dụng.",
+        "label": "Nguồn dữ liệu Google Sheet"
+      },
+      "sheetTab": {
+        "help": "Tên thẻ ở cuối bảng tính, chính xác như hiển thị, chẳng hạn Sheet1.",
+        "label": "Tên thẻ trang tính"
+      },
+      "stepName": {
+        "help": "Tên hiển thị trên ô của bước trong sơ đồ để bạn dễ phân biệt. Tên này không làm thay đổi chức năng của bước.",
+        "label": "Tên bước"
+      },
+      "storedHash": {
+        "help": "Mật khẩu đã biến đổi mà bạn lưu khi họ đăng ký, thường lấy từ bước “Tìm bản ghi” đã tìm thấy tài khoản của họ.",
+        "label": "Mật khẩu đã mã hóa"
+      },
+      "table": {
+        "help": "Chọn bảng cần dùng. Bảng giống như bảng tính: mỗi hàng là một bản ghi, chẳng hạn một đơn hàng hoặc một lượt đăng ký.",
+        "label": "Danh sách bản ghi"
+      },
+      "thisValue": {
+        "help": "Giá trị dùng để so sánh. Nhập không cần dấu ngoặc kép hoặc chèn một giá trị. “bằng” yêu cầu khớp chính xác, kể cả chữ hoa.",
+        "label": "Giá trị này"
+      },
+      "url": {
+        "help": "Địa chỉ web của dịch vụ cần liên hệ, bắt đầu bằng https://. Bạn có thể chèn giá trị vào đây.",
+        "label": "URL"
+      },
+      "userId": {
+        "help": "ID của tài khoản cần đăng nhập, thường lấy từ bản ghi mà bước “Tìm bản ghi” tìm thấy. Sau đó, ứng dụng sẽ ghi nhớ người này cho đến khi họ đăng xuất.",
+        "label": "ID người dùng"
+      },
+      "value": {
+        "help": "Nội dung cần lưu. Nhập văn bản, chèn giá trị từ biểu mẫu hoặc bước trước đó, hoặc kết hợp cả hai.",
+        "label": "Giá trị"
+      },
+      "variableName": {
+        "help": "Tên dùng để lưu giá trị. Các bước sau có thể chọn tên này trong danh sách Chèn.",
+        "label": "Tên biến"
+      },
+      "whatToWorkOut": {
+        "help": "Đếm sẽ cho biết số bản ghi. Cộng, tính trung bình, tìm giá trị nhỏ nhất và lớn nhất sẽ áp dụng cho một cột, chẳng hạn tổng của cột số tiền.",
+        "label": "Cần tính gì"
+      },
+      "whenThisValue": {
+        "help": "Giá trị cần kiểm tra, thường là thông tin từ biểu mẫu hoặc bước trước đó. Chọn Chèn để chọn giá trị.",
+        "label": "Khi giá trị này"
+      }
+    },
+    "fromRequest": "Từ yêu cầu",
+    "fromRequestHelp": "“Yêu cầu” là thông tin trang hoặc biểu mẫu gửi khi bắt đầu quy trình tự động này. Nhập tên trường, chẳng hạn như email, rồi nhấn Enter hoặc Thêm.",
+    "fromStepHelp": "Thêm kết quả từ bước trước đó, chẳng hạn như các bản ghi đã tìm thấy hoặc câu trả lời nhận được.",
+    "fromSteps": "Từ các bước trước đó",
+    "groupedResult": "Kết quả là danh sách gồm một hàng cho mỗi {column}, mỗi hàng có {column} và giá trị tương ứng.",
+    "helper": {
+      "date": "Ngày hôm nay",
+      "dateHelp": "Ngày chạy bước này, không bao gồm giờ.",
+      "now": "Ngày và giờ hiện tại",
+      "nowHelp": "Ngày và giờ chính xác khi bước này chạy.",
+      "uuid": "ID ngẫu nhiên",
+      "uuidHelp": "Mã ngẫu nhiên mới mỗi lần, hữu ích làm mã tham chiếu duy nhất."
+    },
+    "helpers": "Tiện ích",
+    "insert": "Chèn",
+    "insertHelp": "Thêm một giá trị thay đổi mỗi lần chạy: thông tin biểu mẫu đã gửi, kết quả của bước trước đó hoặc ngày hôm nay.",
+    "insertLabel": "Chèn giá trị",
+    "insertTitle": "Chèn giá trị từ yêu cầu hoặc bước trước đó",
+    "insertValue": "Chèn giá trị",
+    "insertValuesHelp": "Giá trị cần lưu vào từng cột của bản ghi mới. Nhập giá trị hoặc chèn giá trị từ biểu mẫu. ID của bản ghi và ngày thêm sẽ được tự điền.",
+    "js": {
+      "available": "Giá trị có thể dùng",
+      "availableHelp": "Kết quả từ các bước trước mà bạn có thể dùng trong mã. Nhấp vào một giá trị để chèn vào vị trí con trỏ.",
+      "chipHint": "Nhấp vào thẻ để chèn vào vị trí con trỏ.",
+      "examples": "Ví dụ",
+      "examplesHelp": "Các đoạn mã có sẵn cho những tác vụ thường gặp. Nhấp vào một đoạn để chèn vào vị trí con trỏ.",
+      "headsUp": "Lưu ý",
+      "how": "Cách hoạt động",
+      "how1": "Mã của bạn chạy trên máy chủ trong một môi trường cô lập được khóa chặt. Mã không thể kết nối mạng, truy cập hệ thống tệp, dùng <code>{require}</code> hoặc <code>{import}</code>, hay truy cập các luồng khác.",
+      "how2": "Đọc từ <code>{read}</code> để dùng kết quả của bước trước. Gán giá trị cho <code>{write}</code> để tạo biến mà các bước sau có thể đọc. Giá trị bạn <code>{return}</code> sẽ được lưu trong biến đầu ra hiển thị bên dưới.",
+      "how3": "<code>{trigger}</code> là bản sao cố định của yêu cầu đầu vào — chỉ đọc. Nhật ký trong bảng điều khiển sẽ bị xóa.",
+      "how4": "Tập lệnh sẽ tự dừng sau 3 giây. Nếu mã của bạn gặp lỗi, toàn bộ luồng sẽ thất bại và hiển thị thông báo lỗi.",
+      "howHelp": "Những gì mã của bạn có thể và không thể làm, cùng các giới hạn như tự dừng sau 3 giây.",
+      "insertTrigger": "Chèn dữ liệu yêu cầu",
+      "noSteps": "Chưa có bước nào trước đó — hãy kết nối bước này sau một bước tạo ra giá trị.",
+      "syntax": "Trong mã, hãy dùng trực tiếp <code>{vars}</code> và <code>{trigger}</code> — không dùng cú pháp <code>{template}</code> như ở các bước khác."
+    },
+    "math": {
+      "add": "cộng (+)",
+      "divide": "chia (÷)",
+      "multiply": "nhân (×)",
+      "remainder": "chia lấy dư (%)",
+      "subtract": "trừ (−)"
+    },
+    "newRowValues": "Giá trị hàng mới",
+    "noColumns": "Bảng này chưa có cột nào. Hãy thêm trường vào bảng trước.",
+    "noConditions": "Không có điều kiện — sẽ khớp với tất cả các hàng.",
+    "noEditableColumns": "Bảng này không có cột nào có thể chỉnh sửa.",
+    "noSteps": "Chưa có bước trước đó nào tạo ra giá trị.",
+    "oneTotal": "Một tổng số",
+    "ops": {
+      "contains": "có chứa",
+      "eq": "bằng",
+      "exists": "tồn tại (không trống)",
+      "gt": "lớn hơn",
+      "gte": "lớn hơn hoặc bằng",
+      "lt": "nhỏ hơn",
+      "lte": "nhỏ hơn hoặc bằng",
+      "ne": "không bằng"
+    },
+    "outputHelp": "Không bắt buộc: tên dùng để lưu kết quả của bước này. Chỉ đổi tên nếu không thì hai bước sẽ trùng tên, chẳng hạn như hai bước “Tìm bản ghi”.",
+    "outputName": "Tên dùng để tham chiếu kết quả của bước này ở nơi khác.",
+    "pickTable": "Chọn danh sách bản ghi để thiết lập bước này.",
+    "placeholders": {
+      "aNumber": "một con số",
+      "aiPrompt": "Tóm tắt tin nhắn này của khách hàng...",
+      "aiSystem": "Bạn là một trợ lý hữu ích...",
+      "eg10": "ví dụ: 10",
+      "eg108": "ví dụ: 1.08",
+      "egActive": "ví dụ: đang hoạt động",
+      "egGreeting": "ví dụ: lời chào",
+      "emailBody": "Xin chào, cảm ơn bạn đã đặt hàng...",
+      "emailSubject": "Đơn hàng của bạn đã được gửi đi",
+      "fieldName": "tên trường (ví dụ: email)",
+      "hashFromRow": "Chọn mã băm từ hàng trong cơ sở dữ liệu",
+      "helloThere": "Xin chào",
+      "jsonInput": "Chọn giá trị có chứa văn bản JSON",
+      "keepCurrent": "để trống để giữ nguyên giá trị hiện tại",
+      "name": "tên",
+      "passwordFromRequest": "Chọn mật khẩu từ yêu cầu",
+      "pickSourceFirst": "Trước tiên, hãy chọn nguồn dữ liệu",
+      "pickValue": "Chọn giá trị từ bước trước",
+      "pushMessage": "Đặt bàn trước khi hết chỗ nhé.",
+      "pushTitle": "Tối nay: nhạc sống từ 7 giờ tối",
+      "stepName": "Bước này thực hiện việc gì",
+      "trueOrFalse": "đúng hoặc sai",
+      "userIdFromStep": "Chọn ID người dùng từ bước trước",
+      "value": "giá trị"
+    },
+    "pushIntro": "Gửi thông báo đến tất cả những người đã bật thông báo cho ứng dụng này. Người dùng iPhone cần thêm ứng dụng vào màn hình chính.",
+    "queryEmptyHint": "Để trống để trả về tất cả hàng. Tất cả điều kiện phải khớp.",
+    "remove": "Xóa",
+    "removeCondition": "Xóa điều kiện",
+    "removeConditionHelp": "Xóa quy tắc này.",
+    "removeRowHelp": "Xóa hàng này.",
+    "respondEmpty": "Chọn nội dung cần gửi lại cho bên gọi. Mỗi hàng sẽ trở thành một trường trong phản hồi.",
+    "respondHint": "Mặc định, bên gọi sẽ nhận được phản hồi thành công. Nếu cần trả về lỗi, hãy thêm một bước nhánh trước đó trong luồng.",
+    "respondWith": "Phản hồi bằng",
+    "respondWithHelp": "Nội dung gửi lại cho trang hoặc biểu mẫu đã bắt đầu thao tác này. Mỗi hàng gồm một tên và giá trị, chẳng hạn message: Cảm ơn, chúng tôi đã nhận được.",
+    "rolePassHint": "Thêm bước “Ai đang đăng nhập” trước bước này, nếu không sẽ không ai vượt qua được bước kiểm tra.",
+    "roleResult": "Câu trả lời đúng hoặc sai được lưu thành {name}. Tiếp theo, thêm bước “Nếu thế này, nếu không thì thế kia” để kiểm tra xem {token} có bằng true không.",
+    "rowValues": "Giá trị hàng",
+    "rowValuesEmpty": "Thêm một trường cho mỗi tiêu đề cột trong trang tính.",
+    "rowValuesHelp": "Nội dung cần điền vào hàng mới. Mỗi tên phải khớp với tiêu đề cột trong hàng đầu tiên của trang tính; giá trị sẽ được điền bên dưới tiêu đề đó.",
+    "setFields": "Đặt các trường này",
+    "singleResult": "Kết quả là danh sách chỉ có một hàng, trong đó giá trị là đáp án. Để dùng con số này ở bước sau, hãy nhập {token}.",
+    "smallestFirst": "Kết quả nhỏ nhất trước",
+    "snippets": {
+      "filter": {
+        "description": "Chỉ giữ lại các hàng khớp với điều kiện",
+        "label": "Lọc hàng"
+      },
+      "format": {
+        "description": "Tạo thông báo từ dữ liệu kích hoạt",
+        "label": "Định dạng chuỗi"
+      },
+      "map": {
+        "description": "Chuyển đổi từng hàng thành một đối tượng gọn hơn",
+        "label": "Chuyển thành cấu trúc mới"
+      },
+      "split": {
+        "description": "Tách tên đầy đủ thành trường tên và họ",
+        "label": "Tách tên thành các phần"
+      },
+      "sum": {
+        "description": "Cộng các số trong tất cả các hàng",
+        "label": "Tính tổng một cột"
+      },
+      "timestamp": {
+        "description": "Lấy thời gian hiện tại dưới dạng chuỗi ISO",
+        "label": "Dấu thời gian hiện tại"
+      }
+    },
+    "step": "Bước",
+    "updateNeedsCondition": "Cần có điều kiện để thay đổi hàng — nếu không, bước này sẽ bị lỗi.",
+    "updateValuesHelp": "Các giá trị mới cần lưu. Để trống cột nếu bạn muốn giữ nguyên giá trị hiện có.",
+    "where": {
+      "aggregate": {
+        "help": "Chỉ tính các bản ghi có cột bằng giá trị bạn nhập; tất cả điều kiện phải khớp. Bỏ qua các điều kiện có giá trị trống. Nếu không có điều kiện nào, sẽ tính tất cả bản ghi.",
+        "label": "Chỉ tính các hàng thỏa điều kiện"
+      },
+      "bulk_delete": {
+        "help": "Chọn hàng cần xóa: mọi hàng có cột bằng giá trị bạn nhập. Cần có ít nhất một điều kiện để tránh xóa sạch toàn bộ bảng.",
+        "label": "Xóa hàng thỏa điều kiện"
+      },
+      "bulk_update": {
+        "help": "Chọn hàng cần thay đổi: mọi hàng có cột bằng giá trị bạn nhập. Cần có ít nhất một điều kiện để tránh vô tình thay đổi toàn bộ bảng.",
+        "label": "Thay đổi hàng thỏa điều kiện"
+      },
+      "delete": {
+        "help": "Chọn bản ghi cần xóa: chỉ những bản ghi có cột bằng giá trị bạn nhập. Cần có ít nhất một điều kiện để tránh xóa sạch toàn bộ bảng.",
+        "label": "Xóa hàng thỏa điều kiện"
+      },
+      "query": {
+        "help": "Chỉ tìm thấy các bản ghi có cột bằng giá trị bạn nhập; tất cả điều kiện phải khớp. Bỏ qua các điều kiện có giá trị trống. Nếu không có điều kiện nào, sẽ tìm tất cả bản ghi (tối đa 100).",
+        "label": "Tìm hàng thỏa điều kiện"
+      },
+      "update": {
+        "help": "Chọn bản ghi cần thay đổi: chỉ những bản ghi có cột bằng giá trị bạn nhập. Cần có ít nhất một điều kiện để tránh vô tình thay đổi toàn bộ bảng.",
+        "label": "Cập nhật hàng thỏa điều kiện"
+      }
+    }
+  },
+  "list": {
+    "emptyBody": "Tạo luồng đầu tiên hoặc thêm tính năng có sẵn với các luồng đã được kết nối.",
+    "emptyTitle": "Một chút tự động hóa tạo nên khác biệt lớn.",
+    "explainerHelp": "Cách tự động hóa hoạt động: một việc xảy ra trong ứng dụng, chẳng hạn như gửi biểu mẫu; các bước của bạn chạy lần lượt; sau đó người dùng nhận được kết quả, như lời cảm ơn.",
+    "explore": "Khám phá tính năng",
+    "exploreHelp": "Khám phá các tính năng có sẵn như đặt chỗ hoặc biểu mẫu liên hệ. Các tính năng này đã được thiết lập sẵn tự động hóa.",
+    "eyebrow": "BIẾN MỌI THỨ THÀNH HÀNH ĐỘNG",
+    "intro": "Biến một lần nhấp thành hành động. Lưu đặt chỗ, gửi email hoặc giúp dữ liệu của bạn hoạt động hiệu quả.",
+    "openHelp": "Mở tự động hóa này để xem và thay đổi các bước, kiểm tra kết quả mỗi lần chạy hoặc đặt lịch chạy.",
+    "result": "Kết quả cho người dùng",
+    "somethingHappens": "Có việc xảy ra",
+    "steps": "{count, plural, one {# bước} other {# bước}}",
+    "stepsRun": "Các bước chạy",
+    "title": "Các luồng trong ứng dụng của bạn.",
+    "triggerEvent": "Bắt đầu bằng sự kiện",
+    "triggerForm": "Bắt đầu bằng biểu mẫu",
+    "triggerRequest": "Bắt đầu bằng yêu cầu",
+    "triggerSchedule": "Chạy theo lịch"
+  },
+  "newFlow": {
+    "button": "Luồng mới",
+    "buttonHelp": "Tạo một tự động hóa trống mới: một việc tự chạy khi có sự kiện xảy ra trong ứng dụng. Bạn sẽ đặt tên rồi thêm các bước.",
+    "create": "Tạo",
+    "createHelp": "Tạo tự động hóa và mở để bạn thêm các bước.",
+    "nameHelp": "Đặt tên mô tả việc tự động hóa này làm, như Gửi xác nhận đặt chỗ. Nhấn Enter để tạo.",
+    "placeholder": "VD: Gửi biểu mẫu liên hệ"
+  },
+  "runtime": {
+    "aiBusy": "Ứng dụng này đang nhận quá nhiều yêu cầu AI. Vui lòng thử lại sau.",
+    "aiLimit": "Ứng dụng này đã đạt giới hạn AI trong tháng.",
+    "appDayLimit": "Ứng dụng này đã gửi {count} email hôm nay, nên email này chưa được gửi để ngăn thư rác.",
+    "appHourLimit": "Ứng dụng này đã gửi {count} email trong giờ qua, nên email này chưa được gửi để ngăn thư rác.",
+    "emailFailed": "Không gửi được email.",
+    "emailOff": "Máy chủ này chưa thiết lập email nên tin nhắn chưa được gửi.",
+    "formula": "Không thể tính công thức ở bước \"{step}\": {reason}",
+    "recipientLimit": "{to} đã nhận {count} email từ các ứng dụng trong giờ qua, nên email này chưa được gửi."
+  },
+  "schedule": {
+    "aiNote": "Các luồng có dùng AI chạy tối đa mỗi {minutes} phút một lần.",
+    "aiTooOften": "Quy trình này dùng AI nên chỉ có thể chạy tối đa mỗi {minutes} phút.",
+    "appMode": "Khi ứng dụng của bạn sử dụng",
+    "appModeBody": "Một trang, biểu mẫu hoặc trang web khác sẽ khởi chạy mục này.",
+    "appModeHelp": "Mục này chỉ chạy khi có thao tác trong ứng dụng khởi chạy, chẳng hạn khách truy cập gửi biểu mẫu.",
+    "connection": "Kiểm tra kết nối rồi thử lại.",
+    "day": "Ngày",
+    "dayHelp": "Chọn ngày trong tuần để chạy.",
+    "describe": {
+      "daily": "Hằng ngày lúc {time} ({zone})",
+      "everyHour": "Mỗi giờ",
+      "everyHours": "Mỗi {count} giờ",
+      "everyMinute": "Mỗi phút",
+      "everyMinutes": "Mỗi {count} phút",
+      "hourlyFull": "Mỗi giờ vào đúng đầu giờ ({zone})",
+      "hourlyPast": "{minute, plural, one {Mỗi giờ vào phút thứ # sau giờ ({zone})} other {Mỗi giờ vào # phút sau giờ ({zone})}}",
+      "utc": "UTC",
+      "weekdays": "Thứ Hai đến thứ Sáu lúc {time} ({zone})",
+      "weekly": "Mỗi {day} lúc {time} ({zone})",
+      "zoneTime": "giờ {zone}"
+    },
+    "every": "Mỗi",
+    "everyHelp": "Khoảng cách giữa các lần chạy. Một số lựa chọn có thể bị làm mờ, chẳng hạn khi mục tự động hóa này dùng AI.",
+    "failing": "{count, plural, one {# lần chạy lỗi liên tiếp; sẽ tạm dừng sau {max} lần.} other {# lần chạy lỗi liên tiếp; sẽ tạm dừng sau {max} lần.}}",
+    "hour": "giờ",
+    "hours": "{count} giờ",
+    "howOften": "Tần suất",
+    "howOftenHelp": "Tần suất chạy. Chọn kiểu lặp lại, rồi chọn giờ cụ thể bên cạnh.",
+    "inZone": "{time} (giờ {zone})",
+    "kinds": {
+      "daily": "Mỗi ngày",
+      "every": "Cứ vài phút",
+      "hourly": "Mỗi giờ",
+      "weekdays": "Thứ Hai đến thứ Sáu",
+      "weekly": "Mỗi tuần một lần"
+    },
+    "lastFailed": "Lần chạy gần nhất {when}: không thành công.",
+    "lastOk": "Lần chạy gần nhất {when}: thành công.",
+    "lastTimeout": "Lần chạy gần nhất {when}: mất quá nhiều thời gian.",
+    "loadError": "Không tải được lịch.",
+    "loading": "Đang tải lịch…",
+    "minute": "phút",
+    "minutes": "{count} phút",
+    "nextRun": "Lần chạy tiếp theo {when}",
+    "noPlan": "Gói của bạn không hỗ trợ quy trình chạy theo lịch nên quy trình này sẽ không chạy.",
+    "notInLive": "Quy trình này chưa có trong ứng dụng đã xuất bản. <link>Xuất bản các thay đổi</link> để bắt đầu lịch.",
+    "notInPlan": "Không có trong gói của bạn.",
+    "notPublished": "Đã lưu. <link>Xuất bản ứng dụng</link> để bắt đầu lịch này.",
+    "onTheHour": "Đúng đầu giờ (:00)",
+    "pastHour": "Phút sau mỗi giờ",
+    "pastHourHelp": "Chọn phút chạy trong mỗi giờ, chẳng hạn :15 là 15 phút sau giờ.",
+    "pausedFailures": "Đã tạm dừng sau {count} lần chạy lỗi liên tiếp. Kiểm tra các bước trong quy trình rồi tiếp tục.",
+    "pending": "<link>Xuất bản các thay đổi</link> để dùng lịch này.",
+    "pendingUntil": "Trong lúc chờ, lịch đã xuất bản vẫn được giữ nguyên: {schedule}.",
+    "problems": {
+      "badZone": "Không nhận diện được múi giờ đó.",
+      "chooseHowOften": "Chọn tần suất chạy.",
+      "chooseWhen": "Chọn thời điểm chạy.",
+      "minuteRange": "Chọn phút trong giờ từ 0 đến 59.",
+      "minutesRange": "Chọn số phút từ {min} đến {max}.",
+      "pickDay": "Chọn một ngày trong tuần.",
+      "pickTime": "Chọn giờ trong ngày, ví dụ 09:00."
+    },
+    "resume": "Tiếp tục",
+    "resumeHelp": "Bật lại lịch sau khi lịch tạm dừng vì các lần chạy liên tục thất bại. Trước tiên, hãy khắc phục sự cố trong các bước của lịch.",
+    "saveError": "Không lưu được. Vui lòng thử lại.",
+    "saveHelp": "Lưu thời gian chạy. Lịch mới hoặc đã chỉnh sửa sẽ có hiệu lực khi bạn xuất bản ứng dụng.",
+    "saveSchedule": "Lưu lịch",
+    "scheduleMode": "Theo lịch",
+    "scheduleModeBody": "Mục này tự chạy vào những giờ bạn chọn.",
+    "scheduleModeHelp": "Mục này tự chạy vào những giờ bạn chọn. Lịch bắt đầu chạy khi bạn xuất bản ứng dụng kèm lịch này.",
+    "starting": "Sẽ bắt đầu trong vòng một phút.",
+    "suspended": "Tài khoản này đã bị tạm ngưng nên các lần chạy theo lịch đang tạm dừng.",
+    "time": "Giờ",
+    "timeHelp": "Giờ chạy trong ngày, theo múi giờ bên dưới.",
+    "timeZone": "Múi giờ",
+    "timeZoneHelp": "Chọn đồng hồ làm căn cứ tính giờ. Chọn nơi bạn hoặc khách hàng đang ở, để 9:00 nghĩa là 9:00 tại đó.",
+    "title": "Khi mục này chạy",
+    "titleHelp": "Chọn để tự động hóa chạy khi ứng dụng của bạn sử dụng hoặc tự chạy vào giờ đã đặt, chẳng hạn mỗi sáng.",
+    "turnedOff": "Đã tắt lịch. Quy trình sẽ không còn chạy theo lịch.",
+    "unreadable": "Không đọc được lịch này. Chọn thời gian mới rồi lưu.",
+    "yours": "{zone} (của bạn)"
+  },
+  "summary": {
+    "aggregateFallback": "Đếm hoặc tính tổng bản ghi",
+    "askAi": "Đặt câu hỏi cho AI",
+    "bulkDeleteFallback": "Xóa nhiều hàng cùng lúc",
+    "bulkInsertFallback": "Thêm nhiều hàng cùng lúc",
+    "bulkUpdateFallback": "Cập nhật nhiều hàng cùng lúc",
+    "checkPassword": "Kiểm tra mật khẩu",
+    "checkRoleFallback": "Kiểm tra người này được phép làm gì",
+    "customJs": "Chạy mã của bạn",
+    "from": "Từ {table}",
+    "in": "Trong {table}",
+    "into": "Vào {table}",
+    "lookupFallback": "Thêm thông tin từ danh sách khác",
+    "needsRole": "Cần có: {role}",
+    "noRecipient": "Chưa có người nhận",
+    "noSheet": "Chưa có trang tính",
+    "noTable": "Chưa chọn bảng",
+    "parseJson": "Chuyển văn bản thành dữ liệu",
+    "protectPassword": "Bảo vệ mật khẩu trước khi lưu",
+    "pushEveryone": "Gửi đến tất cả người đã đăng ký",
+    "pushTitle": "“{title}”",
+    "repliesWith": "{count, plural, one {Phản hồi bằng # giá trị} other {Phản hồi bằng # giá trị}}",
+    "reply": "Gửi phản hồi",
+    "seconds": "{seconds} giây",
+    "sheet": "Trang tính {sheet}",
+    "signIn": "Đăng nhập {user}",
+    "signUserIn": "Đăng nhập người dùng",
+    "signUserOut": "Đăng xuất người dùng",
+    "startsHere": "Bắt đầu tại đây",
+    "to": "Đến {to}",
+    "unnamed": "Chưa đặt tên",
+    "verifyVs": "{plain} so với {hash} → {output}"
+  }
+}

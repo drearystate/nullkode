@@ -11,6 +11,7 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { themeToCss, type ProjectTheme } from "@/lib/theme";
 import { problemCountsByProject } from "@/lib/flow-activity";
+import { getTranslations } from "next-intl/server";
 
 export default async function DashboardPage() {
   const user = await getCurrentUser();
@@ -25,11 +26,12 @@ export default async function DashboardPage() {
     }), limitsForUser(user), aiAllowance(user), aiReady(), aiQuotaProblem(user).catch(() => null), getPublicPlans(billingScopeFor(user)).catch(() => []),
   ]);
   // Apps whose flows failed or had a problem for visitors in the last 24 hours.
+  const [t, tb] = await Promise.all([getTranslations("studio.dashboard"), getTranslations("billing")]);
   const problems = await problemCountsByProject(projects.map((p) => p.id)).catch(() => new Map<string, number>());
   return (
     <main className="studio-shell min-h-screen">
       <TopBar user={user} />
-      <StudioDashboard name={user.name?.split(" ")[0] || "there"} plan={user.plan}
+      <StudioDashboard name={user.name?.split(" ")[0] || t("fallbackName")} plan={tb(`planNames.${user.plan}`)}
         maxProjects={Number.isFinite(limits.maxProjects) ? limits.maxProjects : null}
         ai={ai}
         canDescribe={ready && !quotaProblem}

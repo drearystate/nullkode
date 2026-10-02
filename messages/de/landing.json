@@ -1,0 +1,139 @@
+{
+  "cta": {
+    "body": "Hör auf, dich mit halbfertigen No-Code-Tools herumzuschlagen, die scheitern, sobald du echte Logik brauchst. {app} bietet dir die Benutzeroberfläche, das Backend und die Daten – alles visuell.",
+    "heading": "Erstelle endlich das, was du <accent>immer aufgeschoben hast.</accent>",
+    "openDashboard": "Dashboard öffnen",
+    "startFree": "Kostenlos loslegen"
+  },
+  "faq": {
+    "bubble": {
+      "a": "Beschreibe deine App in einem Satz, und {app} erstellt für dich die Seiten, Datenbanktabellen und Backend-Abläufe. Danach kannst du alles visuell weiterbearbeiten. Deine Daten liegen in einer standardmäßigen Postgres-Datenbank, die du jederzeit exportieren kannst.",
+      "q": "Was unterscheidet euch von Bubble oder Adalo?"
+    },
+    "data": {
+      "a": "Wenn du die integrierte Postgres-Datenquelle nutzt, bekommt jedes Projekt einen eigenen, getrennten Bereich in der PostgreSQL-Datenbank dieser Installation. Du kannst auch deine eigene Postgres-Datenbank über einen Verbindungsstring einbinden oder ein Google Sheet verbinden. Deine Daten, deine Wahl.",
+      "q": "Wo werden meine Daten gespeichert?"
+    },
+    "domain": {
+      "a": "Ja. Füge eine Domain hinzu, bestätige sie mit einem DNS-TXT-Eintrag und {app} leitet den Datenverkehr zu deinem Projekt weiter.",
+      "q": "Kann ich meine eigene Domain verwenden?"
+    },
+    "export": {
+      "a": "Du kannst die HTML- und CSS-Dateien jeder Seite exportieren und deine Postgres-Daten jederzeit herunterladen. Flows werden als portables JSON-Diagramm gespeichert, das du mitnehmen kannst.",
+      "q": "Kann ich meine erstellten Inhalte exportieren?"
+    },
+    "eyebrow": "FAQ",
+    "heading": "Ehrliche Antworten auf deine Fragen.",
+    "noCode": {
+      "a": "Ganz ohne Code. Mit dem UI-Editor und der Flow-Engine kannst du Seiten und Backend-Logik komplett erstellen. Wenn du möchtest, kannst du HTML-Code einfügen. Du musst aber nirgendwo im Produkt Code lesen oder schreiben.",
+      "q": "Ist das wirklich ohne Code, oder muss ich irgendwann programmieren?"
+    },
+    "webflow": {
+      "a": "Das sind Seitenersteller. {app} ist ein App-Builder: Du bekommst nicht nur Seiten, sondern auch eine echte visuelle Engine für Backend-Logik, Datenquellen aus erster Hand und Flows, die tatsächlich ausgeführt werden.",
+      "q": "Was unterscheidet euch von Webflow oder Framer?"
+    }
+  },
+  "features": {
+    "ai": {
+      "body": "Beschreib, was du bauen möchtest. {app} erstellt die Seiten, das Datenbankschema und die Backend-Abläufe – den Rest passt du an.",
+      "title": "KI-Grundgerüst"
+    },
+    "domains": {
+      "body": "Nutze deine eigene Domain: Füge zwei DNS-Einträge hinzu und prüfe die Verbindung in deinem Dashboard.",
+      "bodyAutoTls": "Nutze deine eigene Domain: Füge zwei DNS-Einträge hinzu und schon ist sie online. Ein sicheres HTTPS-Zertifikat wird automatisch eingerichtet.",
+      "title": "Eigene Domains"
+    },
+    "editor": {
+      "body": "Bausteine, Ebenen, Geräteansichten, ein vollständiger Stilbereich und eigene Eigenschaften. Jedes Element lässt sich bearbeiten – keine Einheitsvorlagen.",
+      "title": "Visueller Seiteneditor"
+    },
+    "eyebrow": "Alles, was du brauchst",
+    "flows": {
+      "body": "Stelle HTTP-Endpunkte, Datenbankabfragen, Verzweigungen, Umwandlungen und API-Aufrufe als visuelles Ablaufdiagramm zusammen. Ganz ohne Code.",
+      "title": "Echte Backend-Abläufe"
+    },
+    "heading": "Eine ganze Plattform, kein Plugin.",
+    "intro": "Seiten, Backend-Logik, echte Daten, Veröffentlichung, Module, KI – alles in einem Produkt, ohne zusätzliche Tools.",
+    "modules": {
+      "body": "Anmeldung, Blog, Shop, Buchungen, Forum, Radio – jedes Modul bringt eigene Datenbanktabellen, Backend-Abläufe und Seiten mit. Mit einem Klick installieren.",
+      "title": "{count} fertige Funktionen"
+    },
+    "postgres": {
+      "body": "Jedes Projekt erhält ein eigenes, abgeschottetes Schema mit typisierten Spalten. Oder nutze Google Sheets als CRUD-Backend – ganz ohne Einrichtung.",
+      "title": "Postgres mit einem Klick"
+    },
+    "publish": {
+      "body": "Beim Veröffentlichen wird eine Version deiner Seiten, Abläufe und deines Designs gespeichert. Bearbeite sie weiter im privaten Modus, veröffentliche sie, wenn du bereit bist, und stelle jede frühere Version mit einem Klick wieder her.",
+      "title": "Mit einem Klick veröffentlichen"
+    },
+    "sheets": {
+      "body": "Nutze jede Tabelle als Datenbank. Lies, bearbeite und durchsuche Zeilen – ohne Migration, DevOps oder Einrichtung.",
+      "title": "Google-Sheets-Anbindung"
+    }
+  },
+  "footer": {
+    "copyright": "© {year} {app}",
+    "tagline": "Der visuelle App-Builder mit einem echten Backend. Veröffentliche vollständige Produkte – keine Marketingseiten."
+  },
+  "hero": {
+    "badge": "Beschreiben, Plan prüfen, starten",
+    "charsLeft": "{count, plural, one {Noch # Zeichen} other {Noch # Zeichen}}",
+    "checkPlan": "Du kannst den Plan prüfen, bevor etwas erstellt wird.",
+    "freeForever": "Dauerhaft kostenloser Tarif",
+    "headline": "Apps bauen, <accent>nicht nur Seiten.</accent>",
+    "ideaHint": "Schreib, wer die App nutzt und was die Personen damit tun.",
+    "ideaLabel": "Was soll deine App können?",
+    "ideaPlaceholder": "z. B. Kundinnen und Kunden bestellen Kuchen online, wählen einen Abholtag aus und ich sehe alle Bestellungen in einer Liste.",
+    "ideas": {
+      "bakery": {
+        "label": "Vorbestellungen für die Bäckerei",
+        "prompt": "Eine Vorbestellseite für meine Bäckerei. Kundinnen und Kunden wählen Kuchen und Brot aus, bestimmen einen Abholtag und hinterlassen ihren Namen und ihre Telefonnummer. Ich sehe alle Bestellungen auf einer Verwaltungsseite."
+      },
+      "gym": {
+        "label": "Kursplan fürs Fitnessstudio",
+        "prompt": "Ein Kursplan für mein Fitnessstudio. Mitglieder sehen die Kurse dieser Woche und buchen einen Platz. Ich kann Kurse hinzufügen und sehen, wer jeweils teilnimmt."
+      },
+      "salon": {
+        "label": "Friseurtermine",
+        "prompt": "Eine Buchungs-App für meinen Friseursalon. Kundinnen und Kunden wählen eine Dienstleistung, eine Friseurin oder einen Friseur und eine Uhrzeit aus. Ich kann alle Buchungen an einem Ort sehen und verwalten."
+      },
+      "tutoring": {
+        "label": "Anmeldungen für Nachhilfe",
+        "prompt": "Eine Anmeldeseite für meinen Nachhilfeunterricht. Eltern wählen ein Fach und einen wöchentlichen Termin aus und hinterlassen ihre Kontaktdaten. Ich sehe die Liste der Schülerinnen und Schüler und ihrer Unterrichtstermine."
+      }
+    },
+    "intro": "Gestalte die Benutzeroberfläche per Drag-and-drop. Verknüpfe echte Backend-Logik – ganz ohne Code. Nutze eine echte Datenbank oder deine Google Sheets. Veröffentliche deine App unter deiner eigenen Domain.",
+    "noCard": "Keine Kreditkarte nötig",
+    "openDashboard": "Dashboard öffnen",
+    "openYourDashboard": "Dashboard öffnen",
+    "opening": "Wird geöffnet …",
+    "ownData": "Deine Daten gehören dir",
+    "planMyApp": "App planen",
+    "seeHow": "So funktioniert’s",
+    "startFree": "Kostenlos loslegen",
+    "stats": {
+      "features": "Fertige Funktionen",
+      "icons": "Integrierte Icons",
+      "platforms": "Apps aus einem Projekt",
+      "platformsValue": "Web + Android",
+      "ways": "Möglichkeiten, loszulegen"
+    },
+    "tryOne": "Probier eins aus:"
+  },
+  "nav": {
+    "backend": "Backend-Logik",
+    "dashboard": "Dashboard",
+    "faq": "FAQ",
+    "home": "{app} Startseite",
+    "logIn": "Anmelden",
+    "pricing": "Preise",
+    "product": "Produkt",
+    "startFree": "Kostenlos starten"
+  },
+  "pricing": {
+    "heading": "Platz für deine nächste Idee.",
+    "intro": "Wähle den Plan, der zu deinem Vorhaben passt.",
+    "startBuilding": "Mit dem Erstellen loslegen",
+    "viewPlan": "Plan ansehen"
+  }
+}

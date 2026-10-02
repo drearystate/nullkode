@@ -1,0 +1,139 @@
+{
+  "cta": {
+    "body": "Ne perdez plus de temps avec des outils sans code à moitié finis qui montrent leurs limites dès qu’il faut gérer une vraie logique. {app} réunit l’interface, le serveur et les données — le tout en visuel.",
+    "heading": "Créez enfin ce que vous <accent>repoussez depuis trop longtemps.</accent>",
+    "openDashboard": "Ouvrir votre tableau de bord",
+    "startFree": "Commencer à créer — c’est gratuit"
+  },
+  "faq": {
+    "bubble": {
+      "a": "Décrivez votre application en une phrase et {app} crée vos pages, vos tables de base de données et vos workflows côté serveur — puis vous continuez à tout modifier visuellement. Vos données sont stockées dans une base Postgres standard que vous pouvez exporter à tout moment.",
+      "q": "Quelle est la différence avec Bubble ou Adalo ?"
+    },
+    "data": {
+      "a": "Avec la source de données Postgres intégrée, chaque projet dispose de son propre schéma isolé dans la base de données PostgreSQL de cette installation. Vous pouvez aussi connecter votre propre base Postgres avec une chaîne de connexion, ou une feuille Google. C’est vous qui choisissez où vont vos données.",
+      "q": "Où sont stockées mes données ?"
+    },
+    "domain": {
+      "a": "Oui. Ajoutez un domaine, validez-le avec un enregistrement TXT DNS, et {app} redirige le trafic vers votre projet.",
+      "q": "Puis-je utiliser mon propre domaine ?"
+    },
+    "export": {
+      "a": "Vous pouvez exporter le HTML et le CSS de n’importe quelle page, et télécharger vos données Postgres à tout moment. Les workflows sont enregistrés sous forme de graphes JSON que vous pouvez emporter avec vous.",
+      "q": "Puis-je exporter ce que je crée ?"
+    },
+    "eyebrow": "FAQ",
+    "heading": "Vos questions, en toute transparence.",
+    "noCode": {
+      "a": "Vraiment sans code. L’éditeur d’interface et le moteur de workflows couvrent tout, des pages à la logique serveur. Vous pouvez intégrer des extraits HTML si vous le souhaitez, mais rien dans le produit ne vous oblige à lire ou à écrire du code.",
+      "q": "Est-ce vraiment sans code, ou devrai-je finir par écrire du code ?"
+    },
+    "webflow": {
+      "a": "Ce sont des outils de création de pages. {app} sert à créer des applications : en plus des pages, vous disposez d’un véritable moteur visuel pour la logique serveur, de sources de données intégrées et de workflows qui s’exécutent vraiment.",
+      "q": "Quelle est la différence avec Webflow ou Framer ?"
+    }
+  },
+  "features": {
+    "ai": {
+      "body": "Décrivez ce que vous voulez créer. {app} génère les pages, le schéma de la base de données et les processus backend — à vous ensuite de les peaufiner.",
+      "title": "Création assistée par l’IA"
+    },
+    "domains": {
+      "body": "Utilisez votre propre domaine : ajoutez deux enregistrements DNS, puis vérifiez la connexion depuis votre tableau de bord.",
+      "bodyAutoTls": "Utilisez votre propre domaine : ajoutez deux enregistrements DNS et votre site est en ligne, avec un certificat HTTPS sécurisé configuré automatiquement.",
+      "title": "Domaines personnalisés"
+    },
+    "editor": {
+      "body": "Blocs, calques, aperçu sur différents appareils, panneau de styles complet et propriétés personnalisées. Chaque élément est modifiable — pas de modèles tout faits.",
+      "title": "Éditeur de pages visuel"
+    },
+    "eyebrow": "Tout ce qu’il vous faut",
+    "flows": {
+      "body": "Créez des points de terminaison HTTP, des requêtes à la base de données, des branches, des transformations et des appels API sous forme de diagramme visuel. Sans code.",
+      "title": "Vrais processus backend"
+    },
+    "heading": "Une plateforme complète, pas un simple plugin.",
+    "intro": "Pages, logique backend, vraies données, publication, modules, IA — un seul produit, sans rien à raccorder.",
+    "modules": {
+      "body": "Connexion, blog, boutique, réservations, forum, radio — chaque module comprend de vraies tables de base de données, des processus backend et des pages. Installation en un clic.",
+      "title": "{count} fonctionnalités prêtes à l’emploi"
+    },
+    "postgres": {
+      "body": "Chaque projet dispose de son propre schéma isolé avec des colonnes typées. Ou connectez Google Sheets comme backend CRUD — sans configuration.",
+      "title": "Postgres en un clic"
+    },
+    "publish": {
+      "body": "La publication fige une version de vos pages, processus et thème. Continuez à modifier votre projet en privé, publiez quand vous êtes prêt et restaurez n’importe quelle version précédente en un clic.",
+      "title": "Publication en un clic"
+    },
+    "sheets": {
+      "body": "Utilisez n’importe quel tableur comme base de données. Lisez, modifiez et recherchez des lignes — sans migration, sans DevOps, sans configuration.",
+      "title": "Connexion à Google Sheets"
+    }
+  },
+  "footer": {
+    "copyright": "© {year} {app}",
+    "tagline": "L’outil visuel pour créer des applications avec un vrai serveur. Lancez des produits complets, pas seulement des pages marketing."
+  },
+  "hero": {
+    "badge": "Décrivez votre idée, vérifiez le plan, lancez-la",
+    "charsLeft": "{count, plural, one {# caractère restant} other {# caractères restants}}",
+    "checkPlan": "Vous pourrez vérifier le plan avant la création.",
+    "freeForever": "Offre gratuite à vie",
+    "headline": "Créez des apps, <accent>pas seulement des pages.</accent>",
+    "ideaHint": "Indiquez qui l’utilise et ce que ces personnes font.",
+    "ideaLabel": "Que doit faire votre app ?",
+    "ideaPlaceholder": "Ex. : Les clients commandent des gâteaux en ligne, choisissent un jour de retrait et je vois toutes les commandes dans une seule liste.",
+    "ideas": {
+      "bakery": {
+        "label": "Précommandes de boulangerie",
+        "prompt": "Une page de précommande pour ma boulangerie. Les clients choisissent des gâteaux et du pain, sélectionnent un jour de retrait et indiquent leur nom et leur numéro de téléphone. Je vois toutes les commandes sur une page d’administration."
+      },
+      "gym": {
+        "label": "Planning de salle de sport",
+        "prompt": "Un planning de cours pour ma salle de sport. Les membres voient les cours de la semaine et réservent une place. Je peux ajouter des cours et voir qui y participe."
+      },
+      "salon": {
+        "label": "Réservations de salon",
+        "prompt": "Une app de réservation pour mon salon de coiffure. Les clients choisissent une prestation, un coiffeur et un créneau, et je peux voir et gérer toutes les réservations au même endroit."
+      },
+      "tutoring": {
+        "label": "Inscriptions au soutien scolaire",
+        "prompt": "Une page d’inscription pour mes cours de soutien scolaire. Les parents choisissent une matière et un créneau hebdomadaire, puis indiquent leurs coordonnées. Je vois la liste des élèves et de leurs cours."
+      }
+    },
+    "intro": "Créez votre interface par glisser-déposer. Assemblez visuellement une vraie logique backend. Utilisez une vraie base de données ou vos Google Sheets. Publiez sur votre propre domaine. Sans code.",
+    "noCard": "Aucune carte bancaire requise",
+    "openDashboard": "Ouvrir le tableau de bord",
+    "openYourDashboard": "Ouvrir votre tableau de bord",
+    "opening": "Ouverture…",
+    "ownData": "Vos données vous appartiennent",
+    "planMyApp": "Planifier mon app",
+    "seeHow": "Voir comment ça marche",
+    "startFree": "Commencer à créer — c’est gratuit",
+    "stats": {
+      "features": "Fonctionnalités prêtes à l’emploi",
+      "icons": "Icônes intégrées",
+      "platforms": "Apps à partir d’un seul projet",
+      "platformsValue": "Web + Android",
+      "ways": "Façons de commencer à créer"
+    },
+    "tryOne": "Essayez une idée :"
+  },
+  "nav": {
+    "backend": "Logique du backend",
+    "dashboard": "Tableau de bord",
+    "faq": "FAQ",
+    "home": "Accueil de {app}",
+    "logIn": "Se connecter",
+    "pricing": "Tarifs",
+    "product": "Produit",
+    "startFree": "Commencer gratuitement"
+  },
+  "pricing": {
+    "heading": "De la place pour votre prochaine idée.",
+    "intro": "Choisissez le forfait qui correspond à votre projet.",
+    "startBuilding": "Commencer à créer",
+    "viewPlan": "Voir le forfait"
+  }
+}

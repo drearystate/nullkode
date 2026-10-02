@@ -43,103 +43,101 @@ export function friendlyTable(name: unknown): string {
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
-/** Plain headings for the step groups in the "Add step" list. */
+/** Message keys (flows.categories.*) for the step groups in the "Add step" list. */
 export const CATEGORY_LABELS: Record<CatalogEntry["category"], string> = {
-  Trigger: "Start",
-  Data: "Saved data",
-  Logic: "Decisions and values",
-  Integration: "Send and connect",
-  AI: "AI",
-  Auth: "Accounts",
-  Response: "Finish",
+  Trigger: "trigger",
+  Data: "data",
+  Logic: "logic",
+  Integration: "integration",
+  AI: "ai",
+  Auth: "auth",
+  Response: "response",
 };
+
+/** A translator for the "flows" messages (useTranslations("flows")). */
+export type FlowsT = (key: string, values?: Record<string, string | number>) => string;
 
 export type CatalogEntry = {
   type: string;
+  /**
+   * The step's English name, saved as a new step's name. Shown in the
+   * studio's language via flows.catalog.<type>.label (with .help as its
+   * hover tip); see stepLabel().
+   */
   label: string;
-  /** Plain-words hover tip for the "Add step" list. */
-  help: string;
   icon: LucideIcon;
   iconColor: string;
   category: "Trigger" | "Data" | "Logic" | "Integration" | "AI" | "Auth" | "Response";
   defaults: Record<string, unknown>;
-  summary: (data: Record<string, unknown>) => string;
+  summary: (data: Record<string, unknown>, t: FlowsT) => string;
 };
 
 export const NODE_CATALOG: CatalogEntry[] = [
   {
     type: "trigger",
-    help: "Where the automation starts: when a page or form in your app uses it, or on its schedule if you set one. Connect it to the first step you want to happen.",
     label: "When the app calls this",
     icon: Zap,
     iconColor: "text-amber-400",
     category: "Trigger",
     defaults: { label: "When the app calls this" },
-    summary: () => "Starts here",
+    summary: (_d, t) => t("summary.startsHere"),
   },
   {
     type: "query",
-    help: "Finds saved records in one of your tables (a table is like a spreadsheet), optionally only the ones that match your conditions. Later steps can use what it finds.",
     label: "Find records",
     icon: Search,
     iconColor: "text-sky-400",
     category: "Data",
     defaults: { label: "Find records", limit: 100 },
-    summary: (d) => (d.table ? `From ${friendlyTable(d.table)}` : "No table selected"),
+    summary: (d, t) => (d.table ? t("summary.from", { table: friendlyTable(d.table) }) : t("summary.noTable")),
   },
   {
     type: "insert",
-    help: "Saves a new record (a new row) in one of your tables, like the details someone typed into a form.",
     label: "Add a record",
     icon: Plus,
     iconColor: "text-emerald-400",
     category: "Data",
     defaults: { label: "Add a record" },
-    summary: (d) => (d.table ? `Into ${friendlyTable(d.table)}` : "No table selected"),
+    summary: (d, t) => (d.table ? t("summary.into", { table: friendlyTable(d.table) }) : t("summary.noTable")),
   },
   {
     type: "update",
-    help: "Changes records already saved in a table. You choose which records to change and what their new values are.",
     label: "Change records",
     icon: Pencil,
     iconColor: "text-amber-300",
     category: "Data",
     defaults: { label: "Change records" },
-    summary: (d) => (d.table ? `In ${friendlyTable(d.table)}` : "No table selected"),
+    summary: (d, t) => (d.table ? t("summary.in", { table: friendlyTable(d.table) }) : t("summary.noTable")),
   },
   {
     type: "delete",
-    help: "Permanently removes the records in a table that match your conditions. This can't be undone.",
     label: "Delete records",
     icon: Trash2,
     iconColor: "text-red-400",
     category: "Data",
     defaults: { label: "Delete records" },
-    summary: (d) => (d.table ? `From ${friendlyTable(d.table)}` : "No table selected"),
+    summary: (d, t) => (d.table ? t("summary.from", { table: friendlyTable(d.table) }) : t("summary.noTable")),
   },
   {
     type: "sheets_read",
-    help: "Reads the rows of a Google Sheet you've connected (up to 1,000), so later steps can use them.",
     label: "Read a Google Sheet",
     icon: FileSpreadsheet,
     iconColor: "text-green-400",
     category: "Data",
     defaults: { label: "Read a Google Sheet" },
-    summary: (d) => (d.sheet ? `Sheet ${d.sheet}` : "No sheet"),
+    summary: (d, t) => (d.sheet ? t("summary.sheet", { sheet: String(d.sheet) }) : t("summary.noSheet")),
   },
   {
     type: "sheets_append",
-    help: "Adds a new row to a Google Sheet you've connected, like a log of every form sent. It only works with sheets your app is allowed to edit, not read-only ones.",
     label: "Add a row to a Google Sheet",
     icon: FileSpreadsheet,
     iconColor: "text-green-300",
     category: "Data",
     defaults: { label: "Add a row to a Google Sheet" },
-    summary: (d) => (d.sheet ? `Sheet ${d.sheet}` : "No sheet"),
+    summary: (d, t) => (d.sheet ? t("summary.sheet", { sheet: String(d.sheet) }) : t("summary.noSheet")),
   },
   {
     type: "branch",
-    help: "Checks something and splits the automation in two: one path runs when it's true, the other when it isn't.",
     label: "If this, otherwise that",
     icon: GitBranch,
     iconColor: "text-fuchsia-400",
@@ -149,27 +147,24 @@ export const NODE_CATALOG: CatalogEntry[] = [
   },
   {
     type: "set",
-    help: "Saves a value under a name you choose so later steps can reuse it, like a sticky note for this run.",
     label: "Remember a value",
     icon: Variable,
     iconColor: "text-brand-300",
     category: "Logic",
     defaults: { label: "Remember a value" },
-    summary: (d) => (d.name ? `${d.name} = ${String(d.value ?? "")}` : "Unnamed"),
+    summary: (d, t) => (d.name ? `${d.name} = ${String(d.value ?? "")}` : t("summary.unnamed")),
   },
   {
     type: "parse_json",
-    help: "Turns text that holds structured data (often sent by other websites) into separate values that later steps can pick from.",
     label: "Read data from text",
     icon: Braces,
     iconColor: "text-indigo-300",
     category: "Logic",
     defaults: { label: "Read data from text" },
-    summary: (d) => (d.output ? `→ ${d.output}` : "Turn text into data"),
+    summary: (d, t) => (d.output ? `→ ${d.output}` : t("summary.parseJson")),
   },
   {
     type: "math",
-    help: "Works out a number from two values: add, subtract, multiply, divide or remainder. Later steps can use the answer.",
     label: "Do a sum",
     icon: Calculator,
     iconColor: "text-cyan-300",
@@ -179,17 +174,15 @@ export const NODE_CATALOG: CatalogEntry[] = [
   },
   {
     type: "delay",
-    help: "Pauses the automation for a few seconds (up to 60) before the next step runs.",
     label: "Wait",
     icon: Clock,
     iconColor: "text-slate-300",
     category: "Logic",
     defaults: { label: "Wait", seconds: 2 },
-    summary: (d) => `${d.seconds ?? 0}s`,
+    summary: (d, t) => t("summary.seconds", { seconds: Number(d.seconds ?? 0) }),
   },
   {
     type: "custom_js",
-    help: "For developers: runs a short piece of JavaScript code you write. Use it only when no other step does what you need.",
     label: "Custom code",
     icon: Code2,
     iconColor: "text-lime-300",
@@ -199,11 +192,10 @@ export const NODE_CATALOG: CatalogEntry[] = [
       code: "// Write JavaScript here. You have access to:\n//   vars    — object of all flow variables (read/write)\n//   trigger — the incoming payload (read-only)\n// Whatever you `return` is stored in the output variable below.\nreturn { hello: 'world' };",
       output: "result",
     },
-    summary: (d) => (d.output ? `→ ${d.output}` : "Run your own code"),
+    summary: (d, t) => (d.output ? `→ ${d.output}` : t("summary.customJs")),
   },
   {
     type: "http_request",
-    help: "Contacts another website or online service, to fetch information or pass some along. Later steps can use its answer.",
     label: "Call another website",
     icon: Globe,
     iconColor: "text-blue-400",
@@ -213,68 +205,61 @@ export const NODE_CATALOG: CatalogEntry[] = [
   },
   {
     type: "email",
-    help: "Sends an email, like an order confirmation to a customer or a heads-up to yourself.",
     label: "Send an email",
     icon: Mail,
     iconColor: "text-pink-400",
     category: "Integration",
     defaults: { label: "Send an email" },
-    summary: (d) => (d.to ? `To ${d.to}` : "No recipient"),
+    summary: (d, t) => (d.to ? t("summary.to", { to: String(d.to) }) : t("summary.noRecipient")),
   },
   {
     type: "send_push",
-    help: "Sends a notification to everyone who turned on notifications for your app, on their phone or computer.",
     label: "Send a notification",
     icon: Bell,
     iconColor: "text-amber-300",
     category: "Integration",
     defaults: { label: "Send notification", title: "", body: "", url: "" },
-    summary: (d) => (d.title ? `“${String(d.title).slice(0, 40)}”` : "To everyone subscribed"),
+    summary: (d, t) => (d.title ? t("summary.pushTitle", { title: String(d.title).slice(0, 40) }) : t("summary.pushEveryone")),
   },
   {
     type: "ai_prompt",
-    help: "Gives the AI a question or task, like summarizing a message. Later steps can use its answer. Each run counts toward your AI allowance.",
     label: "Ask AI",
     icon: Sparkles,
     iconColor: "text-brand-300",
     category: "AI",
     defaults: { label: "Ask AI" },
-    summary: (d) => (d.output ? `→ ${d.output}` : "Ask AI a question"),
+    summary: (d, t) => (d.output ? `→ ${d.output}` : t("summary.askAi")),
   },
   {
     type: "hash_password",
-    help: "Scrambles a password so it can be saved safely. Use it before saving a new account's password; the original can't be read back.",
     label: "Protect a password",
     icon: Lock,
     iconColor: "text-rose-400",
     category: "Auth",
     defaults: { label: "Protect a password", output: "hash" },
-    summary: (d) => (d.input ? `${d.input} → ${d.output ?? "hash"}` : "Protect a password before saving it"),
+    summary: (d, t) => (d.input ? `${d.input} → ${d.output ?? "hash"}` : t("summary.protectPassword")),
   },
   {
     type: "verify_password",
-    help: "Checks whether the password someone typed matches the scrambled one you saved. Use it when people sign in.",
     label: "Check a password",
     icon: ShieldCheck,
     iconColor: "text-emerald-400",
     category: "Auth",
     defaults: { label: "Check a password", output: "verified" },
-    summary: (d) =>
-      d.plain ? `${d.plain} vs ${d.hash ?? "?"} → ${d.output ?? "verified"}` : "Check a password",
+    summary: (d, t) =>
+      d.plain ? t("summary.verifyVs", { plain: String(d.plain), hash: String(d.hash ?? "?"), output: String(d.output ?? "verified") }) : t("summary.checkPassword"),
   },
   {
     type: "set_session",
-    help: "Signs the person in on this device, so your app remembers who they are on their next visits.",
     label: "Sign the person in",
     icon: LogIn,
     iconColor: "text-sky-300",
     category: "Auth",
     defaults: { label: "Sign the person in" },
-    summary: (d) => (d.userId ? `Sign in ${d.userId}` : "Sign user in"),
+    summary: (d, t) => (d.userId ? t("summary.signIn", { user: String(d.userId) }) : t("summary.signUserIn")),
   },
   {
     type: "get_session",
-    help: "Finds out who is signed in right now, if anyone, with their name, email and role, so later steps can use them.",
     label: "Who is signed in",
     icon: KeyRound,
     iconColor: "text-amber-300",
@@ -284,86 +269,89 @@ export const NODE_CATALOG: CatalogEntry[] = [
   },
   {
     type: "clear_session",
-    help: "Signs the person out on this device.",
     label: "Sign the person out",
     icon: LogOut,
     iconColor: "text-slate-400",
     category: "Auth",
     defaults: { label: "Sign the person out" },
-    summary: () => "Sign user out",
+    summary: (_d, t) => t("summary.signUserOut"),
   },
   {
     type: "lookup",
-    help: "For each record an earlier step found, fetches the matching record from another table, like adding each order's customer details.",
     label: "Look up a related record",
     icon: Link2,
     iconColor: "text-violet-400",
     category: "Data",
     defaults: { label: "Look up a related record", lookupField: "id", as: "related" },
-    summary: (d) => d.lookupTable ? `From ${friendlyTable(d.lookupTable)}` : "Add details from another list",
+    summary: (d, t) => d.lookupTable ? t("summary.from", { table: friendlyTable(d.lookupTable) }) : t("summary.lookupFallback"),
   },
   {
     type: "aggregate",
-    help: "Counts records or adds up a column in a table, like the number of sign-ups or total sales. Later steps can use the result.",
     label: "Count or add up records",
     icon: BarChart3,
     iconColor: "text-orange-400",
     category: "Data",
     defaults: { label: "Count or add up records", aggregate: "COUNT(*)", limit: 100 },
-    summary: (d) => d.table ? `From ${friendlyTable(d.table)}` : "Count or add up records",
+    summary: (d, t) => d.table ? t("summary.from", { table: friendlyTable(d.table) }) : t("summary.aggregateFallback"),
   },
   {
     type: "bulk_insert",
-    help: "Adds many rows to a table at once, from a list an earlier step made.",
     label: "Add many rows",
     icon: CopyPlus,
     iconColor: "text-emerald-300",
     category: "Data",
     defaults: { label: "Add many rows" },
-    summary: (d) => d.table ? `Into ${friendlyTable(d.table)}` : "Add many rows at once",
+    summary: (d, t) => d.table ? t("summary.into", { table: friendlyTable(d.table) }) : t("summary.bulkInsertFallback"),
   },
   {
     type: "bulk_update",
-    help: "Changes every row in a table that matches your conditions, in one go.",
     label: "Change many rows",
     icon: Pencil,
     iconColor: "text-amber-200",
     category: "Data",
     defaults: { label: "Change many rows" },
-    summary: (d) => d.table ? `In ${friendlyTable(d.table)}` : "Update many rows at once",
+    summary: (d, t) => d.table ? t("summary.in", { table: friendlyTable(d.table) }) : t("summary.bulkUpdateFallback"),
   },
   {
     type: "bulk_delete",
-    help: "Permanently deletes every row in a table that matches your conditions, in one go. This can't be undone.",
     label: "Delete many rows",
     icon: CopyMinus,
     iconColor: "text-red-300",
     category: "Data",
     defaults: { label: "Delete many rows" },
-    summary: (d) => d.table ? `From ${friendlyTable(d.table)}` : "Delete many rows at once",
+    summary: (d, t) => d.table ? t("summary.from", { table: friendlyTable(d.table) }) : t("summary.bulkDeleteFallback"),
   },
   {
     type: "check_role",
-    help: "Checks whether the signed-in person has a certain role, like admin. Follow it with an “If this, otherwise that” step to decide what happens.",
     label: "Check what the person may do",
     icon: Shield,
     iconColor: "text-amber-400",
     category: "Auth",
     defaults: { label: "Check what the person may do", output: "roleOk" },
-    summary: (d) => d.role ? `Needs: ${d.role}` : "Check what the person may do",
+    summary: (d, t) => d.role ? t("summary.needsRole", { role: String(d.role) }) : t("summary.checkRoleFallback"),
   },
   {
     type: "response",
-    help: "Sends an answer back to the page or form that started the automation, like a success message or the records found.",
     label: "Reply",
     icon: Reply,
     iconColor: "text-teal-400",
     category: "Response",
     defaults: { label: "Reply", status: 200, body: "{}", bodyFields: {} },
-    summary: (d) => {
+    summary: (d, t) => {
       const fields = (d.bodyFields as Record<string, unknown> | undefined) ?? {};
       const count = Object.keys(fields).length;
-      return count === 0 ? "Sends a reply" : `Replies with ${count} value${count === 1 ? "" : "s"}`;
+      return count === 0 ? t("summary.reply") : t("summary.repliesWith", { count });
     },
   },
 ];
+
+/**
+ * A step's name in the studio's language: a name the owner chose stays as
+ * they wrote it; a default name (saved in English) shows translated.
+ */
+export function stepLabel(type: string, label: unknown, t: FlowsT): string {
+  const entry = NODE_CATALOG.find((c) => c.type === type);
+  const name = typeof label === "string" ? label : "";
+  if (entry && (!name || name === entry.label || name === entry.defaults.label)) return t(`catalog.${entry.type}.label`);
+  return name || type;
+}

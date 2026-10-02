@@ -2,19 +2,20 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { ArrowRight, Blocks, ChevronDown, Settings2, ShieldCheck, Table2 } from "lucide-react";
 import { AdvancedPanel, type DS } from "./advanced-panel";
 import { PrivacyDesk, type PrivacyCounts } from "./privacy-desk";
 import { TableView } from "./table-view";
 import type { TableSummary } from "./format";
 
-function rowsText(t: TableSummary) {
-  if (t.missing) return "Not set up yet";
-  if (t.sourceKind === "GOOGLE_SHEETS") return "In Google Sheets";
-  if (t.sourceKind === "POSTGRES_EXTERNAL") return "In your own database";
-  if (t.rows === null) return "";
-  if (t.rows === 0) return "Empty";
-  return `${t.rows.toLocaleString()} ${t.rows === 1 ? "row" : "rows"}`;
+function rowsText(table: TableSummary, t: ReturnType<typeof useTranslations<"data">>) {
+  if (table.missing) return t("panel.notSetUp");
+  if (table.sourceKind === "GOOGLE_SHEETS") return t("panel.inSheets");
+  if (table.sourceKind === "POSTGRES_EXTERNAL") return t("panel.inOwnDb");
+  if (table.rows === null) return "";
+  if (table.rows === 0) return t("panel.empty");
+  return t("panel.rows", { count: table.rows });
 }
 
 /**
@@ -35,6 +36,7 @@ export function DataPanel({
   deleteAccountUrl?: string | null;
 }) {
   const params = useSearchParams();
+  const t = useTranslations("data");
   const openId = params.get("table");
   const [tables, setTables] = useState(initialTables);
   useEffect(() => {
@@ -84,33 +86,33 @@ export function DataPanel({
     <div className="mt-8 space-y-10">
       {openId && (
         <p role="alert" className="text-sm text-red-300">
-          We couldn&apos;t find that table. It may have been removed.
+          {t("panel.tableMissing")}
         </p>
       )}
       {tables.length === 0 ? (
         <div className="studio-empty">
           <Table2 size={30} className="text-brand-300" aria-hidden />
-          <h2 className="mt-4 font-semibold">Your app isn&apos;t saving anything yet.</h2>
+          <h2 className="mt-4 font-semibold">{t("panel.emptyTitle")}</h2>
           <p className="mt-2 max-w-md text-sm text-surface-400">
-            Add a feature like a contact form or bookings. When people use it, what they send shows up here.
+            {t("panel.emptyBody")}
           </p>
-          <Link href={`/projects/${projectId}/modules`} className="btn-ghost mt-5" data-help="Browse ready-made features, like a contact form or bookings. Each one sets up the tables it needs.">
-            <Blocks size={15} aria-hidden /> Add a feature
+          <Link href={`/projects/${projectId}/modules`} className="btn-ghost mt-5" data-help={t("panel.addFeatureHelp")}>
+            <Blocks size={15} aria-hidden /> {t("panel.addFeature")}
           </Link>
         </div>
       ) : (
-        <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3" aria-label="Your tables">
-          {tables.map((t) => (
-            <li key={t.id}>
-              <button onClick={() => go(t.id)} className="card group flex w-full items-center gap-4 p-5 text-left transition hover:border-brand-500" data-help="Open this table to see what’s saved in it. A table is like a spreadsheet: one row per record, such as each form someone sent.">
+        <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3" aria-label={t("panel.tablesLabel")}>
+          {tables.map((tb) => (
+            <li key={tb.id}>
+              <button onClick={() => go(tb.id)} className="card group flex w-full items-center gap-4 p-5 text-start transition hover:border-brand-500" data-help={t("panel.openTableHelp")}>
                 <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-500/10 text-brand-300">
                   <Table2 size={19} aria-hidden />
                 </span>
                 <span className="min-w-0 flex-1">
-                  <span className="block truncate font-medium">{t.label}</span>
-                  <span className="mt-0.5 block text-xs text-surface-400">{rowsText(t)}</span>
+                  <span className="block truncate font-medium">{tb.label}</span>
+                  <span className="mt-0.5 block text-xs text-surface-400">{rowsText(tb, t)}</span>
                 </span>
-                <ArrowRight size={16} className="text-surface-500 transition group-hover:text-white" aria-hidden />
+                <ArrowRight size={16} className="text-surface-500 transition group-hover:text-white rtl:-scale-x-100" aria-hidden />
               </button>
             </li>
           ))}
@@ -123,16 +125,16 @@ export function DataPanel({
         open={privacyOpen}
         onToggle={(e) => setPrivacyOpen((e.currentTarget as HTMLDetailsElement).open)}
       >
-        <summary className="flex cursor-pointer list-none flex-wrap items-center gap-2 font-medium [&::-webkit-details-marker]:hidden" data-help="Answer people who want a copy of what your app keeps about them, or want it deleted. You have 30 days to answer each request.">
+        <summary className="flex cursor-pointer list-none flex-wrap items-center gap-2 font-medium [&::-webkit-details-marker]:hidden" data-help={t("panel.privacyHelp")}>
           <ShieldCheck size={16} className="text-surface-400" aria-hidden />
-          Privacy requests
-          <span className="text-sm font-normal text-surface-500">Find, download or erase what your app keeps about one person</span>
+          {t("panel.privacyTitle")}
+          <span className="text-sm font-normal text-surface-500">{t("panel.privacySubtitle")}</span>
           {privacy && privacy.waiting + privacy.open > 0 && (
             <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${privacy.waiting || privacy.overdue ? "bg-amber-400/15 text-amber-200" : "bg-white/10 text-surface-300"}`}>
-              {[privacy.waiting ? `${privacy.waiting} waiting for you` : "", privacy.open ? `${privacy.open} open` : ""].filter(Boolean).join(" · ")}
+              {[privacy.waiting ? t("panel.privacyWaiting", { count: privacy.waiting }) : "", privacy.open ? t("panel.privacyOpen", { count: privacy.open }) : ""].filter(Boolean).join(" · ")}
             </span>
           )}
-          <ChevronDown size={16} className="ml-auto text-surface-500 transition group-open/privacy:rotate-180" aria-hidden />
+          <ChevronDown size={16} className="ms-auto text-surface-500 transition group-open/privacy:rotate-180" aria-hidden />
         </summary>
         <div className="mt-6 border-t border-white/[0.06] pt-6">
           <PrivacyDesk projectId={projectId} deleteAccountUrl={deleteAccountUrl} onCounts={setPrivacy} />
@@ -140,11 +142,11 @@ export function DataPanel({
       </details>
 
       <details className="card group/adv p-5">
-        <summary className="flex cursor-pointer list-none items-center gap-2 font-medium [&::-webkit-details-marker]:hidden" data-help="Technical setup: where your app’s data is kept, and making tables by hand. Most apps never need this.">
+        <summary className="flex cursor-pointer list-none items-center gap-2 font-medium [&::-webkit-details-marker]:hidden" data-help={t("panel.advancedHelp")}>
           <Settings2 size={16} className="text-surface-400" aria-hidden />
-          Advanced
-          <span className="text-sm font-normal text-surface-500">Where your data is stored, and making new tables</span>
-          <ChevronDown size={16} className="ml-auto text-surface-500 transition group-open/adv:rotate-180" aria-hidden />
+          {t("panel.advancedTitle")}
+          <span className="text-sm font-normal text-surface-500">{t("panel.advancedSubtitle")}</span>
+          <ChevronDown size={16} className="ms-auto text-surface-500 transition group-open/adv:rotate-180" aria-hidden />
         </summary>
         <div className="mt-6 border-t border-white/[0.06] pt-6">
           <AdvancedPanel projectId={projectId} datasources={datasources} />

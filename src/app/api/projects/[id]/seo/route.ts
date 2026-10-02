@@ -2,6 +2,8 @@ import { z } from "zod";
 import { ownedProject } from "@/lib/guard";
 import { json } from "@/lib/utils";
 import { getSeoSettings, parseSearchConsoleToken, primaryUrl, saveSeoSettings, sitemapUrl } from "@/lib/seo";
+import { getTranslations } from "next-intl/server";
+import { requestLocale } from "@/i18n/request";
 
 /**
  * An app's search settings: "Hide from search engines" and the Google Search
@@ -31,14 +33,15 @@ export async function PATCH(req: Request, ctx: { params: Promise<{ id: string }>
   const { id } = await ctx.params;
   const r = await ownedProject(id);
   if ("error" in r) return r.error;
+  const t = await getTranslations({ locale: await requestLocale(), namespace: "project.seoApi" });
   const parsed = Body.safeParse(await req.json().catch(() => null));
-  if (!parsed.success) return json({ error: "Invalid input" }, { status: 400 });
+  if (!parsed.success) return json({ error: t("invalidInput") }, { status: 400 });
   const patch: { noindex?: boolean; searchConsoleToken?: string | null } = {};
   if (parsed.data.noindex !== undefined) patch.noindex = parsed.data.noindex;
   if (parsed.data.searchConsoleToken !== undefined) {
     const token = parseSearchConsoleToken(parsed.data.searchConsoleToken);
     if (token === "invalid") {
-      return json({ error: "That doesn't look like a Google verification code. Paste the code from the HTML tag option, or the whole tag." }, { status: 400 });
+      return json({ error: t("invalidCode") }, { status: 400 });
     }
     patch.searchConsoleToken = token;
   }

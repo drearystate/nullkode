@@ -3,6 +3,7 @@ import { getCurrentUser } from "@/lib/auth";
 import { cloneSite } from "@/lib/clone-site";
 import { slugify, projectSlug } from "@/lib/utils";
 import { checkProjectLimit } from "@/lib/guard";
+import { renderMsg, requestErrorsT } from "@/lib/errors-i18n";
 
 export const runtime = "nodejs";
 export const maxDuration = 800;
@@ -34,6 +35,8 @@ export async function POST(req: Request) {
   }
 
   const hostname = new URL(url).hostname.replace(/^www\./, "");
+  // Captured while the request is alive: the crawl keeps going in the stream.
+  const t = await requestErrorsT(user);
   const baseSlug = slugify(hostname) || "clone";
   const newSlug = projectSlug(baseSlug);
 
@@ -52,11 +55,11 @@ export async function POST(req: Request) {
       }, 10000);
 
       try {
-        send({ type: "progress", message: `Connecting to ${hostname}...` });
+        send({ type: "progress", message: t("clone.connecting", { host: hostname }) });
 
         // Pass a progress callback through to the clone function
-        const cloned = await cloneSite(url, newSlug, 30, (msg, count) => {
-          send({ type: "progress", message: msg, pageCount: count });
+        const cloned = await cloneSite(url, newSlug, 30, (msg, count, words) => {
+          send({ type: "progress", message: words ? renderMsg(words, t) : msg, pageCount: count });
         });
 
         if (cloned.pages.length === 0) {
@@ -65,7 +68,7 @@ export async function POST(req: Request) {
 
         send({
           type: "progress",
-          message: `Saving ${cloned.pages.length} pages...`,
+          message: t("clone.saving", { count: cloned.pages.length }),
           pageCount: cloned.pages.length,
         });
 
@@ -113,7 +116,7 @@ export async function POST(req: Request) {
       } catch (err) {
         send({
           type: "error",
-          message: err instanceof Error ? err.message : "Clone failed",
+          message: err instanceof Error ? err.message : t("clone.failed"),
         });
       } finally {
         clearInterval(heartbeat);

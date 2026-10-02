@@ -1,4 +1,6 @@
 import { z } from "zod";
+import { getTranslations } from "next-intl/server";
+import { requestLocale } from "@/i18n/request";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
 import { eraseProject } from "@/lib/erase";
@@ -11,12 +13,16 @@ const PatchBody = z.object({
   icon: z.string().url().or(z.string().startsWith("/")).nullable().optional(),
 });
 
+function texts() {
+  return requestLocale().then((locale) => getTranslations({ locale, namespace: "project.projectApi" }));
+}
+
 async function requireOwned(id: string) {
   const user = await getCurrentUser();
-  if (!user) return { error: json({ error: "Unauthorized" }, { status: 401 }) };
+  if (!user) return { error: json({ error: (await texts())("unauthorized") }, { status: 401 }) };
   const project = await db.project.findUnique({ where: { id } });
   if (!project || project.ownerId !== user.id) {
-    return { error: json({ error: "Not found" }, { status: 404 }) };
+    return { error: json({ error: (await texts())("notFound") }, { status: 404 }) };
   }
   return { user, project };
 }
@@ -35,7 +41,7 @@ export async function PATCH(req: Request, ctx: { params: Promise<{ id: string }>
   const r = await requireOwned(id);
   if ("error" in r) return r.error;
   const parsed = PatchBody.safeParse(await req.json().catch(() => null));
-  if (!parsed.success) return json({ error: "Invalid input" }, { status: 400 });
+  if (!parsed.success) return json({ error: (await texts())("invalidInput") }, { status: 400 });
   const updated = await db.project.update({
     where: { id },
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -57,11 +63,12 @@ export async function DELETE(req: Request, ctx: { params: Promise<{ id: string }
   const r = await requireOwned(id);
   if ("error" in r) return r.error;
   const body = DeleteBody.safeParse(await req.json().catch(() => ({})));
+  const t = await texts();
   const key = await db.androidSigningKey.findUnique({ where: { projectId: id }, select: { id: true } });
   if (key && !(body.success && body.data.keyBackedUp)) {
     return json(
       {
-        error: "This app has a Google Play upload key. Download it before you delete the app: without it you can never update the app on Google Play again.",
+        error: t("uploadKey"),
         code: "upload-key",
         keyDownloadUrl: `/api/projects/${id}/native/keystore/download`,
       },
@@ -72,7 +79,7 @@ export async function DELETE(req: Request, ctx: { params: Promise<{ id: string }
     await eraseProject(id, r.project.slug);
   } catch (err) {
     console.error(`[erase] deleting app ${id} failed`, err);
-    return json({ error: "The app couldn't be deleted. Please try again." }, { status: 500 });
+    return json({ error: t("deleteFailed") }, { status: 500 });
   }
   return json({ ok: true });
 }

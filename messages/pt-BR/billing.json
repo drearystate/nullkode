@@ -1,0 +1,32 @@
+{
+  "aiUsage": "Ações de IA neste mês: <b>{used} de {limit}</b>",
+  "aiUsageLabel": "Ações de IA usadas",
+  "planNames": {
+    "FREE": "Grátis",
+    "PRO": "Pro",
+    "STARTER": "Starter",
+    "TEAM": "Team"
+  },
+  "plans": {
+    "checkoutFailed": "Não foi possível iniciar o pagamento",
+    "comingSoon": "Em breve",
+    "current": "Atual",
+    "free": "Grátis",
+    "manage": "Gerenciar cobrança",
+    "manageHelp": "Abre a página segura de cobrança do Stripe, onde você pode atualizar seu cartão, ver faturas anteriores e, quando disponível, trocar ou cancelar seu plano.",
+    "notBuyable": "Este plano ainda não pode ser comprado online.",
+    "portalFailed": "Não foi possível abrir o portal",
+    "upgrade": "Fazer upgrade",
+    "upgradeHelp": "Abre uma página segura de pagamento do Stripe para assinar este plano, com cobrança mensal. Já tem um plano pago? Use Gerenciar cobrança para trocar de plano."
+  },
+  "profileNote": "Sua foto, nome, senha, aparência, dicas de ajuda e exclusão da conta ficam no seu <link>Perfil</link>.",
+  "status": {
+    "ACTIVE": "Pago e ativo",
+    "CANCELED": "Cancelado",
+    "PAST_DUE": "Pagamento em atraso",
+    "TRIALING": "Período de teste grátis",
+    "UNPAID": "Não pago"
+  },
+  "title": "Cobrança",
+  "yourPlan": "Seu plano: <b>{plan}</b>"
+}

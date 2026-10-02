@@ -1,0 +1,49 @@
+{
+  "aiQuota": {
+    "body80": "{reseller} telah menggunakan {used} dari {max} tindakan AI bulan ini. Setelah jatah habis, pembuatan dan pengeditan dengan AI akan dijeda untuk Anda dan klien Anda hingga {resets}.",
+    "bodyFull": "{reseller} telah menggunakan semua {max} tindakan AI untuk bulan ini. Pembuatan dan pengeditan dengan AI dijeda untuk Anda dan klien Anda hingga {resets}.",
+    "includes": "Jumlah ini mencakup tindakan AI Anda dan klien Anda.",
+    "raise": "Untuk menaikkan batas, hubungi pengelola platform.",
+    "subject80": "{reseller}: 80% jatah tindakan AI bulan ini sudah digunakan",
+    "subjectFull": "{reseller}: jatah tindakan AI bulan ini sudah habis"
+  },
+  "alert": {
+    "field": "{name}: {value}",
+    "footer": "Anda menerima email ini karena notifikasi untuk {table} aktif. Anda bisa menonaktifkannya di halaman ringkasan aplikasi.",
+    "intro": "Seseorang baru saja mengirim {label} baru melalui {app}.",
+    "introTest": "Ini adalah uji coba notifikasi untuk {app}. Tidak ada yang mengirimkan ini.",
+    "reply": "Balas email ini untuk langsung menjawab {email}.",
+    "see": "Lihat di data aplikasi Anda:",
+    "subject": "{label} baru",
+    "subjectHeadline": "{label} baru: {headline}",
+    "subjectHeadlineTest": "(uji coba) {label} baru: {headline}",
+    "subjectTest": "(uji coba) {label} baru"
+  },
+  "alertSummary": {
+    "body": "{app} menerima {count, plural, one {# kiriman baru lainnya} other {# kiriman baru lainnya}} dalam satu jam terakhir.",
+    "heldBack": "Kami menahan email terpisah agar kotak masuk Anda tidak penuh. Anda bisa melihat semuanya di data aplikasi:",
+    "subject": "{count, plural, one {# kiriman baru lainnya} other {# kiriman baru lainnya}} di {app}"
+  },
+  "hi": "Hai,",
+  "hiName": "Hai {name},",
+  "invite": {
+    "body": "{inviter} membuatkan akun untuk Anda di {app}, tempat Anda bisa membuat dan menerbitkan aplikasi sendiri.",
+    "bodyPlatform": "Tim platform membuatkan akun untuk Anda di {app}, tempat Anda bisa membuat dan menerbitkan aplikasi sendiri.",
+    "cta": "Buat kata sandi untuk memulai:",
+    "expires": "Tautan ini hanya bisa digunakan sekali dan kedaluwarsa dalam 7 hari.",
+    "subject": "Anda diundang ke {app}"
+  },
+  "reset": {
+    "forgotBody": "Seseorang meminta pengaturan ulang kata sandi untuk akun {app} Anda. Jika itu Anda, pilih kata sandi baru di sini:",
+    "forgotExpires": "Tautan ini hanya bisa digunakan sekali dan kedaluwarsa dalam 2 jam. Jika Anda tidak meminta ini, abaikan email ini.",
+    "issuedBody": "Berikut tautan untuk memilih kata sandi baru untuk akun {app} Anda:",
+    "issuedExpires": "Tautan ini hanya bisa digunakan sekali dan kedaluwarsa dalam 2 jam.",
+    "subject": "Atur ulang kata sandi {app} Anda"
+  },
+  "test": {
+    "body": "Ini email uji coba dari {app}. Jika Anda bisa membacanya, email berfungsi: undangan, tautan kata sandi, dan notifikasi aplikasi akan dikirim dari {from}.",
+    "hello": "Halo,",
+    "noReply": "Anda tidak perlu membalas.",
+    "subject": "Email uji coba dari {app}"
+  }
+}

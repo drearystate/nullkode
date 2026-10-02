@@ -1,0 +1,32 @@
+{
+  "aiUsage": "Actions IA ce mois-ci : <b>{used} sur {limit}</b>",
+  "aiUsageLabel": "Actions IA utilisées",
+  "planNames": {
+    "FREE": "Gratuit",
+    "PRO": "Pro",
+    "STARTER": "Starter",
+    "TEAM": "Team"
+  },
+  "plans": {
+    "checkoutFailed": "Impossible de démarrer le paiement",
+    "comingSoon": "Bientôt disponible",
+    "current": "Actuel",
+    "free": "Gratuit",
+    "manage": "Gérer la facturation",
+    "manageHelp": "Ouvre la page de facturation sécurisée de Stripe. Vous pourrez mettre à jour votre carte, consulter vos anciennes factures et, si cette option est proposée, modifier ou résilier votre forfait.",
+    "notBuyable": "Ce forfait ne peut pas encore être acheté en ligne.",
+    "portalFailed": "Impossible d’ouvrir le portail",
+    "upgrade": "Passer à un forfait supérieur",
+    "upgradeHelp": "Ouvre une page de paiement sécurisée Stripe pour activer ce forfait, facturé chaque mois. Vous avez déjà un forfait payant ? Utilisez Gérer la facturation pour en changer."
+  },
+  "profileNote": "Votre photo, votre nom, votre mot de passe, l’apparence, les conseils et la suppression de votre compte se trouvent dans votre <link>Profil</link>.",
+  "status": {
+    "ACTIVE": "Payant et actif",
+    "CANCELED": "Annulé",
+    "PAST_DUE": "Paiement en retard",
+    "TRIALING": "Essai gratuit",
+    "UNPAID": "Impayé"
+  },
+  "title": "Facturation",
+  "yourPlan": "Votre forfait : <b>{plan}</b>"
+}

@@ -6,7 +6,7 @@ type Ctx = { params: Promise<{ id: string; table: string }> };
 
 async function body(req: Request) {
   const b = await req.json().catch(() => null);
-  if (!b || typeof b !== "object") throw new DataError("Invalid input");
+  if (!b || typeof b !== "object") throw new DataError("invalidInput");
   return b as Record<string, unknown>;
 }
 

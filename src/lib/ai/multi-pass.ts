@@ -12,6 +12,9 @@ import { canonicalNodeType, isKnownNodeType, NODE_TYPES } from "./node-types";
 import { formatViolationsForRepair, type Violation } from "./validate-scaffold";
 import { UnusableOutputError } from "./errors";
 import type { ScaffoldResult } from "./schema";
+import { replyLanguageRule, translator, type Tr } from "./i18n";
+import { LOCALES, isLocale, type Locale } from "@/i18n/locales";
+import { contentLanguageRule, languageLabel, runtimeText } from "../app-locale";
 
 export { stripThinking } from "./text";
 
@@ -40,7 +43,7 @@ export type MultiPassEvent =
   | { type: "progress"; message: string }
   | { type: "plan"; totalTables: number; totalPages: number; totalFlows: number }
   | { type: "milestone"; kind: "table" | "page" | "flow"; label: string }
-  | { type: "result"; scaffold: ScaffoldResult; plan: AppPlan; compact: boolean };
+  | { type: "result"; scaffold: ScaffoldResult; plan: AppPlan; compact: boolean; contentLocale: Locale };
 
 /* ─────────────────────────── Phase 1: PLAN ─────────────────────────── */
 
@@ -62,10 +65,12 @@ CRITICAL OUTPUT RULES:
 - seed: for tables whose rows visitors CHOOSE FROM or BROWSE (services, products, menu items, classes, rooms, events), include 3-6 realistic example rows for this business as "seed": [{ "<field>": value, ... }] using the table's own field names. Leave "seed" out for tables visitors FILL IN (bookings, messages, orders, sign-ups).
 - Every table the owner has to keep up to date (services, products, menu items, classes…) needs an admin page (requiresRole "admin") where they can add new rows and see the list, plus the flows for it.
 - assumptions: 2-4 short, plain-English sentences about decisions you made that the user did not spell out — who can see or change what, whether visitors need an account, what gets saved. The user reads these before anything is built, so no jargon and no table, field or flow names.
+- locale: the language the app's visitors read, as one of these codes: ${LOCALES.map((l) => l.code).join(", ")}. The user message says which one to use, unless the description itself asks for the app in another language.
 
 JSON SHAPE:
 {
   "project": { "name": "string", "description": "string" },
+  "locale": "en",
   "theme": "Theme Name",
   "assumptions": ["Visitors can book a walk without making an account.", "Only you can see the full list of bookings."],
   "tables": [{ "name": "services", "fields": [{ "name": "name", "type": "text" }, { "name": "price", "type": "float" }], "seed": [{ "name": "Full groom", "price": 55 }] }],
@@ -78,18 +83,37 @@ type Plan = AppPlan;
 /** When the user reviewed a plan and asked for a change, re-plan from it. */
 export type PlanRevision = { change: string; previous: AppPlan };
 
-async function runPlan(prompt: string, templateContext: string, onDelta: (n: number) => void, revision?: PlanRevision): Promise<Plan> {
+/** A plan and the language its app is built in ("locale"; the planner may pick another when the description asks for one). */
+export type LocalizedPlan = AppPlan & { locale?: Locale };
+const PlanWithLocale = AppPlanSchema.and(z.object({ locale: z.string().optional().catch(undefined) }));
+
+/** Which language the app's content is in, for the planner. */
+function planContentNote(contentLocale: Locale): string {
+  const words = contentLanguageRule(contentLocale)
+    ? ` Write the project name and description, the page titles and the seed rows in that language.`
+    : "";
+  return `\n\nApp language: "locale": "${contentLocale}" (${languageLabel(contentLocale)}), unless the description asks for the app in another language.${words}`;
+}
+
+/** The plan's language: what the planner answered when it's one we support, else the one it was asked for. */
+function withLocale(plan: z.infer<typeof PlanWithLocale>, fallback: Locale): LocalizedPlan {
+  return { ...normalizePlan(plan), locale: isLocale(plan.locale) ? plan.locale : fallback };
+}
+
+async function runPlan(prompt: string, templateContext: string, onDelta: (n: number) => void, revision?: PlanRevision, locale: Locale = "en", contentLocale: Locale = locale): Promise<LocalizedPlan> {
+  // The person reads these parts of the plan before anything is built.
+  const language = replyLanguageRule(locale, 'the "assumptions", each page\'s "summary" and each flow\'s "purpose" (the person reads them on the plan screen)');
   const revise = revision
     ? `\n\nYou planned this app before (JSON below). The user reviewed that plan and asked for this change:\n"""${revision.change}"""\nReturn the complete updated plan. Keep everything the user did not ask to change, and update the assumptions to match.\n\nPrevious plan:\n${JSON.stringify(revision.previous)}`
     : "";
-  const plan = await completeJson(AppPlanSchema, "plan", {
-    systemPrompt: PLAN_SYSTEM,
-    userMessage: `Plan this app: ${prompt}${templateContext}${generatedImageContext(prompt, 3)}${revise}\n\nRespond with the plan JSON only.`,
+  const plan = await completeJson(PlanWithLocale, "plan", {
+    systemPrompt: language ? `${PLAN_SYSTEM}\n\n${language}` : PLAN_SYSTEM,
+    userMessage: `Plan this app: ${prompt}${templateContext}${generatedImageContext(prompt, 3)}${revise}${planContentNote(contentLocale)}\n\nRespond with the plan JSON only.`,
     json: true, task: "scaffold",
     maxTokens: 6000,
     onDelta,
   });
-  return normalizePlan(plan);
+  return withLocale(plan, contentLocale);
 }
 
 function templateContextFor(prompt: string) {
@@ -101,18 +125,23 @@ function templateContextFor(prompt: string) {
   return { homePage, context };
 }
 
-export type PlanEvent = { type: "progress"; message: string } | { type: "planned"; plan: AppPlan };
+export type PlanEvent = { type: "progress"; message: string } | { type: "planned"; plan: LocalizedPlan };
 
 /**
  * Phase 1 on its own: propose a plan the user can review (and revise)
  * before the slower page and flow phases run.
  */
-export async function* planApp(prompt: string, revision?: PlanRevision): AsyncGenerator<PlanEvent> {
+export async function* planApp(prompt: string, revision?: PlanRevision, locale: Locale = "en", contentLocale?: Locale): AsyncGenerator<PlanEvent> {
+  const t = translator(locale, "ai");
+  // The app's language: the one asked for, else the revised plan's, else
+  // the person's studio language. The plan carries it back to the build.
+  const previous = (revision?.previous as LocalizedPlan | undefined)?.locale;
+  const appLocale = contentLocale ?? (isLocale(previous) ? previous : locale);
   const { context } = templateContextFor(prompt);
-  const label = revision ? "Updating the plan" : "Planning your app";
-  yield { type: "progress", message: `${label}...` };
-  const out: { value?: Plan } = {};
-  yield* withProgress((d) => runPlan(prompt, context, d, revision), label, out);
+  const label = t(revision ? "progress.updatingPlan" : "progress.planning");
+  yield { type: "progress", message: t("progress.started", { label }) };
+  const out: { value?: LocalizedPlan } = {};
+  yield* withProgress((d) => runPlan(prompt, context, d, revision, locale, appLocale), label, out, t);
   yield { type: "planned", plan: out.value! };
 }
 
@@ -203,6 +232,8 @@ export async function runPage(opts: {
   compact: boolean;
   onDelta: (n: number) => void;
   repair?: PageRepair;
+  /** The app's language: every word visitors see on the page is written in it. */
+  contentLocale?: Locale;
 }): Promise<{ html: string; css: string }> {
   const otherPages = opts.plan.pages
     .filter((p) => p.slug !== opts.page.slug)
@@ -238,7 +269,7 @@ ${tablesBlock}
 FLOWS (reference by slug in data-nk-flow-ref / data-nk-bind-flow-ref):
 ${flowsBlock}${templateBlock}${generatedImageContext(`${opts.plan.project.description} ${opts.page.summary}`, opts.compact ? 3 : 6)}
 
-Build THIS page only. Wire every form to a create/update flow from the FLOWS list and every list to a list flow; form fields use the table's exact column names. Wire every link to a real page slug or an external URL. Reply with the <style> block followed by the page markup.`;
+Build THIS page only. Wire every form to a create/update flow from the FLOWS list and every list to a list flow; form fields use the table's exact column names. Wire every link to a real page slug or an external URL. Reply with the <style> block followed by the page markup.${contentBlock(opts.contentLocale)}`;
 
   const repairBlock = opts.repair
     ? `\n\nYOUR PREVIOUS VERSION OF THIS PAGE:\n<style>\n${opts.repair.css}\n</style>\n${opts.repair.html}\n\nPROBLEMS FOUND IN IT:\n${formatViolationsForRepair(opts.repair.violations)}\n\nReturn the corrected page: fix every problem listed and keep everything else as it is (same sections, same text, same markers at the top). Reply with the <style> block followed by the complete page markup.`
@@ -325,7 +356,7 @@ const FlowGraphSchema = z.object({
 }));
 type FlowGraph = z.infer<typeof FlowGraphSchema>;
 
-async function runCustomFlow(plan: Plan, flow: Plan["flows"][number], onDelta: (n: number) => void): Promise<FlowGraph> {
+async function runCustomFlow(plan: Plan, flow: Plan["flows"][number], onDelta: (n: number) => void, contentLocale: Locale = "en"): Promise<FlowGraph> {
   const tablesBlock = plan.tables.length
     ? plan.tables.map((t) => `- ${t.name}(${t.fields.map((f) => `${f.name}: ${f.type}`).join(", ")})`).join("\n")
     : "(no app tables)";
@@ -342,7 +373,7 @@ ${flow.table ? `main table: ${flow.table}\n` : ""}signed-in only: ${flow.auth ? 
 TABLES (reference by name):
 ${tablesBlock}
 
-Build the flow graph for THIS flow only. Reply with raw JSON: { "nodes": [...], "edges": [...] }.`,
+Build the flow graph for THIS flow only. Reply with raw JSON: { "nodes": [...], "edges": [...] }.${contentLocale !== "en" ? `\n\nLANGUAGE: the app's visitors read ${languageLabel(contentLocale)}. Write every "error" and "message" text in response bodies, and every email subject and body, in that language.` : ""}`,
     json: true, task: "scaffold",
     maxTokens: 4000,
     onDelta,
@@ -350,37 +381,61 @@ Build the flow graph for THIS flow only. Reply with raw JSON: { "nodes": [...], 
 }
 
 /** Standard graph for a planned flow, or null when it needs custom logic. */
-function plannedStandardFlow(plan: Plan, flow: Plan["flows"][number]): { graph: FlowGraph; info: StandardFlowInfo } | null {
+function plannedStandardFlow(plan: Plan, flow: Plan["flows"][number], contentLocale: Locale = "en"): { graph: FlowGraph; info: StandardFlowInfo } | null {
   const kind = standardKind(flow.kind);
   const table = flow.table ? plan.tables.find((t) => t.name === flow.table) : undefined;
   if (!kind || !table) return null;
   const info: StandardFlowInfo = { kind, table: table.name, auth: Boolean(flow.auth) };
-  return { graph: standardFlowGraph({ kind, table: table.name, fields: table.fields.map((f) => f.name), auth: info.auth }), info };
+  return { graph: localizeStandardGraph(standardFlowGraph({ kind, table: table.name, fields: table.fields.map((f) => f.name), auth: info.auth }), contentLocale), info };
+}
+
+/** The app's language for a page prompt ("" for English, so English prompts stay exactly as they were). */
+function contentBlock(contentLocale: Locale | undefined): string {
+  const rule = contentLanguageRule(contentLocale);
+  return rule ? `\n\n${rule}` : "";
+}
+
+/** Standard flows' built-in visitor message ("Please sign in first.") in the app's language. */
+function localizeStandardGraph<G extends { nodes: Array<{ type: string; data: unknown }> }>(graph: G, contentLocale: Locale): G {
+  if (contentLocale === "en") return graph;
+  const english = JSON.stringify(runtimeText("en", "signInFirst"));
+  const translated = JSON.stringify(runtimeText(contentLocale, "signInFirst"));
+  for (const n of graph.nodes) {
+    const d = n.data as { body?: unknown } | null;
+    if (n.type === "response" && d && typeof d.body === "string") d.body = d.body.replace(english, translated);
+  }
+  return graph;
 }
 
 /* ─────────────────────── Orchestrator ─────────────────────── */
 
 export async function* scaffoldMultiPass(
   userPrompt: string,
-  opts: { plan?: AppPlan } = {},
+  /** contentLocale: the app's language (default: the person's studio language, `locale`). */
+  opts: { plan?: AppPlan; locale?: Locale; contentLocale?: Locale } = {},
 ): AsyncGenerator<MultiPassEvent> {
+  const t = translator(opts.locale ?? "en", "ai");
   const compact = await isCompactModel();
   const { homePage, context: templateContext } = templateContextFor(userPrompt);
+  let contentLocale: Locale = opts.contentLocale ?? opts.locale ?? "en";
 
   let plan: Plan;
   if (opts.plan) {
     // The user already reviewed (and maybe edited) this plan.
     plan = normalizePlan(opts.plan);
   } else {
-    yield { type: "progress", message: "Designing app structure..." };
-    const planOut: { value?: Plan } = {};
-    yield* withProgress((d) => runPlan(userPrompt, templateContext, d), "Designing app structure", planOut);
+    const label = t("progress.designingStructure");
+    yield { type: "progress", message: t("progress.started", { label }) };
+    const planOut: { value?: LocalizedPlan } = {};
+    yield* withProgress((d) => runPlan(userPrompt, templateContext, d, undefined, opts.locale, contentLocale), label, planOut, t);
     plan = planOut.value!;
+    // The description may ask for the app in another language.
+    if (planOut.value!.locale) contentLocale = planOut.value!.locale;
   }
 
   yield {
     type: "progress",
-    message: `Plan ready: ${plan.pages.length} page${plan.pages.length === 1 ? "" : "s"}, ${plan.tables.length} table${plan.tables.length === 1 ? "" : "s"}, ${plan.flows.length} flow${plan.flows.length === 1 ? "" : "s"}`,
+    message: t("progress.planReady", { pages: plan.pages.length, tables: plan.tables.length, flows: plan.flows.length }),
   };
   yield {
     type: "plan",
@@ -396,7 +451,7 @@ export async function* scaffoldMultiPass(
   const pages: ScaffoldResult["pages"] = [];
   for (let i = 0; i < plan.pages.length; i++) {
     const p = plan.pages[i];
-    const label = `Building page ${i + 1}/${plan.pages.length}: ${p.title}`;
+    const label = t("progress.buildingPage", { index: i + 1, total: plan.pages.length, title: p.title });
     yield { type: "progress", message: label };
     const out: { value?: { html: string; css: string } } = {};
     yield* withProgress((d) => runPage({
@@ -405,7 +460,8 @@ export async function* scaffoldMultiPass(
       templateHomeHtml: p.isHome ? homePage?.html : undefined,
       compact,
       onDelta: d,
-    }), label, out);
+      contentLocale,
+    }), label, out, t);
     let html = out.value!.html;
     // Gated pages always carry their markers (the model sometimes forgets);
     // the server also locks the flows only these pages use.
@@ -424,24 +480,24 @@ export async function* scaffoldMultiPass(
   const flows: ScaffoldResult["flows"] = [];
   for (let i = 0; i < plan.flows.length; i++) {
     const f = plan.flows[i];
-    const planned = plannedStandardFlow(plan, f);
+    const planned = plannedStandardFlow(plan, f, contentLocale);
     let graph = planned?.graph ?? null;
     let standard = planned?.info;
     if (!graph) {
-      const label = `Building flow ${i + 1}/${plan.flows.length}: ${f.name}`;
+      const label = t("progress.buildingFlow", { index: i + 1, total: plan.flows.length, name: f.name });
       yield { type: "progress", message: label };
       const out: { value?: FlowGraph } = {};
       try {
-        yield* withProgress((d) => runCustomFlow(plan, f, d), label, out);
+        yield* withProgress((d) => runCustomFlow(plan, f, d, contentLocale), label, out, t);
         graph = out.value!;
       } catch (err) {
         // One bad custom flow must not sink the whole app: keep a safe
         // placeholder the user can finish in the Flow editor.
         console.error(`[multi-pass] flow "${f.slug}" failed; using a placeholder`, err instanceof Error ? err.message : err);
-        const fallback = standardFallback(plan, f);
+        const fallback = standardFallback(plan, f, contentLocale);
         graph = fallback.graph;
         standard = fallback.info;
-        yield { type: "progress", message: `"${f.name}" needs a finishing touch in the Flow editor — a simple version was added.` };
+        yield { type: "progress", message: t("progress.flowFallback", { name: f.name }) };
       }
     }
     flows.push({
@@ -463,15 +519,15 @@ export async function* scaffoldMultiPass(
     pages,
     flows,
   };
-  yield { type: "result", scaffold, plan, compact };
+  yield { type: "result", scaffold, plan, compact, contentLocale };
 }
 
 /** A runnable stand-in for a custom flow the model couldn't build. */
-function standardFallback(plan: Plan, flow: Plan["flows"][number]): { graph: FlowGraph; info?: StandardFlowInfo } {
+function standardFallback(plan: Plan, flow: Plan["flows"][number], contentLocale: Locale = "en"): { graph: FlowGraph; info?: StandardFlowInfo } {
   const table = flow.table ? plan.tables.find((t) => t.name === flow.table) : undefined;
   if (table) {
     const info: StandardFlowInfo = { kind: /list|load|get|show|fetch/.test(flow.slug) ? "list" : "create", table: table.name, auth: Boolean(flow.auth) };
-    return { graph: standardFlowGraph({ kind: info.kind, table: table.name, fields: table.fields.map((f) => f.name), auth: info.auth }), info };
+    return { graph: localizeStandardGraph(standardFlowGraph({ kind: info.kind, table: table.name, fields: table.fields.map((f) => f.name), auth: info.auth }), contentLocale), info };
   }
   return {
     graph: {
@@ -494,6 +550,7 @@ async function* withProgress<T>(
   start: (onDelta: (chars: number) => void) => Promise<T>,
   label: string,
   out: { value?: T },
+  t: Tr = translator("en", "ai"),
 ): AsyncGenerator<{ type: "progress"; message: string }> {
   let chars = 0;
   let reported = 0;
@@ -511,13 +568,13 @@ async function* withProgress<T>(
     if (chars - reported >= 300) {
       reported = chars;
       lastReportAt = Date.now();
-      yield { type: "progress", message: `${label} — ${chars.toLocaleString("en-US")} characters written` };
+      yield { type: "progress", message: t("progress.written", { label, count: chars }) };
     } else if (Date.now() - lastReportAt >= 60_000) {
       // Slow (often local) models can read a prompt for minutes before the
       // first word; say so rather than look frozen.
       lastReportAt = Date.now();
       const minutes = Math.round((Date.now() - startedAt) / 60_000);
-      yield { type: "progress", message: `${label} — still working (${minutes} min)${chars === 0 ? ", the AI is reading the request" : ""}` };
+      yield { type: "progress", message: t(chars === 0 ? "progress.stillReading" : "progress.stillWorking", { label, minutes }) };
     }
   }
   if (failure) throw failure;

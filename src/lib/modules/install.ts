@@ -6,6 +6,9 @@ import { syncProjectNav } from "../nav-sync";
 import { flowRefMap, resolveFlowRefsWith, type FlowRefMap } from "../ai/flow-refs";
 import type { ModuleCapability, ModuleDefinition, ModuleFieldType } from "./types";
 import { getModule } from "./registry";
+import { getAppLocale } from "../app-locale";
+import { localizeHtml, localizeStrings, mapLimit } from "../i18n-content";
+import { isLanguageSlug, translateInstalled } from "../app-translations";
 
 const RESERVED_COLUMNS = new Set(["id", "created_at", "updated_at"]);
 
@@ -127,13 +130,22 @@ export async function installModule(opts: {
   neverHome?: boolean;
   /** Replacement sample rows per module table (by the module's table name). */
   seed?: Record<string, Array<Record<string, unknown>>>;
+  /**
+   * False keeps the module's English text. Otherwise, in an app whose
+   * language isn't English, the module's pages, page titles and built-in
+   * messages (flow errors and success notes, emails to visitors) are
+   * translated into it with the AI (localizeModuleText below).
+   */
+  localize?: boolean;
 }): Promise<{
   tableIds: Map<string, string>;
   flowIds: Map<string, string>;
   pageIds: Map<string, string>;
   firstPageId: string | null;
 }> {
-  const { projectId, module } = opts;
+  const { projectId } = opts;
+  // The app's language: the module's visible text in it (English if that can't be done safely).
+  const module = opts.localize === false ? opts.module : await localizeModuleText(projectId, opts.module, opts.skipPages);
   // Fields the caller left out (or blank) use the module's defaults, so pages
   // never render an empty "{{config.*}}" (e.g. "Book with " or prices with no
   // currency). Fields that name the business itself use the app's own name
@@ -142,7 +154,10 @@ export async function installModule(opts: {
   let projectName: string | null = null;
   const BUSINESS_NAME = /^(?:app|business|shop|store|restaurant|cafe|brand|agency|gym|salon|studio|clinic|company|org|organization|site|school|church|practice|firm|club|venue|hotel|spa)Name$|^brand$/i;
   for (const field of module.config ?? []) {
-    const given = opts.config?.[field.key];
+    // A value that is just the English default (install forms send the
+    // defaults back) takes the default in the app's language.
+    const englishDefault = opts.module.config?.find((f) => f.key === field.key)?.default;
+    const given = englishDefault !== undefined && opts.config?.[field.key] === englishDefault ? field.default : opts.config?.[field.key];
     if (given !== undefined && given !== "") {
       config[field.key] = given;
       continue;
@@ -350,7 +365,112 @@ export async function installModule(opts: {
     }
   }
 
+  // 7. A multilingual app gets the feature in each of its other languages
+  //    too (lib/app-translations.ts). No-op for single-language apps.
+  if (opts.localize !== false) {
+    await translateInstalled(projectId, [...pageIds.values()], [...flowIds.values()]).catch((err) => console.error("Translating the feature failed:", err));
+  }
+
   return { tableIds, flowIds, pageIds, firstPageId };
+}
+
+/* ── The app's language ──────────────────────────────────────────────── */
+
+/** Response bodies' "error" and "message" texts are what visitors read; email subjects and bodies too. */
+const RESPONSE_TEXT_KEYS = ["error", "message"] as const;
+/** Settings whose default is an address, a code, a name or a value rather than wording. */
+const CONFIG_NOT_WORDS = /email|from|currency|code|symbol|colou?r|url|link|slug|id$|key|token|phone|address|unit|timezone|locale|lang|format|name$/i;
+
+/**
+ * A copy of the module with its visible text in the app's language: each
+ * page's HTML (one AI call per page, lib/i18n-content.ts localizeHtml, which
+ * keeps the English page whenever the answer changes anything but words),
+ * plus one call for the page titles, the flows' built-in error and success
+ * messages and the emails they send visitors (verification codes, login
+ * codes). Runs before {{config.*}} values and flow ids are filled in, so
+ * those can't be touched. Module definitions themselves never change.
+ *
+ * Skipped for English apps, when the AI isn't set up, and for modules that
+ * ship their own languages (a "languages" setting, like Places): those pick
+ * the visitor's language themselves from <html lang>.
+ */
+async function localizeModuleText(projectId: string, module: ModuleDefinition, skipPages = false): Promise<ModuleDefinition> {
+  const { locale, explicit } = await getAppLocale(projectId).catch(() => ({ locale: "en", explicit: false }));
+  if (!explicit || locale === "en") return module;
+  if ((module.config ?? []).some((f) => /^languages?$/i.test(f.key))) return module;
+
+  const strings: Record<string, string> = {};
+  if (!skipPages) for (const p of module.pages) strings[`page:${p.slug}`] = p.title;
+  // Default wording settings ("Get in touch", "Thanks, we'll reply soon"), not addresses, codes or names.
+  for (const f of module.config ?? []) {
+    if ((f.type === "text" || f.type === "textarea") && typeof f.default === "string" && /\p{L}{2}/u.test(f.default) &&
+      !CONFIG_NOT_WORDS.test(f.key) && !/^[A-Z0-9_-]{2,5}$|@|^https?:|^\/|^#/.test(f.default.trim())) {
+      strings[`config:${f.key}`] = f.default;
+    }
+  }
+  for (const f of module.flows) {
+    for (const n of f.nodes) {
+      const d = n.data as Record<string, unknown>;
+      if (n.type === "response" && typeof d.body === "string") {
+        const body = parseJsonObject(d.body);
+        for (const k of RESPONSE_TEXT_KEYS) {
+          if (body && typeof body[k] === "string") strings[`flow:${f.slug}:${n.id}:${k}`] = body[k] as string;
+        }
+      } else if (n.type === "email") {
+        for (const k of ["subject", "body"] as const) {
+          if (typeof d[k] === "string") strings[`flow:${f.slug}:${n.id}:${k}`] = d[k] as string;
+        }
+      }
+    }
+  }
+
+  const [texts, pages] = await Promise.all([
+    localizeStrings(strings, locale),
+    skipPages ? Promise.resolve(module.pages.map((p) => p.html)) : mapLimit(module.pages, 3, (p) => localizeHtml(p.html, locale)),
+  ]);
+
+  return {
+    ...module,
+    config: module.config?.map((f) => (texts[`config:${f.key}`] ? { ...f, default: texts[`config:${f.key}`] } : f)),
+    pages: module.pages.map((p, i) => ({ ...p, title: texts[`page:${p.slug}`] ?? p.title, html: pages[i] ?? p.html })),
+    flows: module.flows.map((f) => ({
+      ...f,
+      nodes: f.nodes.map((n) => {
+        const d = n.data as Record<string, unknown>;
+        if (n.type === "response" && typeof d.body === "string") {
+          const body = parseJsonObject(d.body);
+          if (!body) return n;
+          let changed = false;
+          for (const k of RESPONSE_TEXT_KEYS) {
+            const t = texts[`flow:${f.slug}:${n.id}:${k}`];
+            if (typeof body[k] === "string" && t && t !== body[k]) {
+              body[k] = t;
+              changed = true;
+            }
+          }
+          return changed ? { ...n, data: { ...d, body: JSON.stringify(body) } } : n;
+        }
+        if (n.type === "email") {
+          const data = { ...d };
+          for (const k of ["subject", "body"] as const) {
+            const t = texts[`flow:${f.slug}:${n.id}:${k}`];
+            if (typeof d[k] === "string" && t) data[k] = t;
+          }
+          return { ...n, data };
+        }
+        return n;
+      }),
+    })),
+  };
+}
+
+function parseJsonObject(s: string): Record<string, unknown> | null {
+  try {
+    const v = JSON.parse(s) as unknown;
+    return v && typeof v === "object" && !Array.isArray(v) ? (v as Record<string, unknown>) : null;
+  } catch {
+    return null;
+  }
 }
 
 async function uniqueTableName(datasourceId: string, base: string): Promise<string> {
@@ -387,6 +507,7 @@ async function uniquePageSlug(
   let n = 1;
   while (
     (reserved && reserved.has(candidate)) ||
+    isLanguageSlug(candidate) ||
     (await db.page.findFirst({ where: { projectId, slug: candidate } }))
   ) {
     n += 1;

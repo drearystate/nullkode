@@ -3,6 +3,9 @@ import { liveSnapshot } from "./deployments";
 import { cookies as nextCookies } from "next/headers";
 import { db } from "@/lib/db";
 import { verifyAppSession, sessionCookieName } from "@/lib/flow/session";
+import { getAppLocale, localeBootScript, runtimeText, type AppLocale, type PageLanguage } from "@/lib/app-locale";
+import { documentAttributesScript, splitDesignerDocument } from "@/lib/design-studio/document-split";
+import { DEFAULT_LOCALE, localeDir, type Locale } from "@/i18n/locales";
 
 const AUTH_MARKER = "<!--nk:require-auth-->";
 const ROLE_MARKER_RE = /<!--\s*nk:require-role:([a-zA-Z0-9_-]+)\s*-->/;
@@ -42,6 +45,22 @@ export const RUNTIME_JS = `
   // canvas and the published page render the same colors, fonts and
   // backgrounds, period. If a project wants a user-flippable dark mode
   // it must add its own toggle wired to data-theme="dark" on <html>.
+
+  // The runtime's own visitor texts in the app's language: window.__nkText,
+  // set by the page's locale script (lib/app-locale.ts), from
+  // messages/<locale>/runtime.json. English apps have none and get the
+  // English written here, as before.
+  function nkT(key, en, vars){
+    var t = (typeof window !== 'undefined' && window.__nkText && window.__nkText[key]) || en;
+    if(vars) t = String(t).replace(/\\{(\\w+)\\}/g, function(m, k){ return Object.prototype.hasOwnProperty.call(vars, k) ? String(vars[k]) : m; });
+    return t;
+  }
+  // The language dates and numbers are written in: the app's, or for
+  // English apps (as before) the visitor's browser default.
+  function nkIntl(){
+    var l = typeof window !== 'undefined' && window.__nkLocale && window.__nkLocale.lang;
+    return l && l !== 'en' ? l : undefined;
+  }
 
   // Fills {field} placeholders from a row. (This script lives in a template
   // string, so every regex backslash is written twice here.)
@@ -88,14 +107,14 @@ export const RUNTIME_JS = `
       if(fmt === 'date' || fmt === 'datetime' || fmt === 'time'){
         var d = new Date(val);
         if(isNaN(d.getTime())) return String(val);
-        if(fmt === 'date') return d.toLocaleDateString(undefined, { dateStyle: 'medium' });
-        if(fmt === 'time') return d.toLocaleTimeString(undefined, { timeStyle: 'short' });
-        return d.toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' });
+        if(fmt === 'date') return d.toLocaleDateString(nkIntl(), { dateStyle: 'medium' });
+        if(fmt === 'time') return d.toLocaleTimeString(nkIntl(), { timeStyle: 'short' });
+        return d.toLocaleString(nkIntl(), { dateStyle: 'medium', timeStyle: 'short' });
       }
       if(fmt === 'number' || fmt === 'money'){
         var n = Number(val);
         if(!isFinite(n)) return String(val);
-        return fmt === 'money' ? n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : n.toLocaleString();
+        return fmt === 'money' ? n.toLocaleString(nkIntl(), { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : n.toLocaleString(nkIntl());
       }
     } catch(_){}
     return String(val);
@@ -290,7 +309,7 @@ export const RUNTIME_JS = `
           custom.style.display = '';
           return;
         }
-        var text = el.getAttribute('data-nk-empty-text') || 'Nothing here yet.';
+        var text = el.getAttribute('data-nk-empty-text') || nkT('nothingHere', 'Nothing here yet.');
         var style = 'color:var(--nk-text-muted);padding:1.5rem 0;text-align:center;list-style:none;';
         var tag = el.tagName;
         el.innerHTML = tag === 'TBODY' || tag === 'TABLE'
@@ -337,7 +356,7 @@ export const RUNTIME_JS = `
       '.nk-cal-title{font-weight:700;font-size:1.05rem;}',
       '.nk-cal-btn{background:transparent;border:1px solid var(--nk-border);color:var(--nk-text);padding:.3rem .7rem;border-radius:8px;cursor:pointer;font-size:.85rem;}',
       '.nk-cal-btn:hover{background:var(--nk-border);}',
-      '.nk-cal-btn+.nk-cal-btn{margin-left:.35rem;}',
+      '.nk-cal-btn+.nk-cal-btn{margin-inline-start:.35rem;}',
       '.nk-cal-grid{display:grid;grid-template-columns:repeat(7,1fr);}',
       '.nk-cal-dow{padding:.55rem .5rem;font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--nk-text-muted);border-bottom:1px solid var(--nk-border);background:var(--nk-bg,transparent);text-align:center;}',
       '.nk-cal-cell{min-height:110px;border-right:1px solid var(--nk-border);border-bottom:1px solid var(--nk-border);padding:.35rem;display:flex;flex-direction:column;gap:.2rem;background:var(--nk-surface);}',
@@ -359,7 +378,7 @@ export const RUNTIME_JS = `
     return isNaN(d.getTime()) ? null : d;
   }
   function calFmtMonth(d){
-    return d.toLocaleDateString(undefined, { month: 'long', year: 'numeric' });
+    return d.toLocaleDateString(nkIntl(), { month: 'long', year: 'numeric' });
   }
   function calIsSameDay(a, b){
     return a.getFullYear()===b.getFullYear() && a.getMonth()===b.getMonth() && a.getDate()===b.getDate();
@@ -461,12 +480,16 @@ export const RUNTIME_JS = `
     }
 
     var dowLabels = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    if(nkIntl()){
+      // 1 Jan 2023 was a Sunday.
+      try { dowLabels = dowLabels.map(function(_, i){ return new Date(2023, 0, 1 + i).toLocaleDateString(nkIntl(), { weekday: 'short' }); }); } catch(_){}
+    }
     var html = '<div class="nk-cal-hd">'
       + '<div class="nk-cal-title">'+calFmtMonth(cursor).replace(/</g,'&lt;')+'</div>'
       + '<div>'
-      +   '<button type="button" class="nk-cal-btn" data-nk-cal-nav="prev">&lsaquo;</button>'
-      +   '<button type="button" class="nk-cal-btn" data-nk-cal-nav="today">Today</button>'
-      +   '<button type="button" class="nk-cal-btn" data-nk-cal-nav="next">&rsaquo;</button>'
+      +   '<button type="button" class="nk-cal-btn" data-nk-cal-nav="prev" aria-label="'+nkEsc(nkT('previousMonth', 'Previous month'))+'">&lsaquo;</button>'
+      +   '<button type="button" class="nk-cal-btn" data-nk-cal-nav="today">'+nkEsc(nkT('today', 'Today'))+'</button>'
+      +   '<button type="button" class="nk-cal-btn" data-nk-cal-nav="next" aria-label="'+nkEsc(nkT('nextMonth', 'Next month'))+'">&rsaquo;</button>'
       + '</div>'
     + '</div>';
     html += legend;
@@ -484,7 +507,7 @@ export const RUNTIME_JS = `
         var shown = dayItems.slice(0, 3);
         for(var k=0; k<shown.length; k++){
           var it2 = shown[k];
-          var title = it2.row[it2.src.titleField] || '(untitled)';
+          var title = it2.row[it2.src.titleField] || nkT('untitled', '(untitled)');
           var color = it2.src.color
             || (colorField ? calColorFor(it2.row[colorField]) : '')
             || calColorFor(it2.src.label || it2.src.flowId);
@@ -494,14 +517,14 @@ export const RUNTIME_JS = `
                + '>'+nkEsc(title)+'</a>';
         }
         if(dayItems.length > shown.length){
-          html += '<div class="nk-cal-more">+'+(dayItems.length - shown.length)+' more</div>';
+          html += '<div class="nk-cal-more">'+nkEsc(nkT('moreCount', '+{count} more', { count: dayItems.length - shown.length }))+'</div>';
         }
         html += '</div>';
       }
     }
     html += '</div>';
     if(items.length === 0){
-      html += '<div class="nk-cal-empty">Nothing scheduled yet. Add an item to see it on the calendar.</div>';
+      html += '<div class="nk-cal-empty">'+nkEsc(nkT('nothingScheduled', 'Nothing scheduled yet. Add an item to see it on the calendar.'))+'</div>';
     }
     el.classList.add('nk-cal');
     el.innerHTML = html;
@@ -555,7 +578,7 @@ export const RUNTIME_JS = `
       var t = document.createElement('div');
       if(bad) t.setAttribute('role', 'alert');
       t.textContent = text;
-      t.style.cssText = 'pointer-events:auto;box-sizing:border-box;max-width:100%;padding:10px 14px;border-radius:var(--nk-radius-sm, 10px);background:var(--nk-surface, #fff);color:var(--nk-text, #111);border:1px solid var(--nk-border, #e5e7eb);border-left:4px solid ' + edge + ';box-shadow:0 8px 24px rgba(0,0,0,.18);font:inherit;font-size:15px;line-height:1.4;white-space:pre-wrap;overflow-wrap:anywhere;cursor:pointer;';
+      t.style.cssText = 'pointer-events:auto;box-sizing:border-box;max-width:100%;padding:10px 14px;border-radius:var(--nk-radius-sm, 10px);background:var(--nk-surface, #fff);color:var(--nk-text, #111);border:1px solid var(--nk-border, #e5e7eb);border-inline-start:4px solid ' + edge + ';box-shadow:0 8px 24px rgba(0,0,0,.18);font:inherit;font-size:15px;line-height:1.4;white-space:pre-wrap;overflow-wrap:anywhere;cursor:pointer;';
       t.addEventListener('click', function(){ t.remove(); });
       // A live region that was only just added needs a moment before new
       // text in it is read out.
@@ -565,7 +588,7 @@ export const RUNTIME_JS = `
   }
   if(typeof window !== 'undefined') window.nkToast = nkToast;
 
-  var NK_SEND_FAILED = "Sorry, that didn't send. Please try again.";
+  function nkSendFailed(){ return nkT('sendFailed', "Sorry, that didn't send. Please try again."); }
   // The editor shows pages inside GrapesJS's canvas. Forms there aren't
   // re-wired, so the editor's copy of the page is never changed.
   function nkInEditor(){
@@ -606,7 +629,9 @@ export const RUNTIME_JS = `
       hp.setAttribute('tabindex', '-1');
       hp.setAttribute('autocomplete', 'off');
       hp.setAttribute('aria-hidden', 'true');
-      hp.style.cssText = 'position:absolute !important;left:-10000px !important;top:auto !important;width:1px !important;height:1px !important;overflow:hidden !important;opacity:0 !important;';
+      // Off-screen on the side that never scrolls (right in right-to-left pages).
+      var side = document.documentElement.getAttribute('dir') === 'rtl' ? 'right' : 'left';
+      hp.style.cssText = 'position:absolute !important;' + side + ':-10000px !important;top:auto !important;width:1px !important;height:1px !important;overflow:hidden !important;opacity:0 !important;';
       form.appendChild(hp);
     }
     var stamp = form.querySelector('input[name="_nk_t"]');
@@ -617,6 +642,40 @@ export const RUNTIME_JS = `
       form.appendChild(stamp);
     }
     if(!stamp.value) stamp.value = String(Date.now());
+  }
+  // Browsers word their "Please fill out this field" bubbles in the
+  // visitor's browser language. Apps with a language of their own
+  // (window.__nkText) use the app's words instead.
+  function nkValidationText(el){
+    var v = el.validity;
+    if(!v) return '';
+    var pattern = function(){ return nkT('fieldPattern', 'Please match the requested format.'); };
+    if(v.valueMissing) return (el.tagName === 'SELECT' || el.type === 'radio' || el.type === 'checkbox') ? nkT('fieldChoose', 'Please choose an option.') : nkT('fieldRequired', 'Please fill in this field.');
+    if(v.typeMismatch) return el.type === 'email' ? nkT('fieldEmail', 'Please enter an email address.') : el.type === 'url' ? nkT('fieldUrl', 'Please enter a web address.') : pattern();
+    if(v.badInput) return nkT('fieldNumber', 'Please enter a number.');
+    if(v.tooShort) return nkT('fieldTooShort', 'Please use at least {min} characters.', { min: el.minLength });
+    if(v.tooLong) return nkT('fieldTooLong', 'Please use no more than {max} characters.', { max: el.maxLength });
+    if(v.rangeUnderflow) return nkT('fieldMin', 'Please enter {min} or more.', { min: el.min });
+    if(v.rangeOverflow) return nkT('fieldMax', 'Please enter {max} or less.', { max: el.max });
+    if(v.patternMismatch || v.stepMismatch) return pattern();
+    return '';
+  }
+  function nkBindValidation(){
+    if(document.__nkValidationBound || !window.__nkText || nkInEditor()) return;
+    document.__nkValidationBound = true;
+    document.addEventListener('invalid', function(e){
+      var el = e.target;
+      if(!el || !el.setCustomValidity || !el.form || !el.form.hasAttribute('data-nk-form')) return;
+      el.setCustomValidity('');
+      if(el.validity.valid) return;
+      el.setCustomValidity(nkValidationText(el));
+    }, true);
+    var clear = function(e){
+      var el = e.target;
+      if(el && el.setCustomValidity && el.validity && el.validity.customError) el.setCustomValidity('');
+    };
+    document.addEventListener('input', clear, true);
+    document.addEventListener('change', clear, true);
   }
   function nkPrepForms(root){
     root = root || document;
@@ -657,7 +716,7 @@ export const RUNTIME_JS = `
       el.textContent = text || '';
       if(el.hasAttribute('data-nk-auto')){
         var edge = kind === 'error' ? 'var(--nk-danger, #dc2626)' : kind === 'success' ? 'var(--nk-success, #16a34a)' : 'var(--nk-border, #d1d5db)';
-        el.style.cssText = 'white-space:pre-wrap;overflow-wrap:anywhere;' + (text ? 'margin-top:.75rem;padding:.6rem .85rem;border-left:4px solid ' + edge + ';border-radius:var(--nk-radius-sm, 10px);background:color-mix(in srgb, ' + edge + ' 10%, transparent);color:var(--nk-text, inherit);font-size:.95rem;line-height:1.45;' : '');
+        el.style.cssText = 'white-space:pre-wrap;overflow-wrap:anywhere;' + (text ? 'margin-top:.75rem;padding:.6rem .85rem;border-inline-start:4px solid ' + edge + ';border-radius:var(--nk-radius-sm, 10px);background:color-mix(in srgb, ' + edge + ' 10%, transparent);color:var(--nk-text, inherit);font-size:.95rem;line-height:1.45;' : '');
       } else if(typeof el.className === 'string'){
         if(kind === 'error') el.className = el.className.replace(/\\btext-success\\b/g, 'text-danger');
         else if(kind === 'success') el.className = el.className.replace(/\\btext-danger\\b/g, 'text-success');
@@ -682,7 +741,7 @@ export const RUNTIME_JS = `
       e = e.trim();
       if(e && e.length <= 200 && e !== 'Flow not found or disabled') return e;
     }
-    return NK_SEND_FAILED;
+    return nkSendFailed();
   }
   // The flow's message, or the field named by data-nk-message-field (the
   // AI Assistant shows its answer this way).
@@ -696,6 +755,7 @@ export const RUNTIME_JS = `
     // Wire up leftover flow references, spam traps and message regions
     // before anything is bound.
     nkPrepForms(document);
+    nkBindValidation();
     // 0a. Shared nav: hamburger + dropdown toggling for the auto-generated
     //     menu (data-nk-nav). Bootstrap's JS bundle isn't loaded on
     //     published pages, so the collapse/dropdown "show" classes are
@@ -780,7 +840,7 @@ export const RUNTIME_JS = `
         if(body && body.clearCart){ cartWrite([]); }
         if(body && body.redirect){ if(window.__nkNavigate) window.__nkNavigate(body.redirect); else window.location.href = body.redirect; return; }
         form.reset();
-        nkShowFeedback(form, nkMessageText(form, body) || form.getAttribute('data-nk-success-text') || 'Done.', 'success');
+        nkShowFeedback(form, nkMessageText(form, body) || form.getAttribute('data-nk-success-text') || nkT('done', 'Done.'), 'success');
         document.querySelectorAll('[data-nk-bind-flow]').forEach(function(el){
           if(el.hasAttribute('data-nk-calendar') || el.hasAttribute('data-nk-calendar-source')) return;
           bindFlow(el);
@@ -788,7 +848,7 @@ export const RUNTIME_JS = `
         document.querySelectorAll('[data-nk-calendar]').forEach(function(el){ refreshCalendar(el); });
       } catch(err){
         console.error('[nk] form submit failed', err);
-        nkShowFeedback(form, "Sorry, that didn't send. Please check your connection and try again.", 'error');
+        nkShowFeedback(form, nkT('sendFailedOffline', "Sorry, that didn't send. Please check your connection and try again."), 'error');
       } finally {
         form.__nkSending = false;
         if(submit){ submit.disabled = false; submit.removeAttribute('aria-busy'); }
@@ -907,7 +967,7 @@ export const RUNTIME_JS = `
       video.style.width = '100%'; video.style.borderRadius = '8px';
       var result = document.createElement('div');
       result.className = 'mt-3 small text-muted';
-      result.textContent = 'Point your camera at a QR code';
+      result.textContent = nkT('qrPoint', 'Point your camera at a QR code');
       var canvas = document.createElement('canvas');
       canvas.style.display = 'none';
       el.appendChild(video); el.appendChild(canvas); el.appendChild(result);
@@ -916,7 +976,7 @@ export const RUNTIME_JS = `
       navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } }).then(function(stream){
         video.srcObject = stream; video.play(); scanning = true; tick();
       }).catch(function(err){
-        result.textContent = 'Camera access denied: ' + err.message;
+        result.textContent = nkT('qrDenied', 'Camera access denied: {reason}', { reason: err.message });
       });
       function tick(){
         if(!scanning) return;
@@ -927,7 +987,7 @@ export const RUNTIME_JS = `
           var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
           var code = jsQR(imageData.data, imageData.width, imageData.height);
           if(code){
-            result.textContent = 'Scanned: ' + code.data;
+            result.textContent = nkT('qrScanned', 'Scanned: {value}', { value: code.data });
             var target = el.getAttribute('data-nk-qr-output');
             if(target){
               var input = document.querySelector('[name="'+target+'"]');
@@ -1024,7 +1084,7 @@ export const RUNTIME_JS = `
         }
         var items = cartRead();
         if(items.length === 0){
-          container.innerHTML = container.getAttribute('data-nk-empty') || '<div class="text-muted small p-3">Your cart is empty.</div>';
+          container.innerHTML = container.getAttribute('data-nk-empty') || '<div class="text-muted small p-3">' + nkEsc(nkT('cartEmpty', 'Your cart is empty.')) + '</div>';
           return;
         }
         if(container.__nkTplHtml){
@@ -1058,7 +1118,7 @@ export const RUNTIME_JS = `
             quantity: parseInt(add.getAttribute('data-nk-qty')||'1', 10),
           });
           var original = add.textContent;
-          add.textContent = '✓ Added';
+          add.textContent = nkT('cartAdded', '✓ Added');
           add.disabled = true;
           setTimeout(function(){ add.textContent = original; add.disabled = false; }, 900);
           return;
@@ -1096,7 +1156,7 @@ export const RUNTIME_JS = `
     document.querySelectorAll('[data-nk-inline-edit]').forEach(function(el){
       if(el.__nkBound) return; el.__nkBound = true;
       el.style.cursor = 'pointer';
-      el.setAttribute('title', 'Click to edit');
+      el.setAttribute('title', nkT('clickToEdit', 'Click to edit'));
       el.addEventListener('click', function(){
         if(el.querySelector('input,textarea')) return; // already editing
         var field = el.getAttribute('data-nk-inline-edit');
@@ -1236,7 +1296,7 @@ export const RUNTIME_JS = `
             ctx.fillStyle = resolveColor('var(--nk-text-muted)');
             ctx.font = '13px sans-serif';
             ctx.textAlign = 'center';
-            ctx.fillText('No data', w/2, h/2);
+            ctx.fillText(nkT('noData', 'No data'), w/2, h/2);
             return;
           }
 
@@ -1279,7 +1339,7 @@ export const RUNTIME_JS = `
               if(chartType === 'bar'){
                 ctx.fillStyle = resolveColor('var(--nk-text)');
                 ctx.font = '9px sans-serif';
-                ctx.fillText(values[i].toLocaleString(), 20 + i*barW + barW/2, chartH - barH - 4);
+                ctx.fillText(values[i].toLocaleString(nkIntl()), 20 + i*barW + barW/2, chartH - barH - 4);
               }
             }
             if(chartType === 'line' && values.length > 1){
@@ -1444,7 +1504,7 @@ export const RUNTIME_JS = `
       if(btn.__nkBound) return; btn.__nkBound = true;
       btn.addEventListener('click', async function(){
         if(!('serviceWorker' in navigator) || !('PushManager' in window)){
-          nkToast("Notifications aren't available in this browser.", 'error');
+          nkToast(nkT('pushUnavailable', "Notifications aren't available in this browser."), 'error');
           return;
         }
         try {
@@ -1454,7 +1514,7 @@ export const RUNTIME_JS = `
           await navigator.serviceWorker.ready;
           var keyRes = await fetch('/api/push/vapid');
           var keyJson = await keyRes.json();
-          if(!keyJson.publicKey){ nkToast("Notifications aren't set up for this app yet.", 'error'); return; }
+          if(!keyJson.publicKey){ nkToast(nkT('pushNotSetUp', "Notifications aren't set up for this app yet."), 'error'); return; }
           var sub = await swReg.pushManager.subscribe({
             userVisibleOnly: true,
             applicationServerKey: urlB64ToUint8Array(keyJson.publicKey),
@@ -1466,13 +1526,13 @@ export const RUNTIME_JS = `
             body: JSON.stringify({ subscription: JSON.stringify(sub), user_agent: navigator.userAgent }),
             credentials:'same-origin',
           });
-          btn.textContent = 'Notifications on';
+          btn.textContent = nkT('pushOnButton', 'Notifications on');
           btn.disabled = true;
-          nkToast('Notifications are on.', 'success');
+          nkToast(nkT('pushOn', 'Notifications are on.'), 'success');
         } catch(err){
           console.error('[nk] push subscribe failed', err);
           var blocked = typeof Notification !== 'undefined' && Notification.permission === 'denied';
-          nkToast(blocked ? "Notifications are blocked for this site. You can allow them in your browser's settings." : "We couldn't turn on notifications. Please try again.", 'error');
+          nkToast(blocked ? nkT('pushBlocked', "Notifications are blocked for this site. You can allow them in your browser's settings.") : nkT('pushFailed', "We couldn't turn on notifications. Please try again."), 'error');
         }
       });
     });
@@ -1743,13 +1803,77 @@ export function rewriteAbsolutePaths(
   );
 }
 
-const TEAM_ONLY_HTML = `<section style="padding:clamp(3rem,10vw,7rem) 1.25rem;text-align:center;">
+const escapeText = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+/** What visitors see on a sign-in-only page of an app that has no sign-in page, in the app's language. */
+function teamOnlyHtml(locale: Locale = DEFAULT_LOCALE): string {
+  const t = (key: string) => escapeText(runtimeText(locale, key));
+  return `<section style="padding:clamp(3rem,10vw,7rem) 1.25rem;text-align:center;">
   <div style="max-width:32rem;margin:0 auto;">
-    <h1 style="font-size:1.6rem;margin-bottom:.75rem;">This page is for the app's team</h1>
-    <p style="color:var(--nk-text-muted);margin-bottom:1.5rem;">It isn't open to visitors.</p>
-    <a href="/" class="btn btn-primary">Go to the home page</a>
+    <h1 style="font-size:1.6rem;margin-bottom:.75rem;">${t("teamOnlyTitle")}</h1>
+    <p style="color:var(--nk-text-muted);margin-bottom:1.5rem;">${t("teamOnlyBody")}</p>
+    <a href="/" class="btn btn-primary">${t("teamOnlyHome")}</a>
   </div>
 </section>`;
+}
+
+/**
+ * The <html> element of a published page: lang and dir from the app's
+ * language. Apps without a chosen language keep lang="en" and no dir, as
+ * before (an AI Designer page's own lang still applies to those).
+ */
+export function PublicHtml({ app, lang, children }: { app: AppLocale | null; lang?: Locale | null; children: React.ReactNode }) {
+  const explicit = app?.explicit ?? false;
+  // A multilingual app's page in one of its other languages (/es/…).
+  const shown = explicit && lang && app!.locales.includes(lang) ? lang : explicit ? app!.locale : null;
+  return (
+    <html lang={shown ?? "en"} dir={shown ? localeDir(shown) : undefined}>
+      <head>
+        <meta charSet="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        {/* Bootstrap + /nk-public.css are added per page by
+            <PlatformStylesheets>, which leaves them out for AI Designer
+            apps — their own CSS is complete. */}
+      </head>
+      <body>{children}</body>
+    </html>
+  );
+}
+
+/**
+ * A published page's markup pieces: the AI Designer document split (head
+ * elements, body, <html>/<body> attributes), the script that applies those
+ * attributes, and the locale script (window.__nkLocale, the runtime's texts).
+ * When the app has a chosen language, <html lang dir> come from it (see
+ * PublicHtml), not from the page.
+ */
+export function appDocumentParts(html: string, app: AppLocale, page?: PageLanguage) {
+  const split = splitDesignerDocument(html);
+  const doc = app.explicit && split.isDocument
+    ? { ...split, lang: null, htmlAttrs: Object.fromEntries(Object.entries(split.htmlAttrs).filter(([k]) => k.toLowerCase() !== "dir")) }
+    : split;
+  return { doc, docAttrs: documentAttributesScript(doc), localeScript: localeBootScript(app, page) };
+}
+
+/**
+ * The languages the live app offers, its default first. A language added
+ * to a multilingual app goes live when the app is published again (its
+ * translations are frozen in the snapshot); one removed goes at once.
+ */
+export async function liveLanguages(projectId: string): Promise<{ app: AppLocale; offered: Locale[] }> {
+  const app = await getAppLocale(projectId);
+  if (app.locales.length < 2) return { app, offered: [app.locale] };
+  const live = await liveSnapshot(projectId);
+  const published = live ? (live.locales ?? []) : app.locales;
+  return { app, offered: [app.locale, ...app.locales.slice(1).filter((c) => published.includes(c))] };
+}
+
+/** A page in one of the app's other languages, as published (or saved, for apps published before snapshots). */
+export async function loadTranslation(projectId: string, pageId: string, lang: string): Promise<{ title: string; html: string } | null> {
+  const live = await liveSnapshot(projectId);
+  if (live) return live.translations?.find((t) => t.pageId === pageId && t.locale === lang) ?? null;
+  return db.pageTranslation.findUnique({ where: { pageId_locale: { pageId, locale: lang } }, select: { title: true, html: true } });
+}
 
 /**
  * Platform stylesheets for a published page: Bootstrap, /nk-public.css and
@@ -1774,23 +1898,33 @@ export async function renderPublicPage(
   projectId: string,
   publicPathBase: string,
   pageSlug?: string,
+  /** Multilingual apps: the language asked for (/es/…); the default otherwise. */
+  lang?: Locale | null,
 ) {
-  const page = await loadPublicPage(projectId, pageSlug);
-  if (!page) notFound();
+  const source = await loadPublicPage(projectId, pageSlug);
+  if (!source) notFound();
   const live = await liveSnapshot(projectId);
   const pageSlugs = live
     ? live.pages.map((p) => p.slug)
     : (await db.page.findMany({ where: { projectId }, select: { slug: true } })).map((p) => p.slug);
-  const requiredRole = pageRequiredRole(page.html);
+  const { app: appLocale, offered } = await liveLanguages(projectId);
+  // In another language: its translation (the default language's page until
+  // there is one), and links that stay in that language (/es/…).
+  const pageLang = lang && lang !== appLocale.locale && offered.includes(lang) ? lang : null;
+  const translated = pageLang ? await loadTranslation(projectId, source.id, pageLang) : null;
+  const page = translated ? { ...source, title: translated.title, html: translated.html } : source;
+  const pageLanguage: PageLanguage | undefined = offered.length > 1 ? { lang: pageLang ?? appLocale.locale, base: publicPathBase } : undefined;
+  if (pageLang) publicPathBase = `${publicPathBase}/${pageLang}`;
+  const requiredRole = pageRequiredRole(source.html);
   if (pageRequiresAuth(page.html) || requiredRole) {
     const loginSlug = pageSlugs.includes("login") ? "login" : pageSlugs.find((s) => /(^|-)login$/.test(s));
     // Without a sign-in page, only the owner ("Open as owner") gets in;
     // everyone else sees a short note instead of a broken redirect.
     if (!loginSlug) {
       const session = await verifyAppSession(projectId, (await nextCookies()).get(sessionCookieName())?.value);
-      if (!session?.owner) return { ...page, html: rewriteAbsolutePaths(TEAM_ONLY_HTML, publicPathBase, pageSlugs), css: "", pageSlugs };
+      if (!session?.owner) return { ...page, html: rewriteAbsolutePaths(teamOnlyHtml(pageLang ?? appLocale.locale), publicPathBase, pageSlugs), css: "", pageSlugs, appLocale, pageLanguage };
     } else {
-      if (pageRequiresAuth(page.html)) await enforceAuthOrRedirect(projectId, publicPathBase, loginSlug);
+      if (pageRequiresAuth(source.html)) await enforceAuthOrRedirect(projectId, publicPathBase, loginSlug);
       if (requiredRole) await enforceRoleOrRedirect(projectId, publicPathBase, requiredRole, loginSlug);
     }
   }
@@ -1799,5 +1933,5 @@ export async function renderPublicPage(
   // root-relative paths under the app base. Safe for custom hosts too —
   // with an empty base it only does the ".html" strip.
   const html = rewriteAbsolutePaths(page.html, publicPathBase, pageSlugs);
-  return { ...page, html, pageSlugs };
+  return { ...page, html, pageSlugs, appLocale, pageLanguage };
 }

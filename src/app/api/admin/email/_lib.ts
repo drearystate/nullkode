@@ -15,10 +15,19 @@ import {
   type StoredEmailSettings,
 } from "@/lib/mailer";
 import { json } from "@/lib/utils";
+import { getTranslations } from "next-intl/server";
+import { requestLocale } from "@/i18n/request";
+import { renderMsg, requestErrorsT } from "@/lib/errors-i18n";
+
+/** Messages for the admin email routes, in the admin's language. */
+export type ApiT = (key: string, values?: Record<string, string | number>) => string;
+export async function apiT(): Promise<ApiT> {
+  return (await getTranslations({ locale: await requestLocale(), namespace: "admin.api" })) as unknown as ApiT;
+}
 
 export async function requireAdmin() {
   const user = await getRealUser();
-  if (!user || user.role !== "ADMIN") return { error: json({ error: "Only the platform admin can change email settings." }, { status: 403 }) };
+  if (!user || user.role !== "ADMIN") return { error: json({ error: (await apiT())("emailAdminOnly") }, { status: 403 }) };
   return { user };
 }
 
@@ -30,7 +39,11 @@ export async function emailSettingsView(adminEmail: string) {
   const password = str(s[SETTING_KEYS.EMAIL_SMTP_PASSWORD]);
   const apiKey = str(s[SETTING_KEYS.EMAIL_RESEND_API_KEY]);
   const port = Number(s[SETTING_KEYS.EMAIL_SMTP_PORT]);
-  const [status, stats] = await Promise.all([emailStatus(), getEmailStats()]);
+  const [status, stats, t] = await Promise.all([emailStatus(), getEmailStats(), apiT()]);
+  if (status.problemCode) status.problem = t(`emailProblem.${status.problemCode}`);
+  // The last error is stored in English; shown in the admin's language when it was stored as a message too.
+  if (stats.lastErrorMsg) stats.lastError = renderMsg(stats.lastErrorMsg, await requestErrorsT());
+  delete stats.lastErrorMsg;
   return {
     settings: {
       provider: str(s[SETTING_KEYS.EMAIL_PROVIDER]) as "smtp" | "resend" | "",
@@ -84,10 +97,10 @@ export type EmailSettingsInput = z.infer<typeof EmailSettingsBody>;
  * Checks the form and turns it into Setting values. Blank password or key
  * fields keep what is saved. Returns a plain-language error for the form.
  */
-export function validateEmailSettings(input: EmailSettingsInput, saved: StoredEmailSettings): { error: string } | { values: Record<string, string | number> } {
+export function validateEmailSettings(input: EmailSettingsInput, saved: StoredEmailSettings, t: ApiT): { error: string } | { values: Record<string, string | number> } {
   const values: Record<string, string | number> = { [SETTING_KEYS.EMAIL_PROVIDER]: input.provider };
   const fromParsed = input.from?.trim() ? parseAddress(input.from) : null;
-  if (input.from?.trim() && !fromParsed) return { error: "The sender address doesn't look like an email address." };
+  if (input.from?.trim() && !fromParsed) return { error: t("emailBadFrom") };
   const fromName = (input.fromName ?? fromParsed?.name ?? "").replace(/[\r\n\t<>"\\]/g, " ").replace(/\s+/g, " ").trim().slice(0, 80);
 
   if (input.provider === "smtp") {
@@ -98,15 +111,15 @@ export function validateEmailSettings(input: EmailSettingsInput, saved: StoredEm
       host = hostPort[1];
       if (input.smtp?.port === undefined || input.smtp.port === "") port = Number(hostPort[2]);
     }
-    if (!host) return { error: "Add the email server's address, for example smtp.example.com." };
-    if (!HOST_RE.test(host)) return { error: "The email server address should look like smtp.example.com (no https:// or spaces)." };
-    if (!Number.isInteger(port) || port < 1 || port > 65535) return { error: "The port should be a number such as 587 or 465." };
+    if (!host) return { error: t("emailAddHost") };
+    if (!HOST_RE.test(host)) return { error: t("emailBadHost") };
+    if (!Number.isInteger(port) || port < 1 || port > 65535) return { error: t("emailBadPort") };
     const user = (input.smtp?.user ?? "").trim();
     const newPassword = input.smtp?.password ?? "";
     const savedPassword = str(saved[SETTING_KEYS.EMAIL_SMTP_PASSWORD]);
-    if (user && !newPassword && !savedPassword) return { error: "Add the password for the email account." };
+    if (user && !newPassword && !savedPassword) return { error: t("emailAddPassword") };
     const from = fromParsed?.address ?? (isEmailAddress(user) ? user : "");
-    if (!from) return { error: "Add the address emails are sent from." };
+    if (!from) return { error: t("emailAddFrom") };
     values[SETTING_KEYS.EMAIL_SMTP_HOST] = host.toLowerCase();
     values[SETTING_KEYS.EMAIL_SMTP_PORT] = port;
     values[SETTING_KEYS.EMAIL_SMTP_SECURITY] = input.smtp?.security ?? (port === 465 ? "ssl" : "auto");
@@ -116,9 +129,9 @@ export function validateEmailSettings(input: EmailSettingsInput, saved: StoredEm
     values[SETTING_KEYS.EMAIL_FROM] = from;
   } else {
     const key = (input.resend?.apiKey ?? "").trim();
-    if (!key && !str(saved[SETTING_KEYS.EMAIL_RESEND_API_KEY]) && !process.env.RESEND_API_KEY?.trim()) return { error: "Add your Resend API key." };
-    if (key && !/^[A-Za-z0-9_\-.]{8,300}$/.test(key)) return { error: "That doesn't look like a Resend API key (it starts with re_)." };
-    if (!fromParsed) return { error: "Add the address emails are sent from, on a domain you verified in Resend." };
+    if (!key && !str(saved[SETTING_KEYS.EMAIL_RESEND_API_KEY]) && !process.env.RESEND_API_KEY?.trim()) return { error: t("emailAddResendKey") };
+    if (key && !/^[A-Za-z0-9_\-.]{8,300}$/.test(key)) return { error: t("emailBadResendKey") };
+    if (!fromParsed) return { error: t("emailAddResendFrom") };
     if (key) values[SETTING_KEYS.EMAIL_RESEND_API_KEY] = key;
     values[SETTING_KEYS.EMAIL_FROM] = fromParsed.address;
   }

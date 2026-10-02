@@ -1,5 +1,6 @@
 import type { Flow } from "@prisma/client";
-import { runFlow, runnableFlow, flowWrites, flowChecksPassword, HIDDEN_TRIGGERS, VISITOR_ERROR } from "@/lib/flow/runtime";
+import { runFlow, runnableFlow, flowWrites, flowChecksPassword, HIDDEN_TRIGGERS } from "@/lib/flow/runtime";
+import { appRuntimeText } from "@/lib/app-locale";
 import { flowAccess, moduleFlowForPage, resolveModuleFlow } from "@/lib/flow/access";
 import { hitLimit, undoHit, requestIp } from "@/lib/rate-limit";
 import { json } from "@/lib/utils";
@@ -7,6 +8,8 @@ import { db } from "@/lib/db";
 import { fromBuilderPage } from "@/lib/deployments";
 import { getCurrentUser } from "@/lib/auth";
 import { projectForHost } from "@/lib/app-hosts";
+
+type VisitorText = Awaited<ReturnType<typeof appRuntimeText>>;
 
 /** JSON, form posts and plain text. */
 const BODY_LIMIT = 1024 * 1024;
@@ -185,19 +188,19 @@ async function readCapped(req: Request, limit: number): Promise<Read> {
 }
 
 /** What the request sent, as the flow's trigger; or the response to send instead. */
-async function readTrigger(req: Request): Promise<{ trigger: unknown } | { response: Response }> {
+async function readTrigger(req: Request, say: VisitorText): Promise<{ trigger: unknown } | { response: Response }> {
   const ct = (req.headers.get("content-type") ?? "").toLowerCase();
   const multipart = ct.includes("multipart/form-data");
   const read = await readCapped(req, multipart ? MULTIPART_LIMIT : BODY_LIMIT);
   if ("tooBig" in read) {
     return {
       response: json(
-        { error: multipart ? "Those files are too big to send together. Please keep them under 20 MB in total." : "That's too much to send at once. Please send less and try again." },
+        { error: multipart ? say("filesTooBig") : say("tooMuch") },
         { status: 413 },
       ),
     };
   }
-  if ("broken" in read) return { response: json({ error: "We couldn't read what was sent. Please try again." }, { status: 400 }) };
+  if ("broken" in read) return { response: json({ error: say("unreadable") }, { status: 400 }) };
   const text = () => new TextDecoder().decode(read.bytes);
   if (ct.includes("application/json")) {
     try {
@@ -216,7 +219,7 @@ async function readTrigger(req: Request): Promise<{ trigger: unknown } | { respo
         new URLSearchParams(text()).forEach((v, k) => (obj[k] = v));
       }
     } catch {
-      return { response: json({ error: "We couldn't read that form. Please try again." }, { status: 400 }) };
+      return { response: json({ error: say("formUnreadable") }, { status: 400 }) };
     }
     return { trigger: obj };
   }
@@ -270,6 +273,10 @@ async function handle(req: Request, flowIdOrSlug: string) {
   const isOwner = Boolean(viewer && project && viewer.id === project.ownerId);
   if (!project || (!project.published && !isOwner)) return notFound();
   const draft = isOwner && (await fromBuilderPage(req));
+  // What visitors are told here is in the app's language (messages/<locale>/runtime.json):
+  // a multilingual app's pages send the visitor's (x-nk-lang).
+  const lang = req.headers.get("x-nk-lang");
+  const say = await appRuntimeText(flow.projectId, lang);
 
   // Scheduled and event flows are started by the platform, never by a
   // request; the owner can still test them from the builder.
@@ -278,7 +285,7 @@ async function handle(req: Request, flowIdOrSlug: string) {
 
   let trigger: unknown = null;
   if (req.method !== "GET") {
-    const read = await readTrigger(req);
+    const read = await readTrigger(req, say);
     if ("response" in read) return read.response;
     trigger = read.trigger;
   } else {
@@ -300,14 +307,14 @@ async function handle(req: Request, flowIdOrSlug: string) {
   const signInKeys: string[] = [];
   if (!draft) {
     const writes = flowWrites(runnable.graph);
-    if (writes && bot) return json({ ok: true, message: "Thanks!" });
+    if (writes && bot) return json({ ok: true, message: say("thanks") });
     const access = writes ? await flowAccess(flow, true) : null;
     // Flows only the app's staff can run (admin screens) aren't limited:
     // visitors are turned away from them before anything runs.
     if (access && !access.roles?.length) {
       const limit = access.signIn || access.unused ? LOOSE_WRITE_LIMIT : WRITE_LIMIT;
       const r = hitLimit(`run:${flow.projectId}:${flowId}:${ip}`, limit, WRITE_WINDOW_MS);
-      if (!r.ok) return tooMany("You're sending this too often. Please wait a few minutes and try again.", r.retryAfterSec);
+      if (!r.ok) return tooMany(say("tooOften"), r.retryAfterSec);
     }
     if (flowChecksPassword(runnable.graph)) {
       // Every attempt counts up front (so a burst can't slip through), and
@@ -320,7 +327,7 @@ async function handle(req: Request, flowIdOrSlug: string) {
         const r = hitLimit(key, SIGN_IN_LIMIT, SIGN_IN_WINDOW_MS);
         if (!r.ok) wait = Math.max(wait, r.retryAfterSec);
       }
-      if (wait) return tooMany("Too many sign-in attempts. Please wait 15 minutes and try again.", wait);
+      if (wait) return tooMany(say("tooManySignIns"), wait);
     }
   }
 
@@ -329,6 +336,7 @@ async function handle(req: Request, flowIdOrSlug: string) {
       live: !draft,
       trusted: draft,
       clientIp: ip,
+      lang,
       source: draft ? "test" : "live",
       graph: runnable.graph,
     });
@@ -349,7 +357,7 @@ async function handle(req: Request, flowIdOrSlug: string) {
     const message = err instanceof Error ? err.message : "Flow error";
     console.error(`[run] ${flowId} failed:`, message);
     // Visitors get a plain apology; the owner testing in the builder sees why.
-    return json({ error: draft ? message : VISITOR_ERROR }, { status: 500 });
+    return json({ error: draft ? message : say("visitorError") }, { status: 500 });
   }
 }
 

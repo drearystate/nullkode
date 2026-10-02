@@ -1,0 +1,41 @@
+{
+  "accountMenu": "계정 메뉴",
+  "accountNavigation": "계정 메뉴",
+  "admin": "관리자",
+  "adminHelp": "플랫폼 전체 설정: 브랜딩, AI, 이메일, 결제, 사용자, 리셀러",
+  "administration": "관리",
+  "billing": "결제 및 요금제",
+  "designer": "디자이너",
+  "designerHelp": "원하는 웹사이트를 설명하면 AI가 디자인하고, 요청에 따라 계속 수정해 줘요.",
+  "help": "도움말",
+  "helpGuides": "도움말 및 가이드",
+  "helpHelp": "단계별 안내를 확인하세요. 현재 화면에 맞는 안내가 열려요.",
+  "helpTips": {
+    "help": "도움말을 켜거나 꺼요. 켜면 버튼 위에 마우스를 올려 기능을 확인할 수 있어요. 설정에서도 변경할 수 있어요.",
+    "label": "도움말 팁",
+    "off": "꺼짐",
+    "on": "켜짐"
+  },
+  "home": "{app} 홈",
+  "impersonation": {
+    "backToClients": "고객 목록으로 돌아가기",
+    "backToClientsHelp": "고객의 작업 공간을 나와 고객 목록으로 돌아가요. 변경한 내용은 해당 계정에 그대로 남아요.",
+    "impersonating": "다른 사용자로 이용 중",
+    "signedInAs": "· {email}(으)로 로그인됨",
+    "stop": "다른 사용자로 이용 중지",
+    "stopHelp": "이 사용자로 이용하는 것을 중지하고 관리자 화면으로 돌아가요. 변경한 내용은 해당 계정에 그대로 남아요.",
+    "viewingClient": "<b>{name}</b>님의 작업 공간을 보고 있어요. 여기서 변경한 내용은 해당 계정에 반영돼요."
+  },
+  "logOut": "로그아웃",
+  "myApps": "내 앱",
+  "myAppsHelp": "모든 앱을 한곳에서 확인하세요. 앱을 열어 계속 작업하거나 새 앱을 시작할 수 있어요.",
+  "profile": "프로필",
+  "resellerDashboard": "리셀러 대시보드",
+  "resellerHelp": "고객, 브랜드, 가격, 웹 주소를 관리하세요.",
+  "switchTheme": "라이트 모드 또는 다크 모드로 전환",
+  "switchToDark": "다크 모드로 전환",
+  "switchToLight": "라이트 모드로 전환",
+  "themeHelp": "라이트 모드와 다크 모드 중에서 선택하세요. 선택한 설정은 저장되며, 프로필에서 “기기 설정과 일치”를 선택할 수도 있어요.",
+  "workspace": "작업 공간",
+  "yourAccount": "내 계정"
+}

@@ -4,6 +4,13 @@ import { DESIGN_SYSTEM_RULES } from "./design-system";
 import { findTemplateForPrompt } from "../templates/registry";
 import { validateScaffold, formatViolationsForRepair, type Violation } from "./validate-scaffold";
 import { providerScaffoldStream, providerScaffoldOneShot } from "./provider";
+import { contentLanguageRule } from "../app-locale";
+
+/** The app's language, for the single-pass prompts ("" for English: those prompts stay as they were). */
+function languageBlock(locale?: string): string {
+  const rule = contentLanguageRule(locale);
+  return rule ? `\n\n${rule}` : "";
+}
 
 const SYSTEM_PROMPT = `You are Nullkode's AI app builder. Users describe what they want to build in plain English. You scaffold a complete working web app: database tables, pages (Bootstrap 5 HTML), and backend flows that wire everything together.
 
@@ -359,7 +366,9 @@ export type StreamChunk = {
  * (project name, tables, pages, flows) and fire live progress events.
  */
 export async function* scaffoldAppStream(
-  userDescription: string
+  userDescription: string,
+  /** The app's language (lib/app-locale.ts): every visible word is written in it. */
+  locale?: string,
 ): AsyncGenerator<StreamChunk> {
   // Find a matching template to use as a starting point. If found, inject
   // its home page HTML into the prompt so the AI adapts a real premium
@@ -373,7 +382,7 @@ export async function* scaffoldAppStream(
   yield* providerScaffoldStream({
     systemPrompt: SYSTEM_PROMPT,
     userMessage:
-      `Build me: ${userDescription}${templateContext}${generatedImageContext(userDescription)}\n\n` +
+      `Build me: ${userDescription}${templateContext}${generatedImageContext(userDescription)}${languageBlock(locale)}\n\n` +
       `CRITICAL OUTPUT RULES: Your reply MUST start with the character "{" and end with "}". ` +
       `No preamble like "Here's your scaffold". No markdown code fences. No commentary. Just the raw JSON object.`,
     jsonSchema: SCAFFOLD_SCHEMA as Record<string, unknown>,
@@ -392,6 +401,7 @@ export async function* scaffoldAppStream(
 export async function repairScaffold(
   original: ScaffoldResult,
   violations: Violation[],
+  locale?: string,
 ): Promise<ScaffoldResult | null> {
   if (violations.length === 0) return original;
   const violationsBlock = formatViolationsForRepair(violations);
@@ -406,7 +416,8 @@ export async function repairScaffold(
       "VIOLATIONS:\n" +
       violationsBlock +
       "\n\nORIGINAL SCAFFOLD:\n" +
-      JSON.stringify(original),
+      JSON.stringify(original) +
+      languageBlock(locale),
     jsonSchema: SCAFFOLD_SCHEMA as Record<string, unknown>,
     schemaName: "nullkode_scaffold",
     maxCompletionTokens: parseInt(process.env.OPENAI_SCAFFOLD_MAX_TOKENS ?? "100000", 10),

@@ -1,4 +1,6 @@
 import { db } from "../db";
+import { translator, type Tr } from "./i18n";
+import type { Locale } from "@/i18n/locales";
 
 /**
  * Pages written by the AI (and module pages) point at flows by slug:
@@ -96,23 +98,32 @@ export async function resolveFlowRefs(
  * One plain sentence for refs that are still unresolved after saving, e.g.
  * "The new form isn't connected yet – ask me to connect it."
  */
-export function unconnectedNote(leftover: string[]): string | null {
+export function unconnectedNote(leftover: string[], t: Tr = translator("en", "ai"), locale: Locale = "en"): string | null {
   if (leftover.length === 0) return null;
   const kinds = new Set(
     leftover.map((ref) => {
       const kind = /^data-nk-([a-z-]+)-ref=/.exec(ref)?.[1] ?? "flow";
       if (kind === "bind-flow") return "list";
-      if (kind === "logout") return "log-out button";
-      if (kind === "update-flow") return "editable part";
-      if (kind === "reorder-flow") return "sortable list";
+      if (kind === "logout") return "logout";
+      if (kind === "update-flow") return "editable";
+      if (kind === "reorder-flow") return "sortable";
       if (kind === "calendar-flow") return "calendar";
       return "form";
     })
   );
   const names = [...kinds];
-  if (leftover.length === 1) return `The new ${names[0]} isn't connected yet – ask me to connect it.`;
-  const listed = names.length === 1 ? `${names[0]}s` : `${names.slice(0, -1).join(", ")} and ${names[names.length - 1]}`;
-  return `Some new parts (${listed}) aren't connected yet – ask me to connect them.`;
+  if (leftover.length === 1) return t(`unconnected.one.${names[0]}`);
+  let listed: string;
+  if (names.length === 1) listed = t(`unconnected.kinds.${names[0]}`);
+  else {
+    const words = names.map((n) => t(`unconnected.kind.${n}`));
+    try {
+      listed = new Intl.ListFormat(locale, { style: "long", type: "conjunction" }).format(words);
+    } catch {
+      listed = words.join(", ");
+    }
+  }
+  return t("unconnected.many", { parts: listed });
 }
 
 /** How slugs are written once saved (see persistFlows): lower-case, dashes. */

@@ -1,14 +1,15 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 const PLANS = ["FREE", "STARTER", "PRO", "TEAM"] as const;
-const title = (p: string) => p[0] + p.slice(1).toLowerCase();
 
 /** Plan picker and "password link" for one person in Admin → Users. */
 export function UserPlanSelect({ userId, plan }: { userId: string; plan: string }) {
   const [value, setValue] = useState(plan);
   const [state, setState] = useState<"idle" | "saving" | "saved" | "error">("idle");
+  const t = useTranslations("admin");
   async function change(next: string) {
     setValue(next);
     setState("saving");
@@ -17,11 +18,11 @@ export function UserPlanSelect({ userId, plan }: { userId: string; plan: string 
   }
   return (
     <span className="inline-flex items-center gap-2">
-      <select aria-label="Plan" data-help="Changes their plan straight away. It doesn't charge them or change any Stripe subscription, and a later payment update from Stripe can switch it back." className="input h-8 min-h-0 w-auto py-0 text-xs" value={value} onChange={(e) => change(e.target.value)}>
-        {PLANS.map((p) => <option key={p} value={p}>{title(p)}</option>)}
+      <select aria-label={t("users.plan")} data-help={t("users.planHelp")} className="input h-8 min-h-0 w-auto py-0 text-xs" value={value} onChange={(e) => change(e.target.value)}>
+        {PLANS.map((p) => <option key={p} value={p}>{t(`plans.${p}`)}</option>)}
       </select>
-      {state === "saved" && <span className="text-xs text-emerald-300">Saved</span>}
-      {state === "error" && <span className="text-xs text-red-300">Couldn&apos;t save</span>}
+      {state === "saved" && <span className="text-xs text-emerald-300">{t("users.saved")}</span>}
+      {state === "error" && <span className="text-xs text-red-300">{t("users.couldntSave")}</span>}
     </span>
   );
 }
@@ -29,20 +30,21 @@ export function UserPlanSelect({ userId, plan }: { userId: string; plan: string 
 export function PasswordLinkButton({ userId, email }: { userId: string; email: string }) {
   const [result, setResult] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const t = useTranslations("admin");
   async function make() {
     setBusy(true);
     const res = await fetch(`/api/admin/users/${userId}/link`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ purpose: "reset" }) });
     const data = await res.json().catch(() => ({}));
     setBusy(false);
-    if (!res.ok) return setResult(data.error || "Couldn't make a link.");
-    if (data.emailed) return setResult(`Emailed to ${email}.`);
+    if (!res.ok) return setResult(data.error || t("users.linkFailed"));
+    if (data.emailed) return setResult(t("users.linkEmailed", { email }));
     await navigator.clipboard.writeText(data.link).catch(() => {});
-    setResult("Link copied. Send it to them; it works once for 2 hours.");
+    setResult(t("users.linkCopied"));
   }
   return (
     <span className="inline-flex items-center gap-2">
-      <button type="button" className="btn-ghost h-8 min-h-0 px-3 text-xs" onClick={make} disabled={busy} data-help="Makes a one-time link for them to choose a new password, valid for 2 hours. It's emailed to them if email is on; otherwise it's copied for you to send.">{busy ? "Making…" : "Password link"}</button>
-      {result && <span role="status" className="max-w-[16rem] text-left text-xs text-surface-300">{result}</span>}
+      <button type="button" className="btn-ghost h-8 min-h-0 px-3 text-xs" onClick={make} disabled={busy} data-help={t("users.passwordLinkHelp")}>{busy ? t("users.making") : t("users.passwordLink")}</button>
+      {result && <span role="status" className="max-w-[16rem] text-start text-xs text-surface-300">{result}</span>}
     </span>
   );
 }
@@ -71,6 +73,8 @@ export function DeleteUserButton({ userId, email }: { userId: string; email: str
   const [error, setError] = useState<string | null>(null);
   const [done, setDone] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const t = useTranslations("admin");
+  const tc = useTranslations("common");
 
   useEffect(() => {
     if (!open) return;
@@ -81,14 +85,14 @@ export function DeleteUserButton({ userId, email }: { userId: string; email: str
       .then(async (res) => {
         const data = await res.json().catch(() => ({}));
         if (!alive) return;
-        if (!res.ok) setError(data.error || "Couldn't load this account.");
+        if (!res.ok) setError(data.error || t("users.loadFailed"));
         else setInfo(data as DeletePreview);
       })
-      .catch(() => alive && setError("Network error. Try again."));
+      .catch(() => alive && setError(t("users.networkError")));
     return () => {
       alive = false;
     };
-  }, [open, userId]);
+  }, [open, userId, t]);
 
   useEffect(() => {
     if (open && info) inputRef.current?.focus();
@@ -121,28 +125,28 @@ export function DeleteUserButton({ userId, email }: { userId: string; email: str
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
         if (data.code === "billing") setBillingAsk(true);
-        setError(data.error || `Couldn't delete (${res.status}).`);
+        setError(data.error || t("users.deleteFailed", { status: res.status }));
         return;
       }
       setDone(true);
       setOpen(false);
       router.refresh();
     } catch {
-      setError("Network error. Try again.");
+      setError(t("users.networkError"));
     } finally {
       setBusy(false);
     }
   }
 
-  if (done) return <span className="text-xs text-surface-400">Deleted</span>;
+  if (done) return <span className="text-xs text-surface-400">{t("users.deleted")}</span>;
 
   return (
     <>
-      <button type="button" className="btn-ghost h-8 min-h-0 px-3 text-xs text-red-300 hover:text-red-200" onClick={() => setOpen(true)} data-help="Permanently deletes their account and all their apps, data and files, cancelling any subscription first. You'll see what goes before you confirm. Can't be undone.">
-        Delete
+      <button type="button" className="btn-ghost h-8 min-h-0 px-3 text-xs text-red-300 hover:text-red-200" onClick={() => setOpen(true)} data-help={t("users.deleteHelp")}>
+        {t("users.delete")}
       </button>
       {open && (
-        <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/60 p-4 text-left sm:items-center" onClick={close}>
+        <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/60 p-4 text-start sm:items-center" onClick={close}>
           <form
             role="dialog"
             aria-modal="true"
@@ -155,52 +159,47 @@ export function DeleteUserButton({ userId, email }: { userId: string; email: str
             onSubmit={remove}
           >
             <h3 id={`delete-user-${userId}`} className="text-lg font-semibold text-red-200">
-              Delete {email}?
+              {t("users.deleteTitle", { email })}
             </h3>
-            {!info && !error && <p className="mt-3 text-sm text-surface-400">Checking what this account has…</p>}
+            {!info && !error && <p className="mt-3 text-sm text-surface-400">{t("users.checking")}</p>}
             {info && (
               <div className="mt-3 space-y-3 text-sm text-surface-300">
                 <p>
-                  {info.apps.length === 0
-                    ? "This deletes their account. They have no apps."
-                    : info.apps.length === 1
-                      ? "This deletes their account and their app, with everything the app saved and its files."
-                      : `This deletes their account and all ${info.apps.length} of their apps, with everything the apps saved and their files.`}
-                  {info.paying ? " Their subscription is cancelled first." : ""} This can&apos;t be undone.
+                  {info.apps.length === 0 ? t("users.deleteNone") : info.apps.length === 1 ? t("users.deleteOne") : t("users.deleteMany", { count: info.apps.length })}
+                  {info.paying ? ` ${t("users.deletePaying")}` : ""} {t("users.cantUndo")}
                 </p>
                 {info.apps.length > 0 && (
-                  <ul className="max-h-32 list-disc overflow-y-auto pl-5 text-xs text-surface-400">
+                  <ul className="max-h-32 list-disc overflow-y-auto ps-5 text-xs text-surface-400">
                     {info.apps.map((a) => (
                       <li key={a.id}>
-                        {a.name}
-                        {a.hasUploadKey ? " (has a Google Play upload key)" : ""}
+                        {a.hasUploadKey ? t("users.appWithKey", { name: a.name }) : a.name}
                       </li>
                     ))}
                   </ul>
                 )}
                 {info.reseller && (
                   <p role="alert" className="rounded-lg border border-amber-400/30 bg-amber-400/10 p-3 text-amber-100">
-                    They run the reseller workspace &ldquo;{info.reseller}&rdquo;. Remove it under Admin, Resellers first, then delete the account.
+                    {t("users.isReseller", { name: info.reseller })}
                   </p>
                 )}
-                {info.self && <p role="alert" className="text-amber-200">This is your own account. Use Delete my account on your Profile page.</p>}
+                {info.self && <p role="alert" className="text-amber-200">{t("users.isSelf")}</p>}
                 {keyed.length > 0 && (
                   <label className="flex items-start gap-2 rounded-lg border border-red-800/60 bg-red-950/30 p-3 text-red-100">
                     <input type="checkbox" className="mt-1" checked={keysAck} onChange={(e) => setKeysAck(e.target.checked)} />
                     <span>
-                      {keyed.length === 1 ? "One app has" : `${keyed.length} apps have`} a Google Play upload key. Only the app&apos;s owner can download it. I understand it will be lost, and the owner could never update that app on Google Play again.
+                      {keyed.length === 1 ? t("users.keysAckOne") : t("users.keysAckMany", { count: keyed.length })}
                     </span>
                   </label>
                 )}
                 {billingAsk && (
                   <label className="flex items-start gap-2 rounded-lg border border-amber-400/30 bg-amber-400/10 p-3 text-amber-100">
                     <input type="checkbox" className="mt-1" checked={billingHandled} onChange={(e) => setBillingHandled(e.target.checked)} />
-                    <span>I&apos;ve cancelled their subscription in the payment dashboard myself.</span>
+                    <span>{t("users.billingHandled")}</span>
                   </label>
                 )}
                 {!info.reseller && !info.self && (
                   <label className="block">
-                    <span className="label">Type their email to confirm</span>
+                    <span className="label">{t("users.typeEmail")}</span>
                     <input ref={inputRef} className="input w-full" type="email" autoComplete="off" value={typed} onChange={(e) => setTyped(e.target.value)} placeholder={email} />
                   </label>
                 )}
@@ -213,14 +212,14 @@ export function DeleteUserButton({ userId, email }: { userId: string; email: str
             )}
             <div className="mt-6 flex justify-end gap-2">
               <button type="button" className="btn-ghost" onClick={close} disabled={busy}>
-                Cancel
+                {tc("cancel")}
               </button>
               <button
                 type="submit"
                 className="rounded-lg bg-red-700 px-4 py-2 text-sm font-semibold text-fixed-white transition hover:bg-red-600 [[data-theme=light]_&]:bg-red-300 [[data-theme=light]_&]:hover:bg-red-400 disabled:opacity-50"
                 disabled={!canDelete || busy}
               >
-                {busy ? "Deleting…" : "Delete account"}
+                {busy ? t("users.deleting") : t("users.deleteAccount")}
               </button>
             </div>
           </form>

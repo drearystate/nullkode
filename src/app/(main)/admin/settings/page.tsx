@@ -1,6 +1,10 @@
 import { BrandSettings } from "@/components/admin/brand-settings";
 import { BusinessSettings } from "@/components/admin/business-settings";
 import { EmailSettings } from "@/components/admin/email-settings";
+import { LanguageSettings } from "@/components/admin/language-settings";
+import { getTranslations } from "next-intl/server";
+import { getSetting } from "@/lib/settings";
+import { isLocale } from "@/i18n/locales";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { getRealUser } from "@/lib/auth";
@@ -18,6 +22,8 @@ export default async function AdminSettingsPage() {
   if (!real) redirect("/login");
   if (real.role !== "ADMIN") redirect("/dashboard");
 
+  const t = await getTranslations("admin.settingsPage");
+  const savedLocale = await getSetting<string>("i18n.defaultLocale").catch(() => null);
   const current = await getAllPlanLimits();
   const defaults = defaultPlanLimits();
 
@@ -34,23 +40,24 @@ export default async function AdminSettingsPage() {
       <div className="mx-auto max-w-5xl px-6 py-10">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-semibold">Admin · Settings</h1>
+            <h1 className="text-2xl font-semibold">{t("title")}</h1>
             <p className="text-sm text-surface-400 mt-1">
-              Your brand, payments, email, AI engine and what each plan includes.
+              {t("subtitle")}
             </p>
           </div>
-          <Link href="/admin" className="btn btn-secondary">Back to admin</Link>
+          <Link href="/admin" className="btn btn-secondary">{t("back")}</Link>
         </div>
-        <nav aria-label="Settings sections" className="sticky top-[60px] sm:top-[68px] z-10 -mx-2 mt-6 flex flex-wrap gap-2 bg-surface-950/90 px-2 py-3 backdrop-blur">
-          {[["#brand", "Branding"], ["#payments", "Payments"], ["#email", "Email"], ["#ai", "AI engine"], ["#plans", "Plans & limits"]].map(([href, label]) => (
+        <nav aria-label={t("sections")} className="sticky top-[60px] sm:top-[68px] z-10 -mx-2 mt-6 flex flex-wrap gap-2 bg-surface-950/90 px-2 py-3 backdrop-blur">
+          {[["#brand", t("navBrand")], ["#payments", t("navPayments")], ["#email", t("navEmail")], ["#language", t("navLanguage")], ["#ai", t("navAi")], ["#plans", t("navPlans")]].map(([href, label]) => (
             <a key={href} href={href} className="rounded-full border border-surface-700 px-3 py-1.5 text-sm text-surface-300 hover:border-brand-500/60 hover:text-white">{label}</a>
           ))}
-          <Link href="/admin/resellers" className="rounded-full border border-surface-700 px-3 py-1.5 text-sm text-surface-300 hover:border-brand-500/60 hover:text-white">Resellers</Link>
+          <Link href="/admin/resellers" className="rounded-full border border-surface-700 px-3 py-1.5 text-sm text-surface-300 hover:border-brand-500/60 hover:text-white">{t("navResellers")}</Link>
         </nav>
         <div className="mt-6">
           <BrandSettings />
           <BusinessSettings />
           <EmailSettings />
+          <LanguageSettings initial={isLocale(savedLocale) ? savedLocale : ""} />
           <div className="mt-10">
             <SettingsPanel initialPlanLimits={initial} defaultPlanLimits={fallback} />
           </div>

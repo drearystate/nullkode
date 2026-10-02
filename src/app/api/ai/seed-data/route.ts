@@ -5,7 +5,9 @@ import { getCurrentUser } from "@/lib/auth";
 import { json } from "@/lib/utils";
 import { providerEditPage } from "@/lib/ai/provider";
 import { postgresAdapter } from "@/lib/datasources/postgres";
-import { aiErrorFor, classifyAiFailure } from "@/lib/ai/errors";
+import { getAppLocale, languageLabel } from "@/lib/app-locale";
+import { aiErrorFor, aiErrorWords, classifyAiFailure } from "@/lib/ai/errors";
+import { personLocale, translator } from "@/lib/ai/i18n";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -30,26 +32,27 @@ const RESERVED_COLS = new Set(["id", "created_at", "updated_at"]);
  */
 export async function POST(req: Request) {
   const user = await getCurrentUser();
-  if (!user) return json({ error: "Unauthorized" }, { status: 401 });
+  const t = translator(await personLocale(), "ai");
+  if (!user) return json({ error: t("errors.unauthorized") }, { status: 401 });
   const quota = await checkAiQuota(user);
   if (quota) return quota;
 
   const parsed = Body.safeParse(await req.json().catch(() => null));
-  if (!parsed.success) return json({ error: "Invalid input" }, { status: 400 });
+  if (!parsed.success) return json({ error: t("errors.invalidInput") }, { status: 400 });
   const { projectId, message } = parsed.data;
 
   const project = await db.project.findFirst({
     where: { id: projectId, ownerId: user.id },
     select: { id: true },
   });
-  if (!project) return json({ error: "Project not found" }, { status: 404 });
+  if (!project) return json({ error: t("errors.projectNotFound") }, { status: 404 });
 
   const datasource = await db.dataSource.findFirst({
     where: { projectId, kind: "POSTGRES_INTERNAL" },
   });
   if (!datasource) {
     return json(
-      { error: "This project has no database yet — add a feature first." },
+      { error: t("seed.noDatabase") },
       { status: 400 }
     );
   }
@@ -83,7 +86,7 @@ export async function POST(req: Request) {
 
   if (tables.length === 0) {
     return json(
-      { error: "No tables to populate — create a feature first, then try again." },
+      { error: t("seed.noTables") },
       { status: 400 }
     );
   }
@@ -92,6 +95,10 @@ export async function POST(req: Request) {
   // cost nothing), and given back if no rows come of it.
   const chargeId = await recordAiUsage(user.id, "seed", projectId);
   const usage = () => aiUsageSummary(user).catch(() => null);
+
+  // Text values (names, descriptions) in the app's language, when it has one.
+  const app = await getAppLocale(projectId).catch(() => null);
+  const seedLanguage = app?.explicit && app.locale !== "en" ? `Write every text value in ${languageLabel(app.locale)}; keep field names and enum-like codes as they are.\n\n` : "";
 
   // Prompt the model for rows. Keep it tiny — no design system rules, no
   // HTML, no flow node docs. Just the table list and a short instruction.
@@ -115,7 +122,7 @@ ${tables
   )
   .join("\n")}
 
-${message ? `User context: ${message}\n\n` : ""}Return the JSON object now. No prose, no markdown.`;
+${message ? `User context: ${message}\n\n` : ""}${seedLanguage}Return the JSON object now. No prose, no markdown.`;
 
   // OpenAI strict mode forbids arbitrary-key objects (additionalProperties
   // must be `false`), so each row is sent as a JSON-stringified object and
@@ -151,7 +158,7 @@ ${message ? `User context: ${message}\n\n` : ""}Return the JSON object now. No p
     const refunded = await refundFailedAi(chargeId, user.id, classifyAiFailure(err));
     return json(
       {
-        error: aiErrorFor(user, err, "The AI couldn't make sample data. Please try again."),
+        error: aiErrorFor(user, err, t("seed.failed"), aiErrorWords(t)),
         refunded,
         usage: await usage(),
       },
@@ -164,7 +171,7 @@ ${message ? `User context: ${message}\n\n` : ""}Return the JSON object now. No p
     parsedRows = JSON.parse(content);
   } catch {
     const refunded = await refundFailedAi(chargeId, user.id, "unusable");
-    return json({ error: `The AI's sample data couldn't be read. Please try again.${refunded ? " This one didn't count." : ""}`, refunded, usage: await usage() }, { status: 500 });
+    return json({ error: t(refunded ? "seed.unreadableRefunded" : "seed.unreadable"), refunded, usage: await usage() }, { status: 500 });
   }
 
   const byName = new Map(tables.map((t) => [t.name, t]));
@@ -213,10 +220,8 @@ ${message ? `User context: ${message}\n\n` : ""}Return the JSON object now. No p
   const refunded = total === 0 ? await refundFailedAi(chargeId, user.id, "unusable") : false;
   const explanation =
     total > 0
-      ? `Added ${total} sample ${total === 1 ? "row" : "rows"} across ${
-          insertedCounts.length
-        } ${insertedCounts.length === 1 ? "table" : "tables"}.`
-      : `No sample rows were added (the AI didn't return any rows that fit your tables).${refunded ? " It wasn't counted." : ""}`;
+      ? t("seed.added", { total, tables: insertedCounts.length })
+      : t(refunded ? "seed.noneRefunded" : "seed.none");
 
   return json({
     explanation,

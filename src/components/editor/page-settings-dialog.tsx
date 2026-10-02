@@ -2,6 +2,7 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { ArrowDown, ArrowUp, Copy, Loader2, TriangleAlert, X } from "lucide-react";
+import { useTranslations } from "next-intl";
 import type { PageSettings, Visibility } from "@/lib/page-visibility";
 
 /** What the dialog asks the page route to change (only what changed). */
@@ -24,10 +25,11 @@ type Props = {
   onDuplicate: () => Promise<boolean>;
 };
 
-const AUDIENCES: Array<{ value: Visibility; label: string; hint: string }> = [
-  { value: "public", label: "Everyone", hint: "Anyone with the link can open it." },
-  { value: "signed-in", label: "Signed-in people", hint: "Visitors sign in first. Anyone can make an account." },
-  { value: "admin", label: "Admins only", hint: "Only you and the people you make admins." },
+/** Who can open a page; labels and hints are in editor.json under pageSettings.audiences. */
+const AUDIENCES: Array<{ value: Visibility; key: string }> = [
+  { value: "public", key: "public" },
+  { value: "signed-in", key: "signedIn" },
+  { value: "admin", key: "admin" },
 ];
 
 /** Who sees less, for the "making it more open" warnings. */
@@ -48,13 +50,15 @@ export function PageSettingsDialog({ projectId, page, busy, onClose, onSave, onD
   const [showInMenu, setShowInMenu] = useState(true);
   const [position, setPosition] = useState<number | null>(null);
   const [working, setWorking] = useState<"save" | "copy" | null>(null);
+  const t = useTranslations("editor.pageSettings");
+  const tc = useTranslations("common");
 
   useEffect(() => {
     let live = true;
     fetch(`/api/projects/${projectId}/pages/${page.id}?settings=1`)
       .then(async (res) => {
         const data = await res.json().catch(() => ({}));
-        if (!res.ok || !data.settings) throw new Error(data.error || "We couldn't load this page's settings. Please try again.");
+        if (!res.ok || !data.settings) throw new Error(data.error || t("loadFailedRetry"));
         if (!live) return;
         const s = data.settings as PageSettings;
         setSettings(s);
@@ -63,11 +67,11 @@ export function PageSettingsDialog({ projectId, page, busy, onClose, onSave, onD
         setShowInMenu(s.inMenu);
         setPosition(s.menuPosition);
       })
-      .catch((err) => live && setLoadError(err instanceof Error ? err.message : "We couldn't load this page's settings."));
+      .catch((err) => live && setLoadError(err instanceof Error ? err.message : t("loadFailed")));
     return () => {
       live = false;
     };
-  }, [projectId, page.id, page.title]);
+  }, [projectId, page.id, page.title, t]);
 
   useEffect(() => {
     if (settings) setTimeout(() => nameRef.current?.focus(), 30);
@@ -119,7 +123,6 @@ export function PageSettingsDialog({ projectId, page, busy, onClose, onSave, onD
   }
 
   const disabled = busy || working !== null;
-  const where = s?.menuGroup === "staff" ? "the admins’ “Manage” menu" : "the menu";
 
   const dialog = (
     <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm" onClick={() => !working && onClose()}>
@@ -132,17 +135,17 @@ export function PageSettingsDialog({ projectId, page, busy, onClose, onSave, onD
       >
         <div className="flex items-start justify-between gap-3 border-b border-surface-800 px-6 py-5">
           <div className="min-w-0">
-            <h2 id={titleId} className="text-lg font-bold">Page settings</h2>
+            <h2 id={titleId} className="text-lg font-bold">{t("title")}</h2>
             <p className="mt-0.5 truncate text-xs text-surface-400">{page.title}</p>
           </div>
-          <button type="button" className="studio-icon-button" aria-label="Close page settings" onClick={onClose} disabled={working !== null}>
+          <button type="button" className="studio-icon-button" aria-label={t("close")} onClick={onClose} disabled={working !== null}>
             <X size={16} />
           </button>
         </div>
 
         {!s ? (
           <div className="p-6 text-sm text-surface-400">
-            {loadError ? <p role="alert" className="text-red-300">{loadError}</p> : <p className="flex items-center gap-2"><Loader2 size={15} className="animate-spin" aria-hidden />Loading…</p>}
+            {loadError ? <p role="alert" className="text-red-300">{loadError}</p> : <p className="flex items-center gap-2"><Loader2 size={15} className="animate-spin" aria-hidden />{tc("loading")}</p>}
           </div>
         ) : (
           <form
@@ -155,11 +158,11 @@ export function PageSettingsDialog({ projectId, page, busy, onClose, onSave, onD
             <div className="min-h-0 flex-1 space-y-6 overflow-y-auto px-6 py-5">
               {s.designer && (
                 <p className="rounded-lg border border-amber-400/30 bg-amber-400/10 p-3 text-sm text-amber-100">
-                  This app&apos;s pages come from the AI Designer, so change them there.
+                  {t("designerNote")}
                 </p>
               )}
               <div>
-                <label className="label" htmlFor={`${titleId}-name`}>Name</label>
+                <label className="label" htmlFor={`${titleId}-name`}>{t("name")}</label>
                 <input
                   id={`${titleId}-name`}
                   ref={nameRef}
@@ -169,13 +172,13 @@ export function PageSettingsDialog({ projectId, page, busy, onClose, onSave, onD
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
-                <p className="mt-1 text-[11px] text-surface-500">Shown in the menu and on the browser tab.</p>
+                <p className="mt-1 text-[11px] text-surface-500">{t("nameHint")}</p>
               </div>
 
               <fieldset>
-                <legend className="label" data-help="Choose who can open this page in your live app: anyone, only people who have signed in, or only admins.">Who can see this page</legend>
+                <legend className="label" data-help={t("audienceHelp")}>{t("audience")}</legend>
                 <div className="mt-2 space-y-1.5">
-                  {[...AUDIENCES, ...(s.visibility === "role" ? [{ value: "role" as const, label: `People with the “${s.role}” role`, hint: "Set by the page itself. Pick another option to change it." }] : [])].map((a) => (
+                  {[...AUDIENCES.map((a) => ({ value: a.value, label: t(`audiences.${a.key}.label`), hint: t(`audiences.${a.key}.hint`) })), ...(s.visibility === "role" ? [{ value: "role" as const, label: t("audiences.role.label", { role: s.role ?? "" }), hint: t("audiences.role.hint") }] : [])].map((a) => (
                     <label key={a.value} data-help={a.hint} className={`flex cursor-pointer items-start gap-3 rounded-lg border px-3 py-2.5 text-sm transition ${visibility === a.value ? "border-brand-500/60 bg-brand-500/10" : "border-surface-800 hover:border-surface-700"}`}>
                       <input
                         type="radio"
@@ -195,45 +198,44 @@ export function PageSettingsDialog({ projectId, page, busy, onClose, onSave, onD
                 {s.privateData && opened && (
                   <Warning>
                     {visibility === "public"
-                      ? "This page shows private data; making it public exposes it."
-                      : "This page shows private data. Anyone who signs up would be able to see it."}
+                      ? t("privatePublic")
+                      : t("privateSignedIn")}
                   </Warning>
                 )}
                 {!s.hasLogin && visibility !== "public" && (
                   <Warning>
-                    Your app has no sign-in page yet, so only you can open this page.{" "}
-                    <a href={`/projects/${projectId}/modules`} className="underline underline-offset-2">Add “Sign-in and accounts” from Features.</a>
+                    {t.rich("noLogin", { link: (c) => <a href={`/projects/${projectId}/modules`} className="underline underline-offset-2">{c}</a> })}
                   </Warning>
                 )}
               </fieldset>
 
               <fieldset>
-                <legend className="label" data-help="Whether this page has a link in your app’s menu, and where in the menu it sits.">Menu</legend>
+                <legend className="label" data-help={t("menuHelp")}>{t("menu")}</legend>
                 {s.canShowInMenu ? (
-                  <label className="mt-2 flex cursor-pointer items-center gap-3 text-sm" data-help="Tick to put a link to this page in your app’s menu. Untick to hide it from the menu; people with the link can still open it.">
+                  <label className="mt-2 flex cursor-pointer items-center gap-3 text-sm" data-help={t("showInMenuHelp")}>
                     <input type="checkbox" className="h-4 w-4 accent-brand-500" checked={showInMenu} onChange={(e) => setShowInMenu(e.target.checked)} />
                     <span>
-                      Show in menu
-                      {s.menuGroup === "button" && <span className="block text-xs text-surface-400">It shows as a button at the end of the menu.</span>}
+                      {t("showInMenu")}
+                      {s.menuGroup === "button" && <span className="block text-xs text-surface-400">{t("buttonNote")}</span>}
                     </span>
                   </label>
                 ) : (
-                  <p className="mt-2 text-sm text-surface-400">This page never appears in the menu.</p>
+                  <p className="mt-2 text-sm text-surface-400">{t("neverInMenu")}</p>
                 )}
-                {showInMenu && s.menuGroup === "home" && <p className="mt-2 text-xs text-surface-400">The home page always comes first.</p>}
-                {showInMenu && !s.inMenu && s.canShowInMenu && <p className="mt-2 text-xs text-surface-400">It goes at the end of the menu. You can move it once it&apos;s saved.</p>}
-                {showInMenu && s.inMenu && groupChanges && <p className="mt-2 text-xs text-surface-400">Save first, then set its place in the menu.</p>}
+                {showInMenu && s.menuGroup === "home" && <p className="mt-2 text-xs text-surface-400">{t("homeFirst")}</p>}
+                {showInMenu && !s.inMenu && s.canShowInMenu && <p className="mt-2 text-xs text-surface-400">{t("goesAtEnd")}</p>}
+                {showInMenu && s.inMenu && groupChanges && <p className="mt-2 text-xs text-surface-400">{t("saveFirst")}</p>}
                 {canMove && position !== null && (
                   <div className="mt-3 flex flex-wrap items-center gap-2">
                     <span className="text-sm text-surface-300" aria-live="polite">
-                      Place in {where}: <strong className="text-surface-100">{position}</strong> of {s.menuCount}
+                      {t.rich(s.menuGroup === "staff" ? "placeInManage" : "placeInMenu", { b: (c) => <strong className="text-surface-100">{c}</strong>, position, count: s.menuCount })}
                     </span>
-                    <span className="ml-auto flex gap-2">
-                      <button type="button" className="btn-ghost !min-h-0 !px-3 !py-1.5 text-xs" disabled={position <= 1} onClick={() => setPosition(position - 1)} data-help="Move this page one place earlier in the menu. It changes when you press Save.">
-                        <ArrowUp size={14} aria-hidden />Move up
+                    <span className="ms-auto flex gap-2">
+                      <button type="button" className="btn-ghost !min-h-0 !px-3 !py-1.5 text-xs" disabled={position <= 1} onClick={() => setPosition(position - 1)} data-help={t("moveUpHelp")}>
+                        <ArrowUp size={14} aria-hidden />{t("moveUp")}
                       </button>
-                      <button type="button" className="btn-ghost !min-h-0 !px-3 !py-1.5 text-xs" disabled={position >= s.menuCount} onClick={() => setPosition(position + 1)} data-help="Move this page one place later in the menu. It changes when you press Save.">
-                        <ArrowDown size={14} aria-hidden />Move down
+                      <button type="button" className="btn-ghost !min-h-0 !px-3 !py-1.5 text-xs" disabled={position >= s.menuCount} onClick={() => setPosition(position + 1)} data-help={t("moveDownHelp")}>
+                        <ArrowDown size={14} aria-hidden />{t("moveDown")}
                       </button>
                     </span>
                   </div>
@@ -242,16 +244,16 @@ export function PageSettingsDialog({ projectId, page, busy, onClose, onSave, onD
             </div>
 
             <div className="flex flex-wrap items-center justify-between gap-2 border-t border-surface-800 p-4">
-              <button type="button" className="btn-ghost" onClick={() => void duplicate()} disabled={disabled || s.designer} data-help="Make a copy of this page, named “(copy)”, and open it so you can edit it. Settings changed here but not saved aren’t copied.">
+              <button type="button" className="btn-ghost" onClick={() => void duplicate()} disabled={disabled || s.designer} data-help={t("duplicateHelp")}>
                 {working === "copy" ? <Loader2 size={14} className="animate-spin" aria-hidden /> : <Copy size={14} aria-hidden />}
-                Duplicate
+                {t("duplicate")}
               </button>
               <span className="flex gap-2">
                 <button type="button" className="btn-ghost" onClick={onClose} disabled={working !== null}>
-                  Cancel
+                  {tc("cancel")}
                 </button>
-                <button type="submit" className="btn-primary" disabled={disabled || s.designer || !trimmed} data-help="Save these settings. Your app’s menu is updated on every page to match.">
-                  {working === "save" ? "Saving…" : "Save"}
+                <button type="submit" className="btn-primary" disabled={disabled || s.designer || !trimmed} data-help={t("saveHelp")}>
+                  {working === "save" ? tc("saving") : tc("save")}
                 </button>
               </span>
             </div>

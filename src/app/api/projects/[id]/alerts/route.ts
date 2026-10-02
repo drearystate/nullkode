@@ -1,4 +1,6 @@
 import { z } from "zod";
+import { getTranslations } from "next-intl/server";
+import { requestLocale } from "@/i18n/request";
 import { ownedProject } from "@/lib/guard";
 import { emailEnabled, isEmailAddress } from "@/lib/mailer";
 import { alertSettingKey } from "@/lib/owner-alerts";
@@ -39,14 +41,15 @@ export async function PUT(req: Request, ctx: { params: Promise<{ id: string }> }
   const { id } = await ctx.params;
   const r = await ownedProject(id);
   if ("error" in r) return r.error;
+  const t = await getTranslations({ locale: await requestLocale(), namespace: "project.alertsApi" });
   const parsed = Body.safeParse(await req.json().catch(() => null));
-  if (!parsed.success) return json({ error: "Please check the alert settings and try again." }, { status: 400 });
+  if (!parsed.success) return json({ error: t("invalid") }, { status: 400 });
 
   const current = await alertSettings(id);
   const known = new Set((await alertTables(id, current)).map((t) => t.name));
   const tables = { ...Object.fromEntries(Object.entries(current.tables).filter(([name]) => known.has(name))) };
   for (const [name, mode] of Object.entries(parsed.data.tables ?? {})) {
-    if (!known.has(name)) return json({ error: "One of those tables isn't in this app any more. Reload the page and try again." }, { status: 400 });
+    if (!known.has(name)) return json({ error: t("unknownTable") }, { status: 400 });
     tables[name] = mode;
   }
 
@@ -56,11 +59,11 @@ export async function PUT(req: Request, ctx: { params: Promise<{ id: string }> }
     for (const raw of parsed.data.extraRecipients) {
       const address = raw.trim();
       if (!address) continue;
-      if (!isEmailAddress(address)) return json({ error: `"${address.slice(0, 80)}" doesn't look like an email address.` }, { status: 400 });
+      if (!isEmailAddress(address)) return json({ error: t("badEmail", { address: address.slice(0, 80) }) }, { status: 400 });
       if (address.toLowerCase() === r.user.email.toLowerCase()) continue;
       if (!cleaned.some((x) => x.toLowerCase() === address.toLowerCase())) cleaned.push(address);
     }
-    if (cleaned.length > MAX_EXTRA) return json({ error: `You can add up to ${MAX_EXTRA} more addresses.` }, { status: 400 });
+    if (cleaned.length > MAX_EXTRA) return json({ error: t("tooMany", { max: MAX_EXTRA }) }, { status: 400 });
     extraRecipients = cleaned;
   }
 

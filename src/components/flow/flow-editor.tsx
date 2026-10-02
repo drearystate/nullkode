@@ -18,11 +18,12 @@ import ReactFlow, {
   MarkerType,
 } from "reactflow";
 import "reactflow/dist/style.css";
+import { useTranslations } from "next-intl";
 import { nanoid } from "nanoid";
 import type { FlowGraph } from "@/lib/flow/types";
 import { NodeInspector } from "./node-inspector";
 import { ActivityPanel } from "./activity-panel";
-import { CATEGORY_LABELS, NODE_CATALOG } from "./catalog";
+import { CATEGORY_LABELS, NODE_CATALOG, stepLabel } from "./catalog";
 import { FlowEnabledSwitch } from "./flow-enabled-switch";
 
 type DSColumn = { name: string; type: string };
@@ -53,6 +54,8 @@ type Props = {
 type Tab = "design" | "activity" | "schedule";
 
 export function FlowEditor(props: Props) {
+  const t = useTranslations("flows");
+  const tc = useTranslations("common");
   const [nodes, setNodes] = useState<Node[]>(
     (props.initialGraph?.nodes ?? []).map((n) => ({
       id: n.id,
@@ -198,10 +201,10 @@ export function FlowEditor(props: Props) {
   async function testRun() {
     // /api/run turns paused flows away for everyone, the owner included.
     if (!enabled) {
-      setTestOut("This automation is paused. Turn it on to test it.");
+      setTestOut(t("editor.pausedTest"));
       return;
     }
-    setTestOut("Running...");
+    setTestOut(t("editor.running"));
     try {
       const res = await fetch(`/api/run/${props.flowId}`, {
         method: "POST",
@@ -243,21 +246,21 @@ export function FlowEditor(props: Props) {
         .studio-flow-editor .react-flow__minimap-node { fill: var(--nk-flow-mini-node); }
         .studio-flow-editor .react-flow__minimap-mask { fill: var(--nk-flow-mask); }
       `}</style>
-      <aside className="w-64 border-r border-surface-800 bg-surface-900 overflow-y-auto">
+      <aside className="w-64 border-e border-surface-800 bg-surface-900 overflow-y-auto">
         <div className="p-3 border-b border-surface-800">
-          <div className="text-xs text-surface-500 uppercase tracking-wider">Flow</div>
+          <div className="text-xs text-surface-500 uppercase tracking-wider">{t("editor.flow")}</div>
           <div className="font-semibold">{props.flowName}</div>
-          <details className="mt-2 text-[11px] text-surface-400"><summary className="cursor-pointer" data-help="The web address other services or your own code can call to start this automation. You only need it if you’re connecting something outside the studio.">Web address (for developers)</summary><code className="mt-2 block break-all">/api/run/{props.flowId}</code></details>
+          <details className="mt-2 text-[11px] text-surface-400"><summary className="cursor-pointer" data-help={t("editor.webAddressHelp")}>{t("editor.webAddress")}</summary><code dir="ltr" className="mt-2 block break-all text-start">/api/run/{props.flowId}</code></details>
         </div>
         <div className="p-3">
-          <div className="text-xs uppercase tracking-wider text-surface-400 mb-2" data-help="The things your automation can do. Click one to add it, then drag from its right edge to the next step to set the order they run in.">
-            Add step
+          <div className="text-xs uppercase tracking-wider text-surface-400 mb-2" data-help={t("editor.addStepHelp")}>
+            {t("editor.addStep")}
           </div>
-          <label className="studio-search mb-4"><Search size={14} /><input aria-label="Search flow steps" data-help="Type a word, like “email” or “save”, to find a step fast." placeholder="Find a step…" value={stepSearch} onChange={(e) => setStepSearch(e.target.value)} /></label>
-          {Object.entries(groupByCategory(NODE_CATALOG.filter((c) => `${c.label} ${c.category} ${CATEGORY_LABELS[c.category]}`.toLowerCase().includes(stepSearch.toLowerCase())))).map(([cat, items]) => (
+          <label className="studio-search mb-4"><Search size={14} /><input aria-label={t("editor.searchLabel")} data-help={t("editor.searchHelp")} placeholder={t("editor.searchPlaceholder")} value={stepSearch} onChange={(e) => setStepSearch(e.target.value)} /></label>
+          {Object.entries(groupByCategory(NODE_CATALOG.filter((c) => `${c.label} ${t(`catalog.${c.type}.label`)} ${c.category} ${t(`categories.${CATEGORY_LABELS[c.category]}`)}`.toLowerCase().includes(stepSearch.toLowerCase())))).map(([cat, items]) => (
             <div key={cat} className="mb-4">
               <div className="text-[10px] text-surface-500 uppercase tracking-[0.12em] font-semibold mb-1.5">
-                {CATEGORY_LABELS[cat as keyof typeof CATEGORY_LABELS] ?? cat}
+                {CATEGORY_LABELS[cat as keyof typeof CATEGORY_LABELS] ? t(`categories.${CATEGORY_LABELS[cat as keyof typeof CATEGORY_LABELS]}`) : cat}
               </div>
               <div className="grid gap-1.5">
                 {items.map((c) => {
@@ -265,16 +268,16 @@ export function FlowEditor(props: Props) {
                   return (
                     <button
                       key={c.type}
-                      className="group flex items-center gap-2.5 text-left px-2.5 py-2 rounded-lg hover:bg-surface-800 text-sm border border-surface-800 hover:border-surface-700 transition"
+                      className="group flex items-center gap-2.5 text-start px-2.5 py-2 rounded-lg hover:bg-surface-800 text-sm border border-surface-800 hover:border-surface-700 transition"
                       onClick={() => addNode(c.type)}
-                      data-help={c.help}
+                      data-help={t(`catalog.${c.type}.help`)}
                     >
                       <span
                         className={`inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-surface-950 border border-surface-800 group-hover:border-surface-700 ${c.iconColor}`}
                       >
                         <Icon size={15} strokeWidth={2} />
                       </span>
-                      <span className="text-surface-100">{c.label}</span>
+                      <span className="text-surface-100">{t(`catalog.${c.type}.label`)}</span>
                     </button>
                   );
                 })}
@@ -285,17 +288,17 @@ export function FlowEditor(props: Props) {
       </aside>
 
       <div className="flex-1 min-w-0 relative">
-        <div className="studio-segmented absolute left-3 top-3 z-30 bg-surface-950/90" role="tablist" aria-label="Flow views">
-          <button type="button" role="tab" id="flow-tab-design" aria-selected={tab === "design"} aria-controls="flow-panel-design" data-help="Build the automation: add steps and connect them in the order they should run." className={`inline-flex items-center gap-1.5 ${tab === "design" ? "active" : ""}`} onClick={() => setTab("design")}>
-            <Workflow size={13} aria-hidden />Steps
+        <div className="studio-segmented absolute start-3 top-3 z-30 bg-surface-950/90" role="tablist" aria-label={t("editor.tabsLabel")}>
+          <button type="button" role="tab" id="flow-tab-design" aria-selected={tab === "design"} aria-controls="flow-panel-design" data-help={t("editor.tabStepsHelp")} className={`inline-flex items-center gap-1.5 ${tab === "design" ? "active" : ""}`} onClick={() => setTab("design")}>
+            <Workflow size={13} aria-hidden />{t("editor.tabSteps")}
           </button>
-          <button type="button" role="tab" id="flow-tab-activity" aria-selected={tab === "activity"} aria-controls="flow-panel-activity" data-help="See each time this automation ran, whether it worked, and what people sent when something went wrong." className={`inline-flex items-center gap-1.5 ${tab === "activity" ? "active" : ""}`} onClick={() => setTab("activity")}>
-            <History size={13} aria-hidden />Activity
-            {props.problemCount ? <span className="ml-0.5 rounded-full bg-amber-400/20 px-1.5 text-[10px] font-semibold text-amber-200" aria-label={`${props.problemCount} with a problem in the last 24 hours`}>{props.problemCount > 99 ? "99+" : props.problemCount}</span> : null}
+          <button type="button" role="tab" id="flow-tab-activity" aria-selected={tab === "activity"} aria-controls="flow-panel-activity" data-help={t("editor.tabActivityHelp")} className={`inline-flex items-center gap-1.5 ${tab === "activity" ? "active" : ""}`} onClick={() => setTab("activity")}>
+            <History size={13} aria-hidden />{t("editor.tabActivity")}
+            {props.problemCount ? <span className="ms-0.5 rounded-full bg-amber-400/20 px-1.5 text-[10px] font-semibold text-amber-200" aria-label={t("editor.problemsBadge", { count: props.problemCount })}>{props.problemCount > 99 ? "99+" : props.problemCount}</span> : null}
           </button>
           {props.schedulePanel ? (
-            <button type="button" role="tab" id="flow-tab-schedule" aria-selected={tab === "schedule"} aria-controls="flow-panel-schedule" data-help="Choose whether this runs when your app uses it or by itself at set times, like every morning." className={`inline-flex items-center gap-1.5 ${tab === "schedule" ? "active" : ""}`} onClick={() => setTab("schedule")}>
-              <CalendarClock size={13} aria-hidden />Schedule
+            <button type="button" role="tab" id="flow-tab-schedule" aria-selected={tab === "schedule"} aria-controls="flow-panel-schedule" data-help={t("editor.tabScheduleHelp")} className={`inline-flex items-center gap-1.5 ${tab === "schedule" ? "active" : ""}`} onClick={() => setTab("schedule")}>
+              <CalendarClock size={13} aria-hidden />{t("editor.tabSchedule")}
             </button>
           ) : null}
         </div>
@@ -309,18 +312,20 @@ export function FlowEditor(props: Props) {
             <div className="mx-auto max-w-xl px-5 pb-10 pt-16">{props.schedulePanel}</div>
           </div>
         )}
-        <div className="absolute top-3 right-3 z-30 flex items-center gap-2">
+        <div className="absolute top-3 end-3 z-30 flex items-center gap-2">
           <span className="text-xs text-surface-400">
-            {status === "saving" ? "Saving…" : status === "saved" ? "Saved" : status === "error" ? "Save failed" : ""}
+            {status === "saving" ? tc("saving") : status === "saved" ? t("editor.saved") : status === "error" ? t("editor.saveFailed") : ""}
           </span>
           <span className="rounded-md border border-surface-800 bg-surface-950/90 px-2 py-1.5">
             <FlowEnabledSwitch projectId={props.projectId} flowId={props.flowId} enabled={enabled} scheduled={props.scheduled} onChange={setEnabled} />
           </span>
-          <button className="btn-ghost" onClick={testRun} data-help="Runs this automation once right now, using your latest saved changes, and shows the result below. It really does its steps (saving, emailing and so on), and it shows up in Activity.">
-            Test run
+          <button className="btn-ghost" onClick={testRun} data-help={t("editor.testRunHelp")}>
+            {t("editor.testRun")}
           </button>
         </div>
-        <div id="flow-panel-design" role="tabpanel" aria-labelledby="flow-tab-design" className="h-full" aria-hidden={tab !== "design"} inert={tab !== "design"}>
+        {/* The canvas stays left-to-right in every language: React Flow places
+            steps and their connections by absolute coordinates. */}
+        <div id="flow-panel-design" role="tabpanel" aria-labelledby="flow-tab-design" className="h-full" dir="ltr" aria-hidden={tab !== "design"} inert={tab !== "design"}>
         <DeleteNodeCtx.Provider value={deleteNode}>
           <ReactFlow
             nodes={nodes}
@@ -342,13 +347,13 @@ export function FlowEditor(props: Props) {
         </div>
 
         {testOut && tab === "design" && (
-          <pre className="absolute bottom-3 left-3 right-3 max-h-40 overflow-auto bg-surface-950/90 border border-surface-800 rounded-lg p-3 text-xs font-mono text-surface-200">
+          <pre dir="ltr" className="absolute bottom-3 start-3 end-3 max-h-40 overflow-auto bg-surface-950/90 border border-surface-800 rounded-lg p-3 text-xs font-mono text-surface-200">
 {testOut}
           </pre>
         )}
       </div>
 
-      <aside className="w-80 border-l border-surface-800 bg-surface-900 overflow-y-auto">
+      <aside className="w-80 border-s border-surface-800 bg-surface-900 overflow-y-auto">
         {selectedNode ? (
           <NodeInspector
             node={selectedNode}
@@ -359,7 +364,7 @@ export function FlowEditor(props: Props) {
             onDelete={() => deleteNode(selectedNode.id)}
           />
         ) : (
-          <div className="px-6 py-12 text-center text-sm text-surface-400"><MousePointer2 size={28} strokeWidth={1.3} className="mx-auto mb-4 text-brand-300" /><h2 className="font-medium text-surface-100">Every step has a purpose.</h2><p className="mt-3 text-xs leading-relaxed">Select a step to adjust what it does. Add more from the left, then connect them in the order they should run.</p></div>
+          <div className="px-6 py-12 text-center text-sm text-surface-400"><MousePointer2 size={28} strokeWidth={1.3} className="mx-auto mb-4 text-brand-300" /><h2 className="font-medium text-surface-100">{t("editor.emptyTitle")}</h2><p className="mt-3 text-xs leading-relaxed">{t("editor.emptyBody")}</p></div>
         )}
       </aside>
     </div>
@@ -376,6 +381,7 @@ function groupByCategory(catalog: typeof NODE_CATALOG) {
 
 function NkNodeView({ id, data, selected }: { id: string; data: Record<string, unknown>; selected: boolean }) {
   const deleteNode = useContext(DeleteNodeCtx);
+  const t = useTranslations("flows");
   const entry = NODE_CATALOG.find((c) => c.type === (data.nkType as string));
   const Icon = entry?.icon;
   return (
@@ -391,9 +397,9 @@ function NkNodeView({ id, data, selected }: { id: string; data: Record<string, u
             e.stopPropagation();
             deleteNode(id);
           }}
-          title="Delete step"
-          aria-label="Delete step"
-          data-help="Removes this step and its connections. You can also press Delete on your keyboard."
+          title={t("editor.deleteStep")}
+          aria-label={t("editor.deleteStep")}
+          data-help={t("editor.deleteStepHelp")}
         >
           <X size={12} strokeWidth={2.5} />
         </button>
@@ -411,11 +417,11 @@ function NkNodeView({ id, data, selected }: { id: string; data: Record<string, u
           <span className="h-2 w-2 rounded-full bg-surface-500" />
         )}
         <span className="text-sm font-medium truncate">
-          {(data.label as string) ?? entry?.label ?? (data.nkType as string)}
+          {stepLabel(data.nkType as string, data.label, t)}
         </span>
       </div>
       <div className="px-3 py-2 text-[11px] text-surface-400 truncate">
-        {entry?.summary(data) ?? ""}
+        {entry?.summary(data, t) ?? ""}
       </div>
       <Handles type={data.nkType as string} />
     </div>
@@ -423,25 +429,26 @@ function NkNodeView({ id, data, selected }: { id: string; data: Record<string, u
 }
 
 function Handles({ type }: { type: string }) {
+  const t = useTranslations("flows.editor");
   if (type === "trigger") {
-    return <Handle type="source" position={Position.Right} data-help="Drag from here to the next step to choose what runs after this one." />;
+    return <Handle type="source" position={Position.Right} data-help={t("handleOut")} />;
   }
   if (type === "response") {
-    return <Handle type="target" position={Position.Left} data-help="Where the previous step connects in." />;
+    return <Handle type="target" position={Position.Left} data-help={t("handleIn")} />;
   }
   if (type === "branch") {
     return (
       <>
-        <Handle type="target" position={Position.Left} data-help="Where the previous step connects in." />
-        <Handle id="true" type="source" position={Position.Right} style={{ top: "35%" }} data-help="Top dot: drag from here to the step that should run when the check is true." />
-        <Handle id="false" type="source" position={Position.Right} style={{ top: "65%" }} data-help="Bottom dot: drag from here to the step that should run when the check is not true." />
+        <Handle type="target" position={Position.Left} data-help={t("handleIn")} />
+        <Handle id="true" type="source" position={Position.Right} style={{ top: "35%" }} data-help={t("handleTrue")} />
+        <Handle id="false" type="source" position={Position.Right} style={{ top: "65%" }} data-help={t("handleFalse")} />
       </>
     );
   }
   return (
     <>
-      <Handle type="target" position={Position.Left} data-help="Where the previous step connects in." />
-      <Handle type="source" position={Position.Right} data-help="Drag from here to the next step to choose what runs after this one." />
+      <Handle type="target" position={Position.Left} data-help={t("handleIn")} />
+      <Handle type="source" position={Position.Right} data-help={t("handleOut")} />
     </>
   );
 }

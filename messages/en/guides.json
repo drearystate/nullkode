@@ -1,0 +1,1276 @@
+{
+  "groups": {
+    "build": "Build your app",
+    "publish": "Publish and grow",
+    "account": "Your account",
+    "platform": "Running the platform"
+  },
+  "getting-started": {
+    "title": "Getting started",
+    "summary": "Find your way around {app} and make your first app, whichever way suits you.",
+    "sections": {
+      "0": {
+        "heading": "Your dashboard",
+        "body": {
+          "0": "When you sign in you land on your dashboard. You can always get back to it with <b>My apps</b> in the top bar.",
+          "1": "Under <b>Your apps</b>, each app has a card with a small picture of its home page, how many pages and flows it has, and whether it is <b>Live</b> (published) or a <b>Draft</b> (only you can see it). Use <b>All apps</b>, <b>Live</b> and <b>Drafts</b> and the <b>Find an app…</b> box to narrow the list.",
+          "2": "Click the picture on a card to carry on editing. Click the app's name to open its Overview. The line beside <b>Your apps</b> shows your plan, how many apps you have, and how many AI actions you've used this month. Click it to open <b>Billing & plan</b>."
+        },
+        "shot": {
+          "alt": "The dashboard, with the idea box at the top and a card for each app below.",
+          "caption": "Your dashboard. Each card is one of your apps."
+        }
+      },
+      "1": {
+        "heading": "Six ways to start an app",
+        "body": {
+          "0": "Pick whichever suits you. Every way ends with an app you can keep changing in the same tools."
+        },
+        "bullets": {
+          "0": "<b>Describe it.</b> Type what you want in your own words. The AI suggests a plan you can check and change, then builds the pages, forms and data.",
+          "1": "<b>AI Designer.</b> Chat with the AI and shape your app step by step. See the guide Design with the AI Designer.",
+          "2": "<b>Templates.</b> Start from a finished design, like a restaurant or a portfolio, and change every word, picture and colour.",
+          "3": "<b>Copy a website.</b> Bring up to 30 pages of a website you own into a new app you can edit.",
+          "4": "<b>Blank app.</b> Start with a simple page and build it yourself with drag-and-drop blocks.",
+          "5": "<b>Import an app.</b> Bring back an app from a backup .zip file, made on this server or another one."
+        }
+      },
+      "2": {
+        "heading": "Describe your app and check the plan",
+        "body": {
+          "0": "If the AI isn't set up on this server, this way and the AI Designer aren't offered. Start from a template instead."
+        },
+        "steps": {
+          "0": "On your dashboard, type a sentence about your app in the box, for example “Bookings for my dog walking business”, and press <b>Plan my app</b>. You can also press <b>More ways to start</b> and use the big box there.",
+          "1": "Say who uses the app and what they do in it. Stuck? Tap one of the example ideas under the box, then change it.",
+          "2": "Wait a moment while the AI reads your idea. Nothing is built yet.",
+          "3": "Check the plan under <b>Here's what I'll build</b>: the app's name, its look (click the colour swatch to pick another), its <b>Pages</b>, <b>What it saves</b> and <b>I assumed</b>. Remove a page you don't want with its bin icon.",
+          "4": "Want something different? Type it under <b>Want something different?</b>, for example “Add a prices page”, and press <b>Update plan</b>.",
+          "5": "Press <b>Build my app</b>. It usually takes a few minutes. You can leave the page: the build keeps going and will be there when you come back.",
+          "6": "When it's ready, your app opens in the page editor with a short welcome."
+        },
+        "shot": {
+          "alt": "The new app screen, asking What do you want to make?, with a large text box and example ideas.",
+          "caption": "Describe your app in your own words. You see a plan before anything is built."
+        }
+      },
+      "3": {
+        "heading": "The other ways to start",
+        "body": {
+          "0": "<b>Templates.</b> Click a template to see it bigger, type a name for your app and press <b>Create app from this template</b>. Use the search box and the category buttons to narrow the list.",
+          "1": "<b>Copy a website.</b> Type the site's address, for example mybusiness.com, and press <b>Copy my site</b>. Only copy sites you own or have permission to use. Press <b>Stop</b> to cancel; nothing is saved.",
+          "2": "<b>Blank app.</b> Type a name and press <b>Create app</b>. You get a simple welcome page with your app's name to build on, plus pages for signing in and signing up.",
+          "3": "<b>Import an app.</b> Choose the backup .zip file, type a new name if you like, and press <b>Import app</b>. You get a copy with its pages, flows, data and pictures. Passwords of the app's own members aren't in backups, so they use Forgot password once."
+        }
+      },
+      "4": {
+        "heading": "Your app's Overview",
+        "body": {
+          "0": "Each app has tabs along the top: <b>Overview</b>, <b>Pages</b>, <b>Features</b>, <b>Flows</b>, <b>Data</b>, <b>Notifications</b>, <b>Theme</b>, <b>Domains</b> and <b>Mobile app</b>, with <b>Preview</b> and <b>Publish</b> on the right. Apps made with the AI Designer have a <b>Designer</b> tab instead of Overview.",
+          "1": "The Overview shows whether your app is live and its address, a <b>Launch checklist</b> of the next things to do, a code to scan to open it on your phone, your app icon, the latest things visitors sent you, and email alerts. <b>Continue editing</b> takes you back to your pages."
+        },
+        "shot": {
+          "alt": "An app's Overview tab, with the app's name, counts of pages and flows, and the launch checklist.",
+          "caption": "The Overview: your app at a glance, with a checklist of next steps."
+        }
+      },
+      "5": {
+        "heading": "Good to know",
+        "bullets": {
+          "0": "Your work saves as you go. There's no Save button in the page editor.",
+          "1": "Nothing is public until you publish. <b>Preview</b> lets you try your app first.",
+          "2": "To delete an app, use the bin icon on its card on the dashboard. Download a backup first: deleting can't be undone.",
+          "3": "Your plan may limit how many apps you can make. When you reach it, see <b>Billing & plan</b>.",
+          "4": "Hold your mouse over a button to see a short tip about it. You can turn tips off in your <b>Profile</b>."
+        }
+      }
+    }
+  },
+  "ai-designer": {
+    "title": "Design with the AI Designer",
+    "summary": "Describe your app in plain words, then shape it by chatting with the AI and clicking on what you want changed.",
+    "sections": {
+      "0": {
+        "heading": "Start a design",
+        "steps": {
+          "0": "Click <b>Designer</b> in the top bar. On a phone, go to <b>More ways to start</b> on your dashboard and choose <b>Design it together</b>.",
+          "1": "Under <b>What do you want to make?</b>, describe your app. Say who it's for and what visitors should be able to do, like book a time or send a message. You can also tap one of the example ideas and change it.",
+          "2": "Press <b>Design it</b>.",
+          "3": "The AI may ask <b>A few quick questions first</b>. Tap an answer, type your own, or skip any of them. Press <b>Build it</b>, or <b>Skip questions</b> to let the AI decide."
+        },
+        "shot": {
+          "alt": "The AI Designer home, with a box to describe your app, example ideas and a list of your designs.",
+          "caption": "Describe what you want, then press Design it."
+        }
+      },
+      "1": {
+        "heading": "Watch it build",
+        "body": {
+          "0": "While the AI works, the conversation on the left shows <b>Working on it…</b> with each step as it happens, and the preview on the right fills in. A first design can take a few minutes.",
+          "1": "To stop part-way, press the square stop button next to the message box. Nothing from that run is kept.",
+          "2": "Once the first build is done, your design has its own app. <b>Open app</b> at the top of the conversation takes you to it, where you'll find its data, flows and publishing."
+        }
+      },
+      "2": {
+        "heading": "Ask for changes",
+        "steps": {
+          "0": "Type what you want changed in the <b>Ask for a change</b> box, in your own words. For example: “make the header darker” or “add a page with our prices”.",
+          "1": "Press Enter, or the send button. Shift+Enter starts a new line.",
+          "2": "The AI updates the design and saves it as a new version."
+        },
+        "shot": {
+          "alt": "A design open in the AI Designer: the conversation on the left and a preview of the app on the right.",
+          "caption": "The conversation is on the left, the live preview on the right."
+        }
+      },
+      "3": {
+        "heading": "Point at what you want changed",
+        "body": {
+          "0": "Sometimes it's easier to show the AI than to describe it."
+        },
+        "steps": {
+          "0": "Press <b>Comment</b> above the preview. It changes to <b>Click anything to comment</b>.",
+          "1": "Click the part of the preview you want changed.",
+          "2": "Type what should change, for example “make this bigger”, and press <b>Add</b>. Your note waits above the message box.",
+          "3": "Add as many notes as you like, then press send to make all the changes at once. To drop a note, press its x."
+        }
+      },
+      "4": {
+        "heading": "Check every page and screen size",
+        "body": {
+          "0": "Use the <b>Page</b> menu above the preview to see each page of your design. The three screen buttons show it at computer, tablet and phone width. The arrow button opens the page on its own in a new tab.",
+          "1": "On a phone, switch between <b>Conversation</b> and <b>Preview</b> at the top of the screen."
+        }
+      },
+      "5": {
+        "heading": "Go back to an earlier version",
+        "body": {
+          "0": "Every change is saved as a version, so you can always go back."
+        },
+        "steps": {
+          "0": "Press <b>Versions</b>. Every version is listed, newest first.",
+          "1": "Press <b>View</b> to show an older version in the preview. You can also press <b>See this version</b> under a message in the conversation.",
+          "2": "Press <b>Restore</b> (or <b>Restore it</b> in the yellow bar) to make that version the current one. The version you had stays in the list, so you can switch back.",
+          "3": "To stop looking at an old version, press <b>Back to the current version</b>."
+        },
+        "shot": {
+          "alt": "The Versions list open next to the preview, with View and Restore buttons for each version.",
+          "caption": "Versions: look at any earlier version and bring it back."
+        }
+      },
+      "6": {
+        "heading": "Download it, or move it to the page builder",
+        "body": {
+          "0": "<b>Download</b> saves every page of your design as one .zip file.",
+          "1": "<b>Move to page builder</b> hands the app over to the drag-and-drop page editor. After that the AI Designer can't change it any more. If you want to keep designing with the AI, press <b>Make a copy to keep designing</b>: you get a separate copy, and the app in the page builder stays as it is."
+        }
+      },
+      "7": {
+        "heading": "Your designs",
+        "body": {
+          "0": "The Designer home lists <b>Your designs</b>. Click a card to open one. The <b>…</b> button on a card lets you <b>Rename</b>, <b>Make a copy</b> or <b>Delete</b> it.",
+          "1": "Deleting a design also deletes its app, unless the app was moved to the page builder. It can't be undone."
+        }
+      },
+      "8": {
+        "heading": "Good to know",
+        "bullets": {
+          "0": "Asking the AI for a design or a change uses your plan's monthly AI allowance, if it has one.",
+          "1": "In a Designer app, the pages come from the design. Change them here, not in the page editor.",
+          "2": "Your app's data, flows, domains and publishing are on its tabs, the same as any other app. Publish it with the <b>Publish</b> button."
+        }
+      }
+    }
+  },
+  "page-editor": {
+    "title": "Edit your pages",
+    "summary": "Change words, pictures and layout by clicking and dragging, or ask the AI to do it for you.",
+    "sections": {
+      "0": {
+        "heading": "Find your way around",
+        "body": {
+          "0": "Open the <b>Pages</b> tab. On the left are <b>Blocks</b>, <b>Features</b> and <b>Assets</b> (free photos). In the middle is your page. On the right are <b>Design</b>, <b>Layers</b>, <b>Settings</b> and <b>Theme</b>.",
+          "1": "The bar above your page has undo and redo, whether your work is saved, the screen size buttons and <b>Preview</b>. The panel buttons at each end hide or show the side panels when you want more room."
+        },
+        "shot": {
+          "alt": "The page editor: blocks on the left, the page in the middle and design settings on the right.",
+          "caption": "The page editor. Click anything on your page to change it."
+        }
+      },
+      "1": {
+        "heading": "Change words and pictures",
+        "body": {
+          "0": "Click any words on the page and type to change them.",
+          "1": "Double-click a picture to swap it for another one. You can also pick a picture and then tap a photo in <b>Assets</b>. Double-click an icon to choose a different icon."
+        }
+      },
+      "2": {
+        "heading": "Add blocks",
+        "steps": {
+          "0": "Click the part of your page you want the new piece to go under.",
+          "1": "In <b>Blocks</b> on the left, find what you want. Blocks are grouped, for example Layout, Sections, Content, Forms and Media. Type in <b>Search blocks...</b> to find one fast, like “button” or “photo”.",
+          "2": "Tap the block to add it below the part you picked, or drag it to exactly where you want it."
+        }
+      },
+      "3": {
+        "heading": "Select, move and delete",
+        "body": {
+          "0": "Click something on your page to select it. Its name shows at the top of the right-hand panel, and a small toolbar appears next to it: <b>Select the part around this</b>, <b>Move up</b>, <b>Move down</b>, <b>Drag to move</b>, <b>Duplicate</b> and <b>Delete</b>.",
+          "1": "The <b>Layers</b> tab lists every piece of your page in order. Click a row to select a piece that's hard to click, or drag rows to move pieces. The eye icon hides a piece while you work on the rest."
+        }
+      },
+      "4": {
+        "heading": "Change how things look",
+        "body": {
+          "0": "Select something and open <b>Design</b> on the right. Change its text, colours, spacing, size and corners, and the page updates straight away.",
+          "1": "<b>Advanced</b> shows more options, like fonts, shadows and how pieces line up inside a box, plus styles for when the mouse is over something. For colours and fonts across your whole app, use <b>Theme</b>."
+        }
+      },
+      "5": {
+        "heading": "Settings for links, buttons, forms and lists",
+        "body": {
+          "0": "Select a link, picture, button, form or list and open <b>Settings</b> on the right. For example:"
+        },
+        "bullets": {
+          "0": "<b>Goes to</b> sets where a link takes people. Use /page-name for your own pages, or a full https:// address for another site.",
+          "1": "<b>Picture description</b> describes a picture for people who can't see it, and for search engines.",
+          "2": "<b>When sent, run</b> (on a form) picks the flow that runs when someone sends it. <b>When pressed, run</b> does the same for a button.",
+          "3": "<b>Show items from</b> (on a list) picks where the list gets its items, like your bookings or products."
+        }
+      },
+      "6": {
+        "heading": "Ask the AI",
+        "steps": {
+          "0": "Press <b>Ask AI</b> at the bottom right.",
+          "1": "To change just one part, select it on the page first. The panel then says <b>Changes apply to the selected…</b>. Press <b>Whole page instead</b> to change the whole page.",
+          "2": "Type what you want, like “add a pricing section”, and press Enter or <b>Send</b>. You can attach a picture too, like a screenshot of a design you like.",
+          "3": "The page changes in the editor. If you don't like it, press undo."
+        },
+        "shot": {
+          "alt": "The AI Assistant panel open over the page editor, with suggested changes to try.",
+          "caption": "Ask AI: say what to change and it changes the page for you."
+        }
+      },
+      "7": {
+        "heading": "Your pages",
+        "body": {
+          "0": "Click the page name at the top, next to <b>EDITING</b>, to see <b>Your pages</b>. Click a page to open it. Your changes on the page you're leaving are saved first.",
+          "1": "To add a page, press <b>Add page</b>, type its name and press <b>Add page</b> again. It shows up in your app's menu.",
+          "2": "Next to each page: the gear opens <b>Page settings</b> (rename it, choose who can see it, its place in the menu, or <b>Duplicate</b> it), the house makes it your home page, and the bin deletes it after you confirm. Deleting a page can't be undone."
+        }
+      },
+      "8": {
+        "heading": "Check it on a phone, then preview",
+        "body": {
+          "0": "The <b>Desktop</b>, <b>Tablet</b> and <b>Mobile</b> buttons show your page at each size. Always check Mobile: most visitors use phones.",
+          "1": "<b>Preview</b> opens the page in a new tab so you can try it, with its buttons and forms working. It shows your latest changes. Visitors don't see them until you publish."
+        }
+      },
+      "9": {
+        "heading": "Undo and saving",
+        "body": {
+          "0": "The curved arrows at the top left undo and redo your last changes, including changes the AI made.",
+          "1": "Your changes save by themselves. The bar shows <b>Saving…</b> and then <b>Saved</b>. If it says <b>Not saved</b>, check your connection: it keeps trying, and <b>Retry</b> tries again straight away. If your changes didn't reach the server before you closed the tab, you'll be offered <b>Restore</b> the next time you open the page."
+        }
+      },
+      "10": {
+        "heading": "Good to know",
+        "bullets": {
+          "0": "Changes stay in your draft. Visitors see them after you publish.",
+          "1": "Apps made with the AI Designer get their pages from the design, so change them in the Designer.",
+          "2": "If a ready-made block asks <b>Wire this up?</b>, <b>Yes, connect it</b> sets up a place to keep what people send and connects the form. <b>No, I'll handle it</b> adds the block as it is."
+        }
+      }
+    }
+  },
+  "look-and-feel": {
+    "title": "Colours and fonts",
+    "summary": "Pick a ready-made theme, or set your own colours, fonts and corners for every page of your app.",
+    "sections": {
+      "0": {
+        "heading": "Pick a theme",
+        "steps": {
+          "0": "Open the <b>Theme</b> tab.",
+          "1": "Look through <b>Light themes</b> and <b>Dark themes</b>.",
+          "2": "Click one. The <b>Live preview</b> on the right shows it straight away. Switch between <b>Your home page</b> and <b>Sample</b> to see it on different things.",
+          "3": "That's it: changes save by themselves, and <b>Saved</b> appears at the top."
+        },
+        "shot": {
+          "alt": "The Theme tab with light and dark theme choices on the left and a live preview on the right.",
+          "caption": "Click a theme and the preview updates straight away."
+        }
+      },
+      "1": {
+        "heading": "Make it your own",
+        "body": {
+          "0": "Under <b>Customize</b> you can change any part of the theme:"
+        },
+        "bullets": {
+          "0": "<b>Mode</b>: light or dark.",
+          "1": "<b>Body font</b> for normal text and <b>Display font</b> for headings. A sample line shows each one.",
+          "2": "<b>Colors</b>: <b>Primary</b> is your main colour, used for buttons and links. <b>Primary hover</b> is the shade when someone points at them; it follows Primary when you change it. Then <b>Accent</b>, <b>Background</b>, <b>Surface</b> and <b>Surface 2</b> (cards and panels), <b>Border</b>, <b>Text</b> and <b>Text muted</b>.",
+          "3": "<b>Corners</b>: <b>Radius</b> for buttons and cards, and <b>Radius sm</b> for small things. 0 is square; bigger numbers are rounder."
+        }
+      },
+      "2": {
+        "heading": "Change it while you edit",
+        "body": {
+          "0": "In the page editor, the <b>Theme</b> tab on the right has the same colour and font settings, so you can adjust them without leaving your page."
+        }
+      },
+      "3": {
+        "heading": "Good to know",
+        "bullets": {
+          "0": "The theme applies to every page of your app.",
+          "1": "Click a colour box to pick a colour, or type a colour code like #3366ff.",
+          "2": "<b>Reset</b> puts back the theme you had when you opened the Theme tab.",
+          "3": "Visitors see theme changes after you publish."
+        }
+      }
+    }
+  },
+  "features": {
+    "title": "Add features",
+    "summary": "Add ready-made parts like bookings, a shop or a blog, complete with their own pages and saved data.",
+    "sections": {
+      "0": {
+        "heading": "What a feature is",
+        "body": {
+          "0": "A feature is a ready-made part of an app, like bookings, a shop, a contact form or a blog. Adding one gives your app new pages, the lists where it keeps what people send, and the flows that make its buttons and forms work. You can then change its pages like any other page."
+        }
+      },
+      "1": {
+        "heading": "Add a feature",
+        "steps": {
+          "0": "Open the <b>Features</b> tab.",
+          "1": "Search, for example “bookings” or “shop”, or pick a group like Commerce or Community.",
+          "2": "To see what a feature adds, open <b>Details</b> on its card. It says how many pages, lists of saved items and flows it adds.",
+          "3": "Click the card (<b>Add to my app</b>).",
+          "4": "Answer its few questions, if it has any. Fields marked * must be filled in. Your app's name is filled in for you where it asks for a business name.",
+          "5": "Press <b>Add to my app</b>. The editor opens on the feature's first page."
+        },
+        "shot": {
+          "alt": "The Features tab: a search box, category buttons and a grid of features to add.",
+          "caption": "Pick a feature. Details shows what it adds."
+        }
+      },
+      "2": {
+        "heading": "Add a feature while editing",
+        "body": {
+          "0": "In the page editor, the <b>Features</b> tab on the left does the same thing. When the feature is added, a message says its pages are in the menu, with a button to <b>Open the new page</b>."
+        },
+        "shot": {
+          "alt": "The Add a feature dialog asking a few questions, with Cancel and Add to my app buttons.",
+          "caption": "Answer a couple of questions and the feature is added."
+        }
+      },
+      "3": {
+        "heading": "Where to find what it added",
+        "body": {
+          "0": "Its pages are in your app's menu and in the page list in the editor. What it saves (for example bookings) is on the <b>Data</b> tab. Its flows are on the <b>Flows</b> tab. Pages meant only for you, like a list of bookings, are listed on the Overview under <b>Your app's admin area</b>."
+        }
+      },
+      "4": {
+        "heading": "Good to know",
+        "bullets": {
+          "0": "A card marked <b>Added</b> is already in your app. Adding it again makes another copy, with its own pages and lists.",
+          "1": "If a feature needs another one first, the message offers a button to add that one.",
+          "2": "Some features let signed-in visitors send things that wait for your approval. In <b>Places</b>, for example, people suggest a venue under <b>My venues</b>, and it shows in the guide once you approve it on the <b>Manage places</b> page.",
+          "3": "Some features send email, and say <b>Needs email to be set up on the server</b>. If email isn't set up, ask whoever runs {app} for you.",
+          "4": "There's no one-step remove. You can delete the pages a feature added, like any page; what it saved stays on the Data tab.",
+          "5": "Adding a feature changes your draft. Visitors see it after you publish."
+        }
+      }
+    }
+  },
+  "forms-and-data": {
+    "title": "Forms and your data",
+    "summary": "See, search, change and download everything your app saves, like messages, bookings and sign-ups.",
+    "sections": {
+      "0": {
+        "heading": "Where form answers go",
+        "body": {
+          "0": "When someone sends a form, makes a booking or signs up, your app saves it as a row in a table. A table is like a spreadsheet: one row for each entry and one column for each answer. Tables are on the <b>Data</b> tab. The five newest entries also show on your app's Overview under <b>Latest submissions</b>.",
+          "1": "A form saves answers when it's connected to a flow that saves them. Forms that come with features, and forms in apps the AI builds, are already connected. For a form you add yourself, select it in the page editor, open <b>Settings</b> and choose a flow under <b>When sent, run</b>."
+        }
+      },
+      "1": {
+        "heading": "Open a table",
+        "steps": {
+          "0": "Open the <b>Data</b> tab.",
+          "1": "Click a table. Each one shows how many rows it has, or <b>Empty</b>.",
+          "2": "To go back to the list, press <b>All tables</b>."
+        },
+        "shot": {
+          "alt": "The Data tab listing the app's tables, each with its number of rows.",
+          "caption": "Everything your app saves, one table at a time."
+        }
+      },
+      "2": {
+        "heading": "Find, change and add rows",
+        "body": {
+          "0": "Type in <b>Search</b> to find rows. Click a column's name to sort by it. When there are lots of rows, use <b>Newer</b> and <b>Older</b> at the bottom."
+        },
+        "steps": {
+          "0": "To change one answer, click it, type the new value and save.",
+          "1": "To change a whole row, press the pencil at the end of it.",
+          "2": "To add a row yourself, press <b>Add a row</b>.",
+          "3": "To delete rows, tick them, press <b>Delete</b> (it says how many rows) and then <b>Yes, delete</b>. Press <b>Keep them</b> if you change your mind."
+        },
+        "shot": {
+          "alt": "A table open on the Data tab, with a search box, Add a row and Download CSV buttons, and the rows below.",
+          "caption": "A table: search it, change it, or download it."
+        }
+      },
+      "3": {
+        "heading": "Download a copy",
+        "body": {
+          "0": "<b>Download CSV</b> saves the table as a file you can open in Excel, Numbers or Google Sheets. It downloads what you're looking at, so search or sort first if you only want some rows."
+        }
+      },
+      "4": {
+        "heading": "Get an email for every new entry",
+        "body": {
+          "0": "On your app's Overview, <b>Alerts</b> lists each table that collects things from visitors, with an On and Off switch. Alerts go to your account's email address, and you can add up to three more under <b>Also send to</b>. Press <b>Save alerts</b>, then <b>Send a test</b> to check it works.",
+          "1": "Alerts need email to be set up on the server. If it isn't, the card says so."
+        }
+      },
+      "5": {
+        "heading": "Privacy requests",
+        "body": {
+          "0": "People can ask what your app keeps about them, or ask for it to be deleted. Open <b>Privacy requests</b> on the Data tab to find one person by email or phone number, then <b>Download a copy</b> of their data or <b>Erase</b> it. People who asked to delete their account from your app are listed under <b>Waiting for your approval</b>."
+        }
+      },
+      "6": {
+        "heading": "Good to know",
+        "bullets": {
+          "0": "Deleting rows or erasing a person can't be undone.",
+          "1": "Some tables can only be viewed here, for example ones kept in a Google Sheet.",
+          "2": "<b>Advanced</b>, at the bottom of the Data tab, shows where your data is stored and lets you make new tables by hand. Most people never need it.",
+          "3": "A backup from the Publish tab includes every table and row."
+        }
+      }
+    }
+  },
+  "flows": {
+    "title": "Automate with flows",
+    "summary": "Make things happen by themselves when someone uses your app, like saving a booking and emailing you, or run jobs on a schedule.",
+    "sections": {
+      "0": {
+        "heading": "What a flow is",
+        "body": {
+          "0": "A flow is a short list of steps your app follows by itself. Something happens (someone sends a form or presses a button, or it's a set time), your steps run (save the answers, send an email), and your visitor gets a result (a thank-you message).",
+          "1": "Apps the AI builds, and features you add, come with their flows already set up. You can open and change them like any flow."
+        }
+      },
+      "1": {
+        "heading": "Your flows",
+        "body": {
+          "0": "The <b>Flows</b> tab lists each flow with how it starts (with a form, with a request, or on a schedule) and how many steps it has. Click one to open it.",
+          "1": "Each flow has an <b>On</b> / <b>Paused</b> switch, on the list and inside the flow. A paused flow doesn't run: anything in your app that uses it, like a form, gets an error instead. Pausing and turning back on apply to your live app straight away, with no need to publish."
+        },
+        "shot": {
+          "alt": "The Flows tab listing the app's flows, each with how it starts and its number of steps.",
+          "caption": "Your app's flows."
+        }
+      },
+      "2": {
+        "heading": "Make a flow",
+        "steps": {
+          "0": "On the Flows tab, press <b>New flow</b>, type a name like “Submit contact form” and press <b>Create</b>.",
+          "1": "The flow opens with its start step, <b>When the app calls this</b>.",
+          "2": "Under <b>Add step</b> on the left, click a step to add it. Type in <b>Find a step…</b> to search. Steps are grouped: Start, Saved data, Decisions and values, Send and connect, AI, Accounts and Finish.",
+          "3": "Connect the steps in the order they should run: drag from the right edge of one step to the next step.",
+          "4": "Click a step to set it up in the panel on the right, for example which table to save to.",
+          "5": "Your changes save by themselves."
+        },
+        "shot": {
+          "alt": "A flow open in the flow editor: steps to add on the left, connected steps in the middle, settings on the right.",
+          "caption": "Add steps on the left, connect them, and set each one up on the right."
+        }
+      },
+      "3": {
+        "heading": "Use what people typed",
+        "body": {
+          "0": "Most step settings let you insert values instead of typing fixed text. Under <b>From the request</b>, type the name of a form field, like email, and press <b>Add</b>. <b>From previous steps</b> lists values that earlier steps made, like the record a step found."
+        }
+      },
+      "4": {
+        "heading": "Connect a form or button",
+        "steps": {
+          "0": "Open the page in the page editor and select the form or button.",
+          "1": "Open <b>Settings</b> on the right.",
+          "2": "For a form, choose your flow under <b>When sent, run</b>. For a button, use <b>When pressed, run</b>. For a list, <b>Show items from</b> picks a flow that finds the items."
+        }
+      },
+      "5": {
+        "heading": "Common recipes",
+        "body": {
+          "0": "These are the usual shapes. Features set most of them up for you."
+        },
+        "bullets": {
+          "0": "<b>Contact form that emails you</b>: When the app calls this, then <b>Add a record</b> (your messages table), then <b>Send an email</b> to yourself with the person's message inserted, then <b>Reply</b> with a thank-you.",
+          "1": "<b>Booking</b>: When the app calls this, then <b>Count or add up records</b> to count bookings at that time, then <b>If this, otherwise that</b>. If the time is free, <b>Add a record</b> and <b>Send an email</b> to confirm; if not, <b>Reply</b> that it's taken. The Bookings feature does all this for you.",
+          "2": "<b>Sign-in</b>: the Sign-in and accounts feature adds these flows. Signing up uses <b>Protect a password</b>, <b>Add a record</b> and <b>Sign the person in</b>. Signing in uses <b>Find records</b>, <b>Check a password</b> and <b>Sign the person in</b>.",
+          "3": "<b>Daily summary</b>: on the <b>Schedule</b> tab choose <b>On a schedule</b> and <b>Every day</b>, then <b>Count or add up records</b> and <b>Send an email</b> with the total."
+        }
+      },
+      "6": {
+        "heading": "Try it with a test run",
+        "body": {
+          "0": "Press <b>Test run</b> to run the flow once, straight away, with your latest changes. The result shows under the steps. It really does its steps, so it saves records and sends emails, and it appears in Activity."
+        }
+      },
+      "7": {
+        "heading": "See what happened",
+        "body": {
+          "0": "The <b>Activity</b> tab lists each time the flow ran: <b>Went through</b>, <b>Answered</b>, <b>Finished with a problem</b> or <b>Failed</b>. Press <b>Only problems</b> to see just the ones that went wrong, and open a run to see what the person sent.",
+          "1": "Problems also show on your app's Overview under <b>Problems in the last 24 hours</b>, and as a number on the app's card on your dashboard."
+        },
+        "shot": {
+          "alt": "The Activity tab of a flow, listing recent runs and whether each went through.",
+          "caption": "Activity: every run, and what went wrong if something did."
+        }
+      },
+      "8": {
+        "heading": "Run it on a schedule",
+        "steps": {
+          "0": "Open the flow's <b>Schedule</b> tab.",
+          "1": "Choose <b>On a schedule</b> instead of <b>When your app uses it</b>.",
+          "2": "Under <b>How often</b>, pick <b>Every few minutes</b>, <b>Every hour</b>, <b>Every day</b>, <b>Monday to Friday</b> or <b>Once a week</b>, then the time and your time zone.",
+          "3": "Save, then publish your app. Schedules only run in the published app."
+        }
+      },
+      "9": {
+        "heading": "Good to know",
+        "bullets": {
+          "0": "To remove a step, select it and press its bin, or press Delete on your keyboard.",
+          "1": "Flow changes are part of your draft. Visitors get them after you publish.",
+          "2": "<b>Send an email</b> only sends when email is set up on the server. If it isn't, your app's Overview warns you.",
+          "3": "The <b>Ask AI</b> step uses your plan's AI allowance each time it runs.",
+          "4": "Pausing or turning a flow back on applies straight away, including its schedule. You don't need to publish.",
+          "5": "Some plans don't include scheduled flows. The Schedule tab says so.",
+          "6": "<b>Web address (for developers)</b> is only needed to start a flow from outside {app}."
+        }
+      }
+    }
+  },
+  "members-and-sign-in": {
+    "title": "Members, sign-in and private pages",
+    "summary": "Let people make accounts in your app, and choose which pages everyone, signed-in members or only admins can open.",
+    "sections": {
+      "0": {
+        "heading": "Sign-in pages",
+        "body": {
+          "0": "The <b>Sign-in and accounts</b> feature gives your app <b>Log in</b>, <b>Sign up</b> and <b>Profile</b> pages, and the flows behind them. New apps usually have it already. If yours doesn't, add it from the Features tab.",
+          "1": "People who sign up are members of your app. Their accounts are separate from your own {app} account."
+        }
+      },
+      "1": {
+        "heading": "Make a page private",
+        "steps": {
+          "0": "In the page editor, click the page name at the top to open <b>Your pages</b>.",
+          "1": "Press the gear next to the page (<b>Page settings</b>).",
+          "2": "Under <b>Who can see this page</b>, choose <b>Everyone</b>, <b>Signed-in people</b> (visitors sign in first; anyone can make an account) or <b>Admins only</b> (only you and the people you make admins).",
+          "3": "Press <b>Save</b>."
+        },
+        "shot": {
+          "alt": "The Page settings dialog, with the page's name, who can see it, and its place in the menu.",
+          "caption": "Page settings: choose who can open the page."
+        }
+      },
+      "2": {
+        "heading": "The menu",
+        "body": {
+          "0": "In <b>Page settings</b>, <b>Show in menu</b> puts a link to the page in your app's menu, and <b>Move up</b> and <b>Move down</b> set its place. The home page always comes first. A page that isn't in the menu can still be opened by anyone with its link, if they're allowed to see it."
+        }
+      },
+      "3": {
+        "heading": "Your app's admin area",
+        "body": {
+          "0": "On your app's Overview, <b>Your app's admin area</b> lists the pages that are only for you and your team, like a list of bookings. Click one to open it without signing in to your app. Before you publish, they open in Preview."
+        }
+      },
+      "4": {
+        "heading": "Give your team an admin login",
+        "steps": {
+          "0": "On your app's Overview, find <b>Admin logins for your team</b>.",
+          "1": "Type their <b>Email</b> and a <b>Password</b> of at least 10 characters.",
+          "2": "Press <b>Add admin</b>. They can now sign in on your app's sign-in page and open its admin pages."
+        },
+        "shot": {
+          "alt": "The Your app's admin area card on the Overview, with admin pages and a form to add an admin login.",
+          "caption": "Open your admin pages, or give someone an admin login."
+        }
+      },
+      "5": {
+        "heading": "Good to know",
+        "bullets": {
+          "0": "Using the email of someone who already has an account in your app makes them an admin and changes their password.",
+          "1": "If a page is private but your app has no sign-in page yet, only you can open it. Page settings warns you.",
+          "2": "Changes to who can see a page are part of your draft. Publish to apply them.",
+          "3": "Members can delete their own account. Requests to delete show on the Data tab under <b>Privacy requests</b>.",
+          "4": "Members' passwords aren't in backups. After an import, members use Forgot password once."
+        }
+      }
+    }
+  },
+  "publishing": {
+    "title": "Publish and share your app",
+    "summary": "Put your app online, share its link, update it safely and bring back an earlier version if you need to.",
+    "sections": {
+      "0": {
+        "heading": "Draft and live",
+        "body": {
+          "0": "You always work on a draft. Visitors see the version you last published. Your changes, including the AI's, stay in the draft until you publish again, so nobody sees half-finished pages."
+        }
+      },
+      "1": {
+        "heading": "Publish for the first time",
+        "steps": {
+          "0": "Press <b>Publish</b> at the top right of your app's tabs.",
+          "1": "Press <b>Publish app</b>.",
+          "2": "You'll see <b>Your app is live. Ready to share.</b> and the status changes to <b>Live</b>."
+        },
+        "shot": {
+          "alt": "The Publish tab showing the app's status, the publish button and its web address.",
+          "caption": "Publish, and copy your app's link to share it."
+        }
+      },
+      "2": {
+        "heading": "Share the link",
+        "body": {
+          "0": "Your app's web address is on the Publish tab, with a button to copy it. On the Overview there's a code you can scan with your phone's camera to open it.",
+          "1": "<b>Search and sharing</b> sets the description search engines and chat apps show with your link. Turn on <b>Hide from search engines</b> if you don't want your app listed on Google; anyone with the link can still open it."
+        }
+      },
+      "3": {
+        "heading": "Publish your changes",
+        "body": {
+          "0": "When you've changed something since publishing, the status says <b>Live · you have unpublished changes</b>. Press <b>Publish changes</b> to make them live. When there's nothing new, the button says <b>Up to date</b>.",
+          "1": "Want to try your changes first? <b>Preview</b>, at the top right, opens your draft in a new tab. Only you can open it."
+        }
+      },
+      "4": {
+        "heading": "Go back to an earlier version",
+        "body": {
+          "0": "Every time you publish, the version is kept under <b>Release history</b>, newest first, with the live one marked <b>Live</b>."
+        },
+        "steps": {
+          "0": "Find the version you want under <b>Release history</b>.",
+          "1": "Press <b>Make live</b> and confirm.",
+          "2": "Visitors see that version straight away. Your draft isn't changed, so you can fix things and publish again."
+        },
+        "shot": {
+          "alt": "The Release history list, with a Make live button next to earlier versions.",
+          "caption": "Release history: bring back any recent version."
+        }
+      },
+      "5": {
+        "heading": "Take it offline",
+        "body": {
+          "0": "<b>Take offline</b> stops visitors opening your app until you publish again. Nothing is deleted."
+        }
+      },
+      "6": {
+        "heading": "Back up or move your app",
+        "body": {
+          "0": "<b>Download backup (.zip)</b> saves one file with every page, flow, table and row, your theme and your pictures. Keep it somewhere safe, or bring it back with <b>Import an app</b> when you start a new app, here or on another {app} server. Members' passwords aren't included."
+        }
+      },
+      "7": {
+        "heading": "Install it on computers and phones",
+        "body": {
+          "0": "Under <b>Install on devices</b>: <b>Download offline app (.zip)</b> gives a copy that works on one computer without the internet, keeping its data on that computer. <b>Desktop shortcut (online)</b> puts a shortcut to your live app on a Windows or Mac desktop. For phones, see the guide Phone apps and notifications."
+        }
+      },
+      "8": {
+        "heading": "Good to know",
+        "bullets": {
+          "0": "Your plan may limit how many apps you can have published at once.",
+          "1": "Release history shows your 20 most recent versions.",
+          "2": "Scheduled flows only run once your app is published.",
+          "3": "You can connect your own web address on the Domains tab."
+        }
+      }
+    }
+  },
+  "custom-domains": {
+    "title": "Use your own domain",
+    "summary": "Put your app on a web address you own, like www.yourbusiness.com.",
+    "sections": {
+      "0": {
+        "heading": "Before you start",
+        "body": {
+          "0": "You need a domain name you've bought from a domain company, and a way to change its DNS settings. DNS is the address book of the internet: two entries there tell it that your domain belongs to your app. Your domain company's website has a page for it, often called DNS, DNS records or zone.",
+          "1": "Your app keeps its free address too."
+        }
+      },
+      "1": {
+        "heading": "Connect your domain",
+        "steps": {
+          "0": "Open the <b>Domains</b> tab.",
+          "1": "Type your address, for example www.yourbusiness.com (without https://), and press <b>Add domain</b>.",
+          "2": "You'll see two records to add: a CNAME (or A) record and a TXT record. Each has a <b>Name / host</b> and a <b>Value / points to</b>. Click a value to copy it.",
+          "3": "In another tab, sign in to your domain company, open the DNS settings for your domain, and add both records exactly as shown.",
+          "4": "Come back and press <b>Check now</b>. When both records are found, it says <b>Connected</b>, and visitors can use your address."
+        },
+        "shot": {
+          "alt": "The Domains tab with a box to add a domain and the DNS records to add at your domain company.",
+          "caption": "Add your domain, then copy the two records to your domain company."
+        }
+      },
+      "2": {
+        "heading": "If it doesn't connect yet",
+        "bullets": {
+          "0": "DNS changes usually show up within minutes, but can take a few hours. Press <b>Check now</b> again later.",
+          "1": "The check says which record it can't find yet: the TXT record, or the one that points your domain here.",
+          "2": "Some domain companies add your domain to the end of the name by themselves. If yours does, type only the first part of the name, like www or _verify.www.",
+          "3": "For an address without www (yourbusiness.com), some domain companies don't allow a CNAME record. Use an A record pointing to this server's IP address instead; ask whoever runs {app} for you for the address."
+        }
+      },
+      "3": {
+        "heading": "Disconnect a domain",
+        "body": {
+          "0": "Press the bin next to the domain and confirm. Your app stays at its free address."
+        }
+      },
+      "4": {
+        "heading": "Good to know",
+        "bullets": {
+          "0": "A domain can only be connected to one app.",
+          "1": "Your plan may limit how many domains you can connect.",
+          "2": "Visitors see your published app at your domain, so publish before you share it."
+        }
+      }
+    }
+  },
+  "phone-apps": {
+    "title": "Phone apps and notifications",
+    "summary": "Put your app on people's home screens, send them notifications, and build Android and iPhone versions.",
+    "sections": {
+      "0": {
+        "heading": "Add it to a home screen",
+        "body": {
+          "0": "Every published app can be installed straight from the browser, with no app store. Open your app on the phone (scan the code on the Overview or the Publish tab), then choose <b>Add to Home Screen</b> in the browser's menu. On an iPhone it's under the Share button. It then opens like any other app, with your icon.",
+          "1": "Set your app's icon on the Overview under <b>App icon</b>. You can upload a picture or have the AI make one."
+        }
+      },
+      "1": {
+        "heading": "Send notifications",
+        "steps": {
+          "0": "Open the <b>Notifications</b> tab.",
+          "1": "If notifications are off, press <b>Turn on notifications</b>. This adds a small “Get notified” page your visitors use to sign up.",
+          "2": "Publish your app so visitors can sign up.",
+          "3": "Write a <b>Title</b> and a <b>Message</b>. You can add a page to open when the notification is tapped, like /menu.",
+          "4": "Press <b>Send to</b> (it shows how many people will get it). <b>Sent</b> lists what you've sent and how many were delivered."
+        },
+        "shot": {
+          "alt": "The Notifications tab with the number of subscribers and a form to write and send a notification.",
+          "caption": "Write a notification and send it to everyone who signed up."
+        }
+      },
+      "2": {
+        "heading": "Who can get notifications",
+        "body": {
+          "0": "On Android phones and computers, people turn on notifications from the browser. On iPhone and iPad, they first add your app to their home screen, then turn on notifications there.",
+          "1": "Flows can send notifications too, with the <b>Send a notification</b> step."
+        }
+      },
+      "3": {
+        "heading": "Build an Android app",
+        "body": {
+          "0": "The phone app shows your live, published app, so publishing changes updates it without a new build."
+        },
+        "steps": {
+          "0": "Publish your app first.",
+          "1": "Open the <b>Mobile app</b> tab.",
+          "2": "Under <b>App details</b>, check the <b>App name</b>, the <b>Bundle / Application ID</b> (like com.yourbusiness.app; never change it once your app is in a store), <b>Version</b>, <b>Orientation</b> and colours, then press <b>Save settings</b>.",
+          "3": "Press <b>Build test APK</b> for a copy you can install straight on an Android phone to try it.",
+          "4": "When you're ready for Google Play, press <b>Build for Google Play</b>. <b>Put your app on Google Play</b> walks you through the store's steps."
+        },
+        "shot": {
+          "alt": "The Mobile app tab with the app's details and buttons to build Android versions.",
+          "caption": "Build a test copy, or the file Google Play asks for."
+        }
+      },
+      "4": {
+        "heading": "Keep your upload key safe",
+        "body": {
+          "0": "Google Play knows your app by its upload key, a secret file made the first time you build for Google Play. Press <b>Download key backup</b> and keep it somewhere private, like a password manager. Without it you can never update your app on Google Play again. Only the app's owner can download it."
+        }
+      },
+      "5": {
+        "heading": "iPhone and iPad",
+        "body": {
+          "0": "Press <b>Download iPhone project</b> on the Mobile app tab. Building an iPhone app needs a paid Apple Developer account and either a Mac or a free GitHub account; the instructions inside the download explain both, step by step."
+        }
+      },
+      "6": {
+        "heading": "Good to know",
+        "bullets": {
+          "0": "<b>Phone features this app uses</b> lists what your app asks the phone for, like the camera or location. When that list changes, build again and send the stores the new version.",
+          "1": "Phones only open apps from a secure address (https). The Mobile app tab warns you if yours isn't.",
+          "2": "If it says <b>Android builds are turned off on this server</b>, ask whoever runs {app} for you.",
+          "3": "Before deleting an app or your account, download its Google Play upload key."
+        }
+      }
+    }
+  },
+  "account-and-billing": {
+    "title": "Your profile, plan and settings",
+    "summary": "Add a photo, change your name and password, choose light or dark, turn help tips on or off, check your plan and AI use, or delete your account.",
+    "sections": {
+      "0": {
+        "heading": "Your photo, details and password",
+        "steps": {
+          "0": "Click your picture (or initial) at the top right, then <b>Profile</b>.",
+          "1": "Press <b>Add a photo</b> and pick a picture of you. It's cropped to a square and shows next to your name. <b>Change photo</b> or <b>Remove</b> it any time.",
+          "2": "Change your <b>Name</b> and press <b>Save</b>. Your email is the one you sign in with and can't be changed here.",
+          "3": "Under <b>Password</b>, type your <b>Current password</b> and a <b>New password</b> of at least 8 characters, then press <b>Change password</b>. You're signed out on your other devices."
+        },
+        "shot": {
+          "alt": "The Profile page with your photo, details, password, appearance and help tips.",
+          "caption": "Profile: your photo, name, password, light or dark, and help tips."
+        }
+      },
+      "1": {
+        "heading": "Signed up with Google?",
+        "body": {
+          "0": "If you don't know your current password, for example because you signed up with Google, sign out and use <b>Forgot password</b> on the sign-in page to set one."
+        }
+      },
+      "2": {
+        "heading": "Light or dark",
+        "body": {
+          "0": "Press the sun or moon button in the top bar to switch between light and dark. In your <b>Profile</b>, under <b>Appearance</b>, you can also choose <b>Match my device</b>, which follows your computer or phone. Your choice is saved to your account, so it follows you to other devices."
+        }
+      },
+      "3": {
+        "heading": "Help tips and guides",
+        "body": {
+          "0": "Help tips are short notes that appear when you hold your mouse over a button or setting. Turn them on or off in your <b>Profile</b> under <b>Help</b>. Inside an app, the <b>Help tips</b> button at the top does the same.",
+          "1": "The <b>Help</b> link in the top bar opens the guide for the screen you're on. <b>Help & guides</b> in the account menu lists every guide."
+        }
+      },
+      "4": {
+        "heading": "Your plan and AI use",
+        "body": {
+          "0": "Click your initial, then <b>Billing & plan</b>. It shows your plan and, if your plan has a monthly allowance, how many AI actions you've used this month. Planning, building and changing things with the AI all use AI actions.",
+          "1": "When they run out, the AI pauses until next month. Templates and the page editor keep working. If other plans are offered, you can pick one on the same page. Once you pay for a plan, <b>Manage billing</b> lets you change your payment details."
+        },
+        "shot": {
+          "alt": "The Billing page showing your plan and the AI actions you've used this month.",
+          "caption": "Billing & plan: your plan and this month's AI use."
+        }
+      },
+      "5": {
+        "heading": "Delete your account",
+        "body": {
+          "0": "This deletes your account and all your apps, with everything they saved, their files and their web addresses. It can't be undone."
+        },
+        "steps": {
+          "0": "Go to your <b>Profile</b> and find <b>Delete my account</b>.",
+          "1": "Download a <b>Backup</b> of each app you might want later. If an app is on Google Play, download its <b>Google Play upload key</b> too.",
+          "2": "Press <b>Delete my account…</b>.",
+          "3": "Type your email address to confirm, and tick the upload key box if it's shown.",
+          "4": "Press <b>Delete my account for good</b>."
+        }
+      },
+      "6": {
+        "heading": "Good to know",
+        "bullets": {
+          "0": "Changing your password signs you out everywhere else.",
+          "1": "A paid plan is cancelled straight away when you delete your account.",
+          "2": "If your account can't be deleted here, for example because you run a workspace for other people, your Profile page explains why."
+        }
+      }
+    }
+  },
+  "running-your-platform": {
+    "title": "Running your platform",
+    "summary": "Your admin home: set up {app}, look after the people using it, and keep the server healthy.",
+    "sections": {
+      "0": {
+        "heading": "The Admin home",
+        "body": {
+          "0": "Click <b>Admin</b> in the top bar. <b>Run your platform</b> has a card for each area, with how it stands now: <b>White-label branding</b>, <b>Resellers</b>, <b>Payments</b>, <b>Plans & limits</b>, <b>AI engine</b>, <b>Email</b>, <b>Users</b> and <b>System</b>. Click a card to open it. <b>All settings</b> at the top opens every setting on one page."
+        },
+        "shot": {
+          "alt": "The Admin home with cards for branding, resellers, payments, plans, AI, email, users and system, and a setup checklist.",
+          "caption": "The Admin home: every area of the platform, and what still needs doing."
+        }
+      },
+      "1": {
+        "heading": "Setup checklist",
+        "body": {
+          "0": "The <b>Setup checklist</b> ticks itself off as you go. Click a step to open its setting."
+        },
+        "steps": {
+          "0": "<b>Set your brand</b>: your name, logo and colours. See Your brand (white-label).",
+          "1": "<b>Connect an AI engine</b>, so people can build by describing their app. See AI settings.",
+          "2": "<b>Connect Stripe and price your plans</b>, if you charge. See Prices and payments.",
+          "3": "<b>Turn on email</b>, so invitations, password links and alerts are sent for you. See Email.",
+          "4": "<b>Give published apps their own address</b>. This is a server setting (APPS_DOMAIN in the .env file), not on this screen; the installer can set it. With a wildcard DNS record, every published app gets its own address, kept apart from the studio.",
+          "5": "<b>Invite your first reseller</b>, if you sell through agencies. See Resellers and clients."
+        }
+      },
+      "2": {
+        "heading": "What each plan includes",
+        "body": {
+          "0": "Under <b>All settings</b>, <b>Plans & limits</b> sets what Free, Starter, Pro and Team include: <b>Apps</b>, <b>Published apps</b>, <b>Pages per app</b>, <b>Custom domains</b>, <b>AI actions / month</b> and <b>Scheduled workflows</b>. Tick <b>unlimited</b> for no limit, then press <b>Save plan limits</b>. <b>Reset to the standard limits</b> puts back the built-in values. You and your resellers are never limited."
+        }
+      },
+      "3": {
+        "heading": "Help the people using it",
+        "body": {
+          "0": "The <b>Users</b> list on the Admin home shows everyone who signed up. For each person you can:"
+        },
+        "bullets": {
+          "0": "Change their plan from the menu. It saves straight away.",
+          "1": "Press <b>Password link</b> to make a sign-in link that works once, for 2 hours. It's emailed to them if email is on, or copied for you to send.",
+          "2": "Press <b>Impersonate</b> to open their workspace and help them. A banner shows while you're inside, and anything you change happens in their account. Press <b>Stop impersonating</b> to come back.",
+          "3": "Press <b>Delete</b> to delete their account. You'll see what goes with it and type their email to confirm."
+        }
+      },
+      "4": {
+        "heading": "Keep an eye on things",
+        "body": {
+          "0": "<b>New people, last 30 days</b> shows how many people signed up, made an app and published one. <b>Recent projects</b> lists the latest apps, with <b>Jump in</b> to open one in its owner's workspace. <b>Recent flow runs</b> shows the latest automations and whether they worked."
+        }
+      },
+      "5": {
+        "heading": "Server health",
+        "body": {
+          "0": "Open <b>System</b> for the server's health in plain words. Each check is a card: green is fine, amber could use a look, red needs attention now. It covers the database, disk space, scheduled flows, backups, email, the AI connection, memory and more.",
+          "1": "<b>Nightly clean-up</b> removes old run logs, expired sign-ins, old published versions and the files of deleted apps. Choose <b>Report only</b> (count, delete nothing), <b>Remove old records</b> or <b>Off</b>, and press <b>Save</b>. <b>Check now</b> or <b>Run clean-up now</b> runs it straight away. Take a backup before you first turn on removing: deleted records can't be brought back.",
+          "2": "If something goes wrong, <b>Details for support</b> copies or downloads a summary with private details hidden, ready to send to whoever supports you."
+        },
+        "shot": {
+          "alt": "The System page: a summary line, health check cards, and the nightly clean-up settings.",
+          "caption": "System: how the server is doing, in plain words."
+        }
+      },
+      "6": {
+        "heading": "Good to know",
+        "bullets": {
+          "0": "If the database needs an update after you upgrade, a banner at the top of the Admin home says so, and System explains what to do.",
+          "1": "Installs made with the standard installer back themselves up every night. Copy the backups to another device now and then.",
+          "2": "Monitoring tools can check /api/health to see that the server is up.",
+          "3": "The operator's runbook in the download (docs/operations.md) covers the details."
+        }
+      }
+    }
+  },
+  "white-label": {
+    "title": "Your brand (white-label)",
+    "summary": "Put your own name, logo and colours on the studio, its emails and its sign-in pages.",
+    "sections": {
+      "0": {
+        "heading": "Whose brand people see",
+        "body": {
+          "0": "The platform's operator sets the brand everyone sees by default. Each reseller sets their own brand, and their clients only ever see that one, never the platform's.",
+          "1": "<b>If you run the platform:</b> go to Admin, <b>All settings</b>, <b>Branding</b>.",
+          "2": "<b>If you're a reseller:</b> open your <b>Reseller dashboard</b> and choose <b>Branding</b>."
+        }
+      },
+      "1": {
+        "heading": "Set your brand",
+        "steps": {
+          "0": "Type your <b>Brand name</b>. It's shown at the top of every screen, in emails and on the sign-in page.",
+          "1": "Add a <b>Tagline (optional)</b>, a short line about what you offer. It's added to the browser tab's title.",
+          "2": "Upload a <b>Logo</b>. Wide logos look best; use PNG or SVG, under 150 KB. It's shown instead of the brand name.",
+          "3": "Upload a <b>Browser icon</b>: square, at least 64 by 64 pixels.",
+          "4": "Pick a <b>Main colour</b> (buttons and highlights) and an <b>Accent colour</b> (smaller touches).",
+          "5": "Add a <b>Support email</b>. It's shown to people who need help and used as the reply-to address on emails. Add <b>Your website</b> if you like.",
+          "6": "Check the <b>Preview</b> of the sign-in screen, then press <b>Save branding</b>."
+        },
+        "shot": {
+          "alt": "The White-label branding form with name, tagline, logo, icon, colours and support email, and a preview of the sign-in screen.",
+          "caption": "Your brand, with a live preview of the sign-in screen."
+        }
+      },
+      "2": {
+        "heading": "Resellers: use your own address",
+        "body": {
+          "0": "Your clients can sign in and build at an address you own, like apps.youragency.com. Their published apps are shared from it too."
+        },
+        "steps": {
+          "0": "In your Reseller dashboard, open <b>Domain</b>.",
+          "1": "Type a subdomain you control, like apps.youragency.com, and press <b>Use this domain</b>.",
+          "2": "Add the two records shown (a CNAME or A record, and a TXT record) where you manage your domain's DNS.",
+          "3": "Press <b>Check now</b>. When it says <b>Connected</b>, your clients can sign in there."
+        }
+      },
+      "3": {
+        "heading": "Good to know",
+        "bullets": {
+          "0": "Changes show the next time a page loads.",
+          "1": "Images over 150 KB are refused. Export a smaller version and try again.",
+          "2": "A reseller's address gets a secure (https) certificate by itself on servers set up for it. If it doesn't open securely, ask the platform's operator.",
+          "3": "To stop using a reseller address, clear the box and save.",
+          "4": "Operators: give published apps a neutral address (APPS_DOMAIN) so reseller clients' app links don't show the platform's name."
+        }
+      }
+    }
+  },
+  "resellers": {
+    "title": "Resellers and clients",
+    "summary": "Sell app building under another brand: the operator adds resellers, and each reseller invites and looks after their own clients.",
+    "sections": {
+      "0": {
+        "heading": "How it fits together",
+        "bullets": {
+          "0": "<b>The operator</b> runs the platform and sets the plans, prices and limits.",
+          "1": "<b>Resellers</b> are agencies the operator adds. Each has its own brand, address, Stripe account and clients.",
+          "2": "<b>Clients</b> are the reseller's customers. They build apps and only ever see the reseller's brand.",
+          "3": "<b>App users</b> are the people who use the published apps.",
+          "4": "Clients pay the reseller directly. The platform takes no cut."
+        }
+      },
+      "1": {
+        "heading": "Operators: add a reseller",
+        "steps": {
+          "0": "In Admin, open <b>Resellers</b>.",
+          "1": "Under <b>Add a reseller</b>, type the <b>Brand name</b>, the <b>Reseller's email</b> and, if you like, <b>Their name</b>.",
+          "2": "Set <b>Max clients</b>, <b>Max apps</b> and <b>AI actions / month</b>, or leave them empty for unlimited.",
+          "3": "Press <b>Create reseller</b>. They get an invitation email if email is set up; otherwise you get a link to send them."
+        },
+        "shot": {
+          "alt": "The Resellers page with a form to add a reseller and a table of resellers with their clients, apps and AI use.",
+          "caption": "Add resellers and set their limits."
+        }
+      },
+      "2": {
+        "heading": "Operators: look after resellers",
+        "body": {
+          "0": "The table shows each reseller's clients, apps, AI actions this month, domain and status. Click a number like 3 / 10 to change that limit. The buttons at the end of a row let you sign in as the reseller, make an invitation or password reset link, suspend or reactivate them, and delete them.",
+          "1": "The monthly AI limit covers the reseller and all their clients together. When it runs out, the AI pauses for all of them until next month. The reseller is emailed at 80% and 100%, if email is set up.",
+          "2": "Suspending a reseller signs out the reseller and all their clients. Deleting one asks you to type its name; its clients keep their accounts and apps and become your direct customers on the Free plan."
+        }
+      },
+      "3": {
+        "heading": "Resellers: your dashboard",
+        "body": {
+          "0": "Click <b>Reseller dashboard</b> in the top bar. <b>Overview</b> has a <b>Get set up</b> checklist (logo and colours, your own domain, payments, your first client) and how many clients, apps and AI actions you're using. The menu on the left has <b>Clients</b>, <b>Apps</b>, <b>Branding</b>, <b>Domain</b> and <b>Billing & plans</b>."
+        }
+      },
+      "4": {
+        "heading": "Resellers: invite clients",
+        "steps": {
+          "0": "Open <b>Clients</b>.",
+          "1": "Under <b>Invite a client</b>, type their <b>Email</b>, their <b>Name</b> if you like, and choose their <b>Plan</b>.",
+          "2": "Press <b>Send invite</b>. They get an email with a link to set their password, or you get the link to send if email isn't set up.",
+          "3": "To invite lots of people, press <b>Invite several at once</b> and paste up to 50 email addresses."
+        }
+      },
+      "5": {
+        "heading": "Resellers: help a client",
+        "body": {
+          "0": "The client list shows each client's status, plan, apps, AI use and when they were last active. Filter it by status, plan and payment, or tick <b>Not seen in 30 days</b> or <b>Never signed in</b>. <b>Needs attention</b> points out clients who may need a nudge.",
+          "1": "Change a client's plan from the menu in their row. The buttons in each row let you <b>Open their workspace</b> (press <b>Back to your clients</b> to return), send a new invitation or password reset link, suspend or restore their access, and delete them.",
+          "2": "Deleting a client deletes all their apps. You'll be asked to type their email to confirm."
+        }
+      },
+      "6": {
+        "heading": "Resellers: client apps",
+        "body": {
+          "0": "<b>Apps</b> lists every app your clients have made. Press <b>Open</b> to edit one in the client's workspace. Apps you built yourself have <b>Give to client</b>, which moves the app to a client's workspace; you can still open it for them."
+        }
+      },
+      "7": {
+        "heading": "Good to know",
+        "bullets": {
+          "0": "A reseller only sees their own clients, never the operator's other customers or settings.",
+          "1": "Clients sign in at the reseller's address and see only the reseller's brand.",
+          "2": "When you've used all your client seats, invitations stop until the operator adds more."
+        }
+      }
+    }
+  },
+  "prices-and-payments": {
+    "title": "Prices and payments",
+    "summary": "Connect Stripe, and set what each plan costs and includes, so customers pay you directly.",
+    "sections": {
+      "0": {
+        "heading": "Where to find it",
+        "body": {
+          "0": "<b>If you run the platform:</b> Admin, <b>All settings</b>, then <b>Payments</b> for prices and Stripe, and <b>Plans & limits</b> for what each plan includes.",
+          "1": "<b>If you're a reseller:</b> your Reseller dashboard, <b>Billing & plans</b>. It has <b>1. Your prices</b> and <b>2. What each plan includes</b>.",
+          "2": "Payments go through Stripe, an online payment service. You need your own Stripe account."
+        }
+      },
+      "1": {
+        "heading": "Connect Stripe",
+        "steps": {
+          "0": "In Stripe, go to Developers, API keys, and copy the <b>Secret key</b>. To try things out first, use a test key (it starts sk_test_).",
+          "1": "Paste it into <b>Secret key</b> under <b>Stripe</b>.",
+          "2": "Press <b>Save prices</b>. {app} sets up the payment updates from Stripe for you."
+        }
+      },
+      "2": {
+        "heading": "Set your prices",
+        "steps": {
+          "0": "Under <b>Plans and prices</b>, each paid plan has a <b>Plan name</b>, a <b>Price per month</b> and a <b>Currency</b>.",
+          "1": "Type a price for each plan you want to offer. Leave a price empty to hide that plan. The Free plan is always there.",
+          "2": "Press <b>Save prices</b>. The prices are created in your Stripe account for you."
+        },
+        "shot": {
+          "alt": "The Payments section with a name, monthly price and currency for each paid plan, and the Stripe key.",
+          "caption": "Name and price each plan, and connect Stripe."
+        }
+      },
+      "3": {
+        "heading": "Decide what each plan includes",
+        "body": {
+          "0": "For each plan, set the number of <b>Apps</b>, <b>Published apps</b>, <b>Pages per app</b>, <b>Custom domains</b> and <b>AI actions / month</b>, and whether <b>Scheduled workflows</b> are included.",
+          "1": "On the operator's <b>Plans & limits</b>, tick <b>unlimited</b> for no limit, then press <b>Save plan limits</b>. On a reseller's <b>Billing & plans</b>, leave a box empty for unlimited and press <b>Save plans</b>.",
+          "2": "Resellers can also untick <b>Let new clients sign themselves up on your domain</b> to make accounts invitation-only."
+        },
+        "shot": {
+          "alt": "The Plans and limits table, with a column for each plan and a row for each limit.",
+          "caption": "What each plan includes."
+        }
+      },
+      "4": {
+        "heading": "What customers see",
+        "body": {
+          "0": "Customers see the plans you offer on their <b>Billing & plan</b> page, with an <b>Upgrade</b> button that takes them to Stripe to pay. Paying customers get <b>Manage billing</b> to change their card or cancel. Until Stripe is connected, your prices still show, and checkout works once it's connected.",
+          "1": "You can also change someone's plan by hand: the operator from the Users list, a reseller from the client list."
+        }
+      },
+      "5": {
+        "heading": "Good to know",
+        "bullets": {
+          "0": "Customers pay you directly, on your own Stripe account. The platform takes no fee.",
+          "1": "If Stripe's payment updates ever fail to set up, <b>Advanced: payment updates (webhook)</b> shows the address to add in Stripe by hand.",
+          "2": "Try everything with a Stripe test key before you switch to your live key."
+        }
+      }
+    }
+  },
+  "ai-settings": {
+    "title": "AI settings",
+    "summary": "Choose the AI engine that plans, builds and changes apps, and check that it works.",
+    "sections": {
+      "0": {
+        "heading": "Where to find it",
+        "body": {
+          "0": "In Admin, open <b>All settings</b> and go to <b>AI engine</b>. Until an engine is connected, building with AI is off: people start from templates and the page editor, and the AI Designer can't build."
+        }
+      },
+      "1": {
+        "heading": "Choose a provider",
+        "body": {
+          "0": "There are two options:"
+        },
+        "bullets": {
+          "0": "<b>OpenAI</b>: OpenAI's service, or any server that works the same way, including models running on your own hardware.",
+          "1": "<b>Command-line AI agent</b>: a command-line AI tool installed on this server, signed in with its own subscription, instead of paying per request."
+        },
+        "shot": {
+          "alt": "The AI provider settings with the two provider options, the connection details and a test button.",
+          "caption": "Pick a provider, fill in its details and test it."
+        }
+      },
+      "2": {
+        "heading": "Connect a hosted or compatible service",
+        "steps": {
+          "0": "Choose <b>OpenAI</b>.",
+          "1": "Paste your key into <b>OpenAI / compatible API key</b>. If a key is already stored, leave the box empty to keep it.",
+          "2": "Leave <b>API base URL</b> empty for OpenAI's own service, or type the address of a compatible server.",
+          "3": "Type the model names under <b>Scaffold model</b> (plans and builds new apps) and <b>Edit model</b> (changes in the editor), or leave them empty for the defaults.",
+          "4": "Press <b>Test connection</b>. It saves your settings first, then shows <b>OK</b> or <b>Failed</b> with the reason.",
+          "5": "Press <b>Save changes</b>."
+        }
+      },
+      "3": {
+        "heading": "Run the AI on your own hardware",
+        "body": {
+          "0": "Any model server that speaks the same language as OpenAI's service works, such as Ollama, LM Studio, vLLM or llama.cpp's server. Put its address in <b>API base URL</b> (for a model on the same computer as {app}'s Docker containers, something like http://host.docker.internal:11434/v1), leave the key empty unless the server needs one, and type the model's exact name.",
+          "1": "Leave <b>Model context size</b> and <b>Maximum output tokens per call</b> empty, and <b>Model thinking</b> on <b>Automatic</b>: {app} works out sensible values. If tests or builds say the answer was unreadable, set <b>JSON support</b> to <b>Prompt only</b>.",
+          "2": "Speed depends on your hardware. Bigger models write better pages; try building a sample app before you invite people."
+        }
+      },
+      "4": {
+        "heading": "Use a command-line AI tool",
+        "steps": {
+          "0": "Install the tool on this server and sign it in, as the account that runs {app} (or its dedicated runner account).",
+          "1": "Choose <b>Command-line AI agent</b>.",
+          "2": "Set <b>Model</b> if you want a different one, and <b>Binary path</b> only if the tool isn't found by itself.",
+          "3": "Press <b>Test the AI agent</b>, then <b>Save changes</b>."
+        }
+      },
+      "5": {
+        "heading": "Good to know",
+        "bullets": {
+          "0": "Every plan, build and change uses AI actions from the person's monthly allowance (see <b>Plans & limits</b>), and a reseller's clients share the reseller's monthly limit.",
+          "1": "Stored keys are never shown again, only a masked hint.",
+          "2": "A key in the server's .env file (OPENAI_API_KEY) is used when none is saved here.",
+          "3": "The runbook in the download (docs/local-ai.md) has more on running models yourself."
+        }
+      }
+    }
+  },
+  "email": {
+    "title": "Email",
+    "summary": "Send invitations, password links, app alerts and your apps' own emails from your own address.",
+    "sections": {
+      "0": {
+        "heading": "What email is used for",
+        "body": {
+          "0": "Once email is set up, {app} sends password links and invitations (for you, resellers and their clients), alerts to app owners when someone sends a form or books, and the emails apps send themselves with the <b>Send an email</b> step.",
+          "1": "Without it, invitation and password links are shown on screen for you to pass on, and apps skip their email steps. App owners see a note about it on their app's Overview."
+        }
+      },
+      "1": {
+        "heading": "Set it up with any email provider",
+        "steps": {
+          "0": "In Admin, open <b>All settings</b> and go to <b>Email</b>.",
+          "1": "Under <b>How should email be sent?</b>, choose <b>Any email provider (SMTP)</b>.",
+          "2": "Type the <b>Email server</b> your provider gives you, like smtp.example.com.",
+          "3": "Choose the <b>Port</b>. Use <b>587 (recommended)</b> unless your provider says otherwise.",
+          "4": "Type the <b>Username</b> and <b>Password</b>. Google and Microsoft need an app password, not your normal one.",
+          "5": "Type the address to <b>Send from</b>, one your provider lets you send from, and a <b>Sender name</b> if you like. Leave the name empty to use your brand's or the app's name.",
+          "6": "Press <b>Send a test email to me</b>. It uses what's on screen, so you can check before saving.",
+          "7": "Press <b>Save email settings</b>."
+        },
+        "shot": {
+          "alt": "The Email settings: whether email is on, the choice of provider, the server details and the test button.",
+          "caption": "Fill in your provider's details and send yourself a test."
+        }
+      },
+      "2": {
+        "heading": "Or use Resend",
+        "body": {
+          "0": "Choose <b>Resend</b>, paste your <b>Resend API key</b>, and send from an address on a domain you've verified in Resend. Then test and save as above."
+        }
+      },
+      "3": {
+        "heading": "Check it's working",
+        "body": {
+          "0": "The box at the top says <b>Email is on</b> with the address it sends from, and shows the last 24 hours: how many were sent and failed, and the last problem, if any. The Email card on the System page shows the same."
+        }
+      },
+      "4": {
+        "heading": "When the test fails",
+        "bullets": {
+          "0": "<b>Username or password rejected</b>: check both. Google and Microsoft need an app password; email services often give you an SMTP key instead of your account password.",
+          "1": "<b>Couldn't reach the server on that port</b>: try 587, then 465, then 2525, or ask your host to open the port.",
+          "2": "<b>The port and encryption don't match</b>: use 465 with SSL, or 587 with automatic encryption (under <b>More options</b>).",
+          "3": "<b>Refused to send from that address</b>: your provider hasn't verified that sender or its domain. Verify it, or send from an address it knows.",
+          "4": "<b>Resend's test mode</b>: a new Resend account only emails its own address until you verify a domain."
+        }
+      },
+      "5": {
+        "heading": "Good to know",
+        "bullets": {
+          "0": "Every email is sent from your <b>Send from</b> address. When an app asks to send from an address on another domain, its address becomes the reply-to, so replies still reach the app owner.",
+          "1": "Settings in the server's .env file are used until you save here; saving here takes over.",
+          "2": "<b>Remove these settings</b> goes back to no email (or to the .env settings, if there are any).",
+          "3": "The support email in your branding is the reply-to on invitation and password emails."
+        }
+      }
+    }
+  }
+}

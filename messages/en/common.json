@@ -1,0 +1,12 @@
+{
+  "language": "Language",
+  "languageHelp": "The language the studio is shown in. It's saved to your account.",
+  "save": "Save",
+  "saving": "Saving…",
+  "saved": "Saved.",
+  "cancel": "Cancel",
+  "delete": "Delete",
+  "close": "Close",
+  "loading": "Loading…",
+  "tryAgain": "Something went wrong. Please try again."
+}

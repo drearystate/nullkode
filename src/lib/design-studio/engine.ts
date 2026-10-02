@@ -7,14 +7,23 @@ import { providerComplete } from "../ai/provider";
 import { completeJson } from "../ai/json-call";
 import { estimateTokens, getContextWindow, COMPACT_BELOW } from "../ai/budget";
 import { extractJson, parseHtmlDocument } from "../ai/text";
-import { aiErrorFor, classifyAiFailure } from "../ai/errors";
+import { aiErrorFor, aiErrorWords, classifyAiFailure } from "../ai/errors";
 import { aiQuotaProblem, recordAiUsage, refundAiUsage, refundAiUsageByRef, refundFailedAi } from "../ai-quota";
 import { assertDesignerCanChange, mirrorPrimaryToPage } from "./pages-mirror";
 import { applyScaffoldFromWorkspace } from "./post-run-scaffold";
 import { appendChat, getDesign, readFiles, saveVersion, writeFiles } from "./store";
 import { publish } from "./events";
 import { applyEditBlocks, parseEditBlocks } from "./patches";
-import { EDIT_TASK, META_TASK, PAGE_TASK, PLAN_TASK, RULES } from "./prompts";
+import { EDIT_TASK, META_TASK, PAGE_TASK, PLAN_TASK, RULES, planLanguageRule } from "./prompts";
+import { personLocale, translator, type Tr } from "../ai/i18n";
+import type { Locale } from "@/i18n/locales";
+import { contentLanguageRule, ensureAppLocale, getAppLocale } from "../app-locale";
+
+/** A system prompt with the app's content language added (nothing added for English). */
+function withContentLanguage(system: string, contentLocale: Locale | undefined): string {
+  const rule = contentLanguageRule(contentLocale, "document");
+  return rule ? `${system}\n\n${rule}` : system;
+}
 
 /**
  * Builds and changes designs with any OpenAI-compatible model (gpt-6-luna by
@@ -33,7 +42,7 @@ const FilePath = z.preprocess(
   z.string().regex(/^(?:[a-zA-Z0-9_-]+\.html|meta\/(?:tables|flows)\.json)$/),
 );
 const Plan = z.object({
-  message: z.string().max(1000).default("Updating your design."),
+  message: z.string().max(1000).default(""),
   files: z
     .array(z.object({ path: FilePath, how: z.enum(["create", "edit", "rewrite"]).catch("edit"), instructions: z.string().max(4000).default("") }))
     .min(1)
@@ -85,7 +94,10 @@ export async function startGeneration(user: QuotaUser, designId: string, prompt:
   const design = await getDesign(user.id, designId);
   await assertDesignerCanChange(designId);
   const request = prompt.trim().slice(0, 8000);
-  if (!request && !notes.length) throw new Error("Describe what you'd like.");
+  // The person's language, captured now: the build carries on after the request ends.
+  const locale = await personLocale();
+  const t = translator(locale, "designer");
+  if (!request && !notes.length) throw new Error(t("server.describe"));
   const problem = await aiQuotaProblem(user);
   if (problem) throw new Error(problem);
 
@@ -93,11 +105,15 @@ export async function startGeneration(user: QuotaUser, designId: string, prompt:
   await sweepStaleJobs(user.id);
   await db.$transaction(async (tx) => {
     await tx.$executeRaw`SELECT pg_advisory_xact_lock(hashtext(${designId}))`;
-    if (await tx.designerGenerationJob.findFirst({ where: { designId, status: "running" } })) throw new Error("This design is already being built. Wait for it to finish, or stop it.");
+    if (await tx.designerGenerationJob.findFirst({ where: { designId, status: "running" } })) throw new Error(t("server.alreadyBuilding"));
     await tx.designerGenerationJob.create({ data: { id: jobId, designId, userId: user.id, status: "running" } });
   });
   const chargeId = await recordAiUsage(user.id, "designer", design.projectId, { ref: `designer:${jobId}` });
-  void run({ user, designId, jobId, chargeId, prompt: request, notes });
+  // The design's content language: its app's language once it has one,
+  // else the person's studio language (lib/app-locale.ts).
+  const app = design.projectId ? await getAppLocale(design.projectId).catch(() => null) : null;
+  const contentLocale = app?.explicit ? app.locale : locale;
+  void run({ user, designId, jobId, chargeId, prompt: request, notes, locale, contentLocale });
   return { jobId };
 }
 
@@ -109,8 +125,9 @@ export async function cancelGeneration(userId: string, designId: string): Promis
   return jobs.length > 0;
 }
 
-async function run(opts: { user: QuotaUser; designId: string; jobId: string; chargeId: string | null; prompt: string; notes: ElementNote[] }) {
+async function run(opts: { user: QuotaUser; designId: string; jobId: string; chargeId: string | null; prompt: string; notes: ElementNote[]; locale: Locale; contentLocale?: Locale }) {
   const { user, designId, jobId } = opts;
+  const t = translator(opts.locale, "designer");
   const abort = new AbortController();
   const poll = setInterval(() => {
     if (cancelled.has(jobId)) abort.abort();
@@ -131,20 +148,21 @@ async function run(opts: { user: QuotaUser; designId: string; jobId: string; cha
     const pages = existing.filter((f) => f.path.endsWith(".html"));
     const meta = existing.filter((f) => f.path.startsWith("meta/"));
 
-    step("plan", "Planning", "running");
+    step("plan", t("build.planning"), "running");
     const plan = await completeJson(Plan, "design plan", {
       task: "scaffold",
       json: true,
       signal: abort.signal,
       maxTokens: 2000,
-      systemPrompt: `${RULES}\n\n${PLAN_TASK}`,
+      systemPrompt: [RULES, PLAN_TASK, planLanguageRule(opts.locale)].filter(Boolean).join("\n\n"),
       userMessage: JSON.stringify({
         request,
         existingPages: pages.map((p) => ({ path: p.path, outline: outline(p.content) })),
         existingData: Object.fromEntries(meta.map((m) => [m.path, m.content.slice(0, 4000)])),
       }),
     });
-    step("plan", "Planning", "done");
+    if (!plan.message.trim()) plan.message = t("build.defaultPlanMessage");
+    step("plan", t("build.planning"), "done");
     check();
 
     const planned = plan.files.filter((f, i, all) => all.findIndex((g) => g.path === f.path) === i);
@@ -159,13 +177,13 @@ async function run(opts: { user: QuotaUser; designId: string; jobId: string; cha
     for (const file of planned) {
       check();
       const previous = written.get(file.path) ?? existing.find((f) => f.path === file.path)?.content ?? "";
-      const label = `${previous ? "Updating" : "Creating"} ${file.path}`;
+      const label = t(previous ? "build.updating" : "build.creating", { file: file.path });
       step(file.path, label, "running");
       const dataFiles = Object.fromEntries([...meta.map((m) => [m.path, m.content] as const), ...[...written].filter(([p]) => p.startsWith("meta/"))]);
       try {
         const content = file.path.startsWith("meta/")
-          ? await buildMeta({ file, request, dataFiles, signal: abort.signal })
-          : await buildPage({ file, previous, request, planMessage: plan.message, allPages, dataFiles, window, compact, signal: abort.signal });
+          ? await buildMeta({ file, request, dataFiles, signal: abort.signal, t, contentLocale: opts.contentLocale })
+          : await buildPage({ file, previous, request, planMessage: plan.message, allPages, dataFiles, window, compact, signal: abort.signal, t, contentLocale: opts.contentLocale });
         written.set(file.path, content);
         step(file.path, label, "done");
       } catch (err) {
@@ -175,20 +193,22 @@ async function run(opts: { user: QuotaUser; designId: string; jobId: string; cha
     }
     check();
 
-    step("save", "Saving and updating your app", "running");
+    step("save", t("build.saving"), "running");
     await writeFiles(designId, [...written].map(([path, content]) => ({ path, content })));
     let appNote = "";
     try {
       const mirror = await mirrorPrimaryToPage(user.id, designId);
       if (mirror) {
+        // A new app takes the language its pages were written in.
+        if (opts.contentLocale) await ensureAppLocale(mirror.projectId, opts.contentLocale).catch(() => null);
         const outcome = await applyScaffoldFromWorkspace(user.id, designId, mirror.projectId);
         if (outcome.pagesUpdated.length > 0) await mirrorPrimaryToPage(user.id, designId);
       }
     } catch (err) {
-      appNote = ` Your design is saved, but its app couldn't be updated: ${err instanceof Error ? err.message : "please try again"}.`;
+      appNote = ` ${t("build.appNotUpdated", { reason: err instanceof Error ? err.message : t("build.appNotUpdatedRetry") })}`;
     }
     const versionId = await saveVersion(designId, { prompt: request, message: plan.message });
-    step("save", "Saving and updating your app", "done");
+    step("save", t("build.saving"), "done");
     await appendChat(designId, "assistant", `${plan.message}${appNote}`, versionId);
     await db.designerGenerationJob.update({ where: { id: jobId }, data: { status: "done", finishedAt: new Date() } });
     publish(designId, { type: "job", jobId, status: "done" });
@@ -196,11 +216,12 @@ async function run(opts: { user: QuotaUser; designId: string; jobId: string; cha
     const wasCancelled = err instanceof Cancelled || abort.signal.aborted;
     if (wasCancelled) {
       await refundAiUsage(opts.chargeId);
-      await appendChat(designId, "assistant", "Stopped. Nothing was changed.");
+      await appendChat(designId, "assistant", t("build.stopped"));
     } else {
       await refundFailedAi(opts.chargeId, user.id, classifyAiFailure(err));
       console.error("[design-studio] build failed", err);
-      const shown = aiErrorFor(user, err, "The build didn't work this time. Nothing was changed; please try again.");
+      const ta = translator(opts.locale, "ai");
+      const shown = aiErrorFor(user, err, t("build.failed"), aiErrorWords(ta));
       await appendChat(designId, "error", shown);
     }
     await db.designerGenerationJob.update({ where: { id: jobId }, data: { status: wasCancelled ? "cancelled" : "error", finishedAt: new Date() } }).catch(() => {});
@@ -211,7 +232,7 @@ async function run(opts: { user: QuotaUser; designId: string; jobId: string; cha
   }
 }
 
-async function buildMeta(opts: { file: { path: string; instructions: string }; request: string; dataFiles: Record<string, string>; signal: AbortSignal }): Promise<string> {
+async function buildMeta(opts: { file: { path: string; instructions: string }; request: string; dataFiles: Record<string, string>; signal: AbortSignal; t: Tr; contentLocale?: Locale }): Promise<string> {
   const key = opts.file.path === "meta/tables.json" ? "tables" : "flows";
   let problem = "";
   for (let attempt = 0; attempt < 2; attempt++) {
@@ -220,7 +241,7 @@ async function buildMeta(opts: { file: { path: string; instructions: string }; r
       json: true,
       signal: opts.signal,
       maxTokens: 3000,
-      systemPrompt: `${RULES}\n\n${META_TASK}`,
+      systemPrompt: withContentLanguage(`${RULES}\n\n${META_TASK}`, opts.contentLocale),
       userMessage: JSON.stringify({ request: opts.request, file: opts.file.path, instructions: opts.file.instructions, currentDataFiles: opts.dataFiles, ...(problem ? { fix: problem } : {}) }),
     });
     try {
@@ -231,7 +252,7 @@ async function buildMeta(opts: { file: { path: string; instructions: string }; r
       problem = "The reply was not valid JSON.";
     }
   }
-  throw new Error(`The AI couldn't write ${opts.file.path}. Nothing was changed; please try again.`);
+  throw new Error(opts.t("build.fileFailed", { file: opts.file.path }));
 }
 
 async function buildPage(opts: {
@@ -244,6 +265,9 @@ async function buildPage(opts: {
   window: number;
   compact: boolean;
   signal: AbortSignal;
+  t: Tr;
+  /** The app's language: every visible word of the page is written in it. */
+  contentLocale?: Locale;
 }): Promise<string> {
   const fits = estimateTokens(opts.previous) < opts.window * (opts.compact ? 0.35 : 0.5);
 
@@ -253,7 +277,7 @@ async function buildPage(opts: {
       task: "edit",
       signal: opts.signal,
       maxTokens: opts.compact ? 3000 : 6000,
-      systemPrompt: `${RULES}\n\n${EDIT_TASK}`,
+      systemPrompt: withContentLanguage(`${RULES}\n\n${EDIT_TASK}`, opts.contentLocale),
       userMessage: `REQUEST: ${opts.request}\nWHAT THIS PAGE NEEDS: ${opts.file.instructions || opts.planMessage}\nALL PAGES: ${opts.allPages.join(", ")}\n\nCURRENT PAGE (${opts.file.path}):\n${opts.previous}${generatedImageContext(`${opts.request} ${opts.file.instructions ?? ""}`, opts.compact ? 3 : 6)}`,
     });
     const blocks = parseEditBlocks(text);
@@ -270,7 +294,7 @@ async function buildPage(opts: {
       task: "scaffold",
       signal: opts.signal,
       maxTokens: opts.compact ? 7000 : 16000,
-      systemPrompt: `${RULES}\n\n${PAGE_TASK}`,
+      systemPrompt: withContentLanguage(`${RULES}\n\n${PAGE_TASK}`, opts.contentLocale),
       userMessage: JSON.stringify({
         request: opts.request,
         plan: opts.planMessage,
@@ -287,5 +311,5 @@ async function buildPage(opts: {
     if (html && /<body\b/i.test(html)) return html;
     fix = "Your last reply was not a complete HTML document. Reply with ONLY the document, from <!doctype html> to </html>.";
   }
-  throw new Error(`The AI couldn't write ${opts.file.path}. Nothing was changed; please try again.`);
+  throw new Error(opts.t("build.fileFailed", { file: opts.file.path }));
 }

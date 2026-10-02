@@ -1,0 +1,1153 @@
+{
+  "assets": {
+    "addHelp": "Bu fotoğrafı seçtiğiniz bölümün altına eklemek için dokunun veya sayfanıza sürükleyin.",
+    "addPhoto": "Bu fotoğrafı ekle",
+    "addPhotoNamed": "Bu fotoğrafı ekle: {alt}",
+    "aiOriginal": "Yapay zekâ orijinali",
+    "categories": {
+      "agriculture": {
+        "help": "Çiftlikler ve taze ürünler.",
+        "label": "Tarım"
+      },
+      "all": {
+        "help": "Sayfanızda kullanabileceğiniz ücretsiz fotoğraflardan karışık bir seçki gösterir.",
+        "label": "Tümü"
+      },
+      "architecture": {
+        "help": "Bina fotoğraflarını ücretsiz gösterir.",
+        "label": "Mimari"
+      },
+      "automotive": {
+        "help": "Araç tamiri ve garajlar.",
+        "label": "Otomotiv"
+      },
+      "beauty": {
+        "help": "Cilt bakımı, spa ve güzellik fotoğrafları.",
+        "label": "Güzellik"
+      },
+      "business": {
+        "help": "Ofis ve iş başındaki insan fotoğraflarını ücretsiz gösterir.",
+        "label": "İş dünyası"
+      },
+      "cleaning": {
+        "help": "Profesyonel temizlik hizmetleri.",
+        "label": "Temizlik"
+      },
+      "community": {
+        "help": "Mahalle pazarları ve taze ürünler.",
+        "label": "Topluluk"
+      },
+      "education": {
+        "help": "Sınıflar ve birlikte öğrenme fotoğrafları.",
+        "label": "Öğrenme"
+      },
+      "events": {
+        "help": "Düğün ve etkinlik hizmetleri.",
+        "label": "Etkinlikler"
+      },
+      "fitness": {
+        "help": "Spor salonu ve egzersiz fotoğraflarını ücretsiz gösterir.",
+        "label": "Fitness"
+      },
+      "food": {
+        "help": "Yemek ve restoran fotoğraflarını ücretsiz gösterir.",
+        "label": "Yemek"
+      },
+      "landscaping": {
+        "help": "Bahçecilik ve peyzaj hizmetleri.",
+        "label": "Bahçeler"
+      },
+      "legal": {
+        "help": "Hukuk kütüphaneleri ve adliye mimarisi.",
+        "label": "Hukuk"
+      },
+      "logistics": {
+        "help": "Depolar, teslimat ve kargo.",
+        "label": "Lojistik"
+      },
+      "medical": {
+        "help": "Sağlık ve tıp alanında ücretsiz fotoğrafları gösterin.",
+        "label": "Sağlık"
+      },
+      "nature": {
+        "help": "Doğa ve manzara fotoğraflarını ücretsiz gösterir.",
+        "label": "Doğa"
+      },
+      "originals": {
+        "help": "Bu kurulumda bulunan, yapay zekâyla oluşturulmuş özgün fotoğraflara göz atın.",
+        "label": "Özgün"
+      },
+      "people": {
+        "help": "İnsan fotoğraflarını ücretsiz gösterir.",
+        "label": "İnsanlar"
+      },
+      "pets": {
+        "help": "Evcil hayvan bakımı ve tımarı.",
+        "label": "Evcil Hayvanlar"
+      },
+      "products": {
+        "help": "Seramik ve ürün fotoğrafları.",
+        "label": "Ürünler"
+      },
+      "tech": {
+        "help": "Bilgisayar ve teknoloji fotoğraflarını ücretsiz gösterir.",
+        "label": "Teknoloji"
+      },
+      "trades": {
+        "help": "Tesisat, elektrik işleri ve inşaat.",
+        "label": "Ustalık Hizmetleri"
+      },
+      "travel": {
+        "help": "Seyahat ve gezilecek yerlerle ilgili ücretsiz fotoğrafları gösterin.",
+        "label": "Seyahat"
+      }
+    },
+    "describeHelp": "Görselde ne olduğunu birkaç kelimeyle açıklayın. Ekran okuyucular bunu göremeyenlere okur, arama motorları da bu açıklamayı kullanır.",
+    "describeLabel": "Görsel değiştirildi. Göremeyenler için açıklayın:",
+    "describePlaceholder": "ör. Dükkân tezgâhımızda taze ekmek",
+    "failedToLoad": "Görseller yüklenemedi",
+    "footerAdd": "Eklemek için dokunun veya sürükleyin · Ücretsiz fotoğraflar",
+    "footerSwap": "Seçtiğiniz görselin yerine kullanmak için bir fotoğrafa dokunun",
+    "noMatches": "Eşleşen görsel yok. Daha genel bir konu deneyin.",
+    "photoBy": "Fotoğraf: {name}",
+    "saveDescription": "Açıklamayı kaydet",
+    "saveDescriptionHelp": "Bu açıklamayı görsele kaydedin.",
+    "searchHelp": "Ücretsiz fotoğraflar bulmak için “kahve” veya “köpek” gibi bir konu yazın.",
+    "searchPlaceholder": "Fotoğraf ara...",
+    "skip": "Atla",
+    "skipHelp": "Açıklamasını değiştirmeden yeni görseli kullanın.",
+    "swapHelp": "Bu fotoğrafı seçtiğiniz görselin yerine koymak için dokunun. Boyutu ve yeri aynı kalır.",
+    "useInstead": "Bunun yerine bu fotoğrafı kullan",
+    "useInsteadNamed": "Bunun yerine bu fotoğrafı kullan: {alt}"
+  },
+  "blockCategories": {
+    "basic": {
+      "help": "Basit yapı parçaları. Blokları göstermek veya gizlemek için adına tıklayın.",
+      "label": "Temel"
+    },
+    "commerce": {
+      "help": "Ürün kartları ve fiyatlar gibi satış parçaları. Blokları göstermek veya gizlemek için adına tıklayın.",
+      "label": "Ticaret"
+    },
+    "content": {
+      "help": "Başlıklar, paragraflar, listeler ve notlar. Blokları göstermek veya gizlemek için adına tıklayın.",
+      "label": "İçerik"
+    },
+    "extra": {
+      "help": "Bir blok grubu. Göstermek veya gizlemek için adına tıklayın.",
+      "label": "Ekstra"
+    },
+    "forms": {
+      "help": "İletişim ve kayıt formları gibi, insanların doldurduğu kutular. Blokları göstermek veya gizlemek için adına tıklayın.",
+      "label": "Formlar"
+    },
+    "interactive": {
+      "help": "Düğmeler, kartlar, sekmeler, açılır pencereler ve insanların tıkladığı diğer parçalar. Blokları göstermek veya gizlemek için adına tıklayın.",
+      "label": "Etkileşimli"
+    },
+    "layout": {
+      "help": "Başka parçaları içine alan kutular ve sütunlar; ayrıca metin ve resim gibi temel parçalar. Blokları göstermek veya gizlemek için adına tıklayın.",
+      "label": "Düzen"
+    },
+    "liveData": {
+      "help": "Uygulamanızın bilgileriyle çalışan parçalar: yanıtları kaydeden formlar, kendiliğinden dolan listeler ve oturum açma alanları. Blokları göstermek veya gizlemek için adına tıklayın.",
+      "label": "Canlı veriler"
+    },
+    "media": {
+      "help": "Resimler, videolar, sesler ve haritalar. Blokları göstermek veya gizlemek için adına tıklayın.",
+      "label": "Medya"
+    },
+    "premade": {
+      "help": "Hazır bölümleri ekleyip düzenleyin. Göstermek veya gizlemek için adına tıklayın.",
+      "label": "Hazır"
+    },
+    "sections": {
+      "help": "Giriş, fiyatlar veya alt bilgi gibi hazır sayfa bölümleri. Blokları göstermek veya gizlemek için adına tıklayın.",
+      "label": "Bölümler"
+    },
+    "social": {
+      "help": "Sosyal medya bağlantıları, paylaşım düğmeleri ve diğer web sitelerindeki içerikler. Blokları göstermek veya gizlemek için adına tıklayın.",
+      "label": "Sosyal"
+    }
+  },
+  "blockHelp": {
+    "nkAccordion": "Tıklanınca daha fazla bilgi gösteren sorular veya başlıklar.",
+    "nkApiCall": "Basıldığında uygulamanızda bir işlem başlatan düğme. Ne yapacağını Ayarlar'dan seçin.",
+    "nkAuthGate": "Yalnızca oturum açan kişilerin görebileceği bir kutu.",
+    "nkBadge": "“Yeni” veya “İndirim” gibi küçük, renkli bir etiket.",
+    "nkCarousel": "Sırayla gösterilen resimler veya slaytlar.",
+    "nkContainer": "İçindekileri sayfanın ortasında, rahat bir genişlikte tutan bir kutu.",
+    "nkDataCards": "Uygulama bilgilerinizle kendiliğinden dolan kartlar. Neleri göstereceklerini Ayarlar'dan seçin.",
+    "nkDataList": "Ürünler veya rezervasyonlar gibi uygulama bilgilerinizle kendiliğinden dolan bir liste. Neleri göstereceğini Ayarlar'dan seçin.",
+    "nkDataTable": "Uygulama bilgilerinizle kendiliğinden dolan bir tablo. Neleri göstereceğini Ayarlar'dan seçin.",
+    "nkDivider": "Sayfanın bölümlerini ayıran ince bir çizgi.",
+    "nkFlowForm": "Yanıtlarını kaydetme veya size e-posta gönderme gibi işlemler yapan bir form. Ne yapacağını Ayarlar'dan seçin.",
+    "nkGrid": "Yan yana duran ve küçük ekranlarda kendiliğinden alt satırlara geçen kutular.",
+    "nkIconChip": "Küçük, renkli bir dairenin içindeki simge.",
+    "nkIframe": "Rezervasyon veya ödeme aracı gibi başka bir web sitesindeki içeriği sayfanızda gösterir.",
+    "nkLead": "Tanıtım yazıları için uygun, biraz daha büyük bir paragraf.",
+    "nkMarqueeText": "Ekranda kayan yazı.",
+    "nkModal": "Sayfanın üzerinde küçük bir pencere açan düğme.",
+    "nkSection": "Kendi başlığı olan, sayfanın tamamı boyunca uzanan bir alan.",
+    "nkSignout": "Kişinin uygulamanızdaki oturumunu kapatan bir düğme.",
+    "nkSpacer": "Öğelerin arasını açmak için boş alan.",
+    "nkTabs": "Sekmelerle geçiş yapılan, her seferinde tek birinin gösterildiği içerik panelleri.",
+    "nkUserMenu": "Oturum açan kişilere Profil ve Ayarlar gibi bağlantılar sunan Hesap menüsü."
+  },
+  "blocks": {
+    "button": "Düğme",
+    "checkbox": "Onay kutusu",
+    "column1": "1 Sütun",
+    "column2": "2 Sütun",
+    "column3": "3 Sütun",
+    "column37": "2 Sütun 3/7",
+    "form": "Form",
+    "image": "Görsel",
+    "input": "Giriş alanı",
+    "label": "Etiket",
+    "link": "Bağlantı",
+    "linkBlock": "Bağlantı bloğu",
+    "map": "Harita",
+    "navbar": "Gezinme çubuğu",
+    "nkAccordion": "Açılır liste",
+    "nkAddCart": "Sepete ekle",
+    "nkAlertDanger": "Uyarı · Hata",
+    "nkAlertInfo": "Uyarı · Bilgi",
+    "nkAlertSuccess": "Uyarı · Başarılı",
+    "nkAlertWarn": "Uyarı · Dikkat",
+    "nkApiCall": "Akış başlatan düğme",
+    "nkAudio": "Ses",
+    "nkAuthGate": "Üyelere özel alan",
+    "nkBadge": "Rozet",
+    "nkBannerCard": "Afiş kartı",
+    "nkBtnGroup": "Düğme grubu",
+    "nkBtnLg": "Düğme · Büyük",
+    "nkBtnOutline": "Düğme · Çerçeveli",
+    "nkBtnPrimary": "Düğme · Birincil",
+    "nkCard": "Kart",
+    "nkCardImage": "Kart · Görselli",
+    "nkCarousel": "Karusel",
+    "nkCartIcon": "Sepet simgesi",
+    "nkClientLogos": "Müşteri logoları",
+    "nkCode": "Kod bloğu",
+    "nkContactForm": "İletişim formu",
+    "nkContainer": "Kapsayıcı",
+    "nkCta": "Harekete geçirici mesaj",
+    "nkCtaBand": "Eylem banner'ı",
+    "nkDataCards": "Öğe ızgarası",
+    "nkDataList": "Öğe listesi",
+    "nkDataTable": "Öğe tablosu",
+    "nkDivider": "Ayırıcı",
+    "nkEventCard": "Etkinlik kartı",
+    "nkFancyHeading": "Şık başlık",
+    "nkFaq": "SSS",
+    "nkFaqAccordion": "SSS açılır listesi",
+    "nkFeatureCards": "Özellik kartları",
+    "nkFeatures3": "Özellikler · 3 sütun",
+    "nkFeatures4": "Özellikler · 2x2",
+    "nkFlowForm": "Akış başlatan form",
+    "nkFooterMulti": "Alt bilgi · Çok sütunlu",
+    "nkFooterSimple": "Alt bilgi · Basit",
+    "nkFormContact": "İletişim formu",
+    "nkFormLogin": "Giriş formu",
+    "nkFormNewsletter": "Bülten formu",
+    "nkFormSearch": "Arama çubuğu",
+    "nkFormSignup": "Kayıt formu",
+    "nkGallery": "Galeri · 3 sütun",
+    "nkGrid": "Otomatik ızgara",
+    "nkH1": "Başlık 1",
+    "nkH2": "Başlık 2",
+    "nkH3": "Başlık 3",
+    "nkHeroCentered": "Büyük giriş · Ortalı",
+    "nkHeroForm": "Büyük giriş · Kayıt formu",
+    "nkHeroSplit": "Büyük giriş · Görselli",
+    "nkIconChip": "Simge etiketi",
+    "nkIconPicker": "Simge",
+    "nkIframe": "Gömülü içerik (iframe)",
+    "nkImage": "Görsel",
+    "nkImageCaption": "Açıklamalı görsel",
+    "nkImageGallery": "Resim galerisi",
+    "nkLead": "Giriş metni",
+    "nkLink": "Bağlantı",
+    "nkListItems": "Liste öğeleri",
+    "nkListOl": "Numaralı liste",
+    "nkListUl": "Madde işaretli liste",
+    "nkLithoAboutUs": "Hakkımızda",
+    "nkLithoContactModern": "İletişim · Modern",
+    "nkLithoContactSimple": "İletişim · Sade",
+    "nkLithoFooterCentered": "Alt bilgi · Ortalı",
+    "nkLithoFooterDark": "Alt bilgi · Koyu",
+    "nkLithoFooterNewsletter": "Alt bilgi · Bülten",
+    "nkLithoIconBoxOverline": "Simge kutusu · Üst başlık",
+    "nkLithoInfoBanner": "Bilgi afişi",
+    "nkLithoLoginForm": "Giriş formu",
+    "nkLithoMessageBox": "Mesaj kutusu",
+    "nkLithoNewsCards": "Haber kartları",
+    "nkLithoOurStory": "Hikâyemiz",
+    "nkLithoPieCharts": "Pasta grafikler",
+    "nkLithoServicesShowcase": "Hizmet tanıtımı",
+    "nkLithoVideoSection": "Video bölümü",
+    "nkLogoCloud": "Logo şeridi",
+    "nkMap": "Harita",
+    "nkMarqueeText": "Kayan yazı",
+    "nkModal": "Açılır pencere",
+    "nkNavbar": "Menü çubuğu",
+    "nkNewsletter": "E-posta bülteni",
+    "nkParagraph": "Paragraf",
+    "nkPricing3": "Fiyatlandırma · 3 seçenek",
+    "nkPricing3col": "Fiyatlandırma tablosu",
+    "nkPricingCard": "Fiyatlandırma kartı",
+    "nkProcessSteps": "Süreç adımları",
+    "nkProduct": "Ürün kartı",
+    "nkProductGrid": "Ürün ızgarası",
+    "nkProgress": "İlerleme çubuğu",
+    "nkQuote": "Alıntı",
+    "nkReviews": "Yorumlar",
+    "nkRow2": "2 Sütun",
+    "nkRow3": "3 Sütun",
+    "nkRow4": "4 Sütun",
+    "nkSection": "Bölüm",
+    "nkServicesGrid": "Hizmet ızgarası",
+    "nkShare": "Paylaşım düğmeleri",
+    "nkSignout": "Çıkış düğmesi",
+    "nkSocialRow": "Sosyal medya simgeleri",
+    "nkSpacer": "Boşluk",
+    "nkStats": "Sayılar şeridi",
+    "nkStatsCounters": "İstatistik sayaçları",
+    "nkTabs": "Sekmeler",
+    "nkTabsContent": "Sekme içerikleri",
+    "nkTeam": "Ekip",
+    "nkTeamGrid": "Ekip ızgarası",
+    "nkTestimonials": "Müşteri yorumları",
+    "nkUserMenu": "Kullanıcı menüsü",
+    "nkVideoFile": "Video dosyası",
+    "nkVimeo": "Vimeo",
+    "nkYoutube": "YouTube",
+    "quote": "Alıntı",
+    "radio": "Seçenek düğmesi",
+    "select": "Seçim listesi",
+    "text": "Metin",
+    "textBasic": "Metin bölümü",
+    "textarea": "Metin alanı",
+    "video": "Video"
+  },
+  "canvas": {
+    "advanced": "Gelişmiş",
+    "advancedHelp": "Yazı tipleri, gölgeler ve kutu içindeki öğelerin hizalanması gibi daha ayrıntılı tasarım seçenekleri. Bunlara sık sık ihtiyacınız olmaz.",
+    "blocksHint": "Seçtiğiniz parçanın altına eklemek için bir bloğa dokunun ya da sayfaya sürükleyin.",
+    "devices": {
+      "desktop": {
+        "help": "Sayfanızın büyük bir bilgisayar ekranında nasıl göründüğüne bakın.",
+        "label": "Masaüstü"
+      },
+      "mobile": {
+        "help": "Sayfanızın telefonda nasıl göründüğüne bakın. Bunu mutlaka kontrol edin; ziyaretçilerin çoğu telefon kullanıyor!",
+        "label": "Mobil"
+      },
+      "tablet": {
+        "help": "Sayfanızın iPad gibi bir tablette nasıl göründüğüne bakın.",
+        "label": "Tablet"
+      }
+    },
+    "discard": "Sil",
+    "discardHelp": "Kaydedilmemiş değişiklikleri silip sayfayı olduğu gibi bırakın. Bunları geri getiremezsiniz.",
+    "draftNewer": "Kaydedilmemiş değişiklikler bulduk. Geri yükleyelim mi?",
+    "draftOlder": "{when} tarihinden kaydedilmemiş değişiklikler bulduk. Bu sayfa o zamandan beri değişti. Yine de geri yüklensin mi?",
+    "element": "Öğe",
+    "importLabel": "HTML/CSS kodunu buraya yapıştırıp içe aktar'a tıklayın.",
+    "importTitle": "Şablon içe aktar",
+    "layersHelp": "Sayfanızdaki tüm öğeler sıralı olarak burada. Bir öğeyi seçmek için satıra tıklayın; öğeleri taşımak için satırları sürükleyin.",
+    "leftTabs": {
+      "assets": {
+        "help": "Sayfanız için ücretsiz fotoğraflar. Dokunun veya sürükleyin: bir fotoğrafı eklemek ya da seçtiğiniz görselle değiştirmek için dokunun veya sayfaya sürükleyin.",
+        "label": "Görseller"
+      },
+      "blocks": {
+        "help": "Sayfanız için hazır parçalar: metinler, görseller, düğmeler ve bölümler. Dokunun veya sürükleyin: seçtiğiniz parçanın altına eklemek için birine dokunun ya da sayfaya sürükleyin.",
+        "label": "Bloklar"
+      },
+      "modules": {
+        "help": "Rezervasyon veya mağaza gibi hazır özellikler. Birini eklediğinizde kullanıma hazır kendi sayfaları da eklenir.",
+        "label": "Özellikler"
+      }
+    },
+    "noSettings": "Burada ayarlanacak bir şey yok. Bağlantıların, görsellerin, düğmelerin, formların ve listelerin ayarları bu sekmede bulunur.",
+    "preview": "Önizleme",
+    "previewHelp": "Bu sayfayı yeni bir sekmede açıp ziyaretçileriniz gibi deneyin — düğmeler, formlar ve her şey.",
+    "previewLabel": "Bu sayfayı önizle",
+    "redo": "Yinele",
+    "redoHelp": "Az önce geri aldığınız değişikliği yeniden yapın.",
+    "restore": "Geri yükle",
+    "restoreHelp": "Bu tarayıcının geçen sefer sakladığı değişiklikleri geri yükleyin. Şu an sayfada olanların yerini alır ve her zamanki gibi kaydedilir.",
+    "retry": "Yeniden dene",
+    "retryHelp": "Son değişikliklerinizi şimdi yeniden kaydetmeyi deneyin.",
+    "rightTabs": {
+      "layers": {
+        "help": "Sayfanızdaki her şey, üstten alta sıralı. Tıklaması zor öğeleri seçmek için kullanışlıdır.",
+        "label": "Katmanlar"
+      },
+      "styles": {
+        "help": "Seçili öğenin görünümünü değiştirin: metin, renkler, boşluklar ve boyut. Önce sayfada bir öğeye tıklayın.",
+        "label": "Tasarım"
+      },
+      "theme": {
+        "help": "Uygulamanızın tamamı için renkleri ve köşeleri hızlıca ayarlayın ya da hazır bir görünüm seçin. Ziyaretçiler değişiklikleri siz yayınladıktan sonra görür.",
+        "label": "Tema"
+      },
+      "traits": {
+        "help": "Seçili öğenin ayarları; örneğin bir bağlantının nereye gittiği veya gönderildiğinde formun ne yaptığı.",
+        "label": "Ayarlar"
+      }
+    },
+    "searchBlocks": "Bloklarda ara...",
+    "searchBlocksHelp": "Bir bloğu hızlıca bulmak için buraya yazın; 'düğme' veya 'fotoğraf' gibi kelimeler deneyin.",
+    "selectForSettings": "Ayarlarını görmek için sayfanızdan bir bağlantı, görsel, düğme, form veya liste seçin.",
+    "selectSomething": "Sayfanızdan bir öğe seçin",
+    "selectionHelp": "Sayfanızda seçtiğiniz öğe. Tasarım ve Ayarlar sekmeleri bu öğeyi değiştirir. Seçmek için sayfada bir öğeye tıklayın.",
+    "sharedStyles": "Ortak stiller ve üzerine gelme",
+    "sharedStylesHelp": "Bu öğenin diğer öğelerle paylaştığı stil adları ve fare üzerine geldiğinde kullanılan stiller.",
+    "status": {
+      "error": "Kaydedilmedi",
+      "idle": "Otomatik kaydetme açık",
+      "pending": "Kaydedilmemiş değişiklikler",
+      "saved": "Kaydedildi",
+      "saving": "Kaydediliyor…"
+    },
+    "statusErrorHelp": "Son değişiklikleriniz sunucuya ulaşmadı. Bu tarayıcıda saklanıyor ve yeniden göndermeyi deniyoruz. İnternet bağlantınızı kontrol edin.",
+    "statusHelp": "Yazmayı bıraktıktan kısa süre sonra yaptığınız değişiklikler otomatik kaydedilir. Ziyaretçiler değişiklikleri yalnızca yayınladıktan sonra görür.",
+    "stylesHelp": "Seçtiğiniz öğenin görünümü: metin, renkler, boşluklar ve boyut. Birini değiştirin, sayfa hemen güncellenir.",
+    "toggleLeft": "Bloklar panelini aç/kapat",
+    "toggleLeftHelp": "Sayfanıza daha fazla yer açmak için blokların, özelliklerin ve fotoğrafların bulunduğu sol paneli gösterin veya gizleyin.",
+    "toggleRight": "Özellikler panelini aç/kapat",
+    "toggleRightHelp": "Tasarım, Katmanlar, Ayarlar ve Tema sekmelerinin bulunduğu sağ paneli gösterin veya gizleyin.",
+    "traitsHelp": "Seçtiğiniz öğenin ayarları; örneğin bir bağlantının nereye gittiği veya gönderildiğinde formun ne yaptığı.",
+    "undo": "Geri al",
+    "undoHelp": "Bu sayfadaki son değişikliğinizi geri alın. Daha eski değişikliklere dönmek için tekrar basın."
+  },
+  "design": {
+    "properties": {
+      "background": "Arka plan resmi veya geçiş",
+      "backgroundColor": "Arka plan rengi",
+      "border": "Kenarlık",
+      "borderRadius": "Köşeleri yuvarla",
+      "boxShadow": "Gölge",
+      "color": "Metin rengi",
+      "fontFamily": "Yazı tipi",
+      "fontSize": "Metin boyutu",
+      "fontWeight": "Kalınlık",
+      "height": "Yükseklik",
+      "letterSpacing": "Harf aralığı",
+      "lineHeight": "Satır aralığı",
+      "margin": "Dış boşluk",
+      "maxWidth": "En fazla genişlik",
+      "minHeight": "En az yükseklik",
+      "opacity": "Saydamlık",
+      "padding": "İç boşluk",
+      "textAlign": "Hizalama",
+      "textShadow": "Metin gölgesi",
+      "transform": "Döndür ve boyutlandır",
+      "transition": "Yumuşak geçişler",
+      "width": "Genişlik"
+    },
+    "sectors": {
+      "advEffects": "Gölge ve efektler",
+      "advFlex": "İçindeki öğeleri hizala",
+      "advLayout": "Konum",
+      "advSize": "Daha fazla boyut seçeneği",
+      "advText": "Daha fazla metin seçeneği",
+      "colors": "Arka plan",
+      "corners": "Köşeler ve kenarlık",
+      "size": "Boyut",
+      "spacing": "Boşluk",
+      "text": "Metin"
+    }
+  },
+  "grapes": {
+    "assetManager": {
+      "addButton": "Görsel ekle",
+      "modalTitle": "Görsel seç",
+      "uploadTitle": "Dosyaları buraya bırakın veya yüklemek için tıklayın"
+    },
+    "names": {
+      "box": "Kutu",
+      "button": "Düğme",
+      "cell": "Tablo hücresi",
+      "checkbox": "Onay kutusu",
+      "comment": "Yorum",
+      "form": "Form",
+      "iframe": "Iframe",
+      "image": "Görsel",
+      "input": "Giriş alanı",
+      "label": "Etiket",
+      "link": "Bağlantı",
+      "map": "Harita",
+      "navbar": "Gezinti çubuğu",
+      "radio": "Radyo düğmesi",
+      "row": "Tablo satırı",
+      "select": "Seçim listesi",
+      "svg": "SVG",
+      "table": "Tablo",
+      "tbody": "Tablo gövdesi",
+      "text": "Metin",
+      "textarea": "Metin alanı",
+      "tfoot": "Tablo altbilgisi",
+      "thead": "Tablo başlığı",
+      "video": "Video",
+      "wrapper": "Gövde"
+    },
+    "properties": {
+      "alignContent": "İçerik hizalaması",
+      "alignItems": "Ögeleri hizala",
+      "alignSelf": "Kendi hizalaması",
+      "backgroundAttachmentSub": "Sabitleme",
+      "backgroundImageSub": "Görsel",
+      "backgroundPositionSub": "Konum",
+      "backgroundRepeatSub": "Yinele",
+      "backgroundSizeSub": "Boyut",
+      "borderBottomLeftRadiusSub": "Sol alt",
+      "borderBottomRightRadiusSub": "Sağ alt",
+      "borderColorSub": "Renk",
+      "borderStyleSub": "Stil",
+      "borderTopLeftRadiusSub": "Sol üst",
+      "borderTopRightRadiusSub": "Sağ üst",
+      "borderWidthSub": "Genişlik",
+      "bottom": "Alt",
+      "boxShadowBlur": "Bulanıklık",
+      "boxShadowColor": "Renk",
+      "boxShadowH": "X",
+      "boxShadowSpread": "Yayılma",
+      "boxShadowType": "Tür",
+      "boxShadowV": "Y",
+      "display": "Görünüm",
+      "flexBasis": "Flex temel boyutu",
+      "flexDirection": "Flex yönü",
+      "flexGrow": "Flex genişleme",
+      "flexShrink": "Flex daralma",
+      "flexWrap": "Flex satır kaydırma",
+      "float": "Kaydırma",
+      "justifyContent": "İçeriği hizala",
+      "left": "Sol",
+      "marginBottomSub": "Alt",
+      "marginLeftSub": "Sol",
+      "marginRightSub": "Sağ",
+      "marginTopSub": "Üst",
+      "order": "Sıra",
+      "paddingBottomSub": "Alt",
+      "paddingLeftSub": "Sol",
+      "paddingRightSub": "Sağ",
+      "paddingTopSub": "Üst",
+      "position": "Konum",
+      "right": "Sağ",
+      "textShadowBlur": "Bulanıklık",
+      "textShadowColor": "Renk",
+      "textShadowH": "X",
+      "textShadowV": "Y",
+      "top": "Üst",
+      "transformRotateX": "X ekseninde döndür",
+      "transformRotateY": "Y ekseninde döndür",
+      "transformRotateZ": "Z ekseninde döndür",
+      "transformScaleX": "X ekseninde ölçekle",
+      "transformScaleY": "Y ekseninde ölçekle",
+      "transformScaleZ": "Z ekseninde ölçekle",
+      "transitionDurationSub": "Süre",
+      "transitionPropertySub": "Özellik",
+      "transitionTimingFunctionSub": "Zamanlama"
+    },
+    "selectorManager": {
+      "active": "Tıklama",
+      "emptyState": "- Durum -",
+      "evenOdd": "Çift/Tek",
+      "hover": "Üzerine gelince",
+      "label": "Sınıflar",
+      "selected": "Seçili"
+    },
+    "styleManager": {
+      "empty": "Stil Yöneticisi'ni kullanmadan önce bir öğe seçin",
+      "fileButton": "Görseller",
+      "layer": "Katman"
+    },
+    "traitManager": {
+      "empty": "Bileşen Ayarları'nı kullanmadan önce bir öğe seçin",
+      "label": "Bileşen ayarları",
+      "newWindow": "Yeni pencere",
+      "thisWindow": "Bu pencere"
+    }
+  },
+  "iconPicker": {
+    "addHelp": "Bu ikonu sayfanıza ekleyin.",
+    "changeIcon": "İkonu değiştir",
+    "closeHelp": "İkon seçmeden kapat.",
+    "noResults": "Sonuç yok",
+    "pickIcon": "Bir ikon seç",
+    "replaceHelp": "Seçtiğiniz ikon yerine bunu kullanın.",
+    "searchHelp": "İkonun neyi göstermesi gerektiğini yazın; örneğin “telefon”, “yıldız” veya “sepet”.",
+    "searchPlaceholder": "İkon ara...",
+    "useIcon": "{name} ikonunu kullan"
+  },
+  "iconSets": {
+    "all": {
+      "help": "Tüm stillerdeki simgeleri bir kerede arayın.",
+      "label": "Tümü"
+    },
+    "fa6Brands": {
+      "help": "Yalnızca Font Awesome koleksiyonundaki tanınmış şirketlerin logolarını göster.",
+      "label": "FA Markalar"
+    },
+    "fa6Solid": {
+      "help": "Yalnızca Font Awesome koleksiyonundaki dolgulu ikonları göster.",
+      "label": "FA Dolu"
+    },
+    "heroicons": {
+      "help": "Yalnızca Heroicons stilindeki simgeleri gösterin: sade çizgiler.",
+      "label": "Heroicons"
+    },
+    "lucide": {
+      "help": "Yalnızca Lucide stilindeki simgeleri gösterin: sade, ince çizgiler.",
+      "label": "Lucide"
+    },
+    "mdi": {
+      "help": "Yalnızca birçok Android uygulamasında kullanılan Material tarzındaki ikonları göster.",
+      "label": "Material"
+    },
+    "ph": {
+      "help": "Yalnızca Phosphor tarzındaki ikonları göster: samimi, yuvarlak hatlar.",
+      "label": "Phosphor"
+    },
+    "simpleIcons": {
+      "help": "Yalnızca tanınmış şirketlerin, uygulamaların ve sosyal ağların logolarını göster.",
+      "label": "Markalar"
+    },
+    "tabler": {
+      "help": "Yalnızca Tabler stilindeki simgeleri gösterin: sade çizgiler, çok seçenek.",
+      "label": "Tabler"
+    }
+  },
+  "iconsPanel": {
+    "addHelp": "Bu ikonu seçtiğiniz bölüme, hiçbir şey seçmediyseniz sayfanın sonuna ekleyin.",
+    "addIcon": "{name} ikonunu ekle",
+    "clickToInsert": "Eklemek için tıklayın",
+    "failedToLoad": "İkonlar yüklenemedi",
+    "noResults": "Sonuç yok",
+    "searchHelp": "İkonun neyi göstermesi gerektiğini yazın; örneğin “telefon”, “yıldız” veya “sepet”.",
+    "searchPlaceholder": "İkon ara..."
+  },
+  "languageTabs": {
+    "edited": "Bu {language} sayfasını kendiniz düzenlediniz. {main} sürümü değiştiğinde bu sayfanın üzerine yazılmaz.",
+    "help": "Uygulamanız birkaç dilde. Bu sayfayı düzenlemek için bir dil seçin; yapay zekânın yaptığı değişiklikler de o dilde uygulanır.",
+    "label": "Dil",
+    "missing": "Bu sayfa henüz {language} diline çevrilmedi, bu yüzden {main} sürümünü görüyorsunuz. Burada yaptığınız değişiklikler {language} sayfasına uygulanır.",
+    "shared": "Stiller tüm dillerde ortaktır.",
+    "stale": "Bu sayfanın {main} sürümü, çevrildikten sonra değişti. Uygulamaya Genel Bakış bölümünden çevirileri güncelleyin veya bu sayfayı kendiniz düzenleyin.",
+    "tabHelp": "Bu sayfayı {language} dilinde düzenleyin."
+  },
+  "modules": {
+    "addHelp": "Bu özelliğin uygulamanıza neler eklediğini görmek için dokunun. Siz onaylayana kadar hiçbir şey değişmez. Önce sayfanız kaydedilir.",
+    "added": "Eklendi",
+    "addedHelp": "Uygulamanızda zaten var. Neler eklediğini görmek için dokunun veya tekrar ekleyin.",
+    "categories": {
+      "all": {
+        "help": "Ekleyebileceğiniz tüm özellikleri göster.",
+        "label": "Tümü"
+      },
+      "commerce": {
+        "help": "Mağaza, rezervasyon, kupon veya bağış gibi satış ve ödeme alma özellikleri.",
+        "label": "Mağaza"
+      },
+      "communication": {
+        "help": "İletişim formu, bülten veya kısa mesajlar gibi ziyaretçilerle iletişim kurmanızı sağlayan özellikler.",
+        "label": "İletişim"
+      },
+      "community": {
+        "help": "Etkinlikler, yorumlar, sohbet ve forumlar gibi insanları bir araya getiren özellikler.",
+        "label": "Topluluk"
+      },
+      "content": {
+        "help": "Blog, SSS, portföy veya kurs gibi yazı ve haber paylaşma özellikleri.",
+        "label": "İçerik"
+      },
+      "media": {
+        "help": "Fotoğraf, video, müzik ve diğer medya özellikleri.",
+        "label": "Medya"
+      },
+      "productivity": {
+        "help": "Yapılacaklar listesi, notlar, randevular ve anketler gibi işlerinizi kolaylaştıran özellikler.",
+        "label": "Verimlilik"
+      },
+      "utility": {
+        "help": "Giriş, haritalar, dosya yükleme ve hava durumu bileşeni gibi kullanışlı ekler.",
+        "label": "Araçlar"
+      }
+    },
+    "categoryHelp": "Yalnızca bu gruptaki özellikleri göster.",
+    "empty": "Burada henüz özellik yok",
+    "footer": "Uygulamanıza neler eklediğini görmek için bir özelliğe dokunun",
+    "loading": "Özellikler yükleniyor…",
+    "nameAdded": "{name} (eklendi)",
+    "notSaved": "Son düzenlemeleriniz henüz kaydedilmediği için hiçbir şey eklemedik. Bağlantınızı kontrol edip tekrar deneyin.",
+    "savingPage": "Sayfanız kaydediliyor…",
+    "searchHelp": "Hazır bir özellik bulmak için uygulamanızın ne yapmasını istediğinizi yazın; örneğin “rezervasyon” veya “bülten”.",
+    "searchLabel": "Özellik ara",
+    "searchPlaceholder": "Özellik ara…"
+  },
+  "pageSettings": {
+    "audience": "Bu sayfayı kimler görebilir?",
+    "audienceHelp": "Canlı uygulamanızda bu sayfayı kimlerin açabileceğini seçin: herkes, yalnızca oturum açanlar veya yalnızca yöneticiler.",
+    "audiences": {
+      "admin": {
+        "hint": "Yalnızca siz ve yönetici yaptığınız kişiler.",
+        "label": "Yalnızca yöneticiler"
+      },
+      "public": {
+        "hint": "Bağlantıya sahip herkes açabilir.",
+        "label": "Herkes"
+      },
+      "role": {
+        "hint": "Sayfanın kendisi tarafından belirlenir. Değiştirmek için başka bir seçenek belirleyin.",
+        "label": "“{role}” rolündeki kişiler"
+      },
+      "signedIn": {
+        "hint": "Ziyaretçilerin önce oturum açması gerekir. Herkes hesap oluşturabilir.",
+        "label": "Oturum açanlar"
+      }
+    },
+    "buttonNote": "Menünün sonunda bir düğme olarak görünür.",
+    "close": "Sayfa ayarlarını kapat",
+    "designerNote": "Bu uygulamanın sayfaları Yapay Zekâ Tasarımcısı tarafından oluşturulur. Değişiklikleri orada yapın.",
+    "duplicate": "Çoğalt",
+    "duplicateHelp": "“(kopya)” adlı bir sayfa kopyası oluşturup düzenleyebilmeniz için açar. Burada yaptığınız ancak kaydetmediğiniz ayarlar kopyalanmaz.",
+    "goesAtEnd": "Menünün sonunda yer alır. Kaydettikten sonra yerini değiştirebilirsiniz.",
+    "homeFirst": "Ana sayfa her zaman en başta yer alır.",
+    "loadFailed": "Bu sayfanın ayarlarını yükleyemedik.",
+    "loadFailedRetry": "Bu sayfanın ayarlarını yükleyemedik. Lütfen tekrar deneyin.",
+    "menu": "Menü",
+    "menuHelp": "Bu sayfanın uygulama menüsünde bağlantısının olup olmayacağını ve menüde nerede yer alacağını belirleyin.",
+    "moveDown": "Aşağı taşı",
+    "moveDownHelp": "Bu sayfayı menüde bir sıra aşağı taşır. Değişiklik Kaydet’e bastığınızda uygulanır.",
+    "moveUp": "Yukarı taşı",
+    "moveUpHelp": "Bu sayfayı menüde bir sıra yukarı taşır. Değişiklik Kaydet’e bastığınızda uygulanır.",
+    "name": "Ad",
+    "nameHint": "Menüde ve tarayıcı sekmesinde görünür.",
+    "neverInMenu": "Bu sayfa menüde hiç görünmez.",
+    "noLogin": "Uygulamanızda henüz bir oturum açma sayfası yok. Bu yüzden bu sayfayı yalnızca siz açabilirsiniz. <link>Özellikler’den “Oturum açma ve hesaplar”ı ekleyin.</link>",
+    "placeInManage": "Yöneticilerin “Yönet” menüsündeki yeri: {count} öğe içinde <b>{position}</b> sırada",
+    "placeInMenu": "Menüdeki yeri: {count} öğe içinde <b>{position}</b> sırada",
+    "privatePublic": "Bu sayfada özel veriler var. Sayfayı herkese açarsanız bu veriler de görünür olur.",
+    "privateSignedIn": "Bu sayfada özel veriler var. Hesap açan herkes bu verileri görebilir.",
+    "saveFirst": "Önce kaydedin, sonra menüdeki yerini belirleyin.",
+    "saveHelp": "Bu ayarları kaydedin. Uygulamanızın menüsü tüm sayfalarda buna göre güncellenir.",
+    "showInMenu": "Menüde göster",
+    "showInMenuHelp": "Bu sayfanın bağlantısını uygulama menüsüne eklemek için işaretleyin. Menüde gizlemek için işareti kaldırın. Bağlantıya sahip kişiler sayfayı yine de açabilir.",
+    "title": "Sayfa ayarları"
+  },
+  "panelHelp": {
+    "blockTip": "{about} Seçtiğiniz parçanın altına eklemek için dokunun veya sayfaya sürükleyin.",
+    "blockTipGeneric": "Dokunun veya sürükleyin: Seçtiğiniz parçanın altına eklemek için “{label}”a dokunun ya da istediğiniz yere sürükleyin.",
+    "categoryGeneric": "Bir blok grubu. Blokları göstermek veya gizlemek için adına tıklayın.",
+    "imagePicker": {
+      "addButton": "Yazdığınız web adresindeki resmi aşağıdaki listeye ekler. Ardından kullanmak için resme tıklayın.",
+      "asset": "Resmi sayfanızda kullanmak için tıklayın. Kullanıp bu pencereyi kapatmak için çift tıklayın.",
+      "close": "Bu pencereyi kapatır. Tıkladığınız resimler sayfanızda kalır.",
+      "closeLabel": "Kapat",
+      "removeAsset": "Bu resmi listeden kaldırır. Sayfanızda zaten bulunan resimler kalır.",
+      "removeLabel": "Listeden kaldır",
+      "upload": "Bilgisayarınızdan veya telefonunuzdan bir resim seçin ya da buraya bırakın. Resim sayfanıza kaydedilir ve aşağıdaki listeye eklenir.",
+      "urlInput": "Zaten internette olan bir resmin web adresini yapıştırın, ardından aşağıdaki listeye eklemek için Resim ekle'ye basın."
+    },
+    "layers": {
+      "layerRow": "Sayfanızdaki parçalardan biri. Seçmek için tıklayın; içindeki parçaları görmek için oka tıklayın.",
+      "move": "Parçayı sayfanın başka bir yerine taşımak için buradan tutup sürükleyin.",
+      "visibility": "Çalışırken bu parçayı gizlemek için göze tıklayın. Parça hâlâ orada, sadece gizli. Yeniden göstermek için tekrar tıklayın."
+    },
+    "rte": {
+      "bold": "Seçili sözcükleri kalın yapar. Geri almak için tekrar tıklayın.",
+      "italic": "Seçili sözcükleri italik yapar. Geri almak için tekrar tıklayın.",
+      "link": "Seçili sözcükleri bağlantıya dönüştürür veya bağlantıyı kaldırır. Ardından Ayarlar sekmesinde bağlantının gideceği yeri belirleyin.",
+      "strikeThrough": "Seçili sözcüklerin üstünü çizer. Çizgiyi kaldırmak için tekrar tıklayın.",
+      "underline": "Seçili sözcüklerin altını çizer. Çizgiyi kaldırmak için tekrar tıklayın.",
+      "wrapForStyle": "Seçili sözcükleri ayrı bir parçaya alır. Böylece Tasarım sekmesinde yalnızca bu sözcüklerin rengini veya boyutunu değiştirebilirsiniz."
+    },
+    "sectors": {
+      "advEffects": "Gölgeler, solma, arka plan resimleri ve yumuşak animasyonlar.",
+      "advFlex": "Bu kutunun içindeki parçaların satır veya sütunlarda nasıl hizalanacağı.",
+      "advLayout": "Bu parçanın konumu ve nasıl sabitlendiği. Çoğu sayfada bunlara gerek yoktur.",
+      "advSize": "Bu parçanın farklı ekranlarda ne kadar genişleyip daralabileceğine dair sınırlar.",
+      "advText": "Yazı tipleri, satır aralığı, harf aralığı ve metin gölgeleri.",
+      "background": "Bu parçanın arka planını neyin dolduracağı: renk, geçiş veya resim.",
+      "colors": "Bu parçanın arka plan rengi.",
+      "corners": "Köşeleri yuvarlayın veya kenarına çizgi ekleyin.",
+      "decorations": "Görünümü güzelleştirenler: arka plan renkleri ve resimleri, kenarlıklar, yuvarlak köşeler ve gölgeler.",
+      "dimension": "Boyutlar ve boşluklar: Bu parçanın ne kadar büyük olduğu ve çevresinde, içinde ne kadar boşluk bıraktığı.",
+      "extra": "Yumuşak animasyonlar ve eğimler gibi ek ayarlar.",
+      "flex": "Bu kutunun içindeki parçaları düzgün satır veya sütunlarda hizalamaya yarayan araçlar.",
+      "general": "Temel ayarlar: Bu parçanın sayfadaki konumu ve nereye sabitlendiği.",
+      "layout": "Bu parçanın sayfaya nasıl yerleştirileceği ve çevresindekilerin nasıl hizalanacağı.",
+      "size": "Bu parçanın genişliği ve yüksekliği.",
+      "spacing": "Bu parçanın içindeki (kenarıyla içeriği arasındaki) ve dışındaki (çevresindeki parçalarla arasındaki) boşluk.",
+      "text": "Yazıların görünümü: boyut, kalınlık, renk ve hizalama.",
+      "typography": "Metinle ilgili her şey: yazı tipi, boyut, renk ve hizalama."
+    },
+    "selectors": {
+      "addClass": "Bu parçaya ortak bir stil adı ver. Aynı ada sahip tüm parçalar aynı görünümü paylaşır; birini değiştirince hepsi değişir.",
+      "selectedInfo": "Şu anda tam olarak hangi parçayı biçimlendirdiğinizi gösterir; böylece değişiklikler sürpriz olmaz.",
+      "states": "Özel bir duruma stil ver. 'hover' seçersen değişiklikler yalnızca fare parçanın üzerindeyken görünür; 'click' seçersen parça basılıyken görünür. Normal stile dönmek için '- State -' seç.",
+      "tag": "Bu parçanın kullandığı ortak stil adı. Değişiklikler bu adı taşıyan tüm parçalara uygulanır. Bu parçadan kaldırmak için x'e tıklayın."
+    },
+    "styles": {
+      "alignContent": "Parçalar ek satırlara yayıldığında, bu ayar satırları bir arada tutar, ortalar ya da aralarını açar.",
+      "alignItems": "Parçaların satır boyunca nasıl hizalanacağı: üst, orta, alt ya da hepsi aynı boyda olacak şekilde esnetilmiş.",
+      "alignSelf": "Bu parçanın gruptan ayrılıp kendi hizasını seçmesini sağlar: üst, orta, alt ya da esnetilmiş.",
+      "background": "Bu parçanın arka planını dolduran şey: renk, yumuşak renk geçişi ya da görsel. Birden fazla arka planı üst üste de ekleyebilirsin.",
+      "backgroundAttachment": "'Scroll' arka planı sayfayla birlikte hareket ettirir. 'Fixed' arka planı sabitler, sayfa onun üzerinden kayar; hoş bir derinlik efekti verir.",
+      "backgroundColor": "Bu parçanın içeriğinin arkasındaki dolgu rengi.",
+      "backgroundImage": "Bu parçanın arka planında kullanılan görsel ya da renk geçişi.",
+      "backgroundPosition": "Arka plan görselinin hangi kısmının görüneceği. Görseli sağa, sola, yukarı ya da aşağı kaydır.",
+      "backgroundRepeat": "Arka plan görselinin fayans gibi tekrar edip etmeyeceği ya da yalnızca bir kez görünüp görünmeyeceği.",
+      "backgroundSize": "Görselin alanı nasıl dolduracağı: 'cover' her yeri doldurur (kenarları kırpabilir), 'contain' görselin tamamını gösterir (boşluk bırakabilir).",
+      "border": "Bu parçanın kenarındaki çizgi. Kalınlığını, stilini (düz, kesikli, noktalı) ve rengini ayarla.",
+      "borderBottomLeftRadius": "Yalnızca sol alt köşeyi yuvarlar.",
+      "borderBottomRightRadius": "Yalnızca sağ alt köşeyi yuvarlar.",
+      "borderColor": "Kenar çizgisinin rengi.",
+      "borderRadius": "Köşelerin ne kadar yuvarlak olacağı. 0 keskin köşeler, daha büyük sayılar daha yuvarlak köşeler demektir. Çok büyük bir değer kutuyu kapsül ya da daireye dönüştürür.",
+      "borderStyle": "Kenar çizgisinin görünümü: düz, kesikli (- - -) ya da noktalı (• • •).",
+      "borderTopLeftRadius": "Yalnızca sol üst köşeyi yuvarlar.",
+      "borderTopRightRadius": "Yalnızca sağ üst köşeyi yuvarlar.",
+      "borderWidth": "Kenar çizgisinin kalınlığı. 0, hiç çizgi olmaması demektir.",
+      "bottom": "Bu parçanın ALTTAN ne kadar uzakta olduğu. Yalnızca Position 'static' değilse çalışır.",
+      "boxShadow": "Bu parçanın arkasındaki yumuşak gölge, masadaki bir kart gibi sayfadan yükselmiş görünmesini sağlar. Gölgenin nereye düşeceğini, bulanıklığını, genişliğini ve rengini ayarla.",
+      "boxShadowBlur": "Gölgenin ne kadar bulanık olacağı. 0 keskin kenarlı, daha büyük sayılar daha yumuşak ve dağınık yapar.",
+      "boxShadowColor": "Gölgenin rengi. Yumuşak gri ya da saydam siyah genellikle iyi görünür.",
+      "boxShadowH": "Gölgeyi sağa veya sola kaydırır. Negatif sayılar sola kaydırır.",
+      "boxShadowSpread": "Gölgenin her yöne ne kadar yayılacağı. Daha büyük değer, daha geniş gölge demektir.",
+      "boxShadowType": "'Outside' gölgeyi parçanın arkasına koyar. 'Inside' ise gölgeyi parçanın içine işler, bir çukur gibi.",
+      "boxShadowV": "Gölgeyi yukarı veya aşağı kaydırır. Negatif sayılar yukarı kaydırır.",
+      "color": "Metnin rengi. İstediğin rengi seçmek için renk kutusuna tıkla.",
+      "cursor": "Fare imleci bu parçanın üzerindeyken neye dönüşür. 'Pointer' (küçük el) parçanın tıklanabilir olduğunu gösterir.",
+      "display": "Bu parçanın sayfada nasıl yer alacağı. 'Block' tek başına tüm satırı kaplar. 'Inline' cümledeki bir sözcük gibi diğer öğelerin yanında durur. 'Flex' içindeki parçaları düzenli biçimde hizalar. 'None' parçayı tamamen gizler.",
+      "flexBasis": "Bu parçanın, alanı paylaşmak için büyüyüp küçülmeden önceki başlangıç boyutu.",
+      "flexDirection": "Bu kutudaki parçaları YATAY (yan yana) ya da DİKEY (üstten alta) sırala. 'Reverse' sıralamayı tersine çevirir.",
+      "flexGrow": "Bu parçanın boş alanı kaplamak için büyümesini sağlar. 2 olan parça, 1 olan parçanın iki katı kadar alan kaplar. 0 büyümemesi demektir.",
+      "flexShrink": "Alan daraldığında bu parçanın küçülmesini sağlar. Sayı ne kadar büyükse o kadar çok küçülür. 0 küçülmemesi demektir.",
+      "flexWrap": "Sığmayan parçaların sonraki satıra geçip geçmeyeceği ('wrap') ya da aynı satırda sıkışıp kalacağı ('nowrap').",
+      "float": "Bu parçayı sola veya sağa iter ve metnin çevresinden akmasını sağlar; gazetedeki bir fotoğraf gibi. 'None' parçayı normal yerinde tutar.",
+      "fontFamily": "Yazı tipi. Farklı yazı tipleri eğlenceli, ciddi veya şık bir hava verir. Birini seçin, metin hemen değişsin.",
+      "fontSize": "Harflerin boyutu. Normal okuma metni yaklaşık 16px, büyük başlıklar ise 32px veya daha büyüktür.",
+      "fontWeight": "Harflerin kalınlığı. 400 normal, 700 kalındır. Daha kalın metin daha çok dikkat çeker.",
+      "height": "Bu parçanın yüksekliği. 'auto', içeriğe yetecek kadar büyümesi demektir; genellikle en güvenli seçimdir.",
+      "justifyContent": "Parçaların satır ya da sütun boyunca nasıl dağıtılacağı: başta toplanmış, ortalanmış ya da eşit aralıklı.",
+      "left": "Bu parçanın SOLDAN ne kadar uzakta olduğu. Yalnızca Position 'static' değilse çalışır.",
+      "letterSpacing": "Harfler arasındaki boşluk. Biraz fazla boşluk başlıkları şık gösterir; çok fazlası okumayı zorlaştırır.",
+      "lineHeight": "Paragraftaki satırlar arasındaki boşluk. 1,5 civarı okumayı rahatlatır; 1 satırları birbirine yaklaştırır.",
+      "margin": "Bu parçanın DIŞINDAKİ boşluk; çevresindeki parçaları uzaklaştırır. Sayı büyüdükçe çevresinde daha fazla boşluk olur.",
+      "marginBottom": "Bu parçanın ALTINDAKİ boşluk; sıradaki öğeyi daha aşağı iter.",
+      "marginLeft": "Bu parçanın SOLUNDAKİ boşluk; o taraftaki parçaları uzaklaştırır.",
+      "marginRight": "Bu parçanın SAĞINDAKİ boşluk; o taraftaki parçaları uzaklaştırır.",
+      "marginTop": "Bu parçanın ÜSTÜNDEKİ boşluk; üstündeki öğeden aşağıya iter.",
+      "maxHeight": "Ulaşabileceği en büyük yükseklik. Fazla içerik kesilir veya kaydırılabilir.",
+      "maxWidth": "Büyük ekranlarda bile ulaşabileceği en büyük genişlik. Metin satırlarının kolay okunacak kadar kısa kalmasını sağlar.",
+      "minHeight": "İçerik yokken bile olabileceği en küçük yükseklik. Bölümlerin daralıp kaybolmaması için kullanışlıdır.",
+      "minWidth": "Küçük ekranlarda bile daralabileceği en küçük genişlik.",
+      "opacity": "Bu parçanın ne kadar saydam olacağı. 100 tamamen opak, daha düşük sayılar hayalet gibi soluk yapar. 0 görünmez olur.",
+      "order": "Diğer parçaları hareket ettirmeden bu parçanın sıradaki yerini değiştirir. Küçük sayılar önce gelir.",
+      "overflow": "İçerik kutuya sığmayacak kadar büyük olduğunda ne olacağı: 'hidden' içeriği keser, 'scroll'/'auto' kaydırma çubukları ekler, 'visible' içeriğin taşmasına izin verir.",
+      "padding": "Bu parçanın İÇİNDEKİ boşluk; kenarıyla içeriği arasındadır. Daha fazla iç boşluk, düğme ve kartlara daha ferah bir görünüm verir.",
+      "paddingBottom": "İçeriğin alt kenarla arasındaki boşluğu.",
+      "paddingLeft": "İçeriğin sol kenarla arasındaki boşluğu.",
+      "paddingRight": "İçeriğin sağ kenarla arasındaki boşluğu.",
+      "paddingTop": "İçeriğin üst kenarla arasındaki boşluğu.",
+      "perspective": "Eğik parçalar için 3D derinlik ekler. Sayı ne kadar küçükse 3D efekti o kadar belirgin olur; parçayı yüzüne yakın tutmak gibi.",
+      "position": "Bu parçanın nasıl sabitleneceği. 'Static' = normal konumu. 'Relative' = normal konumundan biraz kaydırır. 'Absolute' = kutusunun içinde istediğiniz yere sabitler. 'Fixed' = ekrana sabitler, böylece siz kaydırırken yerinde kalır.",
+      "right": "Bu parçanın SAĞDAN ne kadar uzakta olduğu. Yalnızca Position 'static' değilse çalışır.",
+      "textAlign": "Metnin hizası: sol, orta, sağ ya da her iki kenara yaslı (iki yana yasla).",
+      "textDecoration": "Metne eklenen çizgiler: altını çiz, üstünü çiz ya da bağlantılardaki çizgiyi kaldırmak için 'none' seç.",
+      "textShadow": "Harflerin arkasındaki yumuşak gölge, onları arka plandan öne çıkarır. Gölgenin ne kadar uzağa düşeceğini, bulanıklığını ve rengini ayarla.",
+      "textShadowBlur": "Harf gölgesinin ne kadar bulanık olacağı. 0 keskin, daha büyük sayılar daha yumuşak yapar.",
+      "textShadowColor": "Harf gölgesinin rengi.",
+      "textShadowH": "Harf gölgesini sağa veya sola kaydırır. Negatif sayılar sola kaydırır.",
+      "textShadowV": "Harf gölgesini yukarı veya aşağı kaydırır. Negatif sayılar yukarı kaydırır.",
+      "textTransform": "Metnin büyük-küçük harf düzenini değiştirir: TÜMÜ BÜYÜK, tümü küçük ya da Her Kelimenin İlk Harfi Büyük.",
+      "top": "Bu parçanın ÜSTTEN ne kadar uzakta olduğu. Yalnızca Position 'static' değilse çalışır.",
+      "transform": "Çevresindeki hiçbir şeyi hareket ettirmeden bu parçayı döndür, eğ, büyüt ya da küçült.",
+      "transformRotateX": "Parçayı geriye ya da ileriye yatırır, devrilen bir kapı gibi.",
+      "transformRotateY": "Parçayı yana çevirir, dönen bir kapı gibi.",
+      "transformRotateZ": "Parçayı düzlem üzerinde döndürür, akrep ya da yelkovan gibi. 180 parçayı baş aşağı çevirir.",
+      "transformScaleX": "Parçayı YATAY olarak uzatır ya da sıkıştırır. 1 normal, 2 iki kat geniş demektir.",
+      "transformScaleY": "Parçayı DİKEY olarak uzatır ya da sıkıştırır. 1 normal, 2 iki kat uzun demektir.",
+      "transformScaleZ": "Parçayı 3D derinlikte ölçeklendirir; bunu yalnızca döndürülmüş parçalarda fark edersin.",
+      "transition": "Stil değişikliklerini aniden değil, yumuşakça yapar. Örneğin üzerine gelince rengi usulca değişen bir düğme gibi.",
+      "transitionDuration": "Yumuşak geçişin ne kadar süreceği. 0,3 sn hızlı, 2 sn yavaş ve dramatik hissettirir.",
+      "transitionProperty": "Yumuşakça değişecek stil: 'all' yani tümü ya da yalnızca renk veya boyut gibi.",
+      "transitionTimingFunction": "Değişimin ritmi: baştan sona sabit ('linear') ya da yavaşça hızlanıp yavaşlayan ('ease'), nazikçe fren yapan bir araba gibi.",
+      "verticalAlign": "Bu parçayı yanındaki metne göre hizalar: üst, orta ya da alt.",
+      "width": "Bu parçanın genişliği. Verilen alanın tamamını kaplaması için 100%, belirli bir boyut için 300px gibi bir değer kullanın.",
+      "zIndex": "Üst üste geldiklerinde hangi parçanın önde olacağını belirler. Sayı büyüdükçe parça size yaklaşır; destenin en üstündeki kart gibi."
+    },
+    "traits": {
+      "address": "Burada gösterilen resmin veya videonun web adresi.",
+      "answerName": "Uygulamanızın bu yanıtı kaydederken kullanacağı ad; örneğin 'email'. Kısa ve basit tutun.",
+      "belongsToField": "Bu etiketin formdaki hangi kutuyu açıkladığı. Etikete tıklayınca imleç o kutuya yerleşir.",
+      "buttonWords": "Bu düğmede görünen sözcükler.",
+      "goesTo": "Bu bağlantının götürdüğü yer. Kendi sayfalarınız için /sayfa-adi, başka siteler için tam bir https:// adresi kullanın.",
+      "hintText": "Kutu boşken içinde görünen gri ipucu; örneğin 'Adınızı yazın'. Yazmaya başlayınca kaybolur.",
+      "hoverNote": "Birisi fareyi bu parçanın üzerinde beklettiğinde açılan kısa not.",
+      "kind": "Bu kutunun türü: metin, e-posta, parola (harfleri gizler), sayı ve daha fazlası. Doğru tür, telefonlarda uygun klavyenin açılmasına yardımcı olur.",
+      "mustBeFilledIn": "Bunu açarsanız kutu doldurulmadan form gönderilmez.",
+      "openInANewTab": "Bağlantıyı yeni sekmede açmak için bunu işaretleyin. Böylece uygulamanız da açık kalır.",
+      "pictureDescription": "Resmi göremeyen kişiler ve arama motorları için resmi anlatan sözcükler. Resimde ne olduğunu yazın.",
+      "showItemsFrom": "Bu listenin ögelerini nereden alacağını seçin; örneğin rezervasyonlarınızdan veya ürünlerinizden. Liste kendiliğinden güncellenir.",
+      "startingValue": "Sayfa ilk açıldığında kutuda zaten yazılı olan değer.",
+      "tickedAtTheStart": "Sayfa açıldığında bu kutunun önceden işaretli olup olmayacağı.",
+      "whenPressed": "Bu düğmenin yaptığı şey: içindeki formu göndermek, formu temizlemek veya hiçbir şey yapmamak (başka bir işlevi olan düğmeler için).",
+      "whenPressedRun": "Bu düğmeye basıldığında uygulamanızın ne yapacağını seçin. Bunları Akışlar bölümünde bulabilirsiniz.",
+      "whenSentRun": "Bu form gönderildiğinde uygulamanızın yanıtlarla ne yapacağını seçin; örneğin yanıtları kaydetmek veya e-posta göndermek. Bunları Akışlar bölümünde bulabilirsiniz."
+    }
+  },
+  "rte": {
+    "bold": "Kalın",
+    "italic": "İtalik",
+    "link": "Bağlantı",
+    "strikeThrough": "Üstü çizili",
+    "underline": "Altı çizili",
+    "wrapForStyle": "Stil uygulamak için sar"
+  },
+  "settings": {
+    "address": "Adres",
+    "answerName": "Yanıt adı",
+    "belongsToField": "Şu alana ait",
+    "buttonWords": "Düğme metni",
+    "goesTo": "Şuraya gider",
+    "hintText": "İpucu metni",
+    "hoverNote": "Üzerine gelince gösterilen not",
+    "kind": "Tür",
+    "mustBeFilledIn": "Doldurulması zorunlu",
+    "nothing": "Hiçbiri",
+    "openInANewTab": "Yeni sekmede aç",
+    "pictureDescription": "Resim açıklaması",
+    "showItemsFrom": "Ögeleri şuradan göster",
+    "startingValue": "Başlangıç değeri",
+    "tickedAtTheStart": "Başlangıçta işaretli",
+    "whenPressed": "Basılınca",
+    "whenPressedRun": "Basılınca çalıştır",
+    "whenSentRun": "Gönderilince çalıştır"
+  },
+  "shell": {
+    "addPage": "Sayfa ekle",
+    "addPageHelp": "Uygulamanıza boş bir sayfa ekleyin. Bir sonraki adımda sayfanın adını yazın; sayfa uygulamanızın menüsünde görünür.",
+    "closePages": "Sayfaları kapat",
+    "confirmDeletePage": "“{title}” silinsin mi? Bu işlem geri alınamaz.",
+    "confirmDiscardSwitch": "Bu sayfadaki kaydedilmemiş değişiklikleri silip geçiş yapılsın mı?",
+    "couldNotSave": "Değişiklik kaydedilemedi. Lütfen tekrar deneyin.",
+    "deletePage": "Sayfayı sil",
+    "deletePageFor": "{title} sayfasını sil",
+    "deletePageHelp": "Bu sayfayı ve içindeki her şeyi silin. İşlemi onaylamanız istenecek. Bu işlem geri alınamaz.",
+    "discardSwitch": "Değişiklikleri sil ve geç",
+    "discardSwitchHelp": "Bu sayfadaki kaydedilmemiş değişiklikleri silip diğer sayfayı açın. Bu değişiklikleri geri alamazsınız.",
+    "dismiss": "Kapat",
+    "dismissError": "Hatayı kapat",
+    "editing": "DÜZENLENİYOR",
+    "editsNotSaved": "Son değişiklikleriniz kaydedilmedi. Bağlantınızı kontrol edip tekrar deneyin.",
+    "featureAdded": "{name} eklendi.",
+    "featureAddedWithPages": "{name}, kendi sayfalarıyla birlikte eklendi. Artık menüde.",
+    "findPage": "Sayfa bul…",
+    "madeCopy": "Bir kopya oluşturuldu. Şimdi “{title}” üzerinde düzenleme yapıyorsunuz.",
+    "mobileTip": "İpucu: Sayfanızın bir bölümüne, ardından altına blok eklemek için bir bloğa dokunun. Ya da <b>Yapay zekâya sor</b>'a basıp neyi değiştirmek istediğinizi söyleyin.",
+    "newPage": "Yeni sayfa",
+    "newPageHelp": "Uygulamanıza boş bir sayfa ekleyin. Önce sayfaya bir ad verin.",
+    "noMatchingPages": "Eşleşen sayfa yok.",
+    "notSaved": "<b>Kaydedilmedi</b> – bağlantınızı kontrol edin. Kaydetmeyi denemeye devam edeceğiz.",
+    "open": "Aç",
+    "openHomePageHelp": "Bu sayfayı düzenleyicide açın. Ev simgesi, ziyaretçilerin ilk gördüğü ana sayfanız olduğunu belirtir.",
+    "openNewPage": "Yeni sayfayı aç",
+    "openPageHelp": "Bu sayfayı düzenleyicide açın. Önce mevcut sayfadaki değişiklikleriniz kaydedilir.",
+    "pageCount": "{count, plural, one {# sayfa} other {# sayfa}}",
+    "pageName": "Sayfa adı",
+    "pageNameHelp": "Yeni sayfanızın adı. Uygulamanızın menüsünde ve tarayıcı sekmesinde görünür; daha sonra değiştirebilirsiniz.",
+    "pageNamePlaceholder": "ör. Hakkımızda",
+    "pagePickerHelp": "Şu anda düzenlediğiniz sayfa. Tıklayarak tüm sayfalarınızı görebilir, başka bir sayfaya geçebilir veya sayfa ayarlarını değiştirebilirsiniz.",
+    "pageSettings": "Sayfa ayarları",
+    "pageSettingsFor": "{title} sayfası ayarları",
+    "pageSettingsHelp": "Sayfanın adını değiştirin, kimlerin görebileceğini seçin, uygulamanızın menüsünde gösterin veya gizleyin ya da bir kopyasını oluşturun.",
+    "pages": "Sayfalar",
+    "retry": "Yeniden dene",
+    "retryHelp": "Bir sonraki otomatik denemeyi beklemeden son değişikliklerinizi hemen kaydetmeyi tekrar deneyin.",
+    "savedSettings": "“{title}” ayarları kaydedildi.",
+    "searchPages": "Sayfalarda ara",
+    "searchPagesHelp": "Listeyi daraltmak için sayfa adının bir kısmını yazın.",
+    "setHome": "Ana sayfa yap",
+    "setHomeFor": "{title} sayfasını ana sayfa yap",
+    "setHomeHelp": "Ziyaretçilerin uygulamanızın ana web adresini açtıklarında ilk göreceği sayfa olsun.",
+    "somethingWrong": "Bir şeyler ters gitti. Lütfen tekrar deneyin.",
+    "theFeatureAdded": "Özellik eklendi.",
+    "theFeatureAddedWithPages": "Özellik kendi sayfalarıyla birlikte eklendi. Artık menüde.",
+    "updating": "Çalışma alanınız güncelleniyor…",
+    "yourPages": "Sayfalarınız"
+  },
+  "theme": {
+    "colorCodeHelp": "İstediğiniz rengi biliyorsanız #1a73e8 gibi bir renk kodunu buraya yazın.",
+    "colorCodeLabel": "{name} renk kodu",
+    "colorLabel": "{name} rengi",
+    "colors": {
+      "accent": {
+        "help": "Rozetler ve süsleme şekilleri gibi küçük ayrıntılarda kullanılan ikinci renk.",
+        "label": "Vurgu"
+      },
+      "bg": {
+        "help": "Sayfalarınızın arkasında görünen renk.",
+        "label": "Arka plan"
+      },
+      "border": {
+        "help": "Kutuların çevresindeki ince çizgilerin ve bölümler arasındaki çizgilerin rengi.",
+        "label": "Kenarlık"
+      },
+      "primary": {
+        "help": "Düğmelerde, bağlantılarda ve vurgulamalarda kullanılan ana marka renginiz.",
+        "label": "Birincil"
+      },
+      "primary2": {
+        "help": "Birinin üzerine geldiğinde düğmelerin ve bağlantıların aldığı renk.",
+        "label": "Birincil vurgu"
+      },
+      "surface": {
+        "help": "Arka planın üzerinde duran kart ve kutuların rengi.",
+        "label": "Yüzey"
+      },
+      "surface2": {
+        "help": "Bazı bölümleri ve etiketleri öne çıkarmak için kullanılan ikinci kutu rengi.",
+        "label": "Alternatif yüzey"
+      },
+      "text": {
+        "help": "Sayfalarınızdaki metinlerin çoğunda kullanılan renk.",
+        "label": "Metin"
+      },
+      "textMuted": {
+        "help": "Altyazılar ve kısa notlar gibi daha az önemli metinlerde kullanılan daha yumuşak renk.",
+        "label": "Soluk metin"
+      }
+    },
+    "colorsTitle": "Renkler",
+    "corners": "Köşeler",
+    "dark": "Koyu",
+    "darkHelp": "İlk hazır koyu temaya geçin. Bu, mevcut renklerinizi ve yazı tiplerinizi değiştirir.",
+    "darkPair": "Koyu mod eşlemesi",
+    "darkPairAuto": "Otomatik (ilk koyu tema)",
+    "darkPairHelp": "Ziyaretçi güneş/ay düğmesiyle koyu modu açtığında uygulamanızın kullandığı renkler. Otomatik, sizin için bir renk seti seçer.",
+    "darkPairNote": "Kullanıcılar her sayfada güneş/ay düğmesini görür.",
+    "light": "Açık",
+    "lightHelp": "İlk hazır açık temaya geçin. Bu, mevcut renklerinizi ve yazı tiplerinizi değiştirir.",
+    "loading": "Tema yükleniyor…",
+    "mode": "Mod",
+    "pickTheme": "Bir tema seçin…",
+    "preset": "Hazır tema",
+    "presetButtonHelp": "Uygulamanızın tamamı için hazır bir görünüm seçin. Bu seçim mevcut renklerinizi, yazı tiplerinizi ve köşe biçimlerinizi değiştirir. Ziyaretçiler bunu yayınladıktan sonra görür.",
+    "presetHelp": "Uygulamanızın tamamı için hazır renk ve yazı tipi setleri. Birini seçerek başlayın, sonra aşağıdaki renkleri düzenleyin.",
+    "radius": "Yarıçap",
+    "roundness": "Köşe yuvarlaklığı",
+    "roundnessHelp": "Uygulamanızdaki düğmelerin, kartların ve kutuların köşelerinin ne kadar yuvarlak olacağını belirler. Kare köşeler için sola, daha yuvarlak köşeler için sağa kaydırın.",
+    "useLook": "{name} görünümünü kullanın: Renkleri, yazı tipleri ve köşe biçimleri mevcut ayarlarınızın yerini alır."
+  },
+  "toolbar": {
+    "delete": {
+      "help": "Bu parçayı sayfadan kaldırın. Fikriniz değişirse üstteki Geri Al seçeneğini kullanın.",
+      "title": "Sil"
+    },
+    "drag": {
+      "help": "Bu parçayı sayfada istediğiniz yere taşımak için buradan tutup sürükleyin. Dokunmatik ekranda Yukarı taşı ve Aşağı taşı seçeneklerini kullanın.",
+      "title": "Taşımak için sürükleyin"
+    },
+    "duplicate": {
+      "help": "Bu parçanın bir kopyasını oluşturup hemen arkasına ekleyin.",
+      "title": "Çoğalt"
+    },
+    "moveDown": {
+      "help": "Bu parçayı sayfada bir basamak aşağı, sonraki parçanın altına taşıyın. Geri Al ile eski yerine koyabilirsiniz.",
+      "title": "Aşağı taşı"
+    },
+    "moveUp": {
+      "help": "Bu parçayı sayfada bir basamak yukarı, önceki parçanın üstüne taşıyın. Geri Al ile eski yerine koyabilirsiniz.",
+      "title": "Yukarı taşı"
+    },
+    "selectParent": {
+      "help": "Bu parçanın içinde bulunduğu daha büyük kutuyu seçin. Örneğin, düğmenin bulunduğu bölümün tamamını.",
+      "title": "Çevresindeki bölümü seç"
+    }
+  },
+  "welcome": {
+    "askAi": "“Fiyatlar bölümü ekle” gibi büyük değişiklikler için Yapay zekâya sor'a basın.",
+    "clickWords": "Değiştirmek için sayfadaki herhangi bir yazıya tıklayın. Bir resmi değiştirmek için çift tıklayın.",
+    "features": "<link>Özellikler</link> bölümünden rezervasyon veya mağaza gibi şeyler ekleyin.",
+    "gotIt": "Anladım",
+    "gotItHelp": "Bu hoş geldiniz kutusunu gizleyip düzenlemeye başlayın.",
+    "publish": "Memnun kaldığınızda paylaşmak için bir bağlantı almak üzere <link>yayınlayın</link>.",
+    "title": "Uygulamanız hazır. Şimdi onu kendinize göre düzenleyin:"
+  },
+  "wireUp": {
+    "blocks": {
+      "auth": {
+        "connectExisting": "<b>Bağla</b> — iki formu da uygulamanızın oturum açma ve hesap özelliklerine bağlar. Ek sayfa eklemez.",
+        "connectNew": "<b>Bağla</b> — uygulamanıza hesapları, oturum açma ve kayıt olma özelliklerini ekler ve iki formu da bunlara bağlar. Ek sayfa eklemez.",
+        "purpose": "Bu formlar, kişilerin oturum açmasını ve yeni hesap oluşturmasını sağlar."
+      },
+      "blog": {
+        "connectExisting": "<b>Bağla</b> — bu kartları, uygulamanızda zaten bulunan yazılara bağlar. Ek sayfa eklemez.",
+        "connectNew": "<b>Bağla</b> — bir yazı tablosu ekler, burada gösterilen üç yazıyla başlar ve bu kartları tabloya bağlar. Yalnızca yayımlanan yazılar gösterilir; yazıları Veri'den ekleyin veya düzenleyin. Ek sayfa eklemez.",
+        "purpose": "Bu kartlar, uygulamanızın verilerinde tuttuğunuz en yeni yazıları gösterebilir."
+      },
+      "contactForm": {
+        "connectExisting": "<b>Bağla</b> — bu formu, uygulamanızda zaten bulunan mesaj tablosuna bağlar. Ek sayfa eklemez.",
+        "connectNew": "<b>Bağla</b> — mesajlar için bir tablo ve bunları kaydeden bir otomasyon ekler, ardından bu formu tabloya bağlar. Ek sayfa eklemez.",
+        "purpose": "Bu form, size gönderilen mesajları kaydedebilir."
+      },
+      "contactFormModern": {
+        "connectExisting": "<b>Bağla</b> — bu formu, uygulamanızda zaten bulunan mesaj tablosuna bağlar. Ek sayfa eklemez.",
+        "connectNew": "<b>Bağla</b> — mesajlar için bir tablo (ad, e-posta ve mesaj; cep telefonu numarası kaydedilmez) ve bunları kaydeden bir otomasyon ekler, ardından bu formu tabloya bağlar. Ek sayfa eklemez.",
+        "purpose": "Bu form, size gönderilen mesajları kaydedebilir."
+      },
+      "faq": {
+        "connectExisting": "<b>Bağla</b> — bu listeyi, uygulamanızda zaten bulunan sorulara bağlar. Ek sayfa eklemez.",
+        "connectNew": "<b>Bağla</b> — bir soru tablosu ekler, burada gösterilen dört soruyla başlar ve bu listeyi tabloya bağlar. Soruları Veri'den ekleyin veya düzenleyin. Ek sayfa eklemez.",
+        "purpose": "Bu liste, uygulamanızın verilerinde tuttuğunuz soru ve yanıtları gösterebilir."
+      },
+      "gallery": {
+        "connectExisting": "<b>Bağla</b> — bu galeriyi, uygulamanızda zaten bulunan fotoğraflara bağlar. Ek sayfa eklemez.",
+        "connectNew": "<b>Bağla</b> — bir fotoğraf tablosu ekler, burada gösterilen beş başlıkla başlar ve bu galeriyi tabloya bağlar. Her fotoğrafın web adresini Veri'ye ekleyin. Ek sayfa eklemez.",
+        "purpose": "Bu galeri, uygulamanızın verilerinde tuttuğunuz fotoğrafları gösterebilir."
+      },
+      "newsletter": {
+        "connectExisting": "<b>Bağla</b> — bu formu, uygulamanızda zaten bulunan abone listesine bağlar. Ek sayfa eklemez.",
+        "connectNew": "<b>Bağla</b> — aboneler için bir tablo ve her kaydı saklayan bir otomasyon ekler, ardından bu formu tabloya bağlar. Ek sayfa eklemez.",
+        "purpose": "Bu form, kayıt olan herkesin e-posta adresini kaydedebilir."
+      },
+      "reviews": {
+        "connectExisting": "<b>Bağla</b> — bu bölümü, uygulamanızda zaten bulunan onaylı yorumlara bağlar. Ek sayfa eklemez.",
+        "connectNew": "<b>Bağla</b> — bir yorum tablosu ekler, burada gösterilen üç yorumla başlar ve bu bölümü tabloya bağlar. Yalnızca onaylanan yorumlar gösterilir; bunları Veri'den yönetin. Ek sayfa eklemez.",
+        "purpose": "Bu bölüm, uygulamanızın verilerinde tuttuğunuz yorumları gösterebilir."
+      },
+      "services": {
+        "connectExisting": "<b>Bağla</b> — bu ızgarayı, uygulamanızda zaten bulunan hizmetlere bağlar. Ek sayfa eklemez.",
+        "connectNew": "<b>Bağla</b> — bir hizmet tablosu ekler, burada gösterilen üç hizmetle başlar ve bu ızgarayı tabloya bağlar. Hizmetleri Veri'den ekleyin veya düzenleyin. Ek sayfa eklemez.",
+        "purpose": "Bu ızgara, uygulamanızın verilerinde tuttuğunuz hizmetleri gösterebilir."
+      },
+      "team": {
+        "connectExisting": "<b>Bağla</b> — bu ızgarayı, uygulamanızda zaten bulunan ekip üyelerine bağlar. Ek sayfa eklemez.",
+        "connectNew": "<b>Bağla</b> — bir ekip tablosu ekler, burada gösterilen dört kişiyle başlar ve bu ızgarayı tabloya bağlar. Kişileri Veri'den ekleyin veya düzenleyin. Ek sayfa eklemez.",
+        "purpose": "Bu ızgara, uygulamanızın verilerinde tuttuğunuz ekip üyelerini gösterebilir."
+      },
+      "testimonials": {
+        "connectExisting": "<b>Bağla</b> — bu bölümü uygulamanızdaki mevcut müşteri yorumlarına bağlar. Ek sayfa oluşturmaz.",
+        "connectNew": "<b>Bağla</b> — burada gösterilen üç alıntıyla başlayan bir müşteri yorumları tablosu ekler ve bu bölümü tabloya bağlar. Alıntıları Veri bölümünden ekleyin veya değiştirin. Ek sayfa oluşturmaz.",
+        "purpose": "Bu bölüm, uygulamanızdaki verilerde tuttuğunuz müşteri yorumlarını gösterebilir. Böylece sayfayı düzenlemeden yorumları değiştirebilirsiniz."
+      }
+    },
+    "connect": "Evet, bağla",
+    "connectHelp": "Kişilerin gönderdiği bilgileri saklayacak bir yer gibi, bu bloğun arka planda ihtiyaç duyduğu şeyleri ayarlayın. Ek sayfa eklenmez.",
+    "couldNotCheckFeatures": "Bu uygulamanın özelliklerini kontrol edemedik. Lütfen tekrar deneyin.",
+    "couldNotLoadFlows": "Bu uygulamanın otomasyonlarını yükleyemedik. Lütfen tekrar deneyin.",
+    "failedStatus": "Başarısız ({status})",
+    "handle": "Hayır, ben hallederim",
+    "handleHelp": "Hiçbir ayar yapmadan bloğu sayfanızda olduğu gibi tutun. Daha sonra Akışlar'dan veya yapay zekâya sorarak bağlayabilirsiniz.",
+    "handleLine": "<b>Ben hallederim</b> — bloğu olduğu gibi, hiçbir yere bağlamadan tutar. Daha sonra Akışlar'dan veya yapay zekâya sorarak ayarlayabilirsiniz.",
+    "partMissing": "Uygulamanızda bu özellik var, ancak bir kısmı eksik. Bu bloğu Akışlar'dan bağlayabilirsiniz.",
+    "settingUp": "Ayarlanıyor...",
+    "somethingWrong": "Bir şeyler ters gitti",
+    "title": "Bağlayalım mı?"
+  }
+}

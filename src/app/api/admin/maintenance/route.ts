@@ -1,6 +1,8 @@
 import { z } from "zod";
 import { getRealUser } from "@/lib/auth";
 import { json } from "@/lib/utils";
+import { getTranslations } from "next-intl/server";
+import { requestLocale } from "@/i18n/request";
 import { lastMaintenance, maintenanceHour, maintenanceMode, RETENTION, runMaintenance, setMaintenanceMode } from "@/lib/maintenance";
 
 export const dynamic = "force-dynamic";
@@ -35,7 +37,8 @@ const Put = z.object({ mode: z.enum(["report", "apply", "off"]) });
 export async function PUT(req: Request) {
   if (!(await admin())) return notFound();
   const parsed = Put.safeParse(await req.json().catch(() => null));
-  if (!parsed.success) return json({ error: "Choose report only, on, or off." }, { status: 400 });
+  const t = await getTranslations({ locale: await requestLocale(), namespace: "admin.api" });
+  if (!parsed.success) return json({ error: t("chooseMaintenance") }, { status: 400 });
   await setMaintenanceMode(parsed.data.mode);
   return json(await state());
 }
@@ -47,6 +50,9 @@ export async function POST() {
   // Small installs finish in seconds; a big first clean-up carries on in the background.
   const result = await Promise.race([run, new Promise<null>((r) => setTimeout(() => r(null), 25_000))]);
   if (!result) return json({ started: true, ...(await state()) }, { status: 202 });
-  if ("skipped" in result) return json({ error: `Not run: ${result.skipped}.`, ...(await state()) }, { status: 409 });
+  if ("skipped" in result) {
+    const t = await getTranslations({ locale: await requestLocale(), namespace: "admin.api" });
+    return json({ error: t("notRun", { reason: result.skipped }), ...(await state()) }, { status: 409 });
+  }
   return json({ ok: true, ...(await state()) });
 }

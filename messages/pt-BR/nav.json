@@ -1,0 +1,41 @@
+{
+  "accountMenu": "Menu da conta",
+  "accountNavigation": "Navegação da conta",
+  "admin": "Administração",
+  "adminHelp": "Configurações de toda a plataforma: marca, IA, e-mail, pagamentos, usuários e revendedores.",
+  "administration": "Administração",
+  "billing": "Cobrança e plano",
+  "designer": "Designer",
+  "designerHelp": "Descreva um site com suas próprias palavras. A IA cria o design e continua fazendo mudanças conforme você pede.",
+  "help": "Ajuda",
+  "helpGuides": "Ajuda e guias",
+  "helpHelp": "Guias passo a passo. Este abre o guia da tela em que você está.",
+  "helpTips": {
+    "help": "Ativa ou desativa estas notas de ajuda. Quando estão ativadas, passe o mouse sobre qualquer botão para saber o que ele faz. Você também pode mudar isso em Configurações.",
+    "label": "Dicas de ajuda",
+    "off": "DESATIVADAS",
+    "on": "ATIVADAS"
+  },
+  "home": "Início do {app}",
+  "impersonation": {
+    "backToClients": "Voltar para seus clientes",
+    "backToClientsHelp": "Sai do espaço de trabalho deste cliente e volta à sua lista de clientes. As alterações que você fez continuam na conta dele.",
+    "impersonating": "Representando",
+    "signedInAs": "· conectado como {email}",
+    "stop": "Parar de representar",
+    "stopHelp": "Para de agir como esta pessoa e volta à Administração. As alterações que você fez continuam na conta dela.",
+    "viewingClient": "Você está no espaço de trabalho de <b>{name}</b>. As alterações que fizer serão aplicadas à conta dessa pessoa."
+  },
+  "logOut": "Sair",
+  "myApps": "Meus apps",
+  "myAppsHelp": "Todos os seus apps em um só lugar. Abra um para continuar trabalhando ou crie um novo.",
+  "profile": "Perfil",
+  "resellerDashboard": "Painel do revendedor",
+  "resellerHelp": "Gerencie seus clientes, sua marca, seus preços e seu endereço na web.",
+  "switchTheme": "Alternar entre o modo claro e o escuro",
+  "switchToDark": "Ativar o modo escuro",
+  "switchToLight": "Ativar o modo claro",
+  "themeHelp": "Alterne entre o modo claro e o escuro. Sua escolha fica salva. Você também pode escolher “Usar o tema do meu dispositivo” no seu perfil.",
+  "workspace": "Espaço de trabalho",
+  "yourAccount": "Sua conta"
+}

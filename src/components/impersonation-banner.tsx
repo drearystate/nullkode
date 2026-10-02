@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 type Props = {
   adminEmail: string;
@@ -11,6 +12,7 @@ type Props = {
 
 export function ImpersonationBanner({ adminEmail, targetEmail, targetName, actorRole }: Props) {
   const [busy, setBusy] = useState(false);
+  const t = useTranslations("nav.impersonation");
   const reseller = actorRole === "RESELLER";
 
   async function stop() {
@@ -24,22 +26,22 @@ export function ImpersonationBanner({ adminEmail, targetEmail, targetName, actor
       <div className="mx-auto max-w-6xl px-6 py-2 flex items-center justify-between gap-4">
         <div className="flex items-center gap-2 truncate">
           {reseller ? (
-            <span className="truncate">You&apos;re viewing <span className="font-semibold">{targetName || targetEmail}</span>&apos;s workspace. Changes you make happen in their account.</span>
+            <span className="truncate">{t.rich("viewingClient", { name: targetName || targetEmail, b: (c) => <span className="font-semibold">{c}</span> })}</span>
           ) : (
             <>
-              <span className="font-semibold">Impersonating</span>
-              <span className="font-mono truncate">{targetEmail}</span>
-              <span className="opacity-70 hidden md:inline">· signed in as {adminEmail}</span>
+              <span className="font-semibold">{t("impersonating")}</span>
+              <span className="font-mono truncate" dir="ltr">{targetEmail}</span>
+              <span className="opacity-70 hidden md:inline">{t("signedInAs", { email: adminEmail })}</span>
             </>
           )}
         </div>
         <button
           onClick={stop}
           disabled={busy}
-          data-help={reseller ? "Leaves this client's workspace and takes you back to your client list. Changes you made stay in their account." : "Stops acting as this person and takes you back to Admin. Changes you made stay in their account."}
+          data-help={reseller ? t("backToClientsHelp") : t("stopHelp")}
           className="shrink-0 bg-surface-950 text-amber-400 font-semibold rounded px-3 py-1 hover:bg-surface-800 [[data-theme=light]_&]:bg-surface-0 [[data-theme=light]_&]:text-amber-600 [[data-theme=light]_&]:hover:bg-surface-100 disabled:opacity-50"
         >
-          {busy ? "…" : reseller ? "Back to your clients" : "Stop impersonating"}
+          {busy ? "…" : reseller ? t("backToClients") : t("stop")}
         </button>
       </div>
     </div>

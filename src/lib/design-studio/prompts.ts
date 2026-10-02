@@ -1,3 +1,6 @@
+import type { Locale } from "@/i18n/locales";
+import { replyLanguageRule } from "../ai/i18n";
+
 /**
  * What the model is told. Kept short on purpose: it has to fit small local
  * models (8–32B) and still produce working, good-looking apps. Every call gets
@@ -46,5 +49,10 @@ the new text
 - No other text.`;
 
 export const META_TASK = `Write the requested data file. Reply with ONLY its JSON.`;
+
+/** Which language the plan's "message" (shown in the chat) is written in. Empty for English. */
+export function planLanguageRule(locale: Locale): string {
+  return replyLanguageRule(locale, 'the "message" (it is shown to the person in the chat)');
+}
 
 export const CLARIFY_TASK = `Someone wants an app built. If their request leaves important choices open, ask up to 3 short questions with 2–4 suggested answers each; if it's clear enough, ask none. Reply with ONLY JSON: {"questions":[{"question":"…","options":["…","…"]}]}`;

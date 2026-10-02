@@ -1,0 +1,1153 @@
+{
+  "assets": {
+    "addHelp": "Tippe hier, um dieses Foto unter dem ausgewählten Bereich hinzuzufügen, oder ziehe es auf deine Seite.",
+    "addPhoto": "Dieses Foto hinzufügen",
+    "addPhotoNamed": "Dieses Foto hinzufügen: {alt}",
+    "aiOriginal": "KI-Original",
+    "categories": {
+      "agriculture": {
+        "help": "Bauernhöfe und frische Lebensmittel.",
+        "label": "Landwirtschaft"
+      },
+      "all": {
+        "help": "Zeige eine Auswahl kostenloser Fotos, die du auf deiner Seite verwenden kannst.",
+        "label": "Alle"
+      },
+      "architecture": {
+        "help": "Zeige kostenlose Fotos von Gebäuden.",
+        "label": "Architektur"
+      },
+      "automotive": {
+        "help": "Fahrzeugreparatur und Werkstätten.",
+        "label": "Autos"
+      },
+      "beauty": {
+        "help": "Bilder zu Hautpflege, Wellness und Beauty.",
+        "label": "Beauty"
+      },
+      "business": {
+        "help": "Zeige kostenlose Fotos von Büros und Menschen bei der Arbeit.",
+        "label": "Business"
+      },
+      "cleaning": {
+        "help": "Professionelle Reinigungsdienste.",
+        "label": "Reinigung"
+      },
+      "community": {
+        "help": "Wochenmärkte und frische Lebensmittel.",
+        "label": "Gemeinschaft"
+      },
+      "education": {
+        "help": "Klassenzimmer und gemeinsames Lernen.",
+        "label": "Lernen"
+      },
+      "events": {
+        "help": "Hochzeiten und Veranstaltungsdienste.",
+        "label": "Veranstaltungen"
+      },
+      "fitness": {
+        "help": "Zeige kostenlose Fotos von Fitnessstudios und Sport.",
+        "label": "Fitness"
+      },
+      "food": {
+        "help": "Zeige kostenlose Fotos von Essen und Restaurants.",
+        "label": "Essen"
+      },
+      "landscaping": {
+        "help": "Garten- und Landschaftspflege.",
+        "label": "Gärten"
+      },
+      "legal": {
+        "help": "Juristische Bibliotheken und Gerichtsgebäude.",
+        "label": "Recht"
+      },
+      "logistics": {
+        "help": "Lager, Lieferung und Versand.",
+        "label": "Logistik"
+      },
+      "medical": {
+        "help": "Kostenlose Fotos aus dem Gesundheits- und Medizinbereich anzeigen.",
+        "label": "Gesundheit"
+      },
+      "nature": {
+        "help": "Zeige kostenlose Fotos von Natur und Landschaften.",
+        "label": "Natur"
+      },
+      "originals": {
+        "help": "Entdecke die eigens mit KI erstellten Fotos, die in dieser Installation enthalten sind.",
+        "label": "Originale"
+      },
+      "people": {
+        "help": "Zeige kostenlose Fotos von Menschen.",
+        "label": "Menschen"
+      },
+      "pets": {
+        "help": "Pflege und Fellpflege für Haustiere.",
+        "label": "Haustiere"
+      },
+      "products": {
+        "help": "Keramik- und Produktfotografie.",
+        "label": "Produkte"
+      },
+      "tech": {
+        "help": "Zeige kostenlose Fotos von Computern und Technik.",
+        "label": "Technik"
+      },
+      "trades": {
+        "help": "Sanitär, Elektroarbeiten und Bau.",
+        "label": "Handwerk"
+      },
+      "travel": {
+        "help": "Kostenlose Fotos von Reisen und Ausflugszielen anzeigen.",
+        "label": "Reisen"
+      }
+    },
+    "describeHelp": "Beschreibe kurz, was auf dem Bild zu sehen ist. Bildschirmleseprogramme lesen die Beschreibung für Menschen vor, die das Bild nicht sehen können. Auch Suchmaschinen verwenden sie.",
+    "describeLabel": "Bild geändert. Beschreibe es für Menschen, die es nicht sehen können:",
+    "describePlaceholder": "z. B. Frisches Brot auf unserer Ladentheke",
+    "failedToLoad": "Assets konnten nicht geladen werden",
+    "footerAdd": "Tippen oder ziehen zum Hinzufügen · Kostenlose Fotos",
+    "footerSwap": "Tippe auf ein Foto, um es anstelle des ausgewählten Bildes zu verwenden",
+    "noMatches": "Keine passenden Bilder gefunden. Versuche es mit einem allgemeineren Begriff.",
+    "photoBy": "Foto von {name}",
+    "saveDescription": "Beschreibung speichern",
+    "saveDescriptionHelp": "Diese Beschreibung für das Bild speichern.",
+    "searchHelp": "Gib ein, was auf dem Foto zu sehen sein soll, zum Beispiel „Kaffee“ oder „Hund“, um kostenlose Fotos zu finden.",
+    "searchPlaceholder": "Fotos suchen...",
+    "skip": "Überspringen",
+    "skipHelp": "Das neue Bild ohne Änderung der Beschreibung übernehmen.",
+    "swapHelp": "Tippe hier, um dieses Foto anstelle des ausgewählten Bildes einzusetzen. Größe und Position bleiben gleich.",
+    "useInstead": "Stattdessen dieses Foto verwenden",
+    "useInsteadNamed": "Stattdessen dieses Foto verwenden: {alt}"
+  },
+  "blockCategories": {
+    "basic": {
+      "help": "Einfache Bausteine. Klicke auf den Namen, um sie ein- oder auszublenden.",
+      "label": "Grundlagen"
+    },
+    "commerce": {
+      "help": "Elemente zum Verkaufen, zum Beispiel Produktkarten und Preise. Klicke auf den Namen, um sie ein- oder auszublenden.",
+      "label": "Verkauf"
+    },
+    "content": {
+      "help": "Überschriften, Absätze, Listen und Hinweise. Klicke auf den Namen, um sie ein- oder auszublenden.",
+      "label": "Inhalte"
+    },
+    "extra": {
+      "help": "Eine Gruppe von Bausteinen. Klicke auf den Namen, um sie ein- oder auszublenden.",
+      "label": "Extra"
+    },
+    "forms": {
+      "help": "Felder zum Ausfüllen, zum Beispiel Kontakt- und Anmeldeformulare. Klicke auf den Namen, um sie ein- oder auszublenden.",
+      "label": "Formulare"
+    },
+    "interactive": {
+      "help": "Schaltflächen, Karten, Tabs, Pop-ups und andere Elemente, auf die man klicken kann. Klicke auf den Namen, um sie ein- oder auszublenden.",
+      "label": "Interaktiv"
+    },
+    "layout": {
+      "help": "Boxen und Spalten für andere Elemente sowie Grundlagen wie Text und Bilder. Klicke auf den Namen, um sie ein- oder auszublenden.",
+      "label": "Layout"
+    },
+    "liveData": {
+      "help": "Elemente, die mit den Informationen deiner App arbeiten: Formulare, die Daten speichern, automatisch gefüllte Listen und Anmeldebereiche. Klicke auf den Namen, um sie ein- oder auszublenden.",
+      "label": "Live-Daten"
+    },
+    "media": {
+      "help": "Bilder, Videos, Ton und Karten. Klicke auf den Namen, um sie ein- oder auszublenden.",
+      "label": "Medien"
+    },
+    "premade": {
+      "help": "Fertige Bereiche, die du einfügen und anpassen kannst. Klicke auf den Namen, um sie ein- oder auszublenden.",
+      "label": "Vorgefertigt"
+    },
+    "sections": {
+      "help": "Fertige Seitenteile wie eine Einleitung, Preise oder eine Fußzeile. Klicke auf den Namen, um sie ein- oder auszublenden.",
+      "label": "Abschnitte"
+    },
+    "social": {
+      "help": "Links zu deinen sozialen Medien, Teilen-Schaltflächen und Inhalte von anderen Websites. Klicke auf den Namen, um sie ein- oder auszublenden.",
+      "label": "Soziale Medien"
+    }
+  },
+  "blockHelp": {
+    "nkAccordion": "Fragen oder Überschriften, die sich beim Klicken öffnen und mehr anzeigen.",
+    "nkApiCall": "Ein Button, mit dem deine App beim Klicken etwas ausführt. Lege in den Einstellungen fest, was passiert.",
+    "nkAuthGate": "Ein Kasten, den nur angemeldete Personen sehen können.",
+    "nkBadge": "Eine kleine farbige Beschriftung wie „Neu“ oder „Angebot“.",
+    "nkCarousel": "Bilder oder Folien, die abwechselnd angezeigt werden.",
+    "nkContainer": "Ein Kasten, der den Inhalt mittig auf der Seite in einer angenehmen Breite hält.",
+    "nkDataCards": "Karten, die sich automatisch mit den Informationen deiner App füllen. Lege in den Einstellungen fest, was angezeigt wird.",
+    "nkDataList": "Eine Liste, die sich automatisch mit den Informationen deiner App füllt, zum Beispiel mit Produkten oder Buchungen. Lege in den Einstellungen fest, was angezeigt wird.",
+    "nkDataTable": "Eine Tabelle, die sich automatisch mit den Informationen deiner App füllt. Lege in den Einstellungen fest, was angezeigt wird.",
+    "nkDivider": "Eine dünne Linie, die Bereiche der Seite trennt.",
+    "nkFlowForm": "Ein Formular, dessen Antworten deine App verarbeitet, zum Beispiel speichert oder dir per E-Mail schickt. Lege in den Einstellungen fest, was damit passiert.",
+    "nkGrid": "Kästen nebeneinander, die sich auf kleineren Bildschirmen automatisch auf mehrere Zeilen verteilen.",
+    "nkIconChip": "Ein Symbol in einem kleinen farbigen Kreis.",
+    "nkIframe": "Zeigt Inhalte einer anderen Website auf deiner Seite an, zum Beispiel ein Buchungs- oder Zahlungs-Widget.",
+    "nkLead": "Ein etwas größerer Absatz, ideal für eine Einführung.",
+    "nkMarqueeText": "Text, der über den Bildschirm läuft.",
+    "nkModal": "Ein Button, der ein kleines Fenster über der Seite öffnet.",
+    "nkSection": "Ein Bereich über die ganze Seitenbreite mit eigener Überschrift.",
+    "nkSignout": "Ein Button, mit dem sich die Person von deiner App abmeldet.",
+    "nkSpacer": "Freiraum, um Elemente voneinander abzusetzen.",
+    "nkTabs": "Mehrere Inhaltsbereiche, von denen jeweils einer angezeigt wird. Wechsle mit den Tabs zwischen ihnen.",
+    "nkUserMenu": "Ein Kontomenü für angemeldete Personen mit Links wie „Profil“ und „Einstellungen“."
+  },
+  "blocks": {
+    "button": "Button",
+    "checkbox": "Kontrollkästchen",
+    "column1": "1 Spalte",
+    "column2": "2 Spalten",
+    "column3": "3 Spalten",
+    "column37": "2 Spalten 3/7",
+    "form": "Formular",
+    "image": "Bild",
+    "input": "Eingabefeld",
+    "label": "Beschriftung",
+    "link": "Link",
+    "linkBlock": "Link-Block",
+    "map": "Karte",
+    "navbar": "Navigationsleiste",
+    "nkAccordion": "Aufklappbereich",
+    "nkAddCart": "In den Warenkorb",
+    "nkAlertDanger": "Hinweis · Fehler",
+    "nkAlertInfo": "Hinweis · Info",
+    "nkAlertSuccess": "Hinweis · Erfolg",
+    "nkAlertWarn": "Hinweis · Warnung",
+    "nkApiCall": "Schaltfläche mit Ablauf",
+    "nkAudio": "Audio",
+    "nkAuthGate": "Nur für Mitglieder",
+    "nkBadge": "Abzeichen",
+    "nkBannerCard": "Bannerkarte",
+    "nkBtnGroup": "Schaltflächengruppe",
+    "nkBtnLg": "Button · Groß",
+    "nkBtnOutline": "Button · Umrandet",
+    "nkBtnPrimary": "Button · Primär",
+    "nkCard": "Karte",
+    "nkCardImage": "Karte · mit Bild",
+    "nkCarousel": "Karussell",
+    "nkCartIcon": "Warenkorb-Symbol",
+    "nkClientLogos": "Kundenlogos",
+    "nkCode": "Codeblock",
+    "nkContactForm": "Kontaktformular",
+    "nkContainer": "Container",
+    "nkCta": "Call-to-Action",
+    "nkCtaBand": "Aktionsbanner",
+    "nkDataCards": "Elementübersicht",
+    "nkDataList": "Elementliste",
+    "nkDataTable": "Elementtabelle",
+    "nkDivider": "Trennlinie",
+    "nkEventCard": "Veranstaltungskarte",
+    "nkFancyHeading": "Besondere Überschrift",
+    "nkFaq": "FAQ",
+    "nkFaqAccordion": "FAQ-Aufklappbereich",
+    "nkFeatureCards": "Funktionskarten",
+    "nkFeatures3": "Funktionen · 3 Spalten",
+    "nkFeatures4": "Funktionen · 2 × 2",
+    "nkFlowForm": "Formular mit Ablauf",
+    "nkFooterMulti": "Fußzeile · Mehrspaltig",
+    "nkFooterSimple": "Fußzeile · Einfach",
+    "nkFormContact": "Kontaktformular",
+    "nkFormLogin": "Anmeldeformular",
+    "nkFormNewsletter": "Newsletter-Zeile",
+    "nkFormSearch": "Suchleiste",
+    "nkFormSignup": "Registrierungsformular",
+    "nkGallery": "Galerie · 3 Spalten",
+    "nkGrid": "Automatisches Raster",
+    "nkH1": "Überschrift 1",
+    "nkH2": "Überschrift 2",
+    "nkH3": "Überschrift 3",
+    "nkHeroCentered": "Großer Einstieg · Zentriert",
+    "nkHeroForm": "Großer Einstieg · Anmeldung",
+    "nkHeroSplit": "Großer Einstieg · Mit Bild",
+    "nkIconChip": "Icon-Chip",
+    "nkIconPicker": "Symbol",
+    "nkIframe": "Einbettung (iframe)",
+    "nkImage": "Bild",
+    "nkImageCaption": "Bild mit Bildunterschrift",
+    "nkImageGallery": "Bildergalerie",
+    "nkLead": "Einleitungstext",
+    "nkLink": "Link",
+    "nkListItems": "Listenelemente",
+    "nkListOl": "Nummerierte Liste",
+    "nkListUl": "Aufzählung",
+    "nkLithoAboutUs": "Über uns",
+    "nkLithoContactModern": "Kontakt · Modern",
+    "nkLithoContactSimple": "Kontakt · Einfach",
+    "nkLithoFooterCentered": "Fußzeile · Zentriert",
+    "nkLithoFooterDark": "Fußzeile · Dunkel",
+    "nkLithoFooterNewsletter": "Fußzeile · Newsletter",
+    "nkLithoIconBoxOverline": "Symbolfeld · Übertitel",
+    "nkLithoInfoBanner": "Info-Banner",
+    "nkLithoLoginForm": "Anmeldeformular",
+    "nkLithoMessageBox": "Nachrichtenfeld",
+    "nkLithoNewsCards": "Nachrichtenkarten",
+    "nkLithoOurStory": "Unsere Geschichte",
+    "nkLithoPieCharts": "Kreisdiagramme",
+    "nkLithoServicesShowcase": "Serviceübersicht",
+    "nkLithoVideoSection": "Videobereich",
+    "nkLogoCloud": "Logoreihe",
+    "nkMap": "Karte",
+    "nkMarqueeText": "Lauftext",
+    "nkModal": "Pop-up",
+    "nkNavbar": "Menüleiste",
+    "nkNewsletter": "Newsletter",
+    "nkParagraph": "Absatz",
+    "nkPricing3": "Preise · 3 Stufen",
+    "nkPricing3col": "Preistabelle",
+    "nkPricingCard": "Preiskarte",
+    "nkProcessSteps": "Ablaufschritte",
+    "nkProduct": "Produktkarte",
+    "nkProductGrid": "Produktübersicht",
+    "nkProgress": "Fortschrittsbalken",
+    "nkQuote": "Zitat",
+    "nkReviews": "Bewertungen",
+    "nkRow2": "2 Spalten",
+    "nkRow3": "3 Spalten",
+    "nkRow4": "4 Spalten",
+    "nkSection": "Abschnitt",
+    "nkServicesGrid": "Serviceübersicht",
+    "nkShare": "Teilen-Schaltflächen",
+    "nkSignout": "Abmelden-Schaltfläche",
+    "nkSocialRow": "Social-Media-Symbole",
+    "nkSpacer": "Abstand",
+    "nkStats": "Zahlenleiste",
+    "nkStatsCounters": "Statistikzähler",
+    "nkTabs": "Registerkarten",
+    "nkTabsContent": "Registerkarten-Inhalt",
+    "nkTeam": "Team",
+    "nkTeamGrid": "Teamübersicht",
+    "nkTestimonials": "Kundenstimmen",
+    "nkUserMenu": "Benutzermenü",
+    "nkVideoFile": "Videodatei",
+    "nkVimeo": "Vimeo",
+    "nkYoutube": "YouTube",
+    "quote": "Zitat",
+    "radio": "Optionsfeld",
+    "select": "Auswahl",
+    "text": "Text",
+    "textBasic": "Textbereich",
+    "textarea": "Textfeld",
+    "video": "Video"
+  },
+  "canvas": {
+    "advanced": "Erweitert",
+    "advancedHelp": "Weitere Designoptionen, zum Beispiel Schriftarten, Schatten und die Ausrichtung von Elementen in einem Feld. Diese Optionen brauchst du nur selten.",
+    "blocksHint": "Tippe auf einen Baustein, um ihn unter dem ausgewählten Bereich hinzuzufügen, oder ziehe ihn auf die Seite.",
+    "devices": {
+      "desktop": {
+        "help": "Sieh dir an, wie deine Seite auf einem großen Computerbildschirm aussieht.",
+        "label": "Computer"
+      },
+      "mobile": {
+        "help": "Sieh dir an, wie deine Seite auf einem Smartphone aussieht. Überprüfe das unbedingt – die meisten Besucher nutzen ein Smartphone!",
+        "label": "Mobilgerät"
+      },
+      "tablet": {
+        "help": "Sieh dir an, wie deine Seite auf einem Tablet wie einem iPad aussieht.",
+        "label": "Tablet"
+      }
+    },
+    "discard": "Verwerfen",
+    "discardHelp": "Verwirf die nicht gespeicherten Änderungen und behalte die Seite so, wie sie ist. Sie können nicht wiederhergestellt werden.",
+    "draftNewer": "Wir haben nicht gespeicherte Änderungen gefunden. Wiederherstellen?",
+    "draftOlder": "Wir haben nicht gespeicherte Änderungen von {when} gefunden. Diese Seite wurde seitdem geändert. Trotzdem wiederherstellen?",
+    "element": "Element",
+    "importLabel": "Füge hier HTML/CSS ein und klicke auf „Importieren“.",
+    "importTitle": "Vorlage importieren",
+    "layersHelp": "Alle Elemente deiner Seite, der Reihe nach. Klicke auf eine Zeile, um das Element auszuwählen, oder ziehe Zeilen, um Elemente zu verschieben.",
+    "leftTabs": {
+      "assets": {
+        "help": "Kostenlose Fotos für deine Seite. Tippe oder ziehe: Tippe auf ein Foto, um es hinzuzufügen oder das ausgewählte Bild zu ersetzen, oder ziehe es auf die Seite.",
+        "label": "Bilder"
+      },
+      "blocks": {
+        "help": "Fertige Elemente für deine Seite: Texte, Bilder, Buttons und ganze Bereiche. Tippe oder ziehe: Tippe auf ein Element, um es unter dem ausgewählten Bereich hinzuzufügen, oder ziehe es auf die Seite.",
+        "label": "Bausteine"
+      },
+      "modules": {
+        "help": "Fertige Funktionen wie Buchungen oder ein Shop. Füge eine hinzu, und die passenden Seiten sind sofort einsatzbereit.",
+        "label": "Funktionen"
+      }
+    },
+    "noSettings": "Hier gibt es nichts einzustellen. Links, Bilder, Schaltflächen, Formulare und Listen haben Einstellungen in diesem Tab.",
+    "preview": "Vorschau",
+    "previewHelp": "Öffne diese Seite in einem neuen Tab und probiere alles aus – Schaltflächen, Formulare und mehr, genau wie deine Besucher.",
+    "previewLabel": "Diese Seite in der Vorschau ansehen",
+    "redo": "Wiederholen",
+    "redoHelp": "Stelle die Änderung wieder her, die du gerade rückgängig gemacht hast.",
+    "restore": "Wiederherstellen",
+    "restoreHelp": "Stelle die Änderungen wieder her, die dieser Browser beim letzten Mal gespeichert hat. Sie ersetzen den aktuellen Seiteninhalt und werden wie gewohnt gespeichert.",
+    "retry": "Erneut versuchen",
+    "retryHelp": "Versuche jetzt noch einmal, deine letzten Änderungen zu speichern.",
+    "rightTabs": {
+      "layers": {
+        "help": "Alle Elemente deiner Seite, von oben nach unten. Praktisch, um schwer anklickbare Elemente auszuwählen.",
+        "label": "Ebenen"
+      },
+      "styles": {
+        "help": "Ändere das Aussehen des ausgewählten Elements: Text, Farben, Abstände und Größe. Wähle zuerst etwas auf der Seite aus.",
+        "label": "Design"
+      },
+      "theme": {
+        "help": "Ändere Farben und Ecken für deine ganze App oder wähle ein fertiges Design. Besucher sehen die Änderungen, sobald du sie veröffentlichst.",
+        "label": "Designvorlage"
+      },
+      "traits": {
+        "help": "Einstellungen für das ausgewählte Element, zum Beispiel das Ziel eines Links oder was nach dem Absenden eines Formulars passiert.",
+        "label": "Einstellungen"
+      }
+    },
+    "searchBlocks": "Bausteine suchen …",
+    "searchBlocksHelp": "Gib hier etwas ein, um schnell einen Baustein zu finden – zum Beispiel „Button“ oder „Foto“.",
+    "selectForSettings": "Wähle einen Link, ein Bild, eine Schaltfläche, ein Formular oder eine Liste auf deiner Seite aus, um die Einstellungen anzuzeigen.",
+    "selectSomething": "Wähle ein Element auf deiner Seite aus",
+    "selectionHelp": "Das Element, das du auf deiner Seite ausgewählt hast. In den Tabs „Design“ und „Einstellungen“ kannst du es ändern. Klicke auf ein Element auf der Seite, um es auszuwählen.",
+    "sharedStyles": "Gemeinsame Stile und Hover-Effekt",
+    "sharedStylesHelp": "Stilnamen, die dieses Element mit anderen teilt, und Stile für den Moment, in dem sich der Mauszeiger darüber befindet.",
+    "status": {
+      "error": "Nicht gespeichert",
+      "idle": "Automatisches Speichern aktiviert",
+      "pending": "Ungespeicherte Änderungen",
+      "saved": "Gespeichert",
+      "saving": "Wird gespeichert…"
+    },
+    "statusErrorHelp": "Deine letzten Änderungen wurden nicht an den Server übertragen. Sie sind in diesem Browser gespeichert, und wir versuchen es weiter. Überprüfe deine Internetverbindung.",
+    "statusHelp": "Deine Änderungen werden kurz nach dem Tippen automatisch gespeichert. Besucher sehen sie erst, wenn du sie veröffentlichst.",
+    "stylesHelp": "So sieht das ausgewählte Element aus: Text, Farben, Abstände und Größe. Änderungen werden sofort auf der Seite angezeigt.",
+    "toggleLeft": "Baustein-Panel ein-/ausblenden",
+    "toggleLeftHelp": "Blende das linke Panel mit Bausteinen, Funktionen und Fotos ein oder aus, um mehr Platz für deine Seite zu schaffen.",
+    "toggleRight": "Eigenschaften-Panel ein-/ausblenden",
+    "toggleRightHelp": "Blende das rechte Panel mit den Tabs Design, Ebenen, Einstellungen und Theme ein oder aus.",
+    "traitsHelp": "Einstellungen für das ausgewählte Element, zum Beispiel das Ziel eines Links oder was nach dem Absenden eines Formulars passiert.",
+    "undo": "Rückgängig",
+    "undoHelp": "Mache deine letzte Änderung auf dieser Seite rückgängig. Drücke erneut, um weiter zurückzugehen."
+  },
+  "design": {
+    "properties": {
+      "background": "Hintergrundbild oder Farbverlauf",
+      "backgroundColor": "Hintergrundfarbe",
+      "border": "Rahmen",
+      "borderRadius": "Abgerundete Ecken",
+      "boxShadow": "Schatten",
+      "color": "Textfarbe",
+      "fontFamily": "Schriftart",
+      "fontSize": "Textgröße",
+      "fontWeight": "Schriftstärke",
+      "height": "Höhe",
+      "letterSpacing": "Buchstabenabstand",
+      "lineHeight": "Zeilenabstand",
+      "margin": "Außenabstand",
+      "maxWidth": "Maximale Breite",
+      "minHeight": "Mindesthöhe",
+      "opacity": "Transparenz",
+      "padding": "Innenabstand",
+      "textAlign": "Ausrichtung",
+      "textShadow": "Textschatten",
+      "transform": "Drehen und skalieren",
+      "transition": "Weiche Übergänge",
+      "width": "Breite"
+    },
+    "sectors": {
+      "advEffects": "Schatten und Effekte",
+      "advFlex": "Elemente innen ausrichten",
+      "advLayout": "Position",
+      "advSize": "Weitere Größenoptionen",
+      "advText": "Weitere Textoptionen",
+      "colors": "Hintergrund",
+      "corners": "Ecken und Rahmen",
+      "size": "Größe",
+      "spacing": "Abstände",
+      "text": "Text"
+    }
+  },
+  "grapes": {
+    "assetManager": {
+      "addButton": "Bild hinzufügen",
+      "modalTitle": "Bild auswählen",
+      "uploadTitle": "Dateien hier ablegen oder zum Hochladen klicken"
+    },
+    "names": {
+      "box": "Box",
+      "button": "Schaltfläche",
+      "cell": "Tabellenzelle",
+      "checkbox": "Kontrollkästchen",
+      "comment": "Kommentar",
+      "form": "Formular",
+      "iframe": "Iframe",
+      "image": "Bild",
+      "input": "Eingabefeld",
+      "label": "Beschriftung",
+      "link": "Link",
+      "map": "Karte",
+      "navbar": "Navigationsleiste",
+      "radio": "Optionsfeld",
+      "row": "Tabellenzeile",
+      "select": "Auswahl",
+      "svg": "SVG",
+      "table": "Tabelle",
+      "tbody": "Tabellenkörper",
+      "text": "Text",
+      "textarea": "Textbereich",
+      "tfoot": "Tabellenfuß",
+      "thead": "Tabellenkopf",
+      "video": "Video",
+      "wrapper": "Hauptbereich"
+    },
+    "properties": {
+      "alignContent": "Inhalt ausrichten",
+      "alignItems": "Elemente ausrichten",
+      "alignSelf": "Selbst ausrichten",
+      "backgroundAttachmentSub": "Befestigung",
+      "backgroundImageSub": "Bild",
+      "backgroundPositionSub": "Position",
+      "backgroundRepeatSub": "Wiederholung",
+      "backgroundSizeSub": "Größe",
+      "borderBottomLeftRadiusSub": "Unten links",
+      "borderBottomRightRadiusSub": "Unten rechts",
+      "borderColorSub": "Farbe",
+      "borderStyleSub": "Stil",
+      "borderTopLeftRadiusSub": "Oben links",
+      "borderTopRightRadiusSub": "Oben rechts",
+      "borderWidthSub": "Breite",
+      "bottom": "Unten",
+      "boxShadowBlur": "Weichzeichnen",
+      "boxShadowColor": "Farbe",
+      "boxShadowH": "X",
+      "boxShadowSpread": "Ausdehnung",
+      "boxShadowType": "Typ",
+      "boxShadowV": "Y",
+      "display": "Anzeige",
+      "flexBasis": "Flex-Basis",
+      "flexDirection": "Flex-Richtung",
+      "flexGrow": "Flex-Wachstum",
+      "flexShrink": "Flex-Schrumpfen",
+      "flexWrap": "Flex-Umbruch",
+      "float": "Umfließen",
+      "justifyContent": "Inhalt ausrichten",
+      "left": "Links",
+      "marginBottomSub": "Unten",
+      "marginLeftSub": "Links",
+      "marginRightSub": "Rechts",
+      "marginTopSub": "Oben",
+      "order": "Reihenfolge",
+      "paddingBottomSub": "Unten",
+      "paddingLeftSub": "Links",
+      "paddingRightSub": "Rechts",
+      "paddingTopSub": "Oben",
+      "position": "Position",
+      "right": "Rechts",
+      "textShadowBlur": "Weichzeichnen",
+      "textShadowColor": "Farbe",
+      "textShadowH": "X",
+      "textShadowV": "Y",
+      "top": "Oben",
+      "transformRotateX": "X drehen",
+      "transformRotateY": "Y drehen",
+      "transformRotateZ": "Z drehen",
+      "transformScaleX": "X skalieren",
+      "transformScaleY": "Y skalieren",
+      "transformScaleZ": "Z skalieren",
+      "transitionDurationSub": "Dauer",
+      "transitionPropertySub": "Eigenschaft",
+      "transitionTimingFunctionSub": "Timing"
+    },
+    "selectorManager": {
+      "active": "Klick",
+      "emptyState": "- Status -",
+      "evenOdd": "Gerade/Ungerade",
+      "hover": "Darüberfahren",
+      "label": "Klassen",
+      "selected": "Ausgewählt"
+    },
+    "styleManager": {
+      "empty": "Wähle ein Element aus, bevor du den Stil-Manager verwendest",
+      "fileButton": "Bilder",
+      "layer": "Ebene"
+    },
+    "traitManager": {
+      "empty": "Wähle ein Element aus, bevor du den Einstellungs-Manager verwendest",
+      "label": "Komponenteneinstellungen",
+      "newWindow": "Neues Fenster",
+      "thisWindow": "Dieses Fenster"
+    }
+  },
+  "iconPicker": {
+    "addHelp": "Dieses Icon zu deiner Seite hinzufügen.",
+    "changeIcon": "Icon ändern",
+    "closeHelp": "Schließen, ohne ein Icon auszuwählen.",
+    "noResults": "Keine Ergebnisse",
+    "pickIcon": "Icon auswählen",
+    "replaceHelp": "Dieses Icon statt des ausgewählten verwenden.",
+    "searchHelp": "Gib ein, was das Icon zeigen soll, zum Beispiel „Telefon“, „Stern“ oder „Warenkorb“.",
+    "searchPlaceholder": "Icons suchen …",
+    "useIcon": "Das Icon „{name}“ verwenden"
+  },
+  "iconSets": {
+    "all": {
+      "help": "Icons aus allen Stilen gleichzeitig durchsuchen.",
+      "label": "Alle"
+    },
+    "fa6Brands": {
+      "help": "Nur Logos bekannter Unternehmen aus der Font-Awesome-Sammlung anzeigen.",
+      "label": "FA Brands"
+    },
+    "fa6Solid": {
+      "help": "Nur ausgefüllte Icons aus der Font-Awesome-Sammlung anzeigen.",
+      "label": "FA Solid"
+    },
+    "heroicons": {
+      "help": "Nur Icons im Heroicons-Stil anzeigen: klare Konturen.",
+      "label": "Heroicons"
+    },
+    "lucide": {
+      "help": "Nur Icons im Lucide-Stil anzeigen: schlicht mit dünnen Linien.",
+      "label": "Lucide"
+    },
+    "mdi": {
+      "help": "Nur Icons im Material-Stil anzeigen, wie bei vielen Android-Apps.",
+      "label": "Material"
+    },
+    "ph": {
+      "help": "Nur Icons im Phosphor-Stil anzeigen: freundlich und mit abgerundeten Linien.",
+      "label": "Phosphor"
+    },
+    "simpleIcons": {
+      "help": "Nur Logos bekannter Unternehmen, Apps und sozialer Netzwerke anzeigen.",
+      "label": "Marken"
+    },
+    "tabler": {
+      "help": "Nur Icons im Tabler-Stil anzeigen: schlichte Konturen, große Auswahl.",
+      "label": "Tabler"
+    }
+  },
+  "iconsPanel": {
+    "addHelp": "Dieses Icon im ausgewählten Bereich einfügen. Wenn nichts ausgewählt ist, wird es am Ende der Seite eingefügt.",
+    "addIcon": "Das Icon „{name}“ hinzufügen",
+    "clickToInsert": "Zum Einfügen klicken",
+    "failedToLoad": "Icons konnten nicht geladen werden",
+    "noResults": "Keine Ergebnisse",
+    "searchHelp": "Gib ein, was das Icon zeigen soll, zum Beispiel „Telefon“, „Stern“ oder „Warenkorb“.",
+    "searchPlaceholder": "Icons suchen …"
+  },
+  "languageTabs": {
+    "edited": "Du hast diese {language}-Seite selbst bearbeitet. Änderungen an der {main}-Version werden hier nicht übernommen.",
+    "help": "Deine App ist in mehreren Sprachen verfügbar. Wähle eine Sprache, um diese Seite darin zu bearbeiten. Änderungen der KI werden ebenfalls in dieser Sprache übernommen.",
+    "label": "Sprache",
+    "missing": "Diese Seite ist noch nicht auf {language} übersetzt. Deshalb siehst du die {main}-Version. Deine Änderungen hier werden zur {language}-Seite.",
+    "shared": "Die Stile gelten für alle Sprachen.",
+    "stale": "Die {main}-Version dieser Seite wurde nach der Übersetzung geändert. Aktualisiere die Übersetzungen in der App-Übersicht oder bearbeite diese Seite selbst.",
+    "tabHelp": "Diese Seite auf {language} bearbeiten."
+  },
+  "modules": {
+    "addHelp": "Tippe, um zu sehen, was diese Funktion deiner App hinzufügt. Es ändert sich erst etwas, wenn du bestätigst. Deine Seite wird zuerst gespeichert.",
+    "added": "Hinzugefügt",
+    "addedHelp": "Bereits in deiner App. Tippe, um zu sehen, was die Funktion bietet, oder füge sie noch einmal hinzu.",
+    "categories": {
+      "all": {
+        "help": "Alle Funktionen anzeigen, die du hinzufügen kannst.",
+        "label": "Alle"
+      },
+      "commerce": {
+        "help": "Funktionen zum Verkaufen und Annehmen von Zahlungen, zum Beispiel ein Shop, Buchungen, Gutscheine oder Spenden.",
+        "label": "Shop"
+      },
+      "communication": {
+        "help": "Funktionen, mit denen du mit Besuchern in Kontakt bleibst, zum Beispiel ein Kontaktformular, Newsletter oder Nachrichten.",
+        "label": "Kommunikation"
+      },
+      "community": {
+        "help": "Funktionen, die Menschen zusammenbringen, zum Beispiel Veranstaltungen, Bewertungen, Chats und Foren.",
+        "label": "Community"
+      },
+      "content": {
+        "help": "Funktionen zum Teilen von Texten und Neuigkeiten, zum Beispiel ein Blog, FAQs, ein Portfolio oder ein Kurs.",
+        "label": "Inhalte"
+      },
+      "media": {
+        "help": "Funktionen für Fotos, Videos, Musik und andere Medien.",
+        "label": "Medien"
+      },
+      "productivity": {
+        "help": "Funktionen, mit denen du Dinge erledigen kannst, zum Beispiel To-do-Listen, Notizen, Termine und Umfragen.",
+        "label": "Produktivität"
+      },
+      "utility": {
+        "help": "Praktische Extras, zum Beispiel Anmeldung, Karten, Datei-Uploads und ein Wetter-Widget.",
+        "label": "Tools"
+      }
+    },
+    "categoryHelp": "Nur Funktionen aus dieser Gruppe anzeigen.",
+    "empty": "Hier gibt es noch keine Funktionen",
+    "footer": "Tippe auf eine Funktion, um zu sehen, was sie deiner App hinzufügt",
+    "loading": "Funktionen werden geladen …",
+    "nameAdded": "{name} (hinzugefügt)",
+    "notSaved": "Deine letzten Änderungen wurden noch nicht gespeichert. Deshalb haben wir nichts hinzugefügt. Prüfe deine Internetverbindung und versuche es noch einmal.",
+    "savingPage": "Deine Seite wird gespeichert …",
+    "searchHelp": "Gib ein, was deine App können soll, zum Beispiel „Buchungen“ oder „Newsletter“, um eine passende Funktion zu finden.",
+    "searchLabel": "Funktionen suchen",
+    "searchPlaceholder": "Funktionen suchen …"
+  },
+  "pageSettings": {
+    "audience": "Wer kann diese Seite sehen?",
+    "audienceHelp": "Wähle aus, wer diese Seite in deiner veröffentlichten App öffnen kann: alle, nur angemeldete Personen oder nur Admins.",
+    "audiences": {
+      "admin": {
+        "hint": "Nur du und Personen, die du zu Admins machst.",
+        "label": "Nur Admins"
+      },
+      "public": {
+        "hint": "Alle, die den Link haben, können die Seite öffnen.",
+        "label": "Alle"
+      },
+      "role": {
+        "hint": "Wird von der Seite selbst festgelegt. Wähle eine andere Option, um das zu ändern.",
+        "label": "Personen mit der Rolle „{role}“"
+      },
+      "signedIn": {
+        "hint": "Besucher müssen sich zuerst anmelden. Jeder kann ein Konto erstellen.",
+        "label": "Angemeldete Personen"
+      }
+    },
+    "buttonNote": "Sie wird am Ende des Menüs als Schaltfläche angezeigt.",
+    "close": "Seiteneinstellungen schließen",
+    "designerNote": "Die Seiten dieser App werden vom KI-Designer erstellt. Änderungen nimmst du dort vor.",
+    "duplicate": "Duplizieren",
+    "duplicateHelp": "Erstellt eine Kopie dieser Seite mit dem Namen „(Kopie)“ und öffnet sie, damit du sie bearbeiten kannst. Nicht gespeicherte Änderungen an den Einstellungen werden nicht übernommen.",
+    "goesAtEnd": "Sie steht am Ende des Menüs. Nach dem Speichern kannst du sie verschieben.",
+    "homeFirst": "Die Startseite steht immer an erster Stelle.",
+    "loadFailed": "Die Einstellungen dieser Seite konnten nicht geladen werden.",
+    "loadFailedRetry": "Die Einstellungen dieser Seite konnten nicht geladen werden. Bitte versuche es noch einmal.",
+    "menu": "Menü",
+    "menuHelp": "Hier legst du fest, ob diese Seite im App-Menü verlinkt ist und an welcher Stelle sie steht.",
+    "moveDown": "Nach unten",
+    "moveDownHelp": "Verschiebt diese Seite im Menü um eine Position nach unten. Die Änderung wird beim Speichern übernommen.",
+    "moveUp": "Nach oben",
+    "moveUpHelp": "Verschiebt diese Seite im Menü um eine Position nach oben. Die Änderung wird beim Speichern übernommen.",
+    "name": "Name",
+    "nameHint": "Wird im Menü und im Browser-Tab angezeigt.",
+    "neverInMenu": "Diese Seite wird nie im Menü angezeigt.",
+    "noLogin": "Deine App hat noch keine Anmeldeseite. Deshalb kannst nur du diese Seite öffnen. <link>Füge unter „Funktionen“ „Anmeldung und Konten“ hinzu.</link>",
+    "placeInManage": "Position im Admin-Menü „Verwalten“: <b>{position}</b> von {count}",
+    "placeInMenu": "Position im Menü: <b>{position}</b> von {count}",
+    "privatePublic": "Diese Seite zeigt private Daten. Wenn du sie öffentlich machst, sind diese Daten für alle sichtbar.",
+    "privateSignedIn": "Diese Seite zeigt private Daten. Alle, die sich anmelden, können sie sehen.",
+    "saveFirst": "Speichere zuerst, dann kannst du die Position im Menü festlegen.",
+    "saveHelp": "Speichert diese Einstellungen. Das Menü wird auf allen Seiten deiner App entsprechend aktualisiert.",
+    "showInMenu": "Im Menü anzeigen",
+    "showInMenuHelp": "Aktiviere die Option, um im App-Menü einen Link zu dieser Seite anzuzeigen. Deaktiviere sie, um den Link auszublenden. Über den Link können andere die Seite weiterhin öffnen.",
+    "title": "Seiteneinstellungen"
+  },
+  "panelHelp": {
+    "blockTip": "{about} Tippe, um es unter dem ausgewählten Teil hinzuzufügen, oder ziehe es auf die Seite.",
+    "blockTipGeneric": "Tippen oder ziehen: Tippe auf „{label}“, um es unter dem ausgewählten Teil hinzuzufügen, oder ziehe es an die gewünschte Stelle.",
+    "categoryGeneric": "Eine Gruppe von Bausteinen. Klicke auf den Namen, um sie ein- oder auszublenden.",
+    "imagePicker": {
+      "addButton": "Fügt das Bild von der eingegebenen Webadresse zur Liste unten hinzu. Klicke dann darauf, um es zu verwenden.",
+      "asset": "Klicke, um dieses Bild auf deiner Seite zu verwenden. Doppelklicke, um es zu verwenden und dieses Fenster zu schließen.",
+      "close": "Schließt dieses Fenster. Bilder, auf die du bereits geklickt hast, bleiben auf deiner Seite.",
+      "closeLabel": "Schließen",
+      "removeAsset": "Entfernt dieses Bild aus der Liste. Bilder, die bereits auf deiner Seite sind, bleiben dort.",
+      "removeLabel": "Aus Liste entfernen",
+      "upload": "Wähle ein Bild von deinem Computer oder Handy aus oder ziehe es hierher. Es wird auf deiner Seite gespeichert und zur Liste unten hinzugefügt.",
+      "urlInput": "Füge die Webadresse eines Bildes ein, das bereits online ist, und klicke auf „Bild hinzufügen“, um es in die Liste unten aufzunehmen."
+    },
+    "layers": {
+      "layerRow": "Ein Element deiner Seite. Klicke, um es auszuwählen. Mit dem Pfeil kannst du öffnen, was darin verschachtelt ist.",
+      "move": "Hier greifen und ziehen, um das Element an eine andere Stelle auf der Seite zu verschieben.",
+      "visibility": "Klicke auf das Auge, um dieses Element während der Arbeit auszublenden. Es ist weiterhin da, nur versteckt. Klicke erneut, um es wieder einzublenden."
+    },
+    "rte": {
+      "bold": "Hebt den markierten Text fett hervor. Klicke erneut, um die Änderung rückgängig zu machen.",
+      "italic": "Setzt den markierten Text kursiv. Klicke erneut, um die Änderung rückgängig zu machen.",
+      "link": "Macht den markierten Text zu einem Link oder entfernt den Link. Lege dann im Tab „Einstellungen“ das Linkziel fest.",
+      "strikeThrough": "Streicht den markierten Text durch. Klicke erneut, um die Linie zu entfernen.",
+      "underline": "Unterstreicht den markierten Text. Klicke erneut, um die Linie zu entfernen.",
+      "wrapForStyle": "Fasst den markierten Text in ein eigenes Element, damit du seine Farbe oder Größe im Tab „Design“ ändern kannst."
+    },
+    "sectors": {
+      "advEffects": "Schatten, Überblendungen, Hintergrundbilder und fließende Animationen.",
+      "advFlex": "Legt fest, wie die Elemente in dieser Box in Reihen oder Spalten angeordnet werden.",
+      "advLayout": "Wo dieses Element sitzt und wie es fixiert ist. Die meisten Seiten brauchen diese Einstellungen nicht.",
+      "advSize": "Legt fest, wie breit oder hoch dieses Element auf verschiedenen Bildschirmen werden kann.",
+      "advText": "Schriftarten, Zeilenabstand, Buchstabenabstand und Textschatten.",
+      "background": "Was den Hintergrund dieses Elements füllt – eine Farbe, ein Farbverlauf oder ein Bild.",
+      "colors": "Die Farbe hinter diesem Element.",
+      "corners": "Runde die Ecken ab oder füge einen Rand hinzu.",
+      "decorations": "Das Aussehen: Hintergrundfarben und -bilder, Ränder, abgerundete Ecken und Schatten.",
+      "dimension": "Größe und Abstände: wie groß dieses Element ist und wie viel Platz es außen und innen lässt.",
+      "extra": "Extras wie fließende Animationen und Neigungen.",
+      "flex": "Damit kannst du die Elemente in dieser Box ordentlich in Reihen oder Spalten anordnen.",
+      "general": "Die Grundlagen: wo dieses Element auf der Seite sitzt und wie es verankert ist.",
+      "layout": "Wo dieses Element auf der Seite sitzt und wie die anderen Elemente darum angeordnet sind.",
+      "size": "Wie breit und hoch dieses Element ist.",
+      "spacing": "Der Platz innerhalb dieses Elements (zwischen Rand und Inhalt) und außerhalb (zwischen diesem Element und den anderen).",
+      "text": "So sieht der Text aus: Größe, Stärke, Farbe und Ausrichtung.",
+      "typography": "Alles rund um den Text: Schriftart, Größe, Farbe und Ausrichtung."
+    },
+    "selectors": {
+      "addClass": "Gib diesem Element einen gemeinsamen Stilnamen. Alle Elemente mit demselben Namen sehen gleich aus. Wenn du eines änderst, ändern sich alle.",
+      "selectedInfo": "Genau das wird gerade gestaltet – so ist klar, was sich ändert.",
+      "states": "Lege den Stil für einen bestimmten Moment fest. Wähle „hover“, damit deine Änderungen nur angezeigt werden, wenn sich der Mauszeiger über dem Element befindet, oder „click“, wenn es gedrückt wird. Mit „- State -“ kehrst du zum normalen Stil zurück.",
+      "tag": "Ein gemeinsamer Stilname für dieses Element. Änderungen gelten für alle Elemente mit diesem Namen. Klicke auf das x, um den Namen für dieses Element zu entfernen."
+    },
+    "styles": {
+      "alignContent": "Wenn die Elemente auf weitere Zeilen umbrechen, verteilt diese Einstellung die Zeilen: zusammen, mittig oder mit Abstand.",
+      "alignItems": "Wie die Elemente quer zur Reihe ausgerichtet werden: oben, mittig, unten oder so gestreckt, dass alle gleich groß sind.",
+      "alignSelf": "Ermöglicht es DIESEM Element, sich anders als die anderen auszurichten – oben, mittig, unten oder gestreckt.",
+      "background": "Was den Hintergrund dieses Elements füllt – eine Farbe, ein sanfter Farbverlauf oder ein Bild. Du kannst sogar mehrere übereinanderlegen.",
+      "backgroundAttachment": "„Scroll“ bewegt den Hintergrund mit der Seite. „Fixed“ hält ihn fest, während die Seite darübergleitet – ein cooler Tiefeneffekt.",
+      "backgroundColor": "Die Füllfarbe hinter dem Inhalt dieses Elements.",
+      "backgroundImage": "Ein Bild oder Farbverlauf als Hintergrund für dieses Element.",
+      "backgroundPosition": "Welcher Ausschnitt des Hintergrundbilds zu sehen ist – verschiebe es nach links oder rechts und nach oben oder unten.",
+      "backgroundRepeat": "Legt fest, ob das Hintergrundbild wie Badezimmerfliesen wiederholt wird oder nur einmal erscheint.",
+      "backgroundSize": "Wie das Bild den Platz ausfüllt: „cover“ füllt alles aus (die Ränder können abgeschnitten werden), „contain“ zeigt das ganze Bild (es können Lücken bleiben).",
+      "border": "Die Linie am Rand dieses Elements. Lege ihre Stärke, ihren Stil (durchgezogen, gestrichelt, gepunktet) und ihre Farbe fest.",
+      "borderBottomLeftRadius": "Rundet nur die UNTERE LINKE Ecke ab.",
+      "borderBottomRightRadius": "Rundet nur die UNTERE RECHTE Ecke ab.",
+      "borderColor": "Die Farbe der Randlinie.",
+      "borderRadius": "Wie stark die Ecken abgerundet sind. 0 = eckig, größere Werte = runder. Mit einem sehr hohen Wert wird aus einem Kasten eine Kapsel oder ein Kreis.",
+      "borderStyle": "So sieht die Randlinie aus: durchgezogen, gestrichelt (- - -) oder gepunktet (• • •).",
+      "borderTopLeftRadius": "Rundet nur die OBERE LINKE Ecke ab.",
+      "borderTopRightRadius": "Rundet nur die OBERE RECHTE Ecke ab.",
+      "borderWidth": "Wie dick die Randlinie ist. 0 bedeutet, dass keine Linie angezeigt wird.",
+      "bottom": "Der Abstand dieses Elements von UNTEN. Funktioniert nur, wenn Position nicht „static“ ist.",
+      "boxShadow": "Ein weicher Schatten hinter diesem Element, der es wie eine Karte auf einem Tisch von der Seite abhebt. Lege Richtung, Unschärfe, Größe und Farbe fest.",
+      "boxShadowBlur": "Wie unscharf der Schatten ist. 0 hat eine harte Kante; größere Werte machen ihn weicher und sanfter.",
+      "boxShadowColor": "Die Farbe des Schattens. Weiches Grau oder durchsichtiges Schwarz sieht meist am besten aus.",
+      "boxShadowH": "Verschiebt den Schatten nach links oder rechts. Negative Werte verschieben ihn nach links.",
+      "boxShadowSpread": "Wie weit sich der Schatten in alle Richtungen ausbreitet. Größere Werte ergeben einen breiteren Schatten.",
+      "boxShadowType": "„Outside“ platziert den Schatten hinter dem Element. „Inside“ lässt ihn wie eine Vertiefung ins Element hineingehen.",
+      "boxShadowV": "Verschiebt den Schatten nach oben oder unten. Negative Werte verschieben ihn nach oben.",
+      "color": "Die Textfarbe. Klicke auf das Farbfeld, um eine Farbe auszuwählen.",
+      "cursor": "Wie sich der Mauszeiger über diesem Element verändert. „Pointer“ (die kleine Hand) zeigt, dass man darauf klicken kann.",
+      "display": "Wie dieses Element auf der Seite sitzt. „Block“ nimmt eine ganze Zeile ein. „Inline“ sitzt neben anderen Elementen, wie ein Wort im Satz. „Flex“ ordnet die Elemente darin ordentlich an. „None“ blendet es vollständig aus.",
+      "flexBasis": "Die Ausgangsgröße dieses Elements, bevor es wächst oder schrumpft, um den Platz zu teilen.",
+      "flexDirection": "Ordnet die Elemente in diesem Kasten in einer REIHE (nebeneinander) oder SPALTE (von oben nach unten) an. „Reverse“ kehrt die Reihenfolge um.",
+      "flexGrow": "Lässt dieses Element wachsen, um freien Platz zu nutzen. Ein Element mit 2 bekommt doppelt so viel Platz wie eines mit 1. 0 bedeutet: nicht wachsen.",
+      "flexShrink": "Lässt dieses Element schrumpfen, wenn der Platz knapp wird. Größere Werte bedeuten stärkeres Schrumpfen. 0 bedeutet: nicht schrumpfen.",
+      "flexWrap": "Legt fest, ob Elemente, die nicht mehr passen, in die nächste Zeile springen („wrap“) oder sich in eine Zeile quetschen („nowrap“).",
+      "float": "Schiebt dieses Element nach links oder rechts und lässt Text darum herumfließen – wie bei einem Foto in der Zeitung. „None“ lässt es an seinem normalen Platz.",
+      "fontFamily": "Der Schriftstil. Verschiedene Schriftarten wirken unterschiedlich – verspielt, seriös oder elegant. Wähle eine aus, und der Text ändert sich sofort.",
+      "fontSize": "Wie groß die Buchstaben sind. Normaler Lesetext ist etwa 16px groß, große Überschriften 32px oder mehr.",
+      "fontWeight": "Wie kräftig die Buchstaben sind. 400 ist normal, 700 ist fett. Fetter Text fällt stärker auf.",
+      "height": "Wie hoch dieses Element ist. „auto“ bedeutet, dass es gerade so groß wird, wie für den Inhalt nötig – meist die sicherste Wahl.",
+      "justifyContent": "Wie die Elemente entlang der Reihe oder Spalte verteilt werden: am Anfang gesammelt, mittig oder mit gleichmäßigem Abstand.",
+      "left": "Der Abstand dieses Elements von LINKS. Funktioniert nur, wenn Position nicht „static“ ist.",
+      "letterSpacing": "Der Abstand zwischen den Buchstaben. Etwas mehr Platz lässt Titel edel wirken; zu viel erschwert das Lesen.",
+      "lineHeight": "Der Abstand zwischen den Zeilen eines Absatzes. Etwa 1,5 ist angenehm zu lesen; bei 1 rücken die Zeilen eng zusammen.",
+      "margin": "Der freie Platz AUSSERHALB dieses Elements – er hält die benachbarten Elemente auf Abstand. Eine größere Zahl bedeutet mehr Platz darum herum.",
+      "marginBottom": "Freier Platz UNTERHALB dieses Elements. Er schiebt das nächste Element weiter nach unten.",
+      "marginLeft": "Freier Platz LINKS von diesem Element. Er hält die benachbarten Elemente auf dieser Seite auf Abstand.",
+      "marginRight": "Freier Platz RECHTS von diesem Element. Er hält die benachbarten Elemente auf dieser Seite auf Abstand.",
+      "marginTop": "Freier Platz OBERHALB dieses Elements. Er schiebt es nach unten und hält Abstand zum Element darüber.",
+      "maxHeight": "Die maximale Höhe. Zusätzlicher Inhalt wird abgeschnitten oder kann gescrollt werden.",
+      "maxWidth": "Die maximale Breite, auch auf sehr großen Bildschirmen. So bleiben Textzeilen gut lesbar.",
+      "minHeight": "Die geringste Höhe, auch wenn das Element leer ist. Praktisch, damit Bereiche nicht in sich zusammenfallen.",
+      "minWidth": "Die geringste Breite, auch auf sehr kleinen Bildschirmen.",
+      "opacity": "Wie durchsichtig dieses Element ist. 100 ist vollständig deckend; niedrigere Werte lassen es verblassen. Bei 0 ist es unsichtbar.",
+      "order": "Ändert die Reihenfolge dieses Elements, ohne die anderen zu verschieben. Niedrigere Werte kommen zuerst.",
+      "overflow": "Legt fest, was passiert, wenn der Inhalt zu groß für die Box ist: „hidden“ schneidet ihn ab, „scroll“/„auto“ fügt Bildlaufleisten hinzu, „visible“ lässt ihn über den Rand hinausragen.",
+      "padding": "Der Innenabstand dieses Elements – der Platz zwischen Rand und Inhalt. Mehr Innenabstand lässt Buttons und Karten großzügiger wirken.",
+      "paddingBottom": "Innenabstand UNTEN, zwischen Rand und Inhalt.",
+      "paddingLeft": "Innenabstand LINKS, zwischen Rand und Inhalt.",
+      "paddingRight": "Innenabstand RECHTS, zwischen Rand und Inhalt.",
+      "paddingTop": "Innenabstand OBEN, zwischen Rand und Inhalt.",
+      "perspective": "Erzeugt 3D-Tiefe für geneigte Elemente. Kleinere Werte wirken stärker dreidimensional – wie etwas, das du nah vor dein Gesicht hältst.",
+      "position": "Wie dieses Element verankert ist. „Static“ = der normale Platz. „Relative“ = verschiebt es leicht von seinem normalen Platz. „Absolute“ = fixiert es an einer beliebigen Stelle innerhalb seiner Box. „Fixed“ = heftet es an den Bildschirm, sodass es beim Scrollen an Ort und Stelle bleibt.",
+      "right": "Der Abstand dieses Elements von RECHTS. Funktioniert nur, wenn Position nicht „static“ ist.",
+      "textAlign": "Wie der Text ausgerichtet wird: links, mittig, rechts oder bündig an beiden Seiten (Blocksatz).",
+      "textDecoration": "Zusätzliche Linien am Text: unterstreichen, durchstreichen oder „none“ wählen, um die Linie zu entfernen, die Links oft haben.",
+      "textShadow": "Ein weicher Schatten hinter den Buchstaben, der sie vom Hintergrund abhebt. Lege Abstand, Unschärfe und Farbe fest.",
+      "textShadowBlur": "Wie unscharf der Buchstabenschatten ist. 0 ist scharf, größere Werte machen ihn weicher.",
+      "textShadowColor": "Die Farbe des Buchstabenschattens.",
+      "textShadowH": "Verschiebt den Buchstabenschatten nach links oder rechts. Negative Werte verschieben ihn nach links.",
+      "textShadowV": "Verschiebt den Buchstabenschatten nach oben oder unten. Negative Werte verschieben ihn nach oben.",
+      "textTransform": "Ändert die Groß- und Kleinschreibung für dich: ALLES GROSS, alles klein oder Jedes Wort Groß.",
+      "top": "Der Abstand dieses Elements von OBEN. Funktioniert nur, wenn Position nicht „static“ ist.",
+      "transform": "Dreht, neigt, vergrößert oder verkleinert dieses Element, ohne andere Elemente zu verschieben.",
+      "transformRotateX": "Neigt das Element nach hinten oder vorne, wie eine umkippende Tür.",
+      "transformRotateY": "Dreht das Element seitwärts, wie eine sich drehende Tür.",
+      "transformRotateZ": "Dreht das Element flach, wie einen Zeiger auf einer Uhr. 180 dreht es auf den Kopf.",
+      "transformScaleX": "Dehnt oder staucht das Element SEITWÄRTS. 1 ist normal, 2 ist doppelt so breit.",
+      "transformScaleY": "Dehnt oder staucht das Element nach OBEN UND UNTEN. 1 ist normal, 2 ist doppelt so hoch.",
+      "transformScaleZ": "Skaliert das Element in der 3D-Tiefe – das fällt nur bei gedrehten Elementen auf.",
+      "transition": "Lässt Stiländerungen sanft statt sofort erfolgen – zum Beispiel, wenn ein Button beim Darüberfahren mit der Maus langsam die Farbe ändert.",
+      "transitionDuration": "Wie lange die sanfte Änderung dauert. 0,3 s wirkt flott; 2 s wirkt langsam und dramatisch.",
+      "transitionProperty": "WELCHER Stil sanft animiert werden soll – zum Beispiel „all“, nur die Farbe oder nur die Größe.",
+      "transitionTimingFunction": "Der Ablauf der Änderung: gleichmäßig von Anfang bis Ende („linear“) oder sanft ein- und ausblenden, wie ein Auto beim Bremsen („ease“).",
+      "verticalAlign": "Richtet dieses Element am Text daneben aus – oben, mittig oder unten.",
+      "width": "Wie breit dieses Element ist. Mit 100 % füllt es den verfügbaren Platz aus. Oder gib eine feste Größe ein, zum Beispiel 300px.",
+      "zIndex": "Legt fest, welches Element oben liegt, wenn sich zwei überlappen. Eine größere Zahl bedeutet: näher bei dir, wie die oberste Karte in einem Stapel."
+    },
+    "traits": {
+      "address": "Die Webadresse des hier angezeigten Bildes oder Videos.",
+      "answerName": "Unter diesem Namen speichert deine App die Antwort, zum Beispiel „E-Mail“. Halte ihn kurz und einfach.",
+      "belongsToField": "Zu welchem Formularfeld diese Beschriftung gehört. Wenn du auf die Beschriftung klickst, wird der Cursor in das Feld gesetzt.",
+      "buttonWords": "Der Text auf dieser Schaltfläche.",
+      "goesTo": "Wohin dieser Link führt. Nutze /seitenname für eigene Seiten oder eine vollständige https://-Adresse für andere Websites.",
+      "hintText": "Der graue Hinweis im leeren Feld, zum Beispiel „Namen eingeben“. Er verschwindet, sobald jemand tippt.",
+      "hoverNote": "Ein kurzer Hinweis, der erscheint, wenn jemand mit der Maus über dieses Element fährt.",
+      "kind": "Art des Feldes: Text, E-Mail, Passwort (versteckt die Zeichen), Zahl und mehr. Mit der richtigen Art zeigen Handys die passende Tastatur an.",
+      "mustBeFilledIn": "Aktiviere diese Option, damit das Formular erst gesendet wird, wenn dieses Feld ausgefüllt ist.",
+      "openInANewTab": "Aktiviere diese Option, damit sich der Link in einem neuen Tab öffnet und deine App geöffnet bleibt.",
+      "pictureDescription": "Eine Beschreibung des Bildes für Menschen, die es nicht sehen können, und für Suchmaschinen. Schreib, was auf dem Bild zu sehen ist.",
+      "showItemsFrom": "Wähle aus, woher diese Liste ihre Einträge bezieht, zum Beispiel aus deinen Buchungen oder Produkten. Die Liste wird automatisch aktualisiert.",
+      "startingValue": "Was bereits eingetragen ist, wenn die Seite geöffnet wird.",
+      "tickedAtTheStart": "Legt fest, ob dieses Feld beim Öffnen der Seite bereits angekreuzt ist.",
+      "whenPressed": "Was diese Schaltfläche tut: das Formular absenden, das Formular leeren oder nichts (bei Schaltflächen mit einer anderen Funktion).",
+      "whenPressedRun": "Lege fest, was deine App macht, wenn diese Schaltfläche angeklickt wird. Du findest diese Optionen unter „Abläufe“.",
+      "whenSentRun": "Lege fest, was deine App mit den Antworten macht, wenn das Formular gesendet wird, zum Beispiel sie speichern oder eine E-Mail senden. Du findest diese Optionen unter „Abläufe“."
+    }
+  },
+  "rte": {
+    "bold": "Fett",
+    "italic": "Kursiv",
+    "link": "Link",
+    "strikeThrough": "Durchgestrichen",
+    "underline": "Unterstrichen",
+    "wrapForStyle": "Für Formatierung umschließen"
+  },
+  "settings": {
+    "address": "Adresse",
+    "answerName": "Antwortname",
+    "belongsToField": "Gehört zu Feld",
+    "buttonWords": "Buttontext",
+    "goesTo": "Führt zu",
+    "hintText": "Hinweistext",
+    "hoverNote": "Hinweis beim Darüberfahren",
+    "kind": "Typ",
+    "mustBeFilledIn": "Muss ausgefüllt werden",
+    "nothing": "Nichts",
+    "openInANewTab": "In neuem Tab öffnen",
+    "pictureDescription": "Bildbeschreibung",
+    "showItemsFrom": "Elemente anzeigen aus",
+    "startingValue": "Startwert",
+    "tickedAtTheStart": "Zu Beginn angehakt",
+    "whenPressed": "Beim Drücken",
+    "whenPressedRun": "Beim Drücken ausführen",
+    "whenSentRun": "Beim Absenden ausführen"
+  },
+  "shell": {
+    "addPage": "Seite hinzufügen",
+    "addPageHelp": "Füge deiner App eine neue, leere Seite hinzu. Gib als Nächstes ihren Namen ein. Sie erscheint dann im Menü deiner App.",
+    "closePages": "Seiten schließen",
+    "confirmDeletePage": "„{title}“ löschen? Das lässt sich nicht rückgängig machen.",
+    "confirmDiscardSwitch": "Nicht gespeicherte Änderungen auf dieser Seite verwerfen und wechseln?",
+    "couldNotSave": "Deine Änderung konnte nicht gespeichert werden. Bitte versuche es erneut.",
+    "deletePage": "Seite löschen",
+    "deletePageFor": "{title} löschen",
+    "deletePageHelp": "Lösche diese Seite und alles darauf. Du wirst um eine Bestätigung gebeten. Das lässt sich nicht rückgängig machen.",
+    "discardSwitch": "Änderungen verwerfen und wechseln",
+    "discardSwitchHelp": "Verwirf die nicht gespeicherten Änderungen auf dieser Seite und öffne dann die andere Seite. Diese Änderungen lassen sich nicht wiederherstellen.",
+    "dismiss": "Schließen",
+    "dismissError": "Fehlermeldung schließen",
+    "editing": "WIRD BEARBEITET",
+    "editsNotSaved": "Deine letzten Änderungen wurden nicht gespeichert. Prüfe deine Verbindung und versuche es erneut.",
+    "featureAdded": "{name} wurde hinzugefügt.",
+    "featureAddedWithPages": "{name} wurde hinzugefügt, mit eigenen Seiten. Sie sind jetzt im Menü.",
+    "findPage": "Seite suchen …",
+    "madeCopy": "Kopie erstellt. Du bearbeitest jetzt „{title}“.",
+    "mobileTip": "Tipp: Tippe auf einen Teil deiner Seite und dann auf einen Block, um ihn darunter hinzuzufügen. Oder tippe auf <b>KI fragen</b> und sag, was du ändern möchtest.",
+    "newPage": "Neue Seite",
+    "newPageHelp": "Füge deiner App eine neue, leere Seite hinzu. Gib ihr zuerst einen Namen.",
+    "noMatchingPages": "Keine passenden Seiten.",
+    "notSaved": "<b>Nicht gespeichert</b> – prüfe deine Verbindung. Wir versuchen es weiter.",
+    "open": "Öffnen",
+    "openHomePageHelp": "Öffne diese Seite im Editor. Das Haussymbol zeigt, dass sie deine Startseite ist – die erste Seite, die Besucher sehen.",
+    "openNewPage": "Neue Seite öffnen",
+    "openPageHelp": "Öffne diese Seite im Editor. Deine Änderungen auf der aktuellen Seite werden zuerst gespeichert.",
+    "pageCount": "{count, plural, one {# Seite} other {# Seiten}}",
+    "pageName": "Seitenname",
+    "pageNameHelp": "Der Name deiner neuen Seite. Er wird im Menü deiner App und im Browser-Tab angezeigt. Du kannst ihn später ändern.",
+    "pageNamePlaceholder": "z. B. Über uns",
+    "pagePickerHelp": "Die Seite, die du gerade bearbeitest. Klicke hier, um alle deine Seiten zu sehen, zu einer anderen zu wechseln oder Seiteneinstellungen zu ändern.",
+    "pageSettings": "Seiteneinstellungen",
+    "pageSettingsFor": "Seiteneinstellungen für {title}",
+    "pageSettingsHelp": "Benenne diese Seite um, wähle aus, wer sie sehen kann, blende sie im Menü deiner App ein oder aus oder erstelle eine Kopie.",
+    "pages": "Seiten",
+    "retry": "Erneut versuchen",
+    "retryHelp": "Versuche jetzt noch einmal, deine letzten Änderungen zu speichern, statt auf den nächsten automatischen Versuch zu warten.",
+    "savedSettings": "Einstellungen für „{title}“ gespeichert.",
+    "searchPages": "Seiten suchen",
+    "searchPagesHelp": "Gib einen Teil des Seitennamens ein, um die Liste einzugrenzen.",
+    "setHome": "Als Startseite festlegen",
+    "setHomeFor": "{title} als Startseite festlegen",
+    "setHomeHelp": "Lege fest, dass dies die erste Seite ist, die Besucher sehen, wenn sie die Webadresse deiner App öffnen.",
+    "somethingWrong": "Etwas ist schiefgelaufen. Bitte versuche es erneut.",
+    "theFeatureAdded": "Die Funktion wurde hinzugefügt.",
+    "theFeatureAddedWithPages": "Die Funktion wurde hinzugefügt, mit eigenen Seiten. Sie sind jetzt im Menü.",
+    "updating": "Dein Arbeitsbereich wird aktualisiert …",
+    "yourPages": "Deine Seiten"
+  },
+  "theme": {
+    "colorCodeHelp": "Oder gib hier einen Farbcode ein, zum Beispiel #1a73e8, wenn du genau weißt, welche Farbe du möchtest.",
+    "colorCodeLabel": "Farbcode: {name}",
+    "colorLabel": "Farbe: {name}",
+    "colors": {
+      "accent": {
+        "help": "Eine zweite Farbe für kleine Details wie Abzeichen und dekorative Formen.",
+        "label": "Akzentfarbe"
+      },
+      "bg": {
+        "help": "Die Farbe hinter allen Elementen deiner Seiten.",
+        "label": "Hintergrund"
+      },
+      "border": {
+        "help": "Die Farbe dünner Linien um Felder und zwischen Bereichen.",
+        "label": "Rahmen"
+      },
+      "primary": {
+        "help": "Deine wichtigste Markenfarbe. Sie wird für Schaltflächen, Links und Hervorhebungen verwendet.",
+        "label": "Primärfarbe"
+      },
+      "primary2": {
+        "help": "Die Farbe, zu der Schaltflächen und Links wechseln, wenn man mit dem Mauszeiger darauf zeigt.",
+        "label": "Primärfarbe bei Hover"
+      },
+      "surface": {
+        "help": "Die Farbe von Karten und Feldern, die sich vom Hintergrund abheben.",
+        "label": "Fläche"
+      },
+      "surface2": {
+        "help": "Eine zweite Feldfarbe, mit der du bestimmte Bereiche und Beschriftungen hervorheben kannst.",
+        "label": "Alternative Fläche"
+      },
+      "text": {
+        "help": "Die Farbe für den meisten Text auf deinen Seiten.",
+        "label": "Text"
+      },
+      "textMuted": {
+        "help": "Eine dezentere Farbe für weniger wichtige Texte wie Bildunterschriften und kurze Hinweise.",
+        "label": "Abgeschwächter Text"
+      }
+    },
+    "colorsTitle": "Farben",
+    "corners": "Ecken",
+    "dark": "Dunkel",
+    "darkHelp": "Wechsle zum ersten fertigen dunklen Design. Dabei werden deine aktuellen Farben und Schriftarten ersetzt.",
+    "darkPair": "Dunkelmodus-Paar",
+    "darkPairAuto": "Automatisch (erstes dunkles Design)",
+    "darkPairHelp": "Die Farben, zu denen deine App wechselt, wenn Besucher über die Sonne-/Mond-Schaltfläche den Dunkelmodus aktivieren. „Automatisch“ wählt passende Farben für dich aus.",
+    "darkPairNote": "Nutzer sehen auf jeder Seite einen Sonnen-/Mondschalter.",
+    "light": "Hell",
+    "lightHelp": "Wechsle zum ersten fertigen hellen Design. Dabei werden deine aktuellen Farben und Schriftarten ersetzt.",
+    "loading": "Design wird geladen …",
+    "mode": "Modus",
+    "pickTheme": "Design auswählen …",
+    "preset": "Vorlage",
+    "presetButtonHelp": "Wähle ein fertiges Design für deine ganze App. Es ersetzt deine aktuellen Farben, Schriftarten und Ecken. Besucher sehen es, sobald du veröffentlichst.",
+    "presetHelp": "Fertige Farb- und Schriftkombinationen für deine ganze App. Wähle eine als Ausgangspunkt und passe die Farben unten an.",
+    "radius": "Radius",
+    "roundness": "Rundung der Ecken",
+    "roundnessHelp": "Legt fest, wie rund die Ecken von Buttons, Karten und Boxen in deiner App sind. Schiebe den Regler nach links für eckige und nach rechts für rundere Ecken.",
+    "useLook": "Das Design „{name}“ verwenden: Es ersetzt deine aktuellen Farben, Schriftarten und Ecken."
+  },
+  "toolbar": {
+    "delete": {
+      "help": "Entferne dieses Element von der Seite. Umentschieden? Nutze oben „Rückgängig“.",
+      "title": "Löschen"
+    },
+    "drag": {
+      "help": "Halte hier gedrückt und ziehe das Element an eine beliebige Stelle auf der Seite. Auf einem Touchscreen kannst du es mit „Nach oben verschieben“ und „Nach unten verschieben“ bewegen.",
+      "title": "Zum Verschieben ziehen"
+    },
+    "duplicate": {
+      "help": "Erstelle eine Kopie dieses Elements direkt darunter.",
+      "title": "Duplizieren"
+    },
+    "moveDown": {
+      "help": "Verschiebe dieses Element auf der Seite einen Schritt nach unten, unter das nächste Element. Mit Rückgängig machst du das rückgängig.",
+      "title": "Nach unten verschieben"
+    },
+    "moveUp": {
+      "help": "Verschiebe dieses Element auf der Seite einen Schritt nach oben, über das vorherige Element. Mit Rückgängig machst du das rückgängig.",
+      "title": "Nach oben verschieben"
+    },
+    "selectParent": {
+      "help": "Wähle den größeren Bereich aus, in dem sich dieses Element befindet, zum Beispiel den ganzen Abschnitt um einen Button.",
+      "title": "Übergeordnetes Element auswählen"
+    }
+  },
+  "welcome": {
+    "askAi": "Tippe auf „KI fragen“, um größere Änderungen vorzunehmen, zum Beispiel „einen Preisbereich hinzufügen“.",
+    "clickWords": "Klicke auf beliebige Wörter auf der Seite, um sie zu ändern. Doppelklicke auf ein Bild, um es auszutauschen.",
+    "features": "Füge über <link>Funktionen</link> Dinge wie Buchungen oder einen Shop hinzu.",
+    "gotIt": "Alles klar",
+    "gotItHelp": "Blende diesen Begrüßungskasten aus und leg direkt mit der Bearbeitung los.",
+    "publish": "Wenn du zufrieden bist, <link>veröffentliche sie</link>, um einen Link zum Teilen zu erhalten.",
+    "title": "Deine App ist fertig. So kannst du sie anpassen:"
+  },
+  "wireUp": {
+    "blocks": {
+      "auth": {
+        "connectExisting": "<b>Verbinden</b> — verbindet beide Formulare mit der Anmeldung und den Konten deiner App. Es werden keine zusätzlichen Seiten erstellt.",
+        "connectNew": "<b>Verbinden</b> — fügt deiner App Konten sowie die An- und Registrierung hinzu und verbindet beide Formulare damit. Es werden keine zusätzlichen Seiten erstellt.",
+        "purpose": "Mit diesen Formularen können sich Personen anmelden und neue Konten erstellen."
+      },
+      "blog": {
+        "connectExisting": "<b>Verbinden</b> — verbindet diese Karten mit den Beiträgen, die es bereits in deiner App gibt. Es werden keine zusätzlichen Seiten erstellt.",
+        "connectNew": "<b>Verbinden</b> — erstellt eine Beitragstabelle mit den drei Beiträgen, die hier angezeigt werden, und verbindet diese Karten damit. Angezeigt werden nur veröffentlichte Beiträge. Füge Beiträge unter „Daten“ hinzu oder ändere sie dort. Es werden keine zusätzlichen Seiten erstellt.",
+        "purpose": "Diese Karten können die neuesten Beiträge anzeigen, die in den Daten deiner App gespeichert sind."
+      },
+      "contactForm": {
+        "connectExisting": "<b>Verbinden</b> — verbindet dieses Formular mit der Nachrichtentabelle, die es bereits in deiner App gibt. Es werden keine zusätzlichen Seiten erstellt.",
+        "connectNew": "<b>Verbinden</b> — erstellt eine Nachrichtentabelle und eine Automatisierung, die Nachrichten speichert, und verbindet dieses Formular damit. Es werden keine zusätzlichen Seiten erstellt.",
+        "purpose": "Mit diesem Formular kannst du Nachrichten speichern, die dir geschickt werden."
+      },
+      "contactFormModern": {
+        "connectExisting": "<b>Verbinden</b> — verbindet dieses Formular mit der Nachrichtentabelle, die es bereits in deiner App gibt. Es werden keine zusätzlichen Seiten erstellt.",
+        "connectNew": "<b>Verbinden</b> — erstellt eine Nachrichtentabelle (Name, E-Mail und Nachricht; die Handynummer wird nicht gespeichert) und eine Automatisierung, die Nachrichten speichert, und verbindet dieses Formular damit. Es werden keine zusätzlichen Seiten erstellt.",
+        "purpose": "Mit diesem Formular kannst du Nachrichten speichern, die dir geschickt werden."
+      },
+      "faq": {
+        "connectExisting": "<b>Verbinden</b> — verbindet diese Liste mit den Fragen, die es bereits in deiner App gibt. Es werden keine zusätzlichen Seiten erstellt.",
+        "connectNew": "<b>Verbinden</b> — erstellt eine Fragentabelle mit den vier Fragen, die hier angezeigt werden, und verbindet diese Liste damit. Füge Fragen unter „Daten“ hinzu oder ändere sie dort. Es werden keine zusätzlichen Seiten erstellt.",
+        "purpose": "Diese Liste kann Fragen und Antworten anzeigen, die in den Daten deiner App gespeichert sind."
+      },
+      "gallery": {
+        "connectExisting": "<b>Verbinden</b> — verbindet diese Galerie mit den Fotos, die es bereits in deiner App gibt. Es werden keine zusätzlichen Seiten erstellt.",
+        "connectNew": "<b>Verbinden</b> — erstellt eine Fototabelle mit den fünf Titeln, die hier angezeigt werden, und verbindet diese Galerie damit. Füge unter „Daten“ die Webadresse jedes Bildes hinzu. Es werden keine zusätzlichen Seiten erstellt.",
+        "purpose": "Diese Galerie kann Fotos anzeigen, die in den Daten deiner App gespeichert sind."
+      },
+      "newsletter": {
+        "connectExisting": "<b>Verbinden</b> — verbindet dieses Formular mit der Abonnentenliste, die es bereits in deiner App gibt. Es werden keine zusätzlichen Seiten erstellt.",
+        "connectNew": "<b>Verbinden</b> — erstellt eine Abonnententabelle und eine Automatisierung, die jede Anmeldung speichert, und verbindet dieses Formular damit. Es werden keine zusätzlichen Seiten erstellt.",
+        "purpose": "Mit diesem Formular kannst du die E-Mail-Adressen aller Personen speichern, die sich anmelden."
+      },
+      "reviews": {
+        "connectExisting": "<b>Verbinden</b> — verbindet diesen Abschnitt mit den freigegebenen Bewertungen, die es bereits in deiner App gibt. Es werden keine zusätzlichen Seiten erstellt.",
+        "connectNew": "<b>Verbinden</b> — erstellt eine Bewertungstabelle mit den drei Bewertungen, die hier angezeigt werden, und verbindet diesen Abschnitt damit. Angezeigt werden nur freigegebene Bewertungen. Verwalte sie unter „Daten“. Es werden keine zusätzlichen Seiten erstellt.",
+        "purpose": "Dieser Abschnitt kann Bewertungen anzeigen, die in den Daten deiner App gespeichert sind."
+      },
+      "services": {
+        "connectExisting": "<b>Verbinden</b> — verbindet dieses Raster mit den Leistungen, die es bereits in deiner App gibt. Es werden keine zusätzlichen Seiten erstellt.",
+        "connectNew": "<b>Verbinden</b> — erstellt eine Leistungstabelle mit den drei Leistungen, die hier angezeigt werden, und verbindet dieses Raster damit. Füge Leistungen unter „Daten“ hinzu oder ändere sie dort. Es werden keine zusätzlichen Seiten erstellt.",
+        "purpose": "Dieses Raster kann Leistungen anzeigen, die in den Daten deiner App gespeichert sind."
+      },
+      "team": {
+        "connectExisting": "<b>Verbinden</b> — verbindet dieses Raster mit den Teammitgliedern, die es bereits in deiner App gibt. Es werden keine zusätzlichen Seiten erstellt.",
+        "connectNew": "<b>Verbinden</b> — erstellt eine Teamtabelle mit den vier Personen, die hier angezeigt werden, und verbindet dieses Raster damit. Füge Personen unter „Daten“ hinzu oder ändere sie dort. Es werden keine zusätzlichen Seiten erstellt.",
+        "purpose": "Dieses Raster kann Teammitglieder anzeigen, die in den Daten deiner App gespeichert sind."
+      },
+      "testimonials": {
+        "connectExisting": "<b>Verbinden</b> — verbindet diesen Abschnitt mit den Bewertungen, die deine App bereits enthält. Es werden keine zusätzlichen Seiten hinzugefügt.",
+        "connectNew": "<b>Verbinden</b> — erstellt eine Bewertungstabelle mit den drei Zitaten, die hier angezeigt werden, und verbindet diesen Abschnitt damit. Füge Bewertungen unter „Daten“ hinzu oder ändere sie dort. Es werden keine zusätzlichen Seiten hinzugefügt.",
+        "purpose": "In diesem Abschnitt können Bewertungen aus den Daten deiner App angezeigt werden. So kannst du sie ändern, ohne die Seite zu bearbeiten."
+      }
+    },
+    "connect": "Ja, verbinden",
+    "connectHelp": "Richte ein, was dieser Block im Hintergrund braucht, zum Beispiel einen Speicherort für Nachrichten. Es werden keine zusätzlichen Seiten erstellt.",
+    "couldNotCheckFeatures": "Die Funktionen dieser App konnten nicht überprüft werden. Bitte versuche es noch einmal.",
+    "couldNotLoadFlows": "Die Automatisierungen dieser App konnten nicht geladen werden. Bitte versuche es noch einmal.",
+    "failedStatus": "Fehlgeschlagen ({status})",
+    "handle": "Nein, ich kümmere mich selbst darum",
+    "handleHelp": "Lass den Block unverändert auf deiner Seite, ohne etwas einzurichten. Du kannst ihn später in Flows oder mit der KI verbinden.",
+    "handleLine": "<b>Selbst übernehmen</b> — lässt den Block unverändert und ohne Verbindung. Du kannst ihn später in Flows oder mit der KI einrichten.",
+    "partMissing": "Diese Funktion ist in deiner App vorhanden, aber ein Teil davon fehlt. Du kannst diesen Block stattdessen in Flows verbinden.",
+    "settingUp": "Wird eingerichtet …",
+    "somethingWrong": "Etwas ist schiefgelaufen",
+    "title": "Verbinden?"
+  }
+}

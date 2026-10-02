@@ -1,0 +1,1908 @@
+{
+  "modules": {
+    "abandoned-cart": {
+      "description": "Lưu giỏ hàng khi khách thêm sản phẩm nhưng rời đi trước khi thanh toán. Một giờ sau, hệ thống gửi email nhắc kèm liên kết để khôi phục giỏ hàng chỉ với một lần nhấp. Mỗi giỏ hàng có URL khôi phục riêng bằng mã thông báo; hệ thống ghi lại việc khách có quay lại hay không.",
+      "fields": {
+        "delayMinutes": {
+          "label": "Thời gian chờ trước khi nhắc (phút)"
+        },
+        "fromEmail": {
+          "label": "Email gửi đi"
+        },
+        "subject": {
+          "label": "Tiêu đề email"
+        }
+      },
+      "name": "Nhắc khách hoàn tất đơn hàng",
+      "summary": "Nhắc người mua về các món họ đã bỏ lại trong giỏ hàng."
+    },
+    "acknowledgments": {
+      "description": "Đăng thông báo (cập nhật chính sách, thay đổi điều khoản, lưu ý an toàn) mà mọi khách truy cập phải xác nhận đã đọc trước khi đóng. Mỗi lần xác nhận được lưu cùng thời gian và (tùy chọn) user_id để kiểm tra. Quản trị viên xem số liệu tuân thủ theo thời gian thực.",
+      "name": "Xác nhận đã đọc",
+      "summary": "Đảm bảo mọi người đã đọc các thông báo quan trọng."
+    },
+    "ai-assistant": {
+      "description": "Thêm hộp đặt câu hỏi cho AI vào trang web của bạn. Khách truy cập đặt câu hỏi, AI trả lời theo hướng dẫn bạn đặt và câu trả lời xuất hiện ngay bên dưới biểu mẫu. Mọi câu hỏi và câu trả lời được lưu trên một trang riêng chỉ bạn mới mở được.",
+      "fields": {
+        "assistantName": {
+          "label": "Tên trợ lý"
+        },
+        "disclosure": {
+          "help": "Cho khách truy cập biết họ đang trò chuyện với AI.",
+          "label": "Ghi chú hiển thị bên dưới tiêu đề"
+        },
+        "systemPrompt": {
+          "label": "Hướng dẫn cho AI"
+        }
+      },
+      "name": "Trợ lý trò chuyện",
+      "summary": "Cho phép khách truy cập trò chuyện với trợ lý hữu ích."
+    },
+    "analytics-dashboard": {
+      "description": "Theo dõi lượt xem trang và các sự kiện tùy chỉnh như “đăng ký” hay “mua hàng”. Có điểm nhận dữ liệu để gọi từ bất kỳ trang nào, API thống kê và bảng quản trị hiển thị tổng số, các trang được xem nhiều nhất và xu hướng trong 7 ngày.",
+      "name": "Thống kê khách truy cập",
+      "summary": "Xem có bao nhiêu người truy cập các trang của bạn."
+    },
+    "app-walkthrough": {
+      "description": "Lớp phủ hướng dẫn khách mới dùng ứng dụng trong lần đầu mở. Tạo các bước theo thứ tự (tiêu đề, nội dung, bộ chọn phần tử); lớp phủ làm nổi bật từng phần với hiệu ứng chiếu sáng và nút “Tiếp / Bỏ qua”. Trạng thái bỏ qua được lưu trên trình duyệt để không làm phiền khách quay lại.",
+      "fields": {
+        "doneLabel": {
+          "label": "Nhãn bước cuối"
+        },
+        "skipLabel": {
+          "label": "Nhãn nút Bỏ qua"
+        }
+      },
+      "name": "Hướng dẫn sử dụng ứng dụng",
+      "summary": "Giới thiệu nhanh ứng dụng cho khách lần đầu truy cập."
+    },
+    "appointments": {
+      "description": "Quản lý lịch hẹn có cấu trúc: danh sách dịch vụ kèm thời lượng và giá, được phân cho nhân viên; khách đặt một khung giờ cụ thể. Linh hoạt hơn Đặt chỗ — phù hợp với tiệm làm tóc, phòng khám và công ty tư vấn.",
+      "fields": {
+        "businessName": {
+          "label": "Tên doanh nghiệp"
+        },
+        "currency": {
+          "label": "Ký hiệu tiền tệ"
+        }
+      },
+      "name": "Lịch hẹn",
+      "summary": "Cho phép khách đặt lịch hẹn với một thành viên trong nhóm của bạn."
+    },
+    "archive": {
+      "description": "Kho lưu trữ dài hạn cho dự án đã hoàn tất, bài đăng cũ, sản phẩm ngừng hoạt động — mọi thứ bạn muốn giữ lại nhưng không hiển thị trong nguồn cấp dữ liệu đang hoạt động. Duyệt theo năm/tháng, tìm kiếm toàn văn trong tiêu đề và nội dung. Tùy chọn “khôi phục vào nguồn cấp dữ liệu chính” dành cho các mô-đun khác dùng sau này.",
+      "fields": {
+        "heading": {
+          "label": "Tiêu đề kho lưu trữ"
+        }
+      },
+      "name": "Kho lưu trữ nội dung",
+      "summary": "Giữ nội dung cũ để có thể tìm theo năm."
+    },
+    "audio": {
+      "description": "Trang danh sách phát các bản âm thanh, gồm tiêu đề, nghệ sĩ và URL nghe trực tuyến. Mỗi bản có trình phát âm thanh HTML5 để khách truy cập nghe thử ngay trên trang.",
+      "fields": {
+        "playlistName": {
+          "label": "Tên danh sách phát"
+        }
+      },
+      "name": "Danh sách phát âm thanh",
+      "summary": "Chia sẻ danh sách bài hát hoặc bản ghi âm."
+    },
+    "auth": {
+      "description": "Thêm các trang đăng ký, đăng nhập và đăng xuất, đồng thời lưu danh sách người có tài khoản. Mật khẩu được lưu an toàn. Mọi người có thể tải dữ liệu xuống hoặc xóa tài khoản trên trang hồ sơ. Các tính năng cần đăng nhập như mục yêu thích hoặc tin nhắn riêng sẽ tự động dùng những tài khoản này.",
+      "fields": {
+        "appName": {
+          "label": "Tên ứng dụng"
+        }
+      },
+      "name": "Đăng nhập và tài khoản",
+      "summary": "Cho phép mọi người tạo tài khoản và đăng nhập vào ứng dụng của bạn."
+    },
+    "before-after": {
+      "description": "Cho mọi người thấy sự thay đổi. Mỗi mục so sánh có ảnh “trước” và “sau”; khách truy cập kéo đường phân cách để chuyển qua lại giữa hai ảnh. Quản trị viên có thể thêm bao nhiêu mục so sánh tùy thích. Phù hợp với cải tạo nhà, thể hình, làm tóc và chỉnh sửa ảnh.",
+      "fields": {
+        "heading": {
+          "label": "Tiêu đề trang"
+        }
+      },
+      "name": "Thanh trượt Trước / Sau",
+      "summary": "So sánh hai ảnh cạnh nhau bằng thanh trượt."
+    },
+    "birthdays": {
+      "description": "Thu thập ngày sinh của người dùng, sau đó tự động gửi email cho những ai có sinh nhật hôm nay. Phù hợp để tri ân khách hàng (lời chúc mừng sinh nhật + mã giảm giá) hoặc dùng trên trang nhóm/nhân sự. Kết hợp với cron chạy hằng ngày, gọi đến /api/run/send-today.",
+      "fields": {
+        "body": {
+          "label": "Nội dung email (dùng chỗ giữ '{{'name'}}')"
+        },
+        "fromEmail": {
+          "label": "Gửi từ"
+        },
+        "subject": {
+          "label": "Tiêu đề email"
+        }
+      },
+      "name": "Sinh nhật",
+      "summary": "Chúc khách hàng sinh nhật vui vẻ."
+    },
+    "blog": {
+      "description": "Trang chủ blog liệt kê các bài đăng gần đây, trang quản trị để đăng bài mới và luồng trả về danh sách bài viết. Bạn có thể tạo trang chi tiết cho từng bài sau bằng trình chỉnh sửa trực quan.",
+      "fields": {
+        "author": {
+          "label": "Tên tác giả mặc định"
+        },
+        "blogTitle": {
+          "label": "Tiêu đề blog"
+        }
+      },
+      "name": "Blog",
+      "summary": "Viết bài và chia sẻ tin tức với khách truy cập."
+    },
+    "bookings": {
+      "description": "Trang đặt chỗ để khách chọn ngày giờ, nhập thông tin và gửi yêu cầu đặt lịch. Tính năng chống trùng lịch kiểm tra xem khung giờ đã có lịch đặt trước khi xác nhận. Dữ liệu được lưu trong bảng đặt chỗ, kèm trang quản trị để xem các khung giờ sắp tới.",
+      "fields": {
+        "businessName": {
+          "label": "Tên doanh nghiệp"
+        },
+        "serviceLabel": {
+          "help": "ví dụ: 'Cắt tóc', 'Dắt chó đi dạo', 'Cuộc hẹn'",
+          "label": "Bạn muốn đặt dịch vụ nào?"
+        }
+      },
+      "name": "Đặt chỗ",
+      "summary": "Cho phép mọi người đặt lịch với bạn."
+    },
+    "budget": {
+      "description": "Ngân sách cá nhân đơn giản: ghi lại thu nhập và chi tiêu theo danh mục, xem giao dịch gần đây và nắm rõ tiền của bạn được dùng vào đâu.",
+      "fields": {
+        "currency": {
+          "label": "Đơn vị tiền tệ"
+        }
+      },
+      "name": "Ngân sách cá nhân",
+      "summary": "Theo dõi tiền thu vào và chi ra."
+    },
+    "business-card-wallet": {
+      "description": "Mỗi người dùng có danh thiếp điện tử (tên, chức danh, công ty, thông tin liên hệ, ảnh) và ví lưu danh thiếp của người khác. Chia sẻ thẻ của bạn qua mã QR; người nhận có thể quét rồi lưu vào ví chỉ với một lần chạm (hoặc xuất thành tệp vCard để lưu vào danh bạ điện thoại).",
+      "name": "Ví danh thiếp",
+      "summary": "Chia sẻ và lưu danh thiếp điện tử."
+    },
+    "calculator-builder": {
+      "description": "Tạo máy tính nhỏ với các mục nhập tùy chỉnh và công thức (ví dụ: khoản trả góp mua nhà, chỉ số BMI, dự tính tiết kiệm, chia tiền boa, đổi tiền). Mỗi máy tính có đường dẫn riêng; nhúng ở bất kỳ đâu bằng /calc?slug=…",
+      "name": "Tạo máy tính",
+      "summary": "Thêm máy tính, chẳng hạn để ước tính giá hoặc khoản vay."
+    },
+    "catalog": {
+      "description": "Danh mục sản phẩm gọn gàng với tên, giá, hình ảnh và mô tả. Phù hợp với thực đơn, tờ giới thiệu và trang trưng bày để khách hỏi mua thay vì đặt hàng trực tuyến.",
+      "fields": {
+        "currency": {
+          "label": "Ký hiệu tiền tệ"
+        },
+        "title": {
+          "label": "Tiêu đề danh mục"
+        }
+      },
+      "name": "Danh mục sản phẩm",
+      "summary": "Trưng bày sản phẩm mà không nhận thanh toán."
+    },
+    "channel-feed": {
+      "description": "Theo dõi kênh YouTube hoặc Vimeo và tự động hiển thị video mới nhất theo dạng lưới. Luồng làm mới kiểm tra nguồn RSS của kênh; các mục đã lưu giúp tải nhanh. Nhấp vào video để mở trong trình phát nhúng.",
+      "fields": {
+        "channelId": {
+          "label": "ID kênh"
+        },
+        "channelKind": {
+          "label": "Loại kênh",
+          "options": {
+            "vimeo": "Vimeo",
+            "youtube": "YouTube"
+          }
+        },
+        "heading": {
+          "label": "Tiêu đề mục"
+        }
+      },
+      "name": "Bảng tin kênh video",
+      "summary": "Hiển thị video mới nhất từ kênh YouTube hoặc Vimeo của bạn."
+    },
+    "chat": {
+      "description": "Một phòng trò chuyện chung để khách truy cập đăng tin nhắn. Tin mới nhất hiển thị trước, dữ liệu được lưu trong bảng chat_messages với luồng gửi và liệt kê. Phù hợp để nhận phản hồi ban đầu từ cộng đồng hoặc trò chuyện về danh sách chờ.",
+      "fields": {
+        "roomTitle": {
+          "label": "Tên phòng trò chuyện"
+        },
+        "welcome": {
+          "label": "Lời chào"
+        }
+      },
+      "name": "Trò chuyện cộng đồng",
+      "summary": "Tạo phòng trò chuyện chung cho cộng đồng."
+    },
+    "chores": {
+      "description": "Bảng phân công việc nhà cho gia đình: giao việc cho trẻ, đánh dấu hoàn tất và nhận sao. Biến công việc hằng ngày thành thói quen rõ ràng có thưởng.",
+      "fields": {
+        "familyName": {
+          "label": "Tên gia đình"
+        }
+      },
+      "name": "Bảng phân công việc nhà",
+      "summary": "Chia việc nhà cho mọi người và thưởng khi hoàn thành."
+    },
+    "claims": {
+      "description": "Khách hàng (hoặc nhân viên) gửi yêu cầu bồi thường hoặc biên lai kèm mô tả, số tiền và URL ảnh. Nhân viên cập nhật trạng thái theo quy trình (đã nhận → đang xem xét → đã duyệt/từ chối) và đăng phản hồi công khai. Phù hợp với yêu cầu bảo hành, hoàn ứng chi phí hoặc biên lai bảo hiểm.",
+      "fields": {
+        "queueName": {
+          "label": "Tiêu đề hàng chờ"
+        }
+      },
+      "name": "Yêu cầu bồi thường và biên lai",
+      "summary": "Cho phép mọi người gửi yêu cầu kèm ảnh và theo dõi tiến độ."
+    },
+    "classifieds": {
+      "description": "Bảng tin rao vặt kiểu Craigslist. Khách truy cập đăng tin kèm tiêu đề, giá và thông tin liên hệ; trang danh sách hiển thị mọi tin đang hoạt động.",
+      "fields": {
+        "boardName": {
+          "label": "Tên bảng tin"
+        }
+      },
+      "name": "Tin rao vặt",
+      "summary": "Cho phép mọi người tự đăng tin."
+    },
+    "contact-form": {
+      "description": "Trang liên hệ chỉn chu với biểu mẫu toàn chiều rộng, lưu nội dung gửi vào cơ sở dữ liệu. Có trang hộp thư quản trị để xem mọi tin nhắn.",
+      "fields": {
+        "heading": {
+          "label": "Tiêu đề trang"
+        },
+        "subheading": {
+          "label": "Tiêu đề phụ ngắn"
+        }
+      },
+      "name": "Biểu mẫu liên hệ",
+      "summary": "Cho phép khách truy cập gửi tin nhắn cho bạn."
+    },
+    "countdown": {
+      "description": "Trang đồng hồ đếm ngược cập nhật trực tiếp đến một thời điểm trong tương lai. Hiển thị ngày/giờ/phút/giây thật lớn, có thể thêm tiêu đề, tiêu đề phụ và nút kêu gọi hành động sau khi đếm xong. Có thể chạy nhiều chiến dịch cùng lúc; chọn một chiến dịch bằng ?id=...",
+      "name": "Đồng hồ đếm ngược",
+      "summary": "Đếm ngược đến ngày ra mắt, khuyến mãi hoặc sự kiện."
+    },
+    "coupons": {
+      "description": "Tạo mã giảm giá để khách dùng trên trang công khai. Theo dõi mã đã dùng, mức giảm giá và lịch sử sử dụng.",
+      "fields": {
+        "brand": {
+          "label": "Tên thương hiệu"
+        }
+      },
+      "name": "Mã giảm giá",
+      "summary": "Tặng mã giảm giá."
+    },
+    "course": {
+      "description": "Nền tảng học trực tuyến thu nhỏ với các bài học theo trình tự, mỗi bài gồm tiêu đề, mô tả, URL video và thời lượng tùy chọn. Phù hợp cho khóa học ngắn và hướng dẫn.",
+      "fields": {
+        "courseTitle": {
+          "label": "Tên khóa học"
+        },
+        "instructor": {
+          "label": "Tên giảng viên"
+        }
+      },
+      "name": "Khóa học trực tuyến",
+      "summary": "Dạy khóa học trực tuyến theo từng bài."
+    },
+    "delivery-tracking": {
+      "description": "Theo dõi đơn giao hàng từ lúc lấy hàng đến khi giao xong. Tài xế gửi vị trí lat/lng; khách xem vị trí mới nhất trên bản đồ và dòng thời gian trạng thái (đã phân công → đã lấy hàng → đang giao → đã giao). Mỗi đơn giao hàng có một liên kết theo dõi công khai.",
+      "fields": {
+        "businessName": {
+          "label": "Tên doanh nghiệp"
+        }
+      },
+      "name": "Theo dõi giao hàng",
+      "summary": "Cho phép khách theo dõi đơn hàng đang giao."
+    },
+    "delivery-zones": {
+      "description": "Tạo khu vực giao hàng theo mã bưu chính hoặc khoảng cách từ cửa hàng. Mỗi khu vực có phí giao hàng và giá trị đơn hàng tối thiểu riêng. Luồng báo giá nhận địa chỉ (hoặc mã bưu chính) và cho biết có giao hàng đến đó hay không, cùng chi phí.",
+      "fields": {
+        "shopLat": {
+          "label": "Vĩ độ cửa hàng"
+        },
+        "shopLng": {
+          "label": "Kinh độ cửa hàng"
+        }
+      },
+      "name": "Khu vực giao hàng",
+      "summary": "Đặt phí giao hàng cho từng khu vực."
+    },
+    "donations": {
+      "description": "Trang quyên góp có phần mô tả mục đích, thanh tiến độ đến mục tiêu và bảng công khai ghi nhận người quyên góp. Thu thập tên, email, số tiền và lời nhắn tùy chọn. Tích hợp thanh toán qua mô-đun Stripe riêng.",
+      "fields": {
+        "causeName": {
+          "label": "Tên mục đích quyên góp"
+        },
+        "currency": {
+          "label": "Ký hiệu tiền tệ"
+        },
+        "goal": {
+          "label": "Mục tiêu gây quỹ ($)"
+        }
+      },
+      "name": "Quyên góp",
+      "summary": "Gây quỹ cho mục tiêu và cảm ơn những người quyên góp."
+    },
+    "drip-content": {
+      "description": "Tạo chuỗi bài học được mở khóa theo từng người dùng, dựa trên số ngày kể từ khi họ đăng ký. Bài 1 mở khóa vào ngày 0, bài 2 vào ngày 3, v.v. Phù hợp cho hướng dẫn bắt đầu, khóa đào tạo và chuỗi email kết hợp với mô-đun email.",
+      "fields": {
+        "programName": {
+          "label": "Tên chương trình"
+        }
+      },
+      "name": "Nội dung mở khóa dần",
+      "summary": "Mở khóa bài học cách nhau vài ngày."
+    },
+    "dynamic-list": {
+      "description": "Một CMS mini: quản trị viên tạo “danh sách” (gồm tên và lược đồ JSON của các trường), rồi thêm hàng bằng biểu mẫu được tạo sẵn. Mỗi danh sách có một trang xem công khai và một trang chỉnh sửa dành cho quản trị viên. Mô-đun “tự tạo mô-đun” — hoàn hảo khi không có lựa chọn nào phù hợp.",
+      "name": "Danh sách tùy chỉnh",
+      "summary": "Tạo danh sách riêng cho mọi thứ và trang để chỉnh sửa."
+    },
+    "e-signature": {
+      "description": "Gửi tài liệu dạng văn bản (điều khoản, NDA, báo giá) cho người nhận qua email và để họ ký trực tiếp trên trình duyệt bằng chữ ký vẽ tay. Lưu ảnh chữ ký, tên và IP của người ký, cùng thời điểm ký.",
+      "fields": {
+        "companyName": {
+          "label": "Tên công ty của bạn"
+        }
+      },
+      "name": "Chữ ký điện tử",
+      "summary": "Gửi tài liệu và nhận chữ ký trực tuyến."
+    },
+    "e-wallet": {
+      "description": "Cấp số dư tín dụng cho từng người dùng. Thêm tín dụng (nạp tiền), sử dụng tín dụng (trừ tiền) và xem sổ ghi đầy đủ mọi giao dịch. Các tính năng khác có thể sử dụng tín dụng thay cho người dùng đã đăng nhập thông qua quy trình chi tiêu.",
+      "fields": {
+        "currencySymbol": {
+          "label": "Ký hiệu tiền tệ"
+        }
+      },
+      "name": "Tín dụng cửa hàng",
+      "summary": "Tặng khách hàng tín dụng cửa hàng để họ nạp thêm và sử dụng."
+    },
+    "email-verify": {
+      "description": "Gửi mã xác minh 6 chữ số qua email, lưu mã với thời hạn ngắn và xác minh khi người dùng gửi yêu cầu tiếp theo. Kết hợp dễ dàng với mô-đun xác thực: đánh dấu người dùng là đã xác minh email sau khi họ xác nhận.",
+      "fields": {
+        "appName": {
+          "label": "Tên ứng dụng"
+        },
+        "codeTtlMinutes": {
+          "label": "Mã hết hạn sau (phút)"
+        },
+        "fromEmail": {
+          "label": "Email gửi đi"
+        }
+      },
+      "name": "Xác minh email",
+      "summary": "Kiểm tra xem địa chỉ email có hợp lệ không."
+    },
+    "emergency-contacts": {
+      "description": "Danh sách liên hệ khẩn cấp gồm tên, mối quan hệ và số điện thoại. Chạm để gọi trên điện thoại. Phù hợp cho trường học, trại hè, quầy lễ tân văn phòng và gia đình.",
+      "fields": {
+        "heading": {
+          "label": "Tiêu đề"
+        }
+      },
+      "name": "Liên hệ khẩn cấp",
+      "summary": "Gọi các số quan trọng chỉ với một lần chạm."
+    },
+    "event-tickets": {
+      "description": "Bán vé cho sự kiện với nhiều hạng vé (Phổ thông, VIP, v.v.). Mỗi vé phát hành có một mã riêng; hiển thị mã đó dưới dạng QR cho người giữ vé. Tại cổng, quét mã QR để xác thực và đánh dấu vé đã sử dụng.",
+      "fields": {
+        "eventDate": {
+          "label": "Ngày tổ chức"
+        },
+        "eventName": {
+          "label": "Tên sự kiện"
+        },
+        "venue": {
+          "label": "Địa điểm"
+        }
+      },
+      "name": "Vé sự kiện",
+      "summary": "Bán vé và quét vé tại cổng."
+    },
+    "events": {
+      "description": "Liệt kê sự kiện sắp tới cùng ngày, địa điểm và mô tả. Khách truy cập có thể xác nhận tham dự bằng tên và email; thông tin được lưu vào bảng để quản trị viên xem lại.",
+      "fields": {
+        "calendarName": {
+          "label": "Tên lịch"
+        }
+      },
+      "name": "Lịch sự kiện",
+      "summary": "Hiển thị sự kiện sắp tới và để mọi người xác nhận tham dự."
+    },
+    "expenses": {
+      "description": "Ghi lại chi phí doanh nghiệp cùng ngày, danh mục, số tiền và ghi chú. Xem tất cả trong một danh sách để dễ dàng tổng kết theo tháng và chuẩn bị hồ sơ thuế.",
+      "name": "Chi phí",
+      "summary": "Theo dõi các khoản chi của doanh nghiệp."
+    },
+    "fanwall": {
+      "description": "Bức tường công khai dạng một luồng, nơi khách truy cập đăng tin nhắn ngắn kèm tên và ảnh tùy chọn. Tin mới nhất hiển thị trước. Tương tự tường Twitter/Facebook nhưng không cần tài khoản.",
+      "fields": {
+        "wallTitle": {
+          "label": "Tên bức tường"
+        }
+      },
+      "name": "Tường cộng đồng",
+      "summary": "Cho phép cộng đồng đăng bài lên một bức tường chung."
+    },
+    "faq": {
+      "description": "Trang hỏi đáp được chia theo danh mục. Có biểu mẫu quản trị để thêm câu hỏi và câu trả lời mới, cùng danh sách công khai hiển thị mọi nội dung đã đăng.",
+      "fields": {
+        "heading": {
+          "label": "Tiêu đề trang"
+        }
+      },
+      "name": "Câu hỏi thường gặp",
+      "summary": "Giải đáp những câu hỏi mọi người thường đặt ra."
+    },
+    "feature-voting": {
+      "description": "Bảng công khai để người dùng đăng ý tưởng và bình chọn cho ý tưởng của người khác. Nhóm sản phẩm dùng bảng này để ưu tiên tính năng cần xây dựng tiếp theo.",
+      "fields": {
+        "productName": {
+          "label": "Tên sản phẩm"
+        }
+      },
+      "name": "Bình chọn tính năng",
+      "summary": "Để mọi người đề xuất ý tưởng và bình chọn ý tưởng yêu thích."
+    },
+    "file-upload": {
+      "description": "Cho phép khách truy cập tải tệp lên bằng biểu mẫu kéo và thả. Tệp được lưu trong thư mục riêng của dự án và URL được lưu vào bảng để bạn xem.",
+      "fields": {
+        "heading": {
+          "label": "Tiêu đề trang"
+        }
+      },
+      "name": "Tải tệp lên",
+      "summary": "Cho phép mọi người gửi tệp cho bạn."
+    },
+    "food-truck-finder": {
+      "description": "Mọi thứ cần thiết cho ứng dụng tìm xe bán đồ ăn. Chủ xe đăng ký, thêm xe lên bản đồ, cập nhật thực đơn và đăng ưu đãi. Khách hàng xem các xe gần mình trên bản đồ, đọc đánh giá và nhận ưu đãi. Có sẵn tính năng đăng ký và đăng nhập.",
+      "fields": {
+        "brandName": {
+          "label": "Tên trang web"
+        },
+        "cityName": {
+          "label": "Tên thành phố / khu vực"
+        },
+        "defaultLat": {
+          "label": "Vĩ độ trung tâm thành phố"
+        },
+        "defaultLng": {
+          "label": "Kinh độ trung tâm thành phố"
+        },
+        "defaultZoom": {
+          "label": "Mức thu phóng bản đồ mặc định"
+        }
+      },
+      "name": "Tìm xe bán đồ ăn",
+      "summary": "Giúp mọi người tìm xe bán đồ ăn gần mình trên bản đồ trực tiếp."
+    },
+    "forum": {
+      "description": "Diễn đàn cộng đồng với các chủ đề và phần trả lời thực tế. Khách truy cập tạo chủ đề từ trang chính của diễn đàn, mở trang chi tiết rồi đăng trả lời. Số lượt trả lời tự cập nhật sau mỗi lần trả lời.",
+      "fields": {
+        "forumName": {
+          "label": "Tên diễn đàn"
+        }
+      },
+      "name": "Diễn đàn",
+      "summary": "Cho phép mọi người tạo chủ đề và trả lời nhau."
+    },
+    "gallery": {
+      "description": "Thư viện ảnh tự điều chỉnh theo màn hình, mỗi ảnh có tiêu đề, chú thích và URL ảnh. Có sẵn trang tải lên để thêm ảnh mới bằng URL.",
+      "fields": {
+        "galleryIntro": {
+          "label": "Giới thiệu ngắn"
+        },
+        "galleryTitle": {
+          "label": "Tiêu đề thư viện"
+        }
+      },
+      "name": "Thư viện ảnh",
+      "summary": "Hiển thị bộ sưu tập ảnh."
+    },
+    "geofencer": {
+      "description": "Tạo vùng địa lý hình tròn (tọa độ trung tâm + bán kính). Khách chia sẻ vị trí của họ; nếu họ ở trong vùng, nội dung hoặc tin nhắn tương ứng sẽ hiển thị. Ghi lại mọi lần khách đến để bạn biết những khu vực đông người. Có thể kết hợp với thông báo đẩy hoặc phiếu giảm giá.",
+      "fields": {
+        "heading": {
+          "label": "Tiêu đề"
+        }
+      },
+      "name": "Cảnh báo vị trí",
+      "summary": "Hiển thị nội dung đặc biệt khi mọi người đến một địa điểm."
+    },
+    "gift-registry": {
+      "description": "Danh sách quà tặng để khách xem các món và đánh dấu đã giữ chỗ. Mỗi món có tên, giá, liên kết cửa hàng và trạng thái còn hàng.",
+      "fields": {
+        "occasion": {
+          "label": "Dịp"
+        }
+      },
+      "name": "Danh sách quà tặng",
+      "summary": "Tạo danh sách quà cưới hoặc quà mừng em bé để khách chọn và giữ chỗ."
+    },
+    "guestbook": {
+      "description": "Sổ lưu bút cổ điển để khách truy cập ghi tên và lời nhắn ngắn. Tin mới nhất hiển thị trước. Phù hợp với trang cá nhân, trang tưởng niệm và trang sự kiện.",
+      "fields": {
+        "heading": {
+          "label": "Tiêu đề"
+        }
+      },
+      "name": "Sổ lưu bút",
+      "summary": "Cho phép khách truy cập để lại lời nhắn thân tình."
+    },
+    "gym": {
+      "description": "Bộ công cụ dành cho phòng tập hoặc studio nhỏ: gói hội viên (hằng tháng, 10 buổi), lịch lớp với giới hạn số người và quy trình check-in quét thẻ hội viên để ghi nhận lượt vào. Chủ phòng tập xem số người tham dự hôm nay và số hội viên đang hoạt động.",
+      "fields": {
+        "gymName": {
+          "label": "Tên phòng tập"
+        }
+      },
+      "name": "Phòng tập / Hội viên",
+      "summary": "Quản lý hội viên, lớp học và lượt check-in."
+    },
+    "habits": {
+      "description": "Theo dõi thói quen hằng ngày cùng tên thói quen, chuỗi ngày hiện tại và ngày kiểm tra gần nhất. Điểm danh mỗi ngày để kéo dài chuỗi.",
+      "name": "Theo dõi thói quen",
+      "summary": "Theo dõi thói quen hằng ngày và tạo chuỗi ngày liên tiếp."
+    },
+    "help-desk": {
+      "description": "Khách hàng gửi yêu cầu hỗ trợ gồm tiêu đề, mô tả và mức độ ưu tiên. Bạn phân loại và xử lý yêu cầu từ danh sách trong trang quản trị.",
+      "name": "Hỗ trợ khách hàng",
+      "summary": "Nhận và phản hồi yêu cầu hỗ trợ của khách hàng."
+    },
+    "in-app-ads": {
+      "description": "Luân phiên hiển thị quảng cáo biểu ngữ của bạn trên các trang mà không cần mạng quảng cáo bên ngoài. Quản trị viên tải lên nội dung quảng cáo (ảnh + tiêu đề + URL khi nhấp + ngày hiển thị), hệ thống chọn ngẫu nhiên có cân nhắc trọng số cho mỗi lượt xem trang, đồng thời ghi lại mọi lượt hiển thị và nhấp để phân tích tỷ lệ nhấp. Thêm đoạn mã ở bất cứ đâu.",
+      "fields": {
+        "placement": {
+          "label": "Nhãn vị trí mặc định"
+        }
+      },
+      "name": "Quảng cáo biểu ngữ",
+      "summary": "Hiển thị quảng cáo biểu ngữ của bạn và xem ai nhấp vào."
+    },
+    "inbox": {
+      "description": "Nhắn tin riêng giữa hai người dùng đã đăng nhập. Chọn người nhận, gửi tin nhắn và xem trạng thái đã đọc/chưa đọc của từng cuộc trò chuyện. Mỗi cặp người gửi và người nhận chỉ có một cuộc trò chuyện.",
+      "name": "Hộp thư riêng",
+      "summary": "Cho phép thành viên nhắn tin riêng cho nhau."
+    },
+    "inventory": {
+      "description": "Theo dõi hàng tồn theo SKU. Điều chỉnh số lượng (nhập hàng mới, ghi nhận bán hàng, điều chỉnh thủ công), xem mặt hàng sắp hết và tải xuống CSV. Dùng cùng tính năng cửa hàng để số lượng hàng trên trang bán luôn chính xác.",
+      "fields": {
+        "lowThreshold": {
+          "label": "Ngưỡng sắp hết hàng"
+        }
+      },
+      "name": "Hàng tồn kho",
+      "summary": "Theo dõi hàng tồn và biết khi nào sắp hết."
+    },
+    "invoice": {
+      "description": "Tạo hóa đơn cho khách với số tiền, hạn thanh toán và trạng thái. Xem hóa đơn đã thanh toán, đang chờ hoặc quá hạn trên cùng một trang quản trị.",
+      "fields": {
+        "businessName": {
+          "label": "Tên doanh nghiệp"
+        }
+      },
+      "name": "Hóa đơn",
+      "summary": "Gửi hóa đơn và theo dõi khách đã thanh toán hay chưa."
+    },
+    "jobs": {
+      "description": "Trang tuyển dụng với các vị trí đang mở và biểu mẫu ứng tuyển. Ứng viên gửi tên, email, liên kết hồ sơ và lời nhắn; hồ sơ được lưu trong bảng để bạn xem trong trang quản trị.",
+      "fields": {
+        "companyName": {
+          "label": "Tên công ty"
+        }
+      },
+      "name": "Bảng tin tuyển dụng",
+      "summary": "Đăng tin tuyển dụng và nhận hồ sơ ứng tuyển."
+    },
+    "journal": {
+      "description": "Nhật ký cá nhân hằng ngày với mục chọn tâm trạng, thẻ và nội dung tự do. Xem lại các mục cũ theo thứ tự thời gian.",
+      "name": "Nhật ký",
+      "summary": "Viết nhật ký hằng ngày và ghi lại tâm trạng."
+    },
+    "kanban": {
+      "description": "Bảng Kanban với các cột Cần làm, Đang thực hiện và Hoàn tất. Thẻ có tiêu đề, mô tả và mức độ ưu tiên. Chuyển thẻ bằng cách cập nhật cột.",
+      "fields": {
+        "boardName": {
+          "label": "Tên bảng"
+        }
+      },
+      "name": "Bảng công việc",
+      "summary": "Chuyển công việc trên bảng từ cần làm đến hoàn tất."
+    },
+    "kb": {
+      "description": "Trung tâm trợ giúp với các bài viết được phân loại. Có danh sách bài viết công khai và trang quản trị đơn giản để đăng bài mới.",
+      "fields": {
+        "title": {
+          "label": "Tiêu đề trung tâm trợ giúp"
+        }
+      },
+      "name": "Trung tâm trợ giúp",
+      "summary": "Đăng bài hướng dẫn để khách hàng tìm kiếm."
+    },
+    "leaderboard": {
+      "description": "Bảng xếp hạng tổng quát. Thêm điểm theo user_label (bất kỳ chuỗi nào — email, tên, hội viên phòng tập, nhân viên); bảng sẽ xếp hạng từ cao xuống thấp. Lọc theo danh mục để tạo nhiều bảng (số bước, doanh số, điểm). Có thể gọi điểm cuối submit-score từ bất kỳ mô-đun nào khác.",
+      "fields": {
+        "boardTitle": {
+          "label": "Tiêu đề bảng"
+        },
+        "defaultCategory": {
+          "label": "Danh mục mặc định"
+        }
+      },
+      "name": "Bảng xếp hạng",
+      "summary": "Hiển thị bảng xếp hạng điểm cao nhất."
+    },
+    "leads": {
+      "description": "Công cụ quản lý khách hàng đơn giản: lưu thông tin khách hàng tiềm năng gồm tên, công ty, email và giai đoạn. Xem quy trình bán hàng theo từng giai đoạn và biết cần liên hệ lại với ai.",
+      "name": "Khách hàng tiềm năng",
+      "summary": "Theo dõi khách hàng tiềm năng và liên hệ lại với họ."
+    },
+    "link-tracker": {
+      "description": "Tạo liên kết có thể theo dõi cho các chiến dịch tiếp thị. Mỗi lượt nhấp được ghi lại kèm thời gian để bạn biết kênh nào mang lại nhiều lượt truy cập nhất.",
+      "name": "Lượt nhấp vào liên kết",
+      "summary": "Xem có bao nhiêu người nhấp vào liên kết của bạn."
+    },
+    "links": {
+      "description": "Danh sách chọn lọc các liên kết bên ngoài, kèm tiêu đề, biểu tượng và mô tả. Phù hợp cho trang kiểu Linktree, danh sách tài nguyên chọn lọc hoặc ứng dụng liên kết trong tiểu sử.",
+      "fields": {
+        "heading": {
+          "label": "Tiêu đề"
+        }
+      },
+      "name": "Danh sách liên kết",
+      "summary": "Chia sẻ trang đơn giản gồm các liên kết quan trọng."
+    },
+    "live-stream": {
+      "description": "Tạo trang phát trực tiếp nhúng HLS .m3u8, URL YouTube Live hoặc kênh Twitch, kèm thanh trò chuyện trực tiếp (lấy dữ liệu từ luồng trò chuyện thời gian thực). Quản trị viên chọn loại luồng và URL; người xem thấy trình phát cùng phần trò chuyện.",
+      "fields": {
+        "streamKind": {
+          "label": "Loại luồng",
+          "options": {
+            "hls": "HLS (.m3u8)",
+            "twitch": "Twitch",
+            "youtube": "YouTube Live"
+          }
+        },
+        "streamUrl": {
+          "label": "URL luồng / ID kênh"
+        },
+        "title": {
+          "label": "Tiêu đề luồng"
+        }
+      },
+      "name": "Phát trực tiếp",
+      "summary": "Hiển thị luồng video trực tiếp."
+    },
+    "lost-found": {
+      "description": "Bảng đồ thất lạc của cộng đồng. Mọi người báo tin về đồ bị mất hoặc tìm thấy, kèm địa điểm và thông tin liên hệ. Bảng hiển thị mọi tin ở cùng một nơi để mọi người tìm được chủ nhân.",
+      "fields": {
+        "communityName": {
+          "label": "Tên cộng đồng"
+        }
+      },
+      "name": "Đồ thất lạc",
+      "summary": "Cho phép cộng đồng báo tin về đồ thất lạc và tìm thấy."
+    },
+    "loyalty-card": {
+      "description": "Thẻ tích điểm điện tử dành cho cửa hàng của bạn. Khách hàng cung cấp số điện thoại tại quầy, bạn đóng dấu vào thẻ và khi tích đủ điểm, họ sẽ nhận được một món miễn phí. Theo dõi mọi khách hàng và lượt tích điểm.",
+      "fields": {
+        "punchGoal": {
+          "label": "Số lượt tích điểm để nhận thưởng"
+        },
+        "rewardText": {
+          "label": "Mô tả phần thưởng"
+        },
+        "shopName": {
+          "label": "Tên cửa hàng"
+        }
+      },
+      "name": "Thẻ tích điểm",
+      "summary": "Tặng thưởng cho khách quen bằng thẻ tích điểm điện tử."
+    },
+    "map": {
+      "description": "Bản đồ tương tác thật, dùng Leaflet và OpenStreetMap. Hiển thị vị trí doanh nghiệp của bạn bằng ghim và địa chỉ. Miễn phí — không cần khóa API.",
+      "fields": {
+        "address": {
+          "label": "Địa chỉ đường phố"
+        },
+        "label": {
+          "label": "Nhãn ghim"
+        },
+        "lat": {
+          "label": "Vĩ độ"
+        },
+        "lng": {
+          "label": "Kinh độ"
+        },
+        "title": {
+          "label": "Tiêu đề trang"
+        },
+        "zoom": {
+          "label": "Thu phóng (1-19)"
+        }
+      },
+      "name": "Bản đồ & định vị",
+      "summary": "Hiển thị địa điểm của bạn trên bản đồ."
+    },
+    "marketplace": {
+      "description": "Biến cửa hàng chỉ có một người bán thành sàn thương mại nhiều người bán. Người bán đăng ký, đăng sản phẩm trong cửa hàng của họ, còn quản trị viên theo dõi đơn hàng và hoa hồng của tất cả cửa hàng. Mỗi sản phẩm thuộc về một người bán, hoa hồng được tự động chia.",
+      "fields": {
+        "commissionPct": {
+          "label": "Phần trăm hoa hồng nền tảng"
+        },
+        "marketName": {
+          "label": "Tên sàn thương mại"
+        }
+      },
+      "name": "Sàn thương mại",
+      "summary": "Cho phép người bán khác bán hàng qua cửa hàng của bạn."
+    },
+    "media-playlist": {
+      "description": "Danh sách phát do quản trị viên tạo, kết hợp âm thanh và video, phát bằng một trình phát duy nhất. Trình phát tự chuyển sang mục tiếp theo, hỗ trợ bỏ qua / phát lại và hiển thị danh sách chờ kèm hình thu nhỏ.",
+      "fields": {
+        "playlistName": {
+          "label": "Tên danh sách phát"
+        }
+      },
+      "name": "Danh sách phát đa phương tiện",
+      "summary": "Gộp bài hát và video vào một danh sách phát."
+    },
+    "member-id-card": {
+      "description": "Cấp thẻ thành viên điện tử. Mỗi thẻ có tên, ảnh, mã thành viên riêng, hạng thành viên, ngày cấp/hết hạn và mã vạch có thể quét (Code 128). Thành viên mở thẻ trên điện thoại; nhân viên quét thẻ ở cửa để xác minh (dùng quy trình của mô-đun mã vạch/QR).",
+      "fields": {
+        "cardTagline": {
+          "label": "Câu giới thiệu trên thẻ"
+        },
+        "orgName": {
+          "label": "Tên tổ chức"
+        }
+      },
+      "name": "Thẻ thành viên",
+      "summary": "Tạo thẻ thành viên điện tử."
+    },
+    "menu": {
+      "description": "Thực đơn nhà hàng hoặc quán cà phê được chia theo danh mục (Món khai vị, Món chính, Đồ uống), gồm tên món, mô tả và giá. Trang quản trị cho phép bạn thêm món mới bằng điện thoại.",
+      "fields": {
+        "currency": {
+          "label": "Tiền tệ"
+        },
+        "restaurantName": {
+          "label": "Tên nhà hàng"
+        }
+      },
+      "name": "Thực đơn nhà hàng",
+      "summary": "Trưng bày thực đơn đồ ăn và thức uống."
+    },
+    "newsletter": {
+      "description": "Trang đăng ký nổi bật với một trường email, danh sách người đăng ký ngày càng tăng và trang quản trị hiển thị mọi lượt đăng ký cùng thời gian.",
+      "fields": {
+        "buttonText": {
+          "label": "Văn bản nút"
+        },
+        "pitch": {
+          "label": "Lời giới thiệu ngắn"
+        },
+        "title": {
+          "label": "Tiêu đề chính"
+        }
+      },
+      "name": "Bản tin",
+      "summary": "Thu thập địa chỉ email để gửi tin tức và ưu đãi."
+    },
+    "notes": {
+      "description": "Ghi nhanh các ghi chú ngắn kèm thẻ. Thích hợp để lưu ý tưởng, liên kết, lời nhắc và những mẩu ghi chú chưa cần thành tài liệu hoàn chỉnh.",
+      "name": "Ghi chú",
+      "summary": "Ghi nhanh vài dòng."
+    },
+    "nutrition-tracker": {
+      "description": "Ghi lại bữa ăn cùng lượng calo, protein, tinh bột và chất béo. Xem tổng lượng mỗi ngày so với mục tiêu và biểu đồ lịch sử 7 ngày. Có sẵn danh sách thực phẩm phổ biến để ghi nhanh. Kết hợp với mô-đun theo dõi thói quen để duy trì chuỗi ngày liên tiếp.",
+      "fields": {
+        "kcalGoal": {
+          "label": "Mục tiêu kcal mỗi ngày"
+        },
+        "proteinGoal": {
+          "label": "Mục tiêu protein mỗi ngày (g)"
+        }
+      },
+      "name": "Theo dõi dinh dưỡng",
+      "summary": "Ghi lại bữa ăn và lượng calo."
+    },
+    "password-vault": {
+      "description": "Két đơn giản để lưu thông tin bí mật dùng chung (mật khẩu Wi-Fi, khóa bản quyền, mã cửa). Được bảo vệ bằng mã PIN chính, lưu dưới dạng mã băm argon2 — không bao giờ lưu dưới dạng văn bản thuần.",
+      "fields": {
+        "masterPin": {
+          "help": "Được lưu dưới dạng mã băm argon2. Không thể khôi phục.",
+          "label": "Mã PIN chính",
+          "placeholder": "Chọn mã PIN gồm 4–6 chữ số"
+        },
+        "vaultName": {
+          "label": "Tên két"
+        }
+      },
+      "name": "Két mật khẩu",
+      "summary": "Bảo vệ ghi chú riêng tư bằng mã PIN."
+    },
+    "paywall": {
+      "description": "Khóa nội dung cao cấp bằng mã truy cập hoặc tài khoản đã đăng nhập. Tạo mã mở khóa (dùng một lần hoặc dùng chung). Mọi trang có gắn data-nk-paywall sẽ bị ẩn cho đến khi khách truy cập nhập mã hợp lệ hoặc đăng nhập. Trạng thái mở khóa được lưu trong localStorage của khách truy cập.",
+      "fields": {
+        "ctaCopy": {
+          "label": "Tiêu đề màn hình khóa"
+        },
+        "subCopy": {
+          "label": "Tiêu đề phụ màn hình khóa"
+        }
+      },
+      "name": "Tường phí",
+      "summary": "Giới hạn một số trang cho thành viên trả phí hoặc người có mã."
+    },
+    "pdf-embed": {
+      "description": "Quản lý thư viện nhỏ các tài liệu PDF (bảng giá, tờ giới thiệu, hướng dẫn, hợp đồng). Mỗi PDF có trang xem công khai, được nhúng trình đọc PDF tích hợp trong trình duyệt. Khách truy cập có thể mở tài liệu ngay trên trang hoặc tải xuống.",
+      "fields": {
+        "heading": {
+          "label": "Tiêu đề thư viện"
+        }
+      },
+      "name": "Thư viện PDF",
+      "summary": "Chia sẻ tài liệu để mọi người đọc ngay trên trang."
+    },
+    "personalized-dashboard": {
+      "description": "Trang chủ cá nhân hóa chào người dùng đã đăng nhập bằng tên và hiển thị các tiện ích họ đã ghim. Ghim tiện ích (nhãn + URL + biểu tượng) để tiện ích xuất hiện trên trang tổng quan. Các mô-đun khác cũng có thể tự ghim tiện ích (ví dụ: “số thư chưa đọc”) bằng tính năng tạo tiện ích.",
+      "fields": {
+        "greeting": {
+          "label": "Lời chào mở đầu"
+        }
+      },
+      "name": "Trang tổng quan cá nhân hóa",
+      "summary": "Tạo trang chủ riêng cho mỗi người đã đăng nhập."
+    },
+    "petitions": {
+      "description": "Trang kiến nghị có tiêu đề, mô tả và biểu mẫu ký tên. Theo dõi người ký bằng tên, email và nhận xét tùy chọn; hiển thị tổng số chữ ký.",
+      "fields": {
+        "target": {
+          "label": "Mục tiêu chữ ký"
+        },
+        "title": {
+          "label": "Tiêu đề kiến nghị"
+        }
+      },
+      "name": "Kiến nghị",
+      "summary": "Thu thập chữ ký ủng hộ một mục tiêu."
+    },
+    "phonebook": {
+      "description": "Danh bạ nhân viên hoặc hội viên có chức năng tìm kiếm. Mỗi hồ sơ có ảnh, tên, chức danh, phòng ban, email, số điện thoại và tiểu sử ngắn. Lọc theo phòng ban, tìm theo tên. Phù hợp với mạng nội bộ công ty, trang nhân viên trường học hoặc danh sách hội viên hiệp hội doanh nghiệp.",
+      "fields": {
+        "heading": {
+          "label": "Tiêu đề danh bạ"
+        }
+      },
+      "name": "Danh bạ / Danh sách liên hệ",
+      "summary": "Danh sách liên hệ có thể tìm kiếm."
+    },
+    "places": {
+      "description": "Cẩm nang địa điểm thân thiện với điện thoại, gồm danh sách, danh mục và bản đồ có đánh dấu bằng ảnh. Khách truy cập có thể tìm kiếm, chia sẻ vị trí để xem những nơi gần nhất trước, rồi mở địa điểm để xem ảnh, giờ mở cửa, nút gọi và chỉ đường. Khách truy cập đã đăng nhập có thể đề xuất địa điểm của mình để bạn duyệt. Có năm ngôn ngữ và ví dụ có sẵn cho cẩm nang du lịch, nhà hàng, danh bạ doanh nghiệp hoặc địa điểm tổ chức đám cưới và sự kiện.",
+      "fields": {
+        "accent": {
+          "help": "Màu của đầu trang, nút và ghim bản đồ trong hướng dẫn. Màu chữ và nền luôn theo giao diện ứng dụng của bạn.",
+          "label": "Màu sắc",
+          "options": {
+            "blue": "Xanh dương",
+            "theme": "Màu chính của ứng dụng"
+          }
+        },
+        "languages": {
+          "help": "Khách truy cập có thể đổi ngôn ngữ bằng nút hình quả địa cầu. Nếu có hỗ trợ, ngôn ngữ trên điện thoại của họ sẽ được dùng; nếu không, ngôn ngữ đầu tiên sẽ được chọn. Tên địa điểm và mô tả sẽ hiển thị như bạn đã viết.",
+          "label": "Ngôn ngữ",
+          "options": {
+            "de_en_es_pt_fr": "Cả năm, ưu tiên tiếng Đức",
+            "en": "Chỉ tiếng Anh",
+            "en_de": "Tiếng Anh và tiếng Đức",
+            "en_es": "Tiếng Anh và tiếng Tây Ban Nha",
+            "en_es_pt_fr_de": "Cả năm, ưu tiên tiếng Anh",
+            "en_fr": "Tiếng Anh và tiếng Pháp",
+            "en_pt": "Tiếng Anh và tiếng Bồ Đào Nha",
+            "es_en_pt_fr_de": "Cả năm, ưu tiên tiếng Tây Ban Nha",
+            "fr_en_es_pt_de": "Cả năm, ưu tiên tiếng Pháp",
+            "pt_en_es_fr_de": "Cả năm, ưu tiên tiếng Bồ Đào Nha"
+          }
+        },
+        "preset": {
+          "help": "Thiết lập danh mục, cách diễn đạt và các địa điểm mẫu ban đầu. Bạn có thể thay đổi tất cả sau này.",
+          "label": "Dùng cho",
+          "options": {
+            "directory": "Danh bạ doanh nghiệp",
+            "restaurants": "Nhà hàng",
+            "tourist": "Cẩm nang du lịch hoặc thành phố",
+            "venues": "Địa điểm tiệc cưới & sự kiện"
+          }
+        },
+        "sortBy": {
+          "help": "Khi khách truy cập chia sẻ vị trí, địa điểm gần nhất luôn được hiển thị trước.",
+          "label": "Thứ tự danh sách",
+          "options": {
+            "featured": "Địa điểm nổi bật trước, sau đó theo thứ tự của bạn",
+            "name": "A đến Z"
+          }
+        },
+        "title": {
+          "help": "Hiển thị ở đầu hướng dẫn. Để trống để dùng tiêu đề phù hợp với mục đích, theo ngôn ngữ của từng khách truy cập.",
+          "label": "Tiêu đề hướng dẫn",
+          "placeholder": "Cẩm nang thành phố"
+        },
+        "units": {
+          "label": "Đơn vị khoảng cách",
+          "options": {
+            "km": "Kilômét",
+            "mi": "Dặm"
+          }
+        }
+      },
+      "name": "Địa điểm",
+      "summary": "Cẩm nang địa điểm trên bản đồ, có ảnh và sắp xếp nơi gần nhất lên đầu."
+    },
+    "podcast": {
+      "description": "Trang giới thiệu podcast có danh sách tập, mỗi tập gồm tiêu đề, mô tả, thời lượng và URL âm thanh. Khách truy cập có thể phát tập ngay trên trang.",
+      "fields": {
+        "showName": {
+          "label": "Tên chương trình"
+        },
+        "tagline": {
+          "label": "Câu giới thiệu chương trình"
+        }
+      },
+      "name": "Podcast",
+      "summary": "Chia sẻ các tập podcast để mọi người nghe."
+    },
+    "polls": {
+      "description": "Mô-đun bình chọn: tạo câu hỏi cùng danh sách lựa chọn để khách truy cập bình chọn; kết quả được cập nhật ngay. Phù hợp để cộng đồng nhanh chóng đưa ra quyết định.",
+      "name": "Bình chọn",
+      "summary": "Đặt câu hỏi và để mọi người bình chọn."
+    },
+    "portfolio": {
+      "description": "Hồ sơ dự án gồm tiêu đề, hình ảnh, mô tả và liên kết ngoài không bắt buộc. Phù hợp với nhà thiết kế, nhà phát triển, nhiếp ảnh gia và công ty dịch vụ.",
+      "fields": {
+        "intro": {
+          "label": "Câu giới thiệu"
+        },
+        "name": {
+          "label": "Tên bạn hoặc thương hiệu"
+        }
+      },
+      "name": "Hồ sơ năng lực",
+      "summary": "Trưng bày những tác phẩm xuất sắc nhất của bạn."
+    },
+    "pricing": {
+      "description": "Trang giá chỉn chu với ba gói (tùy ý chỉnh sửa trong trình chỉnh sửa) và biểu mẫu quan tâm để thu thập email cho từng gói được chọn.",
+      "fields": {
+        "heading": {
+          "label": "Tiêu đề trang"
+        },
+        "sub": {
+          "label": "Tiêu đề phụ"
+        }
+      },
+      "name": "Gói giá",
+      "summary": "Hiển thị giá và cho phép mọi người đăng ký."
+    },
+    "project-portfolio": {
+      "description": "Xem tổng quan nhiều dự án. Mỗi dự án có tên, người phụ trách, trạng thái (đã lên kế hoạch/đang thực hiện/bị chặn/hoàn tất), phần trăm hoàn thành, hạn chót và số lượng công việc. Dùng để quản lý nhóm nhỏ hoặc các dự án tự do. Khác với mô-đun bảng kanban chỉ có một bảng.",
+      "fields": {
+        "portfolioName": {
+          "label": "Tên danh mục"
+        }
+      },
+      "name": "Danh mục dự án",
+      "summary": "Theo dõi dự án và tiến độ của từng dự án."
+    },
+    "properties": {
+      "description": "Trang đăng tin bất động sản với ảnh, giá, số phòng ngủ, số phòng tắm, diện tích và địa chỉ. Có thêm biểu mẫu để người mua quan tâm liên hệ.",
+      "fields": {
+        "agencyName": {
+          "label": "Tên công ty bất động sản"
+        }
+      },
+      "name": "Tin đăng bất động sản",
+      "summary": "Đăng tin nhà và bất động sản cần bán hoặc cho thuê."
+    },
+    "purchase-order": {
+      "description": "Quy trình đặt hàng B2B đơn giản. Nhân viên gửi đơn đặt hàng (nhà cung cấp, các mặt hàng, tổng tiền, lý do); người phê duyệt xem danh sách và chấp thuận/từ chối; bộ phận tài chính đánh dấu đã giao và đã thanh toán. Mỗi đơn có số thứ tự để tiện đối chiếu kế toán.",
+      "fields": {
+        "approverEmail": {
+          "label": "Email người phê duyệt"
+        }
+      },
+      "name": "Đơn đặt hàng",
+      "summary": "Yêu cầu, phê duyệt và theo dõi đơn hàng từ nhà cung cấp."
+    },
+    "push-notifications": {
+      "description": "Thêm nút “Bật thông báo”. Khách truy cập đăng ký nhận thông báo trên trình duyệt (hoặc trên iPhone, từ ứng dụng được thêm vào màn hình chính). Bạn có thể gửi thông tin cập nhật từ màn hình Thông báo của ứng dụng hoặc qua quy trình tự động.",
+      "fields": {
+        "heading": {
+          "label": "Tiêu đề trang"
+        },
+        "pitch": {
+          "label": "Lời giới thiệu"
+        }
+      },
+      "name": "Thông báo đẩy",
+      "summary": "Gửi thông báo đến điện thoại và máy tính của mọi người."
+    },
+    "qr-scanner": {
+      "description": "Máy quét mã QR dùng camera, được hỗ trợ bởi jsQR. Kết quả quét sẽ được điền vào trường biểu mẫu để bạn gửi — rất phù hợp cho điểm danh, phiếu giảm giá và theo dõi chuyên cần.",
+      "fields": {
+        "heading": {
+          "label": "Tiêu đề"
+        }
+      },
+      "name": "Máy quét mã QR",
+      "summary": "Quét mã QR bằng camera điện thoại."
+    },
+    "queue": {
+      "description": "Hàng chờ trực tuyến. Khách dùng điện thoại để tham gia hàng chờ, xem số thứ tự và vị trí hiện tại được cập nhật trực tiếp. Nhân viên nhấn “tiếp theo” để gọi khách, số đang được phục vụ sẽ hiển thị cho tất cả khách đang chờ.",
+      "fields": {
+        "businessName": {
+          "label": "Tên doanh nghiệp"
+        }
+      },
+      "name": "Hàng chờ ảo",
+      "summary": "Cho phép khách xếp hàng mà không cần đứng chờ."
+    },
+    "quiz": {
+      "description": "Trò đố vui trên một trang với nhiều câu hỏi. Mỗi lần gửi được lưu cùng tên người dùng, câu trả lời và điểm số mà bạn có thể tính ở phía người dùng hoặc trong quy trình.",
+      "fields": {
+        "title": {
+          "label": "Tiêu đề câu đố"
+        }
+      },
+      "name": "Đố vui",
+      "summary": "Tổ chức trò đố vui thú vị và tính điểm."
+    },
+    "quote-request": {
+      "description": "Biểu mẫu yêu cầu báo giá dành cho doanh nghiệp dịch vụ. Thu thập thông tin dự án, ngân sách và thời gian dự kiến. Quản trị viên xem mọi yêu cầu cùng cột trạng thái để phân loại.",
+      "fields": {
+        "businessName": {
+          "label": "Tên doanh nghiệp"
+        }
+      },
+      "name": "Yêu cầu báo giá",
+      "summary": "Cho phép khách yêu cầu báo giá."
+    },
+    "radio": {
+      "description": "Trang radio có nút phát lớn, danh sách đài để người nghe chuyển giữa các đài trực tiếp và biểu mẫu yêu cầu bài hát. Bắt đầu với một đài lấy từ cấu hình của bạn; bạn có thể thêm đài trong trang quản trị.",
+      "fields": {
+        "stationName": {
+          "label": "Tên đài mặc định"
+        },
+        "streamUrl": {
+          "label": "URL phát mặc định (https)"
+        },
+        "tagline": {
+          "label": "Câu giới thiệu đài mặc định"
+        }
+      },
+      "name": "Trình phát radio",
+      "summary": "Phát các đài radio trực tiếp."
+    },
+    "reactions": {
+      "description": "Hệ thống cảm xúc đa dạng. Mọi hàng trong bất kỳ bảng nào cũng có thể gắn cảm xúc emoji (     …). Mỗi cảm xúc là một hàng tham chiếu đến (entity_table, entity_id, emoji, optional user_id). Bảng lời chúc, diễn đàn, blog, thư viện ảnh — mọi mô-đun đều có thể dùng tính năng này.",
+      "name": "Cảm xúc",
+      "summary": "Cho phép mọi người phản hồi bài đăng bằng emoji."
+    },
+    "reading": {
+      "description": "Theo dõi sách cá nhân. Mỗi cuốn có tiêu đề, tác giả, ảnh bìa, trạng thái và điểm đánh giá tùy chọn sau khi đọc xong.",
+      "name": "Danh sách sách cần đọc",
+      "summary": "Theo dõi sách cần đọc, đang đọc và đã đọc xong."
+    },
+    "realtime-chat": {
+      "description": "Phòng trò chuyện công khai tự kiểm tra tin nhắn mới sau mỗi vài giây để cuộc trò chuyện diễn ra gần như tức thì. Đặt ở bất cứ đâu bạn muốn khách truy cập trò chuyện theo thời gian thực.",
+      "fields": {
+        "refreshMs": {
+          "label": "Khoảng làm mới (ms)"
+        },
+        "roomTitle": {
+          "label": "Tên phòng"
+        }
+      },
+      "name": "Trò chuyện thời gian thực",
+      "summary": "Phòng trò chuyện nơi tin nhắn xuất hiện ngay lập tức."
+    },
+    "recipes": {
+      "description": "Bộ sưu tập công thức nấu ăn. Mỗi công thức có tiêu đề, ảnh bìa, danh sách nguyên liệu, hướng dẫn, thời gian chuẩn bị và số phần ăn. Phù hợp cho người thích nấu ăn tại nhà hoặc blog ẩm thực.",
+      "fields": {
+        "kitchenName": {
+          "label": "Tên bộ sưu tập"
+        }
+      },
+      "name": "Công thức nấu ăn",
+      "summary": "Chia sẻ công thức cùng nguyên liệu và cách làm."
+    },
+    "referrals": {
+      "description": "Mỗi người dùng có một mã giới thiệu riêng và một đường liên kết để chia sẻ. Khi có người đăng ký bằng mã đó, lượt đăng ký sẽ được ghi nhận cho người giới thiệu. Có bảng xếp hạng những người giới thiệu nhiều nhất và trang chia sẻ mã của tôi.",
+      "fields": {
+        "appName": {
+          "label": "Tên ứng dụng"
+        },
+        "rewardCopy": {
+          "label": "Nội dung phần thưởng"
+        }
+      },
+      "name": "Giới thiệu bạn bè",
+      "summary": "Thưởng cho những người mời bạn bè tham gia."
+    },
+    "reminders": {
+      "description": "Cho phép người dùng (hoặc quản trị viên) lên lịch gửi lời nhắc: “Gửi email nhắc tôi về X lúc 4 giờ chiều thứ Sáu.” Lời nhắc được lưu cùng thời gian gửi và nội dung email; một tác vụ riêng (hoặc quy trình gửi thủ công) sẽ gửi khi đến hạn.",
+      "fields": {
+        "fromEmail": {
+          "label": "Email gửi đi"
+        }
+      },
+      "name": "Lời nhắc",
+      "summary": "Gửi lời nhắc qua email vào thời điểm bạn chọn."
+    },
+    "rentals": {
+      "description": "Tin cho thuê ngắn hạn kiểu Airbnb. Mỗi tin có ảnh, giá mỗi đêm, số khách, tiện nghi và biểu mẫu yêu cầu đặt chỗ.",
+      "name": "Nhà nghỉ dưỡng",
+      "summary": "Đăng nhà nghỉ dưỡng để mọi người gửi yêu cầu đặt chỗ."
+    },
+    "reviews": {
+      "description": "Trang gửi đánh giá với xếp hạng sao và nhận xét, cùng một trang công khai liệt kê mọi đánh giá đã duyệt. Phù hợp để tăng độ tin cậy cho trang web của bạn.",
+      "fields": {
+        "brand": {
+          "label": "Tên thương hiệu / doanh nghiệp"
+        }
+      },
+      "name": "Đánh giá",
+      "summary": "Thu thập xếp hạng sao và đánh giá từ khách hàng."
+    },
+    "routes": {
+      "description": "Tạo lịch trình hoặc tuyến đường có nhiều điểm dừng: thêm các điểm theo thứ tự (tên, địa chỉ, vĩ độ/kinh độ, ghi chú), xem trên bản đồ với đường nối giữa các điểm và chia sẻ tuyến đường công khai qua một trang dễ in.",
+      "fields": {
+        "heading": {
+          "label": "Tiêu đề"
+        }
+      },
+      "name": "Tuyến đường & Lịch trình",
+      "summary": "Chia sẻ tuyến đường hoặc kế hoạch chuyến đi, theo từng điểm dừng."
+    },
+    "rss-reader": {
+      "description": "Đăng ký một hoặc nhiều nguồn cấp dữ liệu RSS / Atom bên ngoài và hiển thị các bài viết mới nhất từ những nguồn đó trong ứng dụng. Tính năng làm mới sẽ tải nguồn tin (có thể chạy theo lịch), đọc bài viết và lưu vào ứng dụng để hiển thị nhanh hơn.",
+      "fields": {
+        "heading": {
+          "label": "Tiêu đề trình đọc"
+        }
+      },
+      "name": "Trình đọc tin mới",
+      "summary": "Hiển thị bài viết mới nhất từ nguồn tin của trang web khác."
+    },
+    "scheduled-content": {
+      "description": "Soạn nội dung (tiêu đề + nội dung) ở dạng bản nháp, đặt thời điểm publish_at và nội dung chỉ xuất hiện trên nguồn cấp dữ liệu công khai sau thời điểm đó. Có thể dùng cron để chạy quy trình “publish-due” và chuyển bản nháp sang trạng thái đã đăng; nguồn cấp dữ liệu công khai cũng tự lọc theo thời gian thực.",
+      "fields": {
+        "heading": {
+          "label": "Tiêu đề nguồn cấp dữ liệu"
+        }
+      },
+      "name": "Nội dung lên lịch",
+      "summary": "Viết ngay, đăng sau."
+    },
+    "scratch-card": {
+      "description": "Chương trình khuyến mãi dạng cào. Khách truy cập nhập email để nhận thẻ cào ảo; cào thẻ sẽ hiện một giải thưởng ngẫu nhiên trong danh sách giải (theo trọng số tồn kho). Mỗi giải được trao đều lưu lại email người thắng và mã nhận thưởng.",
+      "fields": {
+        "campaignName": {
+          "label": "Tên chiến dịch"
+        }
+      },
+      "name": "Thẻ cào",
+      "summary": "Tặng giải thưởng qua thẻ cào trúng thưởng."
+    },
+    "service-menu": {
+      "description": "Danh sách dịch vụ như ở tiệm làm tóc hoặc spa — mỗi dịch vụ có tên, thời lượng, giá và mô tả. Rất phù hợp khi dùng cùng trang đặt lịch.",
+      "fields": {
+        "businessName": {
+          "label": "Tên doanh nghiệp"
+        },
+        "currency": {
+          "label": "Tiền tệ"
+        }
+      },
+      "name": "Danh sách dịch vụ",
+      "summary": "Liệt kê dịch vụ và giá của bạn."
+    },
+    "share-app": {
+      "description": "Trang “Chia sẻ ứng dụng này” có sẵn tính năng Chia sẻ trên web (trên di động), sao chép vào bộ nhớ tạm và liên kết chia sẻ tạo sẵn cho Twitter/X, Facebook, WhatsApp, Email và LinkedIn. Theo dõi lượt chia sẻ theo từng nơi để biết kênh nào hiệu quả.",
+      "fields": {
+        "appName": {
+          "label": "Tên ứng dụng"
+        },
+        "appUrl": {
+          "label": "URL chia sẻ"
+        },
+        "shareText": {
+          "label": "Nội dung chia sẻ mặc định"
+        }
+      },
+      "name": "Chia sẻ ứng dụng",
+      "summary": "Giúp mọi người dễ dàng chia sẻ ứng dụng của bạn."
+    },
+    "shop": {
+      "description": "Danh sách sản phẩm đi kèm giỏ hàng. Khách truy cập thêm sản phẩm vào giỏ, xem lại giỏ hàng và gửi đơn đặt hàng kèm thông tin cá nhân, toàn bộ sản phẩm trong giỏ và tổng tiền đã tính. Đơn hàng được lưu trong bảng quản trị để bạn xem.",
+      "fields": {
+        "currency": {
+          "label": "Ký hiệu tiền tệ"
+        },
+        "storeName": {
+          "label": "Tên cửa hàng"
+        }
+      },
+      "name": "Cửa hàng đơn giản",
+      "summary": "Bán sản phẩm trực tuyến với giỏ hàng đầy đủ."
+    },
+    "slider": {
+      "description": "Băng chuyền ảnh nổi bật trên trang chủ mà quản trị viên có thể chỉnh sửa mà không cần động đến mã. Thêm trang chiếu (ảnh, tiêu đề, tiêu đề phụ, nút kêu gọi hành động và liên kết), sắp xếp lại thứ tự, rồi băng chuyền công khai sẽ tự động chạy. Được xây dựng bằng JavaScript thuần, không phụ thuộc thư viện băng chuyền.",
+      "fields": {
+        "intervalMs": {
+          "label": "Thời gian giữa các trang chiếu (ms)"
+        }
+      },
+      "name": "Trình chiếu ảnh",
+      "summary": "Hiển thị ảnh lần lượt chuyển qua."
+    },
+    "sms": {
+      "description": "Gửi tin nhắn SMS đến số điện thoại qua REST API của Twilio. Lưu mọi lần gửi vào bảng hộp thư đi để tiện kiểm tra. Dùng cùng tính năng nhắc nhở, xác thực hai yếu tố hoặc bất kỳ quy trình nào cần nhắn tin thay vì gửi email.",
+      "fields": {
+        "fromNumber": {
+          "label": "Số gửi (E.164)"
+        },
+        "twilioAccountSid": {
+          "label": "SID tài khoản Twilio"
+        },
+        "twilioAuthToken": {
+          "label": "Mã xác thực Twilio"
+        }
+      },
+      "name": "Tin nhắn SMS",
+      "summary": "Gửi tin nhắn cho khách hàng."
+    },
+    "status-page": {
+      "description": "Trang trạng thái như statuspage.io. Tạo danh sách dịch vụ (API, Web, Cơ sở dữ liệu…), mỗi dịch vụ có trạng thái hiện tại. Đăng sự cố và cập nhật tiến trình từ đang điều tra → đã xác định → đã xử lý, với các cập nhật công khai được ghim vào dịch vụ bị ảnh hưởng.",
+      "fields": {
+        "appName": {
+          "label": "Tên ứng dụng / dịch vụ"
+        }
+      },
+      "name": "Trang trạng thái",
+      "summary": "Cho khách hàng biết mọi thứ có đang hoạt động bình thường không."
+    },
+    "store-locator": {
+      "description": "Công cụ tìm cửa hàng ở nhiều địa điểm, có giờ mở cửa, dịch vụ, sắp xếp theo khoảng cách từ vị trí của người dùng và liên kết chỉ đường đến Google/Apple Maps chỉ với một lần chạm. Khác với `places` thông thường — được thiết kế riêng cho chuỗi bán lẻ, nhượng quyền, chi nhánh và địa điểm đối tác.",
+      "fields": {
+        "brandName": {
+          "label": "Tên thương hiệu"
+        }
+      },
+      "name": "Tìm cửa hàng",
+      "summary": "Giúp mọi người tìm cửa hàng gần nhất."
+    },
+    "stripe-checkout": {
+      "description": "Trang sản phẩm có nút Thanh toán, tạo phiên thanh toán Stripe thật và chuyển khách hàng đến trang thanh toán. Thêm khóa bí mật Stripe của bạn trong cấu hình mô-đun.",
+      "fields": {
+        "cancelUrl": {
+          "help": "Trang mọi người sẽ đến nếu hủy thanh toán, thường là trang chủ ứng dụng.",
+          "label": "URL chuyển hướng khi hủy"
+        },
+        "currency": {
+          "label": "Mã tiền tệ"
+        },
+        "priceCents": {
+          "label": "Giá tính bằng xu"
+        },
+        "productName": {
+          "label": "Tên sản phẩm"
+        },
+        "stripeSecret": {
+          "help": "Khóa bí mật Stripe của bạn. Hãy dùng khóa thử nghiệm để bắt đầu.",
+          "label": "Khóa bí mật Stripe"
+        },
+        "successUrl": {
+          "help": "Trang mọi người sẽ đến sau khi thanh toán, chẳng hạn như trang cảm ơn của ứng dụng. Sao chép địa chỉ trong thẻ Xuất bản của ứng dụng.",
+          "label": "URL chuyển hướng sau khi thanh toán"
+        }
+      },
+      "name": "Thanh toán trực tuyến",
+      "summary": "Nhận thanh toán bằng thẻ cho mọi thứ bạn bán."
+    },
+    "submissions-queue": {
+      "description": "Luồng gửi bài kiểu Reddit: khách gửi nội dung (tiêu đề + nội dung + ảnh tùy chọn), bài được đưa vào hàng chờ kiểm duyệt, quản trị viên duyệt hoặc từ chối; chỉ bài được duyệt mới xuất hiện trên bảng tin công khai. Lưu lý do từ chối. Khác với biểu mẫu liên hệ, vốn chỉ là hộp thư.",
+      "fields": {
+        "feedHeading": {
+          "label": "Tiêu đề bảng tin công khai"
+        },
+        "guidelines": {
+          "label": "Hướng dẫn gửi bài"
+        }
+      },
+      "name": "Hàng chờ bài gửi",
+      "summary": "Thu thập bài gửi và duyệt trước khi đăng."
+    },
+    "subscription": {
+      "description": "Trang đăng ký gói định kỳ hằng tháng, gồm chọn gói, thông tin giao hàng và xác nhận. Lưu thông tin thành viên vào bảng để tính phí và thực hiện đơn hàng.",
+      "fields": {
+        "boxName": {
+          "label": "Tên hộp"
+        }
+      },
+      "name": "Hộp đăng ký định kỳ",
+      "summary": "Cho phép khách đăng ký nhận hộp hàng hoặc gói dịch vụ hằng tháng."
+    },
+    "survey": {
+      "description": "Khảo sát gồm nhiều câu hỏi và câu trả lời tự do. Lưu câu trả lời dưới dạng JSON cho mỗi lần gửi và xem chúng trong trang quản trị.",
+      "fields": {
+        "intro": {
+          "label": "Giới thiệu"
+        },
+        "title": {
+          "label": "Tiêu đề khảo sát"
+        }
+      },
+      "name": "Khảo sát",
+      "summary": "Đặt vài câu hỏi cho khách hàng và thu thập câu trả lời."
+    },
+    "table-reservations": {
+      "description": "Tính năng đặt bàn dành riêng cho nhà hàng (khác với đặt lịch thông thường). Tạo danh sách bàn (kèm số chỗ), nhận đặt bàn theo ngày, giờ và số khách, đồng thời ngăn đặt trùng. Nhân viên đón khách xem lịch bàn trong ngày; khách nhận trang xác nhận.",
+      "fields": {
+        "restaurantName": {
+          "label": "Tên nhà hàng"
+        },
+        "slotMinutes": {
+          "label": "Thời lượng mỗi lượt phục vụ (phút)"
+        }
+      },
+      "name": "Đặt bàn",
+      "summary": "Cho phép khách đặt bàn tại nhà hàng của bạn."
+    },
+    "tags": {
+      "description": "Hệ thống gắn nhãn đơn giản. Tạo nhãn (có thể thêm màu), rồi gắn chúng vào bất kỳ hàng nào trong bảng nào. Hữu ích để phân loại khách hàng tiềm năng, dự án hoặc nội dung.",
+      "name": "Nhãn",
+      "summary": "Thêm nhãn để dễ sắp xếp và tìm kiếm."
+    },
+    "team": {
+      "description": "Danh bạ nhân viên gồm ảnh, tên, chức vụ và tiểu sử ngắn. Phù hợp với trang giới thiệu và mạng nội bộ.",
+      "fields": {
+        "heading": {
+          "label": "Tiêu đề trang"
+        }
+      },
+      "name": "Danh bạ đội ngũ",
+      "summary": "Giới thiệu các thành viên trong đội ngũ."
+    },
+    "testimonials": {
+      "description": "Thu thập và hiển thị lời nhận xét của khách hàng. Đơn giản hơn hệ thống đánh giá — không có sao xếp hạng, chỉ gồm tên, ảnh và nội dung nhận xét. Rất phù hợp để thêm vào trang đích.",
+      "name": "Lời chứng thực",
+      "summary": "Chia sẻ nhận xét từ những khách hàng hài lòng."
+    },
+    "timeline": {
+      "description": "Dòng thời gian dọc theo kiểu nhật ký cập nhật. Phù hợp với ghi chú phát hành, lịch sử công ty, dấu mốc dự án hoặc danh sách sự kiện có ngày tháng.",
+      "fields": {
+        "subtitle": {
+          "label": "Tiêu đề phụ"
+        },
+        "title": {
+          "label": "Tiêu đề dòng thời gian"
+        }
+      },
+      "name": "Dòng thời gian",
+      "summary": "Kể câu chuyện của bạn bằng danh sách ngày tháng và dấu mốc."
+    },
+    "todo": {
+      "description": "Danh sách việc cần làm cá nhân hoặc dùng chung, gồm tiêu đề, ghi chú, mức độ ưu tiên và trạng thái hoàn tất. Dữ liệu được lưu trong bảng công việc để bạn tìm kiếm, lọc và mở rộng.",
+      "fields": {
+        "listName": {
+          "label": "Tên danh sách"
+        }
+      },
+      "name": "Danh sách việc cần làm",
+      "summary": "Tạo danh sách việc cần làm và đánh dấu khi hoàn tất."
+    },
+    "two-factor": {
+      "description": "Thêm một bước đăng nhập: sau khi người dùng đăng nhập, chúng tôi gửi cho họ mã 6 chữ số qua email. Phiên đăng nhập sẽ được đánh dấu là chưa xác minh cho đến khi họ xác nhận mã. Thêm mô-đun này vào bất kỳ dự án nào dùng mô-đun xác thực để tăng cường bảo mật tài khoản.",
+      "fields": {
+        "appName": {
+          "label": "Tên ứng dụng"
+        },
+        "fromEmail": {
+          "label": "Email gửi đi"
+        }
+      },
+      "name": "Xác minh đăng nhập bổ sung",
+      "summary": "Thêm mã gửi qua email khi mọi người đăng nhập."
+    },
+    "user-favorites": {
+      "description": "Cho phép người dùng đã đăng nhập đánh dấu yêu thích bất kỳ thứ gì (sản phẩm, xe tải, bài đăng, bài viết) và xem danh sách riêng của họ. Dùng mô-đun xác thực hiện có trong dự án — bạn cần cài Auth / Accounts (hoặc nhà cung cấp phiên đăng nhập khác) trước.",
+      "name": "Mục yêu thích",
+      "summary": "Cho phép người đã đăng nhập lưu các mục yêu thích."
+    },
+    "user-groups": {
+      "description": "Bổ sung tư cách thành viên nhiều nhóm bên cạnh trường vai trò đơn của mô-đun xác thực. Tạo các nhóm (Premium, Beta, VIP, Staff…) và thêm mỗi người dùng vào một hoặc nhiều nhóm. Các mô-đun khác có thể kiểm tra tư cách thành viên qua luồng kiểm tra nhóm trước khi giới hạn quyền dùng tính năng.",
+      "name": "Nhóm thành viên",
+      "summary": "Phân thành viên vào các nhóm như VIP hoặc nhân viên."
+    },
+    "user-profile-card": {
+      "description": "Thẻ hồ sơ nhỏ hiển thị tên, ảnh đại diện và thông tin giới thiệu của người dùng đã đăng nhập. Dùng mô-đun người dùng xác thực hiện có — không cần cơ sở dữ liệu riêng. Thêm thẻ vào một trang để khách truy cập biết nhanh ai đang đăng nhập.",
+      "name": "Thẻ hồ sơ",
+      "summary": "Hiển thị hồ sơ riêng cho mỗi người đã đăng nhập."
+    },
+    "video": {
+      "description": "Thư viện video nhúng video từ YouTube và Vimeo. Khách truy cập xem lưới hình thu nhỏ; nhấn vào để mở trình phát ngay trên trang. Chỉnh sửa tiêu đề và mô tả từng video trong trang quản trị.",
+      "fields": {
+        "title": {
+          "label": "Tiêu đề thư viện"
+        }
+      },
+      "name": "Thư viện video",
+      "summary": "Hiển thị video từ YouTube hoặc Vimeo."
+    },
+    "waitlist": {
+      "description": "Trang trước khi ra mắt nổi bật với một trường email để tham gia danh sách chờ. Thu thập tên, email và nguồn giới thiệu không bắt buộc. Rất phù hợp với trang đích trước khi ra mắt sản phẩm.",
+      "fields": {
+        "productName": {
+          "label": "Tên sản phẩm"
+        },
+        "tagline": {
+          "label": "Câu giới thiệu"
+        }
+      },
+      "name": "Danh sách chờ",
+      "summary": "Cho phép mọi người đăng ký để nhận tin khi bạn mở cửa."
+    },
+    "weather": {
+      "description": "Lấy thông tin thời tiết trực tiếp cho một địa điểm bằng khóa API OpenWeatherMap. Hiển thị nhiệt độ, tình trạng thời tiết và biểu tượng. Thêm khóa API miễn phí của bạn trong cấu hình mô-đun.",
+      "fields": {
+        "apiKey": {
+          "label": "Khóa API OpenWeatherMap",
+          "placeholder": "miễn phí tại openweathermap.org"
+        },
+        "city": {
+          "label": "Thành phố"
+        },
+        "units": {
+          "label": "Đơn vị",
+          "options": {
+            "imperial": "Fahrenheit (°F)",
+            "metric": "Celsius (°C)"
+          }
+        }
+      },
+      "name": "Tiện ích thời tiết",
+      "summary": "Hiển thị thời tiết hôm nay."
+    },
+    "webhooks-in": {
+      "description": "Tạo URL webhook công khai để nhận mọi dữ liệu JSON từ dịch vụ bên ngoài (sự kiện Stripe, webhook GitHub, Zapier, v.v.) và lưu vào bảng. Xem lại và xử lý lại dữ liệu từ bảng quản trị.",
+      "name": "Nhận dữ liệu từ ứng dụng khác",
+      "summary": "Nhận thông tin do các ứng dụng và dịch vụ khác gửi đến."
+    },
+    "webview": {
+      "description": "Cách đơn giản để nhúng URL bên ngoài vào ứng dụng bằng iframe bảo mật. Hữu ích khi muốn nhúng tài liệu, trang tổng quan hoặc ứng dụng bên thứ ba chưa có mô-đun riêng. Có thể thiết lập cho từng trang; để an toàn, chỉ hỗ trợ nguồn trong danh sách cho phép.",
+      "name": "Hiển thị website khác",
+      "summary": "Hiển thị một trang web khác trong ứng dụng của bạn."
+    },
+    "wedding": {
+      "description": "Trang cưới đẹp mắt với ngày cưới, địa điểm, câu chuyện tình yêu và biểu mẫu xác nhận tham dự để ghi lại tên khách, tình trạng tham dự, món ăn và người đi cùng.",
+      "fields": {
+        "coupleNames": {
+          "label": "Tên cô dâu chú rể"
+        },
+        "venue": {
+          "label": "Địa điểm"
+        },
+        "weddingDate": {
+          "label": "Ngày cưới"
+        }
+      },
+      "name": "Xác nhận dự tiệc cưới",
+      "summary": "Trang cưới để khách mời phản hồi lời mời."
+    },
+    "whatsapp-order": {
+      "description": "Cho phép khách chọn sản phẩm vào giỏ hàng trên trang công khai, sau đó nhấn “đặt hàng qua WhatsApp” để mở cuộc trò chuyện với doanh nghiệp của bạn, kèm nội dung đơn hàng đã soạn sẵn. Đơn hàng cũng được lưu trên máy chủ để bạn có bản ghi ngoài cuộc trò chuyện WhatsApp.",
+      "fields": {
+        "businessName": {
+          "label": "Tên doanh nghiệp"
+        },
+        "whatsappNumber": {
+          "label": "Số WhatsApp (chỉ nhập chữ số, có mã quốc gia)"
+        }
+      },
+      "name": "Đặt hàng qua WhatsApp",
+      "summary": "Cho phép khách đặt hàng qua WhatsApp."
+    },
+    "wishlist": {
+      "description": "Danh sách sản phẩm mong muốn gồm tên, giá, liên kết cửa hàng và hình ảnh tùy chọn. Chia sẻ để mọi người chọn quà hoặc giữ riêng để xem sau.",
+      "fields": {
+        "heading": {
+          "label": "Tiêu đề danh sách mong muốn"
+        }
+      },
+      "name": "Danh sách mong muốn",
+      "summary": "Cho phép mọi người lưu danh sách những thứ họ muốn."
+    }
+  },
+  "templates": {
+    "crafto-application": {
+      "name": "Ứng dụng",
+      "tagline": "Trang giới thiệu ứng dụng di động hiện đại với thẻ chuyển màu và bảng giá"
+    },
+    "crafto-architecture": {
+      "name": "Kiến trúc",
+      "tagline": "Studio kiến trúc tông tối táo bạo với điểm nhấn vàng neon và bố cục phong cách tạp chí"
+    },
+    "crafto-barber": {
+      "name": "Tiệm cắt tóc nam",
+      "tagline": "Tiệm cắt tóc nam cổ điển với tông vàng ấm và kiểu chữ hoài cổ"
+    },
+    "crafto-beauty-salon": {
+      "name": "Thẩm mỹ viện",
+      "tagline": "Thẩm mỹ viện thanh lịch với điểm nhấn màu đào ấm và tiêu đề chữ có chân"
+    },
+    "crafto-branding-agency": {
+      "name": "Công ty xây dựng thương hiệu",
+      "tagline": "Công ty xây dựng thương hiệu táo bạo với điểm nhấn màu hổ phách và bố cục phần mở đầu chia đôi"
+    },
+    "crafto-branding-studio": {
+      "name": "Studio xây dựng thương hiệu",
+      "tagline": "Studio xây dựng thương hiệu hiện đại với điểm nhấn cam rực rỡ và kiểu chữ gọn gàng"
+    },
+    "crafto-business": {
+      "name": "Doanh nghiệp",
+      "tagline": "Công ty dịch vụ doanh nghiệp chuyên nghiệp với các thẻ dịch vụ và bảng giá"
+    },
+    "crafto-charity": {
+      "name": "Quỹ từ thiện",
+      "tagline": "Mẫu trang phi lợi nhuận ấm áp với các mục về hoạt động, quyên góp và tình nguyện"
+    },
+    "crafto-clothing-store": {
+      "name": "Cửa hàng quần áo",
+      "tagline": "Cửa hàng thời trang phong cách tự nhiên với tông màu ấm và bố cục sản phẩm kiểu tạp chí"
+    },
+    "crafto-conference": {
+      "name": "Hội nghị",
+      "tagline": "Trang hội nghị và sự kiện năng động với điểm nhấn đỏ táo bạo và thẻ diễn giả"
+    },
+    "crafto-consulting": {
+      "name": "Tư vấn",
+      "tagline": "Công ty tư vấn chuyên nghiệp với điểm nhấn cam ấm và kiểu chữ táo bạo"
+    },
+    "crafto-corporate": {
+      "name": "Doanh nghiệp",
+      "tagline": "Trang doanh nghiệp chỉn chu với nhận diện chàm đậm và bố cục lưới gọn gàng"
+    },
+    "crafto-cryptocurrency": {
+      "name": "Tiền mã hóa",
+      "tagline": "Nền tảng giao dịch tiền mã hóa tông tối với điểm nhấn xanh neon và giao diện hiện đại"
+    },
+    "crafto-data-analysis": {
+      "name": "Phân tích dữ liệu",
+      "tagline": "Trang giới thiệu SaaS phân tích dữ liệu hiện đại với hiệu ứng chuyển màu rực rỡ và bố cục gọn gàng"
+    },
+    "crafto-decor-store": {
+      "name": "Cửa hàng đồ trang trí",
+      "tagline": "Mẫu thương mại điện tử đồ trang trí nhà cửa thanh lịch với nhận diện xanh navy tinh tế và lưới sản phẩm gọn gàng"
+    },
+    "crafto-design-agency": {
+      "name": "Công ty thiết kế",
+      "tagline": "Mẫu công ty sáng tạo táo bạo với kiểu chữ cỡ lớn và điểm nhấn cam ấm"
+    },
+    "crafto-digital-agency": {
+      "name": "Công ty kỹ thuật số",
+      "tagline": "Công ty sáng tạo táo bạo với lưới danh mục dự án và phần giới thiệu dịch vụ"
+    },
+    "crafto-ebook": {
+      "name": "Sách điện tử",
+      "tagline": "Trang giới thiệu sách điện tử tông tối với điểm nhấn vàng và kiểu chữ Oswald táo bạo"
+    },
+    "crafto-elder-care": {
+      "name": "Chăm sóc người cao tuổi",
+      "tagline": "Trang chăm sóc người cao tuổi ấm áp, tận tâm với điểm nhấn xanh navy đậm và đỏ"
+    },
+    "crafto-elearning": {
+      "name": "Học trực tuyến",
+      "tagline": "Nền tảng giáo dục trực tuyến hiện đại với danh mục khóa học, hồ sơ giảng viên và lời chứng thực của học viên"
+    },
+    "crafto-fashion-store": {
+      "name": "Cửa hàng thời trang",
+      "tagline": "Cửa hàng thời trang trực tuyến tinh tế với điểm nhấn vàng táo bạo"
+    },
+    "crafto-finance": {
+      "name": "Tài chính",
+      "tagline": "Dịch vụ tư vấn tài chính cao cấp với tông vàng ấm và xanh lá"
+    },
+    "crafto-fitness": {
+      "name": "Phòng gym & Thể hình",
+      "tagline": "Mẫu phòng gym và trung tâm thể hình nổi bật với lịch lớp, hồ sơ huấn luyện viên và các gói hội viên"
+    },
+    "crafto-freelancer": {
+      "name": "Freelancer",
+      "tagline": "Portfolio cá nhân nổi bật dành cho freelancer sáng tạo với điểm nhấn đỏ"
+    },
+    "crafto-green-energy": {
+      "name": "Năng lượng xanh",
+      "tagline": "Trang web công ty năng lượng tái tạo với bảng màu xanh lá tự nhiên"
+    },
+    "crafto-hosting": {
+      "name": "Nhà cung cấp dịch vụ hosting",
+      "tagline": "Mẫu hosting SaaS tông tối với bảng giá và lưới tính năng"
+    },
+    "crafto-hotel": {
+      "name": "Khách sạn & Khu nghỉ dưỡng",
+      "tagline": "Mẫu khách sạn và khu nghỉ dưỡng sang trọng, thanh lịch với khu vực giới thiệu phòng, tiện nghi và tính năng đặt chỗ"
+    },
+    "crafto-it-business": {
+      "name": "Doanh nghiệp CNTT",
+      "tagline": "Công ty giải pháp CNTT hiện đại với dải màu xanh dương đậm và hiệu ứng sóng"
+    },
+    "crafto-jewellery-store": {
+      "name": "Cửa hàng trang sức",
+      "tagline": "Cửa hàng trang sức thanh lịch với tông màu đào ấm và vàng hồng"
+    },
+    "crafto-lawyer": {
+      "name": "Luật sư",
+      "tagline": "Trang web công ty luật uy tín với phông chữ serif cổ điển và điểm nhấn vàng"
+    },
+    "crafto-logistics": {
+      "name": "Logistics",
+      "tagline": "Công ty logistics và vận chuyển nổi bật với tông vàng rực rỡ và màu tối"
+    },
+    "crafto-magazine": {
+      "name": "Tạp chí",
+      "tagline": "Bố cục tạp chí nổi bật với bài viết tiêu biểu và danh mục"
+    },
+    "crafto-marketing": {
+      "name": "Tiếp thị",
+      "tagline": "Trang đích cho công ty tiếp thị số, thiết kế để tăng chuyển đổi với kiểu chữ nổi bật"
+    },
+    "crafto-medical": {
+      "name": "Trung tâm y tế",
+      "tagline": "Mẫu chăm sóc sức khỏe gọn gàng với tính năng đặt lịch và hồ sơ bác sĩ"
+    },
+    "crafto-modern-business": {
+      "name": "Doanh nghiệp hiện đại",
+      "tagline": "Mẫu doanh nghiệp chuyên nghiệp với điểm nhấn tím và bố cục công ty gọn gàng"
+    },
+    "crafto-music": {
+      "name": "Âm nhạc",
+      "tagline": "Mẫu trang đơn cho nhạc sĩ hoặc ban nhạc với tông tối nổi bật và điểm nhấn hồng rực rỡ"
+    },
+    "crafto-photography": {
+      "name": "Nhiếp ảnh",
+      "tagline": "Portfolio nhiếp ảnh tối giản với các khung thư viện ảnh toàn màn hình"
+    },
+    "crafto-pizza": {
+      "name": "Quán pizza",
+      "tagline": "Mẫu nhà hàng pizza ấm cúng, hấp dẫn với điểm nhấn đỏ và vàng nổi bật"
+    },
+    "crafto-product-showcase": {
+      "name": "Giới thiệu sản phẩm",
+      "tagline": "Trang đích ra mắt sản phẩm hiện đại với điểm nhấn chuyển màu và hình ảnh nổi bật"
+    },
+    "crafto-realestate-v2": {
+      "name": "Bất động sản v2",
+      "tagline": "Sàn giao dịch bất động sản hiện đại với thanh trượt đầu trang, thẻ tin đăng và hồ sơ môi giới"
+    },
+    "crafto-realestate": {
+      "name": "Bất động sản",
+      "tagline": "Nền tảng bất động sản chuyên nghiệp với tin đăng, hồ sơ môi giới và tính năng tìm kiếm nâng cao"
+    },
+    "crafto-restaurant": {
+      "name": "Nhà hàng",
+      "tagline": "Nhà hàng cao cấp ấm cúng với khu vực giới thiệu thực đơn và nút đặt bàn"
+    },
+    "crafto-seo-agency": {
+      "name": "Công ty SEO",
+      "tagline": "Mẫu công ty SEO và tiếp thị số đầy màu sắc với các nút kêu gọi hành động chuyển màu"
+    },
+    "crafto-spa": {
+      "name": "Spa & Thẩm mỹ viện",
+      "tagline": "Không gian spa và chăm sóc sức khỏe thanh lịch với danh sách dịch vụ và lời nhận xét"
+    },
+    "crafto-startup": {
+      "name": "Startup",
+      "tagline": "Trang đích SaaS hoặc startup gọn gàng với điểm nhấn chuyển màu"
+    },
+    "crafto-travel-agency": {
+      "name": "Công ty du lịch",
+      "tagline": "Mẫu công ty du lịch thanh lịch với điểm nhấn vàng ấm và khu vực giới thiệu điểm đến"
+    },
+    "crafto-web-agency": {
+      "name": "Công ty thiết kế web",
+      "tagline": "Công ty sáng tạo kỹ thuật số nổi bật với điểm nhấn xanh neon và các khu vực tương phản tối"
+    },
+    "crafto-wedding": {
+      "name": "Thiệp mời đám cưới",
+      "tagline": "Trang thiệp mời đám cưới thanh lịch với bảng màu san hô lãng mạn và dòng thời gian"
+    },
+    "crafto-yoga": {
+      "name": "Yoga & Thiền",
+      "tagline": "Trang studio chăm sóc sức khỏe ấm cúng với phần đầu màu hồng san hô và tông màu trung tính tự nhiên"
+    },
+    "litho-application": {
+      "name": "Ứng dụng",
+      "tagline": "Trang đích ứng dụng SaaS hiện đại với lưới tính năng, bảng giá và lời nhận xét"
+    },
+    "litho-architecture": {
+      "name": "Kiến trúc",
+      "tagline": "Mẫu studio kiến trúc nổi bật với phần đầu toàn màn hình, khu vực giới thiệu dự án và logo khách hàng"
+    },
+    "litho-beauty-salon": {
+      "name": "Salon làm đẹp",
+      "tagline": "Mẫu salon làm đẹp thanh lịch với dịch vụ nổi bật, hồ sơ đội ngũ và đặt lịch hẹn"
+    },
+    "litho-branding-agency": {
+      "name": "Công ty xây dựng thương hiệu",
+      "tagline": "Mẫu công ty xây dựng thương hiệu sáng tạo với kiểu chữ nổi bật, các bước thực hiện và lưới danh mục"
+    },
+    "litho-business": {
+      "name": "Doanh nghiệp",
+      "tagline": "Mẫu doanh nghiệp chuyên nghiệp với trình chiếu đầu trang, ô tính năng, banner tương tác và logo khách hàng"
+    },
+    "litho-cafe": {
+      "name": "Quán cà phê",
+      "tagline": "Mẫu quán cà phê và nhà hàng ấm cúng với tab thực đơn, hồ sơ đầu bếp và lời chứng thực"
+    },
+    "litho-consulting": {
+      "name": "Tư vấn",
+      "tagline": "Mẫu công ty tư vấn chuyên nghiệp với banner đầu trang, dịch vụ theo tab, bộ đếm số liệu và khu vực đội ngũ"
+    },
+    "litho-corporate": {
+      "name": "Doanh nghiệp lớn",
+      "tagline": "Mẫu doanh nghiệp lớn với đầu trang hiệu ứng thị sai, biểu tượng dịch vụ, thanh tiến độ và dự án nổi bật"
+    },
+    "litho-creative-agency": {
+      "name": "Công ty sáng tạo",
+      "tagline": "Mẫu công ty sáng tạo với giao diện tối nổi bật, lưới danh mục, lời chứng thực và mục blog"
+    },
+    "litho-decor": {
+      "name": "Trang trí nội thất",
+      "tagline": "Mẫu cửa hàng đồ trang trí và nội thất thanh lịch với sản phẩm nổi bật, danh mục và đăng ký nhận tin"
+    },
+    "litho-dentist": {
+      "name": "Nha sĩ",
+      "tagline": "Mẫu phòng khám nha khoa gọn gàng với đặt lịch hẹn, thẻ dịch vụ, hồ sơ đội ngũ và lời chứng thực"
+    },
+    "litho-design-agency": {
+      "name": "Công ty thiết kế",
+      "tagline": "Mẫu công ty thiết kế nổi bật với đầu trang toàn màn hình, lưới danh mục, giới thiệu năng lực và lời chứng thực"
+    },
+    "litho-digital-agency": {
+      "name": "Công ty kỹ thuật số",
+      "tagline": "Mẫu công ty kỹ thuật số nổi bật với banner dịch vụ, dự án tiêu biểu và lời chứng thực từ khách hàng"
+    },
+    "litho-elearning": {
+      "name": "Học trực tuyến",
+      "tagline": "Nền tảng giáo dục trực tuyến hiện đại với danh sách khóa học, hồ sơ giảng viên và lời chứng thực từ học viên"
+    },
+    "litho-events": {
+      "name": "Sự kiện và hội nghị",
+      "tagline": "Mẫu sự kiện và hội nghị chuyên nghiệp với hồ sơ diễn giả, lịch trình và đặt vé"
+    },
+    "litho-fashion-shop": {
+      "name": "Cửa hàng thời trang",
+      "tagline": "Mẫu cửa hàng thời trang trực tuyến thanh lịch với lưới sản phẩm, bộ sưu tập phong cách và bộ sưu tập theo mùa"
+    },
+    "litho-finance": {
+      "name": "Tài chính",
+      "tagline": "Mẫu tài chính chuyên nghiệp với dịch vụ, lưới ngành nghề, lời chứng thực và blog"
+    },
+    "litho-freelancer": {
+      "name": "Người làm tự do",
+      "tagline": "Danh mục sản phẩm tối giản cho người làm tự do với dự án nổi bật, kỹ năng và biểu mẫu liên hệ"
+    },
+    "litho-furniture-shop": {
+      "name": "Cửa hàng nội thất",
+      "tagline": "Mẫu cửa hàng nội thất trực tuyến hiện đại với danh mục sản phẩm, ý tưởng bài trí phòng và câu chuyện thương hiệu"
+    },
+    "litho-gym-fitness": {
+      "name": "Phòng gym và thể hình",
+      "tagline": "Mẫu phòng gym và thể hình tràn đầy năng lượng với lịch lớp học, hồ sơ huấn luyện viên và gói hội viên"
+    },
+    "litho-hotel-resort": {
+      "name": "Khách sạn và khu nghỉ dưỡng",
+      "tagline": "Mẫu khách sạn và khu nghỉ dưỡng sang trọng với phòng nghỉ nổi bật, tiện nghi và tính năng đặt phòng"
+    },
+    "litho-interior-design": {
+      "name": "Thiết kế nội thất",
+      "tagline": "Mẫu thiết kế nội thất tinh tế với thư viện dự án, tổng quan quy trình và đặt lịch tư vấn"
+    },
+    "litho-marketing-agency": {
+      "name": "Công ty tiếp thị",
+      "tagline": "Mẫu công ty tiếp thị nổi bật với dịch vụ tiêu biểu, thanh tiến độ, logo khách hàng và lời chứng thực"
+    },
+    "litho-photography": {
+      "name": "Nhiếp ảnh",
+      "tagline": "Danh mục nhiếp ảnh thanh lịch với thư viện ảnh toàn màn hình, logo khách hàng và mục blog"
+    },
+    "litho-restaurant": {
+      "name": "Nhà hàng",
+      "tagline": "Mẫu nhà hàng cao cấp với thực đơn theo tab, hồ sơ đầu bếp, đặt bàn và lời chứng thực"
+    },
+    "litho-seo-agency": {
+      "name": "Công ty SEO",
+      "tagline": "Mẫu công ty SEO dựa trên dữ liệu với các bước thực hiện, ô tính năng, bảng giá và lời chứng thực"
+    },
+    "litho-spa-salon": {
+      "name": "Spa",
+      "tagline": "Mẫu spa và chăm sóc sức khỏe thư thái với dịch vụ nổi bật, bảng giá, hồ sơ đội ngũ và nút đặt lịch"
+    },
+    "litho-startup": {
+      "name": "Công ty khởi nghiệp",
+      "tagline": "Mẫu công ty khởi nghiệp hiện đại với tính năng nổi bật, gói giá, thanh tiến độ, lời chứng thực và blog"
+    },
+    "litho-travel-agency": {
+      "name": "Công ty du lịch",
+      "tagline": "Mẫu công ty du lịch sống động với điểm đến nổi bật, gói tour, lời chứng thực và blog"
+    },
+    "litho-web-agency": {
+      "name": "Công ty thiết kế web",
+      "tagline": "Mẫu công ty thiết kế web sáng tạo với lưới danh mục, các bước thực hiện, hồ sơ đội ngũ và lời chứng thực từ khách hàng"
+    },
+    "litho-yoga": {
+      "name": "Yoga và thiền",
+      "tagline": "Mẫu yoga và thiền thư thái với lớp học, lời chứng thực, câu hỏi thường gặp dạng thu gọn và biểu mẫu liên hệ"
+    },
+    "original-beauty": {
+      "tagline": "Studio chăm sóc da ấm cúng với thực đơn liệu trình kèm giá, gói thành viên và đặt lịch trực tuyến"
+    },
+    "original-corporate": {
+      "tagline": "Trang tập đoàn kỹ thuật và hạ tầng với năng lực, lĩnh vực hoạt động, thành tựu, ban lãnh đạo, cơ hội nghề nghiệp và liên hệ"
+    },
+    "original-creative": {
+      "tagline": "Trang studio thương hiệu và đồ họa chuyển động táo bạo với danh mục dự án kiểu chữ, bố cục dự án lớn, tuyên ngôn, cơ hội nghề nghiệp và biểu mẫu gửi yêu cầu"
+    },
+    "original-ecommerce": {
+      "tagline": "Cửa hàng đồ gốm phong cách phòng trưng bày với lưới sản phẩm, giỏ hàng, bộ sưu tập và thông báo đợt ra lò"
+    },
+    "original-education": {
+      "tagline": "Trang trường học buổi tối với thẻ danh mục khóa học, thời khóa biểu hằng tuần, giảng viên, lịch học kỳ, học phí và đăng ký tham dự buổi giới thiệu"
+    },
+    "original-finance": {
+      "tagline": "Trang tư vấn tài chính chỉ thu phí dịch vụ với bảng dự phóng, công cụ so sánh phí cố định, các gói dịch vụ, cố vấn và đặt lịch trao đổi ban đầu"
+    },
+    "original-fitness": {
+      "tagline": "Phòng tập sức mạnh sôi động với lịch lớp hằng tuần, các gói thành viên và đặt buổi tập thử miễn phí"
+    },
+    "original-food": {
+      "tagline": "Tiệm bánh khu phố ngập nắng với bảng bánh mới ra lò, món đặc biệt hằng tuần và đặt mua đến lấy"
+    },
+    "original-health": {
+      "tagline": "Trang phòng khám gia đình nhẹ nhàng với loại hình khám và giá, hồ sơ chuyên viên y tế và đặt lịch trực tuyến"
+    },
+    "original-hospitality": {
+      "tagline": "Nhà nghỉ boutique ven biển thoáng đãng với thẻ phòng, giá mỗi đêm, tiện nghi và yêu cầu đặt phòng"
+    },
+    "original-legal": {
+      "tagline": "Trang công ty luật với danh mục lĩnh vực hành nghề, hồ sơ vụ việc tiêu biểu, tiểu sử luật sư, phí tư vấn công khai và đặt lịch"
+    },
+    "original-nonprofit": {
+      "tagline": "Trang tổ chức từ thiện cứu trợ thực phẩm với dấu ấn tác động, biên nhận quyên góp, ca tình nguyện, báo cáo tác động hằng năm và quyên góp"
+    },
+    "original-personal": {
+      "tagline": "Thương hiệu cá nhân của huấn luyện viên kiêm nhà văn với các gói dịch vụ, bản xem trước bản tin, sách CSS, thư độc giả và đặt lịch gọi"
+    },
+    "original-portfolio": {
+      "tagline": "Hồ sơ năng lực kiến trúc sư nội thất với lưới dự án lệch tầng, danh mục dự án, bài phân tích dự án kèm mặt bằng phác thảo và biểu mẫu liên hệ"
+    },
+    "original-realestate": {
+      "tagline": "Trang môi giới hiện đại với tin đăng có bộ lọc, dữ liệu thị trường, cẩm nang khu vực và đặt lịch định giá"
+    },
+    "original-restaurant": {
+      "tagline": "Nhà hàng nướng củi dưới ánh nến với thực đơn kèm giá, nhãn chế độ ăn và đặt bàn"
+    },
+    "original-saas": {
+      "tagline": "Trang ra mắt SaaS với dòng thời gian sản phẩm trông như đang cập nhật trực tiếp, tùy chọn giá, nhật ký thay đổi và lộ trình công khai"
+    },
+    "original-travel": {
+      "tagline": "Tour đi bộ đường dài theo nhóm nhỏ với lịch khởi hành, lịch trình từng chặng và giá tour"
+    }
+  }
+}

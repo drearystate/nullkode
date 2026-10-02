@@ -1,0 +1,84 @@
+{
+  "appearance": {
+    "intro": "Escolha a aparência do estúdio. Ela fica salva na sua conta, então acompanha você em outros dispositivos.",
+    "title": "Aparência"
+  },
+  "blocked": {
+    "impersonating": "Só quem é dono desta conta pode excluí-la. Como admin, você pode excluir contas em Admin, na seção Usuários.",
+    "onlyOperator": "Você é o único operador desta plataforma, então não pode excluir sua conta.",
+    "reseller": "Você administra um espaço de revenda, então não pode excluir sua conta por aqui. Peça ao operador da plataforma para remover o espaço primeiro."
+  },
+  "delete": {
+    "backup": "Backup",
+    "backupFirst": "Baixe um backup de cada app antes. Depois, você pode restaurar um backup usando Importar.",
+    "cancel": "Cancelar",
+    "cannotUndo": "Não é possível desfazer essa ação.",
+    "confirm": "Excluir minha conta de vez",
+    "deletesAccount": "Exclui sua conta.",
+    "deletesApps": "{count, plural, one {Exclui sua conta e seu app, com tudo o que ele salvou, seus arquivos e seus endereços da web.} other {Exclui sua conta e todos os seus # apps, com tudo o que eles salvaram, seus arquivos e seus endereços da web.}}",
+    "deleting": "Excluindo…",
+    "failed": "Não foi possível excluir sua conta ({status}).",
+    "keysAck": "{count, plural, one {Baixei a chave de upload do Google Play acima ou não preciso dela. Sem a chave, não será possível atualizar um app no Google Play.} other {Baixei as chaves de upload do Google Play acima ou não preciso delas. Sem a chave, não será possível atualizar um app no Google Play.}}",
+    "networkError": "Erro de rede. Nada foi excluído.",
+    "start": "Excluir minha conta…",
+    "startHelp": "Inicia a exclusão da sua conta. Você precisará digitar seu endereço de e-mail primeiro; nada será excluído até você confirmar.",
+    "subscriptionCancelled": "Sua assinatura será cancelada imediatamente.",
+    "title": "Excluir minha conta",
+    "typeEmail": "Digite seu endereço de e-mail para confirmar",
+    "uploadKey": "Chave de upload do Google Play",
+    "uploadKeyHelp": "Baixe esta chave e guarde-a em um lugar seguro. Sem ela, não será possível atualizar este app no Google Play."
+  },
+  "helpPrefs": {
+    "guides": "Você encontra guias passo a passo para tudo em <link>Ajuda e guias</link>.",
+    "saveFailed": "Não foi possível salvar. Essa opção será redefinida na próxima vez que você abrir uma página.",
+    "tips": "Dicas de ajuda",
+    "tipsIntro": "Notas curtas que aparecem quando você passa o mouse sobre um botão ou uma configuração, explicando o que fazem com palavras simples.",
+    "title": "Ajuda"
+  },
+  "intro": "Sua foto, seus dados e a aparência e o funcionamento do estúdio para você.",
+  "language": {
+    "intro": "O idioma do estúdio. Ele fica salvo na sua conta, então acompanha você em outros dispositivos.",
+    "title": "Idioma"
+  },
+  "metaTitle": "Perfil",
+  "password": {
+    "change": "Alterar senha",
+    "changed": "Senha alterada. Você saiu da sua conta nos outros dispositivos.",
+    "changing": "Alterando…",
+    "current": "Senha atual",
+    "failed": "Não foi possível alterar. Tente novamente.",
+    "forgotNote": "Não sabe sua senha atual (por exemplo, se você criou a conta com o Google)? Saia da sua conta e use <link>Esqueci a senha</link> para definir uma.",
+    "new": "Nova senha",
+    "newNote": "Pelo menos 8 caracteres. Ao alterá-la, você sairá da sua conta em todos os outros dispositivos.",
+    "readOnly": "Só quem é dono desta conta pode alterar a senha.",
+    "title": "Senha"
+  },
+  "profile": {
+    "addPhoto": "Adicionar foto",
+    "badPicture": "Não conseguimos abrir esse arquivo de imagem.",
+    "changePhoto": "Trocar foto",
+    "email": "E-mail",
+    "emailNote": "Você usa este endereço para entrar.",
+    "name": "Nome",
+    "nameHelp": "O nome exibido na sua conta e nos e-mails que enviamos para você.",
+    "photoHelp": "Escolha uma foto sua (PNG, JPEG ou WebP). Ela será cortada em formato quadrado e aparecerá ao lado do seu nome.",
+    "photoRemoveFailed": "Não foi possível remover a foto. Tente novamente.",
+    "photoRemoved": "Foto removida.",
+    "photoSaveFailed": "Não foi possível salvar a foto. Tente novamente.",
+    "photoSaveFailedShort": "Não foi possível salvar a foto.",
+    "photoSaved": "Foto salva.",
+    "remove": "Remover",
+    "removeHelp": "Remova sua foto. A inicial do seu nome aparecerá no lugar.",
+    "save": "Salvar",
+    "saveFailed": "Não foi possível salvar. Tente novamente.",
+    "saved": "Salvo.",
+    "saving": "Salvando…",
+    "title": "Seu perfil"
+  },
+  "theme": {
+    "dark": "Escuro",
+    "light": "Claro",
+    "system": "Igual ao meu dispositivo"
+  },
+  "title": "Perfil"
+}

@@ -1,7 +1,8 @@
 "use client";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ArrowDown, ArrowLeft, ArrowUp, Check, ChevronLeft, ChevronRight, Download, Info, Pencil, Plus, Search, Trash2, X } from "lucide-react";
-import { draftProblem, formatCell, fromDraft, toDraft, type Column, type Row } from "./format";
+import { useFormatter, useTranslations } from "next-intl";
+import { draftProblem, formatCell, fromDraft, toDraft, type CellWords, type Column, type Row } from "./format";
 
 type RowsResponse = {
   table: { id: string; name: string; label: string; sourceKind: string };
@@ -46,6 +47,9 @@ export function TableView({
   const [editing, setEditing] = useState<{ rowId: string; col: string } | null>(null);
   const [busy, setBusy] = useState(false);
   const loadSeq = useRef(0);
+  const t = useTranslations("data.table");
+  const tc = useTranslations("common");
+  const words = useCellWords();
 
   // Wait until typing pauses before searching.
   useEffect(() => {
@@ -77,12 +81,13 @@ export function TableView({
     if (seq !== loadSeq.current) return;
     setLoading(false);
     if (!res || !res.ok) {
-      setError(body.error || "We couldn't load this table. Please try again.");
+      setError(body.error || t("loadError"));
       return;
     }
     setError(null);
     setData(body as RowsResponse);
     setSelected(new Set());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [base, page, query]);
 
   useEffect(() => {
@@ -104,7 +109,7 @@ export function TableView({
     const body = res ? await res.json().catch(() => ({})) : {};
     setBusy(false);
     if (!res || !res.ok) {
-      setError(body.error || "That didn't work. Please try again.");
+      setError(body.error || t("actionError"));
       return { ok: false, body };
     }
     setError(null);
@@ -163,50 +168,50 @@ export function TableView({
   return (
     <div>
       <button onClick={onBack} className="inline-flex items-center gap-1.5 text-sm text-surface-400 hover:text-white">
-        <ArrowLeft size={15} aria-hidden /> All tables
+        <ArrowLeft size={15} className="rtl:-scale-x-100" aria-hidden /> {t("allTables")}
       </button>
       <div className="mt-3 flex flex-wrap items-end justify-between gap-4">
         <div>
           <h2 className="text-2xl font-semibold tracking-tight">{data?.table.label ?? label}</h2>
           <p className="mt-1 text-sm text-surface-400" aria-live="polite">
-            {data ? (search ? `${total} ${total === 1 ? "row matches" : "rows match"} “${search}”` : `${total} ${total === 1 ? "row" : "rows"}`) : "Loading…"}
+            {data ? (search ? t("rowsMatch", { count: total, search }) : t("rows", { count: total })) : tc("loading")}
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
           {editable && (
-            <button className="btn-primary" onClick={() => setForm({ mode: "add" })} data-help="Type in a new record yourself. It’s saved to this table as soon as you add it.">
-              <Plus size={16} aria-hidden /> Add a row
+            <button className="btn-primary" onClick={() => setForm({ mode: "add" })} data-help={t("addRowHelp")}>
+              <Plus size={16} aria-hidden /> {t("addRow")}
             </button>
           )}
-          <a className="btn-ghost" href={csvHref} download data-help="Save this table as a file you can open in Excel or Google Sheets. It keeps your current search and sort, up to 50,000 rows.">
-            <Download size={16} aria-hidden /> Download CSV
+          <a className="btn-ghost" href={csvHref} download data-help={t("downloadCsvHelp")}>
+            <Download size={16} aria-hidden /> {t("downloadCsv")}
           </a>
         </div>
       </div>
 
       <div className="mt-5 flex flex-wrap items-center gap-3">
         <label className="relative block w-full max-w-sm">
-          <span className="sr-only">Search this table</span>
-          <Search size={15} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-surface-500" aria-hidden />
-          <input className="input pl-9" type="search" placeholder="Search" value={searchInput} onChange={(e) => setSearchInput(e.target.value)} data-help="Show only rows whose text contains these words (capital letters don’t matter). You can also type a row’s ID number." />
+          <span className="sr-only">{t("searchLabel")}</span>
+          <Search size={15} className="pointer-events-none absolute start-3 top-1/2 -translate-y-1/2 text-surface-500" aria-hidden />
+          <input className="input ps-9" type="search" placeholder={t("searchPlaceholder")} value={searchInput} onChange={(e) => setSearchInput(e.target.value)} data-help={t("searchHelp")} />
         </label>
         {editable && selected.size > 0 && !confirmDelete && (
-          <button className="btn-ghost text-red-300" onClick={() => setConfirmDelete(true)} data-help="Permanently deletes the rows you ticked. You’ll be asked to confirm first.">
-            <Trash2 size={15} aria-hidden /> Delete {selected.size} {selected.size === 1 ? "row" : "rows"}
+          <button className="btn-ghost text-red-300" onClick={() => setConfirmDelete(true)} data-help={t("deleteRowsHelp")}>
+            <Trash2 size={15} aria-hidden /> {t("deleteRows", { count: selected.size })}
           </button>
         )}
       </div>
 
       {confirmDelete && (
-        <div role="alertdialog" aria-label="Confirm delete" className="mt-3 flex flex-wrap items-center gap-3 rounded-xl border border-red-500/30 bg-red-500/10 p-3 text-sm">
+        <div role="alertdialog" aria-label={t("confirmLabel")} className="mt-3 flex flex-wrap items-center gap-3 rounded-xl border border-red-500/30 bg-red-500/10 p-3 text-sm">
           <span className="flex-1">
-            Delete {selected.size} {selected.size === 1 ? "row" : "rows"}? You can&apos;t undo this.
+            {t("confirmText", { count: selected.size })}
           </span>
           <button className="btn-danger" disabled={busy} onClick={deleteSelected}>
-            {busy ? "Deleting…" : "Yes, delete"}
+            {busy ? t("deleting") : t("yesDelete")}
           </button>
           <button className="btn-ghost" onClick={() => setConfirmDelete(false)}>
-            Keep them
+            {t("keepThem")}
           </button>
         </div>
       )}
@@ -225,26 +230,26 @@ export function TableView({
 
       {data && data.total === 0 && !search && !loading ? (
         <div className="studio-empty mt-5">
-          <h3 className="font-semibold">Nothing here yet.</h3>
-          <p className="mt-2 max-w-md text-sm text-surface-400">When people use your app, what they send shows up here.{editable ? " You can also add rows yourself." : ""}</p>
+          <h3 className="font-semibold">{t("emptyTitle")}</h3>
+          <p className="mt-2 max-w-md text-sm text-surface-400">{editable ? t("emptyBodyEditable") : t("emptyBody")}</p>
           {editable && (
             <button className="btn-ghost mt-5" onClick={() => setForm({ mode: "add" })}>
-              <Plus size={15} aria-hidden /> Add a row
+              <Plus size={15} aria-hidden /> {t("addRow")}
             </button>
           )}
         </div>
       ) : (
         data && (
-          <div className={`mt-4 overflow-x-auto rounded-xl border border-white/[0.08] ${loading ? "opacity-60" : ""}`}>
-            <table className="w-full min-w-max text-left text-sm" data-testid="data-grid">
+          <div className={`relative mt-4 overflow-x-auto rounded-xl border border-white/[0.08] ${loading ? "opacity-60" : ""}`}>
+            <table className="w-full min-w-max text-start text-sm" data-testid="data-grid">
               <thead className="bg-white/[0.03] text-xs text-surface-400">
                 <tr>
                   {editable && (
                     <th className="w-10 px-3 py-2">
                       <input
                         type="checkbox"
-                        aria-label="Select all rows on this page"
-                        data-help="Tick every row on this page, for example to delete them together."
+                        aria-label={t("selectAll")}
+                        data-help={t("selectAllHelp")}
                         checked={allSelected}
                         onChange={(e) => setSelected(e.target.checked ? new Set(data.rows.map(rowKey)) : new Set())}
                       />
@@ -254,21 +259,21 @@ export function TableView({
                     const on = activeSort?.col === c.name;
                     return (
                       <th key={c.name} className="px-3 py-2 font-medium" aria-sort={on ? (activeSort!.dir === "asc" ? "ascending" : "descending") : "none"}>
-                        <button className="inline-flex items-center gap-1 hover:text-white" onClick={() => toggleSort(c)} title={`Sort by ${c.label}`} data-help="Sort the table by this column. Click again to flip the order.">
+                        <button className="inline-flex items-center gap-1 hover:text-white" onClick={() => toggleSort(c)} title={t("sortBy", { column: c.label })} data-help={t("sortHelp")}>
                           {c.label}
                           {on ? activeSort!.dir === "asc" ? <ArrowUp size={12} aria-hidden /> : <ArrowDown size={12} aria-hidden /> : null}
                         </button>
                       </th>
                     );
                   })}
-                  {editable && <th className="w-12 px-3 py-2"><span className="sr-only">Change</span></th>}
+                  {editable && <th className="w-12 px-3 py-2"><span className="sr-only">{t("changeColumn")}</span></th>}
                 </tr>
               </thead>
               <tbody>
                 {data.rows.length === 0 && (
                   <tr>
                     <td colSpan={columns.length + 2} className="px-3 py-8 text-center text-surface-400">
-                      No rows match your search.
+                      {t("noMatch")}
                     </td>
                   </tr>
                 )}
@@ -280,8 +285,8 @@ export function TableView({
                         <td className="px-3 py-2 align-top">
                           <input
                             type="checkbox"
-                            aria-label={`Select row ${key}`}
-                            data-help="Tick this row to delete it, along with any others you tick."
+                            aria-label={t("selectRow", { id: key })}
+                            data-help={t("selectRowHelp")}
                             checked={selected.has(key)}
                             onChange={(e) => {
                               const next = new Set(selected);
@@ -295,21 +300,22 @@ export function TableView({
                       {columns.map((c) => {
                         const isEditing = editing?.rowId === key && editing.col === c.name;
                         const canEdit = editable && !c.readOnly;
-                        const text = formatCell(row[c.name], c.type);
+                        const text = formatCell(row[c.name], c.type, words);
                         return (
                           <td key={c.name} className={`max-w-xs px-3 py-2 align-top ${c.readOnly ? "text-surface-400" : ""}`}>
                             {isEditing ? (
                               <CellEditor col={c} initial={toDraft(row[c.name], c.type)} busy={busy} onCancel={() => setEditing(null)} onSave={(d) => saveCell(row, c, d)} />
                             ) : canEdit ? (
                               <button
-                                className="block w-full truncate rounded px-1 -mx-1 text-left hover:bg-white/[0.05]"
-                                title={text ? `${text}\n(click to change)` : "Click to fill in"}
+                                dir="auto"
+                                className="block w-full truncate rounded px-1 -mx-1 text-start hover:bg-white/[0.05]"
+                                title={text ? t("clickToChange", { text }) : t("clickToFill")}
                                 onClick={() => setEditing({ rowId: key, col: c.name })}
                               >
                                 {text || <span className="text-surface-600 [[data-theme=light]_&]:text-surface-500">—</span>}
                               </button>
                             ) : (
-                              <span className={`block truncate ${c.type === "json" ? "font-mono text-xs" : ""}`} title={text}>
+                              <span dir="auto" className={`block truncate text-start ${c.type === "json" ? "font-mono text-xs" : ""}`} title={text}>
                                 {text || <span className="text-surface-600 [[data-theme=light]_&]:text-surface-500">—</span>}
                               </span>
                             )}
@@ -318,7 +324,7 @@ export function TableView({
                       })}
                       {editable && (
                         <td className="px-3 py-2 align-top">
-                          <button className="rounded p-1 text-surface-400 hover:bg-white/[0.06] hover:text-white" aria-label={`Change row ${key}`} onClick={() => setForm({ mode: "edit", row })} data-help="Open this row in a form to change several of its values at once. To change one value, just click it.">
+                          <button className="rounded p-1 text-surface-400 hover:bg-white/[0.06] hover:text-white" aria-label={t("changeRow", { id: key })} onClick={() => setForm({ mode: "edit", row })} data-help={t("changeRowHelp")}>
                             <Pencil size={14} aria-hidden />
                           </button>
                         </td>
@@ -335,14 +341,14 @@ export function TableView({
       {data && total > PAGE_SIZE && (
         <div className="mt-4 flex items-center justify-between gap-3 text-sm text-surface-400">
           <span>
-            Showing {firstShown}–{lastShown} of {total}
+            {t("showing", { first: firstShown, last: lastShown, total })}
           </span>
           <div className="flex gap-2">
-            <button className="btn-ghost" disabled={page <= 1 || loading} onClick={() => setPage(page - 1)} data-help="Show the previous 50 rows.">
-              <ChevronLeft size={15} aria-hidden /> Newer
+            <button className="btn-ghost" disabled={page <= 1 || loading} onClick={() => setPage(page - 1)} data-help={t("newerHelp")}>
+              <ChevronLeft size={15} className="rtl:-scale-x-100" aria-hidden /> {t("newer")}
             </button>
-            <button className="btn-ghost" disabled={page >= pages || loading} onClick={() => setPage(page + 1)} data-help="Show the next 50 rows.">
-              Older <ChevronRight size={15} aria-hidden />
+            <button className="btn-ghost" disabled={page >= pages || loading} onClick={() => setPage(page + 1)} data-help={t("olderHelp")}>
+              {t("older")} <ChevronRight size={15} className="rtl:-scale-x-100" aria-hidden />
             </button>
           </div>
         </div>
@@ -350,7 +356,7 @@ export function TableView({
 
       {form && (
         <RowForm
-          title={form.mode === "add" ? "Add a row" : "Change this row"}
+          title={form.mode === "add" ? t("addTitle") : t("editTitle")}
           columns={columns}
           row={form.mode === "edit" ? form.row : null}
           busy={busy}
@@ -366,7 +372,15 @@ export function TableView({
   );
 }
 
+/** The page's words and date formatter, for formatCell. */
+function useCellWords(): CellWords {
+  const t = useTranslations("data.table");
+  const format = useFormatter();
+  return { yes: t("yes"), no: t("no"), dateTime: (d, opts) => format.dateTime(d, opts) };
+}
+
 function FieldInput({ col, value, onChange, autoFocus, onEnter }: { col: Column; value: string; onChange: (v: string) => void; autoFocus?: boolean; onEnter?: () => void }) {
+  const t = useTranslations("data.table");
   const onKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && onEnter && col.type !== "json" && !(e.target instanceof HTMLTextAreaElement)) {
       e.preventDefault();
@@ -378,9 +392,9 @@ function FieldInput({ col, value, onChange, autoFocus, onEnter }: { col: Column;
     case "bool":
       return (
         <select className="input" value={value} onChange={(e) => onChange(e.target.value)} {...common}>
-          <option value="">Not set</option>
-          <option value="true">Yes</option>
-          <option value="false">No</option>
+          <option value="">{t("notSet")}</option>
+          <option value="true">{t("yes")}</option>
+          <option value="false">{t("no")}</option>
         </select>
       );
     case "int":
@@ -402,6 +416,8 @@ function FieldInput({ col, value, onChange, autoFocus, onEnter }: { col: Column;
 }
 
 function CellEditor({ col, initial, busy, onSave, onCancel }: { col: Column; initial: string; busy: boolean; onSave: (draft: string) => Promise<boolean>; onCancel: () => void }) {
+  const t = useTranslations("data.table");
+  const tc = useTranslations("common");
   const [draft, setDraft] = useState(initial);
   const problem = draftProblem(draft, col);
   const save = () => {
@@ -415,12 +431,12 @@ function CellEditor({ col, initial, busy, onSave, onCancel }: { col: Column; ini
       }}
     >
       <FieldInput col={col} value={draft} onChange={setDraft} autoFocus onEnter={save} />
-      {problem && <p className="text-xs text-red-300">{problem}</p>}
+      {problem && <p className="text-xs text-red-300">{t(problem)}</p>}
       <div className="flex gap-1">
-        <button className="btn-primary px-2 py-1 text-xs" disabled={busy || Boolean(problem)} onClick={save} aria-label="Save">
-          <Check size={13} aria-hidden /> Save
+        <button className="btn-primary px-2 py-1 text-xs" disabled={busy || Boolean(problem)} onClick={save} aria-label={tc("save")}>
+          <Check size={13} aria-hidden /> {tc("save")}
         </button>
-        <button className="btn-ghost px-2 py-1 text-xs" onClick={onCancel} aria-label="Cancel" data-help="Stop changing this value without saving it. Pressing Esc does the same.">
+        <button className="btn-ghost px-2 py-1 text-xs" onClick={onCancel} aria-label={tc("cancel")} data-help={t("cancelEditHelp")}>
           <X size={13} aria-hidden />
         </button>
       </div>
@@ -445,6 +461,9 @@ function RowForm({
   onSave: (values: Record<string, unknown>) => Promise<boolean>;
   onCancel: () => void;
 }) {
+  const t = useTranslations("data.table");
+  const tc = useTranslations("common");
+  const words = useCellWords();
   const editableCols = columns.filter((c) => !c.readOnly);
   const [drafts, setDrafts] = useState<Record<string, string>>(() =>
     Object.fromEntries(editableCols.map((c) => [c.name, row ? toDraft(row[c.name], c.type) : ""])),
@@ -484,20 +503,20 @@ function RowForm({
           <p className="mt-1 text-xs text-surface-500">
             {columns
               .filter((c) => c.readOnly && row[c.name] != null && row[c.name] !== "")
-              .map((c) => `${c.label}: ${formatCell(row[c.name], c.type)}`)
+              .map((c) => `${c.label}: ${formatCell(row[c.name], c.type, words)}`)
               .join(" · ")}
           </p>
         )}
-        <div className="mt-4 max-h-[60vh] space-y-4 overflow-y-auto pr-1">
-          {editableCols.length === 0 && <p className="text-sm text-surface-400">This table has no columns you can fill in.</p>}
+        <div className="mt-4 max-h-[60vh] space-y-4 overflow-y-auto pe-1">
+          {editableCols.length === 0 && <p className="text-sm text-surface-400">{t("noColumns")}</p>}
           {editableCols.map((c, i) => {
             const problem = draftProblem(drafts[c.name] ?? "", c);
             return (
               <label key={c.name} className="block">
                 <span className="label">{c.label}</span>
                 <FieldInput col={c} value={drafts[c.name] ?? ""} autoFocus={i === 0} onChange={(v) => setDrafts((d) => ({ ...d, [c.name]: v }))} />
-                {c.type === "json" && !problem && <span className="mt-1 block text-xs text-surface-500">Written as JSON, like {`{"size": "large"}`}.</span>}
-                {problem && <span className="mt-1 block text-xs text-red-300">{problem}</span>}
+                {c.type === "json" && !problem && <span className="mt-1 block text-xs text-surface-500">{t("jsonHint", { example: `{"size": "large"}` })}</span>}
+                {problem && <span className="mt-1 block text-xs text-red-300">{t(problem)}</span>}
               </label>
             );
           })}
@@ -509,10 +528,10 @@ function RowForm({
         )}
         <div className="mt-6 flex justify-end gap-2">
           <button type="button" className="btn-ghost" onClick={onCancel}>
-            Cancel
+            {tc("cancel")}
           </button>
           <button type="submit" className="btn-primary" disabled={busy || problems.length > 0}>
-            {busy ? "Saving…" : row ? "Save changes" : "Add row"}
+            {busy ? tc("saving") : row ? t("saveChanges") : t("addRowButton")}
           </button>
         </div>
       </form>

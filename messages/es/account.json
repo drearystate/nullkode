@@ -1,0 +1,84 @@
+{
+  "appearance": {
+    "intro": "Elige cómo se ve el estudio. Se guarda en tu cuenta para que se mantenga igual en tus otros dispositivos.",
+    "title": "Apariencia"
+  },
+  "blocked": {
+    "impersonating": "Solo la persona propietaria de esta cuenta puede eliminarla. Como administrador, puedes eliminar cuentas desde Administración, en Usuarios.",
+    "onlyOperator": "Eres la única persona que opera esta plataforma, así que no puedes eliminar tu cuenta.",
+    "reseller": "Tienes un espacio de trabajo de distribuidor, así que no puedes eliminar tu cuenta aquí. Pídele a quien opera la plataforma que elimine primero el espacio de trabajo."
+  },
+  "delete": {
+    "backup": "Copia de seguridad",
+    "backupFirst": "Descarga primero una copia de seguridad de cada app. Más adelante podrás restaurarla con Importar.",
+    "cancel": "Cancelar",
+    "cannotUndo": "No se puede deshacer.",
+    "confirm": "Eliminar mi cuenta definitivamente",
+    "deletesAccount": "Elimina tu cuenta.",
+    "deletesApps": "{count, plural, one {Elimina tu cuenta y tu app, con todo lo que guardó, sus archivos y sus direcciones web.} other {Elimina tu cuenta y todas tus # apps, con todo lo que guardaron, sus archivos y sus direcciones web.}}",
+    "deleting": "Eliminando…",
+    "failed": "No se pudo eliminar tu cuenta ({status}).",
+    "keysAck": "{count, plural, one {He descargado la clave de carga de Google Play de arriba o no la necesito. Sin esta clave, no se podrá volver a actualizar una app en Google Play.} other {He descargado las claves de carga de Google Play de arriba o no las necesito. Sin estas claves, no se podrá volver a actualizar una app en Google Play.}}",
+    "networkError": "Error de red. No se eliminó nada.",
+    "start": "Eliminar mi cuenta…",
+    "startHelp": "Inicia el proceso para eliminar tu cuenta. Primero tendrás que escribir tu correo electrónico; no se eliminará nada hasta que lo confirmes.",
+    "subscriptionCancelled": "Tu suscripción se cancelará de inmediato.",
+    "title": "Eliminar mi cuenta",
+    "typeEmail": "Escribe tu correo electrónico para confirmar",
+    "uploadKey": "Clave de carga de Google Play",
+    "uploadKeyHelp": "Descarga esta clave y guárdala en un lugar seguro. Sin ella, no podrás volver a actualizar esta app en Google Play."
+  },
+  "helpPrefs": {
+    "guides": "Encontrarás guías paso a paso para todo en <link>Ayuda y guías</link>.",
+    "saveFailed": "No se pudo guardar. La próxima vez que abras una página, se restaurará la opción anterior.",
+    "tips": "Consejos de ayuda",
+    "tipsIntro": "Notas breves que aparecen al dejar el cursor sobre un botón o ajuste y explican con palabras sencillas para qué sirve.",
+    "title": "Ayuda"
+  },
+  "intro": "Tu foto, tus datos y cómo se ve y funciona el estudio para ti.",
+  "language": {
+    "intro": "El idioma en el que se muestra el estudio. Se guarda en tu cuenta para que se mantenga igual en tus otros dispositivos.",
+    "title": "Idioma"
+  },
+  "metaTitle": "Perfil",
+  "password": {
+    "change": "Cambiar contraseña",
+    "changed": "Contraseña cambiada. Se cerró la sesión en tus otros dispositivos.",
+    "changing": "Cambiando…",
+    "current": "Contraseña actual",
+    "failed": "No se pudo cambiar. Inténtalo de nuevo.",
+    "forgotNote": "¿No recuerdas tu contraseña actual (por ejemplo, si te registraste con Google)? Cierra sesión y usa <link>Olvidé mi contraseña</link> para crear una.",
+    "new": "Nueva contraseña",
+    "newNote": "Al menos 8 caracteres. Al cambiarla, se cerrará tu sesión en los demás dispositivos.",
+    "readOnly": "Solo la persona propietaria de esta cuenta puede cambiar su contraseña.",
+    "title": "Contraseña"
+  },
+  "profile": {
+    "addPhoto": "Añadir foto",
+    "badPicture": "No podemos abrir ese archivo de imagen.",
+    "changePhoto": "Cambiar foto",
+    "email": "Correo electrónico",
+    "emailNote": "Inicias sesión con esta dirección.",
+    "name": "Nombre",
+    "nameHelp": "El nombre que aparece en tu cuenta y en los correos que te enviamos.",
+    "photoHelp": "Elige una foto tuya (PNG, JPEG o WebP). Se recortará en forma cuadrada y se mostrará junto a tu nombre.",
+    "photoRemoveFailed": "No se pudo eliminar la foto. Inténtalo de nuevo.",
+    "photoRemoved": "Foto eliminada.",
+    "photoSaveFailed": "No se pudo guardar la foto. Inténtalo de nuevo.",
+    "photoSaveFailedShort": "No se pudo guardar la foto.",
+    "photoSaved": "Foto guardada.",
+    "remove": "Quitar",
+    "removeHelp": "Quita tu foto. En su lugar, se mostrarán tus iniciales.",
+    "save": "Guardar",
+    "saveFailed": "No se pudo guardar. Inténtalo de nuevo.",
+    "saved": "Guardado.",
+    "saving": "Guardando…",
+    "title": "Tu perfil"
+  },
+  "theme": {
+    "dark": "Oscuro",
+    "light": "Claro",
+    "system": "Igual que mi dispositivo"
+  },
+  "title": "Perfil"
+}

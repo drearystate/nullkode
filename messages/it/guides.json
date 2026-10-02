@@ -1,0 +1,1276 @@
+{
+  "account-and-billing": {
+    "sections": {
+      "0": {
+        "heading": "Foto, dati e password",
+        "shot": {
+          "alt": "La pagina Profilo con foto, dati, password, aspetto e suggerimenti.",
+          "caption": "Profilo: foto, nome, password, tema chiaro o scuro e suggerimenti."
+        },
+        "steps": {
+          "0": "Fai clic sulla tua foto (o iniziale) in alto a destra, poi su <b>Profilo</b>.",
+          "1": "Premi <b>Aggiungi una foto</b> e scegli una tua immagine. Verrà ritagliata in formato quadrato e mostrata accanto al tuo nome. Puoi <b>Cambiare foto</b> o <b>Rimuoverla</b> in qualsiasi momento.",
+          "2": "Modifica il tuo <b>Nome</b> e premi <b>Salva</b>. L’indirizzo email è quello che usi per accedere e non puoi cambiarlo qui.",
+          "3": "In <b>Password</b>, inserisci la <b>Password attuale</b> e una <b>Nuova password</b> di almeno 8 caratteri, poi premi <b>Cambia password</b>. Uscirai dall’account sugli altri dispositivi."
+        }
+      },
+      "1": {
+        "body": {
+          "0": "Se non conosci la password attuale, ad esempio perché ti sei iscritto con Google, esci dall’account e usa <b>Password dimenticata</b> nella pagina di accesso per impostarne una."
+        },
+        "heading": "Hai effettuato l’iscrizione con Google?"
+      },
+      "2": {
+        "body": {
+          "0": "Premi il pulsante del sole o della luna nella barra in alto per passare dal tema chiaro a quello scuro e viceversa. In <b>Profilo</b>, sotto <b>Aspetto</b>, puoi anche scegliere <b>Come sul mio dispositivo</b>, per seguire le impostazioni del tuo computer o telefono. La scelta viene salvata nel tuo account, così puoi usarla anche sugli altri dispositivi."
+        },
+        "heading": "Tema chiaro o scuro"
+      },
+      "3": {
+        "body": {
+          "0": "I suggerimenti sono brevi note che appaiono quando passi il mouse su un pulsante o un’impostazione. Puoi attivarli o disattivarli in <b>Profilo</b>, sotto <b>Aiuto</b>. All’interno di un’app, il pulsante <b>Suggerimenti</b> in alto fa la stessa cosa.",
+          "1": "Il link <b>Aiuto</b> nella barra in alto apre la guida relativa alla schermata che stai usando. <b>Aiuto e guide</b> nel menu dell’account mostra tutte le guide."
+        },
+        "heading": "Suggerimenti e guide"
+      },
+      "4": {
+        "body": {
+          "0": "Fai clic sulla tua iniziale, poi su <b>Fatturazione e piano</b>. Qui trovi il tuo piano e, se include una quota mensile, il numero di azioni IA usate questo mese. La pianificazione, la creazione e le modifiche con l’IA consumano azioni IA.",
+          "1": "Quando finiscono, l’IA si mette in pausa fino al mese successivo. I modelli e l’editor delle pagine continuano a funzionare. Se sono disponibili altri piani, puoi sceglierne uno nella stessa pagina. Dopo aver pagato un piano, <b>Gestisci fatturazione</b> ti permette di modificare i dati di pagamento."
+        },
+        "heading": "Piano e uso dell’IA",
+        "shot": {
+          "alt": "La pagina Fatturazione con il tuo piano e le azioni IA usate questo mese.",
+          "caption": "Fatturazione e piano: il tuo piano e l’uso dell’IA di questo mese."
+        }
+      },
+      "5": {
+        "body": {
+          "0": "Questa operazione elimina il tuo account e tutte le tue app, compresi i dati salvati, i file e gli indirizzi web. Non puoi annullarla."
+        },
+        "heading": "Elimina il tuo account",
+        "steps": {
+          "0": "Vai al tuo <b>Profilo</b> e cerca <b>Elimina il mio account</b>.",
+          "1": "Scarica una <b>Copia di backup</b> di ogni app che potresti voler usare in futuro. Se un’app è su Google Play, scarica anche la relativa <b>chiave di caricamento di Google Play</b>.",
+          "2": "Premi <b>Elimina il mio account…</b>.",
+          "3": "Inserisci il tuo indirizzo email per confermare e, se compare, seleziona la casella della chiave di caricamento.",
+          "4": "Premi <b>Elimina definitivamente il mio account</b>."
+        }
+      },
+      "6": {
+        "bullets": {
+          "0": "Quando cambi password, esci dall’account su tutti gli altri dispositivi.",
+          "1": "Un piano a pagamento viene annullato subito quando elimini il tuo account.",
+          "2": "Se non puoi eliminare l'account da qui, ad esempio perché gestisci uno spazio di lavoro per altre persone, nella pagina Profilo trovi il motivo."
+        },
+        "heading": "Da sapere"
+      }
+    },
+    "summary": "Aggiungi una foto, cambia nome e password, scegli il tema chiaro o scuro, attiva o disattiva i suggerimenti, controlla il piano e l’uso dell’IA oppure elimina l’account.",
+    "title": "Profilo, piano e impostazioni"
+  },
+  "ai-designer": {
+    "sections": {
+      "0": {
+        "heading": "Inizia un progetto",
+        "shot": {
+          "alt": "La schermata iniziale del Designer AI, con una casella per descrivere l'app, idee di esempio e un elenco dei tuoi progetti.",
+          "caption": "Descrivi cosa vuoi creare, poi premi Progettala."
+        },
+        "steps": {
+          "0": "Fai clic su <b>Designer</b> nella barra in alto. Sul telefono, nella dashboard vai su <b>Altri modi per iniziare</b> e scegli <b>Progettiamola insieme</b>.",
+          "1": "In <b>Cosa vuoi creare?</b>, descrivi la tua app. Spiega a chi è rivolta e cosa dovrebbero poter fare i visitatori, per esempio prenotare un orario o inviare un messaggio. Puoi anche toccare una delle idee di esempio e modificarla.",
+          "2": "Premi <b>Progettala</b>.",
+          "3": "L'AI potrebbe chiederti <b>Prima, qualche domanda veloce</b>. Tocca una risposta, scrivine una tua oppure salta le domande. Premi <b>Crea</b> o <b>Salta le domande</b> per lasciare decidere all'AI."
+        }
+      },
+      "1": {
+        "body": {
+          "0": "Mentre l'AI lavora, la conversazione a sinistra mostra <b>Ci sto lavorando…</b> e i passaggi man mano che vengono completati, mentre l'anteprima a destra prende forma. Il primo progetto può richiedere qualche minuto.",
+          "1": "Per interrompere il processo, premi il pulsante quadrato di arresto accanto alla casella dei messaggi. Il lavoro svolto in quel tentativo non verrà salvato.",
+          "2": "Al termine della prima creazione, il progetto avrà una sua app. Con <b>Apri app</b>, in alto nella conversazione, puoi aprirla e accedere ai dati, ai flussi e alle opzioni di pubblicazione."
+        },
+        "heading": "Segui la creazione"
+      },
+      "2": {
+        "heading": "Chiedi una modifica",
+        "shot": {
+          "alt": "Un design aperto nel Designer IA: la conversazione a sinistra e un’anteprima dell’app a destra.",
+          "caption": "La conversazione è a sinistra, l’anteprima in tempo reale a destra."
+        },
+        "steps": {
+          "0": "Scrivi cosa vuoi cambiare nella casella <b>Chiedi una modifica</b>, usando parole tue. Per esempio: «scurisci l’intestazione» oppure «aggiungi una pagina con i nostri prezzi».",
+          "1": "Premi Invio o il pulsante di invio. Maiusc+Invio va a capo.",
+          "2": "L’IA aggiorna il design e lo salva come nuova versione."
+        }
+      },
+      "3": {
+        "body": {
+          "0": "A volte è più semplice mostrare all’IA cosa vuoi, invece di descriverlo."
+        },
+        "heading": "Indica cosa vuoi cambiare",
+        "steps": {
+          "0": "Premi <b>Commenta</b> sopra l’anteprima. Il pulsante diventa <b>Fai clic su un elemento per commentare</b>.",
+          "1": "Fai clic sulla parte dell’anteprima che vuoi modificare.",
+          "2": "Scrivi cosa vuoi cambiare, ad esempio «ingrandisci questo elemento», poi premi <b>Aggiungi</b>. La nota comparirà sopra la casella del messaggio.",
+          "3": "Aggiungi tutte le note che vuoi, poi premi Invia per applicare tutte le modifiche insieme. Per eliminare una nota, premi la x."
+        }
+      },
+      "4": {
+        "body": {
+          "0": "Usa il menu <b>Pagina</b> sopra l’anteprima per vedere tutte le pagine del tuo design. I tre pulsanti mostrano l’anteprima nelle dimensioni di computer, tablet e telefono. Il pulsante con la freccia apre la pagina da sola in una nuova scheda.",
+          "1": "Sul telefono, passa da <b>Conversazione</b> ad <b>Anteprima</b> usando le opzioni in cima allo schermo."
+        },
+        "heading": "Controlla tutte le pagine e le dimensioni dello schermo"
+      },
+      "5": {
+        "body": {
+          "0": "Ogni modifica viene salvata come versione, così puoi sempre tornare indietro."
+        },
+        "heading": "Torna a una versione precedente",
+        "shot": {
+          "alt": "L’elenco delle versioni aperto accanto all’anteprima, con i pulsanti Visualizza e Ripristina per ogni versione.",
+          "caption": "Versioni: visualizza una versione precedente e ripristinala."
+        },
+        "steps": {
+          "0": "Premi <b>Versioni</b>. Le versioni sono elencate dalla più recente alla meno recente.",
+          "1": "Premi <b>Visualizza</b> per mostrare una versione precedente nell’anteprima. Puoi anche premere <b>Vedi questa versione</b> sotto un messaggio nella conversazione.",
+          "2": "Premi <b>Ripristina</b> (o <b>Ripristinala</b> nella barra gialla) per rendere attuale quella versione. La versione che avevi resta nell’elenco, così puoi tornare anche a quella.",
+          "3": "Per smettere di visualizzare una versione precedente, premi <b>Torna alla versione attuale</b>."
+        }
+      },
+      "6": {
+        "body": {
+          "0": "<b>Scarica</b> salva tutte le pagine del tuo design in un unico file .zip.",
+          "1": "<b>Sposta nell’editor di pagine</b> trasferisce l’app nell’editor di pagine con trascinamento. Dopo il trasferimento, non potrai più modificarla con il Designer IA. Se vuoi continuare a creare con l’IA, premi <b>Crea una copia per continuare a lavorarci</b>: otterrai una copia separata e l’app nell’editor di pagine resterà invariata."
+        },
+        "heading": "Scarica o sposta nell’editor di pagine"
+      },
+      "7": {
+        "body": {
+          "0": "La home del Designer mostra <b>I tuoi design</b>. Fai clic su una scheda per aprire un design. Il pulsante <b>…</b> su una scheda ti permette di <b>Rinominare</b>, <b>Creare una copia</b> o <b>Eliminare</b> il design.",
+          "1": "Se elimini un design, verrà eliminata anche la relativa app, a meno che non sia stata spostata nell’editor di pagine. L’operazione non si può annullare."
+        },
+        "heading": "I tuoi design"
+      },
+      "8": {
+        "bullets": {
+          "0": "Chiedere all’IA di creare un design o modificarlo usa la quota mensile di IA del tuo piano, se prevista.",
+          "1": "In un’app del Designer, le pagine derivano dal design. Modificale qui, non nell’editor di pagine.",
+          "2": "I dati, i flussi, i domini e la pubblicazione della tua app si trovano nelle relative schede, come per tutte le altre app. Pubblicala con il pulsante <b>Pubblica</b>."
+        },
+        "heading": "Informazioni utili"
+      }
+    },
+    "summary": "Descrivi la tua app con parole semplici, poi modificala chattando con l'AI e facendo clic sugli elementi che vuoi cambiare.",
+    "title": "Progetta con il Designer AI"
+  },
+  "ai-settings": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "In Amministrazione, apri <b>Tutte le impostazioni</b> e vai a <b>Motore AI</b>. Finché non colleghi un motore, la creazione con l'AI è disattivata: le persone possono iniziare dai modelli e dall'editor di pagine, mentre AI Designer non può creare app."
+        },
+        "heading": "Dove trovarlo"
+      },
+      "1": {
+        "body": {
+          "0": "Ci sono due opzioni:"
+        },
+        "bullets": {
+          "0": "<b>OpenAI</b>: il servizio di OpenAI o qualsiasi server compatibile, inclusi i modelli in esecuzione sul tuo hardware.",
+          "1": "<b>Agente AI da riga di comando</b>: uno strumento AI da riga di comando installato su questo server e collegato con il suo abbonamento, invece di pagare per ogni richiesta."
+        },
+        "heading": "Scegli un provider",
+        "shot": {
+          "alt": "Le impostazioni del provider AI con le due opzioni, i dettagli di connessione e un pulsante di test.",
+          "caption": "Scegli un provider, inserisci i suoi dati e provalo."
+        }
+      },
+      "2": {
+        "heading": "Collega un servizio ospitato o compatibile",
+        "steps": {
+          "0": "Scegli <b>OpenAI</b>.",
+          "1": "Incolla la tua chiave in <b>Chiave API OpenAI / compatibile</b>. Se è già stata salvata una chiave, lascia vuoto il campo per mantenerla.",
+          "2": "Lascia vuoto <b>URL di base API</b> per usare il servizio di OpenAI, oppure inserisci l'indirizzo di un server compatibile.",
+          "3": "Inserisci i nomi dei modelli in <b>Modello per la creazione</b> (progetta e crea nuove app) e <b>Modello per le modifiche</b> (modifiche nell'editor), oppure lascia i campi vuoti per usare i valori predefiniti.",
+          "4": "Seleziona <b>Verifica connessione</b>. Le impostazioni vengono prima salvate, poi viene mostrato <b>OK</b> o <b>Non riuscita</b> con il motivo.",
+          "5": "Seleziona <b>Salva modifiche</b>."
+        }
+      },
+      "3": {
+        "body": {
+          "0": "Funziona qualsiasi server di modelli che comunica come il servizio di OpenAI, ad esempio Ollama, LM Studio, vLLM o il server di llama.cpp. Inserisci il suo indirizzo in <b>URL di base API</b> (per un modello sullo stesso computer dei container Docker di {app}, puoi usare un indirizzo come http://host.docker.internal:11434/v1), lascia vuota la chiave a meno che il server non ne richieda una e inserisci il nome esatto del modello.",
+          "1": "Lascia vuoti <b>Dimensione del contesto del modello</b> e <b>Numero massimo di token in uscita per chiamata</b>, e imposta <b>Ragionamento del modello</b> su <b>Automatico</b>: {app} sceglie valori adeguati. Se i test o le creazioni restituiscono risposte illeggibili, imposta <b>Supporto JSON</b> su <b>Solo prompt</b>.",
+          "2": "La velocità dipende dal tuo hardware. I modelli più grandi creano pagine migliori: prova a creare un'app di esempio prima di invitare altre persone."
+        },
+        "heading": "Esegui l'AI sul tuo hardware"
+      },
+      "4": {
+        "heading": "Usa uno strumento AI da riga di comando",
+        "steps": {
+          "0": "Installa lo strumento su questo server e accedi con l'account che esegue {app} (o con l'account dedicato all'esecuzione).",
+          "1": "Scegli <b>Agente AI da riga di comando</b>.",
+          "2": "Imposta <b>Modello</b> se ne vuoi usare uno diverso e <b>Percorso del programma</b> solo se lo strumento non viene trovato automaticamente.",
+          "3": "Seleziona <b>Testa l'agente AI</b>, poi <b>Salva modifiche</b>."
+        }
+      },
+      "5": {
+        "bullets": {
+          "0": "Ogni piano, creazione e modifica usa le azioni AI incluse nella disponibilità mensile della persona (vedi <b>Piani e limiti</b>); i clienti di un rivenditore condividono il suo limite mensile.",
+          "1": "Le chiavi salvate non vengono mai mostrate di nuovo: vedrai solo un'indicazione mascherata.",
+          "2": "Se qui non è stata salvata una chiave, viene usata quella nel file .env del server (OPENAI_API_KEY).",
+          "3": "La guida inclusa nel download (docs/local-ai.md) contiene altre informazioni su come eseguire i modelli in autonomia."
+        },
+        "heading": "Utile da sapere"
+      }
+    },
+    "summary": "Scegli il motore AI che progetta, crea e modifica le app, e verifica che funzioni.",
+    "title": "Impostazioni AI"
+  },
+  "custom-domains": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Ti serve un nome di dominio acquistato da un provider e la possibilità di modificarne le impostazioni DNS. Il DNS è la rubrica di Internet: due voci indicano che il tuo dominio appartiene alla tua app. Sul sito del provider trovi una pagina dedicata, spesso chiamata DNS, record DNS o zona.",
+          "1": "La tua app mantiene anche il suo indirizzo gratuito."
+        },
+        "heading": "Prima di iniziare"
+      },
+      "1": {
+        "heading": "Collega il tuo dominio",
+        "shot": {
+          "alt": "La scheda Domini con il riquadro per aggiungere un dominio e i record DNS da inserire sul sito del provider.",
+          "caption": "Aggiungi il tuo dominio, poi copia i due record sul sito del provider."
+        },
+        "steps": {
+          "0": "Apri la scheda <b>Domini</b>.",
+          "1": "Inserisci il tuo indirizzo, per esempio www.tuaazienda.com (senza https://), e premi <b>Aggiungi dominio</b>.",
+          "2": "Vedrai due record da aggiungere: un record CNAME (o A) e un record TXT. Ognuno ha un <b>Nome / host</b> e un <b>Valore / punta a</b>. Fai clic su un valore per copiarlo.",
+          "3": "In un’altra scheda, accedi al sito del provider del dominio, apri le impostazioni DNS del tuo dominio e aggiungi entrambi i record esattamente come mostrato.",
+          "4": "Torna qui e premi <b>Controlla ora</b>. Quando vengono trovati entrambi i record, vedrai <b>Connesso</b> e i visitatori potranno usare il tuo indirizzo."
+        }
+      },
+      "2": {
+        "bullets": {
+          "0": "Le modifiche DNS di solito sono visibili in pochi minuti, ma possono richiedere alcune ore. Premi di nuovo <b>Controlla ora</b> più tardi.",
+          "1": "Il controllo indica quale record non riesce ancora a trovare: il record TXT oppure quello che punta il tuo dominio qui.",
+          "2": "Alcuni provider aggiungono automaticamente il tuo dominio alla fine del nome. Se è il tuo caso, inserisci solo la prima parte del nome, come www o _verify.www.",
+          "3": "Per un indirizzo senza www (tuaazienda.com), alcuni provider non consentono un record CNAME. Usa invece un record A che punti all’indirizzo IP di questo server; chiedi l’indirizzo a chi gestisce {app} per te."
+        },
+        "heading": "Se non si collega ancora"
+      },
+      "3": {
+        "body": {
+          "0": "Premi il cestino accanto al dominio e conferma. La tua app rimarrà disponibile al suo indirizzo gratuito."
+        },
+        "heading": "Scollega un dominio"
+      },
+      "4": {
+        "bullets": {
+          "0": "Un dominio può essere collegato a una sola app.",
+          "1": "Il tuo piano potrebbe limitare il numero di domini che puoi collegare.",
+          "2": "I visitatori vedranno sul tuo dominio la versione pubblicata dell’app, quindi pubblicala prima di condividerla."
+        },
+        "heading": "Da sapere"
+      }
+    },
+    "summary": "Usa per la tua app un indirizzo web di tua proprietà, come www.tuaazienda.com.",
+    "title": "Usa il tuo dominio"
+  },
+  "email": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Dopo aver configurato l'email, {app} invia link per le password e inviti (per te, i rivenditori e i loro clienti), avvisi ai proprietari delle app quando qualcuno invia un modulo o prenota e le email inviate dalle app con il passaggio <b>Invia un'email</b>.",
+          "1": "Senza questa configurazione, i link di invito e per le password vengono mostrati sullo schermo, così puoi condividerli, e le app saltano i passaggi email. I proprietari delle app vedono un avviso nella panoramica della propria app."
+        },
+        "heading": "A cosa serve l'email"
+      },
+      "1": {
+        "heading": "Configuralo con qualsiasi provider email",
+        "shot": {
+          "alt": "Le impostazioni Email: se l'email è attiva, il provider scelto, i dettagli del server e il pulsante di test.",
+          "caption": "Inserisci i dati del tuo provider e inviati un'email di prova."
+        },
+        "steps": {
+          "0": "In Amministrazione, apri <b>Tutte le impostazioni</b> e vai a <b>Email</b>.",
+          "1": "In <b>Come devono essere inviate le email?</b>, scegli <b>Qualsiasi provider email (SMTP)</b>.",
+          "2": "Inserisci il <b>Server email</b> fornito dal tuo provider, ad esempio smtp.example.com.",
+          "3": "Scegli la <b>Porta</b>. Usa <b>587 (consigliata)</b>, a meno che il tuo provider non indichi diversamente.",
+          "4": "Inserisci <b>Nome utente</b> e <b>Password</b>. Google e Microsoft richiedono una password per le app, non quella che usi normalmente.",
+          "5": "Inserisci l'indirizzo da cui <b>Inviare</b>, che deve essere autorizzato dal tuo provider, e, se vuoi, un <b>Nome mittente</b>. Se lasci il nome vuoto, verrà usato il nome del tuo brand o dell'app.",
+          "6": "Seleziona <b>Inviami un'email di prova</b>. Verranno usati i dati mostrati sullo schermo, così puoi verificare che funzionino prima di salvare.",
+          "7": "Seleziona <b>Salva impostazioni email</b>."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Scegli <b>Resend</b>, incolla la tua <b>chiave API Resend</b> e invia da un indirizzo appartenente a un dominio verificato su Resend. Poi esegui il test e salva, come descritto sopra."
+        },
+        "heading": "Oppure usa Resend"
+      },
+      "3": {
+        "body": {
+          "0": "Il riquadro in alto indica <b>Email attive</b> e l'indirizzo da cui vengono inviate, e mostra le ultime 24 ore: quante email sono state inviate e non recapitate, e l'ultimo problema, se ce ne sono. La scheda Email nella pagina Sistema mostra le stesse informazioni."
+        },
+        "heading": "Verifica che funzioni"
+      },
+      "4": {
+        "bullets": {
+          "0": "<b>Nome utente o password rifiutati</b>: controlla entrambi. Google e Microsoft richiedono una password per le app; i servizi email spesso forniscono una chiave SMTP invece della password del tuo account.",
+          "1": "<b>Impossibile raggiungere il server su quella porta</b>: prova la 587, poi la 465, poi la 2525, oppure chiedi al tuo host di aprire la porta.",
+          "2": "<b>La porta e la crittografia non sono compatibili</b>: usa la 465 con SSL oppure la 587 con la crittografia automatica (in <b>Altre opzioni</b>).",
+          "3": "<b>Invio da quell'indirizzo rifiutato</b>: il tuo provider non ha verificato il mittente o il suo dominio. Verificalo oppure invia da un indirizzo riconosciuto dal provider.",
+          "4": "<b>Modalità di test di Resend</b>: un nuovo account Resend può inviare email solo al proprio indirizzo finché non verifichi un dominio."
+        },
+        "heading": "Se il test non riesce"
+      },
+      "5": {
+        "bullets": {
+          "0": "Tutte le email vengono inviate dall'indirizzo <b>Invia da</b>. Quando un'app chiede di inviare un'email da un indirizzo di un altro dominio, quell'indirizzo diventa l'indirizzo di risposta, così le risposte arrivano comunque al proprietario dell'app.",
+          "1": "Le impostazioni nel file .env del server vengono usate finché non salvi qui; una volta salvate, hanno la precedenza.",
+          "2": "<b>Rimuovi queste impostazioni</b> ripristina l'assenza di email (oppure le impostazioni del file .env, se presenti).",
+          "3": "L'email di assistenza indicata nel branding è l'indirizzo di risposta per le email di invito e di reimpostazione della password."
+        },
+        "heading": "Informazioni utili"
+      }
+    },
+    "summary": "Invia inviti, link per le password, avvisi delle app e le email delle tue app dal tuo indirizzo.",
+    "title": "Email"
+  },
+  "features": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Una funzionalità è un elemento già pronto per un’app, come prenotazioni, un negozio, un modulo di contatto o un blog. Aggiungendone una, la tua app avrà nuove pagine, elenchi in cui salvare ciò che le persone inviano e flussi che fanno funzionare pulsanti e moduli. Potrai poi modificare le sue pagine come qualsiasi altra pagina."
+        },
+        "heading": "Cos’è una funzionalità"
+      },
+      "1": {
+        "heading": "Aggiungi una funzionalità",
+        "shot": {
+          "alt": "La scheda Funzionalità: una casella di ricerca, pulsanti per le categorie e una griglia di funzionalità da aggiungere.",
+          "caption": "Scegli una funzionalità. In Dettagli puoi vedere cosa aggiunge."
+        },
+        "steps": {
+          "0": "Apri la scheda <b>Funzionalità</b>.",
+          "1": "Cerca, per esempio, “prenotazioni” o “negozio”, oppure scegli un gruppo come Commercio o Community.",
+          "2": "Per scoprire cosa aggiunge una funzionalità, apri <b>Dettagli</b> sulla sua scheda. Vedrai quante pagine, elenchi di elementi salvati e flussi aggiunge.",
+          "3": "Fai clic sulla scheda (<b>Aggiungi alla mia app</b>).",
+          "4": "Rispondi alle domande, se presenti. I campi contrassegnati con * sono obbligatori. Quando viene richiesto il nome dell’attività, il nome della tua app viene inserito automaticamente.",
+          "5": "Premi <b>Aggiungi alla mia app</b>. L’editor si apre sulla prima pagina della funzionalità."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Nell’editor di pagine puoi fare la stessa cosa dalla scheda <b>Funzionalità</b> a sinistra. Dopo aver aggiunto la funzionalità, un messaggio ti informa che le sue pagine sono nel menu e include il pulsante <b>Apri la nuova pagina</b>."
+        },
+        "heading": "Aggiungi una funzionalità mentre modifichi",
+        "shot": {
+          "alt": "La finestra Aggiungi una funzionalità con alcune domande e i pulsanti Annulla e Aggiungi alla mia app.",
+          "caption": "Rispondi a un paio di domande e la funzionalità verrà aggiunta."
+        }
+      },
+      "3": {
+        "body": {
+          "0": "Le sue pagine si trovano nel menu della tua app e nell’elenco delle pagine nell’editor. I dati che salva (per esempio le prenotazioni) si trovano nella scheda <b>Dati</b>. I suoi flussi si trovano nella scheda <b>Flussi</b>. Le pagine pensate solo per te, come l’elenco delle prenotazioni, sono elencate nella Panoramica, sotto <b>Area di gestione della tua app</b>."
+        },
+        "heading": "Dove trovare gli elementi aggiunti"
+      },
+      "4": {
+        "bullets": {
+          "0": "Una scheda con l’etichetta <b>Aggiunta</b> è già nella tua app. Se la aggiungi di nuovo, ne crei un’altra copia, con le proprie pagine ed elenchi.",
+          "1": "Se una funzione ne richiede prima un’altra, il messaggio ti offre un pulsante per aggiungerla.",
+          "2": "Alcune funzioni permettono ai visitatori che hanno effettuato l’accesso di inviare contenuti in attesa della tua approvazione. Per esempio, in <b>Luoghi</b>, le persone possono suggerire un luogo in <b>I miei luoghi</b>, che apparirà nella guida dopo la tua approvazione nella pagina <b>Gestisci luoghi</b>.",
+          "3": "Alcune funzioni inviano email e mostrano il messaggio <b>È necessario configurare l’email sul server</b>. Se l’email non è configurata, chiedi a chi gestisce {app} per te.",
+          "4": "Non è possibile rimuovere una funzione con un solo passaggio. Puoi eliminare le pagine aggiunte dalla funzione, come qualsiasi altra pagina; i dati salvati restano nella scheda Dati.",
+          "5": "Aggiungere una funzione modifica la tua bozza. I visitatori la vedranno dopo la pubblicazione."
+        },
+        "heading": "Da sapere"
+      }
+    },
+    "summary": "Aggiungi elementi già pronti come prenotazioni, negozi o blog, con pagine e dati salvati dedicati.",
+    "title": "Aggiungi funzionalità"
+  },
+  "flows": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Un flusso è un breve elenco di passaggi che la tua app esegue da sola. Succede qualcosa (qualcuno invia un modulo o preme un pulsante, oppure arriva l’orario impostato), vengono eseguiti i passaggi (salvare le risposte, inviare un’email) e il visitatore riceve un risultato (un messaggio di ringraziamento).",
+          "1": "Le app create dall’IA e le funzioni che aggiungi includono flussi già configurati. Puoi aprirli e modificarli come qualsiasi altro flusso."
+        },
+        "heading": "Cos’è un flusso"
+      },
+      "1": {
+        "body": {
+          "0": "La scheda <b>Flussi</b> mostra ogni flusso, come si avvia (con un modulo, una richiesta o secondo una pianificazione) e quanti passaggi include. Fai clic su un flusso per aprirlo.",
+          "1": "Ogni flusso ha un interruttore <b>Attivo</b> / <b>In pausa</b>, nell’elenco e all’interno del flusso. Un flusso in pausa non viene eseguito: gli elementi della tua app che lo usano, come un modulo, mostreranno un errore. La pausa e la riattivazione si applicano subito alla tua app pubblicata, senza doverla pubblicare di nuovo."
+        },
+        "heading": "I tuoi flussi",
+        "shot": {
+          "alt": "La scheda Flussi con l’elenco dei flussi dell’app, come si avviano e il numero di passaggi di ciascuno.",
+          "caption": "I flussi della tua app."
+        }
+      },
+      "2": {
+        "heading": "Crea un flusso",
+        "shot": {
+          "alt": "Un flusso aperto nell’editor: a sinistra i passaggi da aggiungere, al centro i passaggi collegati e a destra le impostazioni.",
+          "caption": "Aggiungi i passaggi a sinistra, collegali e configurali a destra."
+        },
+        "steps": {
+          "0": "Nella scheda Flussi, premi <b>Nuovo flusso</b>, inserisci un nome come “Invia modulo di contatto” e premi <b>Crea</b>.",
+          "1": "Si apre il flusso con il passaggio iniziale <b>Quando l’app lo avvia</b>.",
+          "2": "Sotto <b>Aggiungi passaggio</b>, a sinistra, fai clic su un passaggio per aggiungerlo. Digita in <b>Trova un passaggio…</b> per cercarlo. I passaggi sono suddivisi in gruppi: Avvio, Dati salvati, Decisioni e valori, Invio e connessione, IA, Account e Fine.",
+          "3": "Collega i passaggi nell’ordine in cui devono essere eseguiti: trascina dal bordo destro di un passaggio al successivo.",
+          "4": "Fai clic su un passaggio per configurarlo nel pannello a destra, per esempio scegliendo la tabella in cui salvare i dati.",
+          "5": "Le modifiche vengono salvate automaticamente."
+        }
+      },
+      "3": {
+        "body": {
+          "0": "Nelle impostazioni della maggior parte dei passaggi puoi inserire dei valori invece di digitare un testo fisso. Sotto <b>Dalla richiesta</b>, digita il nome di un campo del modulo, come email, e premi <b>Aggiungi</b>. <b>Dai passaggi precedenti</b> mostra i valori creati dai passaggi precedenti, come il record trovato da un passaggio."
+        },
+        "heading": "Usa ciò che le persone hanno scritto"
+      },
+      "4": {
+        "heading": "Collega un modulo o un pulsante",
+        "steps": {
+          "0": "Apri la pagina nell'editor e seleziona il modulo o il pulsante.",
+          "1": "Apri <b>Impostazioni</b> sulla destra.",
+          "2": "Per un modulo, scegli il flusso in <b>Quando viene inviato, esegui</b>. Per un pulsante, usa <b>Quando viene premuto, esegui</b>. Per un elenco, <b>Mostra elementi da</b> seleziona un flusso che trova gli elementi."
+        }
+      },
+      "5": {
+        "body": {
+          "0": "Questi sono gli schemi più comuni. Le funzionalità configurano automaticamente la maggior parte di essi."
+        },
+        "bullets": {
+          "0": "<b>Modulo di contatto che ti invia un'email</b>: quando l'app lo avvia, <b>Aggiungi un record</b> (la tabella dei messaggi), poi <b>Invia un'email</b> a te stesso con il messaggio della persona e infine <b>Rispondi</b> con un ringraziamento.",
+          "1": "<b>Prenotazione</b>: quando l'app lo avvia, <b>Conta o somma i record</b> per contare le prenotazioni a quell'ora, poi <b>Se questo, altrimenti quello</b>. Se l'orario è libero, <b>Aggiungi un record</b> e <b>Invia un'email</b> di conferma; altrimenti, <b>Rispondi</b> che l'orario è già occupato. La funzionalità Prenotazioni fa tutto questo per te.",
+          "2": "<b>Accesso</b>: la funzionalità Accesso e account aggiunge questi flussi. Per registrarsi, usa <b>Proteggi una password</b>, <b>Aggiungi un record</b> e <b>Fai accedere la persona</b>. Per accedere, usa <b>Trova record</b>, <b>Verifica una password</b> e <b>Fai accedere la persona</b>.",
+          "3": "<b>Riepilogo giornaliero</b>: nella scheda <b>Programmazione</b>, scegli <b>Secondo una programmazione</b> e <b>Ogni giorno</b>, poi <b>Conta o somma i record</b> e <b>Invia un'email</b> con il totale."
+        },
+        "heading": "Ricette comuni"
+      },
+      "6": {
+        "body": {
+          "0": "Premi <b>Esecuzione di prova</b> per avviare subito il flusso una volta, con le modifiche più recenti. Il risultato compare sotto i passaggi. Il flusso esegue davvero i passaggi, quindi salva record e invia email; inoltre, compare in Attività."
+        },
+        "heading": "Provalo con un'esecuzione di prova"
+      },
+      "7": {
+        "body": {
+          "0": "La scheda <b>Attività</b> mostra tutte le esecuzioni del flusso: <b>Completato</b>, <b>Ha risposto</b>, <b>Terminato con un problema</b> o <b>Non riuscito</b>. Premi <b>Solo problemi</b> per vedere solo quelle non riuscite e apri un'esecuzione per vedere cosa ha inviato la persona.",
+          "1": "I problemi sono visibili anche nella Panoramica della tua app, sotto <b>Problemi nelle ultime 24 ore</b>, e come numero sulla scheda dell'app nella dashboard."
+        },
+        "heading": "Scopri cos'è successo",
+        "shot": {
+          "alt": "La scheda Attività di un flusso, con l'elenco delle esecuzioni recenti e il relativo esito.",
+          "caption": "Attività: tutte le esecuzioni e gli eventuali problemi."
+        }
+      },
+      "8": {
+        "heading": "Eseguilo secondo una programmazione",
+        "steps": {
+          "0": "Apri la scheda <b>Programmazione</b> del flusso.",
+          "1": "Scegli <b>Secondo una programmazione</b> invece di <b>Quando la tua app lo usa</b>.",
+          "2": "In <b>Frequenza</b>, scegli <b>Ogni pochi minuti</b>, <b>Ogni ora</b>, <b>Ogni giorno</b>, <b>Dal lunedì al venerdì</b> o <b>Una volta alla settimana</b>, poi imposta l'ora e il fuso orario.",
+          "3": "Salva, poi pubblica l'app. Le programmazioni si attivano solo nell'app pubblicata."
+        }
+      },
+      "9": {
+        "bullets": {
+          "0": "Per rimuovere un passaggio, selezionalo e premi il cestino oppure premi Canc sulla tastiera.",
+          "1": "Le modifiche ai flussi fanno parte della bozza. I visitatori le vedranno dopo la pubblicazione.",
+          "2": "<b>Invia un'email</b> funziona solo se l'invio di email è configurato sul server. In caso contrario, la Panoramica della tua app ti avvisa.",
+          "3": "Il passaggio <b>Chiedi all'IA</b> usa la disponibilità IA del tuo piano ogni volta che viene eseguito.",
+          "4": "Mettere in pausa o riattivare un flusso ha effetto immediato, anche sulla sua programmazione. Non serve pubblicare.",
+          "5": "Alcuni piani non includono i flussi programmati. La scheda Programmazione te lo segnala.",
+          "6": "<b>Indirizzo web (per sviluppatori)</b> serve solo per avviare un flusso dall'esterno di {app}."
+        },
+        "heading": "Da sapere"
+      }
+    },
+    "summary": "Fai in modo che le cose avvengano da sole quando qualcuno usa la tua app, per esempio salvare una prenotazione e inviarti un’email, oppure pianifica delle attività.",
+    "title": "Automatizza con i flussi"
+  },
+  "forms-and-data": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Quando qualcuno invia un modulo, prenota o si iscrive, la tua app salva i dati in una riga di una tabella. Una tabella è come un foglio di calcolo: una riga per ogni voce e una colonna per ogni risposta. Le tabelle si trovano nella scheda <b>Dati</b>. Le cinque voci più recenti appaiono anche nella Panoramica della tua app, sotto <b>Invii recenti</b>.",
+          "1": "Un modulo salva le risposte quando è collegato a un flusso che le salva. I moduli inclusi nelle funzioni e quelli nelle app create dall’IA sono già collegati. Per collegare un modulo che aggiungi tu, selezionalo nell’editor delle pagine, apri <b>Impostazioni</b> e scegli un flusso sotto <b>All’invio, esegui</b>."
+        },
+        "heading": "Dove finiscono le risposte dei moduli"
+      },
+      "1": {
+        "heading": "Apri una tabella",
+        "shot": {
+          "alt": "La scheda Dati con l’elenco delle tabelle dell’app e il numero di righe per ciascuna.",
+          "caption": "Tutto ciò che la tua app salva, una tabella alla volta."
+        },
+        "steps": {
+          "0": "Apri la scheda <b>Dati</b>.",
+          "1": "Fai clic su una tabella. Ognuna mostra il numero di righe oppure <b>Vuota</b>.",
+          "2": "Per tornare all’elenco, premi <b>Tutte le tabelle</b>."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Digita in <b>Cerca</b> per trovare le righe. Fai clic sul nome di una colonna per ordinare i risultati. Se ci sono molte righe, usa <b>Più recenti</b> e <b>Più vecchie</b> in fondo."
+        },
+        "heading": "Trova, modifica e aggiungi righe",
+        "shot": {
+          "alt": "Una tabella aperta nella scheda Dati, con un campo di ricerca, i pulsanti Aggiungi una riga e Scarica CSV e le righe sottostanti.",
+          "caption": "Una tabella: cercala, modificala o scaricala."
+        },
+        "steps": {
+          "0": "Per modificare una risposta, fai clic su di essa, digita il nuovo valore e salva.",
+          "1": "Per modificare un’intera riga, premi la matita alla sua estremità.",
+          "2": "Per aggiungere una riga manualmente, premi <b>Aggiungi una riga</b>.",
+          "3": "Per eliminare delle righe, selezionale, premi <b>Elimina</b> (verrà indicato quante righe) e poi <b>Sì, elimina</b>. Se cambi idea, premi <b>Mantienile</b>."
+        }
+      },
+      "3": {
+        "body": {
+          "0": "<b>Scarica CSV</b> salva la tabella in un file che puoi aprire con Excel, Numbers o Google Sheets. Viene scaricato ciò che stai visualizzando: cerca o ordina prima i risultati se vuoi scaricare solo alcune righe."
+        },
+        "heading": "Scarica una copia"
+      },
+      "4": {
+        "body": {
+          "0": "Nella Panoramica della tua app, <b>Avvisi</b> mostra ogni tabella che raccoglie contenuti dai visitatori, con un interruttore per attivarla o disattivarla. Gli avvisi vengono inviati all’indirizzo email del tuo account; puoi aggiungerne fino a tre sotto <b>Invia anche a</b>. Premi <b>Salva avvisi</b>, poi <b>Invia un test</b> per verificare che funzioni.",
+          "1": "Per usare gli avvisi, è necessario configurare l’email sul server. In caso contrario, la scheda te lo segnala."
+        },
+        "heading": "Ricevi un’email per ogni nuova voce"
+      },
+      "5": {
+        "body": {
+          "0": "Le persone possono chiedere quali dati la tua app conserva su di loro o chiederne l’eliminazione. Apri <b>Richieste sulla privacy</b> nella scheda Dati per trovare una persona tramite email o numero di telefono, poi <b>Scarica una copia</b> dei suoi dati oppure <b>Cancellali</b>. Le persone che hanno chiesto di eliminare il proprio account dalla tua app sono elencate sotto <b>In attesa della tua approvazione</b>."
+        },
+        "heading": "Richieste sulla privacy"
+      },
+      "6": {
+        "bullets": {
+          "0": "L’eliminazione delle righe o dei dati di una persona è irreversibile.",
+          "1": "Alcune tabelle possono essere solo visualizzate qui, per esempio quelle conservate in un Google Sheet.",
+          "2": "La sezione <b>Avanzate</b>, in fondo alla scheda Dati, mostra dove sono conservati i tuoi dati e ti permette di creare nuove tabelle manualmente. La maggior parte delle persone non ne ha mai bisogno.",
+          "3": "Un backup dalla scheda Pubblica include tutte le tabelle e le righe."
+        },
+        "heading": "Da sapere"
+      }
+    },
+    "summary": "Visualizza, cerca, modifica e scarica tutto ciò che la tua app salva, come messaggi, prenotazioni e iscrizioni.",
+    "title": "Moduli e i tuoi dati"
+  },
+  "getting-started": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Quando accedi, arrivi alla dashboard. Puoi tornarci in qualsiasi momento con <b>Le mie app</b> nella barra in alto.",
+          "1": "In <b>Le tue app</b>, ogni app ha una scheda con un'immagine della sua home page, il numero di pagine e flussi e lo stato: <b>Pubblicata</b> (visibile a tutti) o <b>Bozza</b> (visibile solo a te). Usa <b>Tutte le app</b>, <b>Pubblicate</b> e <b>Bozze</b>, oppure la casella <b>Trova un'app…</b> per filtrare l'elenco.",
+          "2": "Fai clic sull'immagine di una scheda per continuare a modificarla. Fai clic sul nome dell'app per aprirne la panoramica. Accanto a <b>Le tue app</b> trovi il tuo piano, quante app hai e quante azioni AI hai usato questo mese. Fai clic per aprire <b>Fatturazione e piano</b>."
+        },
+        "heading": "La tua dashboard",
+        "shot": {
+          "alt": "La dashboard, con la casella delle idee in alto e una scheda per ogni app sotto.",
+          "caption": "La tua dashboard. Ogni scheda corrisponde a una delle tue app."
+        }
+      },
+      "1": {
+        "body": {
+          "0": "Scegli quello che preferisci. Qualunque sia il punto di partenza, potrai continuare a modificare l'app con gli stessi strumenti."
+        },
+        "bullets": {
+          "0": "<b>Descrivila.</b> Scrivi con parole tue cosa vuoi creare. L'AI ti propone un piano da controllare e modificare, poi crea pagine, moduli e dati.",
+          "1": "<b>Designer AI.</b> Chatta con l'AI e dai forma alla tua app un passo alla volta. Consulta la guida Progetta con il Designer AI.",
+          "2": "<b>Modelli.</b> Parti da un design già pronto, per esempio un ristorante o un portfolio, e cambia testi, immagini e colori.",
+          "3": "<b>Copia un sito web.</b> Importa fino a 30 pagine di un sito web di cui sei proprietario in una nuova app da modificare.",
+          "4": "<b>App vuota.</b> Parti da una pagina semplice e creala tu con blocchi da trascinare e rilasciare.",
+          "5": "<b>Importa un'app.</b> Ripristina un'app da un file di backup .zip creato su questo server o su un altro."
+        },
+        "heading": "Sei modi per iniziare un'app"
+      },
+      "2": {
+        "body": {
+          "0": "Se l'AI non è configurata su questo server, questa opzione e il Designer AI non sono disponibili. In alternativa, parti da un modello."
+        },
+        "heading": "Descrivi la tua app e controlla il piano",
+        "shot": {
+          "alt": "La schermata per creare un'app, con la domanda Cosa vuoi creare?, una grande casella di testo e alcune idee di esempio.",
+          "caption": "Descrivi l'app con parole tue. Prima di creare qualsiasi cosa, vedrai un piano."
+        },
+        "steps": {
+          "0": "Nella dashboard, descrivi la tua app nella casella, per esempio «Prenotazioni per la mia attività di dog walking», e premi <b>Pianifica la mia app</b>. Puoi anche premere <b>Altri modi per iniziare</b> e usare la casella grande che trovi lì.",
+          "1": "Spiega chi userà l'app e cosa ci farà. Non sai da dove iniziare? Tocca una delle idee di esempio sotto la casella e modificala.",
+          "2": "Attendi qualche istante mentre l'AI legge la tua idea. Non è ancora stato creato nulla.",
+          "3": "Controlla il piano in <b>Ecco cosa creerò</b>: il nome dell'app, il suo aspetto (fai clic sul riquadro del colore per sceglierne un altro), le <b>Pagine</b>, i <b>Dati da salvare</b> e le <b>Ipotesi fatte</b>. Per rimuovere una pagina, fai clic sull'icona del cestino accanto.",
+          "4": "Vuoi cambiare qualcosa? Scrivilo sotto <b>Vuoi cambiare qualcosa?</b>, per esempio «Aggiungi una pagina con i prezzi», e premi <b>Aggiorna il piano</b>.",
+          "5": "Premi <b>Crea la mia app</b>. Di solito bastano pochi minuti. Puoi lasciare la pagina: la creazione continua e troverai l'app al tuo ritorno.",
+          "6": "Quando è pronta, l'app si apre nell'editor di pagine con un breve messaggio di benvenuto."
+        }
+      },
+      "3": {
+        "body": {
+          "0": "<b>Modelli.</b> Fai clic su un modello per vederlo ingrandito, inserisci un nome per l'app e premi <b>Crea un'app da questo modello</b>. Usa la casella di ricerca e i pulsanti delle categorie per filtrare l'elenco.",
+          "1": "<b>Copia un sito web.</b> Inserisci l'indirizzo del sito, per esempio miosito.com, e premi <b>Copia il mio sito</b>. Copia solo siti di cui sei proprietario o che hai il permesso di usare. Premi <b>Interrompi</b> per annullare: non verrà salvato nulla.",
+          "2": "<b>App vuota.</b> Inserisci un nome e premi <b>Crea app</b>. Otterrai una semplice pagina di benvenuto con il nome dell'app da cui partire, oltre alle pagine per accedere e registrarsi.",
+          "3": "<b>Importa un'app.</b> Scegli il file di backup .zip, inserisci un nuovo nome se vuoi e premi <b>Importa app</b>. Otterrai una copia con pagine, flussi, dati e immagini. I backup non includono le password dei membri dell'app, quindi dovranno usare una volta la funzione Password dimenticata."
+        },
+        "heading": "Gli altri modi per iniziare"
+      },
+      "4": {
+        "body": {
+          "0": "Ogni app ha delle schede in alto: <b>Panoramica</b>, <b>Pagine</b>, <b>Funzionalità</b>, <b>Flussi</b>, <b>Dati</b>, <b>Notifiche</b>, <b>Tema</b>, <b>Domini</b> e <b>App mobile</b>, con <b>Anteprima</b> e <b>Pubblica</b> a destra. Le app create con il Designer AI hanno la scheda <b>Designer</b> al posto di Panoramica.",
+          "1": "La panoramica mostra se l'app è pubblicata e il suo indirizzo, una <b>Lista di controllo per il lancio</b> con i prossimi passaggi, un codice da scansionare per aprirla sul telefono, l'icona dell'app, gli ultimi messaggi inviati dai visitatori e gli avvisi via email. <b>Continua a modificare</b> ti riporta alle pagine."
+        },
+        "heading": "La panoramica della tua app",
+        "shot": {
+          "alt": "La scheda Panoramica di un'app, con il nome, il numero di pagine e flussi e la lista di controllo per il lancio.",
+          "caption": "La panoramica: tutte le informazioni sulla tua app e una lista dei prossimi passaggi."
+        }
+      },
+      "5": {
+        "bullets": {
+          "0": "Il lavoro viene salvato man mano. Nell'editor di pagine non c'è un pulsante Salva.",
+          "1": "Nessuno può vedere l'app finché non la pubblichi. Con <b>Anteprima</b> puoi provarla prima.",
+          "2": "Per eliminare un'app, usa l'icona del cestino sulla sua scheda nella dashboard. Scarica prima un backup: non potrai annullare l'eliminazione.",
+          "3": "Il tuo piano può limitare il numero di app che puoi creare. Se raggiungi il limite, consulta <b>Fatturazione e piano</b>.",
+          "4": "Passa il mouse su un pulsante per visualizzare un breve suggerimento. Puoi disattivarli dal tuo <b>Profilo</b>."
+        },
+        "heading": "Da sapere"
+      }
+    },
+    "summary": "Scopri {app} e crea la tua prima app nel modo che preferisci.",
+    "title": "Per iniziare"
+  },
+  "groups": {
+    "account": "Il tuo account",
+    "build": "Crea la tua app",
+    "platform": "Gestisci la piattaforma",
+    "publish": "Pubblica e fai crescere"
+  },
+  "look-and-feel": {
+    "sections": {
+      "0": {
+        "heading": "Scegli un tema",
+        "shot": {
+          "alt": "La scheda Tema con i temi chiari e scuri a sinistra e un’anteprima dal vivo a destra.",
+          "caption": "Fai clic su un tema e l’anteprima si aggiorna subito."
+        },
+        "steps": {
+          "0": "Apri la scheda <b>Tema</b>.",
+          "1": "Sfoglia i <b>Temi chiari</b> e i <b>Temi scuri</b>.",
+          "2": "Fai clic su un tema. L’<b>Anteprima dal vivo</b> a destra lo mostra subito. Passa da <b>La tua pagina iniziale</b> a <b>Esempio</b> per vedere come appare su contenuti diversi.",
+          "3": "Fatto: le modifiche vengono salvate automaticamente e in alto appare <b>Salvato</b>."
+        }
+      },
+      "1": {
+        "body": {
+          "0": "In <b>Personalizza</b> puoi modificare qualsiasi elemento del tema:"
+        },
+        "bullets": {
+          "0": "<b>Modalità</b>: chiara o scura.",
+          "1": "<b>Carattere del testo</b> per il testo normale e <b>Carattere dei titoli</b> per le intestazioni. Per ciascuno viene mostrato un esempio.",
+          "2": "<b>Colori</b>: <b>Primario</b> è il colore principale, usato per pulsanti e link. <b>Colore al passaggio</b> è la tonalità che appare quando qualcuno passa il puntatore sopra questi elementi; si aggiorna insieme al colore Primario. Poi ci sono <b>Accento</b>, <b>Sfondo</b>, <b>Superficie</b> e <b>Superficie 2</b> (schede e pannelli), <b>Bordo</b>, <b>Testo</b> e <b>Testo secondario</b>.",
+          "3": "<b>Angoli</b>: <b>Raggio</b> per pulsanti e schede e <b>Raggio piccolo</b> per gli elementi più piccoli. 0 dà angoli squadrati; più il valore è alto, più gli angoli sono arrotondati."
+        },
+        "heading": "Personalizza il tema"
+      },
+      "2": {
+        "body": {
+          "0": "Nell’editor di pagine, la scheda <b>Tema</b> sulla destra contiene le stesse impostazioni di colori e caratteri, così puoi modificarle senza uscire dalla pagina."
+        },
+        "heading": "Modifica mentre lavori"
+      },
+      "3": {
+        "bullets": {
+          "0": "Il tema si applica a tutte le pagine della tua app.",
+          "1": "Fai clic sul riquadro del colore per sceglierne uno oppure inserisci un codice colore, come #3366ff.",
+          "2": "<b>Reimposta</b> ripristina il tema che avevi quando hai aperto la scheda Tema.",
+          "3": "I visitatori vedranno le modifiche al tema dopo la pubblicazione."
+        },
+        "heading": "Da sapere"
+      }
+    },
+    "summary": "Scegli un tema già pronto oppure imposta colori, caratteri e angoli personalizzati per tutte le pagine della tua app.",
+    "title": "Colori e caratteri"
+  },
+  "members-and-sign-in": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "La funzionalità <b>Accesso e account</b> aggiunge all'app le pagine <b>Accedi</b>, <b>Registrati</b> e <b>Profilo</b>, oltre ai flussi che le gestiscono. Di solito è già attiva nelle nuove app. Se non lo è, aggiungila dalla scheda Funzionalità.",
+          "1": "Chi si registra diventa membro della tua app. Gli account sono separati dal tuo account {app}."
+        },
+        "heading": "Pagine di accesso"
+      },
+      "1": {
+        "heading": "Rendi privata una pagina",
+        "shot": {
+          "alt": "La finestra Impostazioni pagina, con il nome della pagina, chi può vederla e la sua posizione nel menu.",
+          "caption": "Impostazioni pagina: scegli chi può aprire la pagina."
+        },
+        "steps": {
+          "0": "Nell'editor della pagina, fai clic sul nome della pagina in alto per aprire <b>Le tue pagine</b>.",
+          "1": "Premi l'ingranaggio accanto alla pagina (<b>Impostazioni pagina</b>).",
+          "2": "In <b>Chi può vedere questa pagina</b>, scegli <b>Tutti</b>, <b>Persone che hanno effettuato l'accesso</b> (i visitatori devono prima accedere; chiunque può creare un account) oppure <b>Solo amministratori</b> (solo tu e le persone che nomini amministratori).",
+          "3": "Premi <b>Salva</b>."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "In <b>Impostazioni pagina</b>, <b>Mostra nel menu</b> aggiunge un link alla pagina nel menu dell'app, mentre <b>Sposta su</b> e <b>Sposta giù</b> ne impostano la posizione. La pagina iniziale è sempre la prima. Anche chi non vede una pagina nel menu può aprirla con il link, se ha il permesso di visualizzarla."
+        },
+        "heading": "Il menu"
+      },
+      "3": {
+        "body": {
+          "0": "Nella Panoramica della tua app, <b>Area amministrativa della tua app</b> elenca le pagine riservate a te e al tuo team, ad esempio un elenco di prenotazioni. Fai clic su una pagina per aprirla senza accedere alla tua app. Prima della pubblicazione, si aprono nell'anteprima."
+        },
+        "heading": "L'area amministrativa della tua app"
+      },
+      "4": {
+        "heading": "Crea un accesso amministratore per il tuo team",
+        "shot": {
+          "alt": "La scheda Area amministrativa della tua app nella Panoramica, con le pagine amministrative e un modulo per aggiungere un accesso amministratore.",
+          "caption": "Apri le pagine amministrative o crea un accesso amministratore per qualcuno."
+        },
+        "steps": {
+          "0": "Nella Panoramica della tua app, cerca <b>Accessi amministratore per il tuo team</b>.",
+          "1": "Inserisci la loro <b>Email</b> e una <b>Password</b> di almeno 10 caratteri.",
+          "2": "Premi <b>Aggiungi amministratore</b>. Ora potranno accedere dalla pagina di accesso dell'app e aprire le pagine amministrative."
+        }
+      },
+      "5": {
+        "bullets": {
+          "0": "Se usi l'email di una persona che ha già un account nella tua app, la nomini amministratore e le cambi la password.",
+          "1": "Se una pagina è privata ma la tua app non ha ancora una pagina di accesso, solo tu puoi aprirla. Le impostazioni della pagina ti avvisano.",
+          "2": "Le modifiche a chi può vedere una pagina fanno parte della bozza. Pubblica per applicarle.",
+          "3": "I membri possono eliminare il proprio account. Le richieste di eliminazione compaiono nella scheda Dati, sotto <b>Richieste sulla privacy</b>.",
+          "4": "Le password dei membri non sono incluse nei backup. Dopo un'importazione, i membri devono usare una volta la funzione Password dimenticata."
+        },
+        "heading": "Da sapere"
+      }
+    },
+    "summary": "Permetti alle persone di creare un account nella tua app e scegli quali pagine possono aprire tutti, i membri che hanno effettuato l'accesso o solo gli amministratori.",
+    "title": "Membri, accesso e pagine private"
+  },
+  "page-editor": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Apri la scheda <b>Pagine</b>. A sinistra trovi <b>Blocchi</b>, <b>Funzionalità</b> e <b>Risorse</b> (foto gratuite). Al centro c’è la tua pagina. A destra trovi <b>Design</b>, <b>Livelli</b>, <b>Impostazioni</b> e <b>Tema</b>.",
+          "1": "La barra sopra la pagina contiene i pulsanti per annullare e ripetere, lo stato del salvataggio, i pulsanti per scegliere le dimensioni dello schermo e <b>Anteprima</b>. I pulsanti alle estremità nascondono o mostrano i pannelli laterali per lasciarti più spazio."
+        },
+        "heading": "Scopri come orientarti",
+        "shot": {
+          "alt": "L’editor di pagine: i blocchi a sinistra, la pagina al centro e le impostazioni di design a destra.",
+          "caption": "L’editor di pagine. Fai clic su un elemento della pagina per modificarlo."
+        }
+      },
+      "1": {
+        "body": {
+          "0": "Fai clic su un testo nella pagina e scrivi per modificarlo.",
+          "1": "Fai doppio clic su un’immagine per sostituirla. Puoi anche selezionare un’immagine e poi scegliere una foto in <b>Risorse</b>. Fai doppio clic su un’icona per sceglierne un’altra."
+        },
+        "heading": "Modifica testi e immagini"
+      },
+      "2": {
+        "heading": "Aggiungi blocchi",
+        "steps": {
+          "0": "Fai clic nel punto della pagina sotto cui vuoi aggiungere il nuovo elemento.",
+          "1": "Trova quello che cerchi in <b>Blocchi</b> a sinistra. I blocchi sono raggruppati per categoria, ad esempio Layout, Sezioni, Contenuti, Moduli e Media. Scrivi in <b>Cerca blocchi...</b> per trovare subito quello che cerchi, come «pulsante» o «foto».",
+          "2": "Tocca il blocco per aggiungerlo sotto la parte selezionata, oppure trascinalo nel punto esatto in cui vuoi inserirlo."
+        }
+      },
+      "3": {
+        "body": {
+          "0": "Fai clic su un elemento della pagina per selezionarlo. Il suo nome appare in cima al pannello a destra e accanto compare una piccola barra degli strumenti: <b>Seleziona l’elemento che contiene questo</b>, <b>Sposta su</b>, <b>Sposta giù</b>, <b>Trascina per spostare</b>, <b>Duplica</b> ed <b>Elimina</b>.",
+          "1": "La scheda <b>Livelli</b> elenca tutti gli elementi della pagina in ordine. Fai clic su una riga per selezionare un elemento difficile da selezionare, oppure trascina le righe per spostare gli elementi. L’icona a forma di occhio nasconde un elemento mentre lavori sul resto."
+        },
+        "heading": "Seleziona, sposta ed elimina"
+      },
+      "4": {
+        "body": {
+          "0": "Seleziona un elemento e apri <b>Design</b> a destra. Modifica il testo, i colori, la spaziatura, le dimensioni e gli angoli: la pagina si aggiorna subito.",
+          "1": "<b>Avanzate</b> mostra altre opzioni, come i caratteri, le ombre e l’allineamento degli elementi all’interno di un riquadro, oltre agli stili che si attivano quando passi il mouse su un elemento. Per modificare i colori e i caratteri di tutta l’app, usa <b>Tema</b>."
+        },
+        "heading": "Modifica l’aspetto degli elementi"
+      },
+      "5": {
+        "body": {
+          "0": "Seleziona un link, un’immagine, un pulsante, un modulo o un elenco, poi apri <b>Impostazioni</b> a destra. Per esempio:"
+        },
+        "bullets": {
+          "0": "<b>Destinazione</b> imposta la pagina che si apre con un link. Usa /nome-pagina per le tue pagine o un indirizzo completo https:// per un altro sito.",
+          "1": "<b>Descrizione immagine</b> descrive l’immagine per chi non può vederla e per i motori di ricerca.",
+          "2": "<b>All’invio, esegui</b> (in un modulo) seleziona il flusso da avviare quando qualcuno invia il modulo. <b>Al clic, esegui</b> fa lo stesso per un pulsante.",
+          "3": "<b>Mostra elementi da</b> (in un elenco) seleziona da dove provengono gli elementi, ad esempio dalle prenotazioni o dai prodotti."
+        },
+        "heading": "Impostazioni per link, pulsanti, moduli ed elenchi"
+      },
+      "6": {
+        "heading": "Chiedi all’IA",
+        "shot": {
+          "alt": "Il pannello Assistente AI aperto sopra l’editor di pagine, con alcune modifiche suggerite da provare.",
+          "caption": "Chiedi all’AI: descrivi cosa vuoi cambiare e la pagina si aggiorna."
+        },
+        "steps": {
+          "0": "Premi <b>Chiedi all’AI</b> in basso a destra.",
+          "1": "Per modificare solo una parte, selezionala prima nella pagina. Nel pannello vedrai <b>Le modifiche si applicano alla selezione…</b>. Premi <b>Applica invece all’intera pagina</b> per modificare tutta la pagina.",
+          "2": "Scrivi cosa vuoi, per esempio “aggiungi una sezione prezzi”, e premi Invio o <b>Invia</b>. Puoi anche allegare un’immagine, come uno screenshot di un design che ti piace.",
+          "3": "La pagina cambia nell’editor. Se non ti piace, premi Annulla."
+        }
+      },
+      "7": {
+        "body": {
+          "0": "Fai clic sul nome della pagina in alto, accanto a <b>IN MODIFICA</b>, per vedere <b>Le tue pagine</b>. Fai clic su una pagina per aprirla. Le modifiche alla pagina che stai lasciando vengono salvate prima.",
+          "1": "Per aggiungere una pagina, premi <b>Aggiungi pagina</b>, inserisci il nome e premi di nuovo <b>Aggiungi pagina</b>. La pagina apparirà nel menu della tua app.",
+          "2": "Accanto a ogni pagina: l’ingranaggio apre <b>Impostazioni pagina</b> (puoi rinominarla, scegliere chi può vederla, la sua posizione nel menu o <b>Duplicarla</b>), la casetta la imposta come pagina iniziale e il cestino la elimina dopo la tua conferma. Non puoi annullare l’eliminazione di una pagina."
+        },
+        "heading": "Le tue pagine"
+      },
+      "8": {
+        "body": {
+          "0": "I pulsanti <b>Desktop</b>, <b>Tablet</b> e <b>Dispositivo mobile</b> mostrano la pagina in ciascun formato. Controlla sempre la versione per dispositivi mobili: la maggior parte delle persone visita i siti dal telefono.",
+          "1": "<b>Anteprima</b> apre la pagina in una nuova scheda, così puoi provarla con pulsanti e moduli funzionanti. Mostra le modifiche più recenti. I visitatori non le vedranno finché non le pubblichi."
+        },
+        "heading": "Controlla la pagina su un telefono, poi visualizzala in anteprima"
+      },
+      "9": {
+        "body": {
+          "0": "Le frecce curve in alto a sinistra annullano e ripetono le ultime modifiche, comprese quelle apportate dall’AI.",
+          "1": "Le modifiche vengono salvate automaticamente. La barra mostra <b>Salvataggio…</b> e poi <b>Salvato</b>. Se mostra <b>Non salvato</b>, controlla la connessione: il sistema continuerà a provare e <b>Riprova</b> tenterà subito di nuovo. Se le modifiche non sono arrivate al server prima che chiudessi la scheda, la prossima volta che apri la pagina potrai scegliere <b>Ripristina</b>."
+        },
+        "heading": "Annullare e salvare"
+      },
+      "10": {
+        "bullets": {
+          "0": "Le modifiche restano nella bozza. I visitatori le vedranno dopo la pubblicazione.",
+          "1": "Le app create con AI Designer prendono le pagine dal design: modificale nel Designer.",
+          "2": "Se un blocco già pronto chiede <b>Vuoi configurarlo?</b>, <b>Sì, collegalo</b> crea uno spazio in cui salvare i contenuti inviati e collega il modulo. <b>No, me ne occupo io</b> aggiunge il blocco così com’è."
+        },
+        "heading": "Da sapere"
+      }
+    },
+    "summary": "Modifica testi, immagini e layout con clic e trascinamenti, oppure chiedi all’IA di farlo per te.",
+    "title": "Modifica le tue pagine"
+  },
+  "phone-apps": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Puoi installare qualsiasi app pubblicata direttamente dal browser, senza passare da un app store. Apri l’app sul telefono (inquadra il codice nella Panoramica o nella scheda Pubblica), poi scegli <b>Aggiungi alla schermata Home</b> dal menu del browser. Su iPhone, l’opzione si trova sotto il pulsante Condividi. L’app si aprirà come tutte le altre, con la sua icona.",
+          "1": "Imposta l’icona della tua app nella sezione <b>Icona app</b> della Panoramica. Puoi caricare un’immagine o chiedere all’IA di crearne una."
+        },
+        "heading": "Aggiungila alla schermata Home"
+      },
+      "1": {
+        "heading": "Invia notifiche",
+        "shot": {
+          "alt": "La scheda Notifiche con il numero di iscritti e un modulo per scrivere e inviare una notifica.",
+          "caption": "Scrivi una notifica e inviala a tutte le persone iscritte."
+        },
+        "steps": {
+          "0": "Apri la scheda <b>Notifiche</b>.",
+          "1": "Se le notifiche sono disattivate, premi <b>Attiva notifiche</b>. Verrà aggiunta una piccola pagina “Ricevi notifiche” da cui i visitatori possono iscriversi.",
+          "2": "Pubblica la tua app perché i visitatori possano iscriversi.",
+          "3": "Scrivi un <b>Titolo</b> e un <b>Messaggio</b>. Puoi aggiungere una pagina da aprire quando si tocca la notifica, come /menu.",
+          "4": "Premi <b>Invia a</b> (mostra quante persone la riceveranno). <b>Inviate</b> mostra cosa hai inviato e quante notifiche sono state recapitate."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Su telefoni Android e computer, le persone attivano le notifiche dal browser. Su iPhone e iPad, prima aggiungono la tua app alla schermata Home, poi attivano le notifiche da lì.",
+          "1": "Anche i flussi possono inviare notifiche, con il passaggio <b>Invia una notifica</b>."
+        },
+        "heading": "Chi può ricevere le notifiche"
+      },
+      "3": {
+        "body": {
+          "0": "L’app per telefono mostra la tua app pubblicata e aggiornata. Perciò, quando pubblichi delle modifiche, queste vengono aggiornate senza dover creare una nuova versione."
+        },
+        "heading": "Crea un’app Android",
+        "shot": {
+          "alt": "La scheda App per dispositivi mobili con i dettagli dell’app e i pulsanti per creare versioni Android.",
+          "caption": "Crea una copia di prova o il file richiesto da Google Play."
+        },
+        "steps": {
+          "0": "Pubblica prima la tua app.",
+          "1": "Apri la scheda <b>App per dispositivi mobili</b>.",
+          "2": "In <b>Dettagli app</b>, controlla il <b>Nome dell’app</b>, il <b>Bundle / ID applicazione</b> (ad esempio com.tuaazienda.app; non modificarlo mai dopo aver pubblicato l’app in uno store), la <b>Versione</b>, l’<b>Orientamento</b> e i colori, poi premi <b>Salva impostazioni</b>.",
+          "3": "Premi <b>Crea APK di prova</b> per ottenere una copia da installare direttamente su un telefono Android e provarla.",
+          "4": "Quando è pronta per Google Play, premi <b>Crea per Google Play</b>. La guida <b>Pubblica la tua app su Google Play</b> ti accompagna nei passaggi richiesti dallo store."
+        }
+      },
+      "4": {
+        "body": {
+          "0": "Google Play riconosce la tua app tramite la chiave di caricamento, un file segreto creato la prima volta che prepari l’app per Google Play. Premi <b>Scarica copia di backup della chiave</b> e conservala in un luogo sicuro, come un gestore di password. Senza questa chiave, non potrai più aggiornare la tua app su Google Play. Solo il proprietario dell’app può scaricarla."
+        },
+        "heading": "Conserva al sicuro la chiave di caricamento"
+      },
+      "5": {
+        "body": {
+          "0": "Premi <b>Scarica progetto iPhone</b> nella scheda App per dispositivi mobili. Per creare un’app per iPhone serve un account Apple Developer a pagamento e un Mac oppure un account GitHub gratuito. Le istruzioni incluse nel download spiegano entrambi i metodi, passo dopo passo."
+        },
+        "heading": "iPhone e iPad"
+      },
+      "6": {
+        "bullets": {
+          "0": "<b>Funzioni del telefono usate da questa app</b> elenca le funzioni del telefono richieste dall’app, come la fotocamera o la posizione. Quando l’elenco cambia, crea una nuova versione e inviala agli store.",
+          "1": "I telefoni aprono solo app con un indirizzo sicuro (https). La scheda App per dispositivi mobili ti avvisa se il tuo non lo è.",
+          "2": "Se compare il messaggio <b>Le versioni Android sono disattivate su questo server</b>, chiedi a chi gestisce {app} per te.",
+          "3": "Prima di eliminare un’app o il tuo account, scarica la chiave di caricamento di Google Play."
+        },
+        "heading": "Da sapere"
+      }
+    },
+    "summary": "Aggiungi la tua app alle schermate Home, invia notifiche e crea versioni per Android e iPhone.",
+    "title": "App per telefoni e notifiche"
+  },
+  "prices-and-payments": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "<b>Se gestisci la piattaforma:</b> Admin, <b>Tutte le impostazioni</b>, poi <b>Pagamenti</b> per prezzi e Stripe e <b>Piani e limiti</b> per i contenuti di ogni piano.",
+          "1": "<b>Se sei un rivenditore:</b> nella dashboard rivenditore, apri <b>Fatturazione e piani</b>. Troverai <b>1. I tuoi prezzi</b> e <b>2. Cosa include ogni piano</b>.",
+          "2": "I pagamenti vengono elaborati da Stripe, un servizio di pagamento online. Ti serve un account Stripe personale."
+        },
+        "heading": "Dove trovarli"
+      },
+      "1": {
+        "heading": "Collegare Stripe",
+        "steps": {
+          "0": "In Stripe, vai su Developers, API keys e copia la <b>Chiave segreta</b>. Per fare una prova, usa una chiave di test (inizia con sk_test_).",
+          "1": "Incollala nel campo <b>Chiave segreta</b> sotto <b>Stripe</b>.",
+          "2": "Premi <b>Salva prezzi</b>. {app} configura per te gli aggiornamenti dei pagamenti da Stripe."
+        }
+      },
+      "2": {
+        "heading": "Impostare i prezzi",
+        "shot": {
+          "alt": "La sezione Pagamenti, con nome, prezzo mensile e valuta per ogni piano a pagamento, e la chiave Stripe.",
+          "caption": "Dai un nome e un prezzo a ogni piano e collega Stripe."
+        },
+        "steps": {
+          "0": "In <b>Piani e prezzi</b>, ogni piano a pagamento ha un <b>Nome del piano</b>, un <b>Prezzo mensile</b> e una <b>Valuta</b>.",
+          "1": "Inserisci un prezzo per ogni piano che vuoi offrire. Lascia il prezzo vuoto per nascondere quel piano. Il piano Free è sempre disponibile.",
+          "2": "Premi <b>Salva prezzi</b>. I prezzi vengono creati per te nel tuo account Stripe."
+        }
+      },
+      "3": {
+        "body": {
+          "0": "Per ogni piano, imposta il numero di <b>App</b>, <b>App pubblicate</b>, <b>Pagine per app</b>, <b>Domini personalizzati</b> e <b>Azioni AI / mese</b>, e scegli se includere i <b>Flussi di lavoro programmati</b>.",
+          "1": "In <b>Piani e limiti</b> del gestore, seleziona <b>illimitato</b> per non impostare un limite, poi premi <b>Salva limiti del piano</b>. In <b>Fatturazione e piani</b> del rivenditore, lascia vuoto un campo per non impostare un limite e premi <b>Salva piani</b>.",
+          "2": "I rivenditori possono anche deselezionare <b>Consenti ai nuovi clienti di registrarsi sul tuo dominio</b> per fare in modo che gli account siano disponibili solo su invito."
+        },
+        "heading": "Scegliere cosa include ogni piano",
+        "shot": {
+          "alt": "La tabella Piani e limiti, con una colonna per ogni piano e una riga per ogni limite.",
+          "caption": "Cosa include ogni piano."
+        }
+      },
+      "4": {
+        "body": {
+          "0": "I clienti vedono i piani che offri nella pagina <b>Fatturazione e piano</b>, con un pulsante <b>Effettua l'upgrade</b> che li porta su Stripe per pagare. I clienti paganti possono selezionare <b>Gestisci fatturazione</b> per cambiare carta o annullare. Finché Stripe non è collegato, i prezzi sono comunque visibili e il pagamento sarà disponibile una volta completata la connessione.",
+          "1": "Puoi anche cambiare il piano di qualcuno manualmente: quello dell'operatore dall'elenco Utenti e quello di un rivenditore dall'elenco clienti."
+        },
+        "heading": "Cosa vedono i clienti"
+      },
+      "5": {
+        "bullets": {
+          "0": "I clienti pagano direttamente te, sul tuo account Stripe. La piattaforma non applica commissioni.",
+          "1": "Se non riesci a configurare gli aggiornamenti dei pagamenti di Stripe, <b>Avanzate: aggiornamenti dei pagamenti (webhook)</b> mostra l'indirizzo da aggiungere manualmente su Stripe.",
+          "2": "Prova tutto con una chiave di test Stripe prima di passare alla chiave attiva."
+        },
+        "heading": "Utile da sapere"
+      }
+    },
+    "summary": "Collega Stripe e imposta il prezzo e i contenuti di ogni piano, così i clienti pagano direttamente te.",
+    "title": "Prezzi e pagamenti"
+  },
+  "publishing": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Lavori sempre su una bozza. I visitatori vedono l’ultima versione che hai pubblicato. Le tue modifiche, comprese quelle dell’IA, restano nella bozza finché non pubblichi di nuovo, così nessuno vede pagine incomplete."
+        },
+        "heading": "Bozza e versione pubblicata"
+      },
+      "1": {
+        "heading": "Pubblica per la prima volta",
+        "shot": {
+          "alt": "La scheda Pubblica, con lo stato dell’app, il pulsante di pubblicazione e il suo indirizzo web.",
+          "caption": "Pubblica e copia il link della tua app per condividerla."
+        },
+        "steps": {
+          "0": "Premi <b>Pubblica</b> in alto a destra, accanto alle schede della tua app.",
+          "1": "Premi <b>Pubblica app</b>.",
+          "2": "Vedrai <b>La tua app è online. È pronta da condividere.</b> e lo stato diventerà <b>Online</b>."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Trovi l’indirizzo web della tua app nella scheda Pubblica, con un pulsante per copiarlo. Nella Panoramica trovi un codice da inquadrare con la fotocamera del telefono per aprire l’app.",
+          "1": "<b>Ricerca e condivisione</b> permette di impostare la descrizione che i motori di ricerca e le app di chat mostrano insieme al link. Attiva <b>Nascondi dai motori di ricerca</b> se non vuoi che la tua app compaia su Google. Chiunque abbia il link potrà comunque aprirla."
+        },
+        "heading": "Condividi il link"
+      },
+      "3": {
+        "body": {
+          "0": "Se hai modificato qualcosa dopo aver pubblicato, lo stato indica <b>Online · hai modifiche non pubblicate</b>. Premi <b>Pubblica modifiche</b> per renderle visibili. Se non ci sono novità, il pulsante indica <b>Tutto aggiornato</b>.",
+          "1": "Vuoi provare le modifiche prima? <b>Anteprima</b>, in alto a destra, apre la bozza in una nuova scheda. Puoi aprirla solo tu."
+        },
+        "heading": "Pubblica le modifiche"
+      },
+      "4": {
+        "body": {
+          "0": "Ogni volta che pubblichi, la versione viene salvata in <b>Cronologia delle versioni</b>, dalla più recente alla meno recente. Quella online è contrassegnata come <b>Online</b>."
+        },
+        "heading": "Ripristina una versione precedente",
+        "shot": {
+          "alt": "L’elenco Cronologia delle versioni, con un pulsante Rendi attiva accanto alle versioni precedenti.",
+          "caption": "Cronologia delle versioni: ripristina una qualsiasi delle versioni recenti."
+        },
+        "steps": {
+          "0": "Trova la versione che vuoi in <b>Cronologia delle versioni</b>.",
+          "1": "Premi <b>Rendi attiva</b> e conferma.",
+          "2": "I visitatori vedranno subito quella versione. La bozza non cambia, quindi puoi fare altre modifiche e pubblicare di nuovo."
+        }
+      },
+      "5": {
+        "body": {
+          "0": "<b>Metti offline</b> impedisce ai visitatori di aprire la tua app finché non la pubblichi di nuovo. Non viene eliminato nulla."
+        },
+        "heading": "Metti offline"
+      },
+      "6": {
+        "body": {
+          "0": "<b>Scarica copia di sicurezza (.zip)</b> salva in un unico file tutte le pagine, i flussi, le tabelle e le righe, oltre al tema e alle immagini. Conservalo in un luogo sicuro oppure ripristinalo con <b>Importa un’app</b> quando crei una nuova app, qui o su un altro server {app}. Le password dei membri non sono incluse."
+        },
+        "heading": "Fai una copia di sicurezza o sposta la tua app"
+      },
+      "7": {
+        "body": {
+          "0": "In <b>Installa sui dispositivi</b>: <b>Scarica app offline (.zip)</b> crea una copia che funziona su un computer senza Internet e conserva i dati su quel computer. <b>Scorciatoia sul desktop (online)</b> aggiunge una scorciatoia alla tua app online sul desktop Windows o Mac. Per i telefoni, consulta la guida App per telefoni e notifiche."
+        },
+        "heading": "Installala su computer e telefoni"
+      },
+      "8": {
+        "bullets": {
+          "0": "Il tuo piano potrebbe limitare il numero di app che puoi pubblicare contemporaneamente.",
+          "1": "La cronologia delle versioni mostra le 20 versioni più recenti.",
+          "2": "I flussi programmati vengono eseguiti solo quando l’app è pubblicata.",
+          "3": "Puoi collegare il tuo indirizzo web nella scheda Domini."
+        },
+        "heading": "Da sapere"
+      }
+    },
+    "summary": "Metti online la tua app, condividi il link, aggiornala in tutta sicurezza e ripristina una versione precedente se serve.",
+    "title": "Pubblica e condividi la tua app"
+  },
+  "resellers": {
+    "sections": {
+      "0": {
+        "bullets": {
+          "0": "<b>Il gestore</b> gestisce la piattaforma e imposta piani, prezzi e limiti.",
+          "1": "<b>I rivenditori</b> sono agenzie aggiunte dal gestore. Ognuno ha il proprio marchio, indirizzo, account Stripe e clienti.",
+          "2": "<b>I clienti</b> sono i clienti del rivenditore. Creano app e vedono solo il marchio del rivenditore.",
+          "3": "<b>Gli utenti delle app</b> sono le persone che usano le app pubblicate.",
+          "4": "I clienti pagano direttamente il rivenditore. La piattaforma non trattiene alcuna commissione."
+        },
+        "heading": "Come funziona"
+      },
+      "1": {
+        "heading": "Gestori: aggiungere un rivenditore",
+        "shot": {
+          "alt": "La pagina Rivenditori, con un modulo per aggiungere un rivenditore e una tabella con i suoi clienti, app e utilizzo dell'AI.",
+          "caption": "Aggiungi rivenditori e imposta i loro limiti."
+        },
+        "steps": {
+          "0": "In Admin, apri <b>Rivenditori</b>.",
+          "1": "In <b>Aggiungi un rivenditore</b>, inserisci il <b>Nome del marchio</b>, l'<b>Email del rivenditore</b> e, se vuoi, il <b>Suo nome</b>.",
+          "2": "Imposta <b>Numero massimo di clienti</b>, <b>Numero massimo di app</b> e <b>Azioni AI / mese</b>, oppure lascia i campi vuoti per non impostare limiti.",
+          "3": "Premi <b>Crea rivenditore</b>. Se l'email è configurata, riceverà un invito via email; altrimenti riceverai un link da inviargli."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "La tabella mostra i clienti di ogni rivenditore, le app, le azioni AI del mese, il dominio e lo stato. Fai clic su un numero come 3 / 10 per modificare quel limite. I pulsanti alla fine di ogni riga ti permettono di accedere come rivenditore, creare un link d'invito o per reimpostare la password, sospendere o riattivare il rivenditore ed eliminarlo.",
+          "1": "Il limite mensile di azioni AI vale per il rivenditore e tutti i suoi clienti. Quando si esaurisce, l'AI viene sospesa per tutti fino al mese successivo. Se l'email è configurata, il rivenditore riceve un'email quando raggiunge l'80% e il 100%.",
+          "2": "Sospendere un rivenditore disconnette lui e tutti i suoi clienti. Per eliminarlo, dovrai digitarne il nome; i suoi clienti manterranno i loro account e le loro app e diventeranno tuoi clienti diretti con il piano Free."
+        },
+        "heading": "Gestori: gestire i rivenditori"
+      },
+      "3": {
+        "body": {
+          "0": "Fai clic su <b>Dashboard rivenditore</b> nella barra in alto. <b>Panoramica</b> include una lista di controllo <b>Per iniziare</b> (logo e colori, dominio personalizzato, pagamenti, primo cliente) e mostra quanti clienti, app e azioni AI stai usando. Il menu a sinistra contiene <b>Clienti</b>, <b>App</b>, <b>Marchio</b>, <b>Dominio</b> e <b>Fatturazione e piani</b>."
+        },
+        "heading": "Rivenditori: la tua dashboard"
+      },
+      "4": {
+        "heading": "Rivenditori: invitare clienti",
+        "steps": {
+          "0": "Apri <b>Clienti</b>.",
+          "1": "In <b>Invita un cliente</b>, inserisci la sua <b>Email</b>, il suo <b>Nome</b> se vuoi e scegli il suo <b>Piano</b>.",
+          "2": "Premi <b>Invia invito</b>. Riceverà un'email con un link per impostare la password oppure, se l'email non è configurata, riceverai tu il link da inviargli.",
+          "3": "Per invitare più persone, premi <b>Invita più persone insieme</b> e incolla fino a 50 indirizzi email."
+        }
+      },
+      "5": {
+        "body": {
+          "0": "L'elenco dei clienti mostra lo stato, il piano, le app, l'utilizzo dell'AI e l'ultima attività di ogni cliente. Filtra per stato, piano e pagamento oppure seleziona <b>Inattivi da 30 giorni</b> o <b>Non hanno mai effettuato l'accesso</b>. <b>Da seguire</b> indica i clienti a cui potrebbe servire un promemoria.",
+          "1": "Modifica il piano di un cliente dal menu nella sua riga. I pulsanti in ogni riga ti permettono di <b>Aprire il suo spazio di lavoro</b> (premi <b>Torna ai tuoi clienti</b> per tornare indietro), inviare un nuovo invito o un link per reimpostare la password, sospendere o ripristinare l'accesso ed eliminare il cliente.",
+          "2": "Eliminando un cliente, eliminerai tutte le sue app. Per confermare, dovrai digitare il suo indirizzo email."
+        },
+        "heading": "Rivenditori: aiutare un cliente"
+      },
+      "6": {
+        "body": {
+          "0": "<b>App</b> mostra tutte le app create dai tuoi clienti. Premi <b>Apri</b> per modificarne una nello spazio di lavoro del cliente. Per le app che hai creato tu è disponibile l'opzione <b>Assegna al cliente</b>, che sposta l'app nello spazio di lavoro di un cliente; potrai comunque aprirla per lui."
+        },
+        "heading": "Rivenditori: app dei clienti"
+      },
+      "7": {
+        "bullets": {
+          "0": "Un rivenditore vede solo i propri clienti, mai gli altri clienti o le impostazioni del gestore.",
+          "1": "I clienti accedono dall'indirizzo del rivenditore e vedono solo il suo marchio.",
+          "2": "Quando esaurisci i posti disponibili per i clienti, non potrai inviare altri inviti finché il gestore non ne aggiunge altri."
+        },
+        "heading": "Informazioni utili"
+      }
+    },
+    "summary": "Vendi la creazione di app con un altro marchio: il gestore aggiunge i rivenditori e ogni rivenditore invita e segue i propri clienti.",
+    "title": "Rivenditori e clienti"
+  },
+  "running-your-platform": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Fai clic su <b>Amministrazione</b> nella barra in alto. <b>Gestisci la tua piattaforma</b> mostra una scheda per ogni area e il suo stato: <b>Branding white-label</b>, <b>Rivenditori</b>, <b>Pagamenti</b>, <b>Piani e limiti</b>, <b>Motore IA</b>, <b>Email</b>, <b>Utenti</b> e <b>Sistema</b>. Fai clic su una scheda per aprirla. <b>Tutte le impostazioni</b> in alto apre tutte le impostazioni in un'unica pagina."
+        },
+        "heading": "La home di amministrazione",
+        "shot": {
+          "alt": "La home di amministrazione con schede per branding, rivenditori, pagamenti, piani, IA, email, utenti e sistema, e una lista di controllo della configurazione.",
+          "caption": "La home di amministrazione: tutte le aree della piattaforma e le attività ancora da completare."
+        }
+      },
+      "1": {
+        "body": {
+          "0": "La <b>Lista di controllo della configurazione</b> si aggiorna man mano che procedi. Fai clic su un passaggio per aprire la relativa impostazione."
+        },
+        "heading": "Lista di controllo della configurazione",
+        "steps": {
+          "0": "<b>Imposta il tuo brand</b>: nome, logo e colori. Vedi Il tuo brand (white-label).",
+          "1": "<b>Collega un motore IA</b>, così le persone possono creare descrivendo la propria app. Vedi Impostazioni IA.",
+          "2": "<b>Collega Stripe e imposta i prezzi dei piani</b>, se prevedi di far pagare. Vedi Prezzi e pagamenti.",
+          "3": "<b>Attiva l'email</b>, così inviti, link per reimpostare la password e avvisi vengono inviati automaticamente. Vedi Email.",
+          "4": "<b>Assegna un indirizzo dedicato alle app pubblicate</b>. Si configura sul server (APPS_DOMAIN nel file .env), non in questa schermata; può impostarlo chi installa la piattaforma. Con un record DNS wildcard, ogni app pubblicata riceve un indirizzo dedicato, separato dallo studio.",
+          "5": "<b>Invita il tuo primo rivenditore</b>, se vendi tramite agenzie. Vedi Rivenditori e clienti."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "In <b>Tutte le impostazioni</b>, <b>Piani e limiti</b> definisce cosa includono i piani Free, Starter, Pro e Team: <b>App</b>, <b>App pubblicate</b>, <b>Pagine per app</b>, <b>Domini personalizzati</b>, <b>Azioni IA al mese</b> e <b>Flussi di lavoro programmati</b>. Seleziona <b>illimitato</b> per non impostare un limite, poi fai clic su <b>Salva i limiti dei piani</b>. <b>Ripristina i limiti standard</b> rimette i valori predefiniti. Tu e i tuoi rivenditori non avete limiti."
+        },
+        "heading": "Cosa include ogni piano"
+      },
+      "3": {
+        "body": {
+          "0": "L'elenco <b>Utenti</b> nella home di amministrazione mostra tutte le persone che si sono registrate. Per ciascuna puoi:"
+        },
+        "bullets": {
+          "0": "Cambiare il piano dal menu. La modifica viene salvata subito.",
+          "1": "Fai clic su <b>Link per la password</b> per creare un link di accesso valido una sola volta per 2 ore. Se l'email è attiva, viene inviato alla persona; altrimenti viene copiato, così puoi inviarlo tu.",
+          "2": "Fai clic su <b>Accedi come utente</b> per aprire il suo spazio di lavoro e aiutarla. Un avviso ti informa che sei al suo interno e ogni modifica viene applicata al suo account. Fai clic su <b>Termina accesso come utente</b> per tornare al tuo account.",
+          "3": "Fai clic su <b>Elimina</b> per eliminare il suo account. Vedrai cosa verrà eliminato e dovrai inserire la sua email per confermare."
+        },
+        "heading": "Aiutare chi usa la piattaforma"
+      },
+      "4": {
+        "body": {
+          "0": "<b>Nuovi utenti, ultimi 30 giorni</b> mostra quante persone si sono registrate, hanno creato un'app e ne hanno pubblicata una. <b>Progetti recenti</b> elenca le app più recenti, con <b>Apri</b> per visualizzarle nello spazio di lavoro del proprietario. <b>Esecuzioni recenti dei flussi</b> mostra le automazioni più recenti e il loro esito."
+        },
+        "heading": "Tieni tutto sotto controllo"
+      },
+      "5": {
+        "body": {
+          "0": "Apri <b>Sistema</b> per vedere lo stato del server spiegato in modo semplice. Ogni controllo è mostrato su una scheda: verde significa tutto a posto, giallo indica che è bene dare un'occhiata, rosso richiede attenzione immediata. I controlli riguardano database, spazio su disco, flussi programmati, backup, email, connessione IA, memoria e altro.",
+          "1": "La <b>Pulizia notturna</b> rimuove i vecchi log delle esecuzioni, gli accessi scaduti, le vecchie versioni pubblicate e i file delle app eliminate. Scegli <b>Solo rapporto</b> (conteggia senza eliminare), <b>Rimuovi i vecchi dati</b> oppure <b>Disattivata</b>, poi fai clic su <b>Salva</b>. <b>Controlla ora</b> o <b>Avvia la pulizia</b> esegue l'operazione subito. Fai un backup prima di attivare la rimozione: i dati eliminati non si possono recuperare.",
+          "2": "Se qualcosa non va, <b>Dettagli per l'assistenza</b> copia o scarica un riepilogo con i dati privati nascosti, pronto da inviare al servizio di assistenza."
+        },
+        "heading": "Stato del server",
+        "shot": {
+          "alt": "La pagina Sistema: un riepilogo, le schede dei controlli di stato e le impostazioni della pulizia notturna.",
+          "caption": "Sistema: lo stato del server, spiegato in modo semplice."
+        }
+      },
+      "6": {
+        "bullets": {
+          "0": "Se dopo un aggiornamento il database deve essere aggiornato, un avviso in cima alla home di amministrazione te lo segnala e la sezione Sistema spiega cosa fare.",
+          "1": "Le installazioni eseguite con il programma di installazione standard fanno un backup automatico ogni notte. Copia di tanto in tanto i backup su un altro dispositivo.",
+          "2": "Gli strumenti di monitoraggio possono controllare /api/health per verificare che il server sia attivo.",
+          "3": "La guida operativa per chi gestisce la piattaforma, inclusa nel download (docs/operations.md), contiene tutti i dettagli."
+        },
+        "heading": "Informazioni utili"
+      }
+    },
+    "summary": "La tua home di amministrazione: configura {app}, gestisci chi la usa e mantieni il server in buono stato.",
+    "title": "Gestire la tua piattaforma"
+  },
+  "white-label": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Chi gestisce la piattaforma imposta il brand predefinito che tutti vedono. Ogni rivenditore imposta il proprio brand, che è l'unico visibile ai suoi clienti: il brand della piattaforma non viene mai mostrato.",
+          "1": "<b>Se gestisci la piattaforma:</b> vai su Amministrazione, <b>Tutte le impostazioni</b>, <b>Branding</b>.",
+          "2": "<b>Se sei un rivenditore:</b> apri il tuo <b>Pannello rivenditore</b> e scegli <b>Branding</b>."
+        },
+        "heading": "Quale brand vedono le persone"
+      },
+      "1": {
+        "heading": "Imposta il tuo brand",
+        "shot": {
+          "alt": "Il modulo di branding white-label con nome, slogan, logo, icona, colori ed email di assistenza, e l'anteprima della schermata di accesso.",
+          "caption": "Il tuo brand, con l'anteprima della schermata di accesso."
+        },
+        "steps": {
+          "0": "Inserisci il <b>Nome del brand</b>. Appare in cima a ogni schermata, nelle email e nella pagina di accesso.",
+          "1": "Aggiungi uno <b>Slogan (facoltativo)</b>, una breve descrizione di ciò che offri. Verrà aggiunto al titolo della scheda del browser.",
+          "2": "Carica un <b>Logo</b>. I loghi orizzontali sono i più adatti; usa un file PNG o SVG di meno di 150 KB. Verrà mostrato al posto del nome del brand.",
+          "3": "Carica un’<b>icona del browser</b>: quadrata, di almeno 64 × 64 pixel.",
+          "4": "Scegli un <b>Colore principale</b> (pulsanti ed elementi in evidenza) e un <b>Colore secondario</b> (dettagli).",
+          "5": "Aggiungi un’<b>email di assistenza</b>. Verrà mostrata a chi ha bisogno di aiuto e usata come indirizzo per le risposte alle email. Se vuoi, aggiungi anche il <b>tuo sito web</b>.",
+          "6": "Controlla l’<b>anteprima</b> della schermata di accesso, poi premi <b>Salva branding</b>."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "I tuoi clienti possono accedere e creare app da un indirizzo di tua proprietà, come apps.youragency.com. Anche le loro app pubblicate vengono condivise da quell'indirizzo."
+        },
+        "heading": "Rivenditori: usa un indirizzo tuo",
+        "steps": {
+          "0": "Nel Pannello rivenditore, apri <b>Dominio</b>.",
+          "1": "Inserisci un sottodominio che controlli, come apps.youragency.com, e fai clic su <b>Usa questo dominio</b>.",
+          "2": "Aggiungi i due record indicati (un record CNAME o A e un record TXT) nel servizio dove gestisci il DNS del tuo dominio.",
+          "3": "Fai clic su <b>Controlla ora</b>. Quando appare <b>Connesso</b>, i tuoi clienti possono accedere da quell'indirizzo."
+        }
+      },
+      "3": {
+        "bullets": {
+          "0": "Le modifiche vengono mostrate al caricamento successivo della pagina.",
+          "1": "Le immagini oltre i 150 KB vengono rifiutate. Esporta una versione più piccola e riprova.",
+          "2": "L'indirizzo di un rivenditore riceve automaticamente un certificato sicuro (https) sui server predisposti. Se non si apre in modo sicuro, chiedi al gestore della piattaforma.",
+          "3": "Per smettere di usare l'indirizzo del rivenditore, svuota il campo e salva.",
+          "4": "Gestori: assegna alle app pubblicate un indirizzo neutro (APPS_DOMAIN), così i link alle app dei clienti dei rivenditori non mostrano il nome della piattaforma."
+        },
+        "heading": "Informazioni utili"
+      }
+    },
+    "summary": "Personalizza lo studio, le email e le pagine di accesso con il tuo nome, logo e colori.",
+    "title": "Il tuo brand (white-label)"
+  }
+}

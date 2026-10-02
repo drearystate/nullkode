@@ -1,0 +1,22 @@
+{
+  "backToAll": "Tüm rehberlere dön",
+  "clearSearch": "Aramayı temizle",
+  "eyebrow": "YARDIM VE REHBERLER",
+  "guideMetaTitle": "{title} · Yardım",
+  "heading": "Size nasıl yardımcı olabiliriz?",
+  "help": "Yardım",
+  "helpGuides": "Yardım ve rehberler",
+  "intro": "{app}’teki her şey için adım adım rehberler. Herhangi bir ekranın üstündeki <b>Yardım</b> bağlantısı, o ekranın rehberini açar.",
+  "matches": "{count, plural, one {# rehber eşleşti} other {# rehber eşleşti}}",
+  "metaTitle": "Yardım ve rehberler",
+  "noMatch": "“{query}” için eşleşen rehber yok.",
+  "noMatchHint": "Başka bir kelime deneyin veya tüm rehberlere göz atın.",
+  "onThisPage": "Bu sayfada",
+  "onThisPageEyebrow": "BU SAYFADA",
+  "related": "İlgili rehberler",
+  "searchHelp": "Bir iki kelime yazın. Yazdıkça rehberler filtrelenir.",
+  "searchLabel": "Rehberlerde ara",
+  "searchPlaceholder": "Rehberlerde ara: “yayınla” veya “alan adı”",
+  "showAll": "Tüm rehberleri göster",
+  "step": "Adım {n}: "
+}

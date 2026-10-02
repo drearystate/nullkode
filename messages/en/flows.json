@@ -1,0 +1,788 @@
+{
+  "catalog": {
+    "trigger": {
+      "label": "When the app calls this",
+      "help": "Where the automation starts: when a page or form in your app uses it, or on its schedule if you set one. Connect it to the first step you want to happen."
+    },
+    "query": {
+      "label": "Find records",
+      "help": "Finds saved records in one of your tables (a table is like a spreadsheet), optionally only the ones that match your conditions. Later steps can use what it finds."
+    },
+    "insert": {
+      "label": "Add a record",
+      "help": "Saves a new record (a new row) in one of your tables, like the details someone typed into a form."
+    },
+    "update": {
+      "label": "Change records",
+      "help": "Changes records already saved in a table. You choose which records to change and what their new values are."
+    },
+    "delete": {
+      "label": "Delete records",
+      "help": "Permanently removes the records in a table that match your conditions. This can't be undone."
+    },
+    "sheets_read": {
+      "label": "Read a Google Sheet",
+      "help": "Reads the rows of a Google Sheet you've connected (up to 1,000), so later steps can use them."
+    },
+    "sheets_append": {
+      "label": "Add a row to a Google Sheet",
+      "help": "Adds a new row to a Google Sheet you've connected, like a log of every form sent. It only works with sheets your app is allowed to edit, not read-only ones."
+    },
+    "branch": {
+      "label": "If this, otherwise that",
+      "help": "Checks something and splits the automation in two: one path runs when it's true, the other when it isn't."
+    },
+    "set": {
+      "label": "Remember a value",
+      "help": "Saves a value under a name you choose so later steps can reuse it, like a sticky note for this run."
+    },
+    "parse_json": {
+      "label": "Read data from text",
+      "help": "Turns text that holds structured data (often sent by other websites) into separate values that later steps can pick from."
+    },
+    "math": {
+      "label": "Do a sum",
+      "help": "Works out a number from two values: add, subtract, multiply, divide or remainder. Later steps can use the answer."
+    },
+    "delay": {
+      "label": "Wait",
+      "help": "Pauses the automation for a few seconds (up to 60) before the next step runs."
+    },
+    "custom_js": {
+      "label": "Custom code",
+      "help": "For developers: runs a short piece of JavaScript code you write. Use it only when no other step does what you need."
+    },
+    "http_request": {
+      "label": "Call another website",
+      "help": "Contacts another website or online service, to fetch information or pass some along. Later steps can use its answer."
+    },
+    "email": {
+      "label": "Send an email",
+      "help": "Sends an email, like an order confirmation to a customer or a heads-up to yourself."
+    },
+    "send_push": {
+      "label": "Send a notification",
+      "help": "Sends a notification to everyone who turned on notifications for your app, on their phone or computer."
+    },
+    "ai_prompt": {
+      "label": "Ask AI",
+      "help": "Gives the AI a question or task, like summarizing a message. Later steps can use its answer. Each run counts toward your AI allowance."
+    },
+    "hash_password": {
+      "label": "Protect a password",
+      "help": "Scrambles a password so it can be saved safely. Use it before saving a new account's password; the original can't be read back."
+    },
+    "verify_password": {
+      "label": "Check a password",
+      "help": "Checks whether the password someone typed matches the scrambled one you saved. Use it when people sign in."
+    },
+    "set_session": {
+      "label": "Sign the person in",
+      "help": "Signs the person in on this device, so your app remembers who they are on their next visits."
+    },
+    "get_session": {
+      "label": "Who is signed in",
+      "help": "Finds out who is signed in right now, if anyone, with their name, email and role, so later steps can use them."
+    },
+    "clear_session": {
+      "label": "Sign the person out",
+      "help": "Signs the person out on this device."
+    },
+    "lookup": {
+      "label": "Look up a related record",
+      "help": "For each record an earlier step found, fetches the matching record from another table, like adding each order's customer details."
+    },
+    "aggregate": {
+      "label": "Count or add up records",
+      "help": "Counts records or adds up a column in a table, like the number of sign-ups or total sales. Later steps can use the result."
+    },
+    "bulk_insert": {
+      "label": "Add many rows",
+      "help": "Adds many rows to a table at once, from a list an earlier step made."
+    },
+    "bulk_update": {
+      "label": "Change many rows",
+      "help": "Changes every row in a table that matches your conditions, in one go."
+    },
+    "bulk_delete": {
+      "label": "Delete many rows",
+      "help": "Permanently deletes every row in a table that matches your conditions, in one go. This can't be undone."
+    },
+    "check_role": {
+      "label": "Check what the person may do",
+      "help": "Checks whether the signed-in person has a certain role, like admin. Follow it with an “If this, otherwise that” step to decide what happens."
+    },
+    "response": {
+      "label": "Reply",
+      "help": "Sends an answer back to the page or form that started the automation, like a success message or the records found."
+    }
+  },
+  "categories": {
+    "trigger": "Start",
+    "data": "Saved data",
+    "logic": "Decisions and values",
+    "integration": "Send and connect",
+    "ai": "AI",
+    "auth": "Accounts",
+    "response": "Finish"
+  },
+  "summary": {
+    "startsHere": "Starts here",
+    "from": "From {table}",
+    "into": "Into {table}",
+    "in": "In {table}",
+    "noTable": "No table selected",
+    "sheet": "Sheet {sheet}",
+    "noSheet": "No sheet",
+    "unnamed": "Unnamed",
+    "parseJson": "Turn text into data",
+    "customJs": "Run your own code",
+    "seconds": "{seconds}s",
+    "to": "To {to}",
+    "noRecipient": "No recipient",
+    "pushTitle": "“{title}”",
+    "pushEveryone": "To everyone subscribed",
+    "askAi": "Ask AI a question",
+    "protectPassword": "Protect a password before saving it",
+    "verifyVs": "{plain} vs {hash} → {output}",
+    "checkPassword": "Check a password",
+    "signIn": "Sign in {user}",
+    "signUserIn": "Sign user in",
+    "signUserOut": "Sign user out",
+    "lookupFallback": "Add details from another list",
+    "aggregateFallback": "Count or add up records",
+    "bulkInsertFallback": "Add many rows at once",
+    "bulkUpdateFallback": "Update many rows at once",
+    "bulkDeleteFallback": "Delete many rows at once",
+    "needsRole": "Needs: {role}",
+    "checkRoleFallback": "Check what the person may do",
+    "reply": "Sends a reply",
+    "repliesWith": "{count, plural, one {Replies with # value} other {Replies with # values}}"
+  },
+  "editor": {
+    "flow": "Flow",
+    "webAddress": "Web address (for developers)",
+    "webAddressHelp": "The web address other services or your own code can call to start this automation. You only need it if you’re connecting something outside the studio.",
+    "addStep": "Add step",
+    "addStepHelp": "The things your automation can do. Click one to add it, then drag from its right edge to the next step to set the order they run in.",
+    "searchLabel": "Search flow steps",
+    "searchHelp": "Type a word, like “email” or “save”, to find a step fast.",
+    "searchPlaceholder": "Find a step…",
+    "tabsLabel": "Flow views",
+    "tabSteps": "Steps",
+    "tabStepsHelp": "Build the automation: add steps and connect them in the order they should run.",
+    "tabActivity": "Activity",
+    "tabActivityHelp": "See each time this automation ran, whether it worked, and what people sent when something went wrong.",
+    "problemsBadge": "{count} with a problem in the last 24 hours",
+    "tabSchedule": "Schedule",
+    "tabScheduleHelp": "Choose whether this runs when your app uses it or by itself at set times, like every morning.",
+    "saved": "Saved",
+    "saveFailed": "Save failed",
+    "testRun": "Test run",
+    "testRunHelp": "Runs this automation once right now, using your latest saved changes, and shows the result below. It really does its steps (saving, emailing and so on), and it shows up in Activity.",
+    "pausedTest": "This automation is paused. Turn it on to test it.",
+    "running": "Running...",
+    "emptyTitle": "Every step has a purpose.",
+    "emptyBody": "Select a step to adjust what it does. Add more from the left, then connect them in the order they should run.",
+    "deleteStep": "Delete step",
+    "deleteStepHelp": "Removes this step and its connections. You can also press Delete on your keyboard.",
+    "handleOut": "Drag from here to the next step to choose what runs after this one.",
+    "handleIn": "Where the previous step connects in.",
+    "handleTrue": "Top dot: drag from here to the step that should run when the check is true.",
+    "handleFalse": "Bottom dot: drag from here to the step that should run when the check is not true."
+  },
+  "inspector": {
+    "fields": {
+      "stepName": {
+        "label": "Step name",
+        "help": "A name for this step, shown on its box in the diagram so you can tell steps apart. It doesn’t change what the step does."
+      },
+      "whenThisValue": {
+        "label": "When this value",
+        "help": "The value to check, usually something from the form or an earlier step. Use Insert to pick it."
+      },
+      "is": {
+        "label": "Is",
+        "help": "How to compare the two values. “contains” looks for the text anywhere inside; “exists” only checks that the first value isn’t empty."
+      },
+      "thisValue": {
+        "label": "This value",
+        "help": "What to compare against. Type it without quote marks, or insert a value. “equal to” must match exactly, including capital letters."
+      },
+      "variableName": {
+        "label": "Variable name",
+        "help": "The name to save the value under. Later steps can pick it from their Insert list."
+      },
+      "value": {
+        "label": "Value",
+        "help": "What to save. Type text, insert a value from the form or an earlier step, or mix both."
+      },
+      "method": {
+        "label": "Method",
+        "help": "The kind of request. GET fetches information, POST sends new information, PUT and PATCH change it, DELETE removes it. The other service’s guide says which to use."
+      },
+      "url": {
+        "label": "URL",
+        "help": "The web address of the service to contact, starting with https://. You can insert values into it."
+      },
+      "pushTitle": {
+        "label": "Title",
+        "help": "The bold first line of the notification. You can insert values, like a name from an earlier step."
+      },
+      "pushMessage": {
+        "label": "Message",
+        "help": "The text under the title. Keep it short, as phones cut long messages off."
+      },
+      "pushUrl": {
+        "label": "Open this page when tapped (optional)",
+        "help": "The page of your app to open when someone taps the notification, like /menu. Leave empty to open your app’s home page."
+      },
+      "emailTo": {
+        "label": "To",
+        "help": "Who gets the email. Type an address, or insert one from the form, like the person’s own email. Separate several addresses with commas."
+      },
+      "emailFrom": {
+        "label": "From (optional)",
+        "help": "The address the email says it’s from. Leave empty to use the server’s usual sending address."
+      },
+      "emailSubject": {
+        "label": "Subject",
+        "help": "The email’s subject line. You can insert values, like an order number."
+      },
+      "emailMessage": {
+        "label": "Message",
+        "help": "What the email says. Insert values to make it personal, like the person’s name or their order details."
+      },
+      "aiSystem": {
+        "label": "System instructions (optional)",
+        "help": "Background for the AI that stays the same every time, like “Answer in one friendly sentence” or “You work for a bakery”."
+      },
+      "aiPrompt": {
+        "label": "Prompt",
+        "help": "The question or task for the AI. Insert values to include things like the customer’s message."
+      },
+      "seconds": {
+        "label": "Seconds (0-60)",
+        "help": "How long to pause before the next step. The person using your app waits too, so keep it short."
+      },
+      "jsonInput": {
+        "label": "JSON text to parse",
+        "help": "Text holding data in JSON, a common format other websites send, usually the answer from a “Call another website” step. The step fails if the text isn’t in that format."
+      },
+      "hashInput": {
+        "label": "Password to hash",
+        "help": "The password to scramble, usually the one typed into your sign-up form. Save the scrambled result, never the original."
+      },
+      "plainPassword": {
+        "label": "Password from user",
+        "help": "The password the person just typed into your sign-in form."
+      },
+      "storedHash": {
+        "label": "Stored hash",
+        "help": "The scrambled password you saved when they signed up, usually from a “Find records” step that found their account."
+      },
+      "userId": {
+        "label": "User ID",
+        "help": "The ID of the account to sign in, usually from the record a “Find records” step found. Your app then remembers this person until they sign out."
+      },
+      "firstValue": {
+        "label": "First value",
+        "help": "The first number. Type it or insert one from an earlier step."
+      },
+      "operator": {
+        "label": "Operator",
+        "help": "What to do with the two numbers. Remainder is what’s left after dividing (7 remainder 2 is 1). Dividing by zero gives 0."
+      },
+      "secondValue": {
+        "label": "Second value",
+        "help": "The second number. Type it or insert one from an earlier step."
+      },
+      "dataSource": {
+        "label": "Data source",
+        "help": "Where your data is kept. Most apps only have their own built-in database; choose another only if you connected one yourself."
+      },
+      "table": {
+        "label": "List of records",
+        "help": "Which table to use. A table is like a spreadsheet: one row per record, such as one per order or sign-up."
+      },
+      "rowsToAdd": {
+        "label": "Rows to add",
+        "help": "A list an earlier step made, like the records a “Find records” step found. Each item becomes one new row, so its names must match this table’s columns."
+      },
+      "whatToWorkOut": {
+        "label": "What to work out",
+        "help": "Count gives the number of records. Add up, average, smallest and largest work on one column, like the total of an amount column."
+      },
+      "ofColumn": {
+        "label": "Of this column",
+        "help": "The column to work with, like amount or price. Adding up and averaging only work on number columns."
+      },
+      "groupBy": {
+        "label": "Split into groups by",
+        "help": "Gives one result per value of this column, like a count for each status. Leave it on “One total” for a single number."
+      },
+      "orderGroups": {
+        "label": "Order the groups",
+        "help": "Which groups come first in the result, like the busiest status at the top."
+      },
+      "groupLimit": {
+        "label": "Most groups to return",
+        "help": "The largest number of groups to give back, up to 1,000. Groups past this number are left out."
+      },
+      "sheetSource": {
+        "label": "Google Sheet data source",
+        "help": "The Google Sheet connected to your app. If the list is empty, add one under Advanced on your app’s Data page first."
+      },
+      "sheetTab": {
+        "label": "Sheet tab name",
+        "help": "The name of the tab at the bottom of the spreadsheet, exactly as shown, like Sheet1."
+      },
+      "javascript": {
+        "label": "JavaScript",
+        "help": "Your code. Use vars.name for earlier steps’ results and trigger.name for what was sent in. Whatever you return is saved for later steps."
+      },
+      "lookupSource": {
+        "label": "Records to add details to",
+        "help": "The list an earlier step found, like the orders from a “Find records” step. The step stops with an error if that step didn’t give a list."
+      },
+      "lookupPointer": {
+        "label": "Column that points to the other record",
+        "help": "The column in those records that holds the other record’s ID, like customer_id on an order. Records where it’s empty are left as they are."
+      },
+      "lookupDataSource": {
+        "label": "Data source",
+        "help": "Where the other list is kept. Most apps only have their own built-in database."
+      },
+      "lookupIn": {
+        "label": "Look up in",
+        "help": "The list of records the details come from, like Customers."
+      },
+      "lookupMatch": {
+        "label": "Matching column there",
+        "help": "The column in that list that must equal the value above. It’s usually id."
+      },
+      "lookupAs": {
+        "label": "Save the details as",
+        "help": "A name for the added details on each record, like customer. One match is saved as a single record; several matches as a list of up to 10."
+      },
+      "roleNeeded": {
+        "label": "Role needed",
+        "help": "The role the person must have, like admin or manager. Capital letters don’t matter."
+      },
+      "roleSource": {
+        "label": "Where their role is (optional)",
+        "help": "Leave empty to use the role of whoever is signed in, from a “Who is signed in” step before this one. Change it only if an earlier step saved the role under another name."
+      }
+    },
+    "placeholders": {
+      "stepName": "What this step does",
+      "pickValue": "Pick a value from a previous step",
+      "egActive": "e.g. active",
+      "egGreeting": "e.g. greeting",
+      "helloThere": "Hello there",
+      "pushTitle": "Tonight: live music from 7pm",
+      "pushMessage": "Book a table before they're gone.",
+      "emailSubject": "Your order has shipped",
+      "emailBody": "Hi there, thanks for your order...",
+      "aiSystem": "You are a helpful assistant...",
+      "aiPrompt": "Summarize this customer message...",
+      "jsonInput": "Pick a value that contains JSON text",
+      "passwordFromRequest": "Pick the password from the request",
+      "hashFromRow": "Pick the hash from the database row",
+      "userIdFromStep": "Pick the user ID from a previous step",
+      "eg10": "e.g. 10",
+      "eg108": "e.g. 1.08",
+      "pickSourceFirst": "Pick a data source first",
+      "value": "value",
+      "name": "name",
+      "keepCurrent": "leave blank to keep current value",
+      "trueOrFalse": "true or false",
+      "aNumber": "a number",
+      "fieldName": "field name (e.g. email)"
+    },
+    "step": "Step",
+    "deleteHelp": "Removes this step and its connections from the automation. There’s no undo, so you’d have to add it again.",
+    "ops": {
+      "eq": "equal to",
+      "ne": "not equal to",
+      "gt": "greater than",
+      "lt": "less than",
+      "gte": "greater than or equal",
+      "lte": "less than or equal",
+      "contains": "contains",
+      "exists": "exists (is not empty)"
+    },
+    "branchHint": "Connect the top dot to what happens when this is true, and the bottom dot to what happens when it isn't.",
+    "body": "Body",
+    "bodyHelp": "The information to send along. Each row is a name and a value; the other service’s guide says which names it expects.",
+    "bodyEmpty": "Add the fields to send in the request body.",
+    "pushIntro": "Sends to everyone who turned on notifications for this app. iPhone users need the app added to their home screen.",
+    "math": {
+      "add": "add (+)",
+      "subtract": "subtract (−)",
+      "multiply": "multiply (×)",
+      "divide": "divide (÷)",
+      "remainder": "remainder (%)"
+    },
+    "clearSessionHelp": "This step has no settings. It removes the sign-in your app saved on the person’s device.",
+    "clearSession": "Signs out whoever is using your app on this device, so they need to sign in again next time. There’s nothing to set up here.",
+    "choose": "— choose —",
+    "insertTitle": "Insert a value from the request or a previous step",
+    "insertLabel": "Insert a value",
+    "insertHelp": "Add a value that changes each time: something the form sent, the result of an earlier step, or today’s date.",
+    "insert": "Insert",
+    "insertValue": "Insert value",
+    "closeHelp": "Close this list without adding anything.",
+    "fromRequestHelp": "“The request” is what the page or form sent when it started this automation. Type a field’s name, like email, then press Enter or Add.",
+    "fromRequest": "From the request",
+    "add": "Add",
+    "fromSteps": "From previous steps",
+    "noSteps": "No previous steps produce a value yet.",
+    "fromStepHelp": "Adds what this earlier step produced, such as the records it found or the answer it got.",
+    "helpers": "Helpers",
+    "helper": {
+      "now": "Current date & time",
+      "nowHelp": "The exact date and time at the moment this step runs.",
+      "date": "Today’s date",
+      "dateHelp": "The date this runs, without the time.",
+      "uuid": "Random ID",
+      "uuidHelp": "A new random code each time, handy as a unique reference number."
+    },
+    "outputHelp": "Optional: the name this step’s result is saved under. Change it only if two steps would otherwise share a name, like two “Find records” steps.",
+    "advanced": "Advanced",
+    "outputName": "Name used to reference this step’s result elsewhere.",
+    "where": {
+      "query": {
+        "label": "Find rows where",
+        "help": "Only records whose column equals the value you give are found; all rules must match. Rules whose value is empty are skipped. With no rules, it finds every record (up to 100)."
+      },
+      "update": {
+        "label": "Update rows where",
+        "help": "Which records to change: only those whose column equals the value you give. At least one rule is needed, so it can’t change the whole table by accident."
+      },
+      "delete": {
+        "label": "Delete rows where",
+        "help": "Which records to delete: only those whose column equals the value you give. At least one rule is needed, so it can’t wipe the whole table."
+      },
+      "bulk_update": {
+        "label": "Change rows where",
+        "help": "Which rows to change: every row whose column equals the value you give. At least one rule is needed, so it can’t change the whole table by accident."
+      },
+      "bulk_delete": {
+        "label": "Delete rows where",
+        "help": "Which rows to delete: every row whose column equals the value you give. At least one rule is needed, so it can’t wipe the whole table."
+      },
+      "aggregate": {
+        "label": "Only include rows where",
+        "help": "Only records whose column equals the value you give are counted; all rules must match. Rules whose value is empty are skipped, and with no rules every record counts."
+      }
+    },
+    "bulkInsertHint": "The step stops with an error if that step didn’t make a list, or at an item whose ID is already in the table.",
+    "queryEmptyHint": "Leave empty to return all rows. Multiple conditions must all match.",
+    "aggregateEmptyHint": "Leave empty to include all rows. Multiple conditions must all match.",
+    "deleteNeedsCondition": "A condition is required to delete — otherwise the step will fail.",
+    "updateNeedsCondition": "A condition is required to change rows — otherwise the step will fail.",
+    "insertValuesHelp": "What to save in each column of the new record. Type a value or insert one from the form. The record’s ID and the date it was added are filled in for you.",
+    "updateValuesHelp": "The new values to save. Leave a column blank to keep what’s already there.",
+    "newRowValues": "New row values",
+    "setFields": "Set these fields",
+    "pickTable": "Pick a list of records to set up this step.",
+    "agg": {
+      "count": "Count the records",
+      "sum": "Add up a column",
+      "avg": "Average of a column",
+      "min": "Smallest value in a column",
+      "max": "Largest value in a column"
+    },
+    "oneTotal": "One total",
+    "biggestFirst": "Biggest result first",
+    "smallestFirst": "Smallest result first",
+    "byAsc": "By {column}, A to Z",
+    "byDesc": "By {column}, Z to A",
+    "groupedResult": "The result is a list with one row per {column}, each with its {column} and value.",
+    "singleResult": "The result is a list with a single row, whose value is the answer. To use the number in a later step, type {token}.",
+    "noColumns": "This table has no columns yet. Add fields to the table first.",
+    "noConditions": "No conditions — will match all rows.",
+    "columnHelp": "The column to check, like email or status.",
+    "removeCondition": "Remove condition",
+    "removeConditionHelp": "Removes this rule.",
+    "addConditionHelp": "Adds another rule. A record must match every rule to count.",
+    "addCondition": "Add condition",
+    "noEditableColumns": "This table has no editable columns.",
+    "respondWith": "Respond with",
+    "respondWithHelp": "What to send back to the page or form that started this. Each row is a name and a value, like message: Thanks, we got it.",
+    "respondEmpty": "Pick what to send back to the caller. Each row becomes a field in the response.",
+    "respondHint": "The caller gets a success response by default. Add a branch step earlier in the flow if you need to return an error.",
+    "remove": "Remove",
+    "removeRowHelp": "Removes this row.",
+    "addFieldHelp": "Adds another row with a name and a value.",
+    "addField": "Add field",
+    "rowValues": "Row values",
+    "rowValuesHelp": "What to put in the new row. Each name must match a column heading in the sheet’s first row; the value is what goes under it.",
+    "rowValuesEmpty": "Add one field per column header in the sheet.",
+    "snippets": {
+      "filter": {
+        "label": "Filter rows",
+        "description": "Keep only rows matching a condition"
+      },
+      "map": {
+        "label": "Map to a new shape",
+        "description": "Transform each row into a smaller object"
+      },
+      "sum": {
+        "label": "Sum a column",
+        "description": "Add up numbers across all rows"
+      },
+      "format": {
+        "label": "Format a string",
+        "description": "Build a message from the trigger payload"
+      },
+      "timestamp": {
+        "label": "Current timestamp",
+        "description": "Get the current time as an ISO string"
+      },
+      "split": {
+        "label": "Split name into parts",
+        "description": "Turn a full name into first/last fields"
+      }
+    },
+    "js": {
+      "headsUp": "Heads up",
+      "syntax": "In code, use <code>{vars}</code> and <code>{trigger}</code> directly — not the <code>{template}</code> syntax used in other steps.",
+      "available": "Available values",
+      "availableHelp": "Results of earlier steps you can use in your code. Click one to add it where your cursor is.",
+      "noSteps": "No previous steps yet — connect this step after something that produces a value.",
+      "insertTrigger": "Insert the request payload",
+      "chipHint": "Click a chip to insert it at the cursor.",
+      "examples": "Examples",
+      "examplesHelp": "Ready-made bits of code for common jobs. Click one to add it where your cursor is.",
+      "how": "How this works",
+      "howHelp": "What your code can and can’t do, and its limits, like stopping after 3 seconds.",
+      "how1": "Your code runs on the server inside a locked-down sandbox. It has no network, no file system, no <code>{require}</code> or <code>{import}</code>, and no access to other flows.",
+      "how2": "Read from <code>{read}</code> to use a previous step's output. Assign to <code>{write}</code> to create a variable later steps can read. Whatever you <code>{return}</code> is stored in the output variable shown below.",
+      "how3": "<code>{trigger}</code> is a frozen copy of the incoming request — read-only. Console logs are discarded.",
+      "how4": "Scripts are killed after 3 seconds. If your code throws, the whole flow fails with your error message."
+    },
+    "rolePassHint": "Add a “Who is signed in” step before this one, or nobody will pass this check.",
+    "roleResult": "The answer, true or false, is saved as {name}. Follow this with an “If this, otherwise that” step that checks whether {token} is equal to true."
+  },
+  "enabledSwitch": {
+    "helpScheduled": "When paused, its scheduled runs stop and anything in your app that uses it gets an error instead. It applies straight away; no need to publish.",
+    "help": "When paused, nothing runs and anything in your app that uses it, like a form, gets an error instead. It applies to your live app straight away, with no need to publish.",
+    "label": "Run this automation",
+    "on": "On",
+    "paused": "Paused",
+    "failed": "Couldn’t change it. Try again."
+  },
+  "newFlow": {
+    "button": "New flow",
+    "buttonHelp": "Start a new, empty automation: something that runs by itself when something happens in your app. You’ll name it, then add its steps.",
+    "placeholder": "e.g. Submit contact form",
+    "nameHelp": "A name that says what this automation does, like Send booking confirmation. Press Enter to create it.",
+    "create": "Create",
+    "createHelp": "Creates the automation and opens it so you can add its steps."
+  },
+  "list": {
+    "eyebrow": "MAKE THINGS HAPPEN",
+    "title": "Your app’s flows.",
+    "intro": "Turn a click into an action. Save a booking, send an email, or bring your data to life.",
+    "explainerHelp": "How automations work: something happens in your app, like a form being sent; your steps run in order; then the person gets a result, like a thank-you message.",
+    "somethingHappens": "Something happens",
+    "stepsRun": "Your steps run",
+    "result": "A result for your user",
+    "emptyTitle": "A little automation goes a long way.",
+    "emptyBody": "Create your first flow, or add a ready-made feature with its flows already connected.",
+    "explore": "Explore features",
+    "exploreHelp": "Browse ready-made features, like bookings or a contact form. They come with their automations already set up.",
+    "openHelp": "Open this automation to see and change its steps, check what happened each time it ran, or set when it runs.",
+    "triggerSchedule": "Runs on a schedule",
+    "triggerForm": "Starts with a form",
+    "triggerEvent": "Starts with an event",
+    "triggerRequest": "Starts with a request",
+    "steps": "{count, plural, one {# step} other {# steps}}"
+  },
+  "describe": {
+    "yourData": "your data",
+    "signUps": "sign-ups",
+    "done": {
+      "saved": "saved to {table}",
+      "updated": "updated {table}",
+      "deleted": "deleted from {table}",
+      "sheetsAppend": "added a row to Google Sheets",
+      "emailed": "emailed {address}",
+      "sentEmail": "sent an email",
+      "sentPush": "sent a notification",
+      "http": "contacted another service",
+      "ai": "asked the AI",
+      "signedIn": "signed someone in",
+      "signedOut": "signed someone out"
+    },
+    "failed": {
+      "save": "Couldn't save to {table}",
+      "update": "Couldn't update {table}",
+      "delete": "Couldn't delete from {table}",
+      "read": "Couldn't read {table}",
+      "email": "Couldn't send the email",
+      "push": "Couldn't send the notification",
+      "http": "Couldn't reach the other service",
+      "ai": "The AI step didn't answer",
+      "stoppedAt": "Stopped at \"{label}\"",
+      "didntFinish": "Didn't finish"
+    },
+    "failedOnly": "{failed}.",
+    "failedWhy": "{failed}: {why}",
+    "failedWhyPeriod": "{failed}: {why}.",
+    "answered": "Answered \"{message}\".",
+    "answeredCode": "Answered with code {status}.",
+    "emailOff": "the email wasn't sent because email isn't set up",
+    "emailNotSent": "the email wasn't sent ({reason})",
+    "anEmailOff": "an email wasn't sent because email isn't set up",
+    "didAndNote": "{did}; {note}.",
+    "sentence": "{text}.",
+    "noProblems": "Went through without problems.",
+    "sent": "Sent"
+  },
+  "runtime": {
+    "emailOff": "Email isn't set up on this server, so the message was not sent.",
+    "emailFailed": "The email couldn't be sent.",
+    "recipientLimit": "{to} has already been sent {count} emails by apps in the last hour, so this one was held back.",
+    "appHourLimit": "This app has sent {count} emails in the last hour, so this one was held back to prevent spam.",
+    "appDayLimit": "This app has sent {count} emails today, so this one was held back to prevent spam.",
+    "formula": "The formula in step \"{step}\" can't be worked out: {reason}",
+    "aiBusy": "This app is receiving too many AI requests right now. Please try again later.",
+    "aiLimit": "This app has reached its AI limit for the month."
+  },
+  "api": {
+    "notFound": "Not found",
+    "invalidInput": "Invalid input",
+    "chooseWhen": "Choose when this should run.",
+    "aiTooOften": "This flow uses AI, so it can run at most every {minutes} minutes. That keeps a schedule from using up your AI allowance."
+  },
+  "schedule": {
+    "problems": {
+      "chooseWhen": "Choose when this should run.",
+      "minutesRange": "Pick a number of minutes between {min} and {max}.",
+      "minuteRange": "Pick a minute past the hour between 0 and 59.",
+      "badZone": "That time zone isn't recognised.",
+      "pickTime": "Pick a time of day, like 09:00.",
+      "pickDay": "Pick a day of the week.",
+      "chooseHowOften": "Choose how often this should run."
+    },
+    "kinds": {
+      "every": "Every few minutes",
+      "hourly": "Every hour",
+      "daily": "Every day",
+      "weekdays": "Monday to Friday",
+      "weekly": "Once a week"
+    },
+    "minute": "minute",
+    "hour": "hour",
+    "hours": "{count} hours",
+    "minutes": "{count} minutes",
+    "inZone": "{time} ({zone} time)",
+    "loadError": "Couldn't load the schedule.",
+    "loading": "Loading schedule…",
+    "saveError": "Couldn't save. Please try again.",
+    "connection": "Check your connection and try again.",
+    "aiTooOften": "This flow uses AI, so it can run at most every {minutes} minutes.",
+    "noPlan": "Your plan doesn't include scheduled flows, so this won't run.",
+    "suspended": "This account is suspended, so scheduled runs are on hold.",
+    "pausedFailures": "Paused after {count} failed runs in a row. Check the flow's steps, then resume it.",
+    "unreadable": "This schedule couldn't be read. Choose new times and save.",
+    "notPublished": "Saved. <link>Publish your app</link> to start this schedule.",
+    "notInLive": "This flow isn't in the published app yet. <link>Publish your changes</link> to start the schedule.",
+    "pending": "<link>Publish your changes</link> to use this schedule.",
+    "pendingUntil": "Until then it keeps the published schedule: {schedule}.",
+    "nextRun": "Next run {when}",
+    "starting": "Starting within a minute.",
+    "turnedOff": "Schedule turned off. It no longer runs on a schedule.",
+    "lastOk": "Last run {when}: worked.",
+    "lastTimeout": "Last run {when}: took too long.",
+    "lastFailed": "Last run {when}: didn't work.",
+    "failing": "{count, plural, one {# failed run in a row; it pauses after {max}.} other {# failed runs in a row; it pauses after {max}.}}",
+    "title": "When this runs",
+    "titleHelp": "Choose whether this automation runs when your app uses it, or by itself at set times, like every morning.",
+    "appMode": "When your app uses it",
+    "appModeHelp": "It runs only when something in your app starts it, like a visitor sending a form.",
+    "appModeBody": "A page, a form or another site starts it.",
+    "scheduleMode": "On a schedule",
+    "scheduleModeHelp": "It runs by itself at the times you choose. The schedule starts once your app is published with it.",
+    "scheduleModeBody": "It runs by itself at the times you choose.",
+    "notInPlan": "Not included in your plan.",
+    "howOften": "How often",
+    "howOftenHelp": "How often it runs. Pick a pattern, then the exact time next to it.",
+    "every": "Every",
+    "everyHelp": "The gap between runs. Some choices may be greyed out, for example when this automation uses the AI.",
+    "pastHour": "Minutes past the hour",
+    "pastHourHelp": "Which minute of each hour it runs at, like :15 for quarter past.",
+    "onTheHour": "On the hour (:00)",
+    "day": "Day",
+    "dayHelp": "Which day of the week it runs.",
+    "time": "Time",
+    "timeHelp": "The time of day it runs, by the clock of the time zone below.",
+    "timeZone": "Time zone",
+    "timeZoneHelp": "Whose clock the times follow. Pick where you or your customers are, so 9:00 means 9:00 there.",
+    "yours": "{zone} (yours)",
+    "aiNote": "Flows that use AI run at most every {minutes} minutes.",
+    "saveSchedule": "Save schedule",
+    "saveHelp": "Saves when this runs. A new or changed schedule takes effect once you publish your app.",
+    "resume": "Resume",
+    "resumeHelp": "Turns the schedule back on after it paused because runs kept failing. Fix the problem in its steps first.",
+    "describe": {
+      "everyMinute": "Every minute",
+      "everyHour": "Every hour",
+      "everyHours": "Every {count} hours",
+      "everyMinutes": "Every {count} minutes",
+      "hourlyFull": "Every hour at the full hour ({zone})",
+      "hourlyPast": "{minute, plural, one {Every hour at # minute past ({zone})} other {Every hour at # minutes past ({zone})}}",
+      "daily": "Every day at {time} ({zone})",
+      "weekdays": "Monday to Friday at {time} ({zone})",
+      "weekly": "Every {day} at {time} ({zone})",
+      "utc": "UTC",
+      "zoneTime": "{zone} time"
+    }
+  },
+  "activity": {
+    "source": {
+      "test": "Your test run",
+      "live": "From your app",
+      "schedule": "On its schedule",
+      "event": "From your app",
+      "test-submission": "Test submission"
+    },
+    "justNow": "just now",
+    "ms": "{n} ms",
+    "s": "{n} s",
+    "took": "took {duration}",
+    "nothingSent": "Nothing was sent with this run.",
+    "loadError": "Couldn't load the activity.",
+    "title": "Activity",
+    "titleHelp": "Each time this automation ran: whether it worked, what started it, and what was sent in. Handy for spotting problems.",
+    "last24h": "Last 24 hours: {total, plural, one {# run} other {# runs}}, {problems} with a problem.",
+    "intro": "What happened each time this flow ran.",
+    "filterLabel": "Which runs to show",
+    "all": "All runs",
+    "allHelp": "Show every recent run of this automation.",
+    "problemsOnly": "Only problems",
+    "problemsOnlyHelp": "Show only runs that failed or finished with a problem, like an email that wasn’t sent.",
+    "refresh": "Refresh activity",
+    "refreshHelp": "Check again for new runs.",
+    "noProblems": "No problems. Every recent run went through.",
+    "empty": "Nothing yet. Runs show up here when someone uses this in your app, or when you press Test run.",
+    "outcome": {
+      "failed": "Failed",
+      "warning": "Finished with a problem",
+      "answered": "Answered",
+      "ok": "Went through"
+    },
+    "outcomeHelp": {
+      "failed": "Failed: this run stopped at a step with an error and didn’t finish.",
+      "warning": "Finished with a problem: it went through, but something went wrong on the way, like an email not being sent.",
+      "answered": "Answered: it replied with a no, like a wrong password or missing details. That’s usually expected, not a fault.",
+      "ok": "Went through: every step worked."
+    },
+    "whatTheySent": "What they sent",
+    "whatWasSent": "What was sent",
+    "whatWasSentHelp": "The information that came in with this run, like what someone typed into a form."
+  }
+}

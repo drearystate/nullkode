@@ -1,0 +1,22 @@
+{
+  "backToAll": "Zurück zu allen Anleitungen",
+  "clearSearch": "Suche löschen",
+  "eyebrow": "HILFE & ANLEITUNGEN",
+  "guideMetaTitle": "{title} · Hilfe",
+  "heading": "Wie können wir helfen?",
+  "help": "Hilfe",
+  "helpGuides": "Hilfe & Anleitungen",
+  "intro": "Schritt-für-Schritt-Anleitungen zu allem in {app}. Über den Link <b>Hilfe</b> oben auf jeder Seite öffnest du die Anleitung für diese Seite.",
+  "matches": "{count, plural, one {# Anleitung gefunden} other {# Anleitungen gefunden}}",
+  "metaTitle": "Hilfe & Anleitungen",
+  "noMatch": "Keine Anleitung passt zu „{query}“.",
+  "noMatchHint": "Versuche es mit einem anderen Wort oder sieh dir alle Anleitungen an.",
+  "onThisPage": "Auf dieser Seite",
+  "onThisPageEyebrow": "AUF DIESER SEITE",
+  "related": "Verwandte Anleitungen",
+  "searchHelp": "Gib ein oder zwei Wörter ein. Die Anleitungen unten werden während der Eingabe gefiltert.",
+  "searchLabel": "Anleitungen durchsuchen",
+  "searchPlaceholder": "Anleitungen durchsuchen, z. B. „veröffentlichen“ oder „Domain“",
+  "showAll": "Alle Anleitungen anzeigen",
+  "step": "Schritt {n}: "
+}

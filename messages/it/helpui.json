@@ -1,0 +1,22 @@
+{
+  "backToAll": "Torna a tutte le guide",
+  "clearSearch": "Cancella la ricerca",
+  "eyebrow": "AIUTO E GUIDE",
+  "guideMetaTitle": "{title} · Aiuto",
+  "heading": "Come possiamo aiutarti?",
+  "help": "Aiuto",
+  "helpGuides": "Aiuto e guide",
+  "intro": "Guide passo passo su tutto ciò che puoi fare in {app}. Il link <b>Aiuto</b> in alto in ogni schermata apre la guida relativa.",
+  "matches": "{count, plural, one {# guida trovata} other {# guide trovate}}",
+  "metaTitle": "Aiuto e guide",
+  "noMatch": "Nessuna guida corrisponde a “{query}”.",
+  "noMatchHint": "Prova un’altra parola o sfoglia tutte le guide.",
+  "onThisPage": "In questa pagina",
+  "onThisPageEyebrow": "IN QUESTA PAGINA",
+  "related": "Guide correlate",
+  "searchHelp": "Inserisci una o due parole. Le guide qui sotto si filtrano mentre scrivi.",
+  "searchLabel": "Cerca nelle guide",
+  "searchPlaceholder": "Cerca nelle guide, ad esempio “pubblica” o “dominio”",
+  "showAll": "Mostra tutte le guide",
+  "step": "Passaggio {n}: "
+}

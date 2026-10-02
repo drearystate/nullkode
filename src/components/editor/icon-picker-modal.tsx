@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState, useCallback, useRef } from "react";
 import type { Editor } from "grapesjs";
+import { useTranslations } from "next-intl";
 
 type IconRef = {
   id: string;
@@ -9,25 +10,26 @@ type IconRef = {
   svg: string;
 };
 
+/** An icon style; its name and hover note are in editor.json under iconSets.<id>. */
 type IconSet = {
   id: string;
-  label: string;
   prefix: string;
-  /** Hover note for the set's filter button. */
-  help: string;
 };
 
 const ICON_SETS: IconSet[] = [
-  { id: "all", label: "All", prefix: "", help: "Search icons in every style at once." },
-  { id: "lucide", label: "Lucide", prefix: "lucide", help: "Show only icons in the Lucide style: simple, thin outlines." },
-  { id: "heroicons", label: "Heroicons", prefix: "heroicons", help: "Show only icons in the Heroicons style: clean outlines." },
-  { id: "tabler", label: "Tabler", prefix: "tabler", help: "Show only icons in the Tabler style: simple outlines, lots of choice." },
-  { id: "ph", label: "Phosphor", prefix: "ph", help: "Show only icons in the Phosphor style: friendly, rounded outlines." },
-  { id: "mdi", label: "Material", prefix: "mdi", help: "Show only icons in the Material style, the look used by many Android apps." },
-  { id: "fa6-solid", label: "FA Solid", prefix: "fa6-solid", help: "Show only filled-in icons from the Font Awesome collection." },
-  { id: "fa6-brands", label: "FA Brands", prefix: "fa6-brands", help: "Show only logos of well-known companies from the Font Awesome collection." },
-  { id: "simple-icons", label: "Brands", prefix: "simple-icons", help: "Show only logos of well-known companies, apps and social networks." },
+  { id: "all", prefix: "" },
+  { id: "lucide", prefix: "lucide" },
+  { id: "heroicons", prefix: "heroicons" },
+  { id: "tabler", prefix: "tabler" },
+  { id: "ph", prefix: "ph" },
+  { id: "mdi", prefix: "mdi" },
+  { id: "fa6-solid", prefix: "fa6-solid" },
+  { id: "fa6-brands", prefix: "fa6-brands" },
+  { id: "simple-icons", prefix: "simple-icons" },
 ];
+
+/** The message key for an icon style ("fa6-solid" → "fa6Solid"). */
+const setKey = (id: string) => id.replace(/-(\w)/g, (_m, c: string) => c.toUpperCase());
 
 type Props = {
   editor: Editor;
@@ -38,6 +40,9 @@ type Props = {
 };
 
 export function IconPickerModal({ editor, open, onClose, replaceComponentId }: Props) {
+  const t = useTranslations("editor.iconPicker");
+  const ts = useTranslations("editor.iconSets");
+  const tc = useTranslations("common");
   const [query, setQuery] = useState("");
   const [setId, setSetId] = useState("all");
   const [icons, setIcons] = useState<IconRef[]>([]);
@@ -118,12 +123,12 @@ export function IconPickerModal({ editor, open, onClose, replaceComponentId }: P
         {/* Header */}
         <div className="flex items-center justify-between px-4 py-3 border-b border-surface-800">
           <h3 className="text-sm font-semibold">
-            {replaceComponentId ? "Change icon" : "Pick an icon"}
+            {replaceComponentId ? t("changeIcon") : t("pickIcon")}
           </h3>
           <button
             onClick={onClose}
-            aria-label="Close"
-            data-help="Close without picking an icon."
+            aria-label={tc("close")}
+            data-help={t("closeHelp")}
             className="text-surface-400 hover:text-white text-xl leading-none"
           >
             ×
@@ -137,8 +142,8 @@ export function IconPickerModal({ editor, open, onClose, replaceComponentId }: P
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search icons..."
-            data-help="Type what the icon should show, like “phone”, “star” or “cart”."
+            placeholder={t("searchPlaceholder")}
+            data-help={t("searchHelp")}
             className="w-full bg-surface-950 border border-surface-800 rounded px-3 py-2 text-sm text-surface-100 placeholder:text-surface-600 focus:outline-none focus:border-brand-500"
           />
           <div className="flex flex-wrap gap-1">
@@ -146,14 +151,14 @@ export function IconPickerModal({ editor, open, onClose, replaceComponentId }: P
               <button
                 key={s.id}
                 onClick={() => setSetId(s.id)}
-                data-help={s.help}
+                data-help={ts(`${setKey(s.id)}.help`)}
                 className={`text-[10px] px-2 py-0.5 rounded-full border transition ${
                   setId === s.id
                     ? "bg-brand-500/20 border-brand-500 text-brand-200"
                     : "border-surface-800 text-surface-500 hover:text-surface-200 hover:border-surface-700"
                 }`}
               >
-                {s.label}
+                {ts(`${setKey(s.id)}.label`)}
               </button>
             ))}
           </div>
@@ -162,10 +167,10 @@ export function IconPickerModal({ editor, open, onClose, replaceComponentId }: P
         {/* Icon grid */}
         <div className="flex-1 min-h-0 overflow-y-auto p-4">
           {loading && (
-            <div className="text-center text-surface-500 text-xs py-12">Loading…</div>
+            <div className="text-center text-surface-500 text-xs py-12">{tc("loading")}</div>
           )}
           {!loading && icons.length === 0 && (
-            <div className="text-center text-surface-500 text-xs py-12">No results</div>
+            <div className="text-center text-surface-500 text-xs py-12">{t("noResults")}</div>
           )}
           <div className="grid grid-cols-8 gap-1.5">
             {icons.map((i) => (
@@ -173,8 +178,8 @@ export function IconPickerModal({ editor, open, onClose, replaceComponentId }: P
                 key={i.id}
                 onClick={() => pickIcon(i)}
                 title={i.id}
-                aria-label={`Use the ${i.name} icon`}
-                data-help={replaceComponentId ? "Use this icon instead of the one you picked." : "Add this icon to your page."}
+                aria-label={t("useIcon", { name: i.name })}
+                data-help={replaceComponentId ? t("replaceHelp") : t("addHelp")}
                 className="group aspect-square flex items-center justify-center rounded border border-surface-800 bg-surface-950 hover:border-brand-500 hover:bg-surface-900 transition text-surface-300 hover:text-white [&>svg]:w-5 [&>svg]:h-5"
                 dangerouslySetInnerHTML={{ __html: i.svg }}
               />

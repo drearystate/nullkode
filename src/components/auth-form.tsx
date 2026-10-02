@@ -1,5 +1,6 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 import { solvePow } from "@/lib/pow";
 import { DEFAULT_NEXT, ideaFromNext, safeNext } from "@/lib/safe-next";
 import { authButton, authError, authInput, authLabel, authLink } from "./auth-styles";
@@ -22,6 +23,7 @@ export function AuthForm({
   next?: string;
 }) {
   const destination = safeNext(next);
+  const t = useTranslations("auth.form");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -41,10 +43,10 @@ export function AuthForm({
     // Local clock, not the server's — we only ever compare it to Date.now().
     const issuedAt = Date.now();
     const data = await res.json().catch(() => ({}));
-    if (!res.ok) throw new Error(data.error ?? "Could not start signup. Please try again.");
+    if (!res.ok) throw new Error(data.error ?? t("startFailed"));
     const nonce = await solvePow(data.challenge, data.bits);
     return { challenge: data.challenge, nonce, issuedAt };
-  }, []);
+  }, [t]);
 
   const startTicket = useCallback(() => {
     const p = requestTicket();
@@ -102,11 +104,11 @@ export function AuthForm({
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
         if (mode === "signup") startTicket();
-        throw new Error(data.error ?? "Something went wrong");
+        throw new Error(data.error ?? t("genericError"));
       }
       window.location.href = destination;
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Something went wrong");
+      setError(err instanceof Error ? err.message : t("genericError"));
     } finally {
       setBusy(false);
     }
@@ -118,7 +120,7 @@ export function AuthForm({
         <>
           <div
             aria-hidden="true"
-            className="absolute left-[-9999px] top-auto h-px w-px overflow-hidden"
+            className="absolute start-[-9999px] top-auto h-px w-px overflow-hidden"
           >
             <label>
               Website
@@ -144,20 +146,20 @@ export function AuthForm({
             </label>
           </div>
           <div>
-            <label className={labelCls} htmlFor="auth-name">Name</label>
+            <label className={labelCls} htmlFor="auth-name">{t("name")}</label>
             <input
               id="auth-name"
               autoComplete="name"
               className={inputCls}
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="Your name"
+              placeholder={t("namePlaceholder")}
             />
           </div>
         </>
       )}
       <div>
-        <label className={labelCls} htmlFor="auth-email">Email</label>
+        <label className={labelCls} htmlFor="auth-email">{t("email")}</label>
         <input
           id="auth-email"
           autoComplete="email"
@@ -166,13 +168,13 @@ export function AuthForm({
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="you@example.com"
+          placeholder={t("emailPlaceholder")}
         />
       </div>
       <div>
         <div className="flex items-baseline justify-between">
-          <label className={labelCls} htmlFor="auth-password">Password</label>
-          {mode === "login" && <a href="/forgot-password" className={`text-xs ${authLink}`}>Forgot password?</a>}
+          <label className={labelCls} htmlFor="auth-password">{t("password")}</label>
+          {mode === "login" && <a href="/forgot-password" className={`text-xs ${authLink}`}>{t("forgot")}</a>}
         </div>
         <input
           id="auth-password"
@@ -183,12 +185,12 @@ export function AuthForm({
           minLength={mode === "signup" ? 8 : 1}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          placeholder="At least 8 characters"
+          placeholder={t("passwordPlaceholder")}
         />
       </div>
       {error && <div className={errorCls}>{error}</div>}
       <button type="submit" disabled={busy} className={authButton}>
-        {busy ? (mode === "signup" ? "Creating your account…" : "Signing in…") : mode === "signup" ? "Create account" : "Log in"}
+        {busy ? (mode === "signup" ? t("creating") : t("signingIn")) : mode === "signup" ? t("createAccount") : t("logIn")}
       </button>
     </form>
   );

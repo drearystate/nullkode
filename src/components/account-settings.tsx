@@ -3,8 +3,10 @@ import { useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Camera } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { setHelpTips, useHelpTipsOn } from "./help-tips";
 import { ThemeChoice } from "./theme-toggle";
+import { LanguagePicker } from "./language-picker";
 import { UserAvatar } from "./user-avatar";
 
 type Status = { kind: "ok" | "error"; text: string } | null;
@@ -19,20 +21,20 @@ function Note({ status }: { status: Status }) {
 }
 
 /** Crops the picture to a centred square and shrinks it to 256×256, in the browser. */
-async function squarePhoto(file: File): Promise<string> {
+async function squarePhoto(file: File, badPicture: string): Promise<string> {
   const url = URL.createObjectURL(file);
   try {
     const img = await new Promise<HTMLImageElement>((resolve, reject) => {
       const i = new Image();
       i.onload = () => resolve(i);
-      i.onerror = () => reject(new Error("That file isn't a picture we can open."));
+      i.onerror = () => reject(new Error(badPicture));
       i.src = url;
     });
     const side = Math.min(img.naturalWidth, img.naturalHeight);
     const canvas = document.createElement("canvas");
     canvas.width = canvas.height = 256;
     const ctx = canvas.getContext("2d");
-    if (!ctx || !side) throw new Error("That file isn't a picture we can open.");
+    if (!ctx || !side) throw new Error(badPicture);
     ctx.imageSmoothingQuality = "high";
     ctx.drawImage(img, (img.naturalWidth - side) / 2, (img.naturalHeight - side) / 2, side, side, 0, 0, 256, 256);
     const webp = canvas.toDataURL("image/webp", 0.86);
@@ -44,6 +46,7 @@ async function squarePhoto(file: File): Promise<string> {
 
 export function ProfileCard({ name: initialName, email, avatarUrl: initialAvatar, readOnly }: { name: string; email: string; avatarUrl: string | null; readOnly: boolean }) {
   const router = useRouter();
+  const t = useTranslations("account.profile");
   const [name, setName] = useState(initialName);
   const [saved, setSaved] = useState(initialName);
   const [avatar, setAvatar] = useState(initialAvatar);
@@ -60,10 +63,10 @@ export function ProfileCard({ name: initialName, email, avatarUrl: initialAvatar
     setBusy(null);
     if (res?.ok) {
       setSaved(data.name ?? name.trim());
-      setStatus({ kind: "ok", text: "Saved." });
+      setStatus({ kind: "ok", text: t("saved") });
       router.refresh();
     } else {
-      setStatus({ kind: "error", text: data?.error || "Couldn't save. Please try again." });
+      setStatus({ kind: "error", text: data?.error || t("saveFailed") });
     }
   }
 
@@ -72,15 +75,15 @@ export function ProfileCard({ name: initialName, email, avatarUrl: initialAvatar
     setBusy("photo");
     setStatus(null);
     try {
-      const dataUrl = await squarePhoto(file);
+      const dataUrl = await squarePhoto(file, t("badPicture"));
       const res = await fetch("/api/me/avatar", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ dataUrl }) });
       const data = await res.json().catch(() => ({}));
-      if (!res.ok) throw new Error(data.error || "Couldn't save the photo. Please try again.");
+      if (!res.ok) throw new Error(data.error || t("photoSaveFailed"));
       setAvatar(dataUrl);
-      setStatus({ kind: "ok", text: "Photo saved." });
+      setStatus({ kind: "ok", text: t("photoSaved") });
       router.refresh();
     } catch (err) {
-      setStatus({ kind: "error", text: err instanceof Error ? err.message : "Couldn't save the photo." });
+      setStatus({ kind: "error", text: err instanceof Error ? err.message : t("photoSaveFailedShort") });
     } finally {
       setBusy(null);
       if (fileRef.current) fileRef.current.value = "";
@@ -94,28 +97,28 @@ export function ProfileCard({ name: initialName, email, avatarUrl: initialAvatar
     setBusy(null);
     if (res?.ok) {
       setAvatar(null);
-      setStatus({ kind: "ok", text: "Photo removed." });
+      setStatus({ kind: "ok", text: t("photoRemoved") });
       router.refresh();
     } else {
-      setStatus({ kind: "error", text: "Couldn't remove the photo. Please try again." });
+      setStatus({ kind: "error", text: t("photoRemoveFailed") });
     }
   }
 
   return (
     <section aria-labelledby="profile-heading" className="card p-6">
-      <h2 id="profile-heading" className="font-semibold">Your profile</h2>
+      <h2 id="profile-heading" className="font-semibold">{t("title")}</h2>
       <div className="mt-5 flex flex-wrap items-center gap-5">
         <UserAvatar name={saved || null} email={email} avatarUrl={avatar} size={88} className="text-2xl" />
         {!readOnly && (
           <div className="flex flex-wrap gap-2">
             <input ref={fileRef} type="file" accept="image/png,image/jpeg,image/webp" className="sr-only" id="avatar-file" onChange={(e) => void pick(e.target.files?.[0])} />
-            <button type="button" className="btn-secondary" disabled={busy !== null} onClick={() => fileRef.current?.click()} data-help="Choose a picture of you (PNG, JPEG or WebP). It's cropped to a square and shown next to your name.">
+            <button type="button" className="btn-secondary" disabled={busy !== null} onClick={() => fileRef.current?.click()} data-help={t("photoHelp")}>
               <Camera size={15} />
-              {busy === "photo" ? "Saving…" : avatar ? "Change photo" : "Add a photo"}
+              {busy === "photo" ? t("saving") : avatar ? t("changePhoto") : t("addPhoto")}
             </button>
             {avatar && (
-              <button type="button" className="btn-ghost" disabled={busy !== null} onClick={() => void removePhoto()} data-help="Take your photo off. Your initial shows instead.">
-                Remove
+              <button type="button" className="btn-ghost" disabled={busy !== null} onClick={() => void removePhoto()} data-help={t("removeHelp")}>
+                {t("remove")}
               </button>
             )}
           </div>
@@ -123,17 +126,17 @@ export function ProfileCard({ name: initialName, email, avatarUrl: initialAvatar
       </div>
       <form onSubmit={save} className="mt-6 grid max-w-md gap-4">
         <div>
-          <label htmlFor="account-name" className="label">Name</label>
-          <input id="account-name" className="input" value={name} maxLength={100} onChange={(e) => setName(e.target.value)} disabled={readOnly} data-help="The name shown on your account and in emails we send you." />
+          <label htmlFor="account-name" className="label">{t("name")}</label>
+          <input id="account-name" className="input" value={name} maxLength={100} onChange={(e) => setName(e.target.value)} disabled={readOnly} data-help={t("nameHelp")} />
         </div>
         <div>
-          <label htmlFor="account-email" className="label">Email</label>
-          <input id="account-email" className="input" value={email} readOnly disabled />
-          <p className="mt-1 text-xs text-surface-500">You sign in with this address.</p>
+          <label htmlFor="account-email" className="label">{t("email")}</label>
+          <input id="account-email" className="input" dir="ltr" value={email} readOnly disabled />
+          <p className="mt-1 text-xs text-surface-500">{t("emailNote")}</p>
         </div>
         {!readOnly && (
           <div>
-            <button className="btn-primary" disabled={busy !== null || !name.trim() || name.trim() === saved}>{busy === "name" ? "Saving…" : "Save"}</button>
+            <button className="btn-primary" disabled={busy !== null || !name.trim() || name.trim() === saved}>{busy === "name" ? t("saving") : t("save")}</button>
           </div>
         )}
       </form>
@@ -143,10 +146,11 @@ export function ProfileCard({ name: initialName, email, avatarUrl: initialAvatar
 }
 
 export function AppearanceCard() {
+  const t = useTranslations("account.appearance");
   return (
     <section aria-labelledby="appearance-heading" className="card p-6">
-      <h2 id="appearance-heading" className="font-semibold">Appearance</h2>
-      <p className="mt-1 text-sm text-surface-400">Choose how the studio looks. It&apos;s saved to your account, so it follows you to other devices.</p>
+      <h2 id="appearance-heading" className="font-semibold">{t("title")}</h2>
+      <p className="mt-1 text-sm text-surface-400">{t("intro")}</p>
       <div className="mt-4">
         <ThemeChoice />
       </div>
@@ -154,7 +158,21 @@ export function AppearanceCard() {
   );
 }
 
+export function LanguageCard() {
+  const t = useTranslations("account.language");
+  return (
+    <section aria-labelledby="language-heading" className="card p-6">
+      <h2 id="language-heading" className="font-semibold">{t("title")}</h2>
+      <p className="mt-1 text-sm text-surface-400">{t("intro")}</p>
+      <div className="mt-4">
+        <LanguagePicker signedIn />
+      </div>
+    </section>
+  );
+}
+
 export function PasswordCard({ readOnly }: { readOnly: boolean }) {
+  const t = useTranslations("account.password");
   const [current, setCurrent] = useState("");
   const [next, setNext] = useState("");
   const [busy, setBusy] = useState(false);
@@ -169,34 +187,34 @@ export function PasswordCard({ readOnly }: { readOnly: boolean }) {
     if (res?.ok) {
       setCurrent("");
       setNext("");
-      setStatus({ kind: "ok", text: "Password changed. Your other devices have been signed out." });
+      setStatus({ kind: "ok", text: t("changed") });
     } else {
-      setStatus({ kind: "error", text: data?.error || "Couldn't change it. Please try again." });
+      setStatus({ kind: "error", text: data?.error || t("failed") });
     }
   }
   return (
     <section aria-labelledby="password-heading" className="card p-6">
-      <h2 id="password-heading" className="font-semibold">Password</h2>
+      <h2 id="password-heading" className="font-semibold">{t("title")}</h2>
       {readOnly ? (
-        <p className="mt-2 text-sm text-surface-400">Only the person who owns this account can change its password.</p>
+        <p className="mt-2 text-sm text-surface-400">{t("readOnly")}</p>
       ) : (
         <>
           <form onSubmit={save} className="mt-4 grid max-w-md gap-4">
             <div>
-              <label htmlFor="current-password" className="label">Current password</label>
+              <label htmlFor="current-password" className="label">{t("current")}</label>
               <input id="current-password" type="password" autoComplete="current-password" className="input" value={current} onChange={(e) => setCurrent(e.target.value)} />
             </div>
             <div>
-              <label htmlFor="new-password" className="label">New password</label>
+              <label htmlFor="new-password" className="label">{t("new")}</label>
               <input id="new-password" type="password" autoComplete="new-password" minLength={8} className="input" value={next} onChange={(e) => setNext(e.target.value)} />
-              <p className="mt-1 text-xs text-surface-500">At least 8 characters. Changing it signs you out everywhere else.</p>
+              <p className="mt-1 text-xs text-surface-500">{t("newNote")}</p>
             </div>
             <div>
-              <button className="btn-primary" disabled={busy || !current || next.length < 8}>{busy ? "Changing…" : "Change password"}</button>
+              <button className="btn-primary" disabled={busy || !current || next.length < 8}>{busy ? t("changing") : t("change")}</button>
             </div>
           </form>
           <p className="mt-4 text-xs text-surface-500">
-            Don't know your current password (for example, you signed up with Google)? Sign out and use <Link href="/forgot-password" className="text-brand-300 hover:underline">Forgot password</Link> to set one.
+            {t.rich("forgotNote", { link: (c) => <Link href="/forgot-password" className="text-brand-300 hover:underline">{c}</Link> })}
           </p>
         </>
       )}
@@ -207,19 +225,20 @@ export function PasswordCard({ readOnly }: { readOnly: boolean }) {
 
 export function HelpPrefsCard({ initialOn }: { initialOn: boolean }) {
   const on = useHelpTipsOn(initialOn);
+  const t = useTranslations("account.helpPrefs");
   const [status, setStatus] = useState<Status>(null);
   async function toggle() {
     setStatus(null);
     const saved = await setHelpTips(!on);
-    if (!saved) setStatus({ kind: "error", text: "Couldn't save that. It will go back the next time you open a page." });
+    if (!saved) setStatus({ kind: "error", text: t("saveFailed") });
   }
   return (
     <section aria-labelledby="help-prefs-heading" className="card p-6">
-      <h2 id="help-prefs-heading" className="font-semibold">Help</h2>
+      <h2 id="help-prefs-heading" className="font-semibold">{t("title")}</h2>
       <div className="mt-4 flex items-start justify-between gap-6">
         <div>
-          <p id="help-tips-label" className="text-sm font-medium text-surface-100">Help tips</p>
-          <p className="mt-1 max-w-xl text-sm text-surface-400">Short notes that appear when you hold your mouse over a button or setting, explaining what it does in plain words.</p>
+          <p id="help-tips-label" className="text-sm font-medium text-surface-100">{t("tips")}</p>
+          <p className="mt-1 max-w-xl text-sm text-surface-400">{t("tipsIntro")}</p>
         </div>
         <button
           type="button"
@@ -229,11 +248,11 @@ export function HelpPrefsCard({ initialOn }: { initialOn: boolean }) {
           onClick={() => void toggle()}
           className={`relative mt-1 inline-flex h-6 w-11 shrink-0 items-center rounded-full transition-colors ${on ? "bg-brand-500" : "bg-white/15"}`}
         >
-          <span className={`inline-block h-5 w-5 rounded-full bg-white shadow transition-transform ${on ? "translate-x-5" : "translate-x-0.5"}`} />
+          <span className={`inline-block h-5 w-5 rounded-full bg-white shadow transition-transform ${on ? "translate-x-5 rtl:-translate-x-5" : "translate-x-0.5 rtl:-translate-x-0.5"}`} />
         </button>
       </div>
       <p className="mt-4 text-sm text-surface-400">
-        Step-by-step guides for everything are in <Link href="/help" className="text-brand-300 hover:underline">Help &amp; guides</Link>.
+        {t.rich("guides", { link: (c) => <Link href="/help" className="text-brand-300 hover:underline">{c}</Link> })}
       </p>
       <Note status={status} />
     </section>

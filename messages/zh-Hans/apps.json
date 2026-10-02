@@ -1,0 +1,51 @@
+{
+  "appLanguage": {
+    "help": "应用向访客显示的语言。AI 会用这种语言创建新页面，你添加的功能也会翻译成这种语言，应用内置消息也会使用这种语言。",
+    "intro": "访客看到的语言：AI 创建的页面、你添加的功能，以及“抱歉，发送失败了”之类的内置消息。",
+    "invalid": "请选择列表中的一种语言。",
+    "label": "此应用的语言",
+    "loadError": "无法加载应用语言。",
+    "notChosen": "尚未选择语言，因此应用目前使用英语。",
+    "note": "现有页面的文字不会改变。要更改文字，请打开页面并让 AI 翻译。",
+    "rtl": "从右向左书写：页面会相应镜像显示。",
+    "save": "保存语言",
+    "saveError": "无法保存语言，请重试。",
+    "saveHelp": "保存语言。线上应用中的内置消息和页面语言设置会立即更改。",
+    "saved": "已保存。新页面和功能将使用{language}。",
+    "selectHelp": "选择访客阅读应用时使用的语言。",
+    "title": "应用语言"
+  },
+  "buildLanguage": {
+    "help": "应用访客看到的语言。AI 会用这种语言编写每个页面。之后你可以添加更多语言。",
+    "label": "应用语言"
+  },
+  "languages": {
+    "add": "添加语言",
+    "addHelp": "添加语言，并让 AI 将每个页面翻译成这种语言。你可以在编辑器中修改每条译文。",
+    "adding": "正在添加…",
+    "confirmRemove": "移除 {language} 及其译文页面？发布后，访客将无法再看到它。",
+    "edited": "{count, plural, one {你编辑了 # 个} other {你编辑了 # 个}}",
+    "error": "操作失败，请重试。",
+    "help": "提供多种语言版本的应用。访客可以从应用菜单中选择语言，并通过专属网址访问（如 /es/）。",
+    "intro": "也可以为应用添加更多语言。AI 会翻译每个页面，访客可以从菜单中选择语言。发布后，新语言就会对访客开放。",
+    "needUpdate": "{count, plural, one {# 个需要更新} other {# 个需要更新}}",
+    "none": "你的应用只有 {language} 版本。",
+    "pick": "选择语言",
+    "progress": "正在翻译…已完成 {done}/{total} 个页面",
+    "publishNote": "发布应用后，访客才能看到语言更改。",
+    "remove": "移除",
+    "removeHelp": "从应用中移除此语言及其译文页面。",
+    "title": "更多语言",
+    "translated": "{ok, plural, one {已翻译 # 个页面，共 {total} 个} other {已翻译 # 个页面，共 {total} 个}}",
+    "update": "更新翻译",
+    "updateHelp": "让 AI 翻译新增或自上次翻译后有更改的页面。你在这种语言中编辑过的页面会保留。"
+  },
+  "preview": {
+    "adminLogin": "管理员登录",
+    "backToEditor": "返回编辑器",
+    "latest": "最新编辑内容",
+    "latestLive": "最新编辑内容 · 访客看到的是版本 {version}",
+    "notPublished": "预览 · 尚未发布",
+    "title": "{title} — 预览"
+  }
+}

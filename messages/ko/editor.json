@@ -1,0 +1,1153 @@
+{
+  "assets": {
+    "addHelp": "탭하면 선택한 부분 아래에 이 사진을 추가하고, 페이지로 끌어다 놓을 수도 있습니다.",
+    "addPhoto": "이 사진 추가",
+    "addPhotoNamed": "이 사진 추가: {alt}",
+    "aiOriginal": "AI 원본",
+    "categories": {
+      "agriculture": {
+        "help": "농장과 신선한 농산물입니다.",
+        "label": "농업"
+      },
+      "all": {
+        "help": "페이지에서 사용할 수 있는 무료 사진을 다양하게 보여줘요.",
+        "label": "전체"
+      },
+      "architecture": {
+        "help": "건물을 담은 무료 사진을 보여줘요.",
+        "label": "건축"
+      },
+      "automotive": {
+        "help": "자동차 수리와 정비소입니다.",
+        "label": "자동차"
+      },
+      "beauty": {
+        "help": "스킨케어, 스파, 뷰티 이미지입니다.",
+        "label": "뷰티"
+      },
+      "business": {
+        "help": "사무실과 일하는 사람을 담은 무료 사진을 보여줘요.",
+        "label": "비즈니스"
+      },
+      "cleaning": {
+        "help": "전문 청소 서비스입니다.",
+        "label": "청소"
+      },
+      "community": {
+        "help": "지역 시장과 신선한 농산물입니다.",
+        "label": "지역 사회"
+      },
+      "education": {
+        "help": "교실과 함께 배우는 모습입니다.",
+        "label": "교육"
+      },
+      "events": {
+        "help": "결혼식과 행사 서비스입니다.",
+        "label": "행사"
+      },
+      "fitness": {
+        "help": "헬스장과 운동을 담은 무료 사진을 보여줘요.",
+        "label": "피트니스"
+      },
+      "food": {
+        "help": "음식과 식당을 담은 무료 사진을 보여줘요.",
+        "label": "음식"
+      },
+      "landscaping": {
+        "help": "원예와 조경 서비스입니다.",
+        "label": "정원"
+      },
+      "legal": {
+        "help": "법률 도서관과 법원 건축물입니다.",
+        "label": "법률"
+      },
+      "logistics": {
+        "help": "창고, 배송, 운송 관련 사진입니다.",
+        "label": "물류"
+      },
+      "medical": {
+        "help": "의료와 건강 관련 무료 사진을 보여 줍니다.",
+        "label": "의료"
+      },
+      "nature": {
+        "help": "자연과 풍경을 담은 무료 사진을 보여줘요.",
+        "label": "자연"
+      },
+      "originals": {
+        "help": "이 설치에 포함된 AI 생성 오리지널 사진을 둘러보세요.",
+        "label": "오리지널"
+      },
+      "people": {
+        "help": "사람을 담은 무료 사진을 보여줘요.",
+        "label": "사람"
+      },
+      "pets": {
+        "help": "반려동물 돌봄과 미용입니다.",
+        "label": "반려동물"
+      },
+      "products": {
+        "help": "도자기와 제품 사진입니다.",
+        "label": "제품"
+      },
+      "tech": {
+        "help": "컴퓨터와 기술을 담은 무료 사진을 보여줘요.",
+        "label": "기술"
+      },
+      "trades": {
+        "help": "배관, 전기 작업, 건설 관련 사진입니다.",
+        "label": "기술 서비스"
+      },
+      "travel": {
+        "help": "여행지와 가볼 만한 곳의 무료 사진을 보여 줍니다.",
+        "label": "여행"
+      }
+    },
+    "describeHelp": "사진에 무엇이 있는지 몇 마디로 설명해 주세요. 화면 읽기 프로그램이 사진을 볼 수 없는 사람에게 읽어 주며, 검색 엔진에서도 사용합니다.",
+    "describeLabel": "사진이 바뀌었습니다. 사진을 볼 수 없는 사람을 위해 설명을 입력하세요:",
+    "describePlaceholder": "예: 가게 진열대에 놓인 갓 구운 빵",
+    "failedToLoad": "이미지를 불러오지 못했습니다",
+    "footerAdd": "탭하거나 끌어다 놓아 추가 · 무료 사진",
+    "footerSwap": "사진을 탭해 선택한 사진과 바꾸세요",
+    "noMatches": "일치하는 이미지가 없습니다. 더 넓은 주제로 검색해 보세요.",
+    "photoBy": "사진 제공: {name}",
+    "saveDescription": "설명 저장",
+    "saveDescriptionHelp": "이 사진에 설명을 저장합니다.",
+    "searchHelp": "“커피”나 “강아지”처럼 찾고 싶은 사진을 입력하면 무료 사진을 찾을 수 있습니다.",
+    "searchPlaceholder": "사진 검색...",
+    "skip": "건너뛰기",
+    "skipHelp": "설명을 바꾸지 않고 새 사진을 사용합니다.",
+    "swapHelp": "탭하면 선택한 사진 대신 이 사진이 들어갑니다. 크기와 위치는 그대로 유지됩니다.",
+    "useInstead": "이 사진으로 바꾸기",
+    "useInsteadNamed": "이 사진으로 바꾸기: {alt}"
+  },
+  "blockCategories": {
+    "basic": {
+      "help": "간단한 구성 요소입니다. 이름을 눌러 표시하거나 숨기세요.",
+      "label": "기본"
+    },
+    "commerce": {
+      "help": "상품 카드와 가격 안내처럼 상품을 판매하는 데 쓰는 요소입니다. 이름을 눌러 표시하거나 숨기세요.",
+      "label": "커머스"
+    },
+    "content": {
+      "help": "제목, 문단, 목록, 메모입니다. 이름을 눌러 표시하거나 숨기세요.",
+      "label": "콘텐츠"
+    },
+    "extra": {
+      "help": "블록 모음이에요. 이름을 클릭하면 표시하거나 숨길 수 있어요.",
+      "label": "추가"
+    },
+    "forms": {
+      "help": "연락처나 가입 양식처럼 사람들이 내용을 입력하는 상자입니다. 이름을 눌러 표시하거나 숨기세요.",
+      "label": "양식"
+    },
+    "interactive": {
+      "help": "버튼, 카드, 탭, 팝업 등 사람들이 눌러서 사용하는 요소입니다. 이름을 눌러 표시하거나 숨기세요.",
+      "label": "인터랙티브"
+    },
+    "layout": {
+      "help": "다른 요소를 담는 상자와 열, 텍스트와 그림 같은 기본 요소입니다. 이름을 눌러 표시하거나 숨기세요.",
+      "label": "레이아웃"
+    },
+    "liveData": {
+      "help": "앱 정보와 연결되는 요소입니다. 답변을 저장하는 양식, 자동으로 채워지는 목록, 로그인 영역 등이 있습니다. 이름을 눌러 표시하거나 숨기세요.",
+      "label": "실시간 데이터"
+    },
+    "media": {
+      "help": "그림, 동영상, 소리, 지도입니다. 이름을 눌러 표시하거나 숨기세요.",
+      "label": "미디어"
+    },
+    "premade": {
+      "help": "이미 만들어진 섹션을 추가한 뒤 원하는 대로 바꿔 보세요. 이름을 클릭하면 표시하거나 숨길 수 있어요.",
+      "label": "미리 만들어진 항목"
+    },
+    "sections": {
+      "help": "소개, 가격 안내, 바닥글처럼 바로 사용할 수 있는 페이지 구성 요소입니다. 이름을 눌러 표시하거나 숨기세요.",
+      "label": "섹션"
+    },
+    "social": {
+      "help": "소셜 미디어 링크와 공유 버튼, 다른 웹사이트의 콘텐츠입니다. 이름을 눌러 표시하거나 숨기세요.",
+      "label": "소셜"
+    }
+  },
+  "blockHelp": {
+    "nkAccordion": "클릭하면 더 많은 내용을 펼쳐 볼 수 있는 질문이나 제목이에요.",
+    "nkApiCall": "누르면 앱에서 작업을 실행하는 버튼이에요. 설정에서 작업을 선택하세요.",
+    "nkAuthGate": "로그인한 사람만 볼 수 있는 상자예요.",
+    "nkBadge": "‘신상품’이나 ‘세일’처럼 작고 색이 있는 라벨이에요.",
+    "nkCarousel": "사진이나 슬라이드를 차례로 보여 줘요.",
+    "nkContainer": "페이지 가운데에 내용을 적당한 너비로 담아 주는 상자예요.",
+    "nkDataCards": "앱의 정보로 자동 채워지는 카드예요. 설정에서 표시할 내용을 선택하세요.",
+    "nkDataList": "상품이나 예약처럼 앱의 정보로 자동 채워지는 목록이에요. 설정에서 표시할 내용을 선택하세요.",
+    "nkDataTable": "앱의 정보로 자동 채워지는 표예요. 설정에서 표시할 내용을 선택하세요.",
+    "nkDivider": "페이지의 내용을 나누는 얇은 선이에요.",
+    "nkFlowForm": "답변을 저장하거나 이메일로 보내는 등 앱에서 처리하는 양식이에요. 설정에서 처리 방법을 선택하세요.",
+    "nkGrid": "나란히 놓이고, 화면이 작아지면 자동으로 다음 줄에 배치되는 상자예요.",
+    "nkIconChip": "작고 색이 있는 원 안에 아이콘을 표시해요.",
+    "nkIframe": "예약이나 결제 위젯처럼 다른 웹사이트의 콘텐츠를 페이지 안에 보여 줘요.",
+    "nkLead": "소개 글에 잘 어울리는 조금 더 큰 문단이에요.",
+    "nkMarqueeText": "화면을 가로질러 흐르는 글자예요.",
+    "nkModal": "페이지 위에 작은 창을 여는 버튼이에요.",
+    "nkSection": "페이지 전체 너비를 차지하는 영역으로, 제목을 따로 설정할 수 있어요.",
+    "nkSignout": "앱에서 로그아웃하는 버튼이에요.",
+    "nkSpacer": "요소 사이에 공간을 만드는 빈 영역이에요.",
+    "nkTabs": "여러 콘텐츠 패널 중 하나씩 탭으로 전환해 표시해요.",
+    "nkUserMenu": "로그인한 사람을 위한 계정 메뉴예요. 프로필이나 설정으로 이동할 수 있어요."
+  },
+  "blocks": {
+    "button": "버튼",
+    "checkbox": "체크박스",
+    "column1": "1열",
+    "column2": "2열",
+    "column3": "3열",
+    "column37": "2열 3/7",
+    "form": "양식",
+    "image": "이미지",
+    "input": "입력란",
+    "label": "라벨",
+    "link": "링크",
+    "linkBlock": "링크 블록",
+    "map": "지도",
+    "navbar": "내비게이션 바",
+    "nkAccordion": "아코디언",
+    "nkAddCart": "장바구니에 담기",
+    "nkAlertDanger": "알림 · 오류",
+    "nkAlertInfo": "알림 · 정보",
+    "nkAlertSuccess": "알림 · 성공",
+    "nkAlertWarn": "알림 · 주의",
+    "nkApiCall": "플로우를 실행하는 버튼",
+    "nkAudio": "오디오",
+    "nkAuthGate": "회원 전용 영역",
+    "nkBadge": "배지",
+    "nkBannerCard": "배너 카드",
+    "nkBtnGroup": "버튼 그룹",
+    "nkBtnLg": "버튼 · 크게",
+    "nkBtnOutline": "버튼 · 윤곽선",
+    "nkBtnPrimary": "버튼 · 기본",
+    "nkCard": "카드",
+    "nkCardImage": "카드 · 이미지 포함",
+    "nkCarousel": "캐러셀",
+    "nkCartIcon": "장바구니 아이콘",
+    "nkClientLogos": "고객사 로고",
+    "nkCode": "코드 블록",
+    "nkContactForm": "문의 양식",
+    "nkContainer": "컨테이너",
+    "nkCta": "행동 유도",
+    "nkCtaBand": "액션 배너",
+    "nkDataCards": "항목 그리드",
+    "nkDataList": "항목 목록",
+    "nkDataTable": "항목 표",
+    "nkDivider": "구분선",
+    "nkEventCard": "이벤트 카드",
+    "nkFancyHeading": "세련된 제목",
+    "nkFaq": "자주 묻는 질문",
+    "nkFaqAccordion": "FAQ 아코디언",
+    "nkFeatureCards": "기능 카드",
+    "nkFeatures3": "주요 기능 · 3열",
+    "nkFeatures4": "주요 기능 · 2×2",
+    "nkFlowForm": "플로우를 실행하는 양식",
+    "nkFooterMulti": "바닥글 · 여러 열",
+    "nkFooterSimple": "바닥글 · 간단형",
+    "nkFormContact": "문의 양식",
+    "nkFormLogin": "로그인 양식",
+    "nkFormNewsletter": "뉴스레터 인라인 양식",
+    "nkFormSearch": "검색창",
+    "nkFormSignup": "가입 양식",
+    "nkGallery": "갤러리 · 3열",
+    "nkGrid": "자동 그리드",
+    "nkH1": "제목 1",
+    "nkH2": "제목 2",
+    "nkH3": "제목 3",
+    "nkHeroCentered": "큰 소개 · 가운데 정렬",
+    "nkHeroForm": "큰 소개 · 가입 양식",
+    "nkHeroSplit": "큰 소개 · 이미지 포함",
+    "nkIconChip": "아이콘 칩",
+    "nkIconPicker": "아이콘",
+    "nkIframe": "임베드(iframe)",
+    "nkImage": "이미지",
+    "nkImageCaption": "이미지 및 설명",
+    "nkImageGallery": "이미지 갤러리",
+    "nkLead": "강조 문구",
+    "nkLink": "링크",
+    "nkListItems": "항목 목록",
+    "nkListOl": "번호 매기기 목록",
+    "nkListUl": "글머리 기호 목록",
+    "nkLithoAboutUs": "회사 소개",
+    "nkLithoContactModern": "문의 · 모던",
+    "nkLithoContactSimple": "문의 · 심플",
+    "nkLithoFooterCentered": "푸터 · 가운데 정렬",
+    "nkLithoFooterDark": "푸터 · 어두운 테마",
+    "nkLithoFooterNewsletter": "푸터 · 뉴스레터",
+    "nkLithoIconBoxOverline": "아이콘 상자 · 상단 문구",
+    "nkLithoInfoBanner": "정보 배너",
+    "nkLithoLoginForm": "로그인 양식",
+    "nkLithoMessageBox": "메시지 상자",
+    "nkLithoNewsCards": "뉴스 카드",
+    "nkLithoOurStory": "우리의 이야기",
+    "nkLithoPieCharts": "원형 차트",
+    "nkLithoServicesShowcase": "서비스 소개",
+    "nkLithoVideoSection": "동영상 섹션",
+    "nkLogoCloud": "로고 모음",
+    "nkMap": "지도",
+    "nkMarqueeText": "흐르는 텍스트",
+    "nkModal": "팝업",
+    "nkNavbar": "메뉴 바",
+    "nkNewsletter": "뉴스레터",
+    "nkParagraph": "문단",
+    "nkPricing3": "요금제 · 3단계",
+    "nkPricing3col": "가격표",
+    "nkPricingCard": "가격 카드",
+    "nkProcessSteps": "진행 단계",
+    "nkProduct": "제품 카드",
+    "nkProductGrid": "제품 그리드",
+    "nkProgress": "진행률 표시줄",
+    "nkQuote": "인용문",
+    "nkReviews": "리뷰",
+    "nkRow2": "2열",
+    "nkRow3": "3열",
+    "nkRow4": "4열",
+    "nkSection": "섹션",
+    "nkServicesGrid": "서비스 그리드",
+    "nkShare": "공유 버튼",
+    "nkSignout": "로그아웃 버튼",
+    "nkSocialRow": "소셜 아이콘",
+    "nkSpacer": "여백",
+    "nkStats": "숫자 모음",
+    "nkStatsCounters": "통계 카운터",
+    "nkTabs": "탭",
+    "nkTabsContent": "탭 콘텐츠",
+    "nkTeam": "팀",
+    "nkTeamGrid": "팀 그리드",
+    "nkTestimonials": "추천사",
+    "nkUserMenu": "사용자 메뉴",
+    "nkVideoFile": "동영상 파일",
+    "nkVimeo": "Vimeo",
+    "nkYoutube": "YouTube",
+    "quote": "인용문",
+    "radio": "라디오 버튼",
+    "select": "선택 메뉴",
+    "text": "텍스트",
+    "textBasic": "텍스트 섹션",
+    "textarea": "여러 줄 입력란",
+    "video": "동영상"
+  },
+  "canvas": {
+    "advanced": "고급",
+    "advancedHelp": "글꼴, 그림자, 상자 안 요소 정렬 등 더 자세한 디자인 옵션이에요. 자주 사용할 필요는 없어요.",
+    "blocksHint": "블록을 탭하면 선택한 부분 아래에 추가되고, 드래그하면 페이지에 놓을 수 있습니다.",
+    "devices": {
+      "desktop": {
+        "help": "큰 컴퓨터 화면에서 페이지가 어떻게 보이는지 확인하세요.",
+        "label": "데스크톱"
+      },
+      "mobile": {
+        "help": "휴대폰에서 페이지가 어떻게 보이는지 확인하세요. 방문자 대부분이 휴대폰을 사용하니 꼭 확인하세요!",
+        "label": "모바일"
+      },
+      "tablet": {
+        "help": "iPad 같은 태블릿에서 페이지가 어떻게 보이는지 확인하세요.",
+        "label": "태블릿"
+      }
+    },
+    "discard": "버리기",
+    "discardHelp": "저장되지 않은 수정 사항을 버리고 페이지를 현재 상태로 유지해요. 버린 내용은 복구할 수 없어요.",
+    "draftNewer": "저장되지 않은 수정 사항이 있어요. 복원할까요?",
+    "draftOlder": "{when}에 저장되지 않은 수정 사항이 있어요. 그 뒤로 페이지가 변경됐어요. 그래도 복원할까요?",
+    "element": "요소",
+    "importLabel": "여기에 HTML/CSS를 붙여 넣고 가져오기를 누르세요.",
+    "importTitle": "템플릿 가져오기",
+    "layersHelp": "페이지의 모든 요소를 순서대로 보여줘요. 행을 클릭해 요소를 선택하고, 행을 드래그해 요소의 위치를 바꾸세요.",
+    "leftTabs": {
+      "assets": {
+        "help": "페이지에 사용할 수 있는 무료 사진입니다. 탭하거나 드래그하세요. 탭하면 사진이 추가되거나 선택한 사진과 바뀌고, 드래그하면 페이지에 놓을 수 있습니다.",
+        "label": "이미지"
+      },
+      "blocks": {
+        "help": "페이지에 추가할 수 있는 텍스트, 사진, 버튼, 섹션 등의 기본 요소입니다. 탭하거나 드래그하세요. 탭하면 선택한 부분 아래에 추가되고, 드래그하면 페이지에 놓을 수 있습니다.",
+        "label": "블록"
+      },
+      "modules": {
+        "help": "예약이나 쇼핑몰 같은 기본 기능입니다. 추가하면 바로 사용할 수 있는 전용 페이지도 함께 제공됩니다.",
+        "label": "기능"
+      }
+    },
+    "noSettings": "여기서 설정할 수 있는 항목이 없어요. 링크, 그림, 버튼, 양식, 목록의 설정은 이 탭에서 확인할 수 있어요.",
+    "preview": "미리보기",
+    "previewHelp": "새 탭에서 페이지를 열어 방문자처럼 버튼과 양식 등을 직접 사용해 보세요.",
+    "previewLabel": "이 페이지 미리보기",
+    "redo": "다시 실행",
+    "redoHelp": "방금 취소한 변경을 다시 적용합니다.",
+    "restore": "복원",
+    "restoreHelp": "이 브라우저에 저장된 지난번 수정 사항을 복원해요. 현재 페이지 내용은 대체되며, 평소처럼 저장돼요.",
+    "retry": "다시 시도",
+    "retryHelp": "최근 수정 내용을 지금 다시 저장해 보세요.",
+    "rightTabs": {
+      "layers": {
+        "help": "페이지의 모든 요소를 위에서 아래 순서로 보여줘요. 클릭하기 어려운 요소를 선택할 때 편리해요.",
+        "label": "레이어"
+      },
+      "styles": {
+        "help": "선택한 요소의 글자, 색상, 간격, 크기를 바꿔요. 먼저 페이지에서 요소를 클릭하세요.",
+        "label": "디자인"
+      },
+      "theme": {
+        "help": "앱 전체의 색상과 모서리 모양을 빠르게 바꾸거나 미리 준비된 스타일을 적용해요. 변경 사항은 게시한 뒤 방문자에게 보여요.",
+        "label": "테마"
+      },
+      "traits": {
+        "help": "링크가 연결되는 곳이나 양식이 제출될 때의 동작 등 선택한 요소의 설정이에요.",
+        "label": "설정"
+      }
+    },
+    "searchBlocks": "블록 검색...",
+    "searchBlocksHelp": "원하는 블록을 빠르게 찾으려면 여기에 입력하세요. '버튼'이나 '사진'을 검색해 보세요.",
+    "selectForSettings": "페이지에서 링크, 그림, 버튼, 양식 또는 목록을 선택하면 설정을 확인할 수 있어요.",
+    "selectSomething": "페이지에서 요소를 선택하세요",
+    "selectionHelp": "페이지에서 선택한 요소예요. 디자인과 설정 탭에서 이 요소를 바꿀 수 있어요. 페이지에서 요소를 클릭해 선택하세요.",
+    "sharedStyles": "공유 스타일 및 마우스 오버",
+    "sharedStylesHelp": "이 요소가 다른 요소와 공유하는 스타일 이름과 마우스를 올렸을 때의 스타일이에요.",
+    "status": {
+      "error": "저장되지 않음",
+      "idle": "자동 저장 켜짐",
+      "pending": "저장되지 않은 변경사항",
+      "saved": "저장됨",
+      "saving": "저장 중…"
+    },
+    "statusErrorHelp": "최근 수정 내용이 서버에 저장되지 않았습니다. 이 브라우저에 보관되어 있으며 계속 저장을 시도하고 있습니다. 인터넷 연결을 확인해 주세요.",
+    "statusHelp": "입력을 멈추면 잠시 후 수정 내용이 자동으로 저장됩니다. 게시한 뒤에만 방문자에게 표시됩니다.",
+    "stylesHelp": "선택한 요소의 글자, 색상, 간격, 크기를 조정해요. 바꾸면 페이지에 바로 반영돼요.",
+    "toggleLeft": "블록 패널 전환",
+    "toggleLeftHelp": "블록, 기능, 사진이 있는 왼쪽 패널을 표시하거나 숨겨 페이지 공간을 넓히세요.",
+    "toggleRight": "속성 패널 전환",
+    "toggleRightHelp": "디자인, 레이어, 설정, 테마 탭이 있는 오른쪽 패널을 표시하거나 숨깁니다.",
+    "traitsHelp": "선택한 요소의 설정이에요. 링크가 연결되는 곳이나 양식이 제출될 때의 동작 등을 바꿀 수 있어요.",
+    "undo": "실행 취소",
+    "undoHelp": "이 페이지에서 방금 한 변경을 취소합니다. 다시 누르면 더 이전으로 돌아갑니다."
+  },
+  "design": {
+    "properties": {
+      "background": "배경 이미지 또는 그라데이션",
+      "backgroundColor": "배경색",
+      "border": "테두리",
+      "borderRadius": "모서리 둥글게",
+      "boxShadow": "그림자",
+      "color": "글자 색상",
+      "fontFamily": "글꼴",
+      "fontSize": "글자 크기",
+      "fontWeight": "굵기",
+      "height": "높이",
+      "letterSpacing": "글자 간격",
+      "lineHeight": "줄 간격",
+      "margin": "바깥쪽 여백",
+      "maxWidth": "최대 너비",
+      "minHeight": "최소 높이",
+      "opacity": "투명도",
+      "padding": "안쪽 여백",
+      "textAlign": "정렬",
+      "textShadow": "텍스트 그림자",
+      "transform": "회전 및 크기 조절",
+      "transition": "부드러운 전환",
+      "width": "너비"
+    },
+    "sectors": {
+      "advEffects": "그림자 및 효과",
+      "advFlex": "내부 요소 정렬",
+      "advLayout": "배치",
+      "advSize": "크기 옵션 더 보기",
+      "advText": "텍스트 옵션 더 보기",
+      "colors": "배경",
+      "corners": "모서리 및 테두리",
+      "size": "크기",
+      "spacing": "간격",
+      "text": "텍스트"
+    }
+  },
+  "grapes": {
+    "assetManager": {
+      "addButton": "이미지 추가",
+      "modalTitle": "이미지 선택",
+      "uploadTitle": "파일을 여기에 놓거나 클릭해 업로드하세요"
+    },
+    "names": {
+      "box": "상자",
+      "button": "버튼",
+      "cell": "표 셀",
+      "checkbox": "체크박스",
+      "comment": "댓글",
+      "form": "양식",
+      "iframe": "아이프레임",
+      "image": "이미지",
+      "input": "입력란",
+      "label": "라벨",
+      "link": "링크",
+      "map": "지도",
+      "navbar": "내비게이션 바",
+      "radio": "라디오 버튼",
+      "row": "표 행",
+      "select": "선택",
+      "svg": "SVG",
+      "table": "표",
+      "tbody": "표 본문",
+      "text": "텍스트",
+      "textarea": "여러 줄 입력란",
+      "tfoot": "표 바닥글",
+      "thead": "표 머리글",
+      "video": "동영상",
+      "wrapper": "본문"
+    },
+    "properties": {
+      "alignContent": "콘텐츠 정렬",
+      "alignItems": "항목 정렬",
+      "alignSelf": "개별 정렬",
+      "backgroundAttachmentSub": "고정 방식",
+      "backgroundImageSub": "이미지",
+      "backgroundPositionSub": "위치",
+      "backgroundRepeatSub": "반복",
+      "backgroundSizeSub": "크기",
+      "borderBottomLeftRadiusSub": "왼쪽 아래",
+      "borderBottomRightRadiusSub": "오른쪽 아래",
+      "borderColorSub": "색상",
+      "borderStyleSub": "스타일",
+      "borderTopLeftRadiusSub": "왼쪽 위",
+      "borderTopRightRadiusSub": "오른쪽 위",
+      "borderWidthSub": "너비",
+      "bottom": "아래쪽",
+      "boxShadowBlur": "흐림",
+      "boxShadowColor": "색상",
+      "boxShadowH": "X",
+      "boxShadowSpread": "퍼짐",
+      "boxShadowType": "유형",
+      "boxShadowV": "Y",
+      "display": "표시",
+      "flexBasis": "플렉스 기준 크기",
+      "flexDirection": "플렉스 방향",
+      "flexGrow": "확장 비율",
+      "flexShrink": "축소 비율",
+      "flexWrap": "플렉스 줄 바꿈",
+      "float": "플로트",
+      "justifyContent": "콘텐츠 정렬",
+      "left": "왼쪽",
+      "marginBottomSub": "하단",
+      "marginLeftSub": "왼쪽",
+      "marginRightSub": "오른쪽",
+      "marginTopSub": "상단",
+      "order": "순서",
+      "paddingBottomSub": "하단",
+      "paddingLeftSub": "왼쪽",
+      "paddingRightSub": "오른쪽",
+      "paddingTopSub": "상단",
+      "position": "위치",
+      "right": "오른쪽",
+      "textShadowBlur": "흐림",
+      "textShadowColor": "색상",
+      "textShadowH": "X",
+      "textShadowV": "Y",
+      "top": "위쪽",
+      "transformRotateX": "X축 회전",
+      "transformRotateY": "Y축 회전",
+      "transformRotateZ": "Z축 회전",
+      "transformScaleX": "X축 크기",
+      "transformScaleY": "Y축 크기",
+      "transformScaleZ": "Z축 크기",
+      "transitionDurationSub": "지속 시간",
+      "transitionPropertySub": "속성",
+      "transitionTimingFunctionSub": "속도 조절"
+    },
+    "selectorManager": {
+      "active": "클릭",
+      "emptyState": "- 상태 -",
+      "evenOdd": "짝수/홀수",
+      "hover": "마우스 오버",
+      "label": "클래스",
+      "selected": "선택됨"
+    },
+    "styleManager": {
+      "empty": "스타일 관리자를 사용하려면 요소를 선택하세요",
+      "fileButton": "이미지",
+      "layer": "레이어"
+    },
+    "traitManager": {
+      "empty": "속성 관리자를 사용하려면 요소를 선택하세요",
+      "label": "구성 요소 설정",
+      "newWindow": "새 창",
+      "thisWindow": "현재 창"
+    }
+  },
+  "iconPicker": {
+    "addHelp": "이 아이콘을 페이지에 추가합니다.",
+    "changeIcon": "아이콘 변경",
+    "closeHelp": "아이콘을 선택하지 않고 닫습니다.",
+    "noResults": "결과가 없습니다",
+    "pickIcon": "아이콘 선택",
+    "replaceHelp": "선택한 아이콘 대신 이 아이콘을 사용합니다.",
+    "searchHelp": "아이콘에 표시할 내용을 입력하세요. 예: “전화”, “별”, “장바구니”.",
+    "searchPlaceholder": "아이콘 검색...",
+    "useIcon": "{name} 아이콘 사용"
+  },
+  "iconSets": {
+    "all": {
+      "help": "모든 스타일의 아이콘을 한 번에 검색합니다.",
+      "label": "전체"
+    },
+    "fa6Brands": {
+      "help": "Font Awesome 컬렉션의 잘 알려진 회사 로고만 표시합니다.",
+      "label": "FA Brands"
+    },
+    "fa6Solid": {
+      "help": "Font Awesome 컬렉션의 채워진 아이콘만 표시합니다.",
+      "label": "FA Solid"
+    },
+    "heroicons": {
+      "help": "Heroicons 스타일의 아이콘만 표시합니다. 깔끔한 윤곽선이 특징입니다.",
+      "label": "Heroicons"
+    },
+    "lucide": {
+      "help": "Lucide 스타일의 아이콘만 표시합니다. 단순하고 얇은 윤곽선이 특징입니다.",
+      "label": "Lucide"
+    },
+    "mdi": {
+      "help": "여러 Android 앱에서 사용하는 Material 스타일 아이콘만 표시합니다.",
+      "label": "Material"
+    },
+    "ph": {
+      "help": "Phosphor 스타일 아이콘만 표시합니다. 부드럽고 둥근 윤곽이 특징입니다.",
+      "label": "Phosphor"
+    },
+    "simpleIcons": {
+      "help": "잘 알려진 회사, 앱, 소셜 네트워크의 로고만 표시합니다.",
+      "label": "브랜드"
+    },
+    "tabler": {
+      "help": "Tabler 스타일의 아이콘만 표시합니다. 단순한 윤곽선과 다양한 선택지를 제공합니다.",
+      "label": "Tabler"
+    }
+  },
+  "iconsPanel": {
+    "addHelp": "선택한 부분 안에 이 아이콘을 추가합니다. 선택한 부분이 없으면 페이지 끝에 추가합니다.",
+    "addIcon": "{name} 아이콘 추가",
+    "clickToInsert": "클릭하여 삽입",
+    "failedToLoad": "아이콘을 불러오지 못했습니다",
+    "noResults": "결과가 없습니다",
+    "searchHelp": "아이콘에 표시할 내용을 입력하세요. 예: “전화”, “별”, “장바구니”.",
+    "searchPlaceholder": "아이콘 검색..."
+  },
+  "languageTabs": {
+    "edited": "이 {language} 페이지를 직접 수정했습니다. {main} 버전이 변경되어도 이 페이지는 바뀌지 않습니다.",
+    "help": "앱에서 여러 언어를 사용하고 있습니다. 이 페이지를 수정할 언어를 선택하세요. AI가 변경한 내용도 해당 언어에 적용됩니다.",
+    "label": "언어",
+    "missing": "이 페이지는 아직 {language}로 번역되지 않아 {main} 버전이 표시됩니다. 여기서 변경한 내용은 {language} 페이지에 적용됩니다.",
+    "shared": "모든 언어에서 스타일을 함께 사용합니다.",
+    "stale": "번역한 뒤 이 페이지의 {main} 버전이 변경되었습니다. 앱 개요에서 번역을 업데이트하거나 이 페이지를 직접 수정하세요.",
+    "tabHelp": "이 페이지를 {language}로 수정합니다."
+  },
+  "modules": {
+    "addHelp": "탭해서 이 기능이 앱에 추가하는 내용을 확인하세요. 확인하기 전까지는 아무것도 변경되지 않습니다. 먼저 페이지가 저장됩니다.",
+    "added": "추가됨",
+    "addedHelp": "이미 앱에 있습니다. 탭해서 기능을 확인하거나 다시 추가하세요.",
+    "categories": {
+      "all": {
+        "help": "추가할 수 있는 모든 기능을 표시합니다.",
+        "label": "전체"
+      },
+      "commerce": {
+        "help": "쇼핑몰, 예약, 쿠폰, 기부처럼 상품을 판매하고 결제를 받는 기능입니다.",
+        "label": "쇼핑"
+      },
+      "communication": {
+        "help": "문의 양식, 뉴스레터, 문자 메시지처럼 방문자와 소통하는 기능입니다.",
+        "label": "소통"
+      },
+      "community": {
+        "help": "이벤트, 후기, 채팅, 포럼처럼 사람들을 이어 주는 기능입니다.",
+        "label": "커뮤니티"
+      },
+      "content": {
+        "help": "블로그, 자주 묻는 질문, 포트폴리오, 강의처럼 글과 소식을 공유하는 기능입니다.",
+        "label": "콘텐츠"
+      },
+      "media": {
+        "help": "사진, 동영상, 음악 및 기타 미디어 기능입니다.",
+        "label": "미디어"
+      },
+      "productivity": {
+        "help": "할 일 목록, 메모, 약속, 설문조사처럼 작업을 효율적으로 처리하는 기능입니다.",
+        "label": "생산성"
+      },
+      "utility": {
+        "help": "로그인, 지도, 파일 업로드, 날씨 위젯처럼 유용한 부가 기능입니다.",
+        "label": "도구"
+      }
+    },
+    "categoryHelp": "이 그룹의 기능만 표시합니다.",
+    "empty": "아직 기능이 없습니다",
+    "footer": "기능을 탭하면 앱에 추가되는 내용을 확인할 수 있습니다",
+    "loading": "기능을 불러오는 중…",
+    "nameAdded": "{name} (추가됨)",
+    "notSaved": "최근 수정 내용이 아직 저장되지 않아 아무것도 추가하지 않았습니다. 인터넷 연결을 확인하고 다시 시도하세요.",
+    "savingPage": "페이지 저장 중…",
+    "searchHelp": "“예약” 또는 “뉴스레터”처럼 앱에서 하고 싶은 일을 입력하면 바로 사용할 수 있는 기능을 찾을 수 있습니다.",
+    "searchLabel": "기능 검색",
+    "searchPlaceholder": "기능 검색…"
+  },
+  "pageSettings": {
+    "audience": "페이지를 볼 수 있는 사용자",
+    "audienceHelp": "게시된 앱에서 이 페이지를 열 수 있는 사용자를 선택하세요. 누구나, 로그인한 사용자만 또는 관리자만 볼 수 있어요.",
+    "audiences": {
+      "admin": {
+        "hint": "나와 내가 관리자로 지정한 사람만 볼 수 있습니다.",
+        "label": "관리자만"
+      },
+      "public": {
+        "hint": "링크가 있는 사람은 누구나 열 수 있습니다.",
+        "label": "모든 사람"
+      },
+      "role": {
+        "hint": "페이지에서 직접 설정됩니다. 바꾸려면 다른 옵션을 선택하세요.",
+        "label": "“{role}” 역할을 가진 사용자"
+      },
+      "signedIn": {
+        "hint": "방문자가 먼저 로그인해야 합니다. 누구나 계정을 만들 수 있습니다.",
+        "label": "로그인한 사용자"
+      }
+    },
+    "buttonNote": "메뉴 끝에 버튼으로 표시됩니다.",
+    "close": "페이지 설정 닫기",
+    "designerNote": "이 앱의 페이지는 AI 디자이너에서 가져옵니다. 페이지를 바꾸려면 AI 디자이너를 이용하세요.",
+    "duplicate": "복제",
+    "duplicateHelp": "이 페이지를 복사해 ‘(복사본)’이라는 이름으로 만들고, 편집할 수 있도록 엽니다. 여기서 변경했지만 저장하지 않은 설정은 복사되지 않아요.",
+    "goesAtEnd": "메뉴 맨 끝에 표시됩니다. 저장한 뒤 위치를 바꿀 수 있어요.",
+    "homeFirst": "홈 페이지는 항상 맨 앞에 표시됩니다.",
+    "loadFailed": "페이지 설정을 불러오지 못했어요.",
+    "loadFailedRetry": "페이지 설정을 불러오지 못했어요. 다시 시도해 주세요.",
+    "menu": "메뉴",
+    "menuHelp": "앱 메뉴에 이 페이지 링크를 표시할지, 표시한다면 어디에 둘지 정합니다.",
+    "moveDown": "아래로 이동",
+    "moveDownHelp": "메뉴에서 이 페이지를 한 칸 뒤로 옮깁니다. 저장을 누르면 변경돼요.",
+    "moveUp": "위로 이동",
+    "moveUpHelp": "메뉴에서 이 페이지를 한 칸 앞당깁니다. 저장을 누르면 변경돼요.",
+    "name": "이름",
+    "nameHint": "메뉴와 브라우저 탭에 표시됩니다.",
+    "neverInMenu": "이 페이지는 메뉴에 표시되지 않습니다.",
+    "noLogin": "아직 앱에 로그인 페이지가 없어 이 페이지는 나만 열 수 있어요. <link>기능에서 ‘로그인 및 계정’을 추가하세요.</link>",
+    "placeInManage": "관리자의 ‘관리’ 메뉴 위치: <b>{position}</b> / {count}",
+    "placeInMenu": "메뉴 위치: <b>{position}</b> / {count}",
+    "privatePublic": "이 페이지에는 비공개 데이터가 표시됩니다. 공개하면 누구나 볼 수 있어요.",
+    "privateSignedIn": "이 페이지에는 비공개 데이터가 표시됩니다. 가입한 사용자는 누구나 볼 수 있어요.",
+    "saveFirst": "먼저 저장한 다음 메뉴에서 위치를 정하세요.",
+    "saveHelp": "설정을 저장합니다. 앱의 모든 페이지 메뉴가 이 설정에 맞게 업데이트됩니다.",
+    "showInMenu": "메뉴에 표시",
+    "showInMenuHelp": "체크하면 앱 메뉴에 이 페이지 링크가 표시됩니다. 체크를 해제하면 메뉴에서 숨겨지지만, 링크가 있는 사용자는 계속 열 수 있어요.",
+    "title": "페이지 설정"
+  },
+  "panelHelp": {
+    "blockTip": "{about} 눌러서 선택한 요소 아래에 추가하거나 페이지로 끌어다 놓으세요.",
+    "blockTipGeneric": "누르거나 끌어다 놓으세요. “{label}”을 누르면 선택한 요소 아래에 추가되고, 끌어다 놓으면 원하는 위치에 추가됩니다.",
+    "categoryGeneric": "블록 모음입니다. 이름을 눌러 블록을 표시하거나 숨기세요.",
+    "imagePicker": {
+      "addButton": "입력한 웹 주소의 그림을 아래 목록에 추가합니다. 그런 다음 그림을 눌러 사용하세요.",
+      "asset": "페이지에서 이 그림을 사용하려면 누르세요. 두 번 누르면 그림을 사용하고 이 창을 닫습니다.",
+      "close": "이 창을 닫습니다. 이미 눌러서 추가한 그림은 페이지에 그대로 남습니다.",
+      "closeLabel": "닫기",
+      "removeAsset": "목록에서 이 그림을 삭제합니다. 이미 페이지에 추가한 그림은 그대로 남습니다.",
+      "removeLabel": "목록에서 삭제",
+      "upload": "컴퓨터나 휴대폰에서 그림을 선택하거나 여기에 끌어다 놓으세요. 그림은 페이지 안에 저장되며 아래 목록에도 추가됩니다.",
+      "urlInput": "온라인에 있는 그림의 웹 주소를 붙여 넣고 이미지 추가를 누르면 아래 목록에 추가됩니다."
+    },
+    "layers": {
+      "layerRow": "페이지를 이루는 요소입니다. 눌러서 선택하고, 화살표를 눌러 안에 들어 있는 요소를 확인하세요.",
+      "move": "여기를 잡고 드래그해 페이지의 다른 곳으로 요소를 옮기세요.",
+      "visibility": "작업하는 동안 이 요소를 숨기려면 눈 모양을 누르세요. 요소가 삭제되는 게 아니라 잠시 숨겨집니다. 다시 누르면 표시됩니다."
+    },
+    "rte": {
+      "bold": "선택한 글자를 굵게 표시합니다. 다시 누르면 원래대로 돌아갑니다.",
+      "italic": "선택한 글자를 기울여 표시합니다. 다시 누르면 원래대로 돌아갑니다.",
+      "link": "선택한 글자에 링크를 추가하거나 삭제합니다. 링크가 이동할 곳은 설정 탭에서 정하세요.",
+      "strikeThrough": "선택한 글자에 취소선을 긋습니다. 다시 누르면 취소선이 사라집니다.",
+      "underline": "선택한 글자에 밑줄을 긋습니다. 다시 누르면 밑줄이 사라집니다.",
+      "wrapForStyle": "선택한 글자만 별도의 요소로 묶어 디자인 탭에서 색상이나 크기를 따로 바꿀 수 있습니다."
+    },
+    "sectors": {
+      "advEffects": "그림자, 투명도, 배경 이미지, 부드러운 애니메이션을 설정해요.",
+      "advFlex": "상자 안의 요소를 행이나 열로 정렬하는 방법을 정해요.",
+      "advLayout": "이 부분의 위치와 고정 방식을 정해요. 대부분의 페이지에서는 설정할 필요가 없어요.",
+      "advSize": "화면 크기에 따라 이 부분의 너비와 높이를 제한해요.",
+      "advText": "글꼴, 줄 간격, 글자 간격, 텍스트 그림자를 설정해요.",
+      "background": "이 부분의 배경을 채울 색상, 그라데이션 또는 이미지예요.",
+      "colors": "이 부분의 배경색이에요.",
+      "corners": "모서리를 둥글게 하거나 테두리를 추가해요.",
+      "decorations": "모양을 꾸며요: 배경색과 이미지, 테두리, 둥근 모서리, 그림자를 설정해요.",
+      "dimension": "크기와 여백을 정해요: 이 부분의 크기와 안팎의 빈 공간을 설정해요.",
+      "extra": "부드러운 애니메이션이나 기울기 같은 추가 효과예요.",
+      "flex": "상자 안의 요소를 행이나 열로 가지런히 정렬하는 도구예요.",
+      "general": "기본 설정이에요: 페이지에서 이 부분이 놓이는 위치와 기준점을 정해요.",
+      "layout": "페이지에서 이 부분의 위치와 주변 요소의 정렬 방식을 정해요.",
+      "size": "이 부분의 너비와 높이를 정해요.",
+      "spacing": "이 부분의 안쪽 여백(가장자리와 내용 사이)과 바깥 여백(주변 요소와의 간격)이에요.",
+      "text": "글자 모양을 정해요: 크기, 굵기, 색상, 정렬 방향.",
+      "typography": "텍스트 설정이에요: 글꼴, 크기, 색상, 정렬을 정해요."
+    },
+    "selectors": {
+      "addClass": "이 요소에 공통 스타일 이름을 지정해요. 같은 이름을 가진 요소는 모두 같은 모양을 사용하므로, 하나를 바꾸면 모두 바뀌어요.",
+      "selectedInfo": "지금 스타일을 바꾸려는 요소입니다. 어떤 요소가 바뀌는지 미리 확인할 수 있어요.",
+      "states": "특정 순간에 적용할 스타일을 설정해요. 'hover'를 고르면 요소에 마우스를 올렸을 때만 변경 사항이 보이고, 'click'을 고르면 누르는 동안 적용돼요. 기본 스타일로 돌아가려면 '- State -'를 고르세요.",
+      "tag": "이 요소가 사용하는 공통 스타일 이름입니다. 이 이름을 바꾸면 같은 이름을 사용하는 모든 요소에 적용됩니다. x를 눌러 이 요소에서 이름을 삭제하세요."
+    },
+    "styles": {
+      "alignContent": "요소가 여러 줄로 나뉘면 줄 사이의 간격을 조절해요. 한데 모으거나, 가운데에 두거나, 간격을 둘 수 있어요.",
+      "alignItems": "가로줄을 기준으로 요소를 위쪽, 가운데, 아래쪽에 맞추거나 같은 크기로 늘려요.",
+      "alignSelf": "이 요소만 다른 요소와 별도로 위쪽, 가운데, 아래쪽에 맞추거나 늘릴 수 있어요.",
+      "background": "이 요소의 배경을 채울 항목이에요. 색상, 부드러운 그라데이션 또는 이미지로 채울 수 있고, 여러 개를 겹칠 수도 있어요.",
+      "backgroundAttachment": "'Scroll'은 페이지와 함께 배경을 움직여요. 'Fixed'는 배경을 고정해 페이지가 그 위로 움직이게 해요. 깊이감 있는 효과를 낼 수 있어요.",
+      "backgroundColor": "이 요소의 콘텐츠 뒤를 채우는 색이에요.",
+      "backgroundImage": "이 요소의 배경으로 사용할 이미지나 그라데이션이에요.",
+      "backgroundPosition": "배경 이미지에서 보일 부분을 설정해요. 왼쪽이나 오른쪽, 위나 아래로 옮길 수 있어요.",
+      "backgroundRepeat": "배경 이미지가 타일처럼 반복해서 표시될지, 한 번만 표시될지 설정해요.",
+      "backgroundSize": "이미지가 공간을 채우는 방식을 설정해요. 'cover'는 공간을 모두 채우지만 가장자리가 잘릴 수 있고, 'contain'은 이미지 전체를 보여주지만 빈 공간이 생길 수 있어요.",
+      "border": "이 요소의 가장자리를 둘러싼 선이에요. 두께와 스타일(실선, 파선, 점선), 색을 설정하세요.",
+      "borderBottomLeftRadius": "왼쪽 아래 모서리만 둥글게 만들어요.",
+      "borderBottomRightRadius": "오른쪽 아래 모서리만 둥글게 만들어요.",
+      "borderColor": "가장자리 선의 색이에요.",
+      "borderRadius": "모서리를 얼마나 둥글게 할지 설정해요. 0이면 각지고, 숫자가 클수록 둥글어져요. 아주 크게 설정하면 상자 모양이 알약이나 원 모양이 돼요.",
+      "borderStyle": "가장자리 선의 모양이에요. 실선, 파선(- - -) 또는 점선(• • •)을 고를 수 있어요.",
+      "borderTopLeftRadius": "왼쪽 위 모서리만 둥글게 만들어요.",
+      "borderTopRightRadius": "오른쪽 위 모서리만 둥글게 만들어요.",
+      "borderWidth": "가장자리 선의 두께예요. 0이면 선이 표시되지 않아요.",
+      "bottom": "이 부분과 아래쪽 사이의 거리예요. Position이 'static'이 아닐 때만 사용할 수 있어요.",
+      "boxShadow": "카드가 탁자 위에 놓인 것처럼 이 요소가 페이지에서 살짝 떠 보이도록 은은한 그림자를 더해요. 그림자의 위치와 흐림 정도, 크기, 색을 설정하세요.",
+      "boxShadowBlur": "그림자가 얼마나 흐릿한지 설정해요. 0이면 가장자리가 선명하고, 숫자가 클수록 부드러워져요.",
+      "boxShadowColor": "그림자의 색이에요. 은은한 회색이나 투명한 검정이 보통 잘 어울려요.",
+      "boxShadowH": "그림자를 왼쪽이나 오른쪽으로 옮겨요. 음수는 왼쪽으로 이동해요.",
+      "boxShadowSpread": "그림자가 모든 방향으로 얼마나 퍼질지 설정해요. 숫자가 클수록 그림자가 넓어져요.",
+      "boxShadowType": "'Outside'는 요소 뒤에 그림자를 넣어요. 'Inside'는 요소 안쪽에 그림자를 넣어 움푹 들어간 것처럼 보여요.",
+      "boxShadowV": "그림자를 위나 아래로 옮겨요. 음수는 위쪽으로 이동해요.",
+      "color": "글자 색이에요. 색상 상자를 눌러 원하는 색을 고르세요.",
+      "cursor": "마우스를 이 부분에 올렸을 때 표시할 모양이에요. 'Pointer'(작은 손 모양)는 클릭할 수 있다는 뜻이에요.",
+      "display": "페이지에서 이 부분이 놓이는 방식이에요. 'Block'은 한 줄을 모두 차지해요. 'Inline'은 문장 속 단어처럼 다른 요소 옆에 놓여요. 'Flex'는 안의 요소를 가지런히 정렬해요. 'None'은 완전히 숨겨요.",
+      "flexBasis": "공간을 나눠 갖기 전에 이 요소에 적용할 기본 크기예요.",
+      "flexDirection": "이 상자 안의 요소를 가로(나란히) 또는 세로(위에서 아래로)로 쌓아요. 'Reverse'를 선택하면 순서가 반대가 돼요.",
+      "flexGrow": "이 요소가 남는 공간을 차지하며 커지도록 해요. 2인 요소는 1인 요소보다 두 배 더 차지해요. 0이면 커지지 않아요.",
+      "flexShrink": "공간이 부족할 때 이 요소가 줄어들도록 해요. 숫자가 클수록 더 많이 줄어들어요. 0이면 줄어들지 않아요.",
+      "flexWrap": "공간이 부족한 요소를 다음 줄로 넘길지('wrap'), 한 줄에 모아 둘지('nowrap') 설정해요.",
+      "float": "이 부분을 왼쪽이나 오른쪽으로 옮기고 텍스트가 둘러 흐르게 해요. 신문 속 사진처럼 배치할 수 있어요. 'None'은 원래 위치에 그대로 둬요.",
+      "fontFamily": "글꼴 모양이에요. 글꼴마다 발랄하거나 진지하거나 우아한 느낌을 줄 수 있어요. 하나를 선택하면 텍스트에 바로 적용돼요.",
+      "fontSize": "글자 크기예요. 일반적인 본문은 약 16px, 큰 제목은 32px 이상이에요.",
+      "fontWeight": "글자의 굵기예요. 400은 보통, 700은 굵게예요. 글자가 굵을수록 더 눈에 띄어요.",
+      "height": "이 부분의 높이예요. 'auto'는 안의 내용에 맞춰 필요한 만큼만 늘어나요. 보통 가장 안전한 설정이에요.",
+      "justifyContent": "가로줄이나 세로줄을 따라 요소를 어떻게 배치할지 설정해요. 한쪽에 모으거나, 가운데에 두거나, 간격을 고르게 나눌 수 있어요.",
+      "left": "이 부분과 왼쪽 사이의 거리예요. Position이 'static'이 아닐 때만 사용할 수 있어요.",
+      "letterSpacing": "글자 사이의 간격이에요. 조금 넓히면 제목이 멋스러워 보이고, 너무 넓히면 읽기 어려워져요.",
+      "lineHeight": "문단에서 줄 사이의 간격이에요. 1.5 정도면 편하게 읽을 수 있고, 1이면 줄이 서로 붙어요.",
+      "margin": "이 부분 바깥의 빈 공간이에요. 주변 요소를 밀어내며, 숫자가 클수록 여유 공간이 늘어나요.",
+      "marginBottom": "이 부분 아래의 빈 공간이에요. 다음 요소를 더 아래로 밀어내요.",
+      "marginLeft": "이 부분 왼쪽의 빈 공간이에요. 왼쪽 요소와의 간격을 벌려요.",
+      "marginRight": "이 부분 오른쪽의 빈 공간이에요. 오른쪽 요소와의 간격을 벌려요.",
+      "marginTop": "이 부분 위의 빈 공간이에요. 위에 있는 요소와의 간격을 벌려요.",
+      "maxHeight": "이 부분의 최대 높이예요. 넘치는 내용은 잘리거나 스크롤할 수 있어요.",
+      "maxWidth": "큰 화면에서도 이 부분이 넘지 않을 최대 너비예요. 텍스트 줄을 읽기 좋게 유지하는 데 유용해요.",
+      "minHeight": "내용이 없어도 유지할 최소 높이예요. 영역이 너무 작아지지 않게 할 때 유용해요.",
+      "minWidth": "작은 화면에서도 이 부분이 줄어들 수 있는 최소 너비예요.",
+      "opacity": "이 요소가 얼마나 투명한지 설정해요. 100은 불투명하고, 숫자가 낮을수록 희미해져요. 0이면 보이지 않아요.",
+      "order": "다른 요소를 옮기지 않고 이 요소의 순서만 바꿔요. 숫자가 낮을수록 앞에 와요.",
+      "overflow": "상자 안의 내용이 너무 클 때 처리하는 방식이에요. 'hidden'은 잘라내고, 'scroll'/'auto'는 스크롤 막대를 표시하고, 'visible'은 상자 밖으로 보이게 해요.",
+      "padding": "이 부분 안의 여백이에요. 가장자리와 내용 사이의 공간으로, 여백이 넓으면 버튼이나 카드가 더 여유로워 보여요.",
+      "paddingBottom": "아래쪽 가장자리와 내용 사이의 안쪽 여백이에요.",
+      "paddingLeft": "왼쪽 가장자리와 내용 사이의 안쪽 여백이에요.",
+      "paddingRight": "오른쪽 가장자리와 내용 사이의 안쪽 여백이에요.",
+      "paddingTop": "위쪽 가장자리와 내용 사이의 안쪽 여백이에요.",
+      "perspective": "기울어진 요소에 3D 깊이감을 더해요. 숫자가 작을수록 얼굴 가까이 든 것처럼 입체감이 커져요.",
+      "position": "이 부분을 고정하는 방식이에요. 'Static'은 기본 위치, 'Relative'는 기본 위치에서 조금 이동, 'Absolute'는 상자 안 원하는 곳에 고정, 'Fixed'는 화면에 고정해 스크롤해도 움직이지 않아요.",
+      "right": "이 부분과 오른쪽 사이의 거리예요. Position이 'static'이 아닐 때만 사용할 수 있어요.",
+      "textAlign": "텍스트 정렬 방식이에요. 왼쪽, 가운데, 오른쪽 또는 양쪽 끝에 맞춰 정렬할 수 있어요.",
+      "textDecoration": "텍스트에 밑줄이나 취소선을 그어요. 링크에 흔히 있는 밑줄을 없애려면 'none'을 고르세요.",
+      "textShadow": "글자가 배경에서 도드라져 보이도록 뒤에 은은한 그림자를 더해요. 그림자의 위치와 흐림 정도, 색을 설정하세요.",
+      "textShadowBlur": "글자 그림자가 얼마나 흐릿한지 설정해요. 0은 선명하고, 숫자가 클수록 부드러워져요.",
+      "textShadowColor": "글자 그림자의 색이에요.",
+      "textShadowH": "글자 그림자를 왼쪽이나 오른쪽으로 옮겨요. 음수는 왼쪽으로 이동해요.",
+      "textShadowV": "글자 그림자를 위나 아래로 옮겨요. 음수는 위쪽으로 이동해요.",
+      "textTransform": "텍스트의 대소문자를 바꿔요. 모두 대문자, 모두 소문자 또는 각 단어의 첫 글자를 대문자로 만들 수 있어요.",
+      "top": "이 부분과 위쪽 사이의 거리예요. Position이 'static'이 아닐 때만 사용할 수 있어요.",
+      "transform": "주변 요소를 움직이지 않고 이 요소를 회전하거나 기울이고, 키우거나 줄여요.",
+      "transformRotateX": "문이 넘어지듯 요소를 앞뒤로 기울여요.",
+      "transformRotateY": "회전하는 문처럼 요소를 옆으로 돌려요.",
+      "transformRotateZ": "시곗바늘처럼 요소를 평면에서 회전해요. 180이면 위아래가 뒤집혀요.",
+      "transformScaleX": "요소를 좌우로 늘리거나 줄여요. 1은 원래 크기이고, 2는 너비가 두 배예요.",
+      "transformScaleY": "요소를 위아래로 늘리거나 줄여요. 1은 원래 크기이고, 2는 높이가 두 배예요.",
+      "transformScaleZ": "요소의 3D 깊이 크기를 바꿔요. 요소를 회전했을 때만 차이가 보여요.",
+      "transition": "스타일이 갑자기 바뀌지 않고 부드럽게 바뀌도록 해요. 버튼에 마우스를 올리면 색이 천천히 바뀌는 효과를 만들 수 있어요.",
+      "transitionDuration": "부드러운 변화에 걸리는 시간이에요. 0.3s는 빠릿하고, 2s는 느리고 극적인 느낌이에요.",
+      "transitionProperty": "부드럽게 바꿀 스타일을 선택해요. 'all'을 고르거나 색상이나 크기만 선택할 수 있어요.",
+      "transitionTimingFunction": "변화가 진행되는 방식이에요. 처음부터 끝까지 일정하게 바꾸거나('linear'), 차가 부드럽게 멈추듯 서서히 바꿀 수 있어요('ease').",
+      "verticalAlign": "이 요소를 주변 텍스트에 맞춰 위쪽, 가운데 또는 아래쪽으로 정렬해요.",
+      "width": "이 부분의 너비예요. 100%로 설정하면 주어진 공간을 모두 채우고, 300px처럼 정확한 크기를 지정할 수도 있어요.",
+      "zIndex": "겹친 요소 중 무엇을 앞에 보여줄지 정해요. 숫자가 클수록 카드 더미의 맨 위처럼 앞에 보여요."
+    },
+    "traits": {
+      "address": "여기에 표시할 그림이나 동영상의 웹 주소입니다.",
+      "answerName": "앱에서 이 답변을 저장할 때 사용할 이름입니다. 예: 'email'. 짧고 간단하게 적어 주세요.",
+      "belongsToField": "이 라벨이 설명하는 양식 상자입니다. 라벨을 클릭하면 해당 상자에 커서가 놓입니다.",
+      "buttonWords": "버튼에 표시할 문구입니다.",
+      "goesTo": "이 링크를 누르면 이동할 곳입니다. 내 페이지는 /page-name 형식으로, 다른 사이트는 전체 https:// 주소를 입력하세요.",
+      "hintText": "상자가 비어 있을 때 안에 표시되는 회색 안내 문구입니다. 예: '이름을 입력하세요'. 입력을 시작하면 사라집니다.",
+      "hoverNote": "마우스를 이 요소에 올려두면 표시되는 짧은 메모입니다.",
+      "kind": "상자의 종류입니다. 텍스트, 이메일, 비밀번호(글자가 숨겨짐), 숫자 등이 있습니다. 알맞은 종류를 선택하면 휴대폰에 맞는 키보드가 표시됩니다.",
+      "mustBeFilledIn": "이 옵션을 켜면 상자를 채워야 양식을 보낼 수 있습니다.",
+      "openInANewTab": "체크하면 링크가 새 탭에서 열리고 앱도 계속 열려 있습니다.",
+      "pictureDescription": "그림을 볼 수 없는 사람과 검색 엔진을 위한 설명입니다. 그림에 무엇이 있는지 적어 주세요.",
+      "showItemsFrom": "목록에 표시할 항목을 어디서 가져올지 선택하세요. 예약이나 상품 등을 선택할 수 있으며, 목록은 자동으로 업데이트됩니다.",
+      "startingValue": "페이지를 처음 열었을 때 이미 입력되어 있는 값입니다.",
+      "tickedAtTheStart": "페이지를 열었을 때 이 상자가 처음부터 체크되어 있는지 설정합니다.",
+      "whenPressed": "버튼을 눌렀을 때 할 일입니다. 양식 보내기, 양식 지우기 또는 아무것도 하지 않기(다른 동작을 설정한 버튼의 경우) 중에서 선택하세요.",
+      "whenPressedRun": "버튼을 눌렀을 때 앱이 할 일을 선택하세요. 플로우에서 설정할 수 있어요.",
+      "whenSentRun": "양식을 보냈을 때 답변을 어떻게 처리할지 선택하세요. 예를 들어 답변을 저장하거나 이메일을 보낼 수 있습니다. 플로우에서 설정할 수 있어요."
+    }
+  },
+  "rte": {
+    "bold": "굵게",
+    "italic": "기울임꼴",
+    "link": "링크",
+    "strikeThrough": "취소선",
+    "underline": "밑줄",
+    "wrapForStyle": "스타일 적용용으로 감싸기"
+  },
+  "settings": {
+    "address": "주소",
+    "answerName": "답변 이름",
+    "belongsToField": "연결된 필드",
+    "buttonWords": "버튼 문구",
+    "goesTo": "이동할 곳",
+    "hintText": "안내 문구",
+    "hoverNote": "마우스를 올렸을 때 표시할 안내",
+    "kind": "유형",
+    "mustBeFilledIn": "필수 입력",
+    "nothing": "없음",
+    "openInANewTab": "새 탭에서 열기",
+    "pictureDescription": "사진 설명",
+    "showItemsFrom": "항목 표시 기준",
+    "startingValue": "초기값",
+    "tickedAtTheStart": "처음부터 선택됨",
+    "whenPressed": "눌렀을 때",
+    "whenPressedRun": "눌렀을 때 실행",
+    "whenSentRun": "제출 시 실행"
+  },
+  "shell": {
+    "addPage": "페이지 추가",
+    "addPageHelp": "앱에 새 빈 페이지를 추가해요. 다음 단계에서 이름을 입력하면 앱 메뉴에 표시돼요.",
+    "closePages": "페이지 닫기",
+    "confirmDeletePage": "“{title}”을(를) 삭제할까요? 삭제한 내용은 복구할 수 없어요.",
+    "confirmDiscardSwitch": "이 페이지의 저장되지 않은 수정사항을 버리고 다른 페이지로 이동할까요?",
+    "couldNotSave": "변경사항을 저장하지 못했어요. 다시 시도해 주세요.",
+    "deletePage": "페이지 삭제",
+    "deletePageFor": "{title} 삭제",
+    "deletePageHelp": "이 페이지와 페이지에 있는 모든 내용을 삭제해요. 삭제 전에 확인을 요청할게요. 삭제한 내용은 복구할 수 없어요.",
+    "discardSwitch": "변경사항을 버리고 이동",
+    "discardSwitchHelp": "저장되지 않은 이 페이지의 수정사항을 버리고 다른 페이지를 열어요. 버린 수정사항은 복구할 수 없어요.",
+    "dismiss": "닫기",
+    "dismissError": "오류 닫기",
+    "editing": "편집 중",
+    "editsNotSaved": "최근 수정사항이 저장되지 않았어요. 인터넷 연결을 확인하고 다시 시도해 주세요.",
+    "featureAdded": "{name} 기능이 추가되었어요.",
+    "featureAddedWithPages": "{name} 기능이 추가되었어요. 전용 페이지도 함께 추가되어 이제 메뉴에서 볼 수 있어요.",
+    "findPage": "페이지 찾기…",
+    "madeCopy": "복사했어요. 이제 “{title}”을(를) 수정하고 있어요.",
+    "mobileTip": "팁: 페이지의 일부를 누른 다음 블록을 누르면 아래에 추가돼요. 또는 <b>AI에게 요청</b>을 누르고 바꾸고 싶은 내용을 말해 보세요.",
+    "newPage": "새 페이지",
+    "newPageHelp": "앱에 새 빈 페이지를 추가해요. 먼저 이름을 정해 주세요.",
+    "noMatchingPages": "일치하는 페이지가 없어요.",
+    "notSaved": "<b>저장되지 않았어요</b> – 인터넷 연결을 확인해 주세요. 계속 저장을 시도할게요.",
+    "open": "열기",
+    "openHomePageHelp": "편집기에서 이 페이지를 열어요. 집 모양 아이콘은 방문자가 처음 보게 되는 홈 페이지를 뜻해요.",
+    "openNewPage": "새 페이지 열기",
+    "openPageHelp": "편집기에서 이 페이지를 열어요. 먼저 현재 페이지의 수정사항을 저장해요.",
+    "pageCount": "{count, plural, one {#페이지} other {#페이지}}",
+    "pageName": "페이지 이름",
+    "pageNameHelp": "새 페이지의 이름이에요. 앱 메뉴와 브라우저 탭에 표시되며, 나중에 바꿀 수 있어요.",
+    "pageNamePlaceholder": "예: 회사 소개",
+    "pagePickerHelp": "지금 수정 중인 페이지예요. 클릭하면 모든 페이지를 보거나, 다른 페이지로 이동하거나, 페이지 설정을 변경할 수 있어요.",
+    "pageSettings": "페이지 설정",
+    "pageSettingsFor": "{title} 페이지 설정",
+    "pageSettingsHelp": "페이지 이름을 바꾸고, 공개 대상을 정하고, 앱 메뉴에 표시하거나 숨기고, 복사할 수 있어요.",
+    "pages": "페이지",
+    "retry": "다시 시도",
+    "retryHelp": "다음 자동 저장을 기다리지 않고 최근 수정사항을 지금 저장해요.",
+    "savedSettings": "“{title}” 설정을 저장했어요.",
+    "searchPages": "페이지 검색",
+    "searchPagesHelp": "페이지 이름의 일부를 입력해 목록을 좁혀 보세요.",
+    "setHome": "홈 페이지로 설정",
+    "setHomeFor": "{title}을(를) 홈 페이지로 설정",
+    "setHomeHelp": "앱의 기본 웹 주소를 열었을 때 방문자가 가장 먼저 보는 페이지로 설정해요.",
+    "somethingWrong": "문제가 발생했어요. 다시 시도해 주세요.",
+    "theFeatureAdded": "기능이 추가되었어요.",
+    "theFeatureAddedWithPages": "기능이 추가되었어요. 전용 페이지도 함께 추가되어 이제 메뉴에서 볼 수 있어요.",
+    "updating": "작업 공간을 업데이트하는 중…",
+    "yourPages": "내 페이지"
+  },
+  "theme": {
+    "colorCodeHelp": "원하는 색상 코드를 알고 있다면 여기에 #1a73e8처럼 입력해도 돼요.",
+    "colorCodeLabel": "{name} 색상 코드",
+    "colorLabel": "{name} 색상",
+    "colors": {
+      "accent": {
+        "help": "배지나 장식 모양처럼 작은 부분에 사용하는 보조 색상입니다.",
+        "label": "강조"
+      },
+      "bg": {
+        "help": "페이지 전체의 바탕이 되는 색상입니다.",
+        "label": "배경"
+      },
+      "border": {
+        "help": "상자 주위와 섹션 사이의 얇은 선에 사용하는 색상입니다.",
+        "label": "테두리"
+      },
+      "primary": {
+        "help": "버튼, 링크, 강조 표시 등에 사용하는 브랜드 대표 색상입니다.",
+        "label": "기본"
+      },
+      "primary2": {
+        "help": "버튼이나 링크에 마우스를 올렸을 때 표시되는 색상입니다.",
+        "label": "기본 호버"
+      },
+      "surface": {
+        "help": "배경 위에 놓이는 카드와 상자의 색상입니다.",
+        "label": "표면"
+      },
+      "surface2": {
+        "help": "일부 섹션과 라벨을 구분할 때 사용하는 두 번째 상자 색상입니다.",
+        "label": "보조 표면"
+      },
+      "text": {
+        "help": "페이지에 표시되는 대부분의 글자에 사용하는 색상입니다.",
+        "label": "텍스트"
+      },
+      "textMuted": {
+        "help": "캡션이나 짧은 안내처럼 덜 중요한 글자에 사용하는 부드러운 색상입니다.",
+        "label": "보조 텍스트"
+      }
+    },
+    "colorsTitle": "색상",
+    "corners": "모서리",
+    "dark": "다크",
+    "darkHelp": "첫 번째 기본 다크 테마로 바꿔요. 현재 색상과 글꼴은 이 테마로 바뀌어요.",
+    "darkPair": "다크 모드 색상 조합",
+    "darkPairAuto": "자동 (첫 번째 다크 테마)",
+    "darkPairHelp": "방문자가 해/달 버튼으로 다크 모드를 켰을 때 앱에 적용할 색상입니다. 자동을 선택하면 색상이 알아서 지정돼요.",
+    "darkPairNote": "사용자는 모든 페이지에서 해 모양/달 모양 전환 버튼을 볼 수 있어요.",
+    "light": "라이트",
+    "lightHelp": "첫 번째 기본 라이트 테마로 바꿔요. 현재 색상과 글꼴은 이 테마로 바뀌어요.",
+    "loading": "테마 불러오는 중…",
+    "mode": "모드",
+    "pickTheme": "테마 선택…",
+    "preset": "프리셋",
+    "presetButtonHelp": "앱 전체에 미리 만든 디자인을 적용하세요. 현재 색상, 글꼴, 모서리 모양이 교체됩니다. 게시한 뒤 방문자에게 표시돼요.",
+    "presetHelp": "앱 전체에 적용할 수 있는 미리 만든 색상 및 글꼴 조합입니다. 하나를 선택한 다음 아래에서 색상을 세부 조정하세요.",
+    "radius": "둥글기",
+    "roundness": "모서리 둥글기",
+    "roundnessHelp": "앱 전체에서 버튼, 카드, 상자의 모서리를 얼마나 둥글게 만들지 정해요. 왼쪽으로 밀면 각지고, 오른쪽으로 밀면 더 둥글어져요.",
+    "useLook": "{name} 디자인을 사용합니다. 현재 색상, 글꼴, 모서리 모양이 교체됩니다."
+  },
+  "toolbar": {
+    "delete": {
+      "help": "페이지에서 이 요소를 삭제해요. 마음이 바뀌면 위쪽의 실행 취소를 누르세요.",
+      "title": "삭제"
+    },
+    "drag": {
+      "help": "여기를 누른 채 끌어 페이지 어디로든 이 요소를 옮기세요. 터치 화면에서는 위로 이동과 아래로 이동을 사용하세요.",
+      "title": "끌어서 이동"
+    },
+    "duplicate": {
+      "help": "이 요소를 복사해 바로 뒤에 추가해요.",
+      "title": "복제"
+    },
+    "moveDown": {
+      "help": "이 요소를 페이지에서 한 칸 아래, 바로 뒤 요소 아래로 옮겨요. 실행 취소를 누르면 원래대로 돌아가요.",
+      "title": "아래로 이동"
+    },
+    "moveUp": {
+      "help": "이 요소를 페이지에서 한 칸 위, 바로 앞 요소 위로 옮겨요. 실행 취소를 누르면 원래대로 돌아가요.",
+      "title": "위로 이동"
+    },
+    "selectParent": {
+      "help": "이 요소를 감싸는 더 큰 상자를 선택하세요. 예를 들어 버튼이 있는 섹션 전체를 선택할 수 있어요.",
+      "title": "상위 요소 선택"
+    }
+  },
+  "welcome": {
+    "askAi": "가격 안내 섹션 추가처럼 큰 변경은 AI에게 요청을 눌러 보세요.",
+    "clickWords": "페이지의 글자를 클릭해 수정하세요. 사진을 바꾸려면 두 번 클릭하세요.",
+    "features": "<link>기능</link>에서 예약이나 쇼핑몰 같은 항목을 추가하세요.",
+    "gotIt": "알겠어요",
+    "gotItHelp": "이 안내를 닫고 바로 편집을 시작해요.",
+    "publish": "마음에 들면 <link>게시</link>해서 공유할 링크를 만드세요.",
+    "title": "앱이 준비됐어요. 원하는 대로 꾸며 보세요:"
+  },
+  "wireUp": {
+    "blocks": {
+      "auth": {
+        "connectExisting": "<b>연결하기</b> — 두 양식을 앱의 로그인 및 계정 기능과 연결해요. 페이지는 추가되지 않아요.",
+        "connectNew": "<b>연결하기</b> — 앱에 계정, 로그인, 회원가입 기능을 추가하고 두 양식을 연결해요. 페이지는 추가되지 않아요.",
+        "purpose": "이 양식으로 로그인하고 새 계정을 만들 수 있어요."
+      },
+      "blog": {
+        "connectExisting": "<b>연결하기</b> — 이 카드를 앱에 이미 저장된 게시물과 연결해요. 페이지는 추가되지 않아요.",
+        "connectNew": "<b>연결하기</b> — 게시물 테이블을 만들고, 여기에 표시된 게시물 3개를 넣은 다음 이 카드와 연결해요. 게시된 글만 표시되며, 데이터에서 게시물을 추가하거나 변경할 수 있어요. 페이지는 추가되지 않아요.",
+        "purpose": "이 카드에는 앱 데이터에 저장된 최신 게시물을 표시할 수 있어요."
+      },
+      "contactForm": {
+        "connectExisting": "<b>연결하기</b> — 이 양식을 앱에 이미 있는 메시지 테이블과 연결해요. 페이지는 추가되지 않아요.",
+        "connectNew": "<b>연결하기</b> — 메시지 테이블과 메시지를 저장하는 자동화를 추가하고 이 양식과 연결해요. 페이지는 추가되지 않아요.",
+        "purpose": "이 양식으로 받은 메시지를 저장할 수 있어요."
+      },
+      "contactFormModern": {
+        "connectExisting": "<b>연결하기</b> — 이 양식을 앱에 이미 있는 메시지 테이블과 연결해요. 페이지는 추가되지 않아요.",
+        "connectNew": "<b>연결하기</b> — 메시지 테이블(이름, 이메일, 메시지. 휴대전화 번호는 저장되지 않아요)과 메시지를 저장하는 자동화를 추가하고 이 양식과 연결해요. 페이지는 추가되지 않아요.",
+        "purpose": "이 양식으로 받은 메시지를 저장할 수 있어요."
+      },
+      "faq": {
+        "connectExisting": "<b>연결하기</b> — 이 목록을 앱에 이미 저장된 질문과 연결해요. 페이지는 추가되지 않아요.",
+        "connectNew": "<b>연결하기</b> — 질문 테이블을 만들고, 여기에 표시된 질문 4개를 넣은 다음 이 목록과 연결해요. 데이터에서 질문을 추가하거나 변경할 수 있어요. 페이지는 추가되지 않아요.",
+        "purpose": "이 목록에는 앱 데이터에 저장된 질문과 답변을 표시할 수 있어요."
+      },
+      "gallery": {
+        "connectExisting": "<b>연결하기</b> — 이 갤러리를 앱에 이미 저장된 사진과 연결해요. 페이지는 추가되지 않아요.",
+        "connectNew": "<b>연결하기</b> — 사진 테이블을 만들고, 여기에 표시된 제목 5개를 넣은 다음 이 갤러리와 연결해요. 데이터에서 사진마다 웹 주소를 추가할 수 있어요. 페이지는 추가되지 않아요.",
+        "purpose": "이 갤러리에는 앱 데이터에 저장된 사진을 표시할 수 있어요."
+      },
+      "newsletter": {
+        "connectExisting": "<b>연결하기</b> — 이 양식을 앱에 이미 있는 구독자 목록과 연결해요. 페이지는 추가되지 않아요.",
+        "connectNew": "<b>연결하기</b> — 구독자 테이블과 가입 정보를 저장하는 자동화를 추가하고 이 양식과 연결해요. 페이지는 추가되지 않아요.",
+        "purpose": "이 양식으로 가입한 사람들의 이메일 주소를 저장할 수 있어요."
+      },
+      "reviews": {
+        "connectExisting": "<b>연결하기</b> — 이 섹션을 앱에 이미 저장된 승인된 리뷰와 연결해요. 페이지는 추가되지 않아요.",
+        "connectNew": "<b>연결하기</b> — 리뷰 테이블을 만들고, 여기에 표시된 리뷰 3개를 넣은 다음 이 섹션과 연결해요. 승인된 리뷰만 표시되며, 데이터에서 관리할 수 있어요. 페이지는 추가되지 않아요.",
+        "purpose": "이 섹션에는 앱 데이터에 저장된 리뷰를 표시할 수 있어요."
+      },
+      "services": {
+        "connectExisting": "<b>연결하기</b> — 이 그리드를 앱에 이미 저장된 서비스와 연결해요. 페이지는 추가되지 않아요.",
+        "connectNew": "<b>연결하기</b> — 서비스 테이블을 만들고, 여기에 표시된 서비스 3개를 넣은 다음 이 그리드와 연결해요. 데이터에서 서비스를 추가하거나 변경할 수 있어요. 페이지는 추가되지 않아요.",
+        "purpose": "이 그리드에는 앱 데이터에 저장된 서비스를 표시할 수 있어요."
+      },
+      "team": {
+        "connectExisting": "<b>연결하기</b> — 이 그리드를 앱에 이미 저장된 팀원과 연결해요. 페이지는 추가되지 않아요.",
+        "connectNew": "<b>연결하기</b> — 팀 테이블을 만들고, 여기에 표시된 사람 4명을 넣은 다음 이 그리드와 연결해요. 데이터에서 팀원을 추가하거나 변경할 수 있어요. 페이지는 추가되지 않아요.",
+        "purpose": "이 그리드에는 앱 데이터에 저장된 팀원을 표시할 수 있어요."
+      },
+      "testimonials": {
+        "connectExisting": "<b>연결하기</b> — 이 섹션을 앱에 이미 있는 후기에 연결해요. 페이지는 추가되지 않아요.",
+        "connectNew": "<b>연결하기</b> — 여기에 표시된 후기 3개로 후기 표를 만들고 이 섹션에 연결해요. 데이터에서 후기를 추가하거나 수정하세요. 페이지는 추가되지 않아요.",
+        "purpose": "이 섹션에는 앱 데이터에 저장된 후기를 표시할 수 있어요. 페이지를 수정하지 않고도 후기를 바꿀 수 있어요."
+      }
+    },
+    "connect": "네, 연결할게요",
+    "connectHelp": "사람들이 보낸 내용을 저장할 곳처럼, 이 블록에 필요한 뒷단 설정을 해요. 페이지는 추가되지 않아요.",
+    "couldNotCheckFeatures": "이 앱의 기능을 확인하지 못했어요. 다시 시도해 주세요.",
+    "couldNotLoadFlows": "이 앱의 자동화를 불러오지 못했어요. 다시 시도해 주세요.",
+    "failedStatus": "실패 ({status})",
+    "handle": "아니요, 직접 할게요",
+    "handleHelp": "설정하지 않고 블록을 지금 그대로 페이지에 둘게요. 나중에 흐름에서 연결하거나 AI에게 요청할 수 있어요.",
+    "handleLine": "<b>직접 처리</b> — 블록을 지금 그대로 두고 아무것에도 연결하지 않아요. 나중에 흐름에서 설정하거나 AI에게 요청할 수 있어요.",
+    "partMissing": "앱에 이 기능이 있지만 일부가 없어요. 대신 흐름에서 이 블록을 연결할 수 있어요.",
+    "settingUp": "설정하는 중...",
+    "somethingWrong": "문제가 발생했어요",
+    "title": "연결할까요?"
+  }
+}

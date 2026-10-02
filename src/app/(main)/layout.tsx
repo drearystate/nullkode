@@ -5,6 +5,10 @@ import { isInstallComplete } from "@/lib/install";
 import { brandCssVars } from "@/lib/brand";
 import { getCurrentUser } from "@/lib/auth";
 import { getRequestBrand } from "@/lib/reseller";
+import { getLocale } from "next-intl/server";
+import { ScopedIntl } from "@/i18n/scoped-intl";
+import { localeDir } from "@/i18n/locales";
+import { TZ_BOOT } from "@/i18n/time-zone";
 import { themeBootScript, themePref } from "@/lib/theme/theme";
 
 export const dynamic = "force-dynamic";
@@ -46,16 +50,20 @@ export default async function RootLayout({
   const user = await getCurrentUser();
   const { brand } = await getRequestBrand(user);
   const theme = await themePref(user);
+  const locale = await getLocale();
   return (
     // The boot script sets data-theme before paint; the server can only
     // know it for an explicit choice, not for "match my device".
-    <html lang="en" data-theme-pref={theme} data-theme={theme === "system" ? undefined : theme} suppressHydrationWarning>
+    <html lang={locale} dir={localeDir(locale)} data-theme-pref={theme} data-theme={theme === "system" ? undefined : theme} suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: themeBootScript(theme) }} />
+        <script dangerouslySetInnerHTML={{ __html: themeBootScript(theme) + TZ_BOOT }} />
         <style dangerouslySetInnerHTML={{ __html: brandCssVars(brand) }} />
       </head>
       <body>
-        {children}
+        {/* Each route's layout opens its own <ScopedIntl> with just the
+            messages its browser code uses (pnpm i18n:scopes); this one
+            only covers what this layout renders itself. */}
+        <ScopedIntl segment="(main)">{children}</ScopedIntl>
         <script dangerouslySetInnerHTML={{ __html: SW_BOOT }} />
       </body>
     </html>

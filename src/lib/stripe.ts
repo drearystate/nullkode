@@ -3,6 +3,7 @@ import { decryptSecret, getSetting } from "./settings";
 import { limitsFor, resellerPlanLimits, type PlanLimits } from "./plan-limits";
 import { db } from "./db";
 import type { Plan, User } from "@prisma/client";
+import { requestErrorsT, type ErrT } from "./errors-i18n";
 
 export const BILLING_KEYS = { secret: "billing.secretKey", webhook: "billing.webhookSecret", catalog: "billing.catalog" };
 export type PaidPlan = "STARTER" | "PRO" | "TEAM";
@@ -82,8 +83,13 @@ export async function priceFor(plan: PaidPlan, scope: BillingScope = PLATFORM_SC
   return envPrices ? process.env[`STRIPE_PRICE_${plan}`] : undefined;
 }
 
-export async function getPublicPlans(scope: BillingScope = PLATFORM_SCOPE): Promise<PublicPlan[]> {
+/**
+ * The plans people can choose, with their feature lines in `t`'s language
+ * (by default the request's). Plan names the operator typed stay as typed.
+ */
+export async function getPublicPlans(scope: BillingScope = PLATFORM_SCOPE, t?: ErrT): Promise<PublicPlan[]> {
   const config = await scopeConfig(scope);
+  const tr = t ?? (await requestErrorsT());
   const scopedLimits = await config.limits();
   const plans: PublicPlan[] = [];
   for (const key of ["FREE", "STARTER", "PRO", "TEAM"] as const) {
@@ -92,13 +98,13 @@ export async function getPublicPlans(scope: BillingScope = PLATFORM_SCOPE): Prom
     // A price set in Nullkode shows even before Stripe is connected.
     if (key !== "FREE" && !priceId && !entry?.priceLabel) continue;
     const limits = scopedLimits?.[key] ?? (await limitsFor(key));
-    const label = (n: number, one: string, many: string) => (Number.isFinite(n) ? `${n} ${n === 1 ? one : many}` : `Unlimited ${many}`);
+    const label = (n: number, key: string) => (Number.isFinite(n) ? tr(`plans.${key}`, { count: n }) : tr(`plans.${key}Unlimited`));
     let price = key === "FREE" ? "$0" : entry?.priceLabel;
     if (!price && priceId) {
       price = await liveLabel(priceId, scope);
       if (!price) continue;
     }
-    plans.push({ key, buyable: key === "FREE" || Boolean(priceId), name: entry?.name || key[0] + key.slice(1).toLowerCase(), price: price!, features: [label(limits.maxProjects, "app", "apps"), label(limits.maxPublished, "published app", "published apps"), label(limits.maxPagesPerProject, "page per app", "pages per app"), label(limits.maxCustomDomains, "domain of your own", "domains of your own"), label(limits.aiActionsPerMonth, "AI action a month", "AI actions a month"), ...(limits.scheduledFlows ? ["Scheduled workflows"] : [])] });
+    plans.push({ key, buyable: key === "FREE" || Boolean(priceId), name: entry?.name || tr(`plans.names.${key}`), price: price!, features: [label(limits.maxProjects, "apps"), label(limits.maxPublished, "published"), label(limits.maxPagesPerProject, "pages"), label(limits.maxCustomDomains, "domains"), label(limits.aiActionsPerMonth, "aiActions"), ...(limits.scheduledFlows ? [tr("plans.scheduled")] : [])] });
   }
   return plans;
 }

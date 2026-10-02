@@ -2,6 +2,8 @@ import { z } from "zod";
 import { db } from "@/lib/db";
 import { ownedProject, checkScheduledFlows } from "@/lib/guard";
 import { json, slugify } from "@/lib/utils";
+import { getTranslations } from "next-intl/server";
+import { requestLocale } from "@/i18n/request";
 
 const CreateBody = z.object({ name: z.string().min(1).max(80) });
 
@@ -21,8 +23,9 @@ export async function POST(req: Request, ctx: { params: Promise<{ id: string }> 
   const r = await ownedProject(id);
   if ("error" in r) return r.error;
 
+  const t = await getTranslations({ locale: await requestLocale(), namespace: "flows.api" });
   const parsed = CreateBody.safeParse(await req.json().catch(() => null));
-  if (!parsed.success) return json({ error: "Invalid input" }, { status: 400 });
+  if (!parsed.success) return json({ error: t("invalidInput") }, { status: 400 });
 
   let base = slugify(parsed.data.name) || "flow";
   let slug = base;

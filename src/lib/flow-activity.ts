@@ -15,6 +15,39 @@ import { Prisma } from "@prisma/client";
 import { db } from "./db";
 import type { FlowGraph, FlowNode } from "./flow/types";
 
+/**
+ * What describing a run needs from the owner's language: a translator for
+ * the "flows" messages (getTranslations) and a list formatter ("a, b and c").
+ */
+export type ActivityWords = {
+  t: (key: string, values?: Record<string, string | number>) => string;
+  list: (parts: string[]) => string;
+};
+
+/**
+ * Runtime warnings and errors are stored in English (they're also logs).
+ * The ones an owner sees often are shown in their language; anything else
+ * stays as it was stored.
+ */
+const RUNTIME_TEXT: Array<[RegExp, string, string[]]> = [
+  [/^Email isn't set up on this server, so the message was not sent\.$/, "emailOff", []],
+  [/^The email couldn't be sent\.$/, "emailFailed", []],
+  [/^(.+) has already been sent (\d+) emails by apps in the last hour, so this one was held back\.$/, "recipientLimit", ["to", "count"]],
+  [/^This app has sent (\d+) emails in the last hour, so this one was held back to prevent spam\.$/, "appHourLimit", ["count"]],
+  [/^This app has sent (\d+) emails today, so this one was held back to prevent spam\.$/, "appDayLimit", ["count"]],
+  [/^The formula in step "(.+)" can't be worked out: ([\s\S]*)$/, "formula", ["step", "reason"]],
+  [/^This app is receiving too many AI requests right now\. Please try again later\.$/, "aiBusy", []],
+  [/^This app has reached its AI limit for the month\.$/, "aiLimit", []],
+];
+
+export function localizeRuntimeText(text: string, words: ActivityWords): string {
+  for (const [re, key, names] of RUNTIME_TEXT) {
+    const m = re.exec(text);
+    if (m) return words.t(`runtime.${key}`, Object.fromEntries(names.map((n, i) => [n, m[i + 1]])));
+  }
+  return text;
+}
+
 export type RunSourceName = "test" | "live" | "schedule" | "event" | "test-submission";
 
 type Step = { nodeId: string; type: string; ok: boolean; table?: string };
@@ -97,15 +130,15 @@ function replyText(output: unknown): string | null {
 /* ── Plain-language lines ──────────────────────────────────── */
 
 /** "contact_form_messages" → "contact form messages" (the Data tab's names, lower case). */
-export function friendlyTable(name: string | undefined | null): string {
-  if (!name) return "your data";
+export function friendlyTable(name: string | undefined | null, words: ActivityWords): string {
+  if (!name) return words.t("describe.yourData");
   const parts = name
     .replace(/([a-z])([A-Z])/g, "$1 $2")
     .split(/[_\s-]+/)
     .filter(Boolean)
     .map((w) => w.toLowerCase());
   const s = parts.filter((w, i) => i === 0 || w !== parts[i - 1]).join(" ");
-  return s === "auth users" ? "sign-ups" : s || name;
+  return s === "auth users" ? words.t("describe.signUps") : s || name;
 }
 
 function tableOf(n: FlowNode | undefined): string | undefined {
@@ -114,68 +147,70 @@ function tableOf(n: FlowNode | undefined): string | undefined {
 }
 
 /** What a step did, as a phrase that fits "…, … and …" ("saved to bookings"). */
-function doneText(type: string, table: string | undefined, node: FlowNode | undefined, input: Record<string, unknown> | null): string | null {
+function doneText(type: string, table: string | undefined, node: FlowNode | undefined, input: Record<string, unknown> | null, w: ActivityWords): string | null {
+  const { t } = w;
   switch (type) {
     case "insert":
     case "bulk_insert":
-      return `saved to ${friendlyTable(table)}`;
+      return t("describe.done.saved", { table: friendlyTable(table, w) });
     case "update":
     case "bulk_update":
-      return `updated ${friendlyTable(table)}`;
+      return t("describe.done.updated", { table: friendlyTable(table, w) });
     case "delete":
     case "bulk_delete":
-      return `deleted from ${friendlyTable(table)}`;
+      return t("describe.done.deleted", { table: friendlyTable(table, w) });
     case "sheets_append":
-      return "added a row to Google Sheets";
+      return t("describe.done.sheetsAppend");
     case "email": {
       const to = String((node?.data as { to?: string } | undefined)?.to ?? "");
       const m = to.match(/^\s*\{\{\s*(?:trigger|input)\.([A-Za-z0-9_]+)\s*\}\}\s*$/);
       const fromInput = m && input && typeof input[m[1]] === "string" ? (input[m[1]] as string) : "";
       const address = fromInput || (/^[^\s{}@]+@[^\s{}]+$/.test(to.trim()) ? to.trim() : "");
-      return address && address !== "[hidden]" ? `emailed ${address.slice(0, 80)}` : "sent an email";
+      return address && address !== "[hidden]" ? t("describe.done.emailed", { address: address.slice(0, 80) }) : t("describe.done.sentEmail");
     }
     case "send_push":
-      return "sent a notification";
+      return t("describe.done.sentPush");
     case "http_request":
-      return "contacted another service";
+      return t("describe.done.http");
     case "ai_prompt":
-      return "asked the AI";
+      return t("describe.done.ai");
     case "set_session":
-      return "signed someone in";
+      return t("describe.done.signedIn");
     case "clear_session":
-      return "signed someone out";
+      return t("describe.done.signedOut");
     default:
       return null;
   }
 }
 
 /** Why a step failed, as the start of a sentence ("Couldn't save to bookings"). */
-function failedText(type: string | null, table: string | undefined, label: string | null): string {
+function failedText(type: string | null, table: string | undefined, label: string | null, w: ActivityWords): string {
+  const { t } = w;
   switch (type) {
     case "insert":
     case "bulk_insert":
-      return `Couldn't save to ${friendlyTable(table)}`;
+      return t("describe.failed.save", { table: friendlyTable(table, w) });
     case "update":
     case "bulk_update":
-      return `Couldn't update ${friendlyTable(table)}`;
+      return t("describe.failed.update", { table: friendlyTable(table, w) });
     case "delete":
     case "bulk_delete":
-      return `Couldn't delete from ${friendlyTable(table)}`;
+      return t("describe.failed.delete", { table: friendlyTable(table, w) });
     case "query":
     case "aggregate":
     case "lookup":
     case "sheets_read":
-      return `Couldn't read ${friendlyTable(table)}`;
+      return t("describe.failed.read", { table: friendlyTable(table, w) });
     case "email":
-      return "Couldn't send the email";
+      return t("describe.failed.email");
     case "send_push":
-      return "Couldn't send the notification";
+      return t("describe.failed.push");
     case "http_request":
-      return "Couldn't reach the other service";
+      return t("describe.failed.http");
     case "ai_prompt":
-      return "The AI step didn't answer";
+      return t("describe.failed.ai");
     default:
-      return label ? `Stopped at "${label.slice(0, 60)}"` : "Didn't finish";
+      return label ? t("describe.failed.stoppedAt", { label: label.slice(0, 60) }) : t("describe.failed.didntFinish");
   }
 }
 
@@ -207,11 +242,6 @@ function certainSteps(graph: FlowGraph): Step[] {
   return out;
 }
 
-function joinPhrases(parts: string[]): string {
-  if (parts.length <= 1) return parts[0] ?? "";
-  return `${parts.slice(0, -1).join(", ")} and ${parts[parts.length - 1]}`;
-}
-
 function capital(s: string): string {
   return s ? s[0].toUpperCase() + s.slice(1) : s;
 }
@@ -220,7 +250,13 @@ function capital(s: string): string {
  * One line a non-technical owner can read, e.g.
  * "Saved to bookings; the email wasn't sent because email isn't set up."
  */
-export function describeRun(graph: FlowGraph, run: { status: number; error: string | null; output: unknown; input: unknown }, meta: RunMeta): string {
+export function describeRun(
+  graph: FlowGraph,
+  run: { status: number; error: string | null; output: unknown; input: unknown },
+  meta: RunMeta,
+  w: ActivityWords,
+): string {
+  const { t } = w;
   const input = asObject(run.input);
   const nodes = Array.isArray(graph?.nodes) ? graph.nodes : [];
   const nodeById = (id: string | null | undefined) => (id ? nodes.find((n) => n.id === id) : undefined);
@@ -230,13 +266,15 @@ export function describeRun(graph: FlowGraph, run: { status: number; error: stri
     const failedStep = meta.steps?.find((s) => !s.ok);
     const type = meta.failedNodeType ?? node?.type ?? failedStep?.type ?? null;
     const table = failedStep?.table ?? tableOf(node);
-    const why = (run.error ?? replyText(run.output) ?? "").replace(/\s+/g, " ").trim().slice(0, 200);
-    return `${failedText(type, table, meta.failedNodeLabel ?? ((node?.data as { label?: string } | undefined)?.label ?? null))}${why ? `: ${why}` : ""}${why && /[.!?]$/.test(why) ? "" : "."}`;
+    const why = localizeRuntimeText((run.error ?? replyText(run.output) ?? "").replace(/\s+/g, " ").trim(), w).slice(0, 200);
+    const failed = failedText(type, table, meta.failedNodeLabel ?? ((node?.data as { label?: string } | undefined)?.label ?? null), w);
+    if (!why) return t("describe.failedOnly", { failed });
+    return t(/[.!?。！？]$/.test(why) ? "describe.failedWhy" : "describe.failedWhyPeriod", { failed, why });
   }
 
   if (run.status >= 400) {
     const msg = replyText(run.output);
-    return msg ? `Answered "${msg}".` : `Answered with code ${run.status}.`;
+    return msg ? t("describe.answered", { message: msg }) : t("describe.answeredCode", { status: run.status });
   }
 
   const emailOff = meta.warnings.some((w) => EMAIL_OFF_WARNING.test(w));
@@ -249,33 +287,33 @@ export function describeRun(graph: FlowGraph, run: { status: number; error: stri
     if (s.type === "email") {
       // The runtime keeps a warning when an email step didn't send.
       if (emailOff) {
-        emailNote = "the email wasn't sent because email isn't set up";
+        emailNote = t("describe.emailOff");
         continue;
       }
       if (otherWarnings.length) {
-        emailNote = `the email wasn't sent (${otherWarnings[0].replace(/[.\s]+$/, "")})`;
+        emailNote = t("describe.emailNotSent", { reason: localizeRuntimeText(otherWarnings[0], w).replace(/[.。\s]+$/, "") });
         continue;
       }
     }
-    const p = doneText(s.type, s.table ?? tableOf(nodeById(s.nodeId)), nodeById(s.nodeId), input);
+    const p = doneText(s.type, s.table ?? tableOf(nodeById(s.nodeId)), nodeById(s.nodeId), input, w);
     if (p && !phrases.includes(p)) phrases.push(p);
   }
   if (!emailNote && meta.warnings.length) {
     // A warning from something other than an email step (or an older row).
-    emailNote = emailOff ? "an email wasn't sent because email isn't set up" : otherWarnings[0].replace(/[.\s]+$/, "");
+    emailNote = emailOff ? t("describe.anEmailOff") : localizeRuntimeText(otherWarnings[0], w).replace(/[.。\s]+$/, "");
   }
-  const did = joinPhrases(phrases.slice(0, 4));
-  if (did && emailNote) return `${capital(did)}; ${emailNote}.`;
-  if (emailNote) return `${capital(emailNote)}.`;
-  return did ? `${capital(did)}.` : "Went through without problems.";
+  const did = w.list(phrases.slice(0, 4));
+  if (did && emailNote) return t("describe.didAndNote", { did: capital(did), note: emailNote });
+  if (emailNote) return t("describe.sentence", { text: capital(emailNote) });
+  return did ? t("describe.sentence", { text: capital(did) }) : t("describe.noProblems");
 }
 
 const INTERNAL_FIELD = /^(?:_nk_|__)|^test$/;
 
 /** The top-level fields of the stored input, for showing who sent what. */
-export function submittedFields(input: unknown): Array<{ name: string; value: string }> {
+export function submittedFields(input: unknown, w: ActivityWords): Array<{ name: string; value: string }> {
   const o = asObject(input);
-  if (!o) return typeof input === "string" && input.trim() ? [{ name: "Sent", value: input.slice(0, 500) }] : [];
+  if (!o) return typeof input === "string" && input.trim() ? [{ name: w.t("describe.sent"), value: input.slice(0, 500) }] : [];
   const out: Array<{ name: string; value: string }> = [];
   for (const [k, v] of Object.entries(o)) {
     if (INTERNAL_FIELD.test(k) || v === null || v === undefined || v === "") continue;
@@ -287,13 +325,17 @@ export function submittedFields(input: unknown): Array<{ name: string; value: st
         continue;
       }
     } else value = String(v);
-    out.push({ name: capital(friendlyTable(k)), value: value.length > 300 ? `${value.slice(0, 300)}…` : value });
+    out.push({ name: capital(friendlyTable(k, w)), value: value.length > 300 ? `${value.slice(0, 300)}…` : value });
     if (out.length >= 25) break;
   }
   return out;
 }
 
-export function toActivityRun(graph: FlowGraph, r: { id: string; status: string; input: unknown; output: unknown; error: string | null; durationMs: number | null; createdAt: Date }): ActivityRun {
+export function toActivityRun(
+  graph: FlowGraph,
+  r: { id: string; status: string; input: unknown; output: unknown; error: string | null; durationMs: number | null; createdAt: Date },
+  w: ActivityWords,
+): ActivityRun {
   const status = Number.parseInt(r.status, 10) || 0;
   const meta = runMeta(r.output);
   const error = r.error ?? (status >= 500 ? replyText(r.output) : null);
@@ -305,11 +347,12 @@ export function toActivityRun(graph: FlowGraph, r: { id: string; status: string;
     outcome,
     durationMs: r.durationMs,
     source: meta.source,
-    summary: describeRun(graph, { status, error, output: r.output, input: r.input }, meta),
-    error,
-    warnings: meta.warnings,
+    summary: describeRun(graph, { status, error, output: r.output, input: r.input }, meta, w),
+    error: error === null ? null : localizeRuntimeText(error, w),
+    // "Email isn't set up" is already in the summary line.
+    warnings: meta.warnings.filter((x) => !EMAIL_OFF_WARNING.test(x)).map((x) => localizeRuntimeText(x, w)),
     failedNodeLabel: meta.failedNodeLabel,
-    fields: submittedFields(r.input),
+    fields: submittedFields(r.input, w),
     input: r.input ?? null,
   };
 }

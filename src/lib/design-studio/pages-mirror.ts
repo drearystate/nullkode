@@ -17,6 +17,7 @@ import { db } from "../db";
 import { nanoid } from "nanoid";
 import { slugify } from "../utils";
 import { syncProjectNav } from "../nav-sync";
+import { requestTranslator } from "../ai/i18n";
 
 /** Shown when someone tries to change a design whose app moved to the page builder. */
 export const MOVED_TO_BUILDER_MESSAGE =
@@ -44,7 +45,7 @@ export async function designerOwnsProject(projectId: string | null | undefined):
 /** Throws a plain-words error when the design's app moved to the page builder. */
 export async function assertDesignerCanChange(designId: string): Promise<void> {
   const design = await db.designerDesign.findUnique({ where: { id: designId }, select: { projectId: true } });
-  if ((await designerProjectState(design?.projectId)).moved) throw new Error(MOVED_TO_BUILDER_MESSAGE);
+  if ((await designerProjectState(design?.projectId)).moved) throw new Error((await requestTranslator("designer"))("server.movedToBuilder"));
 }
 
 /** Locks the project row and reports whether it is still a Designer app. */
@@ -199,17 +200,18 @@ export async function switchDesignToBuilder(
   designId: string,
 ): Promise<{ projectId: string; pageId: string | null; alreadyMoved: boolean }> {
   const design = await db.designerDesign.findFirst({ where: { id: designId, userId, deletedAt: null } });
-  if (!design) throw new Error("Design not found.");
+  const t = await requestTranslator("designer");
+  if (!design) throw new Error(t("server.notFound"));
   const before = await designerProjectState(design.projectId);
   if (before.moved && design.projectId) {
     const home = await db.page.findFirst({ where: { projectId: design.projectId, isHome: true }, select: { id: true } });
     return { projectId: design.projectId, pageId: home?.id ?? null, alreadyMoved: true };
   }
   const running = await db.designerGenerationJob.findFirst({ where: { designId, status: "running" }, select: { id: true } });
-  if (running) throw new Error("This design is still being built. Wait until it's done, then switch.");
+  if (running) throw new Error(t("server.stillBuilding"));
   const mirror = await mirrorPrimaryToPage(userId, designId);
   const projectId = mirror?.projectId ?? (await db.designerDesign.findUnique({ where: { id: designId }, select: { projectId: true } }))?.projectId ?? null;
-  if (!projectId) throw new Error("There's nothing to move yet. Ask the AI Designer to make something first.");
+  if (!projectId) throw new Error(t("server.nothingToMove"));
   await db.project.updateMany({ where: { id: projectId, ownerId: userId, kind: "DESIGNER" }, data: { kind: "EDITOR" } });
   const home = await db.page.findFirst({ where: { projectId, isHome: true }, select: { id: true } });
   return { projectId, pageId: mirror?.pageId ?? home?.id ?? null, alreadyMoved: false };

@@ -64,6 +64,17 @@ function uploadResponse(pathname: string): NextResponse {
 // Files with an extension that still belong to each app on its own address.
 const PER_HOST_FILES = new Set(["/manifest.webmanifest", "/sw.js", "/robots.txt", "/sitemap.xml"]);
 
+/**
+ * Published apps' pages learn their address (x-nk-path) so the app's layout
+ * can put the page's language on <html lang dir> (/es/… on a multilingual
+ * app, lib/app-translations.ts). Set here, so it can't come from outside.
+ */
+function nextWithPath(req: NextRequest): NextResponse {
+  const headers = new Headers(req.headers);
+  headers.set("x-nk-path", req.nextUrl.pathname);
+  return NextResponse.next({ request: { headers } });
+}
+
 export async function middleware(req: NextRequest) {
   // This app has no Server Actions. Refuse the header so probes never reach
   // Next's action handling.
@@ -79,7 +90,7 @@ export async function middleware(req: NextRequest) {
     return NextResponse.json({ error: "This request came from another website and was blocked." }, { status: 403 });
   }
 
-  if (isPlatformHost(host)) return NextResponse.next();
+  if (isPlatformHost(host)) return pathname.startsWith("/app/") ? nextWithPath(req) : NextResponse.next();
 
   // Never hijack API traffic — custom domains can still call /api/run/* etc.
   if (pathname.startsWith("/api/") || pathname.startsWith("/_next") || pathname === "/favicon.ico") {
@@ -95,7 +106,7 @@ export async function middleware(req: NextRequest) {
   }
 
   // <label>.<APPS_DOMAIN> is always an app; anything else might be a reseller.
-  if (!appLabelFromHost(host) && (await hostKind(host)) === "reseller") return NextResponse.next();
+  if (!appLabelFromHost(host) && (await hostKind(host)) === "reseller") return pathname.startsWith("/app/") ? nextWithPath(req) : NextResponse.next();
 
   // Rewrite everything else on a custom host to /nk-host/<host>/<path>. (Not
   // "/_host": App Router folders starting with "_" are private and never
@@ -108,6 +119,7 @@ export async function middleware(req: NextRequest) {
   const headers = new Headers(req.headers);
   headers.set("x-nk-host", host);
   headers.set("x-nk-host-sig", await hostSignature(host));
+  headers.set("x-nk-path", pathname);
   return NextResponse.rewrite(url, { request: { headers } });
 }
 

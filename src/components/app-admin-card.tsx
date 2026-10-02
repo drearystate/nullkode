@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { ExternalLink, KeyRound } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 type State = { hasSignIn: boolean; admins: string[]; adminPages: Array<{ slug: string; title: string }>; published: boolean };
 
@@ -14,6 +15,8 @@ export function AppAdminCard({ projectId }: { projectId: string }) {
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState<{ ok: boolean; text: string } | null>(null);
+  const t = useTranslations("project.appAdminCard");
+  const tc = useTranslations("common");
 
   useEffect(() => {
     fetch(`/api/projects/${projectId}/app-admin`).then((r) => r.json()).then(setState).catch(() => setState(null));
@@ -28,41 +31,41 @@ export function AppAdminCard({ projectId }: { projectId: string }) {
     const res = await fetch(`/api/projects/${projectId}/app-admin`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ email, password }) });
     const data = await res.json().catch(() => ({}));
     setBusy(false);
-    if (!res.ok) return setMessage({ ok: false, text: data.error || "Couldn't save the admin login." });
+    if (!res.ok) return setMessage({ ok: false, text: data.error || t("saveFailed") });
     setState((s) => (s ? { ...s, admins: data.admins ?? [] } : s));
     setPassword("");
-    setMessage({ ok: true, text: data.result === "updated" ? "Saved. That account is an admin now, with the new password." : "Saved. They can sign in to your app with this email and password." });
+    setMessage({ ok: true, text: data.result === "updated" ? t("savedUpdated") : t("savedCreated") });
   }
 
   const open = (slug: string) => `/api/projects/${projectId}/open-as-owner?page=${encodeURIComponent(slug)}`;
 
   return (
     <section id="app-admin" className="card mt-6 scroll-mt-24 p-6" aria-labelledby="app-admin-heading">
-      <h2 id="app-admin-heading" className="flex items-center gap-2 font-semibold" data-help="Pages in your app that only you and your team can use, like where you manage orders, and the logins your team uses to reach them."><KeyRound size={17} className="text-brand-300" aria-hidden />Your app&apos;s admin area</h2>
+      <h2 id="app-admin-heading" className="flex items-center gap-2 font-semibold" data-help={t("titleHelp")}><KeyRound size={17} className="text-brand-300" aria-hidden />{t("title")}</h2>
       {state.adminPages.length > 0 && (
         <>
-          <p className="mt-1 text-sm text-surface-400">These pages are only for you and your team, so visitors can&apos;t see them. You can open them any time without signing in to your app.</p>
+          <p className="mt-1 text-sm text-surface-400">{t("pagesIntro")}</p>
           <ul className="mt-3 flex flex-wrap gap-2">
             {state.adminPages.map((p) => (
               <li key={p.slug}>
-                <a href={open(p.slug)} target="_blank" rel="noopener" className="btn-ghost text-sm" data-help="Opens this team-only page in a new tab, with no need to sign in to your app. Visitors can’t see it."><ExternalLink size={14} aria-hidden />{p.title}</a>
+                <a href={open(p.slug)} target="_blank" rel="noopener" className="btn-ghost text-sm" data-help={t("openHelp")}><ExternalLink size={14} aria-hidden />{p.title}</a>
               </li>
             ))}
           </ul>
-          {!state.published && <p className="mt-2 text-xs text-surface-500">Your app isn&apos;t published yet, so these open in Preview.</p>}
+          {!state.published && <p className="mt-2 text-xs text-surface-500">{t("notPublished")}</p>}
         </>
       )}
       {state.hasSignIn && (
         <div className={state.adminPages.length ? "mt-6 border-t border-white/[0.06] pt-5" : "mt-1"}>
-          <h3 className="text-sm font-semibold">Admin logins for your team</h3>
-          <p className="mt-1 text-sm text-surface-400">Give someone an admin login and they can sign in on your app&apos;s sign-in page to manage it.</p>
-          {state.admins.length > 0 && <p className="mt-3 text-sm">Admins: <span className="text-surface-200">{state.admins.join(", ")}</span></p>}
+          <h3 className="text-sm font-semibold">{t("loginsTitle")}</h3>
+          <p className="mt-1 text-sm text-surface-400">{t("loginsIntro")}</p>
+          {state.admins.length > 0 && <p className="mt-3 text-sm">{t.rich("admins", { admins: state.admins.join(", "), list: (c) => <span className="text-surface-200" dir="ltr">{c}</span> })}</p>}
           <form onSubmit={save} className="mt-4 grid gap-3 sm:grid-cols-[1fr_1fr_auto] sm:items-end">
-            <label className="block text-sm"><span className="label">Email</span><input className="input w-full" type="email" autoComplete="off" required value={email} onChange={(e) => setEmail(e.target.value)} data-help="The email address your team member will sign in to your app with." /></label>
-            <label className="block text-sm"><span className="label">Password</span><input className="input w-full" type="password" autoComplete="new-password" minLength={10} required value={password} onChange={(e) => setPassword(e.target.value)} data-help="Their password, at least 10 characters. Share it with them privately; they sign in with it on your app’s sign-in page." /></label>
-            <button className="btn-primary" disabled={busy} data-help="Gives this email an admin login for your app. If it already has an account, that account becomes an admin and its password changes.">{busy ? "Saving…" : "Add admin"}</button>
+            <label className="block text-sm"><span className="label">{t("email")}</span><input className="input w-full" type="email" autoComplete="off" required value={email} onChange={(e) => setEmail(e.target.value)} data-help={t("emailHelp")} /></label>
+            <label className="block text-sm"><span className="label">{t("password")}</span><input className="input w-full" type="password" autoComplete="new-password" minLength={10} required value={password} onChange={(e) => setPassword(e.target.value)} data-help={t("passwordHelp")} /></label>
+            <button className="btn-primary" disabled={busy} data-help={t("addHelp")}>{busy ? tc("saving") : t("add")}</button>
           </form>
-          <p className="mt-2 text-xs text-surface-500">At least 10 characters. Using an email that already has an account in your app makes that account an admin and changes its password.</p>
+          <p className="mt-2 text-xs text-surface-500">{t("note")}</p>
           {message && <p role={message.ok ? "status" : "alert"} className={`mt-2 text-sm ${message.ok ? "text-emerald-300" : "text-red-300"}`}>{message.text}</p>}
         </div>
       )}

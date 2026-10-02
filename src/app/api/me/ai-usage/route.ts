@@ -1,6 +1,7 @@
 import { getCurrentUser } from "@/lib/auth";
 import { aiUsageSummary } from "@/lib/ai-quota";
 import { json } from "@/lib/utils";
+import { requestErrorsT } from "@/lib/errors-i18n";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -12,6 +13,7 @@ export const dynamic = "force-dynamic";
  */
 export async function GET() {
   const user = await getCurrentUser();
-  if (!user) return json({ error: "Please sign in." }, { status: 401 });
-  return json(await aiUsageSummary(user), { headers: { "cache-control": "no-store" } });
+  const t = await requestErrorsT();
+  if (!user) return json({ error: t("common.signIn") }, { status: 401 });
+  return json(await aiUsageSummary(user, t), { headers: { "cache-control": "no-store" } });
 }

@@ -13,6 +13,9 @@ import {
   takeQueuedDeletion,
 } from "@/lib/privacy-store";
 import { json } from "@/lib/utils";
+import { getTranslations } from "next-intl/server";
+import { requestLocale } from "@/i18n/request";
+import { requestErrorsT } from "@/lib/errors-i18n";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -56,8 +59,9 @@ export async function POST(req: Request, ctx: { params: Promise<{ id: string }> 
   const { id } = await ctx.params;
   const r = await ownedProject(id);
   if ("error" in r) return r.error;
+  const t = await getTranslations({ locale: await requestLocale(), namespace: "data.api" });
   const parsed = Body.safeParse(await req.json().catch(() => null));
-  if (!parsed.success) return json({ error: "That request isn't valid." }, { status: 400 });
+  if (!parsed.success) return json({ error: t("invalidRequest") }, { status: 400 });
   const body = parsed.data;
   const by = await handler(r.user);
 
@@ -65,23 +69,23 @@ export async function POST(req: Request, ctx: { params: Promise<{ id: string }> 
     case "log": {
       const received = body.receivedOn ? new Date(`${body.receivedOn}T12:00:00Z`) : new Date();
       if (Number.isNaN(received.getTime()) || received.getTime() > Date.now() + 86_400_000) {
-        return json({ error: "Choose the day the request arrived." }, { status: 400 });
+        return json({ error: t("chooseDay") }, { status: 400 });
       }
       return json({ request: await recordPrivacyRequest(id, { type: body.type, source: "owner", receivedAt: received }) });
     }
     case "done": {
       const request = await setPrivacyRequestDone(id, body.id, body.done, by);
-      return request ? json({ request }) : json({ error: "That request isn't in the log any more." }, { status: 404 });
+      return request ? json({ request }) : json({ error: t("requestGone") }, { status: 404 });
     }
     case "remove": {
-      return (await removePrivacyRequest(id, body.id)) ? json({ ok: true }) : json({ error: "That request isn't in the log any more." }, { status: 404 });
+      return (await removePrivacyRequest(id, body.id)) ? json({ ok: true }) : json({ error: t("requestGone") }, { status: 404 });
     }
     case "approve": {
       const queued = (await listQueuedDeletions(id)).find((q) => q.id === body.queueId);
-      if (!queued) return json({ error: "That request was already handled." }, { status: 404 });
+      if (!queued) return json({ error: t("alreadyHandled") }, { status: 404 });
       // Same as the person confirming the emailed link: their accounts and
       // what's tied to them go; bookings with their email are kept, blanked.
-      const result = await eraseUser(id, { email: queued.email }, { mode: "email" });
+      const result = await eraseUser(id, { email: queued.email }, { mode: "email", t: await requestErrorsT() });
       await takeQueuedDeletion(id, body.queueId);
       if (queued.requestId && (await setPrivacyRequestDone(id, queued.requestId, true, by))) return json({ result });
       await recordPrivacyRequest(id, { type: "erasure", source: "web-form", completed: true, handledBy: by });
@@ -89,7 +93,7 @@ export async function POST(req: Request, ctx: { params: Promise<{ id: string }> 
     }
     case "dismiss": {
       const queued = await takeQueuedDeletion(id, body.queueId);
-      if (!queued) return json({ error: "That request was already handled." }, { status: 404 });
+      if (!queued) return json({ error: t("alreadyHandled") }, { status: 404 });
       if (queued.requestId) await setPrivacyRequestDone(id, queued.requestId, true, `${by} (dismissed, nothing deleted)`);
       return json({ ok: true });
     }

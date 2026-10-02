@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 type Step = "admin" | "ai" | "brand" | "done";
 
@@ -15,6 +16,7 @@ interface BrandForm {
 
 export function InstallWizard({ ownerSignedIn = false }: { ownerSignedIn?: boolean }) {
   const router = useRouter();
+  const t = useTranslations("install");
   const [step, setStep] = useState<Step>(ownerSignedIn ? "ai" : "admin");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -37,7 +39,7 @@ export function InstallWizard({ ownerSignedIn = false }: { ownerSignedIn?: boole
   // ── Step 3: brand ─────────────────────────────────────────────────
   const [brand, setBrand] = useState<BrandForm>({
     appName: "Nullkode",
-    tagline: "Visual app builder with real backends",
+    tagline: t("defaultTagline"),
     colorPrimary: "#843dff",
     colorAccent: "#06b6d4",
     logoDataUrl: null,
@@ -69,7 +71,7 @@ export function InstallWizard({ ownerSignedIn = false }: { ownerSignedIn?: boole
         }),
       });
       const j = await res.json();
-      if (!res.ok) throw new Error(j.error ?? "Failed to create admin");
+      if (!res.ok) throw new Error(j.error ?? t("adminFailed"));
       setStep("ai");
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err));
@@ -95,7 +97,7 @@ export function InstallWizard({ ownerSignedIn = false }: { ownerSignedIn?: boole
         }),
       });
       const j = await res.json();
-      if (!res.ok) throw new Error(j.error ?? "Failed to save AI provider");
+      if (!res.ok) throw new Error(j.error ?? t("aiFailed"));
       setStep("brand");
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err));
@@ -115,9 +117,9 @@ export function InstallWizard({ ownerSignedIn = false }: { ownerSignedIn?: boole
         body: JSON.stringify(brand),
       });
       const j = await res.json();
-      if (!res.ok) throw new Error(j.error ?? "Failed to save brand");
+      if (!res.ok) throw new Error(j.error ?? t("brandFailed"));
       const finish = await fetch("/api/install/finish", { method: "POST" });
-      if (!finish.ok) throw new Error("Failed to finalize install");
+      if (!finish.ok) throw new Error(t("finishFailed"));
       setStep("done");
       setTimeout(() => router.push("/dashboard"), 1500);
     } catch (err) {
@@ -131,7 +133,7 @@ export function InstallWizard({ ownerSignedIn = false }: { ownerSignedIn?: boole
     <div className="mx-auto flex min-h-screen max-w-2xl flex-col px-6 py-12">
       <header className="mb-10">
         <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-surface-500">
-          First-run setup
+          {t("eyebrow")}
         </div>
         <h1
           className="mt-3 text-white"
@@ -143,34 +145,33 @@ export function InstallWizard({ ownerSignedIn = false }: { ownerSignedIn?: boole
             paddingBottom: "0.1em",
           }}
         >
-          Welcome to your installation.
+          {t("title")}
         </h1>
         <p className="mt-4 max-w-md text-[15px] leading-relaxed text-surface-300">
-          Three quick steps and you're ready to build. Everything you set here
-          can be changed later from the admin panel.
+          {t("intro")}
         </p>
       </header>
 
-      <StepProgress step={step} />
+      <StepProgress step={step} labels={{ admin: t("stepAdmin"), ai: t("stepAi"), brand: t("stepBrand"), done: t("stepDone") }} />
 
       <div className="mt-8 rounded-xl border border-surface-800 bg-surface-900 p-7">
         {step === "admin" && (
           <form onSubmit={submitAdmin} className="space-y-5">
-            <h2 className="text-xl font-semibold tracking-tight">Create your admin account</h2>
+            <h2 className="text-xl font-semibold tracking-tight">{t("adminTitle")}</h2>
             <p className="text-sm text-surface-300">
-              This account will have full access. Save the password somewhere safe.
+              {t("adminBody")}
             </p>
-            <Field label="Setup code" value={setupToken} onChange={setSetupToken} required />
-            <p className="text-xs text-surface-400">Your installer displays this code. It is also saved as INSTALL_TOKEN in .env. To resume setup, use the same owner email and password.</p>
+            <Field label={t("setupCode")} value={setupToken} onChange={setSetupToken} required />
+            <p className="text-xs text-surface-400">{t("setupCodeHint")}</p>
             <Field
-              label="Name"
+              label={t("name")}
               value={adminName}
               onChange={setAdminName}
               autoComplete="name"
               required
             />
             <Field
-              label="Email"
+              label={t("email")}
               type="email"
               value={adminEmail}
               onChange={setAdminEmail}
@@ -178,23 +179,22 @@ export function InstallWizard({ ownerSignedIn = false }: { ownerSignedIn?: boole
               required
             />
             <Field
-              label="Password (min 12 chars)"
+              label={t("password")}
               type="password"
               value={adminPassword}
               onChange={setAdminPassword}
               autoComplete="new-password"
               required
             />
-            <SubmitRow busy={submitting} label="Continue" error={error} />
+            <SubmitRow busy={submitting} label={t("continue")} busyLabel={t("working")} error={error} />
           </form>
         )}
 
         {step === "ai" && (
           <form onSubmit={submitAi} className="space-y-5">
-            <h2 className="text-xl font-semibold tracking-tight">Configure an AI provider</h2>
+            <h2 className="text-xl font-semibold tracking-tight">{t("aiTitle")}</h2>
             <p className="text-sm text-surface-300">
-              At least one is needed to use the AI Scaffold or Designer. You can
-              skip if you only want the visual editor for now.
+              {t("aiBody")}
             </p>
             <div className="space-y-2">
               {(["openai", "claude-cli", "skip"] as const).map((p) => (
@@ -216,27 +216,20 @@ export function InstallWizard({ ownerSignedIn = false }: { ownerSignedIn?: boole
                   />
                   <div>
                     <div className="font-medium">
-                      {p === "openai" && "Hosted or local AI (OpenAI-compatible API)"}
-                      {p === "claude-cli" && "Command-line AI agent"}
-                      {p === "skip" && "Skip for now"}
+                      {t(`provider.${p}`)}
                     </div>
                     <div className="mt-0.5 text-xs text-surface-400">
-                      {p === "openai" &&
-                        "Use a hosted or local model for the AI builder, Designer, and editor."}
-                      {p === "claude-cli" &&
-                        "Uses a command-line AI tool installed and signed in on this server, for every AI feature. See docs/deploy/plesk.md."}
-                      {p === "skip" &&
-                        "Use the visual editor + templates only. AI features will be disabled until you configure a provider in admin settings."}
+                      {t(`providerHelp.${p}`)}
                     </div>
                   </div>
                 </label>
               ))}
             </div>
 
-            {aiProvider === "openai" && <><Field label="API base URL (blank for OpenAI)" value={aiBaseUrl} onChange={setAiBaseUrl} /><Field label="Model ID" value={aiModel} onChange={setAiModel} required /><p className="text-xs text-surface-400">For a local model, use the exact model ID your server provides. In Docker, reach the host with host.docker.internal. A local server may not require an API key.</p></>}
+            {aiProvider === "openai" && <><Field label={t("baseUrl")} value={aiBaseUrl} onChange={setAiBaseUrl} /><Field label={t("modelId")} value={aiModel} onChange={setAiModel} required /><p className="text-xs text-surface-400">{t("localHint")}</p></>}
             {aiProvider === "openai" && (
               <Field
-                label="API key (optional for a local server)"
+                label={t("apiKey")}
                 type="password"
                 value={openaiKey}
                 onChange={setOpenaiKey}
@@ -245,7 +238,7 @@ export function InstallWizard({ ownerSignedIn = false }: { ownerSignedIn?: boole
             )}
             {aiProvider === "claude-cli" && (
               <Field
-                label="AI agent program path (blank to find it automatically)"
+                label={t("cliPath")}
                 value={claudeBin}
                 onChange={setClaudeBin}
                 placeholder="/usr/local/bin/…"
@@ -258,9 +251,9 @@ export function InstallWizard({ ownerSignedIn = false }: { ownerSignedIn?: boole
                 onClick={() => setStep("admin")}
                 className="text-sm text-surface-400 hover:text-white"
               >
-                ← Back
+                <span aria-hidden className="inline-block rtl:-scale-x-100">←</span> {t("back")}
               </button>
-              <SubmitRow busy={submitting} label="Continue" error={error} inline />
+              <SubmitRow busy={submitting} label={t("continue")} busyLabel={t("working")} error={error} inline />
             </div>
           </form>
         )}
@@ -268,31 +261,30 @@ export function InstallWizard({ ownerSignedIn = false }: { ownerSignedIn?: boole
         {step === "brand" && (
           <form onSubmit={submitBrand} className="space-y-5">
             <h2 className="text-xl font-semibold tracking-tight">
-              Brand your install
+              {t("brandTitle")}
             </h2>
             <p className="text-sm text-surface-300">
-              All optional. Defaults give you Nullkode's look. You can change
-              any of this any time from the Admin → Brand settings.
+              {t("brandBody", { app: "Nullkode" })}
             </p>
 
             <div className="grid gap-4 sm:grid-cols-2">
               <Field
-                label="App name"
+                label={t("appName")}
                 value={brand.appName}
                 onChange={(v) => setBrand((b) => ({ ...b, appName: v }))}
               />
               <Field
-                label="Tagline"
+                label={t("tagline")}
                 value={brand.tagline}
                 onChange={(v) => setBrand((b) => ({ ...b, tagline: v }))}
               />
               <ColorField
-                label="Primary color"
+                label={t("primary")}
                 value={brand.colorPrimary}
                 onChange={(v) => setBrand((b) => ({ ...b, colorPrimary: v }))}
               />
               <ColorField
-                label="Accent color"
+                label={t("accent")}
                 value={brand.colorAccent}
                 onChange={(v) => setBrand((b) => ({ ...b, colorAccent: v }))}
               />
@@ -300,12 +292,12 @@ export function InstallWizard({ ownerSignedIn = false }: { ownerSignedIn?: boole
 
             <div className="grid gap-4 sm:grid-cols-2">
               <FileField
-                label="Logo (PNG/SVG)"
+                label={t("logo")}
                 accept="image/png,image/svg+xml,image/jpeg,image/webp"
                 preview={brand.logoDataUrl}
                 onPick={async (f) => {
                   if (f.size > 200_000) {
-                    setError("Logo must be under 200KB.");
+                    setError(t("logoSize"));
                     return;
                   }
                   const dataUrl = await readFileAsDataUrl(f);
@@ -314,12 +306,12 @@ export function InstallWizard({ ownerSignedIn = false }: { ownerSignedIn?: boole
                 onClear={() => setBrand((b) => ({ ...b, logoDataUrl: null }))}
               />
               <FileField
-                label="Favicon (ICO/PNG)"
+                label={t("favicon")}
                 accept="image/png,image/x-icon,image/vnd.microsoft.icon,image/svg+xml"
                 preview={brand.faviconDataUrl}
                 onPick={async (f) => {
                   if (f.size > 200_000) {
-                    setError("Favicon must be under 200KB.");
+                    setError(t("faviconSize"));
                     return;
                   }
                   const dataUrl = await readFileAsDataUrl(f);
@@ -335,9 +327,9 @@ export function InstallWizard({ ownerSignedIn = false }: { ownerSignedIn?: boole
                 onClick={() => setStep("ai")}
                 className="text-sm text-surface-400 hover:text-white"
               >
-                ← Back
+                <span aria-hidden className="inline-block rtl:-scale-x-100">←</span> {t("back")}
               </button>
-              <SubmitRow busy={submitting} label="Finish install" error={error} inline />
+              <SubmitRow busy={submitting} label={t("finish")} busyLabel={t("working")} error={error} inline />
             </div>
           </form>
         )}
@@ -360,26 +352,25 @@ export function InstallWizard({ ownerSignedIn = false }: { ownerSignedIn?: boole
                 />
               </svg>
             </div>
-            <h2 className="text-xl font-semibold">You're all set</h2>
-            <p className="mt-2 text-sm text-surface-400">Taking you to the dashboard…</p>
+            <h2 className="text-xl font-semibold">{t("doneTitle")}</h2>
+            <p className="mt-2 text-sm text-surface-400">{t("doneBody")}</p>
           </div>
         )}
       </div>
 
       <footer className="mt-8 text-center text-[11px] text-surface-500">
-        Powered by Nullkode · You're installing on this machine. Anyone with
-        admin can re-run brand setup from <span className="font-mono">/admin/settings</span>.
+        {t.rich("footer", { app: "Nullkode", mono: (c) => <span className="font-mono" dir="ltr">{c}</span> })}
       </footer>
     </div>
   );
 }
 
-function StepProgress({ step }: { step: Step }) {
+function StepProgress({ step, labels }: { step: Step; labels: Record<Step, string> }) {
   const steps: { key: Step; label: string }[] = [
-    { key: "admin", label: "Admin" },
-    { key: "ai", label: "AI" },
-    { key: "brand", label: "Brand" },
-    { key: "done", label: "Done" },
+    { key: "admin", label: labels.admin },
+    { key: "ai", label: labels.ai },
+    { key: "brand", label: labels.brand },
+    { key: "done", label: labels.done },
   ];
   const idx = steps.findIndex((s) => s.key === step);
   return (
@@ -481,6 +472,7 @@ function FileField({
   onPick: (file: File) => void;
   onClear: () => void;
 }) {
+  const t = useTranslations("install");
   return (
     <div>
       <span className="block text-[12px] font-medium text-surface-300">{label}</span>
@@ -493,11 +485,11 @@ function FileField({
           />
         ) : (
           <div className="grid h-12 w-12 place-items-center rounded bg-surface-800 text-[10px] text-surface-500">
-            EMPTY
+            {t("empty")}
           </div>
         )}
         <label className="cursor-pointer rounded-md border border-surface-700 px-3 py-1.5 text-xs text-surface-200 hover:bg-surface-800">
-          {preview ? "Replace" : "Upload"}
+          {preview ? t("replace") : t("upload")}
           <input
             type="file"
             accept={accept}
@@ -514,7 +506,7 @@ function FileField({
             onClick={onClear}
             className="text-xs text-surface-400 hover:text-white"
           >
-            Remove
+            {t("remove")}
           </button>
         )}
       </div>
@@ -525,11 +517,13 @@ function FileField({
 function SubmitRow({
   busy,
   label,
+  busyLabel,
   error,
   inline,
 }: {
   busy: boolean;
   label: string;
+  busyLabel: string;
   error: string | null;
   inline?: boolean;
 }) {
@@ -541,7 +535,7 @@ function SubmitRow({
         disabled={busy}
         className="inline-flex items-center justify-center rounded-lg bg-brand-500 px-5 py-2.5 text-sm font-semibold text-fixed-white hover:bg-brand-400 disabled:opacity-40"
       >
-        {busy ? "Working…" : label}
+        {busy ? busyLabel : label}
       </button>
     </div>
   );

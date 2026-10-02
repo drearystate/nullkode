@@ -1,0 +1,32 @@
+{
+  "aiUsage": "Lượt thao tác AI trong tháng này: <b>{used} trên {limit}</b>",
+  "aiUsageLabel": "Lượt thao tác AI đã dùng",
+  "planNames": {
+    "FREE": "Miễn phí",
+    "PRO": "Chuyên nghiệp",
+    "STARTER": "Khởi đầu",
+    "TEAM": "Nhóm"
+  },
+  "plans": {
+    "checkoutFailed": "Không thể bắt đầu thanh toán",
+    "comingSoon": "Sắp ra mắt",
+    "current": "Hiện tại",
+    "free": "Miễn phí",
+    "manage": "Quản lý thanh toán",
+    "manageHelp": "Mở trang thanh toán bảo mật của Stripe, nơi bạn có thể cập nhật thẻ, xem hóa đơn trước đây và, nếu có, đổi hoặc hủy gói.",
+    "notBuyable": "Chưa thể mua gói này trực tuyến.",
+    "portalFailed": "Không thể mở cổng thanh toán",
+    "upgrade": "Nâng cấp",
+    "upgradeHelp": "Mở trang thanh toán bảo mật của Stripe để bắt đầu gói này, thanh toán theo tháng. Đang dùng gói trả phí? Hãy dùng mục Quản lý thanh toán để đổi gói."
+  },
+  "profileNote": "Ảnh, tên, mật khẩu, giao diện, mẹo trợ giúp và tùy chọn xóa tài khoản nằm trong <link>Hồ sơ</link> của bạn.",
+  "status": {
+    "ACTIVE": "Đã thanh toán và đang hoạt động",
+    "CANCELED": "Đã hủy",
+    "PAST_DUE": "Quá hạn thanh toán",
+    "TRIALING": "Dùng thử miễn phí",
+    "UNPAID": "Chưa thanh toán"
+  },
+  "title": "Thanh toán",
+  "yourPlan": "Gói của bạn: <b>{plan}</b>"
+}

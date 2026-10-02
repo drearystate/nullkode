@@ -4,6 +4,8 @@ import type { ModuleSummary } from "@/lib/modules/registry";
 import type { InstalledModule } from "@/lib/modules/installed";
 import { friendlyName, friendlySummary } from "@/components/modules/friendly";
 import { InstallDialog, type InstallResult } from "@/components/modules/install-dialog";
+import { useTranslations } from "next-intl";
+import { useCatalog } from "@/lib/use-catalog";
 
 type Props = {
   projectId: string;
@@ -15,28 +17,8 @@ type Props = {
   onInstalled: (result: InstallResult) => void | Promise<void>;
 };
 
-const CATEGORY_LABELS: Record<string, string> = {
-  all: "All",
-  communication: "Talk",
-  content: "Content",
-  media: "Media",
-  commerce: "Shop",
-  productivity: "Productivity",
-  community: "Community",
-  utility: "Tools",
-};
-
-/** Hover notes for the category filter buttons. */
-const CATEGORY_HELP: Record<string, string> = {
-  all: "Show every feature you can add.",
-  communication: "Features for keeping in touch with visitors, like a contact form, newsletter or text messages.",
-  content: "Features for sharing words and news, like a blog, FAQs, a portfolio or a course.",
-  media: "Features for photos, video, music and other media.",
-  commerce: "Features for selling and taking payments, like a shop, bookings, coupons or donations.",
-  productivity: "Features for getting things done, like to-do lists, notes, appointments and surveys.",
-  community: "Features that bring people together, like events, reviews, chat and forums.",
-  utility: "Handy extras, like sign-in, maps, file uploads and a weather widget.",
-};
+/** Feature groups with a name and hover note in editor.json (modules.categories.<id>). */
+const KNOWN_CATEGORIES = new Set(["all", "communication", "content", "media", "commerce", "productivity", "community", "utility"]);
 
 export function ModulesPanel({ projectId, projectName, flush, onInstalled }: Props) {
   const [modules, setModules] = useState<ModuleSummary[]>([]);
@@ -47,6 +29,8 @@ export function ModulesPanel({ projectId, projectName, flush, onInstalled }: Pro
   const [opening, setOpening] = useState<string | null>(null);
   const [adding, setAdding] = useState<ModuleSummary | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const t = useTranslations("editor.modules");
+  const cat = useCatalog();
 
   useEffect(() => {
     fetch(`/api/projects/${projectId}/modules`)
@@ -72,13 +56,15 @@ export function ModulesPanel({ projectId, projectName, flush, onInstalled }: Pro
     if (q) {
       list = list.filter(
         (m) =>
+          cat.moduleName(m).toLowerCase().includes(q) ||
+          cat.moduleSummary(m).toLowerCase().includes(q) ||
           friendlyName(m).toLowerCase().includes(q) ||
           friendlySummary(m).toLowerCase().includes(q) ||
           m.name.toLowerCase().includes(q)
       );
     }
     return list;
-  }, [modules, category, search]);
+  }, [modules, category, search, cat]);
 
   // Save the open page first: adding a feature rebuilds the menu on every
   // page, and the editor reloads this one afterwards.
@@ -89,7 +75,7 @@ export function ModulesPanel({ projectId, projectName, flush, onInstalled }: Pro
       setError(null);
       try {
         if (!(await flush())) {
-          setError("Your latest edits haven't saved yet, so we didn't add anything. Check your connection and try again.");
+          setError(t("notSaved"));
           return;
         }
         setAdding(mod);
@@ -97,7 +83,7 @@ export function ModulesPanel({ projectId, projectName, flush, onInstalled }: Pro
         setOpening(null);
       }
     },
-    [flush, opening]
+    [flush, opening, t]
   );
 
   const added = useCallback(
@@ -112,7 +98,7 @@ export function ModulesPanel({ projectId, projectName, flush, onInstalled }: Pro
   if (loading) {
     return (
       <div className="flex items-center justify-center h-32 text-surface-500 text-xs">
-        Loading features…
+        {t("loading")}
       </div>
     );
   }
@@ -125,9 +111,9 @@ export function ModulesPanel({ projectId, projectName, flush, onInstalled }: Pro
           type="search"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          placeholder="Search features…"
-          aria-label="Search features"
-          data-help="Type what you want your app to do, like “bookings” or “newsletter”, to find a ready-made feature."
+          placeholder={t("searchPlaceholder")}
+          aria-label={t("searchLabel")}
+          data-help={t("searchHelp")}
           className="w-full bg-surface-950 border border-surface-800 rounded px-2.5 py-1.5 text-xs text-surface-100 placeholder:text-surface-600 focus:outline-none focus:border-brand-500"
         />
         <div className="flex flex-wrap gap-1">
@@ -135,14 +121,14 @@ export function ModulesPanel({ projectId, projectName, flush, onInstalled }: Pro
             <button
               key={c}
               onClick={() => setCategory(c)}
-              data-help={CATEGORY_HELP[c] ?? "Show only features in this group."}
+              data-help={KNOWN_CATEGORIES.has(c) ? t(`categories.${c}.help`) : t("categoryHelp")}
               className={`text-[10px] px-2 py-0.5 rounded-full border transition ${
                 category === c
                   ? "bg-brand-500/20 border-brand-500 text-brand-200"
                   : "border-surface-800 text-surface-500 hover:text-surface-200 hover:border-surface-700"
               }`}
             >
-              {CATEGORY_LABELS[c] ?? c}
+              {KNOWN_CATEGORIES.has(c) ? t(`categories.${c}.label`) : c}
             </button>
           ))}
         </div>
@@ -162,10 +148,10 @@ export function ModulesPanel({ projectId, projectName, flush, onInstalled }: Pro
               key={mod.id}
               onClick={() => void open(mod)}
               disabled={opening === mod.id}
-              title={friendlySummary(mod)}
-              aria-label={`${friendlyName(mod)}${counts.has(mod.id) ? " (added)" : ""}`}
-              data-help={counts.has(mod.id) ? "Already in your app. Tap to see what it adds, or add it again." : "Tap to see what this feature adds to your app. Nothing changes until you confirm. Your page is saved first."}
-              className="rounded-lg border border-surface-800 bg-surface-950 overflow-hidden hover:border-brand-500 transition text-left disabled:opacity-40 group"
+              title={cat.moduleSummary(mod)}
+              aria-label={counts.has(mod.id) ? t("nameAdded", { name: cat.moduleName(mod) }) : cat.moduleName(mod)}
+              data-help={counts.has(mod.id) ? t("addedHelp") : t("addHelp")}
+              className="rounded-lg border border-surface-800 bg-surface-950 overflow-hidden hover:border-brand-500 transition text-start disabled:opacity-40 group"
             >
               {/* Preview image with fade */}
               {mod.preview && (
@@ -179,22 +165,22 @@ export function ModulesPanel({ projectId, projectName, flush, onInstalled }: Pro
                   />
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent to-surface-950" />
                   {counts.has(mod.id) && (
-                    <span className="absolute right-1 top-1 rounded-full border border-emerald-400/40 bg-emerald-950/80 px-1.5 py-0.5 text-[9px] font-semibold text-emerald-200">
-                      Added
+                    <span className="absolute end-1 top-1 rounded-full border border-emerald-400/40 bg-emerald-950/80 px-1.5 py-0.5 text-[9px] font-semibold text-emerald-200">
+                      {t("added")}
                     </span>
                   )}
                 </div>
               )}
               <div className="px-2 py-1.5">
                 <div className="flex items-center gap-1 text-[11px] font-semibold text-surface-100">
-                  <span className="truncate">{friendlyName(mod)}</span>
-                  {!mod.preview && counts.has(mod.id) && <span className="shrink-0 text-[9px] font-semibold text-emerald-300">Added</span>}
+                  <span className="truncate">{cat.moduleName(mod)}</span>
+                  {!mod.preview && counts.has(mod.id) && <span className="shrink-0 text-[9px] font-semibold text-emerald-300">{t("added")}</span>}
                 </div>
                 <div className="text-[10px] text-surface-500 mt-0.5 line-clamp-1 leading-snug">
-                  {friendlySummary(mod)}
+                  {cat.moduleSummary(mod)}
                 </div>
                 {opening === mod.id && (
-                  <div className="text-[10px] text-brand-300 mt-0.5">Saving your page…</div>
+                  <div className="text-[10px] text-brand-300 mt-0.5">{t("savingPage")}</div>
                 )}
               </div>
             </button>
@@ -202,13 +188,13 @@ export function ModulesPanel({ projectId, projectName, flush, onInstalled }: Pro
         </div>
         {filtered.length === 0 && (
           <div className="text-center text-surface-500 text-xs py-8">
-            No features here yet
+            {t("empty")}
           </div>
         )}
       </div>
 
       <div className="px-3 py-2 border-t border-surface-800 text-[10px] text-surface-600 [[data-theme=light]_&]:text-surface-500 text-center shrink-0">
-        Tap a feature to see what it adds to your app
+        {t("footer")}
       </div>
 
       {adding && (

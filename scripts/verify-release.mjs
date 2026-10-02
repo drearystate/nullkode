@@ -13,6 +13,8 @@ const required = [
   // generated pictures.
   'src/lib/templates/originals/index-a.ts','src/lib/templates/originals/index-b.ts','src/lib/assets/generated-catalog.json','public/media/generated',
   'src/app/(main)/projects/[id]/data',
+  // Every studio language (messages/<locale>/<area>.json).
+  'messages/en/common.json','messages/ar/common.json','messages/zh-Hans/common.json','src/i18n/request.ts',
   // Mobile apps: the build API (a folder named "build") and both native templates.
   'src/app/api/projects/[id]/native/build/route.ts','src/app/api/projects/[id]/native/build/download/route.ts',
   'native-templates/android-webview/gradlew','native-templates/android-webview/gradle/wrapper/gradle-wrapper.jar',

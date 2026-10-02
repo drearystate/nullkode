@@ -1,0 +1,139 @@
+{
+  "cta": {
+    "body": "Gerçek mantığa ihtiyaç duyduğunuz anda dağılan, yarım kalmış kodsuz araçlarla uğraşmayı bırakın. {app} size arayüzü, arka ucu ve verileri görsel olarak sunar.",
+    "heading": "Erteleyip <accent>durduğunuz şeyi</accent> oluşturun.",
+    "openDashboard": "Kontrol panelinizi açın",
+    "startFree": "Oluşturmaya başlayın — ücretsiz"
+  },
+  "faq": {
+    "bubble": {
+      "a": "Uygulamanızı tek cümleyle anlatın; {app} sizin için sayfaları, veritabanı tablolarını ve arka uç iş akışlarını oluşturur. Sonra görsel olarak düzenlemeye devam edersiniz. Verileriniz, istediğiniz zaman dışa aktarabileceğiniz standart bir Postgres veritabanında tutulur.",
+      "q": "Bubble veya Adalo'dan farkınız ne?"
+    },
+    "data": {
+      "a": "Yerleşik Postgres veri kaynağını kullanırsanız her projeye bu kurulumun PostgreSQL veritabanında ayrı bir şema ayrılır. Bağlantı dizesiyle kendi Postgres veritabanınızı da kullanabilir veya Google E-Tablolar'a bağlanabilirsiniz. Verileriniz, seçiminiz.",
+      "q": "Verilerim tam olarak nerede tutuluyor?"
+    },
+    "domain": {
+      "a": "Evet. Bir alan adı ekleyin, DNS TXT kaydıyla doğrulayın; {app} trafiği projenize yönlendirir.",
+      "q": "Kendi alan adımı kullanabilir miyim?"
+    },
+    "export": {
+      "a": "Herhangi bir sayfanın HTML ve CSS kodunu dışa aktarabilir, Postgres verilerinizi istediğiniz zaman indirebilirsiniz. Akışlar, yanınızda götürebileceğiniz taşınabilir bir JSON grafiği olarak saklanır.",
+      "q": "Oluşturduklarımı dışa aktarabilir miyim?"
+    },
+    "eyebrow": "SSS",
+    "heading": "Sorularınıza açık yanıtlar.",
+    "noCode": {
+      "a": "Gerçekten kodsuz. Arayüz düzenleyicisi ve akış motoru, sayfaları ve arka uç mantığını baştan sona kapsar. İsterseniz HTML parçaları ekleyebilirsiniz ama ürünü kullanmak için kod okumanız ya da yazmanız gerekmez.",
+      "q": "Bu gerçekten kodsuz mu, yoksa bir noktada kod yazmam gerekecek mi?"
+    },
+    "webflow": {
+      "a": "Onlar sayfa oluşturuculardır. {app} ise bir uygulama oluşturucusudur: Sayfalara ek olarak gerçek bir görsel arka uç mantığı motoru, birinci sınıf veri kaynakları ve gerçekten çalışan akışlar sunar.",
+      "q": "Webflow veya Framer'dan farkınız ne?"
+    }
+  },
+  "features": {
+    "ai": {
+      "body": "Oluşturmak istediklerinizi anlatın. {app} sayfaları, veritabanı şemasını ve arka uç akışlarını oluşturur — sonra siz düzenlersiniz.",
+      "title": "Yapay zekâ ile başlangıç"
+    },
+    "domains": {
+      "body": "Kendi alan adınızı kullanın: iki DNS kaydı ekleyin ve bağlantıyı panelinizden kontrol edin.",
+      "bodyAutoTls": "Kendi alan adınızı kullanın: iki DNS kaydı ekleyin, güvenli HTTPS sertifikası otomatik ayarlansın ve siteniz yayına girsin.",
+      "title": "Özel alan adları"
+    },
+    "editor": {
+      "body": "Bloklar, katmanlar, farklı ekran boyutları, kapsamlı stil paneli ve özel özellikler. Her öğeyi düzenleyebilirsiniz — hazır şablonlarla sınırlı kalmazsınız.",
+      "title": "Görsel sayfa düzenleyici"
+    },
+    "eyebrow": "İhtiyacınız olan her şey",
+    "flows": {
+      "body": "HTTP uç noktalarını, veritabanı sorgularını, dallanmaları, dönüştürmeleri ve API çağrılarını görsel akış şeması olarak oluşturun. Kod gerekmez.",
+      "title": "Gerçek arka uç akışları"
+    },
+    "heading": "Bir eklenti değil, eksiksiz bir platform.",
+    "intro": "Sayfalar, arka uç mantığı, gerçek veriler, yayınlama, modüller, yapay zekâ — tek üründe, ek araçlara gerek kalmadan.",
+    "modules": {
+      "body": "Kimlik doğrulama, blog, mağaza, randevular, forum, radyo — her biri gerçek veritabanı tabloları, arka uç akışları ve sayfalar içerir. Tek tıkla yükleyin.",
+      "title": "{count} hazır özellik"
+    },
+    "postgres": {
+      "body": "Her projeye türü belirlenmiş sütunlara sahip, kendine ait ve yalıtılmış bir şema verilir. Ya da Google E-Tablolar'ı CRUD arka ucu olarak bağlayın — ayar gerekmez.",
+      "title": "Tek tıkla Postgres"
+    },
+    "publish": {
+      "body": "Yayınlama; sayfalarınızın, iş akışlarınızın ve temanızın bir sürümünü kaydeder. Düzenlemeye gizlice devam edin, hazır olduğunuzda yayınlayın ve önceki sürümlerden herhangi birini tek tıkla geri yükleyin.",
+      "title": "Tek tıkla yayınlama"
+    },
+    "sheets": {
+      "body": "Herhangi bir e-tabloyu veritabanı gibi kullanın. Satırları okuyun, yazın ve sorgulayın — taşıma, DevOps veya kurulum gerekmez.",
+      "title": "Google E-Tablolar bağlantısı"
+    }
+  },
+  "footer": {
+    "copyright": "© {year} {app}",
+    "tagline": "Gerçek bir arka uca sahip görsel uygulama oluşturucu. Pazarlama sayfaları değil, eksiksiz ürünler yayınlayın."
+  },
+  "hero": {
+    "badge": "Anlat, planı kontrol et, yayına al",
+    "charsLeft": "{count, plural, one {# karakter kaldı} other {# karakter kaldı}}",
+    "checkPlan": "Uygulama oluşturulmadan önce planı kontrol edeceksiniz.",
+    "freeForever": "Sonsuza kadar ücretsiz plan",
+    "headline": "Sadece sayfalar değil, <accent>uygulamalar oluşturun.</accent>",
+    "ideaHint": "Kimlerin kullanacağını ve ne yapacaklarını söyleyin.",
+    "ideaLabel": "Uygulamanız ne yapsın?",
+    "ideaPlaceholder": "ör. Müşteriler internetten pasta sipariş etsin, teslim alacakları günü seçsin ve ben tüm siparişleri tek listede göreyim.",
+    "ideas": {
+      "bakery": {
+        "label": "Fırın siparişleri",
+        "prompt": "Fırınım için ön sipariş sayfası. Müşteriler pasta ve ekmek seçsin, teslim alacakları günü belirleyip adlarını ve telefon numaralarını bıraksın. Tüm siparişleri yönetim sayfasında göreyim."
+      },
+      "gym": {
+        "label": "Spor salonu ders programı",
+        "prompt": "Spor salonum için bir ders programı. Üyeler bu haftaki dersleri görüp yer ayırabilsin. Ders ekleyip her derse kimlerin geleceğini görebileyim."
+      },
+      "salon": {
+        "label": "Salon randevuları",
+        "prompt": "Kuaför salonum için bir randevu uygulaması. Müşteriler hizmeti, kuaförü ve saati seçsin. Tüm randevuları tek yerde görüp yönetebileyim."
+      },
+      "tutoring": {
+        "label": "Özel ders kayıtları",
+        "prompt": "Özel derslerim için bir kayıt sayfası. Veliler ders konusunu ve haftalık saati seçip iletişim bilgilerini bıraksın. Öğrenci listesini ve derslerini göreyim."
+      }
+    },
+    "intro": "Arayüzü sürükleyip bırakın. Gerçek arka uç mantığını görsel olarak kurun. Gerçek bir veritabanı veya Google E-Tablolar'ınızı kullanın. Kendi alan adınızda yayınlayın. Kod gerekmez.",
+    "noCard": "Kredi kartı gerekmez",
+    "openDashboard": "Paneli aç",
+    "openYourDashboard": "Panelinizi açın",
+    "opening": "Açılıyor…",
+    "ownData": "Verileriniz sizin",
+    "planMyApp": "Uygulamamı planla",
+    "seeHow": "Nasıl çalıştığını görün",
+    "startFree": "Oluşturmaya başlayın — ücretsiz",
+    "stats": {
+      "features": "Hazır özellik",
+      "icons": "Dahili simge",
+      "platforms": "Tek projeden uygulamalar",
+      "platformsValue": "Web + Android",
+      "ways": "Oluşturmaya başlama yolu"
+    },
+    "tryOne": "Şunlardan birini deneyin:"
+  },
+  "nav": {
+    "backend": "Arka uç mantığı",
+    "dashboard": "Panel",
+    "faq": "SSS",
+    "home": "{app} ana sayfa",
+    "logIn": "Giriş yap",
+    "pricing": "Fiyatlandırma",
+    "product": "Ürün",
+    "startFree": "Ücretsiz başla"
+  },
+  "pricing": {
+    "heading": "Bir sonraki fikrinize yer açın.",
+    "intro": "Yapmak istediklerinize uygun planı seçin.",
+    "startBuilding": "Oluşturmaya başla",
+    "viewPlan": "Planı görüntüle"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "accountMenu": "Menú de la cuenta",
+  "accountNavigation": "Navegación de la cuenta",
+  "admin": "Administración",
+  "adminHelp": "Ajustes de toda la plataforma: marca, IA, correo, pagos, usuarios y revendedores.",
+  "administration": "Administración",
+  "billing": "Facturación y plan",
+  "designer": "Diseñador",
+  "designerHelp": "Describe un sitio web con tus propias palabras y la IA lo diseñará. Después, seguirá cambiándolo según lo que le pidas.",
+  "help": "Ayuda",
+  "helpGuides": "Ayuda y guías",
+  "helpHelp": "Guías paso a paso. Aquí se abre la guía de la pantalla en la que estás.",
+  "helpTips": {
+    "help": "Activa o desactiva estas notas de ayuda. Cuando están activadas, mantén el cursor sobre cualquier botón para saber qué hace. También puedes cambiarlo en Ajustes.",
+    "label": "Consejos de ayuda",
+    "off": "DESACTIVADOS",
+    "on": "ACTIVADOS"
+  },
+  "home": "Inicio de {app}",
+  "impersonation": {
+    "backToClients": "Volver a tus clientes",
+    "backToClientsHelp": "Sal del espacio de trabajo de este cliente y vuelve a tu lista de clientes. Los cambios que hayas hecho se conservarán en su cuenta.",
+    "impersonating": "Suplantando identidad",
+    "signedInAs": "· sesión iniciada como {email}",
+    "stop": "Dejar de suplantar identidad",
+    "stopHelp": "Deja de actuar como esta persona y vuelve a Administración. Los cambios que hayas hecho se conservarán en su cuenta.",
+    "viewingClient": "Estás viendo el espacio de trabajo de <b>{name}</b>. Los cambios que hagas se aplicarán a su cuenta."
+  },
+  "logOut": "Cerrar sesión",
+  "myApps": "Mis apps",
+  "myAppsHelp": "Todas tus apps en un solo lugar. Abre una para seguir trabajando o crea una nueva.",
+  "profile": "Perfil",
+  "resellerDashboard": "Panel de revendedor",
+  "resellerHelp": "Administra tus clientes, tu marca, tus precios y tu dirección web.",
+  "switchTheme": "Cambiar entre modo claro y oscuro",
+  "switchToDark": "Cambiar al modo oscuro",
+  "switchToLight": "Cambiar al modo claro",
+  "themeHelp": "Cambia entre el modo claro y el oscuro. Recordaremos tu elección. También puedes elegir «Usar el tema de mi dispositivo» en tu perfil.",
+  "workspace": "Espacio de trabajo",
+  "yourAccount": "Tu cuenta"
+}

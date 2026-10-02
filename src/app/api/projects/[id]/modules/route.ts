@@ -6,8 +6,9 @@ import { MODULE_REGISTRY, getModule, listModuleSummaries } from "@/lib/modules/r
 import { computeProvidedCapabilities, installModule, UnmetRequirementsError } from "@/lib/modules/install";
 import { installedModules } from "@/lib/modules/installed";
 import { emailEnabled } from "@/lib/mailer";
-import { friendlyName } from "@/components/modules/friendly";
+import { catalogFor } from "@/lib/catalog-server";
 import type { ModuleCapability, ModuleDefinition } from "@/lib/modules/types";
+import { joinList, localeOf, requestErrorsT, type ErrT } from "@/lib/errors-i18n";
 
 const InstallBody = z.object({
   moduleId: z.string().min(1),
@@ -29,13 +30,14 @@ export async function POST(req: Request, ctx: { params: Promise<{ id: string }> 
   const r = await ownedProject(id);
   if ("error" in r) return r.error;
 
+  const t = await requestErrorsT(r.user);
   const parsed = InstallBody.safeParse(await req.json().catch(() => null));
-  if (!parsed.success) return json({ error: "Invalid input" }, { status: 400 });
+  if (!parsed.success) return json({ error: t("common.invalidInput") }, { status: 400 });
 
   const module = getModule(parsed.data.moduleId);
-  if (!module) return json({ error: "Module not found" }, { status: 404 });
+  if (!module) return json({ error: t("modules.notFound") }, { status: 404 });
 
-  const blocked = await missingRequirements(id, module);
+  const blocked = await missingRequirements(id, module, t);
   if (blocked) return json(blocked, { status: 409 });
 
   try {
@@ -59,7 +61,7 @@ export async function POST(req: Request, ctx: { params: Promise<{ id: string }> 
     return json({
       ok: true,
       moduleId: module.id,
-      name: friendlyName(module),
+      name: catalogFor(localeOf(t)).moduleName(module),
       firstPageId: result.firstPageId,
       flowIds: Object.fromEntries(result.flowIds),
       pageIds: Object.fromEntries(result.pageIds),
@@ -68,10 +70,10 @@ export async function POST(req: Request, ctx: { params: Promise<{ id: string }> 
     });
   } catch (err) {
     if (err instanceof UnmetRequirementsError) {
-      return json({ ...needsFeatures(err.unmet), unmet: err.unmet }, { status: 409 });
+      return json({ ...needsFeatures(err.unmet, t), unmet: err.unmet }, { status: 409 });
     }
     return json(
-      { error: err instanceof Error ? err.message : "Install failed" },
+      { error: err instanceof Error ? err.message : t("modules.installFailed") },
       { status: 500 }
     );
   }
@@ -104,16 +106,16 @@ const SERVER_CAPABILITIES = new Set<ModuleCapability>(["email"]);
  * own capabilities count (the chat helper brings the AI it needs), and email
  * comes from the server's settings rather than another feature.
  */
-async function missingRequirements(projectId: string, module: ModuleDefinition) {
+async function missingRequirements(projectId: string, module: ModuleDefinition, t: ErrT) {
   const requires = module.requires ?? [];
   if (requires.length === 0) return null;
   const provided = await computeProvidedCapabilities(projectId);
   const own = new Set(module.provides ?? []);
   const missing = requires.filter((c) => !provided.has(c) && !own.has(c));
-  if (missing.some((c) => !SERVER_CAPABILITIES.has(c))) return { ...needsFeatures(missing), unmet: missing };
+  if (missing.some((c) => !SERVER_CAPABILITIES.has(c))) return { ...needsFeatures(missing, t), unmet: missing };
   if (missing.includes("email") && !emailEnabled()) {
     return {
-      error: "This needs email to be set up on the server first. Ask your provider to connect email.",
+      error: t("modules.needsEmail"),
       needs: [],
       unmet: missing,
     };
@@ -122,7 +124,7 @@ async function missingRequirements(projectId: string, module: ModuleDefinition) 
 }
 
 /** "This needs Sign-in and accounts first.", naming the features to add. */
-function needsFeatures(caps: ModuleCapability[]) {
+function needsFeatures(caps: ModuleCapability[], t: ErrT) {
   const needs: Array<{ id: string; name: string }> = [];
   for (const cap of caps) {
     if (SERVER_CAPABILITIES.has(cap)) continue;
@@ -131,10 +133,16 @@ function needsFeatures(caps: ModuleCapability[]) {
     const provider =
       (cap === "auth-session" || cap === "auth-users" ? getModule("auth") : undefined) ??
       MODULE_REGISTRY.find((m) => m.provides?.includes(cap));
-    if (provider && !needs.some((n) => n.id === provider.id)) needs.push({ id: provider.id, name: friendlyName(provider) });
+    if (provider && !needs.some((n) => n.id === provider.id)) needs.push({ id: provider.id, name: catalogFor(localeOf(t)).moduleName(provider) });
   }
   const names = needs.map((n) => n.name);
-  const list = names.length === 0 ? "another feature" : names.length === 1 ? names[0] : `${names.slice(0, -1).join(", ")} and ${names[names.length - 1]}`;
-  const email = caps.includes("email") && !emailEnabled() ? " It also needs email to be set up on the server." : "";
-  return { error: `This needs ${list} first.${email}`, needs };
+  const locale = localeOf(t);
+  const list =
+    names.length === 0
+      ? t("modules.anotherFeature")
+      : locale === "en"
+        ? names.length === 1 ? names[0] : `${names.slice(0, -1).join(", ")} and ${names[names.length - 1]}`
+        : joinList(names, locale);
+  const email = caps.includes("email") && !emailEnabled();
+  return { error: t(email ? "modules.needsFeaturesAndEmail" : "modules.needsFeatures", { list }), needs };
 }

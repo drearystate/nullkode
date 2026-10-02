@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 /**
  * Inline rename control for the Settings card on the project overview.
@@ -24,6 +25,8 @@ export function RenameProjectField({
   const [editing, setEditing] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const t = useTranslations("project.renameProject");
+  const tc = useTranslations("common");
 
   function startEdit() {
     setDraft(name);
@@ -53,7 +56,7 @@ export function RenameProjectField({
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
-        setError(data.error ?? `Error ${res.status}`);
+        setError(data.error ?? t("errorStatus", { status: res.status }));
         return;
       }
       setName(data.project?.name ?? trimmed);
@@ -61,7 +64,7 @@ export function RenameProjectField({
       // The <h1> above us is server-rendered from the same field.
       router.refresh();
     } catch {
-      setError("Network error — try again.");
+      setError(t("networkError"));
     } finally {
       setBusy(false);
     }
@@ -70,16 +73,16 @@ export function RenameProjectField({
   if (!editing) {
     return (
       <div className="flex justify-between items-center gap-3 py-1 border-b border-surface-800">
-        <dt className="text-surface-400">Name</dt>
+        <dt className="text-surface-400">{t("name")}</dt>
         <dd className="flex items-center gap-2 min-w-0">
           <span className="text-surface-200 truncate">{name}</span>
           <button
             type="button"
             className="btn btn-ghost text-xs shrink-0"
             onClick={startEdit}
-            data-help="Change your app's name. Its web address stays the same, so links you've shared keep working."
+            data-help={t("editHelp")}
           >
-            Edit
+            {t("edit")}
           </button>
         </dd>
       </div>
@@ -89,7 +92,7 @@ export function RenameProjectField({
   return (
     <div className="py-2 border-b border-surface-800">
       <div className="flex justify-between items-center gap-3">
-        <dt className="text-surface-400 shrink-0">Name</dt>
+        <dt className="text-surface-400 shrink-0">{t("name")}</dt>
         <dd className="flex items-center gap-2 min-w-0 flex-1 justify-end">
           <input
             autoFocus
@@ -97,8 +100,8 @@ export function RenameProjectField({
             value={draft}
             maxLength={80}
             disabled={busy}
-            aria-label="App name"
-            data-help="Your app's new name. Press Enter to save or Esc to cancel."
+            aria-label={t("inputLabel")}
+            data-help={t("inputHelp")}
             onChange={(e) => setDraft(e.target.value)}
             onKeyDown={(e) => {
               if (e.key === "Enter") save();
@@ -110,9 +113,9 @@ export function RenameProjectField({
             className="btn btn-primary text-xs shrink-0"
             disabled={busy || !draft.trim()}
             onClick={save}
-            data-help="Save the new name. Its web address doesn't change."
+            data-help={t("saveHelp")}
           >
-            {busy ? "Saving…" : "Save"}
+            {busy ? tc("saving") : tc("save")}
           </button>
           <button
             type="button"
@@ -120,15 +123,14 @@ export function RenameProjectField({
             disabled={busy}
             onClick={cancel}
           >
-            Cancel
+            {tc("cancel")}
           </button>
         </dd>
       </div>
-      <p className="mt-1 text-xs text-surface-500 text-right">
-        Only the name changes. Your app&apos;s web address stays the same, so
-        renaming won&apos;t break a published app.
+      <p className="mt-1 text-xs text-surface-500 text-end">
+        {t("note")}
       </p>
-      {error && <p className="mt-1 text-xs text-red-400 text-right">{error}</p>}
+      {error && <p className="mt-1 text-xs text-red-400 text-end">{error}</p>}
     </div>
   );
 }

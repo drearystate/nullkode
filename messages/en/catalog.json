@@ -1,0 +1,1908 @@
+{
+  "templates": {
+    "original-restaurant": {
+      "tagline": "Candlelit wood-fire restaurant with a priced menu, dietary tags and table bookings"
+    },
+    "original-food": {
+      "tagline": "Sunny neighbourhood bakery with a live bake board, weekly specials and pickup ordering"
+    },
+    "original-hospitality": {
+      "tagline": "Airy coastal boutique inn with room cards, nightly rates, amenities and booking requests"
+    },
+    "original-travel": {
+      "tagline": "Small-group hiking tours with a departures board, stage-by-stage itineraries and prices"
+    },
+    "original-realestate": {
+      "tagline": "Modern brokerage site with filterable listings, market data, a neighbourhood guide and valuation bookings"
+    },
+    "original-beauty": {
+      "tagline": "Warm, editorial skin studio with a priced treatment menu, membership and online booking"
+    },
+    "original-fitness": {
+      "tagline": "High-energy strength gym with a weekly class timetable, membership tiers and free-trial booking"
+    },
+    "original-health": {
+      "tagline": "Calm family practice site with visit types and prices, clinician profiles and online appointments"
+    },
+    "original-ecommerce": {
+      "tagline": "Gallery-style pottery shop with a product grid, cart, collections and kiln-drop alerts"
+    },
+    "original-saas": {
+      "tagline": "SaaS launch site with a live-looking product timeline, pricing switch, changelog and public roadmap"
+    },
+    "original-corporate": {
+      "tagline": "Engineering and infrastructure group site with capabilities, sectors, results, leadership, careers and contact"
+    },
+    "original-finance": {
+      "tagline": "Fee-only financial planning site with a projection panel, flat-fee comparator, plans, advisors and intro-call booking"
+    },
+    "original-legal": {
+      "tagline": "Law firm site with a practice index, results docket, attorney biographies, upfront consultation fees and booking"
+    },
+    "original-education": {
+      "tagline": "Evening school site with course index cards, a weekly timetable, instructors, term dates, fees and open-evening sign-up"
+    },
+    "original-nonprofit": {
+      "tagline": "Food-rescue charity site with impact stamps, a gift receipt, volunteer shifts, an annual impact report and donations"
+    },
+    "original-portfolio": {
+      "tagline": "Interior architect portfolio with an offset work grid, project index, a case study with a drawn floor plan, and enquiries"
+    },
+    "original-creative": {
+      "tagline": "Bold brand and motion studio site with a typographic work index, big case layouts, a manifesto, careers and a brief form"
+    },
+    "original-personal": {
+      "tagline": "Coach and writer personal brand with offer tickets, a newsletter preview, a CSS book, reader mail, and call booking"
+    },
+    "crafto-application": {
+      "name": "Application",
+      "tagline": "Modern mobile app landing page with gradient cards and pricing"
+    },
+    "crafto-architecture": {
+      "name": "Architecture",
+      "tagline": "Bold dark architecture studio with neon-yellow accents and editorial layout"
+    },
+    "crafto-barber": {
+      "name": "Barber",
+      "tagline": "Classic barbershop with warm golden tones and vintage typography"
+    },
+    "crafto-beauty-salon": {
+      "name": "Beauty Salon",
+      "tagline": "Elegant beauty salon with warm peach accents and serif headings"
+    },
+    "crafto-branding-agency": {
+      "name": "Branding Agency",
+      "tagline": "Bold branding agency with amber accents and split-hero layout"
+    },
+    "crafto-branding-studio": {
+      "name": "Branding Studio",
+      "tagline": "Modern branding studio with vibrant orange accents and clean typography"
+    },
+    "crafto-business": {
+      "name": "Business",
+      "tagline": "Professional corporate agency with services tabs and pricing"
+    },
+    "crafto-charity": {
+      "name": "Charity Foundation",
+      "tagline": "Warm nonprofit template with causes, donations, and volunteer sections"
+    },
+    "crafto-clothing-store": {
+      "name": "Clothing Store",
+      "tagline": "Earthy fashion boutique with warm tones and editorial product layouts"
+    },
+    "crafto-conference": {
+      "name": "Conference",
+      "tagline": "Dynamic conference and event page with bold red accents and speaker cards"
+    },
+    "crafto-consulting": {
+      "name": "Consulting",
+      "tagline": "Professional consulting firm with warm orange accents and bold typography"
+    },
+    "crafto-corporate": {
+      "name": "Corporate",
+      "tagline": "Polished corporate enterprise site with deep indigo branding and clean grid layout"
+    },
+    "crafto-cryptocurrency": {
+      "name": "Cryptocurrency",
+      "tagline": "Dark-themed crypto trading platform with neon green accents and modern UI"
+    },
+    "crafto-data-analysis": {
+      "name": "Data Analysis",
+      "tagline": "Modern data analytics SaaS landing page with vibrant gradients and clean layout"
+    },
+    "crafto-decor-store": {
+      "name": "Decor Store",
+      "tagline": "Elegant home decor e-commerce template with refined navy branding and clean product grid"
+    },
+    "crafto-design-agency": {
+      "name": "Design Agency",
+      "tagline": "Bold creative agency template with oversized typography and warm orange accents"
+    },
+    "crafto-digital-agency": {
+      "name": "Digital Agency",
+      "tagline": "Bold creative agency with portfolio grid and services showcase"
+    },
+    "crafto-ebook": {
+      "name": "eBook",
+      "tagline": "Dark-themed eBook landing page with golden accents and bold Oswald typography"
+    },
+    "crafto-elder-care": {
+      "name": "Elder Care",
+      "tagline": "Warm and compassionate elder care site with deep navy and red accents"
+    },
+    "crafto-elearning": {
+      "name": "eLearning",
+      "tagline": "Modern online education platform with course catalog, instructor profiles, and student testimonials"
+    },
+    "crafto-fashion-store": {
+      "name": "Fashion Store",
+      "tagline": "Sleek fashion e-commerce storefront with bold yellow accents"
+    },
+    "crafto-finance": {
+      "name": "Finance",
+      "tagline": "Premium finance consultancy with warm gold and green tones"
+    },
+    "crafto-fitness": {
+      "name": "Gym & Fitness",
+      "tagline": "Bold gym and fitness center template with class schedules, trainer profiles, and membership packages"
+    },
+    "crafto-freelancer": {
+      "name": "Freelancer",
+      "tagline": "Bold personal portfolio for creative freelancers with red accents"
+    },
+    "crafto-green-energy": {
+      "name": "Green Energy",
+      "tagline": "Clean renewable energy company site with natural green palette"
+    },
+    "crafto-hosting": {
+      "name": "Hosting Provider",
+      "tagline": "Dark SaaS hosting template with pricing tables and feature grids"
+    },
+    "crafto-hotel": {
+      "name": "Hotel & Resort",
+      "tagline": "Elegant luxury hotel and resort template with room showcase, amenities, and booking features"
+    },
+    "crafto-it-business": {
+      "name": "IT Business",
+      "tagline": "Modern IT solutions company with deep blue gradients and wave animations"
+    },
+    "crafto-jewellery-store": {
+      "name": "Jewellery Store",
+      "tagline": "Elegant jewellery boutique with warm peach and rose gold tones"
+    },
+    "crafto-lawyer": {
+      "name": "Lawyer",
+      "tagline": "Prestigious law firm site with classic serif typography and gold accents"
+    },
+    "crafto-logistics": {
+      "name": "Logistics",
+      "tagline": "Bold logistics and shipping company with vibrant yellow and dark tones"
+    },
+    "crafto-magazine": {
+      "name": "Magazine",
+      "tagline": "Bold editorial magazine layout with featured stories and categories"
+    },
+    "crafto-marketing": {
+      "name": "Marketing",
+      "tagline": "High-converting digital marketing agency landing page with bold typography"
+    },
+    "crafto-medical": {
+      "name": "Medical Center",
+      "tagline": "Clean healthcare template with appointment booking and doctor profiles"
+    },
+    "crafto-modern-business": {
+      "name": "Modern Business",
+      "tagline": "Professional business template with purple accents and clean corporate layout"
+    },
+    "crafto-music": {
+      "name": "Music",
+      "tagline": "Dark and bold music / band one-page template with vibrant pink accents"
+    },
+    "crafto-photography": {
+      "name": "Photography",
+      "tagline": "Dark minimal photography portfolio with full-screen gallery panels"
+    },
+    "crafto-pizza": {
+      "name": "Pizza Parlor",
+      "tagline": "Warm and appetizing pizza restaurant template with bold red and gold accents"
+    },
+    "crafto-product-showcase": {
+      "name": "Product Showcase",
+      "tagline": "Sleek product launch landing page with gradient accents and bold visuals"
+    },
+    "crafto-realestate": {
+      "name": "Real Estate",
+      "tagline": "Professional real estate platform with property listings, agent profiles, and advanced search features"
+    },
+    "crafto-realestate-v2": {
+      "name": "Real Estate v2",
+      "tagline": "Modern property marketplace with hero slider, listing cards and agent profiles"
+    },
+    "crafto-restaurant": {
+      "name": "Restaurant",
+      "tagline": "Warm upscale restaurant with menu showcases and reservation CTA"
+    },
+    "crafto-seo-agency": {
+      "name": "SEO Agency",
+      "tagline": "Colorful SEO and digital marketing agency template with gradient CTAs"
+    },
+    "crafto-spa": {
+      "name": "Spa & Salon",
+      "tagline": "Elegant spa and wellness studio with service menus and testimonials"
+    },
+    "crafto-startup": {
+      "name": "Startup",
+      "tagline": "Clean SaaS / startup landing page with gradient accents"
+    },
+    "crafto-travel-agency": {
+      "name": "Travel Agency",
+      "tagline": "Elegant travel agency template with warm gold accents and destination showcases"
+    },
+    "crafto-web-agency": {
+      "name": "Web Agency",
+      "tagline": "Bold creative digital agency with neon-green accents and dark contrast sections"
+    },
+    "crafto-wedding": {
+      "name": "Wedding Invitation",
+      "tagline": "Elegant wedding invitation page with romantic coral-salmon palette and timeline"
+    },
+    "crafto-yoga": {
+      "name": "Yoga & Meditation",
+      "tagline": "Warm wellness studio page with coral-pink hero and earthy neutral tones"
+    },
+    "litho-application": {
+      "name": "Application",
+      "tagline": "Modern SaaS app landing page with feature grids, pricing tables, and testimonials"
+    },
+    "litho-architecture": {
+      "name": "Architecture",
+      "tagline": "Bold architecture studio template with full-screen hero, project showcases, and client logos"
+    },
+    "litho-beauty-salon": {
+      "name": "Beauty Salon",
+      "tagline": "Elegant beauty salon template with service showcases, team profiles, and appointment booking"
+    },
+    "litho-branding-agency": {
+      "name": "Branding Agency",
+      "tagline": "Creative branding agency template with bold typography, process steps, and portfolio grid"
+    },
+    "litho-business": {
+      "name": "Business",
+      "tagline": "Professional business template with hero slider, feature boxes, interactive banners, and client logos"
+    },
+    "litho-cafe": {
+      "name": "Cafe",
+      "tagline": "Warm cafe and restaurant template with menu tabs, chef profiles, and testimonials"
+    },
+    "litho-consulting": {
+      "name": "Consulting",
+      "tagline": "Professional consulting firm template with hero banner, tabbed services, stats counters, and team section"
+    },
+    "litho-corporate": {
+      "name": "Corporate",
+      "tagline": "Enterprise corporate template with parallax hero, service icons, progress bars, and project showcases"
+    },
+    "litho-creative-agency": {
+      "name": "Creative Agency",
+      "tagline": "Bold dark creative agency template with portfolio grid, testimonials, and blog section"
+    },
+    "litho-decor": {
+      "name": "Decor",
+      "tagline": "Elegant home decor and furniture shop template with product showcases, categories, and newsletter signup"
+    },
+    "litho-dentist": {
+      "name": "Dentist",
+      "tagline": "Clean dental clinic template with appointment booking, service cards, team profiles, and testimonials"
+    },
+    "litho-design-agency": {
+      "name": "Design Agency",
+      "tagline": "Bold design agency template with full-screen hero, portfolio grid, capabilities showcase, and testimonials"
+    },
+    "litho-digital-agency": {
+      "name": "Digital Agency",
+      "tagline": "Bold digital agency template with service banners, portfolio showcase, and client testimonials"
+    },
+    "litho-elearning": {
+      "name": "eLearning",
+      "tagline": "Modern online education platform with course listings, instructor profiles, and student testimonials"
+    },
+    "litho-events": {
+      "name": "Events Conference",
+      "tagline": "Professional events and conference template with speaker profiles, schedule, and ticket booking"
+    },
+    "litho-fashion-shop": {
+      "name": "Fashion Shop",
+      "tagline": "Elegant fashion ecommerce template with product grids, lookbook, and seasonal collections"
+    },
+    "litho-finance": {
+      "name": "Finance",
+      "tagline": "Professional finance template with services, industries grid, testimonials, and blog"
+    },
+    "litho-freelancer": {
+      "name": "Freelancer",
+      "tagline": "Minimalist freelancer portfolio with project showcase, skills display, and contact form"
+    },
+    "litho-furniture-shop": {
+      "name": "Furniture Shop",
+      "tagline": "Modern furniture ecommerce template with product catalog, room inspiration, and brand story"
+    },
+    "litho-gym-fitness": {
+      "name": "Gym Fitness",
+      "tagline": "High-energy gym and fitness template with class schedules, trainer profiles, and membership plans"
+    },
+    "litho-hotel-resort": {
+      "name": "Hotel Resort",
+      "tagline": "Luxurious hotel and resort template with room showcases, amenities, and booking features"
+    },
+    "litho-interior-design": {
+      "name": "Interior Design",
+      "tagline": "Sophisticated interior design template with project gallery, process overview, and consultation booking"
+    },
+    "litho-marketing-agency": {
+      "name": "Marketing Agency",
+      "tagline": "Bold marketing agency template with service showcases, progress bars, client logos, and testimonials"
+    },
+    "litho-photography": {
+      "name": "Photography",
+      "tagline": "Elegant photography portfolio with fullscreen galleries, client logos, and blog section"
+    },
+    "litho-restaurant": {
+      "name": "Restaurant",
+      "tagline": "Upscale restaurant template with tabbed menus, chef profiles, reservations, and testimonials"
+    },
+    "litho-seo-agency": {
+      "name": "SEO Agency",
+      "tagline": "Data-driven SEO agency template with process steps, feature boxes, pricing tables, and testimonials"
+    },
+    "litho-spa-salon": {
+      "name": "Spa Salon",
+      "tagline": "Serene spa and wellness template with service showcases, pricing, team profiles, and booking CTA"
+    },
+    "litho-startup": {
+      "name": "Startup",
+      "tagline": "Modern startup template with feature highlights, pricing plans, progress bars, testimonials, and blog"
+    },
+    "litho-travel-agency": {
+      "name": "Travel Agency",
+      "tagline": "Vibrant travel agency template with destination showcases, tour packages, testimonials, and blog"
+    },
+    "litho-web-agency": {
+      "name": "Web Agency",
+      "tagline": "Creative web agency template with portfolio grid, process steps, team profiles, and client testimonials"
+    },
+    "litho-yoga": {
+      "name": "Yoga & Meditation",
+      "tagline": "Serene yoga and meditation template with classes, testimonials, accordion FAQ, and contact form"
+    }
+  },
+  "modules": {
+    "auth": {
+      "name": "Sign-in and accounts",
+      "summary": "Let people create an account and sign in to your app.",
+      "description": "Adds sign-up, sign-in and sign-out pages, and keeps a list of the people who have an account. Passwords are stored safely. People can download their data or delete their account from their profile page. Features that need people to be signed in, like favorites or private messages, use these accounts automatically.",
+      "fields": {
+        "appName": {
+          "label": "App name"
+        }
+      }
+    },
+    "food-truck-finder": {
+      "name": "Food Truck Finder",
+      "summary": "Help people find food trucks near them, with a live map.",
+      "description": "Everything a food truck app needs. Truck owners sign up, put their truck on the map, keep their menu up to date and post deals. Customers see trucks near them on a map, read reviews and grab deals. Includes its own sign-up and sign-in.",
+      "fields": {
+        "brandName": {
+          "label": "Site name"
+        },
+        "cityName": {
+          "label": "City / region name"
+        },
+        "defaultLat": {
+          "label": "City center latitude"
+        },
+        "defaultLng": {
+          "label": "City center longitude"
+        },
+        "defaultZoom": {
+          "label": "Default map zoom"
+        }
+      }
+    },
+    "contact-form": {
+      "name": "Contact Form",
+      "summary": "Let visitors send you a message.",
+      "description": "A polished contact page with a full-width form that saves submissions to a database. Includes an admin inbox page where you can browse every message.",
+      "fields": {
+        "heading": {
+          "label": "Page heading"
+        },
+        "subheading": {
+          "label": "Short subheading"
+        }
+      }
+    },
+    "newsletter": {
+      "name": "Newsletter",
+      "summary": "Collect email addresses for your news and offers.",
+      "description": "A bold signup page with a single email field, a growing subscriber list, and an admin page showing every signup with timestamps.",
+      "fields": {
+        "title": {
+          "label": "Headline"
+        },
+        "pitch": {
+          "label": "One-line pitch"
+        },
+        "buttonText": {
+          "label": "Button text"
+        }
+      }
+    },
+    "waitlist": {
+      "name": "Waitlist",
+      "summary": "Let people sign up to hear when you open.",
+      "description": "A bold pre-launch page with a single email field to join the waitlist. Captures name, email and optional referral source. Great for landing pages before you ship.",
+      "fields": {
+        "productName": {
+          "label": "Product name"
+        },
+        "tagline": {
+          "label": "Tagline"
+        }
+      }
+    },
+    "blog": {
+      "name": "Blog",
+      "summary": "Write posts and news for your visitors.",
+      "description": "A blog home page with a list of recent posts, an admin page to publish new posts, and a flow that returns the post feed. Wire up a per-post detail page later by editing in the visual editor.",
+      "fields": {
+        "blogTitle": {
+          "label": "Blog title"
+        },
+        "author": {
+          "label": "Default author name"
+        }
+      }
+    },
+    "faq": {
+      "name": "FAQ",
+      "summary": "Answer the questions people ask most.",
+      "description": "A question-and-answer page grouped by category. Comes with an admin form to add new Q&A items and a public feed that lists everything published.",
+      "fields": {
+        "heading": {
+          "label": "Page heading"
+        }
+      }
+    },
+    "kb": {
+      "name": "Knowledge Base",
+      "summary": "Publish help articles your customers can search.",
+      "description": "A help center with categorized articles. Includes a public article list and a simple admin page to publish new articles.",
+      "fields": {
+        "title": {
+          "label": "Help center title"
+        }
+      }
+    },
+    "timeline": {
+      "name": "Timeline",
+      "summary": "Show your story as a list of dates and milestones.",
+      "description": "A changelog-style vertical timeline. Perfect for release notes, company history, project milestones or any list of dated events.",
+      "fields": {
+        "title": {
+          "label": "Timeline title"
+        },
+        "subtitle": {
+          "label": "Subtitle"
+        }
+      }
+    },
+    "portfolio": {
+      "name": "Portfolio",
+      "summary": "Show off your best work.",
+      "description": "A project portfolio with title, image, description and optional external link. Great for designers, developers, photographers and agencies.",
+      "fields": {
+        "name": {
+          "label": "Your name or brand"
+        },
+        "intro": {
+          "label": "Intro line"
+        }
+      }
+    },
+    "testimonials": {
+      "name": "Testimonials",
+      "summary": "Show what happy customers say about you.",
+      "description": "Collect and display customer quotes. Simpler than a review system — no rating stars, just name, photo and the quote text. Perfect to drop into a landing page."
+    },
+    "guestbook": {
+      "name": "Guestbook",
+      "summary": "Let visitors leave you a friendly note.",
+      "description": "A classic guestbook where visitors leave their name and a short message. Newest first. Perfect for personal sites, memorials and event pages.",
+      "fields": {
+        "heading": {
+          "label": "Heading"
+        }
+      }
+    },
+    "shop": {
+      "name": "Simple Shop",
+      "summary": "Sell products online with a real shopping cart.",
+      "description": "Product listing with a client-side cart. Visitors add items to their basket, review the cart, and submit an order that captures their details, the full cart contents, and the computed total. Orders land in an admin table you can browse.",
+      "fields": {
+        "storeName": {
+          "label": "Store name"
+        },
+        "currency": {
+          "label": "Currency symbol"
+        }
+      }
+    },
+    "catalog": {
+      "name": "Product Catalog",
+      "summary": "Show your products, without taking payment.",
+      "description": "A clean product catalog with name, price, image and description. Great for menus, brochures and showroom-style pages where customers enquire rather than buy online.",
+      "fields": {
+        "title": {
+          "label": "Catalog title"
+        },
+        "currency": {
+          "label": "Currency symbol"
+        }
+      }
+    },
+    "menu": {
+      "name": "Restaurant Menu",
+      "summary": "Show your food and drink menu.",
+      "description": "A restaurant or cafe menu grouped by category (Starters, Mains, Drinks) with item name, description and price. Admin page lets you add new items from your phone.",
+      "fields": {
+        "restaurantName": {
+          "label": "Restaurant name"
+        },
+        "currency": {
+          "label": "Currency"
+        }
+      }
+    },
+    "pricing": {
+      "name": "Pricing Plans",
+      "summary": "Show your prices and let people sign up.",
+      "description": "A polished pricing page with three tiers (edit freely in the editor) and an interest form that captures emails for each selected plan.",
+      "fields": {
+        "heading": {
+          "label": "Page heading"
+        },
+        "sub": {
+          "label": "Subheading"
+        }
+      }
+    },
+    "coupons": {
+      "name": "Coupons",
+      "summary": "Give out discount codes.",
+      "description": "Create discount codes customers can redeem on a public page. Tracks which codes have been used, their discount amount, and the redemption history.",
+      "fields": {
+        "brand": {
+          "label": "Brand name"
+        }
+      }
+    },
+    "wishlist": {
+      "name": "Wishlist",
+      "summary": "Let people keep a list of things they want.",
+      "description": "A wishlist of products with name, price, store link and optional image. Share it for gift-giving or keep it private for later.",
+      "fields": {
+        "heading": {
+          "label": "Wishlist heading"
+        }
+      }
+    },
+    "gift-registry": {
+      "name": "Gift Registry",
+      "summary": "Run a wedding or baby gift list that guests can reserve from.",
+      "description": "A gift registry where guests can browse items and mark them as reserved. Each item has a name, price, store link and whether it's still available.",
+      "fields": {
+        "occasion": {
+          "label": "Occasion"
+        }
+      }
+    },
+    "subscription": {
+      "name": "Subscription Box",
+      "summary": "Let customers sign up for a monthly box or plan.",
+      "description": "A sign-up page for a monthly subscription with tier picker, shipping info and confirmation. Stores members in a table to charge and fulfill.",
+      "fields": {
+        "boxName": {
+          "label": "Box name"
+        }
+      }
+    },
+    "service-menu": {
+      "name": "Service Menu",
+      "summary": "List your services with prices.",
+      "description": "A service menu like a salon or spa — each service has a name, duration, price and description. Perfect next to a booking page.",
+      "fields": {
+        "businessName": {
+          "label": "Business name"
+        },
+        "currency": {
+          "label": "Currency"
+        }
+      }
+    },
+    "quote-request": {
+      "name": "Quote Request",
+      "summary": "Let customers ask you for a quote.",
+      "description": "A request-a-quote form for service businesses. Capture project details, budget and timeline. Admin sees all requests with a status column for triage.",
+      "fields": {
+        "businessName": {
+          "label": "Business name"
+        }
+      }
+    },
+    "bookings": {
+      "name": "Bookings",
+      "summary": "Let people book a time with you.",
+      "description": "A booking page where customers pick a date and time, add their details, and submit a reservation. Double-booking protection checks for an existing booking at the requested slot before accepting. Backed by a bookings table and an admin page to browse upcoming slots.",
+      "fields": {
+        "businessName": {
+          "label": "Business name"
+        },
+        "serviceLabel": {
+          "label": "What is being booked?",
+          "help": "e.g. 'Haircut', 'Dog walk', 'Appointment'"
+        }
+      }
+    },
+    "appointments": {
+      "name": "Appointments",
+      "summary": "Let customers book an appointment with a member of your team.",
+      "description": "Structured appointments: a list of services with duration and price, assigned to providers, and customers book a specific slot. More flexible than Bookings — great for salons, clinics, and consultancies.",
+      "fields": {
+        "currency": {
+          "label": "Currency symbol"
+        },
+        "businessName": {
+          "label": "Business name"
+        }
+      }
+    },
+    "invoice": {
+      "name": "Invoices",
+      "summary": "Send invoices and keep track of who has paid.",
+      "description": "Create customer invoices with amount, due date and status. See which ones are paid, pending or overdue from a single admin page.",
+      "fields": {
+        "businessName": {
+          "label": "Business name"
+        }
+      }
+    },
+    "expenses": {
+      "name": "Expenses",
+      "summary": "Keep track of what your business spends.",
+      "description": "Log business expenses with date, category, amount and notes. Browse everything in one list for easy monthly review and tax prep."
+    },
+    "properties": {
+      "name": "Real Estate Listings",
+      "summary": "List homes and properties for sale or rent.",
+      "description": "A real estate listings page with photos, price, beds, baths, square footage and address. Plus an inquiry form so interested buyers can reach out.",
+      "fields": {
+        "agencyName": {
+          "label": "Agency name"
+        }
+      }
+    },
+    "rentals": {
+      "name": "Vacation Rentals",
+      "summary": "List holiday rentals people can ask to book.",
+      "description": "Airbnb-style short-term rental listings. Each has photos, nightly price, sleeps count, amenities and a booking request form."
+    },
+    "stripe-checkout": {
+      "name": "Online payments",
+      "summary": "Take card payments for anything you sell.",
+      "description": "A product page with a Checkout button that creates a real Stripe Checkout session and redirects the customer to pay. Bring your own Stripe secret key in the module config.",
+      "fields": {
+        "productName": {
+          "label": "Product name"
+        },
+        "priceCents": {
+          "label": "Price in cents"
+        },
+        "currency": {
+          "label": "Currency code"
+        },
+        "stripeSecret": {
+          "label": "Stripe secret key",
+          "help": "Your Stripe secret key. Use a test key to start."
+        },
+        "successUrl": {
+          "label": "Success redirect URL",
+          "help": "Where people land after they pay: a page of your app, like its thank-you page. Copy the address from your app's Publish tab."
+        },
+        "cancelUrl": {
+          "label": "Cancel redirect URL",
+          "help": "Where people land if they cancel: usually your app's home page."
+        }
+      }
+    },
+    "chat": {
+      "name": "Community Chat",
+      "summary": "Give your community a shared chat room.",
+      "description": "A single shared chatroom where visitors post messages. Posts appear newest-first, backed by a chat_messages table and a send/list flow pair. Perfect for early community feedback or waitlist chatter.",
+      "fields": {
+        "roomTitle": {
+          "label": "Chatroom title"
+        },
+        "welcome": {
+          "label": "Welcome message"
+        }
+      }
+    },
+    "realtime-chat": {
+      "name": "Real-time Chat",
+      "summary": "A chat room where messages appear instantly.",
+      "description": "A public chatroom that polls for new messages every few seconds so conversations feel instant. Drop it anywhere you want visitors to talk in real time.",
+      "fields": {
+        "roomTitle": {
+          "label": "Room title"
+        },
+        "refreshMs": {
+          "label": "Refresh interval (ms)"
+        }
+      }
+    },
+    "fanwall": {
+      "name": "Fanwall",
+      "summary": "Let your community post on a shared wall.",
+      "description": "A single-thread public wall where visitors post short messages with their name and an optional image. Newest first. Similar to a Twitter/Facebook wall but without accounts.",
+      "fields": {
+        "wallTitle": {
+          "label": "Wall title"
+        }
+      }
+    },
+    "forum": {
+      "name": "Forum",
+      "summary": "Let people start discussions and reply to each other.",
+      "description": "A community forum with topics and real replies. Visitors start a topic from the forum home, click through to a detail page, and post replies. Reply counts update automatically on each reply.",
+      "fields": {
+        "forumName": {
+          "label": "Forum name"
+        }
+      }
+    },
+    "reviews": {
+      "name": "Reviews",
+      "summary": "Collect star ratings and reviews from customers.",
+      "description": "A review submission page with a star rating and comment, plus a public page that lists every approved review. Perfect for adding social proof to your site.",
+      "fields": {
+        "brand": {
+          "label": "Brand / business name"
+        }
+      }
+    },
+    "classifieds": {
+      "name": "Classifieds",
+      "summary": "Let people post their own listings.",
+      "description": "A Craigslist-style classifieds board. Visitors post listings with title, price and contact info; a feed page shows everything active.",
+      "fields": {
+        "boardName": {
+          "label": "Board name"
+        }
+      }
+    },
+    "jobs": {
+      "name": "Jobs Board",
+      "summary": "Post job openings and receive applications.",
+      "description": "A careers page with open roles and an apply form. Candidates submit name, email, resume link and a cover message; applications land in a table you can review in the admin.",
+      "fields": {
+        "companyName": {
+          "label": "Company name"
+        }
+      }
+    },
+    "team": {
+      "name": "Team Directory",
+      "summary": "Introduce the people on your team.",
+      "description": "A staff directory with photo, name, role and short bio. Perfect for about pages and internal intranets.",
+      "fields": {
+        "heading": {
+          "label": "Page heading"
+        }
+      }
+    },
+    "polls": {
+      "name": "Polls",
+      "summary": "Ask a question and let people vote.",
+      "description": "A poll module: create a question with a list of options, visitors vote, results update live. Great for quick community decisions."
+    },
+    "petitions": {
+      "name": "Petition",
+      "summary": "Collect signatures for a cause.",
+      "description": "A petition page with a title, description and signature form. Tracks signers by name, email and optional comment; shows a signature count.",
+      "fields": {
+        "title": {
+          "label": "Petition title"
+        },
+        "target": {
+          "label": "Signature target"
+        }
+      }
+    },
+    "feature-voting": {
+      "name": "Feature Voting",
+      "summary": "Let people suggest ideas and vote for their favorites.",
+      "description": "Public feature request board where users post ideas and upvote others. Product teams use it to prioritize what to build next.",
+      "fields": {
+        "productName": {
+          "label": "Product name"
+        }
+      }
+    },
+    "push-notifications": {
+      "name": "Push Notifications",
+      "summary": "Send alerts to people's phones and computers.",
+      "description": "Add a 'Turn on notifications' button. Visitors opt in from their browser (or, on iPhone, from the app added to their home screen), and you send them updates from the app's Notifications screen or from a workflow.",
+      "fields": {
+        "heading": {
+          "label": "Page heading"
+        },
+        "pitch": {
+          "label": "Pitch"
+        }
+      }
+    },
+    "events": {
+      "name": "Events Calendar",
+      "summary": "Show upcoming events and let people say they're coming.",
+      "description": "List upcoming events with date, location and description. Visitors can RSVP with their name and email; RSVPs are saved to a table for the admin to review.",
+      "fields": {
+        "calendarName": {
+          "label": "Calendar name"
+        }
+      }
+    },
+    "survey": {
+      "name": "Survey",
+      "summary": "Ask customers a few questions and collect their answers.",
+      "description": "A survey with multiple questions and free-text answers. Store responses as a JSON blob per submission and browse them in the admin.",
+      "fields": {
+        "title": {
+          "label": "Survey title"
+        },
+        "intro": {
+          "label": "Intro"
+        }
+      }
+    },
+    "quiz": {
+      "name": "Quiz",
+      "summary": "Run a fun quiz with scores.",
+      "description": "A single-page quiz with multiple questions. Each submission is stored with the user's name, their answers and a score you can compute client-side or in a flow.",
+      "fields": {
+        "title": {
+          "label": "Quiz title"
+        }
+      }
+    },
+    "todo": {
+      "name": "Todo List",
+      "summary": "Keep a to-do list and tick things off.",
+      "description": "A personal or shared todo list with title, notes, priority and done state. Backed by a real tasks table you can query, filter and build on.",
+      "fields": {
+        "listName": {
+          "label": "List name"
+        }
+      }
+    },
+    "habits": {
+      "name": "Habit Tracker",
+      "summary": "Track daily habits and build streaks.",
+      "description": "Track daily habits with a name, current streak and last-checked date. Check in every day to grow your streak."
+    },
+    "journal": {
+      "name": "Journal",
+      "summary": "Keep a daily journal with a mood for each day.",
+      "description": "A private daily journal with mood selector, tags and free-form entry. Browse past entries chronologically."
+    },
+    "notes": {
+      "name": "Notes",
+      "summary": "Jot down quick notes.",
+      "description": "Jot down short notes with tags. Great for capturing ideas, links, reminders and scraps that don't belong in a full document."
+    },
+    "reading": {
+      "name": "Reading List",
+      "summary": "Keep track of books to read, being read, and finished.",
+      "description": "Your personal book tracker. Each book has a title, author, cover, status and an optional rating once you finish it."
+    },
+    "kanban": {
+      "name": "Task board",
+      "summary": "Move tasks across a board from to-do to done.",
+      "description": "A Kanban board with To Do, In Progress and Done columns. Cards have title, description and priority. Move them by updating the column.",
+      "fields": {
+        "boardName": {
+          "label": "Board name"
+        }
+      }
+    },
+    "leads": {
+      "name": "Customer leads",
+      "summary": "Keep track of possible customers and follow them up.",
+      "description": "A lightweight CRM: capture leads with name, company, email and stage. Visualize your pipeline by stage and know who to follow up with."
+    },
+    "help-desk": {
+      "name": "Help Desk",
+      "summary": "Receive and answer customer support requests.",
+      "description": "Customer submits a support ticket with subject, description and priority. You triage and resolve from an admin ticket list."
+    },
+    "budget": {
+      "name": "Personal Budget",
+      "summary": "Keep track of money coming in and going out.",
+      "description": "A simple personal budget: log income and expenses by category, see recent transactions and build toward knowing where your money goes.",
+      "fields": {
+        "currency": {
+          "label": "Currency"
+        }
+      }
+    },
+    "chores": {
+      "name": "Chore Chart",
+      "summary": "Share out household chores, with rewards.",
+      "description": "A family chore chart: assign chores to kids, mark them done, earn stars. Turn everyday tasks into a visible, rewardable routine.",
+      "fields": {
+        "familyName": {
+          "label": "Family name"
+        }
+      }
+    },
+    "wedding": {
+      "name": "Wedding RSVP",
+      "summary": "A wedding page where guests can reply to your invitation.",
+      "description": "A beautiful wedding landing page with date, venue, story and an RSVP form that captures guest name, attending status, meal choice and plus-one.",
+      "fields": {
+        "coupleNames": {
+          "label": "Couple's names"
+        },
+        "weddingDate": {
+          "label": "Wedding date"
+        },
+        "venue": {
+          "label": "Venue"
+        }
+      }
+    },
+    "password-vault": {
+      "name": "Password Vault",
+      "summary": "Keep private notes safe behind a PIN.",
+      "description": "A simple vault for storing shared secrets (wifi passwords, license keys, door codes). Protected by a master PIN stored as an argon2 hash — never in plaintext.",
+      "fields": {
+        "vaultName": {
+          "label": "Vault name"
+        },
+        "masterPin": {
+          "label": "Master PIN",
+          "help": "Stored as an argon2 hash. Never recoverable.",
+          "placeholder": "Choose a 4-6 digit PIN"
+        }
+      }
+    },
+    "gallery": {
+      "name": "Photo Gallery",
+      "summary": "Show a collection of photos.",
+      "description": "A responsive image gallery with title, caption and image URL per item. Comes with an upload page for adding new photos by URL.",
+      "fields": {
+        "galleryTitle": {
+          "label": "Gallery title"
+        },
+        "galleryIntro": {
+          "label": "Short intro"
+        }
+      }
+    },
+    "audio": {
+      "name": "Audio Playlist",
+      "summary": "Share a playlist of songs or recordings.",
+      "description": "A playlist page that lists audio tracks with title, artist and a streaming URL. Each track gets an HTML5 audio player so visitors can preview directly.",
+      "fields": {
+        "playlistName": {
+          "label": "Playlist name"
+        }
+      }
+    },
+    "video": {
+      "name": "Video Library",
+      "summary": "Show your videos from YouTube or Vimeo.",
+      "description": "A video gallery that embeds YouTube and Vimeo videos. Visitors see the thumbnail grid; clicking opens the player inline. Edit each video's title and description in the admin.",
+      "fields": {
+        "title": {
+          "label": "Library title"
+        }
+      }
+    },
+    "radio": {
+      "name": "Radio Player",
+      "summary": "Play live radio stations.",
+      "description": "A radio page with a big play button, a station directory the listener can switch between live, and a song-request form. Starts with one station seeded from your config and grows as you add more from the admin page.",
+      "fields": {
+        "stationName": {
+          "label": "Default station name"
+        },
+        "tagline": {
+          "label": "Default station tagline"
+        },
+        "streamUrl": {
+          "label": "Default stream URL (https)"
+        }
+      }
+    },
+    "podcast": {
+      "name": "Podcast",
+      "summary": "Share podcast episodes people can listen to.",
+      "description": "A podcast landing page with episodes list, each with a title, description, duration and audio URL. Visitors can play episodes right on the page.",
+      "fields": {
+        "showName": {
+          "label": "Show name"
+        },
+        "tagline": {
+          "label": "Show tagline"
+        }
+      }
+    },
+    "recipes": {
+      "name": "Recipes",
+      "summary": "Share recipes with ingredients and steps.",
+      "description": "A collection of recipes. Each has a title, cover image, ingredient list, instructions, prep time and serving count. Perfect for home cooks or a food blog.",
+      "fields": {
+        "kitchenName": {
+          "label": "Collection name"
+        }
+      }
+    },
+    "course": {
+      "name": "Online Course",
+      "summary": "Teach an online course, lesson by lesson.",
+      "description": "A mini e-learning platform: sequenced lessons, each with a title, description, video URL and optional duration. Great for micro-courses and tutorials.",
+      "fields": {
+        "courseTitle": {
+          "label": "Course title"
+        },
+        "instructor": {
+          "label": "Instructor name"
+        }
+      }
+    },
+    "ai-assistant": {
+      "name": "Chat helper",
+      "summary": "Let visitors chat with a helpful assistant.",
+      "description": "Add an AI question box to your site. Visitors ask a question, the AI answers using instructions you set, and the answer appears right under the form. Every question and answer is saved on a private page that only you can open.",
+      "fields": {
+        "assistantName": {
+          "label": "Assistant name"
+        },
+        "systemPrompt": {
+          "label": "Instructions for the AI"
+        },
+        "disclosure": {
+          "label": "Note shown under the heading",
+          "help": "Tells visitors they're talking to an AI."
+        }
+      }
+    },
+    "links": {
+      "name": "Link Directory",
+      "summary": "Share a simple page of your important links.",
+      "description": "A simple curated list of external links with title, icon and description. Perfect for Linktree-style pages, curated resource lists or link-in-bio apps.",
+      "fields": {
+        "heading": {
+          "label": "Heading"
+        }
+      }
+    },
+    "places": {
+      "name": "Places",
+      "summary": "A guide to places on a map, with photos and nearest first.",
+      "description": "A phone-friendly guide to places: a list, categories and a map with photo pins. Visitors search, share their location to see the nearest places first, and open a place for photos, opening hours, a call button and directions. Signed-in visitors can suggest their own venue, which waits for your approval. Comes in five languages, with ready-made examples for a tourist guide, restaurants, a business directory or wedding and event venues.",
+      "fields": {
+        "preset": {
+          "label": "Use for",
+          "help": "Sets the categories, the wording and the example places it starts with. You can change all of them afterwards.",
+          "options": {
+            "tourist": "Tourist or city guide",
+            "restaurants": "Restaurants",
+            "directory": "Business directory",
+            "venues": "Wedding & event venues"
+          }
+        },
+        "title": {
+          "label": "Guide title",
+          "help": "Shown at the top of the guide. Leave it empty to use a title that fits what it's for, in each visitor's language.",
+          "placeholder": "City Guide"
+        },
+        "languages": {
+          "label": "Languages",
+          "help": "Visitors switch with the globe button. Their phone's language is used when it's offered, otherwise the first one. Place names and descriptions show as you wrote them.",
+          "options": {
+            "en_es_pt_fr_de": "All five, English first",
+            "es_en_pt_fr_de": "All five, Spanish first",
+            "pt_en_es_fr_de": "All five, Portuguese first",
+            "fr_en_es_pt_de": "All five, French first",
+            "de_en_es_pt_fr": "All five, German first",
+            "en": "English only",
+            "en_es": "English and Spanish",
+            "en_pt": "English and Portuguese",
+            "en_fr": "English and French",
+            "en_de": "English and German"
+          }
+        },
+        "sortBy": {
+          "label": "Order of the list",
+          "help": "When a visitor shares their location, the nearest places always come first.",
+          "options": {
+            "featured": "Featured places first, then your order",
+            "name": "A to Z"
+          }
+        },
+        "units": {
+          "label": "Distances in",
+          "options": {
+            "km": "Kilometres",
+            "mi": "Miles"
+          }
+        },
+        "accent": {
+          "label": "Colour",
+          "help": "The colour of the guide's header, buttons and map pins. Text and backgrounds always follow your app's theme.",
+          "options": {
+            "blue": "Blue",
+            "theme": "My app's main colour"
+          }
+        }
+      }
+    },
+    "emergency-contacts": {
+      "name": "Emergency Contacts",
+      "summary": "Keep important phone numbers one tap away.",
+      "description": "A list of emergency contacts with name, relationship and phone. Tap-to-call on mobile. Great for schools, camps, office front desks and families.",
+      "fields": {
+        "heading": {
+          "label": "Heading"
+        }
+      }
+    },
+    "weather": {
+      "name": "Weather Widget",
+      "summary": "Show today's weather.",
+      "description": "Fetch live weather for a location using an OpenWeatherMap API key. Shows temperature, conditions and an icon. Bring your own free API key in the module config.",
+      "fields": {
+        "city": {
+          "label": "City"
+        },
+        "apiKey": {
+          "label": "OpenWeatherMap API key",
+          "placeholder": "free at openweathermap.org"
+        },
+        "units": {
+          "label": "Units",
+          "options": {
+            "imperial": "Fahrenheit (°F)",
+            "metric": "Celsius (°C)"
+          }
+        }
+      }
+    },
+    "map": {
+      "name": "Map & Locator",
+      "summary": "Show your locations on a map.",
+      "description": "A real interactive map powered by Leaflet and OpenStreetMap. Shows your business location with a pin and address. Free — no API key required.",
+      "fields": {
+        "title": {
+          "label": "Page title"
+        },
+        "lat": {
+          "label": "Latitude"
+        },
+        "lng": {
+          "label": "Longitude"
+        },
+        "zoom": {
+          "label": "Zoom (1-19)"
+        },
+        "label": {
+          "label": "Marker label"
+        },
+        "address": {
+          "label": "Street address"
+        }
+      }
+    },
+    "link-tracker": {
+      "name": "Link clicks",
+      "summary": "See how many people click your links.",
+      "description": "Create trackable links for your marketing campaigns. Each click is logged with a timestamp so you can see which channels drive the most traffic."
+    },
+    "file-upload": {
+      "name": "File Upload",
+      "summary": "Let people send you files.",
+      "description": "Let visitors upload files with a drag-and-drop form. Files land in a per-project storage directory and the URL is saved in a table you can browse.",
+      "fields": {
+        "heading": {
+          "label": "Page heading"
+        }
+      }
+    },
+    "qr-scanner": {
+      "name": "QR Scanner",
+      "summary": "Scan QR codes with a phone camera.",
+      "description": "A camera-based QR code scanner powered by jsQR. Scans land in a form field you can submit — perfect for check-ins, coupons and attendance.",
+      "fields": {
+        "heading": {
+          "label": "Heading"
+        }
+      }
+    },
+    "user-favorites": {
+      "name": "Favorites",
+      "summary": "Let signed-in people save their favorite items.",
+      "description": "Lets logged-in users favorite anything (a product, a truck, a post, an article) and browse their personal list. Uses whatever auth module is already installed in the project — you must install Auth / Accounts (or another auth-session provider) first."
+    },
+    "user-profile-card": {
+      "name": "Profile card",
+      "summary": "Show each signed-in person their own profile.",
+      "description": "A small profile card that shows the logged-in user's name, avatar and bio. Uses whichever auth-users module is installed — no database of its own. Drop it on a page to give visitors a quick sense of who's signed in."
+    },
+    "donations": {
+      "name": "Donations",
+      "summary": "Raise money for a goal and thank your donors.",
+      "description": "A donation page with a cause description, progress bar toward your goal, and a public donor wall. Collects donor name, email, amount and an optional message. Payment integration is handled by a separate Stripe module.",
+      "fields": {
+        "causeName": {
+          "label": "Cause name"
+        },
+        "goal": {
+          "label": "Fundraising goal ($)"
+        },
+        "currency": {
+          "label": "Currency symbol"
+        }
+      }
+    },
+    "lost-found": {
+      "name": "Lost & Found",
+      "summary": "Let your community report lost and found items.",
+      "description": "A community lost and found. People report items they lost or found with location and contact info. The board shows everything in one place so people can match them up.",
+      "fields": {
+        "communityName": {
+          "label": "Community name"
+        }
+      }
+    },
+    "loyalty-card": {
+      "name": "Loyalty Punch Card",
+      "summary": "Reward regulars with a digital stamp card.",
+      "description": "A digital punch card for your shop. Customers give their phone number at the counter, you punch their card, and when they reach the goal they get a free item. Tracks every customer and every punch.",
+      "fields": {
+        "shopName": {
+          "label": "Shop name"
+        },
+        "rewardText": {
+          "label": "Reward description"
+        },
+        "punchGoal": {
+          "label": "Punches to reward"
+        }
+      }
+    },
+    "e-signature": {
+      "name": "E-Signature",
+      "summary": "Send a document and get it signed online.",
+      "description": "Send any text-based document (terms, NDA, quote) to a recipient by email, and let them sign it in-browser with a drawn signature. Stores the signed signature image, the signer's name + IP, and a signed-at timestamp.",
+      "fields": {
+        "companyName": {
+          "label": "Your company name"
+        }
+      }
+    },
+    "email-verify": {
+      "name": "Email check",
+      "summary": "Check that people's email addresses are real.",
+      "description": "Issue a 6-digit verification code by email, store it with a short expiry, and verify it on the user's next request. Pairs naturally with the auth module: marks the user as email_verified once they confirm.",
+      "fields": {
+        "appName": {
+          "label": "App name"
+        },
+        "fromEmail": {
+          "label": "Send from"
+        },
+        "codeTtlMinutes": {
+          "label": "Code expires after (minutes)"
+        }
+      }
+    },
+    "two-factor": {
+      "name": "Extra sign-in check",
+      "summary": "Add a code sent by email when people sign in.",
+      "description": "Adds an extra step to login: after the user signs in, we email them a 6-digit code. Until they confirm it, their session is flagged unverified. Drop this in any project that uses the auth module to harden account access.",
+      "fields": {
+        "appName": {
+          "label": "App name"
+        },
+        "fromEmail": {
+          "label": "Send from"
+        }
+      }
+    },
+    "inbox": {
+      "name": "Private Inbox",
+      "summary": "Let members send each other private messages.",
+      "description": "1-to-1 private messaging between signed-in users. Pick a recipient, send messages, see read/unread state per conversation. Conversations are deduplicated by sender+recipient pair."
+    },
+    "referrals": {
+      "name": "Referrals",
+      "summary": "Reward people who invite their friends.",
+      "description": "Each user gets a unique referral code and a share URL. When someone signs up using that code, we log a conversion against the referrer. Includes a leaderboard of top referrers and a 'my code' page for sharing.",
+      "fields": {
+        "appName": {
+          "label": "App name"
+        },
+        "rewardCopy": {
+          "label": "Reward copy"
+        }
+      }
+    },
+    "reminders": {
+      "name": "Reminders",
+      "summary": "Send email reminders at a time you choose.",
+      "description": "Let users (or admins) schedule a reminder: 'email me X at 4pm Friday.' Reminders are stored with a due-at time and an email body; a separate worker (or manual 'send due now' flow) fires them when they're due.",
+      "fields": {
+        "fromEmail": {
+          "label": "Send from"
+        }
+      }
+    },
+    "tags": {
+      "name": "Labels",
+      "summary": "Add labels to things so they're easy to sort and find.",
+      "description": "A simple tagging system. Define tags (with optional color), then attach them to any row in any table via a polymorphic tagging table (entity_table + entity_id). Useful for categorizing leads, projects, or content."
+    },
+    "analytics-dashboard": {
+      "name": "Visitor stats",
+      "summary": "See how many people visit your pages.",
+      "description": "Track page views and arbitrary custom events ('signup', 'purchase'). Includes a beacon endpoint to call from any page, a counters API, and an admin dashboard with totals, top pages, and a 7-day trend."
+    },
+    "webhooks-in": {
+      "name": "Receive data from other apps",
+      "summary": "Receive information sent from other apps and services.",
+      "description": "Expose a public webhook URL that captures any JSON payload from external services (Stripe events, GitHub hooks, Zapier, etc.) into a table. Browse and re-process payloads from the admin dashboard."
+    },
+    "sms": {
+      "name": "Text messages",
+      "summary": "Send text messages to your customers.",
+      "description": "Send SMS messages to a phone number via Twilio's REST API. Stores every send in an outbox table for audit. Pair with reminders, two-factor, or any flow that wants to text instead of email.",
+      "fields": {
+        "twilioAccountSid": {
+          "label": "Twilio Account SID"
+        },
+        "twilioAuthToken": {
+          "label": "Twilio Auth Token"
+        },
+        "fromNumber": {
+          "label": "From number (E.164)"
+        }
+      }
+    },
+    "marketplace": {
+      "name": "Marketplace",
+      "summary": "Let other sellers sell through your shop.",
+      "description": "Turn a single-vendor shop into a multi-vendor marketplace. Sellers sign up, list products under their store, and an admin sees orders + commissions across all stores. Each product is owned by a seller, with an automatic commission split.",
+      "fields": {
+        "marketName": {
+          "label": "Marketplace name"
+        },
+        "commissionPct": {
+          "label": "Platform commission %"
+        }
+      }
+    },
+    "inventory": {
+      "name": "Inventory",
+      "summary": "Keep track of stock and know when it's running low.",
+      "description": "Track stock per SKU. Adjust quantities (receive new stock, log a sale, manual adjustment), see what's low, and download a CSV. Pairs with the shop module to keep your storefront's stock honest.",
+      "fields": {
+        "lowThreshold": {
+          "label": "Low-stock threshold"
+        }
+      }
+    },
+    "e-wallet": {
+      "name": "Store credit",
+      "summary": "Give customers store credit they can top up and spend.",
+      "description": "Give each user a credit balance. Add credits (top-up), spend credits (deduct), and view a full ledger of every transaction. Other modules can spend on behalf of the signed-in user via the spend flow.",
+      "fields": {
+        "currencySymbol": {
+          "label": "Currency symbol"
+        }
+      }
+    },
+    "event-tickets": {
+      "name": "Event Tickets",
+      "summary": "Sell tickets and check them at the door.",
+      "description": "Sell tickets for an event with multiple tiers (General, VIP, etc). Each issued ticket gets a unique code; render it as a QR for the holder. At the door, scan the QR to validate and mark the ticket as used.",
+      "fields": {
+        "eventName": {
+          "label": "Event name"
+        },
+        "eventDate": {
+          "label": "Event date"
+        },
+        "venue": {
+          "label": "Venue"
+        }
+      }
+    },
+    "queue": {
+      "name": "Virtual Queue",
+      "summary": "Let customers join a line without standing in it.",
+      "description": "A virtual waiting line. Customers join the queue from their phone, see their number and a live position counter. Staff page calls 'next' to advance, and the now-serving number broadcasts to all waiting visitors.",
+      "fields": {
+        "businessName": {
+          "label": "Business name"
+        }
+      }
+    },
+    "gym": {
+      "name": "Gym / Membership",
+      "summary": "Run memberships, classes and check-ins.",
+      "description": "A small gym or studio toolkit: membership plans (Monthly, 10-pack), class schedule with capacity, and a check-in flow that scans a member to log entry. Owner sees today's attendance and current active members.",
+      "fields": {
+        "gymName": {
+          "label": "Gym name"
+        }
+      }
+    },
+    "delivery-tracking": {
+      "name": "Delivery Tracking",
+      "summary": "Let customers follow their delivery.",
+      "description": "Track a delivery from pickup to dropoff. Drivers post lat/lng pings; customers see the latest pin on a map and a status timeline (assigned → picked up → on the way → delivered). Each delivery has a public tracking link.",
+      "fields": {
+        "businessName": {
+          "label": "Business name"
+        }
+      }
+    },
+    "whatsapp-order": {
+      "name": "WhatsApp Order",
+      "summary": "Let customers send you orders on WhatsApp.",
+      "description": "Let customers build a small cart on a public page, then 'order via WhatsApp' opens a chat with your business with the whole order pre-typed. Orders are also logged server-side so you have a record beyond the WhatsApp thread.",
+      "fields": {
+        "businessName": {
+          "label": "Business name"
+        },
+        "whatsappNumber": {
+          "label": "WhatsApp number (digits only, with country code)"
+        }
+      }
+    },
+    "phonebook": {
+      "name": "Phonebook / Directory",
+      "summary": "A contact list people can search.",
+      "description": "A searchable staff or member directory. Each entry has a photo, name, title, department, email, phone, and a short bio. Filter by department, search by name. Great for company intranets, school staff pages, or chamber-of-commerce member lists.",
+      "fields": {
+        "heading": {
+          "label": "Directory heading"
+        }
+      }
+    },
+    "claims": {
+      "name": "Claims & Receipts",
+      "summary": "Let people send a claim with a photo and follow its progress.",
+      "description": "Customers (or employees) submit a claim or receipt with a description, amount and a photo URL. Staff move it through a status workflow (received → reviewing → approved/rejected) and post a public reply. Great for warranty claims, expense reimbursements, or insurance receipts.",
+      "fields": {
+        "queueName": {
+          "label": "Queue heading"
+        }
+      }
+    },
+    "slider": {
+      "name": "Image Slider",
+      "summary": "Show pictures that slide by one after another.",
+      "description": "A homepage hero carousel that an admin can edit without touching code. Add slides (image, headline, subhead, CTA button + link), reorder, and the public carousel autoplays. Built with vanilla JS — no carousel library dependency.",
+      "fields": {
+        "intervalMs": {
+          "label": "Slide interval (ms)"
+        }
+      }
+    },
+    "before-after": {
+      "name": "Before / After Slider",
+      "summary": "Compare two photos side by side with a slider.",
+      "description": "Show off transformations. Each comparison has a 'before' and 'after' image; visitors drag a divider to wipe between them. Admin can add as many comparisons as they want. Great for renovations, fitness, hair, photo edits.",
+      "fields": {
+        "heading": {
+          "label": "Page heading"
+        }
+      }
+    },
+    "pdf-embed": {
+      "name": "PDF Library",
+      "summary": "Share documents people can read on the page.",
+      "description": "Maintain a small library of PDF documents (price lists, brochures, manuals, contracts). Each PDF gets a public viewer page with the browser's built-in PDF renderer embedded. Visitors can open them inline or download.",
+      "fields": {
+        "heading": {
+          "label": "Library heading"
+        }
+      }
+    },
+    "status-page": {
+      "name": "Status Page",
+      "summary": "Tell customers whether everything is running normally.",
+      "description": "A status page like statuspage.io. Define a list of services (API, Web, Database…), each with a current status indicator. Post incidents that progress through investigating → identified → resolved, with public updates pinned to the affected services.",
+      "fields": {
+        "appName": {
+          "label": "App / service name"
+        }
+      }
+    },
+    "routes": {
+      "name": "Routes & Itineraries",
+      "summary": "Share a route or trip plan, stop by stop.",
+      "description": "Build a multi-stop itinerary or route: add stops in order (name, address, lat/lng, notes), see them on a map with a connecting polyline, and share the finished route publicly via a clean printable page.",
+      "fields": {
+        "heading": {
+          "label": "Heading"
+        }
+      }
+    },
+    "birthdays": {
+      "name": "Birthdays",
+      "summary": "Wish your customers a happy birthday.",
+      "description": "Collect users' birthdays, then auto-email anyone whose birthday is today. Useful for customer love (a 'happy birthday' note + discount code) or for team/HR pages. Pair with a daily cron pointing at /api/run/send-today.",
+      "fields": {
+        "fromEmail": {
+          "label": "Send from"
+        },
+        "subject": {
+          "label": "Email subject"
+        },
+        "body": {
+          "label": "Email body (use '{{'name'}}' placeholder)"
+        }
+      }
+    },
+    "scratch-card": {
+      "name": "Scratch Card",
+      "summary": "Give out prizes with a scratch-to-win card.",
+      "description": "A scratch-off promo. Visitors enter their email, get a virtual scratch card; scratching reveals a random prize from your prize pool (weighted by stock). Each prize awarded is logged with the winner's email and code to claim it.",
+      "fields": {
+        "campaignName": {
+          "label": "Campaign name"
+        }
+      }
+    },
+    "paywall": {
+      "name": "Paywall",
+      "summary": "Keep some pages for paying members or people with a code.",
+      "description": "Lock premium content behind an access code or signed-in account. Define unlock codes (single-use or shared), and any page tagged data-nk-paywall is hidden until the visitor enters a valid code or signs in. Unlocks are remembered in localStorage for the visitor.",
+      "fields": {
+        "ctaCopy": {
+          "label": "Lock screen heading"
+        },
+        "subCopy": {
+          "label": "Lock screen subhead"
+        }
+      }
+    },
+    "archive": {
+      "name": "Content Archive",
+      "summary": "Keep older content searchable by year.",
+      "description": "Long-term archive for finished projects, old posts, decommissioned products — anything you want to keep around but not show in active feeds. Browse by year/month, full-text search across title + body. A 'restore to main feed' flag is reserved for downstream modules.",
+      "fields": {
+        "heading": {
+          "label": "Archive heading"
+        }
+      }
+    },
+    "share-app": {
+      "name": "Share App",
+      "summary": "Make it easy for people to share your app.",
+      "description": "A drop-in 'Share this app' page with native Web Share API (mobile), copy-to-clipboard, and pre-built share links for Twitter/X, Facebook, WhatsApp, Email and LinkedIn. Tracks every share by destination so you can see which channels work.",
+      "fields": {
+        "appName": {
+          "label": "App name"
+        },
+        "appUrl": {
+          "label": "Share URL"
+        },
+        "shareText": {
+          "label": "Default share text"
+        }
+      }
+    },
+    "reactions": {
+      "name": "Reactions",
+      "summary": "Let people react to posts with a quick emoji.",
+      "description": "A polymorphic reactions system. Any row in any table can have emoji reactions attached (     …). Each reaction is one row referencing (entity_table, entity_id, emoji, optional user_id). Fanwall, forum, blog, gallery — any module can opt in."
+    },
+    "scheduled-content": {
+      "name": "Scheduled Content",
+      "summary": "Write now and publish later.",
+      "description": "Write content (title + body) in draft, set a publish_at timestamp, and it appears on the public feed only after that time. A 'publish-due' flow can be cron-pinged to physically flip drafts to live; the public feed also filters in real time.",
+      "fields": {
+        "heading": {
+          "label": "Feed heading"
+        }
+      }
+    },
+    "drip-content": {
+      "name": "Drip Content",
+      "summary": "Release lessons a few days apart.",
+      "description": "Build a sequence of lessons that unlock per-user based on how many days since they enrolled. Lesson 1 unlocks day 0, lesson 2 unlocks day 3, etc. Great for onboarding, training courses, and email drips that pair with the email module.",
+      "fields": {
+        "programName": {
+          "label": "Program name"
+        }
+      }
+    },
+    "acknowledgments": {
+      "name": "Acknowledgments",
+      "summary": "Make sure people have read important messages.",
+      "description": "Publish a message (policy update, terms change, safety notice) that every visitor must explicitly acknowledge to dismiss. Each acknowledgment is logged with timestamp and (optional) user_id for audit. Admin sees real-time compliance counts."
+    },
+    "leaderboard": {
+      "name": "Leaderboard",
+      "summary": "Show a ranking of top scores.",
+      "description": "A generic leaderboard. Add scores against a user_label (any string — email, name, gym member, employee), the leaderboard ranks descending. Filter by category to maintain multiple boards (steps, sales, points). Submit-score endpoint can be called from any other module.",
+      "fields": {
+        "boardTitle": {
+          "label": "Board title"
+        },
+        "defaultCategory": {
+          "label": "Default category"
+        }
+      }
+    },
+    "dynamic-list": {
+      "name": "Custom list",
+      "summary": "Make your own list of anything, with a page to edit it.",
+      "description": "A mini-CMS: admin defines a 'list' (with a name and a JSON schema of fields), then adds rows through a generated form. Each list gets a public read page and an admin edit page. The 'make your own module' module — perfect when nothing else fits."
+    },
+    "countdown": {
+      "name": "Countdown Timer",
+      "summary": "Count down to a launch, sale or event.",
+      "description": "A live-updating countdown timer page targeting a future timestamp. Renders days/hours/minutes/seconds in a big hero, with optional headline, subhead, and post-zero CTA. Multiple campaigns can run in parallel; pick one with ?id=..."
+    },
+    "webview": {
+      "name": "Show another website",
+      "summary": "Show another website inside your app.",
+      "description": "A simple wrapper that embeds an external URL inside your app via a sandboxed iframe. Useful for embedding existing docs, dashboards, or third-party apps that don't have a native module yet. Configurable per page; supports allowlisted-only sources for safety."
+    },
+    "rss-reader": {
+      "name": "News feed reader",
+      "summary": "Show the latest posts from another website's news feed.",
+      "description": "Subscribe to one or more external RSS / Atom feeds and display the merged latest items inside your app. A refresh flow fetches feeds (cron-friendly), parses items, and stores them locally so the reader stays snappy.",
+      "fields": {
+        "heading": {
+          "label": "Reader heading"
+        }
+      }
+    },
+    "geofencer": {
+      "name": "Location alerts",
+      "summary": "Show something special when people arrive at a place.",
+      "description": "Define circular geofences (center lat/lng + radius). Visitors share their location; if they're inside a fence, the matching content/message shows. Logs every check-in so you can see hot zones. Pairs nicely with push-notifications or coupons.",
+      "fields": {
+        "heading": {
+          "label": "Heading"
+        }
+      }
+    },
+    "personalized-dashboard": {
+      "name": "Personalized Dashboard",
+      "summary": "Give each signed-in person their own home page.",
+      "description": "A personalized home page that greets the signed-in user by name and shows widgets they've pinned. Pin a widget (label + URL + icon) and it appears on your dashboard. Other modules can also auto-pin widgets (e.g. 'your unread inbox count') via the create-widget flow.",
+      "fields": {
+        "greeting": {
+          "label": "Greeting prefix"
+        }
+      }
+    },
+    "table-reservations": {
+      "name": "Table Reservations",
+      "summary": "Let guests book a table at your restaurant.",
+      "description": "Restaurant-specific table booking (distinct from generic appointments). Define your tables (with seats), accept reservations for a date+time+party size, prevent double-booking. Host sees today's grid; diners get a confirmation page.",
+      "fields": {
+        "restaurantName": {
+          "label": "Restaurant name"
+        },
+        "slotMinutes": {
+          "label": "Service slot length (min)"
+        }
+      }
+    },
+    "member-id-card": {
+      "name": "Member ID Card",
+      "summary": "Give members a digital ID card.",
+      "description": "Issue digital ID cards to members. Each card has a name, photo, unique member number, tier, issue/expiry date, and a scannable barcode (Code 128). Members open their card on a phone; staff scan it at the door to verify (uses the barcode/QR module's flow).",
+      "fields": {
+        "orgName": {
+          "label": "Organization name"
+        },
+        "cardTagline": {
+          "label": "Card tagline"
+        }
+      }
+    },
+    "media-playlist": {
+      "name": "Media Playlist",
+      "summary": "Put songs and videos together in one playlist.",
+      "description": "An admin-curated playlist combining audio and video items, played through a single unified player. The player auto-advances to the next item, supports skip / replay, and shows a queue panel with thumbnails.",
+      "fields": {
+        "playlistName": {
+          "label": "Playlist name"
+        }
+      }
+    },
+    "calculator-builder": {
+      "name": "Calculator Builder",
+      "summary": "Add a calculator, like a price or loan estimate.",
+      "description": "Build mini calculators with custom inputs and a formula (e.g. mortgage payment, BMI, savings projection, tip splitter, currency converter). Each calculator has a unique slug; embed it anywhere via /calc?slug=…"
+    },
+    "business-card-wallet": {
+      "name": "Business Card Wallet",
+      "summary": "Share and save digital business cards.",
+      "description": "Each user has a digital business card (name, title, company, contact, photo) plus a wallet of cards they've saved from others. Share your card via QR; recipients can scan and one-tap save to their wallet (and export as a vCard file for their phone's address book)."
+    },
+    "nutrition-tracker": {
+      "name": "Nutrition Tracker",
+      "summary": "Log meals and count calories.",
+      "description": "Log meals with calories, protein, carbs, and fat. See daily totals against your goals and a 7-day history chart. Common foods are pre-seeded for quick logging. Pair with habit-tracker for streaks.",
+      "fields": {
+        "kcalGoal": {
+          "label": "Daily kcal goal"
+        },
+        "proteinGoal": {
+          "label": "Daily protein goal (g)"
+        }
+      }
+    },
+    "project-portfolio": {
+      "name": "Project Portfolio",
+      "summary": "Track your projects and how far along they are.",
+      "description": "Portfolio view across multiple projects. Each project has a name, owner, status (planned/active/blocked/done), % complete, due date, and a tasks count. Use it to run a small team or freelance pipeline. Distinct from the single-board kanban module.",
+      "fields": {
+        "portfolioName": {
+          "label": "Portfolio name"
+        }
+      }
+    },
+    "purchase-order": {
+      "name": "Purchase orders",
+      "summary": "Request, approve and track orders from suppliers.",
+      "description": "A lightweight B2B purchase order workflow. Employees submit a PO (vendor, line items, total, justification); approvers see a queue and approve/reject; finance marks fulfilled & paid. Each PO gets a sequential number for accounting reference.",
+      "fields": {
+        "approverEmail": {
+          "label": "Approver email"
+        }
+      }
+    },
+    "app-walkthrough": {
+      "name": "App Walkthrough",
+      "summary": "Show new visitors a short tour of your app.",
+      "description": "An overlay that walks brand-new visitors through your app on first load. Define ordered steps (title, body, target selector); the overlay highlights each element with a spotlight and 'Next / Skip' controls. Skip state persists per browser so returning visitors aren't bothered.",
+      "fields": {
+        "skipLabel": {
+          "label": "Skip button label"
+        },
+        "doneLabel": {
+          "label": "Final-step label"
+        }
+      }
+    },
+    "abandoned-cart": {
+      "name": "Abandoned Cart Recovery",
+      "summary": "Remind shoppers who left items in their cart.",
+      "description": "Capture cart state when a visitor adds items but leaves before checkout. A reminder flow emails them an hour later with a one-click 'resume cart' link. Per-cart token-based recovery URL; logs whether they came back.",
+      "fields": {
+        "fromEmail": {
+          "label": "Send from"
+        },
+        "subject": {
+          "label": "Email subject"
+        },
+        "delayMinutes": {
+          "label": "Delay before reminder (minutes)"
+        }
+      }
+    },
+    "submissions-queue": {
+      "name": "Submissions Queue",
+      "summary": "Collect submissions and approve them before they go live.",
+      "description": "A Reddit-style submission flow: visitors submit content (title + body + optional image), it lands in a moderation queue, an admin approves/rejects, only approved items appear on the public feed. Tracks rejection reasons. Distinct from contact-form which is just an inbox.",
+      "fields": {
+        "feedHeading": {
+          "label": "Public feed heading"
+        },
+        "guidelines": {
+          "label": "Submission guidelines"
+        }
+      }
+    },
+    "store-locator": {
+      "name": "Store Locator",
+      "summary": "Help people find your nearest shop.",
+      "description": "Multi-location store finder with hours, services, distance-sort from the user's location, and a one-tap 'directions' link to Google/Apple Maps. Distinct from generic `places` — purpose-built for retail chains, franchises, branches, and partner locations.",
+      "fields": {
+        "brandName": {
+          "label": "Brand name"
+        }
+      }
+    },
+    "delivery-zones": {
+      "name": "Delivery Zones",
+      "summary": "Set delivery prices for different areas.",
+      "description": "Define delivery zones by postal code or distance from your shop. Each zone has its own delivery fee and minimum-order requirement. A 'quote' flow accepts an address (or postal code) and returns whether delivery is available and the cost.",
+      "fields": {
+        "shopLat": {
+          "label": "Shop latitude"
+        },
+        "shopLng": {
+          "label": "Shop longitude"
+        }
+      }
+    },
+    "live-stream": {
+      "name": "Live Stream",
+      "summary": "Show a live video stream.",
+      "description": "Host a live stream page that embeds an HLS .m3u8, a YouTube Live URL, or a Twitch channel, with a live chat sidebar (polling the realtime-chat flow). Admin sets the stream type + URL; viewers see the player + chat.",
+      "fields": {
+        "streamKind": {
+          "label": "Stream kind",
+          "options": {
+            "hls": "HLS (.m3u8)",
+            "youtube": "YouTube Live",
+            "twitch": "Twitch"
+          }
+        },
+        "streamUrl": {
+          "label": "Stream URL / channel ID"
+        },
+        "title": {
+          "label": "Stream title"
+        }
+      }
+    },
+    "channel-feed": {
+      "name": "Video channel feed",
+      "summary": "Show the latest videos from your YouTube or Vimeo channel.",
+      "description": "Subscribe to a YouTube or Vimeo channel feed and auto-display the latest videos in a grid. Refresh flow polls the channel's RSS endpoint; cached items stay snappy. Click a video to open it in an embedded player.",
+      "fields": {
+        "channelKind": {
+          "label": "Channel type",
+          "options": {
+            "youtube": "YouTube",
+            "vimeo": "Vimeo"
+          }
+        },
+        "channelId": {
+          "label": "Channel ID"
+        },
+        "heading": {
+          "label": "Section heading"
+        }
+      }
+    },
+    "in-app-ads": {
+      "name": "Banner ads",
+      "summary": "Show your own banner ads and see who clicks.",
+      "description": "Rotate house banner ads on your pages without an external ad network. Admin uploads creatives (image + headline + click URL + active dates), the runtime picks one weighted at random per page view, and every impression + click is logged for CTR analysis. Drop the snippet anywhere.",
+      "fields": {
+        "placement": {
+          "label": "Default placement label"
+        }
+      }
+    },
+    "user-groups": {
+      "name": "Member groups",
+      "summary": "Put members into groups, like VIP or staff.",
+      "description": "Add multi-group membership on top of the auth module's single role field. Define groups (Premium, Beta, VIP, Staff…) and attach any user to one or more. Other modules can check membership via the in-group flow before gating a feature."
+    }
+  }
+}

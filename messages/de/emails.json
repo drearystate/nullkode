@@ -1,0 +1,49 @@
+{
+  "aiQuota": {
+    "body80": "{reseller} hat diesen Monat {used} von {max} KI-Aktionen verbraucht. Sobald alle aufgebraucht sind, wird das Erstellen und Bearbeiten mit KI für dich und deine Kunden bis zum {resets} pausiert.",
+    "bodyFull": "{reseller} hat alle {max} KI-Aktionen für diesen Monat verbraucht. Das Erstellen und Bearbeiten mit KI ist für dich und deine Kunden bis zum {resets} pausiert.",
+    "includes": "Diese Zahl umfasst die KI-Aktionen deiner Kunden und deine eigenen.",
+    "raise": "Um das Limit zu erhöhen, wende dich an den Plattformbetreiber.",
+    "subject80": "{reseller}: 80 % der KI-Aktionen für diesen Monat sind verbraucht",
+    "subjectFull": "{reseller}: Die KI-Aktionen für diesen Monat sind aufgebraucht"
+  },
+  "alert": {
+    "field": "{name}: {value}",
+    "footer": "Du erhältst diese E-Mails, weil Benachrichtigungen für {table} aktiviert sind. Du kannst sie auf der Übersichtsseite deiner App deaktivieren.",
+    "intro": "Jemand hat gerade über {app} einen neuen Eintrag gesendet: {label}.",
+    "introTest": "Dies ist ein Test deiner Benachrichtigungen für {app}. Niemand hat etwas gesendet.",
+    "reply": "Antworte auf diese E-Mail, um {email} direkt zu antworten.",
+    "see": "Du findest ihn in den Daten deiner App:",
+    "subject": "Neuer Eintrag: {label}",
+    "subjectHeadline": "Neuer Eintrag: {label}: {headline}",
+    "subjectHeadlineTest": "(Test) Neuer Eintrag: {label}: {headline}",
+    "subjectTest": "(Test) Neuer Eintrag: {label}"
+  },
+  "alertSummary": {
+    "body": "In der letzten Stunde sind in {app} {count, plural, one {# weiterer neuer Eintrag} other {# weitere neue Einträge}} eingegangen.",
+    "heldBack": "Wir haben die einzelnen E-Mails zurückgehalten, damit dein Posteingang nicht überläuft. Du findest alle Einträge in den Daten deiner App:",
+    "subject": "{count, plural, one {# weiterer neuer Eintrag} other {# weitere neue Einträge}} in {app}"
+  },
+  "hi": "Hallo,",
+  "hiName": "Hallo {name},",
+  "invite": {
+    "body": "{inviter} hat ein Konto für dich auf {app} erstellt. Dort kannst du eigene Apps erstellen und veröffentlichen.",
+    "bodyPlatform": "Das Plattformteam hat ein Konto für dich auf {app} erstellt. Dort kannst du eigene Apps erstellen und veröffentlichen.",
+    "cta": "Lege dein Passwort fest und leg los:",
+    "expires": "Dieser Link kann einmal verwendet werden und ist 7 Tage gültig.",
+    "subject": "Du bist zu {app} eingeladen"
+  },
+  "reset": {
+    "forgotBody": "Jemand hat darum gebeten, das Passwort für dein {app}-Konto zurückzusetzen. Wenn du das warst, lege hier ein neues Passwort fest:",
+    "forgotExpires": "Der Link kann einmal verwendet werden und ist 2 Stunden gültig. Wenn du das nicht angefordert hast, kannst du diese E-Mail ignorieren.",
+    "issuedBody": "Hier ist ein Link, über den du ein neues Passwort für dein {app}-Konto festlegen kannst:",
+    "issuedExpires": "Der Link kann einmal verwendet werden und ist 2 Stunden gültig.",
+    "subject": "Setze dein {app}-Passwort zurück"
+  },
+  "test": {
+    "body": "Dies ist eine Test-E-Mail von {app}. Wenn du sie lesen kannst, funktioniert der E-Mail-Versand: Einladungen, Passwortlinks und App-Benachrichtigungen werden von {from} gesendet.",
+    "hello": "Hallo,",
+    "noReply": "Du musst nicht antworten.",
+    "subject": "Test-E-Mail von {app}"
+  }
+}

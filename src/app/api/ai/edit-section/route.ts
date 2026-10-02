@@ -9,9 +9,12 @@ import { generatedImageContext } from "@/lib/assets/generated";
 import { parsePageOutput } from "@/lib/ai/text";
 import { findLostWiring } from "@/lib/ai/edit-page";
 import { estimateTokens } from "@/lib/ai/budget";
-import { aiErrorFor, classifyAiFailure } from "@/lib/ai/errors";
+import { aiErrorFor, aiErrorWords, classifyAiFailure } from "@/lib/ai/errors";
+import { personLocale, translator } from "@/lib/ai/i18n";
 import { isQuestion, sameHtml } from "@/lib/ai/html-diff";
 import { flowRefMap, resolveFlowRefsWith, unconnectedNote } from "@/lib/ai/flow-refs";
+import { contentLanguageRule, getAppLocale } from "@/lib/app-locale";
+import { isLocale } from "@/i18n/locales";
 
 export const runtime = "nodejs";
 export const maxDuration = 300;
@@ -19,9 +22,11 @@ export const maxDuration = 300;
 const Body = z.object({
   projectId: z.string().min(1),
   pageId: z.string().min(1),
-  message: z.string().trim().min(2, "Say what you'd like to change.").max(2000),
-  sectionHtml: z.string().min(1).max(80_000, "That section is too large to edit in one go — select a smaller part."),
+  message: z.string().trim().min(2, "edit.sectionMessageRequired").max(2000),
+  sectionHtml: z.string().min(1).max(80_000, "edit.sectionTooLarge"),
   history: z.array(z.object({ role: z.enum(["user", "assistant"]), text: z.string().max(2000) })).max(8).optional(),
+  /** The page's language being edited (a multilingual app's translation); default: the app's. */
+  lang: z.string().max(16).optional(),
 });
 
 const SYSTEM = `You edit ONE section of a web page, as asked. The rest of the page is not your concern.
@@ -42,20 +47,30 @@ ${DESIGN_RULES_COMPACT}`;
 /** Ask AI, scoped to the selected section: small, fast and safe on any model. */
 export async function POST(req: Request) {
   const user = await getCurrentUser();
-  if (!user) return json({ error: "Please sign in." }, { status: 401 });
+  const locale = await personLocale();
+  const t = translator(locale, "ai");
+  if (!user) return json({ error: t("errors.signIn") }, { status: 401 });
   const quota = await checkAiQuota(user);
   if (quota) return quota;
   const parsed = Body.safeParse(await req.json().catch(() => null));
-  if (!parsed.success) return json({ error: parsed.error.issues[0]?.message ?? "Invalid request." }, { status: 400 });
-  const { projectId, pageId, message, sectionHtml, history } = parsed.data;
+  if (!parsed.success) {
+    // The schema's own messages are keys in ai.json ("edit.…").
+    const key = parsed.error.issues[0]?.message;
+    return json({ error: key?.startsWith("edit.") ? t(key) : t("errors.invalidRequest") }, { status: 400 });
+  }
+  const { projectId, pageId, message, sectionHtml, history, lang } = parsed.data;
   const page = await db.page.findFirst({ where: { id: pageId, projectId, project: { ownerId: user.id } }, select: { title: true } });
-  if (!page) return json({ error: "Page not found." }, { status: 404 });
+  if (!page) return json({ error: t("errors.pageNotFound") }, { status: 404 });
 
   // Charged before the AI runs; every failure below gives it back.
   const chargeId = await recordAiUsage(user.id, "edit", projectId);
   const usage = () => aiUsageSummary(user).catch(() => null);
   const context = history?.length ? `Recent conversation:\n${history.map((h) => `${h.role}: ${h.text}`).join("\n")}\n\n` : "";
-  const baseMessage = `${context}Page: ${page.title}\nRequest: ${message}\n\nSECTION HTML:\n${sectionHtml}${generatedImageContext(`${message} ${page.title}`, 3)}`;
+  // New or changed words are in the language of the page being edited.
+  const app = await getAppLocale(projectId).catch(() => null);
+  const contentLocale = isLocale(lang) && app?.locales.includes(lang) ? lang : app?.explicit ? app.locale : null;
+  const languageRule = contentLanguageRule(contentLocale);
+  const baseMessage = `${context}Page: ${page.title}\nRequest: ${message}\n\nSECTION HTML:\n${sectionHtml}${generatedImageContext(`${message} ${page.title}`, 3)}${languageRule ? `\n\n${languageRule}` : ""}`;
   const maxTokens = Math.min(16_000, Math.max(2_000, estimateTokens(sectionHtml) * 2 + 1_500));
 
   let problem = "";
@@ -82,7 +97,7 @@ export async function POST(req: Request) {
             html: null,
             css: null,
             noChange: true,
-            explanation: "Nothing was changed. To ask me a question, choose \"Whole page instead\" and ask again.",
+            explanation: t("edit.sectionQuestion"),
             usage: await usage(),
           });
         }
@@ -98,11 +113,11 @@ export async function POST(req: Request) {
       }
       // Point any flow the section names by slug at the real flow.
       const { html, leftover } = resolveFlowRefsWith(out.html, await flowRefMap(projectId));
-      const note = unconnectedNote(leftover);
-      return json({ html, css: out.css, explanation: note ? `Updated the selected section. ${note}` : "Updated the selected section.", usage: await usage() });
+      const note = unconnectedNote(leftover, t, locale);
+      return json({ html, css: out.css, explanation: note ? t("edit.sectionUpdatedNote", { note }) : t("edit.sectionUpdated"), usage: await usage() });
     } catch (err) {
       const refunded = await refundFailedAi(chargeId, user.id, classifyAiFailure(err));
-      return json({ error: aiErrorFor(user, err, "The AI couldn't make that change."), refunded, usage: await usage() }, { status: 502 });
+      return json({ error: aiErrorFor(user, err, t("edit.sectionFailed"), aiErrorWords(t)), refunded, usage: await usage() }, { status: 502 });
     }
   }
   const refunded = await refundFailedAi(chargeId, user.id, "unusable");
@@ -112,13 +127,13 @@ export async function POST(req: Request) {
       css: null,
       noChange: true,
       refunded,
-      explanation: refunded ? "I couldn't make that change. Nothing was changed, and it wasn't counted." : "I couldn't make that change. Nothing was changed.",
+      explanation: refunded ? t("edit.noChangeRefunded") : t("edit.noChange"),
       usage: await usage(),
     });
   }
   return json(
     {
-      error: `The AI couldn't change this section without breaking what it does. Try rewording the request, or select a smaller part.${refunded ? " This one didn't count." : ""}`,
+      error: t(refunded ? "edit.sectionBrokenRefunded" : "edit.sectionBroken"),
       refunded,
       usage: await usage(),
     },

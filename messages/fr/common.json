@@ -1,0 +1,12 @@
+{
+  "cancel": "Annuler",
+  "close": "Fermer",
+  "delete": "Supprimer",
+  "language": "Langue",
+  "languageHelp": "La langue dans laquelle l’éditeur s’affiche. Elle est enregistrée sur votre compte.",
+  "loading": "Chargement…",
+  "save": "Enregistrer",
+  "saved": "Enregistré.",
+  "saving": "Enregistrement…",
+  "tryAgain": "Une erreur s’est produite. Veuillez réessayer."
+}

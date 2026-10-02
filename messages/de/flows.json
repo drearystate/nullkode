@@ -1,0 +1,788 @@
+{
+  "activity": {
+    "all": "Alle Ausführungen",
+    "allHelp": "Alle aktuellen Ausführungen dieser Automatisierung anzeigen.",
+    "empty": "Noch nichts da. Hier erscheinen Ausführungen, wenn jemand diese Funktion in deiner App nutzt oder du auf „Testlauf“ klickst.",
+    "filterLabel": "Welche Ausführungen angezeigt werden",
+    "intro": "Was bei jeder Ausführung dieses Ablaufs passiert ist.",
+    "justNow": "gerade eben",
+    "last24h": "Letzte 24 Stunden: {total, plural, one {# Ausführung} other {# Ausführungen}}, {problems} mit einem Problem.",
+    "loadError": "Aktivitäten konnten nicht geladen werden.",
+    "ms": "{n} ms",
+    "noProblems": "Keine Probleme. Alle letzten Ausführungen waren erfolgreich.",
+    "nothingSent": "Bei diesem Lauf wurde nichts gesendet.",
+    "outcome": {
+      "answered": "Beantwortet",
+      "failed": "Fehlgeschlagen",
+      "ok": "Erfolgreich",
+      "warning": "Mit einem Problem beendet"
+    },
+    "outcomeHelp": {
+      "answered": "Beantwortet: Es kam eine Ablehnung zurück, zum Beispiel wegen eines falschen Passworts oder fehlender Angaben. Das ist normalerweise zu erwarten und kein Fehler.",
+      "failed": "Fehlgeschlagen: Diese Ausführung wurde bei einem Schritt mit einem Fehler angehalten und nicht beendet.",
+      "ok": "Erfolgreich: Alle Schritte haben funktioniert.",
+      "warning": "Mit einem Problem beendet: Die Ausführung war erfolgreich, aber unterwegs ist etwas schiefgegangen, zum Beispiel wurde eine E-Mail nicht gesendet."
+    },
+    "problemsOnly": "Nur Probleme",
+    "problemsOnlyHelp": "Nur Ausführungen anzeigen, die fehlgeschlagen sind oder mit einem Problem endeten, zum Beispiel eine E-Mail, die nicht gesendet wurde.",
+    "refresh": "Aktivität aktualisieren",
+    "refreshHelp": "Auf neue Ausführungen prüfen.",
+    "s": "{n} s",
+    "source": {
+      "event": "Aus deiner App",
+      "live": "Aus deiner App",
+      "schedule": "Nach Zeitplan",
+      "test": "Dein Testlauf",
+      "test-submission": "Testübermittlung"
+    },
+    "title": "Aktivität",
+    "titleHelp": "Jedes Mal, wenn diese Automatisierung ausgeführt wurde: ob sie funktioniert hat, wodurch sie gestartet wurde und was übermittelt wurde. So kannst du Probleme leichter erkennen.",
+    "took": "dauerte {duration}",
+    "whatTheySent": "Was eingegeben wurde",
+    "whatWasSent": "Was gesendet wurde",
+    "whatWasSentHelp": "Die Informationen, die mit dieser Ausführung eingegangen sind, zum Beispiel die Angaben aus einem Formular."
+  },
+  "api": {
+    "aiTooOften": "Dieser Ablauf verwendet KI und kann daher höchstens alle {minutes} Minuten ausgeführt werden. So wird dein KI-Kontingent nicht durch einen Zeitplan aufgebraucht.",
+    "chooseWhen": "Wähle aus, wann dies ausgeführt werden soll.",
+    "invalidInput": "Ungültige Eingabe",
+    "notFound": "Nicht gefunden"
+  },
+  "catalog": {
+    "aggregate": {
+      "help": "Zählt Datensätze oder summiert eine Spalte in einer Tabelle, zum Beispiel die Anzahl der Anmeldungen oder den Gesamtumsatz. Spätere Schritte können das Ergebnis verwenden.",
+      "label": "Datensätze zählen oder summieren"
+    },
+    "ai_prompt": {
+      "help": "Gibt der KI eine Frage oder Aufgabe, zum Beispiel eine Nachricht zusammenzufassen. Spätere Schritte können die Antwort verwenden. Jeder Durchlauf wird auf dein KI-Kontingent angerechnet.",
+      "label": "KI fragen"
+    },
+    "branch": {
+      "help": "Prüft etwas und teilt die Automatisierung in zwei Wege auf: Der eine wird ausgeführt, wenn die Bedingung zutrifft, der andere, wenn nicht.",
+      "label": "Wenn dies, sonst das"
+    },
+    "bulk_delete": {
+      "help": "Löscht auf einmal dauerhaft alle Zeilen einer Tabelle, die deinen Bedingungen entsprechen. Das lässt sich nicht rückgängig machen.",
+      "label": "Mehrere Zeilen löschen"
+    },
+    "bulk_insert": {
+      "help": "Fügt gleichzeitig mehrere Zeilen zu einer Tabelle hinzu – aus einer Liste, die ein vorheriger Schritt erstellt hat.",
+      "label": "Mehrere Zeilen hinzufügen"
+    },
+    "bulk_update": {
+      "help": "Ändert auf einmal alle Zeilen einer Tabelle, die deinen Bedingungen entsprechen.",
+      "label": "Mehrere Zeilen ändern"
+    },
+    "check_role": {
+      "help": "Prüft, ob die angemeldete Person eine bestimmte Rolle hat, zum Beispiel Admin. Füge danach einen Schritt „Wenn dies, sonst das“ hinzu, um festzulegen, was passieren soll.",
+      "label": "Berechtigungen prüfen"
+    },
+    "clear_session": {
+      "help": "Meldet die Person auf diesem Gerät ab.",
+      "label": "Person abmelden"
+    },
+    "custom_js": {
+      "help": "Für Entwickler: Führt einen kurzen JavaScript-Code aus, den du selbst schreibst. Verwende diesen Schritt nur, wenn kein anderer das Gewünschte erledigt.",
+      "label": "Eigener Code"
+    },
+    "delay": {
+      "help": "Hält die Automatisierung einige Sekunden lang an (bis zu 60), bevor der nächste Schritt ausgeführt wird.",
+      "label": "Warten"
+    },
+    "delete": {
+      "help": "Entfernt dauerhaft die Datensätze aus einer Tabelle, die deinen Bedingungen entsprechen. Das lässt sich nicht rückgängig machen.",
+      "label": "Datensätze löschen"
+    },
+    "email": {
+      "help": "Sendet eine E-Mail, zum Beispiel eine Bestellbestätigung an einen Kunden oder eine Nachricht an dich selbst.",
+      "label": "E-Mail senden"
+    },
+    "get_session": {
+      "help": "Ermittelt, wer gerade angemeldet ist, falls jemand angemeldet ist, und gibt Name, E-Mail-Adresse und Rolle zurück. Spätere Schritte können diese Angaben verwenden.",
+      "label": "Wer ist angemeldet?"
+    },
+    "hash_password": {
+      "help": "Verschlüsselt ein Passwort, damit es sicher gespeichert werden kann. Verwende diesen Schritt, bevor du das Passwort eines neuen Kontos speicherst. Das ursprüngliche Passwort lässt sich nicht wiederherstellen.",
+      "label": "Passwort schützen"
+    },
+    "http_request": {
+      "help": "Kontaktiert eine andere Website oder einen Onlinedienst, um Informationen abzurufen oder weiterzugeben. Spätere Schritte können die Antwort verwenden.",
+      "label": "Andere Website aufrufen"
+    },
+    "insert": {
+      "help": "Speichert einen neuen Datensatz (eine neue Zeile) in einer deiner Tabellen, zum Beispiel die Angaben, die jemand in ein Formular eingegeben hat.",
+      "label": "Datensatz hinzufügen"
+    },
+    "lookup": {
+      "help": "Sucht für jeden Datensatz, den ein vorheriger Schritt gefunden hat, den passenden Datensatz in einer anderen Tabelle. So lassen sich zum Beispiel Kundendaten zu jeder Bestellung hinzufügen.",
+      "label": "Zugehörigen Datensatz suchen"
+    },
+    "math": {
+      "help": "Berechnet mit zwei Werten eine Zahl: addieren, subtrahieren, multiplizieren, dividieren oder den Rest berechnen. Spätere Schritte können das Ergebnis verwenden.",
+      "label": "Berechnung ausführen"
+    },
+    "parse_json": {
+      "help": "Wandelt Text mit strukturierten Daten (oft von anderen Websites gesendet) in einzelne Werte um, die spätere Schritte auswählen können.",
+      "label": "Daten aus Text auslesen"
+    },
+    "query": {
+      "help": "Sucht gespeicherte Datensätze in einer deiner Tabellen (eine Tabelle ist wie eine Tabellenkalkulation). Auf Wunsch werden nur Datensätze gefunden, die deinen Bedingungen entsprechen. Spätere Schritte können die Ergebnisse verwenden.",
+      "label": "Datensätze finden"
+    },
+    "response": {
+      "help": "Sendet eine Antwort an die Seite oder das Formular zurück, das die Automatisierung gestartet hat, zum Beispiel eine Erfolgsmeldung oder die gefundenen Datensätze.",
+      "label": "Antwort senden"
+    },
+    "send_push": {
+      "help": "Sendet eine Benachrichtigung an alle, die Benachrichtigungen für deine App aktiviert haben – auf ihrem Smartphone oder Computer.",
+      "label": "Benachrichtigung senden"
+    },
+    "set": {
+      "help": "Speichert einen Wert unter einem Namen deiner Wahl, damit spätere Schritte ihn wiederverwenden können – wie eine Haftnotiz für diesen Durchlauf.",
+      "label": "Wert speichern"
+    },
+    "set_session": {
+      "help": "Meldet die Person auf diesem Gerät an, damit deine App sie bei ihren nächsten Besuchen wiedererkennt.",
+      "label": "Person anmelden"
+    },
+    "sheets_append": {
+      "help": "Fügt einer verbundenen Google-Tabelle eine neue Zeile hinzu, zum Beispiel als Protokoll aller gesendeten Formulare. Das funktioniert nur mit Tabellen, die deine App bearbeiten darf, nicht mit schreibgeschützten Tabellen.",
+      "label": "Zeile zu einer Google-Tabelle hinzufügen"
+    },
+    "sheets_read": {
+      "help": "Liest die Zeilen einer verbundenen Google-Tabelle (bis zu 1.000), damit spätere Schritte sie verwenden können.",
+      "label": "Google-Tabelle lesen"
+    },
+    "trigger": {
+      "help": "Hier beginnt die Automatisierung: wenn eine Seite oder ein Formular in deiner App sie verwendet oder nach einem festgelegten Zeitplan. Verbinde sie mit dem ersten Schritt, der ausgeführt werden soll.",
+      "label": "Wenn die App dies aufruft"
+    },
+    "update": {
+      "help": "Ändert Datensätze, die bereits in einer Tabelle gespeichert sind. Du wählst aus, welche Datensätze geändert werden und welche neuen Werte sie erhalten.",
+      "label": "Datensätze ändern"
+    },
+    "verify_password": {
+      "help": "Prüft, ob das eingegebene Passwort mit dem verschlüsselten Passwort übereinstimmt, das du gespeichert hast. Verwende diesen Schritt, wenn sich jemand anmeldet.",
+      "label": "Passwort prüfen"
+    }
+  },
+  "categories": {
+    "ai": "KI",
+    "auth": "Konten",
+    "data": "Gespeicherte Daten",
+    "integration": "Senden und verbinden",
+    "logic": "Entscheidungen und Werte",
+    "response": "Abschließen",
+    "trigger": "Start"
+  },
+  "describe": {
+    "anEmailOff": "Eine E-Mail wurde nicht gesendet, weil E-Mail nicht eingerichtet ist",
+    "answered": "Mit „{message}“ geantwortet.",
+    "answeredCode": "Mit Code {status} geantwortet.",
+    "didAndNote": "{did}; {note}.",
+    "done": {
+      "ai": "die KI gefragt",
+      "deleted": "aus {table} gelöscht",
+      "emailed": "E-Mail an {address} gesendet",
+      "http": "anderen Dienst kontaktiert",
+      "saved": "in {table} gespeichert",
+      "sentEmail": "E-Mail gesendet",
+      "sentPush": "Benachrichtigung gesendet",
+      "sheetsAppend": "eine Zeile zu Google Sheets hinzugefügt",
+      "signedIn": "jemanden angemeldet",
+      "signedOut": "jemanden abgemeldet",
+      "updated": "{table} aktualisiert"
+    },
+    "emailNotSent": "Die E-Mail wurde nicht gesendet ({reason})",
+    "emailOff": "Die E-Mail wurde nicht gesendet, weil E-Mail nicht eingerichtet ist",
+    "failed": {
+      "ai": "Der KI-Schritt hat nicht geantwortet",
+      "delete": "Löschen aus {table} nicht möglich",
+      "didntFinish": "Nicht abgeschlossen",
+      "email": "E-Mail konnte nicht gesendet werden",
+      "http": "Anderer Dienst nicht erreichbar",
+      "push": "Benachrichtigung konnte nicht gesendet werden",
+      "read": "Lesen von {table} nicht möglich",
+      "save": "Speichern in {table} nicht möglich",
+      "stoppedAt": "Bei „{label}“ angehalten",
+      "update": "{table} konnte nicht aktualisiert werden"
+    },
+    "failedOnly": "{failed}.",
+    "failedWhy": "{failed}: {why}",
+    "failedWhyPeriod": "{failed}: {why}.",
+    "noProblems": "Ohne Probleme abgeschlossen.",
+    "sent": "Gesendet",
+    "sentence": "{text}.",
+    "signUps": "Anmeldungen",
+    "yourData": "deine Daten"
+  },
+  "editor": {
+    "addStep": "Schritt hinzufügen",
+    "addStepHelp": "Damit kann deine Automatisierung etwas tun. Klicke auf einen Schritt, um ihn hinzuzufügen. Ziehe dann vom rechten Rand zum nächsten Schritt, um die Reihenfolge festzulegen.",
+    "deleteStep": "Schritt löschen",
+    "deleteStepHelp": "Entfernt diesen Schritt und seine Verbindungen. Du kannst auch die Entf-Taste drücken.",
+    "emptyBody": "Wähle einen Schritt aus, um seine Aktion anzupassen. Füge links weitere hinzu und verbinde sie in der gewünschten Reihenfolge.",
+    "emptyTitle": "Jeder Schritt hat einen Zweck.",
+    "flow": "Ablauf",
+    "handleFalse": "Unterer Punkt: Ziehe von hier zu dem Schritt, der ausgeführt werden soll, wenn die Prüfung nicht zutrifft.",
+    "handleIn": "Hier ist der vorherige Schritt verbunden.",
+    "handleOut": "Ziehe von hier zum nächsten Schritt, um festzulegen, was danach ausgeführt wird.",
+    "handleTrue": "Oberer Punkt: Ziehe von hier zu dem Schritt, der ausgeführt werden soll, wenn die Prüfung zutrifft.",
+    "pausedTest": "Diese Automatisierung ist pausiert. Aktiviere sie, um sie zu testen.",
+    "problemsBadge": "{count} mit einem Problem in den letzten 24 Stunden",
+    "running": "Wird ausgeführt …",
+    "saveFailed": "Speichern fehlgeschlagen",
+    "saved": "Gespeichert",
+    "searchHelp": "Gib ein Wort wie „E-Mail“ oder „speichern“ ein, um schnell einen Schritt zu finden.",
+    "searchLabel": "Ablaufschritte suchen",
+    "searchPlaceholder": "Schritt suchen …",
+    "tabActivity": "Aktivität",
+    "tabActivityHelp": "Sieh dir an, wann diese Automatisierung ausgeführt wurde, ob sie funktioniert hat und was Personen gesendet haben, wenn etwas schiefging.",
+    "tabSchedule": "Zeitplan",
+    "tabScheduleHelp": "Wähle aus, ob die Automatisierung bei der Nutzung deiner App oder selbstständig zu festgelegten Zeiten läuft, zum Beispiel jeden Morgen.",
+    "tabSteps": "Schritte",
+    "tabStepsHelp": "Erstelle die Automatisierung: Füge Schritte hinzu und verbinde sie in der gewünschten Reihenfolge.",
+    "tabsLabel": "Ablaufansichten",
+    "testRun": "Probelauf",
+    "testRunHelp": "Führt die Automatisierung sofort einmal mit deinen zuletzt gespeicherten Änderungen aus und zeigt das Ergebnis unten an. Die Schritte werden tatsächlich ausgeführt (zum Beispiel Speichern oder E-Mails senden) und erscheinen in der Aktivität.",
+    "webAddress": "Webadresse (für Entwickler)",
+    "webAddressHelp": "Die Webadresse, über die andere Dienste oder dein eigener Code diese Automatisierung starten können. Du brauchst sie nur, wenn du etwas außerhalb des Studios verbindest."
+  },
+  "enabledSwitch": {
+    "failed": "Änderung nicht möglich. Versuch es noch einmal.",
+    "help": "Wenn du die Automatisierung pausierst, wird nichts ausgeführt. Alles in deiner App, das sie nutzt, zum Beispiel ein Formular, gibt stattdessen einen Fehler aus. Die Änderung gilt sofort für deine live geschaltete App – du musst nichts veröffentlichen.",
+    "helpScheduled": "Wenn du die Automatisierung pausierst, werden geplante Ausführungen angehalten. Alles in deiner App, das sie nutzt, gibt stattdessen einen Fehler aus. Die Änderung gilt sofort – du musst nichts veröffentlichen.",
+    "label": "Diese Automatisierung ausführen",
+    "on": "An",
+    "paused": "Pausiert"
+  },
+  "inspector": {
+    "add": "Hinzufügen",
+    "addCondition": "Bedingung hinzufügen",
+    "addConditionHelp": "Fügt eine weitere Regel hinzu. Ein Eintrag muss alle Regeln erfüllen, um gezählt zu werden.",
+    "addField": "Feld hinzufügen",
+    "addFieldHelp": "Fügt eine weitere Zeile mit einem Namen und einem Wert hinzu.",
+    "advanced": "Erweitert",
+    "agg": {
+      "avg": "Durchschnitt einer Spalte",
+      "count": "Einträge zählen",
+      "max": "Größter Wert in einer Spalte",
+      "min": "Kleinster Wert in einer Spalte",
+      "sum": "Spaltenwerte addieren"
+    },
+    "aggregateEmptyHint": "Leer lassen, um alle Zeilen einzubeziehen. Mehrere Bedingungen müssen alle erfüllt sein.",
+    "biggestFirst": "Größtes Ergebnis zuerst",
+    "body": "Inhalt",
+    "bodyEmpty": "Füge die Felder hinzu, die im Anfrageinhalt gesendet werden sollen.",
+    "bodyHelp": "Die zu sendenden Informationen. Jede Zeile enthält einen Namen und einen Wert. In der Anleitung des anderen Dienstes steht, welche Namen erwartet werden.",
+    "branchHint": "Verbinde den oberen Punkt mit dem Ablauf, wenn dies zutrifft, und den unteren Punkt mit dem Ablauf, wenn nicht.",
+    "bulkInsertHint": "Der Schritt wird mit einem Fehler beendet, wenn dieser Schritt keine Liste erstellt hat oder ein Element eine ID hat, die bereits in der Tabelle vorhanden ist.",
+    "byAsc": "Nach {column}, A bis Z",
+    "byDesc": "Nach {column}, Z bis A",
+    "choose": "— auswählen —",
+    "clearSession": "Meldet die Person ab, die deine App auf diesem Gerät nutzt. Sie muss sich beim nächsten Mal wieder anmelden. Hier gibt es nichts einzurichten.",
+    "clearSessionHelp": "Dieser Schritt hat keine Einstellungen. Er entfernt die Anmeldung, die deine App auf dem Gerät der Person gespeichert hat.",
+    "closeHelp": "Liste schließen, ohne etwas hinzuzufügen.",
+    "columnHelp": "Die zu prüfende Spalte, zum Beispiel E-Mail oder Status.",
+    "deleteHelp": "Entfernt diesen Schritt und seine Verbindungen aus der Automatisierung. Das lässt sich nicht rückgängig machen – du müsstest ihn neu hinzufügen.",
+    "deleteNeedsCondition": "Zum Löschen ist eine Bedingung erforderlich – sonst schlägt der Schritt fehl.",
+    "fields": {
+      "aiPrompt": {
+        "help": "Die Frage oder Aufgabe für die KI. Füge Werte ein, zum Beispiel die Nachricht des Kunden.",
+        "label": "Prompt"
+      },
+      "aiSystem": {
+        "help": "Hintergrundinformationen für die KI, die jedes Mal gleich bleiben, zum Beispiel „Antworte in einem freundlichen Satz“ oder „Du arbeitest in einer Bäckerei“.",
+        "label": "Systemanweisungen (optional)"
+      },
+      "dataSource": {
+        "help": "Hier werden deine Daten gespeichert. Die meisten Apps haben nur ihre eigene integrierte Datenbank. Wähle nur dann eine andere aus, wenn du selbst eine verbunden hast.",
+        "label": "Datenquelle"
+      },
+      "emailFrom": {
+        "help": "Die Absenderadresse, die in der E-Mail angezeigt wird. Lass das Feld leer, um die übliche Absenderadresse des Servers zu verwenden.",
+        "label": "Von (optional)"
+      },
+      "emailMessage": {
+        "help": "Der Inhalt der E-Mail. Füge Werte ein, um die Nachricht persönlicher zu gestalten, zum Beispiel den Namen der Person oder Details zur Bestellung.",
+        "label": "Nachricht"
+      },
+      "emailSubject": {
+        "help": "Der Betreff der E-Mail. Du kannst Werte einfügen, zum Beispiel eine Bestellnummer.",
+        "label": "Betreff"
+      },
+      "emailTo": {
+        "help": "Wer die E-Mail erhält. Gib eine Adresse ein oder füge eine aus dem Formular ein, zum Beispiel die E-Mail-Adresse der Person. Trenne mehrere Adressen durch Kommas.",
+        "label": "An"
+      },
+      "firstValue": {
+        "help": "Die erste Zahl. Gib sie ein oder füge eine aus einem vorherigen Schritt ein.",
+        "label": "Erster Wert"
+      },
+      "groupBy": {
+        "help": "Gibt ein Ergebnis pro Wert in dieser Spalte aus, zum Beispiel die Anzahl pro Status. Wähle „Gesamtsumme“, um eine einzelne Zahl zu erhalten.",
+        "label": "Gruppieren nach"
+      },
+      "groupLimit": {
+        "help": "Die maximale Anzahl der zurückgegebenen Gruppen: bis zu 1.000. Weitere Gruppen werden nicht berücksichtigt.",
+        "label": "Maximale Anzahl an Gruppen"
+      },
+      "hashInput": {
+        "help": "Das Passwort, das umgewandelt werden soll, meist das aus deinem Anmeldeformular. Speichere das umgewandelte Ergebnis, niemals das ursprüngliche Passwort.",
+        "label": "Zu schützendes Passwort"
+      },
+      "is": {
+        "help": "Legt fest, wie die beiden Werte verglichen werden. „Enthält“ sucht den Text irgendwo im Wert. „Ist vorhanden“ prüft nur, ob der erste Wert nicht leer ist.",
+        "label": "Ist"
+      },
+      "javascript": {
+        "help": "Dein Code. Verwende vars.name für die Ergebnisse vorheriger Schritte und trigger.name für die übermittelten Daten. Deine Rückgabe wird für spätere Schritte gespeichert.",
+        "label": "JavaScript"
+      },
+      "jsonInput": {
+        "help": "Text mit Daten im JSON-Format, das viele Websites verwenden. Meist ist das die Antwort aus einem Schritt „Andere Website aufrufen“. Der Schritt schlägt fehl, wenn der Text nicht diesem Format entspricht.",
+        "label": "JSON-Text zum Auslesen"
+      },
+      "lookupAs": {
+        "help": "Ein Name für die ergänzten Details in jedem Datensatz, zum Beispiel customer. Ein Treffer wird als einzelner Datensatz gespeichert, mehrere Treffer als Liste mit bis zu 10 Einträgen.",
+        "label": "Details speichern unter"
+      },
+      "lookupDataSource": {
+        "help": "Hier ist die andere Liste gespeichert. Die meisten Apps haben nur ihre eigene integrierte Datenbank.",
+        "label": "Datenquelle"
+      },
+      "lookupIn": {
+        "help": "Die Liste der Datensätze, aus der die Details stammen, zum Beispiel Kunden.",
+        "label": "Suchen in"
+      },
+      "lookupMatch": {
+        "help": "Die Spalte in dieser Liste, deren Wert mit dem obigen Wert übereinstimmen muss. Das ist normalerweise id.",
+        "label": "Abzugleichende Spalte dort"
+      },
+      "lookupPointer": {
+        "help": "Die Spalte in diesen Datensätzen, die die ID des anderen Datensatzes enthält, zum Beispiel customer_id bei einer Bestellung. Datensätze ohne Wert in dieser Spalte bleiben unverändert.",
+        "label": "Spalte mit Verweis auf den anderen Datensatz"
+      },
+      "lookupSource": {
+        "help": "Die Liste, die ein vorheriger Schritt gefunden hat, zum Beispiel die Bestellungen aus einem Schritt „Datensätze finden“. Der Schritt endet mit einem Fehler, wenn dieser Schritt keine Liste zurückgegeben hat.",
+        "label": "Datensätze, die ergänzt werden sollen"
+      },
+      "method": {
+        "help": "Die Art der Anfrage. GET ruft Informationen ab, POST sendet neue Informationen, PUT und PATCH ändern sie und DELETE entfernt sie. In der Anleitung des anderen Dienstes steht, welche Methode du verwenden sollst.",
+        "label": "Methode"
+      },
+      "ofColumn": {
+        "help": "Die Spalte, die verwendet werden soll, zum Beispiel Betrag oder Preis. Summe und Durchschnitt funktionieren nur mit Zahlenspalten.",
+        "label": "Diese Spalte"
+      },
+      "operator": {
+        "help": "Legt fest, was mit den beiden Zahlen passiert. Der Rest ist das, was nach dem Teilen übrig bleibt (7 geteilt durch 2 ergibt einen Rest von 1). Teilen durch null ergibt 0.",
+        "label": "Rechenart"
+      },
+      "orderGroups": {
+        "help": "Legt fest, welche Gruppen im Ergebnis zuerst erscheinen, zum Beispiel der meistgenutzte Status ganz oben.",
+        "label": "Gruppen sortieren"
+      },
+      "plainPassword": {
+        "help": "Das Passwort, das die Person gerade in dein Anmeldeformular eingegeben hat.",
+        "label": "Passwort der Person"
+      },
+      "pushMessage": {
+        "help": "Der Text unter dem Titel. Halte ihn kurz, da lange Nachrichten auf dem Smartphone abgeschnitten werden.",
+        "label": "Nachricht"
+      },
+      "pushTitle": {
+        "help": "Die fett gedruckte erste Zeile der Benachrichtigung. Du kannst Werte einfügen, zum Beispiel einen Namen aus einem vorherigen Schritt.",
+        "label": "Titel"
+      },
+      "pushUrl": {
+        "help": "Die Seite deiner App, die geöffnet wird, wenn jemand auf die Benachrichtigung tippt, zum Beispiel /menu. Lass das Feld leer, um die Startseite deiner App zu öffnen.",
+        "label": "Diese Seite beim Antippen öffnen (optional)"
+      },
+      "roleNeeded": {
+        "help": "Die Rolle, die die Person haben muss, zum Beispiel Admin oder Manager. Groß- und Kleinschreibung spielen keine Rolle.",
+        "label": "Erforderliche Rolle"
+      },
+      "roleSource": {
+        "help": "Lass das Feld leer, um die Rolle der angemeldeten Person aus einem vorherigen Schritt „Wer ist angemeldet?“ zu verwenden. Ändere den Wert nur, wenn ein vorheriger Schritt die Rolle unter einem anderen Namen gespeichert hat.",
+        "label": "Wo die Rolle steht (optional)"
+      },
+      "rowsToAdd": {
+        "help": "Eine Liste aus einem vorherigen Schritt, zum Beispiel die Datensätze, die ein Schritt „Datensätze finden“ gefunden hat. Jeder Eintrag wird zu einer neuen Zeile. Die Namen müssen daher mit den Spalten dieser Tabelle übereinstimmen.",
+        "label": "Hinzugefügte Zeilen"
+      },
+      "secondValue": {
+        "help": "Die zweite Zahl. Gib sie ein oder füge eine aus einem vorherigen Schritt ein.",
+        "label": "Zweiter Wert"
+      },
+      "seconds": {
+        "help": "Wie lange vor dem nächsten Schritt gewartet wird. Die Person, die deine App nutzt, muss ebenfalls warten – halte die Zeit also kurz.",
+        "label": "Sekunden (0–60)"
+      },
+      "sheetSource": {
+        "help": "Das Google Sheet, das mit deiner App verbunden ist. Wenn die Liste leer ist, füge zuerst auf der Datenseite deiner App unter „Erweitert“ eines hinzu.",
+        "label": "Google-Sheets-Datenquelle"
+      },
+      "sheetTab": {
+        "help": "Der Name des Tabs unten in der Tabelle, genau wie angezeigt, zum Beispiel Sheet1.",
+        "label": "Name des Tabellenblatts"
+      },
+      "stepName": {
+        "help": "Der Name dieses Schritts. Er wird im Diagramm auf dem Feld angezeigt, damit du die Schritte unterscheiden kannst. Er ändert nicht, was der Schritt tut.",
+        "label": "Schrittname"
+      },
+      "storedHash": {
+        "help": "Der umgewandelte Passwortwert, den du bei der Anmeldung gespeichert hast. Er stammt meist aus einem Schritt „Datensätze suchen“, der das Konto gefunden hat.",
+        "label": "Gespeicherter Passwort-Hash"
+      },
+      "table": {
+        "help": "Welche Tabelle verwendet werden soll. Eine Tabelle ist wie eine Tabellenkalkulation: eine Zeile pro Datensatz, zum Beispiel pro Bestellung oder Anmeldung.",
+        "label": "Liste der Datensätze"
+      },
+      "thisValue": {
+        "help": "Der Wert, mit dem verglichen wird. Gib ihn ohne Anführungszeichen ein oder füge einen Wert ein. Bei „ist gleich“ muss alles genau übereinstimmen, auch Groß- und Kleinbuchstaben.",
+        "label": "Dieser Wert"
+      },
+      "url": {
+        "help": "Die Webadresse des Dienstes, den du aufrufen möchtest. Sie muss mit https:// beginnen. Du kannst Werte darin einfügen.",
+        "label": "URL"
+      },
+      "userId": {
+        "help": "Die ID des Kontos, bei dem die Person angemeldet werden soll. Sie stammt meist aus dem Datensatz, den ein Schritt „Datensätze suchen“ gefunden hat. Deine App merkt sich die Person dann, bis sie sich abmeldet.",
+        "label": "Benutzer-ID"
+      },
+      "value": {
+        "help": "Was gespeichert werden soll. Gib Text ein, füge einen Wert aus dem Formular oder einem vorherigen Schritt ein oder kombiniere beides.",
+        "label": "Wert"
+      },
+      "variableName": {
+        "help": "Unter diesem Namen wird der Wert gespeichert. Spätere Schritte können ihn in ihrer Liste unter „Einfügen“ auswählen.",
+        "label": "Variablenname"
+      },
+      "whatToWorkOut": {
+        "help": "„Zählen“ gibt die Anzahl der Datensätze an. „Summe“, „Durchschnitt“, „Kleinster“ und „Größter“ beziehen sich auf eine Spalte, zum Beispiel die Summe einer Betragsspalte.",
+        "label": "Was soll berechnet werden?"
+      },
+      "whenThisValue": {
+        "help": "Der Wert, der geprüft werden soll, meist etwas aus dem Formular oder einem vorherigen Schritt. Wähle ihn über „Einfügen“ aus.",
+        "label": "Wenn dieser Wert"
+      }
+    },
+    "fromRequest": "Aus der Anfrage",
+    "fromRequestHelp": "„Die Anfrage“ enthält die Daten, die die Seite oder das Formular beim Start dieser Automatisierung gesendet hat. Gib den Namen eines Felds ein, zum Beispiel E-Mail, und drücke dann die Eingabetaste oder auf „Hinzufügen“.",
+    "fromStepHelp": "Fügt das Ergebnis dieses früheren Schritts hinzu, zum Beispiel die gefundenen Datensätze oder die erhaltene Antwort.",
+    "fromSteps": "Aus vorherigen Schritten",
+    "groupedResult": "Das Ergebnis ist eine Liste mit einer Zeile pro {column}. Jede Zeile enthält den Wert von {column} und den zugehörigen Wert.",
+    "helper": {
+      "date": "Heutiges Datum",
+      "dateHelp": "Das Datum der Ausführung, ohne Uhrzeit.",
+      "now": "Aktuelles Datum und Uhrzeit",
+      "nowHelp": "Das genaue Datum und die Uhrzeit, zu denen dieser Schritt ausgeführt wird.",
+      "uuid": "Zufällige ID",
+      "uuidHelp": "Bei jeder Ausführung ein neuer Zufallscode – praktisch als eindeutige Referenznummer."
+    },
+    "helpers": "Hilfsfunktionen",
+    "insert": "Einfügen",
+    "insertHelp": "Füge einen Wert ein, der sich jedes Mal ändert: etwas, das das Formular gesendet hat, das Ergebnis eines früheren Schritts oder das heutige Datum.",
+    "insertLabel": "Wert einfügen",
+    "insertTitle": "Einen Wert aus der Anfrage oder einem vorherigen Schritt einfügen",
+    "insertValue": "Wert einfügen",
+    "insertValuesHelp": "Was in jeder Spalte des neuen Eintrags gespeichert werden soll. Gib einen Wert ein oder füge einen aus dem Formular ein. Die ID des Eintrags und das Datum, an dem er hinzugefügt wurde, werden automatisch eingetragen.",
+    "js": {
+      "available": "Verfügbare Werte",
+      "availableHelp": "Ergebnisse vorheriger Schritte, die du in deinem Code verwenden kannst. Klicke auf einen Wert, um ihn an der Cursorposition einzufügen.",
+      "chipHint": "Klicke auf einen Chip, um ihn an der Cursorposition einzufügen.",
+      "examples": "Beispiele",
+      "examplesHelp": "Fertige Codebeispiele für häufige Aufgaben. Klicke auf eines, um es an der Cursorposition einzufügen.",
+      "headsUp": "Hinweis",
+      "how": "So funktioniert es",
+      "how1": "Dein Code läuft auf dem Server in einer abgeschotteten Umgebung. Er hat keinen Netzwerk- oder Dateisystemzugriff, kann <code>{require}</code> oder <code>{import}</code> nicht verwenden und hat keinen Zugriff auf andere Abläufe.",
+      "how2": "Lies mit <code>{read}</code> die Ausgabe eines vorherigen Schritts aus. Weise <code>{write}</code> einen Wert zu, um eine Variable zu erstellen, die spätere Schritte lesen können. Alles, was du mit <code>{return}</code> zurückgibst, wird in der unten angezeigten Ausgabevariable gespeichert.",
+      "how3": "<code>{trigger}</code> ist eine schreibgeschützte, unveränderliche Kopie der eingehenden Anfrage. Konsolenmeldungen werden verworfen.",
+      "how4": "Skripte werden nach 3 Sekunden beendet. Wirft dein Code einen Fehler, schlägt der gesamte Ablauf mit deiner Fehlermeldung fehl.",
+      "howHelp": "Was dein Code kann und nicht kann und welche Grenzen es gibt, zum Beispiel dass er nach 3 Sekunden beendet wird.",
+      "insertTrigger": "Anfragedaten einfügen",
+      "noSteps": "Es gibt noch keine vorherigen Schritte. Verbinde diesen Schritt nach einem Schritt, der einen Wert erzeugt.",
+      "syntax": "Verwende im Code direkt <code>{vars}</code> und <code>{trigger}</code> – nicht die <code>{template}</code>-Syntax aus anderen Schritten."
+    },
+    "math": {
+      "add": "addieren (+)",
+      "divide": "dividieren (÷)",
+      "multiply": "multiplizieren (×)",
+      "remainder": "Rest (%)",
+      "subtract": "subtrahieren (−)"
+    },
+    "newRowValues": "Werte der neuen Zeile",
+    "noColumns": "Diese Tabelle hat noch keine Spalten. Füge zuerst Felder zur Tabelle hinzu.",
+    "noConditions": "Keine Bedingungen – trifft auf alle Zeilen zu.",
+    "noEditableColumns": "Diese Tabelle hat keine bearbeitbaren Spalten.",
+    "noSteps": "Bisher liefern keine vorherigen Schritte einen Wert.",
+    "oneTotal": "Ein Gesamtwert",
+    "ops": {
+      "contains": "enthält",
+      "eq": "ist gleich",
+      "exists": "ist vorhanden (nicht leer)",
+      "gt": "ist größer als",
+      "gte": "ist größer oder gleich",
+      "lt": "ist kleiner als",
+      "lte": "ist kleiner oder gleich",
+      "ne": "ist nicht gleich"
+    },
+    "outputHelp": "Optional: der Name, unter dem das Ergebnis dieses Schritts gespeichert wird. Ändere ihn nur, wenn sonst zwei Schritte denselben Namen hätten, zum Beispiel zwei Schritte zum Suchen von Datensätzen.",
+    "outputName": "Name, über den du an anderer Stelle auf das Ergebnis dieses Schritts verweist.",
+    "pickTable": "Wähle eine Liste mit Einträgen aus, um diesen Schritt einzurichten.",
+    "placeholders": {
+      "aNumber": "eine Zahl",
+      "aiPrompt": "Fasse diese Nachricht eines Kunden zusammen ...",
+      "aiSystem": "Du bist ein hilfreicher Assistent ...",
+      "eg10": "z. B. 10",
+      "eg108": "z. B. 1,08",
+      "egActive": "z. B. aktiv",
+      "egGreeting": "z. B. Begrüßung",
+      "emailBody": "Hallo, vielen Dank für deine Bestellung ...",
+      "emailSubject": "Deine Bestellung wurde versendet",
+      "fieldName": "Feldname (z. B. E-Mail)",
+      "hashFromRow": "Hash aus der Datenbankzeile auswählen",
+      "helloThere": "Hallo!",
+      "jsonInput": "Wert mit JSON-Text auswählen",
+      "keepCurrent": "leer lassen, um den aktuellen Wert beizubehalten",
+      "name": "Name",
+      "passwordFromRequest": "Passwort aus der Anfrage auswählen",
+      "pickSourceFirst": "Zuerst eine Datenquelle auswählen",
+      "pickValue": "Wert aus einem vorherigen Schritt auswählen",
+      "pushMessage": "Reserviere einen Tisch, bevor alle weg sind.",
+      "pushTitle": "Heute Abend: Live-Musik ab 19 Uhr",
+      "stepName": "Was dieser Schritt macht",
+      "trueOrFalse": "wahr oder falsch",
+      "userIdFromStep": "Nutzer-ID aus einem vorherigen Schritt auswählen",
+      "value": "Wert"
+    },
+    "pushIntro": "Sendet eine Nachricht an alle, die Benachrichtigungen für diese App aktiviert haben. iPhone-Nutzer müssen die App zum Home-Bildschirm hinzufügen.",
+    "queryEmptyHint": "Leer lassen, um alle Zeilen zurückzugeben. Mehrere Bedingungen müssen alle erfüllt sein.",
+    "remove": "Entfernen",
+    "removeCondition": "Bedingung entfernen",
+    "removeConditionHelp": "Entfernt diese Regel.",
+    "removeRowHelp": "Entfernt diese Zeile.",
+    "respondEmpty": "Wähle aus, was an den Aufrufer zurückgesendet werden soll. Jede Zeile wird zu einem Feld in der Antwort.",
+    "respondHint": "Der Aufrufer erhält standardmäßig eine Erfolgsantwort. Füge vorher im Ablauf einen Verzweigungsschritt hinzu, wenn du einen Fehler zurückgeben möchtest.",
+    "respondWith": "Antwort mit",
+    "respondWithHelp": "Was an die Seite oder das Formular zurückgesendet werden soll, von der bzw. dem dieser Ablauf gestartet wurde. Jede Zeile enthält einen Namen und einen Wert, zum Beispiel: message: Danke, wir haben deine Nachricht erhalten.",
+    "rolePassHint": "Füge davor den Schritt „Wer ist angemeldet?“ hinzu. Sonst besteht niemand diese Prüfung.",
+    "roleResult": "Die Antwort „true“ oder „false“ wird als {name} gespeichert. Füge danach den Schritt „Wenn dies, sonst das“ hinzu und prüfe, ob {token} gleich true ist.",
+    "rowValues": "Zeilenwerte",
+    "rowValuesEmpty": "Füge für jede Spaltenüberschrift im Tabellenblatt ein Feld hinzu.",
+    "rowValuesHelp": "Was in die neue Zeile eingetragen werden soll. Jeder Name muss einer Spaltenüberschrift in der ersten Zeile des Tabellenblatts entsprechen. Der Wert wird darunter eingetragen.",
+    "setFields": "Diese Felder festlegen",
+    "singleResult": "Das Ergebnis ist eine Liste mit einer einzigen Zeile, deren Wert die Antwort enthält. Um die Zahl in einem späteren Schritt zu verwenden, gib {token} ein.",
+    "smallestFirst": "Kleinstes Ergebnis zuerst",
+    "snippets": {
+      "filter": {
+        "description": "Nur Zeilen behalten, die eine Bedingung erfüllen",
+        "label": "Zeilen filtern"
+      },
+      "format": {
+        "description": "Eine Nachricht aus den Auslöserdaten erstellen",
+        "label": "Text formatieren"
+      },
+      "map": {
+        "description": "Jede Zeile in ein kleineres Objekt umwandeln",
+        "label": "In neues Format umwandeln"
+      },
+      "split": {
+        "description": "Einen vollständigen Namen in Felder für Vor- und Nachnamen aufteilen",
+        "label": "Namen in Teile aufteilen"
+      },
+      "sum": {
+        "description": "Zahlen aus allen Zeilen addieren",
+        "label": "Spaltenwerte addieren"
+      },
+      "timestamp": {
+        "description": "Die aktuelle Uhrzeit als ISO-String abrufen",
+        "label": "Aktueller Zeitstempel"
+      }
+    },
+    "step": "Schritt",
+    "updateNeedsCondition": "Zum Ändern von Zeilen ist eine Bedingung erforderlich – sonst schlägt der Schritt fehl.",
+    "updateValuesHelp": "Die neuen Werte, die gespeichert werden sollen. Lass eine Spalte leer, um den bisherigen Wert beizubehalten.",
+    "where": {
+      "aggregate": {
+        "help": "Es werden nur Datensätze gezählt, deren Spaltenwert dem angegebenen Wert entspricht. Alle Bedingungen müssen erfüllt sein. Bedingungen mit leerem Wert werden übersprungen. Ohne Bedingungen werden alle Datensätze gezählt.",
+        "label": "Nur Zeilen einbeziehen, bei denen"
+      },
+      "bulk_delete": {
+        "help": "Welche Zeilen gelöscht werden: alle Zeilen, deren Spaltenwert dem angegebenen Wert entspricht. Mindestens eine Bedingung ist erforderlich, damit nicht versehentlich die ganze Tabelle gelöscht wird.",
+        "label": "Zeilen löschen, bei denen"
+      },
+      "bulk_update": {
+        "help": "Welche Zeilen geändert werden: alle Zeilen, deren Spaltenwert dem angegebenen Wert entspricht. Mindestens eine Bedingung ist erforderlich, damit nicht versehentlich die ganze Tabelle geändert wird.",
+        "label": "Zeilen ändern, bei denen"
+      },
+      "delete": {
+        "help": "Welche Datensätze gelöscht werden: nur solche, deren Spaltenwert dem angegebenen Wert entspricht. Mindestens eine Bedingung ist erforderlich, damit nicht versehentlich die ganze Tabelle gelöscht wird.",
+        "label": "Zeilen löschen, bei denen"
+      },
+      "query": {
+        "help": "Es werden nur Datensätze gefunden, deren Spaltenwert dem angegebenen Wert entspricht. Alle Bedingungen müssen erfüllt sein. Bedingungen mit leerem Wert werden übersprungen. Ohne Bedingungen werden alle Datensätze gefunden (bis zu 100).",
+        "label": "Zeilen suchen, bei denen"
+      },
+      "update": {
+        "help": "Welche Datensätze geändert werden: nur solche, deren Spaltenwert dem angegebenen Wert entspricht. Mindestens eine Bedingung ist erforderlich, damit nicht versehentlich die ganze Tabelle geändert wird.",
+        "label": "Zeilen aktualisieren, bei denen"
+      }
+    }
+  },
+  "list": {
+    "emptyBody": "Erstelle deinen ersten Ablauf oder füge eine fertige Funktion hinzu, deren Abläufe bereits eingerichtet sind.",
+    "emptyTitle": "Schon eine kleine Automatisierung bewirkt viel.",
+    "explainerHelp": "So funktionieren Automatisierungen: In deiner App passiert etwas, zum Beispiel wird ein Formular abgeschickt. Deine Schritte werden der Reihe nach ausgeführt. Dann erhält die Person ein Ergebnis, zum Beispiel eine Dankesnachricht.",
+    "explore": "Funktionen entdecken",
+    "exploreHelp": "Entdecke fertige Funktionen wie Buchungen oder ein Kontaktformular. Die zugehörigen Automatisierungen sind bereits eingerichtet.",
+    "eyebrow": "BRING DEINE APP IN SCHWUNG",
+    "intro": "Mach aus einem Klick eine Aktion. Speichere eine Buchung, sende eine E-Mail oder erwecke deine Daten zum Leben.",
+    "openHelp": "Öffne diese Automatisierung, um ihre Schritte anzusehen und zu ändern, die einzelnen Ausführungen zu prüfen oder festzulegen, wann sie ausgeführt wird.",
+    "result": "Ein Ergebnis für deine Nutzer",
+    "somethingHappens": "Etwas passiert",
+    "steps": "{count, plural, one {# Schritt} other {# Schritte}}",
+    "stepsRun": "Deine Schritte werden ausgeführt",
+    "title": "Die Abläufe deiner App.",
+    "triggerEvent": "Wird durch ein Ereignis gestartet",
+    "triggerForm": "Wird durch ein Formular gestartet",
+    "triggerRequest": "Wird durch eine Anfrage gestartet",
+    "triggerSchedule": "Wird nach Zeitplan ausgeführt"
+  },
+  "newFlow": {
+    "button": "Neuer Ablauf",
+    "buttonHelp": "Starte eine neue, leere Automatisierung: Sie wird automatisch ausgeführt, wenn etwas in deiner App passiert. Gib ihr einen Namen und füge dann Schritte hinzu.",
+    "create": "Erstellen",
+    "createHelp": "Erstellt die Automatisierung und öffnet sie, damit du Schritte hinzufügen kannst.",
+    "nameHelp": "Gib einen Namen ein, der beschreibt, was diese Automatisierung macht, zum Beispiel Buchungsbestätigung senden. Drücke die Eingabetaste, um sie zu erstellen.",
+    "placeholder": "z. B. Kontaktformular absenden"
+  },
+  "runtime": {
+    "aiBusy": "Diese App erhält gerade zu viele KI-Anfragen. Bitte versuche es später erneut.",
+    "aiLimit": "Diese App hat ihr KI-Limit für diesen Monat erreicht.",
+    "appDayLimit": "Diese App hat heute {count} E-Mails gesendet. Diese E-Mail wurde zum Schutz vor Spam zurückgehalten.",
+    "appHourLimit": "Diese App hat in der letzten Stunde {count} E-Mails gesendet. Diese E-Mail wurde zum Schutz vor Spam zurückgehalten.",
+    "emailFailed": "Die E-Mail konnte nicht gesendet werden.",
+    "emailOff": "E-Mail ist auf diesem Server nicht eingerichtet. Die Nachricht wurde daher nicht gesendet.",
+    "formula": "Die Formel in Schritt „{step}“ kann nicht berechnet werden: {reason}",
+    "recipientLimit": "An {to} wurden in der letzten Stunde bereits {count} E-Mails von Apps gesendet. Diese E-Mail wurde daher zurückgehalten."
+  },
+  "schedule": {
+    "aiNote": "Abläufe mit KI werden höchstens alle {minutes} Minuten ausgeführt.",
+    "aiTooOften": "Dieser Ablauf verwendet KI und kann daher höchstens alle {minutes} Minuten ausgeführt werden.",
+    "appMode": "Wenn deine App sie nutzt",
+    "appModeBody": "Eine Seite, ein Formular oder eine andere Website startet sie.",
+    "appModeHelp": "Sie wird nur ausgeführt, wenn etwas in deiner App sie startet, zum Beispiel wenn jemand ein Formular absendet.",
+    "connection": "Überprüfe deine Verbindung und versuche es erneut.",
+    "day": "Tag",
+    "dayHelp": "An welchem Wochentag sie ausgeführt wird.",
+    "describe": {
+      "daily": "Jeden Tag um {time} ({zone})",
+      "everyHour": "Jede Stunde",
+      "everyHours": "Alle {count} Stunden",
+      "everyMinute": "Jede Minute",
+      "everyMinutes": "Alle {count} Minuten",
+      "hourlyFull": "Jede Stunde zur vollen Stunde ({zone})",
+      "hourlyPast": "{minute, plural, one {Jede Stunde # Minute nach der vollen Stunde ({zone})} other {Jede Stunde # Minuten nach der vollen Stunde ({zone})}}",
+      "utc": "UTC",
+      "weekdays": "Montag bis Freitag um {time} ({zone})",
+      "weekly": "Jeden {day} um {time} ({zone})",
+      "zoneTime": "Uhrzeit in {zone}"
+    },
+    "every": "Alle",
+    "everyHelp": "Der Abstand zwischen den Ausführungen. Einige Optionen sind möglicherweise ausgegraut, zum Beispiel wenn diese Automatisierung KI nutzt.",
+    "failing": "{count, plural, one {# fehlgeschlagene Ausführung in Folge; nach {max} wird pausiert.} other {# fehlgeschlagene Ausführungen in Folge; nach {max} wird pausiert.}}",
+    "hour": "Stunde",
+    "hours": "{count} Stunden",
+    "howOften": "Wie oft",
+    "howOftenHelp": "Wie oft sie ausgeführt wird. Wähle ein Muster und dann die genaue Zeit daneben.",
+    "inZone": "{time} (Uhrzeit in {zone})",
+    "kinds": {
+      "daily": "Jeden Tag",
+      "every": "Alle paar Minuten",
+      "hourly": "Jede Stunde",
+      "weekdays": "Montag bis Freitag",
+      "weekly": "Einmal pro Woche"
+    },
+    "lastFailed": "Letzte Ausführung {when}: fehlgeschlagen.",
+    "lastOk": "Letzte Ausführung {when}: erfolgreich.",
+    "lastTimeout": "Letzte Ausführung {when}: hat zu lange gedauert.",
+    "loadError": "Der Zeitplan konnte nicht geladen werden.",
+    "loading": "Zeitplan wird geladen …",
+    "minute": "Minute",
+    "minutes": "{count} Minuten",
+    "nextRun": "Nächste Ausführung: {when}",
+    "noPlan": "Dein Tarif umfasst keine zeitgesteuerten Abläufe. Dieser Ablauf wird daher nicht ausgeführt.",
+    "notInLive": "Dieser Ablauf ist noch nicht in der veröffentlichten App. <link>Veröffentliche deine Änderungen</link>, um den Zeitplan zu starten.",
+    "notInPlan": "Nicht in deinem Tarif enthalten.",
+    "notPublished": "Gespeichert. <link>Veröffentliche deine App</link>, um diesen Zeitplan zu starten.",
+    "onTheHour": "Zur vollen Stunde (:00)",
+    "pastHour": "Minuten nach der vollen Stunde",
+    "pastHourHelp": "Zu welcher Minute jeder Stunde sie ausgeführt wird, zum Beispiel um :15, also eine Viertelstunde nach der vollen Stunde.",
+    "pausedFailures": "Nach {count} fehlgeschlagenen Ausführungen in Folge pausiert. Überprüfe die Schritte des Ablaufs und setze ihn dann fort.",
+    "pending": "<link>Veröffentliche deine Änderungen</link>, um diesen Zeitplan zu verwenden.",
+    "pendingUntil": "Bis dahin gilt der veröffentlichte Zeitplan: {schedule}.",
+    "problems": {
+      "badZone": "Diese Zeitzone wird nicht erkannt.",
+      "chooseHowOften": "Wähle aus, wie oft dies ausgeführt werden soll.",
+      "chooseWhen": "Wähle aus, wann dies ausgeführt werden soll.",
+      "minuteRange": "Wähle eine Minute nach der vollen Stunde zwischen 0 und 59.",
+      "minutesRange": "Wähle eine Minutenzahl zwischen {min} und {max}.",
+      "pickDay": "Wähle einen Wochentag.",
+      "pickTime": "Wähle eine Uhrzeit, zum Beispiel 09:00."
+    },
+    "resume": "Fortsetzen",
+    "resumeHelp": "Schaltet den Zeitplan wieder ein, nachdem er pausiert wurde, weil die Ausführungen immer wieder fehlgeschlagen sind. Behebe zuerst das Problem in den einzelnen Schritten.",
+    "saveError": "Speichern nicht möglich. Bitte versuche es erneut.",
+    "saveHelp": "Speichert, wann dies ausgeführt wird. Ein neuer oder geänderter Zeitplan wird aktiv, sobald du deine App veröffentlichst.",
+    "saveSchedule": "Zeitplan speichern",
+    "scheduleMode": "Nach einem Zeitplan",
+    "scheduleModeBody": "Sie wird selbstständig zu den von dir gewählten Zeiten ausgeführt.",
+    "scheduleModeHelp": "Sie wird selbstständig zu den von dir gewählten Zeiten ausgeführt. Der Zeitplan wird aktiv, sobald du deine App mit diesem Zeitplan veröffentlichst.",
+    "starting": "Startet innerhalb einer Minute.",
+    "suspended": "Dieses Konto ist gesperrt. Geplante Ausführungen sind daher angehalten.",
+    "time": "Uhrzeit",
+    "timeHelp": "Die Tageszeit, nach der Uhr der Zeitzone unten.",
+    "timeZone": "Zeitzone",
+    "timeZoneHelp": "Nach welcher Uhr sich die Zeiten richten. Wähle den Ort, an dem du oder deine Kunden sind, damit 9:00 dort auch 9:00 bedeutet.",
+    "title": "Wann dies ausgeführt wird",
+    "titleHelp": "Wähle aus, ob diese Automatisierung ausgeführt wird, wenn deine App sie nutzt, oder selbstständig zu festgelegten Zeiten, zum Beispiel jeden Morgen.",
+    "turnedOff": "Zeitplan ausgeschaltet. Der Ablauf wird nicht mehr nach Zeitplan ausgeführt.",
+    "unreadable": "Dieser Zeitplan konnte nicht gelesen werden. Wähle neue Zeiten und speichere sie.",
+    "yours": "{zone} (deine Zeitzone)"
+  },
+  "summary": {
+    "aggregateFallback": "Einträge zählen oder zusammenrechnen",
+    "askAi": "KI eine Frage stellen",
+    "bulkDeleteFallback": "Mehrere Zeilen auf einmal löschen",
+    "bulkInsertFallback": "Mehrere Zeilen auf einmal hinzufügen",
+    "bulkUpdateFallback": "Mehrere Zeilen auf einmal aktualisieren",
+    "checkPassword": "Passwort überprüfen",
+    "checkRoleFallback": "Prüfen, was die Person tun darf",
+    "customJs": "Eigenen Code ausführen",
+    "from": "Aus {table}",
+    "in": "In {table}",
+    "into": "In {table}",
+    "lookupFallback": "Details aus einer anderen Liste hinzufügen",
+    "needsRole": "Benötigt: {role}",
+    "noRecipient": "Kein Empfänger",
+    "noSheet": "Keine Tabelle",
+    "noTable": "Keine Tabelle ausgewählt",
+    "parseJson": "Text in Daten umwandeln",
+    "protectPassword": "Passwort vor dem Speichern schützen",
+    "pushEveryone": "An alle Abonnenten",
+    "pushTitle": "„{title}“",
+    "repliesWith": "{count, plural, one {Antwortet mit # Wert} other {Antwortet mit # Werten}}",
+    "reply": "Sendet eine Antwort",
+    "seconds": "{seconds}s",
+    "sheet": "Tabelle {sheet}",
+    "signIn": "{user} anmelden",
+    "signUserIn": "Nutzer anmelden",
+    "signUserOut": "Nutzer abmelden",
+    "startsHere": "Beginnt hier",
+    "to": "An {to}",
+    "unnamed": "Ohne Namen",
+    "verifyVs": "{plain} vs. {hash} → {output}"
+  }
+}

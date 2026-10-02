@@ -7,7 +7,7 @@ import { db } from "./db";
 import { appOrigin } from "./app-hosts";
 import { publicBaseUrlFor } from "./reseller";
 import { liveSnapshot } from "./deployments";
-import { loadPublicPage, pageRequiredRole, pageRequiresAuth } from "./public-page";
+import { liveLanguages, loadPublicPage, loadTranslation, pageRequiredRole, pageRequiresAuth } from "./public-page";
 import { getSetting, setSetting } from "./settings";
 import { appIconUrl } from "./app-icon";
 import { splitDesignerDocument } from "./design-studio/document-split";
@@ -64,9 +64,11 @@ async function primaryAddress(project: { id: string; slug: string; ownerId: stri
 }
 
 /** A page's address at the app's primary address (the canonical URL). */
-export function pageUrl(primary: PrimaryAddress, page: { slug: string; isHome: boolean } | null): string {
-  if (!page || page.isHome) return primary.kind === "path" ? primary.base : `${primary.base}/`;
-  return `${primary.base}/${encodeURIComponent(page.slug)}`;
+export function pageUrl(primary: PrimaryAddress, page: { slug: string; isHome: boolean } | null, lang?: string | null): string {
+  // A multilingual app's other languages live under /<language>.
+  const base = lang ? `${primary.base}/${lang}` : primary.base;
+  if (!page || page.isHome) return primary.kind === "path" || lang ? base : `${base}/`;
+  return `${base}/${encodeURIComponent(page.slug)}`;
 }
 
 export function sitemapUrl(primary: PrimaryAddress): string {
@@ -236,12 +238,19 @@ export type PageSeo = {
   searchConsoleToken: string | null;
   lang: string | null;
   primary: PrimaryAddress;
+  /** Multilingual apps: the page's address in each language (hreflang), "x-default" the default's. */
+  languages: Record<string, string> | null;
 };
 
 /** SEO facts for one page of an app (its home page without a slug), read from the live version. */
-export async function pageSeo(project: SeoProject, pageSlug?: string): Promise<PageSeo | null> {
-  const page = await loadPublicPage(project.id, pageSlug);
-  if (!page) return null;
+export async function pageSeo(project: SeoProject, pageSlug?: string, lang?: string | null): Promise<PageSeo | null> {
+  const source = await loadPublicPage(project.id, pageSlug);
+  if (!source) return null;
+  // A multilingual app: the page in the language asked for, and its other addresses.
+  const { app, offered } = await liveLanguages(project.id);
+  const inLang = lang && lang !== app.locale && offered.includes(lang as never) ? lang : null;
+  const translated = inLang ? await loadTranslation(project.id, source.id, inLang) : null;
+  const page = translated ? { ...source, title: translated.title, html: translated.html } : source;
   const [primary, settings] = await Promise.all([primaryUrl(project), getSeoSettings(project.id)]);
   const doc = splitDesignerDocument(page.html);
   const facts = pageFacts(doc.bodyHtml);
@@ -256,7 +265,7 @@ export async function pageSeo(project: SeoProject, pageSlug?: string): Promise<P
     description,
     descriptionSource,
     pageParagraph: facts.paragraph,
-    canonical: pageUrl(primary, page),
+    canonical: pageUrl(primary, page, inLang),
     siteName: project.name,
     image: pageImage ?? (await shareCardUrl(project, primary.origin)),
     imageIsCard: !pageImage,
@@ -266,6 +275,9 @@ export async function pageSeo(project: SeoProject, pageSlug?: string): Promise<P
     searchConsoleToken: settings.searchConsoleToken,
     lang: doc.lang,
     primary,
+    languages: offered.length > 1
+      ? { ...Object.fromEntries(offered.map((code) => [code, pageUrl(primary, page, code === app.locale ? null : code)])), "x-default": pageUrl(primary, page) }
+      : null,
   };
 }
 
@@ -275,17 +287,17 @@ export async function pageSeo(project: SeoProject, pageSlug?: string): Promise<P
  * the canonical address, Open Graph and Twitter cards, noindex where it
  * applies, and the Search Console verification tag.
  */
-export async function buildMetadata(project: SeoProject, pageSlug?: string): Promise<Metadata> {
+export async function buildMetadata(project: SeoProject, pageSlug?: string, lang?: string | null): Promise<Metadata> {
   const icon = appIconUrl(project, 192);
   const icons = { icon, shortcut: icon, apple: appIconUrl(project, 180) };
-  const seo = await pageSeo(project, pageSlug);
+  const seo = await pageSeo(project, pageSlug, lang);
   if (!seo) return { title: "Not found", icons, robots: { index: false, follow: false } };
   const images = [{ url: seo.image, alt: seo.title, ...(seo.imageIsCard ? { width: CARD_WIDTH, height: CARD_HEIGHT } : {}) }];
   return {
     title: seo.title,
     description: seo.description ?? undefined,
     icons,
-    alternates: { canonical: seo.canonical },
+    alternates: { canonical: seo.canonical, ...(seo.languages ? { languages: seo.languages } : {}) },
     openGraph: {
       type: "website",
       url: seo.canonical,
@@ -317,7 +329,12 @@ export async function appRobotsTxt(project: SeoProject): Promise<string> {
   return `${lines.join("\n")}\n`;
 }
 
-export type SitemapEntry = { loc: string; lastmod: string | null };
+export type SitemapEntry = {
+  loc: string;
+  lastmod: string | null;
+  /** Multilingual apps: the same page in each language (xhtml:link hreflang). */
+  alternates?: Array<{ lang: string; href: string }>;
+};
 
 /** The app's public pages at its primary address, or null when it shouldn't have a sitemap. */
 export async function appSitemap(project: SeoProject): Promise<{ primary: PrimaryAddress; entries: SitemapEntry[] } | null> {
@@ -336,12 +353,19 @@ export async function appSitemap(project: SeoProject): Promise<{ primary: Primar
   }
   const seen = new Set<string>();
   const entries: SitemapEntry[] = [];
+  // Multilingual apps list each page once per language, with the others as alternates.
+  const { app, offered } = await liveLanguages(project.id);
   for (const p of [...pages].sort((a, b) => Number(b.isHome) - Number(a.isHome))) {
     if (isPrivatePage(p)) continue;
     const loc = pageUrl(primary, p);
     if (seen.has(loc)) continue;
     seen.add(loc);
-    entries.push({ loc, lastmod: p.lastmod ? p.lastmod.toISOString() : null });
+    if (offered.length < 2) {
+      entries.push({ loc, lastmod: p.lastmod ? p.lastmod.toISOString() : null });
+      continue;
+    }
+    const alternates = [...offered.map((code) => ({ lang: code, href: pageUrl(primary, p, code === app.locale ? null : code) })), { lang: "x-default", href: loc }];
+    for (const a of alternates.slice(0, offered.length)) entries.push({ loc: a.href, lastmod: p.lastmod ? p.lastmod.toISOString() : null, alternates });
   }
   return { primary, entries };
 }
@@ -349,8 +373,11 @@ export async function appSitemap(project: SeoProject): Promise<{ primary: Primar
 const xmlEscape = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&apos;");
 
 export function sitemapXml(entries: SitemapEntry[]): string {
-  const urls = entries.map((e) => `  <url>\n    <loc>${xmlEscape(e.loc)}</loc>${e.lastmod ? `\n    <lastmod>${xmlEscape(e.lastmod)}</lastmod>` : ""}\n  </url>`);
-  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join("\n")}${urls.length ? "\n" : ""}</urlset>\n`;
+  const alt = (e: SitemapEntry) => (e.alternates ?? []).map((a) => `\n    <xhtml:link rel="alternate" hreflang="${xmlEscape(a.lang)}" href="${xmlEscape(a.href)}"/>`).join("");
+  const urls = entries.map((e) => `  <url>\n    <loc>${xmlEscape(e.loc)}</loc>${e.lastmod ? `\n    <lastmod>${xmlEscape(e.lastmod)}</lastmod>` : ""}${alt(e)}\n  </url>`);
+  // The xhtml namespace only when there are alternates, so single-language sitemaps stay as they were.
+  const ns = entries.some((e) => e.alternates?.length) ? ` xmlns:xhtml="http://www.w3.org/1999/xhtml"` : "";
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"${ns}>\n${urls.join("\n")}${urls.length ? "\n" : ""}</urlset>\n`;
 }
 
 /* ── Per-request lookups shared by generateMetadata and the page ────────── */

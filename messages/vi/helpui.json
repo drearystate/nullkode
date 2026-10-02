@@ -1,0 +1,22 @@
+{
+  "backToAll": "Quay lại tất cả hướng dẫn",
+  "clearSearch": "Xóa nội dung tìm kiếm",
+  "eyebrow": "TRỢ GIÚP & HƯỚNG DẪN",
+  "guideMetaTitle": "{title} · Trợ giúp",
+  "heading": "Bạn cần giúp gì?",
+  "help": "Trợ giúp",
+  "helpGuides": "Trợ giúp & hướng dẫn",
+  "intro": "Hướng dẫn từng bước về mọi thứ trong {app}. Nhấn vào liên kết <b>Trợ giúp</b> ở đầu mỗi màn hình để mở hướng dẫn cho màn hình đó.",
+  "matches": "{count, plural, one {# hướng dẫn phù hợp} other {# hướng dẫn phù hợp}}",
+  "metaTitle": "Trợ giúp & hướng dẫn",
+  "noMatch": "Không có hướng dẫn nào phù hợp với “{query}”.",
+  "noMatchHint": "Thử từ khác hoặc xem tất cả hướng dẫn.",
+  "onThisPage": "Trên trang này",
+  "onThisPageEyebrow": "TRÊN TRANG NÀY",
+  "related": "Hướng dẫn liên quan",
+  "searchHelp": "Nhập một hoặc hai từ. Danh sách hướng dẫn bên dưới sẽ được lọc khi bạn nhập.",
+  "searchLabel": "Tìm trong hướng dẫn",
+  "searchPlaceholder": "Tìm trong hướng dẫn, chẳng hạn “xuất bản” hoặc “miền”",
+  "showAll": "Xem tất cả hướng dẫn",
+  "step": "Bước {n}: "
+}

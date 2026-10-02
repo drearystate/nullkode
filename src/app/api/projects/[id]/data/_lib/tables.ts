@@ -14,8 +14,11 @@ import { db } from "@/lib/db";
 import { getAdapter } from "@/lib/datasources";
 import { projectSchemaName } from "@/lib/datasources/postgres";
 import { columnLabel, tableLabel } from "@/lib/data-labels";
+import { requestErrorsT } from "@/lib/errors-i18n";
 import { SENSITIVE_COLUMN } from "@/lib/sensitive";
 import { json } from "@/lib/utils";
+import { getTranslations } from "next-intl/server";
+import { requestLocale } from "@/i18n/request";
 
 export { SENSITIVE_COLUMN };
 const IDENT = /^[a-zA-Z_][a-zA-Z0-9_]*$/;
@@ -29,16 +32,27 @@ export type ColType = "text" | "int" | "float" | "bool" | "timestamp" | "date" |
 export type Column = { name: string; label: string; type: ColType; readOnly: boolean };
 type RawColumn = { name: string; dataType: string; udt: string };
 
+/** The owner's language, for messages under data.api.* */
+async function apiT() {
+  return getTranslations({ locale: await requestLocale(), namespace: "data.api" });
+}
+
+/**
+ * A problem to show the owner. `message` is a key under data.api.* (with
+ * `values` for its placeholders); the English text is looked up when the
+ * response is sent, in the owner's language.
+ */
 export class DataError extends Error {
-  constructor(message: string, public status = 400) {
+  constructor(message: string, public status = 400, public values?: Record<string, string | number>) {
     super(message);
   }
 }
 
-export function errorResponse(err: unknown) {
-  if (err instanceof DataError) return json({ error: err.message }, { status: err.status });
+export async function errorResponse(err: unknown) {
+  const t = await apiT();
+  if (err instanceof DataError) return json({ error: t(err.message, err.values) }, { status: err.status });
   console.error("[data]", err);
-  return json({ error: "Something went wrong reading your data. Please try again." }, { status: 500 });
+  return json({ error: t("somethingWrong") }, { status: 500 });
 }
 
 const g = globalThis as unknown as { __nkDataPool?: Pool };
@@ -51,12 +65,12 @@ export function schemaFor(projectId: string) {
   try {
     return projectSchemaName(projectId);
   } catch {
-    throw new DataError("We couldn't find that app.", 404);
+    throw new DataError("appNotFound", 404);
   }
 }
 
 function q(name: string) {
-  if (!IDENT.test(name)) throw new DataError("That name isn't allowed.");
+  if (!IDENT.test(name)) throw new DataError("nameNotAllowed");
   return `"${name}"`;
 }
 
@@ -109,6 +123,7 @@ export async function listTables(projectId: string): Promise<TableSummary[]> {
     orderBy: { createdAt: "asc" },
   });
   const schema = schemaFor(projectId);
+  const lt = await requestErrorsT();
   const internal = tables.filter((t) => t.datasource.kind === "POSTGRES_INTERNAL" && IDENT.test(t.name));
   const cols = await internalColumnsByTable(schema, internal.map((t) => t.name));
   const counts = new Map<string, number>();
@@ -126,7 +141,7 @@ export async function listTables(projectId: string): Promise<TableSummary[]> {
     return {
       id: t.id,
       name: t.name,
-      label: tableLabel(t.name),
+      label: tableLabel(t.name, lt),
       sourceName: t.datasource.name,
       sourceKind: t.datasource.kind,
       rows: counts.get(t.id) ?? null,
@@ -138,7 +153,7 @@ export async function listTables(projectId: string): Promise<TableSummary[]> {
 
 /** Finds a table by its DataTable id or its name, only within this project. */
 export async function resolveTable(projectId: string, key: string): Promise<Resolved> {
-  if (!/^[A-Za-z0-9_-]{1,100}$/.test(key)) throw new DataError("We couldn't find that table.", 404);
+  if (!/^[A-Za-z0-9_-]{1,100}$/.test(key)) throw new DataError("tableNotFound", 404);
   const matches = await db.dataTable.findMany({
     where: { datasource: { projectId }, OR: [{ id: key }, { name: key }] },
     include: { datasource: true },
@@ -147,11 +162,11 @@ export async function resolveTable(projectId: string, key: string): Promise<Reso
     matches.find((m) => m.id === key) ??
     matches.find((m) => m.datasource.kind === "POSTGRES_INTERNAL") ??
     matches[0];
-  if (!t || !IDENT.test(t.name)) throw new DataError("We couldn't find that table.", 404);
+  if (!t || !IDENT.test(t.name)) throw new DataError("tableNotFound", 404);
   const fields = ((t.schema as { fields?: Array<{ name: string; type: string }> } | null)?.fields ?? []).filter(
     (f) => f && typeof f.name === "string",
   );
-  return { id: t.id, name: t.name, label: tableLabel(t.name), source: t.datasource, fields };
+  return { id: t.id, name: t.name, label: tableLabel(t.name, await requestErrorsT()), source: t.datasource, fields };
 }
 
 function mapType(c: RawColumn): ColType {
@@ -174,19 +189,21 @@ type Shape = {
   editable: boolean;
   hasId: boolean;
   hasCreatedAt: boolean;
+  /** A message key under data.api.* */
   note?: string;
 };
 
 async function internalShape(projectId: string, table: Resolved): Promise<Shape> {
   const cols = (await internalColumnsByTable(schemaFor(projectId), [table.name])).get(table.name);
-  if (!cols) throw new DataError("This table hasn't been set up in your app's database yet.", 404);
+  if (!cols) throw new DataError("tableNotSetUp", 404);
+  const lt = await requestErrorsT();
   const raw = new Map<string, RawColumn>();
   const columns: Column[] = [];
   for (const c of cols) {
     if (SENSITIVE_COLUMN.test(c.name) || !IDENT.test(c.name)) continue;
     raw.set(c.name, c);
     const type = mapType(c);
-    columns.push({ name: c.name, label: columnLabel(c.name), type, readOnly: READ_ONLY_COLUMNS.has(c.name) || type === "other" });
+    columns.push({ name: c.name, label: columnLabel(c.name, lt), type, readOnly: READ_ONLY_COLUMNS.has(c.name) || type === "other" });
   }
   const hasId = raw.has("id");
   return {
@@ -196,7 +213,7 @@ async function internalShape(projectId: string, table: Resolved): Promise<Shape>
     editable: hasId,
     hasId,
     hasCreatedAt: raw.has("created_at"),
-    note: hasId ? undefined : "This table has no ID column, so its rows can only be viewed here.",
+    note: hasId ? undefined : "noIdNote",
   };
 }
 
@@ -229,11 +246,11 @@ export type RowsResult = {
 
 export async function readRows(projectId: string, key: string, opts: RowQuery): Promise<RowsResult> {
   const table = await resolveTable(projectId, key);
-  if (table.source.projectId !== projectId) throw new DataError("We couldn't find that table.", 404);
+  if (table.source.projectId !== projectId) throw new DataError("tableNotFound", 404);
   if (table.source.kind !== "POSTGRES_INTERNAL") return readOutsideRows(table, opts);
 
   const shape = await internalShape(projectId, table);
-  if (opts.sort && !shape.raw.has(opts.sort)) throw new DataError("You can't sort by that column.");
+  if (opts.sort && !shape.raw.has(opts.sort)) throw new DataError("cantSortBy");
   const from = `${q(schemaFor(projectId))}.${q(table.name)}`;
 
   const params: unknown[] = [];
@@ -276,7 +293,7 @@ export async function readRows(projectId: string, key: string, opts: RowQuery): 
     sort: sort || null,
     dir,
     editable: shape.editable,
-    note: shape.note,
+    note: shape.note ? (await apiT())(shape.note) : undefined,
   };
 }
 
@@ -299,14 +316,15 @@ async function readOutsideRows(table: Resolved, opts: RowQuery): Promise<RowsRes
       new Promise<never>((_, reject) => setTimeout(() => reject(new Error("timeout")), 15_000)),
     ]);
   } catch {
-    throw new DataError("We couldn't reach this data source. Check its settings under Advanced.", 502);
+    throw new DataError("sourceUnreachable", 502);
   }
   all = all.map(clean);
   const names: string[] = [];
   for (const f of table.fields) if (!SENSITIVE_COLUMN.test(f.name) && !names.includes(f.name)) names.push(f.name);
   for (const row of all) for (const k of Object.keys(row)) if (!names.includes(k)) names.push(k);
-  const columns: Column[] = names.map((n) => ({ name: n, label: columnLabel(n), type: "text", readOnly: true }));
-  if (opts.sort && !names.includes(opts.sort)) throw new DataError("You can't sort by that column.");
+  const lt = await requestErrorsT();
+  const columns: Column[] = names.map((n) => ({ name: n, label: columnLabel(n, lt), type: "text", readOnly: true }));
+  if (opts.sort && !names.includes(opts.sort)) throw new DataError("cantSortBy");
 
   let rows = all;
   if (opts.search) {
@@ -329,10 +347,7 @@ async function readOutsideRows(table: Resolved, opts: RowQuery): Promise<RowsRes
     sort: opts.sort || null,
     dir: opts.dir,
     editable: false,
-    note:
-      table.source.kind === "GOOGLE_SHEETS"
-        ? `This table lives in Google Sheets, so you can look at it here but make changes in the sheet itself. Showing up to the first ${OUTSIDE_ROW_CAP} rows.`
-        : `This table lives in your own database, so you can look at it here but not change it. Showing up to the first ${OUTSIDE_ROW_CAP} rows.`,
+    note: (await apiT())(table.source.kind === "GOOGLE_SHEETS" ? "sheetsNote" : "outsideNote", { count: OUTSIDE_ROW_CAP }),
   };
 }
 
@@ -341,10 +356,10 @@ async function readOutsideRows(table: Resolved, opts: RowQuery): Promise<RowsRes
 async function writableShape(projectId: string, key: string) {
   const table = await resolveTable(projectId, key);
   if (table.source.kind !== "POSTGRES_INTERNAL") {
-    throw new DataError("This table lives in Google Sheets or your own database, so it can't be changed here.", 400);
+    throw new DataError("outsideReadOnly", 400);
   }
   const shape = await internalShape(projectId, table);
-  if (!shape.editable) throw new DataError(shape.note ?? "This table can't be changed here.");
+  if (!shape.editable) throw new DataError(shape.note ?? "cantChangeTable");
   return shape;
 }
 
@@ -357,28 +372,28 @@ function coerce(col: Column, raw: RawColumn, v: unknown): { value: unknown; cast
       return { value: typeof v === "object" ? JSON.stringify(v) : String(v), cast: "" };
     case "int": {
       const n = typeof v === "number" ? v : Number(String(v).trim());
-      if (!Number.isSafeInteger(n)) throw new DataError(`"${label}" needs a whole number.`);
+      if (!Number.isSafeInteger(n)) throw new DataError("needsWholeNumber", 400, { label });
       return { value: n, cast: "" };
     }
     case "float": {
       const n = typeof v === "number" ? v : Number(String(v).trim());
-      if (!Number.isFinite(n)) throw new DataError(`"${label}" needs a number.`);
+      if (!Number.isFinite(n)) throw new DataError("needsNumber", 400, { label });
       return { value: n, cast: "" };
     }
     case "bool": {
       const s = String(v).trim().toLowerCase();
       if (v === true || ["true", "yes", "1"].includes(s)) return { value: true, cast: "" };
       if (v === false || ["false", "no", "0"].includes(s)) return { value: false, cast: "" };
-      throw new DataError(`"${label}" needs Yes or No.`);
+      throw new DataError("needsYesNo", 400, { label });
     }
     case "timestamp": {
       const d = new Date(String(v));
-      if (typeof v === "object" || Number.isNaN(d.getTime())) throw new DataError(`"${label}" needs a date and time.`);
+      if (typeof v === "object" || Number.isNaN(d.getTime())) throw new DataError("needsDateTime", 400, { label });
       return { value: d.toISOString(), cast: "" };
     }
     case "date": {
       const s = String(v).trim();
-      if (!/^\d{4}-\d{2}-\d{2}$/.test(s) || Number.isNaN(new Date(s).getTime())) throw new DataError(`"${label}" needs a date.`);
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(s) || Number.isNaN(new Date(s).getTime())) throw new DataError("needsDate", 400, { label });
       return { value: s, cast: "" };
     }
     case "json": {
@@ -387,25 +402,25 @@ function coerce(col: Column, raw: RawColumn, v: unknown): { value: unknown; cast
         try {
           parsed = JSON.parse(v);
         } catch {
-          throw new DataError(`"${label}" isn't valid JSON.`);
+          throw new DataError("invalidJson", 400, { label });
         }
       }
       return { value: JSON.stringify(parsed), cast: raw.udt === "json" ? "::json" : "::jsonb" };
     }
     default:
-      throw new DataError(`"${label}" can't be changed here.`);
+      throw new DataError("cantChangeColumn", 400, { label });
   }
 }
 
 function valuesFor(shape: Shape, values: unknown) {
-  if (!values || typeof values !== "object" || Array.isArray(values)) throw new DataError("Nothing to save.");
+  if (!values || typeof values !== "object" || Array.isArray(values)) throw new DataError("nothingToSave");
   const out: Array<{ name: string; value: unknown; cast: string }> = [];
   for (const [k, v] of Object.entries(values as Record<string, unknown>)) {
     const col = shape.columns.find((c) => c.name === k);
     const raw = shape.raw.get(k);
-    if (SENSITIVE_COLUMN.test(k)) throw new DataError("Passwords and secret keys can't be changed here.");
-    if (!col || !raw) throw new DataError(`There's no column called "${k.slice(0, 60)}".`);
-    if (col.readOnly) throw new DataError(`"${col.label}" is filled in automatically and can't be changed.`);
+    if (SENSITIVE_COLUMN.test(k)) throw new DataError("secretsReadOnly");
+    if (!col || !raw) throw new DataError("noSuchColumn", 400, { name: k.slice(0, 60) });
+    if (col.readOnly) throw new DataError("autoColumn", 400, { label: col.label });
     out.push({ name: k, ...coerce(col, raw, v) });
   }
   return out;
@@ -415,10 +430,10 @@ function idValue(shape: Shape, id: unknown) {
   const col = shape.columns.find((c) => c.name === "id")!;
   if (col.type === "int") {
     const n = typeof id === "number" ? id : Number(id);
-    if (!Number.isSafeInteger(n)) throw new DataError("That row ID isn't valid.");
+    if (!Number.isSafeInteger(n)) throw new DataError("badRowId");
     return n;
   }
-  if (typeof id !== "string" && typeof id !== "number") throw new DataError("That row ID isn't valid.");
+  if (typeof id !== "string" && typeof id !== "number") throw new DataError("badRowId");
   return String(id);
 }
 
@@ -440,7 +455,7 @@ export async function insertRow(projectId: string, key: string, values: unknown)
 export async function updateRow(projectId: string, key: string, id: unknown, values: unknown) {
   const shape = await writableShape(projectId, key);
   const vals = valuesFor(shape, values);
-  if (vals.length === 0) throw new DataError("Nothing to save.");
+  if (vals.length === 0) throw new DataError("nothingToSave");
   const idv = idValue(shape, id);
   const from = `${q(schemaFor(projectId))}.${q(shape.table.name)}`;
   const set = vals.map((v, i) => `${q(v.name)} = $${i + 1}${v.cast}`).join(", ");
@@ -448,14 +463,14 @@ export async function updateRow(projectId: string, key: string, id: unknown, val
     `UPDATE ${from} SET ${set} WHERE ${q("id")} = $${vals.length + 1} RETURNING ${selectList(shape)}`,
     [...vals.map((v) => v.value), idv],
   );
-  if (r.rowCount === 0) throw new DataError("That row isn't there any more.", 404);
+  if (r.rowCount === 0) throw new DataError("rowGone", 404);
   return clean(r.rows[0]);
 }
 
 export async function deleteRows(projectId: string, key: string, ids: unknown) {
   const shape = await writableShape(projectId, key);
-  if (!Array.isArray(ids) || ids.length === 0) throw new DataError("Pick at least one row to delete.");
-  if (ids.length > 500) throw new DataError("You can delete up to 500 rows at a time.");
+  if (!Array.isArray(ids) || ids.length === 0) throw new DataError("pickRows");
+  if (ids.length > 500) throw new DataError("tooManyRows");
   const idvs = ids.map((i) => idValue(shape, i));
   const col = shape.columns.find((c) => c.name === "id")!;
   const from = `${q(schemaFor(projectId))}.${q(shape.table.name)}`;
@@ -502,6 +517,7 @@ export async function latestSubmissions(projectId: string, limit = 5): Promise<S
   });
   const candidates = tables.filter((t) => IDENT.test(t.name) && !/^auth_/.test(t.name));
   const schema = schemaFor(projectId);
+  const lt = await requestErrorsT();
   const cols = await internalColumnsByTable(schema, candidates.map((t) => t.name));
   const found: Array<Submission & { at: number }> = [];
   await Promise.all(
@@ -528,7 +544,7 @@ export async function latestSubmissions(projectId: string, limit = 5): Promise<S
           .map((_, i) => row[`__t${i}`])
           .filter((v) => typeof v === "string" && v.trim())
           .join(" · ");
-        found.push({ tableId: t.id, tableLabel: tableLabel(t.name), rowId: row.__id, createdAt: at.toISOString(), summary, at: at.getTime() });
+        found.push({ tableId: t.id, tableLabel: tableLabel(t.name, lt), rowId: row.__id, createdAt: at.toISOString(), summary, at: at.getTime() });
       }
     }),
   );

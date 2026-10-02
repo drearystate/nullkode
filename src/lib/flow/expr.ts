@@ -2,7 +2,7 @@ import { randomInt, randomUUID } from "node:crypto";
 import type { RunContext } from "./types";
 
 /** What templates are resolved against. */
-export type TemplateContext = Pick<RunContext, "trigger" | "vars">;
+export type TemplateContext = Pick<RunContext, "trigger" | "vars"> & Partial<Pick<RunContext, "request">>;
 
 export type InterpolateOptions = {
   /** HTML-escape each inserted value (email bodies). The template itself is left as written. */
@@ -25,6 +25,7 @@ const PLACEHOLDER = /\{\{\s*([^}]+?)\s*\}\}/g;
  *   {{uuid}}         — a fresh random id (crypto.randomUUID)
  *   {{random}}       — random float 0..1
  *   {{random.int}}   — random int 0..999999
+ *   {{request.lang}} — the visitor's language code (multilingual apps), else the app's
  *
  * Dates (such as a row's created_at) are written as ISO timestamps.
  */
@@ -121,6 +122,7 @@ export function resolvePath(path: string, ctx: TemplateContext): unknown {
   let cur: unknown;
   if (head === "trigger") cur = ctx.trigger;
   else if (head === "vars") cur = ctx.vars;
+  else if (head === "request") cur = ctx.request;
   else if (head === "now") {
     const d = new Date();
     const iso = d.toISOString();

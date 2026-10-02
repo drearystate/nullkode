@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
+import { requestErrorsT } from "@/lib/errors-i18n";
 import { json, slugify, projectSlug } from "@/lib/utils";
 import { getModule } from "@/lib/modules/registry";
 import { installModule } from "@/lib/modules/install";
@@ -64,13 +65,14 @@ export async function GET() {
 
 export async function POST(req: Request) {
   const user = await getCurrentUser();
-  if (!user) return json({ error: "Unauthorized" }, { status: 401 });
+  const t = await requestErrorsT();
+  if (!user) return json({ error: t("common.unauthorized") }, { status: 401 });
 
   const limitError = await checkProjectLimit(user);
   if (limitError) return limitError;
 
   const parsed = CreateBody.safeParse(await req.json().catch(() => null));
-  if (!parsed.success) return json({ error: "Invalid input" }, { status: 400 });
+  if (!parsed.success) return json({ error: t("common.invalidInput") }, { status: 400 });
 
   const base = slugify(parsed.data.name) || "project";
   const slug = projectSlug(base);

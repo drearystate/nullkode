@@ -1,0 +1,32 @@
+{
+  "aiUsage": "本月 AI 操作次数：<b>{used} / {limit}</b>",
+  "aiUsageLabel": "已使用的 AI 操作次数",
+  "planNames": {
+    "FREE": "免费",
+    "PRO": "专业版",
+    "STARTER": "入门版",
+    "TEAM": "团队版"
+  },
+  "plans": {
+    "checkoutFailed": "无法开始结账",
+    "comingSoon": "即将推出",
+    "current": "当前方案",
+    "free": "免费",
+    "manage": "管理账单",
+    "manageHelp": "打开 Stripe 安全账单页面，你可以在此更新银行卡、查看过往账单，以及在支持的情况下更改或取消方案。",
+    "notBuyable": "此方案暂时还不能在线购买。",
+    "portalFailed": "无法打开账单页面",
+    "upgrade": "升级",
+    "upgradeHelp": "打开 Stripe 安全支付页面，开通此方案并按月付费。已订阅付费方案？请使用“管理账单”进行切换。"
+  },
+  "profileNote": "你可以在<link>个人资料</link>中管理照片、姓名、密码、外观、帮助提示和删除账号。",
+  "status": {
+    "ACTIVE": "已付款，生效中",
+    "CANCELED": "已取消",
+    "PAST_DUE": "付款逾期",
+    "TRIALING": "免费试用",
+    "UNPAID": "未付款"
+  },
+  "title": "账单",
+  "yourPlan": "你的方案：<b>{plan}</b>"
+}

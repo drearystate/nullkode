@@ -11,6 +11,8 @@
 
 import { redirect } from "next/navigation";
 import { NextResponse } from "next/server";
+import { getTranslations } from "next-intl/server";
+import { requestLocale } from "@/i18n/request";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
 import { designerProjectState } from "@/lib/design-studio/pages-mirror";
@@ -27,7 +29,8 @@ export async function GET(_req: Request, ctx: { params: Promise<{ id: string }> 
     select: { id: true, projectId: true },
   });
   if (!design) {
-    return new NextResponse("Design not found.", {
+    const t = await getTranslations({ locale: await requestLocale(), namespace: "designer" });
+    return new NextResponse(t("server.notFound"), {
       status: 404,
       headers: { "content-type": "text/plain" },
     });

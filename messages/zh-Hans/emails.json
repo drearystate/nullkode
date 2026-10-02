@@ -1,0 +1,49 @@
+{
+  "aiQuota": {
+    "body80": "{reseller} 本月已使用 {used}/{max} 次 AI 操作。次数用完后，在 {resets} 之前，你和你的客户将无法使用 AI 创建和编辑。",
+    "bodyFull": "{reseller} 本月的 {max} 次 AI 操作已全部用完。在 {resets} 之前，你和你的客户将无法使用 AI 创建和编辑。",
+    "includes": "此次数包含你和客户使用的 AI 操作。",
+    "raise": "如需提高上限，请联系平台运营方。",
+    "subject80": "{reseller}：本月 AI 操作次数已用掉 80%",
+    "subjectFull": "{reseller}：本月 AI 操作次数已用完"
+  },
+  "alert": {
+    "field": "{name}：{value}",
+    "footer": "由于你为 {table} 开启了提醒，因此会收到这些邮件。你可以在应用概览页面关闭提醒。",
+    "intro": "有人刚通过 {app} 提交了新的 {label}。",
+    "introTest": "这是一封用于测试 {app} 提醒的邮件。没有人提交内容。",
+    "reply": "直接回复此邮件，即可回复 {email}。",
+    "see": "在应用数据中查看：",
+    "subject": "有新的 {label}",
+    "subjectHeadline": "有新的 {label}：{headline}",
+    "subjectHeadlineTest": "（测试）有新的 {label}：{headline}",
+    "subjectTest": "（测试）有新的 {label}"
+  },
+  "alertSummary": {
+    "body": "过去一小时，{app} 收到了 {count, plural, one {# 条新提交} other {# 条新提交}}。",
+    "heldBack": "为避免邮件塞满收件箱，我们没有单独发送这些邮件。你可以在应用数据中查看全部内容：",
+    "subject": "{app} 中还有 {count, plural, one {# 条新提交} other {# 条新提交}}"
+  },
+  "hi": "你好，",
+  "hiName": "你好，{name}",
+  "invite": {
+    "body": "{inviter} 已在 {app} 为你创建了账号，你可以在这里创建并发布自己的应用。",
+    "bodyPlatform": "平台团队已在 {app} 为你创建了账号，你可以在这里创建并发布自己的应用。",
+    "cta": "设置密码即可开始：",
+    "expires": "此链接只能使用一次，并将在 7 天后失效。",
+    "subject": "你受邀加入 {app}"
+  },
+  "reset": {
+    "forgotBody": "有人请求重置你的 {app} 账号密码。如果是你本人操作，请在此设置新密码：",
+    "forgotExpires": "此链接只能使用一次，并将在 2 小时后失效。如果你没有提出此请求，可以忽略这封邮件。",
+    "issuedBody": "点击此链接，为你的 {app} 账号设置新密码：",
+    "issuedExpires": "此链接只能使用一次，并将在 2 小时后失效。",
+    "subject": "重置你的 {app} 密码"
+  },
+  "test": {
+    "body": "这是一封来自 {app} 的测试邮件。如果你能读到这封邮件，说明邮件功能正常：邀请、密码链接和应用提醒都会通过 {from} 发送。",
+    "hello": "你好，",
+    "noReply": "无需回复。",
+    "subject": "来自 {app} 的测试邮件"
+  }
+}

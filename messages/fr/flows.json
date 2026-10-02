@@ -1,0 +1,788 @@
+{
+  "activity": {
+    "all": "Toutes les exécutions",
+    "allHelp": "Afficher toutes les exécutions récentes de cette automatisation.",
+    "empty": "Rien pour le moment. Les lancements s’affichent ici quand quelqu’un utilise ceci dans votre app ou quand vous appuyez sur Tester le lancement.",
+    "filterLabel": "Exécutions à afficher",
+    "intro": "Voici ce qui s’est passé à chaque exécution de ce flux.",
+    "justNow": "à l’instant",
+    "last24h": "Dernières 24 heures : {total, plural, one {# exécution} other {# exécutions}}, {problems} avec un problème.",
+    "loadError": "Impossible de charger l’activité.",
+    "ms": "{n} ms",
+    "noProblems": "Aucun problème. Tous les lancements récents se sont bien déroulés.",
+    "nothingSent": "Rien n’a été envoyé lors de cette exécution.",
+    "outcome": {
+      "answered": "Réponse envoyée",
+      "failed": "Échec",
+      "ok": "Terminé",
+      "warning": "Terminé avec un problème"
+    },
+    "outcomeHelp": {
+      "answered": "Réponse envoyée : une réponse négative a été envoyée, par exemple pour un mot de passe incorrect ou des informations manquantes. C’est généralement normal, pas une erreur.",
+      "failed": "Échec : ce lancement s’est arrêté à une étape à cause d’une erreur et n’a pas abouti.",
+      "ok": "Terminé : toutes les étapes se sont bien déroulées.",
+      "warning": "Terminé avec un problème : le lancement a abouti, mais un problème est survenu en cours de route, par exemple un e-mail qui n’a pas été envoyé."
+    },
+    "problemsOnly": "Problèmes uniquement",
+    "problemsOnlyHelp": "Afficher uniquement les exécutions qui ont échoué ou rencontré un problème, comme un e-mail non envoyé.",
+    "refresh": "Actualiser l’activité",
+    "refreshHelp": "Vérifier s’il y a de nouveaux lancements.",
+    "s": "{n} s",
+    "source": {
+      "event": "Depuis votre app",
+      "live": "Depuis votre app",
+      "schedule": "Selon son planning",
+      "test": "Votre exécution de test",
+      "test-submission": "Envoi de test"
+    },
+    "title": "Activité",
+    "titleHelp": "À chaque exécution de cette automatisation : si elle a fonctionné, ce qui l’a déclenchée et les données reçues. Pratique pour repérer les problèmes.",
+    "took": "durée : {duration}",
+    "whatTheySent": "Ce qui a été envoyé",
+    "whatWasSent": "Ce qui a été envoyé",
+    "whatWasSentHelp": "Les informations reçues lors de ce lancement, par exemple ce qu’une personne a saisi dans un formulaire."
+  },
+  "api": {
+    "aiTooOften": "Ce flux utilise l’IA. Il peut donc s’exécuter au maximum toutes les {minutes} minutes. Cela évite qu’une programmation épuise votre quota d’IA.",
+    "chooseWhen": "Choisissez quand lancer cette action.",
+    "invalidInput": "Entrée non valide",
+    "notFound": "Introuvable"
+  },
+  "catalog": {
+    "aggregate": {
+      "help": "Compte les enregistrements ou calcule le total d’une colonne dans une table, par exemple le nombre d’inscriptions ou le total des ventes. Les étapes suivantes peuvent utiliser le résultat.",
+      "label": "Compter ou totaliser des enregistrements"
+    },
+    "ai_prompt": {
+      "help": "Donne une question ou une tâche à l’IA, par exemple résumer un message. Les étapes suivantes peuvent utiliser sa réponse. Chaque exécution est déduite de votre quota d’IA.",
+      "label": "Demander à l’IA"
+    },
+    "branch": {
+      "help": "Vérifie une condition et divise l’automatisation en deux : un chemin s’exécute si elle est vraie, l’autre si elle ne l’est pas.",
+      "label": "Si ceci, sinon cela"
+    },
+    "bulk_delete": {
+      "help": "Supprime définitivement en une seule fois toutes les lignes d’une table qui correspondent à vos conditions. Cette action est irréversible.",
+      "label": "Supprimer plusieurs lignes"
+    },
+    "bulk_insert": {
+      "help": "Ajoute plusieurs lignes à la fois dans une table, à partir d’une liste créée par une étape précédente.",
+      "label": "Ajouter plusieurs lignes"
+    },
+    "bulk_update": {
+      "help": "Modifie en une seule fois toutes les lignes d’une table qui correspondent à vos conditions.",
+      "label": "Modifier plusieurs lignes"
+    },
+    "check_role": {
+      "help": "Vérifie si la personne connectée a un rôle particulier, comme celui d’administrateur. Ajoutez une étape « Si ceci, sinon cela » pour décider de la suite.",
+      "label": "Vérifier les autorisations de la personne"
+    },
+    "clear_session": {
+      "help": "Déconnecte la personne sur cet appareil.",
+      "label": "Déconnecter la personne"
+    },
+    "custom_js": {
+      "help": "Pour les développeurs : exécute un court code JavaScript que vous écrivez. À utiliser uniquement si aucune autre étape ne répond à votre besoin.",
+      "label": "Code personnalisé"
+    },
+    "delay": {
+      "help": "Met l’automatisation en pause quelques secondes (jusqu’à 60) avant l’étape suivante.",
+      "label": "Attendre"
+    },
+    "delete": {
+      "help": "Supprime définitivement les enregistrements d’une table qui correspondent à vos conditions. Cette action est irréversible.",
+      "label": "Supprimer des enregistrements"
+    },
+    "email": {
+      "help": "Envoie un e-mail, par exemple une confirmation de commande à un client ou un message d’information pour vous-même.",
+      "label": "Envoyer un e-mail"
+    },
+    "get_session": {
+      "help": "Indique qui est connecté, le cas échéant, ainsi que son nom, son e-mail et son rôle, pour que les étapes suivantes puissent utiliser ces informations.",
+      "label": "Qui est connecté ?"
+    },
+    "hash_password": {
+      "help": "Transforme un mot de passe pour pouvoir l’enregistrer en toute sécurité. Utilisez cette étape avant d’enregistrer le mot de passe d’un nouveau compte ; il sera impossible de retrouver le mot de passe d’origine.",
+      "label": "Protéger un mot de passe"
+    },
+    "http_request": {
+      "help": "Contacte un autre site web ou service en ligne pour récupérer ou transmettre des informations. Les étapes suivantes peuvent utiliser sa réponse.",
+      "label": "Contacter un autre site web"
+    },
+    "insert": {
+      "help": "Enregistre un nouvel enregistrement (une nouvelle ligne) dans l’une de vos tables, comme les informations saisies dans un formulaire.",
+      "label": "Ajouter un enregistrement"
+    },
+    "lookup": {
+      "help": "Pour chaque enregistrement trouvé par une étape précédente, récupère l’enregistrement correspondant dans une autre table, par exemple pour ajouter les coordonnées du client à chaque commande.",
+      "label": "Rechercher un enregistrement associé"
+    },
+    "math": {
+      "help": "Calcule un nombre à partir de deux valeurs : addition, soustraction, multiplication, division ou reste. Les étapes suivantes peuvent utiliser le résultat.",
+      "label": "Calculer"
+    },
+    "parse_json": {
+      "help": "Transforme un texte contenant des données structurées (souvent envoyées par d’autres sites web) en valeurs distinctes que les étapes suivantes peuvent utiliser.",
+      "label": "Extraire des données d’un texte"
+    },
+    "query": {
+      "help": "Recherche des enregistrements enregistrés dans l’une de vos tables (une table ressemble à une feuille de calcul), avec la possibilité de ne garder que ceux qui correspondent à vos conditions. Les étapes suivantes peuvent utiliser les résultats.",
+      "label": "Rechercher des enregistrements"
+    },
+    "response": {
+      "help": "Envoie une réponse à la page ou au formulaire qui a lancé l’automatisation, comme un message de confirmation ou les enregistrements trouvés.",
+      "label": "Répondre"
+    },
+    "send_push": {
+      "help": "Envoie une notification sur leur téléphone ou ordinateur à toutes les personnes qui ont activé les notifications de votre app.",
+      "label": "Envoyer une notification"
+    },
+    "set": {
+      "help": "Enregistre une valeur sous le nom de votre choix pour que les étapes suivantes puissent la réutiliser, comme un pense-bête pour cette exécution.",
+      "label": "Mémoriser une valeur"
+    },
+    "set_session": {
+      "help": "Connecte la personne sur cet appareil pour que votre app se souvienne d’elle lors de ses prochaines visites.",
+      "label": "Connecter la personne"
+    },
+    "sheets_append": {
+      "help": "Ajoute une ligne à une feuille Google Sheets que vous avez connectée, par exemple pour garder une trace de chaque formulaire envoyé. Cela fonctionne uniquement avec les feuilles que votre app peut modifier, pas celles en lecture seule.",
+      "label": "Ajouter une ligne à une feuille Google Sheets"
+    },
+    "sheets_read": {
+      "help": "Lit les lignes d’une feuille Google Sheets que vous avez connectée (jusqu’à 1 000), pour que les étapes suivantes puissent les utiliser.",
+      "label": "Lire une feuille Google Sheets"
+    },
+    "trigger": {
+      "help": "Définit le point de départ de l’automatisation : quand une page ou un formulaire de votre app l’utilise, ou selon le calendrier défini. Connectez cette étape à la première action à effectuer.",
+      "label": "Quand l’app appelle cette action"
+    },
+    "update": {
+      "help": "Modifie des enregistrements déjà enregistrés dans une table. Choisissez ceux à modifier et leurs nouvelles valeurs.",
+      "label": "Modifier des enregistrements"
+    },
+    "verify_password": {
+      "help": "Vérifie si le mot de passe saisi correspond à celui que vous avez protégé. À utiliser lorsque des personnes se connectent.",
+      "label": "Vérifier un mot de passe"
+    }
+  },
+  "categories": {
+    "ai": "IA",
+    "auth": "Comptes",
+    "data": "Données enregistrées",
+    "integration": "Envoi et connexions",
+    "logic": "Décisions et valeurs",
+    "response": "Terminer",
+    "trigger": "Démarrage"
+  },
+  "describe": {
+    "anEmailOff": "un e-mail n’a pas été envoyé, car l’envoi d’e-mails n’est pas configuré",
+    "answered": "Réponse « {message} ».",
+    "answeredCode": "Réponse avec le code {status}.",
+    "didAndNote": "{did} ; {note}.",
+    "done": {
+      "ai": "question posée à l’IA",
+      "deleted": "supprimé de {table}",
+      "emailed": "e-mail envoyé à {address}",
+      "http": "un autre service contacté",
+      "saved": "enregistré dans {table}",
+      "sentEmail": "e-mail envoyé",
+      "sentPush": "notification envoyée",
+      "sheetsAppend": "une ligne ajoutée à Google Sheets",
+      "signedIn": "une personne connectée",
+      "signedOut": "une personne déconnectée",
+      "updated": "mis à jour dans {table}"
+    },
+    "emailNotSent": "l’e-mail n’a pas été envoyé ({reason})",
+    "emailOff": "l’e-mail n’a pas été envoyé, car l’envoi d’e-mails n’est pas configuré",
+    "failed": {
+      "ai": "L’étape d’IA n’a pas répondu",
+      "delete": "Impossible de supprimer de {table}",
+      "didntFinish": "N’est pas arrivé au bout",
+      "email": "Impossible d’envoyer l’e-mail",
+      "http": "Impossible de joindre l’autre service",
+      "push": "Impossible d’envoyer la notification",
+      "read": "Impossible de lire {table}",
+      "save": "Impossible d’enregistrer dans {table}",
+      "stoppedAt": "Arrêt à l’étape « {label} »",
+      "update": "Impossible de mettre à jour {table}"
+    },
+    "failedOnly": "{failed}.",
+    "failedWhy": "{failed} : {why}",
+    "failedWhyPeriod": "{failed} : {why}.",
+    "noProblems": "Tout s’est bien passé.",
+    "sent": "Envoyé",
+    "sentence": "{text}.",
+    "signUps": "les inscriptions",
+    "yourData": "vos données"
+  },
+  "editor": {
+    "addStep": "Ajouter une étape",
+    "addStepHelp": "Les actions que votre automatisation peut effectuer. Cliquez sur une action pour l’ajouter, puis faites glisser depuis son bord droit jusqu’à l’étape suivante pour définir l’ordre d’exécution.",
+    "deleteStep": "Supprimer l’étape",
+    "deleteStepHelp": "Supprime cette étape et ses connexions. Vous pouvez aussi appuyer sur Suppr sur votre clavier.",
+    "emptyBody": "Sélectionnez une étape pour modifier son action. Ajoutez-en d’autres à gauche, puis reliez-les dans l’ordre d’exécution souhaité.",
+    "emptyTitle": "Chaque étape a son utilité.",
+    "flow": "Flux",
+    "handleFalse": "Point du bas : faites glisser jusqu’à l’étape à exécuter si la condition est fausse.",
+    "handleIn": "Point de connexion de l’étape précédente.",
+    "handleOut": "Faites glisser depuis ce point jusqu’à l’étape suivante pour choisir ce qui s’exécute après celle-ci.",
+    "handleTrue": "Point du haut : faites glisser jusqu’à l’étape à exécuter si la condition est vraie.",
+    "pausedTest": "Cette automatisation est en pause. Activez-la pour la tester.",
+    "problemsBadge": "{count} en erreur au cours des dernières 24 h",
+    "running": "Exécution…",
+    "saveFailed": "Échec de l’enregistrement",
+    "saved": "Enregistré",
+    "searchHelp": "Saisissez un mot, comme « e-mail » ou « enregistrer », pour trouver rapidement une étape.",
+    "searchLabel": "Rechercher des étapes du flux",
+    "searchPlaceholder": "Trouver une étape…",
+    "tabActivity": "Activité",
+    "tabActivityHelp": "Consultez chaque exécution de cette automatisation, voyez si elle a fonctionné et ce que les personnes ont envoyé en cas de problème.",
+    "tabSchedule": "Programmation",
+    "tabScheduleHelp": "Choisissez si l’automatisation se lance quand votre app est utilisée ou toute seule à des heures précises, par exemple chaque matin.",
+    "tabSteps": "Étapes",
+    "tabStepsHelp": "Créez l’automatisation : ajoutez des étapes et reliez-les dans l’ordre d’exécution souhaité.",
+    "tabsLabel": "Vues du flux",
+    "testRun": "Exécuter un test",
+    "testRunHelp": "Lance cette automatisation une fois, avec vos dernières modifications enregistrées, et affiche le résultat ci-dessous. Les étapes sont réellement exécutées (enregistrement, envoi d’e-mails, etc.) et apparaissent dans Activité.",
+    "webAddress": "Adresse web (pour les développeurs)",
+    "webAddressHelp": "L’adresse web que d’autres services ou votre propre code peuvent appeler pour lancer cette automatisation. Vous en avez besoin uniquement pour connecter un service extérieur à l’éditeur."
+  },
+  "enabledSwitch": {
+    "failed": "Impossible de modifier ce réglage. Réessayez.",
+    "help": "En pause, rien ne s’exécute et tout ce qui utilise cette automatisation dans votre app, comme un formulaire, renvoie une erreur. La modification prend effet immédiatement dans votre app en ligne : pas besoin de publier.",
+    "helpScheduled": "En pause, les exécutions planifiées s’arrêtent et tout ce qui utilise cette automatisation dans votre app renvoie une erreur. La modification prend effet immédiatement : pas besoin de publier.",
+    "label": "Exécuter cette automatisation",
+    "on": "Activée",
+    "paused": "En pause"
+  },
+  "inspector": {
+    "add": "Ajouter",
+    "addCondition": "Ajouter une condition",
+    "addConditionHelp": "Ajoute une règle. Une entrée doit respecter toutes les règles pour être prise en compte.",
+    "addField": "Ajouter un champ",
+    "addFieldHelp": "Ajoute une ligne avec un nom et une valeur.",
+    "advanced": "Avancé",
+    "agg": {
+      "avg": "Calculer la moyenne d’une colonne",
+      "count": "Compter les entrées",
+      "max": "Trouver la plus grande valeur d’une colonne",
+      "min": "Trouver la plus petite valeur d’une colonne",
+      "sum": "Additionner une colonne"
+    },
+    "aggregateEmptyHint": "Laissez vide pour inclure toutes les lignes. Toutes les conditions doivent être remplies.",
+    "biggestFirst": "Plus grand résultat en premier",
+    "body": "Corps",
+    "bodyEmpty": "Ajoutez les champs à envoyer dans le corps de la requête.",
+    "bodyHelp": "Les informations à envoyer. Chaque ligne contient un nom et une valeur ; le guide de l’autre service indique les noms attendus.",
+    "branchHint": "Reliez le point du haut à ce qui se passe si la condition est vraie, et celui du bas à ce qui se passe si elle ne l’est pas.",
+    "bulkInsertHint": "L’étape s’arrête avec une erreur si cette étape n’a pas renvoyé de liste ou si l’identifiant d’un élément existe déjà dans la table.",
+    "byAsc": "Par {column}, de A à Z",
+    "byDesc": "Par {column}, de Z à A",
+    "choose": "— choisir —",
+    "clearSession": "Déconnecte la personne qui utilise votre app sur cet appareil. Elle devra donc se reconnecter la prochaine fois. Il n’y a rien à configurer ici.",
+    "clearSessionHelp": "Cette étape n’a pas de paramètres. Elle supprime la connexion enregistrée par votre app sur l’appareil de la personne.",
+    "closeHelp": "Fermer cette liste sans rien ajouter.",
+    "columnHelp": "La colonne à vérifier, par exemple e-mail ou statut.",
+    "deleteHelp": "Supprime cette étape et ses connexions de l’automatisation. Il n’y a pas de retour en arrière : vous devrez l’ajouter à nouveau.",
+    "deleteNeedsCondition": "Une condition est requise pour supprimer — sinon l’étape échouera.",
+    "fields": {
+      "aiPrompt": {
+        "help": "La question ou la tâche à confier à l’IA. Insérez des valeurs pour inclure, par exemple, le message du client.",
+        "label": "Consigne"
+      },
+      "aiSystem": {
+        "help": "Des consignes de fond pour l’IA, identiques à chaque fois, comme « Réponds en une phrase aimable » ou « Tu travailles dans une boulangerie ».",
+        "label": "Instructions système (facultatif)"
+      },
+      "dataSource": {
+        "help": "L’endroit où vos données sont stockées. La plupart des apps utilisent uniquement leur base de données intégrée ; choisissez-en une autre seulement si vous en avez connecté une vous-même.",
+        "label": "Source de données"
+      },
+      "emailFrom": {
+        "help": "L’adresse indiquée comme expéditeur de l’e-mail. Laissez vide pour utiliser l’adresse d’envoi habituelle du serveur.",
+        "label": "De (facultatif)"
+      },
+      "emailMessage": {
+        "help": "Le contenu de l’e-mail. Insérez des valeurs pour le personnaliser, comme le nom de la personne ou les détails de sa commande.",
+        "label": "Message"
+      },
+      "emailSubject": {
+        "help": "L’objet de l’e-mail. Vous pouvez insérer des valeurs, comme un numéro de commande.",
+        "label": "Objet"
+      },
+      "emailTo": {
+        "help": "Destinataires de l’e-mail. Saisissez une adresse ou insérez-en une du formulaire, comme l’adresse de la personne. Séparez plusieurs adresses par des virgules.",
+        "label": "À"
+      },
+      "firstValue": {
+        "help": "Le premier nombre. Saisissez-le ou insérez-en un d’une étape précédente.",
+        "label": "Première valeur"
+      },
+      "groupBy": {
+        "help": "Renvoie un résultat pour chaque valeur de cette colonne, comme le nombre d’enregistrements pour chaque statut. Choisissez « Un seul total » pour obtenir un seul nombre.",
+        "label": "Regrouper par"
+      },
+      "groupLimit": {
+        "help": "Le nombre maximal de groupes à renvoyer, jusqu’à 1 000. Les groupes au-delà de cette limite sont ignorés.",
+        "label": "Nombre maximal de groupes à renvoyer"
+      },
+      "hashInput": {
+        "help": "Le mot de passe à brouiller, généralement celui saisi dans le formulaire d’inscription. Enregistrez le résultat brouillé, jamais le mot de passe d’origine.",
+        "label": "Mot de passe à brouiller"
+      },
+      "is": {
+        "help": "La façon de comparer les deux valeurs. « contient » cherche le texte n’importe où dans la valeur ; « existe » vérifie seulement que la première valeur n’est pas vide.",
+        "label": "Est"
+      },
+      "javascript": {
+        "help": "Votre code. Utilisez vars.name pour accéder aux résultats des étapes précédentes et trigger.name pour accéder aux données reçues. La valeur renvoyée est enregistrée pour les étapes suivantes.",
+        "label": "JavaScript"
+      },
+      "jsonInput": {
+        "help": "Texte contenant des données au format JSON, un format courant envoyé par d’autres sites web, généralement la réponse d’une étape « Appeler un autre site web ». L’étape échoue si le texte n’est pas dans ce format.",
+        "label": "Texte JSON à analyser"
+      },
+      "lookupAs": {
+        "help": "Le nom des détails ajoutés à chaque enregistrement, comme client. Une correspondance est enregistrée sous forme d’un seul enregistrement ; plusieurs correspondances sont enregistrées sous forme de liste de 10 éléments maximum.",
+        "label": "Enregistrer les détails sous"
+      },
+      "lookupDataSource": {
+        "help": "L’endroit où se trouve l’autre liste. La plupart des apps n’ont que leur propre base de données intégrée.",
+        "label": "Source de données"
+      },
+      "lookupIn": {
+        "help": "La liste d’enregistrements contenant les détails, comme les clients.",
+        "label": "Rechercher dans"
+      },
+      "lookupMatch": {
+        "help": "La colonne de cette liste dont la valeur doit correspondre à celle ci-dessus. Il s’agit généralement de id.",
+        "label": "Colonne correspondante"
+      },
+      "lookupPointer": {
+        "help": "La colonne de ces enregistrements qui contient l’ID de l’autre enregistrement, comme customer_id dans une commande. Les enregistrements pour lesquels cette colonne est vide ne sont pas modifiés.",
+        "label": "Colonne contenant le lien vers l’autre enregistrement"
+      },
+      "lookupSource": {
+        "help": "La liste trouvée par une étape précédente, comme les commandes d’une étape « Rechercher des enregistrements ». L’étape s’arrête avec une erreur si cette étape n’a pas renvoyé de liste.",
+        "label": "Enregistrements à compléter"
+      },
+      "method": {
+        "help": "Le type de requête. GET récupère des informations, POST en envoie de nouvelles, PUT et PATCH les modifient, DELETE les supprime. Consultez le guide de l’autre service pour savoir laquelle utiliser.",
+        "label": "Méthode"
+      },
+      "ofColumn": {
+        "help": "La colonne à utiliser, comme montant ou prix. La somme et la moyenne ne fonctionnent qu’avec des colonnes de nombres.",
+        "label": "Dans cette colonne"
+      },
+      "operator": {
+        "help": "L’opération à effectuer sur les deux nombres. Le reste est ce qu’il reste après une division (7 divisé par 2 donne un reste de 1). Une division par zéro donne 0.",
+        "label": "Opérateur"
+      },
+      "orderGroups": {
+        "help": "Détermine quels groupes apparaissent en premier dans le résultat, comme le statut le plus fréquent en haut.",
+        "label": "Trier les groupes"
+      },
+      "plainPassword": {
+        "help": "Le mot de passe que la personne vient de saisir dans votre formulaire de connexion.",
+        "label": "Mot de passe saisi par l’utilisateur"
+      },
+      "pushMessage": {
+        "help": "Le texte sous le titre. Faites court, car les téléphones coupent les messages trop longs.",
+        "label": "Message"
+      },
+      "pushTitle": {
+        "help": "La première ligne en gras de la notification. Vous pouvez insérer des valeurs, comme un nom provenant d’une étape précédente.",
+        "label": "Titre"
+      },
+      "pushUrl": {
+        "help": "La page de votre app à ouvrir quand quelqu’un touche la notification, par exemple /menu. Laissez vide pour ouvrir la page d’accueil de votre app.",
+        "label": "Page à ouvrir au toucher (facultatif)"
+      },
+      "roleNeeded": {
+        "help": "Le rôle que la personne doit avoir, comme admin ou manager. Les majuscules n’ont pas d’importance.",
+        "label": "Rôle requis"
+      },
+      "roleSource": {
+        "help": "Laissez ce champ vide pour utiliser le rôle de la personne connectée, obtenu avec une étape « Qui est connecté » placée avant celle-ci. Ne le modifiez que si une étape précédente a enregistré le rôle sous un autre nom.",
+        "label": "Où se trouve son rôle (facultatif)"
+      },
+      "rowsToAdd": {
+        "help": "Une liste créée par une étape précédente, comme les enregistrements trouvés par une étape « Rechercher des enregistrements ». Chaque élément devient une nouvelle ligne. Ses noms doivent donc correspondre aux colonnes de ce tableau.",
+        "label": "Lignes à ajouter"
+      },
+      "secondValue": {
+        "help": "Le deuxième nombre. Saisissez-le ou insérez-en un d’une étape précédente.",
+        "label": "Deuxième valeur"
+      },
+      "seconds": {
+        "help": "Durée de la pause avant l’étape suivante. La personne qui utilise votre app attend aussi, alors faites court.",
+        "label": "Secondes (0-60)"
+      },
+      "sheetSource": {
+        "help": "La feuille Google Sheets connectée à votre app. Si la liste est vide, ajoutez-en une dans la section Avancé de la page Données de votre app.",
+        "label": "Source de données Google Sheets"
+      },
+      "sheetTab": {
+        "help": "Le nom de l’onglet en bas de la feuille de calcul, exactement comme il apparaît, par exemple Sheet1.",
+        "label": "Nom de l’onglet"
+      },
+      "stepName": {
+        "help": "Le nom de cette étape, affiché dans son bloc du diagramme pour la distinguer des autres. Il ne change pas son fonctionnement.",
+        "label": "Nom de l’étape"
+      },
+      "storedHash": {
+        "help": "Le mot de passe brouillé enregistré lors de l’inscription, généralement récupéré par une étape « Rechercher des enregistrements » qui a trouvé son compte.",
+        "label": "Empreinte enregistrée"
+      },
+      "table": {
+        "help": "Quel tableau utiliser. Un tableau ressemble à une feuille de calcul : une ligne par enregistrement, par exemple une par commande ou inscription.",
+        "label": "Liste d’enregistrements"
+      },
+      "thisValue": {
+        "help": "La valeur de comparaison. Saisissez-la sans guillemets ou insérez une valeur. « égal à » exige une correspondance exacte, y compris les majuscules.",
+        "label": "Cette valeur"
+      },
+      "url": {
+        "help": "L’adresse web du service à contacter, commençant par https://. Vous pouvez y insérer des valeurs.",
+        "label": "URL"
+      },
+      "userId": {
+        "help": "L’ID du compte à connecter, généralement issu de l’enregistrement trouvé par une étape « Rechercher des enregistrements ». Votre app se souvient ensuite de cette personne jusqu’à sa déconnexion.",
+        "label": "ID utilisateur"
+      },
+      "value": {
+        "help": "Ce qu’il faut enregistrer. Saisissez du texte, insérez une valeur du formulaire ou d’une étape précédente, ou combinez les deux.",
+        "label": "Valeur"
+      },
+      "variableName": {
+        "help": "Le nom sous lequel enregistrer la valeur. Les étapes suivantes pourront la choisir dans leur liste Insérer.",
+        "label": "Nom de la variable"
+      },
+      "whatToWorkOut": {
+        "help": "« Nombre » indique le nombre d’enregistrements. « Somme », « moyenne », « minimum » et « maximum » s’appliquent à une colonne, comme le total d’une colonne de montants.",
+        "label": "Calcul à effectuer"
+      },
+      "whenThisValue": {
+        "help": "La valeur à vérifier, généralement issue du formulaire ou d’une étape précédente. Utilisez Insérer pour la choisir.",
+        "label": "Quand cette valeur"
+      }
+    },
+    "fromRequest": "De la requête",
+    "fromRequestHelp": "« La requête » correspond aux données envoyées par la page ou le formulaire au démarrage de cette automatisation. Saisissez le nom d’un champ, comme email, puis appuyez sur Entrée ou sur Ajouter.",
+    "fromStepHelp": "Ajoute le résultat de cette étape précédente, comme les enregistrements trouvés ou la réponse obtenue.",
+    "fromSteps": "Des étapes précédentes",
+    "groupedResult": "Le résultat est une liste avec une ligne par {column}, chacune contenant sa valeur {column} et son résultat.",
+    "helper": {
+      "date": "Date du jour",
+      "dateHelp": "La date d’exécution, sans l’heure.",
+      "now": "Date et heure actuelles",
+      "nowHelp": "La date et l’heure exactes au moment où cette étape s’exécute.",
+      "uuid": "Identifiant aléatoire",
+      "uuidHelp": "Un nouveau code aléatoire à chaque fois, pratique comme numéro de référence unique."
+    },
+    "helpers": "Outils",
+    "insert": "Insérer",
+    "insertHelp": "Ajoutez une valeur qui change à chaque fois : une donnée envoyée par le formulaire, le résultat d’une étape précédente ou la date du jour.",
+    "insertLabel": "Insérer une valeur",
+    "insertTitle": "Insérer une valeur de la requête ou d’une étape précédente",
+    "insertValue": "Insérer une valeur",
+    "insertValuesHelp": "Indiquez quoi enregistrer dans chaque colonne de la nouvelle entrée. Saisissez une valeur ou insérez-en une depuis le formulaire. L’ID de l’entrée et sa date d’ajout sont renseignés automatiquement.",
+    "js": {
+      "available": "Valeurs disponibles",
+      "availableHelp": "Résultats des étapes précédentes que vous pouvez utiliser dans votre code. Cliquez sur l’un d’eux pour l’insérer à l’emplacement du curseur.",
+      "chipHint": "Cliquez sur une pastille pour l’insérer à l’emplacement du curseur.",
+      "examples": "Exemples",
+      "examplesHelp": "Exemples de code prêts à l’emploi pour les tâches courantes. Cliquez sur l’un d’eux pour l’insérer à l’emplacement du curseur.",
+      "headsUp": "À savoir",
+      "how": "Fonctionnement",
+      "how1": "Votre code s’exécute sur le serveur dans un environnement isolé et sécurisé. Il n’a accès ni au réseau ni aux fichiers, et ne peut pas utiliser <code>{require}</code> ou <code>{import}</code>, ni accéder à d’autres automatisations.",
+      "how2": "Lisez <code>{read}</code> pour utiliser le résultat d’une étape précédente. Attribuez une valeur à <code>{write}</code> pour créer une variable que les étapes suivantes pourront lire. La valeur que vous renvoyez avec <code>{return}</code> est stockée dans la variable de résultat affichée ci-dessous.",
+      "how3": "<code>{trigger}</code> est une copie figée de la requête entrante : elle est en lecture seule. Les messages de la console ne sont pas conservés.",
+      "how4": "Les scripts s’arrêtent au bout de 3 secondes. Si votre code déclenche une erreur, toute l’automatisation échoue et affiche le message d’erreur.",
+      "howHelp": "Ce que votre code peut ou ne peut pas faire, et ses limites, comme s’arrêter après 3 secondes.",
+      "insertTrigger": "Insérer les données de la requête",
+      "noSteps": "Aucune étape précédente — reliez cette étape après une étape qui produit une valeur.",
+      "syntax": "Dans le code, utilisez directement <code>{vars}</code> et <code>{trigger}</code> — pas la syntaxe <code>{template}</code> utilisée dans les autres étapes."
+    },
+    "math": {
+      "add": "additionner (+)",
+      "divide": "diviser (÷)",
+      "multiply": "multiplier (×)",
+      "remainder": "reste (%)",
+      "subtract": "soustraire (−)"
+    },
+    "newRowValues": "Valeurs de la nouvelle ligne",
+    "noColumns": "Ce tableau ne contient pas encore de colonnes. Ajoutez d’abord des champs au tableau.",
+    "noConditions": "Aucune condition — toutes les lignes seront prises en compte.",
+    "noEditableColumns": "Ce tableau ne contient aucune colonne modifiable.",
+    "noSteps": "Aucune étape précédente ne fournit encore de valeur.",
+    "oneTotal": "Un seul total",
+    "ops": {
+      "contains": "contient",
+      "eq": "égal à",
+      "exists": "existe (n’est pas vide)",
+      "gt": "supérieur à",
+      "gte": "supérieur ou égal à",
+      "lt": "inférieur à",
+      "lte": "inférieur ou égal à",
+      "ne": "différent de"
+    },
+    "outputHelp": "Facultatif : le nom sous lequel le résultat de cette étape est enregistré. Ne le modifiez que si deux étapes auraient autrement le même nom, comme deux étapes « Trouver des enregistrements ».",
+    "outputName": "Nom utilisé pour faire référence au résultat de cette étape ailleurs.",
+    "pickTable": "Choisissez une liste d’entrées pour configurer cette étape.",
+    "placeholders": {
+      "aNumber": "un nombre",
+      "aiPrompt": "Résumez ce message d’un client…",
+      "aiSystem": "Vous êtes un assistant serviable…",
+      "eg10": "ex. : 10",
+      "eg108": "ex. : 1,08",
+      "egActive": "ex. : actif",
+      "egGreeting": "ex. : salutation",
+      "emailBody": "Bonjour, merci pour votre commande…",
+      "emailSubject": "Votre commande a été expédiée",
+      "fieldName": "nom du champ (ex. : email)",
+      "hashFromRow": "Choisissez le hash dans la ligne de la base de données",
+      "helloThere": "Bonjour",
+      "jsonInput": "Choisissez une valeur qui contient du texte JSON",
+      "keepCurrent": "laissez vide pour conserver la valeur actuelle",
+      "name": "nom",
+      "passwordFromRequest": "Choisissez le mot de passe reçu dans la requête",
+      "pickSourceFirst": "Choisissez d’abord une source de données",
+      "pickValue": "Choisissez une valeur d’une étape précédente",
+      "pushMessage": "Réservez une table avant qu’il n’y en ait plus.",
+      "pushTitle": "Ce soir : musique live dès 19 h",
+      "stepName": "Ce que fait cette étape",
+      "trueOrFalse": "vrai ou faux",
+      "userIdFromStep": "Choisissez l’ID utilisateur d’une étape précédente",
+      "value": "valeur"
+    },
+    "pushIntro": "Envoie une notification à toutes les personnes qui ont activé les notifications pour cette app. Les utilisateurs d’iPhone doivent ajouter l’app à leur écran d’accueil.",
+    "queryEmptyHint": "Laissez vide pour renvoyer toutes les lignes. Toutes les conditions doivent être remplies.",
+    "remove": "Supprimer",
+    "removeCondition": "Supprimer la condition",
+    "removeConditionHelp": "Supprime cette règle.",
+    "removeRowHelp": "Supprime cette ligne.",
+    "respondEmpty": "Choisissez quoi renvoyer à l’appelant. Chaque ligne devient un champ de la réponse.",
+    "respondHint": "Par défaut, l’appelant reçoit une réponse indiquant que tout s’est bien passé. Ajoutez une étape avec une branche plus tôt dans le flux pour renvoyer une erreur.",
+    "respondWith": "Répondre avec",
+    "respondWithHelp": "Indiquez quoi renvoyer à la page ou au formulaire qui a démarré cette action. Chaque ligne contient un nom et une valeur, par exemple message : Merci, nous avons bien reçu votre message.",
+    "rolePassHint": "Ajoutez une étape « Qui est connecté » avant celle-ci, sinon personne ne pourra passer cette vérification.",
+    "roleResult": "La réponse, vraie ou fausse, est enregistrée dans {name}. Ajoutez ensuite une étape « Si ceci, sinon cela » qui vérifie si {token} est égal à true.",
+    "rowValues": "Valeurs de la ligne",
+    "rowValuesEmpty": "Ajoutez un champ pour chaque en-tête de colonne de la feuille.",
+    "rowValuesHelp": "Indiquez quoi mettre dans la nouvelle ligne. Chaque nom doit correspondre à un en-tête de colonne dans la première ligne de la feuille ; la valeur sera placée en dessous.",
+    "setFields": "Définir ces champs",
+    "singleResult": "Le résultat est une liste avec une seule ligne, dont la valeur correspond à la réponse. Pour utiliser le nombre à une étape ultérieure, saisissez {token}.",
+    "smallestFirst": "Plus petit résultat en premier",
+    "snippets": {
+      "filter": {
+        "description": "Ne garder que les lignes qui respectent une condition",
+        "label": "Filtrer les lignes"
+      },
+      "format": {
+        "description": "Créer un message à partir des données reçues",
+        "label": "Mettre en forme un texte"
+      },
+      "map": {
+        "description": "Transformer chaque ligne en un objet plus simple",
+        "label": "Transformer en un nouvel objet"
+      },
+      "split": {
+        "description": "Transformer un nom complet en champs prénom et nom",
+        "label": "Séparer le nom en plusieurs parties"
+      },
+      "sum": {
+        "description": "Additionner les nombres de toutes les lignes",
+        "label": "Additionner une colonne"
+      },
+      "timestamp": {
+        "description": "Obtenir l’heure actuelle au format ISO",
+        "label": "Horodatage actuel"
+      }
+    },
+    "step": "Étape",
+    "updateNeedsCondition": "Une condition est requise pour modifier des lignes — sinon l’étape échouera.",
+    "updateValuesHelp": "Les nouvelles valeurs à enregistrer. Laissez une colonne vide pour conserver sa valeur actuelle.",
+    "where": {
+      "aggregate": {
+        "help": "Seuls les enregistrements dont la colonne est égale à la valeur indiquée sont comptés ; toutes les règles doivent correspondre. Les règles dont la valeur est vide sont ignorées. Sans règle, tous les enregistrements sont comptés.",
+        "label": "Inclure uniquement les lignes où"
+      },
+      "bulk_delete": {
+        "help": "Choisissez les lignes à supprimer : toutes celles dont la colonne est égale à la valeur indiquée seront supprimées. Il faut au moins une règle pour éviter d’effacer toute la table.",
+        "label": "Supprimer les lignes où"
+      },
+      "bulk_update": {
+        "help": "Choisissez les lignes à modifier : toutes celles dont la colonne est égale à la valeur indiquée seront modifiées. Il faut au moins une règle pour éviter de modifier toute la table par accident.",
+        "label": "Modifier les lignes où"
+      },
+      "delete": {
+        "help": "Choisissez les enregistrements à supprimer : seuls ceux dont la colonne est égale à la valeur indiquée seront supprimés. Il faut au moins une règle pour éviter d’effacer toute la table.",
+        "label": "Supprimer les lignes où"
+      },
+      "query": {
+        "help": "Seuls les enregistrements dont la colonne est égale à la valeur indiquée sont trouvés ; toutes les règles doivent correspondre. Les règles dont la valeur est vide sont ignorées. Sans règle, tous les enregistrements sont trouvés (jusqu’à 100).",
+        "label": "Trouver les lignes où"
+      },
+      "update": {
+        "help": "Choisissez les enregistrements à modifier : seuls ceux dont la colonne est égale à la valeur indiquée seront modifiés. Il faut au moins une règle pour éviter de modifier toute la table par accident.",
+        "label": "Mettre à jour les lignes où"
+      }
+    }
+  },
+  "list": {
+    "emptyBody": "Créez votre première automatisation ou ajoutez une fonctionnalité prête à l’emploi avec ses automatisations déjà configurées.",
+    "emptyTitle": "Une petite automatisation peut faire beaucoup.",
+    "explainerHelp": "Comment fonctionnent les automatisations : quelque chose se passe dans votre app, comme l’envoi d’un formulaire ; vos étapes s’exécutent dans l’ordre ; puis la personne reçoit un résultat, comme un message de remerciement.",
+    "explore": "Découvrir les fonctionnalités",
+    "exploreHelp": "Découvrez des fonctionnalités prêtes à l’emploi, comme les réservations ou un formulaire de contact. Leurs automatisations sont déjà configurées.",
+    "eyebrow": "DONNEZ VIE À VOTRE APP",
+    "intro": "Transformez un clic en action. Enregistrez une réservation, envoyez un e-mail ou donnez vie à vos données.",
+    "openHelp": "Ouvrez cette automatisation pour voir et modifier ses étapes, vérifier ce qui s’est passé à chaque exécution ou définir quand elle s’exécute.",
+    "result": "Un résultat pour votre utilisateur",
+    "somethingHappens": "Quelque chose se passe",
+    "steps": "{count, plural, one {# étape} other {# étapes}}",
+    "stepsRun": "Vos étapes s’exécutent",
+    "title": "Les automatisations de votre app.",
+    "triggerEvent": "Démarre avec un événement",
+    "triggerForm": "Démarre avec un formulaire",
+    "triggerRequest": "Démarre avec une requête",
+    "triggerSchedule": "S’exécute selon un calendrier"
+  },
+  "newFlow": {
+    "button": "Nouvelle automatisation",
+    "buttonHelp": "Créez une automatisation vide qui se lance toute seule quand quelque chose se passe dans votre app. Vous lui donnerez un nom, puis vous ajouterez ses étapes.",
+    "create": "Créer",
+    "createHelp": "Crée l’automatisation et l’ouvre pour que vous puissiez ajouter ses étapes.",
+    "nameHelp": "Donnez-lui un nom qui décrit son rôle, comme « Envoyer une confirmation de réservation ». Appuyez sur Entrée pour la créer.",
+    "placeholder": "Ex. : Envoyer le formulaire de contact"
+  },
+  "runtime": {
+    "aiBusy": "Cette appli reçoit trop de demandes d’IA pour le moment. Veuillez réessayer plus tard.",
+    "aiLimit": "Cette appli a atteint sa limite d’IA pour le mois.",
+    "appDayLimit": "Cette appli a envoyé {count} e-mails aujourd’hui. Celui-ci n’a donc pas été envoyé pour éviter le spam.",
+    "appHourLimit": "Cette appli a envoyé {count} e-mails au cours de la dernière heure. Celui-ci n’a donc pas été envoyé pour éviter le spam.",
+    "emailFailed": "L’e-mail n’a pas pu être envoyé.",
+    "emailOff": "L’envoi d’e-mails n’est pas configuré sur ce serveur. Le message n’a donc pas été envoyé.",
+    "formula": "Impossible de calculer la formule de l’étape « {step} » : {reason}",
+    "recipientLimit": "{to} a déjà reçu {count} e-mails envoyés par des applis au cours de la dernière heure. Celui-ci n’a donc pas été envoyé."
+  },
+  "schedule": {
+    "aiNote": "Les flux qui utilisent l’IA s’exécutent au maximum toutes les {minutes} minutes.",
+    "aiTooOften": "Ce flux utilise l’IA. Il peut donc s’exécuter au maximum toutes les {minutes} minutes.",
+    "appMode": "Quand votre app l’utilise",
+    "appModeBody": "Une page, un formulaire ou un autre site la déclenche.",
+    "appModeHelp": "Elle s’exécute uniquement quand quelque chose dans votre app la déclenche, par exemple quand un visiteur envoie un formulaire.",
+    "connection": "Vérifiez votre connexion et réessayez.",
+    "day": "Jour",
+    "dayHelp": "Le jour de la semaine où elle s’exécute.",
+    "describe": {
+      "daily": "Chaque jour à {time} ({zone})",
+      "everyHour": "Toutes les heures",
+      "everyHours": "Toutes les {count} heures",
+      "everyMinute": "Toutes les minutes",
+      "everyMinutes": "Toutes les {count} minutes",
+      "hourlyFull": "Toutes les heures, pile ({zone})",
+      "hourlyPast": "{minute, plural, one {Toutes les heures à la minute # ({zone})} other {Toutes les heures, # minutes après l’heure ({zone})}}",
+      "utc": "UTC",
+      "weekdays": "Du lundi au vendredi à {time} ({zone})",
+      "weekly": "Chaque {day} à {time} ({zone})",
+      "zoneTime": "Heure de {zone}"
+    },
+    "every": "Tous les",
+    "everyHelp": "L’intervalle entre les exécutions. Certaines options peuvent être grisées, par exemple si cette automatisation utilise l’IA.",
+    "failing": "{count, plural, one {# échec consécutif ; mise en pause après {max}.} other {# échecs consécutifs ; mise en pause après {max}.}}",
+    "hour": "heure",
+    "hours": "{count} heures",
+    "howOften": "Fréquence",
+    "howOftenHelp": "À quelle fréquence elle s’exécute. Choisissez un rythme, puis l’heure exacte à côté.",
+    "inZone": "{time} (heure de {zone})",
+    "kinds": {
+      "daily": "Tous les jours",
+      "every": "Toutes les quelques minutes",
+      "hourly": "Toutes les heures",
+      "weekdays": "Du lundi au vendredi",
+      "weekly": "Une fois par semaine"
+    },
+    "lastFailed": "Dernière exécution {when} : échec.",
+    "lastOk": "Dernière exécution {when} : réussie.",
+    "lastTimeout": "Dernière exécution {when} : délai dépassé.",
+    "loadError": "Impossible de charger la programmation.",
+    "loading": "Chargement de la programmation…",
+    "minute": "minute",
+    "minutes": "{count} minutes",
+    "nextRun": "Prochaine exécution : {when}",
+    "noPlan": "Votre forfait ne comprend pas les flux programmés. Celui-ci ne s’exécutera donc pas.",
+    "notInLive": "Ce flux ne figure pas encore dans l’appli publiée. <link>Publiez vos modifications</link> pour lancer la programmation.",
+    "notInPlan": "Non inclus dans votre forfait.",
+    "notPublished": "Enregistré. <link>Publiez votre appli</link> pour lancer cette programmation.",
+    "onTheHour": "Pile à l’heure (:00)",
+    "pastHour": "Minutes après l’heure",
+    "pastHourHelp": "La minute à laquelle elle s’exécute à chaque heure, par exemple :15 pour et quart.",
+    "pausedFailures": "En pause après {count} échecs consécutifs. Vérifiez les étapes du flux, puis reprenez-le.",
+    "pending": "<link>Publiez vos modifications</link> pour utiliser cette programmation.",
+    "pendingUntil": "D’ici là, la programmation publiée reste active : {schedule}.",
+    "problems": {
+      "badZone": "Ce fuseau horaire n’est pas reconnu.",
+      "chooseHowOften": "Choisissez la fréquence d’exécution.",
+      "chooseWhen": "Choisissez quand lancer cette action.",
+      "minuteRange": "Choisissez une minute après l’heure, entre 0 et 59.",
+      "minutesRange": "Choisissez un nombre de minutes entre {min} et {max}.",
+      "pickDay": "Choisissez un jour de la semaine.",
+      "pickTime": "Choisissez une heure, par exemple 09:00."
+    },
+    "resume": "Reprendre",
+    "resumeHelp": "Réactive le planning après sa mise en pause à la suite d’échecs répétés. Corrigez d’abord le problème dans ses étapes.",
+    "saveError": "Impossible d’enregistrer. Veuillez réessayer.",
+    "saveHelp": "Enregistre les horaires d’exécution. Un nouveau planning ou un planning modifié prend effet une fois votre app publiée.",
+    "saveSchedule": "Enregistrer le planning",
+    "scheduleMode": "Selon un planning",
+    "scheduleModeBody": "Elle s’exécute automatiquement aux heures de votre choix.",
+    "scheduleModeHelp": "Elle s’exécute automatiquement aux heures de votre choix. Le planning démarre une fois votre app publiée.",
+    "starting": "Démarrage dans moins d’une minute.",
+    "suspended": "Ce compte est suspendu. Les exécutions programmées sont donc en pause.",
+    "time": "Heure",
+    "timeHelp": "L’heure à laquelle elle s’exécute, selon le fuseau horaire ci-dessous.",
+    "timeZone": "Fuseau horaire",
+    "timeZoneHelp": "L’horloge à laquelle les heures correspondent. Choisissez le lieu où vous ou vos clients vous trouvez, pour que 9 h corresponde à 9 h sur place.",
+    "title": "Quand cette automatisation s’exécute",
+    "titleHelp": "Choisissez si cette automatisation s’exécute quand votre app l’utilise ou automatiquement à des heures définies, par exemple chaque matin.",
+    "turnedOff": "Programmation désactivée. Elle ne s’exécutera plus automatiquement.",
+    "unreadable": "Impossible de lire cette programmation. Choisissez de nouveaux horaires et enregistrez.",
+    "yours": "{zone} (le vôtre)"
+  },
+  "summary": {
+    "aggregateFallback": "Compter ou additionner des enregistrements",
+    "askAi": "Poser une question à l’IA",
+    "bulkDeleteFallback": "Supprimer plusieurs lignes à la fois",
+    "bulkInsertFallback": "Ajouter plusieurs lignes à la fois",
+    "bulkUpdateFallback": "Mettre à jour plusieurs lignes à la fois",
+    "checkPassword": "Vérifier un mot de passe",
+    "checkRoleFallback": "Vérifier ce que la personne peut faire",
+    "customJs": "Exécuter votre code",
+    "from": "Depuis {table}",
+    "in": "Dans {table}",
+    "into": "Vers {table}",
+    "lookupFallback": "Ajouter des détails depuis une autre liste",
+    "needsRole": "Nécessite : {role}",
+    "noRecipient": "Aucun destinataire",
+    "noSheet": "Aucune feuille",
+    "noTable": "Aucune table sélectionnée",
+    "parseJson": "Convertir du texte en données",
+    "protectPassword": "Protéger un mot de passe avant de l’enregistrer",
+    "pushEveryone": "À toutes les personnes abonnées",
+    "pushTitle": "« {title} »",
+    "repliesWith": "{count, plural, one {Répond avec la valeur #} other {Répond avec les valeurs #}}",
+    "reply": "Envoie une réponse",
+    "seconds": "{seconds}s",
+    "sheet": "Feuille {sheet}",
+    "signIn": "Connecter {user}",
+    "signUserIn": "Connecter la personne",
+    "signUserOut": "Déconnecter la personne",
+    "startsHere": "Commence ici",
+    "to": "À {to}",
+    "unnamed": "Sans nom",
+    "verifyVs": "{plain} vs {hash} → {output}"
+  }
+}

@@ -3,6 +3,7 @@ import { db } from "@/lib/db";
 import { hashPassword, createSession, promoteIfSeededAdmin } from "@/lib/auth";
 import { guardSignup, SignupBlocked } from "@/lib/antibot";
 import { json } from "@/lib/utils";
+import { requestErrorsT } from "@/lib/errors-i18n";
 import { requestHost, resellerForHost } from "@/lib/reseller";
 
 const Body = z.object({
@@ -21,8 +22,9 @@ const Body = z.object({
 });
 
 export async function POST(req: Request) {
+  const t = await requestErrorsT();
   const parsed = Body.safeParse(await req.json().catch(() => null));
-  if (!parsed.success) return json({ error: "Invalid input" }, { status: 400 });
+  if (!parsed.success) return json({ error: t("common.invalidInput") }, { status: 400 });
 
   const { password, name, challenge, nonce, website, company, arrivedWithIdea } = parsed.data;
   const email = parsed.data.email.trim().toLowerCase();
@@ -31,10 +33,10 @@ export async function POST(req: Request) {
   const reseller = await resellerForHost(await requestHost());
   if (reseller) {
     if (!reseller.allowSignup) {
-      return json({ error: `New accounts at ${reseller.name} are by invitation. Ask ${reseller.name} to invite you.` }, { status: 403 });
+      return json({ error: t("auth.inviteOnly", { reseller: reseller.name }) }, { status: 403 });
     }
     if (reseller.maxClients !== null && (await db.user.count({ where: { resellerId: reseller.id } })) >= reseller.maxClients) {
-      return json({ error: `${reseller.name} isn't accepting new accounts right now. Please contact them.` }, { status: 403 });
+      return json({ error: t("auth.notAccepting", { reseller: reseller.name }) }, { status: 403 });
     }
   }
 
@@ -52,7 +54,7 @@ export async function POST(req: Request) {
     if (err instanceof SignupBlocked) {
       console.warn(`[signup blocked] ${err.reason} — ${email}`);
       return json(
-        { error: err.userMessage, retryable: err.retryable || undefined },
+        { error: t(`antibot.${err.userMessageKey}`), retryable: err.retryable || undefined },
         { status: err.status },
       );
     }
@@ -60,7 +62,7 @@ export async function POST(req: Request) {
   }
 
   const exists = await db.user.findFirst({ where: { email: { equals: email, mode: "insensitive" } }, select: { id: true } });
-  if (exists) return json({ error: "An account with this email already exists. Sign in instead." }, { status: 409 });
+  if (exists) return json({ error: t("auth.exists") }, { status: 409 });
 
   const passwordHash = await hashPassword(password);
   const user = await db.user.create({

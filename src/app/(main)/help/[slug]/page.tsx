@@ -6,7 +6,9 @@ import { getRequestBrand } from "@/lib/reseller";
 import { withNext } from "@/lib/safe-next";
 import { TopBar } from "@/components/top-bar";
 import { RichText } from "@/components/help/rich-text";
-import { GROUPS, audienceAllows, brandGuide, getGuide, sectionId, type Guide } from "@/lib/help/guides";
+import { audienceAllows, brandGuide, sectionAnchor, type Guide } from "@/lib/help/guides";
+import { getLocalizedGroups, getLocalizedGuide } from "@/lib/help/localized";
+import { getLocale, getTranslations } from "next-intl/server";
 import { lightScreenshot, screenshotSize } from "@/lib/help/screenshot-files";
 
 export const dynamic = "force-dynamic";
@@ -15,20 +17,22 @@ type Props = { params: Promise<{ slug: string }> };
 
 /** The guide, if it exists and the signed-in person may read it. */
 async function readableGuide(slug: string) {
-  const guide = getGuide(slug);
+  const locale = await getLocale();
+  const guide = getLocalizedGuide(slug, locale);
   if (!guide) return null;
   const [user, real] = await Promise.all([getCurrentUser(), getRealUser()]);
-  if (!user) return { guide, user: null, appName: "" };
+  if (!user) return { guide, user: null, appName: "", locale };
   const role = real?.role ?? user.role;
   if (!audienceAllows(guide.audience, role)) return null;
   const { brand } = await getRequestBrand(user);
-  return { guide: brandGuide(guide, brand.appName), user, appName: brand.appName, role };
+  return { guide: brandGuide(guide, brand.appName), user, appName: brand.appName, role, locale };
 }
 
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
   const found = await readableGuide(slug).catch(() => null);
-  return { title: found?.user ? `${found.guide.title} · Help` : "Help" };
+  const t = await getTranslations("helpui");
+  return { title: found?.user ? t("guideMetaTitle", { title: found.guide.title }) : t("help") };
 }
 
 export default async function GuidePage({ params }: Props) {
@@ -36,41 +40,42 @@ export default async function GuidePage({ params }: Props) {
   const found = await readableGuide(slug);
   if (!found) notFound();
   if (!found.user) redirect(withNext("/login", `/help/${slug}`));
-  const { guide, user, appName, role } = found;
+  const { guide, user, appName, role, locale } = found;
+  const t = await getTranslations("helpui");
 
   const sections = await Promise.all(
     guide.sections.map(async (s) => ({
       ...s,
-      id: sectionId(s.heading),
+      id: sectionAnchor(s),
       image: s.screenshot ? await screenshotSize(s.screenshot.file) : null,
       // Shown instead in light mode, when it has been captured.
       lightImage: s.screenshot ? Boolean(await screenshotSize(lightScreenshot(s.screenshot.file))) : false,
     })),
   );
   const related = guide.related
-    .map((r) => getGuide(r))
+    .map((r) => getLocalizedGuide(r, locale))
     .filter((g): g is Guide => Boolean(g) && audienceAllows(g!.audience, role))
     .map((g) => brandGuide(g, appName));
-  const groupTitle = GROUPS.find((g) => g.id === guide.group)?.title ?? "Help";
+  const groupTitle = getLocalizedGroups(locale).find((g) => g.id === guide.group)?.title ?? t("help");
   const showToc = sections.length >= 4;
 
   return (
     <main className="studio-shell min-h-screen">
       <TopBar user={user}>
         <Link href="/help" className="studio-workspace-label hover:text-white">
-          Help &amp; guides
+          {t("helpGuides")}
         </Link>
       </TopBar>
       <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 md:py-12">
         <Link href="/help" className="inline-flex items-center gap-1.5 text-sm text-surface-400 hover:text-white">
-          <ArrowLeft size={15} aria-hidden />
-          Back to all guides
+          <ArrowLeft size={15} className="rtl:-scale-x-100" aria-hidden />
+          {t("backToAll")}
         </Link>
 
         <div className={`mt-6 ${showToc ? "lg:grid lg:grid-cols-[minmax(0,1fr)_240px] lg:gap-12" : ""}`}>
           <article aria-labelledby="guide-title" className="min-w-0 max-w-[70ch]">
             <header>
-              <p className="studio-eyebrow text-brand-300">{groupTitle.toUpperCase()}</p>
+              <p className="studio-eyebrow text-brand-300">{groupTitle.toLocaleUpperCase(locale)}</p>
               <h1 id="guide-title" className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
                 {guide.title}
               </h1>
@@ -78,8 +83,8 @@ export default async function GuidePage({ params }: Props) {
             </header>
 
             {showToc && (
-              <nav aria-label="On this page" className="mt-8 rounded-2xl border border-[var(--nk-line)] bg-surface-900 p-5 lg:hidden">
-                <TocList sections={sections} />
+              <nav aria-label={t("onThisPage")} className="mt-8 rounded-2xl border border-[var(--nk-line)] bg-surface-900 p-5 lg:hidden">
+                <TocList sections={sections} label={t("onThisPageEyebrow")} />
               </nav>
             )}
 
@@ -107,7 +112,7 @@ export default async function GuidePage({ params }: Props) {
                             {i + 1}
                           </span>
                           <span className="min-w-0">
-                            <span className="sr-only">Step {i + 1}: </span>
+                            <span className="sr-only">{t("step", { n: i + 1 })}</span>
                             <RichText text={step} />
                           </span>
                         </li>
@@ -160,7 +165,7 @@ export default async function GuidePage({ params }: Props) {
             {related.length > 0 && (
               <section aria-labelledby="related-heading" className="mt-16 border-t border-white/[0.07] pt-10">
                 <h2 id="related-heading" className="text-lg font-semibold tracking-tight">
-                  Related guides
+                  {t("related")}
                 </h2>
                 <ul className="mt-4 grid gap-3 sm:grid-cols-2">
                   {related.map((r) => (
@@ -171,7 +176,7 @@ export default async function GuidePage({ params }: Props) {
                       >
                         <span className="flex items-start justify-between gap-3">
                           <span className="font-semibold text-surface-50">{r.title}</span>
-                          <ArrowRight size={15} className="mt-1 shrink-0 text-surface-500 group-hover:text-brand-300" aria-hidden />
+                          <ArrowRight size={15} className="mt-1 shrink-0 text-surface-500 group-hover:text-brand-300 rtl:-scale-x-100" aria-hidden />
                         </span>
                         <span className="mt-2 text-sm leading-relaxed text-surface-400">{r.summary}</span>
                       </Link>
@@ -183,16 +188,16 @@ export default async function GuidePage({ params }: Props) {
 
             <p className="mt-12">
               <Link href="/help" className="btn-ghost">
-                <ArrowLeft size={15} aria-hidden />
-                Back to all guides
+                <ArrowLeft size={15} className="rtl:-scale-x-100" aria-hidden />
+                {t("backToAll")}
               </Link>
             </p>
           </article>
 
           {showToc && (
             <aside className="hidden lg:block">
-              <nav aria-label="On this page" className="sticky top-24 rounded-2xl border border-[var(--nk-line)] bg-surface-900 p-5">
-                <TocList sections={sections} />
+              <nav aria-label={t("onThisPage")} className="sticky top-24 rounded-2xl border border-[var(--nk-line)] bg-surface-900 p-5">
+                <TocList sections={sections} label={t("onThisPageEyebrow")} />
               </nav>
             </aside>
           )}
@@ -202,10 +207,10 @@ export default async function GuidePage({ params }: Props) {
   );
 }
 
-function TocList({ sections }: { sections: Array<{ id: string; heading: string }> }) {
+function TocList({ sections, label }: { sections: Array<{ id: string; heading: string }>; label: string }) {
   return (
     <>
-      <p className="studio-eyebrow">ON THIS PAGE</p>
+      <p className="studio-eyebrow">{label}</p>
       <ol className="mt-3 space-y-2 text-sm">
         {sections.map((s) => (
           <li key={s.id}>

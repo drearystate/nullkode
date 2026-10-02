@@ -1,0 +1,84 @@
+{
+  "appearance": {
+    "intro": "选择工作室的外观。设置会保存到你的账号，并同步到其他设备。",
+    "title": "外观"
+  },
+  "blocked": {
+    "impersonating": "只有此账号的所有者才能删除账号。作为管理员，你可以在“管理后台”的“用户”下删除账号。",
+    "onlyOperator": "你是此平台唯一的运营方，因此无法删除账号。",
+    "reseller": "你使用的是经销商工作区，因此无法在此删除账号。请先联系平台运营方移除工作区。"
+  },
+  "delete": {
+    "backup": "备份",
+    "backupFirst": "请先下载每个应用的备份。之后可以通过“导入”恢复备份。",
+    "cancel": "取消",
+    "cannotUndo": "此操作无法撤销。",
+    "confirm": "永久删除我的账户",
+    "deletesAccount": "删除你的账号。",
+    "deletesApps": "{count, plural, one {删除你的账号和应用，以及其中保存的所有内容、文件和网址。} other {删除你的账号和 # 个应用，以及其中保存的所有内容、文件和网址。}}",
+    "deleting": "正在删除…",
+    "failed": "无法删除你的账户（{status}）。",
+    "keysAck": "{count, plural, one {我已下载上方的 Google Play 上传密钥，或不需要它。没有此密钥，应用将无法再通过 Google Play 更新。} other {我已下载上方的 Google Play 上传密钥，或不需要它们。没有这些密钥，应用将无法再通过 Google Play 更新。}}",
+    "networkError": "网络错误。未删除任何内容。",
+    "start": "删除我的账号…",
+    "startHelp": "开始删除你的账号。系统会要求你先输入邮箱地址；确认前不会删除任何内容。",
+    "subscriptionCancelled": "你的订阅会立即取消。",
+    "title": "删除我的账号",
+    "typeEmail": "输入你的邮箱地址以确认",
+    "uploadKey": "Google Play 上传密钥",
+    "uploadKeyHelp": "下载此密钥并妥善保管。没有它，此应用将无法再通过 Google Play 更新。"
+  },
+  "helpPrefs": {
+    "guides": "所有内容的分步指南都在<link>帮助与指南</link>中。",
+    "saveFailed": "无法保存。下次打开页面时会恢复原样。",
+    "tips": "帮助提示",
+    "tipsIntro": "将鼠标悬停在按钮或设置上时显示的简短说明，用通俗易懂的话解释其作用。",
+    "title": "帮助"
+  },
+  "intro": "你的照片、个人信息，以及工作室为你呈现和运行的方式。",
+  "language": {
+    "intro": "选择工作室的显示语言。设置会保存到你的账号，并同步到其他设备。",
+    "title": "语言"
+  },
+  "metaTitle": "个人资料",
+  "password": {
+    "change": "更改密码",
+    "changed": "密码已更改。你已在其他设备上退出登录。",
+    "changing": "正在更改…",
+    "current": "当前密码",
+    "failed": "无法更改，请重试。",
+    "forgotNote": "不知道当前密码（例如，你是用 Google 注册的）？请退出登录，然后使用 <link>忘记密码</link> 来设置密码。",
+    "new": "新密码",
+    "newNote": "至少 8 个字符。更改密码后，你将在其他所有设备上退出登录。",
+    "readOnly": "只有此账号的所有者才能更改密码。",
+    "title": "密码"
+  },
+  "profile": {
+    "addPhoto": "添加照片",
+    "badPicture": "无法打开此文件，它不是受支持的图片格式。",
+    "changePhoto": "更换照片",
+    "email": "邮箱",
+    "emailNote": "你使用此邮箱地址登录。",
+    "name": "姓名",
+    "nameHelp": "显示在你的账号和我们发送给你的邮件中的姓名。",
+    "photoHelp": "选择一张你的照片（PNG、JPEG 或 WebP）。照片会裁剪为正方形，并显示在你的名字旁边。",
+    "photoRemoveFailed": "无法移除照片，请重试。",
+    "photoRemoved": "照片已移除。",
+    "photoSaveFailed": "无法保存照片，请重试。",
+    "photoSaveFailedShort": "无法保存照片。",
+    "photoSaved": "照片已保存。",
+    "remove": "移除",
+    "removeHelp": "移除你的照片，改为显示姓名首字母。",
+    "save": "保存",
+    "saveFailed": "无法保存，请重试。",
+    "saved": "已保存。",
+    "saving": "正在保存…",
+    "title": "你的个人资料"
+  },
+  "theme": {
+    "dark": "深色",
+    "light": "浅色",
+    "system": "跟随我的设备"
+  },
+  "title": "个人资料"
+}

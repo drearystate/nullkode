@@ -19,15 +19,69 @@ import { signAppSession, verifyAppSession, sessionCookieName } from "./session";
 import { flowAccessDecision } from "./access";
 import { redactForLog, scrubResponseBody } from "./redact";
 import { hitLimit, undoHit } from "../rate-limit";
+import { appRuntimeText, getAppLocale, offeredLocale } from "../app-locale";
 
 /** What a visitor sees when a step fails. The owner sees the real reason in the flow's activity. */
 export const VISITOR_ERROR = "Sorry, that didn't send. Please try again; the owner has been told.";
 export const EMAIL_NOT_SET_UP_WARNING = "Email isn't set up on this server, so the message was not sent.";
 
+/**
+ * The platform's own messages to visitors, by their English text, and their
+ * key in messages/<locale>/runtime.json: visitors read them in the app's
+ * language (lib/app-locale.ts). Messages a flow's owner wrote are left as
+ * they are.
+ */
+const VISITOR_TEXT_KEYS: Record<string, string> = {
+  [VISITOR_ERROR]: "visitorError",
+  "That already exists.": "alreadyExists",
+  "Some of the information is missing or in the wrong format.": "badInput",
+  "Please sign in first.": "signInFirst",
+  "You don't have access to this.": "noAccess",
+};
+
+async function forVisitor(projectId: string, text: string, lang?: string | null): Promise<string> {
+  const key = VISITOR_TEXT_KEYS[text];
+  if (!key) return text;
+  try {
+    return (await appRuntimeText(projectId, lang))(key);
+  } catch {
+    return text;
+  }
+}
+
+/**
+ * The language a member of a multilingual app signed up in (the sign-in
+ * feature's users table, `locale`, lib/app-translations.ts), when the app
+ * offers it. Null when unknown.
+ */
+async function recipientLanguage(projectId: string, email: string | undefined): Promise<string | null> {
+  if (!email) return null;
+  try {
+    const app = await getAppLocale(projectId);
+    if (app.locales.length < 2) return null;
+    const table = await db.dataTable.findFirst({ where: { name: "auth_users", datasource: { projectId, kind: "POSTGRES_INTERNAL" } }, select: { id: true } });
+    if (!table) return null;
+    const { Pool } = await import("pg");
+    const { projectSchemaName } = await import("../datasources/postgres");
+    const pool = new Pool({ connectionString: process.env.DATABASE_URL, max: 1 });
+    try {
+      const r = await pool.query(`SELECT "locale" FROM "${projectSchemaName(projectId)}"."auth_users" WHERE lower("email") = lower($1) AND "locale" IS NOT NULL LIMIT 1`, [email]);
+      const lang = r.rows[0]?.locale as string | undefined;
+      return lang && (app.locales as string[]).includes(lang) ? lang : null;
+    } finally {
+      await pool.end();
+    }
+  } catch {
+    return null;
+  }
+}
+
 /** Flows that only the platform starts. Visitors can't call them. */
 export const HIDDEN_TRIGGERS: ReadonlySet<string> = new Set(["SCHEDULE", "EVENT"]);
 
 export type RunOptions = {
+  /** The visitor's language (x-nk-lang): a multilingual app answers in it ({{request.lang}}). */
+  lang?: string | null;
   /** Run the version frozen at the last publish (visitors, webhooks, schedules); otherwise the saved draft. */
   live?: boolean;
   /**
@@ -150,6 +204,8 @@ export async function runFlow(
     source: opts.source ?? (trusted ? (live ? "schedule" : "test") : "live"),
     secrets: new Set(),
     warnings: [],
+    // The visitor's language among the app's (its default otherwise).
+    request: { lang: offeredLocale(await getAppLocale(flow.projectId), opts.lang) },
   };
   const result: RunResult = {
     status: 200,
@@ -170,7 +226,7 @@ export async function runFlow(
       if (HIDDEN_TRIGGERS.has(flow.trigger)) return { status: 404, body: { error: "Flow not found or disabled" }, vars: {}, setCookies: [], trace: [] };
       const { access, denied } = await flowAccessDecision(flow, cookies, live);
       // Turned away before anything ran: not a run, nothing to record.
-      if (denied) return { status: denied.status, body: scrubResponseBody(denied.body), vars: {}, setCookies: [], trace: [] };
+      if (denied) return { status: denied.status, body: scrubResponseBody({ ...denied.body, error: await forVisitor(flow.projectId, denied.body.error, opts.lang) }), vars: {}, setCookies: [], trace: [] };
       ctx.staffOnly = Boolean(access.signIn && access.roles && access.roles.length > 0);
     }
     graph = opts.graph ? normalizeGraph(opts.graph) : (await runnableFlow(flow, live)).graph;
@@ -225,7 +281,7 @@ export async function runFlow(
     const ref = result.runId ? { ref: result.runId } : {};
     // The owner testing in the builder sees what went wrong; visitors get a
     // plain apology and a reference the owner can look up.
-    result.body = trusted ? { error: failure.message, ...(failure.nodeId ? { nodeId: failure.nodeId } : {}), ...ref } : { error: failure.visitorMessage ?? VISITOR_ERROR, ...ref };
+    result.body = trusted ? { error: failure.message, ...(failure.nodeId ? { nodeId: failure.nodeId } : {}), ...ref } : { error: await forVisitor(flow.projectId, failure.visitorMessage ?? VISITOR_ERROR, ctx.request?.lang), ...ref };
   }
   // Password fields and hashes never leave the server, whatever the flow returns.
   result.body = scrubResponseBody(result.body);
@@ -524,7 +580,10 @@ async function executeNode(
     case "response": {
       const status = Number(node.data.status ?? 200);
       result.status = Number.isInteger(status) && status >= 200 && status <= 599 ? status : 200;
-      const raw = node.data.body as unknown;
+      // A feature's built-in reply in the visitor's language (lib/app-translations.ts).
+      const variants = (node.data as { body_i18n?: Record<string, unknown> }).body_i18n;
+      const variant = ctx.request && variants && typeof variants[ctx.request.lang] === "string" ? variants[ctx.request.lang] : undefined;
+      const raw = (variant ?? node.data.body) as unknown;
       if (raw !== null && typeof raw === "object") {
         // A reply written as an object: each text in it is filled in.
         result.body = interpolateDeep(raw, ctx);
@@ -564,8 +623,14 @@ async function executeNode(
           return;
         }
       }
-      const subject = interpolate(node.data.subject, ctx).replace(/[\r\n]+/g, " ").trim();
-      const template = node.data.body ?? "";
+      // A feature's built-in email (verification code, login code…) in the
+      // recipient's language: the one they signed up in, else the visitor's.
+      const i18n = node.data as { subject_i18n?: Record<string, unknown>; body_i18n?: Record<string, unknown> };
+      let emailLang: string | null = null;
+      if (i18n.subject_i18n || i18n.body_i18n) emailLang = (await recipientLanguage(ctx.projectId, recipients[0])) ?? ctx.request?.lang ?? null;
+      const pick = (v: Record<string, unknown> | undefined) => (emailLang && v && typeof v[emailLang] === "string" ? (v[emailLang] as string) : undefined);
+      const subject = interpolate(pick(i18n.subject_i18n) ?? node.data.subject, ctx).replace(/[\r\n]+/g, " ").trim();
+      const template = pick(i18n.body_i18n) ?? node.data.body ?? "";
       const isHtml = /<[a-z!/][^>]*>/i.test(template);
       // Values are escaped for HTML, so what a visitor typed shows as text
       // and can't add links or markup to the email.

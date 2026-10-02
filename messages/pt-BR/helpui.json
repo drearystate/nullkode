@@ -1,0 +1,22 @@
+{
+  "backToAll": "Voltar para todos os guias",
+  "clearSearch": "Limpar pesquisa",
+  "eyebrow": "AJUDA E GUIAS",
+  "guideMetaTitle": "{title} · Ajuda",
+  "heading": "Como podemos ajudar?",
+  "help": "Ajuda",
+  "helpGuides": "Ajuda e guias",
+  "intro": "Guias passo a passo sobre tudo no {app}. O link <b>Ajuda</b> no topo de qualquer tela abre o guia daquela tela.",
+  "matches": "{count, plural, one {# guia corresponde} other {# guias correspondem}}",
+  "metaTitle": "Ajuda e guias",
+  "noMatch": "Nenhum guia corresponde a “{query}”.",
+  "noMatchHint": "Tente outra palavra ou confira todos os guias.",
+  "onThisPage": "Nesta página",
+  "onThisPageEyebrow": "NESTA PÁGINA",
+  "related": "Guias relacionados",
+  "searchHelp": "Digite uma ou duas palavras. Os guias abaixo são filtrados conforme você digita.",
+  "searchLabel": "Pesquisar nos guias",
+  "searchPlaceholder": "Pesquise nos guias, como “publicar” ou “domínio”",
+  "showAll": "Mostrar todos os guias",
+  "step": "Etapa {n}: "
+}

@@ -5,6 +5,7 @@ import { limitsForUser } from "./plan-limits";
 import { hitLimit } from "./rate-limit";
 import { getSetting, setSetting } from "./settings";
 import { json } from "./utils";
+import { localeOf, requestErrorsT, type ErrT } from "./errors-i18n";
 
 /**
  * Monthly AI allowance. Every AI action — an app build, a Designer run, an
@@ -27,9 +28,10 @@ function monthStart(now = new Date()): Date {
   return new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1));
 }
 
-function nextMonthLabel(now = new Date()): string {
+function nextMonthLabel(t: ErrT, now = new Date()): string {
   const next = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + 1, 1));
-  return next.toLocaleDateString("en-US", { month: "long", day: "numeric", timeZone: "UTC" });
+  const locale = localeOf(t);
+  return next.toLocaleDateString(locale === "en" ? "en-US" : locale, { month: "long", day: "numeric", timeZone: "UTC" });
 }
 
 function monthKey(now = new Date()): string {
@@ -69,18 +71,23 @@ export async function aiAllowance(user: QuotaUser): Promise<AiAllowance> {
   return { used: await aiUsageThisMonth(user.id), limit: Number.isFinite(limits.aiActionsPerMonth) ? limits.aiActionsPerMonth : null };
 }
 
-/** Why this user can't run an AI action right now, or null if they can. */
-export async function aiQuotaProblem(user: QuotaUser): Promise<string | null> {
+/**
+ * Why this user can't run an AI action right now, or null if they can. In
+ * `t`'s language; by default the request's (or, outside one, the user's own).
+ */
+export async function aiQuotaProblem(user: QuotaUser & { prefs?: unknown }, t?: ErrT): Promise<string | null> {
   if (user.role === "ADMIN") return null;
   const { used, limit } = await aiAllowance(user);
   if (limit !== null && used >= limit) {
-    return `You've used all ${limit} AI actions included in your plan this month. They reset on ${nextMonthLabel()}. Upgrade your plan for more.`;
+    t ??= await requestErrorsT(user);
+    return t("aiQuota.planUsedUp", { count: limit, date: nextMonthLabel(t) });
   }
   const reseller = await resellerPoolFor(user);
   if (reseller?.maxAiActions != null && (await resellerPoolUsage(reseller)) >= reseller.maxAiActions) {
+    t ??= await requestErrorsT(user);
     return user.role === "RESELLER"
-      ? "Your AI actions for this month are used up. Contact the platform operator."
-      : `AI is paused for this workspace until ${nextMonthLabel()}. Please contact ${reseller.name}.`;
+      ? t("aiQuota.resellerUsedUp")
+      : t("aiQuota.workspacePaused", { date: nextMonthLabel(t), reseller: reseller.name });
   }
   return null;
 }
@@ -103,8 +110,8 @@ export type AiUsageSummary = {
   scope: "plan" | "workspace";
 };
 
-export async function aiUsageSummary(user: QuotaUser): Promise<AiUsageSummary> {
-  const problem = await aiQuotaProblem(user);
+export async function aiUsageSummary(user: QuotaUser & { prefs?: unknown }, t?: ErrT): Promise<AiUsageSummary> {
+  const problem = await aiQuotaProblem(user, t);
   if (user.role === "ADMIN") {
     return { used: await aiUsageThisMonth(user.id), limit: null, paused: false, problem: null, contact: null, scope: "plan" };
   }
@@ -118,10 +125,11 @@ export async function aiUsageSummary(user: QuotaUser): Promise<AiUsageSummary> {
 }
 
 /** 429 response when the allowance is used up, else null. */
-export async function checkAiQuota(user: QuotaUser): Promise<Response | null> {
-  const problem = await aiQuotaProblem(user);
+export async function checkAiQuota(user: QuotaUser & { prefs?: unknown }, t?: ErrT): Promise<Response | null> {
+  t ??= await requestErrorsT(user);
+  const problem = await aiQuotaProblem(user, t);
   if (!problem) return null;
-  const usage = await aiUsageSummary(user).catch(() => null);
+  const usage = await aiUsageSummary(user, t).catch(() => null);
   return json({ error: problem, code: "ai_quota", usage }, { status: 429 });
 }
 
@@ -235,21 +243,18 @@ async function warnIfCrossed(reseller: { id: string; ownerId: string; name: stri
   const { emailEnabled, sendEmail } = await import("./mailer");
   // No email set up: skip quietly (the reseller dashboard still shows it).
   if (!emailEnabled()) return;
-  const owner = await db.user.findUnique({ where: { id: reseller.ownerId }, select: { email: true, name: true } });
+  const owner = await db.user.findUnique({ where: { id: reseller.ownerId }, select: { id: true, email: true, name: true, prefs: true, role: true } });
   if (!owner?.email) return;
-  const resets = nextMonthLabel();
-  const subject = level === 100
-    ? `${reseller.name}: this month's AI actions are used up`
-    : `${reseller.name}: 80% of this month's AI actions are used`;
-  const text = [
-    `Hi${owner.name ? ` ${owner.name}` : ""},`,
-    "",
-    level === 100
-      ? `${reseller.name} has used all ${max} AI actions for this month. Building and editing with AI is paused for you and your clients until ${resets}.`
-      : `${reseller.name} has used ${used} of its ${max} AI actions this month. When they run out, building and editing with AI pauses for you and your clients until ${resets}.`,
-    "",
-    "This count includes your clients' AI actions and your own.",
-    "To raise the limit, contact the platform operator.",
-  ].join("\n");
-  if (await sendEmail({ to: owner.email, subject, text })) await setSetting(key, `${month}:${level}`);
+  // Written in the reseller's own language (Profile), else the platform's default.
+  const [{ localeForUser }, { aiQuotaEmail }] = await Promise.all([import("@/i18n/server-locale"), import("./emails/studio")]);
+  const now = new Date();
+  const mail = aiQuotaEmail(await localeForUser(owner), {
+    name: owner.name,
+    reseller: reseller.name,
+    level: level as 80 | 100,
+    used,
+    max,
+    resetsOn: new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + 1, 1)),
+  });
+  if (await sendEmail({ to: owner.email, subject: mail.subject, text: mail.text, html: mail.html })) await setSetting(key, `${month}:${level}`);
 }

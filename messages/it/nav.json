@@ -1,0 +1,41 @@
+{
+  "accountMenu": "Menu account",
+  "accountNavigation": "Navigazione account",
+  "admin": "Amministrazione",
+  "adminHelp": "Impostazioni per tutta la piattaforma: brand, IA, email, pagamenti, utenti e rivenditori.",
+  "administration": "Amministrazione",
+  "billing": "Pagamenti e piano",
+  "designer": "Editor",
+  "designerHelp": "Descrivi un sito web con parole tue: l’IA lo crea e lo modifica ogni volta che glielo chiedi.",
+  "help": "Aiuto",
+  "helpGuides": "Aiuto e guide",
+  "helpHelp": "Guide passo passo. Si apre la guida relativa alla schermata che stai visualizzando.",
+  "helpTips": {
+    "help": "Attiva o disattiva questi suggerimenti. Quando sono attivi, passa il mouse su un pulsante per scoprire a cosa serve. Puoi modificarli anche nelle Impostazioni.",
+    "label": "Suggerimenti",
+    "off": "DISATTIVI",
+    "on": "ATTIVI"
+  },
+  "home": "Home di {app}",
+  "impersonation": {
+    "backToClients": "Torna ai tuoi clienti",
+    "backToClientsHelp": "Esci dall’area di lavoro di questo cliente e torna all’elenco dei tuoi clienti. Le modifiche che hai fatto restano nel suo account.",
+    "impersonating": "Stai operando come",
+    "signedInAs": "· hai effettuato l’accesso come {email}",
+    "stop": "Interrompi la modalità di rappresentazione",
+    "stopHelp": "Smetti di operare come questa persona e torna ad Amministrazione. Le modifiche che hai fatto restano nel suo account.",
+    "viewingClient": "Stai visualizzando l’area di lavoro di <b>{name}</b>. Le modifiche che fai vengono applicate al suo account."
+  },
+  "logOut": "Esci",
+  "myApps": "Le mie app",
+  "myAppsHelp": "Tutte le tue app in un unico posto. Aprine una per continuare a lavorarci o creane una nuova.",
+  "profile": "Profilo",
+  "resellerDashboard": "Dashboard rivenditore",
+  "resellerHelp": "Gestisci i tuoi clienti, il tuo brand, i prezzi e l’indirizzo web.",
+  "switchTheme": "Cambia modalità chiara o scura",
+  "switchToDark": "Passa alla modalità scura",
+  "switchToLight": "Passa alla modalità chiara",
+  "themeHelp": "Passa dalla modalità chiara a quella scura. La tua scelta viene ricordata. Puoi anche scegliere “Come sul mio dispositivo” nel profilo.",
+  "workspace": "Area di lavoro",
+  "yourAccount": "Il tuo account"
+}

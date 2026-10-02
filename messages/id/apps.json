@@ -1,0 +1,51 @@
+{
+  "appLanguage": {
+    "help": "Bahasa yang digunakan aplikasi untuk menyapa pengunjung. AI menulis halaman baru dalam bahasa ini, fitur yang Anda tambahkan diterjemahkan ke bahasa ini, dan pesan bawaan aplikasi juga menggunakannya.",
+    "intro": "Bahasa yang dilihat pengunjung: halaman yang dibuat AI, fitur yang Anda tambahkan, dan pesan bawaan seperti \"Maaf, pesan itu gagal dikirim\".",
+    "invalid": "Pilih salah satu bahasa di daftar.",
+    "label": "Bahasa aplikasi ini",
+    "loadError": "Bahasa aplikasi tidak dapat dimuat.",
+    "notChosen": "Belum ada bahasa yang dipilih, jadi aplikasi menggunakan bahasa Inggris.",
+    "note": "Teks di halaman yang sudah ada tidak berubah. Untuk mengubahnya, buka halaman dan minta AI menerjemahkannya.",
+    "rtl": "Ditulis dari kanan ke kiri: halaman akan dicerminkan.",
+    "save": "Simpan bahasa",
+    "saveError": "Bahasa tidak dapat disimpan. Silakan coba lagi.",
+    "saveHelp": "Menyimpan bahasa. Pesan bawaan dan pengaturan bahasa halaman langsung berubah di aplikasi yang sudah tayang.",
+    "saved": "Tersimpan. Halaman dan fitur baru akan menggunakan {language}.",
+    "selectHelp": "Pilih bahasa yang dibaca pengunjung aplikasi Anda.",
+    "title": "Bahasa aplikasi"
+  },
+  "buildLanguage": {
+    "help": "Bahasa yang akan dibaca pengunjung aplikasi Anda. AI menulis setiap halaman dalam bahasa ini. Anda bisa menambahkan bahasa lain nanti.",
+    "label": "Bahasa aplikasi"
+  },
+  "languages": {
+    "add": "Tambahkan bahasa",
+    "addHelp": "Menambahkan bahasa dan meminta AI menerjemahkan setiap halaman ke bahasa tersebut. Anda bisa mengedit setiap terjemahan di editor.",
+    "adding": "Menambahkan…",
+    "confirmRemove": "Hapus {language} dan halaman terjemahannya? Pengunjung tidak akan melihatnya setelah Anda memublikasikan aplikasi.",
+    "edited": "{count, plural, one {# diedit oleh Anda} other {# diedit oleh Anda}}",
+    "error": "Tidak berhasil. Silakan coba lagi.",
+    "help": "Sediakan aplikasi Anda dalam beberapa bahasa. Pengunjung memilih bahasa dari menu aplikasi, lalu melihatnya di alamatnya sendiri (seperti /es/).",
+    "intro": "Sediakan aplikasi Anda dalam bahasa lainnya. AI menerjemahkan setiap halaman, lalu pengunjung memilih bahasa dari menu. Bahasa baru akan tersedia setelah Anda memublikasikannya.",
+    "needUpdate": "{count, plural, one {# perlu diperbarui} other {# perlu diperbarui}}",
+    "none": "Aplikasi Anda hanya tersedia dalam {language}.",
+    "pick": "Pilih bahasa",
+    "progress": "Menerjemahkan… {done} dari {total} halaman",
+    "publishNote": "Publikasikan aplikasi Anda agar pengunjung melihat perubahan bahasa.",
+    "remove": "Hapus",
+    "removeHelp": "Menghapus bahasa ini dan halaman terjemahannya dari aplikasi Anda.",
+    "title": "Bahasa lainnya",
+    "translated": "{ok, plural, one {# dari {total} halaman diterjemahkan} other {# dari {total} halaman diterjemahkan}}",
+    "update": "Perbarui terjemahan",
+    "updateHelp": "Meminta AI menerjemahkan halaman yang baru atau berubah sejak terakhir diterjemahkan. Halaman yang Anda edit dalam bahasa ini tidak akan berubah."
+  },
+  "preview": {
+    "adminLogin": "Login admin Anda",
+    "backToEditor": "Kembali ke editor",
+    "latest": "Editan terbaru Anda",
+    "latestLive": "Editan terbaru Anda · pengunjung melihat versi {version}",
+    "notPublished": "Pratinjau · belum dipublikasikan",
+    "title": "{title} — Pratinjau"
+  }
+}

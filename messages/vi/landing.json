@@ -1,0 +1,139 @@
+{
+  "cta": {
+    "body": "Đừng vật lộn với những công cụ no-code dang dở, dễ trục trặc ngay khi bạn cần logic thực sự. {app} cung cấp giao diện, backend và dữ liệu — tất cả đều trực quan.",
+    "heading": "Xây dựng điều bạn đã <accent>trì hoãn bấy lâu.</accent>",
+    "openDashboard": "Mở trang tổng quan",
+    "startFree": "Bắt đầu xây dựng — miễn phí"
+  },
+  "faq": {
+    "bubble": {
+      "a": "Chỉ cần mô tả ứng dụng trong một câu, {app} sẽ tạo trang, bảng cơ sở dữ liệu và quy trình backend cho bạn — rồi bạn có thể tiếp tục chỉnh sửa trực quan. Dữ liệu được lưu trong cơ sở dữ liệu Postgres tiêu chuẩn mà bạn có thể xuất bất cứ lúc nào.",
+      "q": "Bạn khác gì so với Bubble hoặc Adalo?"
+    },
+    "data": {
+      "a": "Nếu dùng nguồn dữ liệu Postgres tích hợp sẵn, mỗi dự án sẽ có một lược đồ riêng trên cơ sở dữ liệu PostgreSQL của bản cài đặt này. Bạn cũng có thể kết nối Postgres của mình bằng chuỗi kết nối hoặc kết nối Google Sheet. Dữ liệu là do bạn chọn.",
+      "q": "Dữ liệu của tôi thực sự được lưu ở đâu?"
+    },
+    "domain": {
+      "a": "Có. Thêm tên miền, xác minh bằng bản ghi DNS TXT, rồi {app} sẽ chuyển lưu lượng truy cập đến dự án của bạn.",
+      "q": "Tôi có thể dùng tên miền riêng không?"
+    },
+    "export": {
+      "a": "Bạn có thể xuất HTML và CSS của bất kỳ trang nào, cũng như tải dữ liệu Postgres xuống bất cứ lúc nào. Các luồng được lưu dưới dạng sơ đồ JSON có thể mang theo.",
+      "q": "Tôi có thể xuất những gì mình tạo không?"
+    },
+    "eyebrow": "Câu hỏi thường gặp",
+    "heading": "Giải đáp thẳng thắn mọi thắc mắc.",
+    "noCode": {
+      "a": "Đúng là no-code. Trình chỉnh sửa giao diện và công cụ luồng xử lý giúp bạn tạo trang và logic backend từ đầu đến cuối. Bạn có thể nhúng đoạn HTML nếu muốn, nhưng không cần đọc hay viết mã để dùng sản phẩm.",
+      "q": "Đây có thật sự là công cụ no-code hay sau này tôi vẫn phải viết mã?"
+    },
+    "webflow": {
+      "a": "Đó là các công cụ tạo trang. {app} là công cụ tạo ứng dụng: ngoài các trang, bạn còn có công cụ trực quan thực sự để tạo logic backend, nguồn dữ liệu chuyên biệt và các luồng chạy được.",
+      "q": "Bạn khác gì so với Webflow hoặc Framer?"
+    }
+  },
+  "features": {
+    "ai": {
+      "body": "Mô tả ứng dụng bạn muốn tạo. {app} sẽ tạo trang, lược đồ cơ sở dữ liệu và luồng backend — rồi bạn có thể tinh chỉnh.",
+      "title": "Tạo khung ứng dụng bằng AI"
+    },
+    "domains": {
+      "body": "Dùng tên miền của bạn: thêm hai bản ghi DNS rồi kiểm tra kết nối từ bảng điều khiển.",
+      "bodyAutoTls": "Dùng tên miền của bạn: thêm hai bản ghi DNS là có thể sử dụng ngay, với chứng chỉ HTTPS bảo mật được thiết lập tự động.",
+      "title": "Tên miền riêng"
+    },
+    "editor": {
+      "body": "Khối, lớp, chế độ xem phù hợp nhiều kích thước màn hình, bảng kiểu đầy đủ và thuộc tính tùy chỉnh. Bạn có thể chỉnh sửa mọi thành phần — không dùng mẫu rập khuôn.",
+      "title": "Trình chỉnh sửa trang trực quan"
+    },
+    "eyebrow": "Mọi thứ bạn cần",
+    "flows": {
+      "body": "Kết hợp điểm cuối HTTP, truy vấn cơ sở dữ liệu, nhánh, xử lý dữ liệu và lệnh gọi API thành sơ đồ luồng trực quan. Không cần viết mã.",
+      "title": "Luồng backend thực thụ"
+    },
+    "heading": "Nền tảng toàn diện, không phải tiện ích bổ sung.",
+    "intro": "Trang, logic backend, dữ liệu thật, xuất bản, mô-đun, AI — tất cả trong một sản phẩm, không cần kết nối rườm rà.",
+    "modules": {
+      "body": "Đăng nhập, blog, cửa hàng, đặt lịch, diễn đàn, radio — mỗi tính năng đều có sẵn bảng cơ sở dữ liệu, luồng backend và trang. Cài đặt chỉ với một cú nhấp.",
+      "title": "{count} tính năng có sẵn"
+    },
+    "postgres": {
+      "body": "Mỗi dự án có một lược đồ riêng biệt với các cột có kiểu dữ liệu. Hoặc kết nối Google Sheets làm backend CRUD — không cần cấu hình.",
+      "title": "Postgres chỉ với một cú nhấp"
+    },
+    "publish": {
+      "body": "Khi xuất bản, phiên bản trang, quy trình làm việc và giao diện sẽ được lưu lại. Tiếp tục chỉnh sửa ở chế độ riêng tư, xuất bản khi bạn sẵn sàng và khôi phục phiên bản cũ bất kỳ chỉ với một cú nhấp.",
+      "title": "Xuất bản chỉ với một cú nhấp"
+    },
+    "sheets": {
+      "body": "Dùng bất kỳ bảng tính nào làm cơ sở dữ liệu. Đọc, ghi và truy vấn hàng — không cần di chuyển dữ liệu, DevOps hay thiết lập.",
+      "title": "Kết nối Google Sheets"
+    }
+  },
+  "footer": {
+    "copyright": "© {year} {app}",
+    "tagline": "Công cụ tạo ứng dụng trực quan với backend thực thụ. Ra mắt sản phẩm hoàn chỉnh — không chỉ trang tiếp thị."
+  },
+  "hero": {
+    "badge": "Mô tả, xem kế hoạch, ra mắt",
+    "charsLeft": "{count, plural, one {còn # ký tự} other {còn # ký tự}}",
+    "checkPlan": "Bạn sẽ xem lại kế hoạch trước khi bắt đầu tạo ứng dụng.",
+    "freeForever": "Gói miễn phí mãi mãi",
+    "headline": "Tạo ứng dụng, <accent>không chỉ trang web.</accent>",
+    "ideaHint": "Cho biết ai sẽ dùng và họ sẽ làm gì.",
+    "ideaLabel": "Ứng dụng của bạn cần làm gì?",
+    "ideaPlaceholder": "Ví dụ: Khách đặt bánh online, chọn ngày đến lấy, còn tôi xem tất cả đơn hàng trong một danh sách.",
+    "ideas": {
+      "bakery": {
+        "label": "Đặt bánh trước",
+        "prompt": "Một trang đặt bánh trước cho tiệm bánh của tôi. Khách chọn bánh kem và bánh mì, chọn ngày đến lấy rồi điền tên và số điện thoại. Tôi xem tất cả đơn hàng trên trang quản trị."
+      },
+      "gym": {
+        "label": "Lịch tập gym",
+        "prompt": "Lịch lớp học cho phòng gym của tôi. Hội viên xem các lớp trong tuần này và đặt chỗ. Tôi có thể thêm lớp và xem ai sẽ tham gia từng lớp."
+      },
+      "salon": {
+        "label": "Đặt lịch salon",
+        "prompt": "Một ứng dụng đặt lịch cho salon tóc của tôi. Khách chọn dịch vụ, thợ làm tóc và giờ hẹn. Tôi có thể xem và quản lý tất cả lịch hẹn ở một nơi."
+      },
+      "tutoring": {
+        "label": "Đăng ký học kèm",
+        "prompt": "Một trang đăng ký các buổi học kèm của tôi. Phụ huynh chọn môn học và giờ học hằng tuần rồi điền thông tin liên hệ. Tôi xem danh sách học sinh và các buổi học của các em."
+      }
+    },
+    "intro": "Kéo thả giao diện. Kết nối logic backend thật bằng công cụ trực quan. Dùng cơ sở dữ liệu riêng hoặc Google Sheets. Xuất bản lên tên miền của bạn. Không cần viết mã.",
+    "noCard": "Không cần thẻ tín dụng",
+    "openDashboard": "Mở bảng điều khiển",
+    "openYourDashboard": "Mở bảng điều khiển",
+    "opening": "Đang mở…",
+    "ownData": "Dữ liệu của bạn, bạn làm chủ",
+    "planMyApp": "Lên kế hoạch ứng dụng",
+    "seeHow": "Xem cách hoạt động",
+    "startFree": "Bắt đầu tạo miễn phí",
+    "stats": {
+      "features": "Tính năng có sẵn",
+      "icons": "Biểu tượng tích hợp sẵn",
+      "platforms": "Ứng dụng từ một dự án",
+      "platformsValue": "Web + Android",
+      "ways": "Cách bắt đầu tạo ứng dụng"
+    },
+    "tryOne": "Thử một ý tưởng:"
+  },
+  "nav": {
+    "backend": "Logic backend",
+    "dashboard": "Bảng điều khiển",
+    "faq": "Câu hỏi thường gặp",
+    "home": "Trang chủ {app}",
+    "logIn": "Đăng nhập",
+    "pricing": "Bảng giá",
+    "product": "Sản phẩm",
+    "startFree": "Bắt đầu miễn phí"
+  },
+  "pricing": {
+    "heading": "Sẵn sàng cho ý tưởng tiếp theo của bạn.",
+    "intro": "Chọn gói phù hợp với sản phẩm bạn muốn xây dựng.",
+    "startBuilding": "Bắt đầu xây dựng",
+    "viewPlan": "Xem gói"
+  }
+}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 
 export function ProjectIconPanel({
   projectId,
@@ -16,6 +17,7 @@ export function ProjectIconPanel({
   const [mode, setMode] = useState<"idle" | "uploading" | "generating">("idle");
   const [error, setError] = useState<string | null>(null);
   const fileRef = useRef<HTMLInputElement | null>(null);
+  const t = useTranslations("project.projectIcon");
 
   async function handleUpload(file: File) {
     setMode("uploading");
@@ -28,7 +30,7 @@ export function ProjectIconPanel({
         body: fd,
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Upload failed");
+      if (!res.ok) throw new Error(data.error || t("uploadFailed"));
       setIcon(data.icon);
     } catch (e) {
       setError((e as Error).message);
@@ -48,7 +50,7 @@ export function ProjectIconPanel({
         body: JSON.stringify({ prompt }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Generation failed");
+      if (!res.ok) throw new Error(data.error || t("generationFailed"));
       setIcon(data.icon);
     } catch (e) {
       setError((e as Error).message);
@@ -58,7 +60,7 @@ export function ProjectIconPanel({
   }
 
   async function handleRemove() {
-    if (!confirm("Remove the app icon?")) return;
+    if (!confirm(t("removeConfirm"))) return;
     const res = await fetch(`/api/projects/${projectId}/icon`, {
       method: "DELETE",
     });
@@ -81,30 +83,29 @@ export function ProjectIconPanel({
           )}
         </div>
         <div className="flex-1">
-          <h2 className="font-semibold" data-help="The small square picture that stands for your app on phone home screens, in browser tabs and in the Android app. Changes apply right away.">App icon</h2>
+          <h2 className="font-semibold" data-help={t("titleHelp")}>{t("title")}</h2>
           <p className="text-xs text-surface-400 mt-1">
-            Shown when visitors install your app as a PWA on their device.
-            Use a square image, ideally 512×512 PNG.
+            {t("intro")}
           </p>
           <div className="mt-3 flex flex-wrap gap-2">
             <button
               type="button"
               className="btn btn-secondary text-sm"
               disabled={busy}
-              data-help="Choose a square picture from your device, ideally 512 by 512 pixels. It replaces your current icon."
+              data-help={t("uploadHelp")}
               onClick={() => fileRef.current?.click()}
             >
-              {mode === "uploading" ? "Uploading…" : "Upload image"}
+              {mode === "uploading" ? t("uploading") : t("upload")}
             </button>
             {icon && (
               <button
                 type="button"
                 className="btn btn-ghost text-sm"
                 disabled={busy}
-                data-help="Take the icon off your app. You'll be asked to confirm."
+                data-help={t("removeHelp")}
                 onClick={handleRemove}
               >
-                Remove
+                {t("remove")}
               </button>
             )}
           </div>
@@ -123,17 +124,17 @@ export function ProjectIconPanel({
       </div>
 
       <div className="mt-6 pt-6 border-t border-surface-800">
-        <h3 className="text-sm font-medium">Or generate with AI</h3>
+        <h3 className="text-sm font-medium">{t("generateTitle")}</h3>
         <p className="text-xs text-surface-400 mt-1">
-          Describe the icon you want — style, colors, symbols.
+          {t("generateIntro")}
         </p>
         <div className="mt-3 flex gap-2">
           <input
             type="text"
             className="input flex-1"
-            placeholder="e.g. a minimalist rocket on purple gradient"
-            aria-label="Describe your icon"
-            data-help="Describe the icon you'd like, such as its colors and a simple symbol. The AI draws it for you."
+            placeholder={t("promptPlaceholder")}
+            aria-label={t("promptLabel")}
+            data-help={t("promptHelp")}
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
             disabled={busy}
@@ -142,10 +143,10 @@ export function ProjectIconPanel({
             type="button"
             className="btn btn-primary text-sm"
             disabled={busy || !prompt.trim()}
-            data-help="Have the AI draw an icon from your description. It replaces your current icon; you can generate again or upload your own."
+            data-help={t("generateHelp")}
             onClick={handleGenerate}
           >
-            {mode === "generating" ? "Generating…" : "Generate"}
+            {mode === "generating" ? t("generating") : t("generate")}
           </button>
         </div>
       </div>

@@ -2,12 +2,14 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { ArrowRight, Search, X } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export type HelpIndexGuide = { slug: string; title: string; summary: string; text: string };
 export type HelpIndexGroup = { id: string; title: string; guides: HelpIndexGuide[] };
 
 /** The guide list on /help, with a search box that filters it as you type. */
 export function HelpIndex({ groups }: { groups: HelpIndexGroup[] }) {
+  const t = useTranslations("helpui");
   const [query, setQuery] = useState("");
   const terms = useMemo(() => query.toLowerCase().split(/\s+/).filter(Boolean), [query]);
   const shown = useMemo(
@@ -24,34 +26,34 @@ export function HelpIndex({ groups }: { groups: HelpIndexGroup[] }) {
       <div className="flex max-w-xl items-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] [[data-theme=light]_&]:bg-surface-900 px-3 focus-within:border-brand-400">
         <Search size={17} className="shrink-0 text-surface-400" aria-hidden />
         <label htmlFor="help-search" className="sr-only">
-          Search the guides
+          {t("searchLabel")}
         </label>
         <input
           id="help-search"
           type="search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search the guides, like “publish” or “domain”"
+          placeholder={t("searchPlaceholder")}
           autoComplete="off"
           className="min-w-0 flex-1 bg-transparent py-3 text-sm text-surface-50 placeholder:text-surface-500 focus:outline-none"
-          data-help="Type a word or two. The guides below are filtered as you type."
+          data-help={t("searchHelp")}
         />
         {query && (
-          <button type="button" onClick={() => setQuery("")} aria-label="Clear search" className="rounded p-1 text-surface-400 hover:text-white">
+          <button type="button" onClick={() => setQuery("")} aria-label={t("clearSearch")} className="rounded p-1 text-surface-400 hover:text-white">
             <X size={15} />
           </button>
         )}
       </div>
       <p className="sr-only" role="status" aria-live="polite">
-        {terms.length ? `${count} ${count === 1 ? "guide matches" : "guides match"}` : ""}
+        {terms.length ? t("matches", { count }) : ""}
       </p>
 
       {shown.length === 0 ? (
         <div className="mt-10 rounded-xl border border-white/10 bg-white/[0.02] p-8 text-center">
-          <p className="font-medium">No guides match “{query.trim()}”.</p>
-          <p className="mt-1 text-sm text-surface-400">Try a different word, or look through all of them.</p>
+          <p className="font-medium">{t("noMatch", { query: query.trim() })}</p>
+          <p className="mt-1 text-sm text-surface-400">{t("noMatchHint")}</p>
           <button type="button" onClick={() => setQuery("")} className="btn-ghost mt-4">
-            Show all guides
+            {t("showAll")}
           </button>
         </div>
       ) : (
@@ -70,7 +72,7 @@ export function HelpIndex({ groups }: { groups: HelpIndexGroup[] }) {
                     >
                       <span className="flex items-start justify-between gap-3">
                         <span className="font-semibold text-surface-50">{guide.title}</span>
-                        <ArrowRight size={15} className="mt-1 shrink-0 text-surface-500 transition group-hover:translate-x-0.5 group-hover:text-brand-300" aria-hidden />
+                        <ArrowRight size={15} className="mt-1 shrink-0 text-surface-500 transition group-hover:translate-x-0.5 group-hover:text-brand-300 rtl:-scale-x-100 rtl:group-hover:-translate-x-0.5" aria-hidden />
                       </span>
                       <span className="mt-2 text-sm leading-relaxed text-surface-400">{guide.summary}</span>
                     </Link>

@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { useTranslations } from "next-intl";
 
 /**
  * Friendly hover notes for the whole studio.
@@ -157,11 +158,12 @@ export function HelpTipsLayer({ initialOn }: { initialOn: boolean }) {
 /** The compact "Help tips ON/OFF" pill in a project's header. */
 export function HelpTips({ initialOn }: { initialOn: boolean }) {
   const on = useHelpTipsOn(initialOn);
+  const t = useTranslations("nav");
   return (
     <button
       type="button"
       onClick={() => void setHelpTips(!on)}
-      data-help="Turns these helper notes on or off. When they're on, hold your mouse over any button to learn what it does. You can also change this in Settings."
+      data-help={t("helpTips.help")}
       aria-pressed={on}
       className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-medium transition-colors ${
         on
@@ -174,8 +176,8 @@ export function HelpTips({ initialOn }: { initialOn: boolean }) {
         <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
         <line x1="12" y1="17" x2="12.01" y2="17" />
       </svg>
-      Help tips
-      <span className={`rounded-full px-1.5 py-px text-[10px] font-semibold ${on ? "bg-brand-500 text-fixed-white" : "bg-white/10 text-surface-300"}`}>{on ? "ON" : "OFF"}</span>
+      {t("helpTips.label")}
+      <span className={`rounded-full px-1.5 py-px text-[10px] font-semibold ${on ? "bg-brand-500 text-fixed-white" : "bg-white/10 text-surface-300"}`}>{on ? t("helpTips.on") : t("helpTips.off")}</span>
     </button>
   );
 }

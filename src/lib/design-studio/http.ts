@@ -1,6 +1,7 @@
 import type { User } from "@prisma/client";
 import { getCurrentUser } from "../auth";
 import { NotFound } from "./store";
+import { requestTranslator } from "../ai/i18n";
 
 type Handler<T> = (user: User) => Promise<T>;
 
@@ -11,14 +12,15 @@ type Handler<T> = (user: User) => Promise<T>;
  */
 export async function withUser<T>(handler: Handler<T>): Promise<Response> {
   const user = await getCurrentUser();
-  if (!user) return Response.json({ error: "Please sign in." }, { status: 401 });
+  const t = await requestTranslator("designer");
+  if (!user) return Response.json({ error: t("server.signIn") }, { status: 401 });
   try {
     const result = await handler(user);
     return result instanceof Response ? result : Response.json(result ?? { ok: true });
   } catch (err) {
-    if (err instanceof NotFound) return Response.json({ error: "Design not found." }, { status: 404 });
-    const message = err instanceof Error ? err.message : "Something went wrong.";
-    return Response.json({ error: message.length > 300 ? "Something went wrong. Please try again." : message }, { status: 400 });
+    if (err instanceof NotFound) return Response.json({ error: t("server.notFound") }, { status: 404 });
+    const message = err instanceof Error ? err.message : t("server.error");
+    return Response.json({ error: message.length > 300 ? t("server.tryAgain") : message }, { status: 400 });
   }
 }
 

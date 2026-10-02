@@ -1,0 +1,12 @@
+{
+  "cancel": "취소",
+  "close": "닫기",
+  "delete": "삭제",
+  "language": "언어",
+  "languageHelp": "스튜디오에 표시되는 언어입니다. 계정에 저장됩니다.",
+  "loading": "불러오는 중…",
+  "save": "저장",
+  "saved": "저장됨.",
+  "saving": "저장 중…",
+  "tryAgain": "문제가 발생했습니다. 다시 시도해 주세요."
+}

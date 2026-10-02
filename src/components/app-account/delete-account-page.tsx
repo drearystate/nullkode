@@ -5,6 +5,11 @@ import { sessionCookieName, verifyAppSession } from "@/lib/flow/session";
 import { findAccount } from "@/lib/app-account-data";
 import { maskEmail, verifyDeletionToken } from "@/lib/app-account-token";
 import { DeleteAccountForms } from "./delete-account-forms";
+import { runtimeGroup } from "@/lib/app-locale";
+import type { Locale } from "@/i18n/locales";
+
+/** A text with its {placeholders} filled. */
+const fill = (text: string | undefined, vars: Record<string, string>) => (text ?? "").replace(/\{(\w+)\}/g, (m, k: string) => (k in vars ? vars[k] : m));
 
 // Works with or without the app's theme (Designer apps load no platform CSS).
 const CSS = `
@@ -34,7 +39,9 @@ const CSS = `
  * the app. Signed-in visitors can download their data or delete the account
  * here; anyone else can ask by email.
  */
-export async function AppDeleteAccountPage({ project, base, token }: { project: Project; base: string; token: string | null }) {
+export async function AppDeleteAccountPage({ project, base, token, locale = "en" }: { project: Project; base: string; token: string | null; locale?: Locale }) {
+  // In the app's language (messages/<locale>/runtime.json, "account").
+  const w = runtimeGroup(locale, "account");
   const session = await verifyAppSession(project.id, (await cookies()).get(sessionCookieName())?.value);
   let signedIn: { email: string } | null = null;
   if (session && !session.owner) {
@@ -55,12 +62,12 @@ export async function AppDeleteAccountPage({ project, base, token }: { project: 
         <div className="nk-da-top">
           <a href={`${base}/`}>{project.name}</a>
         </div>
-        <h1>Delete your account</h1>
-        <p className="nk-da-muted">You can delete your {project.name} account and the information tied to it at any time. Here&apos;s what happens:</p>
+        <h1>{w.deleteTitle}</h1>
+        <p className="nk-da-muted">{fill(w.deleteIntro, { app: project.name })}</p>
         <ul className="nk-da-muted">
-          <li>Your account and sign-in are deleted.</li>
-          <li>Everything you added while signed in, like your profile, saved items and posts, is deleted.</li>
-          <li>Bookings, orders or messages sent with your email address are kept for the business&apos;s records, with your name and contact details removed.</li>
+          <li>{w.deletePoint1}</li>
+          <li>{w.deletePoint2}</li>
+          <li>{w.deletePoint3}</li>
         </ul>
         <DeleteAccountForms
           projectId={project.id}
@@ -70,6 +77,7 @@ export async function AppDeleteAccountPage({ project, base, token }: { project: 
           ownerSession={Boolean(session?.owner)}
           link={link}
           token={token}
+          words={w}
         />
       </main>
     </>

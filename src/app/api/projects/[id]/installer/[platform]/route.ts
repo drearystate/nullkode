@@ -2,7 +2,14 @@ import { db } from "@/lib/db";
 import { defaultBundleId, nativeBrandFor, publishedAppUrl } from "@/lib/native";
 import { getCurrentUser } from "@/lib/auth";
 import { json } from "@/lib/utils";
+import { getTranslations } from "next-intl/server";
+import { requestLocale } from "@/i18n/request";
 import { macInstaller, windowsInstaller } from "@/lib/desktop-installer";
+
+/** Messages for people, in their language (only looked up when needed). */
+async function tr() {
+  return getTranslations({ locale: await requestLocale(), namespace: "project.nativeApi" });
+}
 
 /**
  * Downloadable "installers" for a published app (see src/lib/desktop-installer.ts):
@@ -24,11 +31,11 @@ export async function GET(
   { params }: { params: Promise<{ id: string; platform: string }> }
 ) {
   const user = await getCurrentUser();
-  if (!user) return json({ error: "Unauthorized" }, { status: 401 });
+  if (!user) return json({ error: (await tr())("unauthorized") }, { status: 401 });
 
   const { id, platform } = await params;
   if (platform !== "windows" && platform !== "mac") {
-    return json({ error: "Unknown platform" }, { status: 404 });
+    return json({ error: (await tr())("installer.unknownPlatform") }, { status: 404 });
   }
 
   const project = await db.project.findUnique({
@@ -36,11 +43,11 @@ export async function GET(
     select: { id: true, name: true, slug: true, published: true, ownerId: true, hostLabel: true },
   });
   if (!project || project.ownerId !== user.id) {
-    return json({ error: "Project not found" }, { status: 404 });
+    return json({ error: (await tr())("installer.projectNotFound") }, { status: 404 });
   }
   if (!project.published) {
     return json(
-      { error: "Publish the project first — the installer points at the live URL." },
+      { error: (await tr())("installer.publishFirst") },
       { status: 400 }
     );
   }

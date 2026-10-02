@@ -1,0 +1,139 @@
+{
+  "cta": {
+    "body": "Deja de pelearte con herramientas sin código a medio terminar que fallan en cuanto necesitas lógica de verdad. {app} te ofrece la interfaz, el backend y los datos, todo de forma visual.",
+    "heading": "Crea eso que llevas <accent>posponiendo.</accent>",
+    "openDashboard": "Abre tu panel",
+    "startFree": "Empieza a crear gratis"
+  },
+  "faq": {
+    "bubble": {
+      "a": "Describe tu aplicación en una frase y {app} creará las páginas, las tablas de la base de datos y los flujos de trabajo del backend. Después, podrás seguir editándolo todo visualmente. Tus datos se guardan en una base de datos Postgres estándar que puedes exportar cuando quieras.",
+      "q": "¿En qué se diferencian de Bubble o Adalo?"
+    },
+    "data": {
+      "a": "Si usas la fuente de datos Postgres integrada, cada proyecto tiene su propio esquema aislado en la base de datos PostgreSQL de esta instalación. También puedes conectar tu propio Postgres con una cadena de conexión o conectar una hoja de cálculo de Google. Tú eliges dónde guardar tus datos.",
+      "q": "¿Dónde se guardan mis datos?"
+    },
+    "domain": {
+      "a": "Sí. Añade un dominio, verifícalo con un registro DNS TXT y {app} dirigirá el tráfico a tu proyecto.",
+      "q": "¿Puedo usar mi propio dominio?"
+    },
+    "export": {
+      "a": "Puedes exportar el HTML y el CSS de cualquier página y descargar tus datos de Postgres cuando quieras. Los flujos se guardan como un gráfico JSON portátil que puedes llevarte.",
+      "q": "¿Puedo exportar lo que creo?"
+    },
+    "eyebrow": "Preguntas frecuentes",
+    "heading": "Respuestas claras a tus preguntas.",
+    "noCode": {
+      "a": "Sin código de verdad. El editor de interfaz y el motor de flujos cubren las páginas y la lógica del backend de principio a fin. Si quieres, puedes insertar fragmentos de HTML, pero no necesitas leer ni escribir código para usar el producto.",
+      "q": "¿Es realmente sin código o tendré que programar más adelante?"
+    },
+    "webflow": {
+      "a": "Esas son herramientas para crear páginas. {app} sirve para crear aplicaciones: además de páginas, incluye un motor visual completo para la lógica del backend, fuentes de datos integradas y flujos que se ejecutan de verdad.",
+      "q": "¿En qué se diferencian de Webflow o Framer?"
+    }
+  },
+  "features": {
+    "ai": {
+      "body": "Describe lo que quieres crear. {app} genera las páginas, el esquema de la base de datos y los flujos del backend; luego puedes ajustarlos.",
+      "title": "Estructura inicial con IA"
+    },
+    "domains": {
+      "body": "Usa tu propio dominio: añade dos registros DNS y comprueba la conexión desde tu panel.",
+      "bodyAutoTls": "Usa tu propio dominio: añade dos registros DNS y estará listo, con un certificado HTTPS seguro configurado automáticamente.",
+      "title": "Dominios personalizados"
+    },
+    "editor": {
+      "body": "Bloques, capas, vistas adaptables, un panel de estilos completo y opciones personalizadas. Puedes editar todos los elementos, sin plantillas genéricas.",
+      "title": "Editor visual de páginas"
+    },
+    "eyebrow": "Todo lo que necesitas",
+    "flows": {
+      "body": "Combina endpoints HTTP, consultas a bases de datos, condiciones, transformaciones y llamadas a API en un diagrama visual. Sin código.",
+      "title": "Flujos reales de backend"
+    },
+    "heading": "Una plataforma completa, no un plugin.",
+    "intro": "Páginas, lógica del backend, datos reales, publicación, módulos e IA: un solo producto, sin tener que conectar herramientas.",
+    "modules": {
+      "body": "Autenticación, blog, tienda, reservas, foro, radio… Cada función incluye tablas de base de datos, flujos de backend y páginas reales. Instálala con un clic.",
+      "title": "{count} funciones listas para usar"
+    },
+    "postgres": {
+      "body": "Cada proyecto tiene su propio esquema aislado con columnas tipadas. O conecta Google Sheets como backend CRUD, sin configuraciones.",
+      "title": "Postgres en un clic"
+    },
+    "publish": {
+      "body": "Al publicar, se guarda una versión de tus páginas, flujos de trabajo y tema. Sigue editando en privado, publica cuando quieras y restaura cualquier versión anterior con un clic.",
+      "title": "Publica con un clic"
+    },
+    "sheets": {
+      "body": "Usa cualquier hoja de cálculo como base de datos. Lee, modifica y consulta filas sin migraciones, DevOps ni configuraciones.",
+      "title": "Conector de Google Sheets"
+    }
+  },
+  "footer": {
+    "copyright": "© {year} {app}",
+    "tagline": "El creador visual de aplicaciones con un backend completo. Lanza productos completos, no solo páginas de marketing."
+  },
+  "hero": {
+    "badge": "Descríbela, revisa el plan y publícala",
+    "charsLeft": "{count, plural, one {queda # carácter} other {quedan # caracteres}}",
+    "checkPlan": "Revisarás un plan antes de que se cree nada.",
+    "freeForever": "Plan gratis para siempre",
+    "headline": "Crea apps, <accent>no solo páginas.</accent>",
+    "ideaHint": "Cuéntanos quién la usa y qué hace.",
+    "ideaLabel": "¿Qué debería hacer tu app?",
+    "ideaPlaceholder": "Por ejemplo: Los clientes piden pasteles en línea, eligen un día para recogerlos y yo veo todos los pedidos en una lista.",
+    "ideas": {
+      "bakery": {
+        "label": "Pedidos anticipados de panadería",
+        "prompt": "Una página para hacer pedidos anticipados en mi panadería. Los clientes eligen pasteles y pan, seleccionan un día para recogerlos y dejan su nombre y número de teléfono. Veo todos los pedidos en una página de administración."
+      },
+      "gym": {
+        "label": "Horario del gimnasio",
+        "prompt": "Un horario de clases para mi gimnasio. Los socios ven las clases de esta semana y reservan una plaza. Puedo añadir clases y ver quién asistirá a cada una."
+      },
+      "salon": {
+        "label": "Reservas para peluquería",
+        "prompt": "Una app de reservas para mi peluquería. Los clientes eligen un servicio, un estilista y una hora, y puedo ver y gestionar todas las reservas en un solo lugar."
+      },
+      "tutoring": {
+        "label": "Inscripciones a clases particulares",
+        "prompt": "Una página de inscripción para mis clases particulares. Las familias eligen una asignatura y un horario semanal, y dejan sus datos de contacto. Veo la lista de estudiantes y sus clases."
+      }
+    },
+    "intro": "Diseña la interfaz con arrastrar y soltar. Conecta la lógica real del backend de forma visual. Usa una base de datos real o tus hojas de Google Sheets. Publícala en tu propio dominio. Sin código.",
+    "noCard": "Sin tarjeta de crédito",
+    "openDashboard": "Abrir el panel",
+    "openYourDashboard": "Abre tu panel",
+    "opening": "Abriendo…",
+    "ownData": "Tus datos son tuyos",
+    "planMyApp": "Planificar mi app",
+    "seeHow": "Descubre cómo funciona",
+    "startFree": "Empieza a crear gratis",
+    "stats": {
+      "features": "Funciones listas para usar",
+      "icons": "Iconos incluidos",
+      "platforms": "Apps desde un solo proyecto",
+      "platformsValue": "Web + Android",
+      "ways": "Formas de empezar a crear"
+    },
+    "tryOne": "Prueba una:"
+  },
+  "nav": {
+    "backend": "Lógica del backend",
+    "dashboard": "Panel",
+    "faq": "Preguntas frecuentes",
+    "home": "Inicio de {app}",
+    "logIn": "Iniciar sesión",
+    "pricing": "Precios",
+    "product": "Producto",
+    "startFree": "Empieza gratis"
+  },
+  "pricing": {
+    "heading": "Espacio para tu próxima idea.",
+    "intro": "Elige el plan que mejor se adapte a lo que quieres crear.",
+    "startBuilding": "Empieza a crear",
+    "viewPlan": "Ver plan"
+  }
+}

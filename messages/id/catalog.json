@@ -1,0 +1,1908 @@
+{
+  "modules": {
+    "abandoned-cart": {
+      "description": "Simpan isi keranjang saat pengunjung menambahkan barang, tetapi pergi sebelum checkout. Alur pengingat mengirim email satu jam kemudian dengan tautan sekali klik untuk melanjutkan belanja. URL pemulihan memakai token khusus untuk setiap keranjang; catat apakah mereka kembali.",
+      "fields": {
+        "delayMinutes": {
+          "label": "Jeda sebelum pengingat (menit)"
+        },
+        "fromEmail": {
+          "label": "Kirim dari"
+        },
+        "subject": {
+          "label": "Subjek email"
+        }
+      },
+      "name": "Pemulihan keranjang belanja",
+      "summary": "Ingatkan pembeli yang meninggalkan barang di keranjang."
+    },
+    "acknowledgments": {
+      "description": "Terbitkan pesan (pembaruan kebijakan, perubahan ketentuan, pemberitahuan keselamatan) yang harus dikonfirmasi oleh setiap pengunjung sebelum ditutup. Setiap konfirmasi dicatat dengan waktu dan user_id (opsional) untuk keperluan audit. Admin dapat melihat jumlah kepatuhan secara langsung.",
+      "name": "Konfirmasi Baca",
+      "summary": "Pastikan orang sudah membaca pesan penting."
+    },
+    "ai-assistant": {
+      "description": "Tambahkan kotak tanya AI ke situs Anda. Pengunjung mengajukan pertanyaan, AI menjawab berdasarkan instruksi yang Anda berikan, lalu jawaban muncul tepat di bawah formulir. Semua pertanyaan dan jawaban tersimpan di halaman pribadi yang hanya bisa Anda buka.",
+      "fields": {
+        "assistantName": {
+          "label": "Nama asisten"
+        },
+        "disclosure": {
+          "help": "Memberi tahu pengunjung bahwa mereka sedang berbicara dengan AI.",
+          "label": "Catatan di bawah judul"
+        },
+        "systemPrompt": {
+          "label": "Instruksi untuk AI"
+        }
+      },
+      "name": "Asisten Obrolan",
+      "summary": "Biarkan pengunjung mengobrol dengan asisten yang siap membantu."
+    },
+    "analytics-dashboard": {
+      "description": "Lacak tayangan halaman dan aktivitas khusus ('signup', 'purchase'). Termasuk endpoint beacon yang bisa dipanggil dari halaman mana pun, API penghitung, dan dasbor admin dengan total, halaman teratas, serta tren 7 hari.",
+      "name": "Statistik pengunjung",
+      "summary": "Lihat jumlah orang yang mengunjungi halaman Anda."
+    },
+    "app-walkthrough": {
+      "description": "Lapisan panduan yang mengajak pengunjung baru melihat aplikasi saat pertama kali dibuka. Tentukan langkah-langkah berurutan (judul, isi, pemilih target); lapisan ini menyorot setiap elemen dan menampilkan tombol “Berikutnya / Lewati”. Status lewati disimpan di browser, jadi pengunjung yang kembali tidak akan terganggu.",
+      "fields": {
+        "doneLabel": {
+          "label": "Label langkah terakhir"
+        },
+        "skipLabel": {
+          "label": "Label tombol lewati"
+        }
+      },
+      "name": "Tur aplikasi",
+      "summary": "Tampilkan tur singkat aplikasi Anda kepada pengunjung baru."
+    },
+    "appointments": {
+      "description": "Kelola janji temu secara terstruktur: daftar layanan dengan durasi dan harga, penyedia layanan yang ditugaskan, serta pemesanan slot waktu tertentu oleh pelanggan. Lebih fleksibel daripada Pemesanan — cocok untuk salon, klinik, dan konsultan.",
+      "fields": {
+        "businessName": {
+          "label": "Nama bisnis"
+        },
+        "currency": {
+          "label": "Simbol mata uang"
+        }
+      },
+      "name": "Janji Temu",
+      "summary": "Biarkan pelanggan membuat janji temu dengan anggota tim Anda."
+    },
+    "archive": {
+      "description": "Arsip jangka panjang untuk proyek yang sudah selesai, postingan lama, produk yang sudah dihentikan — apa pun yang ingin tetap disimpan tetapi tidak ditampilkan di daftar aktif. Telusuri berdasarkan tahun/bulan dan cari teks di judul serta isi. Opsi 'pulihkan ke daftar utama' disediakan untuk modul lain.",
+      "fields": {
+        "heading": {
+          "label": "Judul arsip"
+        }
+      },
+      "name": "Arsip Konten",
+      "summary": "Simpan konten lama agar bisa dicari berdasarkan tahun."
+    },
+    "audio": {
+      "description": "Halaman daftar putar yang menampilkan trek audio dengan judul, artis, dan URL streaming. Setiap trek dilengkapi pemutar audio HTML5 agar pengunjung bisa mendengarkannya langsung.",
+      "fields": {
+        "playlistName": {
+          "label": "Nama daftar putar"
+        }
+      },
+      "name": "Daftar Putar Audio",
+      "summary": "Bagikan daftar putar lagu atau rekaman."
+    },
+    "auth": {
+      "description": "Menambahkan halaman daftar, masuk, dan keluar, serta menyimpan daftar orang yang punya akun. Kata sandi disimpan dengan aman. Orang bisa mengunduh data atau menghapus akun dari halaman profil. Fitur yang mengharuskan orang masuk, seperti favorit atau pesan pribadi, otomatis menggunakan akun ini.",
+      "fields": {
+        "appName": {
+          "label": "Nama aplikasi"
+        }
+      },
+      "name": "Login dan akun",
+      "summary": "Izinkan orang membuat akun dan login ke aplikasi Anda."
+    },
+    "before-after": {
+      "description": "Tampilkan hasil perubahan. Setiap perbandingan memiliki gambar “sebelum” dan “sesudah”; pengunjung dapat menggeser pembatas untuk melihat perbedaannya. Admin dapat menambahkan perbandingan sebanyak yang diinginkan. Cocok untuk renovasi, kebugaran, tata rambut, dan edit foto.",
+      "fields": {
+        "heading": {
+          "label": "Judul halaman"
+        }
+      },
+      "name": "Slider Sebelum / Sesudah",
+      "summary": "Bandingkan dua foto berdampingan dengan slider."
+    },
+    "birthdays": {
+      "description": "Kumpulkan tanggal lahir pengguna, lalu kirim email otomatis kepada siapa pun yang berulang tahun hari ini. Cocok untuk membuat pelanggan merasa diperhatikan (ucapan 'selamat ulang tahun' + kode diskon) atau untuk halaman tim/HR. Pasangkan dengan cron harian yang mengarah ke /api/run/send-today.",
+      "fields": {
+        "body": {
+          "label": "Isi email (gunakan placeholder '{{'name'}}')"
+        },
+        "fromEmail": {
+          "label": "Kirim dari"
+        },
+        "subject": {
+          "label": "Subjek email"
+        }
+      },
+      "name": "Ulang Tahun",
+      "summary": "Ucapkan selamat ulang tahun kepada pelanggan Anda."
+    },
+    "blog": {
+      "description": "Halaman utama blog dengan daftar artikel terbaru, halaman admin untuk menerbitkan artikel baru, dan alur yang menampilkan daftar artikel. Anda bisa menambahkan halaman detail untuk tiap artikel nanti lewat editor visual.",
+      "fields": {
+        "author": {
+          "label": "Nama penulis default"
+        },
+        "blogTitle": {
+          "label": "Judul blog"
+        }
+      },
+      "name": "Blog",
+      "summary": "Tulis artikel dan berita untuk pengunjung Anda."
+    },
+    "bookings": {
+      "description": "Halaman pemesanan tempat pelanggan memilih tanggal dan waktu, mengisi detail mereka, lalu mengirim reservasi. Perlindungan pemesanan ganda akan memeriksa apakah sudah ada pemesanan pada waktu yang diminta sebelum menyetujuinya. Dilengkapi tabel pemesanan dan halaman admin untuk melihat jadwal mendatang.",
+      "fields": {
+        "businessName": {
+          "label": "Nama bisnis"
+        },
+        "serviceLabel": {
+          "help": "mis. 'Potong rambut', 'Jalan-jalan anjing', 'Janji temu'",
+          "label": "Apa yang dipesan?"
+        }
+      },
+      "name": "Pemesanan",
+      "summary": "Biarkan orang memesan waktu dengan Anda."
+    },
+    "budget": {
+      "description": "Anggaran pribadi sederhana: catat pemasukan dan pengeluaran berdasarkan kategori, lihat transaksi terbaru, dan pahami ke mana uang Anda pergi.",
+      "fields": {
+        "currency": {
+          "label": "Mata uang"
+        }
+      },
+      "name": "Anggaran Pribadi",
+      "summary": "Pantau uang yang masuk dan keluar."
+    },
+    "business-card-wallet": {
+      "description": "Setiap pengguna memiliki kartu nama digital (nama, jabatan, perusahaan, kontak, foto) dan dompet berisi kartu yang disimpan dari orang lain. Bagikan kartu Anda lewat QR; penerima bisa memindai lalu menyimpannya ke dompet dengan sekali ketuk (dan mengekspornya sebagai file vCard ke buku alamat ponsel).",
+      "name": "Dompet kartu nama",
+      "summary": "Bagikan dan simpan kartu nama digital."
+    },
+    "calculator-builder": {
+      "description": "Buat kalkulator sederhana dengan input dan rumus khusus (misalnya, cicilan KPR, BMI, proyeksi tabungan, pembagi tagihan, konverter mata uang). Setiap kalkulator memiliki slug unik; sematkan di mana saja melalui /calc?slug=…",
+      "name": "Pembuat kalkulator",
+      "summary": "Tambahkan kalkulator, seperti perkiraan harga atau pinjaman."
+    },
+    "catalog": {
+      "description": "Katalog produk yang rapi dengan nama, harga, gambar, dan deskripsi. Cocok untuk menu, brosur, dan halaman seperti ruang pamer tempat pelanggan bertanya sebelum membeli secara online.",
+      "fields": {
+        "currency": {
+          "label": "Simbol mata uang"
+        },
+        "title": {
+          "label": "Judul katalog"
+        }
+      },
+      "name": "Katalog Produk",
+      "summary": "Tampilkan produk tanpa menerima pembayaran."
+    },
+    "channel-feed": {
+      "description": "Ikuti feed kanal YouTube atau Vimeo dan tampilkan video terbaru secara otomatis dalam kisi. Alur pembaruan memeriksa endpoint RSS kanal secara berkala; item yang tersimpan tetap cepat ditampilkan. Klik video untuk membukanya di pemutar yang disematkan.",
+      "fields": {
+        "channelId": {
+          "label": "ID kanal"
+        },
+        "channelKind": {
+          "label": "Jenis kanal",
+          "options": {
+            "vimeo": "Vimeo",
+            "youtube": "YouTube"
+          }
+        },
+        "heading": {
+          "label": "Judul bagian"
+        }
+      },
+      "name": "Feed kanal video",
+      "summary": "Tampilkan video terbaru dari kanal YouTube atau Vimeo Anda."
+    },
+    "chat": {
+      "description": "Satu ruang obrolan bersama tempat pengunjung mengirim pesan. Pesan terbaru muncul lebih dulu. Modul ini menggunakan tabel chat_messages serta alur untuk mengirim dan menampilkan pesan. Cocok untuk mengumpulkan masukan awal komunitas atau obrolan daftar tunggu.",
+      "fields": {
+        "roomTitle": {
+          "label": "Judul ruang obrolan"
+        },
+        "welcome": {
+          "label": "Pesan sambutan"
+        }
+      },
+      "name": "Obrolan Komunitas",
+      "summary": "Sediakan ruang obrolan bersama untuk komunitas Anda."
+    },
+    "chores": {
+      "description": "Jadwal tugas keluarga: bagikan tugas kepada anak-anak, tandai yang selesai, dan kumpulkan bintang. Jadikan tugas sehari-hari sebagai rutinitas yang terlihat dan berhadiah.",
+      "fields": {
+        "familyName": {
+          "label": "Nama keluarga"
+        }
+      },
+      "name": "Jadwal Tugas Rumah",
+      "summary": "Bagi tugas rumah tangga dan berikan hadiah."
+    },
+    "claims": {
+      "description": "Pelanggan (atau karyawan) mengirim klaim atau bukti pembayaran beserta deskripsi, jumlah, dan URL foto. Petugas memperbarui statusnya (diterima → sedang ditinjau → disetujui/ditolak) dan mengirim balasan publik. Cocok untuk klaim garansi, penggantian biaya, atau bukti pembayaran asuransi.",
+      "fields": {
+        "queueName": {
+          "label": "Judul antrean"
+        }
+      },
+      "name": "Klaim & Bukti Pembayaran",
+      "summary": "Izinkan orang mengirim klaim dengan foto dan mengikuti perkembangannya."
+    },
+    "classifieds": {
+      "description": "Papan iklan baris ala Craigslist. Pengunjung memasang iklan dengan judul, harga, dan info kontak; halaman daftar menampilkan semua iklan yang masih aktif.",
+      "fields": {
+        "boardName": {
+          "label": "Nama papan iklan"
+        }
+      },
+      "name": "Iklan Baris",
+      "summary": "Izinkan orang memasang iklan mereka sendiri."
+    },
+    "contact-form": {
+      "description": "Halaman kontak yang menarik dengan formulir selebar halaman untuk menyimpan pesan ke database. Termasuk halaman kotak masuk admin untuk melihat semua pesan.",
+      "fields": {
+        "heading": {
+          "label": "Judul halaman"
+        },
+        "subheading": {
+          "label": "Subjudul singkat"
+        }
+      },
+      "name": "Formulir Kontak",
+      "summary": "Izinkan pengunjung mengirim pesan kepada Anda."
+    },
+    "countdown": {
+      "description": "Halaman hitung mundur yang diperbarui langsung dan ditujukan ke waktu mendatang. Tampilkan hari/jam/menit/detik dalam ukuran besar, dengan judul utama, subjudul, dan tombol ajakan setelah hitung mundur selesai (opsional). Beberapa kampanye bisa berjalan bersamaan; pilih salah satunya dengan ?id=...",
+      "name": "Hitung Mundur",
+      "summary": "Hitung mundur menuju peluncuran, obral, atau acara."
+    },
+    "coupons": {
+      "description": "Buat kode diskon yang bisa digunakan pelanggan di halaman publik. Lacak kode yang sudah digunakan, jumlah diskon, dan riwayat penggunaannya.",
+      "fields": {
+        "brand": {
+          "label": "Nama merek"
+        }
+      },
+      "name": "Kupon",
+      "summary": "Bagikan kode diskon."
+    },
+    "course": {
+      "description": "Platform belajar online mini: pelajaran berurutan, masing-masing dengan judul, deskripsi, URL video, dan durasi opsional. Cocok untuk kursus singkat dan tutorial.",
+      "fields": {
+        "courseTitle": {
+          "label": "Judul kursus"
+        },
+        "instructor": {
+          "label": "Nama pengajar"
+        }
+      },
+      "name": "Kursus Online",
+      "summary": "Ajarkan kursus online, satu pelajaran demi satu."
+    },
+    "delivery-tracking": {
+      "description": "Lacak pengiriman dari penjemputan hingga tiba. Kurir mengirim pembaruan lokasi lat/lng; pelanggan melihat titik terbaru di peta dan urutan status (ditugaskan → dijemput → dalam perjalanan → terkirim). Setiap pengiriman memiliki tautan pelacakan publik.",
+      "fields": {
+        "businessName": {
+          "label": "Nama bisnis"
+        }
+      },
+      "name": "Pelacakan Pengiriman",
+      "summary": "Izinkan pelanggan melacak pengiriman mereka."
+    },
+    "delivery-zones": {
+      "description": "Tentukan zona pengiriman berdasarkan kode pos atau jarak dari toko Anda. Setiap zona memiliki biaya pengiriman dan batas minimum pesanan sendiri. Alur untuk meminta perkiraan biaya menerima alamat (atau kode pos), lalu memberi tahu apakah pengiriman tersedia dan berapa biayanya.",
+      "fields": {
+        "shopLat": {
+          "label": "Garis lintang toko"
+        },
+        "shopLng": {
+          "label": "Garis bujur toko"
+        }
+      },
+      "name": "Zona Pengiriman",
+      "summary": "Atur biaya pengiriman untuk berbagai area."
+    },
+    "donations": {
+      "description": "Halaman donasi dengan deskripsi tujuan, bilah progres menuju target, dan daftar donatur publik. Mengumpulkan nama, email, jumlah donasi, dan pesan opsional dari donatur. Integrasi pembayaran ditangani oleh modul Stripe terpisah.",
+      "fields": {
+        "causeName": {
+          "label": "Nama tujuan"
+        },
+        "currency": {
+          "label": "Simbol mata uang"
+        },
+        "goal": {
+          "label": "Target penggalangan dana ($)"
+        }
+      },
+      "name": "Donasi",
+      "summary": "Kumpulkan dana untuk sebuah tujuan dan ucapkan terima kasih kepada para donatur."
+    },
+    "drip-content": {
+      "description": "Buat rangkaian pelajaran yang terbuka untuk setiap pengguna berdasarkan jumlah hari sejak mereka mendaftar. Pelajaran 1 terbuka pada hari ke-0, pelajaran 2 pada hari ke-3, dan seterusnya. Cocok untuk proses orientasi, kursus pelatihan, dan rangkaian email yang dipadukan dengan modul email.",
+      "fields": {
+        "programName": {
+          "label": "Nama program"
+        }
+      },
+      "name": "Konten Bertahap",
+      "summary": "Rilis pelajaran dengan jeda beberapa hari."
+    },
+    "dynamic-list": {
+      "description": "CMS mini: admin menentukan sebuah 'daftar' (dengan nama dan skema JSON berisi kolom), lalu menambahkan baris lewat formulir yang dibuat otomatis. Setiap daftar memiliki halaman publik untuk melihat dan halaman admin untuk mengedit. Modul untuk 'membuat modul sendiri' — cocok saat tidak ada pilihan lain yang sesuai.",
+      "name": "Daftar Kustom",
+      "summary": "Buat daftar sendiri untuk apa saja, lengkap dengan halaman untuk mengeditnya."
+    },
+    "e-signature": {
+      "description": "Kirim dokumen berbasis teks (ketentuan, NDA, penawaran) kepada penerima melalui email, lalu biarkan mereka menandatanganinya di browser dengan tanda tangan yang digambar. Menyimpan gambar tanda tangan, nama dan IP penanda tangan, serta waktu penandatanganan.",
+      "fields": {
+        "companyName": {
+          "label": "Nama perusahaan Anda"
+        }
+      },
+      "name": "Tanda tangan elektronik",
+      "summary": "Kirim dokumen dan minta penerima menandatanganinya secara online."
+    },
+    "e-wallet": {
+      "description": "Berikan saldo kredit kepada setiap pengguna. Tambahkan kredit (isi saldo), gunakan kredit (potong saldo), dan lihat catatan lengkap setiap transaksi. Modul lain dapat menggunakan kredit atas nama pengguna yang sedang masuk melalui alur penggunaan kredit.",
+      "fields": {
+        "currencySymbol": {
+          "label": "Simbol mata uang"
+        }
+      },
+      "name": "Kredit toko",
+      "summary": "Berikan kredit toko kepada pelanggan untuk diisi dan digunakan."
+    },
+    "email-verify": {
+      "description": "Kirim kode verifikasi 6 digit melalui email, simpan dengan masa berlaku singkat, lalu verifikasi saat pengguna membuat permintaan berikutnya. Cocok digunakan bersama modul autentikasi: menandai pengguna sebagai email_verified setelah mereka mengonfirmasi.",
+      "fields": {
+        "appName": {
+          "label": "Nama aplikasi"
+        },
+        "codeTtlMinutes": {
+          "label": "Kode kedaluwarsa setelah (menit)"
+        },
+        "fromEmail": {
+          "label": "Kirim dari"
+        }
+      },
+      "name": "Verifikasi email",
+      "summary": "Pastikan alamat email pengguna benar-benar ada."
+    },
+    "emergency-contacts": {
+      "description": "Daftar kontak darurat beserta nama, hubungan, dan nomor telepon. Ketuk untuk menelepon lewat ponsel. Cocok untuk sekolah, perkemahan, resepsionis kantor, dan keluarga.",
+      "fields": {
+        "heading": {
+          "label": "Judul"
+        }
+      },
+      "name": "Kontak Darurat",
+      "summary": "Simpan nomor telepon penting agar bisa dihubungi dengan sekali ketuk."
+    },
+    "event-tickets": {
+      "description": "Jual tiket acara dengan beberapa kategori (Umum, VIP, dan lainnya). Setiap tiket yang diterbitkan mendapat kode unik yang dapat ditampilkan sebagai QR untuk pemegang tiket. Saat pengunjung datang, pindai QR untuk memvalidasi dan menandai tiket sebagai sudah digunakan.",
+      "fields": {
+        "eventDate": {
+          "label": "Tanggal acara"
+        },
+        "eventName": {
+          "label": "Nama acara"
+        },
+        "venue": {
+          "label": "Tempat acara"
+        }
+      },
+      "name": "Tiket Acara",
+      "summary": "Jual tiket dan pindai tiket saat pengunjung datang."
+    },
+    "events": {
+      "description": "Tampilkan daftar acara mendatang beserta tanggal, lokasi, dan deskripsinya. Pengunjung bisa mengonfirmasi kehadiran dengan nama dan email; konfirmasi disimpan dalam tabel untuk ditinjau admin.",
+      "fields": {
+        "calendarName": {
+          "label": "Nama kalender"
+        }
+      },
+      "name": "Kalender Acara",
+      "summary": "Tampilkan acara mendatang dan biarkan orang memberi tahu bahwa mereka akan hadir."
+    },
+    "expenses": {
+      "description": "Catat pengeluaran bisnis beserta tanggal, kategori, jumlah, dan catatan. Lihat semuanya dalam satu daftar untuk memudahkan tinjauan bulanan dan persiapan pajak.",
+      "name": "Pengeluaran",
+      "summary": "Pantau pengeluaran bisnis Anda."
+    },
+    "fanwall": {
+      "description": "Dinding publik dengan satu rangkaian pesan. Pengunjung bisa mengirim pesan singkat dengan nama dan gambar opsional. Pesan terbaru muncul lebih dulu. Mirip dinding Twitter/Facebook, tetapi tanpa akun.",
+      "fields": {
+        "wallTitle": {
+          "label": "Judul dinding"
+        }
+      },
+      "name": "Dinding Penggemar",
+      "summary": "Izinkan komunitas Anda mengirim pesan di dinding bersama."
+    },
+    "faq": {
+      "description": "Halaman tanya jawab yang dikelompokkan berdasarkan kategori. Dilengkapi formulir admin untuk menambahkan pertanyaan dan jawaban baru serta daftar publik yang menampilkan semua yang sudah diterbitkan.",
+      "fields": {
+        "heading": {
+          "label": "Judul halaman"
+        }
+      },
+      "name": "FAQ",
+      "summary": "Jawab pertanyaan yang paling sering diajukan."
+    },
+    "feature-voting": {
+      "description": "Papan publik untuk permintaan fitur. Pengguna bisa mengirim ide dan mendukung ide orang lain. Tim produk menggunakannya untuk menentukan prioritas fitur berikutnya.",
+      "fields": {
+        "productName": {
+          "label": "Nama produk"
+        }
+      },
+      "name": "Voting Fitur",
+      "summary": "Biarkan orang mengusulkan ide dan memilih ide favorit mereka."
+    },
+    "file-upload": {
+      "description": "Izinkan pengunjung mengunggah file lewat formulir seret dan lepas. File disimpan di folder penyimpanan khusus proyek, dan URL-nya disimpan di tabel yang bisa Anda lihat.",
+      "fields": {
+        "heading": {
+          "label": "Judul halaman"
+        }
+      },
+      "name": "Unggah File",
+      "summary": "Izinkan orang mengirim file kepada Anda."
+    },
+    "food-truck-finder": {
+      "description": "Semua yang dibutuhkan aplikasi truk makanan. Pemilik truk mendaftar, menambahkan truk mereka ke peta, memperbarui menu, dan membagikan promo. Pelanggan melihat truk di sekitar mereka di peta, membaca ulasan, dan menikmati promo. Termasuk fitur daftar dan masuk.",
+      "fields": {
+        "brandName": {
+          "label": "Nama situs"
+        },
+        "cityName": {
+          "label": "Nama kota / wilayah"
+        },
+        "defaultLat": {
+          "label": "Garis lintang pusat kota"
+        },
+        "defaultLng": {
+          "label": "Garis bujur pusat kota"
+        },
+        "defaultZoom": {
+          "label": "Zoom peta default"
+        }
+      },
+      "name": "Pencari Truk Makanan",
+      "summary": "Bantu orang menemukan truk makanan di sekitar mereka lewat peta langsung."
+    },
+    "forum": {
+      "description": "Forum komunitas dengan topik dan balasan sungguhan. Pengunjung memulai topik dari halaman utama forum, membuka halaman detail, lalu mengirim balasan. Jumlah balasan diperbarui otomatis setiap kali ada balasan.",
+      "fields": {
+        "forumName": {
+          "label": "Nama forum"
+        }
+      },
+      "name": "Forum",
+      "summary": "Izinkan orang memulai diskusi dan saling membalas."
+    },
+    "gallery": {
+      "description": "Galeri gambar responsif dengan judul, keterangan, dan URL gambar untuk setiap item. Dilengkapi halaman unggah untuk menambahkan foto baru melalui URL.",
+      "fields": {
+        "galleryIntro": {
+          "label": "Pengantar singkat"
+        },
+        "galleryTitle": {
+          "label": "Judul galeri"
+        }
+      },
+      "name": "Galeri Foto",
+      "summary": "Tampilkan kumpulan foto."
+    },
+    "geofencer": {
+      "description": "Tentukan batas area berbentuk lingkaran (titik tengah lat/lng + radius). Pengunjung membagikan lokasinya; jika berada di dalam batas area, konten/pesan yang sesuai akan ditampilkan. Catat setiap kunjungan agar Anda bisa melihat area yang ramai. Cocok dipadukan dengan notifikasi push atau kupon.",
+      "fields": {
+        "heading": {
+          "label": "Judul"
+        }
+      },
+      "name": "Peringatan lokasi",
+      "summary": "Tampilkan sesuatu yang istimewa saat orang tiba di suatu tempat."
+    },
+    "gift-registry": {
+      "description": "Daftar hadiah yang memungkinkan tamu melihat item dan menandainya sebagai sudah dipesan. Setiap item memiliki nama, harga, tautan toko, dan status ketersediaan.",
+      "fields": {
+        "occasion": {
+          "label": "Acara"
+        }
+      },
+      "name": "Daftar Hadiah",
+      "summary": "Buat daftar hadiah pernikahan atau kelahiran yang bisa dipesan oleh para tamu."
+    },
+    "guestbook": {
+      "description": "Buku tamu klasik tempat pengunjung menuliskan nama dan pesan singkat. Pesan terbaru ditampilkan lebih dulu. Cocok untuk situs pribadi, situs kenangan, dan halaman acara.",
+      "fields": {
+        "heading": {
+          "label": "Judul"
+        }
+      },
+      "name": "Buku Tamu",
+      "summary": "Izinkan pengunjung meninggalkan pesan ramah untuk Anda."
+    },
+    "gym": {
+      "description": "Perangkat bantu untuk gym atau studio kecil: paket keanggotaan (Bulanan, paket 10 kali), jadwal kelas dengan batas peserta, dan proses check-in dengan memindai kartu anggota untuk mencatat kedatangan. Pemilik dapat melihat jumlah kehadiran hari ini dan anggota aktif saat ini.",
+      "fields": {
+        "gymName": {
+          "label": "Nama gym"
+        }
+      },
+      "name": "Gym / Keanggotaan",
+      "summary": "Kelola keanggotaan, kelas, dan check-in."
+    },
+    "habits": {
+      "description": "Pantau kebiasaan harian dengan nama, rentetan saat ini, dan tanggal terakhir dicek. Lakukan setiap hari untuk memperpanjang rentetan.",
+      "name": "Pelacak Kebiasaan",
+      "summary": "Pantau kebiasaan harian dan bangun rentetan hari."
+    },
+    "help-desk": {
+      "description": "Pelanggan mengirim tiket bantuan berisi subjek, deskripsi, dan prioritas. Anda bisa memilah dan menyelesaikannya dari daftar tiket admin.",
+      "name": "Layanan Bantuan",
+      "summary": "Terima dan jawab permintaan bantuan pelanggan."
+    },
+    "in-app-ads": {
+      "description": "Tampilkan iklan banner milik sendiri secara bergantian di halaman Anda tanpa jaringan iklan eksternal. Admin mengunggah materi iklan (gambar + judul + URL tujuan klik + tanggal aktif), sistem memilih satu secara acak dengan bobot tertentu setiap kali halaman dibuka, lalu mencatat setiap tayangan + klik untuk analisis CTR. Pasang cuplikannya di mana saja.",
+      "fields": {
+        "placement": {
+          "label": "Label penempatan default"
+        }
+      },
+      "name": "Iklan banner",
+      "summary": "Tampilkan iklan banner Anda sendiri dan lihat siapa yang mengekliknya."
+    },
+    "inbox": {
+      "description": "Pesan pribadi antara dua pengguna yang sudah masuk. Pilih penerima, kirim pesan, dan lihat status sudah atau belum dibaca untuk setiap percakapan. Percakapan yang sama hanya dicatat sekali untuk setiap pasangan pengirim dan penerima.",
+      "name": "Kotak Masuk Pribadi",
+      "summary": "Beri anggota cara saling berkirim pesan pribadi."
+    },
+    "inventory": {
+      "description": "Pantau stok per SKU. Sesuaikan jumlah (terima stok baru, catat penjualan, atau sesuaikan secara manual), lihat stok yang hampir habis, dan unduh CSV. Terhubung dengan modul toko agar stok di etalase Anda selalu akurat.",
+      "fields": {
+        "lowThreshold": {
+          "label": "Batas stok minimum"
+        }
+      },
+      "name": "Inventaris",
+      "summary": "Pantau stok dan ketahui saat persediaan hampir habis."
+    },
+    "invoice": {
+      "description": "Buat faktur pelanggan dengan jumlah tagihan, tanggal jatuh tempo, dan status. Lihat faktur yang sudah dibayar, masih menunggu pembayaran, atau terlambat dari satu halaman admin.",
+      "fields": {
+        "businessName": {
+          "label": "Nama bisnis"
+        }
+      },
+      "name": "Faktur",
+      "summary": "Kirim faktur dan pantau siapa yang sudah membayar."
+    },
+    "jobs": {
+      "description": "Halaman karier dengan lowongan aktif dan formulir lamaran. Pelamar mengirim nama, email, tautan resume, dan pesan pengantar; lamaran masuk ke tabel yang bisa Anda tinjau di admin.",
+      "fields": {
+        "companyName": {
+          "label": "Nama perusahaan"
+        }
+      },
+      "name": "Papan Lowongan Kerja",
+      "summary": "Pasang lowongan kerja dan terima lamaran."
+    },
+    "journal": {
+      "description": "Jurnal harian pribadi dengan pilihan suasana hati, tag, dan catatan bebas. Lihat entri sebelumnya berdasarkan urutan waktu.",
+      "name": "Jurnal",
+      "summary": "Buat jurnal harian dan catat suasana hati setiap hari."
+    },
+    "kanban": {
+      "description": "Papan Kanban dengan kolom Belum Dikerjakan, Sedang Dikerjakan, dan Selesai. Kartu memiliki judul, deskripsi, dan prioritas. Pindahkan kartu dengan memperbarui kolomnya.",
+      "fields": {
+        "boardName": {
+          "label": "Nama papan"
+        }
+      },
+      "name": "Papan Tugas",
+      "summary": "Pindahkan tugas di papan dari belum dikerjakan hingga selesai."
+    },
+    "kb": {
+      "description": "Pusat bantuan dengan artikel yang dikelompokkan berdasarkan kategori. Termasuk daftar artikel publik dan halaman admin sederhana untuk menerbitkan artikel baru.",
+      "fields": {
+        "title": {
+          "label": "Judul pusat bantuan"
+        }
+      },
+      "name": "Pusat Bantuan",
+      "summary": "Terbitkan artikel bantuan yang bisa dicari pelanggan."
+    },
+    "leaderboard": {
+      "description": "Papan peringkat umum. Tambahkan skor untuk user_label (teks apa pun — email, nama, anggota gym, karyawan), lalu papan peringkat akan mengurutkannya dari yang tertinggi. Filter berdasarkan kategori untuk mengelola beberapa papan (langkah, penjualan, poin). Endpoint submit-score bisa dipanggil dari modul lain.",
+      "fields": {
+        "boardTitle": {
+          "label": "Judul papan"
+        },
+        "defaultCategory": {
+          "label": "Kategori bawaan"
+        }
+      },
+      "name": "Papan Peringkat",
+      "summary": "Tampilkan peringkat skor tertinggi."
+    },
+    "leads": {
+      "description": "CRM sederhana: catat calon pelanggan beserta nama, perusahaan, email, dan tahapnya. Lihat alur penjualan berdasarkan tahap dan ketahui siapa yang perlu ditindaklanjuti.",
+      "name": "Calon Pelanggan",
+      "summary": "Pantau calon pelanggan dan tindak lanjuti mereka."
+    },
+    "link-tracker": {
+      "description": "Buat tautan yang bisa dilacak untuk kampanye pemasaran Anda. Setiap klik dicatat beserta waktunya agar Anda tahu kanal mana yang mendatangkan pengunjung terbanyak.",
+      "name": "Klik tautan",
+      "summary": "Lihat berapa banyak orang yang mengeklik tautan Anda."
+    },
+    "links": {
+      "description": "Daftar pilihan tautan eksternal yang sederhana, dengan judul, ikon, dan deskripsi. Cocok untuk halaman bergaya Linktree, daftar sumber pilihan, atau aplikasi tautan di bio.",
+      "fields": {
+        "heading": {
+          "label": "Judul"
+        }
+      },
+      "name": "Direktori Tautan",
+      "summary": "Bagikan halaman sederhana berisi tautan penting Anda."
+    },
+    "live-stream": {
+      "description": "Buat halaman siaran langsung yang menyematkan HLS .m3u8, URL YouTube Live, atau kanal Twitch, dengan panel samping obrolan langsung (mengambil data secara berkala dari alur obrolan real-time). Admin mengatur jenis siaran + URL; penonton melihat pemutar video + obrolan.",
+      "fields": {
+        "streamKind": {
+          "label": "Jenis siaran",
+          "options": {
+            "hls": "HLS (.m3u8)",
+            "twitch": "Twitch",
+            "youtube": "YouTube Live"
+          }
+        },
+        "streamUrl": {
+          "label": "URL siaran / ID kanal"
+        },
+        "title": {
+          "label": "Judul siaran"
+        }
+      },
+      "name": "Siaran Langsung",
+      "summary": "Tampilkan siaran video langsung."
+    },
+    "lost-found": {
+      "description": "Papan barang hilang dan ditemukan untuk komunitas. Orang-orang dapat melaporkan barang yang hilang atau ditemukan, beserta lokasi dan info kontak. Semua laporan ditampilkan di satu tempat agar mudah dicocokkan.",
+      "fields": {
+        "communityName": {
+          "label": "Nama komunitas"
+        }
+      },
+      "name": "Barang Hilang & Ditemukan",
+      "summary": "Beri komunitas Anda cara melaporkan barang yang hilang dan ditemukan."
+    },
+    "loyalty-card": {
+      "description": "Kartu stempel digital untuk toko Anda. Pelanggan memberikan nomor telepon di kasir, Anda memberi stempel pada kartu mereka, dan mereka mendapat barang gratis setelah mencapai target. Mencatat setiap pelanggan dan stempel.",
+      "fields": {
+        "punchGoal": {
+          "label": "Jumlah stempel untuk mendapat hadiah"
+        },
+        "rewardText": {
+          "label": "Deskripsi hadiah"
+        },
+        "shopName": {
+          "label": "Nama toko"
+        }
+      },
+      "name": "Kartu Stempel Loyalitas",
+      "summary": "Beri hadiah kepada pelanggan setia dengan kartu stempel digital."
+    },
+    "map": {
+      "description": "Peta interaktif sungguhan yang didukung Leaflet dan OpenStreetMap. Menampilkan lokasi bisnis Anda dengan pin dan alamat. Gratis — tidak perlu kunci API.",
+      "fields": {
+        "address": {
+          "label": "Alamat jalan"
+        },
+        "label": {
+          "label": "Label penanda"
+        },
+        "lat": {
+          "label": "Garis lintang"
+        },
+        "lng": {
+          "label": "Garis bujur"
+        },
+        "title": {
+          "label": "Judul halaman"
+        },
+        "zoom": {
+          "label": "Perbesaran (1-19)"
+        }
+      },
+      "name": "Peta & Pencari Lokasi",
+      "summary": "Tampilkan lokasi Anda di peta."
+    },
+    "marketplace": {
+      "description": "Ubah toko dengan satu penjual menjadi marketplace dengan banyak penjual. Penjual mendaftar, mencantumkan produk di toko mereka, dan admin dapat melihat pesanan serta komisi dari semua toko. Setiap produk dimiliki oleh penjual, dengan pembagian komisi otomatis.",
+      "fields": {
+        "commissionPct": {
+          "label": "Komisi platform %"
+        },
+        "marketName": {
+          "label": "Nama marketplace"
+        }
+      },
+      "name": "Marketplace",
+      "summary": "Izinkan penjual lain berjualan melalui toko Anda."
+    },
+    "media-playlist": {
+      "description": "Playlist berisi audio dan video yang dikurasi admin dan diputar dengan satu pemutar. Pemutar otomatis beralih ke item berikutnya, mendukung lewati / putar ulang, dan menampilkan panel antrean dengan gambar mini.",
+      "fields": {
+        "playlistName": {
+          "label": "Nama playlist"
+        }
+      },
+      "name": "Playlist media",
+      "summary": "Gabungkan lagu dan video dalam satu playlist."
+    },
+    "member-id-card": {
+      "description": "Terbitkan kartu identitas digital untuk anggota. Setiap kartu memiliki nama, foto, nomor anggota unik, tingkat keanggotaan, tanggal terbit/kedaluwarsa, dan kode batang yang bisa dipindai (Code 128). Anggota membuka kartu di ponsel; staf memindainya di pintu untuk verifikasi (menggunakan alur modul kode batang/QR).",
+      "fields": {
+        "cardTagline": {
+          "label": "Slogan kartu"
+        },
+        "orgName": {
+          "label": "Nama organisasi"
+        }
+      },
+      "name": "Kartu identitas anggota",
+      "summary": "Beri anggota kartu identitas digital."
+    },
+    "menu": {
+      "description": "Menu restoran atau kafe yang dikelompokkan berdasarkan kategori (Hidangan Pembuka, Hidangan Utama, Minuman), dengan nama, deskripsi, dan harga setiap item. Di halaman admin, Anda bisa menambahkan item baru dari ponsel.",
+      "fields": {
+        "currency": {
+          "label": "Mata uang"
+        },
+        "restaurantName": {
+          "label": "Nama restoran"
+        }
+      },
+      "name": "Menu Restoran",
+      "summary": "Tampilkan menu makanan dan minuman."
+    },
+    "newsletter": {
+      "description": "Halaman pendaftaran yang menarik dengan satu kolom email, daftar pelanggan yang terus bertambah, dan halaman admin untuk melihat semua pendaftar beserta waktunya.",
+      "fields": {
+        "buttonText": {
+          "label": "Teks tombol"
+        },
+        "pitch": {
+          "label": "Penjelasan singkat"
+        },
+        "title": {
+          "label": "Judul utama"
+        }
+      },
+      "name": "Buletin",
+      "summary": "Kumpulkan alamat email untuk berita dan penawaran Anda."
+    },
+    "notes": {
+      "description": "Catat hal-hal singkat dengan tag. Cocok untuk menyimpan ide, tautan, pengingat, dan catatan kecil yang tak perlu menjadi dokumen lengkap.",
+      "name": "Catatan",
+      "summary": "Catat hal-hal singkat dengan cepat."
+    },
+    "nutrition-tracker": {
+      "description": "Catat makanan beserta kalori, protein, karbohidrat, dan lemak. Lihat total harian dibandingkan dengan target dan grafik riwayat 7 hari. Makanan umum sudah tersedia agar pencatatan lebih cepat. Cocok dipadukan dengan pelacak kebiasaan untuk melihat rentetan hari.",
+      "fields": {
+        "kcalGoal": {
+          "label": "Target kcal harian"
+        },
+        "proteinGoal": {
+          "label": "Target protein harian (g)"
+        }
+      },
+      "name": "Pelacak nutrisi",
+      "summary": "Catat makanan dan hitung kalori."
+    },
+    "password-vault": {
+      "description": "Brankas sederhana untuk menyimpan rahasia bersama (kata sandi Wi-Fi, kunci lisensi, kode pintu). Dilindungi PIN utama yang disimpan sebagai hash argon2—tidak pernah dalam bentuk teks biasa.",
+      "fields": {
+        "masterPin": {
+          "help": "Disimpan sebagai hash argon2. Tidak bisa dipulihkan.",
+          "label": "PIN utama",
+          "placeholder": "Buat PIN 4–6 digit"
+        },
+        "vaultName": {
+          "label": "Nama brankas"
+        }
+      },
+      "name": "Brankas Kata Sandi",
+      "summary": "Simpan catatan pribadi dengan aman di balik PIN."
+    },
+    "paywall": {
+      "description": "Lindungi konten premium dengan kode akses atau akun yang sudah masuk. Buat kode pembuka (sekali pakai atau bersama), dan setiap halaman dengan tag data-nk-paywall disembunyikan sampai pengunjung memasukkan kode yang valid atau masuk. Akses yang dibuka akan disimpan di localStorage pengunjung.",
+      "fields": {
+        "ctaCopy": {
+          "label": "Judul layar terkunci"
+        },
+        "subCopy": {
+          "label": "Subjudul layar terkunci"
+        }
+      },
+      "name": "Akses Berbayar",
+      "summary": "Batasi beberapa halaman untuk anggota berbayar atau orang yang punya kode."
+    },
+    "pdf-embed": {
+      "description": "Kelola koleksi kecil dokumen PDF (daftar harga, brosur, panduan, kontrak). Setiap PDF memiliki halaman pembaca publik yang menampilkan PDF dengan fitur bawaan browser. Pengunjung dapat membukanya langsung di halaman atau mengunduhnya.",
+      "fields": {
+        "heading": {
+          "label": "Judul pustaka"
+        }
+      },
+      "name": "Koleksi PDF",
+      "summary": "Bagikan dokumen yang bisa dibaca langsung di halaman."
+    },
+    "personalized-dashboard": {
+      "description": "Halaman beranda pribadi yang menyapa pengguna yang masuk dengan namanya dan menampilkan widget yang disematkan. Sematkan widget (label + URL + ikon) agar muncul di dasbor. Modul lain juga bisa menyematkan widget secara otomatis (misalnya, “jumlah pesan yang belum dibaca”) melalui fitur buat widget.",
+      "fields": {
+        "greeting": {
+          "label": "Awalan sapaan"
+        }
+      },
+      "name": "Dasbor pribadi",
+      "summary": "Beri setiap orang yang masuk halaman beranda sendiri."
+    },
+    "petitions": {
+      "description": "Halaman petisi dengan judul, deskripsi, dan formulir tanda tangan. Catat nama, email, dan komentar opsional para penanda tangan, serta tampilkan jumlah tanda tangan.",
+      "fields": {
+        "target": {
+          "label": "Target tanda tangan"
+        },
+        "title": {
+          "label": "Judul petisi"
+        }
+      },
+      "name": "Petisi",
+      "summary": "Kumpulkan tanda tangan untuk sebuah tujuan."
+    },
+    "phonebook": {
+      "description": "Direktori staf atau anggota yang bisa dicari. Setiap entri berisi foto, nama, jabatan, departemen, email, telepon, dan biodata singkat. Filter berdasarkan departemen atau cari berdasarkan nama. Cocok untuk intranet perusahaan, halaman staf sekolah, atau daftar anggota kamar dagang.",
+      "fields": {
+        "heading": {
+          "label": "Judul direktori"
+        }
+      },
+      "name": "Buku Telepon / Direktori",
+      "summary": "Daftar kontak yang bisa dicari."
+    },
+    "places": {
+      "description": "Panduan tempat yang nyaman digunakan di ponsel: daftar, kategori, dan peta dengan penanda foto. Pengunjung bisa mencari, membagikan lokasi untuk melihat tempat terdekat lebih dulu, lalu membuka detail tempat untuk melihat foto, jam buka, tombol telepon, dan petunjuk arah. Pengunjung yang sudah masuk bisa mengusulkan tempat, yang akan menunggu persetujuan Anda. Tersedia dalam lima bahasa, dengan contoh siap pakai untuk panduan wisata, restoran, direktori bisnis, atau tempat pernikahan dan acara.",
+      "fields": {
+        "accent": {
+          "help": "Warna untuk header, tombol, dan pin peta panduan. Teks dan latar belakang selalu mengikuti tema aplikasi Anda.",
+          "label": "Warna",
+          "options": {
+            "blue": "Biru",
+            "theme": "Warna utama aplikasi saya"
+          }
+        },
+        "languages": {
+          "help": "Pengunjung bisa mengganti bahasa lewat tombol globe. Bahasa ponsel mereka akan digunakan jika tersedia, jika tidak, bahasa pertama yang dipilih. Nama dan deskripsi tempat ditampilkan seperti yang Anda tulis.",
+          "label": "Bahasa",
+          "options": {
+            "de_en_es_pt_fr": "Kelima bahasa, Jerman dahulu",
+            "en": "Inggris saja",
+            "en_de": "Inggris dan Jerman",
+            "en_es": "Inggris dan Spanyol",
+            "en_es_pt_fr_de": "Kelima bahasa, Inggris dahulu",
+            "en_fr": "Inggris dan Prancis",
+            "en_pt": "Inggris dan Portugis",
+            "es_en_pt_fr_de": "Kelima bahasa, Spanyol dahulu",
+            "fr_en_es_pt_de": "Kelima bahasa, Prancis dahulu",
+            "pt_en_es_fr_de": "Kelima bahasa, Portugis dahulu"
+          }
+        },
+        "preset": {
+          "help": "Menentukan kategori, teks, dan contoh tempat yang disertakan sejak awal. Anda bisa mengubah semuanya nanti.",
+          "label": "Kegunaan",
+          "options": {
+            "directory": "Direktori bisnis",
+            "restaurants": "Restoran",
+            "tourist": "Panduan wisata atau kota",
+            "venues": "Tempat pernikahan & acara"
+          }
+        },
+        "sortBy": {
+          "help": "Saat pengunjung membagikan lokasinya, tempat terdekat akan selalu ditampilkan lebih dahulu.",
+          "label": "Urutan daftar",
+          "options": {
+            "featured": "Tempat unggulan dahulu, lalu sesuai urutan Anda",
+            "name": "A sampai Z"
+          }
+        },
+        "title": {
+          "help": "Ditampilkan di bagian atas panduan. Kosongkan agar judul yang sesuai dengan tujuan panduan digunakan dalam bahasa setiap pengunjung.",
+          "label": "Judul panduan",
+          "placeholder": "Panduan Kota"
+        },
+        "units": {
+          "label": "Satuan jarak",
+          "options": {
+            "km": "Kilometer",
+            "mi": "Mil"
+          }
+        }
+      },
+      "name": "Tempat",
+      "summary": "Panduan tempat di peta, lengkap dengan foto dan urutan dari yang terdekat."
+    },
+    "podcast": {
+      "description": "Halaman utama podcast dengan daftar episode. Setiap episode memiliki judul, deskripsi, durasi, dan URL audio. Pengunjung bisa memutar episode langsung di halaman.",
+      "fields": {
+        "showName": {
+          "label": "Nama acara"
+        },
+        "tagline": {
+          "label": "Slogan acara"
+        }
+      },
+      "name": "Podcast",
+      "summary": "Bagikan episode podcast yang bisa didengarkan orang lain."
+    },
+    "polls": {
+      "description": "Modul jajak pendapat: buat pertanyaan dengan beberapa pilihan, lalu pengunjung memilih dan hasilnya diperbarui langsung. Cocok untuk mengambil keputusan cepat bersama komunitas.",
+      "name": "Jajak Pendapat",
+      "summary": "Ajukan pertanyaan dan biarkan orang memilih."
+    },
+    "portfolio": {
+      "description": "Portofolio proyek dengan judul, gambar, deskripsi, dan tautan eksternal opsional. Cocok untuk desainer, developer, fotografer, dan agensi.",
+      "fields": {
+        "intro": {
+          "label": "Kalimat pembuka"
+        },
+        "name": {
+          "label": "Nama atau merek Anda"
+        }
+      },
+      "name": "Portofolio",
+      "summary": "Pamerkan karya terbaik Anda."
+    },
+    "pricing": {
+      "description": "Halaman harga yang menarik dengan tiga paket (bebas diedit di editor) dan formulir minat untuk mengumpulkan email berdasarkan paket yang dipilih.",
+      "fields": {
+        "heading": {
+          "label": "Judul halaman"
+        },
+        "sub": {
+          "label": "Subjudul"
+        }
+      },
+      "name": "Paket Harga",
+      "summary": "Tampilkan harga dan biarkan orang mendaftar."
+    },
+    "project-portfolio": {
+      "description": "Tampilan portofolio untuk beberapa proyek. Setiap proyek memiliki nama, pemilik, status (direncanakan/aktif/terhambat/selesai), persentase progres, tenggat, dan jumlah tugas. Gunakan untuk mengelola tim kecil atau alur kerja lepas. Berbeda dari modul kanban satu papan.",
+      "fields": {
+        "portfolioName": {
+          "label": "Nama portofolio"
+        }
+      },
+      "name": "Portofolio proyek",
+      "summary": "Pantau proyek dan progresnya."
+    },
+    "properties": {
+      "description": "Halaman iklan properti dengan foto, harga, jumlah kamar tidur dan kamar mandi, luas, serta alamat. Dilengkapi formulir pertanyaan agar calon pembeli bisa menghubungi Anda.",
+      "fields": {
+        "agencyName": {
+          "label": "Nama agen properti"
+        }
+      },
+      "name": "Daftar Properti",
+      "summary": "Tampilkan rumah dan properti yang dijual atau disewakan."
+    },
+    "purchase-order": {
+      "description": "Alur kerja pesanan pembelian B2B yang praktis. Karyawan mengajukan pesanan (vendor, item, total, alasan); pemberi persetujuan melihat antrean lalu menyetujui/menolak; tim keuangan menandai pesanan sebagai dipenuhi dan dibayar. Setiap pesanan mendapat nomor berurutan untuk keperluan akuntansi.",
+      "fields": {
+        "approverEmail": {
+          "label": "Email pemberi persetujuan"
+        }
+      },
+      "name": "Pesanan pembelian",
+      "summary": "Ajukan, setujui, dan lacak pesanan dari pemasok."
+    },
+    "push-notifications": {
+      "description": "Tambahkan tombol 'Nyalakan notifikasi'. Pengunjung bisa mengaktifkannya dari browser (atau, di iPhone, dari app yang ditambahkan ke layar utama), lalu Anda bisa mengirim kabar terbaru melalui layar Notifikasi di app atau lewat alur kerja.",
+      "fields": {
+        "heading": {
+          "label": "Judul halaman"
+        },
+        "pitch": {
+          "label": "Teks ajakan"
+        }
+      },
+      "name": "Notifikasi Push",
+      "summary": "Kirim pemberitahuan ke ponsel dan komputer orang."
+    },
+    "qr-scanner": {
+      "description": "Pemindai kode QR berbasis kamera yang didukung jsQR. Hasil pemindaian masuk ke kolom formulir yang bisa Anda kirim — cocok untuk check-in, kupon, dan absensi.",
+      "fields": {
+        "heading": {
+          "label": "Judul"
+        }
+      },
+      "name": "Pemindai QR",
+      "summary": "Pindai kode QR dengan kamera ponsel."
+    },
+    "queue": {
+      "description": "Antrean tunggu virtual. Pelanggan bergabung lewat ponsel, lalu melihat nomor antrean dan posisi terbaru mereka. Petugas menekan “berikutnya” untuk melanjutkan antrean, dan nomor yang sedang dilayani ditampilkan kepada semua pengunjung yang menunggu.",
+      "fields": {
+        "businessName": {
+          "label": "Nama bisnis"
+        }
+      },
+      "name": "Antrean Virtual",
+      "summary": "Izinkan pelanggan mengantre tanpa harus berdiri di antrean."
+    },
+    "quiz": {
+      "description": "Kuis satu halaman dengan beberapa pertanyaan. Setiap jawaban disimpan bersama nama pengguna, jawaban mereka, dan nilai yang bisa dihitung di sisi pengguna atau dalam alur.",
+      "fields": {
+        "title": {
+          "label": "Judul kuis"
+        }
+      },
+      "name": "Kuis",
+      "summary": "Adakan kuis seru dengan nilai."
+    },
+    "quote-request": {
+      "description": "Formulir permintaan penawaran untuk bisnis jasa. Kumpulkan detail proyek, anggaran, dan jadwal. Admin bisa melihat semua permintaan beserta kolom status untuk mengaturnya.",
+      "fields": {
+        "businessName": {
+          "label": "Nama bisnis"
+        }
+      },
+      "name": "Permintaan Penawaran",
+      "summary": "Biarkan pelanggan meminta penawaran harga."
+    },
+    "radio": {
+      "description": "Halaman radio dengan tombol putar besar, direktori stasiun yang bisa dipilih pendengar, dan formulir permintaan lagu. Dimulai dengan satu stasiun dari konfigurasi Anda, lalu Anda bisa menambahkan stasiun lainnya di halaman admin.",
+      "fields": {
+        "stationName": {
+          "label": "Nama stasiun default"
+        },
+        "streamUrl": {
+          "label": "URL streaming default (https)"
+        },
+        "tagline": {
+          "label": "Slogan stasiun default"
+        }
+      },
+      "name": "Pemutar Radio",
+      "summary": "Putar stasiun radio langsung."
+    },
+    "reactions": {
+      "description": "Sistem reaksi yang bisa digunakan di berbagai jenis konten. Baris mana pun di tabel mana pun bisa diberi reaksi emoji (     …). Setiap reaksi disimpan sebagai satu baris yang merujuk ke (entity_table, entity_id, emoji, user_id opsional). Fanwall, forum, blog, galeri — modul apa pun bisa menggunakannya.",
+      "name": "Reaksi",
+      "summary": "Biarkan orang memberi reaksi cepat dengan emoji pada postingan."
+    },
+    "reading": {
+      "description": "Pelacak buku pribadi Anda. Setiap buku memiliki judul, penulis, sampul, status, dan pilihan untuk memberi nilai setelah selesai dibaca.",
+      "name": "Daftar Bacaan",
+      "summary": "Pantau buku yang ingin dibaca, sedang dibaca, dan sudah selesai dibaca."
+    },
+    "realtime-chat": {
+      "description": "Ruang obrolan publik yang memeriksa pesan baru setiap beberapa detik agar percakapan terasa langsung. Tambahkan di mana saja agar pengunjung bisa mengobrol secara real-time.",
+      "fields": {
+        "refreshMs": {
+          "label": "Jeda pembaruan (ms)"
+        },
+        "roomTitle": {
+          "label": "Judul ruang obrolan"
+        }
+      },
+      "name": "Obrolan Real-Time",
+      "summary": "Ruang obrolan dengan pesan yang langsung muncul."
+    },
+    "recipes": {
+      "description": "Kumpulan resep. Setiap resep memiliki judul, gambar sampul, daftar bahan, petunjuk, waktu persiapan, dan jumlah porsi. Cocok untuk juru masak rumahan atau blog kuliner.",
+      "fields": {
+        "kitchenName": {
+          "label": "Nama koleksi"
+        }
+      },
+      "name": "Resep",
+      "summary": "Bagikan resep beserta bahan dan langkah-langkahnya."
+    },
+    "referrals": {
+      "description": "Setiap pengguna mendapat kode undangan unik dan URL untuk dibagikan. Saat seseorang mendaftar menggunakan kode itu, kami mencatatnya sebagai konversi untuk pengundang. Termasuk papan peringkat pengundang teratas dan halaman 'kode saya' untuk dibagikan.",
+      "fields": {
+        "appName": {
+          "label": "Nama aplikasi"
+        },
+        "rewardCopy": {
+          "label": "Teks hadiah"
+        }
+      },
+      "name": "Undangan",
+      "summary": "Beri hadiah kepada orang yang mengundang teman mereka."
+    },
+    "reminders": {
+      "description": "Beri pengguna (atau admin) cara menjadwalkan pengingat, misalnya: 'email saya X pada Jumat pukul 16.00.' Pengingat disimpan dengan waktu jatuh tempo dan isi email; layanan terpisah (atau alur manual 'kirim yang jatuh tempo sekarang') akan mengirimkannya saat waktunya tiba.",
+      "fields": {
+        "fromEmail": {
+          "label": "Kirim dari"
+        }
+      },
+      "name": "Pengingat",
+      "summary": "Kirim pengingat lewat email pada waktu yang Anda pilih."
+    },
+    "rentals": {
+      "description": "Iklan penginapan jangka pendek ala Airbnb. Setiap iklan memuat foto, harga per malam, kapasitas tamu, fasilitas, dan formulir permintaan pemesanan.",
+      "name": "Sewa Liburan",
+      "summary": "Tampilkan penginapan liburan yang bisa dipesan."
+    },
+    "reviews": {
+      "description": "Halaman untuk mengirim ulasan dengan penilaian bintang dan komentar, serta halaman publik yang menampilkan semua ulasan yang disetujui. Cocok untuk menambah bukti sosial di situs Anda.",
+      "fields": {
+        "brand": {
+          "label": "Nama merek / bisnis"
+        }
+      },
+      "name": "Ulasan",
+      "summary": "Kumpulkan penilaian bintang dan ulasan dari pelanggan."
+    },
+    "routes": {
+      "description": "Buat rencana perjalanan atau rute dengan beberapa titik: tambahkan titik secara berurutan (nama, alamat, lat/lng, catatan), lihat titik-titiknya di peta yang dihubungkan dengan garis, lalu bagikan rute yang sudah selesai lewat halaman publik yang mudah dicetak.",
+      "fields": {
+        "heading": {
+          "label": "Judul"
+        }
+      },
+      "name": "Rute & Rencana Perjalanan",
+      "summary": "Bagikan rute atau rencana perjalanan, titik demi titik."
+    },
+    "rss-reader": {
+      "description": "Berlangganan satu atau beberapa umpan RSS / Atom eksternal dan tampilkan gabungan item terbaru di dalam aplikasi Anda. Fitur penyegaran mengambil umpan (bisa dijadwalkan dengan cron), mengurai item, lalu menyimpannya secara lokal agar pembaca tetap cepat.",
+      "fields": {
+        "heading": {
+          "label": "Judul pembaca"
+        }
+      },
+      "name": "Pembaca berita",
+      "summary": "Tampilkan postingan terbaru dari umpan berita situs lain."
+    },
+    "scheduled-content": {
+      "description": "Tulis konten (judul + isi) sebagai draf, atur waktu publish_at, lalu konten akan muncul di daftar publik setelah waktu tersebut. Alur 'terbitkan yang sudah waktunya' bisa dipicu lewat cron untuk mengubah draf menjadi terbit; daftar publik juga memeriksa waktunya secara langsung.",
+      "fields": {
+        "heading": {
+          "label": "Judul daftar"
+        }
+      },
+      "name": "Konten Terjadwal",
+      "summary": "Tulis sekarang, terbitkan nanti."
+    },
+    "scratch-card": {
+      "description": "Promo kartu gosok. Pengunjung memasukkan email dan mendapat kartu gosok virtual; setelah digosok, kartu menampilkan hadiah acak dari kumpulan hadiah Anda (peluangnya disesuaikan dengan stok). Setiap hadiah yang diberikan dicatat bersama email pemenang dan kode klaimnya.",
+      "fields": {
+        "campaignName": {
+          "label": "Nama kampanye"
+        }
+      },
+      "name": "Kartu Gosok",
+      "summary": "Bagikan hadiah lewat kartu gosok untuk menang."
+    },
+    "service-menu": {
+      "description": "Daftar layanan seperti di salon atau spa — setiap layanan memiliki nama, durasi, harga, dan deskripsi. Cocok dipasangkan dengan halaman pemesanan.",
+      "fields": {
+        "businessName": {
+          "label": "Nama bisnis"
+        },
+        "currency": {
+          "label": "Mata uang"
+        }
+      },
+      "name": "Daftar Layanan",
+      "summary": "Cantumkan layanan beserta harganya."
+    },
+    "share-app": {
+      "description": "Halaman 'Bagikan aplikasi ini' yang siap digunakan, dengan Web Share API bawaan (seluler), salin ke clipboard, dan tautan berbagi siap pakai untuk Twitter/X, Facebook, WhatsApp, Email, dan LinkedIn. Catat setiap pembagian berdasarkan tujuan agar Anda tahu kanal mana yang efektif.",
+      "fields": {
+        "appName": {
+          "label": "Nama aplikasi"
+        },
+        "appUrl": {
+          "label": "URL untuk dibagikan"
+        },
+        "shareText": {
+          "label": "Teks bawaan untuk dibagikan"
+        }
+      },
+      "name": "Bagikan Aplikasi",
+      "summary": "Permudah orang lain membagikan aplikasi Anda."
+    },
+    "shop": {
+      "description": "Daftar produk dengan keranjang belanja di sisi pengguna. Pengunjung menambahkan barang ke keranjang, meninjau isinya, lalu mengirim pesanan yang mencatat detail mereka, semua isi keranjang, dan total yang dihitung. Pesanan masuk ke tabel admin yang bisa Anda lihat.",
+      "fields": {
+        "currency": {
+          "label": "Simbol mata uang"
+        },
+        "storeName": {
+          "label": "Nama toko"
+        }
+      },
+      "name": "Toko Sederhana",
+      "summary": "Jual produk secara online dengan keranjang belanja sungguhan."
+    },
+    "slider": {
+      "description": "Carousel utama beranda yang dapat diedit admin tanpa menyentuh kode. Tambahkan slide (gambar, judul, subjudul, tombol CTA + tautan), atur ulang urutannya, dan carousel publik akan berganti otomatis. Dibuat dengan JavaScript biasa — tanpa bergantung pada pustaka carousel.",
+      "fields": {
+        "intervalMs": {
+          "label": "Jeda antar-slide (ms)"
+        }
+      },
+      "name": "Slider Gambar",
+      "summary": "Tampilkan gambar yang berganti satu per satu."
+    },
+    "sms": {
+      "description": "Kirim pesan SMS ke nomor telepon melalui REST API Twilio. Setiap pengiriman disimpan di tabel kotak keluar untuk keperluan audit. Cocokkan dengan pengingat, autentikasi dua faktor, atau alur apa pun yang perlu mengirim pesan teks, bukan email.",
+      "fields": {
+        "fromNumber": {
+          "label": "Nomor pengirim (E.164)"
+        },
+        "twilioAccountSid": {
+          "label": "SID Akun Twilio"
+        },
+        "twilioAuthToken": {
+          "label": "Token Autentikasi Twilio"
+        }
+      },
+      "name": "Pesan teks",
+      "summary": "Kirim pesan teks ke pelanggan Anda."
+    },
+    "status-page": {
+      "description": "Halaman status seperti statuspage.io. Buat daftar layanan (API, web, basis data…), masing-masing dengan indikator status terkini. Buat insiden yang statusnya berubah dari sedang diselidiki → teridentifikasi → selesai, dengan pembaruan publik yang ditampilkan pada layanan terdampak.",
+      "fields": {
+        "appName": {
+          "label": "Nama aplikasi / layanan"
+        }
+      },
+      "name": "Halaman Status",
+      "summary": "Beri tahu pelanggan apakah semuanya berjalan normal."
+    },
+    "store-locator": {
+      "description": "Pencari toko untuk banyak lokasi dengan jam buka, layanan, pengurutan berdasarkan jarak dari lokasi pengguna, serta tautan sekali ketuk untuk melihat rute di Google/Apple Maps. Berbeda dari `places` biasa — dirancang khusus untuk jaringan toko ritel, waralaba, cabang, dan lokasi mitra.",
+      "fields": {
+        "brandName": {
+          "label": "Nama merek"
+        }
+      },
+      "name": "Pencari Toko",
+      "summary": "Bantu orang menemukan toko terdekat Anda."
+    },
+    "stripe-checkout": {
+      "description": "Halaman produk dengan tombol Bayar yang membuat sesi Stripe Checkout sungguhan dan mengarahkan pelanggan ke halaman pembayaran. Gunakan kunci rahasia Stripe Anda sendiri di pengaturan modul.",
+      "fields": {
+        "cancelUrl": {
+          "help": "Halaman tujuan jika pembayaran dibatalkan, biasanya halaman beranda aplikasi Anda.",
+          "label": "URL pengalihan saat pembayaran dibatalkan"
+        },
+        "currency": {
+          "label": "Kode mata uang"
+        },
+        "priceCents": {
+          "label": "Harga dalam sen"
+        },
+        "productName": {
+          "label": "Nama produk"
+        },
+        "stripeSecret": {
+          "help": "Kunci rahasia Stripe Anda. Gunakan kunci uji coba untuk memulai.",
+          "label": "Kunci rahasia Stripe"
+        },
+        "successUrl": {
+          "help": "Halaman tujuan setelah pembayaran, seperti halaman ucapan terima kasih di aplikasi Anda. Salin alamatnya dari tab Publikasikan aplikasi.",
+          "label": "URL pengalihan setelah pembayaran"
+        }
+      },
+      "name": "Pembayaran online",
+      "summary": "Terima pembayaran kartu untuk apa pun yang Anda jual."
+    },
+    "submissions-queue": {
+      "description": "Alur pengiriman konten bergaya Reddit: pengunjung mengirim konten (judul + isi + gambar opsional), lalu konten masuk ke antrean moderasi. Admin menyetujui atau menolak, dan hanya konten yang disetujui yang muncul di feed publik. Mencatat alasan penolakan. Berbeda dari formulir kontak yang hanya berupa kotak masuk.",
+      "fields": {
+        "feedHeading": {
+          "label": "Judul feed publik"
+        },
+        "guidelines": {
+          "label": "Panduan pengiriman"
+        }
+      },
+      "name": "Antrean kiriman",
+      "summary": "Kumpulkan kiriman dan setujui sebelum ditayangkan."
+    },
+    "subscription": {
+      "description": "Halaman pendaftaran langganan bulanan dengan pilihan paket, info pengiriman, dan konfirmasi. Data anggota disimpan dalam tabel untuk keperluan pembayaran dan pemenuhan pesanan.",
+      "fields": {
+        "boxName": {
+          "label": "Nama kotak"
+        }
+      },
+      "name": "Kotak Langganan",
+      "summary": "Biarkan pelanggan mendaftar untuk kotak atau paket bulanan."
+    },
+    "survey": {
+      "description": "Survei dengan beberapa pertanyaan dan jawaban bebas. Simpan setiap tanggapan sebagai data JSON, lalu lihat di admin.",
+      "fields": {
+        "intro": {
+          "label": "Pembuka"
+        },
+        "title": {
+          "label": "Judul survei"
+        }
+      },
+      "name": "Survei",
+      "summary": "Ajukan beberapa pertanyaan kepada pelanggan dan kumpulkan jawabannya."
+    },
+    "table-reservations": {
+      "description": "Fitur pemesanan meja khusus restoran (berbeda dari janji temu umum). Tentukan meja Anda (beserta jumlah kursi), terima reservasi berdasarkan tanggal+waktu+jumlah tamu, dan cegah pemesanan ganda. Staf bisa melihat jadwal hari ini; pengunjung mendapat halaman konfirmasi.",
+      "fields": {
+        "restaurantName": {
+          "label": "Nama restoran"
+        },
+        "slotMinutes": {
+          "label": "Durasi sesi layanan (menit)"
+        }
+      },
+      "name": "Reservasi meja",
+      "summary": "Izinkan tamu memesan meja di restoran Anda."
+    },
+    "tags": {
+      "description": "Sistem label sederhana. Buat label (dengan warna opsional), lalu tambahkan ke baris mana pun di tabel mana pun melalui tabel label polimorfik (entity_table + entity_id). Berguna untuk mengelompokkan prospek, proyek, atau konten.",
+      "name": "Label",
+      "summary": "Tambahkan label agar item mudah diurutkan dan ditemukan."
+    },
+    "team": {
+      "description": "Direktori staf dengan foto, nama, jabatan, dan bio singkat. Cocok untuk halaman Tentang Kami dan intranet internal.",
+      "fields": {
+        "heading": {
+          "label": "Judul halaman"
+        }
+      },
+      "name": "Direktori Tim",
+      "summary": "Perkenalkan orang-orang di tim Anda."
+    },
+    "testimonials": {
+      "description": "Kumpulkan dan tampilkan kutipan dari pelanggan. Lebih sederhana daripada sistem ulasan—tanpa bintang penilaian, cukup nama, foto, dan kutipan. Cocok ditambahkan ke halaman landing.",
+      "name": "Testimoni",
+      "summary": "Tampilkan pendapat pelanggan yang puas tentang Anda."
+    },
+    "timeline": {
+      "description": "Linimasa vertikal bergaya catatan perubahan. Cocok untuk catatan rilis, sejarah perusahaan, pencapaian proyek, atau daftar peristiwa bertanggal lainnya.",
+      "fields": {
+        "subtitle": {
+          "label": "Subjudul"
+        },
+        "title": {
+          "label": "Judul linimasa"
+        }
+      },
+      "name": "Linimasa",
+      "summary": "Tampilkan kisah Anda sebagai daftar tanggal dan pencapaian."
+    },
+    "todo": {
+      "description": "Daftar tugas pribadi atau bersama yang berisi judul, catatan, prioritas, dan status selesai. Didukung tabel tugas yang bisa Anda cari, filter, dan kembangkan.",
+      "fields": {
+        "listName": {
+          "label": "Nama daftar"
+        }
+      },
+      "name": "Daftar Tugas",
+      "summary": "Buat daftar tugas dan tandai yang sudah selesai."
+    },
+    "two-factor": {
+      "description": "Menambahkan langkah ekstra saat masuk: setelah pengguna masuk, kami mengirim kode 6 digit lewat email. Sebelum kode dikonfirmasi, sesi mereka ditandai belum terverifikasi. Tambahkan ke proyek apa pun yang menggunakan modul autentikasi untuk meningkatkan keamanan akun.",
+      "fields": {
+        "appName": {
+          "label": "Nama aplikasi"
+        },
+        "fromEmail": {
+          "label": "Kirim dari"
+        }
+      },
+      "name": "Pemeriksaan masuk tambahan",
+      "summary": "Tambahkan kode yang dikirim lewat email saat pengguna masuk."
+    },
+    "user-favorites": {
+      "description": "Memungkinkan pengguna yang sudah masuk menandai apa pun sebagai favorit (produk, truk, postingan, artikel) dan melihat daftar pribadi mereka. Menggunakan modul autentikasi yang sudah terpasang di proyek. Anda harus memasang Auth / Accounts (atau penyedia sesi autentikasi lain) terlebih dahulu.",
+      "name": "Favorit",
+      "summary": "Beri pengguna yang sudah masuk cara menyimpan item favorit mereka."
+    },
+    "user-groups": {
+      "description": "Tambahkan keanggotaan di beberapa grup di atas kolom peran tunggal pada modul autentikasi. Buat grup (Premium, Beta, VIP, Staf…) dan masukkan pengguna mana pun ke satu grup atau lebih. Modul lain dapat memeriksa keanggotaan lewat alur pemeriksaan grup sebelum membatasi akses ke fitur.",
+      "name": "Grup anggota",
+      "summary": "Kelompokkan anggota, misalnya VIP atau staf."
+    },
+    "user-profile-card": {
+      "description": "Kartu profil kecil yang menampilkan nama, avatar, dan bio pengguna yang sudah masuk. Menggunakan modul pengguna autentikasi yang terpasang—tanpa database tersendiri. Tambahkan ke halaman agar pengunjung bisa melihat sekilas siapa yang sedang masuk.",
+      "name": "Kartu profil",
+      "summary": "Tampilkan profil mereka sendiri kepada setiap pengguna yang sudah masuk."
+    },
+    "video": {
+      "description": "Galeri video yang menyematkan video YouTube dan Vimeo. Pengunjung melihat kisi gambar mini; saat diklik, pemutar akan terbuka langsung di halaman. Ubah judul dan deskripsi tiap video di admin.",
+      "fields": {
+        "title": {
+          "label": "Judul koleksi"
+        }
+      },
+      "name": "Koleksi Video",
+      "summary": "Tampilkan video dari YouTube atau Vimeo."
+    },
+    "waitlist": {
+      "description": "Halaman prapeluncuran yang menarik dengan satu kolom email untuk bergabung ke daftar tunggu. Mengumpulkan nama, email, dan sumber referensi opsional. Cocok untuk halaman landing sebelum produk diluncurkan.",
+      "fields": {
+        "productName": {
+          "label": "Nama produk"
+        },
+        "tagline": {
+          "label": "Slogan"
+        }
+      },
+      "name": "Daftar Tunggu",
+      "summary": "Izinkan orang mendaftar untuk mendapat kabar saat Anda mulai beroperasi."
+    },
+    "weather": {
+      "description": "Ambil data cuaca terkini untuk suatu lokasi menggunakan kunci API OpenWeatherMap. Menampilkan suhu, kondisi cuaca, dan ikon. Gunakan kunci API gratis Anda sendiri di konfigurasi modul.",
+      "fields": {
+        "apiKey": {
+          "label": "Kunci API OpenWeatherMap",
+          "placeholder": "gratis di openweathermap.org"
+        },
+        "city": {
+          "label": "Kota"
+        },
+        "units": {
+          "label": "Satuan",
+          "options": {
+            "imperial": "Fahrenheit (°F)",
+            "metric": "Celsius (°C)"
+          }
+        }
+      },
+      "name": "Widget Cuaca",
+      "summary": "Tampilkan cuaca hari ini."
+    },
+    "webhooks-in": {
+      "description": "Sediakan URL webhook publik untuk menerima payload JSON dari layanan eksternal (peristiwa Stripe, webhook GitHub, Zapier, dan lainnya) ke dalam tabel. Lihat dan proses ulang payload dari dasbor admin.",
+      "name": "Terima data dari aplikasi lain",
+      "summary": "Terima informasi yang dikirim dari aplikasi dan layanan lain."
+    },
+    "webview": {
+      "description": "Pembungkus sederhana yang menyematkan URL eksternal di dalam aplikasi Anda melalui iframe dengan sandbox. Cocok untuk menyematkan dokumentasi, dasbor, atau aplikasi pihak ketiga yang belum memiliki modul bawaan. Bisa diatur untuk setiap halaman; demi keamanan, sumber juga bisa dibatasi ke daftar yang diizinkan.",
+      "name": "Tampilkan Situs Web Lain",
+      "summary": "Tampilkan situs lain di dalam aplikasi Anda."
+    },
+    "wedding": {
+      "description": "Halaman pernikahan yang indah dengan tanggal, tempat, cerita, dan formulir konfirmasi kehadiran untuk mencatat nama tamu, status kehadiran, pilihan makanan, dan jumlah tamu tambahan.",
+      "fields": {
+        "coupleNames": {
+          "label": "Nama pasangan"
+        },
+        "venue": {
+          "label": "Tempat acara"
+        },
+        "weddingDate": {
+          "label": "Tanggal pernikahan"
+        }
+      },
+      "name": "Konfirmasi Kehadiran Pernikahan",
+      "summary": "Halaman pernikahan tempat tamu bisa membalas undangan Anda."
+    },
+    "whatsapp-order": {
+      "description": "Pelanggan dapat mengisi keranjang belanja di halaman publik, lalu memilih “pesan via WhatsApp” untuk membuka chat dengan bisnis Anda berisi pesanan yang sudah diketik. Pesanan juga dicatat di server, jadi Anda punya catatan di luar chat WhatsApp.",
+      "fields": {
+        "businessName": {
+          "label": "Nama bisnis"
+        },
+        "whatsappNumber": {
+          "label": "Nomor WhatsApp (hanya angka, dengan kode negara)"
+        }
+      },
+      "name": "Pesanan WhatsApp",
+      "summary": "Izinkan pelanggan mengirim pesanan melalui WhatsApp."
+    },
+    "wishlist": {
+      "description": "Daftar keinginan berisi produk dengan nama, harga, tautan toko, dan gambar opsional. Bagikan untuk hadiah atau simpan secara pribadi untuk nanti.",
+      "fields": {
+        "heading": {
+          "label": "Judul daftar keinginan"
+        }
+      },
+      "name": "Daftar Keinginan",
+      "summary": "Biarkan orang menyimpan daftar barang yang mereka inginkan."
+    }
+  },
+  "templates": {
+    "crafto-application": {
+      "name": "Aplikasi",
+      "tagline": "Halaman landing aplikasi seluler modern dengan kartu gradasi dan harga"
+    },
+    "crafto-architecture": {
+      "name": "Arsitektur",
+      "tagline": "Studio arsitektur gelap yang berani dengan aksen kuning neon dan tata letak editorial"
+    },
+    "crafto-barber": {
+      "name": "Barbershop",
+      "tagline": "Barbershop klasik dengan nuansa emas hangat dan tipografi vintage"
+    },
+    "crafto-beauty-salon": {
+      "name": "Salon Kecantikan",
+      "tagline": "Salon kecantikan elegan dengan aksen persik hangat dan judul berjenis serif"
+    },
+    "crafto-branding-agency": {
+      "name": "Agensi Branding",
+      "tagline": "Agensi branding berani dengan aksen kuning amber dan tata letak hero terpisah"
+    },
+    "crafto-branding-studio": {
+      "name": "Studio Branding",
+      "tagline": "Studio branding modern dengan aksen oranye cerah dan tipografi bersih"
+    },
+    "crafto-business": {
+      "name": "Bisnis",
+      "tagline": "Agensi perusahaan profesional dengan tab layanan dan harga"
+    },
+    "crafto-charity": {
+      "name": "Yayasan Amal",
+      "tagline": "Templat organisasi nirlaba bernuansa hangat dengan bagian untuk misi, donasi, dan relawan"
+    },
+    "crafto-clothing-store": {
+      "name": "Toko Pakaian",
+      "tagline": "Butik mode bernuansa alami dengan warna hangat dan tata letak produk bergaya editorial"
+    },
+    "crafto-conference": {
+      "name": "Konferensi",
+      "tagline": "Halaman konferensi dan acara yang dinamis dengan aksen merah berani dan kartu pembicara"
+    },
+    "crafto-consulting": {
+      "name": "Konsultasi",
+      "tagline": "Firma konsultasi profesional dengan aksen oranye hangat dan tipografi berani"
+    },
+    "crafto-corporate": {
+      "name": "Perusahaan",
+      "tagline": "Situs perusahaan yang apik dengan identitas indigo pekat dan tata letak kisi yang bersih"
+    },
+    "crafto-cryptocurrency": {
+      "name": "Mata Uang Kripto",
+      "tagline": "Platform trading kripto bertema gelap dengan aksen hijau neon dan tampilan modern"
+    },
+    "crafto-data-analysis": {
+      "name": "Analisis Data",
+      "tagline": "Halaman landing SaaS analitik data modern dengan gradasi cerah dan tata letak bersih"
+    },
+    "crafto-decor-store": {
+      "name": "Toko Dekorasi",
+      "tagline": "Templat toko online dekorasi rumah yang elegan dengan identitas biru navy dan kisi produk yang bersih"
+    },
+    "crafto-design-agency": {
+      "name": "Agensi Desain",
+      "tagline": "Templat agensi kreatif berani dengan tipografi besar dan aksen oranye hangat"
+    },
+    "crafto-digital-agency": {
+      "name": "Agensi Digital",
+      "tagline": "Agensi kreatif berani dengan kisi portofolio dan tampilan layanan"
+    },
+    "crafto-ebook": {
+      "name": "E-book",
+      "tagline": "Halaman landing e-book bertema gelap dengan aksen emas dan tipografi Oswald yang berani"
+    },
+    "crafto-elder-care": {
+      "name": "Perawatan Lansia",
+      "tagline": "Situs perawatan lansia yang hangat dan penuh kasih dengan aksen biru navy pekat dan merah"
+    },
+    "crafto-elearning": {
+      "name": "Pembelajaran Online",
+      "tagline": "Platform pendidikan online modern dengan katalog kursus, profil pengajar, dan testimoni siswa"
+    },
+    "crafto-fashion-store": {
+      "name": "Toko Mode",
+      "tagline": "Toko online mode yang elegan dengan aksen kuning berani"
+    },
+    "crafto-finance": {
+      "name": "Keuangan",
+      "tagline": "Konsultan keuangan premium dengan nuansa emas dan hijau yang hangat"
+    },
+    "crafto-fitness": {
+      "name": "Gym & Kebugaran",
+      "tagline": "Template gym dan pusat kebugaran yang berani, dengan jadwal kelas, profil pelatih, dan paket keanggotaan"
+    },
+    "crafto-freelancer": {
+      "name": "Freelancer",
+      "tagline": "Portofolio pribadi yang berani untuk freelancer kreatif dengan aksen merah"
+    },
+    "crafto-green-energy": {
+      "name": "Energi Hijau",
+      "tagline": "Situs perusahaan energi terbarukan yang bersih dengan palet warna hijau alami"
+    },
+    "crafto-hosting": {
+      "name": "Penyedia Hosting",
+      "tagline": "Template hosting SaaS bernuansa gelap dengan tabel harga dan kumpulan fitur"
+    },
+    "crafto-hotel": {
+      "name": "Hotel & Resor",
+      "tagline": "Template hotel dan resor mewah yang elegan, dengan tampilan kamar, fasilitas, dan fitur pemesanan"
+    },
+    "crafto-it-business": {
+      "name": "Bisnis TI",
+      "tagline": "Perusahaan solusi TI modern dengan gradasi biru tua dan animasi gelombang"
+    },
+    "crafto-jewellery-store": {
+      "name": "Toko Perhiasan",
+      "tagline": "Butik perhiasan elegan dengan nuansa persik hangat dan emas mawar"
+    },
+    "crafto-lawyer": {
+      "name": "Pengacara",
+      "tagline": "Situs firma hukum bergengsi dengan tipografi serif klasik dan aksen emas"
+    },
+    "crafto-logistics": {
+      "name": "Logistik",
+      "tagline": "Perusahaan logistik dan pengiriman yang berani dengan nuansa kuning cerah dan gelap"
+    },
+    "crafto-magazine": {
+      "name": "Majalah",
+      "tagline": "Tata letak majalah editorial yang berani, dengan artikel pilihan dan kategori"
+    },
+    "crafto-marketing": {
+      "name": "Pemasaran",
+      "tagline": "Halaman landing agensi pemasaran digital yang dirancang untuk menghasilkan konversi, dengan tipografi berani"
+    },
+    "crafto-medical": {
+      "name": "Pusat Medis",
+      "tagline": "Template layanan kesehatan yang rapi, dengan pemesanan janji temu dan profil dokter"
+    },
+    "crafto-modern-business": {
+      "name": "Bisnis Modern",
+      "tagline": "Template bisnis profesional dengan aksen ungu dan tata letak korporat yang rapi"
+    },
+    "crafto-music": {
+      "name": "Musik",
+      "tagline": "Template satu halaman untuk musik/band yang gelap dan berani, dengan aksen merah muda cerah"
+    },
+    "crafto-photography": {
+      "name": "Fotografi",
+      "tagline": "Portofolio fotografi minimalis bernuansa gelap dengan panel galeri layar penuh"
+    },
+    "crafto-pizza": {
+      "name": "Kedai Pizza",
+      "tagline": "Template restoran pizza yang hangat dan menggugah selera, dengan aksen merah dan emas yang berani"
+    },
+    "crafto-product-showcase": {
+      "name": "Tampilan Produk",
+      "tagline": "Halaman landing peluncuran produk yang modern dengan aksen gradasi dan visual yang berani"
+    },
+    "crafto-realestate-v2": {
+      "name": "Properti v2",
+      "tagline": "Marketplace properti modern dengan slider utama, kartu listing, dan profil agen"
+    },
+    "crafto-realestate": {
+      "name": "Properti",
+      "tagline": "Platform properti profesional dengan daftar properti, profil agen, dan fitur pencarian lanjutan"
+    },
+    "crafto-restaurant": {
+      "name": "Restoran",
+      "tagline": "Restoran berkelas dengan suasana hangat, tampilan menu, dan ajakan untuk reservasi"
+    },
+    "crafto-seo-agency": {
+      "name": "Agensi SEO",
+      "tagline": "Template agensi SEO dan pemasaran digital yang penuh warna, dengan ajakan bertindak bergradasi"
+    },
+    "crafto-spa": {
+      "name": "Spa & Salon",
+      "tagline": "Studio spa dan kebugaran yang elegan dengan daftar layanan dan testimoni"
+    },
+    "crafto-startup": {
+      "name": "Startup",
+      "tagline": "Halaman landing SaaS/startup yang rapi dengan aksen gradasi"
+    },
+    "crafto-travel-agency": {
+      "name": "Agen Perjalanan",
+      "tagline": "Template agen perjalanan yang elegan dengan aksen emas hangat dan tampilan destinasi"
+    },
+    "crafto-web-agency": {
+      "name": "Agensi Web",
+      "tagline": "Agensi digital kreatif yang berani dengan aksen hijau neon dan bagian bernuansa gelap"
+    },
+    "crafto-wedding": {
+      "name": "Undangan Pernikahan",
+      "tagline": "Halaman undangan pernikahan yang elegan dengan palet koral-salmon romantis dan linimasa"
+    },
+    "crafto-yoga": {
+      "name": "Yoga & Meditasi",
+      "tagline": "Halaman studio kebugaran bernuansa hangat dengan bagian utama merah muda koral dan warna netral alami"
+    },
+    "litho-application": {
+      "name": "Aplikasi",
+      "tagline": "Halaman landing aplikasi SaaS modern dengan kumpulan fitur, tabel harga, dan testimoni"
+    },
+    "litho-architecture": {
+      "name": "Arsitektur",
+      "tagline": "Template studio arsitektur yang berani dengan bagian utama layar penuh, tampilan proyek, dan logo klien"
+    },
+    "litho-beauty-salon": {
+      "name": "Salon Kecantikan",
+      "tagline": "Templat salon kecantikan elegan dengan layanan unggulan, profil tim, dan pemesanan janji temu"
+    },
+    "litho-branding-agency": {
+      "name": "Agensi Branding",
+      "tagline": "Templat agensi branding kreatif dengan tipografi tegas, tahapan kerja, dan galeri portofolio"
+    },
+    "litho-business": {
+      "name": "Bisnis",
+      "tagline": "Templat bisnis profesional dengan slider utama, kotak fitur, banner interaktif, dan logo klien"
+    },
+    "litho-cafe": {
+      "name": "Kafe",
+      "tagline": "Templat kafe dan restoran hangat dengan tab menu, profil koki, dan testimoni"
+    },
+    "litho-consulting": {
+      "name": "Konsultan",
+      "tagline": "Templat perusahaan konsultan profesional dengan banner utama, layanan bertab, penghitung statistik, dan bagian tim"
+    },
+    "litho-corporate": {
+      "name": "Korporat",
+      "tagline": "Templat korporat untuk perusahaan besar dengan banner utama parallax, ikon layanan, bilah progres, dan sorotan proyek"
+    },
+    "litho-creative-agency": {
+      "name": "Agensi Kreatif",
+      "tagline": "Templat agensi kreatif bernuansa gelap dan tegas dengan galeri portofolio, testimoni, dan bagian blog"
+    },
+    "litho-decor": {
+      "name": "Dekorasi",
+      "tagline": "Templat toko dekorasi rumah dan furnitur yang elegan dengan sorotan produk, kategori, dan pendaftaran buletin"
+    },
+    "litho-dentist": {
+      "name": "Dokter Gigi",
+      "tagline": "Templat klinik gigi yang bersih dengan pemesanan janji temu, kartu layanan, profil tim, dan testimoni"
+    },
+    "litho-design-agency": {
+      "name": "Agensi Desain",
+      "tagline": "Templat agensi desain yang tegas dengan tampilan utama layar penuh, galeri portofolio, sorotan keahlian, dan testimoni"
+    },
+    "litho-digital-agency": {
+      "name": "Agensi Digital",
+      "tagline": "Templat agensi digital yang tegas dengan banner layanan, sorotan portofolio, dan testimoni klien"
+    },
+    "litho-elearning": {
+      "name": "Pembelajaran Online",
+      "tagline": "Platform pendidikan online modern dengan daftar kursus, profil pengajar, dan testimoni siswa"
+    },
+    "litho-events": {
+      "name": "Acara dan Konferensi",
+      "tagline": "Templat acara dan konferensi profesional dengan profil pembicara, jadwal, dan pemesanan tiket"
+    },
+    "litho-fashion-shop": {
+      "name": "Toko Fashion",
+      "tagline": "Templat toko fashion online yang elegan dengan kisi produk, inspirasi gaya, dan koleksi musiman"
+    },
+    "litho-finance": {
+      "name": "Keuangan",
+      "tagline": "Templat keuangan profesional dengan layanan, kategori industri, testimoni, dan blog"
+    },
+    "litho-freelancer": {
+      "name": "Freelancer",
+      "tagline": "Portofolio freelancer minimalis dengan sorotan proyek, daftar keahlian, dan formulir kontak"
+    },
+    "litho-furniture-shop": {
+      "name": "Toko Furnitur",
+      "tagline": "Templat toko furnitur online modern dengan katalog produk, inspirasi ruangan, dan kisah merek"
+    },
+    "litho-gym-fitness": {
+      "name": "Gym dan Kebugaran",
+      "tagline": "Templat gym dan kebugaran penuh energi dengan jadwal kelas, profil pelatih, dan paket keanggotaan"
+    },
+    "litho-hotel-resort": {
+      "name": "Hotel dan Resor",
+      "tagline": "Templat hotel dan resor mewah dengan sorotan kamar, fasilitas, dan fitur pemesanan"
+    },
+    "litho-interior-design": {
+      "name": "Desain Interior",
+      "tagline": "Templat desain interior berkelas dengan galeri proyek, gambaran proses, dan pemesanan konsultasi"
+    },
+    "litho-marketing-agency": {
+      "name": "Agensi Pemasaran",
+      "tagline": "Templat agensi pemasaran yang tegas dengan sorotan layanan, bilah progres, logo klien, dan testimoni"
+    },
+    "litho-photography": {
+      "name": "Fotografi",
+      "tagline": "Portofolio fotografi elegan dengan galeri layar penuh, logo klien, dan bagian blog"
+    },
+    "litho-restaurant": {
+      "name": "Restoran",
+      "tagline": "Templat restoran berkelas dengan menu bertab, profil koki, reservasi, dan testimoni"
+    },
+    "litho-seo-agency": {
+      "name": "Agensi SEO",
+      "tagline": "Templat agensi SEO berbasis data dengan tahapan kerja, kotak fitur, tabel harga, dan testimoni"
+    },
+    "litho-spa-salon": {
+      "name": "Salon Spa",
+      "tagline": "Templat spa dan kesehatan yang menenangkan dengan sorotan layanan, harga, profil tim, dan tombol pemesanan"
+    },
+    "litho-startup": {
+      "name": "Startup",
+      "tagline": "Templat startup modern dengan sorotan fitur, paket harga, bilah progres, testimoni, dan blog"
+    },
+    "litho-travel-agency": {
+      "name": "Agensi Perjalanan",
+      "tagline": "Templat agensi perjalanan yang semarak dengan sorotan destinasi, paket tur, testimoni, dan blog"
+    },
+    "litho-web-agency": {
+      "name": "Agensi Web",
+      "tagline": "Templat agensi web kreatif dengan galeri portofolio, tahapan kerja, profil tim, dan testimoni klien"
+    },
+    "litho-yoga": {
+      "name": "Yoga dan Meditasi",
+      "tagline": "Templat yoga dan meditasi yang menenangkan dengan kelas, testimoni, FAQ akordeon, dan formulir kontak"
+    },
+    "original-beauty": {
+      "tagline": "Studio perawatan kulit bernuansa hangat dengan menu perawatan berharga, keanggotaan, dan pemesanan online"
+    },
+    "original-corporate": {
+      "tagline": "Situs grup teknik dan infrastruktur dengan kapabilitas, sektor, hasil, jajaran pimpinan, karier, dan kontak"
+    },
+    "original-creative": {
+      "tagline": "Situs studio branding dan animasi dengan daftar karya tipografis, tata letak studi kasus yang besar, manifesto, karier, dan formulir brief"
+    },
+    "original-ecommerce": {
+      "tagline": "Toko keramik bergaya galeri dengan kisi produk, keranjang, koleksi, dan notifikasi rilisan dari tungku"
+    },
+    "original-education": {
+      "tagline": "Situs sekolah malam dengan kartu daftar kursus, jadwal mingguan, pengajar, tanggal semester, biaya, dan pendaftaran acara malam terbuka"
+    },
+    "original-finance": {
+      "tagline": "Situs perencanaan keuangan berbayar tetap dengan panel proyeksi, perbandingan biaya tetap, paket, penasihat, dan pemesanan konsultasi awal"
+    },
+    "original-fitness": {
+      "tagline": "Gym latihan kekuatan berenergi tinggi dengan jadwal kelas mingguan, pilihan keanggotaan, dan pemesanan uji coba gratis"
+    },
+    "original-food": {
+      "tagline": "Toko roti lingkungan yang cerah dengan papan menu roti hari ini, menu spesial mingguan, dan pemesanan untuk diambil"
+    },
+    "original-health": {
+      "tagline": "Situs klinik keluarga yang menenangkan dengan jenis dan harga kunjungan, profil tenaga medis, dan janji temu online"
+    },
+    "original-hospitality": {
+      "tagline": "Penginapan butik pesisir yang lapang dengan kartu kamar, tarif per malam, fasilitas, dan permintaan pemesanan"
+    },
+    "original-legal": {
+      "tagline": "Situs firma hukum dengan daftar bidang praktik, daftar hasil perkara, biografi pengacara, biaya konsultasi di muka, dan pemesanan"
+    },
+    "original-nonprofit": {
+      "tagline": "Situs badan amal penyelamat makanan dengan penanda dampak, tanda terima donasi, jadwal relawan, laporan dampak tahunan, dan donasi"
+    },
+    "original-personal": {
+      "tagline": "Profil pribadi pelatih dan penulis dengan tiket penawaran, pratinjau buletin, buku CSS, surat pembaca, dan pemesanan sesi"
+    },
+    "original-portfolio": {
+      "tagline": "Portofolio arsitek interior dengan kisi karya asimetris, daftar proyek, studi kasus dengan denah gambar tangan, dan formulir pertanyaan"
+    },
+    "original-realestate": {
+      "tagline": "Situs broker modern dengan daftar properti yang bisa difilter, data pasar, panduan lingkungan, dan pemesanan penilaian properti"
+    },
+    "original-restaurant": {
+      "tagline": "Restoran bakar kayu dengan suasana temaram, menu berharga, info diet, dan pemesanan meja"
+    },
+    "original-saas": {
+      "tagline": "Situs peluncuran SaaS dengan linimasa produk yang tampak aktif, pilihan harga, catatan perubahan, dan peta jalan publik"
+    },
+    "original-travel": {
+      "tagline": "Tur mendaki kelompok kecil dengan papan jadwal keberangkatan, rencana perjalanan per tahap, dan harga"
+    }
+  }
+}

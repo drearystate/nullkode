@@ -1,0 +1,958 @@
+{
+  "alertsApi": {
+    "allOff": "Todas las alertas están desactivadas. Activa una en la tarjeta Alertas y vuelve a intentarlo.",
+    "badEmail": "\"{address}\" no parece ser una dirección de correo electrónico.",
+    "emailOff": "El correo no está configurado en este servidor, así que no se pueden enviar alertas. Pídele a tu proveedor que conecte el correo.",
+    "invalid": "Revisa la configuración de las alertas e inténtalo de nuevo.",
+    "noTables": "Tu app todavía no recopila información de sus visitantes. Primero, añade un formulario o una función como Reservas.",
+    "sampleMessage": "Esta es una respuesta de prueba de tu lista de comprobación para el lanzamiento. Nadie la envió.",
+    "samplePerson": "Persona de prueba",
+    "sampleSubject": "Respuesta de prueba",
+    "sampleText": "Prueba",
+    "signedUpTable": "Personas suscritas",
+    "testFailed": "No se pudo enviar la alerta de prueba.",
+    "testLimit": "Has enviado {count} respuestas de prueba en la última hora. Inténtalo de nuevo dentro de un rato.",
+    "throttled": "Tu app ya ha enviado {count} correos de alerta en esta hora, así que la prueba quedó en espera. El resto llegará junto en un correo al final de la hora.",
+    "tooMany": "Puedes añadir hasta {max} direcciones más.",
+    "unknownTable": "Una de esas tablas ya no está en esta app. Recarga la página e inténtalo de nuevo."
+  },
+  "alertsCard": {
+    "allOff": "Todos desactivados",
+    "alsoSendTo": "Enviar también a <muted>(hasta {max}, separadas por comas)</muted>",
+    "defaultOn": "Parece un formulario, así que está activado de forma predeterminada",
+    "defaultTable": "envío",
+    "emailOff": "El correo no está configurado en este servidor, así que no se pueden enviar avisos. Pídele a tu proveedor que conecte el correo.",
+    "extraHelp": "Otras personas que también deberían recibir estos avisos, como un socio. Separa las direcciones con comas.",
+    "goesTo": "Los avisos se envían a <b>{email}</b>.",
+    "intro": "Recibe un correo en cuanto alguien envíe un formulario, haga una reserva o un pedido en tu app.",
+    "loadFailed": "No se pudo cargar la configuración de alertas.",
+    "noTables": "Tu app aún no recoge información de los visitantes. Cuando añadas un formulario o una función como Reservas, podrás elegir aquí si quieres recibir avisos.",
+    "off": "Desactivado",
+    "on": "Activado",
+    "onCount": "{on} de {total} activados",
+    "save": "Guardar avisos",
+    "saveFailed": "No se pudo guardar la configuración de alertas.",
+    "saveFirst": "Guardar primero",
+    "saveHelp": "Guarda qué tablas envían avisos y quién los recibe.",
+    "sending": "Enviando…",
+    "setUpEmail": "Configurar el correo",
+    "setUpEmailHelp": "Abre la configuración del servidor para conectar un servicio de correo y que las apps puedan enviar correos.",
+    "step": "Enviar un envío de prueba",
+    "stepDone": "(hecho)",
+    "stepHelp": "Te envía un aviso de prueba, como el que recibes cuando alguien usa tu formulario, para que compruebes que llega a tu bandeja de entrada.",
+    "stepHint": "Comprueba que recibes un correo cuando alguien usa tu formulario.",
+    "stepNeedsEmail": "Es necesario configurar el correo en este servidor.",
+    "stepSending": "Enviando un envío de prueba…",
+    "stepToDo": "(pendiente)",
+    "switchHelp": "Si está activado, recibirás un correo cada vez que un visitante añada algo a esta tabla. Pulsa Guardar avisos para guardar los cambios.",
+    "test": "Enviar una prueba",
+    "testFailed": "No se pudo enviar la prueba.",
+    "testHelp": "Envía un aviso de prueba a todas las personas de la lista para que compruebes que les llega. Guarda los cambios primero.",
+    "testOffline": "No se pudo enviar la prueba. Revisa tu conexión e inténtalo de nuevo.",
+    "testSent": "Se envió una alerta de prueba de {table} a {to}. Busca un correo que diga (prueba).",
+    "testSentToYou": "Se te envió una alerta de prueba de {table}. Busca un correo que diga (prueba).",
+    "title": "Alertas",
+    "titleHelp": "Te avisa por correo cuando alguien envía algo a través de tu app, como un formulario, una reserva o un pedido. Tú eliges qué tablas envían avisos.",
+    "tooMany": "Puedes añadir hasta {max} direcciones más."
+  },
+  "appAdminApi": {
+    "checkDetails": "Revisa los datos e inténtalo de nuevo.",
+    "invalidEmail": "Introduce una dirección de correo válida.",
+    "saveFailed": "No se pudo guardar el acceso de administrador.",
+    "shortPassword": "La contraseña debe tener al menos {min} caracteres."
+  },
+  "appAdminCard": {
+    "add": "Añadir administrador",
+    "addHelp": "Da a esta dirección de correo acceso de administrador a tu app. Si ya tiene una cuenta, esa cuenta pasa a ser de administrador y se cambia su contraseña.",
+    "admins": "Administradores: <list>{admins}</list>",
+    "email": "Correo electrónico",
+    "emailHelp": "La dirección de correo que usará tu compañero de equipo para iniciar sesión en tu app.",
+    "loginsIntro": "Si le das a alguien acceso de administrador, podrá iniciar sesión en tu app desde la página de inicio de sesión para gestionarla.",
+    "loginsTitle": "Accesos de administrador para tu equipo",
+    "notPublished": "Tu app aún no está publicada, así que estas páginas se abren en la vista previa.",
+    "note": "Al menos 10 caracteres. Si usas una dirección que ya tiene una cuenta en tu app, esa cuenta pasa a ser de administrador y se cambia su contraseña.",
+    "openHelp": "Abre esta página solo para el equipo en una pestaña nueva, sin tener que iniciar sesión en tu app. Los visitantes no pueden verla.",
+    "pagesIntro": "Estas páginas son solo para ti y tu equipo, así que los visitantes no pueden verlas. Puedes abrirlas cuando quieras sin iniciar sesión en tu app.",
+    "password": "Contraseña",
+    "passwordHelp": "Su contraseña, de al menos 10 caracteres. Compártela en privado; la usará para iniciar sesión en la página de tu app.",
+    "saveFailed": "No se pudo guardar el acceso de administrador.",
+    "savedCreated": "Guardado. Podrán iniciar sesión en tu app con este correo y contraseña.",
+    "savedUpdated": "Guardado. Esa cuenta ahora es de administrador y tiene la nueva contraseña.",
+    "title": "Área de administración de tu app",
+    "titleHelp": "Páginas de tu app que solo tú y tu equipo pueden usar, como la página para gestionar pedidos, y las cuentas que usa tu equipo para acceder a ellas."
+  },
+  "deleteProject": {
+    "backup": "Descargar copia de seguridad",
+    "backupHelp": "Guarda en tu dispositivo un archivo con todas tus páginas, datos, tema e imágenes. Después puedes recuperar la app con «Importar una app».",
+    "buttonHelp": "Elimina esta app. Verás qué se eliminará y podrás descargar una copia de seguridad antes. No podrás deshacer la eliminación.",
+    "buttonLabel": "Eliminar {name}",
+    "deleteApp": "Eliminar app",
+    "deleteHelp": "Elimina esta app para siempre: sus páginas, datos, archivos y dirección web. Las visitas ya no podrán abrirla. No podrás deshacerlo.",
+    "deleting": "Eliminando…",
+    "details": "Se eliminarán sus páginas, flujos de trabajo, todo lo que la gente haya enviado, las versiones para móviles y su dirección web. No podrás deshacerlo.",
+    "failed": "No se pudo eliminar la app ({status}).",
+    "keyAck": "Descargué la clave de carga o no la necesito.",
+    "keyAckHelp": "Marca esta casilla para confirmar que guardaste la clave de carga o que nunca necesitarás actualizar esta app en Google Play.",
+    "keyBody": "Descárgala antes de eliminar la app. Sin ella, no podrás volver a actualizarla en Google Play.",
+    "keyDownload": "Descargar clave de carga",
+    "keyDownloadHelp": "Guarda el archivo secreto que demuestra que las actualizaciones de Google Play son tuyas. Guárdalo en un lugar seguro.",
+    "keyTitle": "Esta app tiene una clave de carga de Google Play.",
+    "networkError": "Error de conexión. No se eliminó la app.",
+    "summary": "Elimina la app, sus datos y sus archivos. Descarga una copia de seguridad antes.",
+    "title": "¿Eliminar «{name}»?"
+  },
+  "deploymentsApi": {
+    "versionMissing": "Esa versión no existe."
+  },
+  "domains": {
+    "add": "Añadir dominio",
+    "addFailed": "No se pudo añadir el dominio.",
+    "addHelp": "Empieza a conectar esta dirección web. Después verás dos ajustes que debes copiar en la empresa donde la compraste.",
+    "adding": "Añadiendo…",
+    "checkHelp": "Comprueba si ya están configurados los ajustes de abajo. Después de añadirlos, pueden tardar unos minutos o, a veces, unas horas en aparecer.",
+    "checkNow": "Comprobar ahora",
+    "checking": "Comprobando…",
+    "colName": "Nombre / host",
+    "colType": "Tipo",
+    "colValue": "Valor / apunta a",
+    "confirmDisconnect": "¿Desconectar {host} de esta app?",
+    "connected": "Conectado: los visitantes pueden usar <url>https://{host}</url>",
+    "copied": "Copiado",
+    "copy": "Copiar",
+    "copyHelp": "Haz clic para copiarlo y luego pégalo en la página de ajustes de la empresa donde compraste el dominio.",
+    "copyValue": "Copiar {value}",
+    "disconnect": "Desconectar {host}",
+    "disconnectHelp": "Deja de usar esta dirección web para tu app. La dirección seguirá siendo tuya y tu app conservará su dirección gratuita.",
+    "domain": "Dominio",
+    "empty": "Aún no hay dominios. Tu app sigue disponible en su dirección gratuita.",
+    "hostHelp": "Escribe una dirección web que ya tengas (un dominio), como www.tunegocio.com. Primero tienes que comprarla.",
+    "notOwned": "Aún no se encuentra el registro TXT.",
+    "notPointsHere": "El dominio aún no apunta aquí (registro CNAME/A).",
+    "owned": "Propiedad confirmada (se encontró el registro TXT).",
+    "ownershipRecordHelp": "Este ajuste demuestra que la dirección web es tuya. Tu app se conectará cuando se encuentre el registro.",
+    "pointsHere": "El dominio apunta a este servidor.",
+    "recordsHelp": "Los registros DNS son ajustes de la empresa donde compraste tu dominio. Copia cada uno en la página de ajustes de DNS o del dominio.",
+    "recordsIntro": "Añade estos registros donde gestiones el DNS de este dominio. Los cambios suelen aparecer en unos minutos, aunque a veces pueden tardar unas horas.",
+    "rootHint": "Para un dominio raíz (tunegocio.com sin www), usa un registro A que apunte a la dirección IP de este servidor si tu proveedor de DNS no admite CNAME para ese dominio.",
+    "rootHintIp": "Para un dominio raíz (tunegocio.com sin www), usa un registro A que apunte a <code>{ip}</code> si tu proveedor de DNS no admite CNAME para ese dominio.",
+    "routingRecordHelp": "Este ajuste dirige a tu app a las personas que escriban tu dirección web.",
+    "waiting": "Esperando los registros DNS"
+  },
+  "domainsApi": {
+    "alreadyConnected": "Ese dominio ya está conectado a otra app.",
+    "enterDomain": "Introduce un nombre de dominio.",
+    "invalidDomain": "Introduce un dominio como www.tunegocio.com (sin https:// ni rutas).",
+    "notFound": "No se encontró",
+    "platformAddress": "Esa dirección pertenece a esta plataforma."
+  },
+  "domainsPage": {
+    "intro": "Usa tu propia dirección para esta app, como <domain>www.tunegocio.com</domain>. Añade dos registros DNS donde compraste el dominio y luego comprueba aquí la conexión.",
+    "title": "Dominios"
+  },
+  "enablePush": {
+    "failed": "No se pudieron activar las notificaciones. Inténtalo de nuevo.",
+    "help": "Añade a tu app una página «Recibe notificaciones» donde los visitantes pueden suscribirse. Después, puedes enviarles mensajes desde aquí o desde una automatización.",
+    "turnOn": "Activar notificaciones",
+    "turningOn": "Activando…"
+  },
+  "exportApi": {
+    "notFound": "No se encontró",
+    "unauthorized": "No tienes autorización"
+  },
+  "iconApi": {
+    "generationFailed": "Error al generar la imagen",
+    "invalidForm": "Formulario no válido",
+    "invalidInput": "Entrada no válida",
+    "missingFile": "Falta el archivo",
+    "noImage": "No se devolvió ninguna imagen",
+    "notFound": "No encontrado",
+    "tooBig": "El icono debe ocupar menos de 5 MB",
+    "unauthorized": "No autorizado",
+    "wrongType": "Usa un archivo PNG, JPG, WebP o SVG"
+  },
+  "latestSubmissions": {
+    "empty": "Aún no hay nada. Cuando alguien envíe un formulario o haga una reserva en tu app, aparecerá aquí.",
+    "itemHelp": "Abre la tabla de origen para ver todos los detalles.",
+    "justNow": "ahora mismo",
+    "newEntry": "Nueva entrada",
+    "seeAll": "Ver todos los datos",
+    "seeAllHelp": "Abre la página Datos para ver todo lo que ha guardado tu app.",
+    "title": "Últimos envíos",
+    "titleHelp": "Las cinco cosas más recientes que los visitantes enviaron a través de tu app, como mensajes de formularios o reservas."
+  },
+  "layout": {
+    "backToApps": "Volver a mis apps",
+    "backToAppsHelp": "Vuelve a la lista de todas tus apps.",
+    "backToDesigner": "Volver al Diseñador",
+    "backToDesignerHelp": "Vuelve al Diseñador con IA."
+  },
+  "modulesPage": {
+    "help": "Las funciones son secciones listas para usar, como reservas o una tienda, que añaden a tu app páginas completas y los datos que necesitan.",
+    "intro": "Reservas, una tienda, reseñas y mucho más. Elige una y añadiremos sus páginas a tu app para que las personalices.",
+    "title": "Añade un superpoder."
+  },
+  "nativeApi": {
+    "build": {
+      "publishFirst": "Publica primero tu app: la app para Android carga la dirección de tu sitio publicado.",
+      "startFailed": "No se pudo iniciar la compilación. Inténtalo de nuevo.",
+      "unavailable": "No se pueden crear compilaciones de Android en este servidor. {reason}",
+      "unknownBuild": "Compilación desconocida"
+    },
+    "buildDownload": {
+      "fileGone": "El archivo de esta compilación ya no está disponible. Vuelve a compilarla.",
+      "notReady": "La compilación aún no está lista"
+    },
+    "download": {
+      "publishFirst": "Publica primero tu app: la app móvil carga la URL de tu sitio publicado."
+    },
+    "installer": {
+      "projectNotFound": "No se encontró el proyecto",
+      "publishFirst": "Publica primero el proyecto: el instalador usa la URL del sitio publicado.",
+      "unknownPlatform": "Plataforma desconocida"
+    },
+    "keystore": {
+      "chooseFile": "Selecciona tu archivo de almacén de claves (.jks o .keystore).",
+      "ownerOnly": "Solo quien sea propietario de la app puede cambiar su clave de subida.",
+      "saveFailed": "No se pudo guardar este almacén de claves. Inténtalo de nuevo.",
+      "tooManyTries": "Demasiados intentos. Espera unos minutos."
+    },
+    "keystoreDownload": {
+      "ownerOnly": "Solo quien sea propietario de la app puede descargar su clave de subida."
+    },
+    "notFound": "No encontrado",
+    "settings": {
+      "bundleId": "El ID del paquete debe tener el formato de DNS inverso, por ejemplo, com.company.app",
+      "invalidInput": "Entrada no válida",
+      "versionFormat": "Usa una versión como 1.0.0"
+    },
+    "unauthorized": "No autorizado"
+  },
+  "nativeApp": {
+    "android": {
+      "advancedDownload": "Avanzado: descarga el proyecto para crearlo tú en Android Studio",
+      "advancedDownloadHelp": "Para desarrolladores: descarga los archivos del proyecto de Android para crear la app con Android Studio. La mayoría de las personas no necesita esta opción.",
+      "debugBlurb": "Una copia para probar rápidamente. Instálala directamente en un teléfono Android para probar tu app. Google Play no acepta este archivo.",
+      "debugButton": "Crear APK de prueba",
+      "debugTitle": "Probar en tu teléfono (APK)",
+      "intro": "La creamos en el servidor. Elige qué quieres hacer:",
+      "releaseBlurb": "El archivo que solicita Google Play, firmado con la clave de subida de tu app. Cada archivo usa el siguiente número de compilación (el próximo es {next}).",
+      "releaseButton": "Crear archivo para Google Play",
+      "releaseTitle": "Publicar en Google Play (AAB)"
+    },
+    "browserInstall": "<b>Ya se puede instalar desde el navegador.</b> También puedes añadir tu sitio publicado a la pantalla de inicio del teléfono directamente desde el navegador, sin necesidad de una tienda.",
+    "build": {
+      "again": "Crear de nuevo",
+      "againHelpDebug": "Crea un nuevo archivo de prueba con los datos más recientes de tu app, como el nombre, el icono y los colores.",
+      "againHelpRelease": "Crea un nuevo archivo para Google Play con los datos más recientes de tu app. Tendrá el siguiente número de compilación y estará listo para subirlo como actualización.",
+      "buildFailed": "No se pudo crear el archivo",
+      "building": "Creando…",
+      "buildingSeconds": "Creando… ({seconds}s)",
+      "couldNotStart": "No se pudo iniciar la creación",
+      "debugNote": "En el teléfono, abre el archivo y permite la instalación cuando se te pregunte. Si tienes una versión de esta app de Google Play en el teléfono, desinstálala primero: usan claves distintas.",
+      "downloadAab": "Descargar AAB para Google Play",
+      "downloadAabHelp": "Descarga el archivo de la app para Android (.aab) que solicita Google Play. Súbelo a Google Play Console siguiendo los pasos de abajo.",
+      "downloadApk": "Descargar APK de prueba",
+      "downloadApkHelp": "Descarga el archivo de prueba de la app para Android (.apk). Ábrelo en un teléfono Android y permite la instalación cuando se te pregunte.",
+      "failed": "No se pudo crear el archivo.",
+      "iconNotUsed": "<b>No se usó tu icono.</b> {note} <link>Cambiar el icono</link>",
+      "made": "Versión {version} · creada el {date}",
+      "madeWithBuild": "Versión {version} (compilación {build}) · creada el {date}",
+      "rebuildNeeded": "<b>Debes crear una nueva versión.</b> {reason}",
+      "releaseNote": "La primera compilación crea la clave de subida de tu app. Descarga una copia de seguridad abajo.",
+      "signedApk": "APK firmado para otras tiendas",
+      "signedApkHelp": "Descarga la misma app como archivo instalable de Android (.apk), firmado con tu clave, para tiendas distintas de Google Play.",
+      "sizeKb": "{size} KB",
+      "sizeMb": "{size} MB",
+      "startHelpDebug": "Crea una app de prueba para Android que puedas instalar directamente en un teléfono. Tardará unos minutos.",
+      "startHelpRelease": "Crea el archivo de la app para Android que necesitas para Google Play. Tardará unos minutos. Si aún no tienes una clave, la primera compilación creará tu clave de subida.",
+      "withSize": "{label} ({size})"
+    },
+    "details": {
+      "appId": "ID del paquete o de la app",
+      "appIdHelp": "Un nombre único que las tiendas de apps usan para distinguir tu app, como com.tunegocio.app. Los visitantes no lo verán. No lo cambies cuando tu app ya esté en una tienda.",
+      "appIdHint": "Como com.empresa.app, en minúsculas. No lo cambies cuando tu app ya esté en una tienda.",
+      "appName": "Nombre de la app",
+      "appNameHelp": "El nombre que aparece debajo del icono de tu app en el teléfono. Puede tener hasta 30 caracteres, pero es mejor que sea corto.",
+      "background": "Fondo",
+      "backgroundCode": "Código del fondo",
+      "backgroundHelp": "Color de fondo de tu app mientras se abre y de la pantalla que aparece cuando no hay conexión a internet.",
+      "buildNumber": "Número de compilación",
+      "buildNumberHelp": "Número que las tiendas usan para distinguir las actualizaciones; cada archivo que subas debe tener un número mayor. Los archivos que creas aquí para Google Play aumentan automáticamente.",
+      "buildNumberHint": "El número de los archivos para Google Play aumenta automáticamente a partir de aquí. El siguiente: {next}.",
+      "colorCodeHelp": "O escribe aquí un código de color, como #1a73e8, si sabes exactamente qué color quieres.",
+      "couldNotSave": "No se pudo guardar",
+      "intro": "Esta información aparece en las tiendas de apps y en la pantalla de inicio del teléfono.",
+      "orientation": "Orientación",
+      "orientationDefault": "Seguir dispositivo",
+      "orientationHelp": "Indica si la app gira cuando giras el teléfono. «Seguir dispositivo» permite que gire; las otras opciones la mantienen vertical u horizontal.",
+      "orientationLandscape": "Solo horizontal",
+      "orientationPortrait": "Solo vertical",
+      "pickBackground": "Elegir fondo",
+      "pickThemeColor": "Elegir color del tema",
+      "save": "Guardar ajustes",
+      "saveHelp": "Guarda estos datos. Se incluirán en la próxima versión o descarga; las apps que ya estén instaladas no cambiarán hasta que envíes una actualización.",
+      "themeColor": "Color del tema",
+      "themeColorCode": "Código del color del tema",
+      "themeColorHelp": "Color principal de tu app en el teléfono: se usa en la pantalla de carga, en la pantalla sin conexión y en el icono sencillo que se crea si no se puede usar el tuyo.",
+      "title": "Detalles de la app",
+      "titleHelp": "El nombre, los colores y la información de la tienda que incluye tu app para el teléfono. Los cambios se aplican a la próxima versión que crees o descargues, no a las apps ya instaladas.",
+      "version": "Versión",
+      "versionHelp": "El número de versión que se muestra en la tienda, como 1.0.0. Auméntalo cuando envíes una actualización, por ejemplo, a 1.1.0."
+    },
+    "featureList": {
+      "three": "{a}, {b} y {c}",
+      "two": "{a} y {b}"
+    },
+    "features": {
+      "camera": {
+        "about": "Una página muestra la cámara, por ejemplo, para escanear códigos QR. El teléfono pregunta antes a la persona.",
+        "label": "Cámara",
+        "name": "cámara"
+      },
+      "files": {
+        "about": "Al subir archivos, se abre el selector del teléfono con la opción de tomar una foto. En Android no se necesita permiso.",
+        "label": "Fotos y archivos",
+        "name": "fotos y archivos"
+      },
+      "location": {
+        "about": "Una página solicita la ubicación de la persona, por ejemplo, para encontrar lugares cercanos. El teléfono pregunta antes a la persona.",
+        "label": "Ubicación",
+        "name": "ubicación"
+      },
+      "microphone": {
+        "about": "Una página graba sonido o escucha voz. El teléfono pregunta antes a la persona.",
+        "label": "Micrófono",
+        "name": "micrófono"
+      }
+    },
+    "ios": {
+      "download": "Descargar proyecto para iPhone",
+      "downloadHelp": "Descarga los archivos necesarios para compilar tu app para iPhone. Necesitarás un Mac o una cuenta de GitHub, además de una cuenta de Apple Developer de pago, para enviarla a Apple.",
+      "intro": "Descarga el proyecto para iPhone. Se abre directamente en Xcode, sin comandos de configuración. Apple solo permite publicar con una cuenta de Apple Developer de pago ({fee} al año), y solo un Mac puede compilar apps para iPhone. Tienes dos opciones:",
+      "locationAdded": "Ahora tu app usa la ubicación. Descarga de nuevo el proyecto para iPhone y envía una nueva compilación a Apple; de lo contrario, la app no podrá solicitarla.",
+      "locationRemoved": "Tu app ya no usa la ubicación. Descarga de nuevo el proyecto para iPhone para la próxima compilación y dejará de solicitarla.",
+      "newBuildNeeded": "<b>Se necesita una nueva compilación.</b> {reason}",
+      "readme": "El README incluido en la descarga te guía paso a paso por ambas opciones.",
+      "title": "iPhone y iPad",
+      "withMac": "<b>Con un Mac:</b> abre <mono>{path}</mono>, elige tu equipo y luego ve a Producto → Archivo.",
+      "withoutMac": "<b>Sin un Mac:</b> sube la carpeta a GitHub y añade tus claves de Apple como secretos. El flujo de trabajo incluido compila tu app en los Mac de GitHub y la envía a TestFlight."
+    },
+    "key": {
+      "alias": "Alias de la clave",
+      "aliasHelp": "El nombre de la clave dentro del archivo. Déjalo vacío si el archivo solo contiene una clave.",
+      "aliasPlaceholder": "Déjalo vacío si solo hay una",
+      "backupHint": "Guarda la copia de seguridad en un lugar privado, como un gestor de contraseñas. Incluye la clave y sus contraseñas.",
+      "checking": "Comprobando…",
+      "couldNotUse": "No se pudo usar esta clave",
+      "download": "Descargar copia de seguridad de la clave",
+      "downloadHelp": "Guarda una copia de tu clave de subida y sus contraseñas. Guárdala en un lugar privado: cualquiera que la tenga podría firmar actualizaciones como si fueras tú.",
+      "file": "Archivo de almacén de claves (.jks o .keystore)",
+      "fileHelp": "Elige el archivo de clave con el que firmaste tu app. Suele terminar en .jks o .keystore.",
+      "fingerprint": "Huella del certificado (SHA-256)",
+      "fingerprintHelp": "Un código que identifica tu clave. Algunos servicios de Google te piden que lo pegues al configurarlos.",
+      "importedOn": "Tu clave, añadida el {date} · alias <mono>{alias}</mono>",
+      "keepSafe": "Guárdala en un lugar seguro: la necesitas para cada actualización en Google Play.",
+      "keyPassword": "Contraseña de la clave",
+      "keyPasswordHelp": "La contraseña de la clave. Déjala vacía si es la misma que la contraseña del archivo.",
+      "keyPasswordPlaceholder": "Déjalo vacío si es la misma",
+      "madeOn": "Creada para esta app el {date} · alias <mono>{alias}</mono>",
+      "missing": "El archivo de la clave no está en el servidor. Añade tu copia de seguridad abajo («Usar una clave que ya tengo») para seguir actualizando tu app en Google Play.",
+      "none": "Google Play verifica esta clave en cada actualización. Creamos una para tu app la primera vez que la compilas para Google Play. ¿Ya tienes una app en Google Play con una clave propia? Añádela aquí primero.",
+      "ownerOnly": "Solo la persona propietaria de la app puede descargar la clave.",
+      "replace": "Reemplazar mi clave actual. Hazlo solo si Google Play espera esta otra clave: primero descarga una copia de seguridad de la actual.",
+      "replaceHelp": "Confirma que quieres reemplazar tu clave actual por esta. Primero descarga una copia de seguridad de la clave actual.",
+      "save": "Guardar clave",
+      "saveHelp": "Comprobaremos la clave y las contraseñas y, a partir de ahora, usaremos esta clave para todas tus compilaciones para Google Play.",
+      "saved": "Tu clave está guardada. Las compilaciones para Google Play ya la usan.",
+      "storePassword": "Contraseña del almacén de claves",
+      "storePasswordHelp": "La contraseña para abrir el archivo de clave.",
+      "title": "Tu clave de subida",
+      "titleHelp": "Un archivo secreto que demuestra que las actualizaciones de tu app en Google Play son tuyas. Si lo pierdes, no podrás actualizar la app en Google Play.",
+      "toggleHelpClosed": "¿Ya tienes una app en Google Play? Añade la clave que usaste para esa app para que las nuevas versiones puedan actualizarla.",
+      "toggleHelpOpen": "Cierra este formulario sin cambiar la clave.",
+      "useDifferent": "Usar otra clave",
+      "useExisting": "Usar una clave que ya tengo"
+    },
+    "liveUrl": {
+      "help": "La dirección web activa que abre la app del teléfono. Lo que publiques ahí también aparecerá en la app.",
+      "httpWarning": "Los teléfonos solo abren apps desde una dirección segura (https). Esta dirección empieza por http://, así que la app del teléfono no puede cargarla. Configura https en este servidor primero.",
+      "label": "Tu app muestra:"
+    },
+    "notPublished": {
+      "body": "La app móvil muestra tu sitio publicado, así que debe estar en línea antes de que puedas crearla. Todo lo que publiques después actualizará la app automáticamente, sin tener que crearla de nuevo.",
+      "goToPublish": "Ir a Publicar",
+      "goToPublishHelp": "Ve a Publicar para poner tu app en línea. Luego vuelve aquí para crear la app para el teléfono.",
+      "title": "Publica tu app primero"
+    },
+    "phone": {
+      "checking": "Comprobando tu app…",
+      "intro": "Se determina según las funciones y páginas de tu app. El teléfono solo permite que la app use lo que solicita su versión. Si esta lista cambia, vuelve a compilar la app y envía la nueva versión a las tiendas.",
+      "none": "Ninguna por ahora: ninguna página usa la cámara, el micrófono, la ubicación ni la subida de archivos.",
+      "photoLibrary": "Fototeca",
+      "save": "Guardar textos",
+      "saveHelp": "Guarda estos mensajes. Se incluirán en la próxima compilación y descarga para iPhone.",
+      "saved": "Guardado. Se incluirá en la próxima compilación y descarga.",
+      "sourcePage": "la página «{name}»",
+      "title": "Funciones del teléfono que usa esta app",
+      "titleHelp": "Las funciones del teléfono que necesita tu app, como la cámara o la ubicación. Las detectamos al revisar tus páginas y funciones. El teléfono pregunta antes de que la app pueda usarlas.",
+      "usedBy": "Usada por {sources}",
+      "wordingHelp": "Explica claramente por qué tu app lo necesita, por ejemplo: «Para escanear entradas en la puerta». Apple lo revisa. Déjalo vacío para usar el texto sugerido.",
+      "wordingIntro": "Los iPhone muestran este texto cuando la app solicita cada permiso, y Apple lo revisa. Explica claramente para qué usa tu app cada función. Deja un campo vacío para usar el texto sugerido. Los teléfonos Android muestran su propio mensaje estándar.",
+      "wordingSummary": "Lo que dice el teléfono cuando la app lo solicita",
+      "wordingSummaryHelp": "Abre esto para escribir el mensaje que muestran los iPhone cuando tu app solicita usar la cámara, el micrófono, las fotos o la ubicación."
+    },
+    "play": {
+      "appContent": "En <b>Contenido de la app</b>, añade el enlace a tu política de privacidad. Si las personas pueden crear una cuenta en tu app, Google también te pedirá un enlace para eliminarla: usa <mono>{url}</mono>.",
+      "createApp": "Haz clic en <b>Crear app</b>, escribe el nombre de tu app y responde las preguntas breves.",
+      "listing": "Completa la ficha de la tienda: una descripción breve y otra completa, un icono (512 × 512), una imagen destacada (1024 × 500) y al menos dos capturas de pantalla del teléfono.",
+      "note": "Las cuentas personales de desarrollador nuevas deben probar primero la app con al menos 12 personas durante 14 días antes de que Google permita publicarla para todos.",
+      "release": "Abre <b>Prueba y lanzamiento</b>, elige un canal (<b>Prueba interna</b> es la forma más rápida de probarla) y haz clic en <b>Crear versión nueva</b>.",
+      "signUp": "Regístrate para obtener una cuenta de desarrollador de Google Play en <link>{url}</link>. Google cobra una tarifa única de {fee}.",
+      "signing": "Si Google pregunta sobre la firma de la app, deja seleccionada la opción <b>Permitir que Google gestione y proteja la clave de firma de tu app</b>.",
+      "title": "Publica tu app en Google Play",
+      "titleHelp": "Instrucciones paso a paso para publicar tu app en Google Play. Haz clic para mostrarlas u ocultarlas.",
+      "updates": "Actualizaciones futuras: al publicar cambios aquí, tu app se actualizará automáticamente. Solo crea un AAB nuevo si cambias el nombre, el icono, los colores o la versión, y súbelo de la misma manera. El número de compilación aumenta automáticamente.",
+      "upload": "Sube el archivo <b>.aab</b> de arriba, escribe unas palabras sobre las novedades y, luego, guarda y publica la versión."
+    },
+    "publishToEnable": "Publica para activar",
+    "rebuild": {
+      "added": "Tu app ahora usa {features}, pero esta versión no puede solicitar {count, plural, one {esa función} other {esas funciones}}. Crea una nueva versión.",
+      "addedRelease": "Tu app ahora usa {features}, y esta versión no puede solicitar {count, plural, one {ese permiso} other {esos permisos}}. Vuelve a crearla y sube la nueva versión a Google Play.",
+      "oldShell": "Esta versión se creó antes de que la app pudiera abrir archivos, guardar descargas o usar las funciones del teléfono. Crea una nueva versión.",
+      "oldShellRelease": "Esta versión se creó antes de que la app pudiera abrir archivos, guardar descargas o usar las funciones del teléfono. Crea una nueva versión y súbela a Google Play.",
+      "removed": "Esta versión todavía solicita {features}, que tu app ya no usa. Vuelve a crearla para dejar de solicitar {count, plural, one {ese permiso} other {esos permisos}}.",
+      "removedRelease": "Esta versión todavía solicita {features}, que tu app ya no usa. Vuelve a crearla y sube la nueva versión a Google Play para dejar de solicitar {count, plural, one {ese permiso} other {esos permisos}}."
+    },
+    "store": {
+      "before": "Antes de enviarla a {store}",
+      "deleteAccount": "Si las personas pueden crear una cuenta en tu app, la tienda te pedirá un enlace para eliminarla. Usa <mono>{url}</mono>",
+      "privacy": "La tienda también te pedirá un enlace a tu política de privacidad. Añade una página de privacidad a tu app (o usa una de tu sitio web) y pega su dirección en la ficha de la tienda."
+    },
+    "toolchain": {
+      "operator": "Tú administras este servidor. Para activarla, vuelve a ejecutar el instalador y responde que sí cuando pregunte por Android. También puedes ejecutar <mono>{command}</mono> en la carpeta donde lo instalaste. ¿Lo instalaste sin Docker? Consulta {doc}.",
+      "others": "Pídele a la persona que administra este servidor que la active. También puedes descargar el proyecto y crear la app por tu cuenta.",
+      "title": "La creación de apps para Android está desactivada en este servidor"
+    }
+  },
+  "nativePage": {
+    "eyebrow": "TELÉFONOS Y TABLETAS",
+    "intro": "Convierte este proyecto en una app real para Google Play y Apple App Store. La app muestra tu sitio publicado y actualizado, así que los cambios se reflejan enseguida, sin necesidad de crear una nueva versión.",
+    "title": "App móvil"
+  },
+  "newPageButton": {
+    "create": "Crear",
+    "createHelp": "Crea la página y ábrela en el editor.",
+    "newPage": "Nueva página",
+    "newPageHelp": "Añade una página vacía a tu app. Escribe su nombre y se abrirá en el editor.",
+    "titleHelp": "El nombre de la nueva página, como «Sobre nosotros». Aparecerá en el menú de tu app y en la pestaña del navegador.",
+    "titlePlaceholder": "Título de la página"
+  },
+  "notificationComposer": {
+    "confirm": "¿Enviar esta notificación ahora a {count, plural, one {# suscriptor} other {# suscriptores}}?",
+    "delivered": "Enviada a {sent, plural, one {# dispositivo} other {# dispositivos}}{removed, plural, =0 {} one { (se quitó # suscripción antigua)} other { (se quitaron # suscripciones antiguas)}}.",
+    "message": "Mensaje",
+    "messageHelp": "El texto debajo del título. Los teléfonos pueden cortar los mensajes largos, así que pon lo más importante al principio.",
+    "messagePlaceholder": "Reserva una mesa antes de que se agoten.",
+    "noSubscribers": "Aún no hay suscriptores",
+    "previewBody": "Aquí aparecerá tu mensaje.",
+    "previewEyebrow": "VISTA PREVIA",
+    "previewHelp": "Una idea aproximada de cómo se verá tu notificación. El aspecto real depende del teléfono o computadora de cada persona.",
+    "previewLabel": "Vista previa",
+    "previewTitle": "Tu título",
+    "publishFirst": "Publica tu app primero: al tocar una notificación, se abre tu app publicada.",
+    "sendFailed": "No se pudo enviar. Inténtalo de nuevo.",
+    "sendHelp": "La envía ahora mismo a todas las personas suscritas. Te pediremos que confirmes antes; una vez enviada, no se puede retirar.",
+    "sendTo": "Enviar a {count}",
+    "sending": "Enviando…",
+    "title": "Título",
+    "titleHelp": "La primera línea, en negrita. Que sea breve y clara; por ejemplo, qué pasa y cuándo.",
+    "titlePlaceholder": "Esta noche: música en vivo desde las 19:00",
+    "url": "Abrir esta página al tocar la notificación (opcional)",
+    "urlHelp": "La página de tu app que se abrirá al tocar la notificación, como /menu. Déjalo vacío para abrir la página principal de tu app."
+  },
+  "notificationsPage": {
+    "eyebrow": "SIGUE EN CONTACTO",
+    "goodToKnow": "Información útil",
+    "intro": "Envía un mensaje directamente a los teléfonos y computadoras de quienes activaron las notificaciones de {name}.",
+    "iosTip": "En iPhone y iPad, primero hay que añadir tu app a la pantalla de inicio (Compartir → Añadir a pantalla de inicio) y luego activar las notificaciones allí. En Android y computadoras, se hace desde el navegador.",
+    "nothingSent": "Aún no has enviado nada.",
+    "offBody": "Al activarlas, se añadirá una pequeña página «Recibe notificaciones» donde los visitantes podrán suscribirse. Después, podrás enviarles novedades, ofertas y recordatorios desde aquí.",
+    "offTitle": "Las notificaciones están desactivadas para esta app.",
+    "sent": "Enviadas",
+    "sentHelp": "Las notificaciones que has enviado, empezando por la más reciente, y cuántos dispositivos recibieron cada una.",
+    "stats": "{sent} entregadas{failed, plural, =0 {} other { · {failed} fallidas}}{removed, plural, =0 {} other { · {removed} cancelaron la suscripción}} · {date}",
+    "subscribers": "Suscriptores",
+    "subscribersHelp": "Cuántos teléfonos y computadoras han activado las notificaciones de tu app. Si alguien usa dos dispositivos, cuenta dos veces.",
+    "title": "Notificaciones push"
+  },
+  "offlineApi": {
+    "notFound": "No se encontró",
+    "readme": "{name} — app sin conexión (exportada desde {brand} el {date})\n\nCÓMO USARLA\n  1. Mantén junta esta carpeta (puedes moverla a cualquier lugar: el Escritorio, C:\\ o una memoria USB).\n  2. Abre index.html en cualquier navegador moderno. Eso es todo: no necesitas internet.\n\nTUS DATOS\n  La app incluye una copia de la base de datos del proyecto y guarda todos\n  los cambios localmente en tu navegador (localStorage). Los datos se conservan\n  entre sesiones en el mismo ordenador y navegador. NO se sincronizan.\n\nQUÉ FUNCIONA SIN CONEXIÓN\n  Páginas, navegación, formularios, listas de datos, búsquedas, juegos y scripts,\n  registro e inicio de sesión (cuentas creadas dentro de la app sin conexión).\n\nQUÉ NO FUNCIONA\n  - Las cuentas de la versión en línea: las contraseñas cifradas no se exportan,\n    así que crea una cuenta nueva dentro de la app sin conexión.\n  - Correos, Google Sheets, funciones de IA, notificaciones push y cualquier paso\n    que se conecte a un sitio web externo (a menos que tengas conexión a internet).\n",
+    "readmeKeysLeftOut": "  - Pasos que usan tus claves privadas (por ejemplo, pagos o mensajes de texto):\n    las claves no se incluyen en este archivo, así que puedes compartirlo sin problema.\n",
+    "readmeNoBootstrap": "  - NOTA: No se pudo incluir Bootstrap CSS al exportar, así que el diseño podría verse distinto.\n",
+    "unauthorized": "No tienes autorización"
+  },
+  "overview": {
+    "afterPublish": "Después de publicar",
+    "askProvider": "Pídele a tu proveedor que conecte el correo.",
+    "continueDesigner": "Continuar en el Diseñador",
+    "continueDesignerHelp": "Vuelve al Diseñador con IA para seguir creando tu app.",
+    "continueEditing": "Seguir editando",
+    "continueEditingHelp": "Abre el editor de páginas para seguir trabajando en tu app.",
+    "created": "Creada",
+    "draft": "Borrador: aún no está publicada.",
+    "emailOff": "Tu app envía correos ({flows}), pero el correo no está configurado en este servidor, así que no se están enviando.",
+    "emailOffMore": "Tu app envía correos ({flows} y {more} más), pero el correo no está configurado en este servidor, así que no se están enviando.",
+    "eyebrow": "TU APP, DE UN VISTAZO",
+    "launch": {
+      "admin": {
+        "detail": "Así podrás iniciar sesión en las páginas de administración de tu app.",
+        "help": "Ve a la sección de abajo para configurar el correo y la contraseña que usarás para iniciar sesión en las páginas de administración de tu app.",
+        "title": "Configura tu acceso de administrador"
+      },
+      "build": {
+        "detail": "Ya tienes las páginas, los datos y los formularios.",
+        "help": "Abre el editor de páginas para cambiar los textos, las imágenes y el diseño de tu app.",
+        "helpDesigner": "Abre el Diseñador con IA para seguir creando tu app.",
+        "title": "Crea tu app"
+      },
+      "icon": {
+        "detail": "Aparece en los teléfonos, las pestañas del navegador y la app para Android.",
+        "help": "Ve a la sección del icono de la app más abajo para añadir una imagen pequeña que la represente.",
+        "title": "Añade el icono de tu app"
+      },
+      "publish": {
+        "detail": "Obtén un enlace para compartir con quien quieras.",
+        "detailDone": "Cualquiera que tenga el enlace puede usarla.",
+        "help": "Ve a Publicar para poner tu app en línea y obtener un enlace para compartir.",
+        "helpDone": "Ve a Publicar para aplicar los cambios nuevos, compartir tu enlace o volver a una versión anterior.",
+        "title": "Publícala",
+        "titleDone": "Publicada"
+      },
+      "test": {
+        "title": "Envía un formulario de prueba"
+      }
+    },
+    "launchEyebrow": "PONLA EN MANOS DE LA GENTE",
+    "launchHelp": "Pasos para preparar tu app y darla a conocer. Cada uno se marca automáticamente al completarlo.",
+    "launchProgress": "{done} de {total} completados",
+    "launchTitle": "Lista para el lanzamiento",
+    "liveAt": "En línea en <link>{url}</link>",
+    "liveAtHelp": "La dirección web de tu app publicada. Se abre en una pestaña nueva, tal como la ven tus visitantes.",
+    "next": {
+      "domains": {
+        "detail": "Como www.tunegocio.com.",
+        "detailDone": "Gestiona tus direcciones web.",
+        "help": "Ve a Dominios para usar en tu app una dirección web propia en lugar de la que se incluye gratis.",
+        "title": "Usa tu propio dominio",
+        "titleDone": "Tu dominio está conectado"
+      },
+      "feature": {
+        "detail": "Reservas, una tienda, un blog, registros y mucho más.",
+        "help": "Ve a Funciones para añadir secciones listas para usar a tu app, cada una con sus propias páginas.",
+        "title": "Añade una función"
+      },
+      "native": {
+        "detail": "Descarga un archivo de app para instalarla o subirla a Google Play.",
+        "help": "Ve a App móvil para crear el archivo de la app para Android. Las personas podrán instalarla en sus teléfonos o tú podrás subirla a Google Play.",
+        "title": "Consigue la app para Android"
+      },
+      "preview": {
+        "detail": "Abre una vista previa en una pestaña nueva.",
+        "help": "Abre tu app en una pestaña nueva con tus cambios más recientes, incluso los que aún no has publicado.",
+        "title": "Pruébala como visitante"
+      },
+      "theme": {
+        "detail": "Adáptala a tu marca con un par de clics.",
+        "help": "Ve a Tema para elegir los colores, las fuentes y las formas de las esquinas de toda tu app.",
+        "title": "Cambia los colores y las fuentes"
+      }
+    },
+    "optional": "Opcional",
+    "phoneTitle": "Ábrela en tu teléfono",
+    "qrAlt": "Código QR de {url}",
+    "qrHelp": "Apunta la cámara de tu teléfono a este código cuadrado para abrir tu app publicada en el teléfono.",
+    "qrHint": "Apunta la cámara de tu teléfono al código. Luego toca «Añadir a la pantalla de inicio» para abrirla como una app.",
+    "qrPublishFirst": "Publica tu app primero y luego escanea aquí el código para probarla en tu teléfono.",
+    "quoted": "“{name}”",
+    "setUpEmail": "Configurar correo",
+    "settings": "Configuración",
+    "stats": {
+      "data": "Datos",
+      "dataHelp": "Aquí se guarda la información de tu app, como registros y pedidos. Haz clic para consultarla y editarla.",
+      "domains": "Dominios propios",
+      "domainsHelp": "Cuántas de tus direcciones web (dominios) apuntan a esta app. Haz clic para añadirlas o gestionarlas.",
+      "flows": "Automatizaciones",
+      "flowsHelp": "Número de tareas que tu app hace automáticamente, como enviarte un correo cuando recibes un mensaje. Haz clic para verlas.",
+      "pages": "Páginas",
+      "pagesHelp": "Número de páginas de tu app. Haz clic para abrirlas en el editor."
+    },
+    "stepDone": " (listo)",
+    "stepToDo": " (pendiente)",
+    "webAddress": "Dirección web",
+    "webAddressHelp": "La dirección web activa de tu app. Ábrela en una pestaña nueva."
+  },
+  "pagesApi": {
+    "designerAdd": "Las páginas de esta app vienen del Diseñador de IA, así que añádelas allí.",
+    "designerChange": "Las páginas de esta app vienen del Diseñador de IA, así que cámbialas allí.",
+    "invalidInput": "La información no es válida",
+    "notFound": "No se encontró"
+  },
+  "problemsCard": {
+    "activityHelp": "Abre la actividad de esta automatización para ver cada ejecución, incluidos los datos que enviaron las personas, y poder responderles.",
+    "askProvider": "Pídele a tu proveedor que conecte el correo.",
+    "emailNotSetUp": "El correo no está configurado en este servidor.",
+    "emailOff": "“{flow}” se completó {count, plural, =1 {una vez} =2 {dos veces} other {# veces}}, pero no se envió el correo porque no está configurado.",
+    "emailOffAlso": "También se completó {count, plural, =1 {una vez} =2 {dos veces} other {# veces}}, pero no se envió el correo porque no está configurado.",
+    "failed": "“{flow}” no se completó para {count, plural, one {# persona} other {# personas}}.",
+    "lastError": "Último error: {error}",
+    "problem": "“{flow}” tuvo un problema {count, plural, =1 {una vez} =2 {dos veces} other {# veces}}.",
+    "problemAlso": "También tuvo un problema {count, plural, =1 {una vez} =2 {dos veces} other {# veces}}.",
+    "problemAlsoWithWarning": "También tuvo un problema {count, plural, =1 {una vez} =2 {dos veces} other {# veces}}: {warning}.",
+    "problemWithWarning": "“{flow}” tuvo un problema {count, plural, =1 {una vez} =2 {dos veces} other {# veces}}: {warning}.",
+    "seeWhat": "Ver qué pasó",
+    "seeWho": "Ver quién fue y qué envió",
+    "setUpEmail": "Configurar el correo",
+    "setUpEmailHelp": "Abre la configuración del servidor para conectar un servicio de correo y que las apps puedan enviar correos.",
+    "title": "Problemas de las últimas 24 horas",
+    "titleHelp": "Veces durante el último día en que una automatización falló o no pudo terminar algo, como enviar un correo.",
+    "total": "{count, plural, one {# problema} other {# problemas}}"
+  },
+  "projectApi": {
+    "deleteFailed": "No se pudo eliminar la app. Inténtalo de nuevo.",
+    "invalidInput": "Datos no válidos",
+    "notFound": "No encontrado",
+    "unauthorized": "No autorizado",
+    "uploadKey": "Esta app tiene una clave de carga de Google Play. Descárgala antes de eliminar la app: sin ella, no podrás volver a actualizarla en Google Play."
+  },
+  "projectIcon": {
+    "generate": "Generar",
+    "generateHelp": "Pídele a la IA que dibuje un icono a partir de tu descripción. Reemplazará el icono actual; puedes generar otro o subir uno propio.",
+    "generateIntro": "Describe el icono que quieres: estilo, colores y símbolos.",
+    "generateTitle": "O genera uno con IA",
+    "generating": "Generando…",
+    "generationFailed": "No se pudo generar",
+    "intro": "Se muestra cuando los visitantes instalan tu app como PWA en su dispositivo. Usa una imagen cuadrada, idealmente PNG de 512 × 512.",
+    "promptHelp": "Describe el icono que quieres, por ejemplo, sus colores y un símbolo sencillo. La IA lo dibuja por ti.",
+    "promptLabel": "Describe tu icono",
+    "promptPlaceholder": "p. ej., un cohete minimalista sobre un degradado morado",
+    "remove": "Quitar",
+    "removeConfirm": "¿Quitar el icono de la app?",
+    "removeHelp": "Quita el icono de tu app. Tendrás que confirmar.",
+    "title": "Icono de la app",
+    "titleHelp": "La imagen cuadrada pequeña que representa tu app en las pantallas de inicio del teléfono, las pestañas del navegador y la app de Android. Los cambios se aplican al instante.",
+    "upload": "Subir imagen",
+    "uploadFailed": "No se pudo subir",
+    "uploadHelp": "Elige una imagen cuadrada de tu dispositivo, idealmente de 512 × 512 píxeles. Reemplazará el icono actual.",
+    "uploading": "Subiendo…"
+  },
+  "publishPage": {
+    "backup": {
+      "body": "Un solo archivo con todas las páginas, los flujos, las tablas y las filas, además del tema y las imágenes. Guárdalo como copia de seguridad o impórtalo en {app} o en un servidor compatible (Nueva app → Más formas de empezar → Importar una app). No se incluyen las contraseñas de la app, así que cada persona tendrá que restablecer la suya después del traslado.",
+      "button": "Descargar copia de seguridad (.zip)",
+      "help": "Guarda un archivo con toda tu app en tu dispositivo. Guárdalo como copia de seguridad o usa Importar una app para recuperarla o trasladarla.",
+      "title": "Haz una copia de seguridad o mueve tu app"
+    },
+    "customDomain": "Dominio personalizado",
+    "customDomainHelp": "Tu propia dirección web para abrir esta app. Adminístrala en la pestaña Dominios.",
+    "defaultUrl": "URL predeterminada",
+    "defaultUrlHelp": "La dirección web gratuita de tu app. Compártela con quien quieras cuando la publiques.",
+    "draftNote": "Quienes visiten la app verán la última versión que publicaste. Los cambios (incluidos los que hizo la IA) se quedan en el borrador hasta que hagas clic en Publicar. Abajo puedes recuperar cualquier versión anterior.",
+    "eyebrow": "LISTA PARA TODOS",
+    "history": {
+      "empty": "Tus versiones publicadas aparecerán aquí cuando publiques.",
+      "help": "Todas las versiones que publicaste, empezando por la más reciente. Si algo sale mal con un cambio, usa Poner en línea para recuperar una versión anterior.",
+      "live": "En línea",
+      "title": "Historial de versiones"
+    },
+    "install": {
+      "desktopBody": "Un pequeño instalador que añade un acceso directo al escritorio y al menú Inicio para abrir la app en línea en su propia ventana. Necesita internet y siempre está al día con lo que publicas.",
+      "desktopTitle": "Acceso directo en el escritorio (en línea)",
+      "intro": "Añade tu app al escritorio o a una pantalla de inicio. La app sin conexión funciona por sí sola: tiene sus propios archivos y una base de datos local, y no necesita internet.",
+      "macHelp": "Descarga un pequeño instalador para Mac. Ábrelo para añadir un acceso directo que abre tu app en línea en su propia ventana.",
+      "offlineBody": "Una carpeta con todas las páginas, los archivos que subiste y una copia de tu base de datos. Descomprímela donde quieras —en el escritorio, en C:\\ o en una memoria USB— y abre index.html. Los formularios, las listas y los registros siguen funcionando sin internet; los datos se guardan en esa computadora.",
+      "offlineDownload": "Descargar app sin conexión (.zip)",
+      "offlineHelp": "Descarga una carpeta comprimida con toda tu app y una copia de sus datos. Abre el archivo index.html para usarla en una computadora sin internet.",
+      "offlineTitle": "App sin conexión (computadora)",
+      "phoneBody": "Escanea el código con la cámara del teléfono y abre la app. Luego, elige «Añadir a la pantalla de inicio» en el menú del navegador: se instalará como una app normal, con tu icono. Para crear una app Android de verdad que puedas instalar o publicar en Google Play, usa el creador de apps móviles de abajo.",
+      "phoneTitle": "Teléfono",
+      "publishFirst": "Publica primero: los instaladores se conectan a la app en línea.",
+      "qrAlt": "Código QR de {url}",
+      "qrHelp": "Apunta la cámara de tu teléfono a este código para abrir la app en línea en tu teléfono.",
+      "title": "Instalar en dispositivos",
+      "windowsHelp": "Descarga un pequeño instalador para Windows. Ejecútalo para añadir un acceso directo que abre tu app en línea en su propia ventana."
+    },
+    "intro": "Publica tu app, comparte el enlace o añádela a una pantalla de inicio.",
+    "legacyNote": "Esta app sigue actualizándose en línea mientras haces cambios. Publícala una vez para pasar a las publicaciones seguras: quienes la visiten verán la versión que publiques y tus cambios serán privados hasta que vuelvas a publicar.",
+    "live": "En línea",
+    "liveUpToDate": "En línea · actualizada",
+    "liveWithChanges": "En línea · tienes cambios sin publicar",
+    "mobile": {
+      "body": "Convierte esta app en una app para Android e iOS que puedas publicar en Google Play Store y Apple App Store. Se conecta a tu sitio en línea, así que al volver a publicarlo, la app se actualiza automáticamente.",
+      "button": "Crear app móvil",
+      "help": "Ve a App móvil para crear versiones de tu app para teléfonos Android y iPhone.",
+      "title": "Publícala como app móvil"
+    },
+    "notPublished": "Aún no está publicada",
+    "openLiveHelp": "Abre tu app en línea en una pestaña nueva, tal como la ven quienes la visitan.",
+    "openPreviewHelp": "Tu app aún no está en línea, así que se abrirá una vista previa con los últimos cambios.",
+    "status": "Estado",
+    "statusHelp": "Indica si tu app está en línea y si quienes la visitan ven los últimos cambios o una versión anterior.",
+    "title": "Dale un hogar a tu app."
+  },
+  "publishPanel": {
+    "appLive": "Tu app ya está en línea. Puedes compartirla.",
+    "appOffline": "Tu app ya está sin conexión.",
+    "changesLive": "Tus cambios ya están en línea.",
+    "confirmOffline": "¿Quieres dejar esta app sin conexión? Quienes la visiten no podrán abrirla hasta que vuelvas a publicarla.",
+    "confirmRestore": "¿Volver a publicar la versión {version}? Las visitas la verán de inmediato. Tu borrador no cambiará.",
+    "connectionError": "Comprueba tu conexión e inténtalo de nuevo.",
+    "copied": "Copiado",
+    "copyAppLink": "Copiar enlace de la app",
+    "copyLink": "Copiar enlace",
+    "copyLinkHelp": "Copia el enlace de tu app para pegarlo en un mensaje, correo o publicación.",
+    "copyManually": "Selecciona el enlace para copiarlo manualmente.",
+    "linkCopied": "Enlace copiado",
+    "makeLive": "Volver a publicar",
+    "makeLiveHelp": "Vuelve a poner en línea esta versión anterior. Las visitas la verán enseguida; los cambios que estás preparando no se modificarán.",
+    "publishApp": "Publicar app",
+    "publishAppHelp": "Pon tu app en línea para que cualquier persona con el enlace pueda usarla.",
+    "publishChanges": "Publicar cambios (v{version})",
+    "publishChangesHelp": "Publica tus últimos cambios. Quienes visiten la app los verán enseguida. Abajo puedes recuperar una versión anterior.",
+    "restoreFailed": "No se pudo restaurar esa versión.",
+    "restoring": "Restaurando…",
+    "takeOffline": "Dejar sin conexión",
+    "takeOfflineHelp": "Oculta tu app para todo el mundo. Quienes la visiten no podrán abrirla hasta que vuelvas a publicarla. No se elimina nada.",
+    "upToDate": "Actualizada",
+    "upToDateHelp": "Quienes visitan la app ya ven los últimos cambios. No hay nada nuevo que publicar.",
+    "updateFailed": "No se pudo actualizar la publicación. Inténtalo de nuevo."
+  },
+  "pushApi": {
+    "addTitle": "Añade un título.",
+    "checkMessage": "Revisa el mensaje.",
+    "publishFirst": "Primero publica la app: las notificaciones abren tu app publicada."
+  },
+  "renameProject": {
+    "edit": "Editar",
+    "editHelp": "Cambia el nombre de tu app. Su dirección web no cambia, así que los enlaces que hayas compartido seguirán funcionando.",
+    "errorStatus": "Error {status}",
+    "inputHelp": "El nuevo nombre de tu app. Pulsa Intro para guardar o Esc para cancelar.",
+    "inputLabel": "Nombre de la app",
+    "name": "Nombre",
+    "networkError": "Error de conexión. Inténtalo de nuevo.",
+    "note": "Solo cambia el nombre. La dirección web de tu app sigue igual, así que cambiarlo no afectará a una app publicada.",
+    "saveHelp": "Guarda el nuevo nombre. La dirección web no cambia."
+  },
+  "searchSharing": {
+    "changeFailed": "No se pudo cambiar. Inténtalo de nuevo.",
+    "chat": "En WhatsApp y otros chats",
+    "chatHelp": "Vista previa de lo que ven las personas cuando comparten el enlace de tu app en un chat o en redes sociales.",
+    "chatPreviewLabel": "Vista previa de un enlace compartido en un chat",
+    "codeHelp": "Pega el código que te proporciona Google Search Console (la opción de etiqueta HTML). Así le demuestras a Google que la app es tuya.",
+    "codeLabel": "Código de verificación de Google",
+    "codeRemoved": "Eliminado.",
+    "codeSaveFailed": "No se pudo guardar el código.",
+    "codeSaved": "Guardado. Vuelve a Search Console y pulsa Verificar.",
+    "consoleBody": "Search Console muestra cómo encuentran las personas tu app en Google. Añade allí la dirección de tu app como propiedad con prefijo de URL, elige la opción de verificación con etiqueta HTML y pega aquí el código (o la etiqueta completa).",
+    "consoleHelp": "Opcional. Google Search Console es una herramienta gratuita de Google que muestra cómo encuentran las personas tu app en las búsquedas. Ábrela para vincular tu app.",
+    "consoleTitle": "Conectar Google Search Console",
+    "copied": "Copiado",
+    "copy": "Copiar",
+    "copySitemap": "Copiar dirección del mapa del sitio",
+    "copySitemapHelp": "Copia la dirección del mapa del sitio de tu app, que contiene una lista de todas sus páginas. Pégala en Search Console, en Mapas del sitio.",
+    "description": "Descripción",
+    "descriptionEmptyHint": "Si está vacío, se usará el primer párrafo de tu página de inicio.",
+    "descriptionHelp": "Un breve resumen de tu app. Google lo muestra debajo del nombre de tu app y los chats, debajo de los enlaces compartidos. Lo ideal es usar unos 160 caracteres o menos.",
+    "descriptionHint": "Cuenta qué es y para quién es.",
+    "descriptionPlaceholder": "Una o dos frases sobre tu app, por ejemplo: Pan y pasteles recién hechos en nuestra panadería familiar. Haz tu pedido en línea y recógelo a la mañana siguiente.",
+    "descriptionSaveFailed": "No se pudo guardar la descripción.",
+    "descriptionSaveFailedRetry": "No se pudo guardar la descripción. Inténtalo de nuevo.",
+    "descriptionSaved": "Guardado. Los buscadores la encontrarán la próxima vez que visiten tu app.",
+    "designerDescription": "Tu diseño define su propia descripción, que se muestra en los buscadores y en las vistas previas de enlaces. Esta se usa cuando las personas instalan tu app.",
+    "google": "En Google",
+    "googleHelp": "Vista previa de cómo podría aparecer tu app en los resultados de búsqueda de Google. Google decide el aspecto final, así que podría verse un poco diferente.",
+    "googleNoDescription": "Añade una descripción para que las personas sepan qué encontrarán.",
+    "googlePreviewLabel": "Vista previa de un resultado de búsqueda de Google",
+    "hiddenNote": "Oculta: tu app no aparecerá en los resultados de búsqueda.",
+    "hide": "Ocultar de los buscadores",
+    "hideBody": "Google y otros buscadores no mostrarán tu app en sus resultados. Cualquiera que tenga el enlace podrá abrirla.",
+    "hideHelp": "Actívalo para pedirle a Google y a otros buscadores que no muestren tu app en sus resultados. Las personas que tengan el enlace podrán abrirla. El cambio se aplica de inmediato.",
+    "imageFallback": "No se pudo cargar la primera imagen de tu página de inicio, así que se muestra la imagen creada a partir del icono, el nombre y el color de tu app.",
+    "imageFirst": "La imagen es la primera de tu página de inicio.",
+    "imageIsCard": "La imagen se crea a partir del icono, el nombre y el color de tu app. Añade una imagen a tu página de inicio para usarla en su lugar.",
+    "intro": "Así aparece tu app en Google y cuando alguien comparte su enlace. Los cambios se aplican de inmediato, sin volver a publicar.",
+    "length": "{count}/{max}",
+    "lengthTooLong": "{count}/{max} (el texto más largo se recortará)",
+    "notPublished": "Tu app todavía no está publicada. Así se verá su enlace cuando lo esté.",
+    "off": "Desactivado",
+    "on": "Activado",
+    "saveCode": "Guardar código",
+    "saveCodeHelp": "Guarda el código en tu app y vuelve a Search Console para pulsar Verificar. Déjalo vacío y guárdalo para quitar el código.",
+    "saveDescription": "Guardar descripción",
+    "saveDescriptionHelp": "Guarda tu descripción. Se usará de inmediato, sin tener que volver a publicar. Google la actualizará la próxima vez que visite tu app.",
+    "saveFailed": "No se pudo guardar. Inténtalo de nuevo.",
+    "sitemapCopied": "Dirección del mapa del sitio copiada",
+    "sitemapIntro": "Después, añade tu mapa del sitio en Search Console para que Google encuentre todas las páginas:",
+    "title": "Búsqueda y uso compartido",
+    "titleHelp": "Controla cómo aparece tu app en los resultados de Google y en la vista previa que ven las personas cuando comparten el enlace en un chat. Los cambios se aplican de inmediato."
+  },
+  "seoApi": {
+    "invalidCode": "Eso no parece un código de verificación de Google. Pega el código de la opción de etiqueta HTML o la etiqueta completa.",
+    "invalidInput": "Entrada no válida"
+  },
+  "tabs": {
+    "data": {
+      "help": "Consulta y edita la información que guarda tu app, como registros, pedidos y mensajes que te envía la gente.",
+      "label": "Datos"
+    },
+    "designer": {
+      "help": "Vuelve al Diseñador con IA para seguir creando tu app describiendo lo que quieres.",
+      "label": "Diseñador"
+    },
+    "domains": {
+      "help": "Usa tu propia dirección web (dominio) para tu app, como www.tunegocio.com.",
+      "label": "Dominios"
+    },
+    "features": {
+      "help": "Añade funciones listas para usar a tu app, como reservas, una tienda o un formulario de contacto. Cada una incluye sus propias páginas.",
+      "label": "Funciones"
+    },
+    "flows": {
+      "help": "Configura lo que hace tu app automáticamente, como enviarte un correo cuando alguien rellena un formulario.",
+      "label": "Automatizaciones"
+    },
+    "mobileApp": {
+      "help": "Convierte tu app en una app para Android o iPhone que la gente pueda instalar.",
+      "label": "App móvil"
+    },
+    "navLabel": "Navegación del proyecto",
+    "notifications": {
+      "help": "Envía avisos breves que aparecen en los teléfonos y ordenadores de las personas que hayan permitido recibirlos desde tu app.",
+      "label": "Notificaciones"
+    },
+    "overview": {
+      "help": "Tu app de un vistazo: nombre, icono, enlace, lista de tareas para lanzarla y ajustes.",
+      "label": "Resumen"
+    },
+    "pages": {
+      "help": "Abre el editor de páginas para cambiar los textos, las imágenes y el diseño de cada página de tu app.",
+      "label": "Páginas"
+    },
+    "preview": "Vista previa",
+    "previewHelp": "Abre tu app en una pestaña nueva con los últimos cambios para probarla antes de que los vean tus visitantes.",
+    "publish": "Publicar",
+    "publishHelp": "Ve a Publicar para hacer visibles tus últimos cambios y obtener el enlace de tu app para compartirlo.",
+    "theme": {
+      "help": "Elige los colores, las fuentes y la forma de las esquinas para toda tu app.",
+      "label": "Tema"
+    }
+  },
+  "themeEditor": {
+    "active": "ACTIVO",
+    "bodyFont": "Fuente del texto",
+    "bodyFontHelp": "El estilo de letra para textos como párrafos, botones y formularios.",
+    "colorCode": "Código de color de {color}",
+    "colorCodeHelp": "O escribe aquí un código de color, como #1a73e8, si sabes exactamente qué color quieres.",
+    "colors": {
+      "accent": {
+        "help": "Un segundo color para pequeños detalles, como insignias y formas decorativas.",
+        "label": "Acento"
+      },
+      "bg": {
+        "help": "El color que aparece detrás de todo en tus páginas.",
+        "label": "Fondo"
+      },
+      "border": {
+        "help": "El color de las líneas finas alrededor de los cuadros y entre secciones.",
+        "label": "Borde"
+      },
+      "primary": {
+        "help": "El color principal de tu marca, que se usa en botones, enlaces y elementos destacados. Al cambiarlo, también se actualiza el color principal al pasar el cursor.",
+        "label": "Principal"
+      },
+      "primary2": {
+        "help": "El color que adquieren los botones y enlaces al pasar el cursor sobre ellos.",
+        "label": "Principal al pasar el cursor"
+      },
+      "surface": {
+        "help": "El color de las tarjetas y los cuadros que aparecen sobre el fondo.",
+        "label": "Superficie"
+      },
+      "surface2": {
+        "help": "Un segundo color para cuadros, que sirve para destacar algunas secciones y etiquetas.",
+        "label": "Superficie 2"
+      },
+      "text": {
+        "help": "El color de la mayoría del texto en tus páginas.",
+        "label": "Texto"
+      },
+      "textMuted": {
+        "help": "Un color más suave para el texto menos importante, como los pies de foto y las notas breves.",
+        "label": "Texto atenuado"
+      },
+      "title": "Colores"
+    },
+    "corners": "Esquinas",
+    "customFont": "Personalizada…",
+    "customize": "Personalizar",
+    "customizeHelp": "Ajusta el aspecto que elegiste: sus fuentes, colores y esquinas. Los cambios se guardan automáticamente; los visitantes los verán cuando publiques.",
+    "dark": "Oscuro",
+    "darkThemes": "Temas oscuros · {count}",
+    "displayFont": "Fuente de títulos",
+    "displayFontHelp": "El estilo de letra para encabezados y títulos. Una fuente más llamativa le da personalidad a tu app.",
+    "identity": "Identidad",
+    "light": "Claro",
+    "lightThemes": "Temas claros · {count}",
+    "livePreview": "Vista previa en vivo",
+    "livePreviewHelp": "Mira rápidamente cómo se ve tu app con este tema. La vista se actualiza a medida que haces cambios.",
+    "mode": "Modo",
+    "modeHelp": "Indica si este aspecto es claro u oscuro. Los navegadores lo usan en elementos como los campos de formulario y las barras de desplazamiento. No cambia tus colores.",
+    "name": "Nombre",
+    "nameHelp": "Un nombre para este aspecto que te ayude a distinguir los temas. Los visitantes no lo verán.",
+    "presetHelp": "Aplica el aspecto {name} a toda tu app: sus colores, fuentes y esquinas reemplazarán los actuales. Los visitantes lo verán cuando publiques.",
+    "previewHome": "Tu página de inicio",
+    "previewHomeHelp": "Mira cómo queda el tema en la página de inicio de tu app.",
+    "previewSample": "Ejemplo",
+    "previewSampleHelp": "Mira cómo queda el tema en una página de ejemplo con botones, tarjetas y un formulario para ver todos los colores a la vez.",
+    "previewTitle": "Vista previa del tema",
+    "previewWhat": "Qué vista previa mostrar",
+    "radius": "Radio",
+    "radiusHelp": "Qué tan redondeadas son las esquinas de las tarjetas y los cuadros, por ejemplo, 14px. Usa 0px para que sean cuadradas.",
+    "radiusSm": "Radio pequeño",
+    "radiusSmHelp": "Qué tan redondeadas son las esquinas de los elementos pequeños, como los botones y los campos de formulario. Usa 0px para que sean cuadradas.",
+    "reset": "Restablecer",
+    "resetHelp": "Deshaz todos los cambios que hiciste en el tema desde que abriste esta página y vuelve a cómo estaba entonces.",
+    "saveFailed": "No se pudo guardar. Comprueba tu conexión.",
+    "saved": "Guardado",
+    "typography": "Tipografía"
+  },
+  "themePage": {
+    "intro": "Elige un diseño predeterminado o personalízalo. Los colores, las fuentes y los radios de las esquinas se aplican a todas las páginas de esta app. Los verás enseguida en el editor; quienes visiten la app los verán cuando la publiques.",
+    "title": "Tema"
+  },
+  "transferApi": {
+    "alreadyOwner": "Ya eres propietario de esta app.",
+    "invalidEmail": "Introduce una dirección de correo válida.",
+    "notEligible": "No se pudo transferir la app a esa dirección de correo. Comprueba que pertenezca a una cuenta de aquí que pueda recibir apps tuyas.",
+    "notFound": "No se encontró el proyecto",
+    "ownerOnly": "Solo el propietario de la app puede transferirla. Pídele que lo haga desde su propia cuenta.",
+    "tooManyTries": "Has intentado transferir la app demasiadas veces. Espera una hora e inténtalo de nuevo.",
+    "unauthorized": "No tienes autorización"
+  },
+  "transferProject": {
+    "confirm": "¿Transferir <b>{name}</b> a <mono>{email}</mono>? Perderás el acceso de inmediato.",
+    "confirmButton": "Sí, transferir",
+    "confirmHelp": "Entrega la app ahora. Perderás el acceso de inmediato y no podrás deshacerlo por tu cuenta.",
+    "emailHelp": "La dirección de correo que usa la nueva persona propietaria para iniciar sesión aquí. Debe tener una cuenta en el mismo espacio de trabajo que tú.",
+    "emailLabel": "Correo electrónico de la nueva persona propietaria",
+    "failed": "No se pudo transferir. Inténtalo de nuevo.",
+    "intro": "Entrega toda esta app —páginas, flujos, datos, dominios y sitio publicado— a otra cuenta de este sitio. Perderás el acceso. No podrás deshacerlo por tu cuenta.",
+    "networkError": "Error de conexión. Inténtalo de nuevo.",
+    "requirements": "La otra persona necesita tener una cuenta aquí y estar en el mismo espacio de trabajo que tú. Además, su plan debe permitirle tener una app más.",
+    "title": "Transferir propiedad",
+    "titleHelp": "Entrega toda esta app a otra persona que tenga una cuenta aquí. Cuando pase a ser suya, no podrás abrirla ni cambiarla.",
+    "transfer": "Transferir",
+    "transferHelp": "En el siguiente paso, te pediremos que confirmes antes de continuar.",
+    "transferring": "Transfiriendo…"
+  }
+}

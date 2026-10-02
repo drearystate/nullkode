@@ -31,6 +31,7 @@ import type { Project } from "@prisma/client";
 import { db } from "./db";
 import { projectSchemaName } from "./datasources/postgres";
 import { columnLabel, tableLabel } from "./data-labels";
+import { enErrors, localeOf, type ErrMsg, type ErrT } from "./errors-i18n";
 import { SENSITIVE_COLUMN } from "./sensitive";
 import { appPublicUrl } from "./reseller";
 
@@ -50,8 +51,13 @@ const SAMPLE_ROWS = 20;
 export type EraseMode = "self" | "email" | "owner";
 export type PersonQuery = { userId?: string | null; email?: string | null; phone?: string | null };
 
+/** A problem to show the owner: English in `message`, in their language through `msg` (errors.json). */
 export class PersonError extends Error {
-  constructor(message: string, readonly status = 400) {
+  constructor(
+    message: string,
+    readonly status = 400,
+    readonly msg?: ErrMsg,
+  ) {
     super(message);
   }
 }
@@ -63,7 +69,7 @@ function pool(): Pool {
 }
 
 function q(name: string): string {
-  if (!IDENT.test(name)) throw new PersonError("That table or column name isn't allowed.");
+  if (!IDENT.test(name)) throw new PersonError(enErrors()("person.badIdentifier"), 400, { key: "person.badIdentifier" });
   return `"${name}"`;
 }
 
@@ -89,7 +95,7 @@ const isEmailCol = (c: Col) => isText(c) && EMAIL_COLUMN.test(c.name) && !SENSIT
 const isPhoneCol = (c: Col) => isText(c) && PHONE_COLUMN.test(c.name) && !SENSITIVE_COLUMN.test(c.name);
 const has = (t: Table, name: string) => t.cols.some((c) => c.name === name);
 
-async function loadTables(projectId: string, client: PoolClient | Pool = pool()): Promise<Tables> {
+async function loadTables(projectId: string, client: PoolClient | Pool = pool(), lt: ErrT = enErrors()): Promise<Tables> {
   const schema = projectSchemaName(projectId);
   const [meta, cols] = await Promise.all([
     db.dataTable.findMany({
@@ -111,7 +117,7 @@ async function loadTables(projectId: string, client: PoolClient | Pool = pool())
     if (!IDENT.test(r.table_name) || !IDENT.test(r.column_name)) continue;
     let t = byName.get(r.table_name);
     if (!t) {
-      t = { name: r.table_name, label: tableLabel(r.table_name), tableId: null, cols: [] };
+      t = { name: r.table_name, label: tableLabel(r.table_name, lt), tableId: null, cols: [] };
       byName.set(r.table_name, t);
     }
     t.cols.push({ name: r.column_name, type: r.udt_name === "citext" ? "citext" : r.data_type });
@@ -122,7 +128,7 @@ async function loadTables(projectId: string, client: PoolClient | Pool = pool())
       const t = byName.get(m.name);
       if (t && !t.tableId) t.tableId = m.id;
     } else {
-      outside.push({ table: m.name, label: tableLabel(m.name), source: m.datasource.name, kind: m.datasource.kind });
+      outside.push({ table: m.name, label: tableLabel(m.name, lt), source: m.datasource.name, kind: m.datasource.kind });
     }
   }
   // Tables the app's own records know about first, in the order they were made.
@@ -320,19 +326,23 @@ export type PersonFindings = {
   summary: string;
 };
 
-function noun(label: string, n: number, isAccount: boolean): string {
-  if (isAccount) return `${n} ${n === 1 ? "account" : "accounts"}`;
+function noun(label: string, n: number, isAccount: boolean, t: ErrT): string {
+  if (isAccount) return t("person.accounts", { count: n });
+  // The table's own name (the app's data), made singular the English way.
   let s = label.toLowerCase();
   if (n === 1) {
     if (/ies$/.test(s)) s = s.replace(/ies$/, "y");
     else if (/[^s]s$/.test(s) && !/(us|is)$/.test(s)) s = s.slice(0, -1);
   }
-  return `${n} ${s}`;
+  return t("person.rows", { count: n, label: s });
 }
 
-export function summarize(tables: Array<Pick<FoundTable, "label" | "linked" | "contact" | "isAccount">>): string {
-  const parts = tables.filter((t) => t.linked + t.contact > 0).map((t) => noun(t.label, t.linked + t.contact, t.isAccount));
-  return parts.length ? parts.join(", ") : "Nothing found";
+/** "3 bookings, 1 message, 1 account", in `t`'s language (English by default). */
+export function summarize(tables: Array<Pick<FoundTable, "label" | "linked" | "contact" | "isAccount">>, t: ErrT = enErrors()): string {
+  const parts = tables.filter((x) => x.linked + x.contact > 0).map((x) => noun(x.label, x.linked + x.contact, x.isAccount, t));
+  if (!parts.length) return t("person.nothingFound");
+  const locale = localeOf(t);
+  return locale === "en" ? parts.join(", ") : new Intl.ListFormat(locale, { type: "conjunction" }).format(parts);
 }
 
 function runLogNeedles(ident: Identity): string[] {
@@ -357,10 +367,11 @@ async function countRunLogs(projectId: string, needles: string[]): Promise<numbe
 export async function findUserRows(
   projectId: string,
   who: PersonQuery,
-  opts: { mode?: EraseMode; mentions?: boolean; rowsPerTable?: number } = {},
+  opts: { mode?: EraseMode; mentions?: boolean; rowsPerTable?: number; /** Labels and summary in this language (English without it). */ t?: ErrT } = {},
 ): Promise<PersonFindings> {
   const mode = opts.mode ?? (who.userId ? "self" : "owner");
-  const data = await loadTables(projectId);
+  const lt = opts.t ?? enErrors();
+  const data = await loadTables(projectId, pool(), lt);
   const ident = await resolveIdentity(pool(), data, who, mode);
   const acct = accountTable(data.tables);
   const found: FoundTable[] = [];
@@ -393,7 +404,7 @@ export async function findUserRows(
           linked,
           contact,
           isAccount: m.isAccount,
-          columns: cols.map((c) => ({ name: c.name, label: columnLabel(c.name) })),
+          columns: cols.map((c) => ({ name: c.name, label: columnLabel(c.name, lt) })),
           rows: rows.map(clean),
         });
       }
@@ -418,7 +429,7 @@ export async function findUserRows(
     mentions,
     outside: data.outside,
     runLogs: await countRunLogs(projectId, runLogNeedles(ident)),
-    summary: summarize(found),
+    summary: summarize(found, lt),
   };
 }
 
@@ -448,22 +459,28 @@ const fileName = (s: string) => s.replace(/[^a-zA-Z0-9_.-]/g, "_").slice(0, 80) 
 export async function exportUserData(
   projectId: string,
   who: PersonQuery,
-  opts: { mode?: EraseMode; appName: string },
+  opts: { mode?: EraseMode; appName: string; /** The note and column names in this language (English without it). */ t?: ErrT },
 ): Promise<{ zip: Buffer; findings: PersonFindings }> {
-  const findings = await findUserRows(projectId, who, { mode: opts.mode, rowsPerTable: ROW_CAP });
+  const t = opts.t ?? enErrors();
+  const findings = await findUserRows(projectId, who, { mode: opts.mode, rowsPerTable: ROW_CAP, t });
   const zip = new JSZip();
   const when = new Date();
+  const locale = localeOf(t);
+  const whenText =
+    locale === "en" ? when.toUTCString() : new Intl.DateTimeFormat(locale, { dateStyle: "long", timeStyle: "short", timeZone: "UTC" }).format(when) + " UTC";
   const own = (opts.mode ?? (who.userId ? "self" : "owner")) === "self";
   const lines = [
-    `${own ? "Your data" : "Data"} from ${opts.appName}`,
+    own ? t("person.readme.titleOwn", { app: opts.appName }) : t("person.readme.title", { app: opts.appName }),
     "",
-    `${own ? "This is a copy of the information the app keeps about you" : `This is a copy of the information the app keeps about ${findings.email ?? findings.phone ?? "this person"}`}, made on ${when.toUTCString()}.`,
-    "Each kind of record has a .json file (for computers) and a .csv file (opens in a spreadsheet).",
+    own
+      ? t("person.readme.introOwn", { when: whenText })
+      : t("person.readme.intro", { who: findings.email ?? findings.phone ?? t("person.readme.thisPerson"), when: whenText }),
+    t("person.readme.files"),
     "",
-    findings.tables.length ? "What's included:" : "Nothing was found.",
-    ...findings.tables.map((t) => `- ${t.label}: ${t.linked + t.contact} ${t.linked + t.contact === 1 ? "record" : "records"} (${fileName(t.table)}.json, ${fileName(t.table)}.csv)`),
+    findings.tables.length ? t("person.readme.included") : t("person.readme.nothing"),
+    ...findings.tables.map((x) => t("person.readme.item", { label: x.label, count: x.linked + x.contact, json: `${fileName(x.table)}.json`, csv: `${fileName(x.table)}.csv` })),
     "",
-    "Passwords are never included.",
+    t("person.readme.passwords"),
   ];
   zip.file("README.txt", lines.join("\n") + "\n");
   for (const t of findings.tables) {
@@ -497,15 +514,16 @@ export type EraseResult = {
 export async function eraseUser(
   projectId: string,
   who: PersonQuery,
-  opts: { mode: EraseMode; keep?: string[]; pushEndpoint?: string | null },
+  opts: { mode: EraseMode; keep?: string[]; pushEndpoint?: string | null; /** Labels and summary in this language (English without it). */ t?: ErrT },
 ): Promise<EraseResult> {
+  const lt = opts.t ?? enErrors();
   const keep = new Set(opts.keep ?? []);
   const client = await pool().connect();
   const out: EraseResult["tables"] = [];
   let ident: Identity;
   try {
     await client.query("BEGIN");
-    const data = await loadTables(projectId, client);
+    const data = await loadTables(projectId, client, lt);
     ident = await resolveIdentity(client, data, who, opts.mode);
     const acct = accountTable(data.tables);
     for (const t of data.tables) {
@@ -546,7 +564,7 @@ export async function eraseUser(
     tables: out,
     accountsDeleted,
     runLogsCleared,
-    summary: summarize(out.map((t) => ({ label: t.label, linked: t.deleted, contact: t.blanked, isAccount: t.isAccount }))),
+    summary: summarize(out.map((t) => ({ label: t.label, linked: t.deleted, contact: t.blanked, isAccount: t.isAccount })), lt),
   };
 }
 

@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { isInstallComplete, isInstallOwner } from "@/lib/install";
 import { setSetting, SETTING_KEYS } from "@/lib/settings";
+import { getTranslations } from "next-intl/server";
+import { requestLocale } from "@/i18n/request";
 
 export const runtime = "nodejs";
 
@@ -14,25 +16,26 @@ const Body = z.object({
 });
 
 export async function POST(req: Request) {
+  const t = await getTranslations({ locale: await requestLocale(), namespace: "install.api" });
   if (await isInstallComplete()) {
-    return NextResponse.json({ error: "install already complete" }, { status: 409 });
+    return NextResponse.json({ error: t("complete") }, { status: 409 });
   }
-  if (!(await isInstallOwner())) return NextResponse.json({ error: "Sign in as the setup owner first." }, { status: 403 });
+  if (!(await isInstallOwner())) return NextResponse.json({ error: t("signIn") }, { status: 403 });
   const parsed = Body.safeParse(await req.json().catch(() => null));
   if (!parsed.success) {
-    return NextResponse.json({ error: "invalid input" }, { status: 400 });
+    return NextResponse.json({ error: t("invalid") }, { status: 400 });
   }
   const { provider, openaiKey, claudeBin, baseUrl, model } = parsed.data;
 
   if (provider === "openai") {
     if (!openaiKey && (!baseUrl || new URL(baseUrl).hostname === "api.openai.com")) {
-      return NextResponse.json({ error: "OpenAI key is required" }, { status: 400 });
+      return NextResponse.json({ error: t("keyRequired") }, { status: 400 });
     }
     await setSetting(SETTING_KEYS.AI_PROVIDER, "openai");
     if (openaiKey) await setSetting(SETTING_KEYS.AI_OPENAI_API_KEY, openaiKey);
     if (baseUrl) {
       const url = new URL(baseUrl);
-      if (!["http:", "https:"].includes(url.protocol) || url.username || url.password || url.search || url.hash) return NextResponse.json({ error: "Use an HTTP(S) base URL without credentials or query parameters." }, { status: 400 });
+      if (!["http:", "https:"].includes(url.protocol) || url.username || url.password || url.search || url.hash) return NextResponse.json({ error: t("badBaseUrl") }, { status: 400 });
       await setSetting(SETTING_KEYS.AI_BASE_URL, baseUrl);
     }
     if (model) { await setSetting(SETTING_KEYS.AI_OPENAI_MODEL_SCAFFOLD, model); await setSetting(SETTING_KEYS.AI_OPENAI_MODEL_EDIT, model); }

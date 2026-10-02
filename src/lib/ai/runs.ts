@@ -22,7 +22,8 @@ import { refundAiUsage } from "../ai-quota";
  */
 
 export type ScaffoldEvent =
-  | { type: "progress"; step: string; message: string }
+  /** `name`: the table, page or flow a milestone is about (the message is in the person's language). */
+  | { type: "progress"; step: string; message: string; name?: string }
   | { type: "plan"; totalTables: number; totalPages: number; totalFlows: number }
   | { type: "planned"; plan: AppPlan }
   | { type: "token"; text: string }

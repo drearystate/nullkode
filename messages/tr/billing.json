@@ -1,0 +1,32 @@
+{
+  "aiUsage": "Bu ayki yapay zekâ işlemleri: <b>{used} / {limit}</b>",
+  "aiUsageLabel": "Kullanılan yapay zekâ işlemleri",
+  "planNames": {
+    "FREE": "Ücretsiz",
+    "PRO": "Pro",
+    "STARTER": "Başlangıç",
+    "TEAM": "Ekip"
+  },
+  "plans": {
+    "checkoutFailed": "Ödeme sayfası açılamadı",
+    "comingSoon": "Yakında",
+    "current": "Mevcut",
+    "free": "Ücretsiz",
+    "manage": "Faturalandırmayı yönet",
+    "manageHelp": "Kart bilgilerinizi güncelleyebileceğiniz, önceki faturalarınızı görebileceğiniz ve sunuluyorsa planınızı değiştirebileceğiniz veya iptal edebileceğiniz güvenli Stripe faturalandırma sayfası açılır.",
+    "notBuyable": "Bu plan henüz internet üzerinden satın alınamıyor.",
+    "portalFailed": "Faturalandırma sayfası açılamadı",
+    "upgrade": "Yükselt",
+    "upgradeHelp": "Bu planı başlatmak için aylık ücret alınan güvenli bir Stripe ödeme sayfası açılır. Zaten ücretli bir planınız mı var? Plan değiştirmek için Faturalandırmayı yönet'i kullanın."
+  },
+  "profileNote": "Fotoğrafınız, adınız, şifreniz, görünümünüz, yardım ipuçları ve hesap silme işlemleri <link>Profil</link> sayfanızda.",
+  "status": {
+    "ACTIVE": "Ücretli ve aktif",
+    "CANCELED": "İptal edildi",
+    "PAST_DUE": "Ödeme gecikti",
+    "TRIALING": "Ücretsiz deneme",
+    "UNPAID": "Ödenmedi"
+  },
+  "title": "Faturalandırma",
+  "yourPlan": "Planınız: <b>{plan}</b>"
+}

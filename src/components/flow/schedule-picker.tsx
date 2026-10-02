@@ -2,11 +2,10 @@
 import Link from "next/link";
 import { useCallback, useEffect, useId, useMemo, useState } from "react";
 import { CalendarClock, Loader2, RotateCcw } from "lucide-react";
+import { useFormatter, useTranslations } from "next-intl";
 import {
   AI_MIN_MINUTES,
-  DAY_NAMES,
-  describeSchedule,
-  formatRunTime,
+  isValidTimeZone,
   scheduleTimeZone,
   serializeSchedule,
   validateSchedule,
@@ -19,13 +18,8 @@ type State = FlowScheduleState & { planHint: string | null };
 type Mode = "app" | "schedule";
 type Form = { kind: ScheduleKind; minutes: number; minute: number; at: string; day: number; tz: string };
 
-const KINDS: Array<{ value: ScheduleKind; label: string }> = [
-  { value: "every", label: "Every few minutes" },
-  { value: "hourly", label: "Every hour" },
-  { value: "daily", label: "Every day" },
-  { value: "weekdays", label: "Monday to Friday" },
-  { value: "weekly", label: "Once a week" },
-];
+// Labels: flows.schedule.kinds.<kind>.
+const KINDS: ScheduleKind[] = ["every", "hourly", "daily", "weekdays", "weekly"];
 const MINUTE_CHOICES = [1, 2, 5, 10, 15, 20, 30, 45, 120, 180, 240, 360, 480, 720];
 const PAST_HOUR = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55];
 
@@ -76,15 +70,57 @@ function specFrom(f: Form): unknown {
   }
 }
 
-function minutesLabel(n: number): string {
-  if (n === 1) return "minute";
-  if (n % 60 === 0) return n === 60 ? "hour" : `${n / 60} hours`;
-  return `${n} minutes`;
+type T = ReturnType<typeof useTranslations<"flows.schedule">>;
+type Formatter = ReturnType<typeof useFormatter>;
+
+function minutesLabel(n: number, t: T): string {
+  if (n === 1) return t("minute");
+  if (n % 60 === 0) return n === 60 ? t("hour") : t("hours", { count: n / 60 });
+  return t("minutes", { count: n });
 }
 
-function whenText(iso: string, tz: string | undefined, viewer: string): string {
-  const text = formatRunTime(new Date(iso), { tz });
-  return tz && tz !== viewer ? `${text} (${tz.replace(/_/g, " ")} time)` : text;
+/** "Tue 09:00", or "Tue 7 Oct, 09:00" when it's more than six days away, in `tz`. */
+function runTime(when: Date, tz: string, format: Formatter): string {
+  const far = Math.abs(when.getTime() - Date.now()) > 6 * 86_400_000;
+  return format.dateTime(when, {
+    timeZone: tz,
+    weekday: "short",
+    ...(far ? { day: "numeric", month: "short" } : {}),
+    hour: "2-digit",
+    minute: "2-digit",
+    hourCycle: "h23",
+  });
+}
+
+function whenText(iso: string, tz: string | undefined, viewer: string, t: T, format: Formatter): string {
+  const zone = tz && isValidTimeZone(tz) ? tz : viewer;
+  const text = runTime(new Date(iso), zone, format);
+  return tz && tz !== viewer ? t("inZone", { time: text, zone: tz.replace(/_/g, " ") }) : text;
+}
+
+/** A weekday's name (0 = Sunday) in the studio's language. */
+function dayName(day: number, format: Formatter): string {
+  // 4 January 2026 was a Sunday.
+  return format.dateTime(new Date(Date.UTC(2026, 0, 4 + day, 12)), { weekday: "long", timeZone: "UTC" });
+}
+
+/** "Every day at 09:00 (Europe/London time)". */
+function describe(spec: ScheduleSpec, t: T, format: Formatter): string {
+  const zone = (tz: string) => (tz === "UTC" || tz === "Etc/UTC" ? t("describe.utc") : t("describe.zoneTime", { zone: tz.replace(/_/g, " ") }));
+  switch (spec.kind) {
+    case "every":
+      if (spec.minutes === 1) return t("describe.everyMinute");
+      if (spec.minutes % 60 === 0) return spec.minutes === 60 ? t("describe.everyHour") : t("describe.everyHours", { count: spec.minutes / 60 });
+      return t("describe.everyMinutes", { count: spec.minutes });
+    case "hourly":
+      return spec.minute === 0 ? t("describe.hourlyFull", { zone: zone(spec.tz) }) : t("describe.hourlyPast", { minute: spec.minute, zone: zone(spec.tz) });
+    case "daily":
+      return t("describe.daily", { time: spec.at, zone: zone(spec.tz) });
+    case "weekdays":
+      return t("describe.weekdays", { time: spec.at, zone: zone(spec.tz) });
+    case "weekly":
+      return t("describe.weekly", { day: dayName(spec.day, format), time: spec.at, zone: zone(spec.tz) });
+  }
 }
 
 /**
@@ -94,6 +130,9 @@ function whenText(iso: string, tz: string | undefined, viewer: string): string {
  */
 export function SchedulePicker({ projectId, flowId }: { projectId: string; flowId: string }) {
   const uid = useId();
+  const t = useTranslations("flows.schedule");
+  const tc = useTranslations("common");
+  const format = useFormatter();
   const [state, setState] = useState<State | null>(null);
   const [mode, setMode] = useState<Mode>("app");
   const [form, setForm] = useState<Form | null>(null);
@@ -117,13 +156,14 @@ export function SchedulePicker({ projectId, flowId }: { projectId: string; flowI
     fetch(url, { cache: "no-store" })
       .then(async (res) => {
         const data = await res.json().catch(() => ({}));
-        if (!res.ok) throw new Error(data.error || "Couldn't load the schedule.");
+        if (!res.ok) throw new Error(data.error || t("loadError"));
         if (!cancelled) apply(data as State);
       })
-      .catch((err) => !cancelled && setError(err instanceof Error ? err.message : "Couldn't load the schedule."));
+      .catch((err) => !cancelled && setError(err instanceof Error ? err.message : t("loadError")));
     return () => {
       cancelled = true;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [url, apply]);
 
   const zones = useMemo(() => allZones([viewerZone, form?.tz ?? ""]), [viewerZone, form?.tz]);
@@ -131,12 +171,13 @@ export function SchedulePicker({ projectId, flowId }: { projectId: string; flowI
   if (!state || !form) {
     return (
       <section className="card p-4 text-sm text-surface-400" aria-busy={!error}>
-        {error ? <p role="alert" className="text-red-300">{error}</p> : <p className="flex items-center gap-2"><Loader2 size={14} className="animate-spin" /> Loading schedule…</p>}
+        {error ? <p role="alert" className="text-red-300">{error}</p> : <p className="flex items-center gap-2"><Loader2 size={14} className="animate-spin" /> {t("loading")}</p>}
       </section>
     );
   }
 
   const checked = validateSchedule(specFrom(form));
+  const problemText = checked.ok ? "" : t(`problems.${checked.code}`, checked.values);
   const tooOften = form.kind === "every" && form.minutes < state.minMinutes;
   const dirty =
     mode !== state.mode ||
@@ -150,11 +191,11 @@ export function SchedulePicker({ projectId, flowId }: { projectId: string; flowI
     try {
       const res = await fetch(url, { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
       const data = await res.json().catch(() => ({}));
-      if (!res.ok) throw new Error(data.error || "Couldn't save. Please try again.");
+      if (!res.ok) throw new Error(data.error || t("saveError"));
       apply(data as State);
       setSaved(true);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Check your connection and try again.");
+      setError(err instanceof Error ? err.message : t("connection"));
     } finally {
       setBusy(false);
     }
@@ -162,8 +203,8 @@ export function SchedulePicker({ projectId, flowId }: { projectId: string; flowI
 
   function save() {
     if (mode === "app") return send({ mode: "app" });
-    if (!checked.ok) return setError(checked.error);
-    if (tooOften) return setError(`This flow uses AI, so it can run at most every ${AI_MIN_MINUTES} minutes.`);
+    if (!checked.ok) return setError(problemText);
+    if (tooOften) return setError(t("aiTooOften", { minutes: AI_MIN_MINUTES }));
     return send({ mode: "schedule", schedule: checked.spec });
   }
 
@@ -176,58 +217,61 @@ export function SchedulePicker({ projectId, flowId }: { projectId: string; flowI
   const shownSpec = state.live.scheduled && state.pendingPublish ? state.live.schedule : state.schedule;
   let status: { tone: "ok" | "wait" | "warn" | "error"; text: React.ReactNode } | null = null;
   if (state.mode === "schedule") {
-    if (!state.planAllows) status = { tone: "warn", text: `Your plan doesn't include scheduled flows, so this won't run. ${state.planHint ?? ""}`.trim() };
-    else if (state.ownerBlocked) status = { tone: "warn", text: "This account is suspended, so scheduled runs are on hold." };
-    else if (state.pausedReason === "failures") status = { tone: "error", text: `Paused after ${state.maxFailures} failed runs in a row. Check the flow's steps, then resume it.` };
-    else if (state.pausedReason || state.unreadable) status = { tone: "error", text: "This schedule couldn't be read. Choose new times and save." };
-    else if (!state.live.published) status = { tone: "wait", text: <>Saved. <Link href={`/projects/${projectId}/publish`} className="underline">Publish your app</Link> to start this schedule.</> };
-    else if (!state.live.inLiveVersion) status = { tone: "wait", text: <>This flow isn&apos;t in the published app yet. <Link href={`/projects/${projectId}/publish`} className="underline">Publish your changes</Link> to start the schedule.</> };
+    const publishLink = (c: React.ReactNode) => <Link href={`/projects/${projectId}/publish`} className="underline">{c}</Link>;
+    if (!state.planAllows) status = { tone: "warn", text: `${t("noPlan")} ${state.planHint ?? ""}`.trim() };
+    else if (state.ownerBlocked) status = { tone: "warn", text: t("suspended") };
+    else if (state.pausedReason === "failures") status = { tone: "error", text: t("pausedFailures", { count: state.maxFailures }) };
+    else if (state.pausedReason || state.unreadable) status = { tone: "error", text: t("unreadable") };
+    else if (!state.live.published) status = { tone: "wait", text: t.rich("notPublished", { link: publishLink }) };
+    else if (!state.live.inLiveVersion) status = { tone: "wait", text: t.rich("notInLive", { link: publishLink }) };
     else if (state.pendingPublish) {
       status = {
         tone: "wait",
         text: (
           <>
-            <Link href={`/projects/${projectId}/publish`} className="underline">Publish your changes</Link> to use this schedule.
-            {state.live.schedule ? ` Until then it keeps the published schedule: ${describeSchedule(state.live.schedule)}.` : ""}
+            {t.rich("pending", { link: publishLink })}
+            {state.live.schedule ? ` ${t("pendingUntil", { schedule: describe(state.live.schedule, t, format) })}` : ""}
           </>
         ),
       };
-    } else if (state.nextRunAt) status = { tone: "ok", text: `Next run ${whenText(state.nextRunAt, scheduleTimeZone(shownSpec), viewerZone)}` };
-    else status = { tone: "wait", text: "Starting within a minute." };
+    } else if (state.nextRunAt) status = { tone: "ok", text: t("nextRun", { when: whenText(state.nextRunAt, scheduleTimeZone(shownSpec), viewerZone, t, format) }) };
+    else status = { tone: "wait", text: t("starting") };
   } else if (state.live.scheduled) {
-    status = { tone: "wait", text: "Schedule turned off. It no longer runs on a schedule." };
+    status = { tone: "wait", text: t("turnedOff") };
   }
   const toneClass = { ok: "text-emerald-300", wait: "text-surface-300", warn: "text-amber-300", error: "text-red-300" };
   const last =
     state.mode === "schedule" && state.lastRunAt && state.lastStatus && state.lastStatus !== "running"
-      ? `Last run ${whenText(state.lastRunAt, scheduleTimeZone(shownSpec), viewerZone)}: ${state.lastStatus === "ok" ? "worked" : state.lastStatus === "timeout" ? "took too long" : "didn't work"}.`
+      ? t(state.lastStatus === "ok" ? "lastOk" : state.lastStatus === "timeout" ? "lastTimeout" : "lastFailed", {
+          when: whenText(state.lastRunAt, scheduleTimeZone(shownSpec), viewerZone, t, format),
+        })
       : null;
   const failing =
     state.mode === "schedule" && !state.pausedReason && state.consecutiveFailures > 0
-      ? `${state.consecutiveFailures} failed run${state.consecutiveFailures === 1 ? "" : "s"} in a row; it pauses after ${state.maxFailures}.`
+      ? t("failing", { count: state.consecutiveFailures, max: state.maxFailures })
       : null;
 
   return (
     <section className="card p-4" aria-labelledby={`${uid}-h`}>
-      <h2 id={`${uid}-h`} className="flex items-center gap-2 text-sm font-semibold" data-help="Choose whether this automation runs when your app uses it, or by itself at set times, like every morning.">
-        <CalendarClock size={16} className="text-brand-300" aria-hidden /> When this runs
+      <h2 id={`${uid}-h`} className="flex items-center gap-2 text-sm font-semibold" data-help={t("titleHelp")}>
+        <CalendarClock size={16} className="text-brand-300" aria-hidden /> {t("title")}
       </h2>
 
       <fieldset className="mt-3 space-y-2 text-sm">
-        <legend className="sr-only">When this runs</legend>
-        <label className="flex cursor-pointer items-start gap-2" data-help="It runs only when something in your app starts it, like a visitor sending a form.">
+        <legend className="sr-only">{t("title")}</legend>
+        <label className="flex cursor-pointer items-start gap-2" data-help={t("appModeHelp")}>
           <input type="radio" name={`${uid}-mode`} className="mt-1" checked={mode === "app"} onChange={() => { setMode("app"); setSaved(false); }} />
           <span>
-            When your app uses it
-            <span className="block text-xs text-surface-400">A page, a form or another site starts it.</span>
+            {t("appMode")}
+            <span className="block text-xs text-surface-400">{t("appModeBody")}</span>
           </span>
         </label>
-        <label className={`flex items-start gap-2 ${state.planAllows ? "cursor-pointer" : "cursor-not-allowed opacity-60"}`} data-help="It runs by itself at the times you choose. The schedule starts once your app is published with it.">
+        <label className={`flex items-start gap-2 ${state.planAllows ? "cursor-pointer" : "cursor-not-allowed opacity-60"}`} data-help={t("scheduleModeHelp")}>
           <input type="radio" name={`${uid}-mode`} className="mt-1" checked={mode === "schedule"} disabled={!state.planAllows && state.mode !== "schedule"} onChange={() => { setMode("schedule"); setSaved(false); }} />
           <span>
-            On a schedule
+            {t("scheduleMode")}
             <span className="block text-xs text-surface-400">
-              {state.planAllows ? "It runs by itself at the times you choose." : `Not included in your plan. ${state.planHint ?? ""}`.trim()}
+              {state.planAllows ? t("scheduleModeBody") : `${t("notInPlan")} ${state.planHint ?? ""}`.trim()}
             </span>
           </span>
         </label>
@@ -236,70 +280,70 @@ export function SchedulePicker({ projectId, flowId }: { projectId: string; flowI
       {mode === "schedule" && (
         <div className="mt-4 grid gap-3 sm:grid-cols-2">
           <div>
-            <label className="label" htmlFor={`${uid}-kind`}>How often</label>
-            <select id={`${uid}-kind`} className="input" data-help="How often it runs. Pick a pattern, then the exact time next to it." value={form.kind} onChange={(e) => set({ kind: e.target.value as ScheduleKind })}>
-              {KINDS.map((k) => <option key={k.value} value={k.value}>{k.label}</option>)}
+            <label className="label" htmlFor={`${uid}-kind`}>{t("howOften")}</label>
+            <select id={`${uid}-kind`} className="input" data-help={t("howOftenHelp")} value={form.kind} onChange={(e) => set({ kind: e.target.value as ScheduleKind })}>
+              {KINDS.map((k) => <option key={k} value={k}>{t(`kinds.${k}`)}</option>)}
             </select>
           </div>
           {form.kind === "every" && (
             <div>
-              <label className="label" htmlFor={`${uid}-minutes`}>Every</label>
-              <select id={`${uid}-minutes`} className="input" data-help="The gap between runs. Some choices may be greyed out, for example when this automation uses the AI." value={form.minutes} onChange={(e) => set({ minutes: Number(e.target.value) })}>
-                {minuteChoices.map((n) => <option key={n} value={n} disabled={n < state.minMinutes}>{minutesLabel(n)}</option>)}
+              <label className="label" htmlFor={`${uid}-minutes`}>{t("every")}</label>
+              <select id={`${uid}-minutes`} className="input" data-help={t("everyHelp")} value={form.minutes} onChange={(e) => set({ minutes: Number(e.target.value) })}>
+                {minuteChoices.map((n) => <option key={n} value={n} disabled={n < state.minMinutes}>{minutesLabel(n, t)}</option>)}
               </select>
             </div>
           )}
           {form.kind === "hourly" && (
             <div>
-              <label className="label" htmlFor={`${uid}-minute`}>Minutes past the hour</label>
-              <select id={`${uid}-minute`} className="input" data-help="Which minute of each hour it runs at, like :15 for quarter past." value={form.minute} onChange={(e) => set({ minute: Number(e.target.value) })}>
-                {[...new Set([...PAST_HOUR, form.minute])].sort((a, b) => a - b).map((m) => <option key={m} value={m}>{m === 0 ? "On the hour (:00)" : `:${String(m).padStart(2, "0")}`}</option>)}
+              <label className="label" htmlFor={`${uid}-minute`}>{t("pastHour")}</label>
+              <select id={`${uid}-minute`} className="input" data-help={t("pastHourHelp")} value={form.minute} onChange={(e) => set({ minute: Number(e.target.value) })}>
+                {[...new Set([...PAST_HOUR, form.minute])].sort((a, b) => a - b).map((m) => <option key={m} value={m}>{m === 0 ? t("onTheHour") : `:${String(m).padStart(2, "0")}`}</option>)}
               </select>
             </div>
           )}
           {form.kind === "weekly" && (
             <div>
-              <label className="label" htmlFor={`${uid}-day`}>Day</label>
-              <select id={`${uid}-day`} className="input" data-help="Which day of the week it runs." value={form.day} onChange={(e) => set({ day: Number(e.target.value) })}>
-                {[1, 2, 3, 4, 5, 6, 0].map((d) => <option key={d} value={d}>{DAY_NAMES[d]}</option>)}
+              <label className="label" htmlFor={`${uid}-day`}>{t("day")}</label>
+              <select id={`${uid}-day`} className="input" data-help={t("dayHelp")} value={form.day} onChange={(e) => set({ day: Number(e.target.value) })}>
+                {[1, 2, 3, 4, 5, 6, 0].map((d) => <option key={d} value={d}>{dayName(d, format)}</option>)}
               </select>
             </div>
           )}
           {(form.kind === "daily" || form.kind === "weekdays" || form.kind === "weekly") && (
             <div>
-              <label className="label" htmlFor={`${uid}-at`}>Time</label>
-              <input id={`${uid}-at`} type="time" step={60} required className="input" data-help="The time of day it runs, by the clock of the time zone below." value={form.at} onChange={(e) => set({ at: e.target.value.slice(0, 5) })} />
+              <label className="label" htmlFor={`${uid}-at`}>{t("time")}</label>
+              <input id={`${uid}-at`} type="time" step={60} required className="input" data-help={t("timeHelp")} value={form.at} onChange={(e) => set({ at: e.target.value.slice(0, 5) })} />
             </div>
           )}
           {form.kind !== "every" && (
             <div className="sm:col-span-2">
-              <label className="label" htmlFor={`${uid}-tz`}>Time zone</label>
-              <select id={`${uid}-tz`} className="input" data-help="Whose clock the times follow. Pick where you or your customers are, so 9:00 means 9:00 there." value={form.tz} onChange={(e) => set({ tz: e.target.value })}>
-                {zones.map((z) => <option key={z} value={z}>{z.replace(/_/g, " ")}{z === viewerZone ? " (yours)" : ""}</option>)}
+              <label className="label" htmlFor={`${uid}-tz`}>{t("timeZone")}</label>
+              <select id={`${uid}-tz`} className="input" data-help={t("timeZoneHelp")} value={form.tz} onChange={(e) => set({ tz: e.target.value })}>
+                {zones.map((z) => <option key={z} value={z}>{z === viewerZone ? t("yours", { zone: z.replace(/_/g, " ") }) : z.replace(/_/g, " ")}</option>)}
               </select>
             </div>
           )}
           <p className="text-xs text-surface-400 sm:col-span-2">
-            {checked.ok ? `${describeSchedule(checked.spec)}.` : checked.error}
-            {state.usesAi ? ` Flows that use AI run at most every ${AI_MIN_MINUTES} minutes.` : ""}
+            {checked.ok ? `${describe(checked.spec, t, format)}.` : problemText}
+            {state.usesAi ? ` ${t("aiNote", { minutes: AI_MIN_MINUTES })}` : ""}
           </p>
         </div>
       )}
 
       <div className="mt-4 flex flex-wrap items-center gap-2">
-        <button type="button" className="btn-primary" disabled={busy || !dirty || (mode === "schedule" && (!checked.ok || tooOften || !state.planAllows))} onClick={save} data-help="Saves when this runs. A new or changed schedule takes effect once you publish your app.">
+        <button type="button" className="btn-primary" disabled={busy || !dirty || (mode === "schedule" && (!checked.ok || tooOften || !state.planAllows))} onClick={save} data-help={t("saveHelp")}>
           {busy && <Loader2 size={14} className="animate-spin" />}
-          {mode === "schedule" ? "Save schedule" : "Save"}
+          {mode === "schedule" ? t("saveSchedule") : tc("save")}
         </button>
         {state.mode === "schedule" && state.pausedReason === "failures" && (
-          <button type="button" className="btn-ghost" disabled={busy} onClick={() => send({ resume: true })} data-help="Turns the schedule back on after it paused because runs kept failing. Fix the problem in its steps first.">
-            <RotateCcw size={14} /> Resume
+          <button type="button" className="btn-ghost" disabled={busy} onClick={() => send({ resume: true })} data-help={t("resumeHelp")}>
+            <RotateCcw size={14} /> {t("resume")}
           </button>
         )}
       </div>
 
       <div role="status" aria-live="polite" className="mt-3 space-y-1 text-sm">
-        {saved && !error && <p className="text-emerald-300">Saved.</p>}
+        {saved && !error && <p className="text-emerald-300">{tc("saved")}</p>}
         {status && <p className={toneClass[status.tone]}>{status.text}</p>}
         {last && <p className="text-xs text-surface-400">{last}</p>}
         {failing && <p className="text-xs text-amber-300">{failing}</p>}

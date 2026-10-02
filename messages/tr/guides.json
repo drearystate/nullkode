@@ -1,0 +1,1276 @@
+{
+  "account-and-billing": {
+    "sections": {
+      "0": {
+        "heading": "Fotoğrafınız, bilgileriniz ve parolanız",
+        "shot": {
+          "alt": "Fotoğrafınızı, bilgilerinizi, parolanızı, görünüm ve yardım ipuçlarını gösteren Profil sayfası.",
+          "caption": "Profil: fotoğrafınız, adınız, parolanız, açık veya koyu görünüm ve yardım ipuçları."
+        },
+        "steps": {
+          "0": "Sağ üstteki fotoğrafınıza (veya baş harfinize) tıklayın, ardından <b>Profil</b>'i seçin.",
+          "1": "<b>Fotoğraf ekle</b>'e basıp kendi fotoğrafınızı seçin. Fotoğraf kare şeklinde kırpılır ve adınızın yanında görünür. İstediğiniz zaman <b>Fotoğrafı değiştir</b> veya <b>Kaldır</b>'ı seçebilirsiniz.",
+          "2": "<b>Adınızı</b> değiştirip <b>Kaydet</b>'e basın. E-posta adresiniz oturum açmak için kullandığınız adrestir ve buradan değiştirilemez.",
+          "3": "<b>Parola</b> bölümünde <b>Mevcut parolanızı</b> ve en az 8 karakterden oluşan bir <b>Yeni parola</b> girin, ardından <b>Parolayı değiştir</b>'e basın. Diğer cihazlarınızda oturumunuz kapatılır."
+        }
+      },
+      "1": {
+        "body": {
+          "0": "Mevcut parolanızı bilmiyorsanız (örneğin Google ile kaydolduysanız), oturumu kapatıp giriş sayfasındaki <b>Parolamı unuttum</b>'u kullanarak yeni bir parola belirleyin."
+        },
+        "heading": "Google ile mi kaydoldunuz?"
+      },
+      "2": {
+        "body": {
+          "0": "Açık ve koyu görünüm arasında geçiş yapmak için üst çubuktaki güneş veya ay düğmesine basın. <b>Profil</b> sayfanızdaki <b>Görünüm</b> bölümünden, bilgisayarınızın veya telefonunuzun ayarını izleyen <b>Cihazımla eşleştir</b>'i de seçebilirsiniz. Seçiminiz hesabınıza kaydedilir ve diğer cihazlarınızda da kullanılır."
+        },
+        "heading": "Açık veya koyu görünüm"
+      },
+      "3": {
+        "body": {
+          "0": "Yardım ipuçları, fareyi bir düğmenin veya ayarın üzerinde tuttuğunuzda görünen kısa açıklamalardır. Bunları <b>Profil</b> sayfanızın <b>Yardım</b> bölümünden açıp kapatabilirsiniz. Bir uygulamanın içindeyken üstteki <b>Yardım ipuçları</b> düğmesi de aynı işi görür.",
+          "1": "Üst çubuktaki <b>Yardım</b> bağlantısı, bulunduğunuz ekranın rehberini açar. Hesap menüsündeki <b>Yardım ve rehberler</b> bölümünde tüm rehberleri bulabilirsiniz."
+        },
+        "heading": "Yardım ipuçları ve rehberler"
+      },
+      "4": {
+        "body": {
+          "0": "Baş harfinize tıklayıp <b>Faturalandırma ve plan</b>'ı seçin. Burada planınızı ve planınızda aylık kullanım hakkı varsa bu ay kaç yapay zekâ işlemi kullandığınızı görebilirsiniz. Yapay zekâyla planlama, oluşturma ve değişiklik yapma işlemleri bu haktan kullanır.",
+          "1": "Kullanım hakkınız bittiğinde yapay zekâ gelecek aya kadar duraklar. Şablonlar ve sayfa düzenleyici çalışmaya devam eder. Başka planlar sunuluyorsa aynı sayfadan birini seçebilirsiniz. Bir plan için ödeme yaptıktan sonra <b>Faturalandırmayı yönet</b> seçeneğiyle ödeme bilgilerinizi değiştirebilirsiniz."
+        },
+        "heading": "Planınız ve yapay zekâ kullanımınız",
+        "shot": {
+          "alt": "Planınızı ve bu ay kullandığınız yapay zekâ işlemlerini gösteren Faturalandırma sayfası.",
+          "caption": "Faturalandırma ve plan: planınız ve bu ayki yapay zekâ kullanımınız."
+        }
+      },
+      "5": {
+        "body": {
+          "0": "Bu işlem hesabınızı ve tüm uygulamalarınızı; uygulamaların kaydettiği her şeyi, dosyalarını ve web adreslerini siler. Bu işlem geri alınamaz."
+        },
+        "heading": "Hesabınızı silin",
+        "steps": {
+          "0": "<b>Profil</b>'inize gidip <b>Hesabımı sil</b>'i bulun.",
+          "1": "Daha sonra gerekebilecek her uygulama için bir <b>Yedek</b> indirin. Bir uygulama Google Play'deyse <b>Google Play yükleme anahtarını</b> da indirin.",
+          "2": "<b>Hesabımı sil…</b>'e basın.",
+          "3": "Onaylamak için e-posta adresinizi yazın ve görünüyorsa yükleme anahtarı kutusunu işaretleyin.",
+          "4": "<b>Hesabımı kalıcı olarak sil</b>'e basın."
+        }
+      },
+      "6": {
+        "bullets": {
+          "0": "Parolanızı değiştirdiğinizde diğer tüm cihazlardaki oturumunuz kapatılır.",
+          "1": "Ücretli planınız, hesabınızı sildiğiniz anda iptal edilir.",
+          "2": "Hesabınızı buradan silemiyorsanız (örneğin başkaları için bir çalışma alanı yönetiyorsanız), Profil sayfanız bunun nedenini açıklar."
+        },
+        "heading": "Bilmenizde fayda var"
+      }
+    },
+    "summary": "Fotoğraf ekleyin, adınızı ve parolanızı değiştirin, açık veya koyu görünümü seçin, yardım ipuçlarını açıp kapatın, planınızı ve yapay zekâ kullanımınızı kontrol edin ya da hesabınızı silin.",
+    "title": "Profiliniz, planınız ve ayarlarınız"
+  },
+  "ai-designer": {
+    "sections": {
+      "0": {
+        "heading": "Tasarımını başlat",
+        "shot": {
+          "alt": "AI Tasarımcısı ana sayfasında uygulamanı anlatabileceğin bir kutu, örnek fikirler ve tasarımlarının listesi bulunuyor.",
+          "caption": "Ne istediğini anlat, ardından Tasarla düğmesine bas."
+        },
+        "steps": {
+          "0": "Üst çubuktaki <b>Tasarımcı</b>ya tıkla. Telefonda, kontrol panelinde <b>Başlamanın diğer yolları</b>na git ve <b>Birlikte tasarlayalım</b>ı seç.",
+          "1": "<b>Ne oluşturmak istiyorsun?</b> bölümünde uygulamanı anlat. Kimler için olduğunu ve ziyaretçilerin neler yapabilmesi gerektiğini belirt; örneğin randevu alabilsinler veya mesaj gönderebilsinler. Örnek fikirlerden birine dokunup onu da değiştirebilirsin.",
+          "2": "<b>Tasarla</b> düğmesine bas.",
+          "3": "AI, <b>Önce birkaç kısa soru</b> sorabilir. Bir yanıta dokun, kendi yanıtını yaz veya istediğin soruyu geç. <b>Oluştur</b> düğmesine bas ya da AI'nın karar vermesi için <b>Soruları geç</b>i seç."
+        }
+      },
+      "1": {
+        "body": {
+          "0": "AI çalışırken soldaki sohbette her adım gerçekleştiğinde <b>Üzerinde çalışılıyor…</b> mesajı görünür, sağdaki önizleme de adım adım tamamlanır. İlk tasarım birkaç dakika sürebilir.",
+          "1": "İşlemi yarıda durdurmak için mesaj kutusunun yanındaki kare durdurma düğmesine bas. Bu işlemde yapılanlar kaydedilmez.",
+          "2": "İlk oluşturma tamamlandığında tasarımın için ayrı bir uygulaman olur. Sohbetin üstündeki <b>Uygulamayı aç</b> seçeneği seni uygulamana götürür; burada verilerini, akışlarını ve yayınlama seçeneklerini bulabilirsin."
+        },
+        "heading": "Oluşturulmasını izle"
+      },
+      "2": {
+        "heading": "Değişiklik iste",
+        "shot": {
+          "alt": "AI Tasarımcısı'nda açık bir tasarım: solda sohbet, sağda uygulamanın önizlemesi.",
+          "caption": "Solda sohbet, sağda canlı önizleme."
+        },
+        "steps": {
+          "0": "Kendi cümlelerinle <b>Değişiklik iste</b> kutusuna neyin değişmesini istediğini yaz. Örneğin: “başlığı koyulaştır” veya “fiyatlarımızın olduğu bir sayfa ekle”.",
+          "1": "Enter tuşuna veya gönder düğmesine bas. Shift+Enter yeni satır başlatır.",
+          "2": "AI tasarımı günceller ve yeni bir sürüm olarak kaydeder."
+        }
+      },
+      "3": {
+        "body": {
+          "0": "Bazen AI'ya anlatmaktansa göstermek daha kolaydır."
+        },
+        "heading": "Değişmesini istediğin yeri göster",
+        "steps": {
+          "0": "Önizlemenin üstündeki <b>Yorum ekle</b>'ye bas. Düğme <b>Yorum eklemek için bir şeye tıkla</b> olarak değişir.",
+          "1": "Önizlemede değiştirmek istediğin yere tıkla.",
+          "2": "Neyin değişmesi gerektiğini yaz; örneğin “bunu büyüt” ve <b>Ekle</b>'ye bas. Notun mesaj kutusunun üstünde bekler.",
+          "3": "İstediğin kadar not ekle, ardından tüm değişiklikleri bir kerede yapmak için gönder'e bas. Notu kaldırmak için yanındaki x'e bas."
+        }
+      },
+      "4": {
+        "body": {
+          "0": "Tasarımındaki her sayfayı görmek için önizlemenin üstündeki <b>Sayfa</b> menüsünü kullan. Üç ekran düğmesi, tasarımı bilgisayar, tablet ve telefon genişliğinde gösterir. Ok düğmesi sayfayı yeni bir sekmede tek başına açar.",
+          "1": "Telefonda ekranın üst kısmından <b>Sohbet</b> ve <b>Önizleme</b> arasında geçiş yap."
+        },
+        "heading": "Her sayfayı ve ekran boyutunu kontrol et"
+      },
+      "5": {
+        "body": {
+          "0": "Her değişiklik yeni bir sürüm olarak kaydedilir, böylece istediğin zaman geri dönebilirsin."
+        },
+        "heading": "Önceki bir sürüme dön",
+        "shot": {
+          "alt": "Önizlemenin yanında açık Sürümler listesi; her sürüm için Görüntüle ve Geri yükle düğmeleri var.",
+          "caption": "Sürümler: Önceki sürümleri görüntüle ve geri yükle."
+        },
+        "steps": {
+          "0": "<b>Sürümler</b>'e bas. Tüm sürümler en yeniden eskiye doğru listelenir.",
+          "1": "Eski bir sürümü önizlemede görmek için <b>Görüntüle</b>'ye bas. Sohbetteki bir mesajın altındaki <b>Bu sürümü gör</b>'e de basabilirsin.",
+          "2": "Bu sürümü geçerli sürüm yapmak için <b>Geri yükle</b>'ye (veya sarı çubuktaki <b>Geri yükle</b>'ye) bas. Sahip olduğun sürüm listede kalır, böylece ona geri dönebilirsin.",
+          "3": "Eski sürümü görüntülemeyi bırakmak için <b>Geçerli sürüme dön</b>'e bas."
+        }
+      },
+      "6": {
+        "body": {
+          "0": "<b>İndir</b>, tasarımındaki tüm sayfaları tek bir .zip dosyası olarak kaydeder.",
+          "1": "<b>Sayfa oluşturucuya taşı</b>, uygulamayı sürükle-bırak sayfa düzenleyicisine aktarır. Bundan sonra AI Tasarımcısı uygulamada değişiklik yapamaz. AI ile tasarlamaya devam etmek istiyorsan <b>Tasarlamaya devam etmek için kopyasını oluştur</b>'a bas: ayrı bir kopya oluşturulur, sayfa oluşturucudaki uygulama ise olduğu gibi kalır."
+        },
+        "heading": "İndir veya sayfa oluşturucuya taşı"
+      },
+      "7": {
+        "body": {
+          "0": "Tasarımcı ana sayfasında <b>Tasarımların</b> listelenir. Açmak için bir karta tıkla. Karttaki <b>…</b> düğmesiyle tasarımı <b>Yeniden adlandırabilir</b>, <b>Kopyalayabilir</b> veya <b>Silebilirsin</b>.",
+          "1": "Bir tasarımı silmek, uygulama sayfa oluşturucuya taşınmadıysa uygulamasını da siler. Bu işlem geri alınamaz."
+        },
+        "heading": "Tasarımların"
+      },
+      "8": {
+        "bullets": {
+          "0": "AI'dan tasarım veya değişiklik istemek, planında varsa aylık AI kullanım hakkını kullanır.",
+          "1": "Tasarımcı uygulamasında sayfalar tasarımdan gelir. Sayfaları sayfa düzenleyicisinde değil, burada değiştir.",
+          "2": "Uygulamanın verileri, akışları, alan adları ve yayınlama ayarları diğer uygulamalardaki gibi kendi sekmelerinde bulunur. <b>Yayınla</b> düğmesiyle yayınla."
+        },
+        "heading": "Bilmen gerekenler"
+      }
+    },
+    "summary": "Uygulamanı günlük dilde anlat, sonra AI ile sohbet edip değiştirmek istediklerine tıklayarak şeklini belirle.",
+    "title": "AI Tasarımcısı ile tasarım yap"
+  },
+  "ai-settings": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Yönetici bölümünde <b>Tüm ayarlar</b>'ı açın ve <b>Yapay zekâ motoru</b>'na gidin. Bir motor bağlanana kadar yapay zekâyla uygulama oluşturma kapalıdır: kullanıcılar şablonlarla ve sayfa düzenleyiciyle başlar, Yapay Zekâ Tasarımcısı ise uygulama oluşturamaz."
+        },
+        "heading": "Nerede bulabilirsiniz?"
+      },
+      "1": {
+        "body": {
+          "0": "İki seçenek var:"
+        },
+        "bullets": {
+          "0": "<b>OpenAI</b>: OpenAI hizmeti veya kendi donanımınızda çalışan modeller de dahil, aynı şekilde çalışan herhangi bir sunucu.",
+          "1": "<b>Komut satırı yapay zekâ aracı</b>: İstek başına ödeme yapmak yerine, kendi aboneliğiyle oturum açan ve bu sunucuya yüklenmiş bir komut satırı yapay zekâ aracı."
+        },
+        "heading": "Bir sağlayıcı seçin",
+        "shot": {
+          "alt": "İki sağlayıcı seçeneğini, bağlantı bilgilerini ve test düğmesini gösteren yapay zekâ sağlayıcısı ayarları.",
+          "caption": "Bir sağlayıcı seçin, bilgilerini girin ve test edin."
+        }
+      },
+      "2": {
+        "heading": "Barındırılan veya uyumlu bir hizmeti bağlayın",
+        "steps": {
+          "0": "<b>OpenAI</b>'ı seçin.",
+          "1": "Anahtarınızı <b>OpenAI / uyumlu API anahtarı</b> alanına yapıştırın. Zaten bir anahtar kayıtlıysa onu korumak için alanı boş bırakın.",
+          "2": "OpenAI'ın kendi hizmetini kullanıyorsanız <b>API temel URL'si</b> alanını boş bırakın; uyumlu bir sunucu kullanıyorsanız adresini yazın.",
+          "3": "Model adlarını <b>İskelet modeli</b> (yeni uygulamaları planlar ve oluşturur) ve <b>Düzenleme modeli</b> (düzenleyicide değişiklik yapar) alanlarına yazın veya varsayılanları kullanmak için boş bırakın.",
+          "4": "<b>Bağlantıyı test et</b>'e basın. Önce ayarlarınızı kaydeder, ardından nedeni ile birlikte <b>Başarılı</b> veya <b>Başarısız</b> mesajını gösterir.",
+          "5": "<b>Değişiklikleri kaydet</b>'e basın."
+        }
+      },
+      "3": {
+        "body": {
+          "0": "Ollama, LM Studio, vLLM veya llama.cpp sunucusu gibi, OpenAI hizmetiyle aynı dili kullanan tüm model sunucuları çalışır. Adresini <b>API temel URL'si</b> alanına girin ({app}'in Docker kapsayıcılarıyla aynı bilgisayardaki bir model için http://host.docker.internal:11434/v1 gibi bir adres kullanın), sunucu istemiyorsa anahtarı boş bırakın ve modelin tam adını yazın.",
+          "1": "<b>Model bağlam boyutu</b> ve <b>İstek başına en fazla çıktı token'ı</b> alanlarını boş bırakın, <b>Model düşünme düzeyi</b>'ni ise <b>Otomatik</b> olarak ayarlayın: {app} uygun değerleri belirler. Testlerde veya uygulama oluştururken yanıt okunamaz görünüyorsa <b>JSON desteği</b>'ni <b>Yalnızca istem</b> olarak ayarlayın.",
+          "2": "Hız, donanımınıza bağlıdır. Büyük modeller daha iyi sayfalar oluşturur; insanları davet etmeden önce örnek bir uygulama oluşturmayı deneyin."
+        },
+        "heading": "Yapay zekâyı kendi donanımınızda çalıştırın"
+      },
+      "4": {
+        "heading": "Komut satırı yapay zekâ aracı kullanın",
+        "steps": {
+          "0": "Aracı bu sunucuya yükleyin ve {app}'i çalıştıran hesapla (veya araca özel hesapla) oturum açın.",
+          "1": "<b>Komut satırı yapay zekâ aracı</b>'nı seçin.",
+          "2": "Farklı bir model istiyorsanız <b>Model</b> alanını ayarlayın. <b>İkili dosya yolu</b> alanını yalnızca araç otomatik olarak bulunamıyorsa doldurun.",
+          "3": "Önce <b>Yapay zekâ aracını test et</b>'e, ardından <b>Değişiklikleri kaydet</b>'e basın."
+        }
+      },
+      "5": {
+        "bullets": {
+          "0": "Her plan, oluşturma ve değişiklik, kişinin aylık hakkındaki yapay zekâ işlemlerini kullanır (<b>Planlar ve limitler</b> bölümüne bakın). Bayinin müşterileri de bayinin aylık limitini paylaşır.",
+          "1": "Kayıtlı anahtarlar tekrar gösterilmez; yalnızca maskelenmiş bir ipucu görünür.",
+          "2": "Burada bir anahtar kaydedilmemişse sunucunun .env dosyasındaki anahtar (OPENAI_API_KEY) kullanılır.",
+          "3": "İndirme paketindeki kılavuzda (docs/local-ai.md) modelleri kendi sisteminizde çalıştırma hakkında daha fazla bilgi bulabilirsiniz."
+        },
+        "heading": "Bilmenizde fayda var"
+      }
+    },
+    "summary": "Uygulamaları planlayan, oluşturan ve değiştiren yapay zekâ motorunu seçin ve çalıştığını kontrol edin.",
+    "title": "Yapay zekâ ayarları"
+  },
+  "custom-domains": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Bir alan adı şirketinden satın aldığınız bir alan adına ve DNS ayarlarını değiştirme olanağına ihtiyacınız var. DNS, internetin adres defteridir: Oradaki iki kayıt, alan adınızın uygulamanıza ait olduğunu belirtir. Alan adı şirketinizin web sitesinde bunun için genellikle DNS, DNS kayıtları veya bölge adı verilen bir sayfa bulunur.",
+          "1": "Uygulamanızın ücretsiz adresi de kullanılmaya devam eder."
+        },
+        "heading": "Başlamadan önce"
+      },
+      "1": {
+        "heading": "Alan adınızı bağlayın",
+        "shot": {
+          "alt": "Alan adı ekleme kutusunu ve alan adı şirketinize eklemeniz gereken DNS kayıtlarını gösteren Alan adları sekmesi.",
+          "caption": "Alan adınızı ekleyin, ardından iki kaydı kopyalayıp alan adı şirketinizin hesabına ekleyin."
+        },
+        "steps": {
+          "0": "<b>Alan adları</b> sekmesini açın.",
+          "1": "Adresinizi yazın; örneğin www.isletmeniz.com (https:// olmadan) ve <b>Alan adı ekle</b>'ye basın.",
+          "2": "Eklemeniz gereken iki kayıt görürsünüz: bir CNAME (veya A) kaydı ve bir TXT kaydı. Her birinde bir <b>Ad / ana makine</b> ve bir <b>Değer / hedef</b> bulunur. Kopyalamak için değere tıklayın.",
+          "3": "Başka bir sekmede alan adı şirketinizin hesabına giriş yapın, alan adınızın DNS ayarlarını açın ve her iki kaydı da gösterildiği gibi ekleyin.",
+          "4": "Geri dönüp <b>Şimdi kontrol et</b>'e basın. Her iki kayıt da bulunduğunda <b>Bağlandı</b> mesajı görünür ve ziyaretçiler adresinizi kullanabilir."
+        }
+      },
+      "2": {
+        "bullets": {
+          "0": "DNS değişiklikleri genellikle birkaç dakika içinde görünür, ancak birkaç saat sürebilir. Daha sonra <b>Şimdi kontrol et</b>'e yeniden basın.",
+          "1": "Kontrol, henüz hangi kaydı bulamadığını belirtir: TXT kaydını mı, yoksa alan adınızı buraya yönlendiren kaydı mı.",
+          "2": "Bazı alan adı şirketleri, alan adınızı adın sonuna otomatik olarak ekler. Sizinki de böyle yapıyorsa www veya _verify.www gibi adın yalnızca ilk bölümünü yazın.",
+          "3": "www olmadan kullanılan bir adres için (isletmeniz.com) bazı alan adı şirketleri CNAME kaydına izin vermez. Bunun yerine bu sunucunun IP adresini gösteren bir A kaydı kullanın; adresi öğrenmek için {app} hizmetinizi yöneten kişiye sorun."
+        },
+        "heading": "Henüz bağlanmıyorsa"
+      },
+      "3": {
+        "body": {
+          "0": "Alan adının yanındaki çöp kutusuna basıp onaylayın. Uygulamanız ücretsiz adresinde kalır."
+        },
+        "heading": "Alan adı bağlantısını kesin"
+      },
+      "4": {
+        "bullets": {
+          "0": "Bir alan adı yalnızca tek bir uygulamaya bağlanabilir.",
+          "1": "Planınız, bağlayabileceğiniz alan adı sayısını sınırlayabilir.",
+          "2": "Ziyaretçiler alan adınızda uygulamanızın yayındaki sürümünü görür; bu yüzden paylaşmadan önce yayınlayın."
+        },
+        "heading": "Bilmenizde fayda var"
+      }
+    },
+    "summary": "Uygulamanızı www.isletmeniz.com gibi size ait bir web adresinde yayınlayın.",
+    "title": "Kendi alan adınızı kullanın"
+  },
+  "email": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "E-posta ayarlandıktan sonra {app}; parola bağlantıları ve davetler (sizin, bayilerin ve müşterilerinin davetleri), biri form gönderdiğinde veya rezervasyon yaptığında uygulama sahiplerine bildirimler ve uygulamaların <b>E-posta gönder</b> adımıyla gönderdiği e-postaları yollar.",
+          "1": "E-posta ayarlanmamışsa davet ve parola bağlantıları ekranda gösterilir; bunları siz iletebilirsiniz. Uygulamalar e-posta adımlarını atlar. Uygulama sahipleri, uygulamalarının Genel Bakış sayfasında bu konuda bir not görür."
+        },
+        "heading": "E-posta ne için kullanılır?"
+      },
+      "1": {
+        "heading": "Herhangi bir e-posta sağlayıcısıyla ayarlayın",
+        "shot": {
+          "alt": "E-posta ayarları: e-postanın açık olup olmadığı, sağlayıcı seçimi, sunucu bilgileri ve test düğmesi.",
+          "caption": "Sağlayıcınızın bilgilerini girin ve kendinize bir test e-postası gönderin."
+        },
+        "steps": {
+          "0": "Yönetici bölümünde <b>Tüm ayarlar</b>'ı açın ve <b>E-posta</b>'ya gidin.",
+          "1": "<b>E-posta nasıl gönderilsin?</b> bölümünde <b>Herhangi bir e-posta sağlayıcısı (SMTP)</b>'nı seçin.",
+          "2": "Sağlayıcınızın verdiği <b>E-posta sunucusu</b> adresini, örneğin smtp.example.com, yazın.",
+          "3": "<b>Bağlantı noktası</b>'nı seçin. Sağlayıcınız farklı bir şey belirtmedikçe <b>587 (önerilen)</b> seçeneğini kullanın.",
+          "4": "<b>Kullanıcı adı</b> ve <b>Parola</b>'yı yazın. Google ve Microsoft için normal parolanız değil, bir uygulama parolası gerekir.",
+          "5": "Sağlayıcınızın gönderime izin verdiği <b>Gönderen adresi</b>'ni yazın. İsterseniz bir <b>Gönderen adı</b> da ekleyin. Adı boş bırakırsanız markanızın veya uygulamanızın adı kullanılır.",
+          "6": "<b>Bana test e-postası gönder</b>'e basın. Ekrandaki bilgileri kullanır, böylece kaydetmeden önce kontrol edebilirsiniz.",
+          "7": "<b>E-posta ayarlarını kaydet</b>'e basın."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "<b>Resend</b>'i seçin, <b>Resend API anahtarı</b>'nı yapıştırın ve Resend'de doğruladığınız bir alan adındaki adresten gönderim yapın. Ardından yukarıdaki gibi test edin ve kaydedin."
+        },
+        "heading": "Ya da Resend kullanın"
+      },
+      "3": {
+        "body": {
+          "0": "Üstteki kutuda, gönderim adresiyle birlikte <b>E-posta açık</b> yazar ve son 24 saatin bilgilerini gösterir: kaç e-posta gönderildiği ve başarısız olduğu, varsa son sorun. Sistem sayfasındaki E-posta kartında da aynı bilgiler yer alır."
+        },
+        "heading": "Çalıştığını kontrol edin"
+      },
+      "4": {
+        "bullets": {
+          "0": "<b>Kullanıcı adı veya şifre kabul edilmedi</b>: İkisini de kontrol edin. Google ve Microsoft için uygulama şifresi gerekir; e-posta hizmetleri çoğu zaman hesap şifreniz yerine SMTP anahtarı verir.",
+          "1": "<b>Bu bağlantı noktasındaki sunucuya ulaşılamadı</b>: Önce 587'yi, sonra 465'i, ardından 2525'i deneyin veya barındırma hizmetinizden bağlantı noktasını açmasını isteyin.",
+          "2": "<b>Bağlantı noktası ve şifreleme ayarları uyuşmuyor</b>: SSL ile 465'i veya otomatik şifrelemeyle 587'yi kullanın (<b>Daha fazla seçenek</b> altında).",
+          "3": "<b>Bu adresten gönderim reddedildi</b>: Sağlayıcınız bu gönderen adresini veya alan adını doğrulamamış. Doğrulayın ya da sağlayıcınızın tanıdığı bir adres kullanın.",
+          "4": "<b>Resend'in test modu</b>: Yeni bir Resend hesabı, bir alan adını doğrulayana kadar yalnızca kendi adresine e-posta gönderebilir."
+        },
+        "heading": "Test başarısız olursa"
+      },
+      "5": {
+        "bullets": {
+          "0": "Her e-posta <b>Gönderen adresinizden</b> gönderilir. Bir uygulama başka bir alan adındaki adresten e-posta göndermek istediğinde, o adres yanıt adresi olur. Böylece yanıtlar uygulama sahibine ulaşır.",
+          "1": "Buraya kaydedene kadar sunucunun .env dosyasındaki ayarlar kullanılır. Buraya kaydettiğinizde bu ayarlar geçerli olur.",
+          "2": "<b>Bu ayarları kaldır</b>, e-posta ayarlarını kapatır (veya varsa .env ayarlarına döner).",
+          "3": "Marka ayarlarınızdaki destek e-postası, davet ve şifre e-postalarının yanıt adresi olarak kullanılır."
+        },
+        "heading": "Bilmenizde fayda var"
+      }
+    },
+    "summary": "Davetleri, parola bağlantılarını, uygulama bildirimlerini ve uygulamalarınızın gönderdiği e-postaları kendi adresinizden gönderin.",
+    "title": "E-posta"
+  },
+  "features": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Özellik; rezervasyon, mağaza, iletişim formu veya blog gibi uygulamanıza ekleyebileceğiniz hazır bir parçadır. Özellik eklediğinizde uygulamanıza yeni sayfalar, gönderilen bilgilerin tutulduğu listeler ve düğmelerle formların çalışmasını sağlayan akışlar eklenir. Daha sonra bu sayfaları diğer sayfalar gibi değiştirebilirsiniz."
+        },
+        "heading": "Özellik nedir?"
+      },
+      "1": {
+        "heading": "Özellik ekleyin",
+        "shot": {
+          "alt": "Arama kutusu, kategori düğmeleri ve eklenebilecek özelliklerin listesi bulunan Özellikler sekmesi.",
+          "caption": "Bir özellik seçin. Neler eklediğini Detaylar'dan görebilirsiniz."
+        },
+        "steps": {
+          "0": "<b>Özellikler</b> sekmesini açın.",
+          "1": "Örneğin “rezervasyon” veya “mağaza” diye arayın ya da Ticaret veya Topluluk gibi bir kategori seçin.",
+          "2": "Bir özelliğin neler eklediğini görmek için kartındaki <b>Detaylar</b>'ı açın. Eklediği sayfa, kayıt listesi ve akış sayısını görebilirsiniz.",
+          "3": "Karta tıklayın (<b>Uygulamama ekle</b>).",
+          "4": "Varsa birkaç soruyu yanıtlayın. * ile işaretli alanlar zorunludur. İşletme adını soran yerlerde uygulamanızın adı otomatik olarak yazılır.",
+          "5": "<b>Uygulamama ekle</b>'ye basın. Düzenleyici, özelliğin ilk sayfasında açılır."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Sayfa düzenleyicide sol taraftaki <b>Özellikler</b> sekmesiyle de aynı işlemi yapabilirsiniz. Özellik eklendiğinde, sayfalarının menüde olduğunu belirten bir mesaj ve <b>Yeni sayfayı aç</b> düğmesi görünür."
+        },
+        "heading": "Düzenleme sırasında özellik ekleyin",
+        "shot": {
+          "alt": "İptal ve Uygulamama ekle düğmelerinin bulunduğu, birkaç soru soran Özellik ekle penceresi.",
+          "caption": "Birkaç soruyu yanıtlayın, özellik eklensin."
+        }
+      },
+      "3": {
+        "body": {
+          "0": "Sayfaları, uygulamanızın menüsünde ve düzenleyicideki sayfa listesinde bulabilirsiniz. Kaydettiği bilgiler (örneğin rezervasyonlar) <b>Veriler</b> sekmesindedir. Akışları ise <b>Akışlar</b> sekmesindedir. Yalnızca sizin kullanmanız için olan sayfalar, örneğin rezervasyon listesi, Genel Bakış'ta <b>Uygulamanızın yönetim alanı</b> altında listelenir."
+        },
+        "heading": "Eklenenleri nerede bulabilirsiniz?"
+      },
+      "4": {
+        "bullets": {
+          "0": "<b>Eklendi</b> olarak işaretlenen bir kart zaten uygulamanızdadır. Tekrar eklerseniz kendi sayfaları ve listeleri olan bir kopyası daha oluşturulur.",
+          "1": "Bir özellik önce başka bir özelliğe ihtiyaç duyuyorsa, mesajda onu eklemeniz için bir düğme gösterilir.",
+          "2": "Bazı özellikler, oturum açmış ziyaretçilerin onayınızı bekleyen içerikler göndermesine olanak tanır. Örneğin <b>Mekânlar</b> özelliğinde kişiler <b>Mekânlarım</b> altında mekân önerir. Öneri, <b>Mekânları yönet</b> sayfasında onayladığınızda rehberde görünür.",
+          "3": "Bazı özellikler e-posta gönderir ve <b>Sunucuda e-posta ayarlarının yapılması gerekiyor</b> uyarısını gösterir. E-posta ayarlanmamışsa, {app} uygulamanızı sizin için yöneten kişiye sorun.",
+          "4": "Tek adımda kaldırma seçeneği yoktur. Bir özelliğin eklediği sayfaları diğer sayfalar gibi silebilirsiniz; kaydettiği bilgiler Veriler sekmesinde kalır.",
+          "5": "Özellik eklemek taslağınızı değiştirir. Ziyaretçiler değişiklikleri siz yayınladıktan sonra görür."
+        },
+        "heading": "Bilmenizde fayda var"
+      }
+    },
+    "summary": "Rezervasyon, mağaza veya blog gibi kendi sayfaları ve kaydedilen verileriyle birlikte gelen hazır parçalar ekleyin.",
+    "title": "Özellik ekleyin"
+  },
+  "flows": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Akış, uygulamanızın kendi kendine uyguladığı kısa bir adımlar listesidir. Bir şey olur (birisi form gönderir ya da düğmeye basar veya belirli bir zaman gelir), adımlarınız çalışır (yanıtlar kaydedilir, e-posta gönderilir) ve ziyaretçiniz bir sonuç görür (teşekkür mesajı gibi).",
+          "1": "Yapay zekânın oluşturduğu uygulamalar ve eklediğiniz özellikler, akışları hazır olarak içerir. Diğer akışlar gibi bunları da açıp değiştirebilirsiniz."
+        },
+        "heading": "Akış nedir?"
+      },
+      "1": {
+        "body": {
+          "0": "<b>Akışlar</b> sekmesinde her akışın nasıl başladığı (formla, istekle veya belirli bir zamanda) ve kaç adımı olduğu listelenir. Açmak için birine tıklayın.",
+          "1": "Her akışın hem listede hem de akışın içinde bir <b>Açık</b> / <b>Duraklatıldı</b> anahtarı vardır. Duraklatılan akış çalışmaz: Uygulamanızda bu akışı kullanan form gibi öğeler hata verir. Duraklatma ve yeniden açma, yayınlamanız gerekmeden canlı uygulamanızda hemen geçerli olur."
+        },
+        "heading": "Akışlarınız",
+        "shot": {
+          "alt": "Uygulamanın akışlarını, her birinin nasıl başladığını ve adım sayısını gösteren Akışlar sekmesi.",
+          "caption": "Uygulamanızın akışları."
+        }
+      },
+      "2": {
+        "heading": "Akış oluşturma",
+        "shot": {
+          "alt": "Akış düzenleyicide açık bir akış: solda eklenebilecek adımlar, ortada birbirine bağlanmış adımlar, sağda ayarlar.",
+          "caption": "Soldan adımlar ekleyin, birbirine bağlayın ve her birini sağ tarafta ayarlayın."
+        },
+        "steps": {
+          "0": "Akışlar sekmesinde <b>Yeni akış</b>'a basın, “İletişim formunu gönder” gibi bir ad yazın ve <b>Oluştur</b>'a basın.",
+          "1": "Akış, başlangıç adımı olan <b>Uygulama bunu çağırdığında</b> ile açılır.",
+          "2": "Sol taraftaki <b>Adım ekle</b> bölümünde, eklemek için bir adıma tıklayın. Aramak için <b>Adım bul…</b> alanına yazın. Adımlar gruplara ayrılır: Başlangıç, Kaydedilen veriler, Kararlar ve değerler, Gönder ve bağlan, Yapay zekâ, Hesaplar ve Bitir.",
+          "3": "Adımları çalışmaları gereken sırayla bağlayın: Bir adımın sağ kenarından sonraki adıma sürükleyin.",
+          "4": "Sağdaki panelde ayarlamak için bir adıma tıklayın; örneğin hangi tabloya kaydedileceğini seçin.",
+          "5": "Değişiklikleriniz otomatik olarak kaydedilir."
+        }
+      },
+      "3": {
+        "body": {
+          "0": "Çoğu adım ayarında sabit metin yazmak yerine değer ekleyebilirsiniz. <b>İstekten</b> bölümünde e-posta gibi bir form alanının adını yazıp <b>Ekle</b>'ye basın. <b>Önceki adımlardan</b> bölümünde, önceki adımların oluşturduğu değerler listelenir. Örneğin, bir adımın bulduğu kayıt."
+        },
+        "heading": "Kişilerin yazdığı bilgileri kullanma"
+      },
+      "4": {
+        "heading": "Form veya düğme bağlama",
+        "steps": {
+          "0": "Sayfayı sayfa düzenleyicide açın ve formu veya düğmeyi seçin.",
+          "1": "Sağdaki <b>Ayarlar</b>'ı açın.",
+          "2": "Form için <b>Gönderildiğinde çalıştır</b> bölümünde akışınızı seçin. Düğme için <b>Bas when çalıştır</b> bölümünü kullanın. Liste için <b>Öğeleri şuradan göster</b>, öğeleri bulan akışı seçer."
+        }
+      },
+      "5": {
+        "body": {
+          "0": "Bunlar sık kullanılan akışlardır. Çoğu, özellikler tarafından sizin için oluşturulur."
+        },
+        "bullets": {
+          "0": "<b>E-posta gönderen iletişim formu</b>: Uygulama bu akışı çağırdığında <b>Kayıt ekle</b> (iletiler tablonuza), ardından kişinin mesajını ekleyerek kendinize <b>E-posta gönder</b> ve son olarak teşekkür etmek için <b>Yanıtla</b>.",
+          "1": "<b>Rezervasyon</b>: Uygulama bu akışı çağırdığında, o saatteki rezervasyonları saymak için <b>Kayıtları say veya toplama ekle</b>, ardından <b>Bu olursa bunu, olmazsa şunu yap</b>. Saat uygunsa <b>Kayıt ekle</b> ve onaylamak için <b>E-posta gönder</b>; değilse dolu olduğunu belirten bir <b>Yanıtla</b>. Rezervasyonlar özelliği bunların hepsini sizin için yapar.",
+          "2": "<b>Oturum açma</b>: Oturum açma ve hesaplar özelliği bu akışları ekler. Kaydolmak için <b>Parolayı koru</b>, <b>Kayıt ekle</b> ve <b>Kişinin oturumunu aç</b> adımları kullanılır. Oturum açmak için <b>Kayıtları bul</b>, <b>Parolayı kontrol et</b> ve <b>Kişinin oturumunu aç</b> adımları kullanılır.",
+          "3": "<b>Günlük özet</b>: <b>Zamanlama</b> sekmesinde <b>Zamanlamaya göre</b> ve <b>Her gün</b> seçeneklerini belirleyin. Ardından <b>Kayıtları say veya toplama ekle</b> ve toplamı içeren bir <b>E-posta gönder</b> adımı ekleyin."
+        },
+        "heading": "Yaygın akış örnekleri"
+      },
+      "6": {
+        "body": {
+          "0": "Akışı en son değişikliklerinizle hemen bir kez çalıştırmak için <b>Test çalıştır</b>'a basın. Sonuç, adımların altında görünür. Akış adımları gerçekten uygular; bu nedenle kayıt ekler, e-posta gönderir ve Etkinlik'te görünür."
+        },
+        "heading": "Test çalıştırması yapın"
+      },
+      "7": {
+        "body": {
+          "0": "<b>Etkinlik</b> sekmesinde akışın her çalıştırılışı listelenir: <b>Tamamlandı</b>, <b>Yanıtlandı</b>, <b>Sorunla tamamlandı</b> veya <b>Başarısız</b>. Yalnızca ters gidenleri görmek için <b>Yalnızca sorunlar</b>'a basın. Kişinin ne gönderdiğini görmek için bir çalıştırmayı açın.",
+          "1": "Sorunlar, uygulamanızın Genel Bakış sayfasındaki <b>Son 24 saatteki sorunlar</b> bölümünde ve kontrol panelinizdeki uygulama kartında bir sayı olarak da görünür."
+        },
+        "heading": "Neler olduğunu görün",
+        "shot": {
+          "alt": "Akışın Etkinlik sekmesinde son çalıştırmalar ve her birinin durumu listeleniyor.",
+          "caption": "Etkinlik: Her çalıştırma ve sorun çıktıysa ne olduğu."
+        }
+      },
+      "8": {
+        "heading": "Zamanlamaya göre çalıştırın",
+        "steps": {
+          "0": "Akışın <b>Zamanlama</b> sekmesini açın.",
+          "1": "<b>Uygulamanız kullandığında</b> yerine <b>Zamanlamaya göre</b>'yi seçin.",
+          "2": "<b>Ne sıklıkta</b> bölümünde <b>Birkaç dakikada bir</b>, <b>Her saat</b>, <b>Her gün</b>, <b>Pazartesiden cumaya</b> veya <b>Haftada bir</b> seçeneklerinden birini, ardından saati ve saat diliminizi seçin.",
+          "3": "Kaydedin ve uygulamanızı yayınlayın. Zamanlamalar yalnızca yayınlanan uygulamada çalışır."
+        }
+      },
+      "9": {
+        "bullets": {
+          "0": "Bir adımı kaldırmak için adımı seçip çöp kutusuna basın veya klavyenizde Delete tuşuna basın.",
+          "1": "Akış değişiklikleri taslağınıza eklenir. Ziyaretçiler bu değişiklikleri siz yayınladıktan sonra görür.",
+          "2": "<b>E-posta gönder</b> adımı yalnızca sunucuda e-posta ayarlanmışsa e-posta gönderir. Ayarlanmamışsa uygulamanızın Genel Bakış sayfasında bir uyarı görürsünüz.",
+          "3": "<b>Yapay zekâya sor</b> adımı her çalıştığında planınızdaki yapay zekâ kullanım hakkını kullanır.",
+          "4": "Bir akışı duraklatmak veya yeniden başlatmak, zamanlaması dâhil hemen geçerli olur. Yayınlamanız gerekmez.",
+          "5": "Bazı planlarda zamanlanmış akışlar bulunmaz. Zamanlama sekmesinde bu bilgi yer alır.",
+          "6": "<b>Web adresi (geliştiriciler için)</b> yalnızca {app} dışından bir akış başlatmak için gerekir."
+        },
+        "heading": "Bilmeniz iyi olur"
+      }
+    },
+    "summary": "Birisi uygulamanızı kullandığında rezervasyon kaydetme ve size e-posta gönderme gibi işlemleri otomatikleştirin veya belirli aralıklarla çalışacak görevler ayarlayın.",
+    "title": "Akışlarla otomatikleştirin"
+  },
+  "forms-and-data": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Birisi form gönderdiğinde, rezervasyon yaptığında veya kaydolduğunda, uygulamanız bu bilgileri bir tabloya satır olarak kaydeder. Tablo, elektronik tablo gibidir: Her kayıt için bir satır, her yanıt için bir sütun bulunur. Tabloları <b>Veriler</b> sekmesinde bulabilirsiniz. En yeni beş kayıt da uygulamanızın Genel Bakış sayfasında <b>Son gönderimler</b> altında görünür.",
+          "1": "Bir form, yanıtları kaydeden bir akışa bağlıysa yanıtlar kaydedilir. Özelliklerle gelen formlar ve yapay zekânın oluşturduğu uygulamalardaki formlar zaten bağlıdır. Kendiniz eklediğiniz bir form için sayfa düzenleyicide formu seçin, <b>Ayarlar</b>'ı açın ve <b>Gönderildiğinde çalıştır</b> bölümünden bir akış seçin."
+        },
+        "heading": "Form yanıtları nereye kaydedilir?"
+      },
+      "1": {
+        "heading": "Tablo açma",
+        "shot": {
+          "alt": "Uygulamanın tablolarını ve her birindeki satır sayısını gösteren Veriler sekmesi.",
+          "caption": "Uygulamanızın kaydettiği her şey, her seferinde bir tablo."
+        },
+        "steps": {
+          "0": "<b>Veriler</b> sekmesini açın.",
+          "1": "Bir tabloya tıklayın. Tabloda kaç satır olduğu veya <b>Boş</b> olduğu gösterilir.",
+          "2": "Listeye dönmek için <b>Tüm tablolar</b>'a basın."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Satır bulmak için <b>Ara</b> alanına yazın. Sıralamak için bir sütunun adına tıklayın. Çok sayıda satır varsa alttaki <b>Daha yeni</b> ve <b>Daha eski</b> düğmelerini kullanın."
+        },
+        "heading": "Satır bulma, düzenleme ve ekleme",
+        "shot": {
+          "alt": "Veriler sekmesinde açık bir tablo. Üstte arama kutusu ile Satır ekle ve CSV indir düğmeleri, altta ise satırlar var.",
+          "caption": "Bir tabloda arama yapın, değişiklik yapın veya tabloyu indirin."
+        },
+        "steps": {
+          "0": "Bir yanıtı değiştirmek için yanıtın üzerine tıklayın, yeni değeri yazın ve kaydedin.",
+          "1": "Bir satırın tamamını değiştirmek için satırın sonundaki kalem simgesine basın.",
+          "2": "Kendiniz satır eklemek için <b>Satır ekle</b>'ye basın.",
+          "3": "Satırları silmek için satırları işaretleyin, <b>Sil</b>'e (kaç satır olduğunu gösterir), ardından <b>Evet, sil</b>'e basın. Fikriniz değişirse <b>Vazgeç</b>'e basın."
+        }
+      },
+      "3": {
+        "body": {
+          "0": "<b>CSV indir</b>, tabloyu Excel, Numbers veya Google E-Tablolar'da açabileceğiniz bir dosya olarak kaydeder. O sırada görüntülediğiniz veriler indirilir; yalnızca bazı satırları istiyorsanız önce arama yapın veya sıralayın."
+        },
+        "heading": "Bir kopyasını indirme"
+      },
+      "4": {
+        "body": {
+          "0": "Uygulamanızın Genel Bakış sayfasındaki <b>Uyarılar</b> bölümünde, ziyaretçilerden bilgi toplayan her tablo bir Açık/Kapalı anahtarıyla listelenir. Uyarılar hesabınızın e-posta adresine gönderilir; <b>Ayrıca şuraya gönder</b> bölümüne en fazla üç adres daha ekleyebilirsiniz. <b>Uyarıları kaydet</b>'e, ardından çalıştığını kontrol etmek için <b>Test gönder</b>'e basın.",
+          "1": "Uyarılar için sunucuda e-posta ayarlarının yapılmış olması gerekir. Ayarlar yapılmamışsa kartta bu belirtilir."
+        },
+        "heading": "Her yeni kayıt için e-posta alma"
+      },
+      "5": {
+        "body": {
+          "0": "Kişiler, uygulamanızın kendileriyle ilgili hangi bilgileri sakladığını sorabilir veya bu bilgilerin silinmesini isteyebilir. E-posta adresi ya da telefon numarasıyla kişiyi bulmak için Veriler sekmesinde <b>Gizlilik talepleri</b>'ni açın. Ardından verilerinin <b>Bir kopyasını indir</b> veya <b>Sil</b> seçeneğini kullanın. Uygulamanızdaki hesaplarının silinmesini isteyen kişiler <b>Onayınız bekleniyor</b> altında listelenir."
+        },
+        "heading": "Gizlilik talepleri"
+      },
+      "6": {
+        "bullets": {
+          "0": "Satırları silme veya bir kişinin verilerini silme işlemi geri alınamaz.",
+          "1": "Bazı tablolar yalnızca burada görüntülenebilir. Örneğin, Google E-Tablolar'da tutulan tablolar.",
+          "2": "Veriler sekmesinin altındaki <b>Gelişmiş</b> bölümünde verilerinizin nerede saklandığı gösterilir ve elle yeni tablolar oluşturabilirsiniz. Çoğu kişinin bu bölüme ihtiyacı olmaz.",
+          "3": "Yayınla sekmesinden alınan bir yedek, tüm tabloları ve satırları içerir."
+        },
+        "heading": "Bilmenizde fayda var"
+      }
+    },
+    "summary": "Uygulamanızın kaydettiği mesaj, rezervasyon ve kayıt gibi tüm bilgileri görüntüleyin, arayın, düzenleyin ve indirin.",
+    "title": "Formlar ve verileriniz"
+  },
+  "getting-started": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Giriş yaptığında kontrol panelin açılır. Üst çubuktaki <b>Uygulamalarım</b> seçeneğiyle istediğin zaman geri dönebilirsin.",
+          "1": "<b>Uygulamaların</b> bölümünde her uygulamanın ana sayfasından küçük bir görselin, sayfa ve akış sayısının, ayrıca <b>Yayında</b> (yayınlanmış) mı yoksa <b>Taslak</b> (yalnızca sen görebilirsin) mı olduğunun yer aldığı bir kartı bulunur. Listeyi daraltmak için <b>Tüm uygulamalar</b>, <b>Yayında</b> ve <b>Taslaklar</b> seçeneklerini ve <b>Uygulama bul…</b> kutusunu kullan.",
+          "2": "Düzenlemeye devam etmek için karttaki görsele tıkla. Genel Bakış'ı açmak için uygulamanın adına tıkla. <b>Uygulamaların</b> yanındaki satırda planın, sahip olduğun uygulama sayısı ve bu ay kullandığın AI işlemi sayısı gösterilir. <b>Faturalandırma ve plan</b> sayfasını açmak için bu satıra tıkla."
+        },
+        "heading": "Kontrol panelin",
+        "shot": {
+          "alt": "Üstte fikir kutusu, altında her uygulama için bir kart bulunan kontrol paneli.",
+          "caption": "Kontrol panelin. Her kart uygulamalarından birini gösterir."
+        }
+      },
+      "1": {
+        "body": {
+          "0": "Sana uygun olanı seç. Her yöntemin sonunda aynı araçlarda düzenlemeye devam edebileceğin bir uygulaman olur."
+        },
+        "bullets": {
+          "0": "<b>Uygulamanı anlat.</b> Ne istediğini kendi kelimelerinle yaz. AI inceleyip değiştirebileceğin bir plan önerir, ardından sayfaları, formları ve verileri oluşturur.",
+          "1": "<b>AI Tasarımcısı.</b> AI ile sohbet ederek uygulamanı adım adım şekillendir. AI Tasarımcısı ile Tasarım Yap kılavuzuna göz at.",
+          "2": "<b>Şablonlar.</b> Restoran veya portföy gibi hazır bir tasarımla başla; tüm yazıları, görselleri ve renkleri değiştir.",
+          "3": "<b>Bir web sitesini kopyala.</b> Sahibi olduğun bir web sitesinin en fazla 30 sayfasını düzenleyebileceğin yeni bir uygulamaya aktar.",
+          "4": "<b>Boş uygulama.</b> Basit bir sayfayla başla ve sürükleyip bırakarak bloklarla kendin oluştur.",
+          "5": "<b>Uygulama içe aktar.</b> Bu sunucuda veya başka bir sunucuda oluşturulmuş .zip yedek dosyasından bir uygulamayı geri yükle."
+        },
+        "heading": "Uygulama başlatmanın altı yolu"
+      },
+      "2": {
+        "body": {
+          "0": "Bu sunucuda AI kurulu değilse bu yöntem ve AI Tasarımcısı kullanılamaz. Bunun yerine bir şablonla başla."
+        },
+        "heading": "Uygulamanı anlat ve planı incele",
+        "shot": {
+          "alt": "Yeni uygulama ekranında “Ne oluşturmak istiyorsun?” sorusu, büyük bir metin kutusu ve örnek fikirler yer alıyor.",
+          "caption": "Uygulamanı kendi kelimelerinle anlat. Hiçbir şey oluşturulmadan önce planı görürsün."
+        },
+        "steps": {
+          "0": "Kontrol panelinde kutuya uygulamanı anlatan bir cümle yaz. Örneğin, “Köpek gezdirme işim için rezervasyonlar” yaz ve <b>Uygulamamı planla</b> düğmesine bas. Ayrıca <b>Başlamanın diğer yolları</b> seçeneğine basıp oradaki büyük kutuyu da kullanabilirsin.",
+          "1": "Uygulamayı kimin kullanacağını ve neler yapacağını anlat. Aklına bir şey gelmiyor mu? Kutunun altındaki örnek fikirlerden birine dokunup değiştirebilirsin.",
+          "2": "AI fikrini incelerken biraz bekle. Henüz hiçbir şey oluşturulmaz.",
+          "3": "<b>Oluşturacaklarım</b> bölümündeki planı incele: uygulamanın adı, görünümü (başka bir renk seçmek için renk örneğine tıkla), <b>Sayfaları</b>, <b>Kaydettikleri</b> ve <b>Varsayımlarım</b>. İstemediğin bir sayfayı çöp kutusu simgesiyle kaldır.",
+          "4": "Başka bir şey mi istiyorsun? <b>Başka bir şey mi istiyorsun?</b> bölümüne, örneğin “Fiyatlar sayfası ekle” yaz ve <b>Planı güncelle</b> düğmesine bas.",
+          "5": "<b>Uygulamamı oluştur</b> düğmesine bas. Bu işlem genellikle birkaç dakika sürer. Sayfadan ayrılabilirsin: oluşturma devam eder ve geri döndüğünde hazır olur.",
+          "6": "Uygulaman hazır olduğunda kısa bir karşılama mesajıyla birlikte sayfa düzenleyicide açılır."
+        }
+      },
+      "3": {
+        "body": {
+          "0": "<b>Şablonlar.</b> Daha büyük görmek için bir şablona tıkla, uygulaman için bir ad yaz ve <b>Bu şablondan uygulama oluştur</b> düğmesine bas. Listeyi daraltmak için arama kutusunu ve kategori düğmelerini kullan.",
+          "1": "<b>Bir web sitesini kopyala.</b> mybusiness.com gibi sitenin adresini yaz ve <b>Sitemi kopyala</b> düğmesine bas. Yalnızca sahibi olduğun veya kullanma iznin olan siteleri kopyala. İptal etmek için <b>Durdur</b> düğmesine bas; hiçbir şey kaydedilmez.",
+          "2": "<b>Boş uygulama.</b> Bir ad yaz ve <b>Uygulama oluştur</b> düğmesine bas. Üzerine ekleme yapabileceğin, uygulamanın adını taşıyan basit bir karşılama sayfasının yanı sıra giriş ve kaydolma sayfaları da oluşturulur.",
+          "3": "<b>Uygulama içe aktar.</b> .zip yedek dosyasını seç, istersen yeni bir ad yaz ve <b>Uygulamayı içe aktar</b> düğmesine bas. Sayfaları, akışları, verileri ve görselleri içeren bir kopya oluşturulur. Uygulamanın kendi üyelerinin şifreleri yedeklere dahil edilmez, bu yüzden üyelerin bir kez Şifremi unuttum seçeneğini kullanması gerekir."
+        },
+        "heading": "Başlamanın diğer yolları"
+      },
+      "4": {
+        "body": {
+          "0": "Her uygulamanın üst kısmında <b>Genel Bakış</b>, <b>Sayfalar</b>, <b>Özellikler</b>, <b>Akışlar</b>, <b>Veriler</b>, <b>Bildirimler</b>, <b>Tema</b>, <b>Alan adları</b> ve <b>Mobil uygulama</b> sekmeleri bulunur. Sağ tarafta <b>Önizleme</b> ve <b>Yayınla</b> seçenekleri yer alır. AI Tasarımcısı ile oluşturulan uygulamalarda Genel Bakış yerine <b>Tasarımcı</b> sekmesi bulunur.",
+          "1": "Genel Bakış'ta uygulamanın yayında olup olmadığını ve adresini, sıradaki işleri gösteren bir <b>Yayınlama kontrol listesi</b>ni, uygulamayı telefonunda açmak için tarayabileceğin bir kodu, uygulama simgeni, ziyaretçilerden gelen son gönderileri ve e-posta uyarılarını görebilirsin. <b>Düzenlemeye devam et</b> seni sayfalarına geri götürür."
+        },
+        "heading": "Uygulamanın Genel Bakış sayfası",
+        "shot": {
+          "alt": "Bir uygulamanın Genel Bakış sekmesinde uygulamanın adı, sayfa ve akış sayıları ve yayınlama kontrol listesi yer alıyor.",
+          "caption": "Genel Bakış: uygulamanı bir bakışta gör ve sonraki adımlarının listesini incele."
+        }
+      },
+      "5": {
+        "bullets": {
+          "0": "Çalışman ilerledikçe otomatik kaydedilir. Sayfa düzenleyicide Kaydet düğmesi yoktur.",
+          "1": "Yayınlayana kadar hiçbir şey herkese açık olmaz. Önce uygulamanı denemek için <b>Önizleme</b>yi kullan.",
+          "2": "Bir uygulamayı silmek için kontrol panelindeki kartında bulunan çöp kutusu simgesini kullan. Önce yedeğini indir: silme işlemi geri alınamaz.",
+          "3": "Planın oluşturabileceğin uygulama sayısını sınırlayabilir. Sınıra ulaştığında <b>Faturalandırma ve plan</b> sayfasına göz at.",
+          "4": "Kısa bir ipucu görmek için fareyi bir düğmenin üzerinde beklet. İpuçlarını <b>Profil</b>inden kapatabilirsin."
+        },
+        "heading": "Bilmen iyi olur"
+      }
+    },
+    "summary": "{app} içinde yolunu bul ve sana uygun şekilde ilk uygulamanı oluştur.",
+    "title": "Başlarken"
+  },
+  "groups": {
+    "account": "Hesabın",
+    "build": "Uygulamanı oluştur",
+    "platform": "Platformu çalıştır",
+    "publish": "Yayınla ve büyüt"
+  },
+  "look-and-feel": {
+    "sections": {
+      "0": {
+        "heading": "Tema seçin",
+        "shot": {
+          "alt": "Solunda açık ve koyu tema seçenekleri, sağında canlı önizleme bulunan Tema sekmesi.",
+          "caption": "Bir temaya tıklayın, önizleme hemen güncellensin."
+        },
+        "steps": {
+          "0": "<b>Tema</b> sekmesini açın.",
+          "1": "<b>Açık temalar</b> ve <b>Koyu temalar</b> arasından seçim yapın.",
+          "2": "Bir temaya tıklayın. Sağdaki <b>Canlı önizleme</b> anında güncellenir. Farklı içeriklerde görmek için <b>Ana sayfanız</b> ile <b>Örnek</b> arasında geçiş yapın.",
+          "3": "Hepsi bu kadar: değişiklikler otomatik olarak kaydedilir ve üstte <b>Kaydedildi</b> yazar."
+        }
+      },
+      "1": {
+        "body": {
+          "0": "<b>Özelleştir</b> bölümünden temanın istediğiniz kısmını değiştirebilirsiniz:"
+        },
+        "bullets": {
+          "0": "<b>Görünüm</b>: açık veya koyu.",
+          "1": "Normal metinler için <b>Gövde yazı tipi</b>, başlıklar için <b>Başlık yazı tipi</b>. Her birinin altında örnek bir satır gösterilir.",
+          "2": "<b>Renkler</b>: <b>Ana renk</b>, düğmelerde ve bağlantılarda kullanılan temel renginizdir. <b>Ana renk üzerine gelme</b>, imleç üzerlerine geldiğinde görünen renktir; ana rengi değiştirdiğinizde bu renk de değişir. Ardından <b>Vurgu</b>, <b>Arka plan</b>, <b>Yüzey</b> ve <b>Yüzey 2</b> (kartlar ve paneller), <b>Kenar çizgisi</b>, <b>Metin</b> ve <b>Silik metin</b> gelir.",
+          "3": "<b>Köşeler</b>: düğmeler ve kartlar için <b>Yarıçap</b>, küçük öğeler için <b>Küçük yarıçap</b>. 0 kare köşeler, daha büyük sayılar ise daha yuvarlak köşeler demektir."
+        },
+        "heading": "Kendinize göre düzenleyin"
+      },
+      "2": {
+        "body": {
+          "0": "Sayfa düzenleyicide sağdaki <b>Tema</b> sekmesinde aynı renk ve yazı tipi ayarları bulunur. Böylece sayfanızdan ayrılmadan değişiklik yapabilirsiniz."
+        },
+        "heading": "Düzenleme sırasında değiştirin"
+      },
+      "3": {
+        "bullets": {
+          "0": "Tema, uygulamanızın tüm sayfalarına uygulanır.",
+          "1": "Renk seçmek için renk kutusuna tıklayın veya #3366ff gibi bir renk kodu yazın.",
+          "2": "<b>Sıfırla</b>, Tema sekmesini açtığınızda kullandığınız temayı geri getirir.",
+          "3": "Ziyaretçiler tema değişikliklerini siz yayınladıktan sonra görür."
+        },
+        "heading": "Bilmenizde fayda var"
+      }
+    },
+    "summary": "Hazır bir tema seçin veya uygulamanızın tüm sayfaları için renkleri, yazı tiplerini ve köşeleri kendinize göre ayarlayın.",
+    "title": "Renkler ve yazı tipleri"
+  },
+  "members-and-sign-in": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "<b>Oturum açma ve hesaplar</b> özelliği uygulamanıza <b>Oturum aç</b>, <b>Kaydol</b> ve <b>Profil</b> sayfalarını ve bunların arkasındaki akışları ekler. Yeni uygulamalarda genellikle bu özellik zaten bulunur. Uygulamanızda yoksa Özellikler sekmesinden ekleyin.",
+          "1": "Kaydolan kişiler uygulamanızın üyesi olur. Hesapları kendi {app} hesabınızdan ayrıdır."
+        },
+        "heading": "Oturum açma sayfaları"
+      },
+      "1": {
+        "heading": "Bir sayfayı özel yapın",
+        "shot": {
+          "alt": "Sayfanın adını, kimlerin görebileceğini ve menüdeki yerini gösteren Sayfa ayarları penceresi.",
+          "caption": "Sayfa ayarları: Sayfayı kimlerin açabileceğini seçin."
+        },
+        "steps": {
+          "0": "Sayfa düzenleyicide, <b>Sayfalarınız</b>'ı açmak için üstteki sayfa adına tıklayın.",
+          "1": "Sayfanın yanındaki dişli simgesine (<b>Sayfa ayarları</b>) basın.",
+          "2": "<b>Bu sayfayı kimler görebilir</b> bölümünde <b>Herkes</b>, <b>Oturum açmış kişiler</b> (ziyaretçilerin önce oturum açması gerekir; herkes hesap oluşturabilir) veya <b>Yalnızca yöneticiler</b> (yalnızca siz ve yönetici yaptığınız kişiler) seçeneklerinden birini belirleyin.",
+          "3": "<b>Kaydet</b>'e basın."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "<b>Sayfa ayarları</b> bölümündeki <b>Menüde göster</b> seçeneği, uygulamanızın menüsüne sayfaya giden bir bağlantı ekler. <b>Yukarı taşı</b> ve <b>Aşağı taşı</b> seçenekleri sayfanın yerini belirler. Ana sayfa her zaman ilk sıradadır. Menüde olmayan bir sayfa da, görme izni varsa, bağlantıya sahip herkes tarafından açılabilir."
+        },
+        "heading": "Menü"
+      },
+      "3": {
+        "body": {
+          "0": "Uygulamanızın Genel Bakış sayfasındaki <b>Uygulamanızın yönetici alanı</b> bölümünde, rezervasyon listesi gibi yalnızca sizin ve ekibinizin görebileceği sayfalar listelenir. Uygulamanızda oturum açmadan açmak için bir sayfaya tıklayın. Yayınlamadan önce bu sayfalar Önizleme'de açılır."
+        },
+        "heading": "Uygulamanızın yönetici alanı"
+      },
+      "4": {
+        "heading": "Ekibinize yönetici girişi verin",
+        "shot": {
+          "alt": "Genel Bakış sayfasındaki Uygulamanızın yönetici alanı kartında yönetici sayfaları ve yönetici girişi ekleme formu gösteriliyor.",
+          "caption": "Yönetici sayfalarınızı açın veya birine yönetici girişi verin."
+        },
+        "steps": {
+          "0": "Uygulamanızın Genel Bakış sayfasında <b>Ekibiniz için yönetici girişleri</b> bölümünü bulun.",
+          "1": "<b>E-posta</b> adreslerini ve en az 10 karakterden oluşan bir <b>Parola</b> girin.",
+          "2": "<b>Yönetici ekle</b>'ye basın. Artık uygulamanızın oturum açma sayfasından oturum açıp yönetici sayfalarını açabilirler."
+        }
+      },
+      "5": {
+        "bullets": {
+          "0": "Uygulamanızda zaten hesabı olan birinin e-posta adresini kullanırsanız, o kişiyi yönetici yapar ve parolasını değiştirirsiniz.",
+          "1": "Bir sayfa özelse ancak uygulamanızda henüz oturum açma sayfası yoksa, sayfayı yalnızca siz açabilirsiniz. Sayfa ayarlarında bu konuda uyarı gösterilir.",
+          "2": "Bir sayfayı kimlerin görebileceğine ilişkin değişiklikler taslağınıza eklenir. Uygulamak için yayınlayın.",
+          "3": "Üyeler kendi hesaplarını silebilir. Silme istekleri, Veri sekmesindeki <b>Gizlilik istekleri</b> bölümünde görünür.",
+          "4": "Üyelerin parolaları yedeklere eklenmez. İçe aktarma işleminden sonra üyeler Parolamı unuttum seçeneğini bir kez kullanır."
+        },
+        "heading": "Bilmeniz iyi olur"
+      }
+    },
+    "summary": "Kişilerin uygulamanızda hesap oluşturmasına izin verin ve hangi sayfaları herkesin, oturum açmış üyelerin veya yalnızca yöneticilerin açabileceğini seçin.",
+    "title": "Üyeler, oturum açma ve özel sayfalar"
+  },
+  "page-editor": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "<b>Sayfalar</b> sekmesini aç. Solda <b>Bloklar</b>, <b>Özellikler</b> ve <b>Görseller</b> (ücretsiz fotoğraflar) bulunur. Ortada sayfan, sağda ise <b>Tasarım</b>, <b>Katmanlar</b>, <b>Ayarlar</b> ve <b>Tema</b> yer alır.",
+          "1": "Sayfanın üstündeki çubukta geri al ve yinele düğmeleri, çalışmanın kaydedilip kaydedilmediği, ekran boyutu düğmeleri ve <b>Önizleme</b> bulunur. Daha fazla alan istediğinde yan panelleri gizlemek veya göstermek için iki uçtaki panel düğmelerini kullan."
+        },
+        "heading": "Ekranı tanı",
+        "shot": {
+          "alt": "Sayfa düzenleyici: solda bloklar, ortada sayfa, sağda tasarım ayarları.",
+          "caption": "Sayfa düzenleyici. Değişiklik yapmak için sayfandaki herhangi bir şeye tıkla."
+        }
+      },
+      "1": {
+        "body": {
+          "0": "Metni değiştirmek için sayfandaki herhangi bir yazıya tıklayıp yazmaya başla.",
+          "1": "Bir görseli değiştirmek için üzerine çift tıkla. Ayrıca bir görsel seçip <b>Görseller</b> bölümündeki fotoğraflardan birine dokunabilirsin. Farklı bir simge seçmek için simgeye çift tıkla."
+        },
+        "heading": "Metinleri ve görselleri değiştir"
+      },
+      "2": {
+        "heading": "Blok ekle",
+        "steps": {
+          "0": "Yeni parçanın altına eklenmesini istediğin sayfa bölümüne tıkla.",
+          "1": "Soldaki <b>Bloklar</b> bölümünde istediğin bloğu bul. Bloklar Düzen, Bölümler, İçerik, Formlar ve Medya gibi gruplara ayrılır. Örneğin “düğme” veya “fotoğraf” yazarak <b>Bloklarda ara...</b> alanından hızlıca bulabilirsin.",
+          "2": "Bloğu seçtiğin bölümün altına eklemek için dokun veya tam istediğin yere sürükle."
+        }
+      },
+      "3": {
+        "body": {
+          "0": "Seçmek için sayfandaki bir şeye tıkla. Adı sağ panelin üst kısmında görünür ve yanında küçük bir araç çubuğu açılır: <b>Bu parçayı çevreleyen bölümü seç</b>, <b>Yukarı taşı</b>, <b>Aşağı taşı</b>, <b>Taşımak için sürükle</b>, <b>Çoğalt</b> ve <b>Sil</b>.",
+          "1": "<b>Katmanlar</b> sekmesinde sayfanın tüm parçaları sıralı olarak listelenir. Tıklaması zor bir parçayı seçmek için satırına tıkla veya parçaları taşımak için satırları sürükle. Göz simgesi, diğer parçalar üzerinde çalışırken bir parçayı gizler."
+        },
+        "heading": "Seç, taşı ve sil"
+      },
+      "4": {
+        "body": {
+          "0": "Bir şey seçip sağdaki <b>Tasarım</b> bölümünü aç. Metnini, renklerini, boşluklarını, boyutunu ve köşelerini değiştir; sayfa anında güncellenir.",
+          "1": "<b>Gelişmiş</b> bölümünde yazı tipleri, gölgeler, parçaların kutu içinde hizalanması ve fareyle üzerine gelindiğinde uygulanacak stiller gibi daha fazla seçenek bulunur. Uygulamanın genelindeki renk ve yazı tipleri için <b>Tema</b>'yı kullan."
+        },
+        "heading": "Görünümü değiştir"
+      },
+      "5": {
+        "body": {
+          "0": "Bir bağlantı, görsel, düğme, form veya liste seçip sağdaki <b>Ayarlar</b> bölümünü aç. Örneğin:"
+        },
+        "bullets": {
+          "0": "<b>Şuraya gider</b>, bağlantının insanları nereye yönlendireceğini belirler. Kendi sayfaların için /sayfa-adı, başka bir site için https:// ile başlayan tam adresi kullan.",
+          "1": "<b>Görsel açıklaması</b>, görseli göremeyen kişiler ve arama motorları için görseli açıklar.",
+          "2": "<b>Gönderilince çalıştır</b> (formda), biri formu gönderdiğinde çalışacak akışı seçer. <b>Tıklanınca çalıştır</b> da düğme için aynı işi yapar.",
+          "3": "<b>Öğeleri şuradan göster</b> (listede), listenin rezervasyonların veya ürünlerin gibi öğeleri nereden alacağını seçer."
+        },
+        "heading": "Bağlantı, düğme, form ve liste ayarları"
+      },
+      "6": {
+        "heading": "AI'dan iste",
+        "shot": {
+          "alt": "Sayfa düzenleyicisinin üzerinde açık olan Yapay Zekâ Asistanı panelinde denenebilecek değişiklik önerileri.",
+          "caption": "Yapay zekâya sorun: Ne değişmesini istediğinizi söyleyin, sayfanız sizin için güncellensin."
+        },
+        "steps": {
+          "0": "Sağ alttaki <b>Yapay zekâya sor</b>'a basın.",
+          "1": "Yalnızca bir bölümü değiştirmek için önce sayfada o bölümü seçin. Panelde <b>Değişiklikler seçili öğeye uygulanır…</b> yazar. Sayfanın tamamını değiştirmek için <b>Bunun yerine tüm sayfa</b>'ya basın.",
+          "2": "“Fiyatlandırma bölümü ekle” gibi istediğinizi yazıp Enter'a veya <b>Gönder</b>'e basın. Beğendiğiniz bir tasarımın ekran görüntüsü gibi bir resim de ekleyebilirsiniz.",
+          "3": "Sayfa düzenleyicide güncellenir. Beğenmezseniz geri al'a basın."
+        }
+      },
+      "7": {
+        "body": {
+          "0": "<b>DÜZENLENİYOR</b>'un yanındaki üst kısımda yer alan sayfa adına tıklayarak <b>Sayfalarınız</b>'ı görün. Açmak için bir sayfaya tıklayın. Ayrıldığınız sayfadaki değişiklikler önce kaydedilir.",
+          "1": "Sayfa eklemek için <b>Sayfa ekle</b>'ye basın, adını yazın ve tekrar <b>Sayfa ekle</b>'ye basın. Sayfa, uygulamanızın menüsünde görünür.",
+          "2": "Her sayfanın yanındaki dişli <b>Sayfa ayarları</b>'nı açar (sayfayı yeniden adlandırabilir, kimlerin görebileceğini ve menüdeki yerini seçebilir ya da <b>Kopyala</b>'ya basabilirsiniz). Ev simgesi sayfayı ana sayfanız yapar. Çöp kutusu ise onayınızdan sonra sayfayı siler. Silinen sayfalar geri alınamaz."
+        },
+        "heading": "Sayfalarınız"
+      },
+      "8": {
+        "body": {
+          "0": "<b>Masaüstü</b>, <b>Tablet</b> ve <b>Mobil</b> düğmeleri sayfanızı her boyutta gösterir. Mobil görünümü mutlaka kontrol edin: ziyaretçilerin çoğu telefon kullanır.",
+          "1": "<b>Önizle</b>, sayfayı yeni bir sekmede açar. Düğmelerini ve formlarını deneyebilirsiniz. En son değişikliklerinizi gösterir. Siz yayınlayana kadar ziyaretçiler bu değişiklikleri görmez."
+        },
+        "heading": "Telefonda kontrol edin, sonra önizleyin"
+      },
+      "9": {
+        "body": {
+          "0": "Sol üstteki kıvrık oklar, yapay zekânın yaptığı değişiklikler de dahil olmak üzere son değişikliklerinizi geri alır veya yineler.",
+          "1": "Değişiklikleriniz otomatik olarak kaydedilir. Çubukta önce <b>Kaydediliyor…</b>, ardından <b>Kaydedildi</b> yazar. <b>Kaydedilmedi</b> yazıyorsa bağlantınızı kontrol edin: sistem kaydetmeyi denemeye devam eder, <b>Yeniden dene</b> ise hemen tekrar dener. Sekmeyi kapatmadan önce değişiklikleriniz sunucuya ulaşmadıysa, sayfayı bir dahaki açışınızda <b>Geri yükle</b> seçeneği sunulur."
+        },
+        "heading": "Geri alma ve kaydetme"
+      },
+      "10": {
+        "bullets": {
+          "0": "Değişiklikler taslağınızda kalır. Ziyaretçiler bunları siz yayınladıktan sonra görür.",
+          "1": "Yapay Zekâ Tasarımcısı ile oluşturulan uygulamalarda sayfalar tasarımdan gelir. Bu sayfaları Tasarımcı'da değiştirin.",
+          "2": "Hazır bir blokta <b>Bağlayalım mı?</b> sorusu çıkarsa <b>Evet, bağla</b> seçeneği gönderilen bilgileri saklayacak bir yer oluşturup formu bağlar. <b>Hayır, kendim halledeceğim</b> seçeneği ise bloğu olduğu gibi ekler."
+        },
+        "heading": "Bilmenizde fayda var"
+      }
+    },
+    "summary": "Tıklayıp sürükleyerek metinleri, görselleri ve düzeni değiştir veya AI'dan senin için yapmasını iste.",
+    "title": "Sayfalarını düzenle"
+  },
+  "phone-apps": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Yayınlanmış her uygulama, uygulama mağazası kullanmadan doğrudan tarayıcıdan yüklenebilir. Uygulamanızı telefonda açın (Genel Bakış veya Yayınla sekmesindeki kodu tarayın), ardından tarayıcı menüsünden <b>Ana Ekrana Ekle</b>'yi seçin. iPhone'da bu seçenek Paylaş düğmesinin altındadır. Uygulamanız simgesiyle birlikte diğer uygulamalar gibi açılır.",
+          "1": "Uygulama simgenizi Genel Bakış sayfasındaki <b>Uygulama simgesi</b> bölümünden ayarlayın. Bir resim yükleyebilir veya yapay zekâya bir simge hazırlatabilirsiniz."
+        },
+        "heading": "Ana ekrana ekleyin"
+      },
+      "1": {
+        "heading": "Bildirim gönderin",
+        "shot": {
+          "alt": "Abone sayısını ve bildirim yazıp gönderme formunu gösteren Bildirimler sekmesi.",
+          "caption": "Bir bildirim yazın ve kaydolan herkese gönderin."
+        },
+        "steps": {
+          "0": "<b>Bildirimler</b> sekmesini açın.",
+          "1": "Bildirimler kapalıysa <b>Bildirimleri aç</b>'a basın. Böylece ziyaretçilerinizin bildirimlere kaydolabileceği küçük bir “Bildirim al” sayfası eklenir.",
+          "2": "Ziyaretçilerin kaydolabilmesi için uygulamanızı yayınlayın.",
+          "3": "Bir <b>Başlık</b> ve <b>Mesaj</b> yazın. Bildirime dokunulduğunda açılacak bir sayfa da ekleyebilirsiniz; örneğin /menu.",
+          "4": "<b>Gönder</b>'e basın (kaç kişinin bildirim alacağını gösterir). <b>Gönderilenler</b> bölümünde gönderdiklerinizi ve kaç kişiye ulaştığını görebilirsiniz."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Android telefonlarda ve bilgisayarlarda kişiler bildirimleri tarayıcıdan açar. iPhone ve iPad'de önce uygulamanızı ana ekrana eklemeleri, ardından bildirimleri oradan açmaları gerekir.",
+          "1": "Akışlar da <b>Bildirim gönder</b> adımını kullanarak bildirim gönderebilir."
+        },
+        "heading": "Bildirimleri kimler alabilir?"
+      },
+      "3": {
+        "body": {
+          "0": "Telefon uygulaması, yayınlanmış ve çalışan uygulamanızı gösterir. Bu nedenle yaptığınız değişiklikler yeniden oluşturmaya gerek kalmadan uygulamaya yansır."
+        },
+        "heading": "Android uygulaması oluşturun",
+        "shot": {
+          "alt": "Uygulama ayrıntılarını ve Android sürümleri oluşturma düğmelerini gösteren Mobil uygulama sekmesi.",
+          "caption": "Bir test kopyası veya Google Play'in istediği dosyayı oluşturun."
+        },
+        "steps": {
+          "0": "Önce uygulamanızı yayınlayın.",
+          "1": "<b>Mobil uygulama</b> sekmesini açın.",
+          "2": "<b>Uygulama ayrıntıları</b> bölümünde <b>Uygulama adı</b>, <b>Paket / Uygulama kimliği</b> (com.yourbusiness.app gibi; uygulamanız mağazaya girdikten sonra bunu asla değiştirmeyin), <b>Sürüm</b>, <b>Ekran yönü</b> ve renkleri kontrol edin, ardından <b>Ayarları kaydet</b>'e basın.",
+          "3": "Android telefona doğrudan yükleyip deneyebileceğiniz bir kopya için <b>Test APK'sı oluştur</b>'a basın.",
+          "4": "Google Play'e hazır olduğunuzda <b>Google Play için oluştur</b>'a basın. <b>Uygulamanızı Google Play'de yayınlayın</b> rehberi, mağazadaki adımlarda size yol gösterir."
+        }
+      },
+      "4": {
+        "body": {
+          "0": "Google Play, uygulamanızı ilk kez Google Play için oluşturduğunuzda hazırlanan gizli bir dosya olan yükleme anahtarınızla tanır. <b>Anahtar yedeğini indir</b>'e basın ve parola yöneticisi gibi güvenli, özel bir yerde saklayın. Bu anahtar olmadan uygulamanızı Google Play'de bir daha güncelleyemezsiniz. Anahtarı yalnızca uygulamanın sahibi indirebilir."
+        },
+        "heading": "Yükleme anahtarınızı güvende tutun"
+      },
+      "5": {
+        "body": {
+          "0": "Mobil uygulama sekmesinde <b>iPhone projesini indir</b>'e basın. iPhone uygulaması oluşturmak için ücretli bir Apple Developer hesabı ve Mac ya da ücretsiz bir GitHub hesabı gerekir. İndirilen dosyadaki yönergeler her iki yöntemi de adım adım açıklar."
+        },
+        "heading": "iPhone ve iPad"
+      },
+      "6": {
+        "bullets": {
+          "0": "<b>Bu uygulamanın kullandığı telefon özellikleri</b> bölümünde, uygulamanızın kamera veya konum gibi hangi özellikleri istediği listelenir. Bu liste değişirse uygulamayı yeniden oluşturup mağazalara yeni sürümü gönderin.",
+          "1": "Telefonlar uygulamaları yalnızca güvenli bir adresten (https) açar. Adresiniz güvenli değilse Mobil uygulama sekmesinde uyarı gösterilir.",
+          "2": "<b>Bu sunucuda Android sürümleri oluşturma kapalı</b> mesajını görürseniz, {app} hizmetini sizin için yöneten kişiye sorun.",
+          "3": "Bir uygulamayı veya hesabınızı silmeden önce Google Play yükleme anahtarını indirin."
+        },
+        "heading": "Bilmenizde fayda var"
+      }
+    },
+    "summary": "Uygulamanızı kişilerin ana ekranlarına ekleyin, bildirim gönderin ve Android ile iPhone sürümleri oluşturun.",
+    "title": "Telefon uygulamaları ve bildirimler"
+  },
+  "prices-and-payments": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "<b>Platformu siz yönetiyorsanız:</b> Yönetici bölümünde <b>Tüm ayarlar</b> > <b>Ödemeler</b> kısmından fiyatları ve Stripe'ı, <b>Planlar ve limitler</b> kısmından da her planın içeriğini ayarlayın.",
+          "1": "<b>Bayiseniz:</b> Bayi kontrol panelinizdeki <b>Faturalandırma ve planlar</b> bölümünü açın. Burada <b>1. Fiyatlarınız</b> ve <b>2. Her planın içeriği</b> bölümleri bulunur.",
+          "2": "Ödemeler, çevrimiçi ödeme hizmeti olan Stripe üzerinden alınır. Kendi Stripe hesabınızın olması gerekir."
+        },
+        "heading": "Nerede bulabilirsiniz?"
+      },
+      "1": {
+        "heading": "Stripe'ı bağlama",
+        "steps": {
+          "0": "Stripe'ta Geliştiriciler > API anahtarları bölümüne gidip <b>Gizli anahtarı</b> kopyalayın. Önce denemek için test anahtarı kullanın (sk_test_ ile başlar).",
+          "1": "Anahtarı, <b>Stripe</b> altındaki <b>Gizli anahtar</b> alanına yapıştırın.",
+          "2": "<b>Fiyatları kaydet</b>'e basın. {app}, Stripe'tan gelen ödeme güncellemelerini sizin için ayarlar."
+        }
+      },
+      "2": {
+        "heading": "Fiyatlarınızı belirleme",
+        "shot": {
+          "alt": "Her ücretli plan için ad, aylık fiyat ve para birimi alanlarının ve Stripe anahtarının bulunduğu Ödemeler bölümü.",
+          "caption": "Her plana ad ve fiyat verin, Stripe'ı bağlayın."
+        },
+        "steps": {
+          "0": "<b>Planlar ve fiyatlar</b> bölümünde her ücretli planın <b>Plan adı</b>, <b>Aylık fiyatı</b> ve <b>Para birimi</b> bulunur.",
+          "1": "Sunmak istediğiniz her plan için bir fiyat girin. Bir planı gizlemek için fiyatını boş bırakın. Ücretsiz plan her zaman kullanılabilir.",
+          "2": "<b>Fiyatları kaydet</b>'e basın. Fiyatlar sizin için Stripe hesabınızda oluşturulur."
+        }
+      },
+      "3": {
+        "body": {
+          "0": "Her plan için <b>Uygulama</b>, <b>Yayınlanan uygulama</b>, <b>Uygulama başına sayfa</b>, <b>Özel alan adı</b> ve <b>Aylık yapay zekâ işlemi</b> sayılarını belirleyin. <b>Zamanlanmış iş akışlarının</b> plana dahil olup olmadığını da seçin.",
+          "1": "Operatörün <b>Planlar ve limitler</b> bölümünde limitsiz olması için <b>limitsiz</b> seçeneğini işaretleyip <b>Plan limitlerini kaydet</b>'e basın. Bayinin <b>Faturalandırma ve planlar</b> bölümünde limitsiz olması için kutuyu boş bırakıp <b>Planları kaydet</b>'e basın.",
+          "2": "Bayiler, hesapları yalnızca davet edilenlerin açabilmesi için <b>Yeni müşterilerinizin alan adınızda kendi kayıtlarını yapmasına izin ver</b> seçeneğinin işaretini de kaldırabilir."
+        },
+        "heading": "Her planın içeriğini belirleme",
+        "shot": {
+          "alt": "Her plan için bir sütun ve her limit için bir satır içeren Planlar ve limitler tablosu.",
+          "caption": "Her plana neler dahil."
+        }
+      },
+      "4": {
+        "body": {
+          "0": "Müşteriler, sunduğunuz planları <b>Faturalandırma ve plan</b> sayfalarında görür. Ödeme yapmak için Stripe'a yönlendiren bir <b>Yükselt</b> düğmesi bulunur. Ödeme yapan müşteriler, kartlarını değiştirmek veya aboneliklerini iptal etmek için <b>Faturalandırmayı yönet</b> seçeneğini görür. Stripe bağlanana kadar fiyatlarınız görünmeye devam eder; bağlantı kurulduktan sonra ödeme adımı da çalışır.",
+          "1": "Birinin planını elle de değiştirebilirsiniz: kullanıcılar listesinden bir operatörün, müşteri listesinden ise bir bayinin planını."
+        },
+        "heading": "Müşterilerin gördükleri"
+      },
+      "5": {
+        "bullets": {
+          "0": "Müşteriler ödemeyi doğrudan kendi Stripe hesabınıza yapar. Platform herhangi bir ücret almaz.",
+          "1": "Stripe'ın ödeme güncellemeleri kurulamazsa <b>Gelişmiş: ödeme güncellemeleri (webhook)</b> bölümünde, Stripe'a elle eklemeniz gereken adres gösterilir.",
+          "2": "Canlı anahtarınıza geçmeden önce her şeyi Stripe test anahtarıyla deneyin."
+        },
+        "heading": "Bilmenizde fayda var"
+      }
+    },
+    "summary": "Stripe'ı bağlayın ve müşterilerin size doğrudan ödeme yapabilmesi için her planın fiyatını ve içeriğini belirleyin.",
+    "title": "Fiyatlar ve ödemeler"
+  },
+  "publishing": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Her zaman bir taslak üzerinde çalışırsınız. Ziyaretçiler en son yayınladığınız sürümü görür. Yapay zekânın yaptığı değişiklikler de dahil olmak üzere, değişiklikleriniz yeniden yayınlayana kadar taslakta kalır; böylece kimse yarım kalmış sayfaları görmez."
+        },
+        "heading": "Taslak ve yayındaki sürüm"
+      },
+      "1": {
+        "heading": "İlk kez yayınlayın",
+        "shot": {
+          "alt": "Uygulamanın durumunu, yayınlama düğmesini ve web adresini gösteren Yayınla sekmesi.",
+          "caption": "Yayınlayın ve uygulamanızın bağlantısını kopyalayıp paylaşın."
+        },
+        "steps": {
+          "0": "Uygulama sekmelerinizin sağ üstündeki <b>Yayınla</b>'ya basın.",
+          "1": "<b>Uygulamayı yayınla</b>'ya basın.",
+          "2": "<b>Uygulamanız yayında. Paylaşmaya hazır.</b> mesajını görürsünüz ve durum <b>Yayında</b> olarak değişir."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Uygulamanızın web adresi, kopyalama düğmesiyle birlikte Yayınla sekmesinde yer alır. Genel Bakış sayfasında ise telefonunuzun kamerasıyla tarayıp uygulamayı açabileceğiniz bir kod bulunur.",
+          "1": "<b>Arama ve paylaşım</b> ayarı, arama motorlarının ve sohbet uygulamalarının bağlantınızla birlikte göstereceği açıklamayı belirler. Uygulamanız Google'da listelenmesin istiyorsanız <b>Arama motorlarından gizle</b> seçeneğini açın; bağlantıya sahip olan herkes uygulamanızı yine de açabilir."
+        },
+        "heading": "Bağlantıyı paylaşın"
+      },
+      "3": {
+        "body": {
+          "0": "Yayınladıktan sonra bir şeyi değiştirdiğinizde durum <b>Yayında · yayınlanmamış değişiklikleriniz var</b> olarak görünür. Değişiklikleri yayına almak için <b>Değişiklikleri yayınla</b>'ya basın. Yeni bir şey yoksa düğmede <b>Güncel</b> yazar.",
+          "1": "Değişikliklerinizi önce denemek mi istiyorsunuz? Sağ üstteki <b>Önizleme</b>, taslağınızı yeni bir sekmede açar. Yalnızca siz açabilirsiniz."
+        },
+        "heading": "Değişikliklerinizi yayınlayın"
+      },
+      "4": {
+        "body": {
+          "0": "Her yayın yaptığınızda sürüm, en yeniden başlayarak <b>Sürüm geçmişi</b>'ne kaydedilir. Yayındaki sürüm <b>Yayında</b> olarak işaretlenir."
+        },
+        "heading": "Önceki bir sürüme dönün",
+        "shot": {
+          "alt": "Önceki sürümlerin yanında Yayına al düğmesi bulunan Sürüm geçmişi listesi.",
+          "caption": "Sürüm geçmişi: Yakın tarihli istediğiniz bir sürümü geri getirin."
+        },
+        "steps": {
+          "0": "<b>Sürüm geçmişi</b>'nde istediğiniz sürümü bulun.",
+          "1": "<b>Yayına al</b>'a basıp onaylayın.",
+          "2": "Ziyaretçiler bu sürümü hemen görür. Taslağınız değişmez; böylece düzenlemelerinizi yapıp yeniden yayınlayabilirsiniz."
+        }
+      },
+      "5": {
+        "body": {
+          "0": "<b>Yayından kaldır</b>, yeniden yayınlayana kadar ziyaretçilerin uygulamanızı açmasını engeller. Hiçbir şey silinmez."
+        },
+        "heading": "Yayından kaldırın"
+      },
+      "6": {
+        "body": {
+          "0": "<b>Yedeği indir (.zip)</b>, tüm sayfaları, akışları, tabloları ve satırları, temanızı ve görsellerinizi içeren tek bir dosya kaydeder. Dosyayı güvenli bir yerde saklayın veya burada ya da başka bir {app} sunucusunda yeni bir uygulama oluştururken <b>Uygulamayı içe aktar</b> ile geri yükleyin. Üyelerin şifreleri yedeğe dahil değildir."
+        },
+        "heading": "Uygulamanızı yedekleyin veya taşıyın"
+      },
+      "7": {
+        "body": {
+          "0": "<b>Cihazlara yükle</b> bölümünde: <b>Çevrimdışı uygulamayı indir (.zip)</b>, internet bağlantısı olmadan tek bir bilgisayarda çalışan ve verilerini o bilgisayarda tutan bir kopya oluşturur. <b>Masaüstü kısayolu (çevrimiçi)</b>, Windows veya Mac masaüstüne yayındaki uygulamanızın kısayolunu ekler. Telefonlar için Telefon uygulamaları ve bildirimler rehberine bakın."
+        },
+        "heading": "Bilgisayarlara ve telefonlara yükleyin"
+      },
+      "8": {
+        "bullets": {
+          "0": "Planınız, aynı anda yayınlayabileceğiniz uygulama sayısını sınırlayabilir.",
+          "1": "Sürüm geçmişinde en son 20 sürümünüz gösterilir.",
+          "2": "Zamanlanmış akışlar yalnızca uygulamanız yayınlandıktan sonra çalışır.",
+          "3": "Alan adları sekmesinden kendi web adresinizi bağlayabilirsiniz."
+        },
+        "heading": "Bilmenizde fayda var"
+      }
+    },
+    "summary": "Uygulamanızı internete koyun, bağlantısını paylaşın, güvenle güncelleyin ve gerekirse önceki bir sürüme geri dönün.",
+    "title": "Uygulamanızı yayınlayın ve paylaşın"
+  },
+  "resellers": {
+    "sections": {
+      "0": {
+        "bullets": {
+          "0": "<b>Operatör</b> platformu yönetir, paketleri, fiyatları ve limitleri belirler.",
+          "1": "<b>Bayiler</b>, operatörün eklediği ajanslardır. Her birinin kendi markası, adresi, Stripe hesabı ve müşterileri vardır.",
+          "2": "<b>Müşteriler</b>, bayinin müşterileridir. Uygulama geliştirir ve yalnızca bayinin markasını görürler.",
+          "3": "<b>Uygulama kullanıcıları</b>, yayınlanan uygulamaları kullanan kişilerdir.",
+          "4": "Müşteriler ödemeyi doğrudan bayiye yapar. Platform komisyon almaz."
+        },
+        "heading": "Nasıl çalışır?"
+      },
+      "1": {
+        "heading": "Operatörler: Bayi ekleme",
+        "shot": {
+          "alt": "Bayi ekleme formunun ve bayileri, müşterilerini, uygulamalarını ve yapay zekâ kullanımlarını gösteren tablonun bulunduğu Bayiler sayfası.",
+          "caption": "Bayi ekleyin ve limitlerini belirleyin."
+        },
+        "steps": {
+          "0": "Yönetici bölümünde <b>Bayiler</b>'i açın.",
+          "1": "<b>Bayi ekle</b> bölümünde <b>Marka adını</b>, <b>Bayinin e-posta adresini</b> ve isterseniz <b>Adını</b> yazın.",
+          "2": "<b>Maks. müşteri</b>, <b>Maks. uygulama</b> ve <b>Aylık yapay zekâ işlemi</b> limitlerini belirleyin veya sınırsız olması için boş bırakın.",
+          "3": "<b>Bayi oluştur</b>'a basın. E-posta ayarlanmışsa bayiye davet e-postası gönderilir; değilse göndermeniz için bir bağlantı alırsınız."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Tabloda her bayinin müşterileri, uygulamaları, bu ayki yapay zekâ işlemleri, alan adı ve durumu gösterilir. Bir limitin yanındaki 3 / 10 gibi sayıya tıklayarak limiti değiştirebilirsiniz. Satırın sonundaki düğmelerle bayi olarak oturum açabilir, davet veya parola sıfırlama bağlantısı oluşturabilir, bayiyi askıya alabilir ya da yeniden etkinleştirebilir ve silebilirsiniz.",
+          "1": "Aylık yapay zekâ limiti, bayinin ve tüm müşterilerinin toplam kullanımını kapsar. Limit dolduğunda, gelecek aya kadar hepsi için yapay zekâ duraklatılır. E-posta ayarlanmışsa, bayiye limitin %80'ine ve %100'üne ulaşıldığında e-posta gönderilir.",
+          "2": "Bir bayiyi askıya aldığınızda bayi ve tüm müşterileri oturumdan çıkarılır. Bir bayiyi silmek için adını yazmanız istenir; müşterilerinin hesapları ve uygulamaları kalır ve Ücretsiz planda doğrudan müşteriniz olurlar."
+        },
+        "heading": "Operatörler: Bayileri yönetme"
+      },
+      "3": {
+        "body": {
+          "0": "Üst çubuktaki <b>Bayi kontrol paneli</b>'ne tıklayın. <b>Genel bakış</b> bölümünde <b>Kurulumu tamamlayın</b> kontrol listesi (logo ve renkler, kendi alan adınız, ödemeler, ilk müşteriniz) ile kullandığınız müşteri, uygulama ve yapay zekâ işlemi sayıları yer alır. Soldaki menüde <b>Müşteriler</b>, <b>Uygulamalar</b>, <b>Marka</b>, <b>Alan adı</b> ve <b>Faturalandırma ve planlar</b> bulunur."
+        },
+        "heading": "Bayiler: Kontrol paneliniz"
+      },
+      "4": {
+        "heading": "Bayiler: Müşteri davet etme",
+        "steps": {
+          "0": "<b>Müşteriler</b>'i açın.",
+          "1": "<b>Müşteri davet et</b> bölümünde müşterinin <b>E-posta adresini</b>, isterseniz <b>Adını</b> yazın ve <b>Planını</b> seçin.",
+          "2": "<b>Davet gönder</b>'e basın. Müşteriye parola belirlemesi için bağlantı içeren bir e-posta gönderilir. E-posta ayarlanmamışsa göndermeniz için bağlantı alırsınız.",
+          "3": "Birden fazla kişiyi davet etmek için <b>Birden fazla kişiyi davet et</b>'e basıp en fazla 50 e-posta adresi yapıştırın."
+        }
+      },
+      "5": {
+        "body": {
+          "0": "Müşteri listesinde her müşterinin durumu, planı, uygulamaları, yapay zekâ kullanımı ve son etkin olduğu zaman gösterilir. Duruma, plana ve ödemeye göre filtreleyebilir veya <b>Son 30 gündür görülmedi</b> ya da <b>Hiç oturum açmadı</b> seçeneklerini işaretleyebilirsiniz. <b>İlgilenilmesi gerekenler</b> bölümü, hatırlatma gerekebilecek müşterileri gösterir.",
+          "1": "Müşterinin planını satırındaki menüden değiştirin. Her satırdaki düğmelerle müşterinin <b>Çalışma alanını açabilir</b> (geri dönmek için <b>Müşterilerinize dön</b>'e basın), yeni davet veya parola sıfırlama bağlantısı gönderebilir, erişimini askıya alabilir ya da geri açabilir ve müşteriyi silebilirsiniz.",
+          "2": "Bir müşteriyi silmek, tüm uygulamalarını da siler. Onaylamak için e-posta adresini yazmanız istenir."
+        },
+        "heading": "Bayiler: Bir müşteriye yardım etme"
+      },
+      "6": {
+        "body": {
+          "0": "<b>Uygulamalar</b> bölümünde müşterilerinizin oluşturduğu tüm uygulamalar listelenir. Müşterinin çalışma alanında bir uygulamayı düzenlemek için <b>Aç</b>'a basın. Kendi oluşturduğunuz uygulamalarda, uygulamayı müşterinin çalışma alanına taşıyan <b>Müşteriye ver</b> seçeneği bulunur; uygulamayı müşteri için açmaya devam edebilirsiniz."
+        },
+        "heading": "Bayiler: Müşteri uygulamaları"
+      },
+      "7": {
+        "bullets": {
+          "0": "Bir bayi yalnızca kendi müşterilerini görür; operatörün diğer müşterilerini veya ayarlarını göremez.",
+          "1": "Müşteriler bayinin adresinden oturum açar ve yalnızca bayinin markasını görür.",
+          "2": "Tüm müşteri koltuklarınız dolduğunda, operatör daha fazla koltuk ekleyene kadar davet gönderemezsiniz."
+        },
+        "heading": "Bilmenizde fayda var"
+      }
+    },
+    "summary": "Başka bir markayla uygulama geliştirme hizmeti sunun: Operatör bayileri ekler, her bayi de kendi müşterilerini davet edip onlarla ilgilenir.",
+    "title": "Bayiler ve müşteriler"
+  },
+  "running-your-platform": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Üst çubukta <b>Yönetici</b>'ye tıklayın. <b>Platformunuzu yönetin</b> bölümünde her alanın durumunu gösteren bir kart bulunur: <b>Marka özelleştirme</b>, <b>Bayiler</b>, <b>Ödemeler</b>, <b>Planlar ve limitler</b>, <b>Yapay zekâ motoru</b>, <b>E-posta</b>, <b>Kullanıcılar</b> ve <b>Sistem</b>. Açmak için bir karta tıklayın. En üstteki <b>Tüm ayarlar</b>, tüm ayarları tek bir sayfada açar."
+        },
+        "heading": "Yönetici ana sayfası",
+        "shot": {
+          "alt": "Marka, bayiler, ödemeler, planlar, yapay zekâ, e-posta, kullanıcılar ve sistem kartlarının yer aldığı, kurulum kontrol listesi bulunan Yönetici ana sayfası.",
+          "caption": "Yönetici ana sayfası: platformun tüm alanları ve tamamlanması gerekenler."
+        }
+      },
+      "1": {
+        "body": {
+          "0": "<b>Kurulum kontrol listesi</b>, siz ilerledikçe adımları otomatik olarak işaretler. Ayarı açmak için bir adıma tıklayın."
+        },
+        "heading": "Kurulum kontrol listesi",
+        "steps": {
+          "0": "<b>Markanızı belirleyin</b>: adınız, logonuz ve renkleriniz. Bkz. Markanız (kendi markanızı kullanma).",
+          "1": "Kullanıcıların uygulamalarını tarif ederek oluşturabilmesi için bir <b>yapay zekâ motoru bağlayın</b>. Bkz. Yapay zekâ ayarları.",
+          "2": "Ücret alıyorsanız <b>Stripe'ı bağlayın ve planlarınızın fiyatlarını belirleyin</b>. Bkz. Fiyatlar ve ödemeler.",
+          "3": "Davetlerin, şifre bağlantılarının ve uyarıların sizin için gönderilmesi amacıyla <b>e-postayı etkinleştirin</b>. Bkz. E-posta.",
+          "4": "<b>Yayınlanan uygulamalara kendi adreslerini verin</b>. Bu bir sunucu ayarıdır (.env dosyasındaki APPS_DOMAIN); bu ekranda bulunmaz. Kurulum aracı bu ayarı yapabilir. Joker karakterli bir DNS kaydıyla yayınlanan her uygulama, stüdyodan ayrı, kendine ait bir adres alır.",
+          "5": "Ajanslar üzerinden satış yapıyorsanız <b>ilk bayinizi davet edin</b>. Bkz. Bayiler ve müşteriler."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "<b>Tüm ayarlar</b> altındaki <b>Planlar ve limitler</b> bölümünde Ücretsiz, Başlangıç, Pro ve Ekip planlarında neler olduğunu belirleyin: <b>Uygulamalar</b>, <b>Yayınlanan uygulamalar</b>, <b>Uygulama başına sayfa</b>, <b>Özel alan adları</b>, <b>Aylık yapay zekâ işlemleri</b> ve <b>Zamanlanmış iş akışları</b>. Limit koymamak için <b>sınırsız</b> seçeneğini işaretleyin, ardından <b>Plan limitlerini kaydet</b>'e basın. <b>Standart limitlere sıfırla</b> seçeneği yerleşik değerleri geri yükler. Size ve bayilerinize hiçbir zaman limit uygulanmaz."
+        },
+        "heading": "Her planda neler var?"
+      },
+      "3": {
+        "body": {
+          "0": "Yönetici ana sayfasındaki <b>Kullanıcılar</b> listesinde kaydolan herkes görünür. Her kullanıcı için şunları yapabilirsiniz:"
+        },
+        "bullets": {
+          "0": "Menüden planını değiştirin. Değişiklik hemen kaydedilir.",
+          "1": "Bir kez kullanılabilen ve 2 saat geçerli bir giriş bağlantısı oluşturmak için <b>Şifre bağlantısı</b>'na basın. E-posta açıksa bağlantı kullanıcıya e-postayla gönderilir; değilse sizin göndermeniz için kopyalanır.",
+          "2": "Çalışma alanını açıp yardımcı olmak için <b>Kullanıcı olarak görüntüle</b>'ye basın. Kullanıcının hesabındayken bir bant görünür ve yaptığınız değişiklikler onun hesabına uygulanır. Geri dönmek için <b>Kullanıcı görünümünden çık</b>'a basın.",
+          "3": "Hesabını silmek için <b>Sil</b>'e basın. Hesapla birlikte nelerin silineceğini görür ve onaylamak için kullanıcının e-posta adresini yazarsınız."
+        },
+        "heading": "Kullanıcılara yardımcı olun"
+      },
+      "4": {
+        "body": {
+          "0": "<b>Son 30 günde yeni kullanıcılar</b>, kaç kişinin kaydolduğunu, uygulama oluşturduğunu ve uygulama yayınladığını gösterir. <b>Son projeler</b> en yeni uygulamaları listeler; birini sahibinin çalışma alanında açmak için <b>Aç</b>'a basın. <b>Son iş akışı çalıştırmaları</b> en yeni otomasyonları ve başarılı olup olmadıklarını gösterir."
+        },
+        "heading": "Gözünüz platformda olsun"
+      },
+      "5": {
+        "body": {
+          "0": "Sunucunun durumunu sade bir dille görmek için <b>Sistem</b>'i açın. Her kontrol bir kartta gösterilir: yeşil, her şey yolunda; sarı, kontrol etmekte fayda var; kırmızı, hemen ilgilenmek gerekiyor. Veritabanı, disk alanı, zamanlanmış iş akışları, yedeklemeler, e-posta, yapay zekâ bağlantısı, bellek ve daha fazlası kontrol edilir.",
+          "1": "<b>Gece temizliği</b>; eski çalıştırma günlüklerini, süresi dolmuş oturum açma kayıtlarını, eski yayınlanmış sürümleri ve silinen uygulamaların dosyalarını kaldırır. <b>Yalnızca raporla</b> (sayıyı gösterir, hiçbir şeyi silmez), <b>Eski kayıtları kaldır</b> veya <b>Kapalı</b> seçeneklerinden birini belirleyip <b>Kaydet</b>'e basın. <b>Şimdi kontrol et</b> veya <b>Temizliği şimdi çalıştır</b> işlemi hemen başlatır. Kayıtları kaldırma özelliğini ilk kez açmadan önce yedek alın: silinen kayıtlar geri getirilemez.",
+          "2": "Bir sorun çıkarsa, özel bilgiler gizlenmiş bir özeti kopyalamak veya indirmek için <b>Destek için ayrıntılar</b>'ı kullanın. Özeti destek ekibinize gönderebilirsiniz."
+        },
+        "heading": "Sunucu durumu",
+        "shot": {
+          "alt": "Sistem sayfası: özet, durum kontrolü kartları ve gece temizliği ayarları.",
+          "caption": "Sistem: sunucunun durumu, sade bir dille."
+        }
+      },
+      "6": {
+        "bullets": {
+          "0": "Yükseltmeden sonra veritabanının güncellenmesi gerekiyorsa Yönetici ana sayfasının üstünde bir bant görünür. Ne yapmanız gerektiği Sistem bölümünde açıklanır.",
+          "1": "Standart kurulum aracıyla yapılan kurulumlarda her gece otomatik yedek alınır. Yedekleri ara sıra başka bir cihaza kopyalayın.",
+          "2": "İzleme araçları, sunucunun çalıştığını kontrol etmek için /api/health adresini kullanabilir.",
+          "3": "İndirme dosyasındaki işletim kılavuzunda (docs/operations.md) ayrıntıları bulabilirsiniz."
+        },
+        "heading": "Bilmeniz iyi olur"
+      }
+    },
+    "summary": "Yönetici ana sayfanız: {app} uygulamasını ayarlayın, kullanıcılarla ilgilenin ve sunucunun sağlıklı çalışmasını sağlayın.",
+    "title": "Platformunuzu yönetme"
+  },
+  "white-label": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Platform yöneticisi, herkesin varsayılan olarak göreceği markayı belirler. Her bayi kendi markasını belirler ve müşterileri yalnızca bu markayı görür; platform markasını hiçbir zaman görmez.",
+          "1": "<b>Platformu siz yönetiyorsanız:</b> Yönetici'ye, ardından <b>Tüm ayarlar</b> ve <b>Marka</b> bölümüne gidin.",
+          "2": "<b>Bayiseniz:</b> <b>Bayi panelinizi</b> açın ve <b>Marka</b>'yı seçin."
+        },
+        "heading": "Kullanıcılar kimin markasını görür?"
+      },
+      "1": {
+        "heading": "Markanızı belirleyin",
+        "shot": {
+          "alt": "Ad, slogan, logo, simge, renkler ve destek e-postası alanları ile oturum açma ekranı önizlemesini içeren marka özelleştirme formu.",
+          "caption": "Markanız ve oturum açma ekranının canlı önizlemesi."
+        },
+        "steps": {
+          "0": "<b>Marka adı</b>'nı yazın. Her ekranın üstünde, e-postalarda ve oturum açma sayfasında görünür.",
+          "1": "İsterseniz sunduğunuz hizmeti kısaca anlatan bir <b>Slogan (isteğe bağlı)</b> ekleyin. Tarayıcı sekmesinin başlığına eklenir.",
+          "2": "Bir <b>Logo</b> yükleyin. Yatay logolar daha iyi görünür. 150 KB'den küçük PNG veya SVG kullanın. Logo, marka adının yerine gösterilir.",
+          "3": "Bir <b>Tarayıcı simgesi</b> yükleyin: kare ve en az 64 x 64 piksel olmalı.",
+          "4": "<b>Ana renk</b> (düğmeler ve vurgular) ile <b>Vurgu rengi</b>ni (küçük dokunuşlar) seçin.",
+          "5": "Bir <b>Destek e-postası</b> ekleyin. Yardıma ihtiyacı olan kullanıcılara gösterilir ve e-postaların yanıt adresi olarak kullanılır. İsterseniz <b>Web sitenizi</b> de ekleyin.",
+          "6": "Oturum açma ekranının <b>Önizleme</b>'sini kontrol edin, ardından <b>Marka ayarlarını kaydet</b>'e basın."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Müşterileriniz, apps.youragency.com gibi size ait bir adresten oturum açıp uygulama oluşturabilir. Yayınladıkları uygulamalar da bu adresten paylaşılır."
+        },
+        "heading": "Bayiler: kendi adresinizi kullanın",
+        "steps": {
+          "0": "Bayi panelinizde <b>Alan adı</b>'nı açın.",
+          "1": "apps.youragency.com gibi kontrol ettiğiniz bir alt alan adı yazıp <b>Bu alan adını kullan</b>'a basın.",
+          "2": "Gösterilen iki kaydı (CNAME veya A kaydı ve TXT kaydı), alan adınızın DNS ayarlarını yönettiğiniz yere ekleyin.",
+          "3": "<b>Şimdi kontrol et</b>'e basın. Durum <b>Bağlandı</b> olduğunda müşterileriniz buradan oturum açabilir."
+        }
+      },
+      "3": {
+        "bullets": {
+          "0": "Değişiklikler, sayfa bir sonraki yüklendiğinde görünür.",
+          "1": "150 KB'tan büyük görseller kabul edilmez. Daha küçük bir sürüm dışa aktarın ve tekrar deneyin.",
+          "2": "Bayi adresi, bu özellik için ayarlanmış sunucularda otomatik olarak güvenli (https) sertifika alır. Güvenli bağlantı açılmazsa platform operatörüne başvurun.",
+          "3": "Bayi adresini kullanmayı bırakmak için kutuyu temizleyip kaydedin.",
+          "4": "Operatörler: Bayi müşterilerinin uygulama bağlantılarında platformunuzun adı görünmesin diye yayınlanan uygulamalara genel bir adres (APPS_DOMAIN) verin."
+        },
+        "heading": "Bilmeniz iyi olur"
+      }
+    },
+    "summary": "Stüdyoda, e-postalarda ve oturum açma sayfalarında kendi adınızı, logonuzu ve renklerinizi kullanın.",
+    "title": "Markanız (kendi markanızı kullanma)"
+  }
+}

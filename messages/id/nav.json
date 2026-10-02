@@ -1,0 +1,41 @@
+{
+  "accountMenu": "Menu akun",
+  "accountNavigation": "Navigasi akun",
+  "admin": "Admin",
+  "adminHelp": "Pengaturan seluruh platform: merek, AI, email, pembayaran, pengguna, dan reseller.",
+  "administration": "Administrasi",
+  "billing": "Tagihan & paket",
+  "designer": "Perancang",
+  "designerHelp": "Jelaskan situs web dengan kata-kata Anda sendiri. AI akan membuat desainnya dan terus mengubahnya sesuai permintaan Anda.",
+  "help": "Bantuan",
+  "helpGuides": "Bantuan & panduan",
+  "helpHelp": "Panduan langkah demi langkah. Halaman ini membuka panduan untuk layar yang sedang Anda lihat.",
+  "helpTips": {
+    "help": "Aktifkan atau nonaktifkan catatan bantuan ini. Saat aktif, arahkan kursor ke tombol mana pun untuk mengetahui fungsinya. Anda juga bisa mengubahnya di Pengaturan.",
+    "label": "Tips bantuan",
+    "off": "NONAKTIF",
+    "on": "AKTIF"
+  },
+  "home": "Beranda {app}",
+  "impersonation": {
+    "backToClients": "Kembali ke klien Anda",
+    "backToClientsHelp": "Keluar dari ruang kerja klien ini dan kembali ke daftar klien. Perubahan yang Anda buat tetap ada di akun mereka.",
+    "impersonating": "Menyamar sebagai",
+    "signedInAs": "· masuk sebagai {email}",
+    "stop": "Berhenti menyamar",
+    "stopHelp": "Berhenti bertindak sebagai orang ini dan kembali ke Admin. Perubahan yang Anda buat tetap ada di akun mereka.",
+    "viewingClient": "Anda sedang melihat ruang kerja <b>{name}</b>. Perubahan yang Anda buat akan diterapkan ke akun mereka."
+  },
+  "logOut": "Keluar",
+  "myApps": "Aplikasi saya",
+  "myAppsHelp": "Semua aplikasi Anda di satu tempat. Buka aplikasi untuk melanjutkannya, atau mulai yang baru.",
+  "profile": "Profil",
+  "resellerDashboard": "Dasbor reseller",
+  "resellerHelp": "Kelola klien, merek, harga, dan alamat web Anda.",
+  "switchTheme": "Beralih antara mode terang dan gelap",
+  "switchToDark": "Beralih ke mode gelap",
+  "switchToLight": "Beralih ke mode terang",
+  "themeHelp": "Beralih antara mode terang dan gelap. Pilihan Anda akan diingat. Anda juga bisa memilih “Ikuti perangkat saya” di profil.",
+  "workspace": "Ruang kerja",
+  "yourAccount": "Akun Anda"
+}

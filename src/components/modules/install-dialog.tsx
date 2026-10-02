@@ -1,9 +1,11 @@
 "use client";
 import { useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { useTranslations } from "next-intl";
 import type { ModuleSummary } from "@/lib/modules/registry";
 import type { InstalledModule } from "@/lib/modules/installed";
-import { BUSINESS_NAME_FIELD, friendlyName, friendlySummary } from "./friendly";
+import { useCatalog } from "@/lib/use-catalog";
+import { BUSINESS_NAME_FIELD } from "./friendly";
 
 /** What the server sends back once a feature is added. */
 export type InstallResult = {
@@ -19,11 +21,11 @@ export type InstallResult = {
 };
 
 /** The plain-words line about what a feature needs, or null. */
-export function requirementNote(m: Pick<ModuleSummary, "requires">): string | null {
+export function requirementNote(m: Pick<ModuleSummary, "requires">, t: (key: "needsAuth" | "needsEmail") => string): string | null {
   const needs = new Set(m.requires ?? []);
   const parts: string[] = [];
-  if (needs.has("auth-session") || needs.has("auth-users")) parts.push("Needs sign-in and accounts, which every new app already has.");
-  if (needs.has("email")) parts.push("Needs email to be set up on the server.");
+  if (needs.has("auth-session") || needs.has("auth-users")) parts.push(t("needsAuth"));
+  if (needs.has("email")) parts.push(t("needsEmail"));
   return parts.length ? parts.join(" ") : null;
 }
 
@@ -47,6 +49,10 @@ type Props = {
  */
 export function InstallDialog({ projectId, projectName, module, installedCount = 0, onClose, onInstalled, onOpenModule }: Props) {
   const titleId = useId();
+  const t = useTranslations("studio.modules");
+  const cat = useCatalog();
+  /** The setup questions in the studio's language (keys, values and defaults unchanged). */
+  const fields = cat.moduleFields(module);
   const firstFieldRef = useRef<HTMLElement | null>(null);
   const [config, setConfig] = useState<Record<string, string | number>>(() => {
     const out: Record<string, string | number> = {};
@@ -75,9 +81,9 @@ export function InstallDialog({ projectId, projectName, module, installedCount =
 
   async function install() {
     if (busyRef.current) return;
-    const missing = (module.config ?? []).find((f) => f.required && String(config[f.key] ?? "").trim() === "");
+    const missing = fields.find((f) => f.required && String(config[f.key] ?? "").trim() === "");
     if (missing) {
-      setError(`Please fill in “${missing.label}”.`);
+      setError(t("fillIn", { field: missing.label }));
       return;
     }
     busyRef.current = true;
@@ -93,19 +99,18 @@ export function InstallDialog({ projectId, projectName, module, installedCount =
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
         setNeeds(Array.isArray(data.needs) ? data.needs : []);
-        throw new Error(data.error ?? "Couldn't add this feature. Please try again.");
+        throw new Error(data.error ?? t("addFailed"));
       }
       await onInstalled(data as InstallResult);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Couldn't add this feature. Please try again.");
+      setError(err instanceof Error ? err.message : t("addFailed"));
       busyRef.current = false;
       setBusy(false);
     }
   }
 
-  const name = friendlyName(module);
-  const note = requirementNote(module);
-  const fields = module.config ?? [];
+  const name = cat.moduleName(module);
+  const note = requirementNote(module, t);
   const dialog = (
     <div
       className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm"
@@ -124,8 +129,8 @@ export function InstallDialog({ projectId, projectName, module, installedCount =
               {name.charAt(0)}
             </div>
             <div>
-              <h2 id={titleId} className="text-lg font-bold">Add {name}</h2>
-              <p className="mt-0.5 text-xs text-surface-400">{friendlySummary(module)}</p>
+              <h2 id={titleId} className="text-lg font-bold">{t("dialogTitle", { name })}</h2>
+              <p className="mt-0.5 text-xs text-surface-400">{cat.moduleSummary(module)}</p>
             </div>
           </div>
         </div>
@@ -133,14 +138,13 @@ export function InstallDialog({ projectId, projectName, module, installedCount =
         <div className="min-h-0 flex-1 space-y-4 overflow-y-auto p-6">
           {installedCount > 0 && (
             <div className="rounded-lg border border-amber-400/30 bg-amber-400/10 p-3 text-sm text-amber-100">
-              <strong className="font-semibold">Already added.</strong> {name} is already in your app
-              {installedCount > 1 ? ` (${installedCount} copies)` : ""}. Adding it again makes another copy, with its own pages and lists.
+              {t.rich("alreadyAdded", { name, count: installedCount, b: (c) => <strong className="font-semibold">{c}</strong> })}
             </div>
           )}
           {note && <p className="text-xs text-surface-400">{note}</p>}
           {fields.length === 0 && (
             <p className="text-sm text-surface-400">
-              Nothing to fill in. We&apos;ll add its pages to your app, ready for you to change.
+              {t("nothingToFill")}
             </p>
           )}
           {fields.map((f, i) => {
@@ -150,7 +154,7 @@ export function InstallDialog({ projectId, projectName, module, installedCount =
               <div key={f.key}>
                 <label className="label" htmlFor={id}>
                   {f.label}
-                  {f.required && <span className="ml-1 text-brand-400" aria-hidden>*</span>}
+                  {f.required && <span className="ms-1 text-brand-400" aria-hidden>*</span>}
                 </label>
                 {f.type === "textarea" ? (
                   <textarea
@@ -203,8 +207,8 @@ export function InstallDialog({ projectId, projectName, module, installedCount =
               {onOpenModule && needs.length > 0 && (
                 <div className="flex flex-wrap gap-2">
                   {needs.map((n) => (
-                    <button key={n.id} type="button" className="btn-ghost !min-h-0 !px-3 !py-1.5 text-xs" data-help="This feature needs that one to work. Add it first, then come back and add this one." onClick={() => onOpenModule(n.id)}>
-                      Add {n.name}
+                    <button key={n.id} type="button" className="btn-ghost !min-h-0 !px-3 !py-1.5 text-xs" data-help={t("needsFirstHelp")} onClick={() => onOpenModule(n.id)}>
+                      {t("addNamed", { name: cat.moduleName(n) })}
                     </button>
                   ))}
                 </div>
@@ -215,17 +219,17 @@ export function InstallDialog({ projectId, projectName, module, installedCount =
 
         <div className="flex justify-end gap-2 border-t border-surface-800 p-4">
           <button type="button" className="btn-ghost" onClick={onClose} disabled={busy}>
-            Cancel
+            {t("cancel")}
           </button>
           <button
             type="button"
             className="btn-primary"
             onClick={install}
-            data-help={installedCount > 0 ? "Adds a second, separate copy of this feature with its own pages and saved items. The copy you already have isn't changed." : "Adds this feature's pages, and any lists or automations it needs, to your app. You can change everything afterwards."}
+            data-help={installedCount > 0 ? t("installAgainHelp") : t("installHelp")}
             disabled={busy}
             ref={fields.length === 0 ? (el) => { firstFieldRef.current = el; } : undefined}
           >
-            {busy ? "Adding…" : installedCount > 0 ? "Add another copy" : "Add to my app"}
+            {busy ? t("adding") : installedCount > 0 ? t("addAnother") : t("addToApp")}
           </button>
         </div>
       </div>

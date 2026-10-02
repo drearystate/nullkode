@@ -1,0 +1,51 @@
+{
+  "appLanguage": {
+    "help": "El idioma que habla tu app a sus visitantes. La IA escribe las páginas nuevas en ese idioma, las funciones que añadas se traducen a él y los mensajes integrados de la app también lo usan.",
+    "intro": "El idioma que ven tus visitantes: las páginas que crea la IA, las funciones que añades y los mensajes integrados, como «Lo sentimos, no se ha enviado».",
+    "invalid": "Elige uno de los idiomas de la lista.",
+    "label": "Idioma de esta app",
+    "loadError": "No se pudo cargar el idioma de la app.",
+    "notChosen": "Aún no has elegido un idioma, así que la app está en inglés.",
+    "note": "Las páginas que ya tienes conservan sus textos. Para cambiarlos, abre una página y pídele a la IA que la traduzca.",
+    "rtl": "Se escribe de derecha a izquierda: las páginas se reflejan para adaptarse.",
+    "save": "Guardar idioma",
+    "saveError": "No se pudo guardar el idioma. Inténtalo de nuevo.",
+    "saveHelp": "Guarda el idioma. Los mensajes integrados y el idioma de la página cambian al instante en la app publicada.",
+    "saved": "Guardado. Las páginas y funciones nuevas estarán en {language}.",
+    "selectHelp": "Elige el idioma en el que leen tus visitantes.",
+    "title": "Idioma de la app"
+  },
+  "buildLanguage": {
+    "help": "El idioma que leerán las personas que visiten tu app. La IA escribe todas las páginas en ese idioma. Más adelante puedes añadir otros idiomas.",
+    "label": "Idioma de la app"
+  },
+  "languages": {
+    "add": "Añadir idioma",
+    "addHelp": "Añade el idioma y hace que la IA traduzca todas las páginas. Puedes editar cada traducción en el editor.",
+    "adding": "Añadiendo…",
+    "confirmRemove": "¿Quitar {language} y sus páginas traducidas? Los visitantes dejarán de verlo cuando publiques.",
+    "edited": "{count, plural, one {# editada por ti} other {# editadas por ti}}",
+    "error": "No se pudo completar. Inténtalo de nuevo.",
+    "help": "Ofrece tu app en varios idiomas. Los visitantes eligen uno en el menú de la app y lo ven en su propia dirección (como /es/).",
+    "intro": "Ofrece tu app también en más idiomas. La IA traduce todas las páginas y los visitantes eligen un idioma en el menú. El nuevo idioma estará disponible cuando publiques.",
+    "needUpdate": "{count, plural, one {# necesita actualizarse} other {# necesitan actualizarse}}",
+    "none": "Tu app solo está en {language}.",
+    "pick": "Elige un idioma",
+    "progress": "Traduciendo… {done} de {total} páginas",
+    "publishNote": "Publica tu app para que los visitantes vean los cambios de idioma.",
+    "remove": "Quitar",
+    "removeHelp": "Quita este idioma y sus páginas traducidas de tu app.",
+    "title": "Más idiomas",
+    "translated": "{ok, plural, one {# de {total} página traducida} other {# de {total} páginas traducidas}}",
+    "update": "Actualizar traducciones",
+    "updateHelp": "La IA traduce las páginas nuevas o modificadas desde la última traducción. Se conservan las páginas que hayas editado en este idioma."
+  },
+  "preview": {
+    "adminLogin": "Tu inicio de sesión de administrador",
+    "backToEditor": "Volver al editor",
+    "latest": "Tus últimos cambios",
+    "latestLive": "Tus últimos cambios · los visitantes ven la versión {version}",
+    "notPublished": "Vista previa · aún no está publicada",
+    "title": "{title} — Vista previa"
+  }
+}

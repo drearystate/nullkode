@@ -1,0 +1,84 @@
+{
+  "appearance": {
+    "intro": "Wähle aus, wie das Studio aussehen soll. Deine Auswahl wird in deinem Konto gespeichert und auf anderen Geräten übernommen.",
+    "title": "Darstellung"
+  },
+  "blocked": {
+    "impersonating": "Nur die Person, der dieses Konto gehört, kann es löschen. Als Admin kannst du Konten unter „Nutzer“ in der Admin-Verwaltung löschen.",
+    "onlyOperator": "Du bist der einzige Betreiber dieser Plattform. Deshalb kannst du dein Konto nicht löschen.",
+    "reseller": "Du betreibst einen Reseller-Arbeitsbereich. Deshalb kannst du dein Konto hier nicht löschen. Bitte den Betreiber der Plattform, zuerst den Arbeitsbereich zu entfernen."
+  },
+  "delete": {
+    "backup": "Sicherung",
+    "backupFirst": "Lade zuerst für jede App eine Sicherung herunter. Später kannst du sie über „Importieren“ wiederherstellen.",
+    "cancel": "Abbrechen",
+    "cannotUndo": "Das lässt sich nicht rückgängig machen.",
+    "confirm": "Mein Konto endgültig löschen",
+    "deletesAccount": "Löscht dein Konto.",
+    "deletesApps": "{count, plural, one {Löscht dein Konto und deine App mit allen darin gespeicherten Daten, Dateien und Webadressen.} other {Löscht dein Konto und alle # deiner Apps mit allen darin gespeicherten Daten, Dateien und Webadressen.}}",
+    "deleting": "Wird gelöscht …",
+    "failed": "Dein Konto konnte nicht gelöscht werden ({status}).",
+    "keysAck": "{count, plural, one {Ich habe den Google Play-Upload-Schlüssel oben heruntergeladen oder brauche ihn nicht. Ohne den Schlüssel kann eine App nie wieder bei Google Play aktualisiert werden.} other {Ich habe die Google Play-Upload-Schlüssel oben heruntergeladen oder brauche sie nicht. Ohne den Schlüssel kann eine App nie wieder bei Google Play aktualisiert werden.}}",
+    "networkError": "Netzwerkfehler. Es wurde nichts gelöscht.",
+    "start": "Mein Konto löschen…",
+    "startHelp": "Damit beginnt die Löschung deines Kontos. Du wirst aufgefordert, zuerst deine E-Mail-Adresse einzugeben. Es wird nichts gelöscht, bevor du bestätigst.",
+    "subscriptionCancelled": "Dein Abo wird sofort gekündigt.",
+    "title": "Mein Konto löschen",
+    "typeEmail": "Gib deine E-Mail-Adresse zur Bestätigung ein",
+    "uploadKey": "Google Play-Upload-Schlüssel",
+    "uploadKeyHelp": "Lade diesen Schlüssel herunter und bewahre ihn sicher auf. Ohne ihn kann diese App nie wieder bei Google Play aktualisiert werden."
+  },
+  "helpPrefs": {
+    "guides": "Schritt-für-Schritt-Anleitungen findest du unter <link>Hilfe & Anleitungen</link>.",
+    "saveFailed": "Das konnte nicht gespeichert werden. Wenn du die nächste Seite öffnest, wird die vorherige Einstellung wiederhergestellt.",
+    "tips": "Hilfetipps",
+    "tipsIntro": "Kurze Hinweise, die erscheinen, wenn du den Mauszeiger über eine Schaltfläche oder Einstellung hältst. Sie erklären in einfachen Worten, was sie bewirkt.",
+    "title": "Hilfe"
+  },
+  "intro": "Dein Foto, deine Angaben und wie das Studio für dich aussieht und funktioniert.",
+  "language": {
+    "intro": "Die Sprache, in der das Studio angezeigt wird. Deine Auswahl wird in deinem Konto gespeichert und auf anderen Geräten übernommen.",
+    "title": "Sprache"
+  },
+  "metaTitle": "Profil",
+  "password": {
+    "change": "Passwort ändern",
+    "changed": "Passwort geändert. Auf deinen anderen Geräten wurdest du abgemeldet.",
+    "changing": "Wird geändert…",
+    "current": "Aktuelles Passwort",
+    "failed": "Ändern fehlgeschlagen. Bitte versuche es noch einmal.",
+    "forgotNote": "Du kennst dein aktuelles Passwort nicht (zum Beispiel, weil du dich mit Google registriert hast)? Melde dich ab und nutze <link>Passwort vergessen</link>, um ein Passwort festzulegen.",
+    "new": "Neues Passwort",
+    "newNote": "Mindestens 8 Zeichen. Wenn du das Passwort änderst, wirst du überall sonst abgemeldet.",
+    "readOnly": "Nur die Person, der dieses Konto gehört, kann das Passwort ändern.",
+    "title": "Passwort"
+  },
+  "profile": {
+    "addPhoto": "Foto hinzufügen",
+    "badPicture": "Diese Datei ist kein Bild, das wir öffnen können.",
+    "changePhoto": "Foto ändern",
+    "email": "E-Mail",
+    "emailNote": "Mit dieser Adresse meldest du dich an.",
+    "name": "Name",
+    "nameHelp": "Der Name, der in deinem Konto und in unseren E-Mails angezeigt wird.",
+    "photoHelp": "Wähle ein Bild von dir (PNG, JPEG oder WebP). Es wird quadratisch zugeschnitten und neben deinem Namen angezeigt.",
+    "photoRemoveFailed": "Foto konnte nicht entfernt werden. Bitte versuche es noch einmal.",
+    "photoRemoved": "Foto entfernt.",
+    "photoSaveFailed": "Foto konnte nicht gespeichert werden. Bitte versuche es noch einmal.",
+    "photoSaveFailedShort": "Foto konnte nicht gespeichert werden.",
+    "photoSaved": "Foto gespeichert.",
+    "remove": "Entfernen",
+    "removeHelp": "Entferne dein Foto. Stattdessen wird dein Anfangsbuchstabe angezeigt.",
+    "save": "Speichern",
+    "saveFailed": "Speichern fehlgeschlagen. Bitte versuche es noch einmal.",
+    "saved": "Gespeichert.",
+    "saving": "Wird gespeichert…",
+    "title": "Dein Profil"
+  },
+  "theme": {
+    "dark": "Dunkel",
+    "light": "Hell",
+    "system": "Wie auf meinem Gerät"
+  },
+  "title": "Profil"
+}

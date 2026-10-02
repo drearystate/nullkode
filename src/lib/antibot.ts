@@ -52,7 +52,23 @@ export class SignupBlocked extends Error {
   ) {
     super(reason);
   }
+
+  /** The key of userMessage under errors.antibot.* (for showing it in the person's language). */
+  get userMessageKey(): string {
+    return USER_MESSAGE_KEYS[this.userMessage] ?? "verificationFailed";
+  }
 }
+
+const USER_MESSAGE_KEYS: Record<string, string> = {
+  "Your signup form expired. Please try again.": "formExpired",
+  "Too many signup attempts from this network. Try again later.": "tooManyAttempts",
+  "That was too quick — please try again.": "tooQuick",
+  "Verification failed. Please reload and try again.": "verificationFailed",
+  "Too many accounts have been created from this network today.": "tooManyAccounts",
+  "Please sign up with a permanent email address.": "permanentEmail",
+  "Email already registered": "alreadyRegistered",
+  "That email domain doesn't accept mail. Please use a different address.": "domainNoMail",
+};
 
 function staleTicket(reason: string) {
   return new SignupBlocked(reason, "Your signup form expired. Please try again.", 400, true);

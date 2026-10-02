@@ -1,0 +1,788 @@
+{
+  "activity": {
+    "all": "Semua proses",
+    "allHelp": "Tampilkan semua proses terbaru dari otomatisasi ini.",
+    "empty": "Belum ada apa pun. Proses akan muncul di sini saat seseorang menggunakan ini di aplikasi Anda atau saat Anda menekan Uji proses.",
+    "filterLabel": "Proses yang ditampilkan",
+    "intro": "Yang terjadi setiap kali alur ini berjalan.",
+    "justNow": "baru saja",
+    "last24h": "24 jam terakhir: {total, plural, one {# kali berjalan} other {# kali berjalan}}, {problems} bermasalah.",
+    "loadError": "Aktivitas tidak dapat dimuat.",
+    "ms": "{n} md",
+    "noProblems": "Tidak ada masalah. Semua proses terbaru berjalan lancar.",
+    "nothingSent": "Tidak ada yang dikirim saat proses ini berjalan.",
+    "outcome": {
+      "answered": "Dijawab",
+      "failed": "Gagal",
+      "ok": "Berhasil",
+      "warning": "Selesai dengan masalah"
+    },
+    "outcomeHelp": {
+      "answered": "Dijawab: proses ini memberikan jawaban tidak, misalnya karena kata sandi salah atau informasi kurang. Ini biasanya memang diharapkan, bukan kesalahan.",
+      "failed": "Gagal: proses ini berhenti di langkah yang mengalami kesalahan dan tidak selesai.",
+      "ok": "Berhasil: semua langkah berjalan lancar.",
+      "warning": "Selesai dengan masalah: proses berhasil, tetapi ada yang tidak beres, seperti email yang tidak terkirim."
+    },
+    "problemsOnly": "Hanya yang bermasalah",
+    "problemsOnlyHelp": "Tampilkan hanya proses yang gagal atau berakhir dengan masalah, seperti email yang tidak terkirim.",
+    "refresh": "Muat ulang aktivitas",
+    "refreshHelp": "Periksa lagi apakah ada proses baru.",
+    "s": "{n} dtk",
+    "source": {
+      "event": "Dari aplikasi Anda",
+      "live": "Dari aplikasi Anda",
+      "schedule": "Sesuai jadwal",
+      "test": "Uji coba Anda",
+      "test-submission": "Pengiriman uji coba"
+    },
+    "title": "Aktivitas",
+    "titleHelp": "Setiap kali otomatisasi ini berjalan: apakah berhasil, apa yang memicunya, dan data apa yang dikirim. Berguna untuk menemukan masalah.",
+    "took": "berlangsung {duration}",
+    "whatTheySent": "Yang mereka kirim",
+    "whatWasSent": "Yang dikirim",
+    "whatWasSentHelp": "Informasi yang masuk bersama proses ini, seperti yang diketik seseorang di formulir."
+  },
+  "api": {
+    "aiTooOften": "Alur ini menggunakan AI, jadi hanya bisa dijalankan paling sering setiap {minutes} menit. Ini mencegah jadwal menghabiskan jatah AI Anda.",
+    "chooseWhen": "Pilih kapan ini harus dijalankan.",
+    "invalidInput": "Input tidak valid",
+    "notFound": "Tidak ditemukan"
+  },
+  "catalog": {
+    "aggregate": {
+      "help": "Menghitung jumlah data atau menjumlahkan kolom di tabel, seperti jumlah pendaftar atau total penjualan. Langkah berikutnya bisa menggunakan hasilnya.",
+      "label": "Hitung atau jumlahkan data"
+    },
+    "ai_prompt": {
+      "help": "Memberi AI pertanyaan atau tugas, seperti merangkum pesan. Langkah berikutnya bisa menggunakan jawabannya. Setiap kali dijalankan, jatah AI Anda akan berkurang.",
+      "label": "Tanya AI"
+    },
+    "branch": {
+      "help": "Memeriksa sesuatu lalu membagi otomatisasi menjadi dua jalur: satu dijalankan jika kondisinya benar, satu lagi jika tidak.",
+      "label": "Jika ini, lakukan itu; jika tidak, lakukan yang lain"
+    },
+    "bulk_delete": {
+      "help": "Menghapus secara permanen sekaligus semua baris di tabel yang sesuai dengan kondisi Anda. Tindakan ini tidak bisa dibatalkan.",
+      "label": "Hapus banyak baris"
+    },
+    "bulk_insert": {
+      "help": "Menambahkan banyak baris sekaligus ke tabel dari daftar yang dibuat oleh langkah sebelumnya.",
+      "label": "Tambahkan banyak baris"
+    },
+    "bulk_update": {
+      "help": "Mengubah sekaligus semua baris di tabel yang sesuai dengan kondisi Anda.",
+      "label": "Ubah banyak baris"
+    },
+    "check_role": {
+      "help": "Memeriksa apakah orang yang sedang masuk memiliki peran tertentu, seperti admin. Lanjutkan dengan langkah “Jika ini, lakukan itu; jika tidak, lakukan yang lain” untuk menentukan apa yang terjadi.",
+      "label": "Periksa izin orang ini"
+    },
+    "clear_session": {
+      "help": "Mengeluarkan orang ini dari perangkat tersebut.",
+      "label": "Keluarkan orang ini"
+    },
+    "custom_js": {
+      "help": "Untuk developer: menjalankan potongan kode JavaScript yang Anda tulis. Gunakan hanya jika langkah lain tidak bisa melakukan yang Anda perlukan.",
+      "label": "Kode khusus"
+    },
+    "delay": {
+      "help": "Menjeda otomatisasi beberapa detik (hingga 60 detik) sebelum langkah berikutnya dijalankan.",
+      "label": "Tunggu"
+    },
+    "delete": {
+      "help": "Menghapus secara permanen data di tabel yang sesuai dengan kondisi Anda. Tindakan ini tidak bisa dibatalkan.",
+      "label": "Hapus data"
+    },
+    "email": {
+      "help": "Mengirim email, seperti konfirmasi pesanan kepada pelanggan atau pemberitahuan kepada Anda.",
+      "label": "Kirim email"
+    },
+    "get_session": {
+      "help": "Mencari tahu siapa yang sedang masuk, jika ada, beserta nama, email, dan perannya, agar langkah berikutnya bisa menggunakannya.",
+      "label": "Siapa yang sedang masuk"
+    },
+    "hash_password": {
+      "help": "Mengacak kata sandi agar bisa disimpan dengan aman. Gunakan sebelum menyimpan kata sandi akun baru; kata sandi aslinya tidak bisa dibaca kembali.",
+      "label": "Amankan kata sandi"
+    },
+    "http_request": {
+      "help": "Menghubungi situs atau layanan online lain untuk mengambil atau mengirimkan informasi. Langkah berikutnya bisa menggunakan jawabannya.",
+      "label": "Hubungi situs lain"
+    },
+    "insert": {
+      "help": "Menyimpan data baru (baris baru) di salah satu tabel Anda, seperti detail yang diisi seseorang di formulir.",
+      "label": "Tambahkan data"
+    },
+    "lookup": {
+      "help": "Untuk setiap data yang ditemukan oleh langkah sebelumnya, mengambil data yang cocok dari tabel lain, seperti menambahkan detail pelanggan ke setiap pesanan.",
+      "label": "Cari data terkait"
+    },
+    "math": {
+      "help": "Menghitung angka dari dua nilai: tambah, kurangi, kalikan, bagi, atau cari sisanya. Langkah berikutnya bisa menggunakan hasilnya.",
+      "label": "Hitung angka"
+    },
+    "parse_json": {
+      "help": "Mengubah teks yang berisi data terstruktur (sering dikirim oleh situs lain) menjadi beberapa nilai yang bisa dipilih di langkah berikutnya.",
+      "label": "Ambil data dari teks"
+    },
+    "query": {
+      "help": "Mencari data tersimpan di salah satu tabel Anda (tabel mirip spreadsheet), bisa juga hanya yang sesuai dengan kondisi Anda. Langkah berikutnya bisa menggunakan hasilnya.",
+      "label": "Cari data"
+    },
+    "response": {
+      "help": "Mengirim jawaban kembali ke halaman atau formulir yang memulai otomatisasi, seperti pesan berhasil atau data yang ditemukan.",
+      "label": "Balas"
+    },
+    "send_push": {
+      "help": "Mengirim notifikasi ke semua orang yang mengaktifkan notifikasi untuk aplikasi Anda di ponsel atau komputer mereka.",
+      "label": "Kirim notifikasi"
+    },
+    "set": {
+      "help": "Menyimpan nilai dengan nama pilihan Anda agar bisa digunakan kembali di langkah berikutnya, seperti catatan kecil untuk proses ini.",
+      "label": "Simpan sebuah nilai"
+    },
+    "set_session": {
+      "help": "Memasukkan orang ini di perangkat tersebut, agar aplikasi Anda mengingat siapa mereka saat berkunjung lagi.",
+      "label": "Masukkan orang ini"
+    },
+    "sheets_append": {
+      "help": "Menambahkan baris baru ke Google Sheet yang Anda hubungkan, seperti catatan setiap formulir yang dikirim. Hanya bisa digunakan dengan sheet yang boleh diedit oleh aplikasi Anda, bukan sheet yang hanya bisa dibaca.",
+      "label": "Tambahkan baris ke Google Sheet"
+    },
+    "sheets_read": {
+      "help": "Membaca baris dari Google Sheet yang Anda hubungkan (hingga 1.000 baris), agar langkah berikutnya bisa menggunakannya.",
+      "label": "Baca Google Sheet"
+    },
+    "trigger": {
+      "help": "Di sinilah otomatisasi dimulai: saat halaman atau formulir di aplikasi Anda menggunakannya, atau sesuai jadwal jika Anda mengaturnya. Hubungkan ke langkah pertama yang ingin dijalankan.",
+      "label": "Saat aplikasi memanggil ini"
+    },
+    "update": {
+      "help": "Mengubah data yang sudah tersimpan di tabel. Pilih data yang ingin diubah dan nilai barunya.",
+      "label": "Ubah data"
+    },
+    "verify_password": {
+      "help": "Memeriksa apakah kata sandi yang diketik seseorang cocok dengan kata sandi acak yang Anda simpan. Gunakan saat orang masuk.",
+      "label": "Periksa kata sandi"
+    }
+  },
+  "categories": {
+    "ai": "AI",
+    "auth": "Akun",
+    "data": "Data tersimpan",
+    "integration": "Kirim dan hubungkan",
+    "logic": "Keputusan dan nilai",
+    "response": "Selesai",
+    "trigger": "Mulai"
+  },
+  "describe": {
+    "anEmailOff": "sebuah email tidak terkirim karena email belum disiapkan",
+    "answered": "Menjawab \"{message}\".",
+    "answeredCode": "Menjawab dengan kode {status}.",
+    "didAndNote": "{did}; {note}.",
+    "done": {
+      "ai": "bertanya kepada AI",
+      "deleted": "dihapus dari {table}",
+      "emailed": "email dikirim ke {address}",
+      "http": "menghubungi layanan lain",
+      "saved": "disimpan ke {table}",
+      "sentEmail": "email dikirim",
+      "sentPush": "notifikasi dikirim",
+      "sheetsAppend": "baris ditambahkan ke Google Sheets",
+      "signedIn": "seseorang login",
+      "signedOut": "seseorang logout",
+      "updated": "{table} diperbarui"
+    },
+    "emailNotSent": "email tidak terkirim ({reason})",
+    "emailOff": "email tidak terkirim karena email belum disiapkan",
+    "failed": {
+      "ai": "Langkah AI tidak memberikan jawaban",
+      "delete": "Tidak bisa menghapus dari {table}",
+      "didntFinish": "Tidak selesai",
+      "email": "Tidak bisa mengirim email",
+      "http": "Tidak bisa menghubungi layanan lain",
+      "push": "Tidak bisa mengirim notifikasi",
+      "read": "Tidak bisa membaca {table}",
+      "save": "Tidak bisa menyimpan ke {table}",
+      "stoppedAt": "Berhenti di “{label}”",
+      "update": "Tidak bisa memperbarui {table}"
+    },
+    "failedOnly": "{failed}.",
+    "failedWhy": "{failed}: {why}",
+    "failedWhyPeriod": "{failed}: {why}.",
+    "noProblems": "Berjalan tanpa masalah.",
+    "sent": "Terkirim",
+    "sentence": "{text}.",
+    "signUps": "pendaftaran",
+    "yourData": "data Anda"
+  },
+  "editor": {
+    "addStep": "Tambahkan langkah",
+    "addStepHelp": "Hal-hal yang bisa dilakukan otomatisasi Anda. Klik untuk menambahkan langkah, lalu seret dari tepi kanannya ke langkah berikutnya untuk mengatur urutannya.",
+    "deleteStep": "Hapus langkah",
+    "deleteStepHelp": "Menghapus langkah ini dan koneksinya. Anda juga bisa menekan Delete di keyboard.",
+    "emptyBody": "Pilih langkah untuk mengatur fungsinya. Tambahkan langkah lain dari kiri, lalu hubungkan sesuai urutan yang diinginkan.",
+    "emptyTitle": "Setiap langkah punya tujuan.",
+    "flow": "Alur",
+    "handleFalse": "Titik bawah: seret dari sini ke langkah yang dijalankan jika hasil pemeriksaan tidak benar.",
+    "handleIn": "Tempat langkah sebelumnya terhubung.",
+    "handleOut": "Seret dari sini ke langkah berikutnya untuk memilih apa yang dijalankan setelah langkah ini.",
+    "handleTrue": "Titik atas: seret dari sini ke langkah yang dijalankan jika hasil pemeriksaan benar.",
+    "pausedTest": "Otomatisasi ini dijeda. Aktifkan untuk mengujinya.",
+    "problemsBadge": "{count} bermasalah dalam 24 jam terakhir",
+    "running": "Sedang berjalan...",
+    "saveFailed": "Gagal menyimpan",
+    "saved": "Tersimpan",
+    "searchHelp": "Ketik kata seperti “email” atau “simpan” untuk menemukan langkah dengan cepat.",
+    "searchLabel": "Cari langkah alur",
+    "searchPlaceholder": "Cari langkah…",
+    "tabActivity": "Aktivitas",
+    "tabActivityHelp": "Lihat setiap kali otomatisasi ini berjalan, apakah berhasil, dan data yang dikirim orang saat terjadi masalah.",
+    "tabSchedule": "Jadwal",
+    "tabScheduleHelp": "Pilih apakah otomatisasi ini berjalan saat aplikasi digunakan atau otomatis pada waktu tertentu, seperti setiap pagi.",
+    "tabSteps": "Langkah",
+    "tabStepsHelp": "Buat otomatisasi: tambahkan langkah dan hubungkan sesuai urutan yang diinginkan.",
+    "tabsLabel": "Tampilan alur",
+    "testRun": "Uji coba",
+    "testRunHelp": "Jalankan otomatisasi ini sekali sekarang dengan perubahan tersimpan terbaru, lalu lihat hasilnya di bawah. Langkahnya benar-benar dijalankan (menyimpan, mengirim email, dan sebagainya), dan hasilnya muncul di Aktivitas.",
+    "webAddress": "Alamat web (untuk pengembang)",
+    "webAddressHelp": "Alamat web yang bisa digunakan layanan lain atau kode Anda untuk memulai otomatisasi ini. Anda hanya memerlukannya jika menghubungkan sesuatu dari luar studio."
+  },
+  "enabledSwitch": {
+    "failed": "Tidak bisa mengubahnya. Coba lagi.",
+    "help": "Saat dijeda, tidak ada yang berjalan dan apa pun di aplikasi Anda yang memakainya, seperti formulir, akan mengalami error. Perubahan langsung berlaku di aplikasi yang sudah aktif, tanpa perlu dipublikasikan.",
+    "helpScheduled": "Saat dijeda, jadwal berhenti berjalan dan apa pun di aplikasi Anda yang memakainya akan mengalami error. Perubahan langsung berlaku, tanpa perlu dipublikasikan.",
+    "label": "Jalankan otomatisasi ini",
+    "on": "Aktif",
+    "paused": "Dijeda"
+  },
+  "inspector": {
+    "add": "Tambahkan",
+    "addCondition": "Tambah kondisi",
+    "addConditionHelp": "Menambahkan aturan lain. Data harus cocok dengan semua aturan agar dihitung.",
+    "addField": "Tambah kolom",
+    "addFieldHelp": "Menambahkan baris lain berisi nama dan nilai.",
+    "advanced": "Lanjutan",
+    "agg": {
+      "avg": "Rata-rata nilai dalam kolom",
+      "count": "Hitung jumlah data",
+      "max": "Nilai terbesar dalam kolom",
+      "min": "Nilai terkecil dalam kolom",
+      "sum": "Jumlahkan nilai dalam kolom"
+    },
+    "aggregateEmptyHint": "Kosongkan untuk menyertakan semua baris. Semua kondisi harus cocok.",
+    "biggestFirst": "Hasil terbesar dulu",
+    "body": "Isi",
+    "bodyEmpty": "Tambahkan kolom yang akan dikirim di isi permintaan.",
+    "bodyHelp": "Informasi yang akan dikirim. Tiap baris berisi nama dan nilai; panduan layanan lain menjelaskan nama yang dibutuhkan.",
+    "branchHint": "Hubungkan titik atas ke tindakan saat kondisi ini benar, dan titik bawah ke tindakan saat kondisi ini tidak benar.",
+    "bulkInsertHint": "Langkah ini akan berhenti dengan error jika langkah tersebut tidak menghasilkan daftar, atau jika ada item dengan ID yang sudah ada di tabel.",
+    "byAsc": "Menurut {column}, A sampai Z",
+    "byDesc": "Menurut {column}, Z sampai A",
+    "choose": "— pilih —",
+    "clearSession": "Mengeluarkan siapa pun yang menggunakan aplikasi Anda di perangkat ini, jadi mereka harus masuk lagi nanti. Tidak ada yang perlu disiapkan di sini.",
+    "clearSessionHelp": "Langkah ini tidak punya setelan. Langkah ini menghapus sesi masuk yang disimpan aplikasi di perangkat pengguna.",
+    "closeHelp": "Tutup daftar ini tanpa menambahkan apa pun.",
+    "columnHelp": "Kolom yang akan diperiksa, seperti email atau status.",
+    "deleteHelp": "Menghapus langkah ini dan koneksinya dari otomatisasi. Tindakan ini tidak bisa dibatalkan, jadi Anda harus menambahkannya lagi.",
+    "deleteNeedsCondition": "Perlu kondisi untuk menghapus — jika tidak, langkah ini akan gagal.",
+    "fields": {
+      "aiPrompt": {
+        "help": "Pertanyaan atau tugas untuk AI. Sisipkan nilai untuk menyertakan hal seperti pesan pelanggan.",
+        "label": "Perintah"
+      },
+      "aiSystem": {
+        "help": "Latar belakang untuk AI yang tetap sama setiap kali, seperti “Jawab dengan satu kalimat yang ramah” atau “Anda bekerja di toko roti”.",
+        "label": "Instruksi sistem (opsional)"
+      },
+      "dataSource": {
+        "help": "Tempat data Anda disimpan. Kebanyakan aplikasi hanya memiliki database bawaan sendiri; pilih sumber lain hanya jika Anda menghubungkannya sendiri.",
+        "label": "Sumber data"
+      },
+      "emailFrom": {
+        "help": "Alamat yang ditampilkan sebagai pengirim email. Kosongkan untuk menggunakan alamat pengiriman bawaan server.",
+        "label": "Dari (opsional)"
+      },
+      "emailMessage": {
+        "help": "Isi email. Sisipkan nilai agar lebih personal, seperti nama orang atau detail pesanannya.",
+        "label": "Pesan"
+      },
+      "emailSubject": {
+        "help": "Baris subjek email. Anda bisa menyisipkan nilai, seperti nomor pesanan.",
+        "label": "Subjek"
+      },
+      "emailTo": {
+        "help": "Penerima email. Ketik alamat email atau sisipkan dari formulir, seperti email orang tersebut. Pisahkan beberapa alamat dengan koma.",
+        "label": "Kepada"
+      },
+      "firstValue": {
+        "help": "Angka pertama. Ketik atau sisipkan dari langkah sebelumnya.",
+        "label": "Nilai pertama"
+      },
+      "groupBy": {
+        "help": "Memberi satu hasil untuk setiap nilai di kolom ini, seperti jumlah untuk tiap status. Pilih “Satu total” untuk mendapatkan satu angka.",
+        "label": "Kelompokkan berdasarkan"
+      },
+      "groupLimit": {
+        "help": "Jumlah kelompok terbanyak yang dikembalikan, maksimal 1.000. Kelompok yang melebihi jumlah ini tidak disertakan.",
+        "label": "Jumlah maksimum kelompok"
+      },
+      "hashInput": {
+        "help": "Kata sandi yang akan disamarkan, biasanya yang diketik di formulir pendaftaran. Simpan hasil yang disamarkan, jangan pernah menyimpan kata sandi aslinya.",
+        "label": "Kata sandi untuk disamarkan"
+      },
+      "is": {
+        "help": "Cara membandingkan kedua nilai. “mengandung” mencari teks di bagian mana pun; “ada” hanya memeriksa apakah nilai pertama tidak kosong.",
+        "label": "Adalah"
+      },
+      "javascript": {
+        "help": "Kode Anda. Gunakan vars.name untuk hasil langkah sebelumnya dan trigger.name untuk data yang dikirim. Apa pun yang Anda kembalikan akan disimpan untuk langkah berikutnya.",
+        "label": "JavaScript"
+      },
+      "jsonInput": {
+        "help": "Teks berisi data dalam JSON, format umum yang dikirim situs web lain. Biasanya ini adalah jawaban dari langkah “Hubungi situs web lain”. Langkah ini gagal jika teksnya tidak menggunakan format tersebut.",
+        "label": "Teks JSON untuk diurai"
+      },
+      "lookupAs": {
+        "help": "Nama untuk detail yang ditambahkan ke setiap data, seperti customer. Satu kecocokan disimpan sebagai satu data; beberapa kecocokan disimpan sebagai daftar hingga 10 item.",
+        "label": "Simpan detail sebagai"
+      },
+      "lookupDataSource": {
+        "help": "Tempat daftar lainnya disimpan. Kebanyakan aplikasi hanya memiliki database bawaan.",
+        "label": "Sumber data"
+      },
+      "lookupIn": {
+        "help": "Daftar data sumber detail, seperti Pelanggan.",
+        "label": "Cari di"
+      },
+      "lookupMatch": {
+        "help": "Kolom dalam daftar tersebut yang nilainya harus sama dengan nilai di atas. Biasanya id.",
+        "label": "Kolom yang cocok di sana"
+      },
+      "lookupPointer": {
+        "help": "Kolom dalam data tersebut yang berisi ID data lain, seperti customer_id pada pesanan. Data yang kolomnya kosong tidak akan diubah.",
+        "label": "Kolom yang merujuk ke data lain"
+      },
+      "lookupSource": {
+        "help": "Daftar yang ditemukan oleh langkah sebelumnya, seperti pesanan dari langkah “Cari data”. Langkah ini akan berhenti dengan error jika langkah tersebut tidak menghasilkan daftar.",
+        "label": "Data yang akan ditambahkan detailnya"
+      },
+      "method": {
+        "help": "Jenis permintaan. GET mengambil informasi, POST mengirim informasi baru, PUT dan PATCH mengubahnya, DELETE menghapusnya. Panduan layanan lain akan memberi tahu metode yang harus digunakan.",
+        "label": "Metode"
+      },
+      "ofColumn": {
+        "help": "Kolom yang akan digunakan, seperti nominal atau harga. Penjumlahan dan rata-rata hanya bisa digunakan untuk kolom angka.",
+        "label": "Dari kolom ini"
+      },
+      "operator": {
+        "help": "Operasi untuk kedua angka. Sisa bagi adalah angka yang tersisa setelah pembagian (sisa bagi 7 ÷ 2 adalah 1). Membagi dengan nol menghasilkan 0.",
+        "label": "Operator"
+      },
+      "orderGroups": {
+        "help": "Menentukan urutan kelompok dalam hasil, misalnya status tersibuk di urutan teratas.",
+        "label": "Urutkan kelompok"
+      },
+      "plainPassword": {
+        "help": "Kata sandi yang baru saja diketik orang tersebut di formulir masuk.",
+        "label": "Kata sandi dari pengguna"
+      },
+      "pushMessage": {
+        "help": "Teks di bawah judul. Buat singkat karena ponsel akan memotong pesan yang terlalu panjang.",
+        "label": "Pesan"
+      },
+      "pushTitle": {
+        "help": "Baris pertama notifikasi yang dicetak tebal. Anda bisa menyisipkan nilai, seperti nama dari langkah sebelumnya.",
+        "label": "Judul"
+      },
+      "pushUrl": {
+        "help": "Halaman aplikasi yang dibuka saat seseorang mengetuk notifikasi, seperti /menu. Kosongkan untuk membuka halaman utama aplikasi.",
+        "label": "Buka halaman ini saat diketuk (opsional)"
+      },
+      "roleNeeded": {
+        "help": "Peran yang harus dimiliki orang tersebut, seperti admin atau manager. Huruf besar atau kecil tidak berpengaruh.",
+        "label": "Peran yang diperlukan"
+      },
+      "roleSource": {
+        "help": "Kosongkan untuk menggunakan peran orang yang sedang login, dari langkah “Siapa yang sedang login” sebelumnya. Ubah hanya jika langkah sebelumnya menyimpan peran dengan nama lain.",
+        "label": "Lokasi perannya (opsional)"
+      },
+      "rowsToAdd": {
+        "help": "Daftar yang dibuat oleh langkah sebelumnya, seperti data yang ditemukan oleh langkah “Cari data”. Setiap item menjadi satu baris baru, jadi nama-namanya harus cocok dengan kolom di tabel ini.",
+        "label": "Baris yang akan ditambahkan"
+      },
+      "secondValue": {
+        "help": "Angka kedua. Ketik atau sisipkan dari langkah sebelumnya.",
+        "label": "Nilai kedua"
+      },
+      "seconds": {
+        "help": "Lama jeda sebelum langkah berikutnya. Orang yang menggunakan aplikasi Anda juga harus menunggu, jadi buat sesingkat mungkin.",
+        "label": "Detik (0-60)"
+      },
+      "sheetSource": {
+        "help": "Google Sheet yang terhubung ke aplikasi Anda. Jika daftarnya kosong, tambahkan dulu di bagian Lanjutan pada halaman Data aplikasi.",
+        "label": "Sumber data Google Sheet"
+      },
+      "sheetTab": {
+        "help": "Nama tab di bagian bawah spreadsheet, persis seperti yang ditampilkan, misalnya Sheet1.",
+        "label": "Nama tab sheet"
+      },
+      "stepName": {
+        "help": "Nama untuk langkah ini, ditampilkan di kotaknya pada diagram agar Anda bisa membedakan tiap langkah. Nama ini tidak mengubah fungsi langkah.",
+        "label": "Nama langkah"
+      },
+      "storedHash": {
+        "help": "Kata sandi yang sudah disamarkan dan disimpan saat mereka mendaftar, biasanya dari langkah “Cari data” yang menemukan akun mereka.",
+        "label": "Hash tersimpan"
+      },
+      "table": {
+        "help": "Tabel yang akan digunakan. Tabel seperti spreadsheet: satu baris untuk tiap data, misalnya pesanan atau pendaftaran.",
+        "label": "Daftar data"
+      },
+      "thisValue": {
+        "help": "Nilai pembanding. Ketik tanpa tanda kutip, atau sisipkan nilai. “sama dengan” harus cocok persis, termasuk huruf besar dan kecil.",
+        "label": "Nilai ini"
+      },
+      "url": {
+        "help": "Alamat web layanan yang akan dihubungi, diawali https://. Anda bisa menyisipkan nilai ke dalamnya.",
+        "label": "URL"
+      },
+      "userId": {
+        "help": "ID akun yang akan digunakan untuk masuk, biasanya dari data yang ditemukan oleh langkah “Cari data”. Aplikasi Anda akan mengingat orang ini sampai mereka keluar.",
+        "label": "ID pengguna"
+      },
+      "value": {
+        "help": "Yang akan disimpan. Ketik teks, sisipkan nilai dari formulir atau langkah sebelumnya, atau gabungkan keduanya.",
+        "label": "Nilai"
+      },
+      "variableName": {
+        "help": "Nama untuk menyimpan nilai. Langkah berikutnya bisa memilihnya dari daftar Sisipkan.",
+        "label": "Nama variabel"
+      },
+      "whatToWorkOut": {
+        "help": "Hitung memberi jumlah data. Jumlahkan, rata-rata, terkecil, dan terbesar menghitung satu kolom, seperti total kolom nominal.",
+        "label": "Yang ingin dihitung"
+      },
+      "whenThisValue": {
+        "help": "Nilai yang akan diperiksa, biasanya dari formulir atau langkah sebelumnya. Pilih Sisipkan untuk memilihnya.",
+        "label": "Saat nilai ini"
+      }
+    },
+    "fromRequest": "Dari permintaan",
+    "fromRequestHelp": "“Permintaan” adalah data yang dikirim halaman atau formulir saat memulai otomatisasi ini. Ketik nama kolom, seperti email, lalu tekan Enter atau Tambahkan.",
+    "fromStepHelp": "Menambahkan hasil dari langkah sebelumnya ini, seperti data yang ditemukan atau jawaban yang didapat.",
+    "fromSteps": "Dari langkah sebelumnya",
+    "groupedResult": "Hasilnya berupa daftar dengan satu baris untuk tiap {column}, masing-masing berisi {column} dan nilainya.",
+    "helper": {
+      "date": "Tanggal hari ini",
+      "dateHelp": "Tanggal saat langkah ini dijalankan, tanpa waktu.",
+      "now": "Tanggal & waktu saat ini",
+      "nowHelp": "Tanggal dan waktu tepat saat langkah ini dijalankan.",
+      "uuid": "ID acak",
+      "uuidHelp": "Kode acak baru setiap kali, berguna sebagai nomor referensi unik."
+    },
+    "helpers": "Bantuan",
+    "insert": "Sisipkan",
+    "insertHelp": "Tambahkan nilai yang berubah setiap kali: sesuatu yang dikirim formulir, hasil langkah sebelumnya, atau tanggal hari ini.",
+    "insertLabel": "Sisipkan nilai",
+    "insertTitle": "Sisipkan nilai dari permintaan atau langkah sebelumnya",
+    "insertValue": "Sisipkan nilai",
+    "insertValuesHelp": "Yang disimpan di setiap kolom pada data baru. Ketik nilai atau masukkan dari formulir. ID data dan tanggal penambahannya akan diisi otomatis.",
+    "js": {
+      "available": "Nilai yang tersedia",
+      "availableHelp": "Hasil dari langkah sebelumnya yang bisa digunakan dalam kode. Klik untuk menambahkannya di posisi kursor.",
+      "chipHint": "Klik label untuk memasukkannya di posisi kursor.",
+      "examples": "Contoh",
+      "examplesHelp": "Potongan kode siap pakai untuk tugas umum. Klik untuk menambahkannya di posisi kursor.",
+      "headsUp": "Perhatian",
+      "how": "Cara kerjanya",
+      "how1": "Kode Anda berjalan di server dalam lingkungan aman yang terbatas. Kode tidak bisa mengakses jaringan atau sistem file, tidak bisa memakai <code>{require}</code> atau <code>{import}</code>, dan tidak bisa mengakses alur lain.",
+      "how2": "Baca dari <code>{read}</code> untuk memakai hasil langkah sebelumnya. Tetapkan nilai ke <code>{write}</code> agar langkah berikutnya bisa membacanya. Apa pun yang Anda <code>{return}</code> akan disimpan di variabel output yang ditampilkan di bawah.",
+      "how3": "<code>{trigger}</code> adalah salinan permintaan masuk yang tidak bisa diubah — hanya untuk dibaca. Log konsol tidak disimpan.",
+      "how4": "Skrip dihentikan setelah 3 detik. Jika kode Anda mengalami error, seluruh alur gagal dengan pesan error tersebut.",
+      "howHelp": "Apa yang bisa dan tidak bisa dilakukan kode Anda, serta batasannya, seperti berhenti setelah 3 detik.",
+      "insertTrigger": "Masukkan data permintaan",
+      "noSteps": "Belum ada langkah sebelumnya — hubungkan langkah ini setelah langkah yang menghasilkan nilai.",
+      "syntax": "Dalam kode, gunakan <code>{vars}</code> dan <code>{trigger}</code> secara langsung — bukan sintaks <code>{template}</code> yang digunakan di langkah lain."
+    },
+    "math": {
+      "add": "tambah (+)",
+      "divide": "bagi (÷)",
+      "multiply": "kalikan (×)",
+      "remainder": "sisa bagi (%)",
+      "subtract": "kurangi (−)"
+    },
+    "newRowValues": "Nilai baris baru",
+    "noColumns": "Tabel ini belum punya kolom. Tambahkan kolom ke tabel terlebih dahulu.",
+    "noConditions": "Tanpa kondisi — semua baris akan cocok.",
+    "noEditableColumns": "Tabel ini tidak punya kolom yang bisa diedit.",
+    "noSteps": "Belum ada langkah sebelumnya yang menghasilkan nilai.",
+    "oneTotal": "Satu total",
+    "ops": {
+      "contains": "berisi",
+      "eq": "sama dengan",
+      "exists": "ada (tidak kosong)",
+      "gt": "lebih besar dari",
+      "gte": "lebih besar dari atau sama dengan",
+      "lt": "lebih kecil dari",
+      "lte": "lebih kecil dari atau sama dengan",
+      "ne": "tidak sama dengan"
+    },
+    "outputHelp": "Opsional: nama untuk menyimpan hasil langkah ini. Ubah hanya jika dua langkah akan memakai nama yang sama, seperti dua langkah “Temukan data”.",
+    "outputName": "Nama untuk merujuk hasil langkah ini di tempat lain.",
+    "pickTable": "Pilih daftar data untuk menyiapkan langkah ini.",
+    "placeholders": {
+      "aNumber": "angka",
+      "aiPrompt": "Ringkas pesan pelanggan ini...",
+      "aiSystem": "Anda adalah asisten yang siap membantu...",
+      "eg10": "mis. 10",
+      "eg108": "mis. 1.08",
+      "egActive": "mis. aktif",
+      "egGreeting": "mis. sapaan",
+      "emailBody": "Hai, terima kasih sudah memesan...",
+      "emailSubject": "Pesanan Anda telah dikirim",
+      "fieldName": "nama kolom (mis. email)",
+      "hashFromRow": "Pilih hash dari baris database",
+      "helloThere": "Halo",
+      "jsonInput": "Pilih nilai yang berisi teks JSON",
+      "keepCurrent": "kosongkan untuk mempertahankan nilai saat ini",
+      "name": "nama",
+      "passwordFromRequest": "Pilih kata sandi dari permintaan",
+      "pickSourceFirst": "Pilih sumber data terlebih dahulu",
+      "pickValue": "Pilih nilai dari langkah sebelumnya",
+      "pushMessage": "Pesan meja sebelum kehabisan.",
+      "pushTitle": "Malam ini: musik live mulai pukul 7 malam",
+      "stepName": "Fungsi langkah ini",
+      "trueOrFalse": "true atau false",
+      "userIdFromStep": "Pilih ID pengguna dari langkah sebelumnya",
+      "value": "nilai"
+    },
+    "pushIntro": "Mengirim ke semua orang yang mengaktifkan notifikasi untuk aplikasi ini. Pengguna iPhone perlu menambahkan aplikasi ke layar utama.",
+    "queryEmptyHint": "Kosongkan untuk menampilkan semua baris. Semua kondisi harus cocok.",
+    "remove": "Hapus",
+    "removeCondition": "Hapus kondisi",
+    "removeConditionHelp": "Menghapus aturan ini.",
+    "removeRowHelp": "Menghapus baris ini.",
+    "respondEmpty": "Pilih yang akan dikirim kembali ke pemanggil. Setiap baris menjadi kolom dalam balasan.",
+    "respondHint": "Secara default, pemanggil menerima balasan sukses. Tambahkan langkah percabangan sebelumnya jika perlu mengirim balasan error.",
+    "respondWith": "Balas dengan",
+    "respondWithHelp": "Yang dikirim kembali ke halaman atau formulir yang memulai proses ini. Setiap baris berisi nama dan nilai, seperti message: Terima kasih, kami sudah menerimanya.",
+    "rolePassHint": "Tambahkan langkah “Siapa yang sedang login” sebelumnya, atau tidak ada yang akan lolos pemeriksaan ini.",
+    "roleResult": "Jawaban true atau false disimpan sebagai {name}. Lanjutkan dengan langkah “Jika ini, lakukan itu” untuk memeriksa apakah {token} sama dengan true.",
+    "rowValues": "Nilai baris",
+    "rowValuesEmpty": "Tambahkan satu kolom untuk setiap judul kolom di sheet.",
+    "rowValuesHelp": "Yang akan dimasukkan ke baris baru. Setiap nama harus cocok dengan judul kolom di baris pertama sheet; nilainya akan dimasukkan di bawah judul tersebut.",
+    "setFields": "Atur kolom ini",
+    "singleResult": "Hasilnya berupa daftar dengan satu baris yang berisi jawabannya. Untuk menggunakan angka ini di langkah berikutnya, ketik {token}.",
+    "smallestFirst": "Hasil terkecil dulu",
+    "snippets": {
+      "filter": {
+        "description": "Hanya tampilkan baris yang cocok dengan kondisi",
+        "label": "Filter baris"
+      },
+      "format": {
+        "description": "Buat pesan dari data pemicu",
+        "label": "Format teks"
+      },
+      "map": {
+        "description": "Ubah setiap baris menjadi objek yang lebih ringkas",
+        "label": "Ubah ke bentuk baru"
+      },
+      "split": {
+        "description": "Ubah nama lengkap menjadi kolom nama depan dan belakang",
+        "label": "Pisahkan nama"
+      },
+      "sum": {
+        "description": "Jumlahkan angka dari semua baris",
+        "label": "Jumlahkan nilai dalam kolom"
+      },
+      "timestamp": {
+        "description": "Dapatkan waktu saat ini dalam format string ISO",
+        "label": "Waktu saat ini"
+      }
+    },
+    "step": "Langkah",
+    "updateNeedsCondition": "Perlu kondisi untuk mengubah baris — jika tidak, langkah ini akan gagal.",
+    "updateValuesHelp": "Nilai baru yang akan disimpan. Kosongkan kolom untuk mempertahankan nilainya saat ini.",
+    "where": {
+      "aggregate": {
+        "help": "Hanya data dengan kolom yang nilainya sama dengan nilai yang Anda berikan yang akan dihitung; semua aturan harus cocok. Aturan dengan nilai kosong akan dilewati. Tanpa aturan, semua data akan dihitung.",
+        "label": "Sertakan hanya baris dengan"
+      },
+      "bulk_delete": {
+        "help": "Baris yang akan dihapus: semua baris dengan kolom yang nilainya sama dengan nilai yang Anda berikan. Perlu setidaknya satu aturan agar seluruh tabel tidak terhapus.",
+        "label": "Hapus baris dengan"
+      },
+      "bulk_update": {
+        "help": "Baris yang akan diubah: semua baris dengan kolom yang nilainya sama dengan nilai yang Anda berikan. Perlu setidaknya satu aturan agar seluruh tabel tidak berubah tanpa sengaja.",
+        "label": "Ubah baris dengan"
+      },
+      "delete": {
+        "help": "Data yang akan dihapus: hanya data dengan kolom yang nilainya sama dengan nilai yang Anda berikan. Perlu setidaknya satu aturan agar seluruh tabel tidak terhapus.",
+        "label": "Hapus baris dengan"
+      },
+      "query": {
+        "help": "Hanya data dengan kolom yang nilainya sama dengan nilai yang Anda berikan yang akan ditemukan; semua aturan harus cocok. Aturan dengan nilai kosong akan dilewati. Tanpa aturan, semua data akan ditemukan (maksimal 100).",
+        "label": "Temukan baris dengan"
+      },
+      "update": {
+        "help": "Data yang akan diubah: hanya data dengan kolom yang nilainya sama dengan nilai yang Anda berikan. Perlu setidaknya satu aturan agar seluruh tabel tidak berubah tanpa sengaja.",
+        "label": "Perbarui baris dengan"
+      }
+    }
+  },
+  "list": {
+    "emptyBody": "Buat alur pertama Anda, atau tambahkan fitur siap pakai yang alurnya sudah terhubung.",
+    "emptyTitle": "Otomatisasi kecil bisa sangat berguna.",
+    "explainerHelp": "Cara kerja otomatisasi: sesuatu terjadi di aplikasi Anda, seperti formulir dikirim; langkah-langkah Anda berjalan berurutan; lalu pengguna menerima hasil, seperti pesan terima kasih.",
+    "explore": "Jelajahi fitur",
+    "exploreHelp": "Jelajahi fitur siap pakai, seperti pemesanan atau formulir kontak. Otomatisasinya sudah disiapkan.",
+    "eyebrow": "BUAT SESUATU TERJADI",
+    "intro": "Ubah klik menjadi tindakan. Simpan pemesanan, kirim email, atau buat data Anda lebih berguna.",
+    "openHelp": "Buka otomatisasi ini untuk melihat dan mengubah langkah-langkahnya, memeriksa hasil setiap kali dijalankan, atau mengatur jadwalnya.",
+    "result": "Hasil untuk pengguna",
+    "somethingHappens": "Sesuatu terjadi",
+    "steps": "{count, plural, one {# langkah} other {# langkah}}",
+    "stepsRun": "Langkah-langkah Anda berjalan",
+    "title": "Alur aplikasi Anda.",
+    "triggerEvent": "Dimulai dari peristiwa",
+    "triggerForm": "Dimulai dari formulir",
+    "triggerRequest": "Dimulai dari permintaan",
+    "triggerSchedule": "Berjalan sesuai jadwal"
+  },
+  "newFlow": {
+    "button": "Alur baru",
+    "buttonHelp": "Mulai otomatisasi baru yang kosong: sesuatu yang berjalan sendiri saat terjadi sesuatu di aplikasi Anda. Beri nama, lalu tambahkan langkah-langkahnya.",
+    "create": "Buat",
+    "createHelp": "Buat otomatisasi dan buka agar Anda bisa menambahkan langkah-langkahnya.",
+    "nameHelp": "Beri nama yang menjelaskan fungsi otomatisasi ini, seperti Kirim konfirmasi pemesanan. Tekan Enter untuk membuatnya.",
+    "placeholder": "mis. Kirim formulir kontak"
+  },
+  "runtime": {
+    "aiBusy": "Aplikasi ini sedang menerima terlalu banyak permintaan AI. Coba lagi nanti.",
+    "aiLimit": "Aplikasi ini sudah mencapai batas AI bulanan.",
+    "appDayLimit": "Aplikasi ini sudah mengirim {count} email hari ini, jadi email ini tidak dikirim untuk mencegah spam.",
+    "appHourLimit": "Aplikasi ini sudah mengirim {count} email dalam satu jam terakhir, jadi email ini tidak dikirim untuk mencegah spam.",
+    "emailFailed": "Email tidak dapat dikirim.",
+    "emailOff": "Email belum disiapkan di server ini, jadi pesan tidak terkirim.",
+    "formula": "Rumus di langkah \"{step}\" tidak dapat dihitung: {reason}",
+    "recipientLimit": "{to} sudah menerima {count} email dari aplikasi dalam satu jam terakhir, jadi email ini tidak dikirim."
+  },
+  "schedule": {
+    "aiNote": "Alur yang menggunakan AI berjalan paling sering setiap {minutes} menit.",
+    "aiTooOften": "Alur ini menggunakan AI, jadi hanya bisa dijalankan paling sering setiap {minutes} menit.",
+    "appMode": "Saat digunakan oleh aplikasi",
+    "appModeBody": "Halaman, formulir, atau situs lain yang memicunya.",
+    "appModeHelp": "Otomatisasi ini hanya berjalan saat dipicu oleh sesuatu di aplikasi, seperti pengunjung yang mengirim formulir.",
+    "connection": "Periksa koneksi Anda, lalu coba lagi.",
+    "day": "Hari",
+    "dayHelp": "Menentukan hari apa dalam seminggu otomatisasi ini berjalan.",
+    "describe": {
+      "daily": "Setiap hari pukul {time} ({zone})",
+      "everyHour": "Setiap jam",
+      "everyHours": "Setiap {count} jam",
+      "everyMinute": "Setiap menit",
+      "everyMinutes": "Setiap {count} menit",
+      "hourlyFull": "Setiap jam tepat ({zone})",
+      "hourlyPast": "{minute, plural, one {Setiap jam pada menit ke-# ({zone})} other {Setiap jam pada menit ke-# ({zone})}}",
+      "utc": "UTC",
+      "weekdays": "Senin sampai Jumat pukul {time} ({zone})",
+      "weekly": "Setiap {day} pukul {time} ({zone})",
+      "zoneTime": "waktu {zone}"
+    },
+    "every": "Setiap",
+    "everyHelp": "Jarak waktu antarproses. Beberapa pilihan mungkin tidak tersedia, misalnya saat otomatisasi ini menggunakan AI.",
+    "failing": "{count, plural, one {# kali gagal berturut-turut; dijeda setelah {max} kali.} other {# kali gagal berturut-turut; dijeda setelah {max} kali.}}",
+    "hour": "jam",
+    "hours": "{count} jam",
+    "howOften": "Seberapa sering",
+    "howOftenHelp": "Seberapa sering otomatisasi ini berjalan. Pilih pola, lalu waktu tepatnya di sebelahnya.",
+    "inZone": "{time} (waktu {zone})",
+    "kinds": {
+      "daily": "Setiap hari",
+      "every": "Setiap beberapa menit",
+      "hourly": "Setiap jam",
+      "weekdays": "Senin sampai Jumat",
+      "weekly": "Seminggu sekali"
+    },
+    "lastFailed": "Terakhir berjalan {when}: gagal.",
+    "lastOk": "Terakhir berjalan {when}: berhasil.",
+    "lastTimeout": "Terakhir berjalan {when}: waktunya habis.",
+    "loadError": "Jadwal tidak dapat dimuat.",
+    "loading": "Memuat jadwal…",
+    "minute": "menit",
+    "minutes": "{count} menit",
+    "nextRun": "Berikutnya berjalan {when}",
+    "noPlan": "Paket Anda tidak mencakup alur terjadwal, jadi ini tidak akan berjalan.",
+    "notInLive": "Alur ini belum ada di aplikasi yang dipublikasikan. <link>Publikasikan perubahan Anda</link> untuk memulai jadwal.",
+    "notInPlan": "Tidak termasuk dalam paket Anda.",
+    "notPublished": "Tersimpan. <link>Publikasikan aplikasi Anda</link> untuk memulai jadwal ini.",
+    "onTheHour": "Tepat pada jam (:00)",
+    "pastHour": "Menit lewat dari jam",
+    "pastHourHelp": "Menentukan menit keberapa setiap jam otomatisasi ini berjalan, seperti :15 untuk pukul lewat lima belas menit.",
+    "pausedFailures": "Dijeda setelah {count} kali gagal berturut-turut. Periksa langkah-langkah alur, lalu lanjutkan.",
+    "pending": "<link>Publikasikan perubahan Anda</link> untuk menggunakan jadwal ini.",
+    "pendingUntil": "Sampai saat itu, jadwal yang dipublikasikan tetap digunakan: {schedule}.",
+    "problems": {
+      "badZone": "Zona waktu tersebut tidak dikenali.",
+      "chooseHowOften": "Pilih seberapa sering ini harus dijalankan.",
+      "chooseWhen": "Pilih kapan ini harus dijalankan.",
+      "minuteRange": "Pilih menit setelah jam, antara 0 dan 59.",
+      "minutesRange": "Pilih jumlah menit antara {min} dan {max}.",
+      "pickDay": "Pilih hari dalam seminggu.",
+      "pickTime": "Pilih waktu, misalnya 09:00."
+    },
+    "resume": "Lanjutkan",
+    "resumeHelp": "Mengaktifkan kembali jadwal setelah dijeda karena prosesnya terus gagal. Perbaiki dulu masalah pada langkah-langkahnya.",
+    "saveError": "Tidak dapat menyimpan. Coba lagi.",
+    "saveHelp": "Menyimpan jadwal berjalan. Jadwal baru atau yang diubah mulai berlaku setelah aplikasi dipublikasikan.",
+    "saveSchedule": "Simpan jadwal",
+    "scheduleMode": "Sesuai jadwal",
+    "scheduleModeBody": "Berjalan sendiri pada waktu yang Anda pilih.",
+    "scheduleModeHelp": "Otomatisasi ini berjalan sendiri pada waktu yang Anda pilih. Jadwal mulai berlaku setelah aplikasi dipublikasikan.",
+    "starting": "Dimulai dalam satu menit.",
+    "suspended": "Akun ini ditangguhkan, jadi jadwal berjalan ditunda.",
+    "time": "Waktu",
+    "timeHelp": "Waktu otomatisasi ini berjalan, mengikuti zona waktu di bawah.",
+    "timeZone": "Zona waktu",
+    "timeZoneHelp": "Menentukan zona waktu yang digunakan. Pilih lokasi Anda atau pelanggan agar pukul 9.00 berarti pukul 9.00 di sana.",
+    "title": "Kapan ini berjalan",
+    "titleHelp": "Pilih apakah otomatisasi ini berjalan saat digunakan oleh aplikasi, atau berjalan sendiri pada waktu tertentu, seperti setiap pagi.",
+    "turnedOff": "Jadwal dimatikan. Ini tidak lagi berjalan sesuai jadwal.",
+    "unreadable": "Jadwal ini tidak dapat dibaca. Pilih waktu baru, lalu simpan.",
+    "yours": "{zone} (zona waktu Anda)"
+  },
+  "summary": {
+    "aggregateFallback": "Hitung atau jumlahkan data",
+    "askAi": "Ajukan pertanyaan ke AI",
+    "bulkDeleteFallback": "Hapus banyak baris sekaligus",
+    "bulkInsertFallback": "Tambahkan banyak baris sekaligus",
+    "bulkUpdateFallback": "Perbarui banyak baris sekaligus",
+    "checkPassword": "Periksa kata sandi",
+    "checkRoleFallback": "Periksa tindakan yang boleh dilakukan orang ini",
+    "customJs": "Jalankan kode sendiri",
+    "from": "Dari {table}",
+    "in": "Di {table}",
+    "into": "Ke {table}",
+    "lookupFallback": "Tambahkan detail dari daftar lain",
+    "needsRole": "Memerlukan: {role}",
+    "noRecipient": "Tidak ada penerima",
+    "noSheet": "Tidak ada sheet",
+    "noTable": "Belum ada tabel yang dipilih",
+    "parseJson": "Ubah teks menjadi data",
+    "protectPassword": "Amankan kata sandi sebelum menyimpannya",
+    "pushEveryone": "Kirim ke semua yang berlangganan",
+    "pushTitle": "“{title}”",
+    "repliesWith": "{count, plural, one {Membalas dengan # nilai} other {Membalas dengan # nilai}}",
+    "reply": "Mengirim balasan",
+    "seconds": "{seconds} dtk",
+    "sheet": "Sheet {sheet}",
+    "signIn": "Masuk sebagai {user}",
+    "signUserIn": "Masukkan pengguna",
+    "signUserOut": "Keluarkan pengguna",
+    "startsHere": "Mulai di sini",
+    "to": "Kepada {to}",
+    "unnamed": "Tanpa nama",
+    "verifyVs": "{plain} vs {hash} → {output}"
+  }
+}

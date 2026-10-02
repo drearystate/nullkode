@@ -1,0 +1,84 @@
+{
+  "appearance": {
+    "intro": "스튜디오의 모양을 선택하세요. 계정에 저장되어 다른 기기에서도 적용됩니다.",
+    "title": "화면 설정"
+  },
+  "blocked": {
+    "impersonating": "계정을 삭제할 수 있는 사람은 계정 소유자뿐입니다. 관리자는 관리 페이지의 사용자 메뉴에서 계정을 삭제할 수 있습니다.",
+    "onlyOperator": "이 플랫폼의 유일한 운영자이므로 계정을 삭제할 수 없습니다.",
+    "reseller": "리셀러 작업 공간을 운영 중이므로 여기서 계정을 삭제할 수 없습니다. 먼저 플랫폼 운영자에게 작업 공간 삭제를 요청하세요."
+  },
+  "delete": {
+    "backup": "백업",
+    "backupFirst": "먼저 각 앱의 백업을 다운로드하세요. 나중에 가져오기를 통해 백업을 복원할 수 있습니다.",
+    "cancel": "취소",
+    "cannotUndo": "삭제한 내용은 복구할 수 없습니다.",
+    "confirm": "내 계정 영구 삭제",
+    "deletesAccount": "계정이 삭제됩니다.",
+    "deletesApps": "{count, plural, one {계정과 앱, 앱에 저장된 모든 내용, 파일 및 웹 주소가 삭제됩니다.} other {계정과 앱 #개, 앱에 저장된 모든 내용, 파일 및 웹 주소가 삭제됩니다.}}",
+    "deleting": "삭제 중…",
+    "failed": "계정을 삭제하지 못했어요({status}).",
+    "keysAck": "{count, plural, one {위의 Google Play 업로드 키를 다운로드했거나 키가 필요하지 않습니다. 키가 없으면 앱을 Google Play에서 다시 업데이트할 수 없습니다.} other {위의 Google Play 업로드 키를 다운로드했거나 키가 필요하지 않습니다. 키가 없으면 앱을 Google Play에서 다시 업데이트할 수 없습니다.}}",
+    "networkError": "네트워크 오류가 발생했어요. 삭제된 항목은 없어요.",
+    "start": "내 계정 삭제…",
+    "startHelp": "계정 삭제를 시작합니다. 먼저 이메일 주소를 입력해야 하며, 확인하기 전까지는 아무것도 삭제되지 않습니다.",
+    "subscriptionCancelled": "구독은 즉시 취소됩니다.",
+    "title": "내 계정 삭제",
+    "typeEmail": "확인하려면 이메일 주소를 입력하세요",
+    "uploadKey": "Google Play 업로드 키",
+    "uploadKeyHelp": "이 키를 다운로드해 안전한 곳에 보관하세요. 키가 없으면 이 앱을 Google Play에서 다시 업데이트할 수 없습니다."
+  },
+  "helpPrefs": {
+    "guides": "모든 기능에 대한 단계별 안내는 <link>도움말 및 가이드</link>에서 확인하세요.",
+    "saveFailed": "저장하지 못했습니다. 다음에 페이지를 열면 이전 설정으로 돌아갑니다.",
+    "tips": "도움말 팁",
+    "tipsIntro": "버튼이나 설정에 마우스를 올리면 기능을 쉽게 설명하는 짧은 안내가 표시됩니다.",
+    "title": "도움말"
+  },
+  "intro": "사진과 상세 정보, 스튜디오의 모양과 사용 방식을 설정하세요.",
+  "language": {
+    "intro": "스튜디오에 표시할 언어입니다. 계정에 저장되어 다른 기기에서도 적용됩니다.",
+    "title": "언어"
+  },
+  "metaTitle": "프로필",
+  "password": {
+    "change": "비밀번호 변경",
+    "changed": "비밀번호를 변경했습니다. 다른 기기에서는 로그아웃되었습니다.",
+    "changing": "변경 중…",
+    "current": "현재 비밀번호",
+    "failed": "변경하지 못했습니다. 다시 시도해 주세요.",
+    "forgotNote": "현재 비밀번호를 모르시나요(예: Google로 가입한 경우)? 로그아웃한 다음 <link>비밀번호 찾기</link>를 이용해 새 비밀번호를 설정하세요.",
+    "new": "새 비밀번호",
+    "newNote": "8자 이상이어야 합니다. 변경하면 다른 모든 기기에서 로그아웃됩니다.",
+    "readOnly": "비밀번호를 변경할 수 있는 사람은 계정 소유자뿐입니다.",
+    "title": "비밀번호"
+  },
+  "profile": {
+    "addPhoto": "사진 추가",
+    "badPicture": "열 수 없는 사진 파일입니다.",
+    "changePhoto": "사진 변경",
+    "email": "이메일",
+    "emailNote": "이 주소로 로그인합니다.",
+    "name": "이름",
+    "nameHelp": "계정과 보내는 이메일에 표시되는 이름입니다.",
+    "photoHelp": "사진을 선택하세요(PNG, JPEG 또는 WebP). 정사각형으로 잘려 이름 옆에 표시됩니다.",
+    "photoRemoveFailed": "사진을 삭제하지 못했습니다. 다시 시도해 주세요.",
+    "photoRemoved": "사진을 삭제했습니다.",
+    "photoSaveFailed": "사진을 저장하지 못했습니다. 다시 시도해 주세요.",
+    "photoSaveFailedShort": "사진을 저장하지 못했습니다.",
+    "photoSaved": "사진을 저장했습니다.",
+    "remove": "삭제",
+    "removeHelp": "사진을 삭제합니다. 대신 이름의 첫 글자가 표시됩니다.",
+    "save": "저장",
+    "saveFailed": "저장하지 못했습니다. 다시 시도해 주세요.",
+    "saved": "저장했습니다.",
+    "saving": "저장 중…",
+    "title": "내 프로필"
+  },
+  "theme": {
+    "dark": "어둡게",
+    "light": "밝게",
+    "system": "기기 설정에 맞추기"
+  },
+  "title": "프로필"
+}

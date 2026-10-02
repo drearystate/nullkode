@@ -1,5 +1,6 @@
 import { clientIp, issueChallenge, SignupBlocked } from "@/lib/antibot";
 import { json } from "@/lib/utils";
+import { requestErrorsT } from "@/lib/errors-i18n";
 
 export const dynamic = "force-dynamic";
 
@@ -14,7 +15,7 @@ export async function POST(req: Request) {
     return json(issued, { headers: { "cache-control": "no-store" } });
   } catch (err) {
     if (err instanceof SignupBlocked) {
-      return json({ error: err.userMessage }, { status: err.status });
+      return json({ error: (await requestErrorsT())(`antibot.${err.userMessageKey}`) }, { status: err.status });
     }
     throw err;
   }

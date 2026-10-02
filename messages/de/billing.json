@@ -1,0 +1,32 @@
+{
+  "aiUsage": "KI-Aktionen diesen Monat: <b>{used} von {limit}</b>",
+  "aiUsageLabel": "Verwendete KI-Aktionen",
+  "planNames": {
+    "FREE": "Kostenlos",
+    "PRO": "Pro",
+    "STARTER": "Starter",
+    "TEAM": "Team"
+  },
+  "plans": {
+    "checkoutFailed": "Bezahlvorgang konnte nicht gestartet werden",
+    "comingSoon": "Demnächst verfügbar",
+    "current": "Aktuell",
+    "free": "Kostenlos",
+    "manage": "Abrechnung verwalten",
+    "manageHelp": "Öffnet die sichere Stripe-Abrechnungsseite. Dort kannst du deine Karte aktualisieren, frühere Rechnungen ansehen und – falls verfügbar – deinen Tarif ändern oder kündigen.",
+    "notBuyable": "Dieser Tarif kann noch nicht online gebucht werden.",
+    "portalFailed": "Abrechnungsseite konnte nicht geöffnet werden",
+    "upgrade": "Tarif wechseln",
+    "upgradeHelp": "Öffnet eine sichere Stripe-Zahlungsseite, um diesen Tarif mit monatlicher Abrechnung zu starten. Hast du bereits einen kostenpflichtigen Tarif? Wechsle stattdessen über „Abrechnung verwalten“ zu einem anderen Tarif."
+  },
+  "profileNote": "Dein Foto, Name, Passwort, Erscheinungsbild, Hilfetipps und die Kontolöschung findest du in deinem <link>Profil</link>.",
+  "status": {
+    "ACTIVE": "Bezahlt und aktiv",
+    "CANCELED": "Kündigt",
+    "PAST_DUE": "Zahlung überfällig",
+    "TRIALING": "Kostenloser Testzeitraum",
+    "UNPAID": "Unbezahlt"
+  },
+  "title": "Abrechnung",
+  "yourPlan": "Dein Tarif: <b>{plan}</b>"
+}

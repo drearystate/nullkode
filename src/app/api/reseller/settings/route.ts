@@ -1,6 +1,8 @@
 import { z } from "zod";
 import { db } from "@/lib/db";
 import { json } from "@/lib/utils";
+import { getTranslations } from "next-intl/server";
+import { requestLocale } from "@/i18n/request";
 import { parsePlanLimits } from "@/lib/plan-limits";
 import { requireReseller } from "@/lib/reseller-admin";
 
@@ -11,7 +13,7 @@ export async function PATCH(req: Request) {
   const r = await requireReseller();
   if ("error" in r) return r.error;
   const parsed = Body.safeParse(await req.json().catch(() => null));
-  if (!parsed.success) return json({ error: "Invalid settings." }, { status: 400 });
+  if (!parsed.success) return json({ error: (await getTranslations({ locale: await requestLocale(), namespace: "reseller.api" }))("invalidSettings") }, { status: 400 });
   let planLimits: object | undefined;
   if (parsed.data.planLimits !== undefined) {
     const limits = parsePlanLimits(parsed.data.planLimits);

@@ -3,6 +3,8 @@ import type { Flow, Project, User } from "@prisma/client";
 import { db } from "@/lib/db";
 import { ownedProject, checkScheduledFlows, moreHint } from "@/lib/guard";
 import { json } from "@/lib/utils";
+import { getTranslations } from "next-intl/server";
+import { requestLocale } from "@/i18n/request";
 import { AI_MIN_MINUTES, graphUsesAi, serializeSchedule, validateSchedule } from "@/lib/flow/schedule-spec";
 import { flowScheduleState, plannedNextRun } from "@/lib/flow/scheduler";
 
@@ -25,13 +27,17 @@ const Body = z.union([
 
 type Ctx = { params: Promise<{ id: string; flowId: string }> };
 
+async function flowsT() {
+  return getTranslations({ locale: await requestLocale(), namespace: "flows" });
+}
+
 type Loaded = { user: User; project: Project; flow: Flow };
 
 async function load(id: string, flowId: string): Promise<Loaded | { error: Response }> {
   const r = await ownedProject(id);
   if (r.error) return { error: r.error };
   const flow = await db.flow.findFirst({ where: { id: flowId, projectId: id } });
-  if (!flow) return { error: json({ error: "Not found" }, { status: 404 }) };
+  if (!flow) return { error: json({ error: (await flowsT())("api.notFound") }, { status: 404 }) };
   return { user: r.user, project: r.project, flow };
 }
 
@@ -40,7 +46,7 @@ async function stateResponse(flowId: string, project: { published: boolean; live
     db.flow.findUnique({ where: { id: flowId } }),
     db.user.findUnique({ where: { id: userId }, include: { reseller: { select: { status: true } }, ownedReseller: { select: { status: true } } } }),
   ]);
-  if (!flow || !owner) return json({ error: "Not found" }, { status: 404 });
+  if (!flow || !owner) return json({ error: (await flowsT())("api.notFound") }, { status: 404 });
   const state = await flowScheduleState(flow, project, owner);
   return json({ ...state, planHint: state.planAllows ? null : await moreHint(owner) });
 }
@@ -57,7 +63,7 @@ export async function PUT(req: Request, ctx: Ctx) {
   const r = await load(id, flowId);
   if ("error" in r) return r.error;
   const parsed = Body.safeParse(await req.json().catch(() => null));
-  if (!parsed.success) return json({ error: "Choose when this should run." }, { status: 400 });
+  if (!parsed.success) return json({ error: (await flowsT())("api.chooseWhen") }, { status: 400 });
   const body = parsed.data;
   const { flow, project } = r;
 
@@ -82,12 +88,9 @@ export async function PUT(req: Request, ctx: Ctx) {
   const planError = await checkScheduledFlows(r.user);
   if (planError) return planError;
   const v = validateSchedule(body.schedule);
-  if (!v.ok) return json({ error: v.error }, { status: 400 });
+  if (!v.ok) return json({ error: (await flowsT())(`schedule.problems.${v.code}`, v.values) }, { status: 400 });
   if (v.spec.kind === "every" && v.spec.minutes < AI_MIN_MINUTES && graphUsesAi(flow.graph)) {
-    return json(
-      { error: `This flow uses AI, so it can run at most every ${AI_MIN_MINUTES} minutes. That keeps a schedule from using up your AI allowance.` },
-      { status: 400 },
-    );
+    return json({ error: (await flowsT())("api.aiTooOften", { minutes: AI_MIN_MINUTES }) }, { status: 400 });
   }
   const updated = { ...flow, trigger: "SCHEDULE" as const, schedule: serializeSchedule(v.spec) };
   const next = updated.enabled ? await plannedNextRun(updated, project.liveDeploymentId) : null;

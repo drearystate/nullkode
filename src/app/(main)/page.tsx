@@ -11,6 +11,8 @@ import { FaqSection } from "@/components/landing/faq-section";
 import { LandingNav } from "@/components/landing/landing-nav";
 import { MODULE_REGISTRY } from "@/lib/modules/registry";
 import { aiReady } from "@/lib/ai/client";
+import { getTranslations } from "next-intl/server";
+import { ScopedIntl } from "@/i18n/scoped-intl";
 
 export default async function HomePage() {
   const [user, brand] = await Promise.all([getCurrentUser(), getBrand()]);
@@ -19,8 +21,11 @@ export default async function HomePage() {
   if (await resellerForHost(await requestHost())) redirect(authed ? "/dashboard" : "/login");
   // The "What should your app do?" box only makes sense with an AI model set up.
   const canDescribe = await aiReady().catch(() => false);
+  const t = await getTranslations("landing");
 
   return (
+    // The front page opens its own message segment (everything it renders is inside).
+    <ScopedIntl segment="(main)/page">
     <main className="min-h-screen bg-surface-950 text-surface-50">
       <LandingNav authed={authed} name={brand.appName} logo={brand.logoDataUrl} />
       <LandingHero authed={authed} moduleCount={MODULE_REGISTRY.length} aiReady={canDescribe} />
@@ -32,23 +37,18 @@ export default async function HomePage() {
       <section className="bg-surface-950 py-24">
         <div className="mx-auto max-w-3xl px-6 text-center">
           <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-surface-50">
-            Build the thing you&apos;ve been{" "}
-            <span className="bg-gradient-to-r from-blue-400 to-cyan-500 bg-clip-text text-transparent">
-              putting off.
-            </span>
+            {t.rich("cta.heading", { accent: (c) => <span className="bg-gradient-to-r from-blue-400 to-cyan-500 bg-clip-text text-transparent">{c}</span> })}
           </h2>
           <p className="mt-5 text-lg text-surface-400 max-w-2xl mx-auto">
-            Stop wrestling with half-finished no-code tools that fall apart the
-            moment you need real logic. {brand.appName} gives you the UI, the backend,
-            and the data — all visual.
+            {t("cta.body", { app: brand.appName })}
           </p>
           <div className="mt-8">
             <Link
               href={authed ? "/dashboard" : "/signup"}
               className="inline-flex items-center gap-2 rounded-xl bg-surface-50 hover:bg-surface-100 text-surface-900 px-8 py-4 text-base font-semibold transition shadow-lg shadow-black/20"
             >
-              {authed ? "Open your dashboard" : "Start building — it\u2019s free"}
-              <span aria-hidden className="text-surface-600">&rarr;</span>
+              {authed ? t("cta.openDashboard") : t("cta.startFree")}
+              <span aria-hidden className="text-surface-600 rtl:-scale-x-100">&rarr;</span>
             </Link>
           </div>
         </div>
@@ -66,15 +66,15 @@ export default async function HomePage() {
                   : <span className="text-xl font-semibold tracking-tight">{brand.appName}</span>}
             </Link>
             <p className="text-sm text-surface-400 mt-3 max-w-sm">
-              The visual app builder with a real backend. Ship complete
-              products — not marketing pages.
+              {t("footer.tagline")}
             </p>
           </div>
           <div className="text-sm text-surface-500">
-            &copy; {new Date().getFullYear()} {brand.appName}
+            {t("footer.copyright", { year: String(new Date().getFullYear()), app: brand.appName })}
           </div>
         </div>
       </footer>
     </main>
+    </ScopedIntl>
   );
 }

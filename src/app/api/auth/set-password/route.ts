@@ -5,24 +5,26 @@ import { consumeAccountToken } from "@/lib/account-tokens";
 import { clientIp } from "@/lib/antibot";
 import { hitLimit } from "@/lib/rate-limit";
 import { json } from "@/lib/utils";
+import { issueText, requestErrorsT } from "@/lib/errors-i18n";
 
 const Body = z.object({
   token: z.string().min(10).max(200),
-  password: z.string().min(8, "Use at least 8 characters.").max(200),
+  password: z.string().min(8, "@auth.minLength").max(200),
   name: z.string().trim().min(1).max(100).optional(),
 });
 
 /** Finish an invitation or a password reset, then sign the user in. */
 export async function POST(req: Request) {
   const ip = clientIp(req);
+  const t = await requestErrorsT();
   if (!hitLimit(`set-password:${ip}`, 20, 15 * 60_000).ok) {
-    return json({ error: "Too many attempts. Please wait a few minutes." }, { status: 429 });
+    return json({ error: t("common.tooManyAttempts") }, { status: 429 });
   }
   const parsed = Body.safeParse(await req.json().catch(() => null));
-  if (!parsed.success) return json({ error: parsed.error.issues[0]?.message ?? "Check the form and try again." }, { status: 400 });
+  if (!parsed.success) return json({ error: issueText(parsed.error.issues[0]?.message, t) }, { status: 400 });
 
   const token = await consumeAccountToken(parsed.data.token);
-  if (!token) return json({ error: "This link has expired or was already used. Ask for a new one." }, { status: 410 });
+  if (!token) return json({ error: t("auth.linkExpired") }, { status: 410 });
 
   await db.user.update({
     where: { id: token.userId },

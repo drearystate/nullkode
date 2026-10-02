@@ -1,0 +1,1908 @@
+{
+  "modules": {
+    "abandoned-cart": {
+      "description": "Enregistrez le contenu du panier quand un visiteur y ajoute des articles, mais part avant de finaliser sa commande. Une heure plus tard, un e-mail de rappel lui propose un lien pour reprendre son panier en un clic. Chaque panier a une URL de récupération unique ; vous pouvez savoir si le client est revenu.",
+      "fields": {
+        "delayMinutes": {
+          "label": "Délai avant le rappel (minutes)"
+        },
+        "fromEmail": {
+          "label": "Adresse d’envoi"
+        },
+        "subject": {
+          "label": "Objet de l’e-mail"
+        }
+      },
+      "name": "Relance des paniers abandonnés",
+      "summary": "Rappelez aux clients les articles laissés dans leur panier."
+    },
+    "acknowledgments": {
+      "description": "Publiez un message (mise à jour de politique, changement des conditions, consigne de sécurité) que chaque visiteur doit confirmer avoir lu avant de le fermer. Chaque confirmation est enregistrée avec la date et l’heure et, éventuellement, l’identifiant de l’utilisateur, pour assurer le suivi. Les administrateurs voient le nombre de confirmations en temps réel.",
+      "name": "Accusés de lecture",
+      "summary": "Vérifiez que les utilisateurs ont lu les messages importants."
+    },
+    "ai-assistant": {
+      "description": "Ajoutez un champ de questions sur l’IA à votre site. Les visiteurs posent une question, l’IA répond en suivant les instructions que vous avez définies et la réponse s’affiche juste sous le formulaire. Chaque question et chaque réponse sont enregistrées sur une page privée, accessible uniquement par vous.",
+      "fields": {
+        "assistantName": {
+          "label": "Nom de l’assistant"
+        },
+        "disclosure": {
+          "help": "Indique aux visiteurs qu’ils discutent avec une IA.",
+          "label": "Note affichée sous le titre"
+        },
+        "systemPrompt": {
+          "label": "Instructions pour l’IA"
+        }
+      },
+      "name": "Assistant de chat",
+      "summary": "Permettez aux visiteurs de discuter avec un assistant utile."
+    },
+    "analytics-dashboard": {
+      "description": "Suivez les pages vues et les événements personnalisés (« inscription », « achat »). Comprend un point de collecte à appeler depuis n’importe quelle page, une API de compteurs et un tableau de bord d’administration avec les totaux, les pages les plus consultées et les tendances sur 7 jours.",
+      "name": "Statistiques des visites",
+      "summary": "Voyez combien de personnes consultent vos pages."
+    },
+    "app-walkthrough": {
+      "description": "Une fenêtre qui guide les nouveaux visiteurs dans votre app lors de leur première visite. Définissez les étapes dans l’ordre (titre, texte, élément ciblé) ; la fenêtre met chaque élément en évidence et propose les boutons « Suivant » et « Passer ». Le choix de passer est conservé dans le navigateur pour ne pas déranger les visiteurs qui reviennent.",
+      "fields": {
+        "doneLabel": {
+          "label": "Libellé de la dernière étape"
+        },
+        "skipLabel": {
+          "label": "Libellé du bouton « Passer »"
+        }
+      },
+      "name": "Visite guidée de l’app",
+      "summary": "Proposez une courte visite de votre app aux nouveaux visiteurs."
+    },
+    "appointments": {
+      "description": "Des rendez-vous organisés autour d’une liste de services avec leur durée et leur prix, attribués à des prestataires. Les clients réservent un créneau précis. Plus flexible que les réservations : idéal pour les salons, les cliniques et les cabinets de conseil.",
+      "fields": {
+        "businessName": {
+          "label": "Nom de l’entreprise"
+        },
+        "currency": {
+          "label": "Symbole de la devise"
+        }
+      },
+      "name": "Rendez-vous",
+      "summary": "Permettez à vos clients de prendre rendez-vous avec un membre de votre équipe."
+    },
+    "archive": {
+      "description": "Une archive à long terme pour vos projets terminés, anciens articles, produits retirés du service — tout ce que vous souhaitez conserver sans afficher dans les fils d’actualité. Parcourez les contenus par année et par mois, et recherchez dans les titres et les textes. Une option permettant de rétablir un contenu dans le fil principal est prévue pour d’autres modules.",
+      "fields": {
+        "heading": {
+          "label": "Titre des archives"
+        }
+      },
+      "name": "Archives de contenu",
+      "summary": "Archivez les anciens contenus et retrouvez-les par année."
+    },
+    "audio": {
+      "description": "Une page de playlist qui répertorie des pistes audio avec leur titre, leur artiste et une URL de diffusion. Chaque piste dispose d’un lecteur audio HTML5 pour que les visiteurs puissent l’écouter directement.",
+      "fields": {
+        "playlistName": {
+          "label": "Nom de la playlist"
+        }
+      },
+      "name": "Playlist audio",
+      "summary": "Partagez une playlist de chansons ou d’enregistrements."
+    },
+    "auth": {
+      "description": "Ajoute des pages d’inscription, de connexion et de déconnexion, et conserve la liste des personnes qui ont un compte. Les mots de passe sont stockés en toute sécurité. Depuis leur profil, les personnes peuvent télécharger leurs données ou supprimer leur compte. Les fonctionnalités qui nécessitent une connexion, comme les favoris ou les messages privés, utilisent automatiquement ces comptes.",
+      "fields": {
+        "appName": {
+          "label": "Nom de l’application"
+        }
+      },
+      "name": "Connexion et comptes",
+      "summary": "Permettez aux utilisateurs de créer un compte et de se connecter à votre application."
+    },
+    "before-after": {
+      "description": "Mettez en valeur les transformations. Chaque comparaison présente une image « avant » et une image « après » ; les visiteurs font glisser un séparateur pour passer de l’une à l’autre. L’admin peut ajouter autant de comparaisons qu’il le souhaite. Idéal pour les rénovations, le fitness, la coiffure ou la retouche photo.",
+      "fields": {
+        "heading": {
+          "label": "Titre de la page"
+        }
+      },
+      "name": "Comparateur avant/après",
+      "summary": "Comparez deux photos côte à côte avec un curseur."
+    },
+    "birthdays": {
+      "description": "Recueillez les dates d’anniversaire des utilisateurs, puis envoyez automatiquement un e-mail à toutes les personnes dont c’est l’anniversaire aujourd’hui. Idéal pour faire plaisir à vos clients (un message de joyeux anniversaire accompagné d’un code promo) ou pour les pages d’équipe et RH. Associez-le à une tâche cron quotidienne qui appelle /api/run/send-today.",
+      "fields": {
+        "body": {
+          "label": "Corps de l’e-mail (utilisez le champ '{{'name'}}')"
+        },
+        "fromEmail": {
+          "label": "Adresse d’envoi"
+        },
+        "subject": {
+          "label": "Objet de l’e-mail"
+        }
+      },
+      "name": "Anniversaires",
+      "summary": "Souhaitez un joyeux anniversaire à vos clients."
+    },
+    "blog": {
+      "description": "Une page d’accueil de blogue avec les articles récents, une page admin pour en publier de nouveaux et un flux qui renvoie la liste des articles. Vous pourrez ajouter une page de détail pour chaque article plus tard dans l’éditeur visuel.",
+      "fields": {
+        "author": {
+          "label": "Nom de l’auteur par défaut"
+        },
+        "blogTitle": {
+          "label": "Titre du blogue"
+        }
+      },
+      "name": "Blogue",
+      "summary": "Publiez des articles et des actualités pour vos visiteurs."
+    },
+    "bookings": {
+      "description": "Une page de réservation où les clients choisissent une date et une heure, ajoutent leurs coordonnées et envoient leur demande. Avant d’accepter, la protection contre les doubles réservations vérifie qu’aucune réservation n’existe déjà pour le créneau demandé. Les réservations sont enregistrées dans un tableau et consultables sur une page d’administration dédiée aux prochains créneaux.",
+      "fields": {
+        "businessName": {
+          "label": "Nom de l’entreprise"
+        },
+        "serviceLabel": {
+          "help": "p. ex. « Coupe de cheveux », « Promenade de chien », « Rendez-vous »",
+          "label": "Que souhaitez-vous réserver ?"
+        }
+      },
+      "name": "Réservations",
+      "summary": "Permettez aux gens de réserver un créneau avec vous."
+    },
+    "budget": {
+      "description": "Un budget personnel simple : notez vos revenus et vos dépenses par catégorie, consultez les transactions récentes et comprenez où va votre argent.",
+      "fields": {
+        "currency": {
+          "label": "Devise"
+        }
+      },
+      "name": "Budget personnel",
+      "summary": "Suivez l’argent qui entre et qui sort."
+    },
+    "business-card-wallet": {
+      "description": "Chaque personne dispose d’une carte de visite numérique (nom, fonction, entreprise, coordonnées, photo) et d’un porte-cartes où enregistrer celles des autres. Partagez votre carte avec un QR code ; les destinataires peuvent la scanner et l’enregistrer dans leur porte-cartes en un geste. Ils peuvent aussi l’exporter au format vCard dans le carnet d’adresses de leur téléphone.",
+      "name": "Porte-cartes de visite",
+      "summary": "Partagez et enregistrez des cartes de visite numériques."
+    },
+    "calculator-builder": {
+      "description": "Créez de petites calculatrices avec des champs personnalisés et une formule (par ex. mensualité de prêt immobilier, IMC, projection d’épargne, partage de l’addition, conversion de devises). Chaque calculatrice a un identifiant unique ; intégrez-la où vous voulez via /calc?slug=…",
+      "name": "Créateur de calculatrices",
+      "summary": "Ajoutez une calculatrice, par exemple pour estimer un prix ou un prêt."
+    },
+    "catalog": {
+      "description": "Un catalogue de produits épuré avec nom, prix, image et description. Idéal pour les menus, brochures et pages de présentation où les clients se renseignent plutôt que d’acheter en ligne.",
+      "fields": {
+        "currency": {
+          "label": "Symbole de la devise"
+        },
+        "title": {
+          "label": "Titre du catalogue"
+        }
+      },
+      "name": "Catalogue de produits",
+      "summary": "Présentez vos produits sans accepter de paiements."
+    },
+    "channel-feed": {
+      "description": "Suivez le fil d'une chaîne YouTube ou Vimeo et affichez automatiquement les dernières vidéos sous forme de grille. Le parcours d'actualisation consulte le flux RSS de la chaîne ; les vidéos mises en cache s'affichent rapidement. Cliquez sur une vidéo pour l'ouvrir dans un lecteur intégré.",
+      "fields": {
+        "channelId": {
+          "label": "ID de chaîne"
+        },
+        "channelKind": {
+          "label": "Type de chaîne",
+          "options": {
+            "vimeo": "Vimeo",
+            "youtube": "YouTube"
+          }
+        },
+        "heading": {
+          "label": "Titre de la section"
+        }
+      },
+      "name": "Fil vidéo de la chaîne",
+      "summary": "Affichez les dernières vidéos de votre chaîne YouTube ou Vimeo."
+    },
+    "chat": {
+      "description": "Un salon de discussion partagé où les visiteurs publient des messages. Les plus récents s’affichent en premier. Les messages sont stockés dans une table chat_messages, avec un flux pour envoyer et afficher les messages. Idéal pour recueillir les premiers avis de votre communauté ou échanger avec les personnes inscrites sur la liste d’attente.",
+      "fields": {
+        "roomTitle": {
+          "label": "Titre du salon de discussion"
+        },
+        "welcome": {
+          "label": "Message de bienvenue"
+        }
+      },
+      "name": "Chat communautaire",
+      "summary": "Offrez à votre communauté un salon de discussion partagé."
+    },
+    "chores": {
+      "description": "Un tableau des tâches familiales : attribuez des tâches aux enfants, cochez-les une fois terminées et gagnez des étoiles. Transformez les tâches du quotidien en une routine motivante et gratifiante.",
+      "fields": {
+        "familyName": {
+          "label": "Nom de la famille"
+        }
+      },
+      "name": "Tableau des tâches ménagères",
+      "summary": "Répartissez les tâches ménagères et gagnez des récompenses."
+    },
+    "claims": {
+      "description": "Les clients (ou les employés) envoient une réclamation ou un reçu avec une description, un montant et l’URL d’une photo. Le personnel suit les étapes de traitement (reçue → en cours d’examen → approuvée/rejetée) et publie une réponse visible par tous. Idéal pour les demandes de garantie, les remboursements de frais ou les justificatifs d’assurance.",
+      "fields": {
+        "queueName": {
+          "label": "Titre de la file"
+        }
+      },
+      "name": "Réclamations et reçus",
+      "summary": "Permettez aux utilisateurs d’envoyer une réclamation avec une photo et d’en suivre l’avancement."
+    },
+    "classifieds": {
+      "description": "Un site de petites annonces dans le style de Craigslist. Les visiteurs publient des annonces avec un titre, un prix et des coordonnées ; une page de liste affiche toutes les annonces actives.",
+      "fields": {
+        "boardName": {
+          "label": "Nom du site d’annonces"
+        }
+      },
+      "name": "Petites annonces",
+      "summary": "Permettez aux gens de publier leurs propres annonces."
+    },
+    "contact-form": {
+      "description": "Une page de contact soignée avec un formulaire pleine largeur qui enregistre les messages dans une base de données. Comprend une boîte de réception admin pour consulter tous les messages.",
+      "fields": {
+        "heading": {
+          "label": "Titre de la page"
+        },
+        "subheading": {
+          "label": "Court sous-titre"
+        }
+      },
+      "name": "Formulaire de contact",
+      "summary": "Permettez aux visiteurs de vous envoyer un message."
+    },
+    "countdown": {
+      "description": "Une page avec un compte à rebours mis à jour en direct jusqu’à une date et une heure précises. Affiche les jours, heures, minutes et secondes en grand, avec un titre, un sous-titre et un bouton facultatifs à la fin du décompte. Plusieurs campagnes peuvent être lancées en parallèle. Choisissez-en une avec ?id=...",
+      "name": "Compte à rebours",
+      "summary": "Décomptez le temps avant un lancement, une vente ou un événement."
+    },
+    "coupons": {
+      "description": "Créez des codes de réduction que les clients peuvent utiliser sur une page publique. Suivez les codes utilisés, le montant des réductions et l’historique des utilisations.",
+      "fields": {
+        "brand": {
+          "label": "Nom de la marque"
+        }
+      },
+      "name": "Coupons",
+      "summary": "Proposez des codes de réduction."
+    },
+    "course": {
+      "description": "Une mini-plateforme de formation en ligne : des leçons dans l’ordre, chacune avec un titre, une description, une URL vidéo et une durée facultative. Idéal pour les cours courts et les tutoriels.",
+      "fields": {
+        "courseTitle": {
+          "label": "Titre du cours"
+        },
+        "instructor": {
+          "label": "Nom du formateur"
+        }
+      },
+      "name": "Cours en ligne",
+      "summary": "Enseignez un cours en ligne, leçon par leçon."
+    },
+    "delivery-tracking": {
+      "description": "Suivez une livraison du retrait à la remise. Les livreurs envoient leur position GPS et les clients voient le dernier point sur une carte ainsi que les étapes du suivi (attribuée → récupérée → en route → livrée). Chaque livraison a un lien de suivi public.",
+      "fields": {
+        "businessName": {
+          "label": "Nom de l’entreprise"
+        }
+      },
+      "name": "Suivi des livraisons",
+      "summary": "Permettez à vos clients de suivre leur livraison."
+    },
+    "delivery-zones": {
+      "description": "Définissez des zones de livraison par code postal ou par distance depuis votre magasin. Chaque zone a ses propres frais de livraison et son montant minimum de commande. Le parcours de demande de tarif prend une adresse (ou un code postal) et indique si la livraison est possible et combien elle coûte.",
+      "fields": {
+        "shopLat": {
+          "label": "Latitude du magasin"
+        },
+        "shopLng": {
+          "label": "Longitude du magasin"
+        }
+      },
+      "name": "Zones de livraison",
+      "summary": "Définissez les frais de livraison selon les zones."
+    },
+    "donations": {
+      "description": "Une page de dons avec une description de la cause, une barre de progression vers votre objectif et un mur public des donateurs. Recueille le nom, l’adresse e-mail et le montant du don, ainsi qu’un message facultatif. Les paiements sont gérés par un module Stripe distinct.",
+      "fields": {
+        "causeName": {
+          "label": "Nom de la cause"
+        },
+        "currency": {
+          "label": "Symbole de la devise"
+        },
+        "goal": {
+          "label": "Objectif de collecte ($)"
+        }
+      },
+      "name": "Dons",
+      "summary": "Collectez des fonds pour un objectif et remerciez vos donateurs."
+    },
+    "drip-content": {
+      "description": "Créez une série de leçons qui se débloquent pour chaque utilisateur selon le nombre de jours écoulés depuis son inscription. La leçon 1 se débloque le jour 0, la leçon 2 le jour 3, etc. Idéal pour l’accueil des nouveaux utilisateurs, les formations et les campagnes d’e-mails associées au module e-mail.",
+      "fields": {
+        "programName": {
+          "label": "Nom du programme"
+        }
+      },
+      "name": "Contenu diffusé progressivement",
+      "summary": "Débloquez les leçons à quelques jours d’intervalle."
+    },
+    "dynamic-list": {
+      "description": "Un mini-CMS : l’administrateur définit une liste (avec un nom et un schéma JSON de champs), puis ajoute des lignes à l’aide d’un formulaire généré automatiquement. Chaque liste dispose d’une page publique de consultation et d’une page d’administration pour la modifier. Le module idéal pour créer le vôtre quand aucun autre ne convient.",
+      "name": "Liste personnalisée",
+      "summary": "Créez votre propre liste et une page pour la modifier."
+    },
+    "e-signature": {
+      "description": "Envoyez par e-mail un document textuel (conditions, accord de confidentialité, devis) à un destinataire, qui pourra le signer dans son navigateur en dessinant sa signature. Enregistre l’image de la signature, le nom et l’adresse IP du signataire, ainsi que la date et l’heure de signature.",
+      "fields": {
+        "companyName": {
+          "label": "Nom de votre entreprise"
+        }
+      },
+      "name": "Signature électronique",
+      "summary": "Envoyez un document et faites-le signer en ligne."
+    },
+    "e-wallet": {
+      "description": "Attribuez un solde de crédit à chaque utilisateur. Ajoutez des crédits (rechargement), dépensez-les (débit) et consultez l’historique complet des transactions. D’autres modules peuvent dépenser des crédits au nom de l’utilisateur connecté.",
+      "fields": {
+        "currencySymbol": {
+          "label": "Symbole monétaire"
+        }
+      },
+      "name": "Crédit boutique",
+      "summary": "Offrez à vos clients un crédit boutique qu’ils peuvent recharger et dépenser."
+    },
+    "email-verify": {
+      "description": "Envoyez un code de vérification à 6 chiffres par e-mail et enregistrez-le avec une courte durée de validité. Vérifiez-le lors de la prochaine demande de l’utilisateur. Fonctionne avec le module d’authentification : l’utilisateur est marqué comme email_verified après confirmation.",
+      "fields": {
+        "appName": {
+          "label": "Nom de l’app"
+        },
+        "codeTtlMinutes": {
+          "label": "Expiration du code (minutes)"
+        },
+        "fromEmail": {
+          "label": "Adresse d’envoi"
+        }
+      },
+      "name": "Vérification de l’adresse e-mail",
+      "summary": "Vérifiez que les adresses e-mail des personnes sont valides."
+    },
+    "emergency-contacts": {
+      "description": "Une liste de contacts d’urgence avec leur nom, leur lien avec vous et leur numéro de téléphone. Appuyez pour appeler sur mobile. Idéal pour les écoles, les camps, les accueils de bureau et les familles.",
+      "fields": {
+        "heading": {
+          "label": "Titre"
+        }
+      },
+      "name": "Contacts d’urgence",
+      "summary": "Gardez les numéros importants à portée de main."
+    },
+    "event-tickets": {
+      "description": "Vendez des billets pour un événement avec plusieurs catégories (Standard, VIP, etc.). Chaque billet émis reçoit un code unique, qui peut être affiché sous forme de QR code pour le détenteur. À l’entrée, scannez le QR code pour valider le billet et le marquer comme utilisé.",
+      "fields": {
+        "eventDate": {
+          "label": "Date de l’événement"
+        },
+        "eventName": {
+          "label": "Nom de l’événement"
+        },
+        "venue": {
+          "label": "Lieu"
+        }
+      },
+      "name": "Billets d’événement",
+      "summary": "Vendez des billets et contrôlez-les à l’entrée."
+    },
+    "events": {
+      "description": "Listez les prochains événements avec leur date, leur lieu et leur description. Les visiteurs peuvent confirmer leur présence en indiquant leur nom et leur adresse e-mail. Les réponses sont enregistrées dans un tableau que l’admin peut consulter.",
+      "fields": {
+        "calendarName": {
+          "label": "Nom du calendrier"
+        }
+      },
+      "name": "Calendrier des événements",
+      "summary": "Affichez les prochains événements et laissez les gens confirmer leur présence."
+    },
+    "expenses": {
+      "description": "Enregistrez les dépenses de votre entreprise avec leur date, catégorie, montant et notes. Retrouvez-les dans une seule liste pour faciliter le suivi mensuel et la préparation des impôts.",
+      "name": "Dépenses",
+      "summary": "Suivez les dépenses de votre entreprise."
+    },
+    "fanwall": {
+      "description": "Un mur public à fil unique où les visiteurs publient de courts messages avec leur nom et une image facultative. Les plus récents s’affichent en premier. Dans le style d’un mur Twitter ou Facebook, mais sans compte.",
+      "fields": {
+        "wallTitle": {
+          "label": "Titre du mur"
+        }
+      },
+      "name": "Mur des fans",
+      "summary": "Permettez à votre communauté de publier sur un mur partagé."
+    },
+    "faq": {
+      "description": "Une page de questions-réponses classées par catégorie. Comprend un formulaire admin pour ajouter des questions-réponses et un flux public qui répertorie tout le contenu publié.",
+      "fields": {
+        "heading": {
+          "label": "Titre de la page"
+        }
+      },
+      "name": "FAQ",
+      "summary": "Répondez aux questions les plus fréquentes."
+    },
+    "feature-voting": {
+      "description": "Un espace public où les utilisateurs proposent des idées et votent pour celles des autres. Les équipes produit s’en servent pour décider quoi créer ensuite.",
+      "fields": {
+        "productName": {
+          "label": "Nom du produit"
+        }
+      },
+      "name": "Votez pour des idées",
+      "summary": "Proposez des idées et votez pour vos préférées."
+    },
+    "file-upload": {
+      "description": "Permettez aux visiteurs d’envoyer des fichiers via un formulaire avec glisser-déposer. Les fichiers sont stockés dans un dossier propre au projet et leur URL est enregistrée dans un tableau que vous pouvez consulter.",
+      "fields": {
+        "heading": {
+          "label": "Titre de la page"
+        }
+      },
+      "name": "Envoi de fichiers",
+      "summary": "Permettez aux utilisateurs de vous envoyer des fichiers."
+    },
+    "food-truck-finder": {
+      "description": "Tout ce qu’il faut pour une application de food trucks. Les propriétaires créent un compte, ajoutent leur camion sur la carte, mettent leur menu à jour et publient des offres. Les clients voient les camions à proximité sur une carte, lisent les avis et profitent des offres. L’inscription et la connexion sont incluses.",
+      "fields": {
+        "brandName": {
+          "label": "Nom du site"
+        },
+        "cityName": {
+          "label": "Nom de la ville ou de la région"
+        },
+        "defaultLat": {
+          "label": "Latitude du centre-ville"
+        },
+        "defaultLng": {
+          "label": "Longitude du centre-ville"
+        },
+        "defaultZoom": {
+          "label": "Zoom initial de la carte"
+        }
+      },
+      "name": "Repérage de food trucks",
+      "summary": "Aidez les gens à trouver des food trucks près de chez eux grâce à une carte en direct."
+    },
+    "forum": {
+      "description": "Un forum communautaire avec des sujets et de vraies réponses. Les visiteurs lancent un sujet depuis la page d’accueil du forum, ouvrent sa page détaillée et publient des réponses. Le nombre de réponses est mis à jour automatiquement après chaque réponse.",
+      "fields": {
+        "forumName": {
+          "label": "Nom du forum"
+        }
+      },
+      "name": "Forum",
+      "summary": "Permettez aux gens de lancer des discussions et de se répondre."
+    },
+    "gallery": {
+      "description": "Une galerie d’images adaptative, avec un titre, une légende et une URL d’image pour chaque élément. Une page d’ajout permet d’ajouter des photos via leur URL.",
+      "fields": {
+        "galleryIntro": {
+          "label": "Courte présentation"
+        },
+        "galleryTitle": {
+          "label": "Titre de la galerie"
+        }
+      },
+      "name": "Galerie photo",
+      "summary": "Affichez une collection de photos."
+    },
+    "geofencer": {
+      "description": "Définissez des zones circulaires (latitude/longitude du centre + rayon). Les visiteurs partagent leur position ; s’ils se trouvent dans une zone, le contenu ou le message associé s’affiche. Chaque arrivée est enregistrée pour repérer les zones les plus fréquentées. Fonctionne très bien avec les notifications push ou les coupons.",
+      "fields": {
+        "heading": {
+          "label": "Titre"
+        }
+      },
+      "name": "Alertes de proximité",
+      "summary": "Afficher un contenu spécial quand quelqu’un arrive à un endroit."
+    },
+    "gift-registry": {
+      "description": "Une liste de cadeaux où les invités peuvent parcourir les articles et indiquer ceux qu’ils réservent. Chaque article comprend un nom, un prix, un lien vers le magasin et son statut de disponibilité.",
+      "fields": {
+        "occasion": {
+          "label": "Occasion"
+        }
+      },
+      "name": "Liste de cadeaux",
+      "summary": "Créez une liste de cadeaux de mariage ou de naissance que vos invités peuvent réserver."
+    },
+    "guestbook": {
+      "description": "Un livre d’or classique où les visiteurs laissent leur nom et un court message. Les plus récents s’affichent en premier. Parfait pour les sites personnels, les hommages et les pages d’événement.",
+      "fields": {
+        "heading": {
+          "label": "Titre"
+        }
+      },
+      "name": "Livre d’or",
+      "summary": "Permettez aux visiteurs de vous laisser un petit mot sympa."
+    },
+    "gym": {
+      "description": "Une boîte à outils pour les petites salles de sport et les studios : formules d’abonnement (mensuel, carte de 10 séances), planning des cours avec capacité d’accueil et parcours d’enregistrement des entrées par scan du profil d’un membre. Le responsable voit la fréquentation du jour et le nombre de membres actifs.",
+      "fields": {
+        "gymName": {
+          "label": "Nom de la salle de sport"
+        }
+      },
+      "name": "Salle de sport / Abonnements",
+      "summary": "Gérez les abonnements, les cours et les entrées."
+    },
+    "habits": {
+      "description": "Suivez vos habitudes quotidiennes avec leur nom, votre série en cours et la date du dernier suivi. Faites le point chaque jour pour prolonger votre série.",
+      "name": "Suivi des habitudes",
+      "summary": "Suivez vos habitudes quotidiennes et maintenez vos séries."
+    },
+    "help-desk": {
+      "description": "Les clients envoient une demande d’assistance avec un sujet, une description et une priorité. Vous pouvez trier et résoudre les demandes depuis une liste dans l’interface d’administration.",
+      "name": "Assistance client",
+      "summary": "Recevez les demandes d’assistance et répondez-y."
+    },
+    "in-app-ads": {
+      "description": "Faites défiler vos bannières publicitaires sur vos pages sans passer par un réseau publicitaire externe. L'admin ajoute les visuels (image + titre + URL de destination + dates d'activation). À chaque affichage de page, le système en choisit un au hasard selon leur pondération et enregistre chaque affichage et chaque clic pour analyser le CTR. Ajoutez le code où vous le souhaitez.",
+      "fields": {
+        "placement": {
+          "label": "Libellé d'emplacement par défaut"
+        }
+      },
+      "name": "Bannières publicitaires",
+      "summary": "Affichez vos propres bannières publicitaires et voyez qui clique dessus."
+    },
+    "inbox": {
+      "description": "Messagerie privée entre personnes connectées. Choisissez un destinataire, envoyez des messages et consultez leur statut lu ou non lu pour chaque conversation. Les conversations en double sont évitées pour chaque paire d’expéditeur et de destinataire.",
+      "name": "Boîte de réception privée",
+      "summary": "Permettez aux membres de s’envoyer des messages privés."
+    },
+    "inventory": {
+      "description": "Suivez les stocks par référence. Ajustez les quantités (réception de stock, vente, ajustement manuel), repérez les stocks bas et téléchargez un CSV. À associer au module boutique pour que le stock affiché sur votre boutique en ligne soit toujours à jour.",
+      "fields": {
+        "lowThreshold": {
+          "label": "Seuil de stock bas"
+        }
+      },
+      "name": "Stock",
+      "summary": "Suivez vos stocks et sachez quand ils baissent."
+    },
+    "invoice": {
+      "description": "Créez des factures client avec un montant, une date d’échéance et un statut. Consultez en un seul endroit les factures payées, en attente ou en retard depuis une page d’administration.",
+      "fields": {
+        "businessName": {
+          "label": "Nom de l’entreprise"
+        }
+      },
+      "name": "Factures",
+      "summary": "Envoyez des factures et suivez les paiements de vos clients."
+    },
+    "jobs": {
+      "description": "Une page Carrières avec les postes à pourvoir et un formulaire de candidature. Les candidats envoient leur nom, leur adresse e-mail, un lien vers leur CV et un message de présentation ; les candidatures apparaissent dans un tableau que vous pouvez consulter dans l’interface d’administration.",
+      "fields": {
+        "companyName": {
+          "label": "Nom de l’entreprise"
+        }
+      },
+      "name": "Offres d’emploi",
+      "summary": "Publiez des offres d’emploi et recevez des candidatures."
+    },
+    "journal": {
+      "description": "Un journal quotidien privé avec une humeur, des étiquettes et un texte libre. Parcourez vos anciennes entrées par ordre chronologique.",
+      "name": "Journal",
+      "summary": "Tenez un journal quotidien et notez votre humeur chaque jour."
+    },
+    "kanban": {
+      "description": "Un tableau Kanban avec les colonnes « À faire », « En cours » et « Terminé ». Les cartes comportent un titre, une description et une priorité. Déplacez-les en changeant de colonne.",
+      "fields": {
+        "boardName": {
+          "label": "Nom du tableau"
+        }
+      },
+      "name": "Tableau des tâches",
+      "summary": "Déplacez les tâches sur un tableau, de « À faire » à « Terminé »."
+    },
+    "kb": {
+      "description": "Un centre d’aide avec des articles classés par catégorie. Comprend une liste publique d’articles et une page admin simple pour en publier de nouveaux.",
+      "fields": {
+        "title": {
+          "label": "Titre du centre d’aide"
+        }
+      },
+      "name": "Base de connaissances",
+      "summary": "Publiez des articles d’aide que vos clients peuvent rechercher."
+    },
+    "leaderboard": {
+      "description": "Un classement polyvalent. Ajoutez des scores associés à un libellé d’utilisateur (n’importe quel texte : e-mail, nom, membre d’une salle de sport, employé) pour les trier du plus élevé au plus bas. Filtrez par catégorie pour gérer plusieurs classements (pas, ventes, points). Le point de terminaison d’envoi des scores peut être appelé depuis n’importe quel autre module.",
+      "fields": {
+        "boardTitle": {
+          "label": "Titre du classement"
+        },
+        "defaultCategory": {
+          "label": "Catégorie par défaut"
+        }
+      },
+      "name": "Classement",
+      "summary": "Affichez le classement des meilleurs scores."
+    },
+    "leads": {
+      "description": "Un outil simple de suivi des clients : enregistrez les prospects avec leur nom, leur entreprise, leur e-mail et leur étape. Visualisez votre pipeline par étape et repérez les personnes à relancer.",
+      "name": "Clients potentiels",
+      "summary": "Suivez vos clients potentiels et relancez-les."
+    },
+    "link-tracker": {
+      "description": "Créez des liens traçables pour vos campagnes marketing. Chaque clic est enregistré avec son horodatage pour savoir quels canaux génèrent le plus de visites.",
+      "name": "Clics sur les liens",
+      "summary": "Découvrez combien de personnes cliquent sur vos liens."
+    },
+    "links": {
+      "description": "Une liste simple et sélectionnée de liens externes, avec un titre, une icône et une description. Idéale pour les pages de type Linktree, les listes de ressources ou les pages de liens dans une bio.",
+      "fields": {
+        "heading": {
+          "label": "Titre"
+        }
+      },
+      "name": "Répertoire de liens",
+      "summary": "Partagez une page simple avec vos liens importants."
+    },
+    "live-stream": {
+      "description": "Créez une page de diffusion en direct qui intègre un flux HLS .m3u8, une URL YouTube Live ou une chaîne Twitch, avec un panneau de chat en direct (qui interroge régulièrement le parcours de chat en temps réel). L'admin définit le type de diffusion et l'URL ; les spectateurs voient le lecteur et le chat.",
+      "fields": {
+        "streamKind": {
+          "label": "Type de diffusion",
+          "options": {
+            "hls": "HLS (.m3u8)",
+            "twitch": "Twitch",
+            "youtube": "YouTube Live"
+          }
+        },
+        "streamUrl": {
+          "label": "URL de diffusion / ID de chaîne"
+        },
+        "title": {
+          "label": "Titre de la diffusion"
+        }
+      },
+      "name": "Diffusion en direct",
+      "summary": "Affichez une vidéo en direct."
+    },
+    "lost-found": {
+      "description": "Un service communautaire d’objets perdus et trouvés. Les personnes signalent les objets perdus ou trouvés avec leur emplacement et leurs coordonnées. Le tableau rassemble tout au même endroit pour faciliter les correspondances.",
+      "fields": {
+        "communityName": {
+          "label": "Nom de la communauté"
+        }
+      },
+      "name": "Objets trouvés",
+      "summary": "Permettez à votre communauté de signaler des objets perdus ou trouvés."
+    },
+    "loyalty-card": {
+      "description": "Une carte à tampons numérique pour votre commerce. Les clients donnent leur numéro de téléphone à la caisse, vous tamponnez leur carte et, une fois l’objectif atteint, ils reçoivent un article gratuit. Suit chaque client et chaque tampon.",
+      "fields": {
+        "punchGoal": {
+          "label": "Tampons nécessaires pour obtenir la récompense"
+        },
+        "rewardText": {
+          "label": "Description de la récompense"
+        },
+        "shopName": {
+          "label": "Nom du commerce"
+        }
+      },
+      "name": "Carte de fidélité à tampons",
+      "summary": "Récompensez vos habitués avec une carte à tampons numérique."
+    },
+    "map": {
+      "description": "Une vraie carte interactive basée sur Leaflet et OpenStreetMap. Affiche l’emplacement de votre entreprise avec un repère et une adresse. Gratuit — aucune clé API nécessaire.",
+      "fields": {
+        "address": {
+          "label": "Adresse postale"
+        },
+        "label": {
+          "label": "Libellé du repère"
+        },
+        "lat": {
+          "label": "Latitude"
+        },
+        "lng": {
+          "label": "Longitude"
+        },
+        "title": {
+          "label": "Titre de la page"
+        },
+        "zoom": {
+          "label": "Zoom (1-19)"
+        }
+      },
+      "name": "Carte et géolocalisation",
+      "summary": "Affichez vos lieux sur une carte."
+    },
+    "marketplace": {
+      "description": "Transformez une boutique avec un seul vendeur en place de marché multi-vendeurs. Les vendeurs s’inscrivent, ajoutent des produits à leur boutique, et l’admin voit les commandes et les commissions de toutes les boutiques. Chaque produit appartient à un vendeur, avec un partage automatique des commissions.",
+      "fields": {
+        "commissionPct": {
+          "label": "Commission de la plateforme (%)"
+        },
+        "marketName": {
+          "label": "Nom de la place de marché"
+        }
+      },
+      "name": "Place de marché",
+      "summary": "Permettez à d’autres vendeurs de vendre dans votre boutique."
+    },
+    "media-playlist": {
+      "description": "Une liste de lecture gérée par un administrateur, qui rassemble des fichiers audio et vidéo dans un seul lecteur. Le lecteur passe automatiquement à l’élément suivant, permet de passer ou de relancer un élément et affiche une file d’attente avec des vignettes.",
+      "fields": {
+        "playlistName": {
+          "label": "Nom de la liste de lecture"
+        }
+      },
+      "name": "Liste de lecture multimédia",
+      "summary": "Réunissez des chansons et des vidéos dans une seule liste de lecture."
+    },
+    "member-id-card": {
+      "description": "Créez des cartes d’identité numériques pour vos membres. Chaque carte indique un nom, une photo, un numéro de membre unique, un niveau, une date d’émission et une date d’expiration, ainsi qu’un code-barres à scanner (Code 128). Les membres ouvrent leur carte sur leur téléphone ; le personnel la scanne à l’entrée pour la vérifier, grâce au module de codes-barres et QR.",
+      "fields": {
+        "cardTagline": {
+          "label": "Slogan de la carte"
+        },
+        "orgName": {
+          "label": "Nom de l’organisation"
+        }
+      },
+      "name": "Carte de membre",
+      "summary": "Offrez une carte d’identité numérique à vos membres."
+    },
+    "menu": {
+      "description": "Un menu de restaurant ou de café organisé par catégorie (entrées, plats, boissons), avec le nom, la description et le prix de chaque article. La page d’administration vous permet d’ajouter de nouveaux articles depuis votre téléphone.",
+      "fields": {
+        "currency": {
+          "label": "Devise"
+        },
+        "restaurantName": {
+          "label": "Nom du restaurant"
+        }
+      },
+      "name": "Menu de restaurant",
+      "summary": "Présentez votre carte de plats et de boissons."
+    },
+    "newsletter": {
+      "description": "Une page d’inscription accrocheuse avec un seul champ e-mail, une liste d’abonnés qui s’allonge et une page admin qui affiche chaque inscription avec sa date.",
+      "fields": {
+        "buttonText": {
+          "label": "Texte du bouton"
+        },
+        "pitch": {
+          "label": "Phrase d’accroche"
+        },
+        "title": {
+          "label": "Titre"
+        }
+      },
+      "name": "Infolettre",
+      "summary": "Recueillez des adresses e-mail pour vos actualités et offres."
+    },
+    "notes": {
+      "description": "Prenez de courtes notes avec des étiquettes. Idéal pour noter des idées, des liens, des rappels et des pense-bêtes qui ne méritent pas un document entier.",
+      "name": "Notes",
+      "summary": "Prenez rapidement quelques notes."
+    },
+    "nutrition-tracker": {
+      "description": "Notez vos repas et leur apport en calories, protéines, glucides et lipides. Consultez vos totaux quotidiens par rapport à vos objectifs et un graphique sur 7 jours. Des aliments courants sont déjà ajoutés pour faciliter la saisie. Associez-le au suivi des habitudes pour suivre vos séries.",
+      "fields": {
+        "kcalGoal": {
+          "label": "Objectif quotidien en kcal"
+        },
+        "proteinGoal": {
+          "label": "Objectif quotidien en protéines (g)"
+        }
+      },
+      "name": "Suivi nutritionnel",
+      "summary": "Notez vos repas et comptez les calories."
+    },
+    "password-vault": {
+      "description": "Un coffre-fort simple pour stocker des secrets partagés (mots de passe Wi-Fi, clés de licence, codes de porte). Protégé par un code PIN principal enregistré sous forme de hachage argon2 — jamais en texte brut.",
+      "fields": {
+        "masterPin": {
+          "help": "Enregistré sous forme de hachage argon2. Impossible à récupérer.",
+          "label": "Code PIN principal",
+          "placeholder": "Choisissez un code PIN de 4 à 6 chiffres"
+        },
+        "vaultName": {
+          "label": "Nom du coffre-fort"
+        }
+      },
+      "name": "Coffre-fort à mots de passe",
+      "summary": "Protégez vos notes privées avec un code PIN."
+    },
+    "paywall": {
+      "description": "Réservez du contenu premium aux personnes qui ont un code d’accès ou qui sont connectées. Définissez des codes de déverrouillage (à usage unique ou partagés). Les pages portant la balise data-nk-paywall restent masquées jusqu’à ce que le visiteur saisisse un code valide ou se connecte. Les accès déverrouillés sont mémorisés dans le localStorage du visiteur.",
+      "fields": {
+        "ctaCopy": {
+          "label": "Titre de l’écran de verrouillage"
+        },
+        "subCopy": {
+          "label": "Sous-titre de l’écran de verrouillage"
+        }
+      },
+      "name": "Accès réservé",
+      "summary": "Réservez certaines pages aux membres payants ou aux personnes qui ont un code."
+    },
+    "pdf-embed": {
+      "description": "Gérez une petite bibliothèque de documents PDF (tarifs, brochures, manuels, contrats). Chaque PDF dispose d’une page de lecture publique avec le lecteur PDF intégré au navigateur. Les visiteurs peuvent les consulter directement sur la page ou les télécharger.",
+      "fields": {
+        "heading": {
+          "label": "Titre de la bibliothèque"
+        }
+      },
+      "name": "Bibliothèque PDF",
+      "summary": "Partagez des documents que les visiteurs peuvent lire sur la page."
+    },
+    "personalized-dashboard": {
+      "description": "Une page d’accueil personnalisée qui accueille la personne connectée par son nom et affiche les widgets qu’elle a épinglés. Épinglez un widget (libellé + URL + icône) pour l’afficher sur votre tableau de bord. D’autres modules peuvent aussi épingler automatiquement des widgets (par ex. « le nombre de messages non lus ») grâce à la création de widgets.",
+      "fields": {
+        "greeting": {
+          "label": "Début du message d’accueil"
+        }
+      },
+      "name": "Tableau de bord personnalisé",
+      "summary": "Offrez à chaque personne connectée sa propre page d’accueil."
+    },
+    "petitions": {
+      "description": "Une page de pétition avec un titre, une description et un formulaire de signature. Les signataires sont enregistrés avec leur nom, leur adresse e-mail et un commentaire facultatif ; le nombre de signatures est affiché.",
+      "fields": {
+        "target": {
+          "label": "Objectif de signatures"
+        },
+        "title": {
+          "label": "Titre de la pétition"
+        }
+      },
+      "name": "Pétition",
+      "summary": "Recueillez des signatures pour une cause."
+    },
+    "phonebook": {
+      "description": "Un annuaire consultable du personnel ou des membres. Chaque fiche comprend une photo, un nom, un poste, un service, une adresse e-mail, un numéro de téléphone et une courte bio. Filtrez par service ou recherchez par nom. Idéal pour les intranets d’entreprise, les pages du personnel scolaire ou les annuaires de membres d’une chambre de commerce.",
+      "fields": {
+        "heading": {
+          "label": "Titre de l’annuaire"
+        }
+      },
+      "name": "Annuaire",
+      "summary": "Un répertoire de contacts consultable."
+    },
+    "places": {
+      "description": "Un guide des lieux adapté aux mobiles : une liste, des catégories et une carte avec des repères photo. Les visiteurs peuvent faire une recherche, partager leur position pour voir les lieux les plus proches en premier, puis ouvrir une fiche pour consulter les photos, les horaires, appeler ou obtenir un itinéraire. Les visiteurs connectés peuvent proposer un lieu, qui attendra votre approbation. Disponible en cinq langues, avec des exemples prêts à l’emploi pour un guide touristique, des restaurants, un répertoire d’entreprises ou des lieux de mariage et d’événements.",
+      "fields": {
+        "accent": {
+          "help": "Couleur de l’en-tête du guide, des boutons et des repères sur la carte. Le texte et les arrière-plans respectent toujours le thème de votre app.",
+          "label": "Couleur",
+          "options": {
+            "blue": "Bleu",
+            "theme": "Couleur principale de mon app"
+          }
+        },
+        "languages": {
+          "help": "Les visiteurs changent de langue avec le bouton en forme de globe. La langue de leur téléphone est utilisée si elle est disponible, sinon la première de la liste. Les noms et descriptions des lieux s’affichent tels que vous les avez écrits.",
+          "label": "Langues",
+          "options": {
+            "de_en_es_pt_fr": "Les cinq, allemand en premier",
+            "en": "Anglais uniquement",
+            "en_de": "Anglais et allemand",
+            "en_es": "Anglais et espagnol",
+            "en_es_pt_fr_de": "Les cinq, anglais en premier",
+            "en_fr": "Anglais et français",
+            "en_pt": "Anglais et portugais",
+            "es_en_pt_fr_de": "Les cinq, espagnol en premier",
+            "fr_en_es_pt_de": "Les cinq, français en premier",
+            "pt_en_es_fr_de": "Les cinq, portugais en premier"
+          }
+        },
+        "preset": {
+          "help": "Définit les catégories, les textes et les exemples de lieux proposés au départ. Vous pouvez tout modifier ensuite.",
+          "label": "Utilisation",
+          "options": {
+            "directory": "Annuaire professionnel",
+            "restaurants": "Restaurants",
+            "tourist": "Guide touristique ou de ville",
+            "venues": "Lieux de mariage et d’événement"
+          }
+        },
+        "sortBy": {
+          "help": "Quand un visiteur partage sa position, les lieux les plus proches apparaissent toujours en premier.",
+          "label": "Ordre de la liste",
+          "options": {
+            "featured": "Lieux à la une en premier, puis dans l’ordre choisi",
+            "name": "De A à Z"
+          }
+        },
+        "title": {
+          "help": "Affiché en haut du guide. Laissez ce champ vide pour utiliser un titre adapté à son contenu, dans la langue de chaque visiteur.",
+          "label": "Titre du guide",
+          "placeholder": "Guide de la ville"
+        },
+        "units": {
+          "label": "Distances en",
+          "options": {
+            "km": "Kilomètres",
+            "mi": "Miles"
+          }
+        }
+      },
+      "name": "Lieux",
+      "summary": "Un guide des lieux sur une carte, avec des photos et les plus proches en premier."
+    },
+    "podcast": {
+      "description": "Une page d’accueil de podcast avec une liste d’épisodes, chacun accompagné d’un titre, d’une description, d’une durée et d’une URL audio. Les visiteurs peuvent écouter les épisodes directement sur la page.",
+      "fields": {
+        "showName": {
+          "label": "Nom de l’émission"
+        },
+        "tagline": {
+          "label": "Slogan de l’émission"
+        }
+      },
+      "name": "Podcast",
+      "summary": "Partagez des épisodes de podcast à écouter."
+    },
+    "polls": {
+      "description": "Un module de sondage : créez une question avec une liste de choix, puis les visiteurs votent et les résultats se mettent à jour en direct. Idéal pour prendre rapidement des décisions en communauté.",
+      "name": "Sondages",
+      "summary": "Posez une question et laissez les gens voter."
+    },
+    "portfolio": {
+      "description": "Un portfolio de projets avec un titre, une image, une description et un lien externe facultatif. Idéal pour les designers, développeurs, photographes et agences.",
+      "fields": {
+        "intro": {
+          "label": "Phrase de présentation"
+        },
+        "name": {
+          "label": "Votre nom ou votre marque"
+        }
+      },
+      "name": "Portfolio",
+      "summary": "Mettez vos meilleures réalisations en valeur."
+    },
+    "pricing": {
+      "description": "Une page de tarifs soignée avec trois offres (à modifier librement dans l’éditeur) et un formulaire de demande qui recueille les adresses e-mail pour chaque offre choisie.",
+      "fields": {
+        "heading": {
+          "label": "Titre de la page"
+        },
+        "sub": {
+          "label": "Sous-titre"
+        }
+      },
+      "name": "Offres tarifaires",
+      "summary": "Présentez vos tarifs et permettez aux gens de s’inscrire."
+    },
+    "project-portfolio": {
+      "description": "Vue d’ensemble de plusieurs projets. Pour chaque projet, indiquez le nom, le responsable, le statut (prévu/en cours/bloqué/terminé), le pourcentage d’avancement, la date d’échéance et le nombre de tâches. Idéal pour gérer une petite équipe ou le suivi de missions freelance. Différent du module kanban à tableau unique.",
+      "fields": {
+        "portfolioName": {
+          "label": "Nom du portfolio"
+        }
+      },
+      "name": "Portfolio de projets",
+      "summary": "Suivez vos projets et leur avancement."
+    },
+    "properties": {
+      "description": "Une page d’annonces immobilières avec photos, prix, nombre de chambres et de salles de bains, superficie et adresse. Avec un formulaire pour que les personnes intéressées puissent vous contacter.",
+      "fields": {
+        "agencyName": {
+          "label": "Nom de l’agence"
+        }
+      },
+      "name": "Annonces immobilières",
+      "summary": "Listez des maisons et des biens immobiliers à vendre ou à louer."
+    },
+    "purchase-order": {
+      "description": "Un processus léger de commandes d’achat entre entreprises. Les employés soumettent une commande (fournisseur, articles, total, justification) ; les responsables consultent la file et approuvent ou refusent ; le service financier indique que la commande est traitée et payée. Chaque commande reçoit un numéro séquentiel pour le suivi comptable.",
+      "fields": {
+        "approverEmail": {
+          "label": "E-mail du responsable de l’approbation"
+        }
+      },
+      "name": "Commandes d’achat",
+      "summary": "Demandez, approuvez et suivez les commandes auprès des fournisseurs."
+    },
+    "push-notifications": {
+      "description": "Ajoutez un bouton « Activer les notifications ». Les visiteurs les activent dans leur navigateur (ou, sur iPhone, depuis l’app ajoutée à leur écran d’accueil), puis vous leur envoyez des actualités depuis l’écran Notifications de l’app ou via une automatisation.",
+      "fields": {
+        "heading": {
+          "label": "Titre de la page"
+        },
+        "pitch": {
+          "label": "Message d’invitation"
+        }
+      },
+      "name": "Notifications push",
+      "summary": "Envoyez des alertes sur les téléphones et les ordinateurs."
+    },
+    "qr-scanner": {
+      "description": "Un lecteur de QR codes utilisant l’appareil photo et basé sur jsQR. Les codes scannés sont ajoutés à un champ de formulaire que vous pouvez envoyer — idéal pour les enregistrements, les coupons et le suivi des présences.",
+      "fields": {
+        "heading": {
+          "label": "Titre"
+        }
+      },
+      "name": "Lecteur de QR codes",
+      "summary": "Scannez des QR codes avec l’appareil photo d’un téléphone."
+    },
+    "queue": {
+      "description": "Une file d’attente virtuelle. Les clients la rejoignent depuis leur téléphone et voient leur numéro ainsi que leur position en temps réel. Le personnel appuie sur « Suivant » pour faire avancer la file. Le numéro appelé est affiché à tous les visiteurs en attente.",
+      "fields": {
+        "businessName": {
+          "label": "Nom de l’entreprise"
+        }
+      },
+      "name": "File d’attente virtuelle",
+      "summary": "Permettez à vos clients de faire la queue sans attendre sur place."
+    },
+    "quiz": {
+      "description": "Un quiz sur une seule page, avec plusieurs questions. Chaque réponse est enregistrée avec le nom de l’utilisateur, ses réponses et un score que vous pouvez calculer dans l’app ou avec un flux.",
+      "fields": {
+        "title": {
+          "label": "Titre du quiz"
+        }
+      },
+      "name": "Quiz",
+      "summary": "Proposez un quiz amusant avec un score."
+    },
+    "quote-request": {
+      "description": "Un formulaire de demande de devis pour les entreprises de services. Recueillez les détails du projet, le budget et les délais. L’administration affiche toutes les demandes avec une colonne de statut pour les trier.",
+      "fields": {
+        "businessName": {
+          "label": "Nom de l’entreprise"
+        }
+      },
+      "name": "Demande de devis",
+      "summary": "Permettez à vos clients de demander un devis."
+    },
+    "radio": {
+      "description": "Une page radio avec un grand bouton de lecture, un répertoire de stations parmi lesquelles l’auditeur peut choisir et un formulaire de demande de chanson. Une station issue de votre configuration est ajoutée au départ ; vous pouvez en ajouter d’autres depuis la page d’administration.",
+      "fields": {
+        "stationName": {
+          "label": "Nom de la station par défaut"
+        },
+        "streamUrl": {
+          "label": "URL du flux par défaut (https)"
+        },
+        "tagline": {
+          "label": "Slogan de la station par défaut"
+        }
+      },
+      "name": "Lecteur radio",
+      "summary": "Diffusez des stations de radio en direct."
+    },
+    "reactions": {
+      "description": "Un système de réactions polyvalent. N’importe quelle ligne de n’importe quelle table peut recevoir des réactions par emoji (     …). Chaque réaction est enregistrée sur une ligne avec la table et l’identifiant de l’élément, l’emoji et, éventuellement, l’identifiant de l’utilisateur. Mur de fans, forum, blog, galerie : tous les modules peuvent l’utiliser.",
+      "name": "Réactions",
+      "summary": "Permettez aux utilisateurs de réagir aux publications avec un emoji."
+    },
+    "reading": {
+      "description": "Votre suivi personnel de livres. Chaque livre comprend un titre, un auteur, une couverture, un statut et, si vous le souhaitez, une note une fois terminé.",
+      "name": "Liste de lecture",
+      "summary": "Suivez les livres à lire, en cours de lecture et terminés."
+    },
+    "realtime-chat": {
+      "description": "Un salon de discussion public qui recherche les nouveaux messages toutes les quelques secondes pour donner l’impression que les échanges sont instantanés. Ajoutez-le partout où vous souhaitez que les visiteurs discutent en temps réel.",
+      "fields": {
+        "refreshMs": {
+          "label": "Intervalle d’actualisation (ms)"
+        },
+        "roomTitle": {
+          "label": "Titre du salon"
+        }
+      },
+      "name": "Chat en temps réel",
+      "summary": "Un salon de discussion où les messages s’affichent instantanément."
+    },
+    "recipes": {
+      "description": "Une collection de recettes. Chacune comprend un titre, une image de couverture, une liste d’ingrédients, des instructions, un temps de préparation et le nombre de portions. Idéal pour les cuisiniers amateurs ou un blog culinaire.",
+      "fields": {
+        "kitchenName": {
+          "label": "Nom de la collection"
+        }
+      },
+      "name": "Recettes",
+      "summary": "Partagez des recettes avec leurs ingrédients et leurs étapes."
+    },
+    "referrals": {
+      "description": "Chaque utilisateur reçoit un code de parrainage unique et un lien à partager. Lorsqu’une personne s’inscrit avec ce code, le parrainage est enregistré. Comprend un classement des meilleurs parrains et une page « Mon code » à partager.",
+      "fields": {
+        "appName": {
+          "label": "Nom de l’app"
+        },
+        "rewardCopy": {
+          "label": "Texte de la récompense"
+        }
+      },
+      "name": "Parrainages",
+      "summary": "Récompensez les personnes qui invitent leurs amis."
+    },
+    "reminders": {
+      "description": "Permettez aux utilisateurs (ou aux admins) de programmer un rappel : « Envoyez-moi X par e-mail vendredi à 16 h. » Les rappels sont enregistrés avec une date d’envoi et le contenu de l’e-mail. Un service distinct (ou une action manuelle « Envoyer les rappels dus ») les envoie à l’échéance.",
+      "fields": {
+        "fromEmail": {
+          "label": "Adresse d’envoi"
+        }
+      },
+      "name": "Rappels",
+      "summary": "Envoyez des rappels par e-mail à l’heure de votre choix."
+    },
+    "rentals": {
+      "description": "Des annonces de locations de courte durée dans le style d’Airbnb. Chacune comprend des photos, le prix par nuit, le nombre de personnes, les équipements et un formulaire de demande de réservation.",
+      "name": "Locations de vacances",
+      "summary": "Proposez des locations de vacances que les gens peuvent réserver."
+    },
+    "reviews": {
+      "description": "Une page où les clients peuvent laisser un avis avec une note en étoiles et un commentaire, ainsi qu’une page publique qui répertorie tous les avis approuvés. Idéal pour renforcer la confiance envers votre site.",
+      "fields": {
+        "brand": {
+          "label": "Nom de la marque ou de l’entreprise"
+        }
+      },
+      "name": "Avis",
+      "summary": "Recueillez les notes et les avis de vos clients."
+    },
+    "routes": {
+      "description": "Créez un itinéraire avec plusieurs étapes : ajoutez-les dans l’ordre (nom, adresse, lat./long., notes), affichez-les sur une carte reliées par une ligne, puis partagez l’itinéraire sur une page publique facile à imprimer.",
+      "fields": {
+        "heading": {
+          "label": "Titre"
+        }
+      },
+      "name": "Itinéraires et parcours",
+      "summary": "Partagez un itinéraire ou un trajet, étape par étape."
+    },
+    "rss-reader": {
+      "description": "Abonnez-vous à un ou plusieurs flux RSS / Atom externes et affichez les derniers articles réunis dans votre app. L’actualisation récupère les flux, en extrait les articles et les enregistre localement pour que la lecture reste rapide.",
+      "fields": {
+        "heading": {
+          "label": "Titre du lecteur"
+        }
+      },
+      "name": "Lecteur de flux d’actualités",
+      "summary": "Afficher les dernières publications du flux d’actualités d’un autre site."
+    },
+    "scheduled-content": {
+      "description": "Rédigez un contenu (titre et texte) à l’état de brouillon, définissez une date et une heure de publication, et il apparaîtra dans le fil public uniquement après cette date. Une tâche de publication des contenus arrivés à échéance peut être déclenchée par cron pour publier les brouillons. Le fil public vérifie aussi les dates de publication en temps réel.",
+      "fields": {
+        "heading": {
+          "label": "Titre du fil"
+        }
+      },
+      "name": "Contenu programmé",
+      "summary": "Rédigez maintenant et publiez plus tard."
+    },
+    "scratch-card": {
+      "description": "Une promotion à gratter. Les visiteurs saisissent leur e-mail et reçoivent une carte à gratter virtuelle qui révèle un lot tiré au sort parmi ceux que vous proposez (en fonction des stocks). Chaque lot remporté est enregistré avec l’e-mail du gagnant et son code de retrait.",
+      "fields": {
+        "campaignName": {
+          "label": "Nom de la campagne"
+        }
+      },
+      "name": "Carte à gratter",
+      "summary": "Offrez des lots avec une carte à gratter."
+    },
+    "service-menu": {
+      "description": "Une liste de services comme pour un salon de coiffure ou un spa : chaque service comprend un nom, une durée, un prix et une description. Parfaite en complément d’une page de réservation.",
+      "fields": {
+        "businessName": {
+          "label": "Nom de l’entreprise"
+        },
+        "currency": {
+          "label": "Devise"
+        }
+      },
+      "name": "Liste de services",
+      "summary": "Présentez vos services et leurs tarifs."
+    },
+    "share-app": {
+      "description": "Une page « Partager cette app » prête à l’emploi, avec l’API de partage native Web Share (sur mobile), la copie dans le presse-papiers et des liens de partage préremplis pour Twitter/X, Facebook, WhatsApp, les e-mails et LinkedIn. Suivez chaque partage par destination pour voir quels canaux fonctionnent le mieux.",
+      "fields": {
+        "appName": {
+          "label": "Nom de l’app"
+        },
+        "appUrl": {
+          "label": "Lien de partage"
+        },
+        "shareText": {
+          "label": "Texte de partage par défaut"
+        }
+      },
+      "name": "Partage de l’app",
+      "summary": "Facilitez le partage de votre app."
+    },
+    "shop": {
+      "description": "Une liste de produits avec un panier interactif. Les visiteurs ajoutent des articles à leur panier, le vérifient et passent commande en indiquant leurs coordonnées. La commande enregistre aussi le contenu complet du panier et le total calculé. Les commandes s’affichent dans un tableau admin que vous pouvez consulter.",
+      "fields": {
+        "currency": {
+          "label": "Symbole de la devise"
+        },
+        "storeName": {
+          "label": "Nom de la boutique"
+        }
+      },
+      "name": "Boutique simple",
+      "summary": "Vendez des produits en ligne avec un vrai panier."
+    },
+    "slider": {
+      "description": "Un carrousel d’images pour la page d’accueil, que l’admin peut modifier sans toucher au code. Ajoutez des diapositives (image, titre, sous-titre, bouton d’action et lien), réorganisez-les, et le carrousel public défile automatiquement. Fonctionne avec JavaScript standard, sans dépendance à une bibliothèque de carrousel.",
+      "fields": {
+        "intervalMs": {
+          "label": "Intervalle entre les diapositives (ms)"
+        }
+      },
+      "name": "Carrousel d’images",
+      "summary": "Affichez des images qui défilent les unes après les autres."
+    },
+    "sms": {
+      "description": "Envoyez des SMS à un numéro de téléphone via l’API REST de Twilio. Chaque envoi est enregistré dans une table dédiée pour garder une trace. À associer aux rappels, à la double authentification ou à tout parcours qui préfère les SMS aux e-mails.",
+      "fields": {
+        "fromNumber": {
+          "label": "Numéro d’envoi (E.164)"
+        },
+        "twilioAccountSid": {
+          "label": "SID du compte Twilio"
+        },
+        "twilioAuthToken": {
+          "label": "Jeton d’authentification Twilio"
+        }
+      },
+      "name": "Messages texte",
+      "summary": "Envoyez des SMS à vos clients."
+    },
+    "status-page": {
+      "description": "Une page d’état comme statuspage.io. Définissez une liste de services (API, Web, base de données…), chacun avec un indicateur d’état. Publiez des incidents et suivez leur évolution : en cours d’analyse → identifié → résolu, avec des mises à jour publiques associées aux services concernés.",
+      "fields": {
+        "appName": {
+          "label": "Nom de l’app ou du service"
+        }
+      },
+      "name": "Page d’état",
+      "summary": "Informez vos clients du bon fonctionnement de vos services."
+    },
+    "store-locator": {
+      "description": "Un outil pour trouver des magasins parmi plusieurs adresses, avec horaires, services, tri par distance depuis la position de l'utilisateur et lien « Itinéraire » en un seul geste vers Google/Apple Maps. À la différence du module générique `places`, il est conçu pour les chaînes de magasins, franchises, succursales et points de vente partenaires.",
+      "fields": {
+        "brandName": {
+          "label": "Nom de la marque"
+        }
+      },
+      "name": "Localisateur de magasins",
+      "summary": "Aidez les gens à trouver le magasin le plus proche."
+    },
+    "stripe-checkout": {
+      "description": "Une page produit avec un bouton de paiement qui crée une véritable session Stripe Checkout et redirige le client vers la page de paiement. Ajoutez votre propre clé secrète Stripe dans la configuration du module.",
+      "fields": {
+        "cancelUrl": {
+          "help": "La page où les personnes arrivent si elles annulent : généralement la page d’accueil de votre app.",
+          "label": "URL de redirection après annulation"
+        },
+        "currency": {
+          "label": "Code de devise"
+        },
+        "priceCents": {
+          "label": "Prix en centimes"
+        },
+        "productName": {
+          "label": "Nom du produit"
+        },
+        "stripeSecret": {
+          "help": "Votre clé secrète Stripe. Commencez avec une clé de test.",
+          "label": "Clé secrète Stripe"
+        },
+        "successUrl": {
+          "help": "La page où les personnes arrivent après le paiement : une page de votre app, comme la page de remerciement. Copiez l’adresse depuis l’onglet Publier de votre app.",
+          "label": "URL de redirection après paiement"
+        }
+      },
+      "name": "Paiements en ligne",
+      "summary": "Acceptez les paiements par carte pour tout ce que vous vendez."
+    },
+    "submissions-queue": {
+      "description": "Un parcours de soumission façon Reddit : les visiteurs envoient du contenu (titre + texte + image facultative), qui arrive dans une file de modération. Un admin accepte ou refuse les soumissions, et seuls les contenus acceptés apparaissent dans le fil public. Les motifs de refus sont enregistrés. À la différence du module de formulaire de contact, qui sert uniquement de boîte de réception.",
+      "fields": {
+        "feedHeading": {
+          "label": "Titre du fil public"
+        },
+        "guidelines": {
+          "label": "Consignes de soumission"
+        }
+      },
+      "name": "File des propositions",
+      "summary": "Recueillez des propositions et approuvez-les avant leur publication."
+    },
+    "subscription": {
+      "description": "Une page d’inscription à un abonnement mensuel avec choix de l’offre, informations de livraison et confirmation. Les membres sont enregistrés dans un tableau pour faciliter la facturation et l’envoi des commandes.",
+      "fields": {
+        "boxName": {
+          "label": "Nom de la box"
+        }
+      },
+      "name": "Box d’abonnement",
+      "summary": "Permettez aux clients de s’abonner à une box ou à une offre mensuelle."
+    },
+    "survey": {
+      "description": "Un sondage avec plusieurs questions et des réponses libres. Enregistrez chaque réponse au format JSON et consultez-les dans l’interface d’administration.",
+      "fields": {
+        "intro": {
+          "label": "Introduction"
+        },
+        "title": {
+          "label": "Titre du sondage"
+        }
+      },
+      "name": "Sondage",
+      "summary": "Posez quelques questions à vos clients et recueillez leurs réponses."
+    },
+    "table-reservations": {
+      "description": "Un système de réservation conçu pour les restaurants, différent des rendez-vous classiques. Définissez vos tables et leur nombre de places, acceptez les réservations selon la date, l’heure et la taille du groupe, et évitez les doubles réservations. Le personnel d’accueil voit le planning du jour ; les clients reçoivent une page de confirmation.",
+      "fields": {
+        "restaurantName": {
+          "label": "Nom du restaurant"
+        },
+        "slotMinutes": {
+          "label": "Durée du créneau de service (min)"
+        }
+      },
+      "name": "Réservations de table",
+      "summary": "Permettez aux clients de réserver une table dans votre restaurant."
+    },
+    "tags": {
+      "description": "Un système d’étiquettes simple. Créez des étiquettes (avec une couleur facultative), puis associez-les à n’importe quelle ligne de n’importe quelle table. Pratique pour classer des prospects, des projets ou du contenu.",
+      "name": "Étiquettes",
+      "summary": "Ajoutez des étiquettes pour trier et retrouver facilement les éléments."
+    },
+    "team": {
+      "description": "Un annuaire de l’équipe avec photo, nom, rôle et courte biographie. Idéal pour les pages À propos et les intranets internes.",
+      "fields": {
+        "heading": {
+          "label": "Titre de la page"
+        }
+      },
+      "name": "Annuaire de l’équipe",
+      "summary": "Présentez les membres de votre équipe."
+    },
+    "testimonials": {
+      "description": "Recueillez et affichez les témoignages de vos clients. Plus simple qu’un système d’avis : pas d’étoiles, seulement un nom, une photo et le témoignage. Parfait à intégrer à une page de lancement.",
+      "name": "Témoignages",
+      "summary": "Montrez ce que vos clients satisfaits disent de vous."
+    },
+    "timeline": {
+      "description": "Une chronologie verticale, comme un journal des modifications. Parfaite pour les notes de mise à jour, l’histoire d’une entreprise, les étapes d’un projet ou tout autre événement daté.",
+      "fields": {
+        "subtitle": {
+          "label": "Sous-titre"
+        },
+        "title": {
+          "label": "Titre de la chronologie"
+        }
+      },
+      "name": "Chronologie",
+      "summary": "Racontez votre histoire avec des dates et des étapes clés."
+    },
+    "todo": {
+      "description": "Une liste de tâches personnelle ou partagée, avec un titre, des notes, une priorité et un état d’avancement. Elle s’appuie sur un vrai tableau de tâches que vous pouvez consulter, filtrer et enrichir.",
+      "fields": {
+        "listName": {
+          "label": "Nom de la liste"
+        }
+      },
+      "name": "Liste de tâches",
+      "summary": "Faites une liste de tâches et cochez celles qui sont terminées."
+    },
+    "two-factor": {
+      "description": "Ajoute une étape à la connexion : après s’être connecté, l’utilisateur reçoit un code à 6 chiffres par e-mail. Tant qu’il ne l’a pas confirmé, sa session est marquée comme non vérifiée. Ajoutez ce module à tout projet qui utilise le module d’authentification pour mieux protéger les comptes.",
+      "fields": {
+        "appName": {
+          "label": "Nom de l’app"
+        },
+        "fromEmail": {
+          "label": "Adresse d’envoi"
+        }
+      },
+      "name": "Vérification supplémentaire à la connexion",
+      "summary": "Ajoutez un code envoyé par e-mail à la connexion."
+    },
+    "user-favorites": {
+      "description": "Permet aux personnes connectées d’ajouter des favoris (produit, camion, publication, article) et de consulter leur liste personnelle. Utilise le module d’authentification déjà installé dans le projet : installez d’abord Auth / Accounts (ou un autre fournisseur de sessions).",
+      "name": "Favoris",
+      "summary": "Permettez aux personnes connectées d’enregistrer leurs articles préférés."
+    },
+    "user-groups": {
+      "description": "Ajoutez l'appartenance à plusieurs groupes au champ de rôle unique du module d'authentification. Définissez des groupes (Premium, Beta, VIP, Staff…) et ajoutez chaque utilisateur à un ou plusieurs groupes. D'autres modules peuvent vérifier l'appartenance à un groupe avec le parcours correspondant avant de donner accès à une fonctionnalité.",
+      "name": "Groupes de membres",
+      "summary": "Répartissez les membres en groupes, comme VIP ou équipe."
+    },
+    "user-profile-card": {
+      "description": "Une petite carte de profil qui affiche le nom, l’avatar et la bio de la personne connectée. Utilise le module d’authentification des utilisateurs déjà installé : aucune base de données n’est nécessaire. Ajoutez-la à une page pour montrer rapidement qui est connecté.",
+      "name": "Carte de profil",
+      "summary": "Montrez à chaque personne connectée son propre profil."
+    },
+    "video": {
+      "description": "Une galerie vidéo qui intègre des vidéos YouTube et Vimeo. Les visiteurs voient une grille de miniatures ; cliquer sur une vidéo ouvre le lecteur sur la page. Modifiez le titre et la description de chaque vidéo dans l’administration.",
+      "fields": {
+        "title": {
+          "label": "Titre de la bibliothèque"
+        }
+      },
+      "name": "Bibliothèque vidéo",
+      "summary": "Affichez vos vidéos YouTube ou Vimeo."
+    },
+    "waitlist": {
+      "description": "Une page de pré-lancement accrocheuse avec un seul champ e-mail pour rejoindre la liste d’attente. Recueille le nom, l’e-mail et, en option, la source de recommandation. Idéal pour les pages de lancement avant la sortie.",
+      "fields": {
+        "productName": {
+          "label": "Nom du produit"
+        },
+        "tagline": {
+          "label": "Slogan"
+        }
+      },
+      "name": "Liste d’attente",
+      "summary": "Permettez aux gens de s’inscrire pour être informés de votre ouverture."
+    },
+    "weather": {
+      "description": "Récupérez la météo en temps réel pour un lieu grâce à une clé API OpenWeatherMap. Affiche la température, les conditions météo et une icône. Ajoutez votre propre clé API gratuite dans la configuration du module.",
+      "fields": {
+        "apiKey": {
+          "label": "Clé API OpenWeatherMap",
+          "placeholder": "gratuite sur openweathermap.org"
+        },
+        "city": {
+          "label": "Ville"
+        },
+        "units": {
+          "label": "Unités",
+          "options": {
+            "imperial": "Fahrenheit (°F)",
+            "metric": "Celsius (°C)"
+          }
+        }
+      },
+      "name": "Widget météo",
+      "summary": "Affichez la météo du jour."
+    },
+    "webhooks-in": {
+      "description": "Créez une URL de webhook publique qui enregistre dans une table les données JSON envoyées par des services externes (événements Stripe, hooks GitHub, Zapier, etc.). Consultez et traitez à nouveau les données depuis le tableau de bord d’administration.",
+      "name": "Recevoir des données d’autres apps",
+      "summary": "Recevez des informations envoyées par d’autres apps et services."
+    },
+    "webview": {
+      "description": "Un cadre simple qui intègre une URL externe à votre app dans une iframe sécurisée. Pratique pour intégrer des documents, des tableaux de bord ou des apps tierces qui n’ont pas encore de module dédié. Configurable pour chaque page ; seules les sources autorisées peuvent être utilisées.",
+      "name": "Afficher un autre site web",
+      "summary": "Afficher un autre site dans votre app."
+    },
+    "wedding": {
+      "description": "Une belle page de mariage avec la date, le lieu, votre histoire et un formulaire de réponse qui recueille le nom des invités, leur présence, leur choix de repas et le nom de la personne qui les accompagne.",
+      "fields": {
+        "coupleNames": {
+          "label": "Noms des mariés"
+        },
+        "venue": {
+          "label": "Lieu"
+        },
+        "weddingDate": {
+          "label": "Date du mariage"
+        }
+      },
+      "name": "Réponse à l’invitation de mariage",
+      "summary": "Une page de mariage où vos invités peuvent répondre à votre invitation."
+    },
+    "whatsapp-order": {
+      "description": "Les clients remplissent un petit panier sur une page publique, puis appuient sur « Commander via WhatsApp » pour ouvrir une conversation avec votre entreprise et envoyer leur commande préremplie. Les commandes sont aussi enregistrées côté serveur pour en garder une trace en dehors de la conversation WhatsApp.",
+      "fields": {
+        "businessName": {
+          "label": "Nom de l’entreprise"
+        },
+        "whatsappNumber": {
+          "label": "Numéro WhatsApp (chiffres uniquement, avec l’indicatif du pays)"
+        }
+      },
+      "name": "Commande WhatsApp",
+      "summary": "Permettez à vos clients de vous envoyer leurs commandes sur WhatsApp."
+    },
+    "wishlist": {
+      "description": "Une liste d’envies de produits avec leur nom, leur prix, un lien vers le magasin et une image facultative. Partagez-la pour recevoir des cadeaux ou gardez-la privée pour plus tard.",
+      "fields": {
+        "heading": {
+          "label": "Titre de la liste d’envies"
+        }
+      },
+      "name": "Liste d’envies",
+      "summary": "Permettez aux gens de garder une liste des choses qu’ils souhaitent."
+    }
+  },
+  "templates": {
+    "crafto-application": {
+      "name": "Application",
+      "tagline": "Page d’accueil d’application mobile moderne, avec cartes en dégradé et tarifs"
+    },
+    "crafto-architecture": {
+      "name": "Architecture",
+      "tagline": "Studio d’architecture audacieux et sombre, avec touches de jaune fluo et mise en page éditoriale"
+    },
+    "crafto-barber": {
+      "name": "Barbier",
+      "tagline": "Salon de barbier classique, aux tons dorés chaleureux et à la typographie vintage"
+    },
+    "crafto-beauty-salon": {
+      "name": "Salon de beauté",
+      "tagline": "Salon de beauté élégant, avec touches pêche chaleureuses et titres à empattement"
+    },
+    "crafto-branding-agency": {
+      "name": "Agence de branding",
+      "tagline": "Agence de branding audacieuse, avec touches ambrées et mise en page à deux volets"
+    },
+    "crafto-branding-studio": {
+      "name": "Studio de branding",
+      "tagline": "Studio de branding moderne, avec touches orange vives et typographie épurée"
+    },
+    "crafto-business": {
+      "name": "Entreprise",
+      "tagline": "Agence professionnelle, avec onglets de services et tarifs"
+    },
+    "crafto-charity": {
+      "name": "Fondation caritative",
+      "tagline": "Modèle chaleureux pour association, avec causes, dons et sections bénévolat"
+    },
+    "crafto-clothing-store": {
+      "name": "Boutique de vêtements",
+      "tagline": "Boutique de mode aux tons naturels et chaleureux, avec présentation éditoriale des produits"
+    },
+    "crafto-conference": {
+      "name": "Conférence",
+      "tagline": "Page dynamique de conférence et d’événement, avec touches de rouge audacieuses et fiches des intervenants"
+    },
+    "crafto-consulting": {
+      "name": "Conseil",
+      "tagline": "Cabinet de conseil professionnel, avec touches orange chaleureuses et typographie audacieuse"
+    },
+    "crafto-corporate": {
+      "name": "Entreprise",
+      "tagline": "Site d’entreprise soigné, à l’identité indigo profonde et à la grille épurée"
+    },
+    "crafto-cryptocurrency": {
+      "name": "Cryptomonnaie",
+      "tagline": "Plateforme de trading crypto sombre, avec touches vert fluo et interface moderne"
+    },
+    "crafto-data-analysis": {
+      "name": "Analyse de données",
+      "tagline": "Page d’accueil SaaS moderne d’analyse de données, avec dégradés vifs et mise en page épurée"
+    },
+    "crafto-decor-store": {
+      "name": "Boutique de décoration",
+      "tagline": "Modèle e-commerce élégant de décoration intérieure, à l’identité bleu marine raffinée et à la grille de produits épurée"
+    },
+    "crafto-design-agency": {
+      "name": "Agence de design",
+      "tagline": "Modèle d’agence créative audacieux, avec typographie surdimensionnée et touches orange chaleureuses"
+    },
+    "crafto-digital-agency": {
+      "name": "Agence numérique",
+      "tagline": "Agence créative audacieuse, avec grille de portfolio et présentation des services"
+    },
+    "crafto-ebook": {
+      "name": "Livre numérique",
+      "tagline": "Page d’accueil sombre pour livre numérique, avec touches dorées et typographie Oswald audacieuse"
+    },
+    "crafto-elder-care": {
+      "name": "Aide aux personnes âgées",
+      "tagline": "Site chaleureux et bienveillant d’aide aux personnes âgées, avec touches de bleu marine profond et de rouge"
+    },
+    "crafto-elearning": {
+      "name": "Formation en ligne",
+      "tagline": "Plateforme moderne de formation en ligne, avec catalogue de cours, profils des enseignants et témoignages d’élèves"
+    },
+    "crafto-fashion-store": {
+      "name": "Boutique de mode",
+      "tagline": "Boutique en ligne de mode élégante, avec touches de jaune audacieuses"
+    },
+    "crafto-finance": {
+      "name": "Finance",
+      "tagline": "Cabinet de conseil financier haut de gamme aux tons chaleureux or et vert"
+    },
+    "crafto-fitness": {
+      "name": "Salle de sport et fitness",
+      "tagline": "Modèle dynamique pour salle de sport et centre de fitness avec horaires des cours, profils des coachs et offres d’abonnement"
+    },
+    "crafto-freelancer": {
+      "name": "Freelance",
+      "tagline": "Portfolio personnel audacieux pour les freelances créatifs, avec des touches de rouge"
+    },
+    "crafto-green-energy": {
+      "name": "Énergie verte",
+      "tagline": "Site épuré pour une entreprise d’énergie renouvelable, dans une palette de verts naturels"
+    },
+    "crafto-hosting": {
+      "name": "Hébergeur web",
+      "tagline": "Modèle SaaS sombre pour hébergeur web, avec tableaux de tarifs et grilles de fonctionnalités"
+    },
+    "crafto-hotel": {
+      "name": "Hôtel et complexe hôtelier",
+      "tagline": "Modèle élégant et luxueux pour un hôtel ou un complexe hôtelier, avec présentation des chambres, équipements et réservation"
+    },
+    "crafto-it-business": {
+      "name": "Entreprise informatique",
+      "tagline": "Entreprise moderne de solutions informatiques, avec des dégradés bleu profond et des animations ondulantes"
+    },
+    "crafto-jewellery-store": {
+      "name": "Bijouterie",
+      "tagline": "Boutique de bijoux élégante aux tons pêche chaleureux et or rose"
+    },
+    "crafto-lawyer": {
+      "name": "Avocat",
+      "tagline": "Site prestigieux pour un cabinet d’avocats, avec une typographie classique à empattements et des touches dorées"
+    },
+    "crafto-logistics": {
+      "name": "Logistique",
+      "tagline": "Entreprise dynamique de logistique et de transport, aux tons jaune vif et foncé"
+    },
+    "crafto-magazine": {
+      "name": "Magazine",
+      "tagline": "Mise en page éditoriale audacieuse avec articles à la une et rubriques"
+    },
+    "crafto-marketing": {
+      "name": "Marketing",
+      "tagline": "Page d’accueil performante pour une agence de marketing numérique, avec une typographie audacieuse"
+    },
+    "crafto-medical": {
+      "name": "Centre médical",
+      "tagline": "Modèle épuré pour un établissement de santé, avec prise de rendez-vous et profils des médecins"
+    },
+    "crafto-modern-business": {
+      "name": "Entreprise moderne",
+      "tagline": "Modèle professionnel pour une entreprise, avec des touches de violet et une mise en page épurée"
+    },
+    "crafto-music": {
+      "name": "Musique",
+      "tagline": "Modèle sombre et audacieux de page unique pour un groupe de musique, avec des touches de rose vif"
+    },
+    "crafto-photography": {
+      "name": "Photographie",
+      "tagline": "Portfolio photo minimaliste et sombre, avec des galeries en plein écran"
+    },
+    "crafto-pizza": {
+      "name": "Pizzeria",
+      "tagline": "Modèle chaleureux et appétissant pour un restaurant de pizza, avec des touches de rouge vif et d’or"
+    },
+    "crafto-product-showcase": {
+      "name": "Présentation de produit",
+      "tagline": "Page de lancement élégante pour un produit, avec des touches de dégradé et des visuels audacieux"
+    },
+    "crafto-realestate-v2": {
+      "name": "Immobilier v2",
+      "tagline": "Marché immobilier moderne avec carrousel principal, fiches de biens et profils d’agents"
+    },
+    "crafto-realestate": {
+      "name": "Immobilier",
+      "tagline": "Plateforme immobilière professionnelle avec annonces, profils d’agents et recherche avancée"
+    },
+    "crafto-restaurant": {
+      "name": "Restaurant",
+      "tagline": "Restaurant chaleureux et raffiné, avec présentation du menu et bouton de réservation"
+    },
+    "crafto-seo-agency": {
+      "name": "Agence SEO",
+      "tagline": "Modèle coloré pour une agence SEO et de marketing numérique, avec des boutons d’action dégradés"
+    },
+    "crafto-spa": {
+      "name": "Spa et salon de beauté",
+      "tagline": "Studio de spa et de bien-être élégant, avec prestations et témoignages"
+    },
+    "crafto-startup": {
+      "name": "Startup",
+      "tagline": "Page d’accueil épurée pour une startup ou un SaaS, avec des touches de dégradé"
+    },
+    "crafto-travel-agency": {
+      "name": "Agence de voyages",
+      "tagline": "Modèle élégant pour une agence de voyages, avec des touches dorées et une présentation des destinations"
+    },
+    "crafto-web-agency": {
+      "name": "Agence web",
+      "tagline": "Agence numérique créative et audacieuse, avec des touches de vert fluo et des sections contrastées sombres"
+    },
+    "crafto-wedding": {
+      "name": "Invitation de mariage",
+      "tagline": "Page d’invitation de mariage élégante, dans des tons corail saumon romantiques, avec une chronologie"
+    },
+    "crafto-yoga": {
+      "name": "Yoga et méditation",
+      "tagline": "Page chaleureuse pour un studio de bien-être, avec une bannière corail rose et des tons neutres naturels"
+    },
+    "litho-application": {
+      "name": "Application",
+      "tagline": "Page d’accueil moderne pour une application SaaS, avec grilles de fonctionnalités, tableaux de tarifs et témoignages"
+    },
+    "litho-architecture": {
+      "name": "Architecture",
+      "tagline": "Modèle audacieux pour un studio d’architecture, avec bannière plein écran, présentation des projets et logos des clients"
+    },
+    "litho-beauty-salon": {
+      "name": "Salon de beauté",
+      "tagline": "Un modèle élégant pour salon de beauté, avec présentation des services, portraits de l’équipe et réservation de rendez-vous"
+    },
+    "litho-branding-agency": {
+      "name": "Agence de branding",
+      "tagline": "Un modèle créatif pour agence de branding, avec typographie marquante, étapes du processus et grille de projets"
+    },
+    "litho-business": {
+      "name": "Entreprise",
+      "tagline": "Un modèle professionnel pour entreprise, avec carrousel principal, blocs de fonctionnalités, bannières interactives et logos de clients"
+    },
+    "litho-cafe": {
+      "name": "Café",
+      "tagline": "Un modèle chaleureux pour café et restaurant, avec menus à onglets, portraits de chefs et témoignages"
+    },
+    "litho-consulting": {
+      "name": "Conseil",
+      "tagline": "Un modèle professionnel pour cabinet de conseil, avec bannière principale, services à onglets, compteurs de statistiques et section équipe"
+    },
+    "litho-corporate": {
+      "name": "Entreprise",
+      "tagline": "Un modèle pour grande entreprise, avec bannière principale à effet parallaxe, icônes de services, barres de progression et présentation de projets"
+    },
+    "litho-creative-agency": {
+      "name": "Agence créative",
+      "tagline": "Un modèle audacieux et sombre pour agence créative, avec grille de projets, témoignages et section blog"
+    },
+    "litho-decor": {
+      "name": "Décoration",
+      "tagline": "Un modèle élégant pour boutique de décoration et de mobilier, avec présentation de produits, catégories et inscription à la newsletter"
+    },
+    "litho-dentist": {
+      "name": "Dentiste",
+      "tagline": "Un modèle épuré pour clinique dentaire, avec prise de rendez-vous, cartes de services, portraits de l’équipe et témoignages"
+    },
+    "litho-design-agency": {
+      "name": "Agence de design",
+      "tagline": "Un modèle audacieux pour agence de design, avec bannière principale plein écran, grille de projets, présentation des compétences et témoignages"
+    },
+    "litho-digital-agency": {
+      "name": "Agence numérique",
+      "tagline": "Un modèle audacieux pour agence numérique, avec bannières de services, présentation de projets et témoignages de clients"
+    },
+    "litho-elearning": {
+      "name": "Formation en ligne",
+      "tagline": "Une plateforme moderne de formation en ligne, avec liste de cours, portraits de formateurs et témoignages d’élèves"
+    },
+    "litho-events": {
+      "name": "Conférences et événements",
+      "tagline": "Un modèle professionnel pour événements et conférences, avec portraits des intervenants, programme et réservation de billets"
+    },
+    "litho-fashion-shop": {
+      "name": "Boutique de mode",
+      "tagline": "Un modèle élégant pour boutique de mode en ligne, avec grilles de produits, lookbook et collections de saison"
+    },
+    "litho-finance": {
+      "name": "Finance",
+      "tagline": "Un modèle professionnel pour la finance, avec services, secteurs d’activité, témoignages et blog"
+    },
+    "litho-freelancer": {
+      "name": "Freelance",
+      "tagline": "Un portfolio minimaliste pour freelance, avec présentation de projets, compétences et formulaire de contact"
+    },
+    "litho-furniture-shop": {
+      "name": "Boutique de meubles",
+      "tagline": "Un modèle moderne pour boutique de meubles en ligne, avec catalogue de produits, idées déco et histoire de la marque"
+    },
+    "litho-gym-fitness": {
+      "name": "Salle de sport",
+      "tagline": "Un modèle dynamique pour salle de sport et fitness, avec horaires des cours, portraits des coachs et offres d’abonnement"
+    },
+    "litho-hotel-resort": {
+      "name": "Hôtel et resort",
+      "tagline": "Un modèle luxueux pour hôtel et resort, avec présentation des chambres, équipements et options de réservation"
+    },
+    "litho-interior-design": {
+      "name": "Décoration d’intérieur",
+      "tagline": "Un modèle raffiné de décoration d’intérieur, avec galerie de projets, présentation des étapes et réservation de consultations"
+    },
+    "litho-marketing-agency": {
+      "name": "Agence de marketing",
+      "tagline": "Un modèle audacieux pour agence de marketing, avec présentation des services, barres de progression, logos de clients et témoignages"
+    },
+    "litho-photography": {
+      "name": "Photographie",
+      "tagline": "Un élégant portfolio de photographie, avec galeries plein écran, logos de clients et section blog"
+    },
+    "litho-restaurant": {
+      "name": "Restaurant",
+      "tagline": "Un modèle raffiné pour restaurant, avec menus à onglets, portraits de chefs, réservations et témoignages"
+    },
+    "litho-seo-agency": {
+      "name": "Agence SEO",
+      "tagline": "Un modèle pour agence SEO axée sur les données, avec étapes du processus, blocs de fonctionnalités, tarifs et témoignages"
+    },
+    "litho-spa-salon": {
+      "name": "Spa et bien-être",
+      "tagline": "Un modèle apaisant pour spa et bien-être, avec présentation des services, tarifs, portraits de l’équipe et bouton de réservation"
+    },
+    "litho-startup": {
+      "name": "Startup",
+      "tagline": "Un modèle moderne pour startup, avec mise en avant des fonctionnalités, offres tarifaires, barres de progression, témoignages et blog"
+    },
+    "litho-travel-agency": {
+      "name": "Agence de voyage",
+      "tagline": "Un modèle vivant pour agence de voyage, avec présentation des destinations, circuits, témoignages et blog"
+    },
+    "litho-web-agency": {
+      "name": "Agence web",
+      "tagline": "Un modèle créatif pour agence web, avec grille de projets, étapes du processus, portraits de l’équipe et témoignages de clients"
+    },
+    "litho-yoga": {
+      "name": "Yoga et méditation",
+      "tagline": "Un modèle apaisant pour yoga et méditation, avec cours, témoignages, FAQ déroulante et formulaire de contact"
+    },
+    "original-beauty": {
+      "tagline": "Studio de soins de la peau chaleureux au style éditorial, avec soins et tarifs, abonnements et réservation en ligne"
+    },
+    "original-corporate": {
+      "tagline": "Site d’un groupe d’ingénierie et d’infrastructures avec expertises, secteurs, résultats, direction, carrières et contact"
+    },
+    "original-creative": {
+      "tagline": "Site d’un studio audacieux de branding et d’animation, avec index typographique des projets, études de cas grand format, manifeste, carrières et formulaire de brief"
+    },
+    "original-ecommerce": {
+      "tagline": "Boutique de poterie façon galerie avec grille de produits, panier, collections et alertes de nouvelles cuissons"
+    },
+    "original-education": {
+      "tagline": "Site d’école du soir avec fiches de cours, planning hebdomadaire, enseignants, dates des trimestres, tarifs et inscription aux portes ouvertes"
+    },
+    "original-finance": {
+      "tagline": "Site de planification financière sans commissions, avec projections, comparaison des forfaits, offres, conseillers et réservation d’un appel découverte"
+    },
+    "original-fitness": {
+      "tagline": "Salle de musculation dynamique avec planning hebdomadaire des cours, formules d’abonnement et séance d’essai gratuite"
+    },
+    "original-food": {
+      "tagline": "Boulangerie de quartier ensoleillée, avec tableau des fournées, spécialités de la semaine et commande à emporter"
+    },
+    "original-health": {
+      "tagline": "Site de cabinet familial apaisant avec types de consultations et tarifs, profils des praticiens et rendez-vous en ligne"
+    },
+    "original-hospitality": {
+      "tagline": "Auberge côtière de charme et lumineuse, avec fiches des chambres, tarifs par nuit, équipements et demandes de réservation"
+    },
+    "original-legal": {
+      "tagline": "Site de cabinet d’avocats avec domaines d’expertise, résultats, biographies des avocats, honoraires de consultation affichés et réservation"
+    },
+    "original-nonprofit": {
+      "tagline": "Site d’association de lutte contre le gaspillage alimentaire avec indicateurs d’impact, reçu de don, créneaux de bénévolat, rapport annuel et dons"
+    },
+    "original-personal": {
+      "tagline": "Marque personnelle de coach et autrice avec offres, aperçu de la newsletter, livre sur le CSS, courrier des lecteurs et réservation d’un appel"
+    },
+    "original-portfolio": {
+      "tagline": "Portfolio d’architecte d’intérieur avec grille de projets décalée, index des projets, étude de cas avec plan dessiné et formulaire de contact"
+    },
+    "original-realestate": {
+      "tagline": "Site d’agence immobilière moderne avec annonces filtrables, données du marché, guide des quartiers et rendez-vous d’estimation"
+    },
+    "original-restaurant": {
+      "tagline": "Restaurant chaleureux au feu de bois, avec menu et prix, options alimentaires et réservation de table"
+    },
+    "original-saas": {
+      "tagline": "Site de lancement SaaS avec calendrier produit animé, tarifs modulables, journal des nouveautés et feuille de route publique"
+    },
+    "original-travel": {
+      "tagline": "Randonnées en petits groupes, avec calendrier des départs, itinéraires par étape et tarifs"
+    }
+  }
+}

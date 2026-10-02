@@ -6,115 +6,118 @@
  * to know what "flex", "padding" or a "flow ID" is to change their page.
  */
 import type { Editor, Component } from "grapesjs";
+import type { EditorT, TraitKey } from "./panel-help";
 
 // ─── Design panel ──────────────────────────────────────────────────────────
 
 /**
  * Sector ids starting with "adv-" sit behind the Design panel's "Advanced"
  * toggle (see grapes-editor.tsx). Everything a shop owner reaches for comes
- * first, in plain words.
+ * first, in plain words (editor.json: design.sectors, design.properties).
  */
-export const STYLE_SECTORS = [
-  {
-    id: "text",
-    name: "Text",
-    open: true,
-    properties: [
-      { extend: "font-size", label: "Text size" },
-      { extend: "font-weight", label: "Boldness" },
-      { extend: "color", label: "Text color" },
-      { extend: "text-align", label: "Line up" },
-    ],
-  },
-  {
-    id: "colors",
-    name: "Background",
-    open: true,
-    properties: [{ extend: "background-color", label: "Background color" }],
-  },
-  {
-    id: "spacing",
-    name: "Spacing",
-    open: false,
-    properties: [
-      { extend: "padding", label: "Space inside" },
-      { extend: "margin", label: "Space outside" },
-    ],
-  },
-  {
-    id: "size",
-    name: "Size",
-    open: false,
-    properties: [
-      { extend: "width", label: "Width" },
-      { extend: "height", label: "Height" },
-    ],
-  },
-  {
-    id: "corners",
-    name: "Corners and border",
-    open: false,
-    properties: [
-      { extend: "border-radius", label: "Round corners" },
-      { extend: "border", label: "Border" },
-    ],
-  },
-  {
-    id: "adv-text",
-    name: "More text options",
-    open: false,
-    properties: [
-      { extend: "font-family", label: "Font" },
-      { extend: "line-height", label: "Line spacing" },
-      { extend: "letter-spacing", label: "Letter spacing" },
-      { extend: "text-shadow", label: "Text shadow" },
-    ],
-  },
-  {
-    id: "adv-size",
-    name: "More size options",
-    open: false,
-    properties: [
-      { extend: "max-width", label: "Widest it can get" },
-      { extend: "min-height", label: "Shortest it can get" },
-    ],
-  },
-  {
-    id: "adv-effects",
-    name: "Shadow and effects",
-    open: false,
-    properties: [
-      { extend: "box-shadow", label: "Shadow" },
-      { extend: "opacity", label: "See-through" },
-      { extend: "background", label: "Background picture or fade" },
-      { extend: "transition", label: "Smooth changes" },
-      { extend: "transform", label: "Turn and resize" },
-    ],
-  },
-  {
-    id: "adv-layout",
-    name: "Placement",
-    open: false,
-    properties: ["display", "float", "position", "top", "right", "left", "bottom"],
-  },
-  {
-    id: "adv-flex",
-    name: "Line up items inside",
-    open: false,
-    properties: [
-      "flex-direction",
-      "flex-wrap",
-      "justify-content",
-      "align-items",
-      "align-content",
-      "order",
-      "flex-basis",
-      "flex-grow",
-      "flex-shrink",
-      "align-self",
-    ],
-  },
-];
+export function styleSectors(t: EditorT) {
+  return [
+    {
+      id: "text",
+      name: t("design.sectors.text"),
+      open: true,
+      properties: [
+        { extend: "font-size", label: t("design.properties.fontSize") },
+        { extend: "font-weight", label: t("design.properties.fontWeight") },
+        { extend: "color", label: t("design.properties.color") },
+        { extend: "text-align", label: t("design.properties.textAlign") },
+      ],
+    },
+    {
+      id: "colors",
+      name: t("design.sectors.colors"),
+      open: true,
+      properties: [{ extend: "background-color", label: t("design.properties.backgroundColor") }],
+    },
+    {
+      id: "spacing",
+      name: t("design.sectors.spacing"),
+      open: false,
+      properties: [
+        { extend: "padding", label: t("design.properties.padding") },
+        { extend: "margin", label: t("design.properties.margin") },
+      ],
+    },
+    {
+      id: "size",
+      name: t("design.sectors.size"),
+      open: false,
+      properties: [
+        { extend: "width", label: t("design.properties.width") },
+        { extend: "height", label: t("design.properties.height") },
+      ],
+    },
+    {
+      id: "corners",
+      name: t("design.sectors.corners"),
+      open: false,
+      properties: [
+        { extend: "border-radius", label: t("design.properties.borderRadius") },
+        { extend: "border", label: t("design.properties.border") },
+      ],
+    },
+    {
+      id: "adv-text",
+      name: t("design.sectors.advText"),
+      open: false,
+      properties: [
+        { extend: "font-family", label: t("design.properties.fontFamily") },
+        { extend: "line-height", label: t("design.properties.lineHeight") },
+        { extend: "letter-spacing", label: t("design.properties.letterSpacing") },
+        { extend: "text-shadow", label: t("design.properties.textShadow") },
+      ],
+    },
+    {
+      id: "adv-size",
+      name: t("design.sectors.advSize"),
+      open: false,
+      properties: [
+        { extend: "max-width", label: t("design.properties.maxWidth") },
+        { extend: "min-height", label: t("design.properties.minHeight") },
+      ],
+    },
+    {
+      id: "adv-effects",
+      name: t("design.sectors.advEffects"),
+      open: false,
+      properties: [
+        { extend: "box-shadow", label: t("design.properties.boxShadow") },
+        { extend: "opacity", label: t("design.properties.opacity") },
+        { extend: "background", label: t("design.properties.background") },
+        { extend: "transition", label: t("design.properties.transition") },
+        { extend: "transform", label: t("design.properties.transform") },
+      ],
+    },
+    {
+      id: "adv-layout",
+      name: t("design.sectors.advLayout"),
+      open: false,
+      properties: ["display", "float", "position", "top", "right", "left", "bottom"],
+    },
+    {
+      id: "adv-flex",
+      name: t("design.sectors.advFlex"),
+      open: false,
+      properties: [
+        "flex-direction",
+        "flex-wrap",
+        "justify-content",
+        "align-items",
+        "align-content",
+        "order",
+        "flex-basis",
+        "flex-grow",
+        "flex-shrink",
+        "align-self",
+      ],
+    },
+  ];
+}
 
 // ─── Element settings (traits) ─────────────────────────────────────────────
 
@@ -122,33 +125,33 @@ export type FlowOption = { id: string; label: string };
 
 type TraitDef = { name?: string; label?: string; type?: string; [k: string]: unknown };
 
-/** Plain labels for the settings GrapesJS and its plugins give elements. */
-const TRAIT_LABELS: Record<string, string> = {
-  title: "Hover note",
-  href: "Goes to",
-  target: "Open in a new tab",
-  alt: "Picture description",
-  src: "Address",
-  name: "Answer name",
-  placeholder: "Hint text",
-  value: "Starting value",
-  required: "Must be filled in",
-  checked: "Ticked at the start",
-  type: "Kind",
-  text: "Button words",
-  for: "Belongs to field",
+/** Plain labels for the settings GrapesJS and its plugins give elements (editor.json: settings.<key>). */
+const TRAIT_LABELS: Record<string, TraitKey> = {
+  title: "hoverNote",
+  href: "goesTo",
+  target: "openInANewTab",
+  alt: "pictureDescription",
+  src: "address",
+  name: "answerName",
+  placeholder: "hintText",
+  value: "startingValue",
+  required: "mustBeFilledIn",
+  checked: "tickedAtTheStart",
+  type: "kind",
+  text: "buttonWords",
+  for: "belongsToField",
 };
 
 /** Settings that only make sense to developers; the attributes stay as they are. */
 const HIDDEN_TRAITS = new Set(["id", "method", "action", "data-nk-action"]);
 
-function friendlyTrait(t: string | TraitDef, component: Component): TraitDef | null {
+function friendlyTrait(t: string | TraitDef, component: Component, tr: EditorT): TraitDef | null {
   const def: TraitDef = typeof t === "string" ? { name: t } : { ...t };
   const name = def.name ?? "";
   if (HIDDEN_TRAITS.has(name)) return null;
   const tag = String(component.get("tagName") ?? "").toLowerCase();
-  if (name === "type" && tag === "button") return { ...def, label: "When pressed" };
-  if (TRAIT_LABELS[name]) def.label = TRAIT_LABELS[name];
+  if (name === "type" && tag === "button") return { ...def, label: tr("settings.whenPressed") };
+  if (TRAIT_LABELS[name]) def.label = tr(`settings.${TRAIT_LABELS[name]}`);
   return def;
 }
 
@@ -158,15 +161,16 @@ function friendlyTrait(t: string | TraitDef, component: Component): TraitDef | n
  * something: forms (run a flow when sent), lists bound to data, and buttons
  * or links that were set up to run a flow.
  */
-export function plainSettings(flowOptions: FlowOption[]) {
+export function plainSettings(flowOptions: FlowOption[], tr: EditorT) {
   return (editor: Editor) => {
     const dc = editor.DomComponents;
     const pick = (name: string, label: string) => ({
       type: "select",
       name,
       label,
-      options: [{ id: "", label: "Nothing" }, ...flowOptions],
+      options: [{ id: "", label: tr("settings.nothing") }, ...flowOptions],
     });
+    const initToolbar = plainToolbar(tr);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     for (const type of dc.getTypes() as any[]) {
       const id: string = type.id;
@@ -178,17 +182,17 @@ export function plainSettings(flowOptions: FlowOption[]) {
       const traits = (component: Component) => {
         const own = typeof base === "function" ? base(component) : base ?? ["id", "title"];
         const out = (own as (string | TraitDef)[])
-          .map((t) => friendlyTrait(t, component))
+          .map((t) => friendlyTrait(t, component, tr))
           .filter((t): t is TraitDef => !!t && t.name !== "data-nk-flow" && t.name !== "data-nk-bind-flow");
         const attrs = component.getAttributes?.() ?? {};
         const tag = String(component.get("tagName") ?? "").toLowerCase();
-        if (tag === "form" || "data-nk-form" in attrs) out.push(pick("data-nk-flow", "When sent, run"));
-        else if ("data-nk-flow" in attrs && (tag === "button" || tag === "a")) out.push(pick("data-nk-flow", "When pressed, run"));
-        if ("data-nk-bind-flow" in attrs) out.push(pick("data-nk-bind-flow", "Show items from"));
+        if (tag === "form" || "data-nk-form" in attrs) out.push(pick("data-nk-flow", tr("settings.whenSentRun")));
+        else if ("data-nk-flow" in attrs && (tag === "button" || tag === "a")) out.push(pick("data-nk-flow", tr("settings.whenPressedRun")));
+        if ("data-nk-bind-flow" in attrs) out.push(pick("data-nk-bind-flow", tr("settings.showItemsFrom")));
         return out;
       };
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      dc.addType(id, { model: { defaults: { traits: traits as any }, initToolbar: plainToolbar } });
+      dc.addType(id, { model: { defaults: { traits: traits as any }, initToolbar } });
     }
     editor.Commands.add(MOVE_UP, { run: (ed: Editor) => moveSelected(ed, -1) });
     editor.Commands.add(MOVE_DOWN, { run: (ed: Editor) => moveSelected(ed, 1) });
@@ -234,31 +238,36 @@ type ToolbarItem = { id: string; label: string; command: string | ((ed: Editor) 
  * Every piece's toolbar, in plain words: select the part around it, move it
  * up or down (buttons work on touch screens, where dragging doesn't), drag,
  * duplicate and delete. Replaces GrapesJS's own initToolbar, keeping its
- * rules for which buttons a piece gets.
+ * rules for which buttons a piece gets. Titles and notes: editor.json toolbar.
  */
-function plainToolbar(this: Component) {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const self = this as any;
-  const em = self.em;
-  if (this.get("toolbar") || !em) return;
-  const item = (id: string, label: string, title: string, help: string, command: ToolbarItem["command"], extra: Record<string, unknown> = {}): ToolbarItem => ({
-    id,
-    label,
-    command,
-    attributes: { title, "aria-label": title, "data-help": help, role: "button", ...extra },
-  });
-  const tb: ToolbarItem[] = [];
-  if (self.collection) {
-    tb.push(item("nk-parent", ICONS.parent, "Select the part around this", "Pick the bigger box this piece sits in, like the whole section around a button.", (ed) => ed.runCommand("core:component-exit", { force: 1 })));
-  }
-  if (self.collection && this.get("draggable")) {
-    tb.push(item("nk-up", ICONS.up, "Move up", "Move this piece one step up the page, above the piece before it. Undo puts it back.", MOVE_UP));
-    tb.push(item("nk-down", ICONS.down, "Move down", "Move this piece one step down the page, below the piece after it. Undo puts it back.", MOVE_DOWN));
-    tb.push(item("nk-drag", em.getIcon("move"), "Drag to move", "Hold here and drag to move this piece anywhere on the page. On a touch screen, use Move up and Move down.", "tlb-move", { class: "gjs-no-touch-actions", draggable: true }));
-  }
-  if (this.get("copyable")) tb.push(item("nk-copy", em.getIcon("copy"), "Duplicate", "Make a copy of this piece, placed right after it.", "tlb-clone"));
-  if (this.get("removable")) tb.push(item("nk-delete", em.getIcon("delete"), "Delete", "Remove this piece from the page. Changed your mind? Use Undo at the top.", "tlb-delete"));
-  this.set("toolbar", tb);
+function plainToolbar(tr: EditorT) {
+  return function initToolbar(this: Component) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const self = this as any;
+    const em = self.em;
+    if (this.get("toolbar") || !em) return;
+    const item = (id: string, label: string, key: string, command: ToolbarItem["command"], extra: Record<string, unknown> = {}): ToolbarItem => {
+      const title = tr(`toolbar.${key}.title`);
+      return {
+        id,
+        label,
+        command,
+        attributes: { title, "aria-label": title, "data-help": tr(`toolbar.${key}.help`), role: "button", ...extra },
+      };
+    };
+    const tb: ToolbarItem[] = [];
+    if (self.collection) {
+      tb.push(item("nk-parent", ICONS.parent, "selectParent", (ed) => ed.runCommand("core:component-exit", { force: 1 })));
+    }
+    if (self.collection && this.get("draggable")) {
+      tb.push(item("nk-up", ICONS.up, "moveUp", MOVE_UP));
+      tb.push(item("nk-down", ICONS.down, "moveDown", MOVE_DOWN));
+      tb.push(item("nk-drag", em.getIcon("move"), "drag", "tlb-move", { class: "gjs-no-touch-actions", draggable: true }));
+    }
+    if (this.get("copyable")) tb.push(item("nk-copy", em.getIcon("copy"), "duplicate", "tlb-clone"));
+    if (this.get("removable")) tb.push(item("nk-delete", em.getIcon("delete"), "delete", "tlb-delete"));
+    this.set("toolbar", tb);
+  };
 }
 
 /** Parts people can see and pick (not bits of text or page markers). */

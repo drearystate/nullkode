@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 import { themeToCss, type ProjectTheme, type ResolvedTheme } from "@/lib/theme";
 
 type Preset = ResolvedTheme;
@@ -12,17 +13,18 @@ type Props = {
   homePage?: { html: string; css: string } | null;
 };
 
-const colorFields: Array<{ key: keyof ProjectTheme; label: string; help: string }> = [
-  { key: "primary", label: "Primary", help: "Your main brand color, used for buttons, links and highlights. Changing it also updates Primary hover to match." },
-  { key: "primary2", label: "Primary hover", help: "The color buttons and links turn when someone points at them." },
-  { key: "accent", label: "Accent", help: "A second color for small touches, like badges and decorative shapes." },
-  { key: "bg", label: "Background", help: "The color behind everything on your pages." },
-  { key: "surface", label: "Surface", help: "The color of cards and boxes that sit on top of the background." },
-  { key: "surface2", label: "Surface 2", help: "A second box color, used to set some sections and labels apart." },
-  { key: "border", label: "Border", help: "The color of thin lines around boxes and between sections." },
-  { key: "text", label: "Text", help: "The color of most of the words on your pages." },
-  { key: "textMuted", label: "Text muted", help: "A softer color for less important words, like captions and small notes." },
-];
+/** Labels and hover tips are in project.json under themeEditor.colors.<key>. */
+const colorFields = [
+  "primary",
+  "primary2",
+  "accent",
+  "bg",
+  "surface",
+  "surface2",
+  "border",
+  "text",
+  "textMuted",
+] as const satisfies ReadonlyArray<keyof ProjectTheme>;
 
 // Curated font stacks the user can pick from. Each entry knows its
 // display label, the CSS font-family to write into the theme, and the
@@ -76,6 +78,8 @@ export function ThemeEditor({ projectId, presets, initial, homePage = null }: Pr
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
   const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const t = useTranslations("project.themeEditor");
+  const tc = useTranslations("common");
 
   // Pull every font used by every preset *and* every option in the font
   // picker into one Google Fonts <link> so cards and dropdowns render
@@ -136,21 +140,21 @@ export function ThemeEditor({ projectId, presets, initial, homePage = null }: Pr
   // Changing the main colour also updates its hover shade, so buttons
   // don't keep the old colour when you point at them.
   const patch = (k: keyof ProjectTheme, v: string) =>
-    setTheme((t) => ({ ...t, [k]: v, ...(k === "primary" && /^#[0-9a-f]{6}$/i.test(v) ? { primary2: shade(v, -0.12) } : {}) }));
+    setTheme((cur) => ({ ...cur, [k]: v, ...(k === "primary" && /^#[0-9a-f]{6}$/i.test(v) ? { primary2: shade(v, -0.12) } : {}) }));
 
   // Picking a font updates the stack AND keeps googleFonts in sync so
   // the new family actually loads in the live preview iframe.
   const pickFont = (slot: "font" | "fontDisplay", optionLabel: string) => {
     const opt = FONT_OPTIONS.find((f) => f.label === optionLabel);
     if (!opt) return;
-    setTheme((t) => {
+    setTheme((cur) => {
       const otherSlot = slot === "font" ? "fontDisplay" : "font";
-      const otherMatch = matchFont(t[otherSlot]);
+      const otherMatch = matchFont(cur[otherSlot]);
       const families = new Set<string>();
       if (opt.google) families.add(opt.google);
       if (otherMatch?.google) families.add(otherMatch.google);
       return {
-        ...t,
+        ...cur,
         [slot]: opt.stack,
         googleFonts: [...families],
       };
@@ -169,10 +173,10 @@ export function ThemeEditor({ projectId, presets, initial, homePage = null }: Pr
         <section>
           <div className="flex items-center justify-between mb-3">
             <div className="text-[11px] uppercase tracking-[0.15em] text-surface-500 font-semibold">
-              Light themes · {lightPresets.length}
+              {t("lightThemes", { count: lightPresets.length })}
             </div>
             <div className="text-xs text-surface-500">
-              {saving ? "Saving…" : saveError ? "Couldn't save. Check your connection." : saved ? "Saved" : ""}
+              {saving ? tc("saving") : saveError ? t("saveFailed") : saved ? t("saved") : ""}
             </div>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-3 2xl:grid-cols-4 gap-3">
@@ -189,7 +193,7 @@ export function ThemeEditor({ projectId, presets, initial, homePage = null }: Pr
 
         <section>
           <div className="text-[11px] uppercase tracking-[0.15em] text-surface-500 font-semibold mb-3">
-            Dark themes · {darkPresets.length}
+            {t("darkThemes", { count: darkPresets.length })}
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-3 2xl:grid-cols-4 gap-3">
             {darkPresets.map((p) => (
@@ -205,16 +209,16 @@ export function ThemeEditor({ projectId, presets, initial, homePage = null }: Pr
 
         <section className="rounded-xl border border-surface-800 bg-surface-900 p-5">
           <div className="flex items-center justify-between mb-4">
-            <div className="text-[11px] uppercase tracking-[0.15em] text-surface-500 font-semibold" data-help="Fine-tune the look you picked: its fonts, colors and corners. Changes save by themselves; visitors see them after you publish.">
-              Customize
+            <div className="text-[11px] uppercase tracking-[0.15em] text-surface-500 font-semibold" data-help={t("customizeHelp")}>
+              {t("customize")}
             </div>
             <button
               type="button"
               onClick={() => setTheme(initial)}
-              data-help="Undo all the theme changes you made since you opened this page, going back to how it was then."
+              data-help={t("resetHelp")}
               className="text-[11px] text-surface-500 hover:text-surface-300"
             >
-              Reset
+              {t("reset")}
             </button>
           </div>
 
@@ -222,30 +226,30 @@ export function ThemeEditor({ projectId, presets, initial, homePage = null }: Pr
             {/* Identity */}
             <div className="space-y-3 md:col-span-2">
               <div className="text-[10px] uppercase tracking-[0.15em] text-surface-500">
-                Identity
+                {t("identity")}
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                 <label className="block sm:col-span-2">
-                  <span className="text-xs text-surface-400">Name</span>
+                  <span className="text-xs text-surface-400">{t("name")}</span>
                   <input
                     className="mt-1 w-full rounded bg-surface-950 border border-surface-800 px-2 py-1.5 text-sm text-white"
                     value={theme.name}
                     onChange={(e) => patch("name", e.target.value)}
-                    data-help="A name for this look, just to help you tell themes apart. Visitors don't see it."
+                    data-help={t("nameHelp")}
                   />
                 </label>
                 <label className="block">
-                  <span className="text-xs text-surface-400">Mode</span>
+                  <span className="text-xs text-surface-400">{t("mode")}</span>
                   <select
                     className="mt-1 w-full rounded bg-surface-950 border border-surface-800 px-2 py-1.5 text-sm text-white"
                     value={theme.mode}
-                    data-help="Whether this look is light or dark. Browsers use it for things like form boxes and scroll bars. It doesn't change your colors."
+                    data-help={t("modeHelp")}
                     onChange={(e) =>
                       patch("mode", e.target.value as "light" | "dark")
                     }
                   >
-                    <option value="light">Light</option>
-                    <option value="dark">Dark</option>
+                    <option value="light">{t("light")}</option>
+                    <option value="dark">{t("dark")}</option>
                   </select>
                 </label>
               </div>
@@ -254,18 +258,18 @@ export function ThemeEditor({ projectId, presets, initial, homePage = null }: Pr
             {/* Fonts */}
             <div className="space-y-3 md:col-span-2">
               <div className="text-[10px] uppercase tracking-[0.15em] text-surface-500">
-                Typography
+                {t("typography")}
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <label className="block">
-                  <span className="text-xs text-surface-400">Body font</span>
+                  <span className="text-xs text-surface-400">{t("bodyFont")}</span>
                   <select
                     className="mt-1 w-full rounded bg-surface-950 border border-surface-800 px-2 py-1.5 text-sm text-white"
                     value={bodyFontLabel}
                     onChange={(e) => pickFont("font", e.target.value)}
-                    data-help="The letter style for normal reading text, like paragraphs, buttons and forms."
+                    data-help={t("bodyFontHelp")}
                   >
-                    {!bodyFontLabel && <option value="">Custom…</option>}
+                    {!bodyFontLabel && <option value="">{t("customFont")}</option>}
                     {FONT_OPTIONS.map((f) => (
                       <option key={f.label} value={f.label}>
                         {f.label}
@@ -280,14 +284,14 @@ export function ThemeEditor({ projectId, presets, initial, homePage = null }: Pr
                   </div>
                 </label>
                 <label className="block">
-                  <span className="text-xs text-surface-400">Display font</span>
+                  <span className="text-xs text-surface-400">{t("displayFont")}</span>
                   <select
                     className="mt-1 w-full rounded bg-surface-950 border border-surface-800 px-2 py-1.5 text-sm text-white"
                     value={displayFontLabel}
                     onChange={(e) => pickFont("fontDisplay", e.target.value)}
-                    data-help="The letter style for headings and titles. A bolder or fancier font here gives your app its personality."
+                    data-help={t("displayFontHelp")}
                   >
-                    {!displayFontLabel && <option value="">Custom…</option>}
+                    {!displayFontLabel && <option value="">{t("customFont")}</option>}
                     {FONT_OPTIONS.map((f) => (
                       <option key={f.label} value={f.label}>
                         {f.label}
@@ -307,26 +311,27 @@ export function ThemeEditor({ projectId, presets, initial, homePage = null }: Pr
             {/* Colors */}
             <div className="space-y-3 md:col-span-2">
               <div className="text-[10px] uppercase tracking-[0.15em] text-surface-500">
-                Colors
+                {t("colors.title")}
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-                {colorFields.map((f) => (
-                  <label key={f.key} className="block">
-                    <span className="text-xs text-surface-400">{f.label}</span>
+                {colorFields.map((key) => (
+                  <label key={key} className="block">
+                    <span className="text-xs text-surface-400">{t(`colors.${key}.label`)}</span>
                     <div className="mt-1 flex items-center gap-2">
                       <input
                         type="color"
-                        value={(theme[f.key] as string) ?? "#000000"}
-                        onChange={(e) => patch(f.key, e.target.value)}
-                        data-help={f.help}
+                        value={(theme[key] as string) ?? "#000000"}
+                        onChange={(e) => patch(key, e.target.value)}
+                        data-help={t(`colors.${key}.help`)}
                         className="h-8 w-10 rounded border border-surface-800 bg-surface-950 cursor-pointer"
                       />
                       <input
                         type="text"
-                        value={(theme[f.key] as string) ?? ""}
-                        onChange={(e) => patch(f.key, e.target.value)}
-                        aria-label={`${f.label} color code`}
-                        data-help="Or type a color code here, like #1a73e8, if you know the exact color you want."
+                        value={(theme[key] as string) ?? ""}
+                        onChange={(e) => patch(key, e.target.value)}
+                        aria-label={t("colorCode", { color: t(`colors.${key}.label`) })}
+                        data-help={t("colorCodeHelp")}
+                        dir="ltr"
                         className="flex-1 min-w-0 rounded bg-surface-950 border border-surface-800 px-2 py-1 text-xs text-white font-mono"
                       />
                     </div>
@@ -338,24 +343,24 @@ export function ThemeEditor({ projectId, presets, initial, homePage = null }: Pr
             {/* Radii */}
             <div className="space-y-3 md:col-span-2">
               <div className="text-[10px] uppercase tracking-[0.15em] text-surface-500">
-                Corners
+                {t("corners")}
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <label className="block">
-                  <span className="text-xs text-surface-400">Radius</span>
+                  <span className="text-xs text-surface-400">{t("radius")}</span>
                   <input
                     className="mt-1 w-full rounded bg-surface-950 border border-surface-800 px-2 py-1.5 text-sm text-white font-mono"
                     value={theme.radius}
-                    data-help="How round the corners of cards and boxes are, like 14px. Use 0px for square corners."
+                    data-help={t("radiusHelp")}
                     onChange={(e) => patch("radius", e.target.value)}
                   />
                 </label>
                 <label className="block">
-                  <span className="text-xs text-surface-400">Radius sm</span>
+                  <span className="text-xs text-surface-400">{t("radiusSm")}</span>
                   <input
                     className="mt-1 w-full rounded bg-surface-950 border border-surface-800 px-2 py-1.5 text-sm text-white font-mono"
                     value={theme.radiusSm}
-                    data-help="How round the corners of smaller things are, like buttons and form boxes. Use 0px for square corners."
+                    data-help={t("radiusSmHelp")}
                     onChange={(e) => patch("radiusSm", e.target.value)}
                   />
                 </label>
@@ -370,16 +375,16 @@ export function ThemeEditor({ projectId, presets, initial, homePage = null }: Pr
         <div className="sticky top-6">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-3">
-              <div className="text-[11px] uppercase tracking-[0.15em] text-surface-500 font-semibold" data-help="A quick look at how your app appears in this theme. It updates as you change things.">Live preview</div>
+              <div className="text-[11px] uppercase tracking-[0.15em] text-surface-500 font-semibold" data-help={t("livePreviewHelp")}>{t("livePreview")}</div>
               {homePage?.html && (
-                <div className="flex gap-1 text-[11px]" role="group" aria-label="What to preview">
-                  <button type="button" aria-pressed={!showSample} onClick={() => setShowSample(false)} data-help="Preview the theme on your app's real home page." className={`rounded px-2 py-0.5 ${!showSample ? "bg-white/10 text-surface-100" : "text-surface-400"}`}>Your home page</button>
-                  <button type="button" aria-pressed={showSample} onClick={() => setShowSample(true)} data-help="Preview the theme on a sample page with buttons, cards and a form, so you can see every color at once." className={`rounded px-2 py-0.5 ${showSample ? "bg-white/10 text-surface-100" : "text-surface-400"}`}>Sample</button>
+                <div className="flex gap-1 text-[11px]" role="group" aria-label={t("previewWhat")}>
+                  <button type="button" aria-pressed={!showSample} onClick={() => setShowSample(false)} data-help={t("previewHomeHelp")} className={`rounded px-2 py-0.5 ${!showSample ? "bg-white/10 text-surface-100" : "text-surface-400"}`}>{t("previewHome")}</button>
+                  <button type="button" aria-pressed={showSample} onClick={() => setShowSample(true)} data-help={t("previewSampleHelp")} className={`rounded px-2 py-0.5 ${showSample ? "bg-white/10 text-surface-100" : "text-surface-400"}`}>{t("previewSample")}</button>
                 </div>
               )}
             </div>
             <div
-              className="text-[11px] text-surface-400 truncate max-w-[60%] text-right"
+              className="text-[11px] text-surface-400 truncate max-w-[60%] text-end"
               title={theme.name}
             >
               {theme.name}
@@ -403,14 +408,15 @@ function PresetCard({
   active: boolean;
   onClick: () => void;
 }) {
+  const t = useTranslations("project.themeEditor");
   // Renders a mini mock landing page scoped to this card using inline
   // CSS variables so every card is visually distinct. No iframes — the
   // theme tokens cascade through inline styles and 30 cards stay cheap.
   return (
     <button
       onClick={onClick}
-      data-help={`Use the ${preset.name} look for your whole app: its colors, fonts and corners replace your current ones. Visitors see it after you publish.`}
-      className={`group relative text-left rounded-xl border overflow-hidden transition focus:outline-none ${
+      data-help={t("presetHelp", { name: preset.name })}
+      className={`group relative text-start rounded-xl border overflow-hidden transition focus:outline-none ${
         active
           ? "border-brand-500 ring-2 ring-brand-500/40"
           : "border-surface-800 hover:border-surface-600"
@@ -551,7 +557,7 @@ function PresetCard({
         }}
       >
         <div
-          className="text-[11px] font-semibold truncate pr-2"
+          className="text-[11px] font-semibold truncate pe-2"
           style={{ color: preset.text, fontFamily: preset.fontDisplay }}
         >
           {preset.name}
@@ -566,17 +572,17 @@ function PresetCard({
             style={{ background: preset.accent }}
           />
           <span
-            className="text-[9px] uppercase tracking-wider ml-1"
+            className="text-[9px] uppercase tracking-wider ms-1"
             style={{ color: preset.textMuted }}
           >
-            {preset.mode}
+            {preset.mode === "dark" ? t("dark") : t("light")}
           </span>
         </div>
       </div>
 
       {active && (
-        <div className="absolute top-2 right-2 bg-brand-500 text-fixed-white text-[9px] font-bold px-2 py-0.5 rounded-full shadow-lg">
-          ACTIVE
+        <div className="absolute top-2 end-2 bg-brand-500 text-fixed-white text-[9px] font-bold px-2 py-0.5 rounded-full shadow-lg">
+          {t("active")}
         </div>
       )}
     </button>
@@ -592,6 +598,7 @@ function PresetCard({
  * several templates) grow with it, until the preview was mostly empty.
  */
 function ThemePreview({ css, theme, page }: { css: string; theme: Preset; page?: { html: string; css: string } | null }) {
+  const t = useTranslations("project.themeEditor");
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
   const srcDoc = page?.html ? `<!doctype html>
@@ -648,7 +655,7 @@ html, body { margin: 0; }
   return (
     <iframe
       ref={iframeRef}
-      title="Theme preview"
+      title={t("previewTitle")}
       srcDoc={srcDoc}
       // No scripts: the preview only shows how the page looks.
       sandbox="allow-same-origin"

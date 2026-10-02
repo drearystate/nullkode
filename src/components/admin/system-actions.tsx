@@ -2,10 +2,12 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Bug, Check, Copy, Download, Loader2, Play } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 /** "Copy details", "Download .txt" and "Open a bug report" for Admin > System. */
 export function SystemDetailsActions({ text, filename, bugHref }: { text: string; filename: string; bugHref: string | null }) {
   const [copied, setCopied] = useState<"yes" | "failed" | null>(null);
+  const t = useTranslations("admin.systemActions");
 
   async function copy() {
     try {
@@ -31,20 +33,20 @@ export function SystemDetailsActions({ text, filename, bugHref }: { text: string
   return (
     <div>
       <div className="flex flex-wrap gap-2">
-        <button type="button" className="btn-ghost" onClick={copy} data-help="Copies this page's checks, setting names and recent errors, with private data hidden, so you can paste them into a message to whoever supports you.">
-          {copied === "yes" ? <Check size={15} /> : <Copy size={15} />} Copy details
+        <button type="button" className="btn-ghost" onClick={copy} data-help={t("copyHelp")}>
+          {copied === "yes" ? <Check size={15} /> : <Copy size={15} />} {t("copy")}
         </button>
-        <button type="button" className="btn-ghost" onClick={download} data-help="Saves the same details as a text file you can attach to a support request.">
-          <Download size={15} /> Download .txt
+        <button type="button" className="btn-ghost" onClick={download} data-help={t("downloadHelp")}>
+          <Download size={15} /> {t("download")}
         </button>
         {bugHref && (
-          <a className="btn-ghost" href={bugHref} target="_blank" rel="noopener noreferrer" data-help="Opens a new bug report for the platform's developers, with your version filled in. Paste the copied details into it and read them over before posting.">
-            <Bug size={15} /> Open a bug report
+          <a className="btn-ghost" href={bugHref} target="_blank" rel="noopener noreferrer" data-help={t("bugHelp")}>
+            <Bug size={15} /> {t("bug")}
           </a>
         )}
       </div>
       <p role="status" className="mt-2 text-xs text-surface-400">
-        {copied === "yes" ? "Copied. Paste it into your message or bug report." : copied === "failed" ? "Couldn't copy. Use Download .txt instead." : ""}
+        {copied === "yes" ? t("copied") : copied === "failed" ? t("copyFailed") : ""}
       </p>
     </div>
   );
@@ -52,11 +54,7 @@ export function SystemDetailsActions({ text, filename, bugHref }: { text: string
 
 type Mode = "report" | "apply" | "off";
 
-const MODES: Array<{ value: Mode; label: string; help: string }> = [
-  { value: "report", label: "Report only", help: "Each night, count what could be removed. Nothing is deleted." },
-  { value: "apply", label: "Remove old records", help: "Each night, delete what the rules below allow. Deleted records can't be brought back." },
-  { value: "off", label: "Off", help: "Don't check or remove anything." },
-];
+const MODES: Mode[] = ["report", "apply", "off"];
 
 /** Choose whether the nightly clean-up deletes anything, and run it now. */
 export function MaintenanceControls({ mode: initial, fromEnv }: { mode: Mode; fromEnv: boolean }) {
@@ -64,6 +62,8 @@ export function MaintenanceControls({ mode: initial, fromEnv }: { mode: Mode; fr
   const [mode, setMode] = useState<Mode>(initial);
   const [busy, setBusy] = useState<"save" | "run" | null>(null);
   const [message, setMessage] = useState<{ tone: "ok" | "error"; text: string } | null>(null);
+  const t = useTranslations("admin.systemActions");
+  const tc = useTranslations("common");
 
   async function call(method: "PUT" | "POST", body?: unknown) {
     setBusy(method === "PUT" ? "save" : "run");
@@ -75,45 +75,45 @@ export function MaintenanceControls({ mode: initial, fromEnv }: { mode: Mode; fr
         body: body ? JSON.stringify(body) : undefined,
       });
       const data = await res.json().catch(() => ({}));
-      if (!res.ok && res.status !== 202) throw new Error(data.error || "That didn't work. Please try again.");
+      if (!res.ok && res.status !== 202) throw new Error(data.error || t("failed"));
       setMessage({
         tone: "ok",
-        text: method === "PUT" ? "Saved." : res.status === 202 ? "Started. It's still working; refresh this page in a few minutes to see the result." : "Done. The result is shown above.",
+        text: method === "PUT" ? tc("saved") : res.status === 202 ? t("started") : t("done"),
       });
       router.refresh();
     } catch (err) {
-      setMessage({ tone: "error", text: err instanceof Error ? err.message : "Check your connection and try again." });
+      setMessage({ tone: "error", text: err instanceof Error ? err.message : t("network") });
     } finally {
       setBusy(null);
     }
   }
 
   function save() {
-    if (mode === "apply" && initial !== "apply" && !confirm("Turn on nightly clean-up? Old run logs, expired sign-ins, old published versions and deleted apps' files older than a week will be removed for good. Take a backup first if you want to keep them.")) return;
+    if (mode === "apply" && initial !== "apply" && !confirm(t("applyConfirm"))) return;
     void call("PUT", { mode });
   }
 
   return (
     <div>
       <fieldset className="space-y-2 text-sm">
-        <legend className="label">What the nightly clean-up does</legend>
+        <legend className="label">{t("modeLegend")}</legend>
         {MODES.map((m) => (
-          <label key={m.value} className="flex cursor-pointer items-start gap-2">
-            <input type="radio" name="maintenance-mode" className="mt-1" value={m.value} checked={mode === m.value} onChange={() => setMode(m.value)} />
+          <label key={m} className="flex cursor-pointer items-start gap-2">
+            <input type="radio" name="maintenance-mode" className="mt-1" value={m} checked={mode === m} onChange={() => setMode(m)} />
             <span>
-              {m.label}
-              <span className="block text-xs text-surface-400">{m.help}</span>
+              {t(`mode.${m}`)}
+              <span className="block text-xs text-surface-400">{t(`modeHelp.${m}`)}</span>
             </span>
           </label>
         ))}
       </fieldset>
-      {fromEnv && <p className="mt-2 text-xs text-surface-400">Currently set by NK_MAINTENANCE in the server&apos;s .env file. Saving here overrides it.</p>}
+      {fromEnv && <p className="mt-2 text-xs text-surface-400">{t("fromEnv")}</p>}
       <div className="mt-4 flex flex-wrap gap-2">
         <button type="button" className="btn-primary" disabled={busy !== null || mode === initial} onClick={save}>
-          {busy === "save" && <Loader2 size={14} className="animate-spin" />} Save
+          {busy === "save" && <Loader2 size={14} className="animate-spin" />} {tc("save")}
         </button>
-        <button type="button" className="btn-ghost" disabled={busy !== null} onClick={() => void call("POST")} data-help={initial === "apply" ? "Runs the clean-up right away. Old records it finds are removed for good." : "Counts what the clean-up would remove, without deleting anything."}>
-          {busy === "run" ? <Loader2 size={14} className="animate-spin" /> : <Play size={14} />} {initial === "apply" ? "Run clean-up now" : "Check now"}
+        <button type="button" className="btn-ghost" disabled={busy !== null} onClick={() => void call("POST")} data-help={initial === "apply" ? t("runHelp") : t("checkHelp")}>
+          {busy === "run" ? <Loader2 size={14} className="animate-spin" /> : <Play size={14} />} {initial === "apply" ? t("run") : t("check")}
         </button>
       </div>
       {message && <p role={message.tone === "error" ? "alert" : "status"} className={`mt-2 text-sm ${message.tone === "error" ? "text-red-300" : "text-emerald-300"}`}>{message.text}</p>}

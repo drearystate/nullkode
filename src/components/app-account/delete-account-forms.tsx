@@ -12,7 +12,16 @@ type Props = {
   /** Opened from the emailed link: which account it's for, or that the link is no good. */
   link: { email: string } | { invalid: true } | null;
   token: string | null;
+  /** The page's texts in the app's language (runtime.json "account"). */
+  words: Words;
 };
+
+type Words = Record<string, string>;
+
+/** A text with its {placeholders} filled. */
+function fill(text: string | undefined, vars: Record<string, string>): string {
+  return (text ?? "").replace(/\{(\w+)\}/g, (m, k: string) => (k in vars ? vars[k] : m));
+}
 
 async function post(path: string, body: unknown, projectId: string): Promise<Response> {
   return fetch(path, {
@@ -29,41 +38,41 @@ async function errorText(res: Response, fallback: string): Promise<string> {
 }
 
 /** The interactive parts of an app's public "Delete your account" page. */
-export function DeleteAccountForms({ projectId, base, appName, signedIn, ownerSession, link, token }: Props) {
+export function DeleteAccountForms({ projectId, base, appName, signedIn, ownerSession, link, token, words: w }: Props) {
   const [done, setDone] = useState<string | null>(null);
   if (done) {
     return (
       <div className="nk-da-card" role="status">
         <h2>{done}</h2>
-        <p className="nk-da-muted">Thank you for using {appName}.</p>
+        <p className="nk-da-muted">{fill(w.thanks, { app: appName })}</p>
         <a className="nk-da-button" href={`${base}/`}>
-          Go to the home page
+          {w.home}
         </a>
       </div>
     );
   }
   return (
     <>
-      {link && "email" in link && token && <ConfirmLink projectId={projectId} token={token} email={link.email} onDone={setDone} />}
+      {link && "email" in link && token && <ConfirmLink projectId={projectId} token={token} email={link.email} onDone={setDone} w={w} />}
       {link && "invalid" in link && (
         <p className="nk-da-card nk-da-alert" role="alert">
-          This link has expired or isn&apos;t complete. Ask for a new one below.
+          {w.linkExpired}
         </p>
       )}
       {!link || "invalid" in link ? (
         <>
           {ownerSession && (
-            <p className="nk-da-card nk-da-muted">You&apos;re viewing this as the app&apos;s owner, which has no account here. Visitors see their own account below.</p>
+            <p className="nk-da-card nk-da-muted">{w.ownerView}</p>
           )}
-          {signedIn && <SignedIn projectId={projectId} email={signedIn.email} onDone={setDone} />}
-          <RequestByEmail projectId={projectId} signedIn={Boolean(signedIn)} />
+          {signedIn && <SignedIn projectId={projectId} email={signedIn.email} onDone={setDone} w={w} />}
+          <RequestByEmail projectId={projectId} signedIn={Boolean(signedIn)} w={w} />
         </>
       ) : null}
     </>
   );
 }
 
-function ConfirmLink({ projectId, token, email, onDone }: { projectId: string; token: string; email: string; onDone: (m: string) => void }) {
+function ConfirmLink({ projectId, token, email, onDone, w }: { projectId: string; token: string; email: string; onDone: (m: string) => void; w: Words }) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   async function confirm() {
@@ -71,20 +80,20 @@ function ConfirmLink({ projectId, token, email, onDone }: { projectId: string; t
     setError(null);
     try {
       const res = await post("/api/app-account/confirm", { token }, projectId);
-      if (!res.ok) return setError(await errorText(res, "Something went wrong. Please try again."));
-      onDone("Your account and its data were deleted.");
+      if (!res.ok) return setError(await errorText(res, w.genericError));
+      onDone(w.deletedAll);
     } catch {
-      setError("Network error. Nothing was deleted. Please try again.");
+      setError(w.networkNothingDeleted);
     } finally {
       setBusy(false);
     }
   }
   return (
     <section className="nk-da-card" aria-labelledby="nk-da-confirm">
-      <h2 id="nk-da-confirm">Confirm: delete the account for {email}</h2>
-      <p className="nk-da-muted">This deletes the account and the information tied to it. It can&apos;t be undone.</p>
+      <h2 id="nk-da-confirm">{fill(w.confirmTitle, { email })}</h2>
+      <p className="nk-da-muted">{w.confirmBody}</p>
       <button type="button" className="nk-da-button nk-da-danger" onClick={confirm} disabled={busy}>
-        {busy ? "Deleting…" : "Delete my account"}
+        {busy ? w.deleting : w.deleteMine}
       </button>
       {error && (
         <p className="nk-da-alert" role="alert">
@@ -95,7 +104,7 @@ function ConfirmLink({ projectId, token, email, onDone }: { projectId: string; t
   );
 }
 
-function SignedIn({ projectId, email, onDone }: { projectId: string; email: string; onDone: (m: string) => void }) {
+function SignedIn({ projectId, email, onDone, w }: { projectId: string; email: string; onDone: (m: string) => void; w: Words }) {
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [busy, setBusy] = useState<"export" | "delete" | null>(null);
@@ -107,7 +116,7 @@ function SignedIn({ projectId, email, onDone }: { projectId: string; email: stri
     setExportNote(null);
     try {
       const res = await post("/api/app-account/export", {}, projectId);
-      if (!res.ok) return setExportNote(await errorText(res, "Your data couldn't be downloaded. Please try again."));
+      if (!res.ok) return setExportNote(await errorText(res, w.downloadFailed));
       const blob = await res.blob();
       const name = /filename="([^"]+)"/.exec(res.headers.get("content-disposition") ?? "")?.[1] ?? "my-data.zip";
       const url = URL.createObjectURL(blob);
@@ -118,9 +127,9 @@ function SignedIn({ projectId, email, onDone }: { projectId: string; email: stri
       a.click();
       a.remove();
       setTimeout(() => URL.revokeObjectURL(url), 10_000);
-      setExportNote("Your download has started.");
+      setExportNote(w.downloadStarted);
     } catch {
-      setExportNote("Network error. Please try again.");
+      setExportNote(w.networkError);
     } finally {
       setBusy(null);
     }
@@ -128,15 +137,15 @@ function SignedIn({ projectId, email, onDone }: { projectId: string; email: stri
 
   async function remove(e: React.FormEvent) {
     e.preventDefault();
-    if (confirm.trim().toUpperCase() !== "DELETE") return setError("Type DELETE to confirm.");
+    if (confirm.trim().toUpperCase() !== "DELETE") return setError(w.typeDelete);
     setBusy("delete");
     setError(null);
     try {
       const res = await post("/api/app-account/delete", { password, confirm: confirm.trim() }, projectId);
-      if (!res.ok) return setError(await errorText(res, "Your account couldn't be deleted. Please try again."));
-      onDone("Your account was deleted.");
+      if (!res.ok) return setError(await errorText(res, w.deleteFailed));
+      onDone(w.deleted);
     } catch {
-      setError("Network error. Nothing was deleted. Please try again.");
+      setError(w.networkNothingDeleted);
     } finally {
       setBusy(null);
     }
@@ -145,10 +154,10 @@ function SignedIn({ projectId, email, onDone }: { projectId: string; email: stri
   return (
     <>
       <section className="nk-da-card" aria-labelledby="nk-da-download">
-        <h2 id="nk-da-download">Download my data</h2>
-        <p className="nk-da-muted">You&apos;re signed in{email ? ` as ${email}` : ""}. Get a copy of your account and everything tied to it, as a .zip file.</p>
+        <h2 id="nk-da-download">{w.downloadTitle}</h2>
+        <p className="nk-da-muted">{email ? fill(w.signedInAs, { email }) : w.signedIn}</p>
         <button type="button" className="nk-da-button nk-da-secondary" onClick={download} disabled={busy !== null}>
-          {busy === "export" ? "Preparing…" : "Download my data"}
+          {busy === "export" ? w.preparing : w.downloadTitle}
         </button>
         {exportNote && (
           <p className="nk-da-muted" role="status">
@@ -157,13 +166,13 @@ function SignedIn({ projectId, email, onDone }: { projectId: string; email: stri
         )}
       </section>
       <form className="nk-da-card" onSubmit={remove} aria-labelledby="nk-da-delete">
-        <h2 id="nk-da-delete">Delete my account</h2>
-        <label htmlFor="nk-da-password">Your password</label>
+        <h2 id="nk-da-delete">{w.deleteMine}</h2>
+        <label htmlFor="nk-da-password">{w.password}</label>
         <input id="nk-da-password" type="password" autoComplete="current-password" required value={password} onChange={(e) => setPassword(e.target.value)} />
-        <label htmlFor="nk-da-type">Type DELETE to confirm</label>
+        <label htmlFor="nk-da-type">{w.typeDeleteLabel}</label>
         <input id="nk-da-type" autoComplete="off" required value={confirm} onChange={(e) => setConfirm(e.target.value)} />
         <button type="submit" className="nk-da-button nk-da-danger" disabled={busy !== null}>
-          {busy === "delete" ? "Deleting…" : "Delete my account"}
+          {busy === "delete" ? w.deleting : w.deleteMine}
         </button>
         {error && (
           <p className="nk-da-alert" role="alert">
@@ -175,7 +184,7 @@ function SignedIn({ projectId, email, onDone }: { projectId: string; email: stri
   );
 }
 
-function RequestByEmail({ projectId, signedIn }: { projectId: string; signedIn: boolean }) {
+function RequestByEmail({ projectId, signedIn, w }: { projectId: string; signedIn: boolean; w: Words }) {
   const [email, setEmail] = useState("");
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
@@ -187,26 +196,26 @@ function RequestByEmail({ projectId, signedIn }: { projectId: string; signedIn: 
     try {
       const res = await post("/api/app-account/request", { email }, projectId);
       const data = await res.json().catch(() => ({}));
-      if (!res.ok) return setError(typeof data.error === "string" ? data.error : "Something went wrong. Please try again.");
+      if (!res.ok) return setError(typeof data.error === "string" ? data.error : w.genericError);
       setMessage(data.message);
     } catch {
-      setError("Network error. Please try again.");
+      setError(w.networkError);
     } finally {
       setBusy(false);
     }
   }
   return (
     <form className="nk-da-card" onSubmit={send} aria-labelledby="nk-da-request">
-      <h2 id="nk-da-request">{signedIn ? "Forgot your password?" : "Can't sign in?"}</h2>
-      <p className="nk-da-muted">Enter the email address you signed up with and we&apos;ll take it from there.</p>
+      <h2 id="nk-da-request">{signedIn ? w.forgot : w.cantSignIn}</h2>
+      <p className="nk-da-muted">{w.requestIntro}</p>
       {message ? (
         <p role="status">{message}</p>
       ) : (
         <>
-          <label htmlFor="nk-da-email">Email address</label>
+          <label htmlFor="nk-da-email">{w.email}</label>
           <input id="nk-da-email" type="email" autoComplete="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
           <button type="submit" className="nk-da-button nk-da-secondary" disabled={busy}>
-            {busy ? "Sending…" : "Ask to delete my account"}
+            {busy ? w.sending : w.ask}
           </button>
           {error && (
             <p className="nk-da-alert" role="alert">

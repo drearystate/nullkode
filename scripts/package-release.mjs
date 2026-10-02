@@ -8,7 +8,7 @@ await mkdir(output, { recursive: true });
 // Build output only: a bare "build" would also drop the APK build API
 // (src/app/api/projects/[id]/native/build). Keystores are never shipped.
 const excluded = /(?:^|\/)(?:node_modules|\.git|\.next[^/]*|\.claude|\.vscode|dist|\.gradle|uploads|backups)(?:\/|$)|^native-templates\/.+\/build(?:\/|$)|^native-templates\/.+\/local\.properties$|\.(?:jks|keystore)$|(?:^|\/)\.env(?:\..*)?$|\.tsbuildinfo$|\.log$|(?:^|\/)\.DS_Store$/;
-const top = ['src','prisma','native-templates','docs','scripts','public','.github','package.json','pnpm-lock.yaml','pnpm-workspace.yaml','next.config.mjs','postcss.config.mjs','tailwind.config.ts','tsconfig.json','tsconfig.check.json','tsconfig.base.json','Dockerfile','docker-compose.yml','Caddyfile','.dockerignore','.gitignore','.gitattributes','.env.example','install.sh','Start-Nullkode.command','Start-Nullkode.bat','README.md','CONTRIBUTING.md','SECURITY.md','CODE_OF_CONDUCT.md','LICENSE'];
+const top = ['src','messages','prisma','native-templates','docs','scripts','public','.github','package.json','pnpm-lock.yaml','pnpm-workspace.yaml','next.config.mjs','postcss.config.mjs','tailwind.config.ts','tsconfig.json','tsconfig.check.json','tsconfig.base.json','Dockerfile','docker-compose.yml','Caddyfile','.dockerignore','.gitignore','.gitattributes','.env.example','install.sh','Start-Nullkode.command','Start-Nullkode.bat','README.md','CONTRIBUTING.md','SECURITY.md','CODE_OF_CONDUCT.md','LICENSE'];
 
 // Scripts the release uses: install, runtime and backup helpers, packaging,
 // upgrade steps for existing installs, every script a package.json command

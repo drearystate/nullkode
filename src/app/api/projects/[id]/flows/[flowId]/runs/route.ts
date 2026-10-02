@@ -3,6 +3,8 @@ import { ownedProject } from "@/lib/guard";
 import { PROBLEM_RUN_SQL, toActivityRun } from "@/lib/flow-activity";
 import type { FlowGraph } from "@/lib/flow/types";
 import { json } from "@/lib/utils";
+import { getFormatter, getTranslations } from "next-intl/server";
+import { requestLocale } from "@/i18n/request";
 
 export const dynamic = "force-dynamic";
 
@@ -17,8 +19,10 @@ export async function GET(req: Request, ctx: { params: Promise<{ id: string; flo
   const { id, flowId } = await ctx.params;
   const r = await ownedProject(id);
   if ("error" in r) return r.error;
+  const locale = await requestLocale();
+  const [t, format] = await Promise.all([getTranslations({ locale, namespace: "flows" }), getFormatter({ locale })]);
   const flow = await db.flow.findFirst({ where: { id: flowId, projectId: id }, select: { id: true, name: true, graph: true } });
-  if (!flow) return json({ error: "Not found" }, { status: 404 });
+  if (!flow) return json({ error: t("api.notFound") }, { status: 404 });
 
   const failedOnly = new URL(req.url).searchParams.get("failed") === "1";
   const since = new Date(Date.now() - 24 * 60 * 60 * 1000);
@@ -42,9 +46,10 @@ export async function GET(req: Request, ctx: { params: Promise<{ id: string; flo
        WHERE r."flowId" = ${flow.id} AND r."createdAt" >= ${since}`,
   ]);
   const graph = flow.graph as unknown as FlowGraph;
+  const words = { t, list: (parts: string[]) => format.list(parts, { type: "conjunction" }) };
   return json({
     flow: { id: flow.id, name: flow.name },
-    runs: (rows as Row[]).map((row) => toActivityRun(graph, { ...row, createdAt: row.createdAt instanceof Date ? row.createdAt : new Date(row.createdAt) })),
+    runs: (rows as Row[]).map((row) => toActivityRun(graph, { ...row, createdAt: row.createdAt instanceof Date ? row.createdAt : new Date(row.createdAt) }, words)),
     last24h: { total: Number(counts[0]?.total ?? 0), problems: Number(counts[0]?.problems ?? 0) },
   });
 }

@@ -1,6 +1,8 @@
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
 import { json } from "@/lib/utils";
+import { getTranslations } from "next-intl/server";
+import { requestLocale } from "@/i18n/request";
 import JSZip from "jszip";
 import {
   publishedAppUrl,
@@ -24,6 +26,11 @@ import { nativeNeedsFor, permissionFeaturesOf, usageTextsFor } from "@/lib/nativ
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
+/** Messages for people, in their language (only looked up when needed). */
+async function tr() {
+  return getTranslations({ locale: await requestLocale(), namespace: "project.nativeApi" });
+}
+
 /**
  * Streams the app's mobile project: a Capacitor project that wraps the live
  * published address, with the iOS app already generated (ios/, Swift Package
@@ -34,15 +41,15 @@ export const dynamic = "force-dynamic";
 export async function GET(req: Request, ctx: { params: Promise<{ id: string }> }) {
   const { id } = await ctx.params;
   const user = await getCurrentUser();
-  if (!user) return new Response("Unauthorized", { status: 401 });
+  if (!user) return new Response((await tr())("unauthorized"), { status: 401 });
 
   const project = await db.project.findUnique({ where: { id } });
   if (!project || project.ownerId !== user.id) {
-    return json({ error: "Not found" }, { status: 404 });
+    return json({ error: (await tr())("notFound") }, { status: 404 });
   }
   if (!project.published) {
     return json(
-      { error: "Publish your app first — the mobile app loads its live URL." },
+      { error: (await tr())("download.publishFirst") },
       { status: 409 },
     );
   }

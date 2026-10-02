@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 import type { PublicPlan } from "@/lib/stripe";
 
@@ -12,6 +13,7 @@ export function BillingPlans({
   currentPlan: string;
   hasCustomer: boolean;
 }) {
+  const t = useTranslations("billing.plans");
   const [busy, setBusy] = useState<string | null>(null);
 
   async function checkout(plan: "STARTER" | "PRO" | "TEAM") {
@@ -24,7 +26,7 @@ export function BillingPlans({
     const data = await res.json();
     setBusy(null);
     if (data.url) window.location.href = data.url;
-    else alert(data.error ?? "Unable to start checkout");
+    else alert(data.error ?? t("checkoutFailed"));
   }
 
   async function portal() {
@@ -33,7 +35,7 @@ export function BillingPlans({
     const data = await res.json();
     setBusy(null);
     if (data.url) window.location.href = data.url;
-    else alert(data.error ?? "Unable to open portal");
+    else alert(data.error ?? t("portalFailed"));
   }
 
   return (
@@ -53,10 +55,10 @@ export function BillingPlans({
               <button
                 className="btn-primary mt-4 w-full justify-center disabled:opacity-50"
                 disabled={isCurrent || busy !== null || p.key === "FREE" || !p.buyable}
-                data-help={isCurrent || p.key === "FREE" ? undefined : !p.buyable ? "This plan can't be bought online yet." : "Opens a secure Stripe payment page to start this plan, billed monthly. Already on a paid plan? Use Manage billing to switch instead."}
+                data-help={isCurrent || p.key === "FREE" ? undefined : !p.buyable ? t("notBuyable") : t("upgradeHelp")}
                 onClick={() => p.key !== "FREE" && checkout(p.key as "STARTER" | "PRO" | "TEAM")}
               >
-                {isCurrent ? "Current" : p.key === "FREE" ? "Free" : !p.buyable ? "Coming soon" : busy === p.key ? "..." : "Upgrade"}
+                {isCurrent ? t("current") : p.key === "FREE" ? t("free") : !p.buyable ? t("comingSoon") : busy === p.key ? "..." : t("upgrade")}
               </button>
             </div>
           );
@@ -65,8 +67,8 @@ export function BillingPlans({
 
       {hasCustomer && (
         <div className="mt-6">
-          <button className="btn-ghost" disabled={busy === "portal"} onClick={portal} data-help="Opens Stripe's secure billing page, where you can update your card, see past invoices and, where offered, change or cancel your plan.">
-            {busy === "portal" ? "..." : "Manage billing"}
+          <button className="btn-ghost" disabled={busy === "portal"} onClick={portal} data-help={t("manageHelp")}>
+            {busy === "portal" ? "..." : t("manage")}
           </button>
         </div>
       )}

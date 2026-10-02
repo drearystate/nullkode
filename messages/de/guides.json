@@ -1,0 +1,1276 @@
+{
+  "account-and-billing": {
+    "sections": {
+      "0": {
+        "heading": "Dein Foto, deine Angaben und dein Passwort",
+        "shot": {
+          "alt": "Die Profilseite mit deinem Foto, deinen Angaben, deinem Passwort, dem Design und den Hilfetipps.",
+          "caption": "Profil: dein Foto, Name und Passwort, helles oder dunkles Design und Hilfetipps."
+        },
+        "steps": {
+          "0": "Klicke oben rechts auf dein Bild (oder deinen Anfangsbuchstaben) und dann auf <b>Profil</b>.",
+          "1": "Klicke auf <b>Foto hinzufügen</b> und wähle ein Bild von dir aus. Es wird quadratisch zugeschnitten und neben deinem Namen angezeigt. Du kannst es jederzeit <b>ändern</b> oder <b>entfernen</b>.",
+          "2": "Ändere deinen <b>Namen</b> und klicke auf <b>Speichern</b>. Deine E-Mail-Adresse ist die Adresse, mit der du dich anmeldest. Du kannst sie hier nicht ändern.",
+          "3": "Gib unter <b>Passwort</b> dein <b>Aktuelles Passwort</b> und ein <b>Neues Passwort</b> mit mindestens 8 Zeichen ein. Klicke dann auf <b>Passwort ändern</b>. Du wirst auf deinen anderen Geräten abgemeldet."
+        }
+      },
+      "1": {
+        "body": {
+          "0": "Wenn du dein aktuelles Passwort nicht kennst, zum Beispiel weil du dich mit Google registriert hast, melde dich ab und klicke auf der Anmeldeseite auf <b>Passwort vergessen</b>, um ein Passwort festzulegen."
+        },
+        "heading": "Mit Google registriert?"
+      },
+      "2": {
+        "body": {
+          "0": "Klicke in der oberen Leiste auf die Sonnen- oder Mondschaltfläche, um zwischen hellem und dunklem Design zu wechseln. Unter <b>Darstellung</b> in deinem <b>Profil</b> kannst du auch <b>Wie auf meinem Gerät</b> auswählen. Damit wird die Einstellung deines Computers oder Smartphones übernommen. Deine Auswahl wird in deinem Konto gespeichert und gilt so auch auf anderen Geräten."
+        },
+        "heading": "Helles oder dunkles Design"
+      },
+      "3": {
+        "body": {
+          "0": "Hilfetipps sind kurze Hinweise, die erscheinen, wenn du mit der Maus auf eine Schaltfläche oder Einstellung zeigst. Schalte sie unter <b>Hilfe</b> in deinem <b>Profil</b> ein oder aus. Innerhalb einer App kannst du dafür auch oben auf die Schaltfläche <b>Hilfetipps</b> klicken.",
+          "1": "Über den Link <b>Hilfe</b> in der oberen Leiste öffnest du die Anleitung für die aktuelle Seite. Unter <b>Hilfe und Anleitungen</b> im Kontomenü findest du alle Anleitungen."
+        },
+        "heading": "Hilfetipps und Anleitungen"
+      },
+      "4": {
+        "body": {
+          "0": "Klicke auf deinen Anfangsbuchstaben und dann auf <b>Abrechnung und Abo</b>. Dort siehst du dein Abo und – falls es ein monatliches Kontingent enthält – wie viele KI-Aktionen du diesen Monat genutzt hast. Beim Planen, Erstellen und Ändern mit der KI werden KI-Aktionen verbraucht.",
+          "1": "Wenn dein Kontingent aufgebraucht ist, pausiert die KI bis zum nächsten Monat. Vorlagen und der Seiteneditor funktionieren weiterhin. Wenn andere Abos verfügbar sind, kannst du auf derselben Seite eines auswählen. Sobald du ein Abo bezahlt hast, kannst du unter <b>Abrechnung verwalten</b> deine Zahlungsdaten ändern."
+        },
+        "heading": "Dein Abo und deine KI-Nutzung",
+        "shot": {
+          "alt": "Die Abrechnungsseite mit deinem Abo und den diesen Monat genutzten KI-Aktionen.",
+          "caption": "Abrechnung und Abo: dein Abo und deine KI-Nutzung in diesem Monat."
+        }
+      },
+      "5": {
+        "body": {
+          "0": "Dadurch werden dein Konto und alle deine Apps gelöscht – einschließlich aller gespeicherten Daten, Dateien und Webadressen. Das lässt sich nicht rückgängig machen."
+        },
+        "heading": "Konto löschen",
+        "steps": {
+          "0": "Öffne dein <b>Profil</b> und suche nach <b>Mein Konto löschen</b>.",
+          "1": "Lade für jede App, die du später vielleicht noch brauchst, eine <b>Sicherungskopie</b> herunter. Wenn eine App bei Google Play verfügbar ist, lade auch den <b>Google-Play-Upload-Schlüssel</b> herunter.",
+          "2": "Klicke auf <b>Mein Konto löschen …</b>.",
+          "3": "Gib zur Bestätigung deine E-Mail-Adresse ein und setze das Häkchen beim Upload-Schlüssel, falls es angezeigt wird.",
+          "4": "Klicke auf <b>Mein Konto endgültig löschen</b>."
+        }
+      },
+      "6": {
+        "bullets": {
+          "0": "Wenn du dein Passwort änderst, wirst du überall sonst abgemeldet.",
+          "1": "Ein kostenpflichtiger Tarif wird sofort gekündigt, wenn du dein Konto löschst.",
+          "2": "Wenn dein Konto hier nicht gelöscht werden kann, zum Beispiel weil du einen Arbeitsbereich für andere betreibst, erfährst du auf deiner Profilseite warum."
+        },
+        "heading": "Gut zu wissen"
+      }
+    },
+    "summary": "Füge ein Foto hinzu, ändere deinen Namen und dein Passwort, wähle helles oder dunkles Design, schalte Hilfetipps ein oder aus, prüfe dein Abo und deine KI-Nutzung oder lösche dein Konto.",
+    "title": "Dein Profil, Abo und Einstellungen"
+  },
+  "ai-designer": {
+    "sections": {
+      "0": {
+        "heading": "Ein Design beginnen",
+        "shot": {
+          "alt": "Die Startseite des KI-Designers mit einem Feld zum Beschreiben der App, Beispielideen und einer Liste deiner Designs.",
+          "caption": "Beschreibe, was du möchtest, und klicke dann auf „Gestalten“."
+        },
+        "steps": {
+          "0": "Klicke in der oberen Leiste auf <b>Designer</b>. Auf dem Smartphone gehst du auf deinem Dashboard zu <b>Weitere Möglichkeiten</b> und wählst <b>Gemeinsam gestalten</b>.",
+          "1": "Beschreibe unter <b>Was möchtest du erstellen?</b> deine App. Schreib, für wen sie gedacht ist und was Besucher damit machen können sollen, zum Beispiel einen Termin buchen oder eine Nachricht senden. Du kannst auch eine Beispielidee auswählen und anpassen.",
+          "2": "Klicke auf <b>Gestalten</b>.",
+          "3": "Die KI stellt vielleicht erst <b>Ein paar kurze Fragen</b>. Wähle eine Antwort aus, schreib deine eigene oder überspringe eine Frage. Klicke auf <b>Erstellen</b> oder auf <b>Fragen überspringen</b>, damit die KI selbst entscheidet."
+        }
+      },
+      "1": {
+        "body": {
+          "0": "Während die KI arbeitet, siehst du links im Chat <b>Wird gerade erstellt…</b> und die einzelnen Schritte. Rechts füllt sich die Vorschau. Das erste Design kann ein paar Minuten dauern.",
+          "1": "Um den Vorgang abzubrechen, klicke auf die quadratische Stopp-Schaltfläche neben dem Nachrichtenfeld. Nichts aus diesem Durchlauf wird gespeichert.",
+          "2": "Nach der ersten Erstellung hat dein Design eine eigene App. Mit <b>App öffnen</b> oben im Chat öffnest du sie. Dort findest du deine Daten, Abläufe und Veröffentlichungseinstellungen."
+        },
+        "heading": "Die App wird erstellt"
+      },
+      "2": {
+        "heading": "Änderungen anfragen",
+        "shot": {
+          "alt": "Ein Design im KI-Designer: links der Chatverlauf, rechts eine Vorschau der App.",
+          "caption": "Links der Chatverlauf, rechts die Live-Vorschau."
+        },
+        "steps": {
+          "0": "Schreib in eigenen Worten in das Feld <b>Änderung anfragen</b>, was du ändern möchtest. Zum Beispiel: „Mach die Kopfzeile dunkler“ oder „Füge eine Seite mit unseren Preisen hinzu“.",
+          "1": "Drück die Eingabetaste oder auf die Senden-Schaltfläche. Mit Umschalt+Eingabetaste beginnst du eine neue Zeile.",
+          "2": "Die KI aktualisiert das Design und speichert es als neue Version."
+        }
+      },
+      "3": {
+        "body": {
+          "0": "Manchmal ist es einfacher, der KI etwas zu zeigen, statt es zu beschreiben."
+        },
+        "heading": "Zeig, was geändert werden soll",
+        "steps": {
+          "0": "Drück über der Vorschau auf <b>Kommentieren</b>. Die Schaltfläche ändert sich zu <b>Zum Kommentieren etwas anklicken</b>.",
+          "1": "Klick auf den Teil der Vorschau, den du ändern möchtest.",
+          "2": "Schreib, was geändert werden soll, zum Beispiel „Mach das größer“, und drück auf <b>Hinzufügen</b>. Deine Notiz erscheint über dem Nachrichtenfeld.",
+          "3": "Füge beliebig viele Notizen hinzu und drück dann auf Senden, um alle Änderungen auf einmal vorzunehmen. Zum Entfernen einer Notiz drück auf das x."
+        }
+      },
+      "4": {
+        "body": {
+          "0": "Über das Menü <b>Seite</b> über der Vorschau kannst du alle Seiten deines Designs ansehen. Mit den drei Bildschirm-Schaltflächen wird die Ansicht auf Computer-, Tablet- und Handybreite angepasst. Über die Pfeil-Schaltfläche öffnest du die Seite in einem neuen Tab.",
+          "1": "Auf dem Handy kannst du oben auf dem Bildschirm zwischen <b>Chat</b> und <b>Vorschau</b> wechseln."
+        },
+        "heading": "Prüfe alle Seiten und Bildschirmgrößen"
+      },
+      "5": {
+        "body": {
+          "0": "Jede Änderung wird als Version gespeichert, damit du jederzeit zurückkehren kannst."
+        },
+        "heading": "Zu einer früheren Version zurückkehren",
+        "shot": {
+          "alt": "Die Liste der Versionen neben der Vorschau. Für jede Version gibt es die Schaltflächen „Ansehen“ und „Wiederherstellen“.",
+          "caption": "Versionen: Sieh dir frühere Versionen an und stelle sie wieder her."
+        },
+        "steps": {
+          "0": "Drück auf <b>Versionen</b>. Alle Versionen werden aufgelistet, die neueste zuerst.",
+          "1": "Drück auf <b>Ansehen</b>, um eine ältere Version in der Vorschau anzuzeigen. Du kannst auch im Chat unter einer Nachricht auf <b>Diese Version ansehen</b> drücken.",
+          "2": "Drück auf <b>Wiederherstellen</b> (oder in der gelben Leiste auf <b>Wiederherstellen</b>), um diese Version zur aktuellen zu machen. Die bisherige Version bleibt in der Liste, sodass du wieder zu ihr wechseln kannst.",
+          "3": "Um eine ältere Version nicht mehr anzusehen, drück auf <b>Zur aktuellen Version zurück</b>."
+        }
+      },
+      "6": {
+        "body": {
+          "0": "Mit <b>Herunterladen</b> speicherst du alle Seiten deines Designs in einer .zip-Datei.",
+          "1": "Mit <b>Zum Seitenersteller wechseln</b> wird die App an den Drag-and-drop-Seiteneditor übergeben. Danach kann der KI-Designer sie nicht mehr ändern. Wenn du weiter mit der KI gestalten möchtest, drück auf <b>Kopie zum Weitergestalten erstellen</b>. So erhältst du eine separate Kopie, während die App im Seitenersteller unverändert bleibt."
+        },
+        "heading": "Herunterladen oder zum Seitenersteller wechseln"
+      },
+      "7": {
+        "body": {
+          "0": "Auf der Startseite des Designers findest du <b>Deine Designs</b>. Klick auf eine Karte, um ein Design zu öffnen. Über die Schaltfläche <b>…</b> auf einer Karte kannst du es <b>Umbenennen</b>, <b>Kopieren</b> oder <b>Löschen</b>.",
+          "1": "Wenn du ein Design löschst, wird auch die zugehörige App gelöscht, es sei denn, sie wurde zum Seitenersteller verschoben. Das lässt sich nicht rückgängig machen."
+        },
+        "heading": "Deine Designs"
+      },
+      "8": {
+        "bullets": {
+          "0": "Wenn du die KI um ein Design oder eine Änderung bittest, wird dafür dein monatliches KI-Kontingent verwendet, sofern dein Tarif eines enthält.",
+          "1": "In einer Designer-App stammen die Seiten aus dem Design. Ändere sie hier und nicht im Seiteneditor.",
+          "2": "Die Daten, Abläufe, Domains und Veröffentlichung deiner App findest du wie bei jeder anderen App in den entsprechenden Tabs. Veröffentliche sie über die Schaltfläche <b>Veröffentlichen</b>."
+        },
+        "heading": "Gut zu wissen"
+      }
+    },
+    "summary": "Beschreibe deine App in einfachen Worten und gestalte sie dann im Chat mit der KI und durch Klicken auf die Elemente, die du ändern möchtest.",
+    "title": "Mit dem KI-Designer gestalten"
+  },
+  "ai-settings": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Öffnen Sie in der Verwaltung <b>Alle Einstellungen</b> und dann <b>KI-Engine</b>. Solange keine Engine verbunden ist, ist das Erstellen mit KI deaktiviert: Nutzer starten mit Vorlagen und dem Seiteneditor, und der KI-Designer kann keine Apps erstellen."
+        },
+        "heading": "Hier finden Sie die Einstellungen"
+      },
+      "1": {
+        "body": {
+          "0": "Sie haben zwei Möglichkeiten:"
+        },
+        "bullets": {
+          "0": "<b>OpenAI</b>: der Dienst von OpenAI oder ein kompatibler Server, auch mit Modellen, die auf Ihrer eigenen Hardware laufen.",
+          "1": "<b>KI-Agent über die Befehlszeile</b>: ein KI-Tool für die Befehlszeile, das auf diesem Server installiert und mit einem eigenen Abo angemeldet ist. So zahlen Sie nicht pro Anfrage."
+        },
+        "heading": "Anbieter auswählen",
+        "shot": {
+          "alt": "Die KI-Anbietereinstellungen mit den beiden Anbieteroptionen, Verbindungsdetails und einer Schaltfläche zum Testen.",
+          "caption": "Wählen Sie einen Anbieter, geben Sie die Details ein und testen Sie die Verbindung."
+        }
+      },
+      "2": {
+        "heading": "Einen gehosteten oder kompatiblen Dienst verbinden",
+        "steps": {
+          "0": "Wählen Sie <b>OpenAI</b>.",
+          "1": "Fügen Sie Ihren Schlüssel unter <b>OpenAI-/kompatibler API-Schlüssel</b> ein. Wenn bereits ein Schlüssel gespeichert ist, lassen Sie das Feld leer, um ihn beizubehalten.",
+          "2": "Lassen Sie <b>API-Basis-URL</b> leer, wenn Sie den Dienst von OpenAI nutzen. Andernfalls geben Sie die Adresse eines kompatiblen Servers ein.",
+          "3": "Geben Sie die Modellnamen unter <b>Modell für neue Apps</b> (plant und erstellt neue Apps) und <b>Modell für Änderungen</b> (Änderungen im Editor) ein. Oder lassen Sie die Felder leer, um die Standardwerte zu verwenden.",
+          "4": "Klicken Sie auf <b>Verbindung testen</b>. Ihre Einstellungen werden zuerst gespeichert. Anschließend wird <b>OK</b> oder <b>Fehlgeschlagen</b> mit dem Grund angezeigt.",
+          "5": "Klicken Sie auf <b>Änderungen speichern</b>."
+        }
+      },
+      "3": {
+        "body": {
+          "0": "Alle Modellserver, die dieselbe Sprache wie der Dienst von OpenAI sprechen, sind geeignet, zum Beispiel Ollama, LM Studio, vLLM oder der Server von llama.cpp. Tragen Sie die Adresse unter <b>API-Basis-URL</b> ein (für ein Modell auf demselben Computer wie die Docker-Container von {app} etwa http://host.docker.internal:11434/v1). Lassen Sie den Schlüssel leer, falls der Server keinen benötigt, und geben Sie den exakten Namen des Modells ein.",
+          "1": "Lassen Sie <b>Modell-Kontextgröße</b> und <b>Maximale Ausgabetokens pro Anfrage</b> leer und lassen Sie <b>Modell-Denkmodus</b> auf <b>Automatisch</b>: {app} ermittelt passende Werte. Wenn Tests oder App-Erstellungen melden, dass die Antwort nicht lesbar war, setzen Sie <b>JSON-Unterstützung</b> auf <b>Nur in der Anweisung</b>.",
+          "2": "Die Geschwindigkeit hängt von Ihrer Hardware ab. Größere Modelle erstellen bessere Seiten. Erstellen Sie am besten eine Beispiel-App, bevor Sie andere einladen."
+        },
+        "heading": "KI auf Ihrer eigenen Hardware ausführen"
+      },
+      "4": {
+        "heading": "Ein KI-Tool für die Befehlszeile verwenden",
+        "steps": {
+          "0": "Installieren Sie das Tool auf diesem Server und melden Sie es als das Konto an, unter dem {app} läuft (oder als eigens dafür eingerichtetes Konto).",
+          "1": "Wählen Sie <b>KI-Agent über die Befehlszeile</b>.",
+          "2": "Legen Sie unter <b>Modell</b> ein anderes Modell fest, falls gewünscht. Geben Sie unter <b>Pfad zur Programmdatei</b> nur dann einen Pfad ein, wenn das Tool nicht automatisch gefunden wird.",
+          "3": "Klicken Sie auf <b>KI-Agent testen</b> und anschließend auf <b>Änderungen speichern</b>."
+        }
+      },
+      "5": {
+        "bullets": {
+          "0": "Jeder Plan, jede App-Erstellung und jede Änderung verbraucht KI-Aktionen aus dem monatlichen Kontingent der Person (siehe <b>Pläne und Limits</b>). Die Kunden eines Resellers teilen sich das monatliche Limit des Resellers.",
+          "1": "Gespeicherte Schlüssel werden nicht erneut angezeigt, sondern nur als maskierter Hinweis.",
+          "2": "Wenn hier kein Schlüssel gespeichert ist, wird ein Schlüssel aus der .env-Datei des Servers (OPENAI_API_KEY) verwendet.",
+          "3": "Die Anleitung im Download (docs/local-ai.md) enthält weitere Informationen zum Ausführen eigener Modelle."
+        },
+        "heading": "Gut zu wissen"
+      }
+    },
+    "summary": "Wählen Sie die KI, die Apps plant, erstellt und ändert, und prüfen Sie, ob sie funktioniert.",
+    "title": "KI-Einstellungen"
+  },
+  "custom-domains": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Du brauchst einen Domainnamen, den du bei einem Domainanbieter gekauft hast, und die Möglichkeit, dessen DNS-Einstellungen zu ändern. DNS ist das Adressbuch des Internets: Zwei Einträge darin teilen dem Internet mit, dass deine Domain zu deiner App gehört. Auf der Website deines Domainanbieters findest du dafür eine Seite, die meist „DNS“, „DNS-Einträge“ oder „Zone“ heißt.",
+          "1": "Deine App behält auch ihre kostenlose Adresse."
+        },
+        "heading": "Bevor du loslegst"
+      },
+      "1": {
+        "heading": "Domain verbinden",
+        "shot": {
+          "alt": "Der Tab „Domains“ mit einem Feld zum Hinzufügen einer Domain und den DNS-Einträgen, die du bei deinem Domainanbieter hinzufügen musst.",
+          "caption": "Füge deine Domain hinzu und kopiere dann die beiden Einträge zu deinem Domainanbieter."
+        },
+        "steps": {
+          "0": "Öffne den Tab <b>Domains</b>.",
+          "1": "Gib deine Adresse ein, zum Beispiel www.deinunternehmen.de (ohne https://), und klicke auf <b>Domain hinzufügen</b>.",
+          "2": "Du siehst zwei Einträge, die du hinzufügen musst: einen CNAME- (oder A-)Eintrag und einen TXT-Eintrag. Bei beiden gibt es ein <b>Name/Host</b>- und ein <b>Wert/Verweist auf</b>-Feld. Klicke auf einen Wert, um ihn zu kopieren.",
+          "3": "Melde dich in einem anderen Tab bei deinem Domainanbieter an, öffne die DNS-Einstellungen deiner Domain und füge beide Einträge genau wie angezeigt hinzu.",
+          "4": "Kehre zurück und klicke auf <b>Jetzt prüfen</b>. Sobald beide Einträge gefunden wurden, steht dort <b>Verbunden</b> und Besucher können deine Adresse verwenden."
+        }
+      },
+      "2": {
+        "bullets": {
+          "0": "DNS-Änderungen werden meist innerhalb weniger Minuten sichtbar, manchmal dauert es aber ein paar Stunden. Klicke später erneut auf <b>Jetzt prüfen</b>.",
+          "1": "Die Prüfung zeigt dir, welcher Eintrag noch fehlt: der TXT-Eintrag oder der Eintrag, der deine Domain hierher verweist.",
+          "2": "Manche Domainanbieter hängen den Namen deiner Domain automatisch an. Falls deiner das macht, gib nur den ersten Teil des Namens ein, zum Beispiel www oder _verify.www.",
+          "3": "Für eine Adresse ohne www (deinunternehmen.de) erlauben manche Domainanbieter keinen CNAME-Eintrag. Verwende stattdessen einen A-Eintrag, der auf die IP-Adresse dieses Servers verweist. Frag die Person, die deinen {app}-Server betreibt, nach der Adresse."
+        },
+        "heading": "Falls die Verbindung noch nicht klappt"
+      },
+      "3": {
+        "body": {
+          "0": "Klicke neben der Domain auf den Papierkorb und bestätige. Deine App bleibt unter ihrer kostenlosen Adresse erreichbar."
+        },
+        "heading": "Domain trennen"
+      },
+      "4": {
+        "bullets": {
+          "0": "Eine Domain kann nur mit einer App verbunden sein.",
+          "1": "Dein Tarif kann die Anzahl der Domains begrenzen, die du verbinden kannst.",
+          "2": "Besucher sehen unter deiner Domain die veröffentlichte App. Veröffentliche sie also, bevor du den Link teilst."
+        },
+        "heading": "Gut zu wissen"
+      }
+    },
+    "summary": "Veröffentliche deine App unter einer Webadresse, die dir gehört, zum Beispiel www.deinunternehmen.de.",
+    "title": "Eigene Domain verwenden"
+  },
+  "email": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Sobald E-Mail eingerichtet ist, versendet {app} Links zum Zurücksetzen des Passworts und Einladungen (an Sie, Reseller und deren Kunden), Benachrichtigungen an App-Betreiber, wenn jemand ein Formular sendet oder einen Termin bucht, sowie E-Mails, die Apps mit dem Schritt <b>E-Mail senden</b> selbst versenden.",
+          "1": "Ohne Einrichtung werden Einladungs- und Passwort-Links auf dem Bildschirm angezeigt, damit Sie sie weitergeben können. Apps überspringen ihre E-Mail-Schritte. App-Betreiber sehen dazu einen Hinweis in der Übersicht ihrer App."
+        },
+        "heading": "Wofür E-Mails verwendet werden"
+      },
+      "1": {
+        "heading": "Mit einem beliebigen E-Mail-Anbieter einrichten",
+        "shot": {
+          "alt": "Die E-Mail-Einstellungen: ob E-Mail aktiviert ist, die Anbieterauswahl, die Serverdetails und die Schaltfläche zum Testen.",
+          "caption": "Geben Sie die Angaben Ihres Anbieters ein und senden Sie sich eine Test-E-Mail."
+        },
+        "steps": {
+          "0": "Öffnen Sie in der Verwaltung <b>Alle Einstellungen</b> und dann <b>E-Mail</b>.",
+          "1": "Wählen Sie unter <b>Wie sollen E-Mails versendet werden?</b> die Option <b>Beliebiger E-Mail-Anbieter (SMTP)</b>.",
+          "2": "Geben Sie den <b>E-Mail-Server</b> Ihres Anbieters ein, zum Beispiel smtp.example.com.",
+          "3": "Wählen Sie den <b>Port</b>. Verwenden Sie <b>587 (empfohlen)</b>, sofern Ihr Anbieter nichts anderes vorgibt.",
+          "4": "Geben Sie den <b>Benutzernamen</b> und das <b>Passwort</b> ein. Bei Google und Microsoft benötigen Sie ein App-Passwort, nicht Ihr normales Passwort.",
+          "5": "Geben Sie unter <b>Absenderadresse</b> eine Adresse ein, über die Ihr Anbieter den Versand erlaubt. Bei Bedarf können Sie auch einen <b>Absendernamen</b> eingeben. Lassen Sie das Namensfeld leer, um den Namen Ihrer Marke oder App zu verwenden.",
+          "6": "Klicken Sie auf <b>Test-E-Mail an mich senden</b>. Dabei werden die Angaben auf dem Bildschirm verwendet, sodass Sie alles vor dem Speichern überprüfen können.",
+          "7": "Klicken Sie auf <b>E-Mail-Einstellungen speichern</b>."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Wählen Sie <b>Resend</b>, fügen Sie Ihren <b>Resend-API-Schlüssel</b> ein und verwenden Sie als Absender eine Adresse auf einer Domain, die Sie bei Resend bestätigt haben. Testen und speichern Sie anschließend wie oben beschrieben."
+        },
+        "heading": "Oder Resend verwenden"
+      },
+      "3": {
+        "body": {
+          "0": "Im Feld oben steht <b>E-Mail ist aktiviert</b> und die Absenderadresse. Außerdem werden die letzten 24 Stunden angezeigt: wie viele E-Mails gesendet wurden und fehlgeschlagen sind sowie das letzte Problem, falls es eines gab. Die E-Mail-Karte auf der Systemseite zeigt dasselbe."
+        },
+        "heading": "Prüfen, ob alles funktioniert"
+      },
+      "4": {
+        "bullets": {
+          "0": "<b>Benutzername oder Passwort abgelehnt</b>: Prüfe beides. Google und Microsoft erfordern ein App-Passwort. E-Mail-Anbieter geben oft einen SMTP-Schlüssel statt deines Kontopassworts aus.",
+          "1": "<b>Server auf diesem Port nicht erreichbar</b>: Probiere 587, dann 465, dann 2525 oder bitte deinen Host, den Port freizugeben.",
+          "2": "<b>Port und Verschlüsselung passen nicht zusammen</b>: Verwende 465 mit SSL oder 587 mit automatischer Verschlüsselung (unter <b>Weitere Optionen</b>).",
+          "3": "<b>Versand von dieser Adresse abgelehnt</b>: Dein Anbieter hat diese Absenderadresse oder ihre Domain nicht bestätigt. Bestätige sie oder verwende eine bekannte Adresse.",
+          "4": "<b>Testmodus von Resend</b>: Ein neues Resend-Konto kann erst E-Mails an die eigene Adresse senden, bis du eine Domain bestätigst."
+        },
+        "heading": "Wenn der Test fehlschlägt"
+      },
+      "5": {
+        "bullets": {
+          "0": "Alle E-Mails werden von deiner <b>Absenderadresse</b> gesendet. Wenn eine App eine Adresse aus einer anderen Domain als Absender verwendet, wird diese als Antwortadresse verwendet. So erreichen Antworten weiterhin den App-Inhaber.",
+          "1": "Die Einstellungen in der .env-Datei des Servers gelten, bis du hier speicherst. Danach gelten die hier gespeicherten Einstellungen.",
+          "2": "Mit <b>Diese Einstellungen entfernen</b> wird der E-Mail-Versand deaktiviert (oder es gelten wieder die Einstellungen aus der .env-Datei, falls vorhanden).",
+          "3": "Die Support-E-Mail-Adresse in deinem Branding wird bei Einladungs- und Passwort-E-Mails als Antwortadresse verwendet."
+        },
+        "heading": "Gut zu wissen"
+      }
+    },
+    "summary": "Versenden Sie Einladungen, Links zum Zurücksetzen des Passworts, App-Benachrichtigungen und E-Mails Ihrer Apps über Ihre eigene Adresse.",
+    "title": "E-Mail"
+  },
+  "features": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Eine Funktion ist ein fertiger Bereich einer App, zum Beispiel für Buchungen, einen Shop, ein Kontaktformular oder einen Blog. Wenn du eine Funktion hinzufügst, kommen neue Seiten, Listen zum Speichern eingesendeter Inhalte und Abläufe hinzu, die Schaltflächen und Formulare funktionsfähig machen. Anschließend kannst du die Seiten wie jede andere Seite ändern."
+        },
+        "heading": "Was eine Funktion ist"
+      },
+      "1": {
+        "heading": "Funktion hinzufügen",
+        "shot": {
+          "alt": "Der Tab „Funktionen“ mit einem Suchfeld, Kategorien-Schaltflächen und einer Auswahl an Funktionen zum Hinzufügen.",
+          "caption": "Wähle eine Funktion aus. Unter „Details“ siehst du, was sie hinzufügt."
+        },
+        "steps": {
+          "0": "Öffne den Tab <b>Funktionen</b>.",
+          "1": "Suche zum Beispiel nach „Buchungen“ oder „Shop“, oder wähle eine Gruppe wie Handel oder Community.",
+          "2": "Um zu sehen, was eine Funktion hinzufügt, öffne auf ihrer Karte die <b>Details</b>. Dort steht, wie viele Seiten, Listen mit gespeicherten Inhalten und Abläufe hinzugefügt werden.",
+          "3": "Klicke auf die Karte (<b>Zu meiner App hinzufügen</b>).",
+          "4": "Beantworte die wenigen Fragen, falls es welche gibt. Felder mit * müssen ausgefüllt werden. Wenn nach einem Unternehmensnamen gefragt wird, ist der Name deiner App bereits eingetragen.",
+          "5": "Klicke auf <b>Zu meiner App hinzufügen</b>. Der Editor öffnet die erste Seite der Funktion."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Im Seiteneditor findest du links im Tab <b>Funktionen</b> dieselben Möglichkeiten. Nach dem Hinzufügen erscheint eine Meldung, dass die Seiten im Menü zu finden sind. Über die Schaltfläche <b>Neue Seite öffnen</b> kannst du sie aufrufen."
+        },
+        "heading": "Beim Bearbeiten eine Funktion hinzufügen",
+        "shot": {
+          "alt": "Der Dialog „Funktion hinzufügen“ mit einigen Fragen sowie den Schaltflächen „Abbrechen“ und „Zu meiner App hinzufügen“.",
+          "caption": "Beantworte ein paar Fragen und die Funktion wird hinzugefügt."
+        }
+      },
+      "3": {
+        "body": {
+          "0": "Die Seiten findest du im Menü deiner App und in der Seitenliste im Editor. Was sie speichert (zum Beispiel Buchungen), findest du im Tab <b>Daten</b>. Die Abläufe findest du im Tab <b>Abläufe</b>. Seiten, die nur für dich gedacht sind, zum Beispiel eine Buchungsliste, findest du in der Übersicht unter <b>Adminbereich deiner App</b>."
+        },
+        "heading": "Wo du die hinzugefügten Elemente findest"
+      },
+      "4": {
+        "bullets": {
+          "0": "Eine Karte mit der Kennzeichnung <b>Hinzugefügt</b> ist bereits in deiner App. Wenn du sie noch einmal hinzufügst, wird eine weitere Kopie erstellt – mit eigenen Seiten und Listen.",
+          "1": "Wenn eine Funktion zuerst eine andere benötigt, kannst du sie über die Schaltfläche in der Meldung hinzufügen.",
+          "2": "Bei manchen Funktionen können angemeldete Besucher Dinge einreichen, die erst auf deine Freigabe warten. Bei <b>Orte</b> können Leute zum Beispiel unter <b>Meine Orte</b> einen Veranstaltungsort vorschlagen. Sobald du ihn auf der Seite <b>Orte verwalten</b> freigibst, erscheint er im Guide.",
+          "3": "Manche Funktionen versenden E-Mails und zeigen den Hinweis <b>E-Mail muss auf dem Server eingerichtet werden</b> an. Wenn E-Mail noch nicht eingerichtet ist, wende dich an die Person, die {app} für dich betreibt.",
+          "4": "Es gibt keine Möglichkeit, eine Funktion mit einem Schritt zu entfernen. Du kannst die hinzugefügten Seiten wie jede andere Seite löschen. Gespeicherte Daten bleiben im Tab „Daten“ erhalten.",
+          "5": "Wenn du eine Funktion hinzufügst, ändert sich dein Entwurf. Besucher sehen die Änderung, sobald du sie veröffentlichst."
+        },
+        "heading": "Gut zu wissen"
+      }
+    },
+    "summary": "Füge fertige Bereiche wie Buchungen, einen Shop oder einen Blog hinzu – mit eigenen Seiten und gespeicherten Daten.",
+    "title": "Funktionen hinzufügen"
+  },
+  "flows": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Ein Ablauf ist eine kurze Liste von Schritten, die deine App automatisch ausführt. Etwas passiert (jemand schickt ein Formular ab oder klickt auf eine Schaltfläche, oder eine bestimmte Uhrzeit ist erreicht), deine Schritte werden ausgeführt (Antworten speichern, eine E-Mail senden) und der Besucher erhält ein Ergebnis (eine Dankesnachricht).",
+          "1": "Apps, die die KI erstellt, und Funktionen, die du hinzufügst, enthalten bereits eingerichtete Abläufe. Du kannst sie wie jeden anderen Ablauf öffnen und ändern."
+        },
+        "heading": "Was ist ein Ablauf?"
+      },
+      "1": {
+        "body": {
+          "0": "Im Tab <b>Abläufe</b> findest du eine Liste deiner Abläufe. Bei jedem Ablauf siehst du, wodurch er gestartet wird (durch ein Formular, eine Anfrage oder nach Zeitplan) und wie viele Schritte er hat. Klicke auf einen Ablauf, um ihn zu öffnen.",
+          "1": "Jeder Ablauf hat einen Schalter <b>Ein</b> / <b>Pausiert</b> – sowohl in der Liste als auch im Ablauf selbst. Ein pausierter Ablauf wird nicht ausgeführt. Alles in deiner App, das ihn nutzt, zum Beispiel ein Formular, zeigt stattdessen eine Fehlermeldung an. Pausieren und wieder Einschalten gilt sofort für deine veröffentlichte App. Du musst nichts veröffentlichen."
+        },
+        "heading": "Deine Abläufe",
+        "shot": {
+          "alt": "Der Tab „Abläufe“ mit einer Liste der Abläufe der App. Bei jedem siehst du, wodurch er gestartet wird und wie viele Schritte er hat.",
+          "caption": "Die Abläufe deiner App."
+        }
+      },
+      "2": {
+        "heading": "Ablauf erstellen",
+        "shot": {
+          "alt": "Ein Ablauf im Ablaufeditor: links die hinzufügbaren Schritte, in der Mitte verbundene Schritte und rechts die Einstellungen.",
+          "caption": "Füge links Schritte hinzu, verbinde sie und richte jeden Schritt rechts ein."
+        },
+        "steps": {
+          "0": "Klicke im Tab „Abläufe“ auf <b>Neuer Ablauf</b>, gib einen Namen ein, zum Beispiel „Kontaktformular absenden“, und klicke auf <b>Erstellen</b>.",
+          "1": "Der Ablauf öffnet sich mit dem Startschritt <b>Wenn die App dies aufruft</b>.",
+          "2": "Klicke links unter <b>Schritt hinzufügen</b> auf einen Schritt, um ihn hinzuzufügen. Gib etwas in <b>Schritt suchen …</b> ein, um danach zu suchen. Die Schritte sind in Gruppen eingeteilt: Start, Gespeicherte Daten, Bedingungen und Werte, Senden und Verbinden, KI, Konten und Beenden.",
+          "3": "Verbinde die Schritte in der Reihenfolge, in der sie ausgeführt werden sollen: Ziehe eine Verbindung vom rechten Rand eines Schritts zum nächsten.",
+          "4": "Klicke auf einen Schritt, um ihn im rechten Bereich einzurichten, zum Beispiel die Tabelle, in der Daten gespeichert werden.",
+          "5": "Deine Änderungen werden automatisch gespeichert."
+        }
+      },
+      "3": {
+        "body": {
+          "0": "Bei den meisten Schritten kannst du Werte einfügen, anstatt festen Text einzugeben. Gib unter <b>Aus der Anfrage</b> den Namen eines Formularfelds ein, zum Beispiel „E-Mail“, und klicke auf <b>Hinzufügen</b>. Unter <b>Aus vorherigen Schritten</b> findest du Werte, die frühere Schritte erzeugt haben, zum Beispiel den gefundenen Datensatz."
+        },
+        "heading": "Eingaben von Nutzern verwenden"
+      },
+      "4": {
+        "heading": "Formular oder Button verbinden",
+        "steps": {
+          "0": "Öffne die Seite im Seiteneditor und wähle das Formular oder den Button aus.",
+          "1": "Öffne rechts die <b>Einstellungen</b>.",
+          "2": "Wähle bei einem Formular unter <b>Bei Absenden ausführen</b> deinen Ablauf aus. Bei einem Button wählst du ihn unter <b>Bei Klick ausführen</b> aus. Bei einer Liste legt <b>Elemente anzeigen aus</b> fest, welcher Ablauf die Elemente findet."
+        }
+      },
+      "5": {
+        "body": {
+          "0": "Das sind typische Abläufe. Die meisten davon werden automatisch von Funktionen eingerichtet."
+        },
+        "bullets": {
+          "0": "<b>Kontaktformular, das dir eine E-Mail schickt</b>: Wenn die App diesen Ablauf startet, dann <b>Eintrag hinzufügen</b> (in deiner Nachrichtentabelle), anschließend <b>E-Mail senden</b> an dich selbst, mit der Nachricht der Person, und dann mit einem Dankeschön <b>Antworten</b>.",
+          "1": "<b>Buchung</b>: Wenn die App diesen Ablauf startet, dann mit <b>Einträge zählen oder zusammenrechnen</b> die Buchungen für diese Zeit zählen und anschließend <b>Wenn dies, sonst das</b> ausführen. Ist der Termin frei, <b>Eintrag hinzufügen</b> und zur Bestätigung eine <b>E-Mail senden</b>. Ist er belegt, mit einer entsprechenden Nachricht <b>Antworten</b>. Die Buchungsfunktion übernimmt das alles für dich.",
+          "2": "<b>Anmeldung</b>: Die Funktion für Anmeldung und Konten fügt diese Abläufe hinzu. Beim Registrieren kommen <b>Passwort schützen</b>, <b>Eintrag hinzufügen</b> und <b>Person anmelden</b> zum Einsatz. Beim Anmelden werden <b>Einträge finden</b>, <b>Passwort überprüfen</b> und <b>Person anmelden</b> verwendet.",
+          "3": "<b>Tägliche Zusammenfassung</b>: Wähle im Tab <b>Zeitplan</b> die Optionen <b>Nach Zeitplan</b> und <b>Täglich</b>. Füge dann <b>Einträge zählen oder zusammenrechnen</b> und <b>E-Mail senden</b> mit der Gesamtsumme hinzu."
+        },
+        "heading": "Häufige Abläufe"
+      },
+      "6": {
+        "body": {
+          "0": "Klicke auf <b>Probelauf</b>, um den Ablauf sofort einmal mit deinen neuesten Änderungen auszuführen. Das Ergebnis wird unter den Schritten angezeigt. Die Schritte werden tatsächlich ausgeführt: Es werden Einträge gespeichert und E-Mails versendet. Der Probelauf erscheint auch unter „Aktivität“."
+        },
+        "heading": "Mit einem Probelauf testen"
+      },
+      "7": {
+        "body": {
+          "0": "Im Tab <b>Aktivität</b> siehst du jeden Durchlauf des Ablaufs: <b>Erfolgreich durchgelaufen</b>, <b>Beantwortet</b>, <b>Mit einem Problem beendet</b> oder <b>Fehlgeschlagen</b>. Klicke auf <b>Nur Probleme</b>, um nur die fehlerhaften Durchläufe zu sehen. Öffne einen Durchlauf, um zu sehen, was die Person gesendet hat.",
+          "1": "Probleme werden auch in der Übersicht deiner App unter <b>Probleme der letzten 24 Stunden</b> angezeigt und als Zahl auf der App-Karte in deinem Dashboard."
+        },
+        "heading": "Ergebnisse ansehen",
+        "shot": {
+          "alt": "Der Tab „Aktivität“ eines Ablaufs mit den letzten Durchläufen und deren Ergebnissen.",
+          "caption": "Aktivität: alle Durchläufe und mögliche Probleme."
+        }
+      },
+      "8": {
+        "heading": "Nach Zeitplan ausführen",
+        "steps": {
+          "0": "Öffne den Tab <b>Zeitplan</b> des Ablaufs.",
+          "1": "Wähle <b>Nach Zeitplan</b> statt <b>Wenn deine App ihn verwendet</b>.",
+          "2": "Wähle unter <b>Wie oft</b> die Option <b>Alle paar Minuten</b>, <b>Stündlich</b>, <b>Täglich</b>, <b>Montag bis Freitag</b> oder <b>Einmal pro Woche</b>. Lege anschließend die Uhrzeit und deine Zeitzone fest.",
+          "3": "Speichere und veröffentliche dann deine App. Zeitpläne werden nur in der veröffentlichten App ausgeführt."
+        }
+      },
+      "9": {
+        "bullets": {
+          "0": "Um einen Schritt zu entfernen, wähle ihn aus und klicke auf das Papierkorbsymbol oder drücke die Entf-Taste.",
+          "1": "Änderungen an Abläufen gehören zu deinem Entwurf. Besucher sehen sie erst nach der Veröffentlichung.",
+          "2": "<b>E-Mail senden</b> funktioniert nur, wenn der E-Mail-Versand auf dem Server eingerichtet ist. Andernfalls weist dich die Übersicht deiner App darauf hin.",
+          "3": "Der Schritt <b>KI fragen</b> verbraucht bei jedem Durchlauf das KI-Kontingent deines Tarifs.",
+          "4": "Einen Ablauf zu pausieren oder wieder zu aktivieren, gilt sofort – auch für den Zeitplan. Du musst nichts veröffentlichen.",
+          "5": "Manche Tarife beinhalten keine geplanten Abläufe. Im Tab „Zeitplan“ steht, ob dein Tarif sie unterstützt.",
+          "6": "<b>Webadresse (für Entwickler)</b> brauchst du nur, um einen Ablauf von außerhalb von {app} zu starten."
+        },
+        "heading": "Gut zu wissen"
+      }
+    },
+    "summary": "Lass Dinge automatisch geschehen, wenn jemand deine App nutzt – zum Beispiel eine Buchung speichern und dir eine E-Mail schicken. Oder führe Aufgaben nach Zeitplan aus.",
+    "title": "Abläufe automatisieren"
+  },
+  "forms-and-data": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Wenn jemand ein Formular abschickt, eine Buchung macht oder sich anmeldet, speichert deine App die Angaben als Zeile in einer Tabelle. Eine Tabelle ist wie eine Tabelle in einem Tabellenkalkulationsprogramm: Für jeden Eintrag gibt es eine Zeile und für jede Antwort eine Spalte. Die Tabellen findest du im Tab <b>Daten</b>. Die fünf neuesten Einträge werden auch in der Übersicht deiner App unter <b>Neueste Einträge</b> angezeigt.",
+          "1": "Ein Formular speichert Antworten, wenn es mit einem Ablauf verbunden ist, der sie speichert. Formulare, die mit Funktionen geliefert werden, und Formulare in Apps, die die KI erstellt, sind bereits verbunden. Wenn du selbst ein Formular hinzufügst, wähle es im Seiteneditor aus, öffne <b>Einstellungen</b> und wähle unter <b>Beim Absenden ausführen</b> einen Ablauf aus."
+        },
+        "heading": "Wo Formularantworten landen"
+      },
+      "1": {
+        "heading": "Tabelle öffnen",
+        "shot": {
+          "alt": "Der Tab „Daten“ mit einer Liste der Tabellen der App und der jeweiligen Anzahl an Zeilen.",
+          "caption": "Alles, was deine App speichert – Tabelle für Tabelle."
+        },
+        "steps": {
+          "0": "Öffne den Tab <b>Daten</b>.",
+          "1": "Klicke auf eine Tabelle. Bei jeder Tabelle siehst du, wie viele Zeilen sie enthält, oder den Hinweis <b>Leer</b>.",
+          "2": "Um zur Liste zurückzukehren, klicke auf <b>Alle Tabellen</b>."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Gib etwas in <b>Suchen</b> ein, um Zeilen zu finden. Klicke auf den Namen einer Spalte, um danach zu sortieren. Bei vielen Zeilen kannst du unten <b>Neuer</b> und <b>Älter</b> verwenden."
+        },
+        "heading": "Zeilen suchen, ändern und hinzufügen",
+        "shot": {
+          "alt": "Eine Tabelle im Tab „Daten“ mit einem Suchfeld, den Schaltflächen „Zeile hinzufügen“ und „CSV herunterladen“ sowie den Zeilen darunter.",
+          "caption": "Eine Tabelle: durchsuchen, ändern oder herunterladen."
+        },
+        "steps": {
+          "0": "Um eine Antwort zu ändern, klicke darauf, gib den neuen Wert ein und speichere ihn.",
+          "1": "Um eine ganze Zeile zu ändern, klicke am Ende der Zeile auf den Stift.",
+          "2": "Um selbst eine Zeile hinzuzufügen, klicke auf <b>Zeile hinzufügen</b>.",
+          "3": "Um Zeilen zu löschen, markiere sie, klicke auf <b>Löschen</b> (dort steht, wie viele Zeilen betroffen sind) und dann auf <b>Ja, löschen</b>. Wenn du es dir anders überlegst, klicke auf <b>Behalten</b>."
+        }
+      },
+      "3": {
+        "body": {
+          "0": "Mit <b>CSV herunterladen</b> speicherst du die Tabelle als Datei, die du in Excel, Numbers oder Google Sheets öffnen kannst. Heruntergeladen wird, was du gerade siehst. Suche oder sortiere also zuerst, wenn du nur bestimmte Zeilen brauchst."
+        },
+        "heading": "Kopie herunterladen"
+      },
+      "4": {
+        "body": {
+          "0": "In der Übersicht deiner App werden unter <b>Benachrichtigungen</b> alle Tabellen aufgeführt, in denen Besucherdaten gesammelt werden. Dort kannst du Benachrichtigungen ein- und ausschalten. Sie werden an die E-Mail-Adresse deines Kontos gesendet. Unter <b>Zusätzlich senden an</b> kannst du bis zu drei weitere Adressen hinzufügen. Klicke auf <b>Benachrichtigungen speichern</b> und dann auf <b>Test senden</b>, um zu prüfen, ob alles funktioniert.",
+          "1": "Für Benachrichtigungen muss E-Mail auf dem Server eingerichtet sein. Falls das nicht der Fall ist, wird es auf der Karte angezeigt."
+        },
+        "heading": "E-Mail bei jedem neuen Eintrag erhalten"
+      },
+      "5": {
+        "body": {
+          "0": "Nutzer können anfragen, welche Daten deine App über sie gespeichert hat, oder um deren Löschung bitten. Öffne im Tab „Daten“ den Bereich <b>Datenschutzanfragen</b>, um eine Person über ihre E-Mail-Adresse oder Telefonnummer zu finden. Anschließend kannst du ihre Daten <b>Herunterladen</b> oder <b>Löschen</b>. Nutzer, die beantragt haben, ihr Konto in deiner App zu löschen, findest du unter <b>Wartet auf deine Freigabe</b>."
+        },
+        "heading": "Datenschutzanfragen"
+      },
+      "6": {
+        "bullets": {
+          "0": "Gelöschte Zeilen und Daten einer Person lassen sich nicht wiederherstellen.",
+          "1": "Manche Tabellen kannst du hier nur ansehen, zum Beispiel Tabellen, die in einem Google Sheet gespeichert sind.",
+          "2": "Unter <b>Erweitert</b> am Ende des Tabs „Daten“ siehst du, wo deine Daten gespeichert sind, und kannst Tabellen von Hand erstellen. Die meisten brauchen das nicht.",
+          "3": "Ein Backup im Tab „Veröffentlichen“ enthält alle Tabellen und Zeilen."
+        },
+        "heading": "Gut zu wissen"
+      }
+    },
+    "summary": "Sieh dir alles an, was deine App speichert – zum Beispiel Nachrichten, Buchungen und Anmeldungen. Du kannst danach suchen, es ändern und herunterladen.",
+    "title": "Formulare und deine Daten"
+  },
+  "getting-started": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Nach der Anmeldung landest du auf deinem Dashboard. Über <b>Meine Apps</b> in der oberen Leiste kommst du jederzeit zurück.",
+          "1": "Unter <b>Deine Apps</b> hat jede App eine Karte mit einem kleinen Bild ihrer Startseite, der Anzahl ihrer Seiten und Abläufe und dem Status: <b>Live</b> (veröffentlicht) oder <b>Entwurf</b> (nur für dich sichtbar). Mit <b>Alle Apps</b>, <b>Live</b> und <b>Entwürfe</b> sowie dem Feld <b>App suchen…</b> kannst du die Liste filtern.",
+          "2": "Klicke auf das Bild einer Karte, um die Bearbeitung fortzusetzen. Klicke auf den Namen der App, um die Übersicht zu öffnen. Neben <b>Deine Apps</b> siehst du deinen Tarif, wie viele Apps du hast und wie viele KI-Aktionen du diesen Monat genutzt hast. Klicke darauf, um <b>Abrechnung und Tarif</b> zu öffnen."
+        },
+        "heading": "Dein Dashboard",
+        "shot": {
+          "alt": "Das Dashboard mit dem Ideenfeld oben und darunter einer Karte für jede App.",
+          "caption": "Dein Dashboard. Jede Karte steht für eine deiner Apps."
+        }
+      },
+      "1": {
+        "body": {
+          "0": "Wähle einfach aus, was am besten zu dir passt. Mit jeder Methode erhältst du eine App, die du in denselben Tools weiter bearbeiten kannst."
+        },
+        "bullets": {
+          "0": "<b>Beschreibe sie.</b> Schreib in deinen eigenen Worten, was du möchtest. Die KI schlägt einen Plan vor, den du prüfen und ändern kannst. Anschließend erstellt sie die Seiten, Formulare und Daten.",
+          "1": "<b>KI-Designer.</b> Gestalte deine App Schritt für Schritt im Chat mit der KI. In der Anleitung „Mit dem KI-Designer gestalten“ erfährst du mehr.",
+          "2": "<b>Vorlagen.</b> Beginne mit einem fertigen Design, zum Beispiel für ein Restaurant oder ein Portfolio, und ändere beliebige Texte, Bilder und Farben.",
+          "3": "<b>Website kopieren.</b> Übernimm bis zu 30 Seiten einer Website, die dir gehört, in eine neue App, die du bearbeiten kannst.",
+          "4": "<b>Leere App.</b> Beginne mit einer einfachen Seite und baue deine App selbst mit Blöcken zum Ziehen und Ablegen.",
+          "5": "<b>App importieren.</b> Stelle eine App aus einer Backup-.zip-Datei wieder her, die auf diesem oder einem anderen Server erstellt wurde."
+        },
+        "heading": "Sechs Möglichkeiten, eine App zu erstellen"
+      },
+      "2": {
+        "body": {
+          "0": "Wenn die KI auf diesem Server nicht eingerichtet ist, sind diese Methode und der KI-Designer nicht verfügbar. Beginne stattdessen mit einer Vorlage."
+        },
+        "heading": "Beschreibe deine App und prüfe den Plan",
+        "shot": {
+          "alt": "Der Bildschirm zur App-Erstellung mit der Frage „Was möchtest du erstellen?“, einem großen Textfeld und Beispielideen.",
+          "caption": "Beschreibe deine App in deinen eigenen Worten. Bevor etwas erstellt wird, siehst du zuerst einen Plan."
+        },
+        "steps": {
+          "0": "Schreib auf deinem Dashboard in das Feld einen Satz über deine App, zum Beispiel „Buchungen für meinen Gassi-Service“, und klicke auf <b>App planen</b>. Du kannst auch auf <b>Weitere Möglichkeiten</b> klicken und dort das große Feld verwenden.",
+          "1": "Beschreibe, wer die App nutzt und was man damit machen kann. Du bist dir nicht sicher? Wähle eine der Beispielideen unter dem Feld aus und passe sie an.",
+          "2": "Warte kurz, während die KI deine Idee liest. Es wird noch nichts erstellt.",
+          "3": "Prüfe den Plan unter <b>Das werde ich erstellen</b>: den Namen und das Design der App (klicke auf das Farbfeld, um eine andere Farbe auszuwählen), die <b>Seiten</b>, <b>Gespeicherte Daten</b> und <b>Meine Annahmen</b>. Entferne eine unerwünschte Seite über das Papierkorb-Symbol.",
+          "4": "Möchtest du etwas ändern? Schreib es unter <b>Du möchtest etwas anderes?</b>, zum Beispiel „Eine Preisseite hinzufügen“, und klicke auf <b>Plan aktualisieren</b>.",
+          "5": "Klicke auf <b>App erstellen</b>. Das dauert normalerweise ein paar Minuten. Du kannst die Seite verlassen: Die Erstellung läuft weiter und ist fertig, wenn du zurückkommst.",
+          "6": "Sobald deine App fertig ist, wird sie mit einer kurzen Begrüßung im Seiteneditor geöffnet."
+        }
+      },
+      "3": {
+        "body": {
+          "0": "<b>Vorlagen.</b> Klicke auf eine Vorlage, um sie größer anzusehen, gib deiner App einen Namen und klicke auf <b>App mit dieser Vorlage erstellen</b>. Mit dem Suchfeld und den Kategoriefiltern kannst du die Liste eingrenzen.",
+          "1": "<b>Website kopieren.</b> Gib die Adresse der Website ein, zum Beispiel meinunternehmen.de, und klicke auf <b>Meine Website kopieren</b>. Kopiere nur Websites, die dir gehören oder für die du eine Erlaubnis hast. Klicke auf <b>Stopp</b>, um abzubrechen. Es wird nichts gespeichert.",
+          "2": "<b>Leere App.</b> Gib einen Namen ein und klicke auf <b>App erstellen</b>. Du erhältst eine einfache Begrüßungsseite mit dem Namen deiner App, auf der du aufbauen kannst, sowie Seiten zum Anmelden und Registrieren.",
+          "3": "<b>App importieren.</b> Wähle die Backup-.zip-Datei aus, gib bei Bedarf einen neuen Namen ein und klicke auf <b>App importieren</b>. Du erhältst eine Kopie mit den Seiten, Abläufen, Daten und Bildern. Passwörter der Mitglieder deiner App sind nicht in Backups enthalten. Sie müssen daher einmal „Passwort vergessen“ verwenden."
+        },
+        "heading": "Die anderen Möglichkeiten"
+      },
+      "4": {
+        "body": {
+          "0": "Oben in jeder App findest du die Tabs <b>Übersicht</b>, <b>Seiten</b>, <b>Funktionen</b>, <b>Abläufe</b>, <b>Daten</b>, <b>Benachrichtigungen</b>, <b>Design</b>, <b>Domains</b> und <b>Mobile App</b>. Rechts davon findest du <b>Vorschau</b> und <b>Veröffentlichen</b>. Bei Apps, die mit dem KI-Designer erstellt wurden, gibt es statt der Übersicht den Tab <b>Designer</b>.",
+          "1": "In der Übersicht siehst du, ob deine App live ist und unter welcher Adresse sie erreichbar ist. Außerdem findest du dort eine <b>Checkliste zur Veröffentlichung</b> mit den nächsten Schritten, einen Code zum Öffnen der App auf deinem Smartphone, dein App-Symbol, die neuesten Nachrichten von Besuchern und E-Mail-Benachrichtigungen. Mit <b>Weiter bearbeiten</b> kehrst du zu deinen Seiten zurück."
+        },
+        "heading": "Die Übersicht deiner App",
+        "shot": {
+          "alt": "Der Tab „Übersicht“ einer App mit dem App-Namen, der Anzahl der Seiten und Abläufe sowie der Checkliste zur Veröffentlichung.",
+          "caption": "Die Übersicht: Deine App auf einen Blick mit einer Checkliste der nächsten Schritte."
+        }
+      },
+      "5": {
+        "bullets": {
+          "0": "Deine Arbeit wird automatisch gespeichert. Im Seiteneditor gibt es keine Speichern-Schaltfläche.",
+          "1": "Deine App ist erst öffentlich, wenn du sie veröffentlichst. Unter <b>Vorschau</b> kannst du sie vorher ausprobieren.",
+          "2": "Um eine App zu löschen, klicke auf das Papierkorb-Symbol ihrer Karte auf dem Dashboard. Lade zuerst ein Backup herunter: Das Löschen kann nicht rückgängig gemacht werden.",
+          "3": "Dein Tarif kann die Anzahl der Apps begrenzen, die du erstellen kannst. Wenn du das Limit erreichst, findest du weitere Infos unter <b>Abrechnung und Tarif</b>.",
+          "4": "Bewege die Maus über eine Schaltfläche, um einen kurzen Tipp dazu zu sehen. Die Tipps kannst du in deinem <b>Profil</b> ausschalten."
+        },
+        "heading": "Gut zu wissen"
+      }
+    },
+    "summary": "Lerne {app} kennen und erstelle deine erste App – ganz so, wie es für dich passt.",
+    "title": "Erste Schritte"
+  },
+  "groups": {
+    "account": "Dein Konto",
+    "build": "App erstellen",
+    "platform": "Plattform betreiben",
+    "publish": "Veröffentlichen und wachsen"
+  },
+  "look-and-feel": {
+    "sections": {
+      "0": {
+        "heading": "Design auswählen",
+        "shot": {
+          "alt": "Der Tab „Design“ mit hellen und dunklen Designs links und einer Live-Vorschau rechts.",
+          "caption": "Klicke auf ein Design und die Vorschau wird sofort aktualisiert."
+        },
+        "steps": {
+          "0": "Öffne den Tab <b>Design</b>.",
+          "1": "Sieh dir die <b>hellen Designs</b> und <b>dunklen Designs</b> an.",
+          "2": "Klicke auf ein Design. Die <b>Live-Vorschau</b> rechts wird sofort aktualisiert. Wechsle zwischen <b>Deiner Startseite</b> und <b>Beispiel</b>, um es auf verschiedenen Seiten anzusehen.",
+          "3": "Fertig: Änderungen werden automatisch gespeichert und oben erscheint <b>Gespeichert</b>."
+        }
+      },
+      "1": {
+        "body": {
+          "0": "Unter <b>Anpassen</b> kannst du jeden Teil des Designs ändern:"
+        },
+        "bullets": {
+          "0": "<b>Modus</b>: hell oder dunkel.",
+          "1": "<b>Fließtext-Schriftart</b> für normalen Text und <b>Überschriften-Schriftart</b> für Überschriften. Eine Beispielzeile zeigt dir die jeweilige Schriftart.",
+          "2": "<b>Farben</b>: <b>Primärfarbe</b> ist deine Hauptfarbe. Sie wird für Schaltflächen und Links verwendet. <b>Primärfarbe beim Daraufzeigen</b> ist der Farbton, der beim Daraufzeigen erscheint. Sie passt sich an, wenn du die Primärfarbe änderst. Außerdem gibt es <b>Akzent</b>, <b>Hintergrund</b>, <b>Fläche</b> und <b>Fläche 2</b> (für Karten und Bereiche), <b>Rahmen</b>, <b>Text</b> und <b>Abgeschwächter Text</b>.",
+          "3": "<b>Ecken</b>: Mit <b>Radius</b> legst du die Rundung von Schaltflächen und Karten fest, mit <b>Radius klein</b> die von kleineren Elementen. 0 bedeutet eckig; je größer die Zahl, desto runder die Ecken."
+        },
+        "heading": "Individuell anpassen"
+      },
+      "2": {
+        "body": {
+          "0": "Im Seiteneditor findest du rechts im Tab <b>Design</b> dieselben Einstellungen für Farben und Schriftarten. So kannst du sie ändern, ohne die Seite zu verlassen."
+        },
+        "heading": "Beim Bearbeiten ändern"
+      },
+      "3": {
+        "bullets": {
+          "0": "Das Design gilt für alle Seiten deiner App.",
+          "1": "Klicke auf ein Farbfeld, um eine Farbe auszuwählen, oder gib einen Farbcode wie #3366ff ein.",
+          "2": "Mit <b>Zurücksetzen</b> stellst du das Design wieder her, das beim Öffnen des Tabs „Design“ eingestellt war.",
+          "3": "Besucher sehen Änderungen am Design erst nach der Veröffentlichung."
+        },
+        "heading": "Gut zu wissen"
+      }
+    },
+    "summary": "Wähle ein fertiges Design oder lege eigene Farben, Schriftarten und Ecken für alle Seiten deiner App fest.",
+    "title": "Farben und Schriftarten"
+  },
+  "members-and-sign-in": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Die Funktion <b>Anmeldung und Konten</b> fügt deiner App die Seiten <b>Anmelden</b>, <b>Registrieren</b> und <b>Profil</b> sowie die zugehörigen Abläufe hinzu. In neuen Apps ist sie normalerweise schon enthalten. Falls nicht, füge sie im Tab „Funktionen“ hinzu.",
+          "1": "Wer sich registriert, wird Mitglied deiner App. Die Konten sind unabhängig von deinem eigenen {app}-Konto."
+        },
+        "heading": "Anmeldeseiten"
+      },
+      "1": {
+        "heading": "Seite privat machen",
+        "shot": {
+          "alt": "Das Fenster „Seiteneinstellungen“ mit dem Seitennamen, den Zugriffsrechten und der Position im Menü.",
+          "caption": "Seiteneinstellungen: Lege fest, wer die Seite öffnen kann."
+        },
+        "steps": {
+          "0": "Klicke im Seiteneditor oben auf den Seitennamen, um <b>Deine Seiten</b> zu öffnen.",
+          "1": "Klicke neben der Seite auf das Zahnradsymbol (<b>Seiteneinstellungen</b>).",
+          "2": "Wähle unter <b>Wer kann diese Seite sehen</b> die Option <b>Alle</b>, <b>Angemeldete Personen</b> (Besucher müssen sich zuerst anmelden; ein Konto kann jeder erstellen) oder <b>Nur Admins</b> (nur du und die Personen, die du zu Admins machst).",
+          "3": "Klicke auf <b>Speichern</b>."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Mit <b>Im Menü anzeigen</b> in den <b>Seiteneinstellungen</b> fügst du einen Link zur Seite ins Menü deiner App ein. Über <b>Nach oben</b> und <b>Nach unten</b> legst du die Position fest. Die Startseite steht immer an erster Stelle. Auch Seiten, die nicht im Menü stehen, können über ihren Link geöffnet werden, sofern die Person darauf zugreifen darf."
+        },
+        "heading": "Das Menü"
+      },
+      "3": {
+        "body": {
+          "0": "Unter <b>Adminbereich deiner App</b> in der Übersicht deiner App findest du Seiten, die nur für dich und dein Team bestimmt sind, zum Beispiel eine Buchungsliste. Klicke auf eine Seite, um sie zu öffnen, ohne dich bei deiner App anzumelden. Vor der Veröffentlichung werden die Seiten in der Vorschau geöffnet."
+        },
+        "heading": "Adminbereich deiner App"
+      },
+      "4": {
+        "heading": "Admin-Zugang für dein Team einrichten",
+        "shot": {
+          "alt": "Die Karte „Adminbereich deiner App“ in der Übersicht mit Adminseiten und einem Formular zum Hinzufügen eines Admin-Zugangs.",
+          "caption": "Öffne deine Adminseiten oder richte einen Admin-Zugang für jemanden ein."
+        },
+        "steps": {
+          "0": "Suche in der Übersicht deiner App nach <b>Admin-Zugänge für dein Team</b>.",
+          "1": "Gib die <b>E-Mail-Adresse</b> und ein mindestens 10 Zeichen langes <b>Passwort</b> ein.",
+          "2": "Klicke auf <b>Admin hinzufügen</b>. Die Person kann sich jetzt über die Anmeldeseite deiner App anmelden und die Adminseiten öffnen."
+        }
+      },
+      "5": {
+        "bullets": {
+          "0": "Wenn du die E-Mail-Adresse einer Person verwendest, die bereits ein Konto in deiner App hat, wird sie zum Admin und ihr Passwort geändert.",
+          "1": "Ist eine Seite privat, aber deine App hat noch keine Anmeldeseite, kannst nur du sie öffnen. Die Seiteneinstellungen weisen dich darauf hin.",
+          "2": "Änderungen daran, wer eine Seite sehen kann, gehören zu deinem Entwurf. Veröffentliche die App, um sie zu übernehmen.",
+          "3": "Mitglieder können ihr eigenes Konto löschen. Anfragen dazu findest du im Tab „Daten“ unter <b>Datenschutzanfragen</b>.",
+          "4": "Passwörter der Mitglieder sind nicht in Sicherungen enthalten. Nach einem Import müssen Mitglieder einmal „Passwort vergessen“ verwenden."
+        },
+        "heading": "Gut zu wissen"
+      }
+    },
+    "summary": "Ermögliche Nutzern, Konten in deiner App zu erstellen, und lege fest, welche Seiten für alle, angemeldete Mitglieder oder nur für Admins zugänglich sind.",
+    "title": "Mitglieder, Anmeldung und private Seiten"
+  },
+  "page-editor": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Öffne den Tab <b>Seiten</b>. Links findest du <b>Blöcke</b>, <b>Funktionen</b> und <b>Medien</b> (kostenlose Fotos). In der Mitte siehst du deine Seite. Rechts findest du <b>Design</b>, <b>Ebenen</b>, <b>Einstellungen</b> und <b>Designvorlage</b>.",
+          "1": "In der Leiste über deiner Seite findest du Rückgängig und Wiederholen, den Speicherstatus, die Schaltflächen für Bildschirmgrößen und die <b>Vorschau</b>. Über die Schaltflächen an den Enden kannst du die Seitenleisten aus- und einblenden, um mehr Platz zu haben."
+        },
+        "heading": "Orientierung",
+        "shot": {
+          "alt": "Der Seiteneditor: links Blöcke, in der Mitte die Seite und rechts die Designeinstellungen.",
+          "caption": "Der Seiteneditor. Klick auf ein beliebiges Element deiner Seite, um es zu ändern."
+        }
+      },
+      "1": {
+        "body": {
+          "0": "Klick auf einen beliebigen Text auf der Seite und gib etwas Neues ein.",
+          "1": "Doppelklick auf ein Bild, um es durch ein anderes zu ersetzen. Du kannst auch ein Bild auswählen und dann unter <b>Medien</b> auf ein Foto tippen. Mit einem Doppelklick auf ein Symbol kannst du ein anderes auswählen."
+        },
+        "heading": "Texte und Bilder ändern"
+      },
+      "2": {
+        "heading": "Blöcke hinzufügen",
+        "steps": {
+          "0": "Klick auf den Teil deiner Seite, unter dem das neue Element erscheinen soll.",
+          "1": "Such links unter <b>Blöcke</b> nach dem gewünschten Element. Die Blöcke sind in Gruppen sortiert, zum Beispiel Layout, Abschnitte, Inhalte, Formulare und Medien. Gib unter <b>Blöcke suchen...</b> einen Begriff wie „Schaltfläche“ oder „Foto“ ein, um schnell etwas zu finden.",
+          "2": "Tippe auf den Block, um ihn unter dem ausgewählten Teil hinzuzufügen, oder zieh ihn genau an die gewünschte Stelle."
+        }
+      },
+      "3": {
+        "body": {
+          "0": "Klick auf ein Element deiner Seite, um es auszuwählen. Sein Name erscheint oben im rechten Bereich. Daneben wird eine kleine Werkzeugleiste eingeblendet: <b>Übergeordnetes Element auswählen</b>, <b>Nach oben verschieben</b>, <b>Nach unten verschieben</b>, <b>Ziehen zum Verschieben</b>, <b>Duplizieren</b> und <b>Löschen</b>.",
+          "1": "Im Tab <b>Ebenen</b> sind alle Elemente deiner Seite der Reihe nach aufgelistet. Klick auf eine Zeile, um ein schwer anklickbares Element auszuwählen, oder zieh Zeilen, um Elemente zu verschieben. Über das Augensymbol kannst du ein Element ausblenden, während du an den anderen arbeitest."
+        },
+        "heading": "Auswählen, verschieben und löschen"
+      },
+      "4": {
+        "body": {
+          "0": "Wähle ein Element aus und öffne rechts den Tab <b>Design</b>. Ändere Text, Farben, Abstände, Größe und Ecken – die Seite wird sofort aktualisiert.",
+          "1": "Unter <b>Erweitert</b> findest du weitere Optionen wie Schriftarten, Schatten und die Anordnung von Elementen in einem Feld sowie Stile für den Mauszeiger über einem Element. Für Farben und Schriftarten in der ganzen App öffne <b>Designvorlage</b>."
+        },
+        "heading": "Aussehen ändern"
+      },
+      "5": {
+        "body": {
+          "0": "Wähle einen Link, ein Bild, eine Schaltfläche, ein Formular oder eine Liste aus und öffne rechts den Tab <b>Einstellungen</b>. Zum Beispiel:"
+        },
+        "bullets": {
+          "0": "Unter <b>Führt zu</b> legst du fest, wohin ein Link führt. Verwende /seitenname für eigene Seiten oder eine vollständige https://-Adresse für eine andere Website.",
+          "1": "Unter <b>Bildbeschreibung</b> beschreibst du ein Bild für Menschen, die es nicht sehen können, und für Suchmaschinen.",
+          "2": "Unter <b>Beim Absenden ausführen</b> (bei einem Formular) legst du fest, welcher Ablauf gestartet wird, wenn jemand das Formular absendet. <b>Beim Klicken ausführen</b> macht dasselbe für eine Schaltfläche.",
+          "3": "Unter <b>Elemente anzeigen aus</b> (bei einer Liste) legst du fest, woher die Liste ihre Elemente bezieht, zum Beispiel aus deinen Buchungen oder Produkten."
+        },
+        "heading": "Einstellungen für Links, Schaltflächen, Formulare und Listen"
+      },
+      "6": {
+        "heading": "KI fragen",
+        "shot": {
+          "alt": "Der KI-Assistent ist über dem Seiteneditor geöffnet und schlägt Änderungen vor, die du ausprobieren kannst.",
+          "caption": "KI fragen: Beschreibe die gewünschte Änderung und die Seite wird für dich angepasst."
+        },
+        "steps": {
+          "0": "Klicke unten rechts auf <b>KI fragen</b>.",
+          "1": "Um nur einen Teil zu ändern, wähle ihn zuerst auf der Seite aus. Im Bereich steht dann <b>Änderungen gelten für die Auswahl…</b>. Klicke auf <b>Stattdessen ganze Seite</b>, um die ganze Seite zu ändern.",
+          "2": "Schreib, was du ändern möchtest, zum Beispiel „Füge einen Preisbereich hinzu“, und drücke die Eingabetaste oder klicke auf <b>Senden</b>. Du kannst auch ein Bild anhängen, etwa einen Screenshot von einem Design, das dir gefällt.",
+          "3": "Die Seite wird im Editor geändert. Wenn dir das Ergebnis nicht gefällt, klicke auf „Rückgängig“."
+        }
+      },
+      "7": {
+        "body": {
+          "0": "Klicke oben neben <b>BEARBEITEN</b> auf den Seitennamen, um <b>Deine Seiten</b> zu sehen. Klicke auf eine Seite, um sie zu öffnen. Deine Änderungen auf der aktuellen Seite werden vorher gespeichert.",
+          "1": "Um eine Seite hinzuzufügen, klicke auf <b>Seite hinzufügen</b>, gib den Namen ein und klicke noch einmal auf <b>Seite hinzufügen</b>. Die Seite erscheint im Menü deiner App.",
+          "2": "Neben jeder Seite: Über das Zahnrad öffnest du die <b>Seiteneinstellungen</b> (hier kannst du den Namen ändern, festlegen, wer die Seite sehen darf, ihre Position im Menü ändern oder sie <b>duplizieren</b>). Mit dem Haus machst du sie zur Startseite. Über den Papierkorb löschst du sie nach einer Bestätigung. Gelöschte Seiten können nicht wiederhergestellt werden."
+        },
+        "heading": "Deine Seiten"
+      },
+      "8": {
+        "body": {
+          "0": "Mit den Schaltflächen <b>Desktop</b>, <b>Tablet</b> und <b>Mobil</b> siehst du deine Seite in verschiedenen Größen. Prüfe sie immer auch auf dem Smartphone: Die meisten Besucher nutzen ihr Handy.",
+          "1": "Über <b>Vorschau</b> öffnest du die Seite in einem neuen Tab. Dort kannst du sie ausprobieren und sehen, wie Schaltflächen und Formulare funktionieren. Die Vorschau zeigt deine neuesten Änderungen. Besucher sehen sie erst nach der Veröffentlichung."
+        },
+        "heading": "Auf dem Smartphone prüfen und dann Vorschau öffnen"
+      },
+      "9": {
+        "body": {
+          "0": "Mit den gebogenen Pfeilen oben links kannst du deine letzten Änderungen rückgängig machen oder wiederherstellen – auch Änderungen der KI.",
+          "1": "Deine Änderungen werden automatisch gespeichert. In der Leiste steht zuerst <b>Wird gespeichert…</b> und dann <b>Gespeichert</b>. Wenn dort <b>Nicht gespeichert</b> steht, überprüfe deine Internetverbindung. Der Editor versucht es weiter. Mit <b>Erneut versuchen</b> startet ein neuer Versuch sofort. Wenn deine Änderungen vor dem Schließen des Tabs nicht den Server erreicht haben, kannst du sie beim nächsten Öffnen der Seite <b>wiederherstellen</b>."
+        },
+        "heading": "Rückgängig machen und speichern"
+      },
+      "10": {
+        "bullets": {
+          "0": "Änderungen bleiben in deinem Entwurf. Besucher sehen sie erst nach der Veröffentlichung.",
+          "1": "Apps, die mit dem KI-Designer erstellt wurden, beziehen ihre Seiten aus dem Design. Ändere sie deshalb im Designer.",
+          "2": "Wenn bei einem fertigen Baustein <b>Verbinden?</b> steht, richtet <b>Ja, verbinden</b> einen Speicherort für die eingesendeten Inhalte ein und verbindet das Formular damit. <b>Nein, ich kümmere mich darum</b> fügt den Baustein unverändert hinzu."
+        },
+        "heading": "Gut zu wissen"
+      }
+    },
+    "summary": "Ändere Texte, Bilder und Layouts mit Klicks und Ziehen oder lass die KI das für dich erledigen.",
+    "title": "Seiten bearbeiten"
+  },
+  "phone-apps": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Jede veröffentlichte App lässt sich direkt im Browser installieren – ganz ohne App Store. Öffne deine App auf dem Handy (scanne den Code in der Übersicht oder im Tab „Veröffentlichen“) und wähle im Browsermenü <b>Zum Startbildschirm hinzufügen</b>. Auf einem iPhone findest du diese Option unter der Teilen-Schaltfläche. Danach öffnet sich die App wie jede andere App mit deinem Symbol.",
+          "1": "Lege das App-Symbol deiner App in der Übersicht unter <b>App-Symbol</b> fest. Du kannst ein Bild hochladen oder eines von der KI erstellen lassen."
+        },
+        "heading": "Zum Startbildschirm hinzufügen"
+      },
+      "1": {
+        "heading": "Benachrichtigungen senden",
+        "shot": {
+          "alt": "Der Tab „Benachrichtigungen“ mit der Zahl der Abonnenten und einem Formular zum Schreiben und Senden einer Benachrichtigung.",
+          "caption": "Schreibe eine Benachrichtigung und sende sie an alle, die sich angemeldet haben."
+        },
+        "steps": {
+          "0": "Öffne den Tab <b>Benachrichtigungen</b>.",
+          "1": "Wenn Benachrichtigungen ausgeschaltet sind, klicke auf <b>Benachrichtigungen aktivieren</b>. Dadurch wird eine kleine Seite „Benachrichtigungen erhalten“ hinzugefügt, über die sich Besucher anmelden können.",
+          "2": "Veröffentliche deine App, damit sich Besucher anmelden können.",
+          "3": "Gib einen <b>Titel</b> und eine <b>Nachricht</b> ein. Du kannst auch eine Seite festlegen, die sich beim Tippen auf die Benachrichtigung öffnet, zum Beispiel /menu.",
+          "4": "Klicke auf <b>Senden an</b> (dort siehst du, wie viele Personen die Benachrichtigung erhalten). Unter <b>Gesendet</b> siehst du, was du verschickt hast und wie viele zugestellt wurden."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Auf Android-Smartphones und Computern aktivieren Nutzer Benachrichtigungen im Browser. Auf iPhone und iPad fügen sie deine App zuerst zum Home-Bildschirm hinzu und aktivieren Benachrichtigungen dann dort.",
+          "1": "Auch Abläufe können Benachrichtigungen senden – mit dem Schritt <b>Benachrichtigung senden</b>."
+        },
+        "heading": "Wer Benachrichtigungen erhalten kann"
+      },
+      "3": {
+        "body": {
+          "0": "Die Smartphone-App zeigt deine veröffentlichte App. Wenn du Änderungen veröffentlichst, werden sie übernommen, ohne dass du eine neue Version erstellen musst."
+        },
+        "heading": "Eine Android-App erstellen",
+        "shot": {
+          "alt": "Der Tab „Mobile App“ mit den App-Details und Schaltflächen zum Erstellen von Android-Versionen.",
+          "caption": "Erstelle eine Testversion oder die Datei, die Google Play verlangt."
+        },
+        "steps": {
+          "0": "Veröffentliche zuerst deine App.",
+          "1": "Öffne den Tab <b>Mobile App</b>.",
+          "2": "Prüfe unter <b>App-Details</b> den <b>App-Namen</b>, die <b>Bundle-/Anwendungs-ID</b> (zum Beispiel com.yourbusiness.app; ändere sie niemals, wenn deine App bereits in einem Store ist), die <b>Version</b>, die <b>Ausrichtung</b> und die Farben. Klicke dann auf <b>Einstellungen speichern</b>.",
+          "3": "Klicke auf <b>Test-APK erstellen</b>, um eine Kopie zu erstellen, die du direkt auf einem Android-Smartphone installieren und ausprobieren kannst.",
+          "4": "Wenn du bereit für Google Play bist, klicke auf <b>Für Google Play erstellen</b>. Unter <b>Deine App bei Google Play veröffentlichen</b> findest du eine Anleitung zu den Schritten im Store."
+        }
+      },
+      "4": {
+        "body": {
+          "0": "Google Play erkennt deine App anhand ihres Upload-Schlüssels – einer geheimen Datei, die beim ersten Erstellen für Google Play angelegt wird. Klicke auf <b>Sicherungskopie des Schlüssels herunterladen</b> und bewahre sie an einem sicheren Ort auf, zum Beispiel in einem Passwortmanager. Ohne diesen Schlüssel kannst du deine App bei Google Play nie wieder aktualisieren. Nur der Inhaber der App kann ihn herunterladen."
+        },
+        "heading": "Bewahre deinen Upload-Schlüssel sicher auf"
+      },
+      "5": {
+        "body": {
+          "0": "Klicke im Tab „Mobile App“ auf <b>iPhone-Projekt herunterladen</b>. Zum Erstellen einer iPhone-App brauchst du ein kostenpflichtiges Apple-Developer-Konto und entweder einen Mac oder ein kostenloses GitHub-Konto. Die Anleitung im Download erklärt beide Möglichkeiten Schritt für Schritt."
+        },
+        "heading": "iPhone und iPad"
+      },
+      "6": {
+        "bullets": {
+          "0": "Unter <b>Von dieser App genutzte Smartphone-Funktionen</b> siehst du, worauf deine App zugreift, zum Beispiel auf Kamera oder Standort. Wenn sich diese Liste ändert, erstelle eine neue Version und sende sie an die Stores.",
+          "1": "Smartphones öffnen Apps nur über eine sichere Adresse (https). Im Tab „Mobile App“ wirst du gewarnt, wenn deine Adresse nicht sicher ist.",
+          "2": "Wenn die Meldung <b>Android-Builds sind auf diesem Server deaktiviert</b> angezeigt wird, wende dich an die Person, die {app} für dich betreibt.",
+          "3": "Lade vor dem Löschen einer App oder deines Kontos den Upload-Schlüssel für Google Play herunter."
+        },
+        "heading": "Gut zu wissen"
+      }
+    },
+    "summary": "Füge deine App zum Startbildschirm hinzu, sende Benachrichtigungen und erstelle Android- und iPhone-Versionen.",
+    "title": "Handy-Apps und Benachrichtigungen"
+  },
+  "prices-and-payments": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "<b>Wenn du die Plattform betreibst:</b> Öffne in Admin den Bereich <b>Alle Einstellungen</b> und dann <b>Zahlungen</b>, um Preise und Stripe einzurichten, oder <b>Tarife und Limits</b>, um festzulegen, was die einzelnen Tarife enthalten.",
+          "1": "<b>Wenn du Reseller bist:</b> Öffne in deinem Reseller-Dashboard den Bereich <b>Abrechnung und Tarife</b>. Dort findest du <b>1. Deine Preise</b> und <b>2. Was die einzelnen Tarife enthalten</b>.",
+          "2": "Zahlungen werden über Stripe abgewickelt, einen Online-Zahlungsdienst. Dafür brauchst du ein eigenes Stripe-Konto."
+        },
+        "heading": "Hier findest du die Einstellungen"
+      },
+      "1": {
+        "heading": "Stripe verbinden",
+        "steps": {
+          "0": "Öffne in Stripe den Bereich „Entwickler“ und dann „API-Schlüssel“. Kopiere den <b>geheimen Schlüssel</b>. Zum Ausprobieren kannst du zuerst einen Testschlüssel verwenden (er beginnt mit sk_test_).",
+          "1": "Füge ihn unter <b>Stripe</b> in das Feld <b>Geheimer Schlüssel</b> ein.",
+          "2": "Klicke auf <b>Preise speichern</b>. {app} richtet die Zahlungsbenachrichtigungen von Stripe automatisch für dich ein."
+        }
+      },
+      "2": {
+        "heading": "Preise festlegen",
+        "shot": {
+          "alt": "Der Bereich „Zahlungen“ mit einem Namen, Monatspreis und einer Währung für jeden kostenpflichtigen Tarif sowie dem Stripe-Schlüssel.",
+          "caption": "Benenne und bepreise jeden Tarif und verbinde Stripe."
+        },
+        "steps": {
+          "0": "Unter <b>Tarife und Preise</b> hat jeder kostenpflichtige Tarif einen <b>Tarifnamen</b>, einen <b>Monatspreis</b> und eine <b>Währung</b>.",
+          "1": "Gib für jeden Tarif, den du anbieten möchtest, einen Preis ein. Lass das Preisfeld leer, um den Tarif auszublenden. Den kostenlosen Tarif gibt es immer.",
+          "2": "Klicke auf <b>Preise speichern</b>. Die Preise werden automatisch in deinem Stripe-Konto angelegt."
+        }
+      },
+      "3": {
+        "body": {
+          "0": "Lege für jeden Tarif die Anzahl der <b>Apps</b>, <b>veröffentlichten Apps</b>, <b>Seiten pro App</b>, <b>eigenen Domains</b> und <b>KI-Aktionen pro Monat</b> fest. Lege außerdem fest, ob <b>geplante Workflows</b> enthalten sind.",
+          "1": "Aktiviere unter <b>Tarife und Limits</b> des Betreibers <b>unbegrenzt</b>, wenn es kein Limit geben soll. Klicke dann auf <b>Tariflimits speichern</b>. Lass unter <b>Abrechnung und Tarife</b> eines Resellers ein Feld leer, um kein Limit festzulegen, und klicke auf <b>Tarife speichern</b>.",
+          "2": "Reseller können außerdem <b>Neuen Kunden erlauben, sich auf Ihrer Domain selbst anzumelden</b> deaktivieren, damit Konten nur auf Einladung erstellt werden können."
+        },
+        "heading": "Festlegen, was die einzelnen Tarife enthalten",
+        "shot": {
+          "alt": "Die Tabelle „Pläne und Limits“ mit einer Spalte pro Plan und einer Zeile pro Limit.",
+          "caption": "Das ist in den einzelnen Plänen enthalten."
+        }
+      },
+      "4": {
+        "body": {
+          "0": "Kunden sehen die angebotenen Pläne auf ihrer Seite <b>Abrechnung und Plan</b>. Über die Schaltfläche <b>Upgrade</b> gelangen sie zu Stripe, um zu bezahlen. Zahlende Kunden können über <b>Abrechnung verwalten</b> ihre Karte ändern oder kündigen. Solange Stripe nicht verbunden ist, werden Ihre Preise trotzdem angezeigt. Sobald Stripe verbunden ist, funktioniert auch der Bezahlvorgang.",
+          "1": "Sie können den Plan auch manuell ändern: den des Betreibers über die Nutzerliste und den eines Resellers über die Kundenliste."
+        },
+        "heading": "Was Kunden sehen"
+      },
+      "5": {
+        "bullets": {
+          "0": "Kunden bezahlen Sie direkt über Ihr eigenes Stripe-Konto. Die Plattform erhebt keine Gebühren.",
+          "1": "Falls Stripe die Zahlungsbenachrichtigungen nicht automatisch einrichten kann, zeigt <b>Erweitert: Zahlungsbenachrichtigungen (Webhook)</b> die Adresse, die Sie manuell in Stripe hinzufügen müssen.",
+          "2": "Testen Sie alles mit einem Stripe-Testschlüssel, bevor Sie zu Ihrem Live-Schlüssel wechseln."
+        },
+        "heading": "Gut zu wissen"
+      }
+    },
+    "summary": "Verbinde Stripe und lege fest, was die einzelnen Tarife kosten und enthalten, damit Kunden direkt an dich bezahlen.",
+    "title": "Preise und Zahlungen"
+  },
+  "publishing": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Du arbeitest immer an einem Entwurf. Besucher sehen die zuletzt veröffentlichte Version. Deine Änderungen, auch die der KI, bleiben im Entwurf, bis du erneut veröffentlichst. So sieht niemand halbfertige Seiten."
+        },
+        "heading": "Entwurf und veröffentlichte Version"
+      },
+      "1": {
+        "heading": "Zum ersten Mal veröffentlichen",
+        "shot": {
+          "alt": "Der Tab „Veröffentlichen“ mit dem App-Status, der Schaltfläche zum Veröffentlichen und der Webadresse.",
+          "caption": "Veröffentliche deine App und kopiere den Link, um sie zu teilen."
+        },
+        "steps": {
+          "0": "Klicke oben rechts bei den Tabs deiner App auf <b>Veröffentlichen</b>.",
+          "1": "Klicke auf <b>App veröffentlichen</b>.",
+          "2": "Du siehst <b>Deine App ist live. Teile sie jetzt.</b> und der Status wechselt zu <b>Live</b>."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Die Webadresse deiner App findest du im Tab „Veröffentlichen“. Dort kannst du sie auch kopieren. In der Übersicht findest du einen Code, den du mit der Handykamera scannen kannst, um die App zu öffnen.",
+          "1": "Unter <b>Suche und Teilen</b> legst du die Beschreibung fest, die Suchmaschinen und Chat-Apps zusammen mit deinem Link anzeigen. Aktiviere <b>Vor Suchmaschinen verbergen</b>, wenn deine App nicht bei Google erscheinen soll. Alle mit dem Link können sie trotzdem öffnen."
+        },
+        "heading": "Link teilen"
+      },
+      "3": {
+        "body": {
+          "0": "Wenn du seit der letzten Veröffentlichung etwas geändert hast, lautet der Status <b>Live · du hast unveröffentlichte Änderungen</b>. Klicke auf <b>Änderungen veröffentlichen</b>, um sie live zu schalten. Gibt es nichts Neues, steht auf der Schaltfläche <b>Auf dem neuesten Stand</b>.",
+          "1": "Möchtest du deine Änderungen zuerst ausprobieren? Mit <b>Vorschau</b> oben rechts öffnest du deinen Entwurf in einem neuen Tab. Nur du kannst ihn öffnen."
+        },
+        "heading": "Änderungen veröffentlichen"
+      },
+      "4": {
+        "body": {
+          "0": "Jede veröffentlichte Version wird unter <b>Versionsverlauf</b> gespeichert, die neueste zuerst. Die aktuelle Version ist mit <b>Live</b> gekennzeichnet."
+        },
+        "heading": "Zu einer früheren Version zurückkehren",
+        "shot": {
+          "alt": "Der Versionsverlauf mit einer Schaltfläche „Live schalten“ neben früheren Versionen.",
+          "caption": "Versionsverlauf: Stelle eine beliebige aktuelle Version wieder her."
+        },
+        "steps": {
+          "0": "Suche unter <b>Versionsverlauf</b> die gewünschte Version.",
+          "1": "Klicke auf <b>Live schalten</b> und bestätige.",
+          "2": "Besucher sehen die Version sofort. Dein Entwurf bleibt unverändert, sodass du Dinge korrigieren und erneut veröffentlichen kannst."
+        }
+      },
+      "5": {
+        "body": {
+          "0": "Mit <b>Offline nehmen</b> verhinderst du, dass Besucher deine App öffnen, bis du sie erneut veröffentlichst. Es wird nichts gelöscht."
+        },
+        "heading": "Offline nehmen"
+      },
+      "6": {
+        "body": {
+          "0": "Mit <b>Sicherung herunterladen (.zip)</b> speicherst du alle Seiten, Abläufe, Tabellen und Zeilen sowie dein Design und deine Bilder in einer Datei. Bewahre sie an einem sicheren Ort auf oder stelle sie mit <b>App importieren</b> wieder her, wenn du eine neue App erstellst – hier oder auf einem anderen {app}-Server. Die Passwörter von Mitgliedern sind nicht enthalten."
+        },
+        "heading": "App sichern oder verschieben"
+      },
+      "7": {
+        "body": {
+          "0": "Unter <b>Auf Geräten installieren</b>: <b>Offline-App herunterladen (.zip)</b> erstellt eine Kopie, die auf einem Computer ohne Internet funktioniert und ihre Daten dort speichert. Mit <b>Desktop-Verknüpfung (online)</b> legst du eine Verknüpfung zu deiner Live-App auf einem Windows- oder Mac-Desktop an. Informationen zu Handys findest du in der Anleitung „Handy-Apps und Benachrichtigungen“."
+        },
+        "heading": "Auf Computern und Handys installieren"
+      },
+      "8": {
+        "bullets": {
+          "0": "Dein Tarif kann die Anzahl der Apps begrenzen, die du gleichzeitig veröffentlichen kannst.",
+          "1": "Der Versionsverlauf zeigt deine 20 neuesten Versionen.",
+          "2": "Geplante Abläufe werden erst ausgeführt, wenn deine App veröffentlicht ist.",
+          "3": "Im Tab „Domains“ kannst du deine eigene Webadresse verbinden."
+        },
+        "heading": "Gut zu wissen"
+      }
+    },
+    "summary": "Stelle deine App online, teile den Link, aktualisiere sie sicher und stelle bei Bedarf eine frühere Version wieder her.",
+    "title": "App veröffentlichen und teilen"
+  },
+  "resellers": {
+    "sections": {
+      "0": {
+        "bullets": {
+          "0": "<b>Der Betreiber</b> führt die Plattform und legt Tarife, Preise und Limits fest.",
+          "1": "<b>Reseller</b> sind Agenturen, die der Betreiber hinzufügt. Jeder hat eine eigene Marke, Adresse, ein eigenes Stripe-Konto und eigene Kunden.",
+          "2": "<b>Kunden</b> sind die Kunden des Resellers. Sie erstellen Apps und sehen ausschließlich die Marke des Resellers.",
+          "3": "<b>Nutzer von Apps</b> sind die Personen, die veröffentlichte Apps verwenden.",
+          "4": "Kunden bezahlen den Reseller direkt. Die Plattform erhält keinen Anteil."
+        },
+        "heading": "So funktioniert es"
+      },
+      "1": {
+        "heading": "Betreiber: Reseller hinzufügen",
+        "shot": {
+          "alt": "Die Seite „Reseller“ mit einem Formular zum Hinzufügen eines Resellers und einer Tabelle mit Resellern, ihren Kunden, Apps und ihrer KI-Nutzung.",
+          "caption": "Füge Reseller hinzu und lege ihre Limits fest."
+        },
+        "steps": {
+          "0": "Öffne in Admin den Bereich <b>Reseller</b>.",
+          "1": "Gib unter <b>Reseller hinzufügen</b> den <b>Markennamen</b> und die <b>E-Mail-Adresse des Resellers</b> ein. Wenn du möchtest, kannst du auch <b>Den Namen</b> angeben.",
+          "2": "Lege <b>Max. Kunden</b>, <b>Max. Apps</b> und <b>KI-Aktionen pro Monat</b> fest oder lass die Felder leer, um keine Limits festzulegen.",
+          "3": "Klicke auf <b>Reseller erstellen</b>. Wenn E-Mails eingerichtet sind, erhält der Reseller eine Einladungs-E-Mail. Andernfalls erhältst du einen Link, den du weitergeben kannst."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Die Tabelle zeigt die Kunden, Apps und KI-Aktionen des jeweiligen Resellers in diesem Monat sowie seine Domain und seinen Status. Klicke auf eine Zahl wie 3 / 10, um das entsprechende Limit zu ändern. Mit den Schaltflächen am Ende jeder Zeile kannst du dich als Reseller anmelden, einen Einladungs- oder Link zum Zurücksetzen des Passworts erstellen, den Reseller sperren oder wieder freischalten und löschen.",
+          "1": "Das monatliche KI-Limit gilt gemeinsam für den Reseller und alle seine Kunden. Ist es aufgebraucht, wird die KI für alle bis zum nächsten Monat pausiert. Wenn E-Mails eingerichtet sind, erhält der Reseller bei 80 % und 100 % eine E-Mail.",
+          "2": "Wenn du einen Reseller sperrst, werden der Reseller und alle seine Kunden abgemeldet. Beim Löschen musst du den Namen des Resellers eingeben. Seine Kunden behalten ihre Konten und Apps und werden zu deinen direkten Kunden im kostenlosen Tarif."
+        },
+        "heading": "Betreiber: Reseller betreuen"
+      },
+      "3": {
+        "body": {
+          "0": "Klicke in der oberen Leiste auf <b>Reseller-Dashboard</b>. Unter <b>Übersicht</b> findest du eine Checkliste mit den ersten Schritten (<b>Logo und Farben</b>, eigene Domain, Zahlungen und erster Kunde) sowie Angaben dazu, wie viele Kunden, Apps und KI-Aktionen du nutzt. Über das Menü links erreichst du die Bereiche <b>Kunden</b>, <b>Apps</b>, <b>Branding</b>, <b>Domain</b> und <b>Abrechnung und Tarife</b>."
+        },
+        "heading": "Reseller: dein Dashboard"
+      },
+      "4": {
+        "heading": "Reseller: Kunden einladen",
+        "steps": {
+          "0": "Öffne den Bereich <b>Kunden</b>.",
+          "1": "Gib unter <b>Kunden einladen</b> die <b>E-Mail-Adresse</b> und, wenn du möchtest, den <b>Namen</b> ein. Wähle außerdem den <b>Tarif</b> aus.",
+          "2": "Klicke auf <b>Einladung senden</b>. Der Kunde erhält eine E-Mail mit einem Link zum Festlegen seines Passworts. Sind E-Mails nicht eingerichtet, erhältst du den Link zum Weitergeben.",
+          "3": "Um mehrere Personen einzuladen, klicke auf <b>Mehrere gleichzeitig einladen</b> und füge bis zu 50 E-Mail-Adressen ein."
+        }
+      },
+      "5": {
+        "body": {
+          "0": "Die Kundenliste zeigt den Status und Tarif jedes Kunden, seine Apps und KI-Nutzung sowie den Zeitpunkt seiner letzten Aktivität. Filtere die Liste nach Status, Tarif und Zahlung oder aktiviere <b>Seit 30 Tagen nicht gesehen</b> oder <b>Noch nie angemeldet</b>. Unter <b>Benötigt Aufmerksamkeit</b> findest du Kunden, die vielleicht eine Erinnerung brauchen.",
+          "1": "Ändere den Tarif eines Kunden über das Menü in seiner Zeile. Mit den Schaltflächen kannst du <b>Den Arbeitsbereich öffnen</b> (klicke auf <b>Zurück zu deinen Kunden</b>, um zurückzukehren), eine neue Einladung oder einen Link zum Zurücksetzen des Passworts senden, den Zugriff sperren oder wiederherstellen und den Kunden löschen.",
+          "2": "Wenn du einen Kunden löschst, werden alle seine Apps gelöscht. Zur Bestätigung musst du seine E-Mail-Adresse eingeben."
+        },
+        "heading": "Reseller: Kunden unterstützen"
+      },
+      "6": {
+        "body": {
+          "0": "Unter <b>Apps</b> findest du alle Apps, die deine Kunden erstellt haben. Klicke auf <b>Öffnen</b>, um eine App im Arbeitsbereich des Kunden zu bearbeiten. Bei selbst erstellten Apps findest du die Option <b>An Kunden übertragen</b>. Damit verschiebst du die App in den Arbeitsbereich eines Kunden und kannst sie weiterhin für ihn öffnen."
+        },
+        "heading": "Reseller: Kunden-Apps"
+      },
+      "7": {
+        "bullets": {
+          "0": "Ein Reseller sieht nur seine eigenen Kunden, niemals die anderen Kunden oder Einstellungen des Betreibers.",
+          "1": "Kunden melden sich über die Adresse des Resellers an und sehen nur dessen Marke.",
+          "2": "Wenn alle Kundenplätze belegt sind, können erst wieder Einladungen verschickt werden, wenn der Betreiber weitere Plätze hinzufügt."
+        },
+        "heading": "Gut zu wissen"
+      }
+    },
+    "summary": "Biete App-Erstellung unter einer anderen Marke an: Der Betreiber fügt Reseller hinzu, und jeder Reseller lädt eigene Kunden ein und betreut sie.",
+    "title": "Reseller und Kunden"
+  },
+  "running-your-platform": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Klicke oben in der Leiste auf <b>Admin</b>. Unter <b>Plattform verwalten</b> gibt es für jeden Bereich eine Karte mit dem aktuellen Stand: <b>White-Label-Branding</b>, <b>Vertriebspartner</b>, <b>Zahlungen</b>, <b>Tarife und Limits</b>, <b>KI-Modell</b>, <b>E-Mail</b>, <b>Nutzer</b> und <b>System</b>. Klicke auf eine Karte, um den Bereich zu öffnen. Über <b>Alle Einstellungen</b> oben kommst du auf eine Seite mit allen Einstellungen."
+        },
+        "heading": "Der Admin-Bereich",
+        "shot": {
+          "alt": "Der Admin-Bereich mit Karten für Branding, Vertriebspartner, Zahlungen, Tarife, KI, E-Mail, Nutzer und System sowie einer Einrichtungs-Checkliste.",
+          "caption": "Der Admin-Bereich: alle Plattformbereiche und was noch zu tun ist."
+        }
+      },
+      "1": {
+        "body": {
+          "0": "Die <b>Einrichtungs-Checkliste</b> wird automatisch abgehakt. Klicke auf einen Schritt, um die zugehörige Einstellung zu öffnen."
+        },
+        "heading": "Einrichtungs-Checkliste",
+        "steps": {
+          "0": "<b>Lege dein Branding fest</b>: Name, Logo und Farben. Siehe Dein Branding (White-Label).",
+          "1": "<b>Verbinde ein KI-Modell</b>, damit Nutzer ihre App durch eine Beschreibung erstellen können. Siehe KI-Einstellungen.",
+          "2": "<b>Verbinde Stripe und lege die Preise für deine Tarife fest</b>, wenn du Geld verlangst. Siehe Preise und Zahlungen.",
+          "3": "<b>Aktiviere E-Mail</b>, damit Einladungen, Links zum Zurücksetzen des Passworts und Benachrichtigungen automatisch verschickt werden. Siehe E-Mail.",
+          "4": "<b>Gib veröffentlichten Apps eine eigene Adresse</b>. Das ist eine Servereinstellung (APPS_DOMAIN in der .env-Datei), die nicht auf dieser Seite zu finden ist. Das Installationsprogramm kann sie einrichten. Mit einem Wildcard-DNS-Eintrag bekommt jede veröffentlichte App eine eigene Adresse, getrennt vom Studio.",
+          "5": "<b>Lade deinen ersten Vertriebspartner ein</b>, wenn du über Agenturen verkaufst. Siehe Vertriebspartner und Kunden."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Unter <b>Alle Einstellungen</b> legst du bei <b>Tarife und Limits</b> fest, was in Free, Starter, Pro und Team enthalten ist: <b>Apps</b>, <b>Veröffentlichte Apps</b>, <b>Seiten pro App</b>, <b>Eigene Domains</b>, <b>KI-Aktionen pro Monat</b> und <b>Geplante Abläufe</b>. Aktiviere <b>unbegrenzt</b>, um kein Limit festzulegen, und klicke dann auf <b>Tariflimits speichern</b>. Mit <b>Standardlimits wiederherstellen</b> setzt du die voreingestellten Werte zurück. Für dich und deine Vertriebspartner gibt es keine Limits."
+        },
+        "heading": "Was die einzelnen Tarife enthalten"
+      },
+      "3": {
+        "body": {
+          "0": "Die Liste <b>Nutzer</b> im Admin-Bereich zeigt alle registrierten Personen. Für jede Person kannst du Folgendes tun:"
+        },
+        "bullets": {
+          "0": "Ändere den Tarif über das Menü. Die Änderung wird sofort gespeichert.",
+          "1": "Klicke auf <b>Passwort-Link</b>, um einen einmalig verwendbaren Anmeldelink zu erstellen, der 2 Stunden gültig ist. Wenn E-Mail aktiviert ist, wird der Link an die Person geschickt. Andernfalls wird er kopiert, damit du ihn selbst senden kannst.",
+          "2": "Klicke auf <b>Als Nutzer anmelden</b>, um den Arbeitsbereich der Person zu öffnen und ihr zu helfen. Währenddessen wird ein Banner angezeigt. Alle Änderungen, die du vornimmst, werden im Konto dieser Person übernommen. Klicke auf <b>Anmeldung als Nutzer beenden</b>, um zurückzukehren.",
+          "3": "Klicke auf <b>Löschen</b>, um das Konto der Person zu löschen. Du siehst, was dabei gelöscht wird, und musst zur Bestätigung ihre E-Mail-Adresse eingeben."
+        },
+        "heading": "Nutzern helfen"
+      },
+      "4": {
+        "body": {
+          "0": "<b>Neue Nutzer, letzte 30 Tage</b> zeigt, wie viele Personen sich registriert, eine App erstellt und eine App veröffentlicht haben. Unter <b>Neueste Projekte</b> findest du die zuletzt erstellten Apps. Mit <b>Öffnen</b> kannst du eine App im Arbeitsbereich ihres Besitzers öffnen. <b>Neueste Ablauf-Ausführungen</b> zeigt die letzten Automatisierungen und ob sie erfolgreich waren."
+        },
+        "heading": "Alles im Blick behalten"
+      },
+      "5": {
+        "body": {
+          "0": "Unter <b>System</b> findest du verständliche Informationen zum Serverstatus. Jeder Prüfpunkt wird als Karte angezeigt: Grün bedeutet alles in Ordnung, Bernstein bedeutet, dass du genauer hinsehen solltest, Rot bedeutet, dass sofort etwas getan werden muss. Geprüft werden unter anderem die Datenbank, der Speicherplatz, geplante Abläufe, Sicherungen, E-Mail, die KI-Verbindung und der Arbeitsspeicher.",
+          "1": "Die <b>nächtliche Bereinigung</b> entfernt alte Ausführungsprotokolle, abgelaufene Anmeldungen, alte veröffentlichte Versionen und Dateien gelöschter Apps. Wähle <b>Nur Bericht</b> (zählen, nichts löschen), <b>Alte Einträge entfernen</b> oder <b>Aus</b> und klicke auf <b>Speichern</b>. Mit <b>Jetzt prüfen</b> oder <b>Bereinigung jetzt ausführen</b> startest du die Bereinigung sofort. Erstelle eine Sicherung, bevor du das Entfernen zum ersten Mal aktivierst: Gelöschte Einträge können nicht wiederhergestellt werden.",
+          "2": "Wenn etwas schiefgeht, kopiert oder lädt <b>Support-Details</b> eine Zusammenfassung mit ausgeblendeten privaten Angaben herunter, die du an deinen Support senden kannst."
+        },
+        "heading": "Serverstatus",
+        "shot": {
+          "alt": "Die Systemseite mit einer Zusammenfassung, Karten zur Statusprüfung und den Einstellungen für die nächtliche Bereinigung.",
+          "caption": "System: verständliche Informationen zum Serverstatus."
+        }
+      },
+      "6": {
+        "bullets": {
+          "0": "Wenn die Datenbank nach einem Upgrade aktualisiert werden muss, erscheint oben im Admin-Bereich ein Hinweis. Unter System erfährst du, was zu tun ist.",
+          "1": "Installationen mit dem Standard-Installationsprogramm erstellen jede Nacht automatisch Sicherungen. Kopiere die Sicherungen von Zeit zu Zeit auf ein anderes Gerät.",
+          "2": "Überwachungsdienste können /api/health aufrufen, um zu prüfen, ob der Server läuft.",
+          "3": "Das Betriebshandbuch für Betreiber findest du im Download unter docs/operations.md."
+        },
+        "heading": "Gut zu wissen"
+      }
+    },
+    "summary": "Dein Admin-Bereich: Richte {app} ein, kümmere dich um die Nutzer und halte den Server am Laufen.",
+    "title": "Deine Plattform verwalten"
+  },
+  "white-label": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Der Plattformbetreiber legt das Branding fest, das standardmäßig alle sehen. Jeder Vertriebspartner legt sein eigenes Branding fest. Dessen Kunden sehen immer nur dieses, niemals das der Plattform.",
+          "1": "<b>Wenn du die Plattform betreibst:</b> Gehe zu Admin, <b>Alle Einstellungen</b>, <b>Branding</b>.",
+          "2": "<b>Wenn du Vertriebspartner bist:</b> Öffne dein <b>Vertriebspartner-Dashboard</b> und wähle <b>Branding</b>."
+        },
+        "heading": "Wessen Marke Nutzer sehen"
+      },
+      "1": {
+        "heading": "Lege dein Branding fest",
+        "shot": {
+          "alt": "Das White-Label-Branding-Formular mit Name, Slogan, Logo, Symbol, Farben und Support-E-Mail sowie einer Vorschau der Anmeldeseite.",
+          "caption": "Dein Branding mit einer Live-Vorschau der Anmeldeseite."
+        },
+        "steps": {
+          "0": "Gib deinen <b>Markennamen</b> ein. Er wird oben auf jeder Seite, in E-Mails und auf der Anmeldeseite angezeigt.",
+          "1": "Füge einen <b>Slogan (optional)</b> hinzu – eine kurze Beschreibung deines Angebots. Er wird zum Titel des Browser-Tabs hinzugefügt.",
+          "2": "Lade ein <b>Logo</b> hoch. Breite Logos eignen sich am besten. Verwende PNG oder SVG mit einer Dateigröße unter 150 KB. Das Logo wird anstelle des Markennamens angezeigt.",
+          "3": "Lade ein <b>Browser-Symbol</b> hoch: quadratisch und mindestens 64 × 64 Pixel groß.",
+          "4": "Wähle eine <b>Hauptfarbe</b> für Buttons und Hervorhebungen und eine <b>Akzentfarbe</b> für kleinere Details.",
+          "5": "Gib eine <b>Support-E-Mail-Adresse</b> an. Sie wird Personen angezeigt, die Hilfe brauchen, und als Antwortadresse für E-Mails verwendet. Wenn du möchtest, kannst du auch <b>Deine Website</b> hinzufügen.",
+          "6": "Prüfe die <b>Vorschau</b> der Anmeldeseite und klicke dann auf <b>Branding speichern</b>."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Deine Kunden können sich unter einer Adresse anmelden und Apps erstellen, die dir gehört, zum Beispiel apps.youragency.com. Auch ihre veröffentlichten Apps werden dort bereitgestellt."
+        },
+        "heading": "Vertriebspartner: Verwende deine eigene Adresse",
+        "steps": {
+          "0": "Öffne in deinem Vertriebspartner-Dashboard den Bereich <b>Domain</b>.",
+          "1": "Gib eine Subdomain ein, die dir gehört, zum Beispiel apps.youragency.com, und klicke auf <b>Diese Domain verwenden</b>.",
+          "2": "Füge die beiden angezeigten Einträge (einen CNAME- oder A-Eintrag und einen TXT-Eintrag) dort hinzu, wo du die DNS-Einstellungen deiner Domain verwaltest.",
+          "3": "Klicke auf <b>Jetzt prüfen</b>. Wenn <b>Verbunden</b> angezeigt wird, können sich deine Kunden dort anmelden."
+        }
+      },
+      "3": {
+        "bullets": {
+          "0": "Änderungen werden beim nächsten Laden einer Seite angezeigt.",
+          "1": "Bilder über 150 KB werden abgelehnt. Exportiere eine kleinere Version und versuche es noch einmal.",
+          "2": "Für die Adresse eines Resellers wird auf entsprechend eingerichteten Servern automatisch ein sicheres (https) Zertifikat ausgestellt. Lässt sich die Adresse nicht sicher öffnen, wende dich an den Betreiber der Plattform.",
+          "3": "Um eine Reseller-Adresse nicht mehr zu verwenden, leere das Feld und speichere.",
+          "4": "Betreiber: Gib veröffentlichten Apps eine neutrale Adresse (APPS_DOMAIN), damit in App-Links deiner Reseller nicht der Name der Plattform erscheint."
+        },
+        "heading": "Gut zu wissen"
+      }
+    },
+    "summary": "Verwende deinen eigenen Namen, dein Logo und deine Farben im Studio, in E-Mails und auf Anmeldeseiten.",
+    "title": "Dein Branding (White-Label)"
+  }
+}

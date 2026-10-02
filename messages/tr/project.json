@@ -1,0 +1,958 @@
+{
+  "alertsApi": {
+    "allOff": "Tüm uyarılar kapalı. Uyarılar kartından birini açıp tekrar deneyin.",
+    "badEmail": "\"{address}\" bir e-posta adresine benzemiyor.",
+    "emailOff": "Bu sunucuda e-posta ayarlanmamış, bu yüzden uyarılar gönderilemiyor. E-posta bağlantısını kurması için hizmet sağlayıcınızdan yardım isteyin.",
+    "invalid": "Lütfen uyarı ayarlarını kontrol edip tekrar deneyin.",
+    "noTables": "Uygulamanız henüz ziyaretçilerden bilgi toplamıyor. Önce bir form veya Rezervasyonlar gibi bir özellik ekleyin.",
+    "sampleMessage": "Bu, yayınlama kontrol listenizden gönderilen bir test gönderimidir. Kimse göndermedi.",
+    "samplePerson": "Test Kişisi",
+    "sampleSubject": "Test gönderimi",
+    "sampleText": "Test",
+    "signedUpTable": "Kaydolan kişiler",
+    "testFailed": "Test uyarısı gönderilemedi.",
+    "testLimit": "Son bir saatte {count} test gönderimi yaptınız. Lütfen biraz sonra tekrar deneyin.",
+    "throttled": "Bu uygulama bu saat için {count} uyarı e-postası gönderdi. Bu nedenle test beklemeye alındı. Kalan uyarılar saatin sonunda tek bir e-postayla gönderilecek.",
+    "tooMany": "En fazla {max} adres daha ekleyebilirsiniz.",
+    "unknownTable": "Bu tablolardan biri artık bu uygulamada yok. Sayfayı yenileyip tekrar deneyin."
+  },
+  "alertsCard": {
+    "allOff": "Tümü kapalı",
+    "alsoSendTo": "Şu adreslere de gönder <muted>(en fazla {max}, virgülle ayırın)</muted>",
+    "defaultOn": "Form gibi görünüyor; kapatmadığınız sürece açık",
+    "defaultTable": "gönderim",
+    "emailOff": "Bu sunucuda e-posta ayarlanmamış, bu yüzden bildirim gönderilemiyor. E-posta bağlantısını kurması için hizmet sağlayıcınıza danışın.",
+    "extraHelp": "İş ortağınız gibi bu bildirimleri alması gereken diğer kişilerin e-posta adreslerini virgülle ayırarak yazın.",
+    "goesTo": "Bildirimler <b>{email}</b> adresine gönderilir.",
+    "intro": "Uygulamanızda biri form gönderdiğinde, rezervasyon yaptığında veya sipariş verdiğinde hemen e-posta alın.",
+    "loadFailed": "Uyarı ayarları yüklenemedi.",
+    "noTables": "Uygulamanız henüz ziyaretçilerden bilgi toplamıyor. Form veya Rezervasyonlar gibi bir özellik eklediğinizde, bildirimleri buradan seçebilirsiniz.",
+    "off": "Kapalı",
+    "on": "Açık",
+    "onCount": "{on}/{total} açık",
+    "save": "Bildirimleri kaydet",
+    "saveFailed": "Uyarı ayarları kaydedilemedi.",
+    "saveFirst": "Önce kaydedin",
+    "saveHelp": "Hangi tabloların bildirim göndereceğini ve bildirimleri kimin alacağını kaydeder.",
+    "sending": "Gönderiliyor…",
+    "setUpEmail": "E-postayı ayarla",
+    "setUpEmailHelp": "Uygulamaların e-posta gönderebilmesi için bir e-posta hizmetine bağlanmak üzere sunucu ayarlarını açın.",
+    "step": "Test gönderimi yap",
+    "stepDone": "(tamamlandı)",
+    "stepHelp": "Formunuzu biri kullandığında alacağınız e-postaya benzer örnek bir bildirim e-postası gönderir. Gelen kutunuza ulaştığını kontrol edebilirsiniz.",
+    "stepHint": "Biri formunuzu kullandığında e-posta aldığınızı kontrol edin.",
+    "stepNeedsEmail": "Bu sunucuda e-posta ayarlanmış olmalı.",
+    "stepSending": "Test gönderimi yapılıyor…",
+    "stepToDo": "(yapılacak)",
+    "switchHelp": "Açık olduğunda, bir ziyaretçi bu tabloya her bilgi eklediğinde e-posta alırsınız. Değişikliğinizin kaydedilmesi için Bildirimleri kaydet'e basın.",
+    "test": "Test gönder",
+    "testFailed": "Test gönderilemedi.",
+    "testHelp": "Listelenen herkese örnek bir bildirim e-postası göndererek e-postanın ulaştığını kontrol etmenizi sağlar. Önce değişikliklerinizi kaydedin.",
+    "testOffline": "Test gönderilemedi. Bağlantınızı kontrol edip tekrar deneyin.",
+    "testSent": "{to} adresine bir {table} uyarı testi gönderildi. (test) etiketli e-postayı kontrol edin.",
+    "testSentToYou": "Size bir {table} uyarı testi gönderildi. (test) etiketli e-postayı kontrol edin.",
+    "title": "Uyarılar",
+    "titleHelp": "Ziyaretçiler uygulamanız üzerinden form, rezervasyon veya sipariş gibi bir şey gönderdiğinde size e-posta gönderir. Hangi tabloların bildirim göndereceğini siz seçersiniz.",
+    "tooMany": "En fazla {max} adres daha ekleyebilirsiniz."
+  },
+  "appAdminApi": {
+    "checkDetails": "Bilgileri kontrol edip tekrar deneyin.",
+    "invalidEmail": "Geçerli bir e-posta adresi girin.",
+    "saveFailed": "Yönetici girişi kaydedilemedi.",
+    "shortPassword": "Şifre en az {min} karakter olmalı."
+  },
+  "appAdminCard": {
+    "add": "Yönetici ekle",
+    "addHelp": "Bu e-posta adresine uygulamanız için yönetici girişi verir. Zaten bir hesabı varsa bu hesap yönetici olur ve şifresi değişir.",
+    "admins": "Yöneticiler: <list>{admins}</list>",
+    "email": "E-posta",
+    "emailHelp": "Ekip üyenizin uygulamanıza giriş yapmak için kullanacağı e-posta adresi.",
+    "loginsIntro": "Birine yönetici girişi verin; uygulamanızın oturum açma sayfasından giriş yapıp uygulamayı yönetebilir.",
+    "loginsTitle": "Ekibiniz için yönetici girişleri",
+    "notPublished": "Uygulamanız henüz yayınlanmadı, bu yüzden bunlar Önizleme'de açılır.",
+    "note": "En az 10 karakter. Uygulamanızda zaten hesabı olan bir e-posta kullanırsanız bu hesap yönetici olur ve şifresi değişir.",
+    "openHelp": "Bu ekip üyelerine özel sayfa, uygulamanızda oturum açmadan yeni bir sekmede açılır. Ziyaretçiler sayfayı göremez.",
+    "pagesIntro": "Bu sayfalar yalnızca sizin ve ekibiniz içindir; ziyaretçiler göremez. Uygulamanıza giriş yapmadan istediğiniz zaman açabilirsiniz.",
+    "password": "Şifre",
+    "passwordHelp": "En az 10 karakterden oluşan şifresi. Şifreyi kendisiyle özel olarak paylaşın; uygulamanızın oturum açma sayfasından bu şifreyle giriş yapar.",
+    "saveFailed": "Yönetici girişi kaydedilemedi.",
+    "savedCreated": "Kaydedildi. Bu kişi, bu e-posta ve şifreyle uygulamanıza giriş yapabilir.",
+    "savedUpdated": "Kaydedildi. Bu hesap artık yeni şifreyle yönetici.",
+    "title": "Uygulamanızın yönetim alanı",
+    "titleHelp": "Siparişleri yönettiğiniz yer gibi, yalnızca sizin ve ekibinizin kullanabildiği uygulama sayfaları ve bu sayfalara erişmek için ekibinizin kullandığı giriş bilgileri."
+  },
+  "deleteProject": {
+    "backup": "Yedek indir",
+    "backupHelp": "Tüm sayfalarınızı, verilerinizi, temanızı ve resimlerinizi içeren tek bir dosyayı cihazınıza kaydedin. Daha sonra Uygulama içe aktar ile uygulamayı geri yükleyebilirsiniz.",
+    "buttonHelp": "Bu uygulamayı silin. Nelerin kaldırılacağını görebilir ve önce yedek indirebilirsiniz. Silme işlemi geri alınamaz.",
+    "buttonLabel": "{name} uygulamasını sil",
+    "deleteApp": "Uygulamayı sil",
+    "deleteHelp": "Bu uygulamayı tamamen silin: sayfaları, verileri, dosyaları ve web adresiyle birlikte. Ziyaretçiler artık uygulamayı açamaz. Bu işlem geri alınamaz.",
+    "deleting": "Siliniyor…",
+    "details": "Sayfaları, iş akışları, kullanıcıların gönderdiği her şey, telefon uygulaması sürümleri ve web adresi silinir. Bu işlem geri alınamaz.",
+    "failed": "Uygulama silinemedi ({status}).",
+    "keyAck": "Yükleme anahtarını indirdim veya buna ihtiyacım yok.",
+    "keyAckHelp": "Yükleme anahtarını kaydettiğinizi veya bu uygulamayı Google Play'de güncellemeniz gerekmeyeceğini onaylamak için işaretleyin.",
+    "keyBody": "Uygulamayı silmeden önce anahtarı indirin: anahtar olmadan uygulamayı Google Play'de bir daha güncelleyemezsiniz.",
+    "keyDownload": "Yükleme anahtarını indir",
+    "keyDownloadHelp": "Google Play'deki güncellemelerin sizden geldiğini kanıtlayan gizli dosyayı kaydedin. Güvenli bir yerde saklayın.",
+    "keyTitle": "Bu uygulamanın bir Google Play yükleme anahtarı var.",
+    "networkError": "Bağlantı hatası. Uygulama silinmedi.",
+    "summary": "Uygulamayı, verilerini ve dosyalarını siler. Önce yedek indirin.",
+    "title": "“{name}” silinsin mi?"
+  },
+  "deploymentsApi": {
+    "versionMissing": "Bu sürüm mevcut değil."
+  },
+  "domains": {
+    "add": "Alan adı ekle",
+    "addFailed": "Alan adı eklenemedi.",
+    "addHelp": "Bu web adresini bağlamaya başlayın. Ardından, adresi satın aldığınız şirkete kopyalamanız gereken iki ayarı göreceksiniz.",
+    "adding": "Ekleniyor…",
+    "checkHelp": "Aşağıdaki ayarların yapılıp yapılmadığını kontrol edin. Ayarları ekledikten sonra görünmeleri birkaç dakika, bazen birkaç saat sürebilir.",
+    "checkNow": "Şimdi kontrol et",
+    "checking": "Kontrol ediliyor…",
+    "colName": "Ad / ana makine",
+    "colType": "Tür",
+    "colValue": "Değer / yönlendirme adresi",
+    "confirmDisconnect": "{host} adresinin bu uygulamayla bağlantısı kesilsin mi?",
+    "connected": "Bağlandı — ziyaretçiler <url>https://{host}</url> adresini kullanabilir",
+    "copied": "Kopyalandı",
+    "copy": "Kopyala",
+    "copyHelp": "Kopyalamak için tıklayın, ardından alan adı sağlayıcınızın ayarlar sayfasına yapıştırın.",
+    "copyValue": "{value} değerini kopyala",
+    "disconnect": "{host} bağlantısını kes",
+    "disconnectHelp": "Bu web adresini uygulamanızda kullanmayı bırakın. Adres size ait kalır, uygulamanız da ücretsiz adresini kullanmaya devam eder.",
+    "domain": "Alan adı",
+    "empty": "Henüz alan adı yok. Uygulamanıza ücretsiz adresinden erişilebilir.",
+    "hostHelp": "Sahip olduğunuz bir web adresini (alan adını) yazın; ör. www.isletmeniz.com. Önce bu adresi satın almış olmanız gerekir.",
+    "notOwned": "TXT kaydı henüz bulunamadı.",
+    "notPointsHere": "Alan adı henüz buraya yönlenmiyor (CNAME/A kaydı).",
+    "owned": "Sahiplik doğrulandı (TXT kaydı bulundu).",
+    "ownershipRecordHelp": "Bu ayar, web adresinin size ait olduğunu doğrular. Uygulamanız ancak kayıt bulunduğunda bağlanır.",
+    "pointsHere": "Alan adı bu sunucuya yönleniyor.",
+    "recordsHelp": "DNS kayıtları, alan adınızı satın aldığınız şirketteki ayarlardır. Her kaydı, o şirketin DNS veya alan adı ayarları sayfasına kopyalayın.",
+    "recordsIntro": "Bu alan adı için DNS ayarlarınızı yönettiğiniz yere bu kayıtları ekleyin. Değişikliklerin görünmesi genellikle birkaç dakika, bazen birkaç saat sürer.",
+    "rootHint": "Kök alan adı (www olmadan, isletmeniz.com gibi) için DNS sağlayıcınız CNAME'i desteklemiyorsa bu sunucunun IP adresine yönlendiren bir A kaydı kullanın.",
+    "rootHintIp": "Kök alan adı (www olmadan, isletmeniz.com gibi) için DNS sağlayıcınız CNAME'i desteklemiyorsa <code>{ip}</code> adresine yönlendiren bir A kaydı kullanın.",
+    "routingRecordHelp": "Bu ayar, web adresinizi yazan kişileri uygulamanıza yönlendirir.",
+    "waiting": "DNS kayıtları bekleniyor"
+  },
+  "domainsApi": {
+    "alreadyConnected": "Bu alan adı zaten başka bir uygulamaya bağlı.",
+    "enterDomain": "Bir alan adı girin.",
+    "invalidDomain": "www.isletmeniz.com gibi bir alan adı girin (https:// veya yol eklemeyin).",
+    "notFound": "Bulunamadı",
+    "platformAddress": "Bu adres bu platforma ait."
+  },
+  "domainsPage": {
+    "intro": "Bu uygulamayı <domain>www.isletmeniz.com</domain> gibi kendi adresinizde yayınlayın. Alan adını satın aldığınız yerde iki DNS kaydı ekleyin, ardından bağlantıyı buradan kontrol edin.",
+    "title": "Alan adları"
+  },
+  "enablePush": {
+    "failed": "Bildirimler açılamadı. Lütfen tekrar deneyin.",
+    "help": "Uygulamanıza, ziyaretçilerin abone olabileceği bir “Bildirim al” sayfası ekler. Ardından onlara buradan veya bir otomasyon üzerinden mesaj gönderebilirsiniz.",
+    "turnOn": "Bildirimleri aç",
+    "turningOn": "Açılıyor…"
+  },
+  "exportApi": {
+    "notFound": "Bulunamadı",
+    "unauthorized": "Yetkiniz yok"
+  },
+  "iconApi": {
+    "generationFailed": "Görsel oluşturulamadı",
+    "invalidForm": "Geçersiz form",
+    "invalidInput": "Geçersiz giriş",
+    "missingFile": "Dosya eksik",
+    "noImage": "Görsel döndürülmedi",
+    "notFound": "Bulunamadı",
+    "tooBig": "Simge 5 MB'dan küçük olmalıdır",
+    "unauthorized": "Yetkiniz yok",
+    "wrongType": "PNG, JPG, WebP veya SVG kullanın"
+  },
+  "latestSubmissions": {
+    "empty": "Henüz bir şey yok. Uygulamanızda biri form gönderdiğinde veya rezervasyon yaptığında burada görünür.",
+    "itemHelp": "Kaydın tümünü görmek için geldiği tabloyu açın.",
+    "justNow": "şimdi",
+    "newEntry": "Yeni kayıt",
+    "seeAll": "Tüm verileri gör",
+    "seeAllHelp": "Uygulamanızın kaydettiği her şeyi görmek için Veri sayfasını açın.",
+    "title": "Son gönderimler",
+    "titleHelp": "Ziyaretçilerin uygulamanız üzerinden gönderdiği form mesajları veya rezervasyonlar gibi en yeni beş kayıt."
+  },
+  "layout": {
+    "backToApps": "Uygulamalarıma dön",
+    "backToAppsHelp": "Tüm uygulamalarınızın listesine dönün.",
+    "backToDesigner": "Tasarımcıya dön",
+    "backToDesignerHelp": "Yapay Zekâ Tasarımcısı'na dönün."
+  },
+  "modulesPage": {
+    "help": "Özellikler, rezervasyon veya mağaza gibi, uygulamanıza hazır sayfalar ve bunların arkasındaki verileri ekleyen hazır parçalardır.",
+    "intro": "Rezervasyonlar, mağaza, yorumlar ve daha fazlası. Birini seçin, sayfalarını uygulamanıza ekleyelim; sonra dilediğiniz gibi düzenleyin.",
+    "title": "Biraz süper güç ekle."
+  },
+  "nativeApi": {
+    "build": {
+      "publishFirst": "Önce uygulamanızı yayınlayın — Android uygulaması, yayındaki adresini kullanır.",
+      "startFailed": "Derleme başlatılamadı. Lütfen yeniden deneyin.",
+      "unavailable": "Bu sunucuda Android derlemeleri kullanılamıyor. {reason}",
+      "unknownBuild": "Bilinmeyen derleme"
+    },
+    "buildDownload": {
+      "fileGone": "Bu derlemenin dosyası artık yok. Lütfen yeniden derleyin.",
+      "notReady": "Derleme henüz hazır değil"
+    },
+    "download": {
+      "publishFirst": "Önce uygulamanızı yayınlayın — mobil uygulama, yayındaki URL'nizi kullanır."
+    },
+    "installer": {
+      "projectNotFound": "Proje bulunamadı",
+      "publishFirst": "Önce projeyi yayınlayın — yükleyici, yayındaki URL'yi kullanır.",
+      "unknownPlatform": "Bilinmeyen platform"
+    },
+    "keystore": {
+      "chooseFile": "Keystore dosyanızı seçin (.jks veya .keystore).",
+      "ownerOnly": "Yükleme anahtarını yalnızca uygulamanın sahibi değiştirebilir.",
+      "saveFailed": "Bu keystore kaydedilemedi. Lütfen yeniden deneyin.",
+      "tooManyTries": "Çok fazla deneme yaptınız. Lütfen birkaç dakika bekleyin."
+    },
+    "keystoreDownload": {
+      "ownerOnly": "Yükleme anahtarını yalnızca uygulamanın sahibi indirebilir."
+    },
+    "notFound": "Bulunamadı",
+    "settings": {
+      "bundleId": "Bundle ID, com.company.app gibi ters DNS biçiminde olmalıdır",
+      "invalidInput": "Geçersiz giriş",
+      "versionFormat": "1.0.0 gibi bir sürüm numarası kullanın"
+    },
+    "unauthorized": "Yetkiniz yok"
+  },
+  "nativeApp": {
+    "android": {
+      "advancedDownload": "Gelişmiş: projeyi indirip Android Studio'da kendiniz derleyin",
+      "advancedDownloadHelp": "Geliştiriciler için: uygulamayı Android Studio'da kendiniz derlemek üzere Android proje dosyalarını indirin. Çoğu kişinin buna ihtiyacı olmaz.",
+      "debugBlurb": "Hızlıca deneyebileceğiniz bir kopya. Uygulamanızı denemek için doğrudan bir Android telefona yükleyin. Google Play bu dosyayı kabul etmez.",
+      "debugButton": "Test APK'sı oluştur",
+      "debugTitle": "Telefonunuzda deneyin (APK)",
+      "intro": "Uygulamanızı sunucuda derliyoruz. Ne yapmak istediğinizi seçin:",
+      "releaseBlurb": "Google Play'in istediği dosya, uygulamanıza ait yükleme anahtarıyla imzalanır. Her derlemede sıradaki numara kullanılır (sıradaki: {next}).",
+      "releaseButton": "Google Play için derle",
+      "releaseTitle": "Google Play'de yayınlayın (AAB)"
+    },
+    "browserInstall": "<b>Tarayıcıdan zaten yüklenebilir.</b> Yayındaki siten telefonun ana ekranına doğrudan tarayıcıdan da eklenebilir; mağaza gerekmez.",
+    "build": {
+      "again": "Yeniden derle",
+      "againHelpDebug": "Ad, simge ve renkler gibi en son uygulama ayrıntılarıyla yeni bir test dosyası oluşturun.",
+      "againHelpRelease": "Uygulamanızın en son ayrıntılarıyla yeni bir Google Play dosyası oluşturun. Güncelleme olarak yüklemeye hazır dosya, sıradaki derleme numarasını alır.",
+      "buildFailed": "Derleme başarısız oldu",
+      "building": "Derleniyor…",
+      "buildingSeconds": "Derleniyor… ({seconds} sn)",
+      "couldNotStart": "Derleme başlatılamadı",
+      "debugNote": "Telefonda dosyayı açın ve sorulduğunda yüklemeye izin verin. Telefonda bu uygulamanın Google Play'den yüklenmiş bir kopyası varsa önce onu kaldırın: bu iki sürüm farklı anahtarlar kullanır.",
+      "downloadAab": "Google Play için AAB'yi indir",
+      "downloadAabHelp": "Google Play'in istediği Android uygulama dosyasını (.aab) indirin. Aşağıdaki adımlarda açıklandığı gibi Google Play Console'a yükleyin.",
+      "downloadApk": "Test APK'sını indir",
+      "downloadApkHelp": "Test Android uygulama dosyasını (.apk) indirin. Dosyayı bir Android telefonda açın ve sorulduğunda yüklemeye izin verin.",
+      "failed": "Derleme başarısız oldu.",
+      "iconNotUsed": "<b>Simgeniz kullanılmadı.</b> {note} <link>Simgeyi değiştirin</link>",
+      "made": "Sürüm {version} · oluşturulma tarihi {date}",
+      "madeWithBuild": "Sürüm {version} (derleme {build}) · oluşturulma tarihi {date}",
+      "rebuildNeeded": "<b>Yeniden derleme gerekiyor.</b> {reason}",
+      "releaseNote": "İlk derlemede uygulamanızın yükleme anahtarı oluşturulur. Aşağıdan bir yedeğini indirin.",
+      "signedApk": "Diğer mağazalar için imzalı APK",
+      "signedApkHelp": "Aynı uygulamayı, anahtarınızla imzalanmış yüklenebilir bir Android dosyası (.apk) olarak indirin. Google Play dışındaki uygulama mağazalarında kullanabilirsiniz.",
+      "sizeKb": "{size} KB",
+      "sizeMb": "{size} MB",
+      "startHelpDebug": "Doğrudan telefona yükleyebileceğiniz bir test Android uygulaması oluşturun. Bu işlem birkaç dakika sürer.",
+      "startHelpRelease": "Google Play için Android uygulama dosyasını oluşturun. Bu işlem birkaç dakika sürer. Henüz anahtar eklemediyseniz ilk derlemede yükleme anahtarınız oluşturulur.",
+      "withSize": "{label} ({size})"
+    },
+    "details": {
+      "appId": "Paket / Uygulama Kimliği",
+      "appIdHelp": "Uygulama mağazalarının uygulamanı diğerlerinden ayırmak için kullandığı benzersiz ad; örneğin com.isletmen.app. Ziyaretçiler bunu görmez. Uygulaman mağazaya girdikten sonra değiştirme.",
+      "appIdHint": "Küçük harflerle com.company.app gibi. Uygulaman mağazaya girdikten sonra asla değiştirme.",
+      "appName": "Uygulama adı",
+      "appNameHelp": "Telefonunda uygulama simgesinin altında görünen ad. En fazla 30 karakter olabilir, ancak kısa bir ad daha iyi görünür.",
+      "background": "Arka plan",
+      "backgroundCode": "Arka plan kodu",
+      "backgroundHelp": "Uygulamanız açılırken arkasında görünen ve internet bağlantısı yok ekranında kullanılan renk.",
+      "buildNumber": "Build numarası",
+      "buildNumberHelp": "Mağazaların güncellemeleri ayırt etmek için kullandığı bir sayı; her yüklemede daha yüksek olmalı. Burada oluşturulan Google Play derlemelerinin numarası otomatik olarak artar.",
+      "buildNumberHint": "Burada oluşturulan Google Play derlemelerinin numarası otomatik olarak artar. Sıradaki: {next}.",
+      "colorCodeHelp": "İstediğiniz rengi tam olarak biliyorsanız #1a73e8 gibi bir renk kodu da yazabilirsiniz.",
+      "couldNotSave": "Kaydedilemedi",
+      "intro": "Bunlar uygulama mağazalarında ve telefonun ana ekranında görünür.",
+      "orientation": "Ekran yönü",
+      "orientationDefault": "Cihazı izle",
+      "orientationHelp": "Telefonu yan çevirdiğinizde uygulamanızın da dönüp dönmeyeceği. Cihazı izle seçeneği ekranın dönmesini sağlar; diğer seçenekler ekranı dikey ya da yatay tutar.",
+      "orientationLandscape": "Yalnızca yatay",
+      "orientationPortrait": "Yalnızca dikey",
+      "pickBackground": "Arka plan seçin",
+      "pickThemeColor": "Tema rengi seçin",
+      "save": "Ayarları kaydet",
+      "saveHelp": "Bu ayrıntıları kaydedin. Sonraki derlemenize veya indirme dosyanıza eklenir; uygulamayı önceden yüklemiş kişilerde değişiklik olması için güncelleme göndermeniz gerekir.",
+      "themeColor": "Tema rengi",
+      "themeColorCode": "Tema rengi kodu",
+      "themeColorHelp": "Uygulamanızın telefondaki ana rengi: yükleme ekranında, internet bağlantısı yok ekranında ve simgeniz kullanılamadığında oluşturulan sade simgede kullanılır.",
+      "title": "Uygulama ayrıntıları",
+      "titleHelp": "Telefon uygulamana eklenen ad, renkler ve mağaza bilgileri. Değişiklikler, yüklü uygulamalara değil, sonraki derlemene veya indirmene eklenir.",
+      "version": "Sürüm",
+      "versionHelp": "Mağazada görünen sürüm numarası; örneğin 1.0.0. Güncelleme gönderirken numarayı artır; örneğin 1.1.0."
+    },
+    "featureList": {
+      "three": "{a}, {b} ve {c}",
+      "two": "{a} ve {b}"
+    },
+    "features": {
+      "camera": {
+        "about": "Örneğin QR kodlarını taramak için bir sayfada kamera gösterilir. Telefon önce kullanıcıdan izin ister.",
+        "label": "Kamera",
+        "name": "kamera"
+      },
+      "files": {
+        "about": "Dosya yükleme, fotoğraf çekme seçeneğiyle birlikte telefondaki seçiciyi açar. Android'de bunun için izin gerekmez.",
+        "label": "Fotoğraflar ve dosyalar",
+        "name": "fotoğraflar ve dosyalar"
+      },
+      "location": {
+        "about": "Örneğin yakındaki yerleri bulmak için bir sayfa kullanıcının konumunu ister. Telefon önce kullanıcıdan izin ister.",
+        "label": "Konum",
+        "name": "konum"
+      },
+      "microphone": {
+        "about": "Bir sayfa ses kaydeder veya konuşmaları dinler. Telefon önce kullanıcıdan izin ister.",
+        "label": "Mikrofon",
+        "name": "mikrofon"
+      }
+    },
+    "ios": {
+      "download": "iPhone projesini indir",
+      "downloadHelp": "iPhone uygulamanızı derlemek için gereken dosyaları indirin. Apple'a göndermek için Mac veya GitHub hesabının yanı sıra ücretli bir Apple Developer hesabı gerekir.",
+      "intro": "iPhone projesini indirin. Kurulum komutları gerekmeden doğrudan Xcode'da açılır. Apple'da yayınlamak için ücretli bir Apple Developer hesabı gerekir (yılda {fee}) ve iPhone uygulamalarını yalnızca Mac derleyebilir. İki seçeneğiniz var:",
+      "locationAdded": "Uygulamanız artık konum bilgisini kullanıyor. iPhone projesini yeniden indirip Apple'a yeni bir derleme gönderin; yoksa uygulama konum izni isteyemez.",
+      "locationRemoved": "Uygulamanız artık konum bilgisini kullanmıyor. Bir sonraki derlemenizde konum izni istememesi için iPhone projesini yeniden indirin.",
+      "newBuildNeeded": "<b>Yeni derleme gerekiyor.</b> {reason}",
+      "readme": "İndirdiğiniz dosyalardaki README, her iki seçenekte de adım adım yol gösterir.",
+      "title": "iPhone ve iPad",
+      "withMac": "<b>Mac kullanıyorsanız:</b> <mono>{path}</mono> dosyasını açın, ekibinizi seçin, ardından Product → Archive'ı seçin.",
+      "withoutMac": "<b>Mac kullanmıyorsanız:</b> klasörü GitHub'a koyun ve Apple anahtarlarınızı gizli bilgiler olarak ekleyin. Dahil edilen iş akışı, uygulamanızı GitHub'ın Mac'lerinde derler ve TestFlight'a gönderir."
+    },
+    "key": {
+      "alias": "Anahtar takma adı",
+      "aliasHelp": "Dosyadaki anahtarın adı. Dosyada yalnızca bir anahtar varsa boş bırakın.",
+      "aliasPlaceholder": "Yalnızca bir anahtar varsa boş bırakın",
+      "backupHint": "Yedeği parola yöneticisi gibi güvenli ve özel bir yerde saklayın. Anahtarı ve parolalarını içerir.",
+      "checking": "Kontrol ediliyor…",
+      "couldNotUse": "Bu anahtar kullanılamadı",
+      "download": "Anahtar yedeğini indir",
+      "downloadHelp": "Yükleme anahtarınızın ve parolalarının bir kopyasını kaydedin. Güvenli ve özel bir yerde saklayın: Bu dosyaya sahip olan herkes güncellemeleri sizin adınıza imzalayabilir.",
+      "file": "Keystore dosyası (.jks veya .keystore)",
+      "fileHelp": "Uygulamanızı daha önce imzalamak için kullandığınız anahtar dosyasını seçin. Dosya adı genellikle .jks veya .keystore ile biter.",
+      "fingerprint": "Sertifika parmak izi (SHA-256)",
+      "fingerprintHelp": "Anahtarınızı tanımlayan bir kod. Bazı Google hizmetlerini kurarken bu kodu yapıştırmanız istenir.",
+      "importedOn": "Kendi anahtarınız · {date} tarihinde eklendi · takma ad <mono>{alias}</mono>",
+      "keepSafe": "Bunu güvenli bir yerde saklayın — Google Play'deki her güncellemede gerekir.",
+      "keyPassword": "Anahtar parolası",
+      "keyPasswordHelp": "Anahtarın kendi parolası. Dosya parolasıyla aynıysa boş bırakın.",
+      "keyPasswordPlaceholder": "Aynıysa boş bırakın",
+      "madeOn": "Bu uygulama için {date} tarihinde oluşturuldu · takma ad <mono>{alias}</mono>",
+      "missing": "Anahtar dosyası sunucuda bulunamadı. Uygulamanızı Google Play'de güncellemeye devam etmek için yedek dosyanızı aşağıdan ekleyin (\"Zaten sahip olduğum bir anahtarı kullan\").",
+      "none": "Google Play bu anahtarı her güncellemede kontrol eder. Google Play için ilk derlemenizi yaptığınızda uygulamanıza özel bir anahtar oluştururuz. Uygulamanız zaten Google Play'de ve kendi anahtarınız mı var? Önce buraya ekleyin.",
+      "ownerOnly": "Anahtarı yalnızca uygulamanın sahibi indirebilir.",
+      "replace": "Mevcut anahtarımı değiştir. Bunu yalnızca Google Play bu diğer anahtarı bekliyorsa yapın: Önce mevcut anahtarın yedeğini indirin.",
+      "replaceHelp": "Mevcut anahtarınızı bununla değiştirmek istediğinizi onaylayın. Önce mevcut anahtarın yedeğini indirin.",
+      "save": "Anahtarı kaydet",
+      "saveHelp": "Anahtarı ve parolaları kontrol edin, ardından bundan sonraki tüm Google Play derlemelerinizde bu anahtarı kullanın.",
+      "saved": "Anahtarınız kaydedildi. Google Play derlemelerinde artık bu anahtar kullanılacak.",
+      "storePassword": "Keystore parolası",
+      "storePasswordHelp": "Anahtar dosyasını açan parola.",
+      "title": "Yükleme anahtarınız",
+      "titleHelp": "Google Play'deki uygulama güncellemelerinin sizden geldiğini kanıtlayan gizli bir dosya. Kaybolursa uygulamanızı Google Play'de güncelleyemezsiniz.",
+      "toggleHelpClosed": "Google Play'de zaten bir uygulamanız mı var? Yeni derlemelerin o uygulamayı güncelleyebilmesi için kullandığınız anahtarı ekleyin.",
+      "toggleHelpOpen": "Anahtarınızı değiştirmeden bu formu kapatın.",
+      "useDifferent": "Farklı bir anahtar kullan",
+      "useExisting": "Zaten sahip olduğum bir anahtarı kullan"
+    },
+    "liveUrl": {
+      "help": "Telefon uygulamanın açtığı yayındaki web adresi. Orada yayınladığın her şey telefon uygulamasında da görünür.",
+      "httpWarning": "Telefonlar uygulamaları yalnızca güvenli adreslerden (https) açar. Bu adres http:// ile başlıyor, bu nedenle telefon uygulaması yükleyemez. Önce bu sunucu için https ayarla.",
+      "label": "Uygulaman şunu gösterir:"
+    },
+    "notPublished": {
+      "body": "Mobil uygulama, yayındaki siteni gösterir. Bu yüzden oluşturmadan önce sitenin yayında olması gerekir. Daha sonra yayınladığın her şey, yeni bir derleme gerektirmeden uygulamayı otomatik olarak günceller.",
+      "goToPublish": "Yayınla'ya git",
+      "goToPublishHelp": "Uygulamanı çevrimiçi yayınlamak için Yayınla'ya git. Ardından telefon uygulamasını oluşturmak için buraya dön.",
+      "title": "Önce uygulamanı yayınla"
+    },
+    "phone": {
+      "checking": "Uygulamanız kontrol ediliyor…",
+      "intro": "Uygulamanızın özelliklerine ve sayfalarına göre belirlenir. Telefon, uygulamanın yalnızca derlemede istenen özellikleri kullanmasına izin verir. Bu liste değiştiğinde uygulamayı yeniden derleyip mağazalara yeni sürümü göndermeniz gerekir.",
+      "none": "Şu anda yok: Hiçbir sayfa kamera, mikrofon, konum veya dosya yükleme özelliğini kullanmıyor.",
+      "photoLibrary": "Fotoğraf arşivi",
+      "save": "Metinleri kaydet",
+      "saveHelp": "Bu mesajları kaydedin. Bir sonraki derlemenize ve iPhone indirmesine eklenirler.",
+      "saved": "Kaydedildi. Bir sonraki derlemenize ve indirmeye eklenir.",
+      "sourcePage": "“{name}” sayfası",
+      "title": "Bu uygulamanın kullandığı telefon özellikleri",
+      "titleHelp": "Uygulamanızın ihtiyaç duyduğu kamera veya konum gibi telefon özellikleri, sayfalarınız ve özellikleriniz incelenerek belirlenir. Uygulamanız bunları kullanmadan önce telefon kullanıcıdan izin ister.",
+      "usedBy": "Kullanan: {sources}",
+      "wordingHelp": "Uygulamanızın buna neden ihtiyaç duyduğunu açıkça yazın; örneğin “Kapıda biletleri taramak için.” Apple bunu inceler. Önerilen metni kullanmak için boş bırakın.",
+      "wordingIntro": "iPhone'lar, uygulama her özellik için izin istediğinde bu metni gösterir ve Apple metni inceler. Uygulamanızın bu özelliği ne için kullandığını açıkça yazın. Önerilen metni kullanmak için bir alanı boş bırakın. Android telefonlar kendi standart mesajlarını gösterir.",
+      "wordingSummary": "Uygulama isterken telefonda gösterilen mesaj",
+      "wordingSummaryHelp": "Uygulamanız kamera, mikrofon, fotoğraflar veya konumu kullanmak istediğinde iPhone'larda gösterilen mesajı yazmak için burayı açın."
+    },
+    "play": {
+      "appContent": "<b>Uygulama içeriği</b> bölümüne gizlilik politikanızın bağlantısını ekleyin. Kullanıcılar uygulamanıza kaydolabiliyorsa Google, hesaplarını silebilecekleri bir bağlantı da ister: <mono>{url}</mono> adresini kullanın.",
+      "createApp": "<b>Uygulama oluştur</b>'a tıklayın, uygulamanızın adını yazın ve kısa soruları yanıtlayın.",
+      "listing": "Mağaza listenizi doldurun: kısa ve uzun açıklama, bir simge (512 × 512), bir tanıtım görseli (1024 × 500) ve en az iki telefon ekran görüntüsü ekleyin.",
+      "note": "Yeni kişisel geliştirici hesaplarının, Google herkese yayınlamalarına izin vermeden önce uygulamayı en az 12 kişiyle 14 gün boyunca test etmesi gerekir.",
+      "release": "<b>Test ve yayın</b> bölümünü açın, bir kanal seçin (<b>Dahili test</b> denemenin en hızlı yoludur) ve <b>Yeni sürüm oluştur</b>'a tıklayın.",
+      "signUp": "<link>{url}</link> adresinden Google Play geliştirici hesabı açın. Google tek seferlik {fee} ücret alır.",
+      "signing": "Google uygulama imzalama hakkında sorarsa <b>Google'ın uygulama imzalama anahtarınızı yönetmesine ve korumasına izin verin</b> seçeneğini işaretli bırakın.",
+      "title": "Uygulamanızı Google Play'de yayınlayın",
+      "titleHelp": "Uygulamanızı Google Play mağazasında yayınlamak için adım adım yönergeler. Göstermek veya gizlemek için tıklayın.",
+      "updates": "Sonraki güncellemeler: Burada yaptığınız yayın değişiklikleri uygulamanızı otomatik olarak günceller. Yalnızca adı, simgeyi, renkleri veya sürümü değiştirdiğinizde yeni bir AAB derleyip aynı şekilde yükleyin. Derleme numarası otomatik olarak artar.",
+      "upload": "Yukarıdaki <b>.aab</b> dosyasını yükleyin, yeniliklerle ilgili birkaç kelime yazın, ardından sürümü kaydedip yayınlayın."
+    },
+    "publishToEnable": "Etkinleştirmek için yayınla",
+    "rebuild": {
+      "added": "Uygulamanız artık {features} kullanıyor ve bu derleme {count, plural, one {bunu} other {bunları}} isteyemiyor. Yeniden derleyin.",
+      "addedRelease": "Uygulamanız artık {features} kullanıyor ve bu derleme {count, plural, one {bunu} other {bunları}} isteyemiyor. Google Play'e yüklemek için yeniden derleyip yeni sürümü yükleyin.",
+      "oldShell": "Bu derleme, uygulama dosyaları açamadan, indirmeleri kaydedemeden veya telefon özelliklerini kullanamadan önce oluşturulmuş. Yeniden derleyin.",
+      "oldShellRelease": "Bu derleme, uygulama dosyaları açamadan, indirmeleri kaydedemeden veya telefon özelliklerini kullanamadan önce oluşturulmuş. Yeniden derleyin ve yeni sürümü Google Play'e yükleyin.",
+      "removed": "Bu derleme hâlâ uygulamanızın artık kullanmadığı {features} özelliğini istiyor. {count, plural, one {bunu} other {bunları}} kaldırmak için yeniden derleyin.",
+      "removedRelease": "Bu derleme hâlâ uygulamanızın artık kullanmadığı {features} özelliğini istiyor. {count, plural, one {bunu} other {bunları}} kaldırmak için yeniden derleyip yeni sürümü Google Play'e yükleyin."
+    },
+    "store": {
+      "before": "{store} mağazasına göndermeden önce",
+      "deleteAccount": "Kullanıcılar uygulamanıza kaydolabiliyorsa mağaza, hesaplarını silebilecekleri bir bağlantı ister. <mono>{url}</mono> adresini kullanın.",
+      "privacy": "Mağaza ayrıca gizlilik politikanıza bir bağlantı ister. Uygulamanıza bir Gizlilik sayfası ekleyin (veya web sitenizdekini kullanın) ve adresini mağaza listenize yapıştırın."
+    },
+    "toolchain": {
+      "operator": "Bu sunucuyu siz yönetiyorsunuz. Derlemeleri açmak için yükleyiciyi tekrar çalıştırın ve Android hakkında sorulduğunda evet yanıtını verin. Yüklediğiniz klasörde <mono>{command}</mono> komutunu da çalıştırabilirsiniz. Docker kullanmadan mı yüklediniz? {doc} sayfasına bakın.",
+      "others": "Bu sunucuyu yöneten kişiden derlemeleri açmasını isteyin. Projeyi indirip kendiniz derleyebilirsiniz.",
+      "title": "Bu sunucuda Android derlemeleri kapalı"
+    }
+  },
+  "nativePage": {
+    "eyebrow": "TELEFONLAR VE TABLETLER",
+    "intro": "Bu projeyi Google Play ve Apple App Store için gerçek bir uygulamaya dönüştürün. Uygulama, yayınlanmış sitenizin güncel hâlini gösterir. Böylece yaptığınız değişiklikler yeni bir derleme gerekmeden hemen yansır.",
+    "title": "Mobil uygulama"
+  },
+  "newPageButton": {
+    "create": "Oluştur",
+    "createHelp": "Sayfayı oluşturup düzenleyicide açın.",
+    "newPage": "Yeni sayfa",
+    "newPageHelp": "Uygulamanıza boş bir sayfa ekleyin. Sayfanın adını yazdıktan sonra düzenleyicide açılır.",
+    "titleHelp": "Yeni sayfanızın adı; örneğin “Hakkımızda”. Uygulamanızın menüsünde ve tarayıcı sekmesinde görünür.",
+    "titlePlaceholder": "Sayfa başlığı"
+  },
+  "notificationComposer": {
+    "confirm": "Bu bildirim şimdi {count, plural, one {# aboneye} other {# aboneye}} gönderilsin mi?",
+    "delivered": "{sent, plural, one {# cihaza} other {# cihaza}} iletildi{removed, plural, =0 {} one { (eski abonelik kaldırıldı)} other { (# eski abonelik kaldırıldı)}}.",
+    "message": "Mesaj",
+    "messageHelp": "Başlığın altındaki metin. Telefonlarda uzun mesajların bir kısmı görünmeyebilir; önemli bilgiyi başa yazın.",
+    "messagePlaceholder": "Yer kalmadan masanızı ayırtın.",
+    "noSubscribers": "Henüz abone yok",
+    "previewBody": "Mesajınız burada görünür.",
+    "previewEyebrow": "ÖNİZLEME",
+    "previewHelp": "Bildiriminizin nasıl görüneceğine dair yaklaşık bir fikir verir. Gerçek görünüm, kişinin telefonuna veya bilgisayarına göre değişir.",
+    "previewLabel": "Önizleme",
+    "previewTitle": "Başlığınız",
+    "publishFirst": "Önce uygulamanızı yayınlayın — bildirime dokunulduğunda yayındaki uygulamanız açılır.",
+    "sendFailed": "Gönderilemedi. Lütfen tekrar deneyin.",
+    "sendHelp": "Bu bildirim, abone olan herkese hemen gönderilir. Önce onayınız istenir; gönderildikten sonra geri alınamaz.",
+    "sendTo": "{count} kişiye gönder",
+    "sending": "Gönderiliyor…",
+    "title": "Başlık",
+    "titleHelp": "İnsanların göreceği kalın ilk satır. Ne olduğunu ve ne zaman olacağını belirten kısa ve net bir başlık yazın.",
+    "titlePlaceholder": "Bu akşam: 19.00'dan itibaren canlı müzik",
+    "url": "Dokunulduğunda bu sayfayı aç (isteğe bağlı)",
+    "urlHelp": "Birisi bildirime dokunduğunda uygulamanızda açılacak sayfa; örneğin /menu. Uygulamanızın ana sayfasını açmak için boş bırakın."
+  },
+  "notificationsPage": {
+    "eyebrow": "İLETİŞİMDE KALIN",
+    "goodToKnow": "Bilmeniz iyi olur",
+    "intro": "{name} için bildirimleri açan kişilerin telefonlarına ve bilgisayarlarına doğrudan mesaj gönderin.",
+    "iosTip": "iPhone ve iPad kullananlar önce uygulamanızı ana ekrana ekler (Paylaş → Ana Ekrana Ekle), sonra oradan bildirimleri açar. Android cihazlarda ve bilgisayarlarda bunu tarayıcıdan yapabilirler.",
+    "nothingSent": "Henüz bildirim gönderilmedi.",
+    "offBody": "Bildirimleri açtığınızda, ziyaretçilerinizin abone olabileceği küçük bir “Bildirim al” sayfası eklenir. Ardından onlara buradan haberler, fırsatlar ve hatırlatmalar gönderebilirsiniz.",
+    "offTitle": "Bu uygulamada bildirimler kapalı.",
+    "sent": "Gönderilenler",
+    "sentHelp": "Gönderdiğiniz bildirimler, en yeniden eskiye doğru ve her birini alan cihaz sayısıyla birlikte gösterilir.",
+    "stats": "{sent} cihaza iletildi{failed, plural, =0 {} other { · {failed} başarısız}}{removed, plural, =0 {} other { · {removed} abonelikten çıktı}} · {date}",
+    "subscribers": "Aboneler",
+    "subscribersHelp": "Uygulamanız için bildirimleri açan telefon ve bilgisayar sayısı. İki cihaz kullanan biri iki kez sayılır.",
+    "title": "Anlık bildirimler"
+  },
+  "offlineApi": {
+    "notFound": "Bulunamadı",
+    "readme": "{name} — çevrimdışı uygulama ({brand} {date} üzerinden dışa aktarıldı)\n\nNASIL KULLANILIR\n  1. Bu klasördeki dosyaları bir arada tutun (klasörü istediğiniz yere taşıyabilirsiniz — Masaüstü, C:\\, USB bellek).\n  2. index.html dosyasını güncel bir tarayıcıda açın. Hepsi bu — internet gerekmez.\n\nVERİLERİNİZ\n  Uygulama, projenin veritabanının anlık bir kopyasıyla birlikte gelir ve tüm\n  değişiklikleri tarayıcınızda yerel olarak saklar (localStorage). Veriler aynı\n  bilgisayarda ve tarayıcıda oturumlar arasında korunur. Başka bir yere eşitlenmez.\n\nÇEVRİMDIŞI ÇALIŞAN ÖZELLİKLER\n  Sayfalar, gezinme, formlar, veri listeleri, arama, oyunlar/betikler, kaydolma ve\n  giriş (çevrimdışı uygulamada oluşturulan hesaplar).\n\nÇEVRİMDIŞI ÇALIŞMAYANLAR\n  - Çevrimiçi sürümdeki hesaplar: Şifre özetleri dışa aktarılmaz, bu yüzden\n    çevrimdışı uygulamada yeniden kaydolun.\n  - E-postalar, Google Sheets, yapay zekâ özellikleri, anlık bildirimler ve harici\n    bir web sitesini çağıran tüm akış adımları (çevrimiçi değilseniz).\n",
+    "readmeKeysLeftOut": "  - Özel anahtarlarınızı kullanan adımlar (örneğin ödemeler veya kısa mesajlar):\n    anahtarlar bu dosyaya eklenmez, bu yüzden dosyayı güvenle paylaşabilirsiniz.\n",
+    "readmeNoBootstrap": "  - NOT: Bootstrap CSS dışa aktarma sırasında dosyaya eklenemedi; bu nedenle sayfa düzeni bozuk görünebilir.\n",
+    "unauthorized": "Yetkiniz yok"
+  },
+  "overview": {
+    "afterPublish": "Yayınladıktan sonra",
+    "askProvider": "E-posta bağlantısı kurması için sağlayıcından yardım iste.",
+    "continueDesigner": "Tasarımcıda devam et",
+    "continueDesignerHelp": "Uygulamanızı oluşturmaya devam etmek için Yapay Zekâ Tasarımcısı'na dönün.",
+    "continueEditing": "Düzenlemeye devam et",
+    "continueEditingHelp": "Uygulamanız üzerinde çalışmaya devam etmek için sayfa düzenleyicisini açın.",
+    "created": "Oluşturulma tarihi",
+    "draft": "Taslak — henüz yayınlanmadı.",
+    "emailOff": "Uygulaman e-posta gönderiyor ({flows}), ancak bu sunucuda e-posta ayarlanmamış, bu yüzden e-postalar gönderilmiyor.",
+    "emailOffMore": "Uygulaman e-posta gönderiyor ({flows} ve {more} tane daha), ancak bu sunucuda e-posta ayarlanmamış, bu yüzden e-postalar gönderilmiyor.",
+    "eyebrow": "UYGULAMANIZA BİR BAKIŞ",
+    "launch": {
+      "admin": {
+        "detail": "Böylece uygulamanızın yönetim sayfalarında oturum açabilirsiniz.",
+        "help": "Uygulamanızın yönetim sayfalarında oturum açmak için kullanacağınız e-posta ve şifreyi belirleyeceğiniz aşağıdaki bölüme gidin.",
+        "title": "Yönetici girişi ayarlayın"
+      },
+      "build": {
+        "detail": "Sayfalarınız, verileriniz ve formlarınız hazır.",
+        "help": "Uygulamanızın metinlerini, görsellerini ve düzenini değiştirmek için sayfa düzenleyicisini açın.",
+        "helpDesigner": "Uygulamanızı oluşturmaya devam etmek için Yapay Zekâ Tasarımcısı'nı açın.",
+        "title": "Uygulamanızı oluşturun"
+      },
+      "icon": {
+        "detail": "Simgeniz telefonlarda, tarayıcı sekmelerinde ve Android uygulamasında görünür.",
+        "help": "Uygulamanızı temsil eden küçük resmi eklemek için aşağıdaki uygulama simgesi bölümüne gidin.",
+        "title": "Uygulama simgenizi ekleyin"
+      },
+      "publish": {
+        "detail": "Herkesle paylaşabileceğiniz bir bağlantı alın.",
+        "detailDone": "Bağlantıya sahip olan herkes uygulamanızı kullanabilir.",
+        "help": "Uygulamanızı çevrimiçi yayınlamak ve paylaşım bağlantısı almak için Yayınla sayfasına gidin.",
+        "helpDone": "Yeni değişiklikleri yayınlamak, bağlantınızı paylaşmak veya önceki bir sürüme dönmek için Yayınla sayfasına gidin.",
+        "title": "Yayınlayın",
+        "titleDone": "Yayınlandı"
+      },
+      "test": {
+        "title": "Test gönderimi yapın"
+      }
+    },
+    "launchEyebrow": "UYGULAMANIZI KULLANIMA SUNUN",
+    "launchHelp": "Uygulamanı hazır hâle getirip insanlarla buluşturmak için gereken adımlar. Her adım tamamlandığında otomatik olarak işaretlenir.",
+    "launchProgress": "{done}/{total} tamamlandı",
+    "launchTitle": "Yayınlama kontrol listesi",
+    "liveAt": "Yayında: <link>{url}</link>",
+    "liveAtHelp": "Uygulamanızın yayındaki web adresi. Ziyaretçilerin gördüğü şekilde yeni bir sekmede açılır.",
+    "next": {
+      "domains": {
+        "detail": "Örneğin www.isletmen.com.",
+        "detailDone": "Web adreslerini yönet.",
+        "help": "Ücretsiz verilen adres yerine uygulamanı sana ait bir web adresinde yayınlamak için Alan Adları'na git.",
+        "title": "Kendi alan adını kullan",
+        "titleDone": "Kendi alan adın bağlandı"
+      },
+      "feature": {
+        "detail": "Rezervasyonlar, mağaza, blog, kayıt formları ve daha fazlası.",
+        "help": "Her biri kendi sayfalarına sahip hazır bölümleri uygulamana eklemek için Özellikler'e git.",
+        "title": "Bir özellik ekle"
+      },
+      "native": {
+        "detail": "Yükleyebileceğin veya Google Play'e koyabileceğin bir uygulama dosyası indir.",
+        "help": "İnsanların telefonlarına yükleyebileceği veya Google Play'e koyabileceğin Android uygulama dosyasını oluşturmak için Mobil uygulama'ya git.",
+        "title": "Android uygulamasını edin"
+      },
+      "preview": {
+        "detail": "Yeni bir sekmede önizleme açar.",
+        "help": "Henüz yayınlamadıkların da dahil, en son değişikliklerinle uygulamanı yeni bir sekmede aç.",
+        "title": "Ziyaretçi olarak dene"
+      },
+      "theme": {
+        "detail": "Markana birkaç tıklamayla uyum sağla.",
+        "help": "Uygulamanın tamamında kullanacağın renkleri, yazı tiplerini ve köşe şekillerini seçmek için Tema'ya git.",
+        "title": "Renkleri ve yazı tiplerini değiştir"
+      }
+    },
+    "optional": "İsteğe bağlı",
+    "phoneTitle": "Telefonunda aç",
+    "qrAlt": "{url} için QR kodu",
+    "qrHelp": "Yayındaki uygulamanı telefonunda açmak için telefonunun kamerasını bu kare koda tut.",
+    "qrHint": "Telefonunun kamerasını koda tut. Ardından “Ana Ekrana Ekle” seçeneğine dokun; uygulaman bir uygulama gibi açılır.",
+    "qrPublishFirst": "Önce yayınla, ardından telefonunda denemek için buradaki kodu tara.",
+    "quoted": "“{name}”",
+    "setUpEmail": "E-postayı ayarla",
+    "settings": "Ayarlar",
+    "stats": {
+      "data": "Veriler",
+      "dataHelp": "Uygulamanızın kayıtlar ve siparişler gibi bilgileri sakladığı yer. Görmek ve düzenlemek için tıklayın.",
+      "domains": "Kendi alan adların",
+      "domainsHelp": "Bu uygulamaya kaç tane kendi web adresinin (alan adının) yönlendirildiği. Eklemek veya yönetmek için tıkla.",
+      "flows": "Akışlar",
+      "flowsHelp": "Yeni bir mesaj geldiğinde size e-posta göndermek gibi, uygulamanızın otomatik yaptığı şeylerin sayısı. Görmek için tıklayın.",
+      "pages": "Sayfalar",
+      "pagesHelp": "Uygulamanızdaki sayfa sayısı. Düzenleyicide açmak için tıklayın."
+    },
+    "stepDone": " (tamamlandı)",
+    "stepToDo": " (yapılacak)",
+    "webAddress": "Web adresi",
+    "webAddressHelp": "Uygulamanın yayındaki web adresi. Yeni bir sekmede açar."
+  },
+  "pagesApi": {
+    "designerAdd": "Bu uygulamanın sayfaları AI Designer tarafından oluşturuldu. Sayfaları orada ekleyin.",
+    "designerChange": "Bu uygulamanın sayfaları AI Designer tarafından oluşturuldu. Değişiklikleri orada yapın.",
+    "invalidInput": "Geçersiz giriş",
+    "notFound": "Bulunamadı"
+  },
+  "problemsCard": {
+    "activityHelp": "Her çalıştırmayı ve kişilerin gönderdiklerini görmek, böylece onlara dönüş yapabilmek için bu otomasyonun Etkinlik sayfasını açın.",
+    "askProvider": "E-posta bağlantısını kurması için hizmet sağlayıcınıza danışın.",
+    "emailNotSetUp": "Bu sunucuda e-posta ayarlanmamış.",
+    "emailOff": "“{flow}” {count, plural, =1 {bir kez} =2 {iki kez} other {# kez}} tamamlandı, ancak e-posta ayarlanmadığı için e-posta gönderilmedi.",
+    "emailOffAlso": "Ayrıca {count, plural, =1 {bir kez} =2 {iki kez} other {# kez}} tamamlandı, ancak e-posta ayarlanmadığı için e-posta gönderilmedi.",
+    "failed": "“{flow}”, {count, plural, one {# kişide} other {# kişide}} tamamlanmadı.",
+    "lastError": "Son hata: {error}",
+    "problem": "“{flow}” {count, plural, =1 {bir kez} =2 {iki kez} other {# kez}} sorun yaşadı.",
+    "problemAlso": "Ayrıca {count, plural, =1 {bir kez} =2 {iki kez} other {# kez}} sorun yaşadı.",
+    "problemAlsoWithWarning": "Ayrıca {count, plural, =1 {bir kez} =2 {iki kez} other {# kez}} sorun yaşadı: {warning}.",
+    "problemWithWarning": "“{flow}” {count, plural, =1 {bir kez} =2 {iki kez} other {# kez}} sorun yaşadı: {warning}.",
+    "seeWhat": "Ne olduğunu gör",
+    "seeWho": "Kim olduğunu ve ne gönderdiğini gör",
+    "setUpEmail": "E-postayı ayarla",
+    "setUpEmailHelp": "Uygulamaların e-posta gönderebilmesi için bir e-posta hizmetine bağlanmak üzere sunucu ayarlarını açın.",
+    "title": "Son 24 saatteki sorunlar",
+    "titleHelp": "Son bir günde otomasyonlarınızdan birinin başarısız olduğu veya gönderilmeyen bir e-posta gibi bir işi tamamlayamadığı durumlar.",
+    "total": "{count, plural, one {# sorun} other {# sorun}}"
+  },
+  "projectApi": {
+    "deleteFailed": "Uygulama silinemedi. Lütfen tekrar deneyin.",
+    "invalidInput": "Geçersiz giriş",
+    "notFound": "Bulunamadı",
+    "unauthorized": "Yetkiniz yok",
+    "uploadKey": "Bu uygulamanın bir Google Play yükleme anahtarı var. Uygulamayı silmeden önce anahtarı indirin: anahtar olmadan uygulamayı Google Play'de bir daha güncelleyemezsiniz."
+  },
+  "projectIcon": {
+    "generate": "Oluştur",
+    "generateHelp": "Yapay zekâ açıklamanıza göre bir simge çizsin. Mevcut simgenizin yerini alır; yeniden oluşturabilir veya kendi simgenizi yükleyebilirsiniz.",
+    "generateIntro": "İstediğiniz simgeyi tarif edin: tarz, renkler ve semboller.",
+    "generateTitle": "Veya yapay zekâyla oluşturun",
+    "generating": "Oluşturuluyor…",
+    "generationFailed": "Oluşturma başarısız oldu",
+    "intro": "Ziyaretçiler uygulamanızı cihazlarına PWA olarak yüklediğinde bu simge görünür. Kare, tercihen 512×512 PNG bir görsel kullanın.",
+    "promptHelp": "İstediğiniz simgeyi, renklerini ve basit bir sembolü tarif edin. Yapay zekâ sizin için çizer.",
+    "promptLabel": "Simgenizi tarif edin",
+    "promptPlaceholder": "ör. mor geçişli arka planda minimalist bir roket",
+    "remove": "Kaldır",
+    "removeConfirm": "Uygulama simgesi kaldırılsın mı?",
+    "removeHelp": "Simgeyi uygulamanızdan kaldırın. Onaylamanız istenecek.",
+    "title": "Uygulama simgesi",
+    "titleHelp": "Telefon ana ekranlarında, tarayıcı sekmelerinde ve Android uygulamasında uygulamanızı temsil eden küçük kare resim. Değişiklikler hemen uygulanır.",
+    "upload": "Görsel yükle",
+    "uploadFailed": "Yükleme başarısız oldu",
+    "uploadHelp": "Cihazınızdan kare bir görsel seçin; tercihen 512×512 piksel. Bu görsel mevcut simgenizin yerini alır.",
+    "uploading": "Yükleniyor…"
+  },
+  "publishPage": {
+    "backup": {
+      "body": "Tüm sayfaları, akışları, tabloları ve satırları, temanızı ve görsellerinizi içeren tek bir dosya. Yedek olarak saklayın veya {app}'e ya da uyumlu bir sunucuya aktarın (Yeni uygulama → Başlamak için diğer yollar → Uygulama içe aktar). Uygulama parolaları dahil edilmez; taşıma sonrasında kullanıcıların parolalarını sıfırlaması gerekir.",
+      "button": "Yedeği indir (.zip)",
+      "help": "Uygulamanızın tamamını içeren tek bir dosyayı cihazınıza kaydedin. Yedek olarak saklayın veya geri yüklemek ya da taşımak için Uygulama içe aktar seçeneğini kullanın.",
+      "title": "Uygulamanızı yedekleyin veya taşıyın"
+    },
+    "customDomain": "Özel alan adı",
+    "customDomainHelp": "Bu uygulamayı açan size ait web adresi. Alan Adları sekmesinden yönetin.",
+    "defaultUrl": "Varsayılan URL",
+    "defaultUrlHelp": "Uygulamanıza ücretsiz verilen web adresi. Uygulamanız yayınlandıktan sonra herkesle paylaşabilirsiniz.",
+    "draftNote": "Ziyaretçiler en son yayınladığınız sürümü görür. Düzenlemeleriniz (yapay zekânın yaptıkları dahil), Yayınla'ya tıklayana kadar taslağınızda kalır. Aşağıdan önceki sürümlerden herhangi birini geri yükleyebilirsiniz.",
+    "eyebrow": "DÜNYAYLA PAYLAŞMAYA HAZIR",
+    "history": {
+      "empty": "Yayınlarınız, yayınladıktan sonra burada görünür.",
+      "help": "Yayınladığınız tüm sürümler, en yeniden en eskiye sıralanır. Bir değişiklik sorun çıkarırsa, önceki bir sürümü yeniden yayına almak için Canlıya al'ı kullanın.",
+      "live": "Yayında",
+      "title": "Yayın geçmişi"
+    },
+    "install": {
+      "desktopBody": "Masaüstüne ve Başlat menüsüne bir kısayol ekleyen küçük bir yükleyici. Kısayol, canlı uygulamanızı kendi penceresinde açar. İnternet gerekir; uygulama yayınladığınız sürümle her zaman güncel kalır.",
+      "desktopTitle": "Masaüstü kısayolu (çevrimiçi)",
+      "intro": "Uygulamanızı masaüstüne veya ana ekrana ekleyin. Çevrimdışı uygulama kendi dosyaları ve yerel veritabanıyla tamamen bağımsız çalışır; kullanmak için internet gerekmez.",
+      "macHelp": "Mac için küçük bir yükleyici indirin. Açıp canlı uygulamanızı kendi penceresinde açan bir kısayol ekleyin.",
+      "offlineBody": "Her sayfanın, yüklediğiniz dosyaların ve veritabanınızın bir kopyasının bulunduğu bir klasör. Klasörü istediğiniz yere (Masaüstü, C:\\ veya USB bellek gibi) açıp index.html dosyasını açın. Formlar, listeler ve kayıt işlemleri internet olmadan da çalışır; veriler bilgisayara kaydedilir.",
+      "offlineDownload": "Çevrimdışı uygulamayı indir (.zip)",
+      "offlineHelp": "Uygulamanızın tamamını ve verilerinin bir kopyasını içeren sıkıştırılmış klasörü indirin. İnternet olmadan bilgisayarda kullanmak için içindeki index.html dosyasını açın.",
+      "offlineTitle": "Çevrimdışı uygulama (bilgisayar)",
+      "phoneBody": "Telefonunuzun kamerasıyla kodu tarayın ve uygulamayı açın. Ardından tarayıcı menüsünden \"Ana Ekrana Ekle\"yi seçin; uygulama, simgenizle normal bir uygulama gibi yüklenir. Yükleyebileceğiniz veya Google Play'de yayınlayabileceğiniz gerçek bir Android uygulaması oluşturmak için aşağıdaki mobil uygulama oluşturucuyu kullanın.",
+      "phoneTitle": "Telefon",
+      "publishFirst": "Önce yayınlayın — yükleyiciler canlı uygulamanıza yönlendirir.",
+      "qrAlt": "{url} için QR kodu",
+      "qrHelp": "Canlı uygulamanızı telefonunuzda açmak için telefonunuzun kamerasını bu kare koda tutun.",
+      "title": "Cihazlara yükleyin",
+      "windowsHelp": "Windows için küçük bir yükleyici indirin. Çalıştırarak canlı uygulamanızı kendi penceresinde açan bir kısayol ekleyin."
+    },
+    "intro": "Uygulamanızı yayınlayın, bağlantısını paylaşın veya ana ekrana ekleyin.",
+    "legacyNote": "Bu uygulama, düzenleme yaptıkça hâlâ anında güncelleniyor. Güvenli yayınlamaya geçmek için bir kez yayınlayın: ziyaretçiler yayınladığınız sürümü görür, düzenlemeleriniz ise tekrar yayınlayana kadar gizli kalır.",
+    "live": "Yayında",
+    "liveUpToDate": "Yayında · güncel",
+    "liveWithChanges": "Yayında · yayınlanmamış değişiklikleriniz var",
+    "mobile": {
+      "body": "Uygulamanızı Google Play Store ve Apple App Store için gerçek bir Android ve iOS uygulamasına dönüştürün. Canlı siteniz temel alınır; yeniden yayınladığınızda uygulama otomatik olarak güncel kalır.",
+      "button": "Mobil uygulama oluştur",
+      "help": "Android telefonlar ve iPhone'lar için uygulama sürümleri oluşturmak üzere Mobil uygulama bölümüne gidin.",
+      "title": "Mobil uygulama olarak yayınlayın"
+    },
+    "notPublished": "Henüz yayınlanmadı",
+    "openLiveHelp": "Canlı uygulamanızı yeni bir sekmede, ziyaretçilerin gördüğü şekilde açın.",
+    "openPreviewHelp": "Uygulamanız henüz çevrimiçi değil. Bu yüzden en son değişikliklerinizin önizlemesi açılır.",
+    "status": "Durum",
+    "statusHelp": "Uygulamanızın çevrimiçi olup olmadığını ve ziyaretçilerin son değişikliklerinizi mi yoksa eski bir sürümü mü gördüğünü gösterir.",
+    "title": "Uygulamanıza bir adres verin."
+  },
+  "publishPanel": {
+    "appLive": "Uygulamanız yayında. Paylaşmaya hazır.",
+    "appOffline": "Uygulamanız artık çevrimdışı.",
+    "changesLive": "Değişiklikleriniz yayında.",
+    "confirmOffline": "Bu uygulamayı yayından kaldırmak istiyor musunuz? Tekrar yayınlayana kadar ziyaretçiler uygulamayı açamaz.",
+    "confirmRestore": "{version} sürümü yeniden yayına alınsın mı? Ziyaretçiler hemen görür. Taslağınız değişmez.",
+    "connectionError": "Bağlantınızı kontrol edip tekrar deneyin.",
+    "copied": "Kopyalandı",
+    "copyAppLink": "Uygulama bağlantısını kopyala",
+    "copyLink": "Bağlantıyı kopyala",
+    "copyLinkHelp": "Uygulama bağlantınızı kopyalayın; mesaja, e-postaya veya gönderiye eklemeye hazır.",
+    "copyManually": "Bağlantıyı elle kopyalamak için seçin.",
+    "linkCopied": "Bağlantı kopyalandı",
+    "makeLive": "Yayına al",
+    "makeLiveHelp": "Bu eski sürümü yeniden yayına alın. Ziyaretçiler hemen görür; üzerinde çalıştığınız değişiklikler aynı kalır.",
+    "publishApp": "Uygulamayı yayınla",
+    "publishAppHelp": "Bağlantıya sahip herkesin kullanabilmesi için uygulamanızı çevrimiçi yayınlayın.",
+    "publishChanges": "Değişiklikleri yayınla (v{version})",
+    "publishChangesHelp": "En son değişikliklerinizi yayınlayın. Ziyaretçiler hemen görür; aşağıdan önceki bir sürüme dönebilirsiniz.",
+    "restoreFailed": "Bu sürüm geri yüklenemedi.",
+    "restoring": "Geri yükleniyor…",
+    "takeOffline": "Yayından kaldır",
+    "takeOfflineHelp": "Uygulamanızı herkese kapatın. Tekrar yayınlayana kadar ziyaretçiler uygulamayı açamaz. Hiçbir şey silinmez.",
+    "upToDate": "Güncel",
+    "upToDateHelp": "Ziyaretçiler en son değişikliklerinizi zaten görüyor. Yayınlanacak yeni bir şey yok.",
+    "updateFailed": "Yayın durumu güncellenemedi. Lütfen tekrar deneyin."
+  },
+  "pushApi": {
+    "addTitle": "Bir başlık ekleyin.",
+    "checkMessage": "Mesajı kontrol edin.",
+    "publishFirst": "Önce uygulamayı yayınlayın — bildirimler yayındaki uygulamanızı açar."
+  },
+  "renameProject": {
+    "edit": "Düzenle",
+    "editHelp": "Uygulamanızın adını değiştirin. Web adresi aynı kalır, bu yüzden paylaştığınız bağlantılar çalışmaya devam eder.",
+    "errorStatus": "Hata {status}",
+    "inputHelp": "Uygulamanızın yeni adı. Kaydetmek için Enter'a, iptal etmek için Esc'ye basın.",
+    "inputLabel": "Uygulama adı",
+    "name": "Ad",
+    "networkError": "Bağlantı hatası — tekrar deneyin.",
+    "note": "Yalnızca ad değişir. Uygulamanızın web adresi aynı kalır, bu nedenle adını değiştirmek yayındaki uygulamanızı bozmaz.",
+    "saveHelp": "Yeni adı kaydedin. Web adresi değişmez."
+  },
+  "searchSharing": {
+    "changeFailed": "Değişiklik yapılamadı. Lütfen tekrar deneyin.",
+    "chat": "WhatsApp ve diğer sohbetlerde",
+    "chatHelp": "Uygulama bağlantınız sohbette paylaşıldığında veya sosyal medyada gönderi olarak paylaşıldığında görünen önizleme.",
+    "chatPreviewLabel": "Sohbette paylaşılan bağlantının önizlemesi",
+    "codeHelp": "Google Search Console'un verdiği kodu (HTML etiketi seçeneği) yapıştırın. Böylece Google'a uygulamanın size ait olduğunu kanıtlarsınız.",
+    "codeLabel": "Google doğrulama kodu",
+    "codeRemoved": "Kaldırıldı.",
+    "codeSaveFailed": "Kod kaydedilemedi.",
+    "codeSaved": "Kaydedildi. Search Console'a dönüp Doğrula'ya basın.",
+    "consoleBody": "Search Console, insanların uygulamanızı Google'da nasıl bulduğunu gösterir. Uygulamanızın adresini buraya URL öneki mülkü olarak ekleyin, doğrulamak için HTML etiketi yöntemini seçin ve kodu (veya etiketin tamamını) buraya yapıştırın.",
+    "consoleHelp": "İsteğe bağlı. Google Search Console, insanların uygulamanızı aramada nasıl bulduğunu gösteren ücretsiz bir Google aracıdır. Uygulamanızı bağlamak için burayı açın.",
+    "consoleTitle": "Google Search Console'a bağlan",
+    "copied": "Kopyalandı",
+    "copy": "Kopyala",
+    "copySitemap": "Site haritası adresini kopyala",
+    "copySitemapHelp": "Uygulamanızdaki tüm sayfaların listesini içeren site haritasının adresini kopyalayın. Search Console'da Site Haritaları bölümüne yapıştırın.",
+    "description": "Açıklama",
+    "descriptionEmptyHint": "Boş: Ana sayfanızın ilk paragrafı kullanılır.",
+    "descriptionHelp": "Uygulamanızın kısa bir özeti. Google, uygulama adının altında; sohbetler ise paylaşılan bağlantıların altında gösterir. En iyi sonuç için yaklaşık 160 karakter veya daha kısa tutun.",
+    "descriptionHint": "Ne olduğunu ve kimler için olduğunu belirtin.",
+    "descriptionPlaceholder": "Uygulamanızla ilgili bir iki cümle yazın. Örneğin: Aile fırınımızdan taze ekmek ve pastalar. İnternetten sipariş verin, ertesi sabah alın.",
+    "descriptionSaveFailed": "Açıklama kaydedilemedi.",
+    "descriptionSaveFailedRetry": "Açıklama kaydedilemedi. Lütfen tekrar deneyin.",
+    "descriptionSaved": "Kaydedildi. Arama motorları açıklamayı bir sonraki ziyaretlerinde alır.",
+    "designerDescription": "Tasarımınız kendi açıklamasını belirler. Bu açıklamayı arama motorları ve bağlantı önizlemeleri gösterir. Bu açıklama, kullanıcılar uygulamanızı yüklediğinde kullanılır.",
+    "google": "Google'da",
+    "googleHelp": "Uygulamanızın Google arama sonuçlarında nasıl görünebileceğine dair önizleme. Son kararı Google verir, bu yüzden görünüm biraz farklı olabilir.",
+    "googleNoDescription": "İnsanların uygulamanızda neler bulacağını anlaması için açıklama ekleyin.",
+    "googlePreviewLabel": "Google arama sonucu önizlemesi",
+    "hiddenNote": "Gizli: Uygulamanız arama sonuçlarında görünmez.",
+    "hide": "Arama motorlarında gizle",
+    "hideBody": "Google ve diğer arama motorları uygulamanızı listelemez. Bağlantıya sahip olanlar yine de açabilir.",
+    "hideHelp": "Google ve diğer arama motorlarından uygulamanızı listelememelerini istemek için açın. Bağlantıya sahip olanlar uygulamayı yine de açabilir. Hemen geçerli olur.",
+    "imageFallback": "Ana sayfanızdaki ilk görsel yüklenemedi. Bu yüzden uygulamanızın simgesi, adı ve renginden oluşturulan görsel gösteriliyor.",
+    "imageFirst": "Resim, ana sayfanızdaki ilk resimdir.",
+    "imageIsCard": "Görsel, uygulamanızın simgesi, adı ve renginden oluşturulur. Bunun yerine ana sayfanızda bir görsel kullanmak için oraya görsel ekleyin.",
+    "intro": "Uygulamanızın Google'da ve bağlantısı paylaşıldığında nasıl görüneceği. Buradaki değişiklikler yeniden yayınlamadan hemen uygulanır.",
+    "length": "{count}/{max}",
+    "lengthTooLong": "{count}/{max} (uzun açıklamalar kesilir)",
+    "notPublished": "Uygulamanız henüz yayında değil. Yayına alındığında bağlantısı böyle görünecek.",
+    "off": "Kapalı",
+    "on": "Açık",
+    "saveCode": "Kodu kaydet",
+    "saveCodeHelp": "Kodu uygulamanıza kaydedin, ardından Search Console'a dönüp Doğrula'ya basın. Kodu kaldırmak için alanı boş bırakıp kaydedin.",
+    "saveDescription": "Açıklamayı kaydet",
+    "saveDescriptionHelp": "Açıklamanızı kaydedin. Hemen kullanılır, yeniden yayınlamanız gerekmez. Google, uygulamanızı bir sonraki ziyaretinde açıklamayı günceller.",
+    "saveFailed": "Kaydedilemedi. Lütfen tekrar deneyin.",
+    "sitemapCopied": "Site haritası adresi kopyalandı",
+    "sitemapIntro": "Ardından Google'ın her sayfayı bulabilmesi için site haritanızı Search Console'a ekleyin:",
+    "title": "Arama ve paylaşım",
+    "titleHelp": "Uygulamanızın Google sonuçlarında ve bağlantısı sohbette paylaşıldığında görünen önizlemede nasıl görüneceğini ayarlayın. Değişiklikler hemen uygulanır."
+  },
+  "seoApi": {
+    "invalidCode": "Bu, Google doğrulama koduna benzemiyor. HTML etiketi seçeneğindeki kodu veya etiketin tamamını yapıştırın.",
+    "invalidInput": "Geçersiz giriş"
+  },
+  "tabs": {
+    "data": {
+      "help": "Kayıtlar, siparişler ve insanların gönderdiği mesajlar gibi uygulamanızın sakladığı bilgileri görün ve düzenleyin.",
+      "label": "Veriler"
+    },
+    "designer": {
+      "help": "İstediğinizi anlatarak uygulamanızı oluşturmaya devam etmek için Yapay Zekâ Tasarımcısı'na dönün.",
+      "label": "Tasarımcı"
+    },
+    "domains": {
+      "help": "Uygulamanızı www.isletmeniz.com gibi kendi web adresinize (alan adına) taşıyın.",
+      "label": "Alan adları"
+    },
+    "features": {
+      "help": "Uygulamanıza rezervasyon, mağaza veya iletişim formu gibi hazır özellikler ekleyin. Her özelliğin kendine ait sayfaları vardır.",
+      "label": "Özellikler"
+    },
+    "flows": {
+      "help": "Birisi form doldurduğunda size e-posta gönderilmesi gibi, uygulamanızın otomatik olarak yapacaklarını ayarlayın.",
+      "label": "Akışlar"
+    },
+    "mobileApp": {
+      "help": "Uygulamanızı, insanların yükleyebileceği bir Android veya iPhone uygulamasına dönüştürün.",
+      "label": "Mobil uygulama"
+    },
+    "navLabel": "Proje gezintisi",
+    "notifications": {
+      "help": "Uygulamanızdan bildirimlere izin veren kişilerin telefonlarında ve bilgisayarlarında açılan kısa uyarılar gönderin.",
+      "label": "Bildirimler"
+    },
+    "overview": {
+      "help": "Uygulamanızın adı, simgesi, bağlantısı, başlatma kontrol listesi ve ayarları tek bakışta.",
+      "label": "Genel bakış"
+    },
+    "pages": {
+      "help": "Uygulamanızdaki her sayfanın metinlerini, görsellerini ve düzenini değiştirmek için sayfa düzenleyicisini açın.",
+      "label": "Sayfalar"
+    },
+    "preview": "Önizleme",
+    "previewHelp": "Son değişikliklerinizin ziyaretçiler görmeden önce nasıl göründüğünü denemek için uygulamanızı yeni bir sekmede açın.",
+    "publish": "Yayınla",
+    "publishHelp": "Son değişikliklerinizi ziyaretçilere açabileceğiniz ve uygulamanızın paylaşım bağlantısını alabileceğiniz Yayınla sayfasına gidin.",
+    "theme": {
+      "help": "Uygulamanızın tamamı için renkleri, yazı tiplerini ve köşe biçimlerini seçin.",
+      "label": "Tema"
+    }
+  },
+  "themeEditor": {
+    "active": "ETKİN",
+    "bodyFont": "Gövde yazı tipi",
+    "bodyFontHelp": "Paragraflar, düğmeler ve formlar gibi normal metinlerde kullanılan yazı tipi.",
+    "colorCode": "{color} renk kodu",
+    "colorCodeHelp": "İstediğiniz rengi biliyorsanız #1a73e8 gibi bir renk kodunu buraya yazın.",
+    "colors": {
+      "accent": {
+        "help": "Rozetler ve dekoratif şekiller gibi küçük dokunuşlar için ikinci bir renk.",
+        "label": "Vurgu"
+      },
+      "bg": {
+        "help": "Sayfalarınızdaki her şeyin arkasındaki renk.",
+        "label": "Arka plan"
+      },
+      "border": {
+        "help": "Kutuların çevresindeki ve bölümler arasındaki ince çizgilerin rengi.",
+        "label": "Kenarlık"
+      },
+      "primary": {
+        "help": "Düğmelerde, bağlantılarda ve vurgularda kullanılan ana marka renginiz. Bu rengi değiştirmek, Birincil üzerine gelme rengini de günceller.",
+        "label": "Birincil"
+      },
+      "primary2": {
+        "help": "Birisi düğme veya bağlantıların üzerine geldiğinde görünen renk.",
+        "label": "Birincil üzerine gelme"
+      },
+      "surface": {
+        "help": "Arka planın üzerindeki kartların ve kutuların rengi.",
+        "label": "Yüzey"
+      },
+      "surface2": {
+        "help": "Bazı bölümleri ve etiketleri ayırt etmek için kullanılan ikinci bir kutu rengi.",
+        "label": "Yüzey 2"
+      },
+      "text": {
+        "help": "Sayfalarınızdaki metinlerin çoğunun rengi.",
+        "label": "Metin"
+      },
+      "textMuted": {
+        "help": "Altyazılar ve kısa notlar gibi daha az önemli metinler için daha yumuşak bir renk.",
+        "label": "Soluk metin"
+      },
+      "title": "Renkler"
+    },
+    "corners": "Köşeler",
+    "customFont": "Özel…",
+    "customize": "Özelleştir",
+    "customizeHelp": "Seçtiğiniz görünümün yazı tiplerini, renklerini ve köşelerini ayarlayın. Değişiklikleriniz otomatik kaydedilir; ziyaretçiler bunları siz yayınladıktan sonra görür.",
+    "dark": "Koyu",
+    "darkThemes": "Koyu temalar · {count}",
+    "displayFont": "Başlık yazı tipi",
+    "displayFontHelp": "Başlıklar ve adlarda kullanılan yazı tipi. Daha kalın veya gösterişli bir yazı tipi, uygulamanıza karakter katar.",
+    "identity": "Kimlik",
+    "light": "Açık",
+    "lightThemes": "Açık temalar · {count}",
+    "livePreview": "Canlı önizleme",
+    "livePreviewHelp": "Uygulamanızın bu temada nasıl görüneceğine hızlıca göz atın. Değişiklik yaptıkça önizleme güncellenir.",
+    "mode": "Mod",
+    "modeHelp": "Bu görünümün açık mı koyu mu olacağını belirler. Tarayıcılar bunu form alanları ve kaydırma çubukları gibi öğelerde kullanır. Renklerinizi değiştirmez.",
+    "name": "Ad",
+    "nameHelp": "Temaları birbirinden ayırmanıza yardımcı olacak bir ad. Ziyaretçiler bunu görmez.",
+    "presetHelp": "Uygulamanızın tamamında {name} görünümünü kullanın: renkler, yazı tipleri ve köşeler mevcut ayarlarınızın yerini alır. Ziyaretçiler bunu siz yayınladıktan sonra görür.",
+    "previewHome": "Ana sayfanız",
+    "previewHomeHelp": "Temayı uygulamanızın gerçek ana sayfasında önizleyin.",
+    "previewSample": "Örnek",
+    "previewSampleHelp": "Tüm renkleri bir arada görmek için temayı düğmeler, kartlar ve form içeren örnek bir sayfada önizleyin.",
+    "previewTitle": "Tema önizlemesi",
+    "previewWhat": "Önizlenecek sayfa",
+    "radius": "Yarıçap",
+    "radiusHelp": "Kart ve kutu köşelerinin ne kadar yuvarlak olacağı; örneğin 14px. Kare köşeler için 0px kullanın.",
+    "radiusSm": "Küçük yarıçap",
+    "radiusSmHelp": "Düğme ve form alanı gibi küçük öğelerin köşelerinin ne kadar yuvarlak olacağı. Kare köşeler için 0px kullanın.",
+    "reset": "Sıfırla",
+    "resetHelp": "Bu sayfayı açtığınızdan beri yaptığınız tüm tema değişikliklerini geri alın.",
+    "saveFailed": "Kaydedilemedi. İnternet bağlantınızı kontrol edin.",
+    "saved": "Kaydedildi",
+    "typography": "Yazı biçimi"
+  },
+  "themePage": {
+    "intro": "Hazır temalardan birini seçin veya kendi temanızı ayarlayın. Renkler, yazı tipleri ve köşe yuvarlaklıkları uygulamadaki tüm sayfalara uygulanır. Düzenleyicide hemen görürsünüz; ziyaretçiler ise bir sonraki yayınınızdan sonra görür.",
+    "title": "Tema"
+  },
+  "transferApi": {
+    "alreadyOwner": "Bu uygulamanın sahibi zaten sizsiniz.",
+    "invalidEmail": "Geçerli bir e-posta adresi girin.",
+    "notEligible": "Uygulamayı bu e-posta adresine devredemedik. Adresi kontrol edin: Buradaki bir hesaba ait olmalı ve bu hesap sizden uygulama alabilmeli.",
+    "notFound": "Proje bulunamadı",
+    "ownerOnly": "Uygulamayı yalnızca sahibi devredebilir. Kendi hesabından yapmasını isteyin.",
+    "tooManyTries": "Çok fazla devir denemesi yaptınız. Lütfen bir saat bekleyip tekrar deneyin.",
+    "unauthorized": "Yetkiniz yok"
+  },
+  "transferProject": {
+    "confirm": "<b>{name}</b> adlı uygulama <mono>{email}</mono> adresine devredilsin mi? Erişiminizi hemen kaybedersiniz.",
+    "confirmButton": "Evet, devret",
+    "confirmHelp": "Uygulamayı şimdi devredin. Erişiminizi hemen kaybedersiniz ve bu işlemi kendiniz geri alamazsınız.",
+    "emailHelp": "Yeni sahibin burada oturum açmak için kullandığı e-posta adresi. Sizinle aynı çalışma alanında hesabı olmalı.",
+    "emailLabel": "Yeni sahibin e-posta adresi",
+    "failed": "Aktarım başarısız oldu. Lütfen tekrar deneyin.",
+    "intro": "Bu uygulamanın tamamını — sayfaları, akışları, verileri, alan adlarını ve yayındaki siteyi — bu sitedeki başka bir hesaba devredin. Uygulamaya erişiminizi kaybedersiniz. Bu işlemi kendi tarafınızdan geri alamazsınız.",
+    "networkError": "Bağlantı hatası — tekrar deneyin.",
+    "requirements": "Diğer kişinin önce burada, sizinle aynı çalışma alanında kendi hesabı olmalı ve planında bir uygulama daha eklemek için yer bulunmalı.",
+    "title": "Sahipliği devret",
+    "titleHelp": "Bu uygulamanın tamamını burada hesabı olan başka birine verin. Uygulama onun olduktan sonra açamaz veya değiştiremezsiniz.",
+    "transfer": "Devret",
+    "transferHelp": "Sonraki adımda, işlem gerçekleşmeden önce onaylamanız istenecek.",
+    "transferring": "Devrediliyor…"
+  }
+}

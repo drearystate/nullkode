@@ -1,12 +1,15 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 export function NewPageButton({ projectId }: { projectId: string }) {
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [busy, setBusy] = useState(false);
   const router = useRouter();
+  const t = useTranslations("project.newPageButton");
+  const tc = useTranslations("common");
 
   async function create() {
     if (!title.trim()) return;
@@ -25,8 +28,8 @@ export function NewPageButton({ projectId }: { projectId: string }) {
 
   if (!open) {
     return (
-      <button className="btn-primary" data-help="Add a new, empty page to your app. You'll type its name, then it opens in the editor." onClick={() => setOpen(true)}>
-        New page
+      <button className="btn-primary" data-help={t("newPageHelp")} onClick={() => setOpen(true)}>
+        {t("newPage")}
       </button>
     );
   }
@@ -35,8 +38,8 @@ export function NewPageButton({ projectId }: { projectId: string }) {
       <input
         className="input w-64"
         autoFocus
-        placeholder="Page title"
-        data-help="The name for your new page, like “About us”. It's shown in your app's menu and on the browser tab."
+        placeholder={t("titlePlaceholder")}
+        data-help={t("titleHelp")}
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         onKeyDown={(e) => {
@@ -44,11 +47,11 @@ export function NewPageButton({ projectId }: { projectId: string }) {
           if (e.key === "Escape") setOpen(false);
         }}
       />
-      <button className="btn-primary" disabled={busy} onClick={create} data-help="Make the page and open it in the editor.">
-        Create
+      <button className="btn-primary" disabled={busy} onClick={create} data-help={t("createHelp")}>
+        {t("create")}
       </button>
       <button className="btn-ghost" onClick={() => setOpen(false)}>
-        Cancel
+        {tc("cancel")}
       </button>
     </div>
   );

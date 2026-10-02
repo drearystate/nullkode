@@ -54,6 +54,12 @@ export type GuideSection = {
   /** A short list of points, for "Good to know" and similar. */
   bullets?: string[];
   screenshot?: Screenshot;
+  /**
+   * The section's link anchor. Set by getLocalizedGuide() (./localized.ts)
+   * from the English heading, so anchors stay the same in every language.
+   * Use sectionAnchor() rather than reading it.
+   */
+  anchor?: string;
 };
 
 export type Guide = {
@@ -1608,4 +1614,9 @@ export function sectionId(heading: string): string {
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
+}
+
+/** A section's anchor id: from its English heading, whatever language it is shown in. */
+export function sectionAnchor(section: GuideSection): string {
+  return section.anchor ?? sectionId(section.heading);
 }

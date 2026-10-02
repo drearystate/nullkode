@@ -1,0 +1,1153 @@
+{
+  "assets": {
+    "addHelp": "Nhấn để thêm ảnh này bên dưới phần bạn đã chọn, hoặc kéo ảnh vào trang.",
+    "addPhoto": "Thêm ảnh này",
+    "addPhotoNamed": "Thêm ảnh này: {alt}",
+    "aiOriginal": "Ảnh gốc do AI tạo",
+    "categories": {
+      "agriculture": {
+        "help": "Trang trại và nông sản tươi.",
+        "label": "Nông nghiệp"
+      },
+      "all": {
+        "help": "Hiển thị nhiều ảnh miễn phí bạn có thể dùng trên trang.",
+        "label": "Tất cả"
+      },
+      "architecture": {
+        "help": "Hiển thị ảnh miễn phí về các tòa nhà.",
+        "label": "Kiến trúc"
+      },
+      "automotive": {
+        "help": "Sửa chữa xe và nhà để xe.",
+        "label": "Ô tô"
+      },
+      "beauty": {
+        "help": "Ảnh chăm sóc da, spa và làm đẹp.",
+        "label": "Làm đẹp"
+      },
+      "business": {
+        "help": "Hiển thị ảnh miễn phí về văn phòng và mọi người tại nơi làm việc.",
+        "label": "Kinh doanh"
+      },
+      "cleaning": {
+        "help": "Dịch vụ vệ sinh chuyên nghiệp.",
+        "label": "Vệ sinh"
+      },
+      "community": {
+        "help": "Chợ cộng đồng và nông sản tươi.",
+        "label": "Cộng đồng"
+      },
+      "education": {
+        "help": "Lớp học và hoạt động học tập cùng nhau.",
+        "label": "Học tập"
+      },
+      "events": {
+        "help": "Đám cưới và dịch vụ tổ chức sự kiện.",
+        "label": "Sự kiện"
+      },
+      "fitness": {
+        "help": "Hiển thị ảnh miễn phí về phòng tập và việc luyện tập.",
+        "label": "Thể hình"
+      },
+      "food": {
+        "help": "Hiển thị ảnh miễn phí về món ăn và nhà hàng.",
+        "label": "Ẩm thực"
+      },
+      "landscaping": {
+        "help": "Dịch vụ làm vườn và thiết kế cảnh quan.",
+        "label": "Vườn"
+      },
+      "legal": {
+        "help": "Thư viện luật và kiến trúc tòa án.",
+        "label": "Pháp lý"
+      },
+      "logistics": {
+        "help": "Nhà kho, giao hàng và vận chuyển.",
+        "label": "Hậu cần"
+      },
+      "medical": {
+        "help": "Ảnh miễn phí về chăm sóc sức khỏe và y học.",
+        "label": "Y tế"
+      },
+      "nature": {
+        "help": "Hiển thị ảnh miễn phí về thiên nhiên và phong cảnh.",
+        "label": "Thiên nhiên"
+      },
+      "originals": {
+        "help": "Xem ảnh gốc do AI tạo, có sẵn trong bản cài đặt này.",
+        "label": "Ảnh gốc"
+      },
+      "people": {
+        "help": "Hiển thị ảnh miễn phí về mọi người.",
+        "label": "Con người"
+      },
+      "pets": {
+        "help": "Chăm sóc và chải chuốt thú cưng.",
+        "label": "Thú cưng"
+      },
+      "products": {
+        "help": "Ảnh gốm sứ và sản phẩm.",
+        "label": "Sản phẩm"
+      },
+      "tech": {
+        "help": "Hiển thị ảnh miễn phí về máy tính và công nghệ.",
+        "label": "Công nghệ"
+      },
+      "trades": {
+        "help": "Dịch vụ sửa ống nước, điện và xây dựng.",
+        "label": "Nghề thủ công"
+      },
+      "travel": {
+        "help": "Ảnh miễn phí về du lịch và các điểm tham quan.",
+        "label": "Du lịch"
+      }
+    },
+    "describeHelp": "Mô tả ngắn về nội dung ảnh. Trình đọc màn hình sẽ đọc cho người không nhìn thấy, và công cụ tìm kiếm cũng sử dụng nội dung này.",
+    "describeLabel": "Ảnh đã thay đổi. Hãy mô tả ảnh cho người không nhìn thấy:",
+    "describePlaceholder": "Ví dụ: Bánh mì mới nướng trên quầy tiệm",
+    "failedToLoad": "Không tải được tài nguyên",
+    "footerAdd": "Nhấn hoặc kéo để thêm · Ảnh miễn phí",
+    "footerSwap": "Nhấn vào ảnh để thay ảnh bạn đã chọn",
+    "noMatches": "Không tìm thấy ảnh phù hợp. Hãy thử tìm chủ đề rộng hơn.",
+    "photoBy": "Ảnh của {name}",
+    "saveDescription": "Lưu mô tả",
+    "saveDescriptionHelp": "Lưu mô tả này cho ảnh.",
+    "searchHelp": "Nhập nội dung bạn muốn tìm ảnh, như “cà phê” hoặc “chó”, để tìm ảnh miễn phí có thể sử dụng.",
+    "searchPlaceholder": "Tìm ảnh...",
+    "skip": "Bỏ qua",
+    "skipHelp": "Giữ ảnh mới mà không thay đổi mô tả.",
+    "swapHelp": "Nhấn để thay ảnh bạn đã chọn bằng ảnh này. Ảnh sẽ giữ nguyên kích thước và vị trí.",
+    "useInstead": "Dùng ảnh này thay thế",
+    "useInsteadNamed": "Dùng ảnh này thay thế: {alt}"
+  },
+  "blockCategories": {
+    "basic": {
+      "help": "Các thành phần đơn giản để xây dựng trang. Nhấn vào tên để hiện hoặc ẩn.",
+      "label": "Cơ bản"
+    },
+    "commerce": {
+      "help": "Các thành phần phục vụ bán hàng, như thẻ sản phẩm và giá. Nhấn vào tên để hiện hoặc ẩn.",
+      "label": "Bán hàng"
+    },
+    "content": {
+      "help": "Tiêu đề, đoạn văn, danh sách và ghi chú. Nhấn vào tên để hiện hoặc ẩn.",
+      "label": "Nội dung"
+    },
+    "extra": {
+      "help": "Một nhóm khối. Nhấp vào tên để hiện hoặc ẩn.",
+      "label": "Khác"
+    },
+    "forms": {
+      "help": "Các ô để mọi người điền, như biểu mẫu liên hệ và đăng ký. Nhấn vào tên để hiện hoặc ẩn.",
+      "label": "Biểu mẫu"
+    },
+    "interactive": {
+      "help": "Nút, thẻ, tab, cửa sổ bật lên và các thành phần khác mà mọi người có thể nhấn. Nhấn vào tên để hiện hoặc ẩn.",
+      "label": "Tương tác"
+    },
+    "layout": {
+      "help": "Hộp và cột để chứa các thành phần khác, cùng những thành phần cơ bản như văn bản và ảnh. Nhấn vào tên để hiện hoặc ẩn.",
+      "label": "Bố cục"
+    },
+    "liveData": {
+      "help": "Các thành phần dùng thông tin trong ứng dụng của bạn: biểu mẫu lưu dữ liệu, danh sách tự điền và khu vực đăng nhập. Nhấn vào tên để hiện hoặc ẩn.",
+      "label": "Dữ liệu trực tiếp"
+    },
+    "media": {
+      "help": "Ảnh, video, âm thanh và bản đồ. Nhấn vào tên để hiện hoặc ẩn.",
+      "label": "Phương tiện"
+    },
+    "premade": {
+      "help": "Các phần được thiết kế sẵn để bạn thêm vào rồi chỉnh sửa. Nhấp vào tên để hiện hoặc ẩn.",
+      "label": "Có sẵn"
+    },
+    "sections": {
+      "help": "Các phần trang hoàn chỉnh có sẵn, như phần giới thiệu, bảng giá hoặc chân trang. Nhấn vào tên để hiện hoặc ẩn.",
+      "label": "Phần trang"
+    },
+    "social": {
+      "help": "Liên kết đến mạng xã hội, nút chia sẻ và nội dung từ các trang web khác. Nhấn vào tên để hiện hoặc ẩn.",
+      "label": "Mạng xã hội"
+    }
+  },
+  "blockHelp": {
+    "nkAccordion": "Các câu hỏi hoặc tiêu đề có thể nhấp để mở và xem thêm.",
+    "nkApiCall": "Một nút giúp ứng dụng thực hiện thao tác khi được nhấn. Chọn thao tác trong phần Cài đặt.",
+    "nkAuthGate": "Một khung chỉ người đã đăng nhập mới xem được.",
+    "nkBadge": "Một nhãn nhỏ có màu, như “Mới” hoặc “Giảm giá”.",
+    "nkCarousel": "Hình ảnh hoặc trang chiếu lần lượt thay phiên nhau.",
+    "nkContainer": "Một khung giúp nội dung bên trong có độ rộng vừa phải và nằm giữa trang.",
+    "nkDataCards": "Các thẻ tự điền thông tin từ ứng dụng của bạn. Chọn nội dung hiển thị trong phần Cài đặt.",
+    "nkDataList": "Một danh sách tự điền thông tin từ ứng dụng của bạn, như sản phẩm hoặc lịch đặt chỗ. Chọn nội dung hiển thị trong phần Cài đặt.",
+    "nkDataTable": "Một bảng tự điền thông tin từ ứng dụng của bạn. Chọn nội dung hiển thị trong phần Cài đặt.",
+    "nkDivider": "Một đường kẻ mảnh để phân chia các phần trên trang.",
+    "nkFlowForm": "Một biểu mẫu mà ứng dụng sẽ xử lý câu trả lời, chẳng hạn như lưu lại hoặc gửi email cho bạn. Chọn cách xử lý trong phần Cài đặt.",
+    "nkGrid": "Các khung nằm cạnh nhau và tự xuống hàng mới trên màn hình nhỏ.",
+    "nkIconChip": "Một biểu tượng trong vòng tròn nhỏ có màu.",
+    "nkIframe": "Hiển thị nội dung từ một trang web khác ngay trên trang của bạn, như tiện ích đặt chỗ hoặc thanh toán.",
+    "nkLead": "Một đoạn văn bản lớn hơn một chút, phù hợp để giới thiệu.",
+    "nkMarqueeText": "Chữ chạy ngang màn hình.",
+    "nkModal": "Một nút mở cửa sổ nhỏ phía trên trang.",
+    "nkSection": "Một dải rộng toàn trang, có tiêu đề riêng.",
+    "nkSignout": "Một nút để đăng xuất khỏi ứng dụng.",
+    "nkSpacer": "Khoảng trống để tách các nội dung.",
+    "nkTabs": "Nhiều bảng nội dung, mỗi lần hiển thị một bảng và chuyển đổi bằng các thẻ.",
+    "nkUserMenu": "Menu Tài khoản dành cho người đã đăng nhập, có các liên kết như Hồ sơ và Cài đặt."
+  },
+  "blocks": {
+    "button": "Nút",
+    "checkbox": "Hộp kiểm",
+    "column1": "1 cột",
+    "column2": "2 cột",
+    "column3": "3 cột",
+    "column37": "2 cột 3/7",
+    "form": "Biểu mẫu",
+    "image": "Hình ảnh",
+    "input": "Ô nhập",
+    "label": "Nhãn",
+    "link": "Liên kết",
+    "linkBlock": "Khối liên kết",
+    "map": "Bản đồ",
+    "navbar": "Thanh điều hướng",
+    "nkAccordion": "Mục thu gọn",
+    "nkAddCart": "Thêm vào giỏ hàng",
+    "nkAlertDanger": "Thông báo · Lỗi",
+    "nkAlertInfo": "Thông báo · Thông tin",
+    "nkAlertSuccess": "Thông báo · Thành công",
+    "nkAlertWarn": "Thông báo · Cảnh báo",
+    "nkApiCall": "Nút chạy một luồng",
+    "nkAudio": "Âm thanh",
+    "nkAuthGate": "Khu vực dành cho thành viên",
+    "nkBadge": "Nhãn",
+    "nkBannerCard": "Thẻ biểu ngữ",
+    "nkBtnGroup": "Nhóm nút",
+    "nkBtnLg": "Nút · Cỡ lớn",
+    "nkBtnOutline": "Nút · Viền",
+    "nkBtnPrimary": "Nút · Chính",
+    "nkCard": "Thẻ",
+    "nkCardImage": "Thẻ · có ảnh",
+    "nkCarousel": "Băng chuyền",
+    "nkCartIcon": "Biểu tượng giỏ hàng",
+    "nkClientLogos": "Logo khách hàng",
+    "nkCode": "Khối mã",
+    "nkContactForm": "Biểu mẫu liên hệ",
+    "nkContainer": "Khung chứa",
+    "nkCta": "Kêu gọi hành động",
+    "nkCtaBand": "Biểu ngữ kêu gọi hành động",
+    "nkDataCards": "Lưới mục",
+    "nkDataList": "Danh sách mục",
+    "nkDataTable": "Bảng mục",
+    "nkDivider": "Đường phân cách",
+    "nkEventCard": "Thẻ sự kiện",
+    "nkFancyHeading": "Tiêu đề nổi bật",
+    "nkFaq": "Câu hỏi thường gặp",
+    "nkFaqAccordion": "Câu hỏi thường gặp dạng thu gọn",
+    "nkFeatureCards": "Thẻ tính năng",
+    "nkFeatures3": "Tính năng · 3 cột",
+    "nkFeatures4": "Tính năng · 2x2",
+    "nkFlowForm": "Biểu mẫu chạy một luồng",
+    "nkFooterMulti": "Chân trang · Nhiều cột",
+    "nkFooterSimple": "Chân trang · Đơn giản",
+    "nkFormContact": "Biểu mẫu liên hệ",
+    "nkFormLogin": "Biểu mẫu đăng nhập",
+    "nkFormNewsletter": "Đăng ký nhận tin",
+    "nkFormSearch": "Thanh tìm kiếm",
+    "nkFormSignup": "Biểu mẫu đăng ký",
+    "nkGallery": "Thư viện ảnh · 3 cột",
+    "nkGrid": "Lưới tự động",
+    "nkH1": "Tiêu đề 1",
+    "nkH2": "Tiêu đề 2",
+    "nkH3": "Tiêu đề 3",
+    "nkHeroCentered": "Giới thiệu nổi bật · Căn giữa",
+    "nkHeroForm": "Giới thiệu nổi bật · Đăng ký",
+    "nkHeroSplit": "Giới thiệu nổi bật · Có ảnh",
+    "nkIconChip": "Nhãn biểu tượng",
+    "nkIconPicker": "Biểu tượng",
+    "nkIframe": "Nhúng (iframe)",
+    "nkImage": "Hình ảnh",
+    "nkImageCaption": "Ảnh kèm chú thích",
+    "nkImageGallery": "Thư viện ảnh",
+    "nkLead": "Đoạn mở đầu",
+    "nkLink": "Liên kết",
+    "nkListItems": "Danh sách mục",
+    "nkListOl": "Danh sách đánh số",
+    "nkListUl": "Danh sách dấu đầu dòng",
+    "nkLithoAboutUs": "Về chúng tôi",
+    "nkLithoContactModern": "Liên hệ · Hiện đại",
+    "nkLithoContactSimple": "Liên hệ · Đơn giản",
+    "nkLithoFooterCentered": "Chân trang · Căn giữa",
+    "nkLithoFooterDark": "Chân trang · Tối",
+    "nkLithoFooterNewsletter": "Chân trang · Đăng ký nhận tin",
+    "nkLithoIconBoxOverline": "Hộp biểu tượng · Tiêu đề phụ",
+    "nkLithoInfoBanner": "Biểu ngữ thông tin",
+    "nkLithoLoginForm": "Biểu mẫu đăng nhập",
+    "nkLithoMessageBox": "Hộp tin nhắn",
+    "nkLithoNewsCards": "Thẻ tin tức",
+    "nkLithoOurStory": "Câu chuyện của chúng tôi",
+    "nkLithoPieCharts": "Biểu đồ tròn",
+    "nkLithoServicesShowcase": "Giới thiệu dịch vụ",
+    "nkLithoVideoSection": "Phần video",
+    "nkLogoCloud": "Hàng logo",
+    "nkMap": "Bản đồ",
+    "nkMarqueeText": "Chữ chạy",
+    "nkModal": "Cửa sổ bật lên",
+    "nkNavbar": "Thanh menu",
+    "nkNewsletter": "Bản tin",
+    "nkParagraph": "Đoạn văn",
+    "nkPricing3": "Bảng giá · 3 gói",
+    "nkPricing3col": "Bảng giá",
+    "nkPricingCard": "Thẻ giá",
+    "nkProcessSteps": "Các bước thực hiện",
+    "nkProduct": "Thẻ sản phẩm",
+    "nkProductGrid": "Lưới sản phẩm",
+    "nkProgress": "Thanh tiến độ",
+    "nkQuote": "Trích dẫn",
+    "nkReviews": "Đánh giá",
+    "nkRow2": "2 cột",
+    "nkRow3": "3 cột",
+    "nkRow4": "4 cột",
+    "nkSection": "Khu vực",
+    "nkServicesGrid": "Lưới dịch vụ",
+    "nkShare": "Nút chia sẻ",
+    "nkSignout": "Nút đăng xuất",
+    "nkSocialRow": "Biểu tượng mạng xã hội",
+    "nkSpacer": "Khoảng trống",
+    "nkStats": "Dải số liệu",
+    "nkStatsCounters": "Số liệu thống kê",
+    "nkTabs": "Thẻ tab",
+    "nkTabsContent": "Nội dung tab",
+    "nkTeam": "Đội ngũ",
+    "nkTeamGrid": "Lưới đội ngũ",
+    "nkTestimonials": "Đánh giá",
+    "nkUserMenu": "Menu người dùng",
+    "nkVideoFile": "Tệp video",
+    "nkVimeo": "Vimeo",
+    "nkYoutube": "YouTube",
+    "quote": "Trích dẫn",
+    "radio": "Nút chọn",
+    "select": "Danh sách chọn",
+    "text": "Văn bản",
+    "textBasic": "Phần văn bản",
+    "textarea": "Vùng nhập văn bản",
+    "video": "Video"
+  },
+  "canvas": {
+    "advanced": "Nâng cao",
+    "advancedHelp": "Các tùy chọn thiết kế chi tiết hơn, như phông chữ, bóng đổ và cách các mục căn chỉnh bên trong hộp. Bạn sẽ không cần dùng đến những tùy chọn này thường xuyên.",
+    "blocksHint": "Chạm vào một khối để thêm bên dưới phần bạn đã chọn, hoặc kéo khối vào trang.",
+    "devices": {
+      "desktop": {
+        "help": "Xem trang của bạn hiển thị thế nào trên màn hình máy tính lớn.",
+        "label": "Máy tính"
+      },
+      "mobile": {
+        "help": "Xem trang của bạn hiển thị thế nào trên điện thoại. Nhớ kiểm tra nhé — hầu hết khách truy cập dùng điện thoại!",
+        "label": "Điện thoại"
+      },
+      "tablet": {
+        "help": "Xem trang của bạn hiển thị thế nào trên máy tính bảng như iPad.",
+        "label": "Máy tính bảng"
+      }
+    },
+    "discard": "Bỏ",
+    "discardHelp": "Bỏ các chỉnh sửa chưa lưu và giữ nguyên trang. Bạn sẽ không thể khôi phục chúng.",
+    "draftNewer": "Chúng tôi tìm thấy các chỉnh sửa chưa được lưu. Khôi phục chứ?",
+    "draftOlder": "Chúng tôi tìm thấy các chỉnh sửa từ {when} chưa được lưu. Trang đã thay đổi kể từ đó. Vẫn khôi phục chứ?",
+    "element": "Thành phần",
+    "importLabel": "Dán HTML/CSS vào đây rồi nhấn nhập.",
+    "importTitle": "Nhập mẫu",
+    "layersHelp": "Mọi mục trên trang của bạn, theo thứ tự. Nhấp vào một hàng để chọn mục đó; kéo các hàng để di chuyển mục.",
+    "leftTabs": {
+      "assets": {
+        "help": "Ảnh miễn phí cho trang của bạn. Chạm hoặc kéo: chạm để thêm ảnh, thay ảnh bạn đã chọn hoặc kéo ảnh vào trang.",
+        "label": "Tài nguyên"
+      },
+      "blocks": {
+        "help": "Các thành phần có sẵn cho trang của bạn: văn bản, hình ảnh, nút và cả phần nội dung. Chạm hoặc kéo: chạm để thêm bên dưới phần bạn đã chọn, hoặc kéo vào trang.",
+        "label": "Khối"
+      },
+      "modules": {
+        "help": "Các tính năng có sẵn như đặt chỗ hoặc cửa hàng. Thêm một tính năng để có ngay các trang riêng, sẵn sàng sử dụng.",
+        "label": "Tính năng"
+      }
+    },
+    "noSettings": "Mục này không có gì cần cài đặt. Liên kết, ảnh, nút, biểu mẫu và danh sách có cài đặt trong tab này.",
+    "preview": "Xem trước",
+    "previewHelp": "Mở trang này trong thẻ mới để dùng thử — từ nút, biểu mẫu đến mọi thứ khác — như khách truy cập của bạn.",
+    "previewLabel": "Xem trước trang này",
+    "redo": "Làm lại",
+    "redoHelp": "Khôi phục thay đổi bạn vừa hoàn tác.",
+    "restore": "Khôi phục",
+    "restoreHelp": "Khôi phục các chỉnh sửa mà trình duyệt đã giữ từ lần trước. Chúng sẽ thay thế nội dung hiện có trên trang và được lưu như bình thường.",
+    "retry": "Thử lại",
+    "retryHelp": "Thử lưu lại các chỉnh sửa mới nhất ngay bây giờ.",
+    "rightTabs": {
+      "layers": {
+        "help": "Tất cả mục trên trang của bạn, theo thứ tự từ trên xuống dưới. Hữu ích khi chọn những mục khó nhấp vào.",
+        "label": "Lớp"
+      },
+      "styles": {
+        "help": "Thay đổi giao diện của mục đã chọn: văn bản, màu sắc, khoảng cách và kích thước. Trước tiên, hãy nhấp vào một mục trên trang.",
+        "label": "Thiết kế"
+      },
+      "theme": {
+        "help": "Điều chỉnh nhanh màu sắc và góc bo cho toàn bộ ứng dụng, hoặc chọn một giao diện có sẵn. Khách truy cập sẽ thấy thay đổi sau khi bạn xuất bản.",
+        "label": "Giao diện"
+      },
+      "traits": {
+        "help": "Cài đặt cho mục đã chọn, chẳng hạn như liên kết dẫn đến đâu hoặc biểu mẫu hoạt động thế nào khi được gửi.",
+        "label": "Cài đặt"
+      }
+    },
+    "searchBlocks": "Tìm khối...",
+    "searchBlocksHelp": "Nhập vào đây để tìm khối nhanh — thử các từ như “nút” hoặc “ảnh”.",
+    "selectForSettings": "Chọn một liên kết, ảnh, nút, biểu mẫu hoặc danh sách trên trang để xem cài đặt.",
+    "selectSomething": "Chọn một mục trên trang",
+    "selectionHelp": "Mục bạn đã chọn trên trang. Các tab Thiết kế và Cài đặt sẽ thay đổi mục này. Nhấp vào một mục trên trang để chọn.",
+    "sharedStyles": "Kiểu dùng chung và khi di chuột",
+    "sharedStylesHelp": "Tên kiểu mà mục này dùng chung với các mục khác, và kiểu hiển thị khi di chuột lên mục.",
+    "status": {
+      "error": "Chưa lưu",
+      "idle": "Đã bật tự động lưu",
+      "pending": "Có thay đổi chưa lưu",
+      "saved": "Đã lưu",
+      "saving": "Đang lưu…"
+    },
+    "statusErrorHelp": "Các chỉnh sửa mới nhất chưa được gửi đến máy chủ. Chúng vẫn được lưu trong trình duyệt này và hệ thống sẽ tiếp tục thử gửi. Hãy kiểm tra kết nối internet.",
+    "statusHelp": "Các chỉnh sửa sẽ tự lưu sau khi bạn ngừng nhập một lúc. Khách truy cập chỉ thấy những thay đổi này sau khi bạn xuất bản.",
+    "stylesHelp": "Giao diện của mục bạn đã chọn: văn bản, màu sắc, khoảng cách và kích thước. Thay đổi một mục là trang sẽ cập nhật ngay.",
+    "toggleLeft": "Bật/tắt bảng khối",
+    "toggleLeftHelp": "Hiện hoặc ẩn bảng bên trái có khối, tính năng và ảnh để trang của bạn rộng hơn.",
+    "toggleRight": "Bật/tắt bảng thuộc tính",
+    "toggleRightHelp": "Hiện hoặc ẩn bảng bên phải có các thẻ Thiết kế, Lớp, Cài đặt và Giao diện.",
+    "traitsHelp": "Cài đặt cho mục bạn đã chọn, chẳng hạn như liên kết dẫn đến đâu hoặc biểu mẫu hoạt động thế nào khi được gửi.",
+    "undo": "Hoàn tác",
+    "undoHelp": "Hoàn tác thay đổi gần nhất trên trang này. Nhấn lần nữa để lùi thêm."
+  },
+  "design": {
+    "properties": {
+      "background": "Ảnh nền hoặc màu chuyển sắc",
+      "backgroundColor": "Màu nền",
+      "border": "Viền",
+      "borderRadius": "Độ bo góc",
+      "boxShadow": "Bóng",
+      "color": "Màu chữ",
+      "fontFamily": "Phông chữ",
+      "fontSize": "Cỡ chữ",
+      "fontWeight": "Độ đậm",
+      "height": "Chiều cao",
+      "letterSpacing": "Khoảng cách chữ",
+      "lineHeight": "Khoảng cách dòng",
+      "margin": "Khoảng trống bên ngoài",
+      "maxWidth": "Chiều rộng tối đa",
+      "minHeight": "Chiều cao tối thiểu",
+      "opacity": "Độ trong suốt",
+      "padding": "Khoảng trống bên trong",
+      "textAlign": "Căn chỉnh",
+      "textShadow": "Bóng chữ",
+      "transform": "Xoay và đổi kích thước",
+      "transition": "Chuyển đổi mượt mà",
+      "width": "Chiều rộng"
+    },
+    "sectors": {
+      "advEffects": "Bóng và hiệu ứng",
+      "advFlex": "Sắp xếp các mục bên trong",
+      "advLayout": "Vị trí",
+      "advSize": "Tùy chọn kích thước khác",
+      "advText": "Tùy chọn văn bản khác",
+      "colors": "Nền",
+      "corners": "Góc và viền",
+      "size": "Kích thước",
+      "spacing": "Khoảng cách",
+      "text": "Văn bản"
+    }
+  },
+  "grapes": {
+    "assetManager": {
+      "addButton": "Thêm ảnh",
+      "modalTitle": "Chọn ảnh",
+      "uploadTitle": "Thả tệp vào đây hoặc nhấp để tải lên"
+    },
+    "names": {
+      "box": "Hộp",
+      "button": "Nút",
+      "cell": "Ô trong bảng",
+      "checkbox": "Hộp kiểm",
+      "comment": "Bình luận",
+      "form": "Biểu mẫu",
+      "iframe": "Iframe",
+      "image": "Ảnh",
+      "input": "Ô nhập",
+      "label": "Nhãn",
+      "link": "Liên kết",
+      "map": "Bản đồ",
+      "navbar": "Thanh điều hướng",
+      "radio": "Nút radio",
+      "row": "Hàng trong bảng",
+      "select": "Danh sách chọn",
+      "svg": "SVG",
+      "table": "Bảng",
+      "tbody": "Thân bảng",
+      "text": "Văn bản",
+      "textarea": "Vùng nhập văn bản",
+      "tfoot": "Chân bảng",
+      "thead": "Đầu bảng",
+      "video": "Video",
+      "wrapper": "Phần thân"
+    },
+    "properties": {
+      "alignContent": "Căn nội dung",
+      "alignItems": "Căn các mục",
+      "alignSelf": "Căn riêng",
+      "backgroundAttachmentSub": "Đính kèm",
+      "backgroundImageSub": "Ảnh",
+      "backgroundPositionSub": "Vị trí",
+      "backgroundRepeatSub": "Lặp lại",
+      "backgroundSizeSub": "Kích thước",
+      "borderBottomLeftRadiusSub": "Dưới trái",
+      "borderBottomRightRadiusSub": "Dưới phải",
+      "borderColorSub": "Màu",
+      "borderStyleSub": "Kiểu",
+      "borderTopLeftRadiusSub": "Trên trái",
+      "borderTopRightRadiusSub": "Trên phải",
+      "borderWidthSub": "Độ rộng",
+      "bottom": "Dưới",
+      "boxShadowBlur": "Độ mờ",
+      "boxShadowColor": "Màu",
+      "boxShadowH": "X",
+      "boxShadowSpread": "Độ lan",
+      "boxShadowType": "Loại",
+      "boxShadowV": "Y",
+      "display": "Hiển thị",
+      "flexBasis": "Kích thước cơ sở",
+      "flexDirection": "Hướng sắp xếp",
+      "flexGrow": "Độ giãn",
+      "flexShrink": "Độ co",
+      "flexWrap": "Xuống dòng",
+      "float": "Kiểu nổi",
+      "justifyContent": "Căn đều nội dung",
+      "left": "Trái",
+      "marginBottomSub": "Dưới",
+      "marginLeftSub": "Trái",
+      "marginRightSub": "Phải",
+      "marginTopSub": "Trên",
+      "order": "Thứ tự",
+      "paddingBottomSub": "Dưới",
+      "paddingLeftSub": "Trái",
+      "paddingRightSub": "Phải",
+      "paddingTopSub": "Trên",
+      "position": "Vị trí",
+      "right": "Phải",
+      "textShadowBlur": "Độ mờ",
+      "textShadowColor": "Màu",
+      "textShadowH": "X",
+      "textShadowV": "Y",
+      "top": "Trên",
+      "transformRotateX": "Xoay X",
+      "transformRotateY": "Xoay Y",
+      "transformRotateZ": "Xoay Z",
+      "transformScaleX": "Tỷ lệ X",
+      "transformScaleY": "Tỷ lệ Y",
+      "transformScaleZ": "Tỷ lệ Z",
+      "transitionDurationSub": "Thời lượng",
+      "transitionPropertySub": "Thuộc tính",
+      "transitionTimingFunctionSub": "Thời gian"
+    },
+    "selectorManager": {
+      "active": "Nhấp",
+      "emptyState": "- Trạng thái -",
+      "evenOdd": "Chẵn/Lẻ",
+      "hover": "Di chuột",
+      "label": "Lớp",
+      "selected": "Đã chọn"
+    },
+    "styleManager": {
+      "empty": "Chọn một phần tử trước khi dùng Trình quản lý kiểu",
+      "fileButton": "Hình ảnh",
+      "layer": "Lớp"
+    },
+    "traitManager": {
+      "empty": "Chọn một phần tử trước khi dùng Trình quản lý thuộc tính",
+      "label": "Cài đặt thành phần",
+      "newWindow": "Cửa sổ mới",
+      "thisWindow": "Cửa sổ này"
+    }
+  },
+  "iconPicker": {
+    "addHelp": "Thêm biểu tượng này vào trang.",
+    "changeIcon": "Đổi biểu tượng",
+    "closeHelp": "Đóng mà không chọn biểu tượng.",
+    "noResults": "Không có kết quả",
+    "pickIcon": "Chọn biểu tượng",
+    "replaceHelp": "Dùng biểu tượng này thay cho biểu tượng bạn đã chọn.",
+    "searchHelp": "Nhập nội dung biểu tượng, như “điện thoại”, “ngôi sao” hoặc “giỏ hàng”.",
+    "searchPlaceholder": "Tìm biểu tượng...",
+    "useIcon": "Dùng biểu tượng {name}"
+  },
+  "iconSets": {
+    "all": {
+      "help": "Tìm biểu tượng trong mọi kiểu cùng lúc.",
+      "label": "Tất cả"
+    },
+    "fa6Brands": {
+      "help": "Chỉ hiện logo của các công ty nổi tiếng từ bộ Font Awesome.",
+      "label": "FA Brands"
+    },
+    "fa6Solid": {
+      "help": "Chỉ hiện biểu tượng tô kín từ bộ Font Awesome.",
+      "label": "FA Solid"
+    },
+    "heroicons": {
+      "help": "Chỉ hiển thị biểu tượng kiểu Heroicons: nét viền gọn gàng.",
+      "label": "Heroicons"
+    },
+    "lucide": {
+      "help": "Chỉ hiển thị biểu tượng kiểu Lucide: nét viền mảnh, đơn giản.",
+      "label": "Lucide"
+    },
+    "mdi": {
+      "help": "Chỉ hiện biểu tượng theo phong cách Material, thường thấy trong nhiều ứng dụng Android.",
+      "label": "Material"
+    },
+    "ph": {
+      "help": "Chỉ hiện biểu tượng theo phong cách Phosphor: nét viền bo tròn, thân thiện.",
+      "label": "Phosphor"
+    },
+    "simpleIcons": {
+      "help": "Chỉ hiện logo của các công ty, ứng dụng và mạng xã hội nổi tiếng.",
+      "label": "Thương hiệu"
+    },
+    "tabler": {
+      "help": "Chỉ hiển thị biểu tượng kiểu Tabler: nét viền đơn giản, nhiều lựa chọn.",
+      "label": "Tabler"
+    }
+  },
+  "iconsPanel": {
+    "addHelp": "Thêm biểu tượng này vào phần bạn đã chọn, hoặc vào cuối trang nếu chưa chọn phần nào.",
+    "addIcon": "Thêm biểu tượng {name}",
+    "clickToInsert": "Nhấn để chèn",
+    "failedToLoad": "Không tải được biểu tượng",
+    "noResults": "Không có kết quả",
+    "searchHelp": "Nhập nội dung biểu tượng, như “điện thoại”, “ngôi sao” hoặc “giỏ hàng”.",
+    "searchPlaceholder": "Tìm biểu tượng..."
+  },
+  "languageTabs": {
+    "edited": "Bạn đã tự chỉnh sửa trang {language} này. Trang sẽ không bị thay thế khi phiên bản {main} thay đổi.",
+    "help": "Ứng dụng của bạn có nhiều ngôn ngữ. Chọn một ngôn ngữ để chỉnh sửa trang này; các thay đổi của AI cũng sẽ áp dụng cho ngôn ngữ đó.",
+    "label": "Ngôn ngữ",
+    "missing": "Trang này chưa được dịch sang {language}, nên bạn đang xem phiên bản {main}. Những gì bạn thay đổi ở đây sẽ trở thành trang {language}.",
+    "shared": "Kiểu dáng được dùng chung cho mọi ngôn ngữ.",
+    "stale": "Phiên bản {main} của trang này đã thay đổi sau khi được dịch. Cập nhật bản dịch trong mục Tổng quan của ứng dụng hoặc tự chỉnh sửa trang này.",
+    "tabHelp": "Chỉnh sửa trang này bằng {language}."
+  },
+  "modules": {
+    "addHelp": "Nhấn để xem tính năng này bổ sung gì cho ứng dụng. Chưa có gì thay đổi cho đến khi bạn xác nhận. Trang sẽ được lưu trước.",
+    "added": "Đã thêm",
+    "addedHelp": "Đã có trong ứng dụng. Nhấn để xem tính năng này bổ sung gì, hoặc thêm lại.",
+    "categories": {
+      "all": {
+        "help": "Hiện tất cả tính năng bạn có thể thêm.",
+        "label": "Tất cả"
+      },
+      "commerce": {
+        "help": "Tính năng bán hàng và nhận thanh toán, như cửa hàng, đặt chỗ, phiếu giảm giá hoặc quyên góp.",
+        "label": "Cửa hàng"
+      },
+      "communication": {
+        "help": "Tính năng giúp bạn giữ liên lạc với khách truy cập, như biểu mẫu liên hệ, bản tin hoặc tin nhắn văn bản.",
+        "label": "Liên lạc"
+      },
+      "community": {
+        "help": "Tính năng kết nối mọi người, như sự kiện, đánh giá, trò chuyện và diễn đàn.",
+        "label": "Cộng đồng"
+      },
+      "content": {
+        "help": "Tính năng chia sẻ bài viết và tin tức, như blog, câu hỏi thường gặp, hồ sơ năng lực hoặc khóa học.",
+        "label": "Nội dung"
+      },
+      "media": {
+        "help": "Tính năng dành cho ảnh, video, nhạc và các nội dung đa phương tiện khác.",
+        "label": "Phương tiện"
+      },
+      "productivity": {
+        "help": "Tính năng giúp bạn hoàn thành công việc, như danh sách việc cần làm, ghi chú, lịch hẹn và khảo sát.",
+        "label": "Năng suất"
+      },
+      "utility": {
+        "help": "Các tiện ích hữu ích như đăng nhập, bản đồ, tải tệp lên và tiện ích thời tiết.",
+        "label": "Công cụ"
+      }
+    },
+    "categoryHelp": "Chỉ hiện các tính năng trong nhóm này.",
+    "empty": "Chưa có tính năng nào ở đây",
+    "footer": "Nhấn vào tính năng để xem tính năng đó bổ sung gì cho ứng dụng",
+    "loading": "Đang tải tính năng…",
+    "nameAdded": "{name} (đã thêm)",
+    "notSaved": "Các chỉnh sửa mới nhất chưa được lưu nên chúng tôi chưa thêm gì. Hãy kiểm tra kết nối rồi thử lại.",
+    "savingPage": "Đang lưu trang…",
+    "searchHelp": "Nhập việc bạn muốn ứng dụng làm, như “đặt chỗ” hoặc “bản tin”, để tìm tính năng có sẵn.",
+    "searchLabel": "Tìm tính năng",
+    "searchPlaceholder": "Tìm tính năng…"
+  },
+  "pageSettings": {
+    "audience": "Ai có thể xem trang này",
+    "audienceHelp": "Chọn những ai có thể mở trang này trong ứng dụng đã xuất bản: bất kỳ ai, chỉ người đã đăng nhập hoặc chỉ quản trị viên.",
+    "audiences": {
+      "admin": {
+        "hint": "Chỉ bạn và những người bạn chỉ định làm quản trị viên.",
+        "label": "Chỉ quản trị viên"
+      },
+      "public": {
+        "hint": "Ai có đường liên kết đều có thể mở.",
+        "label": "Mọi người"
+      },
+      "role": {
+        "hint": "Được đặt ngay trên trang. Chọn tùy chọn khác để thay đổi.",
+        "label": "Người có vai trò “{role}”"
+      },
+      "signedIn": {
+        "hint": "Khách truy cập cần đăng nhập trước. Ai cũng có thể tạo tài khoản.",
+        "label": "Người đã đăng nhập"
+      }
+    },
+    "buttonNote": "Trang sẽ hiển thị dưới dạng nút ở cuối menu.",
+    "close": "Đóng cài đặt trang",
+    "designerNote": "Các trang của ứng dụng này do AI Designer tạo. Hãy thay đổi chúng tại đó.",
+    "duplicate": "Nhân bản",
+    "duplicateHelp": "Tạo bản sao của trang này với tên “(bản sao)” và mở bản sao để bạn chỉnh sửa. Các cài đặt đã thay đổi nhưng chưa lưu sẽ không được sao chép.",
+    "goesAtEnd": "Trang sẽ nằm ở cuối menu. Bạn có thể di chuyển trang sau khi lưu.",
+    "homeFirst": "Trang chủ luôn đứng đầu.",
+    "loadFailed": "Không thể tải cài đặt của trang này.",
+    "loadFailedRetry": "Không thể tải cài đặt của trang này. Vui lòng thử lại.",
+    "menu": "Menu",
+    "menuHelp": "Chọn xem trang có liên kết trong menu ứng dụng hay không và vị trí của trang trong menu.",
+    "moveDown": "Di chuyển xuống",
+    "moveDownHelp": "Đưa trang xuống sau một vị trí trong menu. Thay đổi sẽ có hiệu lực khi bạn nhấn Lưu.",
+    "moveUp": "Di chuyển lên",
+    "moveUpHelp": "Đưa trang lên trước một vị trí trong menu. Thay đổi sẽ có hiệu lực khi bạn nhấn Lưu.",
+    "name": "Tên",
+    "nameHint": "Hiển thị trong menu và trên thẻ trình duyệt.",
+    "neverInMenu": "Trang này sẽ không bao giờ xuất hiện trong menu.",
+    "noLogin": "Ứng dụng của bạn chưa có trang đăng nhập, nên chỉ bạn mới mở được trang này. <link>Thêm “Đăng nhập và tài khoản” từ mục Tính năng.</link>",
+    "placeInManage": "Vị trí trong menu “Quản lý” của quản trị viên: <b>{position}</b> trên {count}",
+    "placeInMenu": "Vị trí trong menu: <b>{position}</b> trên {count}",
+    "privatePublic": "Trang này hiển thị dữ liệu riêng tư; công khai trang sẽ làm lộ dữ liệu đó.",
+    "privateSignedIn": "Trang này hiển thị dữ liệu riêng tư. Bất kỳ ai đăng ký đều có thể xem dữ liệu đó.",
+    "saveFirst": "Hãy lưu trước, rồi chọn vị trí trong menu.",
+    "saveHelp": "Lưu các cài đặt này. Menu ứng dụng sẽ được cập nhật trên mọi trang.",
+    "showInMenu": "Hiện trong menu",
+    "showInMenuHelp": "Đánh dấu để thêm liên kết đến trang này vào menu ứng dụng. Bỏ đánh dấu để ẩn trang khỏi menu; ai có liên kết vẫn mở được trang.",
+    "title": "Cài đặt trang"
+  },
+  "panelHelp": {
+    "blockTip": "{about} Nhấn để thêm bên dưới phần bạn đã chọn hoặc kéo vào trang.",
+    "blockTipGeneric": "Nhấn hoặc kéo: nhấn “{label}” để thêm bên dưới phần bạn đã chọn, hoặc kéo đến nơi bạn muốn.",
+    "categoryGeneric": "Nhóm các khối. Nhấn vào tên để hiện hoặc ẩn các khối.",
+    "imagePicker": {
+      "addButton": "Thêm ảnh từ địa chỉ web bạn đã nhập vào danh sách bên dưới. Sau đó, nhấn vào ảnh để dùng.",
+      "asset": "Nhấn để dùng ảnh này trên trang. Nhấn đúp để dùng ảnh và đóng cửa sổ này.",
+      "close": "Đóng cửa sổ này. Ảnh bạn đã nhấn vẫn ở trên trang.",
+      "closeLabel": "Đóng",
+      "removeAsset": "Gỡ ảnh này khỏi danh sách. Ảnh đã có trên trang vẫn được giữ nguyên.",
+      "removeLabel": "Gỡ khỏi danh sách",
+      "upload": "Chọn ảnh từ máy tính hoặc điện thoại, hoặc thả ảnh vào đây. Ảnh sẽ được lưu trong trang và thêm vào danh sách bên dưới.",
+      "urlInput": "Dán địa chỉ web của ảnh đã có trên mạng, rồi nhấn Thêm ảnh để đưa ảnh vào danh sách bên dưới."
+    },
+    "layers": {
+      "layerRow": "Một thành phần trên trang của bạn. Nhấn để chọn; nhấn mũi tên để mở các thành phần bên trong.",
+      "move": "Giữ và kéo từ đây để chuyển thành phần này đến nơi khác trên trang.",
+      "visibility": "Nhấn vào biểu tượng con mắt để ẩn thành phần này trong lúc làm việc — thành phần vẫn ở đó, chỉ tạm ẩn thôi. Nhấn lại để hiện."
+    },
+    "rte": {
+      "bold": "In đậm phần chữ được chọn. Nhấn lại để bỏ.",
+      "italic": "In nghiêng phần chữ được chọn. Nhấn lại để bỏ.",
+      "link": "Tạo liên kết cho phần chữ được chọn hoặc gỡ liên kết. Sau đó, chọn nơi liên kết dẫn đến trong thẻ Cài đặt.",
+      "strikeThrough": "Gạch ngang phần chữ được chọn. Nhấn lại để bỏ gạch ngang.",
+      "underline": "Gạch chân phần chữ được chọn. Nhấn lại để bỏ gạch chân.",
+      "wrapForStyle": "Tách phần chữ được chọn thành một thành phần riêng để bạn có thể đổi màu hoặc cỡ chữ riêng trong thẻ Thiết kế."
+    },
+    "sectors": {
+      "advEffects": "Bóng, hiệu ứng mờ dần, ảnh nền và hoạt ảnh mượt mà.",
+      "advFlex": "Cách các phần bên trong hộp này được sắp xếp thành hàng hoặc cột.",
+      "advLayout": "Vị trí của phần này và cách cố định phần này. Hầu hết các trang không cần đến những tùy chọn này.",
+      "advSize": "Giới hạn chiều rộng và chiều cao của phần này trên các màn hình khác nhau.",
+      "advText": "Phông chữ, khoảng cách dòng, khoảng cách chữ và bóng chữ.",
+      "background": "Phần nền phía sau: màu sắc, hiệu ứng chuyển màu hoặc hình ảnh.",
+      "colors": "Màu nền của phần này.",
+      "corners": "Bo tròn các góc hoặc thêm đường viền.",
+      "decorations": "Các chi tiết trang trí: màu nền và ảnh nền, đường viền, góc bo tròn và bóng.",
+      "dimension": "Kích thước và khoảng cách: kích thước của phần này và khoảng trống xung quanh, bên trong phần này.",
+      "extra": "Các hiệu ứng bổ sung như hoạt ảnh mượt mà và xoay nghiêng.",
+      "flex": "Công cụ giúp sắp xếp các phần bên trong hộp này thành hàng hoặc cột gọn gàng.",
+      "general": "Các thiết lập cơ bản: vị trí của phần này trên trang và cách neo phần này.",
+      "layout": "Cách đặt phần này trên trang và cách các phần xung quanh được căn chỉnh.",
+      "size": "Chiều rộng và chiều cao của phần này.",
+      "spacing": "Khoảng trống bên trong phần này (giữa viền và nội dung) và bên ngoài (giữa phần này với các phần bên cạnh).",
+      "text": "Diện mạo của chữ: kích thước, độ đậm, màu sắc và cách căn chỉnh.",
+      "typography": "Mọi thứ về chữ: phông chữ, kích thước, màu sắc và cách căn chỉnh."
+    },
+    "selectors": {
+      "addClass": "Đặt tên kiểu dùng chung cho phần tử này. Các phần tử cùng tên sẽ có chung kiểu, nên thay đổi một phần tử sẽ áp dụng cho tất cả.",
+      "selectedInfo": "Cho biết chính xác bạn đang chỉnh sửa gì để bạn biết rõ những gì sẽ thay đổi.",
+      "states": "Tạo kiểu cho một trạng thái đặc biệt. Chọn 'hover' để thay đổi chỉ hiện khi rê chuột lên phần tử; chọn 'click' để hiện khi nhấn. Chọn '- State -' để trở về kiểu bình thường.",
+      "tag": "Tên kiểu dùng chung mà thành phần này đang dùng. Thay đổi sẽ áp dụng cho mọi thành phần có tên này. Nhấn x để gỡ tên khỏi thành phần này."
+    },
+    "styles": {
+      "alignContent": "Khi các phần tử xuống thêm dòng, tùy chọn này sắp xếp các dòng: sát nhau, căn giữa hoặc giãn đều.",
+      "alignItems": "Cách các phần tử căn theo CHIỀU NGANG của hàng: trên, giữa, dưới hoặc kéo giãn cho cùng kích thước.",
+      "alignSelf": "Cho phép riêng phần tử này căn khác với nhóm — lên trên, ở giữa, xuống dưới hoặc kéo giãn.",
+      "background": "Nền của phần tử này có thể là màu, màu chuyển sắc hoặc hình ảnh. Bạn cũng có thể xếp chồng nhiều lớp.",
+      "backgroundAttachment": "'Scroll' làm nền di chuyển cùng trang. 'Fixed' giữ nền cố định để trang trượt qua trên đó — tạo hiệu ứng chiều sâu thú vị.",
+      "backgroundColor": "Màu nền phía sau nội dung của phần tử này.",
+      "backgroundImage": "Hình ảnh (hoặc màu chuyển sắc) dùng làm nền cho phần tử này.",
+      "backgroundPosition": "Chọn phần hình nền sẽ hiển thị — dịch sang trái, phải, lên hoặc xuống.",
+      "backgroundRepeat": "Chọn hình nền lặp lại như gạch lát hay chỉ hiển thị một lần.",
+      "backgroundSize": "Cách hình ảnh lấp đầy vùng nền: 'cover' lấp đầy toàn bộ (có thể cắt mép), 'contain' hiển thị cả hình (có thể để lại khoảng trống).",
+      "border": "Đường viền quanh phần tử này. Chọn độ dày, kiểu (liền, đứt nét, chấm) và màu.",
+      "borderBottomLeftRadius": "Chỉ bo tròn góc DƯỚI BÊN TRÁI.",
+      "borderBottomRightRadius": "Chỉ bo tròn góc DƯỚI BÊN PHẢI.",
+      "borderColor": "Màu đường viền.",
+      "borderRadius": "Độ bo tròn các góc. 0 là góc vuông; số càng lớn, góc càng tròn. Tăng thật lớn để biến hình hộp thành hình viên thuốc hoặc hình tròn.",
+      "borderStyle": "Kiểu đường viền: liền, đứt nét (- - -) hoặc chấm (• • •).",
+      "borderTopLeftRadius": "Chỉ bo tròn góc TRÊN BÊN TRÁI.",
+      "borderTopRightRadius": "Chỉ bo tròn góc TRÊN BÊN PHẢI.",
+      "borderWidth": "Độ dày của đường viền. 0 nghĩa là không có đường viền.",
+      "bottom": "Khoảng cách của phần này từ PHÍA DƯỚI. Chỉ có tác dụng khi Position không phải là 'static'.",
+      "boxShadow": "Tạo bóng mờ phía sau phần tử này để trông như được nhấc khỏi trang, giống tấm thẻ trên bàn. Chọn độ lệch, độ mờ, độ rộng và màu bóng.",
+      "boxShadowBlur": "Độ mờ của bóng. 0 là viền sắc nét; số lớn hơn làm bóng mềm và mờ hơn.",
+      "boxShadowColor": "Màu bóng. Màu xám nhạt hoặc đen trong suốt thường trông đẹp nhất.",
+      "boxShadowH": "Di chuyển bóng sang trái hoặc phải. Số âm sẽ đưa bóng sang trái.",
+      "boxShadowSpread": "Độ lan của bóng theo mọi hướng. Số càng lớn, bóng càng rộng.",
+      "boxShadowType": "'Outside' tạo bóng phía sau phần tử. 'Inside' tạo bóng lõm vào trong phần tử, như một vết lõm.",
+      "boxShadowV": "Di chuyển bóng lên hoặc xuống. Số âm sẽ đưa bóng lên trên.",
+      "color": "Màu chữ. Nhấn vào ô màu để chọn màu bạn thích.",
+      "cursor": "Hình dạng con trỏ chuột khi di chuyển qua phần này. 'Pointer' (hình bàn tay) cho biết phần này có thể nhấp vào.",
+      "display": "Cách phần này nằm trên trang. 'Block' chiếm trọn một hàng. 'Inline' nằm cạnh các phần khác, như một từ trong câu. 'Flex' sắp xếp gọn gàng các phần bên trong. 'None' ẩn hoàn toàn phần này.",
+      "flexBasis": "Kích thước ban đầu của phần tử này, trước khi tăng hoặc giảm để chia sẻ không gian.",
+      "flexDirection": "Xếp các phần tử trong hộp này thành HÀNG (cạnh nhau) hoặc CỘT (từ trên xuống). 'Reverse' đảo thứ tự.",
+      "flexGrow": "Cho phép phần tử này mở rộng để chiếm khoảng trống. Giá trị 2 chiếm gấp đôi giá trị 1. 0 nghĩa là không mở rộng.",
+      "flexShrink": "Cho phép phần tử này co lại khi hết chỗ. Số càng lớn, phần tử càng co nhiều. 0 nghĩa là không co.",
+      "flexWrap": "Chọn phần tử không vừa sẽ xuống dòng ('wrap') hay co lại để nằm cùng một dòng ('nowrap').",
+      "float": "Đẩy phần này sang trái hoặc phải và để chữ bao quanh, như ảnh trên trang báo. 'None' giữ phần này ở vị trí bình thường.",
+      "fontFamily": "Kiểu chữ. Mỗi phông chữ mang lại cảm giác khác nhau — vui nhộn, nghiêm túc hay trang trọng. Chọn một kiểu để đổi chữ ngay lập tức.",
+      "fontSize": "Kích thước chữ. Chữ đọc thông thường thường khoảng 16px; tiêu đề lớn thường từ 32px trở lên.",
+      "fontWeight": "Độ đậm của chữ. 400 là bình thường, 700 là đậm. Chữ càng đậm càng nổi bật.",
+      "height": "Chiều cao của phần này. 'auto' nghĩa là tự tăng vừa đủ để chứa nội dung bên trong — thường là lựa chọn an toàn nhất.",
+      "justifyContent": "Cách các phần tử phân bố DỌC THEO hàng hoặc cột: dồn về đầu, căn giữa hoặc giãn đều.",
+      "left": "Khoảng cách của phần này từ BÊN TRÁI. Chỉ có tác dụng khi Position không phải là 'static'.",
+      "letterSpacing": "Khoảng cách giữa các chữ cái. Tăng nhẹ khoảng cách giúp tiêu đề trông nổi bật hơn; quá rộng sẽ khó đọc.",
+      "lineHeight": "Khoảng cách giữa các dòng trong đoạn văn. Khoảng 1.5 giúp chữ dễ đọc; 1 làm các dòng sát nhau hơn.",
+      "margin": "Khoảng trống BÊN NGOÀI phần này, giúp đẩy các phần bên cạnh ra xa. Số càng lớn thì khoảng cách xung quanh càng rộng.",
+      "marginBottom": "Khoảng trống phía DƯỚI phần này, đẩy nội dung tiếp theo xuống thấp hơn.",
+      "marginLeft": "Khoảng trống bên TRÁI phần này, đẩy các phần bên cạnh ra xa về phía đó.",
+      "marginRight": "Khoảng trống bên PHẢI phần này, đẩy các phần bên cạnh ra xa về phía đó.",
+      "marginTop": "Khoảng trống phía TRÊN phần này, đẩy phần này xuống dưới nội dung ở phía trên.",
+      "maxHeight": "Chiều cao tối đa của phần này. Nội dung thừa sẽ bị cắt hoặc có thể cuộn.",
+      "maxWidth": "Chiều rộng tối đa của phần này, kể cả trên màn hình rất lớn. Hữu ích để giữ dòng chữ đủ ngắn, dễ đọc.",
+      "minHeight": "Chiều cao tối thiểu của phần này, kể cả khi không có nội dung. Hữu ích để các mục không bị thu nhỏ lại.",
+      "minWidth": "Chiều rộng tối thiểu của phần này, kể cả trên màn hình rất nhỏ.",
+      "opacity": "Độ trong suốt của phần tử này. 100 là đục hoàn toàn; số nhỏ hơn làm phần tử mờ dần. 0 là trong suốt.",
+      "order": "Đổi vị trí của phần tử này trong hàng mà không di chuyển các phần tử khác. Số nhỏ hơn sẽ đứng trước.",
+      "overflow": "Cách xử lý khi nội dung bên trong quá lớn so với hộp: 'hidden' sẽ cắt phần thừa, 'scroll'/'auto' thêm thanh cuộn, còn 'visible' cho phép nội dung tràn ra ngoài.",
+      "padding": "Khoảng đệm BÊN TRONG phần này — khoảng cách giữa viền và nội dung. Tăng khoảng đệm giúp nút và thẻ trông thoáng hơn.",
+      "paddingBottom": "Khoảng đệm bên trong ở phía DƯỚI, giữa viền và nội dung.",
+      "paddingLeft": "Khoảng đệm bên trong ở bên TRÁI, giữa viền và nội dung.",
+      "paddingRight": "Khoảng đệm bên trong ở bên PHẢI, giữa viền và nội dung.",
+      "paddingTop": "Khoảng đệm bên trong ở phía TRÊN, giữa viền và nội dung.",
+      "perspective": "Tạo chiều sâu 3D cho phần tử nghiêng. Số càng nhỏ, hiệu ứng 3D càng mạnh, như thể bạn đang đưa phần tử lại gần mặt.",
+      "position": "Cách neo phần này. 'Static' = vị trí bình thường. 'Relative' = dịch nhẹ khỏi vị trí bình thường. 'Absolute' = ghim vào bất kỳ đâu bên trong hộp. 'Fixed' = ghim vào màn hình để phần này giữ nguyên vị trí khi bạn cuộn trang.",
+      "right": "Khoảng cách của phần này từ BÊN PHẢI. Chỉ có tác dụng khi Position không phải là 'static'.",
+      "textAlign": "Căn chữ sang trái, giữa, phải hoặc đều hai bên.",
+      "textDecoration": "Thêm đường kẻ vào chữ: gạch chân, gạch ngang hoặc chọn 'none' để bỏ đường kẻ thường có ở liên kết.",
+      "textShadow": "Tạo bóng mờ sau chữ để chữ nổi bật trên nền. Chọn độ lệch, độ mờ và màu bóng.",
+      "textShadowBlur": "Độ mờ của bóng chữ. 0 là sắc nét; số lớn hơn làm bóng mờ hơn.",
+      "textShadowColor": "Màu bóng chữ.",
+      "textShadowH": "Di chuyển bóng chữ sang trái hoặc phải. Số âm sẽ đưa bóng sang trái.",
+      "textShadowV": "Di chuyển bóng chữ lên hoặc xuống. Số âm sẽ đưa bóng lên trên.",
+      "textTransform": "Đổi kiểu chữ: CHỮ IN HOA, chữ thường hoặc Viết Hoa Chữ Cái Đầu Mỗi Từ.",
+      "top": "Khoảng cách của phần này từ PHÍA TRÊN. Chỉ có tác dụng khi Position không phải là 'static'.",
+      "transform": "Xoay, nghiêng, phóng to hoặc thu nhỏ phần tử này mà không làm xê dịch các phần tử xung quanh.",
+      "transformRotateX": "Nghiêng phần tử ra trước hoặc sau, như cánh cửa đổ xuống.",
+      "transformRotateY": "Xoay phần tử sang ngang, như cánh cửa đang xoay.",
+      "transformRotateZ": "Xoay phần tử trên mặt phẳng, như kim đồng hồ. 180 sẽ lật ngược phần tử.",
+      "transformScaleX": "Kéo giãn hoặc thu nhỏ phần tử theo chiều NGANG. 1 là kích thước bình thường; 2 rộng gấp đôi.",
+      "transformScaleY": "Kéo giãn hoặc thu nhỏ phần tử theo chiều DỌC. 1 là kích thước bình thường; 2 cao gấp đôi.",
+      "transformScaleZ": "Thay đổi kích thước phần tử theo chiều sâu 3D — chỉ thấy rõ khi phần tử được xoay.",
+      "transition": "Giúp thay đổi kiểu diễn ra mượt mà thay vì tức thì — như nút đổi màu nhẹ nhàng khi rê chuột lên.",
+      "transitionDuration": "Thời gian để hoàn tất thay đổi mượt mà. 0.3s cho cảm giác nhanh gọn; 2s chậm và ấn tượng hơn.",
+      "transitionProperty": "Chọn kiểu nào sẽ thay đổi mượt mà — chẳng hạn 'all', chỉ màu hoặc chỉ kích thước.",
+      "transitionTimingFunction": "Nhịp độ thay đổi: đều từ đầu đến cuối ('linear') hoặc tăng giảm tốc nhẹ nhàng như xe phanh ('ease').",
+      "verticalAlign": "Căn phần tử này với chữ bên cạnh — lên trên, ở giữa hoặc xuống dưới.",
+      "width": "Chiều rộng của phần này. Dùng 100% để lấp đầy khoảng trống được cấp hoặc nhập kích thước cụ thể như 300px.",
+      "zIndex": "Quyết định phần nào nằm trên khi hai phần chồng lên nhau. Số càng lớn thì càng ở gần phía trước, như tấm thẻ trên cùng trong chồng thẻ."
+    },
+    "traits": {
+      "address": "Địa chỉ web của hình ảnh hoặc video hiển thị ở đây.",
+      "answerName": "Tên ứng dụng dùng để lưu câu trả lời này, như 'email'. Hãy giữ tên ngắn gọn và đơn giản.",
+      "belongsToField": "Ô trên biểu mẫu mà nhãn này mô tả. Nhấn vào nhãn sẽ đặt con trỏ vào ô đó.",
+      "buttonWords": "Dòng chữ hiển thị trên nút này.",
+      "goesTo": "Nơi liên kết này đưa mọi người đến. Dùng /ten-trang cho trang của bạn hoặc địa chỉ https:// đầy đủ cho trang khác.",
+      "hintText": "Gợi ý màu xám hiển thị trong ô khi còn trống, như 'Nhập tên của bạn'. Gợi ý sẽ biến mất khi ai đó bắt đầu nhập.",
+      "hoverNote": "Ghi chú ngắn hiện lên khi ai đó rê chuột lên thành phần này.",
+      "kind": "Loại ô, chẳng hạn như văn bản, email, mật khẩu (ẩn ký tự), số và nhiều loại khác. Chọn đúng loại giúp điện thoại hiển thị bàn phím phù hợp.",
+      "mustBeFilledIn": "Bật tùy chọn này để biểu mẫu không được gửi khi ô này còn trống.",
+      "openInANewTab": "Chọn để mở liên kết trong thẻ mới, giúp ứng dụng của bạn vẫn mở.",
+      "pictureDescription": "Từ ngữ mô tả hình ảnh cho người không nhìn thấy được và công cụ tìm kiếm. Hãy nói rõ trong ảnh có gì.",
+      "showItemsFrom": "Chọn nguồn cung cấp mục cho danh sách này, như lịch đặt chỗ hoặc sản phẩm. Danh sách sẽ tự cập nhật.",
+      "startingValue": "Nội dung có sẵn khi trang vừa mở.",
+      "tickedAtTheStart": "Chọn xem ô này có được đánh dấu sẵn khi trang mở hay không.",
+      "whenPressed": "Việc nút này thực hiện: gửi biểu mẫu, xóa biểu mẫu hoặc không làm gì (dành cho nút thực hiện việc khác).",
+      "whenPressedRun": "Chọn việc ứng dụng thực hiện khi nhấn nút này. Bạn sẽ tìm thấy các tùy chọn này trong mục Luồng.",
+      "whenSentRun": "Chọn việc ứng dụng thực hiện với câu trả lời khi biểu mẫu được gửi, như lưu câu trả lời hoặc gửi email. Bạn sẽ tìm thấy các tùy chọn này trong mục Luồng."
+    }
+  },
+  "rte": {
+    "bold": "In đậm",
+    "italic": "In nghiêng",
+    "link": "Liên kết",
+    "strikeThrough": "Gạch ngang",
+    "underline": "Gạch chân",
+    "wrapForStyle": "Bọc để định dạng"
+  },
+  "settings": {
+    "address": "Địa chỉ",
+    "answerName": "Tên câu trả lời",
+    "belongsToField": "Thuộc trường",
+    "buttonWords": "Chữ trên nút",
+    "goesTo": "Đi đến",
+    "hintText": "Văn bản gợi ý",
+    "hoverNote": "Ghi chú khi di chuột",
+    "kind": "Loại",
+    "mustBeFilledIn": "Bắt buộc điền",
+    "nothing": "Không có gì",
+    "openInANewTab": "Mở trong thẻ mới",
+    "pictureDescription": "Mô tả hình ảnh",
+    "showItemsFrom": "Hiển thị mục từ",
+    "startingValue": "Giá trị ban đầu",
+    "tickedAtTheStart": "Được tích sẵn",
+    "whenPressed": "Khi nhấn",
+    "whenPressedRun": "Khi nhấn, chạy",
+    "whenSentRun": "Khi gửi, chạy"
+  },
+  "shell": {
+    "addPage": "Thêm trang",
+    "addPageHelp": "Thêm trang trống mới vào ứng dụng. Tiếp theo, bạn sẽ đặt tên cho trang. Trang sẽ xuất hiện trong menu ứng dụng.",
+    "closePages": "Đóng danh sách trang",
+    "confirmDeletePage": "Xóa “{title}”? Bạn không thể hoàn tác thao tác này.",
+    "confirmDiscardSwitch": "Bỏ các chỉnh sửa chưa lưu trên trang này và chuyển trang?",
+    "couldNotSave": "Không thể lưu thay đổi. Vui lòng thử lại.",
+    "deletePage": "Xóa trang",
+    "deletePageFor": "Xóa {title}",
+    "deletePageHelp": "Xóa trang này và mọi nội dung trên trang. Bạn sẽ được yêu cầu xác nhận. Bạn không thể hoàn tác thao tác này.",
+    "discardSwitch": "Bỏ thay đổi và chuyển trang",
+    "discardSwitchHelp": "Bỏ các chỉnh sửa chưa lưu trên trang này rồi mở trang khác. Bạn không thể khôi phục các chỉnh sửa đó.",
+    "dismiss": "Ẩn",
+    "dismissError": "Ẩn lỗi",
+    "editing": "ĐANG CHỈNH SỬA",
+    "editsNotSaved": "Các chỉnh sửa mới nhất chưa được lưu. Hãy kiểm tra kết nối rồi thử lại.",
+    "featureAdded": "Đã thêm {name}.",
+    "featureAddedWithPages": "Đã thêm {name} cùng các trang riêng. Giờ đây, chúng có trong menu.",
+    "findPage": "Tìm trang…",
+    "madeCopy": "Đã tạo bản sao. Bạn đang chỉnh sửa “{title}”.",
+    "mobileTip": "Mẹo: chạm vào một phần trên trang, rồi chạm vào khối để thêm khối bên dưới. Hoặc nhấn <b>Hỏi AI</b> và nói những gì bạn muốn thay đổi.",
+    "newPage": "Trang mới",
+    "newPageHelp": "Thêm trang trống mới vào ứng dụng. Trước tiên, bạn sẽ đặt tên cho trang.",
+    "noMatchingPages": "Không tìm thấy trang phù hợp.",
+    "notSaved": "<b>Chưa lưu</b> – hãy kiểm tra kết nối. Chúng tôi sẽ tiếp tục thử.",
+    "open": "Mở",
+    "openHomePageHelp": "Mở trang này trong trình chỉnh sửa. Biểu tượng ngôi nhà cho biết đây là trang chủ, trang đầu tiên khách truy cập nhìn thấy.",
+    "openNewPage": "Mở trang mới",
+    "openPageHelp": "Mở trang này trong trình chỉnh sửa. Các chỉnh sửa trên trang hiện tại sẽ được lưu trước.",
+    "pageCount": "{count, plural, one {# trang} other {# trang}}",
+    "pageName": "Tên trang",
+    "pageNameHelp": "Tên trang mới. Tên này hiển thị trong menu ứng dụng và trên thẻ trình duyệt. Bạn có thể đổi tên sau.",
+    "pageNamePlaceholder": "ví dụ: Giới thiệu",
+    "pagePickerHelp": "Trang bạn đang chỉnh sửa. Nhấn để xem tất cả các trang, chuyển sang trang khác hoặc thay đổi cài đặt trang.",
+    "pageSettings": "Cài đặt trang",
+    "pageSettingsFor": "Cài đặt trang cho {title}",
+    "pageSettingsHelp": "Đổi tên trang, chọn người có thể xem, hiện hoặc ẩn trang trong menu ứng dụng, hoặc tạo bản sao.",
+    "pages": "Trang",
+    "retry": "Thử lại",
+    "retryHelp": "Thử lưu ngay các chỉnh sửa mới nhất thay vì đợi lần thử tự động tiếp theo.",
+    "savedSettings": "Đã lưu cài đặt cho “{title}”.",
+    "searchPages": "Tìm trang",
+    "searchPagesHelp": "Nhập một phần tên trang để lọc danh sách.",
+    "setHome": "Đặt làm trang chủ",
+    "setHomeFor": "Đặt {title} làm trang chủ",
+    "setHomeHelp": "Đặt trang này làm trang đầu tiên khách truy cập nhìn thấy khi mở địa chỉ web chính của ứng dụng.",
+    "somethingWrong": "Đã xảy ra lỗi. Vui lòng thử lại.",
+    "theFeatureAdded": "Đã thêm tính năng.",
+    "theFeatureAddedWithPages": "Đã thêm tính năng cùng các trang riêng. Giờ đây, chúng có trong menu.",
+    "updating": "Đang cập nhật không gian làm việc…",
+    "yourPages": "Trang của bạn"
+  },
+  "theme": {
+    "colorCodeHelp": "Hoặc nhập mã màu tại đây, chẳng hạn #1a73e8, nếu bạn biết chính xác màu mình muốn.",
+    "colorCodeLabel": "Mã màu {name}",
+    "colorLabel": "Màu {name}",
+    "colors": {
+      "accent": {
+        "help": "Màu phụ dùng cho các chi tiết nhỏ như nhãn và hình trang trí.",
+        "label": "Màu nhấn"
+      },
+      "bg": {
+        "help": "Màu nền phía sau mọi nội dung trên trang.",
+        "label": "Nền"
+      },
+      "border": {
+        "help": "Màu của các đường viền mảnh quanh hộp và giữa các mục.",
+        "label": "Viền"
+      },
+      "primary": {
+        "help": "Màu thương hiệu chính, dùng cho nút, liên kết và điểm nhấn.",
+        "label": "Màu chính"
+      },
+      "primary2": {
+        "help": "Màu của nút và liên kết khi có người rê chuột lên.",
+        "label": "Màu khi rê chuột"
+      },
+      "surface": {
+        "help": "Màu của thẻ và hộp nằm trên nền.",
+        "label": "Bề mặt"
+      },
+      "surface2": {
+        "help": "Màu hộp thứ hai, dùng để làm nổi bật một số mục và nhãn.",
+        "label": "Bề mặt phụ"
+      },
+      "text": {
+        "help": "Màu của hầu hết chữ trên trang.",
+        "label": "Văn bản"
+      },
+      "textMuted": {
+        "help": "Màu dịu hơn cho nội dung ít quan trọng như chú thích và ghi chú nhỏ.",
+        "label": "Văn bản phụ"
+      }
+    },
+    "colorsTitle": "Màu sắc",
+    "corners": "Góc",
+    "dark": "Tối",
+    "darkHelp": "Chuyển sang giao diện tối có sẵn đầu tiên. Thao tác này sẽ thay thế màu sắc và phông chữ hiện tại.",
+    "darkPair": "Bộ màu chế độ tối",
+    "darkPairAuto": "Tự động (bộ giao diện tối đầu tiên)",
+    "darkPairHelp": "Màu ứng dụng chuyển sang khi khách truy cập bật chế độ tối bằng nút mặt trời/mặt trăng. Tự động sẽ chọn màu giúp bạn.",
+    "darkPairNote": "Người dùng sẽ thấy nút chuyển giữa mặt trời và mặt trăng trên mọi trang.",
+    "light": "Sáng",
+    "lightHelp": "Chuyển sang giao diện sáng có sẵn đầu tiên. Thao tác này sẽ thay thế màu sắc và phông chữ hiện tại.",
+    "loading": "Đang tải giao diện…",
+    "mode": "Chế độ",
+    "pickTheme": "Chọn giao diện…",
+    "preset": "Mẫu có sẵn",
+    "presetButtonHelp": "Chọn giao diện có sẵn cho toàn bộ ứng dụng. Giao diện sẽ thay thế màu sắc, phông chữ và góc bo hiện tại. Khách truy cập sẽ thấy giao diện này sau khi bạn xuất bản.",
+    "presetHelp": "Các bộ màu và phông chữ có sẵn cho toàn bộ ứng dụng. Chọn một mẫu để bắt đầu, rồi tinh chỉnh màu bên dưới.",
+    "radius": "Độ bo",
+    "roundness": "Độ bo góc",
+    "roundnessHelp": "Điều chỉnh độ bo góc của nút, thẻ và hộp trên ứng dụng. Kéo sang trái để góc vuông hơn, sang phải để góc tròn hơn.",
+    "useLook": "Dùng giao diện {name}: màu sắc, phông chữ và góc bo sẽ thay thế các thiết lập hiện tại."
+  },
+  "toolbar": {
+    "delete": {
+      "help": "Xóa phần này khỏi trang. Đổi ý rồi? Dùng Hoàn tác ở trên cùng.",
+      "title": "Xóa"
+    },
+    "drag": {
+      "help": "Nhấn giữ ở đây rồi kéo phần này đến bất kỳ đâu trên trang. Trên màn hình cảm ứng, hãy dùng Di chuyển lên và Di chuyển xuống.",
+      "title": "Kéo để di chuyển"
+    },
+    "duplicate": {
+      "help": "Tạo một bản sao của phần này và đặt ngay phía sau.",
+      "title": "Nhân bản"
+    },
+    "moveDown": {
+      "help": "Di chuyển phần này xuống một bậc trên trang, xuống dưới phần đứng sau. Dùng Hoàn tác để đưa về vị trí cũ.",
+      "title": "Di chuyển xuống"
+    },
+    "moveUp": {
+      "help": "Di chuyển phần này lên một bậc trên trang, lên trên phần đứng trước. Dùng Hoàn tác để đưa về vị trí cũ.",
+      "title": "Di chuyển lên"
+    },
+    "selectParent": {
+      "help": "Chọn khung lớn hơn chứa phần này, chẳng hạn như toàn bộ khu vực bao quanh một nút.",
+      "title": "Chọn phần bao quanh"
+    }
+  },
+  "welcome": {
+    "askAi": "Nhấn Hỏi AI để thực hiện thay đổi lớn hơn, chẳng hạn như “thêm mục giá”.",
+    "clickWords": "Nhấn vào bất kỳ dòng chữ nào trên trang để thay đổi. Nhấn đúp vào ảnh để thay ảnh khác.",
+    "features": "Thêm các mục như đặt chỗ hoặc cửa hàng từ <link>Tính năng</link>.",
+    "gotIt": "Đã hiểu",
+    "gotItHelp": "Ẩn hộp chào mừng này và bắt đầu chỉnh sửa ngay.",
+    "publish": "Khi đã ưng ý, hãy <link>xuất bản</link> để nhận liên kết chia sẻ.",
+    "title": "Ứng dụng của bạn đã sẵn sàng. Sau đây là cách cá nhân hóa ứng dụng:"
+  },
+  "wireUp": {
+    "blocks": {
+      "auth": {
+        "connectExisting": "<b>Kết nối</b> — kết nối cả hai biểu mẫu với tính năng đăng nhập và tài khoản của ứng dụng. Không thêm trang mới.",
+        "connectNew": "<b>Kết nối</b> — thêm tài khoản, tính năng đăng nhập và đăng ký vào ứng dụng, rồi kết nối cả hai biểu mẫu. Không thêm trang mới.",
+        "purpose": "Các biểu mẫu này cho phép mọi người đăng nhập và tạo tài khoản mới."
+      },
+      "blog": {
+        "connectExisting": "<b>Kết nối</b> — kết nối các thẻ này với bài đăng mà ứng dụng của bạn đang có. Không thêm trang mới.",
+        "connectNew": "<b>Kết nối</b> — thêm bảng bài đăng, bắt đầu với ba bài đăng hiển thị ở đây, rồi kết nối các thẻ này với bảng đó. Chỉ hiển thị bài đăng đã xuất bản; thêm hoặc thay đổi bài đăng trong mục Dữ liệu. Không thêm trang mới.",
+        "purpose": "Các thẻ này có thể hiển thị bài đăng mới nhất được lưu trong dữ liệu của ứng dụng."
+      },
+      "contactForm": {
+        "connectExisting": "<b>Kết nối</b> — kết nối biểu mẫu này với bảng tin nhắn mà ứng dụng của bạn đang có. Không thêm trang mới.",
+        "connectNew": "<b>Kết nối</b> — thêm bảng lưu tin nhắn và quy trình tự động lưu tin nhắn, rồi kết nối biểu mẫu này với chúng. Không thêm trang mới.",
+        "purpose": "Biểu mẫu này có thể lưu tin nhắn mọi người gửi cho bạn."
+      },
+      "contactFormModern": {
+        "connectExisting": "<b>Kết nối</b> — kết nối biểu mẫu này với bảng tin nhắn mà ứng dụng của bạn đang có. Không thêm trang mới.",
+        "connectNew": "<b>Kết nối</b> — thêm bảng lưu tin nhắn (tên, email và tin nhắn; không lưu số điện thoại) cùng quy trình tự động lưu tin nhắn, rồi kết nối biểu mẫu này với chúng. Không thêm trang mới.",
+        "purpose": "Biểu mẫu này có thể lưu tin nhắn mọi người gửi cho bạn."
+      },
+      "faq": {
+        "connectExisting": "<b>Kết nối</b> — kết nối danh sách này với các câu hỏi mà ứng dụng của bạn đang có. Không thêm trang mới.",
+        "connectNew": "<b>Kết nối</b> — thêm bảng câu hỏi, bắt đầu với bốn câu hỏi hiển thị ở đây, rồi kết nối danh sách này với bảng đó. Thêm hoặc thay đổi câu hỏi trong mục Dữ liệu. Không thêm trang mới.",
+        "purpose": "Danh sách này có thể hiển thị câu hỏi và câu trả lời được lưu trong dữ liệu của ứng dụng."
+      },
+      "gallery": {
+        "connectExisting": "<b>Kết nối</b> — kết nối thư viện ảnh này với những ảnh mà ứng dụng của bạn đang có. Không thêm trang mới.",
+        "connectNew": "<b>Kết nối</b> — thêm bảng ảnh, bắt đầu với năm tiêu đề hiển thị ở đây, rồi kết nối thư viện ảnh này với bảng đó. Thêm địa chỉ web của từng ảnh trong mục Dữ liệu. Không thêm trang mới.",
+        "purpose": "Thư viện ảnh này có thể hiển thị ảnh được lưu trong dữ liệu của ứng dụng."
+      },
+      "newsletter": {
+        "connectExisting": "<b>Kết nối</b> — kết nối biểu mẫu này với danh sách người đăng ký mà ứng dụng của bạn đang có. Không thêm trang mới.",
+        "connectNew": "<b>Kết nối</b> — thêm bảng người đăng ký và quy trình tự động lưu từng lượt đăng ký, rồi kết nối biểu mẫu này với chúng. Không thêm trang mới.",
+        "purpose": "Biểu mẫu này có thể lưu địa chỉ email của tất cả những người đăng ký."
+      },
+      "reviews": {
+        "connectExisting": "<b>Kết nối</b> — kết nối phần này với các đánh giá đã duyệt mà ứng dụng của bạn đang có. Không thêm trang mới.",
+        "connectNew": "<b>Kết nối</b> — thêm bảng đánh giá, bắt đầu với ba đánh giá hiển thị ở đây, rồi kết nối phần này với bảng đó. Chỉ hiển thị đánh giá đã duyệt; quản lý đánh giá trong mục Dữ liệu. Không thêm trang mới.",
+        "purpose": "Phần này có thể hiển thị đánh giá được lưu trong dữ liệu của ứng dụng."
+      },
+      "services": {
+        "connectExisting": "<b>Kết nối</b> — kết nối lưới này với các dịch vụ mà ứng dụng của bạn đang có. Không thêm trang mới.",
+        "connectNew": "<b>Kết nối</b> — thêm bảng dịch vụ, bắt đầu với ba dịch vụ hiển thị ở đây, rồi kết nối lưới này với bảng đó. Thêm hoặc thay đổi dịch vụ trong mục Dữ liệu. Không thêm trang mới.",
+        "purpose": "Lưới này có thể hiển thị dịch vụ được lưu trong dữ liệu của ứng dụng."
+      },
+      "team": {
+        "connectExisting": "<b>Kết nối</b> — kết nối lưới này với các thành viên nhóm mà ứng dụng của bạn đang có. Không thêm trang mới.",
+        "connectNew": "<b>Kết nối</b> — thêm bảng nhóm, bắt đầu với bốn người hiển thị ở đây, rồi kết nối lưới này với bảng đó. Thêm hoặc thay đổi thành viên trong mục Dữ liệu. Không thêm trang mới.",
+        "purpose": "Lưới này có thể hiển thị thành viên nhóm được lưu trong dữ liệu của ứng dụng."
+      },
+      "testimonials": {
+        "connectExisting": "<b>Kết nối</b> — kết nối mục này với lời chứng thực đã có trong ứng dụng. Không thêm trang nào.",
+        "connectNew": "<b>Kết nối</b> — thêm bảng lời chứng thực với ba câu trích dẫn đang hiển thị và kết nối mục này với bảng. Thêm hoặc thay đổi lời chứng thực trong mục Dữ liệu. Không thêm trang nào.",
+        "purpose": "Mục này có thể hiển thị lời chứng thực được lưu trong dữ liệu ứng dụng, để bạn thay đổi mà không cần chỉnh sửa trang."
+      }
+    },
+    "connect": "Có, kết nối",
+    "connectHelp": "Thiết lập những gì khối này cần ở phía sau, chẳng hạn như nơi lưu nội dung mọi người gửi. Không thêm trang mới.",
+    "couldNotCheckFeatures": "Không thể kiểm tra các tính năng của ứng dụng này. Vui lòng thử lại.",
+    "couldNotLoadFlows": "Không thể tải các quy trình tự động của ứng dụng này. Vui lòng thử lại.",
+    "failedStatus": "Thất bại ({status})",
+    "handle": "Không, để tôi tự xử lý",
+    "handleHelp": "Giữ nguyên khối trên trang mà không thiết lập gì. Bạn có thể kết nối sau trong mục Luồng hoặc nhờ AI.",
+    "handleLine": "<b>Tự xử lý</b> — giữ nguyên khối, không kết nối với bất cứ thứ gì. Bạn có thể thiết lập sau trong mục Luồng hoặc nhờ AI.",
+    "partMissing": "Ứng dụng của bạn có tính năng này nhưng đang thiếu một phần. Bạn có thể kết nối khối này trong mục Luồng.",
+    "settingUp": "Đang thiết lập...",
+    "somethingWrong": "Đã xảy ra lỗi",
+    "title": "Kết nối phần này?"
+  }
+}
