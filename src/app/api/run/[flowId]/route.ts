@@ -8,6 +8,7 @@ import { db } from "@/lib/db";
 import { fromBuilderPage } from "@/lib/deployments";
 import { getCurrentUser } from "@/lib/auth";
 import { projectForHost } from "@/lib/app-hosts";
+import { sessionCookieName } from "@/lib/flow/session";
 
 type VisitorText = Awaited<ReturnType<typeof appRuntimeText>>;
 
@@ -67,13 +68,24 @@ function buildSetCookie(
 }
 
 /**
+ * The address of the app page that made the call. Browsers send it as the
+ * Referer; the phone app (NullKode Native) sends it as x-nk-page, since its
+ * requests have no page of their own (and its browser preview's Referer is
+ * the preview, not the app). Both are only hints the caller gives, used to
+ * find a flow named by its slug.
+ */
+function callerPage(req: Request): string | null {
+  return req.headers.get("x-nk-page") || req.headers.get("referer");
+}
+
+/**
  * Resolve a project id from the request — used to scope slug-based flow
  * lookups so two apps with the same `create-game` slug don't collide.
  * Prefers the Referer (which holds the calling app's URL on browser fetches);
  * falls back to the Host header for custom-domain projects.
  */
 async function projectIdFromRequest(req: Request): Promise<string | null> {
-  const referer = req.headers.get("referer");
+  const referer = callerPage(req);
   if (referer) {
     try {
       const u = new URL(referer);
@@ -98,7 +110,7 @@ async function projectIdFromRequest(req: Request): Promise<string | null> {
 
 /** The slug of the app page that made the call (from the Referer), or null. */
 async function callingPageSlug(req: Request, projectId: string): Promise<string | null> {
-  const referer = req.headers.get("referer");
+  const referer = callerPage(req);
   if (!referer) return null;
   let parts: string[];
   try {
@@ -136,6 +148,12 @@ async function findFlow(req: Request, idOrSlug: string): Promise<Flow | null> {
     (await db.flow.findFirst({ where: { projectId, slug: idOrSlug } })) ??
     (await resolveModuleFlow(projectId, idOrSlug))
   );
+}
+
+/** The app session sent as `Authorization: Bearer <token>` (the phone app), if any. */
+function bearerToken(req: Request): string | null {
+  const m = /^Bearer\s+([A-Za-z0-9._~+/=-]{10,4096})\s*$/i.exec(req.headers.get("authorization") ?? "");
+  return m ? m[1] : null;
 }
 
 function isCrossSite(req: Request): boolean {
@@ -300,6 +318,13 @@ async function handle(req: Request, flowIdOrSlug: string) {
   // cookie isn't used and none is set, so other sites can't act for a
   // signed-in user.
   const cookies = crossSite ? {} : parseCookieHeader(req.headers.get("cookie"));
+  // The phone app keeps the visitor's session itself and sends it as a
+  // bearer token (never sent by a browser on its own, so other sites can't
+  // use it). It stands in for the cookie and is checked the same way, by
+  // the flow's session steps.
+  const bearer = bearerToken(req);
+  if (bearer) cookies[sessionCookieName()] = bearer;
+  const nativeClient = req.headers.get("x-nk-client") === "native";
   const ip = requestIp(req);
 
   // Limits for visitors (the owner testing in the builder has none). Flows
@@ -342,12 +367,21 @@ async function handle(req: Request, flowIdOrSlug: string) {
     });
     if (!result.authFailed) for (const key of signInKeys) undoHit(key);
     const headers = new Headers({ "content-type": "application/json" });
-    for (const c of crossSite ? [] : result.setCookies) {
+    for (const c of crossSite && !nativeClient ? [] : result.setCookies) {
+      // The phone app gets its session in a header instead ("" = signed out),
+      // the one it then sends as its bearer token.
+      if (nativeClient && c.name === sessionCookieName()) {
+        headers.set("x-nk-session", c.value);
+        if (c.value && c.expires) headers.set("x-nk-session-expires", c.expires.toISOString());
+        continue;
+      }
+      if (crossSite) continue;
       headers.append(
         "set-cookie",
         buildSetCookie(c.name, c.value, { expires: c.expires, maxAge: c.maxAge })
       );
     }
+    if (nativeClient) headers.set("cache-control", "no-store");
     return new Response(JSON.stringify(result.body), {
       status: result.status,
       headers,

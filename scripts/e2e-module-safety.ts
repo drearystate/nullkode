@@ -23,7 +23,7 @@ import http from "node:http";
 import type { AddressInfo } from "node:net";
 import vm from "node:vm";
 import { chromium, type BrowserContext, type Page } from "playwright";
-import { startInstance, installOperator, checker, type Agent, type Instance } from "./e2e-harness";
+import { startInstance, installOperator, checker, warmApp, type Agent, type Instance } from "./e2e-harness";
 import { MODULE_REGISTRY } from "../src/lib/modules/registry";
 import { RUNTIME_JS } from "../src/lib/public-page";
 import { FROZEN_SCRIPTS, NEW_QR_TAG, inlineScripts } from "./escape-module-scripts";
@@ -271,6 +271,7 @@ async function main() {
     ok("a visitor can't read the AI Assistant's question history", r.status === 401 || r.status === 403, `${r.status} ${r.text.slice(0, 100)}`);
     ok("the assistant module mentions no model or provider", !/gpt|openai|claude|anthropic/i.test(JSON.stringify(moduleDef("ai-assistant"))));
 
+    await warmApp(inst, appUrl, "leaderboard-leaderboard");
     const context = await browser.newContext({ viewport: { width: 1200, height: 900 } });
     const pageFor = async () => {
       const p = await context.newPage();

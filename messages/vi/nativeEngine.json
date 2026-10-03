@@ -1,0 +1,27 @@
+{
+  "emulatorBusy": "Hiện tất cả bản xem trước Android đều đang được sử dụng. Vui lòng thử lại sau vài phút.",
+  "emulatorFailed": "Không thể bắt đầu bản xem trước Android. Vui lòng thử lại.",
+  "emulatorUnavailable": "Không thể xem trước Android trên máy chủ này.",
+  "emulatorViewer": {
+    "back": "Quay lại",
+    "booting": "Đang khởi động điện thoại Android...",
+    "connecting": "Đang kết nối...",
+    "ended": "Bản xem trước này đã kết thúc.",
+    "error": "Bản xem trước Android đã dừng.",
+    "home": "Trang chủ",
+    "noDecoder": "Trình duyệt này không thể hiển thị bản xem trước Android. Hãy dùng phiên bản Chrome, Edge, Safari hoặc Firefox mới nhất.",
+    "opening": "Đang mở ứng dụng...",
+    "recents": "Ứng dụng gần đây",
+    "screen": "Màn hình điện thoại Android"
+  },
+  "fileGone": "Tệp của bản dựng này không còn nữa. Vui lòng tạo lại.",
+  "iosFailed": "Không thể tạo dự án iPhone. Vui lòng thử lại.",
+  "notFound": "Không tìm thấy",
+  "notReady": "Bản dựng này chưa sẵn sàng.",
+  "previewPreparing": "Đang chuẩn bị bản xem trước ứng dụng. Vui lòng thử lại sau một phút.",
+  "publishFirst": "Trước tiên, hãy xuất bản ứng dụng. Ứng dụng trên điện thoại sẽ tải ứng dụng đã xuất bản.",
+  "startFailed": "Không thể bắt đầu tạo ứng dụng. Vui lòng thử lại.",
+  "unauthorized": "Bạn không có quyền truy cập",
+  "unavailable": "Không thể tạo ứng dụng cho điện thoại trên máy chủ này. {reason}",
+  "unknownBuild": "Bản dựng không xác định"
+}

@@ -952,11 +952,70 @@ export const RUNTIME_JS = `
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; OpenStreetMap contributors', maxZoom: 19,
       }).addTo(map);
-      if(!isNaN(lat) && !isNaN(lng)){
+      // Pins from data: data-nk-map-flow (rows with data-nk-lat-field /
+      // -lng-field / -label-field, defaults lat, lng, name). Without a centre
+      // of its own the map shows all the pins.
+      var pinFlow = el.getAttribute('data-nk-map-flow') || el.getAttribute('data-nk-map-flow-ref');
+      var ownCenter = el.hasAttribute('data-nk-lat');
+      if(!isNaN(lat) && !isNaN(lng) && (!pinFlow || ownCenter)){
         var marker = L.marker([lat, lng]).addTo(map);
         if(label) marker.bindPopup(label).openPopup();
       }
+      if(pinFlow){
+        var latF = el.getAttribute('data-nk-lat-field') || 'lat', lngF = el.getAttribute('data-nk-lng-field') || 'lng', labelF = el.getAttribute('data-nk-label-field') || 'name';
+        fetch('/api/run/'+pinFlow, { method:'POST', headers:{'content-type':'application/json'}, body: JSON.stringify(queryStringAsObject()), credentials:'same-origin' })
+          .then(function(r){ return r.json(); })
+          .then(function(data){
+            var rows = Array.isArray(data) ? data : (data && Array.isArray(data.rows) ? data.rows : []);
+            var pts = [];
+            rows.forEach(function(row){
+              var plat = parseFloat(row[latF]), plng = parseFloat(row[lngF]);
+              if(isNaN(plat) || isNaN(plng)) return;
+              var m = L.marker([plat, plng]).addTo(map);
+              if(row[labelF] != null && row[labelF] !== ''){ var tip = document.createElement('span'); tip.textContent = String(row[labelF]); m.bindPopup(tip); }
+              pts.push([plat, plng]);
+            });
+            if(pts.length && !ownCenter) map.fitBounds(pts, { padding: [30, 30], maxZoom: 16 });
+          })
+          .catch(function(err){ console.error('[nk] map pins failed', err); });
+      }
     });
+
+    // 5b. QR codes: <div data-nk-qr="{code}"> shows a QR code of its value
+    //     (filled from the row in bound lists). The encoder (qrcode-generator,
+    //     the one the app modules use) loads only on pages that have one; the
+    //     phone app draws the same codes natively.
+    if(document.querySelector('[data-nk-qr]') && !document.__nkQrBound){
+      document.__nkQrBound = true;
+      var drawQr = function(){
+        if(typeof qrcode !== 'function') return;
+        if(qrcode.stringToBytesFuncs && qrcode.stringToBytesFuncs['UTF-8']) qrcode.stringToBytes = qrcode.stringToBytesFuncs['UTF-8'];
+        document.querySelectorAll('[data-nk-qr]').forEach(function(el){
+          var v = el.getAttribute('data-nk-qr') || '';
+          if(!v || /\\{\\w+\\}/.test(v) || el.__nkQr === v) return;
+          el.__nkQr = v;
+          try {
+            var qr = qrcode(0, 'M'); qr.addData(v); qr.make();
+            var size = qr.getModuleCount() + 8, cell = Math.max(2, Math.floor(Math.min(el.clientWidth || 200, 320) / size));
+            var img = document.createElement('img');
+            img.src = qr.createDataURL(cell, 4); img.width = img.height = cell * size;
+            img.alt = nkT('qrCodeOf', 'QR code: {value}', { value: v });
+            el.textContent = ''; el.appendChild(img);
+          } catch(err){ console.error('[nk] QR code failed', err); }
+        });
+      };
+      var qrTimer = null;
+      if(window.MutationObserver) new MutationObserver(function(){ if(qrTimer) return; qrTimer = setTimeout(function(){ qrTimer = null; drawQr(); }, 50); }).observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['data-nk-qr'] });
+      if(typeof qrcode === 'function') drawQr();
+      else {
+        var qs = document.createElement('script');
+        qs.src = 'https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js';
+        qs.integrity = 'sha512-ZDSPMa/JM1D+7kdg2x3BsruQ6T/JpJo3jWDWkCZsP+5yVyp1KfESqLI+7RqB5k24F7p2cV7i2YHh/890y6P6Sw==';
+        qs.crossOrigin = 'anonymous'; qs.referrerPolicy = 'no-referrer';
+        qs.onload = drawQr;
+        document.head.appendChild(qs);
+      }
+    }
 
     // 6. QR scanner
     document.querySelectorAll('[data-nk-qr-scanner]').forEach(function(el){

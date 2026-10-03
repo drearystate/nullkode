@@ -73,3 +73,11 @@ scripts/.ux-review.mjs
 
 # Generated copy of the in-app help guides (pnpm guides:build)
 docs/guides/
+
+# NullKode Native engine: its own dependencies and build output (pnpm native:web)
+native-runtime/node_modules/
+native-runtime/.expo/
+native-runtime/dist-web/
+/public/nk-native/web/
+# Native fidelity harness output (pnpm native:fidelity)
+/output/native-fidelity/

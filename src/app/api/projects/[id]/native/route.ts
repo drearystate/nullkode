@@ -12,6 +12,7 @@ import {
   sanitizeBundleSegment,
 } from "@/lib/native";
 import { nativeNeedsFor, suggestedUsageTexts, usageTextsFor } from "@/lib/native-permissions";
+import { normalizeSha256, TEAM_ID_RE } from "@/lib/native/app-links";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -19,6 +20,11 @@ export const dynamic = "force-dynamic";
 /** Messages for people, in their language (only looked up when needed). */
 async function tr() {
   return getTranslations({ locale: await requestLocale(), namespace: "project.nativeApi" });
+}
+
+/** Messages of the Mobile app tab's newer parts (messages/<locale>/nativeStudio.json). */
+async function trStudio() {
+  return getTranslations({ locale: await requestLocale(), namespace: "nativeStudio.api" });
 }
 
 const Wording = z.string().max(300);
@@ -43,6 +49,10 @@ const Body = z.object({
     .object({ camera: Wording, microphone: Wording, photos: Wording, location: Wording })
     .partial()
     .optional(),
+  // App links: the Apple Team ID (10 letters/digits) and the Play app signing
+  // key's SHA-256; "" clears them (src/lib/native/app-links.ts).
+  iosTeamId: z.string().max(20).optional(),
+  playSigningSha256: z.string().max(200).optional(),
 });
 
 async function load(id: string) {
@@ -123,13 +133,26 @@ export async function PATCH(req: Request, ctx: { params: Promise<{ id: string }>
     }
   }
 
+  let iosTeamId = parsed.data.iosTeamId;
+  if (iosTeamId !== undefined) {
+    iosTeamId = iosTeamId.trim().toUpperCase();
+    if (iosTeamId && !TEAM_ID_RE.test(iosTeamId)) return json({ error: (await trStudio())("teamId") }, { status: 400 });
+  }
+  let playSigningSha256 = parsed.data.playSigningSha256;
+  if (playSigningSha256 !== undefined && playSigningSha256.trim()) {
+    playSigningSha256 = normalizeSha256(playSigningSha256);
+    if (!playSigningSha256) return json({ error: (await trStudio())("sha256") }, { status: 400 });
+  }
+
   const current = await nativeConfigFor(project);
-  const { permissionText, ...rest } = parsed.data;
+  const { permissionText, iosTeamId: _team, playSigningSha256: _play, ...rest } = parsed.data;
   const next = {
     ...current,
     ...rest,
     ...(appId !== undefined ? { appId } : {}),
     permissionText: cleanPermissionText({ ...current.permissionText, ...(permissionText ?? {}) }),
+    ...(iosTeamId !== undefined ? { iosTeamId: iosTeamId.trim() } : {}),
+    ...(playSigningSha256 !== undefined ? { playSigningSha256: playSigningSha256.trim() } : {}),
   };
 
   // Keep what the settings don't cover (such as the last iPhone download).

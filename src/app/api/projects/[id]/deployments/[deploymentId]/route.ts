@@ -22,5 +22,6 @@ export async function POST(_req: Request, ctx: { params: Promise<{ id: string; d
     where: { id },
     data: { liveDeploymentId: deployment.id, published: true, publishedAt: new Date() },
   });
+  void import("@/lib/native/compile").then((m) => m.scheduleNativeCompile(id, deployment.id)).catch(() => {});
   return json({ ok: true, version: deployment.version });
 }

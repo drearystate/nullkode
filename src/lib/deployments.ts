@@ -103,6 +103,8 @@ export async function publishDraft(projectId: string, userId: string | null): Pr
   await import("./flow/scheduler")
     .then((m) => m.planFlows(new Date(), projectId))
     .catch((err) => console.error("[scheduler] couldn't plan schedules after publishing:", err instanceof Error ? err.message : err));
+  // The phone app's spec follows (in the background, for apps opened natively before).
+  void import("./native/compile").then((m) => m.scheduleNativeCompile(projectId, deployment.id)).catch(() => {});
   return { version, deploymentId: deployment.id };
 }
 

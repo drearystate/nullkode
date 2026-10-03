@@ -53,6 +53,16 @@ export type NativeConfig = {
    * feature (src/lib/native-permissions.ts).
    */
   permissionText: PermissionText;
+  /**
+   * The owner's Apple Developer Team ID (10 letters and digits), for iPhone
+   * universal links (apple-app-site-association). "" until they enter it.
+   */
+  iosTeamId?: string;
+  /**
+   * SHA-256 of the Google Play app signing key, copied by the owner from Play
+   * Console (Play re-signs store installs with it), for Android App Links.
+   */
+  playSigningSha256?: string;
 };
 
 /** Wording keys for the phone's permission prompts. */
@@ -214,6 +224,8 @@ export function resolveNativeConfig(
     androidEnabled: saved.androidEnabled !== false,
     iosEnabled: saved.iosEnabled !== false,
     permissionText: cleanPermissionText(saved.permissionText),
+    ...(typeof saved.iosTeamId === "string" && /^[A-Z0-9]{10}$/.test(saved.iosTeamId) ? { iosTeamId: saved.iosTeamId } : {}),
+    ...(typeof saved.playSigningSha256 === "string" && saved.playSigningSha256 ? { playSigningSha256: saved.playSigningSha256 } : {}),
   };
 }
 

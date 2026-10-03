@@ -84,7 +84,7 @@ for (const slug of GUIDE_SLUGS) {
     if (!shot) return;
     if (!new RegExp(`^${slug}-\\d+\\.webp$`).test(shot.file)) fail(`${slug}: screenshot "${shot.file}" should be named ${slug}-<n>.webp`);
     if (!shot.shot.path.startsWith("/")) fail(`${slug}: screenshot "${shot.file}" path should start with /`);
-    const left = shot.shot.path.replace(/:(project|page|flow|design)\b/g, "").match(/:[a-z]+/i);
+    const left = shot.shot.path.replace(/:(project|page|flow|design|live)\b/g, "").match(/:[a-z]+/i);
     if (left) fail(`${slug}: screenshot "${shot.file}" uses an unknown placeholder ${left[0]}`);
   });
 }

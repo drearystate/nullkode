@@ -227,6 +227,17 @@
     },
     "unauthorized": "No autorizado"
   },
+  "nativePreview": {
+    "eyebrow": "VISTA PREVIA DE LA APP NATIVA",
+    "title": "Vista previa de la app nativa",
+    "intro": "Tu app publicada tal como la dibuja la app nativa para teléfonos, junto a la página web. Es una vista previa temprana: los formularios, las listas con tus datos y el inicio de sesión llegarán después.",
+    "page": "Página",
+    "reload": "Recargar",
+    "native": "App nativa",
+    "web": "Página web",
+    "notPublished": "Publica la app para verla como app nativa.",
+    "note": "La primera vista previa después de publicar puede tardar hasta un minuto mientras se prepara la app. Las partes que la app nativa aún no puede dibujar aparecen como vistas web integradas."
+  },
   "nativeApp": {
     "android": {
       "advancedDownload": "Avanzado: descarga el proyecto para crearlo tú en Android Studio",

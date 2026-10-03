@@ -105,7 +105,10 @@ export default async function PreviewPage({
             var base = '${previewBase}';
             var lang = ${JSON.stringify(lang ? `&lang=${lang}` : "")};
             var map = ${JSON.stringify(slugMap)};
-            window.__nkNavigate = function(path){
+            // The runtime (RUNTIME_JS) sets its own __nkNavigate for published
+            // apps, which leaves "/menu" at the site root here; this one is
+            // put back after it loads (below).
+            window.__nkPreviewNavigate = window.__nkNavigate = function(path){
               if(!path || path.startsWith('http') || path.startsWith('#') || path.startsWith('mailto:')) {
                 window.location.href = path; return;
               }
@@ -164,7 +167,8 @@ export default async function PreviewPage({
         {/* Intercept link clicks */}
         <script dangerouslySetInnerHTML={{ __html: `
           (function(){
-            if(!window.__nkNavigate) return;
+            if(!window.__nkPreviewNavigate) return;
+            window.__nkNavigate = window.__nkPreviewNavigate;
             document.addEventListener('click', function(e){
               var a = e.target.closest('a[href]');
               if(!a) return;

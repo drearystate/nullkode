@@ -14,6 +14,13 @@ const pushAgent = new https.Agent({ lookup: publicOnlyLookup as never, keepAlive
  * subscription); owners send from the app's Notifications screen or a flow's
  * send_push step. One VAPID key pair identifies this server to the browsers'
  * push services — created automatically the first time it's needed.
+ *
+ * Phones running the app's NullKode Native build register an Expo push
+ * token instead (POST /api/push/native, table NativePushToken; the app's flow
+ * also gets it, as {"kind":"expo",…}, which the web loop below skips). Every
+ * send reaches both: the web subscribers through web push, the phones through
+ * the Expo push service (NK_EXPO_PUSH_URL, default Expo's; NK_EXPO_ACCESS_TOKEN
+ * when the Expo project requires one).
  */
 
 const KEYS = { publicKey: "push.vapidPublicKey", privateKey: "push.vapidPrivateKey" };
@@ -53,10 +60,20 @@ async function subscriberTables(projectId: string): Promise<Target[]> {
   return out;
 }
 
+/** Web subscriptions (rows with a push endpoint) plus phones of the native app. */
 export async function subscriberCount(projectId: string): Promise<number> {
   let n = 0;
-  for (const t of await subscriberTables(projectId)) n += (await t.adapter.list(t.source, t.table, { limit: 100000 })).length;
-  return n;
+  for (const t of await subscriberTables(projectId)) {
+    const rows = (await t.adapter.list(t.source, t.table, { limit: 100000 })) as Array<{ subscription?: unknown }>;
+    n += rows.filter((r) => {
+      try {
+        return Boolean(JSON.parse(String(r.subscription ?? ""))?.endpoint);
+      } catch {
+        return false;
+      }
+    }).length;
+  }
+  return n + (await db.nativePushToken.count({ where: { projectId } }));
 }
 
 export type PushPayload = { title: string; body?: string; url?: string; icon?: string };
@@ -105,6 +122,71 @@ export async function sendPushToProject(projectId: string, payload: PushPayload)
           }
         }
       }));
+    }
+  }
+  const native = await sendNativePush(projectId, payload);
+  return { sent: sent + native.sent, failed: failed + native.failed, removed: removed + native.removed };
+}
+
+/* ── Phones (NullKode Native, Expo push service) ─────────────────────── */
+
+/** An Expo push token as expo-notifications hands it out. */
+export function isExpoPushToken(token: string): boolean {
+  return /^Expo(nent)?PushToken\[[A-Za-z0-9_-]{8,200}\]$/.test(token);
+}
+
+type ExpoTicket = { status: "ok" | "error"; id?: string; message?: string; details?: { error?: string } };
+
+/**
+ * Sends to every phone registered for the app, 100 messages per request
+ * (the Expo push API's limit). Tokens Expo says are gone (DeviceNotRegistered)
+ * are deleted. Delivery receipts are not polled: a ticket "ok" counts as sent.
+ */
+export async function sendNativePush(projectId: string, payload: PushPayload): Promise<{ sent: number; failed: number; removed: number }> {
+  const tokens = await db.nativePushToken.findMany({ where: { projectId }, select: { id: true, token: true } });
+  let sent = 0, failed = 0, removed = 0;
+  if (!tokens.length) return { sent, failed, removed };
+  const url = process.env.NK_EXPO_PUSH_URL || "https://exp.host/--/api/v2/push/send";
+  const access = process.env.NK_EXPO_ACCESS_TOKEN || process.env.EXPO_ACCESS_TOKEN;
+  for (let i = 0; i < tokens.length; i += 100) {
+    const batch = tokens.slice(i, i + 100);
+    const messages = batch.map((t) => ({
+      to: t.token,
+      title: payload.title.slice(0, 120),
+      body: (payload.body ?? "").slice(0, 400),
+      data: payload.url ? { url: payload.url } : {},
+      sound: "default",
+      channelId: "default",
+      priority: "default",
+      ttl: 60 * 60 * 24,
+    }));
+    try {
+      const res = await fetch(url, {
+        method: "POST",
+        headers: { accept: "application/json", "content-type": "application/json", ...(access ? { authorization: `Bearer ${access}` } : {}) },
+        body: JSON.stringify(messages),
+        signal: AbortSignal.timeout(20_000),
+      });
+      const data = ((await res.json().catch(() => ({}))) as { data?: ExpoTicket[] }).data;
+      if (!res.ok || !Array.isArray(data)) {
+        failed += batch.length;
+        console.warn("[push] Expo push service answered", res.status);
+        continue;
+      }
+      const gone: string[] = [];
+      batch.forEach((t, k) => {
+        const ticket = data[k];
+        if (ticket?.status === "ok") sent++;
+        else if (ticket?.details?.error === "DeviceNotRegistered") gone.push(t.id);
+        else failed++;
+      });
+      if (gone.length) {
+        await db.nativePushToken.deleteMany({ where: { id: { in: gone } } }).catch(() => {});
+        removed += gone.length;
+      }
+    } catch (err) {
+      failed += batch.length;
+      console.warn("[push] Expo push delivery failed", err instanceof Error ? err.message : err);
     }
   }
   return { sent, failed, removed };

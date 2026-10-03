@@ -5,6 +5,7 @@ import { getCurrentUser } from "@/lib/auth";
 import { subscriberCount } from "@/lib/push";
 import { NotificationComposer } from "@/components/notification-composer";
 import { EnablePushButton } from "@/components/enable-push-button";
+import { PhonePushNote } from "@/components/phone-push-note";
 
 export const dynamic = "force-dynamic";
 
@@ -38,6 +39,7 @@ export default async function NotificationsPage({ params }: { params: Promise<{ 
             <div className="card p-5" data-help={t("subscribersHelp")}><p className="text-xs uppercase tracking-wider text-surface-400">{t("subscribers")}</p><p className="mt-2 text-3xl font-semibold tabular-nums">{format.number(subscribers)}</p></div>
             <div className="card p-5 text-sm text-surface-300"><p className="font-medium text-surface-100">{t("goodToKnow")}</p><p className="mt-1 text-xs leading-relaxed text-surface-400">{t("iosTip")}</p></div>
           </div>
+          <PhonePushNote className="mt-4" />
           <NotificationComposer projectId={id} published={project.published} subscribers={subscribers} />
           <section className="mt-8" aria-labelledby="sent-heading">
             <h2 id="sent-heading" className="font-semibold" data-help={t("sentHelp")}>{t("sent")}</h2>

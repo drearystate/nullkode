@@ -271,7 +271,7 @@ export const radio: ModuleDefinition = {
 @keyframes nk-radio-pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.8)}}
 [data-nk-radio-play]:hover{transform:scale(1.04);}
 [data-nk-radio-play]:active{transform:scale(.97);}
-[data-nk-radio.playing] [data-nk-radio-eq]{opacity:1 !important;}
+[data-nk-radio].playing [data-nk-radio-eq]{opacity:1 !important;}
 [data-nk-radio-pick].active{border-color:var(--nk-primary);background:color-mix(in srgb, var(--nk-primary) 12%, var(--nk-surface));}`,
     },
     {

@@ -274,6 +274,7 @@ model Project {
 
   @@index([ownerId])
   pushMessages PushMessage[]
+  nativePushTokens NativePushToken[]
   androidSigningKey AndroidSigningKey?
 }
 
@@ -546,6 +547,26 @@ model Deployment {
 }
 
 /// A push notification an app owner sent to their app's subscribers.
+/// A phone that turned on notifications in the app's NullKode Native build
+/// (POST /api/push/native): its Expo push token. Sent to with the web
+/// subscribers (lib/push.ts); a token Expo reports as gone is deleted.
+model NativePushToken {
+  id         String   @id @default(cuid())
+  projectId  String
+  token      String
+  /// "ios" | "android"
+  platform   String   @default("")
+  /// The app language the phone chose (multilingual apps).
+  locale     String   @default("")
+  createdAt  DateTime @default(now())
+  lastSeenAt DateTime @default(now())
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, token])
+  @@index([projectId])
+}
+
 model PushMessage {
   id        String   @id @default(cuid())
   projectId String

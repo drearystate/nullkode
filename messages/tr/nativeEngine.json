@@ -1,0 +1,27 @@
+{
+  "emulatorBusy": "Şu anda tüm Android önizlemeleri kullanılıyor. Lütfen birkaç dakika sonra tekrar deneyin.",
+  "emulatorFailed": "Android önizlemesi başlatılamadı. Lütfen tekrar deneyin.",
+  "emulatorUnavailable": "Android önizlemesi bu sunucuda kullanılamıyor.",
+  "emulatorViewer": {
+    "back": "Geri",
+    "booting": "Android telefon başlatılıyor...",
+    "connecting": "Bağlanıyor...",
+    "ended": "Bu önizleme sona erdi.",
+    "error": "Android önizlemesi durdu.",
+    "home": "Ana ekran",
+    "noDecoder": "Bu tarayıcı Android önizlemesini gösteremiyor. Güncel bir Chrome, Edge, Safari veya Firefox kullanın.",
+    "opening": "Uygulama açılıyor...",
+    "recents": "Son kullanılan uygulamalar",
+    "screen": "Android telefon ekranı"
+  },
+  "fileGone": "Bu derlemenin dosyası artık yok. Lütfen yeniden derleyin.",
+  "iosFailed": "iPhone projesi oluşturulamadı. Lütfen tekrar deneyin.",
+  "notFound": "Bulunamadı",
+  "notReady": "Bu derleme henüz hazır değil.",
+  "previewPreparing": "Uygulama önizlemesi hazırlanıyor. Lütfen bir dakika sonra tekrar deneyin.",
+  "publishFirst": "Önce uygulamanızı yayınlayın. Telefon uygulaması, yayınladığınız uygulamayı açar.",
+  "startFailed": "Derleme başlatılamadı. Lütfen tekrar deneyin.",
+  "unauthorized": "Yetkiniz yok",
+  "unavailable": "Bu sunucuda yerel uygulama derlemeleri kullanılamıyor. {reason}",
+  "unknownBuild": "Bilinmeyen derleme"
+}

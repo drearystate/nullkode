@@ -63,6 +63,8 @@ function uploadResponse(pathname: string): NextResponse {
 
 // Files with an extension that still belong to each app on its own address.
 const PER_HOST_FILES = new Set(["/manifest.webmanifest", "/sw.js", "/robots.txt", "/sitemap.xml"]);
+// Per-host files apps' phone apps are vouched for with (App Links, universal links).
+const WELL_KNOWN = new Set(["/.well-known/assetlinks.json", "/.well-known/apple-app-site-association"]);
 
 /**
  * Published apps' pages learn their address (x-nk-path) so the app's layout
@@ -101,7 +103,13 @@ export async function middleware(req: NextRequest) {
   // manifest, service worker, robots.txt and sitemap are served per host below
   // (/nk-host/<host>/robots.txt and so on). On the dashboard's own address,
   // /robots.txt is the platform's (src/app/robots.ts), handled above.
-  if (/\.[a-z0-9]{2,10}$/i.test(pathname) && !/\.html?$/i.test(pathname) && !PER_HOST_FILES.has(pathname)) {
+  // The app's native spec (/nk-native/app.json, /nk-native/pages/<page>.json)
+  // is per app too; the engine's web build (/nk-native/web/…) is shared.
+  const nativeSpec = /^\/nk-native\/(app\.json|pages\/[^/]+\.json)$/.test(pathname);
+  // Android App Links and iPhone universal links vouch for the app's phone
+  // app, per host (src/lib/native/app-links.ts).
+  const wellKnown = WELL_KNOWN.has(pathname);
+  if (/\.[a-z0-9]{2,10}$/i.test(pathname) && !/\.html?$/i.test(pathname) && !PER_HOST_FILES.has(pathname) && !nativeSpec && !wellKnown) {
     return NextResponse.next();
   }
 
@@ -115,7 +123,10 @@ export async function middleware(req: NextRequest) {
   // signed with the server secret; the route refuses anything unsigned, so
   // /nk-host/<some-app>/ can't be opened on the dashboard's own address.
   const url = req.nextUrl.clone();
-  url.pathname = `/nk-host/${host}${pathname === "/" ? "" : pathname}`;
+  // App Router folders starting with "." are awkward; /.well-known/<file>
+  // is served from /nk-host/<host>/nk-well-known/<file>.
+  const path = wellKnown ? pathname.replace(/^\/\.well-known\//, "/nk-well-known/") : pathname;
+  url.pathname = `/nk-host/${host}${path === "/" ? "" : path}`;
   const headers = new Headers(req.headers);
   headers.set("x-nk-host", host);
   headers.set("x-nk-host-sig", await hostSignature(host));

@@ -1,0 +1,27 @@
+{
+  "emulatorBusy": "Al momento tutte le anteprime Android sono in uso. Riprova tra qualche minuto.",
+  "emulatorFailed": "Non è stato possibile avviare l'anteprima Android. Riprova.",
+  "emulatorUnavailable": "L'anteprima Android non è disponibile su questo server.",
+  "emulatorViewer": {
+    "back": "Indietro",
+    "booting": "Avvio del telefono Android...",
+    "connecting": "Connessione...",
+    "ended": "Questa anteprima è terminata.",
+    "error": "L'anteprima Android si è interrotta.",
+    "home": "Home",
+    "noDecoder": "Questo browser non può mostrare l'anteprima Android. Usa una versione recente di Chrome, Edge, Safari o Firefox.",
+    "opening": "Apertura dell'app...",
+    "recents": "App recenti",
+    "screen": "Schermo del telefono Android"
+  },
+  "fileGone": "Il file di questa creazione non è più disponibile. Creala di nuovo.",
+  "iosFailed": "Non è stato possibile creare il progetto per iPhone. Riprova.",
+  "notFound": "Non trovato",
+  "notReady": "Questa creazione non è ancora pronta.",
+  "previewPreparing": "L'anteprima dell'app è in preparazione. Riprova tra un minuto.",
+  "publishFirst": "Pubblica prima la tua app. L'app per telefono carica l'app pubblicata.",
+  "startFailed": "Non è stato possibile avviare la creazione. Riprova.",
+  "unauthorized": "Non autorizzato",
+  "unavailable": "La creazione di app native non è disponibile su questo server. {reason}",
+  "unknownBuild": "Creazione sconosciuta"
+}

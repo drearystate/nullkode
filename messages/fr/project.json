@@ -227,6 +227,17 @@
     },
     "unauthorized": "Accès non autorisé"
   },
+  "nativePreview": {
+    "eyebrow": "APERÇU DE L’APPLI NATIVE",
+    "title": "Aperçu de l’appli native",
+    "intro": "Votre appli publiée telle que l’appli native pour téléphone l’affiche, à côté de la page web. C’est un premier aperçu : les formulaires, les listes de vos données et la connexion arrivent ensuite.",
+    "page": "Page",
+    "reload": "Recharger",
+    "native": "Appli native",
+    "web": "Page web",
+    "notPublished": "Publiez l’appli pour la prévisualiser en appli native.",
+    "note": "Le premier aperçu après publication peut prendre jusqu’à une minute pendant la préparation de l’appli. Les parties que l’appli native ne sait pas encore dessiner apparaissent comme des vues web intégrées."
+  },
   "nativeApp": {
     "android": {
       "advancedDownload": "Avancé : télécharger le projet pour le créer vous-même dans Android Studio",

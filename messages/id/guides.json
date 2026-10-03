@@ -891,44 +891,91 @@
       },
       "3": {
         "body": {
-          "0": "Aplikasi di ponsel menampilkan aplikasi Anda yang sudah dipublikasikan, jadi perubahan yang dipublikasikan akan langsung muncul tanpa perlu membuat versi baru."
+          "0": "Setiap aplikasi yang dipublikasikan juga menjadi aplikasi ponsel sungguhan. Tampilannya menggunakan teks, tombol, dan daftar bawaan ponsel, jadi terasa seperti aplikasi lain, bukan situs web di dalam bingkai. Aplikasi ini dibuat dari aplikasi yang Anda publikasikan. Setiap kali Anda memublikasikan versi baru, ponsel yang sudah memasangnya akan mendapat versi terbaru saat dibuka. Anda tidak perlu membuat versi baru untuk toko aplikasi.",
+          "1": "Buka tab <b>Aplikasi seluler</b>. <b>Aplikasi ponsel Anda</b> menampilkan aplikasinya di ponsel yang bisa Anda ketuk dan gulir. Pilih <b>Halaman</b>, ponsel <b>iPhone</b> atau <b>Android</b>, tampilan <b>Terang</b> atau <b>Gelap</b>, dan, jika aplikasi Anda punya lebih dari satu bahasa, pilih <b>Bahasa</b>. Aktifkan <b>Bandingkan dengan web</b> untuk melihat situs web Anda di sampingnya."
         },
-        "heading": "Buat aplikasi Android",
+        "heading": "Aplikasi Anda sebagai aplikasi ponsel sungguhan",
         "shot": {
-          "alt": "Tab Aplikasi seluler yang menampilkan detail aplikasi dan tombol untuk membuat versi Android.",
-          "caption": "Buat salinan untuk uji coba atau file yang diminta Google Play."
-        },
-        "steps": {
-          "0": "Publikasikan aplikasi terlebih dahulu.",
-          "1": "Buka tab <b>Aplikasi seluler</b>.",
-          "2": "Di bagian <b>Detail aplikasi</b>, periksa <b>Nama aplikasi</b>, <b>Bundle / ID Aplikasi</b> (seperti com.yourbusiness.app; jangan pernah mengubahnya setelah aplikasi tersedia di toko), <b>Versi</b>, <b>Orientasi</b>, dan warna, lalu tekan <b>Simpan setelan</b>.",
-          "3": "Tekan <b>Buat APK uji coba</b> untuk mendapatkan salinan yang bisa langsung dipasang di ponsel Android untuk dicoba.",
-          "4": "Jika sudah siap menggunakan Google Play, tekan <b>Buat untuk Google Play</b>. Panduan <b>Publikasikan aplikasi di Google Play</b> akan memandu Anda melalui langkah-langkah di toko."
+          "alt": "Tab Aplikasi seluler yang menampilkan aplikasi ponsel di iPhone, dengan tombol untuk memilih halaman, ponsel, serta tampilan terang atau gelap.",
+          "caption": "Aplikasi ponsel Anda, langsung di iPhone atau ponsel Android."
         }
       },
       "4": {
         "body": {
-          "0": "Google Play mengenali aplikasi Anda melalui kunci upload, yaitu file rahasia yang dibuat saat pertama kali Anda membuat versi untuk Google Play. Tekan <b>Unduh cadangan kunci</b> dan simpan di tempat pribadi, seperti pengelola kata sandi. Tanpa kunci ini, Anda tidak akan bisa memperbarui aplikasi di Google Play. Hanya pemilik aplikasi yang bisa mengunduhnya."
+          "0": "Di bagian <b>Apakah tampilannya sama?</b>, tekan <b>Periksa halaman ini</b> atau <b>Periksa semua halaman</b>. Setiap halaman akan mendapat status <b>Tampilannya sama</b>, <b>Tampilannya hampir sama</b>, atau <b>Tampilannya berbeda</b>. <b>Tampilan berdampingan</b> menunjukkan situs web, aplikasi ponsel, dan perbedaannya dengan warna merah, agar Anda mudah menemukan bagian yang tampil berbeda.",
+          "1": "Hampir semua bagian ditampilkan secara langsung oleh ponsel. Beberapa hal, seperti peta, video dari situs web lain, gambar, dan bagian dengan kode sendiri, ditampilkan dalam tampilan web kecil yang disematkan. <b>Bagian yang ditampilkan dalam tampilan web sematan dan alasannya</b> mencantumkan bagian tersebut untuk setiap halaman. Bagian itu tetap berfungsi dan tampil seperti di situs web Anda."
         },
-        "heading": "Simpan kunci upload dengan aman"
+        "heading": "Periksa apakah tampilannya sama"
       },
       "5": {
         "body": {
-          "0": "Tekan <b>Unduh proyek iPhone</b> di tab Aplikasi seluler. Untuk membuat aplikasi iPhone, Anda perlu akun Apple Developer berbayar serta Mac atau akun GitHub gratis. Petunjuk di dalam unduhan akan menjelaskan keduanya langkah demi langkah."
+          "0": "Lihat aplikasi Anda di ponsel sendiri dalam hitungan detik, tanpa perlu membuat apa pun."
+        },
+        "heading": "Coba di ponsel Anda",
+        "shot": {
+          "alt": "Bagian Coba di ponsel Anda dengan kode untuk dipindai dan tiga langkah singkat.",
+          "caption": "Pindai kode dengan ponsel untuk mencoba aplikasi Anda."
+        },
+        "steps": {
+          "0": "Instal aplikasi Expo Go gratis dari App Store atau Google Play.",
+          "1": "Di tab <b>Aplikasi seluler</b>, pindai kode di bagian <b>Coba di ponsel Anda</b>. Di iPhone, gunakan aplikasi Kamera; di Android, gunakan pemindai di Expo Go.",
+          "2": "Aplikasi Anda akan terbuka. Pratinjau ini hanya untuk Anda; pelanggan Anda mendapatkan aplikasi sebenarnya dari toko aplikasi."
+        }
+      },
+      "6": {
+        "body": {
+          "0": "Di beberapa server, Anda juga bisa menekan <b>Mulai ponsel Android</b> di bagian <b>Coba di browser (Android)</b>: ponsel Android sungguhan akan muncul langsung di halaman, dan Anda bisa menggunakan aplikasi dengan mouse dan keyboard. Ponsel akan mati sendiri setelah 10 menit tidak digunakan. Jika bagian ini tidak terlihat, berarti server Anda tidak menyediakannya."
+        },
+        "heading": "Coba di browser"
+      },
+      "7": {
+        "body": {
+          "0": "Di bagian <b>Buat untuk toko aplikasi</b>, aplikasi Android akan dibuatkan untuk Anda di server."
+        },
+        "heading": "Buat aplikasi Android",
+        "shot": {
+          "alt": "Bagian Buat untuk toko aplikasi dengan tombol untuk membuat aplikasi uji coba dan file untuk Google Play.",
+          "caption": "Buat aplikasi uji coba atau file yang diminta Google Play."
+        },
+        "steps": {
+          "0": "Publikasikan aplikasi Anda terlebih dahulu.",
+          "1": "Di bagian <b>Detail aplikasi</b>, periksa <b>Nama aplikasi</b>, <b>ID Paket / Aplikasi</b> (misalnya com.yourbusiness.app; jangan pernah mengubahnya setelah aplikasi tersedia di toko), <b>Versi</b>, <b>Orientasi</b>, dan warna, lalu tekan <b>Simpan setelan</b>.",
+          "2": "Tekan <b>Buat aplikasi uji coba</b> untuk membuat salinan yang bisa langsung dipasang di ponsel Android. Unduh di ponsel, lalu buka aplikasinya.",
+          "3": "Jika sudah siap untuk Google Play, tekan <b>Buat untuk Google Play</b>, lalu unggah file yang dibuat. Panduan <b>Pasang aplikasi Anda di Google Play</b> akan memandu Anda melalui langkah-langkah di toko."
+        }
+      },
+      "8": {
+        "body": {
+          "0": "Google Play mengenali aplikasi Anda melalui kunci upload, yaitu file rahasia yang dibuat saat pertama kali Anda membuat aplikasi untuk Google Play. Tekan <b>Unduh cadangan kunci</b> dan simpan di tempat pribadi, seperti pengelola kata sandi. Tanpa kunci ini, Anda tidak akan bisa memperbarui aplikasi di Google Play. Hanya pemilik aplikasi yang bisa mengunduhnya."
+        },
+        "heading": "Simpan kunci upload Anda dengan aman"
+      },
+      "9": {
+        "body": {
+          "0": "Apple hanya mengizinkan aplikasi iPhone dibuat dengan alatnya sendiri, di Mac. Tekan <b>Unduh proyek iPhone</b>, lalu buka di Xcode pada Mac, atau, jika tidak punya Mac, unggah ke akun GitHub gratis dan biarkan GitHub membuat aplikasinya serta mengirimkannya ke TestFlight. Keduanya memerlukan akun Apple Developer berbayar. README di dalam unduhan menjelaskan setiap langkah.",
+          "1": "Aplikasi iPhone Anda akan diperbarui sendiri saat Anda memublikasikan, seperti aplikasi Android. Anda hanya perlu membuat versi iPhone baru jika nama, ikon, atau fitur ponselnya berubah."
         },
         "heading": "iPhone dan iPad"
       },
-      "6": {
-        "bullets": {
-          "0": "<b>Fitur ponsel yang digunakan aplikasi ini</b> mencantumkan hal-hal yang diminta aplikasi dari ponsel, seperti kamera atau lokasi. Jika daftar ini berubah, buat ulang aplikasi dan kirim versi baru ke toko.",
-          "1": "Ponsel hanya bisa membuka aplikasi dari alamat aman (https). Tab Aplikasi seluler akan memberi tahu Anda jika alamatnya belum aman.",
-          "2": "Jika muncul pesan <b>Pembuatan Android dinonaktifkan di server ini</b>, hubungi orang yang mengelola {app} untuk Anda.",
-          "3": "Sebelum menghapus aplikasi atau akun, unduh kunci upload Google Play-nya."
+      "10": {
+        "body": {
+          "0": "Jika seseorang yang memasang aplikasi Anda mengetuk tautan ke alamat aplikasi, tautan itu bisa membuka aplikasi, bukan browser. Ini berfungsi di domain Anda sendiri (hubungkan domain di tab <b>Domain</b>), bukan di alamat bersama. Android akan disiapkan untuk Anda setelah pembuatan pertama. Jika Anda memublikasikan di Google Play, tempelkan juga <b>Kunci penandatanganan aplikasi Google Play (SHA-256)</b> dari Play Console. Untuk iPhone, masukkan <b>ID Tim Apple</b> di bagian <b>iPhone dan iPad</b>."
         },
-        "heading": "Perlu diketahui"
+        "heading": "Tautan yang membuka aplikasi Anda"
+      },
+      "11": {
+        "bullets": {
+          "0": "Setelah Anda menekan Publikasikan, tab Publikasikan akan menampilkan <b>Aplikasi ponsel diperbarui</b> setelah aplikasi ponsel memiliki versi terbaru.",
+          "1": "<b>Fitur ponsel yang digunakan aplikasi ini</b> mencantumkan hal yang diakses aplikasi dari ponsel, seperti kamera atau lokasi. Jika daftar itu berubah, buat ulang aplikasi dan kirim versi terbaru ke toko aplikasi.",
+          "2": "Aplikasi yang dibuat sebelum fitur aplikasi ponsel tersedia akan menampilkan situs web Anda di dalam bingkai aplikasi. Aplikasi tersebut tetap berfungsi, dan Anda masih bisa membuatnya di bagian <b>Aplikasi klasik (situs web)</b> di bagian bawah tab.",
+          "3": "Ponsel hanya membuka aplikasi dari alamat yang aman (https). Tab Aplikasi seluler akan memberi tahu jika alamat Anda belum aman.",
+          "4": "Jika muncul pesan bahwa pembuatan aplikasi dinonaktifkan di server ini, hubungi pengelola {app} Anda.",
+          "5": "Sebelum menghapus aplikasi atau akun, unduh kunci upload Google Play."
+        },
+        "heading": "Yang perlu diketahui"
       }
     },
-    "summary": "Tambahkan aplikasi ke layar utama, kirim notifikasi, dan buat versi Android serta iPhone.",
+    "summary": "Aplikasi Anda sebagai aplikasi ponsel sungguhan: coba di ponsel, kirim notifikasi, dan buat aplikasinya untuk Google Play dan App Store.",
     "title": "Aplikasi ponsel dan notifikasi"
   },
   "prices-and-payments": {

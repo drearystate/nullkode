@@ -1,0 +1,27 @@
+{
+  "emulatorBusy": "Tous les aperçus Android sont utilisés pour le moment. Réessayez dans quelques minutes.",
+  "emulatorFailed": "Impossible de démarrer l’aperçu Android. Réessayez.",
+  "emulatorUnavailable": "L’aperçu Android n’est pas disponible sur ce serveur.",
+  "emulatorViewer": {
+    "back": "Retour",
+    "booting": "Démarrage du téléphone Android…",
+    "connecting": "Connexion…",
+    "ended": "Cet aperçu est terminé.",
+    "error": "L’aperçu Android s’est arrêté.",
+    "home": "Accueil",
+    "noDecoder": "Ce navigateur ne peut pas afficher l’aperçu Android. Utilisez une version récente de Chrome, Edge, Safari ou Firefox.",
+    "opening": "Ouverture de l’app…",
+    "recents": "Apps récentes",
+    "screen": "Écran du téléphone Android"
+  },
+  "fileGone": "Le fichier de cette génération n’est plus disponible. Relancez la génération.",
+  "iosFailed": "Impossible de créer le projet iPhone. Réessayez.",
+  "notFound": "Introuvable",
+  "notReady": "Cette génération n’est pas encore prête.",
+  "previewPreparing": "L’aperçu de l’app est en cours de préparation. Réessayez dans une minute.",
+  "publishFirst": "Publiez d’abord votre app. L’app mobile affiche la version publiée.",
+  "startFailed": "La génération n’a pas pu démarrer. Réessayez.",
+  "unauthorized": "Non autorisé",
+  "unavailable": "La génération d’apps natives n’est pas disponible sur ce serveur. {reason}",
+  "unknownBuild": "Génération inconnue"
+}

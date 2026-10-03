@@ -16,6 +16,13 @@ try {
 } catch {
   // Setup reports an invalid base URL.
 }
+// The address the Android preview phones use to reach this server (e.g.
+// http://10.0.2.2:3001) is the studio too, not an app's own domain.
+try {
+  if (process.env.NK_EMU_EXPO_ORIGIN) PLATFORM_HOSTS.add(new URL(process.env.NK_EMU_EXPO_ORIGIN).hostname.toLowerCase());
+} catch {
+  // Ignored: the emulator page reports a bad origin.
+}
 // Extra names for this studio, comma-separated (e.g. "www.example.com").
 for (const h of (process.env.PLATFORM_HOST_ALIASES ?? "").split(",")) {
   const name = h.trim().toLowerCase();
@@ -25,6 +32,31 @@ for (const h of (process.env.PLATFORM_HOST_ALIASES ?? "").split(",")) {
 /** Lower-cased hostname without port, from a Host header value. */
 export function normalizeHost(raw: string | null | undefined): string {
   return (raw ?? "").trim().toLowerCase().split(":")[0].replace(/\.$/, "");
+}
+
+/**
+ * The studio's own origins (PUBLIC_BASE_URL and its aliases, same scheme and
+ * port), e.g. for a CSP frame-ancestors list. Empty when PUBLIC_BASE_URL isn't set.
+ */
+export function studioOrigins(): string[] {
+  let base: URL;
+  try {
+    base = new URL(process.env.PUBLIC_BASE_URL ?? "");
+  } catch {
+    return [];
+  }
+  const port = base.port ? `:${base.port}` : "";
+  const own = base.hostname.toLowerCase();
+  // Not the emulators' way in (NK_EMU_EXPO_ORIGIN): nobody uses the studio there.
+  let emulator = "";
+  try {
+    emulator = process.env.NK_EMU_EXPO_ORIGIN ? new URL(process.env.NK_EMU_EXPO_ORIGIN).hostname.toLowerCase() : "";
+  } catch {
+    // Not a URL.
+  }
+  return [...PLATFORM_HOSTS]
+    .filter((h) => h === own || (!["localhost", "127.0.0.1"].includes(h) && h !== emulator))
+    .map((h) => `${base.protocol}//${h}${port}`);
 }
 
 /** The operator's own domains, where the dashboard runs under the platform brand. */

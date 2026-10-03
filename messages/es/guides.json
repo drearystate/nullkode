@@ -891,44 +891,91 @@
       },
       "3": {
         "body": {
-          "0": "La app para teléfono muestra tu app publicada y en funcionamiento, así que al publicar cambios se actualiza sin tener que crear una nueva versión."
+          "0": "Todas las apps publicadas también son apps móviles de verdad. Se muestran con el texto, los botones y las listas del propio teléfono, así que se sienten como cualquier otra app, no como un sitio web dentro de un marco. Se crean a partir de tu app publicada y, cada vez que publicas, los teléfonos que la tienen reciben la nueva versión la próxima vez que la abren. No hace falta una versión nueva en las tiendas.",
+          "1": "Abre la pestaña <b>App móvil</b>. <b>Tu app móvil</b> la muestra en un teléfono que puedes tocar y desplazar. Elige la <b>Página</b>, un teléfono <b>iPhone</b> o <b>Android</b>, el modo <b>Claro</b> u <b>Oscuro</b> y, si tu app tiene más de un idioma, el <b>Idioma</b>. Activa <b>Comparar con la web</b> para ver tu sitio web al lado."
         },
-        "heading": "Crear una app para Android",
+        "heading": "Tu app como una app móvil de verdad",
         "shot": {
-          "alt": "La pestaña App móvil muestra los detalles de la app y los botones para crear versiones de Android.",
-          "caption": "Crea una copia de prueba o el archivo que pide Google Play."
-        },
-        "steps": {
-          "0": "Primero, publica tu app.",
-          "1": "Abre la pestaña <b>App móvil</b>.",
-          "2": "En <b>Detalles de la app</b>, revisa el <b>Nombre de la app</b>, el <b>ID del paquete o de la aplicación</b> (como com.yourbusiness.app; no lo cambies una vez que la app esté en una tienda), la <b>Versión</b>, la <b>Orientación</b> y los colores. Luego, pulsa <b>Guardar ajustes</b>.",
-          "3": "Pulsa <b>Crear APK de prueba</b> para obtener una copia que puedes instalar directamente en un teléfono Android y probar.",
-          "4": "Cuando tengas todo listo para Google Play, pulsa <b>Crear para Google Play</b>. <b>Publica tu app en Google Play</b> te guía por los pasos de la tienda."
+          "alt": "La pestaña App móvil muestra la app en un iPhone y botones para elegir la página, el teléfono y el modo claro u oscuro.",
+          "caption": "Tu app móvil en funcionamiento en un teléfono iPhone o Android."
         }
       },
       "4": {
         "body": {
-          "0": "Google Play identifica tu app con una clave de carga, un archivo secreto que se crea la primera vez que preparas una app para Google Play. Pulsa <b>Descargar copia de la clave</b> y guárdala en un lugar privado, como un gestor de contraseñas. Sin ella, no podrás volver a actualizar tu app en Google Play. Solo el propietario de la app puede descargarla."
+          "0": "En <b>¿Se ve igual?</b>, pulsa <b>Comprobar esta página</b> o <b>Comprobar todas las páginas</b>. Cada página recibe uno de estos estados: <b>Se ve igual</b>, <b>Se ve parecida</b> o <b>Se ve diferente</b>. <b>Vista lado a lado</b> muestra tu sitio web, la app móvil y las diferencias en rojo para que puedas detectar lo que no se ve igual.",
+          "1": "Casi todo se muestra de forma nativa. Algunos elementos, como mapas y vídeos de otros sitios web, dibujos y partes con código propio, se muestran en una pequeña vista web integrada. <b>Qué partes se muestran en vistas web integradas y por qué</b> las enumera en cada página. Siguen funcionando y se ven como en tu sitio web."
         },
-        "heading": "Guarda bien tu clave de carga"
+        "heading": "Comprueba que se vea igual"
       },
       "5": {
         "body": {
-          "0": "Pulsa <b>Descargar proyecto para iPhone</b> en la pestaña App móvil. Para crear una app para iPhone necesitas una cuenta de pago de Apple Developer y una Mac o una cuenta gratuita de GitHub. Las instrucciones incluidas en la descarga explican ambas opciones paso a paso."
+          "0": "Mira tu app en tu propio teléfono en segundos, antes de crear nada."
+        },
+        "heading": "Pruébala en tu teléfono",
+        "shot": {
+          "alt": "La sección Pruébala en tu teléfono muestra un código para escanear y tres pasos breves.",
+          "caption": "Escanea el código con tu teléfono para probar tu app."
+        },
+        "steps": {
+          "0": "Instala gratis la app Expo Go desde App Store o Google Play.",
+          "1": "En la pestaña <b>App móvil</b>, busca <b>Pruébala en tu teléfono</b> y escanea el código. En un iPhone, usa la app Cámara; en Android, usa el escáner de Expo Go.",
+          "2": "Tu app se abrirá. Solo tú puedes ver esta vista previa; tus clientes obtienen la app real en las tiendas."
+        }
+      },
+      "6": {
+        "body": {
+          "0": "En algunos servidores, también puedes pulsar <b>Iniciar un teléfono Android</b> en <b>Pruébala en el navegador (Android)</b>: aparecerá un teléfono Android real en la página y podrás usar tu app con el ratón y el teclado. Se apaga automáticamente si nadie lo usa durante 10 minutos. Si no ves esta sección, es porque tu servidor no ofrece esta opción."
+        },
+        "heading": "Pruébala en el navegador"
+      },
+      "7": {
+        "body": {
+          "0": "En <b>Crear para las tiendas de apps</b>, el servidor crea las apps para Android por ti."
+        },
+        "heading": "Crea una app para Android",
+        "shot": {
+          "alt": "La sección Crear para las tiendas de apps muestra botones para crear una app de prueba y el archivo para Google Play.",
+          "caption": "Crea una app de prueba o el archivo que te pide Google Play."
+        },
+        "steps": {
+          "0": "Publica tu app primero.",
+          "1": "En <b>Detalles de la app</b>, comprueba el <b>Nombre de la app</b>, el <b>ID del paquete o de la aplicación</b> (como com.tunegocio.app; no lo cambies una vez que tu app esté en una tienda), la <b>Versión</b>, la <b>Orientación</b> y los colores. Luego, pulsa <b>Guardar ajustes</b>.",
+          "2": "Pulsa <b>Crear app de prueba</b> para obtener una copia que puedas instalar directamente en un teléfono Android y probar. Descárgala en el teléfono y ábrela.",
+          "3": "Cuando tengas todo listo para Google Play, pulsa <b>Crear para Google Play</b> y sube el archivo que se genere. <b>Publica tu app en Google Play</b> te guía por los pasos de la tienda."
+        }
+      },
+      "8": {
+        "body": {
+          "0": "Google Play identifica tu app con la clave de subida, un archivo secreto que se crea la primera vez que preparas una app para Google Play. Pulsa <b>Descargar copia de seguridad de la clave</b> y guárdala en un lugar privado, como un gestor de contraseñas. Sin ella, no podrás volver a actualizar tu app en Google Play. Solo quien sea propietario de la app puede descargarla."
+        },
+        "heading": "Guarda bien tu clave de subida"
+      },
+      "9": {
+        "body": {
+          "0": "Apple solo permite crear apps para iPhone con sus propias herramientas, en una Mac. Pulsa <b>Descargar proyecto para iPhone</b> y ábrelo en Xcode en una Mac o, si no tienes Mac, súbelo a una cuenta gratuita de GitHub para que GitHub lo cree y lo envíe a TestFlight. Ambas opciones requieren una cuenta de pago de Apple Developer. El archivo README de la descarga explica todos los pasos.",
+          "1": "Tu app para iPhone se actualiza sola cuando publicas, igual que la de Android. Solo necesitas una versión nueva para iPhone si cambian su nombre, su icono o las funciones del teléfono que usa."
         },
         "heading": "iPhone y iPad"
       },
-      "6": {
+      "10": {
+        "body": {
+          "0": "Cuando alguien que instaló tu app toca un enlace a la dirección de tu app, esta puede abrirse en lugar del navegador. Funciona con tu propio dominio (conecta uno en la pestaña <b>Dominios</b>), pero no con la dirección compartida. Android se configura automáticamente después de la primera compilación. Si publicas en Google Play, también pega la <b>clave de firma de la app de Google Play (SHA-256)</b> desde Play Console. Para iPhone, introduce tu <b>ID de equipo de Apple</b> en <b>iPhone y iPad</b>."
+        },
+        "heading": "Enlaces que abren tu app"
+      },
+      "11": {
         "bullets": {
-          "0": "<b>Funciones del teléfono que usa esta app</b> muestra qué funciones del teléfono necesita tu app, como la cámara o la ubicación. Si cambia la lista, vuelve a crear la app y envía la nueva versión a las tiendas.",
-          "1": "Los teléfonos solo abren apps desde una dirección segura (https). La pestaña App móvil te avisa si la tuya no lo es.",
-          "2": "Si aparece el mensaje <b>Las compilaciones de Android están desactivadas en este servidor</b>, pídele ayuda a quien te proporciona {app}.",
-          "3": "Antes de eliminar una app o tu cuenta, descarga su clave de carga de Google Play."
+          "0": "Después de pulsar Publicar, la pestaña Publicar indica <b>App móvil actualizada</b> cuando la app móvil ya tiene la nueva versión.",
+          "1": "<b>Funciones del teléfono que usa esta app</b> muestra qué funciones del teléfono necesita tu app, como la cámara o la ubicación. Si cambia la lista, vuelve a crear la app y envía la nueva versión a las tiendas.",
+          "2": "Las apps creadas antes de que existiera la app móvil muestran tu sitio web dentro de un marco de app. Siguen funcionando y puedes seguir creándolas en <b>App clásica (sitio web)</b>, al final de la pestaña.",
+          "3": "Los teléfonos solo abren apps desde una dirección segura (https). La pestaña App móvil te avisará si la tuya no lo es.",
+          "4": "Si aparece un aviso que dice que las compilaciones están desactivadas en este servidor, pídele ayuda a quien gestione {app}.",
+          "5": "Antes de eliminar una app o tu cuenta, descarga su clave de subida de Google Play."
         },
         "heading": "Información útil"
       }
     },
-    "summary": "Añade tu app a la pantalla de inicio, envía notificaciones y crea versiones para Android y iPhone.",
+    "summary": "Tu app como una app móvil de verdad: pruébala en tu teléfono, envía notificaciones y prepárala para Google Play y App Store.",
     "title": "Apps y notificaciones en el teléfono"
   },
   "prices-and-payments": {

@@ -400,6 +400,17 @@
       "publishFirst": "Publish the project first — the installer points at the live URL."
     }
   },
+  "nativePreview": {
+    "eyebrow": "NATIVE APP PREVIEW",
+    "title": "Native app preview",
+    "intro": "Your published app as the native phone app draws it, next to the web page. This is an early preview: forms, lists from your data and sign-in come next.",
+    "page": "Page",
+    "reload": "Reload",
+    "native": "Native app",
+    "web": "Web page",
+    "notPublished": "Publish the app to preview it as a native app.",
+    "note": "The first preview after publishing can take up to a minute while the app is prepared. Parts the native app can't draw yet appear as embedded web views."
+  },
   "iconApi": {
     "unauthorized": "Unauthorized",
     "notFound": "Not found",

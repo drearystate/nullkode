@@ -8,6 +8,10 @@ change (see below).
 
 Open an app, then **Mobile app**.
 
+For the real native apps (NullKode Native: the phone preview, Expo Go, store
+builds of the native app, the Android emulator, phone notifications) see
+[native-apps.md](native-apps.md).
+
 ## Phone features (camera, microphone, location, files)
 
 A phone only lets an app use what its build declared, so the builds ask for

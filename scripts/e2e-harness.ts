@@ -144,6 +144,22 @@ export async function installOperator(inst: Instance, appName = "Platform One"):
   return op;
 }
 
+/**
+ * Compiles a published app's routes before a browser opens it. On the dev
+ * server, a route that compiles while a page is open (sw.js, the session
+ * check, theme.css) makes Next refresh that page, which redraws its HTML and
+ * wipes whatever the page's own script wrote. Production servers never do this.
+ */
+export async function warmApp(inst: Instance, appPath: string, pagePath = ""): Promise<void> {
+  const path = appPath.replace(/^https?:\/\/[^/]+/, "").replace(/\/+$/, "");
+  const a = inst.agent();
+  for (const p of [`${path}/${pagePath}`, `${path}/sw.js`, `${path}/manifest.webmanifest`, "/api/nk-session"]) {
+    await a.get(p).catch(() => null);
+  }
+  const theme = /href="([^"]*theme\.css[^"]*)"/.exec((await a.get(`${path}/${pagePath}`).catch(() => null))?.text ?? "")?.[1];
+  if (theme) await a.get(theme.replace(/&amp;/g, "&")).catch(() => null);
+}
+
 export function checker() {
   const checks: string[] = [];
   const ok = (name: string, cond: unknown, detail?: unknown) => {

@@ -1,0 +1,27 @@
+{
+  "emulatorBusy": "Alle Android-Vorschauen sind gerade belegt. Bitte versuche es in ein paar Minuten erneut.",
+  "emulatorFailed": "Die Android-Vorschau konnte nicht gestartet werden. Bitte versuche es erneut.",
+  "emulatorUnavailable": "Die Android-Vorschau ist auf diesem Server nicht verfügbar.",
+  "emulatorViewer": {
+    "back": "Zurück",
+    "booting": "Das Android-Handy wird gestartet ...",
+    "connecting": "Verbindung wird hergestellt ...",
+    "ended": "Diese Vorschau ist beendet.",
+    "error": "Die Android-Vorschau wurde beendet.",
+    "home": "Startseite",
+    "noDecoder": "Dieser Browser kann die Android-Vorschau nicht anzeigen. Verwende eine aktuelle Version von Chrome, Edge, Safari oder Firefox.",
+    "opening": "Die App wird geöffnet ...",
+    "recents": "Letzte Apps",
+    "screen": "Android-Handybildschirm"
+  },
+  "fileGone": "Die Datei dieses Builds ist nicht mehr verfügbar. Bitte erstelle den Build erneut.",
+  "iosFailed": "Das iPhone-Projekt konnte nicht erstellt werden. Bitte versuche es erneut.",
+  "notFound": "Nicht gefunden",
+  "notReady": "Dieser Build ist noch nicht fertig.",
+  "previewPreparing": "Die App-Vorschau wird vorbereitet. Bitte versuche es in einer Minute erneut.",
+  "publishFirst": "Veröffentliche deine App zuerst. Die Handy-App lädt deine veröffentlichte App.",
+  "startFailed": "Der Build konnte nicht gestartet werden. Bitte versuche es erneut.",
+  "unauthorized": "Keine Berechtigung",
+  "unavailable": "Native App-Builds sind auf diesem Server nicht verfügbar. {reason}",
+  "unknownBuild": "Unbekannter Build"
+}

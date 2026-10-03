@@ -173,7 +173,43 @@ export type NavOptions = {
   words?: NavWords;
   /** Multilingual apps: a language switcher ([data-nk-lang-switcher], filled in by the page's locale script). */
   switcher?: boolean;
+  /**
+   * The menu brings its own styles (STANDALONE_NAV_CSS): for AI Designer
+   * apps, whose pages get no Bootstrap (lib/public-page.tsx
+   * PlatformStylesheets), so the menu's Bootstrap classes would do nothing.
+   */
+  standalone?: boolean;
 };
+
+/**
+ * The shared menu's look without Bootstrap: the few navbar, collapse,
+ * dropdown and helper rules it uses, scoped to the menu so the page's own
+ * styles are never touched. Same breakpoint as Bootstrap's navbar-expand-lg
+ * (inline menu from 992px, a menu button below). Colours follow the app's
+ * theme variables when it has them, else the page's own text colour.
+ */
+export const STANDALONE_NAV_CSS = [
+  "nav.nk-nav[data-nk-standalone]{position:relative;display:block;background:var(--nk-surface,transparent)!important;border-bottom:1px solid var(--nk-border,rgba(127,127,127,.25))!important;padding:.5rem 0;font-size:1rem;line-height:1.5;z-index:1000}",
+  "nav.nk-nav[data-nk-standalone] *{box-sizing:border-box}",
+  "nav.nk-nav[data-nk-standalone] .container{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;width:100%;max-width:1140px;margin:0 auto;padding:0 1rem}",
+  "nav.nk-nav[data-nk-standalone] a{color:var(--nk-text,inherit)!important;text-decoration:none}",
+  "nav.nk-nav[data-nk-standalone] .navbar-brand{font-size:1.25rem;font-weight:700;padding:.3rem 0;margin-inline-end:1rem;white-space:nowrap}",
+  "nav.nk-nav[data-nk-standalone] .navbar-toggler{display:inline-block;background:transparent;border:0;padding:.25rem;color:var(--nk-text,inherit)!important;cursor:pointer;line-height:1}",
+  "nav.nk-nav[data-nk-standalone] .navbar-collapse{flex-basis:100%;flex-grow:1;align-items:center}",
+  "nav.nk-nav[data-nk-standalone] .collapse:not(.show){display:none}",
+  "nav.nk-nav[data-nk-standalone] .navbar-nav{display:flex;flex-direction:column;list-style:none;margin:0;padding:.5rem 0 0}",
+  "nav.nk-nav[data-nk-standalone] .navbar-nav li{list-style:none;margin:0}",
+  "nav.nk-nav[data-nk-standalone] .navbar-nav li[hidden]{display:none}",
+  "nav.nk-nav[data-nk-standalone] .nav-link{display:block;padding:.5rem 0}",
+  "nav.nk-nav[data-nk-standalone] .nav-link.active{font-weight:600}",
+  "nav.nk-nav[data-nk-standalone] .dropdown{position:relative}",
+  "nav.nk-nav[data-nk-standalone] .dropdown-menu{display:none;list-style:none;margin:.125rem 0 0;padding:.5rem 0;min-width:10rem;background:var(--nk-surface,Canvas)!important;color:var(--nk-text,CanvasText);border:1px solid var(--nk-border,rgba(127,127,127,.25))!important;border-radius:var(--nk-radius-sm,8px)}",
+  "nav.nk-nav[data-nk-standalone] .dropdown-menu.show{display:block}",
+  "nav.nk-nav[data-nk-standalone] .dropdown-item{display:block;padding:.35rem 1rem;white-space:nowrap}",
+  "nav.nk-nav[data-nk-standalone] .btn{display:inline-block;text-align:center;border:0;color:var(--nk-on-primary,#fff)!important;background:var(--nk-primary,#111827)!important;border-radius:var(--nk-radius-sm,8px)}",
+  "nav.nk-nav[data-nk-standalone] .visually-hidden-focusable:not(:focus):not(:focus-within){position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}",
+  "@media (min-width:992px){nav.nk-nav[data-nk-standalone] .container{flex-wrap:nowrap}nav.nk-nav[data-nk-standalone] .navbar-toggler{display:none}nav.nk-nav[data-nk-standalone] .navbar-collapse{display:flex!important;flex-basis:auto}nav.nk-nav[data-nk-standalone] .navbar-nav{flex-direction:row;align-items:center;gap:.25rem;padding:0;margin-inline-start:auto}nav.nk-nav[data-nk-standalone] .nav-link{padding:.5rem .6rem}nav.nk-nav[data-nk-standalone] .dropdown-menu{position:absolute;inset-inline-end:0;top:100%}}",
+].join("");
 
 function linkFor(p: NavPage, currentSlug: string, cls: "nav-link" | "dropdown-item", w: NavWords = ENGLISH): string {
   const href = p.isHome ? "/" : `/${p.slug}`;
@@ -267,7 +303,8 @@ export function buildNavHtml(info: NavProjectInfo, currentSlug: string, opts: Na
   // and lands on the empty marker at the end of the nav, so the next Tab
   // goes to the page's own content.
   return (
-    `<nav data-nk-nav="auto" class="navbar navbar-expand-lg nk-nav" aria-label="${escHtml(w("navMain", "Main"))}" style="background: var(--nk-surface); border-bottom: 1px solid var(--nk-border);">` +
+    `<nav data-nk-nav="auto"${opts.standalone ? ' data-nk-standalone=""' : ""} class="navbar navbar-expand-lg nk-nav" aria-label="${escHtml(w("navMain", "Main"))}" style="background: var(--nk-surface); border-bottom: 1px solid var(--nk-border);">` +
+    (opts.standalone ? `<style>${STANDALONE_NAV_CSS}</style>` : "") +
     `<a class="visually-hidden-focusable nk-skip-link" href="#nk-main" style="position: absolute; top: 8px; left: 8px; z-index: 1080; padding: .5rem 1rem; background: var(--nk-surface); color: var(--nk-text); border: 2px solid var(--nk-primary); border-radius: var(--nk-radius-sm, 8px); text-decoration: none;">${escHtml(w("navSkip", "Skip to content"))}</a>` +
     `<div class="container">` +
     `<a class="navbar-brand fw-bold" href="/" style="color: var(--nk-text); font-family: var(--nk-font-display, inherit);">${escHtml(
@@ -288,11 +325,16 @@ const FIRST_NAV_RE = /<nav\b[^>]*>[\s\S]*?<\/nav>/i;
  * nav, else replace the page's first <nav>, else insert it at the top
  * (after <body> for full-document pages, after leading nk markers for
  * fragments). Pages with the no-nav marker are returned untouched.
+ *
+ * `keepOwnNav` (AI Designer pages): a page that has a menu of its own keeps
+ * it and gets no shared menu. The Designer draws each page's menu as part
+ * of the design (in its header, styled by the page's own CSS); swapping it
+ * for the shared menu left a bare list in the header.
  */
-export function stampNavIntoHtml(html: string, nav: string): string {
+export function stampNavIntoHtml(html: string, nav: string, opts: { keepOwnNav?: boolean } = {}): string {
   if (html.includes(NO_NAV_MARKER)) return html;
   if (MARKED_NAV_RE.test(html)) return html.replace(MARKED_NAV_RE, () => nav);
-  if (FIRST_NAV_RE.test(html)) return html.replace(FIRST_NAV_RE, () => nav);
+  if (FIRST_NAV_RE.test(html)) return opts.keepOwnNav ? html : html.replace(FIRST_NAV_RE, () => nav);
   const bodyMatch = /<body\b[^>]*>/i.exec(html);
   if (bodyMatch) {
     const idx = bodyMatch.index + bodyMatch[0].length;
@@ -311,7 +353,7 @@ export async function syncProjectNav(projectId: string): Promise<number> {
   const [project, pages, flows] = await Promise.all([
     db.project.findUnique({
       where: { id: projectId },
-      select: { name: true },
+      select: { name: true, kind: true },
     }),
     db.page.findMany({
       where: { projectId },
@@ -342,12 +384,17 @@ export async function syncProjectNav(projectId: string): Promise<number> {
   // language a switcher, plus a menu in each language for its translations.
   const app = await getAppLocale(projectId);
   const switcher = app.locales.length > 1;
-  const opts: NavOptions = { words: navWords(app.locale), switcher };
+  // AI Designer apps: pages keep their own menus, and the shared menu (on
+  // pages without one) carries its own styles, since those apps get no
+  // Bootstrap.
+  const designer = project.kind === "DESIGNER";
+  const opts: NavOptions = { words: navWords(app.locale), switcher, standalone: designer };
+  const stampOpts = { keepOwnNav: designer };
 
   let changed = 0;
   for (const page of pages) {
     const nav = buildNavHtml(info, page.slug, opts);
-    const newHtml = stampNavIntoHtml(page.html, nav);
+    const newHtml = stampNavIntoHtml(page.html, nav, stampOpts);
     if (newHtml === page.html) continue;
     // Clearing components/styles matters: the editor prefers the GrapesJS
     // components JSON over html on load, so a stale blob would hide the
@@ -362,7 +409,7 @@ export async function syncProjectNav(projectId: string): Promise<number> {
     });
     changed++;
   }
-  if (switcher) changed += await syncTranslationNavs(projectId, info, app.locales.slice(1));
+  if (switcher) changed += await syncTranslationNavs(projectId, info, app.locales.slice(1), designer);
   return changed;
 }
 
@@ -371,7 +418,7 @@ export async function syncProjectNav(projectId: string): Promise<number> {
  * language's translated pages: the translated page titles (the default
  * language's where a page has no translation yet) and the menu's words.
  */
-async function syncTranslationNavs(projectId: string, info: NavProjectInfo, locales: Locale[]): Promise<number> {
+async function syncTranslationNavs(projectId: string, info: NavProjectInfo, locales: Locale[], designer = false): Promise<number> {
   let changed = 0;
   for (const locale of locales) {
     const rows = await db.pageTranslation.findMany({
@@ -381,9 +428,9 @@ async function syncTranslationNavs(projectId: string, info: NavProjectInfo, loca
     if (rows.length === 0) continue;
     const titles = new Map(rows.map((r) => [r.page.slug, r.title]));
     const localized: NavProjectInfo = { ...info, pages: info.pages.map((p) => ({ ...p, title: titles.get(p.slug) || p.title })) };
-    const opts: NavOptions = { words: navWords(locale), switcher: true };
+    const opts: NavOptions = { words: navWords(locale), switcher: true, standalone: designer };
     for (const row of rows) {
-      const html = stampNavIntoHtml(row.html, buildNavHtml(localized, row.page.slug, opts));
+      const html = stampNavIntoHtml(row.html, buildNavHtml(localized, row.page.slug, opts), { keepOwnNav: designer });
       if (html === row.html) continue;
       // The menu isn't the owner's work: an edited translation stays edited.
       await db.pageTranslation.update({ where: { id: row.id }, data: { html } });

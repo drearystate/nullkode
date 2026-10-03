@@ -891,44 +891,91 @@
       },
       "3": {
         "body": {
-          "0": "Telefon uygulaması, yayınlanmış ve çalışan uygulamanızı gösterir. Bu nedenle yaptığınız değişiklikler yeniden oluşturmaya gerek kalmadan uygulamaya yansır."
+          "0": "Yayınlanan her uygulama aynı zamanda gerçek bir telefon uygulamasıdır. Telefonun kendi metinleri, düğmeleri ve listeleriyle görüntülenir; çerçeve içindeki bir web sitesi gibi değil, diğer uygulamalar gibi hissettirir. Yayınlanan uygulamanızdan oluşturulur ve her yayınladığınızda, uygulamaya sahip telefonlar uygulamayı bir sonraki açışlarında yeni sürümü alır. Mağazaya yeni bir sürüm yüklemeniz gerekmez.",
+          "1": "<b>Mobil uygulama</b> sekmesini açın. <b>Telefon uygulamanız</b> bölümünde dokunup kaydırabileceğiniz bir telefonda uygulamanızı görebilirsiniz. <b>Sayfa</b>, bir <b>iPhone</b> veya <b>Android</b> telefonu, <b>Açık</b> ya da <b>Koyu</b> temayı ve uygulamanızda birden fazla dil varsa <b>Dil</b> seçin. Web sitenizi yanında görmek için <b>Web sürümüyle karşılaştır</b> seçeneğini açın."
         },
-        "heading": "Android uygulaması oluşturun",
+        "heading": "Uygulamanız gerçek bir telefon uygulaması olarak",
         "shot": {
-          "alt": "Uygulama ayrıntılarını ve Android sürümleri oluşturma düğmelerini gösteren Mobil uygulama sekmesi.",
-          "caption": "Bir test kopyası veya Google Play'in istediği dosyayı oluşturun."
-        },
-        "steps": {
-          "0": "Önce uygulamanızı yayınlayın.",
-          "1": "<b>Mobil uygulama</b> sekmesini açın.",
-          "2": "<b>Uygulama ayrıntıları</b> bölümünde <b>Uygulama adı</b>, <b>Paket / Uygulama kimliği</b> (com.yourbusiness.app gibi; uygulamanız mağazaya girdikten sonra bunu asla değiştirmeyin), <b>Sürüm</b>, <b>Ekran yönü</b> ve renkleri kontrol edin, ardından <b>Ayarları kaydet</b>'e basın.",
-          "3": "Android telefona doğrudan yükleyip deneyebileceğiniz bir kopya için <b>Test APK'sı oluştur</b>'a basın.",
-          "4": "Google Play'e hazır olduğunuzda <b>Google Play için oluştur</b>'a basın. <b>Uygulamanızı Google Play'de yayınlayın</b> rehberi, mağazadaki adımlarda size yol gösterir."
+          "alt": "iPhone'da gösterilen telefon uygulamasının ve sayfa, telefon, açık ya da koyu tema seçme düğmelerinin yer aldığı Mobil uygulama sekmesi.",
+          "caption": "Telefon uygulamanız, iPhone veya Android telefonda canlı olarak."
         }
       },
       "4": {
         "body": {
-          "0": "Google Play, uygulamanızı ilk kez Google Play için oluşturduğunuzda hazırlanan gizli bir dosya olan yükleme anahtarınızla tanır. <b>Anahtar yedeğini indir</b>'e basın ve parola yöneticisi gibi güvenli, özel bir yerde saklayın. Bu anahtar olmadan uygulamanızı Google Play'de bir daha güncelleyemezsiniz. Anahtarı yalnızca uygulamanın sahibi indirebilir."
+          "0": "<b>Görünüm aynı mı?</b> bölümünde <b>Bu sayfayı kontrol et</b> veya <b>Tüm sayfaları kontrol et</b> seçeneğine basın. Her sayfaya <b>Görünüm aynı</b>, <b>Görünüm yakın</b> veya <b>Görünüm farklı</b> sonucu verilir. <b>Yan yana</b> görünümünde web sitenizi, telefon uygulamanızı ve farklılıkları kırmızıyla görebilir, böylece farklı görünen yerleri fark edebilirsiniz.",
+          "1": "Neredeyse her şey doğrudan telefon için görüntülenir. Haritalar ve başka web sitelerindeki videolar, çizimler ve kendi kodunu kullanan bölümler gibi bazı öğeler bunun yerine küçük, gömülü bir web görünümünde gösterilir. <b>Gömülü web görünümlerinde çalışan bölümler ve nedenleri</b> her sayfadaki bu öğeleri listeler. Yine de çalışır ve web sitenizdeki gibi görünürler."
         },
-        "heading": "Yükleme anahtarınızı güvende tutun"
+        "heading": "Görünümün aynı olduğunu kontrol edin"
       },
       "5": {
         "body": {
-          "0": "Mobil uygulama sekmesinde <b>iPhone projesini indir</b>'e basın. iPhone uygulaması oluşturmak için ücretli bir Apple Developer hesabı ve Mac ya da ücretsiz bir GitHub hesabı gerekir. İndirilen dosyadaki yönergeler her iki yöntemi de adım adım açıklar."
+          "0": "Hiçbir şey oluşturmadan önce uygulamanızı saniyeler içinde kendi telefonunuzda görün."
+        },
+        "heading": "Telefonunuzda deneyin",
+        "shot": {
+          "alt": "Taranacak kodun ve üç kısa adımın yer aldığı Telefonunuzda deneyin bölümü.",
+          "caption": "Uygulamanızı denemek için kodu telefonunuzla tarayın."
+        },
+        "steps": {
+          "0": "App Store veya Google Play'den ücretsiz Expo Go uygulamasını yükleyin.",
+          "1": "<b>Mobil uygulama</b> sekmesinde, <b>Telefonunuzda deneyin</b> bölümündeki kodu tarayın. iPhone'da Kamera uygulamasını, Android'de Expo Go içindeki tarayıcıyı kullanın.",
+          "2": "Uygulamanız açılır. Bu önizlemeyi yalnızca siz görebilirsiniz; müşterileriniz gerçek uygulamayı mağazalardan indirir."
+        }
+      },
+      "6": {
+        "body": {
+          "0": "Bazı sunucularda <b>Tarayıcınızda deneyin (Android)</b> bölümündeki <b>Android telefonu başlat</b> seçeneğine de basabilirsiniz: sayfanın içinde gerçek bir Android telefon açılır ve uygulamanızı fare ve klavyenizle kullanabilirsiniz. Kimse bakmıyorsa 10 dakika sonra kendiliğinden kapanır. Bu bölümü görmüyorsanız sunucunuz bu özelliği sunmuyordur."
+        },
+        "heading": "Tarayıcınızda deneyin"
+      },
+      "7": {
+        "body": {
+          "0": "<b>Uygulama mağazaları için oluştur</b> bölümünde Android uygulamaları sizin için sunucuda oluşturulur."
+        },
+        "heading": "Android uygulaması oluşturun",
+        "shot": {
+          "alt": "Test uygulaması ve Google Play dosyası oluşturma düğmelerinin yer aldığı Uygulama mağazaları için oluştur bölümü.",
+          "caption": "Bir test uygulaması veya Google Play'in istediği dosyayı oluşturun."
+        },
+        "steps": {
+          "0": "Önce uygulamanızı yayınlayın.",
+          "1": "<b>Uygulama ayrıntıları</b> bölümünde <b>Uygulama adı</b>, <b>Paket / Uygulama kimliği</b> (com.yourbusiness.app gibi; uygulamanız bir mağazaya girdikten sonra bunu asla değiştirmeyin), <b>Sürüm</b>, <b>Yön</b> ve renkleri kontrol edin, ardından <b>Ayarları kaydet</b> seçeneğine basın.",
+          "2": "Android telefona doğrudan yükleyip deneyebileceğiniz bir kopya için <b>Test uygulaması oluştur</b> seçeneğine basın. Dosyayı telefonunuza indirip açın.",
+          "3": "Google Play için hazır olduğunuzda <b>Google Play için oluştur</b> seçeneğine basın ve oluşturulan dosyayı yükleyin. <b>Uygulamanızı Google Play'de yayınlayın</b> rehberi mağazadaki adımlarda size yol gösterir."
+        }
+      },
+      "8": {
+        "body": {
+          "0": "Google Play uygulamanızı, Google Play için ilk kez uygulama oluşturduğunuzda hazırlanan gizli bir dosya olan yükleme anahtarıyla tanır. <b>Anahtar yedeğini indir</b> seçeneğine basıp dosyayı parola yöneticisi gibi güvenli ve özel bir yerde saklayın. Bu dosya olmadan uygulamanızı Google Play'de bir daha güncelleyemezsiniz. Dosyayı yalnızca uygulamanın sahibi indirebilir."
+        },
+        "heading": "Yükleme anahtarınızı güvende tutun"
+      },
+      "9": {
+        "body": {
+          "0": "Apple, iPhone uygulamalarının yalnızca kendi araçlarıyla ve Mac'te oluşturulmasına izin verir. <b>iPhone projesini indir</b> seçeneğine basıp projeyi Mac'te Xcode ile açın ya da Mac'iniz yoksa ücretsiz bir GitHub hesabına yükleyerek GitHub'ın projeyi oluşturup TestFlight'a göndermesini sağlayın. Her iki yöntem için de ücretli bir Apple Developer hesabı gerekir. İndirdiğiniz dosyanın içindeki README tüm adımları açıklar.",
+          "1": "Android uygulamanız gibi iPhone uygulamanız da siz yayınladıkça kendini günceller. Yalnızca adı, simgesi veya telefon özellikleri değiştiğinde yeni bir iPhone sürümü oluşturmanız gerekir."
         },
         "heading": "iPhone ve iPad"
       },
-      "6": {
+      "10": {
+        "body": {
+          "0": "Uygulamanızı yüklemiş biri uygulamanızın adresine giden bir bağlantıya dokunduğunda tarayıcı yerine uygulama açılabilir. Bu özellik paylaşılan adreste değil, kendi alan adınızda çalışır (<b>Alan adları</b> sekmesinden bir alan adı bağlayın). Android ayarları ilk uygulama oluşturmanızdan sonra sizin için yapılır. Google Play'de yayınlıyorsanız Play Console'dan aldığınız <b>Google Play uygulama imzalama anahtarını (SHA-256)</b> da yapıştırın. iPhone için <b>iPhone ve iPad</b> bölümüne <b>Apple Takım Kimliğinizi</b> girin."
+        },
+        "heading": "Uygulamanızı açan bağlantılar"
+      },
+      "11": {
         "bullets": {
-          "0": "<b>Bu uygulamanın kullandığı telefon özellikleri</b> bölümünde, uygulamanızın kamera veya konum gibi hangi özellikleri istediği listelenir. Bu liste değişirse uygulamayı yeniden oluşturup mağazalara yeni sürümü gönderin.",
-          "1": "Telefonlar uygulamaları yalnızca güvenli bir adresten (https) açar. Adresiniz güvenli değilse Mobil uygulama sekmesinde uyarı gösterilir.",
-          "2": "<b>Bu sunucuda Android sürümleri oluşturma kapalı</b> mesajını görürseniz, {app} hizmetini sizin için yöneten kişiye sorun.",
-          "3": "Bir uygulamayı veya hesabınızı silmeden önce Google Play yükleme anahtarını indirin."
+          "0": "Yayınla'ya bastıktan sonra telefon uygulaması yeni sürümü aldığında Yayınla sekmesinde <b>Telefon uygulaması güncellendi</b> yazar.",
+          "1": "<b>Bu uygulamanın kullandığı telefon özellikleri</b> uygulamanızın kamera veya konum gibi hangi telefon özelliklerine erişmek istediğini listeler. Bu liste değişirse uygulamayı yeniden oluşturup mağazalara yeni sürümü gönderin.",
+          "2": "Telefon uygulaması özelliği gelmeden önce oluşturulan uygulamalarda web siteniz bir uygulama çerçevesinde açılır. Bu uygulamalar çalışmaya devam eder. Sekmenin altındaki <b>Klasik (web sitesi) uygulaması</b> bölümünden bunları oluşturmaya devam edebilirsiniz.",
+          "3": "Telefonlar uygulamaları yalnızca güvenli bir adresten (https) açar. Sizinki güvenli değilse Mobil uygulama sekmesinde uyarı görürsünüz.",
+          "4": "Bu sunucuda uygulama oluşturmanın kapalı olduğu yazıyorsa {app} uygulamasını sizin için yöneten kişiye sorun.",
+          "5": "Bir uygulamayı veya hesabınızı silmeden önce Google Play yükleme anahtarını indirin."
         },
         "heading": "Bilmenizde fayda var"
       }
     },
-    "summary": "Uygulamanızı kişilerin ana ekranlarına ekleyin, bildirim gönderin ve Android ile iPhone sürümleri oluşturun.",
+    "summary": "Uygulamanız gerçek bir telefon uygulaması olarak: telefonunuzda deneyin, bildirim gönderin ve Google Play ile App Store için hazırlayın.",
     "title": "Telefon uygulamaları ve bildirimler"
   },
   "prices-and-payments": {

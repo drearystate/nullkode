@@ -69,6 +69,19 @@ async function main() {
     ok(`${file} on the dashboard's address reaches the platform route`, passes(res) && !rewriteOf(res));
   }
 
+  // App Links / universal links files: per app host, never on the dashboard's address.
+  for (const host of [appHost, customHost]) {
+    for (const file of ["assetlinks.json", "apple-app-site-association"]) {
+      const res = await run(host, `/.well-known/${file}`);
+      ok(`/.well-known/${file} on ${host} goes to the app's own route`, rewriteOf(res) === `/nk-host/${host}/nk-well-known/${file}`, rewriteOf(res));
+      ok(`/.well-known/${file} on ${host} carries the signed host`, res.headers.get("x-middleware-request-x-nk-host-sig") === sig(host));
+    }
+  }
+  for (const file of ["assetlinks.json", "apple-app-site-association"]) {
+    const res = await run(STUDIO, `/.well-known/${file}`);
+    ok(`/.well-known/${file} on the dashboard's address isn't an app's`, !rewriteOf(res));
+  }
+
   // Existing behaviour that must not change.
   let res = await run(appHost, "/nk-public.css");
   ok("static files pass through on app addresses", passes(res) && !rewriteOf(res));

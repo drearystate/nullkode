@@ -1,4 +1,26 @@
 # syntax=docker/dockerfile:1
+
+# NullKode Native engine (native-runtime/, Expo SDK 57, needs Node >= 20.19.4):
+# its browser build for the studio's phone preview (public/nk-native/web),
+# always. With NULLKODE_NATIVE_ENGINE=1 (docker-compose passes it from .env),
+# also Node 22 and the engine's packages for the runtime image: Expo Go
+# previews on the owner's phone, and with NULLKODE_ANDROID=1 too, store builds
+# (APK/AAB) of the native app. About 800 MB more; off by default.
+FROM node:22-bookworm-slim AS engine
+ARG NULLKODE_NATIVE_ENGINE=0
+WORKDIR /engine
+COPY native-runtime/package.json native-runtime/package-lock.json ./
+RUN npm ci --no-audit --no-fund
+COPY native-runtime/ ./
+# The server's copy of the spec contract is the source (pnpm native:web does the same).
+COPY src/lib/native/spec.ts ./src/spec.ts
+RUN CI=1 EXPO_NO_TELEMETRY=1 npx expo export --platform web --output-dir dist-web
+RUN set -eu; mkdir -p /out/app/native-runtime /out/opt; \
+    if [ "$NULLKODE_NATIVE_ENGINE" = "1" ]; then \
+      cp -a node_modules /out/app/native-runtime/; \
+      mkdir -p /out/opt/node-22/bin; cp "$(command -v node)" /out/opt/node-22/bin/node; \
+    fi
+
 FROM node:20.19.2-bookworm-slim AS build
 WORKDIR /app
 RUN apt-get update && apt-get install -y --no-install-recommends python3 build-essential ca-certificates openssl \
@@ -8,6 +30,7 @@ COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY prisma ./prisma
 RUN pnpm install --frozen-lockfile
 COPY . .
+COPY --from=engine /engine/dist-web ./public/nk-native/web
 ENV NEXT_TELEMETRY_DISABLED=1
 RUN pnpm build
 
@@ -32,7 +55,12 @@ ENV NODE_ENV=production NEXT_TELEMETRY_DISABLED=1 PLAYWRIGHT_BROWSERS_PATH=/ms-p
 # cmdline-tools 12.0 (the version the hosted service uses) only installs the
 # packages. Newer releases replace sdkmanager with a downloaded "Android CLI"
 # that collects usage data and writes SDK metadata older AGP versions cannot read.
+# With NULLKODE_NATIVE_ENGINE=1 as well, the NDK and CMake are added: store
+# builds of the native app compile C++ (expo-modules-core, react-native-screens).
+# Their Gradle dependencies download on the first store build (needs internet,
+# ~2-7 min once, cached in /home/node/.gradle).
 ARG NULLKODE_ANDROID=0
+ARG NULLKODE_NATIVE_ENGINE=0
 ARG ANDROID_CMDLINE_TOOLS=11076708
 ARG ANDROID_CMDLINE_TOOLS_SHA256=2d2d50857e4eb553af5a6dc3ad507a17adf43d115264b1afc116f95c92e5e258
 ARG ANDROID_PACKAGES="platforms;android-36 build-tools;36.0.0 platform-tools"
@@ -53,7 +81,9 @@ RUN set -eu; \
       "https://dl.google.com/android/repository/commandlinetools-linux-${ANDROID_CMDLINE_TOOLS}_latest.zip"; \
     echo "${ANDROID_CMDLINE_TOOLS_SHA256}  /tmp/cmdline-tools.zip" | sha256sum -c -; \
     unzip -q /tmp/cmdline-tools.zip -d /tmp; \
-    yes | /tmp/cmdline-tools/bin/sdkmanager --sdk_root="$ANDROID_HOME" $ANDROID_PACKAGES; \
+    packages="$ANDROID_PACKAGES"; \
+    if [ "$NULLKODE_NATIVE_ENGINE" = "1" ]; then packages="$packages ndk;27.1.12297006 cmake;3.22.1"; fi; \
+    yes | /tmp/cmdline-tools/bin/sdkmanager --sdk_root="$ANDROID_HOME" $packages; \
     apt-get purge -y --auto-remove curl unzip; \
     rm -rf /var/lib/apt/lists/* /tmp/cmdline-tools /tmp/cmdline-tools.zip /root/.android /root/.java; \
     ls "$ANDROID_HOME/licenses"; \
@@ -96,7 +126,16 @@ USER root
 ENV ANDROID_USER_HOME=/app/uploads/.android
 
 COPY --from=build --chown=node:node /app /app
-# Website import needs Chromium. Install its OS dependencies in the image.
+# The native engine's packages and Node 22 (only with NULLKODE_NATIVE_ENGINE=1;
+# otherwise this copies two empty folders). Engine workspaces are copied with
+# rsync into /app/uploads/.engine on first use.
+COPY --from=engine --chown=node:node /out/ /
+RUN if [ "$NULLKODE_NATIVE_ENGINE" = "1" ]; then \
+      apt-get update && apt-get install -y --no-install-recommends rsync && rm -rf /var/lib/apt/lists/*; \
+    fi
+# Website import and the native compiler (published pages measured at phone
+# width, lib/native/compile.ts) need Chromium. Install it with its OS
+# dependencies (about 450 MB of the image).
 RUN pnpm exec playwright install --with-deps chromium \
     && mkdir -p /app/uploads /app/public/uploads /app/public/assets/cloned \
     && chown -R node:node /app/uploads /app/public/uploads /app/public/assets/cloned /ms-playwright

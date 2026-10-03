@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Android preview</title>
+<style>
+  html, body { margin: 0; height: 100%; background: transparent; font: 13px/1.4 system-ui, sans-serif; color: #e5e7eb; }
+  body { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; }
+  /* The phone is the device's own UI: never mirrored for right-to-left pages. */
+  #phone { direction: ltr; position: relative; background: #000; border-radius: 28px; padding: 10px; box-shadow: 0 6px 30px rgba(0,0,0,.35); }
+  canvas { display: block; border-radius: 18px; background: #111; touch-action: none; cursor: pointer; outline: none; max-height: calc(100vh - 90px); max-width: calc(100vw - 20px); height: auto; width: auto; }
+  #nav { direction: ltr; display: flex; gap: 28px; justify-content: center; }
+  #nav button { background: #1f2937; color: #e5e7eb; border: 0; border-radius: 999px; width: 40px; height: 40px; font-size: 16px; cursor: pointer; }
+  #nav button:focus-visible { outline: 2px solid #60a5fa; outline-offset: 2px; }
+  #status { position: absolute; inset: 10px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px; border-radius: 18px; background: rgba(17,17,17,.85); unicode-bidi: plaintext; }
+  #status[hidden] { display: none; }
+</style>
+</head>
+<body>
+<div id="phone">
+  <canvas id="screen" width="360" height="800" tabindex="0"></canvas>
+  <div id="status" role="status" aria-live="polite"></div>
+</div>
+<div id="nav">
+  <button id="back" type="button">&#9665;</button>
+  <button id="home" type="button">&#9675;</button>
+  <button id="recents" type="button">&#9633;</button>
+</div>
+<script>
+(() => {
+  // Labels can be passed by the page that embeds this one, translated:
+  // #labels=<base64url JSON> with the keys below (English by default).
+  const L = { booting: "Starting the Android phone...", opening: "Opening the app...", connecting: "Connecting...",
+    ended: "This preview has ended.", noDecoder: "This browser can't show the Android preview. Use a recent Chrome, Edge, Safari or Firefox.",
+    error: "The Android preview stopped.", back: "Back", home: "Home", recents: "Recent apps", screen: "Android phone screen" };
+  try {
+    const m = /labels=([A-Za-z0-9_-]+)/.exec(location.hash);
+    if (m) Object.assign(L, JSON.parse(new TextDecoder().decode(Uint8Array.from(atob(m[1].replace(/-/g, "+").replace(/_/g, "/")), (c) => c.charCodeAt(0)))));
+    const lang = /lang=([A-Za-z-]+)/.exec(location.hash);
+    if (lang) document.documentElement.lang = lang[1];
+  } catch {}
+  const $ = (id) => document.getElementById(id);
+  const canvas = $("screen"), ctx = canvas.getContext("2d"), status = $("status");
+  canvas.setAttribute("aria-label", L.screen);
+  for (const k of ["back", "home", "recents"]) { $(k).setAttribute("aria-label", L[k]); $(k).title = L[k]; }
+  const say = (t) => { status.textContent = t || ""; status.hidden = !t; };
+  say(L.connecting);
+  if (!("VideoDecoder" in window)) { say(L.noDecoder); return; }
+
+  const wsUrl = location.href.replace(/^http/, "ws").replace(/#.*$/, "").replace(/\?/, "/ws?");
+  const ws = new WebSocket(wsUrl);
+  ws.binaryType = "arraybuffer";
+  let meta = null, decoder = null, configData = null, needKey = true;
+
+  function newDecoder(codec) {
+    decoder?.close?.();
+    decoder = new VideoDecoder({
+      output: (frame) => {
+        if (canvas.width !== frame.displayWidth || canvas.height !== frame.displayHeight) { canvas.width = frame.displayWidth; canvas.height = frame.displayHeight; }
+        ctx.drawImage(frame, 0, 0);
+        frame.close();
+        say("");
+      },
+      error: () => { needKey = true; },
+    });
+    decoder.configure({ codec, optimizeForLatency: true, hardwareAcceleration: "no-preference" });
+  }
+  function codecFromSps(data) {
+    // Find the SPS NAL (type 7) in Annex B data: profile, constraints, level.
+    for (let i = 0; i + 4 < data.length; i++) {
+      if (data[i] === 0 && data[i + 1] === 0 && data[i + 2] === 1 && (data[i + 3] & 0x1f) === 7) {
+        const h = (b) => b.toString(16).padStart(2, "0");
+        return "avc1." + h(data[i + 4]) + h(data[i + 5]) + h(data[i + 6]);
+      }
+    }
+    return "avc1.42e01f";
+  }
+  ws.onmessage = (ev) => {
+    if (typeof ev.data === "string") {
+      const m = JSON.parse(ev.data);
+      if (m.t === "meta") meta = m;
+      else if (m.t === "state") say(m.state === "booting" ? L.booting : m.state === "opening" ? L.opening : m.state === "ready" ? L.connecting : "");
+      else if (m.t === "ended") say(L.ended);
+      else if (m.t === "error") say(L.error);
+      return;
+    }
+    const buf = new Uint8Array(ev.data);
+    const flags = buf[0], data = buf.subarray(9);
+    const pts = Number(new DataView(ev.data).getBigUint64(1));
+    if (flags & 1) { configData = data.slice(); newDecoder(codecFromSps(configData)); needKey = true; return; }
+    if (!decoder || decoder.state !== "configured") return;
+    const key = !!(flags & 2);
+    if (needKey && !key) return;
+    let payload = data;
+    if (key && configData) { payload = new Uint8Array(configData.length + data.length); payload.set(configData); payload.set(data, configData.length); }
+    needKey = false;
+    try { decoder.decode(new EncodedVideoChunk({ type: key ? "key" : "delta", timestamp: pts, data: payload })); } catch { needKey = true; }
+  };
+  ws.onclose = () => say(L.ended);
+
+  const send = (o) => ws.readyState === 1 && ws.send(JSON.stringify(o));
+  function pos(e) {
+    const r = canvas.getBoundingClientRect();
+    const w = meta?.width || canvas.width, h = meta?.height || canvas.height;
+    return { x: ((e.clientX - r.left) / r.width) * w, y: ((e.clientY - r.top) / r.height) * h };
+  }
+  let down = false, lastMove = 0;
+  canvas.addEventListener("pointerdown", (e) => { canvas.focus(); down = true; canvas.setPointerCapture(e.pointerId); send({ t: "touch", a: 0, ...pos(e) }); e.preventDefault(); });
+  canvas.addEventListener("pointermove", (e) => { if (!down) return; const now = performance.now(); if (now - lastMove < 12) return; lastMove = now; send({ t: "touch", a: 2, ...pos(e) }); });
+  const up = (e) => { if (!down) return; down = false; send({ t: "touch", a: 1, ...pos(e) }); };
+  canvas.addEventListener("pointerup", up);
+  canvas.addEventListener("pointercancel", up);
+  canvas.addEventListener("wheel", (e) => { send({ t: "scroll", ...pos(e), h: -e.deltaX / 100, v: -e.deltaY / 100 }); e.preventDefault(); }, { passive: false });
+  const key = (k) => { send({ t: "key", k, a: 0 }); send({ t: "key", k, a: 1 }); };
+  $("back").onclick = () => key(4);
+  $("home").onclick = () => key(3);
+  $("recents").onclick = () => key(187);
+  const KEYS = { Enter: 66, Backspace: 67, Delete: 112, Tab: 61, Escape: 111, ArrowLeft: 21, ArrowRight: 22, ArrowUp: 19, ArrowDown: 20 };
+  canvas.addEventListener("keydown", (e) => {
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    if (KEYS[e.key]) { key(KEYS[e.key]); e.preventDefault(); }
+    else if (e.key.length === 1) { send({ t: "text", s: e.key }); e.preventDefault(); }
+  });
+  canvas.addEventListener("paste", (e) => { const s = e.clipboardData?.getData("text"); if (s) send({ t: "text", s: s.slice(0, 300) }); });
+})();
+</script>
+</body>
+</html>

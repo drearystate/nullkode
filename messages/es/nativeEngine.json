@@ -1,0 +1,27 @@
+{
+  "emulatorBusy": "Todas las vistas previas de Android están en uso. Inténtalo de nuevo en unos minutos.",
+  "emulatorFailed": "No se pudo iniciar la vista previa de Android. Inténtalo de nuevo.",
+  "emulatorUnavailable": "La vista previa de Android no está disponible en este servidor.",
+  "emulatorViewer": {
+    "back": "Atrás",
+    "booting": "Iniciando el teléfono Android...",
+    "connecting": "Conectando...",
+    "ended": "Esta vista previa ha terminado.",
+    "error": "La vista previa de Android se detuvo.",
+    "home": "Inicio",
+    "noDecoder": "Este navegador no puede mostrar la vista previa de Android. Usa una versión reciente de Chrome, Edge, Safari o Firefox.",
+    "opening": "Abriendo la app...",
+    "recents": "Apps recientes",
+    "screen": "Pantalla del teléfono Android"
+  },
+  "fileGone": "El archivo de esta creación ya no está. Vuelve a crearla.",
+  "iosFailed": "No se pudo crear el proyecto para iPhone. Inténtalo de nuevo.",
+  "notFound": "No encontrado",
+  "notReady": "Esta creación aún no está lista.",
+  "previewPreparing": "Se está preparando la vista previa de la app. Inténtalo de nuevo en un minuto.",
+  "publishFirst": "Publica tu app primero. La app del teléfono carga la versión publicada.",
+  "startFailed": "No se pudo iniciar la creación. Inténtalo de nuevo.",
+  "unauthorized": "No autorizado",
+  "unavailable": "La creación de apps nativas no está disponible en este servidor. {reason}",
+  "unknownBuild": "Creación desconocida"
+}

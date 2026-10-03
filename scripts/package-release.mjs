@@ -8,7 +8,13 @@ await mkdir(output, { recursive: true });
 // Build output only: a bare "build" would also drop the APK build API
 // (src/app/api/projects/[id]/native/build). Keystores are never shipped.
 const excluded = /(?:^|\/)(?:node_modules|\.git|\.next[^/]*|\.claude|\.vscode|dist|\.gradle|uploads|backups)(?:\/|$)|^native-templates\/.+\/build(?:\/|$)|^native-templates\/.+\/local\.properties$|\.(?:jks|keystore)$|(?:^|\/)\.env(?:\..*)?$|\.tsbuildinfo$|\.log$|(?:^|\/)\.DS_Store$/;
-const top = ['src','messages','prisma','native-templates','docs','scripts','public','.github','package.json','pnpm-lock.yaml','pnpm-workspace.yaml','next.config.mjs','postcss.config.mjs','tailwind.config.ts','tsconfig.json','tsconfig.check.json','tsconfig.base.json','Dockerfile','docker-compose.yml','Caddyfile','.dockerignore','.gitignore','.gitattributes','.env.example','install.sh','Start-Nullkode.command','Start-Nullkode.bat','README.md','CONTRIBUTING.md','SECURITY.md','CODE_OF_CONDUCT.md','LICENSE'];
+// The NullKode Native engine (native-runtime/) ships as source with its own
+// npm lockfile; its installed packages, Expo caches, web build and any
+// generated android/ or ios/ folders don't (the server makes them:
+// pnpm native:web, uploads/.engine). The engine's web build in
+// public/nk-native/ is made per install too.
+const nativeExcluded = /^native-runtime\/(?:\.expo|dist-web|web-build|android|ios)(?:\/|$)|^public\/nk-native(?:\/|$)|^services\/[^/]+\/(?:run|cache)(?:\/|$)/;
+const top = ['src','messages','prisma','native-templates','native-runtime','services','docs','scripts','public','.github','package.json','pnpm-lock.yaml','pnpm-workspace.yaml','next.config.mjs','postcss.config.mjs','tailwind.config.ts','tsconfig.json','tsconfig.check.json','tsconfig.base.json','Dockerfile','docker-compose.yml','Caddyfile','.dockerignore','.gitignore','.gitattributes','.env.example','install.sh','Start-Nullkode.command','Start-Nullkode.bat','README.md','CONTRIBUTING.md','SECURITY.md','CODE_OF_CONDUCT.md','LICENSE'];
 
 // Scripts the release uses: install, runtime and backup helpers, packaging,
 // upgrade steps for existing installs, every script a package.json command
@@ -47,7 +53,7 @@ for (const name of top) {
   await cp(join(root,name), join(output,name), { recursive: true, filter: source => {
     const rel = source.slice(root.length + 1).replaceAll('\\','/');
     if (rel === '.env.example') return true;
-    if (excluded.test(rel)) return false;
+    if (excluded.test(rel) || nativeExcluded.test(rel)) return false;
     if (/^public\/(?:assets|designer|screenshots|dl-[^/]+)(?:\/|$)/.test(rel) || /^public\/[^/]+\.jpe?g$/.test(rel)) return false;
     // Template pictures: the built-in templates use the generated library
     // (public/media/generated/, shipped in full). Keep the gallery previews
@@ -61,6 +67,8 @@ for (const name of top) {
     return true;
   } });
 }
+// The engine keeps a copy of the native spec contract; the server's is the source.
+await writeFile(join(output,'native-runtime/src/spec.ts'), await readFile(join(root,'src/lib/native/spec.ts'),'utf8'));
 const registry = join(output,'src/lib/templates/registry.ts');
 await writeFile(registry, (await readFile(registry,'utf8')).replace(/^import "\.\/(?:crafto|litho)-[^\n]+\n/gm,''));
 const configPath = join(output,'tsconfig.json');

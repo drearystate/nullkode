@@ -2,9 +2,20 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { Camera, FileUp, KeyRound, MapPin, Mic, ShieldCheck, Smartphone, TriangleAlert } from "lucide-react";
+import { Camera, FileUp, KeyRound, MapPin, Mic, Package, ShieldCheck, Smartphone, Store, TriangleAlert } from "lucide-react";
 import { useFormatter, useTranslations } from "next-intl";
 import { viewerTimeZone } from "@/components/data/format";
+import {
+  AppLinksCard,
+  EmulatorCard,
+  EngineBuildCard,
+  ExpoGoCard,
+  IosProjectCard,
+  NativeAppPreview,
+  SectionTitle,
+  type EngineBuild,
+} from "@/components/native-studio";
+import { PhoneAppUpdate, type PhoneAppState } from "@/components/phone-app-update";
 
 type WordingKey = "camera" | "microphone" | "photos" | "location";
 
@@ -20,6 +31,9 @@ type NativeConfig = {
   iosEnabled: boolean;
   /** The owner's own wording for the permission prompts ("" or missing: the suggested wording). */
   permissionText?: Partial<Record<WordingKey, string>>;
+  /** Apple Team ID (iPhone links), "" or missing until entered. */
+  iosTeamId?: string;
+  playSigningSha256?: string;
 };
 
 type PhoneFeature = "camera" | "microphone" | "location" | "files";
@@ -109,28 +123,53 @@ export function NativeAppPanel({
   ownerActions,
   initialKey,
   initialBuilds,
+  native,
 }: {
   projectId: string;
   initialConfig: NativeConfig;
   published: boolean;
   liveUrl: string;
-  /** Whether this server can build Android apps, and why not. */
+  /** Whether this server can build Android apps (classic WebView builds), and why not. */
   android: { ready: boolean; reason?: string };
   /** The signed-in person runs this server (sees installer tips). */
   isOperator: boolean;
   /** False while someone acts as the owner: the upload key stays owner-only. */
   ownerActions: boolean;
   initialKey: UploadKeySummary | null;
+  /** Classic (WebView) builds. */
   initialBuilds: BuildSummary[];
+  /** The native app (NullKode Native engine). */
+  native: {
+    /** The phone preview on the app's own address: engine page, spec, web address (lib/native/engine-web.ts). */
+    engineUrl: string;
+    appJsonUrl: string;
+    webBase: string;
+    webBuildReady: boolean;
+    screenColor?: string;
+    /** Whether this server can build native apps, and why not. */
+    engine: { ready: boolean; reason?: string };
+    /** The Android phone in the browser is set up on this server. */
+    emulator: boolean;
+    initialBuilds: EngineBuild[];
+    spec: { state: PhoneAppState; deploymentId: string | null };
+  };
 }) {
   const [cfg, setCfg] = useState<NativeConfig>(initialConfig);
   const [saving, setSaving] = useState(false);
   const [status, setStatus] = useState<{ kind: "ok" | "err"; msg: string } | null>(null);
   const [key, setKey] = useState<UploadKeySummary | null>(initialKey);
   const [phone, setPhone] = useState<PhoneInfo | null>(null);
+  const [engineBuilds, setEngineBuilds] = useState<EngineBuild[]>(native.initialBuilds);
   const t = useTranslations("project.nativeApp");
+  const ts = useTranslations("nativeStudio");
   const tc = useTranslations("common");
   const format = useFormatter();
+
+  const loadEngineBuilds = useCallback(async () => {
+    const res = await fetch(`/api/projects/${projectId}/native/engine-build`).catch(() => null);
+    const data = res?.ok ? await res.json().catch(() => null) : null;
+    if (Array.isArray(data?.builds)) setEngineBuilds(data.builds as EngineBuild[]);
+  }, [projectId]);
 
   // Phone features come from the app's modules and pages, worked out on the server.
   const loadPhone = useCallback(async () => {
@@ -188,8 +227,13 @@ export function NativeAppPanel({
     return need ? t("ios.locationAdded") : t("ios.locationRemoved");
   })();
 
+  const engineReady = native.engine.ready;
+  const debugBuilds = engineBuilds.filter((b) => b.kind === "debug");
+  const releaseBuilds = engineBuilds.filter((b) => b.kind === "release");
+  const hasTestApp = debugBuilds.some((b) => b.status === "done");
+
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {!published && (
         <div className="card p-5 border-amber-500/40 bg-amber-500/5">
           <div className="font-semibold text-amber-300">{t("notPublished.title")}</div>
@@ -209,8 +253,30 @@ export function NativeAppPanel({
           {liveUrl.startsWith("http://") && (
             <p className="mt-2 text-amber-300">{t("liveUrl.httpWarning")}</p>
           )}
+          <PhoneAppUpdate
+            className="mt-2"
+            projectId={projectId}
+            initial={native.spec.state}
+            deploymentId={native.spec.deploymentId}
+            labels={{ updating: ts("status.updating"), updated: ts("status.updated"), upToDate: ts("status.upToDate"), readyNote: ts("status.note") }}
+          />
         </div>
       )}
+
+      {/* ── 1. The native app, live ───────────────────────────────── */}
+      <NativeAppPreview
+        projectId={projectId}
+        published={published}
+        engineUrl={native.engineUrl}
+        appJsonUrl={native.appJsonUrl}
+        webBase={native.webBase}
+        webBuildReady={native.webBuildReady}
+        screenColor={native.screenColor}
+      />
+
+      {/* ── 2 and 3. On a phone, in the browser ──────────────────── */}
+      <ExpoGoCard projectId={projectId} published={published} />
+      {native.emulator && <EmulatorCard projectId={projectId} published={published} hasTestApp={hasTestApp} />}
 
       {/* ── App identity ──────────────────────────────────────────── */}
       <div className="card p-6">
@@ -234,6 +300,7 @@ export function NativeAppPanel({
             <input
               className="input font-mono"
               value={cfg.appId}
+              dir="ltr"
               aria-label={t("details.appId")}
               data-help={t("details.appIdHelp")}
               onChange={(e) => set("appId", e.target.value)}
@@ -246,6 +313,7 @@ export function NativeAppPanel({
             <input
               className="input font-mono"
               value={cfg.version}
+              dir="ltr"
               aria-label={t("details.version")}
               data-help={t("details.versionHelp")}
               onChange={(e) => set("version", e.target.value)}
@@ -303,6 +371,59 @@ export function NativeAppPanel({
         </div>
       </div>
 
+      {/* ── 4. Build for the stores ───────────────────────────────── */}
+      <section className="card p-6 space-y-5" aria-labelledby="nk-stores">
+        <SectionTitle id="nk-stores" icon={<Store size={18} />} title={ts("stores.title")} help={ts("stores.titleHelp")} intro={ts("stores.intro")} />
+
+        <div className="space-y-4">
+          <div className="flex items-center gap-2 text-surface-200">
+            <AndroidIcon small />
+            <h3 className="font-semibold">Android</h3>
+          </div>
+          {!engineReady && <ToolchainNotice reason={native.engine.reason} isOperator={isOperator} />}
+          <div className="grid gap-4 md:grid-cols-2" id="nk-android-builds">
+            <EngineBuildCard projectId={projectId} kind="debug" enabled={published && engineReady} published={published} builds={debugBuilds} onChange={() => void loadEngineBuilds()} />
+            <EngineBuildCard
+              projectId={projectId}
+              kind="release"
+              enabled={published && engineReady && !(key?.missing ?? false)}
+              published={published}
+              builds={releaseBuilds}
+              onChange={() => {
+                void loadEngineBuilds();
+                void refreshKey();
+              }}
+            />
+          </div>
+          <UploadKeyCard projectId={projectId} keyInfo={key} onChange={setKey} ownerActions={ownerActions} />
+          <PlaySteps deleteAccountUrl={deleteAccountUrl} />
+        </div>
+
+        <div className="space-y-4">
+          <div className="flex items-center gap-2 text-surface-200">
+            <AppleIcon small />
+            <h3 className="font-semibold">{t("ios.title")}</h3>
+          </div>
+          <IosProjectCard
+            projectId={projectId}
+            published={published}
+            enabled={engineReady}
+            teamId={cfg.iosTeamId ?? ""}
+            onTeamIdSaved={(teamId) => setCfg((c) => ({ ...c, iosTeamId: teamId }))}
+          />
+          {iosLocationChange && (
+            <p role="status" className="flex items-start gap-2 rounded-lg border border-amber-500/40 bg-amber-500/5 p-3 text-sm text-amber-200">
+              <TriangleAlert size={16} className="mt-0.5 shrink-0" aria-hidden />
+              <span>{t.rich("ios.newBuildNeeded", { b: (c) => <span className="font-semibold">{c}</span>, reason: iosLocationChange })}</span>
+            </p>
+          )}
+          <StoreRequirements deleteAccountUrl={deleteAccountUrl} store="App Store Connect" />
+        </div>
+      </section>
+
+      {/* ── 5. Links that open the app ────────────────────────────── */}
+      <AppLinksCard projectId={projectId} published={published} teamId={cfg.iosTeamId ?? ""} />
+
       <PhoneFeaturesCard
         projectId={projectId}
         phone={phone}
@@ -313,120 +434,127 @@ export function NativeAppPanel({
         }}
       />
 
-      {/* ── Android ───────────────────────────────────────────────── */}
-      <section className="space-y-4">
-        <div className="flex items-center gap-3">
-          <span className="text-surface-200">
-            <AndroidIcon />
+      {/* ── Classic (website) app: the earlier WebView builds ─────── */}
+      <details className="card p-6 group" id="classic-app">
+        <summary className="cursor-pointer list-none [&::-webkit-details-marker]:hidden" data-help={ts("classic.summaryHelp")}>
+          <span className="flex items-start gap-3">
+            <span className="mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-white/5 text-surface-300" aria-hidden>
+              <Package size={18} />
+            </span>
+            <span className="min-w-0">
+              <span className="block text-lg font-semibold">{ts("classic.title")}</span>
+              <span className="mt-1 block text-sm text-surface-400">{ts("classic.intro")}</span>
+              <span className="mt-2 inline-block text-sm text-brand-400 group-open:hidden">{ts("classic.show")}</span>
+              <span className="mt-2 hidden text-sm text-brand-400 group-open:inline-block">{ts("classic.hide")}</span>
+            </span>
           </span>
-          <div>
-            <h2 className="text-lg font-semibold">Android</h2>
-            <p className="text-sm text-surface-400">{t("android.intro")}</p>
+        </summary>
+
+        <div className="mt-6 space-y-6">
+          <section className="space-y-4">
+            <div className="flex items-center gap-3">
+              <span className="text-surface-200">
+                <AndroidIcon />
+              </span>
+              <div>
+                <h3 className="text-lg font-semibold">Android</h3>
+                <p className="text-sm text-surface-400">{t("android.intro")}</p>
+              </div>
+            </div>
+
+            {!android.ready && <ToolchainNotice reason={android.reason} isOperator={isOperator} />}
+
+            <div className="grid gap-4 md:grid-cols-2">
+              <BuildCard
+                projectId={projectId}
+                kind="debug"
+                title={t("android.debugTitle")}
+                blurb={t("android.debugBlurb")}
+                buttonLabel={t("android.debugButton")}
+                enabled={canBuild}
+                published={published}
+                initial={latest("debug")}
+                currentFeatures={current}
+                onUpdate={loadPhone}
+              />
+              <BuildCard
+                projectId={projectId}
+                kind="release"
+                title={t("android.releaseTitle")}
+                blurb={t("android.releaseBlurb", { next: String(nextVersionCode) })}
+                buttonLabel={t("android.releaseButton")}
+                enabled={canBuild && !(key?.missing ?? false)}
+                published={published}
+                initial={latest("release")}
+                currentFeatures={current}
+                onUpdate={() => {
+                  void refreshKey();
+                  void loadPhone();
+                }}
+              />
+            </div>
+
+            <a
+              href={`/api/projects/${projectId}/native/download?platform=android`}
+              className="inline-block text-xs text-surface-500 hover:text-surface-300"
+              download={published ? true : undefined}
+              data-help={t("android.advancedDownloadHelp")}
+              onClick={(e) => {
+                if (!published) e.preventDefault();
+              }}
+            >
+              {t("android.advancedDownload")}
+            </a>
+          </section>
+
+          <section className="rounded-xl border border-white/10 p-6">
+            <div className="flex items-center gap-3">
+              <span className="text-surface-200">
+                <AppleIcon />
+              </span>
+              <div>
+                <h3 className="text-lg font-semibold">{t("ios.title")}</h3>
+                <div className="text-xs uppercase tracking-wider text-surface-500">App Store · TestFlight</div>
+              </div>
+            </div>
+            <p className="mt-3 text-sm text-surface-400" suppressHydrationWarning>
+              {t("ios.intro", { fee: format.number(99, { style: "currency", currency: "USD", maximumFractionDigits: 0 }) })}
+            </p>
+            <ul className="mt-3 space-y-2 text-sm text-surface-300">
+              <li>
+                {t.rich("ios.withMac", {
+                  b: (c) => <span className="font-medium text-surface-100">{c}</span>,
+                  mono: (c) => <span className="font-mono text-xs" dir="ltr">{c}</span>,
+                  path: "ios/App/App.xcodeproj",
+                })}
+              </li>
+              <li>
+                {t.rich("ios.withoutMac", { b: (c) => <span className="font-medium text-surface-100">{c}</span> })}
+              </li>
+            </ul>
+            <p className="mt-3 text-sm text-surface-400">{t("ios.readme")}</p>
+            {published ? (
+              <a
+                href={`/api/projects/${projectId}/native/download?platform=ios`}
+                className="btn-ghost mt-4 inline-flex items-center justify-center gap-2"
+                download
+                data-help={t("ios.downloadHelp")}
+              >
+                <DownloadIcon />
+                {t("ios.download")}
+              </a>
+            ) : (
+              <button className="btn-ghost mt-4 cursor-not-allowed opacity-60" disabled>
+                {t("publishToEnable")}
+              </button>
+            )}
+          </section>
+
+          <div className="rounded-xl border border-white/10 p-5 text-sm text-surface-400">
+            {t.rich("browserInstall", { b: (c) => <span className="font-medium text-surface-200">{c}</span> })}
           </div>
         </div>
-
-        {!android.ready && <ToolchainNotice reason={android.reason} isOperator={isOperator} />}
-
-        <div className="grid gap-4 md:grid-cols-2">
-          <BuildCard
-            projectId={projectId}
-            kind="debug"
-            title={t("android.debugTitle")}
-            blurb={t("android.debugBlurb")}
-            buttonLabel={t("android.debugButton")}
-            enabled={canBuild}
-            published={published}
-            initial={latest("debug")}
-            currentFeatures={current}
-            onUpdate={loadPhone}
-          />
-          <BuildCard
-            projectId={projectId}
-            kind="release"
-            title={t("android.releaseTitle")}
-            blurb={t("android.releaseBlurb", { next: String(nextVersionCode) })}
-            buttonLabel={t("android.releaseButton")}
-            enabled={canBuild && !(key?.missing ?? false)}
-            published={published}
-            initial={latest("release")}
-            currentFeatures={current}
-            onUpdate={() => {
-              void refreshKey();
-              void loadPhone();
-            }}
-          />
-        </div>
-
-        <UploadKeyCard projectId={projectId} keyInfo={key} onChange={setKey} ownerActions={ownerActions} />
-        <PlaySteps deleteAccountUrl={deleteAccountUrl} />
-
-        <a
-          href={`/api/projects/${projectId}/native/download?platform=android`}
-          className="inline-block text-xs text-surface-500 hover:text-surface-300"
-          download={published ? true : undefined}
-          data-help={t("android.advancedDownloadHelp")}
-          onClick={(e) => {
-            if (!published) e.preventDefault();
-          }}
-        >
-          {t("android.advancedDownload")}
-        </a>
-      </section>
-
-      {/* ── iOS ───────────────────────────────────────────────────── */}
-      <section className="card p-6">
-        <div className="flex items-center gap-3">
-          <span className="text-surface-200">
-            <AppleIcon />
-          </span>
-          <div>
-            <h2 className="text-lg font-semibold">{t("ios.title")}</h2>
-            <div className="text-xs uppercase tracking-wider text-surface-500">App Store · TestFlight</div>
-          </div>
-        </div>
-        <p className="mt-3 text-sm text-surface-400" suppressHydrationWarning>
-          {t("ios.intro", { fee: format.number(99, { style: "currency", currency: "USD", maximumFractionDigits: 0 }) })}
-        </p>
-        <ul className="mt-3 space-y-2 text-sm text-surface-300">
-          <li>
-            {t.rich("ios.withMac", {
-              b: (c) => <span className="font-medium text-surface-100">{c}</span>,
-              mono: (c) => <span className="font-mono text-xs" dir="ltr">{c}</span>,
-              path: "ios/App/App.xcodeproj",
-            })}
-          </li>
-          <li>
-            {t.rich("ios.withoutMac", { b: (c) => <span className="font-medium text-surface-100">{c}</span> })}
-          </li>
-        </ul>
-        <p className="mt-3 text-sm text-surface-400">{t("ios.readme")}</p>
-        <StoreRequirements deleteAccountUrl={deleteAccountUrl} store="App Store Connect" />
-        {iosLocationChange && (
-          <p role="status" className="mt-4 flex items-start gap-2 rounded-lg border border-amber-500/40 bg-amber-500/5 p-3 text-sm text-amber-200">
-            <TriangleAlert size={16} className="mt-0.5 shrink-0" aria-hidden />
-            <span>{t.rich("ios.newBuildNeeded", { b: (c) => <span className="font-semibold">{c}</span>, reason: iosLocationChange })}</span>
-          </p>
-        )}
-        {published ? (
-          <a
-            href={`/api/projects/${projectId}/native/download?platform=ios`}
-            className="btn-primary mt-4 inline-flex items-center justify-center gap-2"
-            download
-            data-help={t("ios.downloadHelp")}
-          >
-            <DownloadIcon />
-            {t("ios.download")}
-          </a>
-        ) : (
-          <button className="btn-ghost mt-4 cursor-not-allowed opacity-60" disabled>
-            {t("publishToEnable")}
-          </button>
-        )}
-      </section>
-
-      <div className="card p-5 text-sm text-surface-400">
-        {t.rich("browserInstall", { b: (c) => <span className="font-medium text-surface-200">{c}</span> })}
-      </div>
+      </details>
     </div>
   );
 }
@@ -1017,9 +1145,10 @@ function AndroidIcon({ small }: { small?: boolean }) {
   );
 }
 
-function AppleIcon() {
+function AppleIcon({ small }: { small?: boolean }) {
+  const s = small ? 16 : 26;
   return (
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+    <svg width={s} height={s} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
       <path d="M16.4 12.6c0-2.2 1.8-3.3 1.9-3.3-1-1.5-2.6-1.7-3.2-1.7-1.4-.1-2.6.8-3.3.8-.7 0-1.7-.8-2.8-.8-1.4 0-2.8.8-3.5 2.1-1.5 2.6-.4 6.5 1.1 8.6.7 1 1.5 2.2 2.6 2.1 1-.04 1.4-.7 2.7-.7 1.2 0 1.6.7 2.7.6 1.1-.02 1.8-1 2.5-2 .8-1.2 1.1-2.3 1.1-2.4-.02-.01-2.1-.8-2.1-3.2zM14.3 6c.6-.7 1-1.7.9-2.7-.8.03-1.9.6-2.5 1.3-.5.6-1 1.6-.9 2.6.9.07 1.8-.5 2.5-1.2z" />
     </svg>
   );

@@ -24,9 +24,9 @@ export type ShotAction =
   | { pause: number };
 
 /**
- * How to capture a screenshot. `path` may contain :project, :page, :flow and
- * :design, filled with the first app, page, flow and AI design the signed-in
- * account has.
+ * How to capture a screenshot. `path` may contain :project, :page, :flow,
+ * :design and :live, filled with the first app, page, flow, AI design and
+ * published app the signed-in account has.
  */
 export type ShotSpec = {
   path: string;
@@ -952,7 +952,7 @@ const GUIDE_LIST: Guide[] = [
   {
     slug: "phone-apps",
     title: "Phone apps and notifications",
-    summary: "Put your app on people's home screens, send them notifications, and build Android and iPhone versions.",
+    summary: "Your app as a real phone app: try it on your phone, send notifications, and build it for Google Play and the App Store.",
     audience: "everyone",
     group: "publish",
     sections: [
@@ -988,20 +988,60 @@ const GUIDE_LIST: Guide[] = [
         ],
       },
       {
-        heading: "Build an Android app",
-        body: ["The phone app shows your live, published app, so publishing changes updates it without a new build."],
-        steps: [
-          "Publish your app first.",
-          "Open the **Mobile app** tab.",
-          "Under **App details**, check the **App name**, the **Bundle / Application ID** (like com.yourbusiness.app; never change it once your app is in a store), **Version**, **Orientation** and colours, then press **Save settings**.",
-          "Press **Build test APK** for a copy you can install straight on an Android phone to try it.",
-          "When you're ready for Google Play, press **Build for Google Play**. **Put your app on Google Play** walks you through the store's steps.",
+        heading: "Your app as a real phone app",
+        body: [
+          "Every published app is also a real phone app. It is drawn with the phone's own text, buttons and lists, so it feels like any other app, not like a website in a frame. It is made from your published app, and every time you publish, phones that have it get the new version the next time they open it. No new store version is needed.",
+          "Open the **Mobile app** tab. **Your phone app** shows it in a phone you can tap and scroll. Choose the **Page**, an **iPhone** or **Android** phone, **Light** or **Dark**, and, if your app has more than one language, the **Language**. Turn on **Compare with web** to see your website next to it.",
         ],
         screenshot: {
           file: "phone-apps-2.webp",
-          alt: "The Mobile app tab with the app's details and buttons to build Android versions.",
-          caption: "Build a test copy, or the file Google Play asks for.",
-          shot: { path: "/projects/:project/native", waitFor: "main h1" },
+          alt: "The Mobile app tab with the phone app shown in an iPhone, and buttons to choose the page, the phone and light or dark.",
+          caption: "Your phone app, live, in an iPhone or Android phone.",
+          shot: { path: "/projects/:live/native", waitFor: "section[aria-labelledby=nk-native-preview] li", actions: [{ pause: 8000 }] },
+        },
+      },
+      {
+        heading: "Check it looks the same",
+        body: [
+          "Under **Does it look the same?**, press **Check this page** or **Check all pages**. Each page gets **Looks the same**, **Looks close** or **Looks different**. **Side by side** shows your website, the phone app and the differences in red, so you can spot anything that came out differently.",
+          "Almost everything is drawn natively. A few things, like maps and videos from other websites, drawings and parts with their own code, are shown in a small embedded web view instead. **Which parts run as embedded web views, and why** lists them for each page. They still work and look like your website.",
+        ],
+      },
+      {
+        heading: "Try it on your phone",
+        body: ["See your app on your own phone in seconds, before building anything."],
+        steps: [
+          "Install the free Expo Go app from the App Store or Google Play.",
+          "On the **Mobile app** tab, under **Try it on your phone**, scan the code. On an iPhone, use the Camera app; on Android, use the scanner inside Expo Go.",
+          "Your app opens. This preview is only for you; your customers get the real app from the stores.",
+        ],
+        screenshot: {
+          file: "phone-apps-3.webp",
+          alt: "The Try it on your phone section with a code to scan and three short steps.",
+          caption: "Scan the code with your phone to try your app.",
+          shot: { path: "/projects/:live/native", waitFor: "#nk-expo-go", actions: [{ pause: 4000 }], clip: "section[aria-labelledby=nk-expo-go]" },
+        },
+      },
+      {
+        heading: "Try it in your browser",
+        body: [
+          "On some servers you can also press **Start an Android phone** under **Try it in your browser (Android)**: a real Android phone appears right in the page and you use your app with your mouse and keyboard. It turns off by itself after 10 minutes without anyone looking at it. If you don't see this section, your server doesn't offer it.",
+        ],
+      },
+      {
+        heading: "Build an Android app",
+        body: ["Under **Build for the app stores**, Android apps are built for you on the server."],
+        steps: [
+          "Publish your app first.",
+          "Under **App details**, check the **App name**, the **Bundle / Application ID** (like com.yourbusiness.app; never change it once your app is in a store), **Version**, **Orientation** and colours, then press **Save settings**.",
+          "Press **Build test app** for a copy you can install straight on an Android phone to try it. Download it on the phone and open it.",
+          "When you're ready for Google Play, press **Build for Google Play** and upload the file it makes. **Put your app on Google Play** walks you through the store's steps.",
+        ],
+        screenshot: {
+          file: "phone-apps-4.webp",
+          alt: "The Build for the app stores section with buttons to build a test app and the file for Google Play.",
+          caption: "Build a test app, or the file Google Play asks for.",
+          shot: { path: "/projects/:live/native", waitFor: "#nk-stores", clip: "#nk-android-builds" },
         },
       },
       {
@@ -1013,16 +1053,25 @@ const GUIDE_LIST: Guide[] = [
       {
         heading: "iPhone and iPad",
         body: [
-          "Press **Download iPhone project** on the Mobile app tab. Building an iPhone app needs a paid Apple Developer account and either a Mac or a free GitHub account; the instructions inside the download explain both, step by step.",
+          "Apple only lets iPhone apps be built with its own tools, on a Mac. Press **Download iPhone project** and either open it in Xcode on a Mac, or, without a Mac, put it in a free GitHub account and let GitHub build it and send it to TestFlight. Both need a paid Apple Developer account. The README inside the download explains every step.",
+          "Your iPhone app updates itself when you publish, like the Android one. You only need a new iPhone version when its name, icon or phone features change.",
+        ],
+      },
+      {
+        heading: "Links that open your app",
+        body: [
+          "When someone who installed your app taps a link to your app's address, the app can open instead of the browser. This works on your own domain (connect one on the **Domains** tab), not on the shared address. Android is set up for you after your first build; if you publish on Google Play, also paste the **Google Play app signing key (SHA-256)** from Play Console. For iPhone, enter your **Apple Team ID** under **iPhone and iPad**.",
         ],
       },
       {
         heading: "Good to know",
         body: [],
         bullets: [
+          "After you press Publish, the Publish tab says **Phone app updated** once the phone app has the new version.",
           "**Phone features this app uses** lists what your app asks the phone for, like the camera or location. When that list changes, build again and send the stores the new version.",
+          "Apps built before the phone app existed show your website inside an app frame. They keep working, and you can still build them under **Classic (website) app** at the bottom of the tab.",
           "Phones only open apps from a secure address (https). The Mobile app tab warns you if yours isn't.",
-          "If it says **Android builds are turned off on this server**, ask whoever runs {app} for you.",
+          "If it says builds are turned off on this server, ask whoever runs {app} for you.",
           "Before deleting an app or your account, download its Google Play upload key.",
         ],
       },

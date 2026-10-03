@@ -40,6 +40,10 @@ services:
         # SDK, which means accepting its license). The installer asks and
         # saves the answer in .env. See docs/install.md.
         NULLKODE_ANDROID: ${NULLKODE_ANDROID:-0}
+        # 1 adds Node 22 and the native engine's packages (about 800 MB): Expo Go
+        # previews of the native app, and store builds with NULLKODE_ANDROID=1.
+        # See docs/native-apps.md.
+        NULLKODE_NATIVE_ENGINE: ${NULLKODE_NATIVE_ENGINE:-0}
     restart: unless-stopped
     depends_on:
       db:

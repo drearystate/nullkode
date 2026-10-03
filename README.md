@@ -163,7 +163,7 @@ templates are the easiest way to contribute.
 | **Backend** | Postgres per app, visual flows, sign-in and roles, email, webhooks, Google Sheets, scheduled flows, AI steps |
 | **Features** | 135 ready-made: commerce (32), utility (26), community (26), productivity (20), content (17), media (9), communication (5) |
 | **Publishing** | Draft and live versions with rollback, own address per app, custom domains, automatic HTTPS, PWA and offline, push notifications, QR codes |
-| **Mobile** | Android APK and Google Play (AAB) with per-app signing keys, iOS Xcode project and TestFlight workflow |
+| **Mobile** | Real native iOS and Android apps compiled from your pages (React Native), previews in the browser, in Expo Go and in an Android emulator, Android APK and Google Play (AAB) with per-app signing keys, iOS Xcode project and TestFlight workflow |
 | **Business** | Plans and limits, Stripe billing, white-label, resellers with their own Stripe and domains, admin panel, user impersonation for support |
 | **Security** | Owner-only admin pages locked automatically, app data isolated per app, cross-site request blocking, sign-up spam protection, safe upload handling |
 | **AI** | OpenAI or any compatible API, local models, AI usage limits per plan |
@@ -184,7 +184,7 @@ pnpm dev                 # http://localhost:3001/install
 Checks: `pnpm typecheck`, `pnpm check:js`, `pnpm check:extensions`,
 `pnpm test:e2e`. More: [architecture](docs/architecture.md),
 [contributing](CONTRIBUTING.md), [local AI](docs/local-ai.md),
-[mobile apps](docs/mobile-apps.md), [deployment](docs/deploy/).
+[mobile apps](docs/mobile-apps.md), [native apps](docs/native-apps.md), [deployment](docs/deploy/).
 
 ## License
 

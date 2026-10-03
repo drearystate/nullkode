@@ -308,7 +308,7 @@ async function exists(path: string): Promise<boolean> {
 }
 
 /** The JDK for Gradle: JAVA_HOME if it is a JDK, else the JDK that owns `javac` on PATH. */
-async function findJavaHome(): Promise<string | null> {
+export async function findJavaHome(): Promise<string | null> {
   const fromEnv = process.env.JAVA_HOME;
   if (fromEnv && (await exists(join(fromEnv, "bin", "javac")))) return fromEnv;
   for (const dir of (process.env.PATH ?? "").split(delimiter)) {
@@ -721,7 +721,7 @@ async function gradleFailure(logPath: string): Promise<string | null> {
 
 /* ── Upload key (Google Play signing) ─────────────────────────────────── */
 
-type UploadKey = {
+export type UploadKey = {
   path: string;
   alias: string;
   storePassword: string;
@@ -776,7 +776,7 @@ async function keyFingerprints(path: string, alias: string, storePassword: strin
 }
 
 /** Certificate SHA-256 that signed a JAR-style file (the AAB). */
-async function jarSigner(path: string): Promise<string> {
+export async function jarSigner(path: string): Promise<string> {
   const pem = await keytool(["-printcert", "-rfc", "-jarfile", path]);
   const first = /-----BEGIN CERTIFICATE-----[\s\S]+?-----END CERTIFICATE-----/.exec(pem);
   if (!first) throw new LocalizedError(apkMsg("bundleNotSigned"));
@@ -784,7 +784,7 @@ async function jarSigner(path: string): Promise<string> {
 }
 
 /** Certificate SHA-256 that signed an APK, checked with the SDK's apksigner. */
-async function apkSignerDigest(path: string): Promise<string> {
+export async function apkSignerDigest(path: string): Promise<string> {
   const javaHome = await findJavaHome();
   const out = await new Promise<string>((resolve, reject) => {
     execFile(
@@ -820,7 +820,7 @@ export async function uploadKeyInfo(projectId: string): Promise<UploadKeyInfo | 
  * first time. Never makes a new key when one was made before: Google Play
  * only accepts updates signed with the key it already knows.
  */
-async function loadUploadKey(project: Pick<Project, "id" | "name">, opts: { create: boolean }): Promise<UploadKey> {
+export async function loadUploadKey(project: Pick<Project, "id" | "name">, opts: { create: boolean }): Promise<UploadKey> {
   const row = await db.androidSigningKey.findUnique({ where: { projectId: project.id } });
   if (!row) {
     if (!opts.create) throw new NativeBuildError(apkMsg("noUploadKey"), 404);
@@ -897,7 +897,7 @@ async function createUploadKey(project: Pick<Project, "id" | "name">): Promise<U
  * or the app's build number if that is higher. Atomic, so two builds never
  * get the same number.
  */
-async function nextVersionCode(projectId: string, floor: number): Promise<number> {
+export async function nextVersionCode(projectId: string, floor: number): Promise<number> {
   const min = Math.max(1, Math.floor(Number.isFinite(floor) ? floor : 1));
   const rows = await db.$queryRaw<Array<{ lastVersionCode: number }>>`
     UPDATE "AndroidSigningKey"
@@ -1009,7 +1009,7 @@ function keytoolProblem(message: string, keyStep = false): ErrMsg {
 }
 
 /** A failed build's error for status.json: English, and the message when there is one. */
-function buildError(err: unknown): Pick<BuildStatus, "error" | "errorMsg"> {
+export function buildError(err: unknown): Pick<BuildStatus, "error" | "errorMsg"> {
   const msg = (err as { msg?: ErrMsg } | null)?.msg;
   const text = err instanceof Error ? err.message : "";
   if (msg) return { error: text, errorMsg: msg };

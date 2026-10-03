@@ -1,0 +1,27 @@
+{
+  "emulatorBusy": "Todas as prévias do Android estão em uso. Tente novamente em alguns minutos.",
+  "emulatorFailed": "Não foi possível iniciar a prévia do Android. Tente novamente.",
+  "emulatorUnavailable": "A prévia do Android não está disponível neste servidor.",
+  "emulatorViewer": {
+    "back": "Voltar",
+    "booting": "Iniciando o celular Android...",
+    "connecting": "Conectando...",
+    "ended": "Esta prévia terminou.",
+    "error": "A prévia do Android parou.",
+    "home": "Início",
+    "noDecoder": "Este navegador não consegue exibir a prévia do Android. Use uma versão recente do Chrome, Edge, Safari ou Firefox.",
+    "opening": "Abrindo o app...",
+    "recents": "Apps recentes",
+    "screen": "Tela do celular Android"
+  },
+  "fileGone": "O arquivo desta versão não está mais disponível. Crie uma nova versão.",
+  "iosFailed": "Não foi possível criar o projeto para iPhone. Tente novamente.",
+  "notFound": "Não encontrado",
+  "notReady": "Esta versão ainda não está pronta.",
+  "previewPreparing": "A prévia do app está sendo preparada. Tente novamente em um minuto.",
+  "publishFirst": "Publique seu app primeiro. O app do celular carrega a versão publicada.",
+  "startFailed": "Não foi possível iniciar a criação. Tente novamente.",
+  "unauthorized": "Não autorizado",
+  "unavailable": "Não é possível criar versões nativas do app neste servidor. {reason}",
+  "unknownBuild": "Versão desconhecida"
+}

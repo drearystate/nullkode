@@ -891,44 +891,91 @@
       },
       "3": {
         "body": {
-          "0": "L’app mobile affiche votre app publiée et en ligne. Publiez vos modifications pour les mettre à jour, sans avoir à créer une nouvelle version."
+          "0": "Chaque app publiée est aussi une vraie app mobile. Elle utilise le texte, les boutons et les listes du téléphone pour ressembler à n’importe quelle autre app, et non à un site web dans un cadre. Elle est créée à partir de votre app publiée. À chaque publication, les téléphones qui l’ont installée reçoivent la nouvelle version à leur prochaine ouverture. Pas besoin de publier une nouvelle version dans les stores.",
+          "1": "Ouvrez l’onglet <b>App mobile</b>. <b>Votre app mobile</b> s’affiche sur un téléphone que vous pouvez toucher et faire défiler. Choisissez la <b>Page</b>, un téléphone <b>iPhone</b> ou <b>Android</b>, le mode <b>Clair</b> ou <b>Sombre</b> et, si votre app propose plusieurs langues, la <b>Langue</b>. Activez <b>Comparer avec le web</b> pour afficher votre site web à côté."
         },
-        "heading": "Créer une app Android",
+        "heading": "Votre app comme une vraie app mobile",
         "shot": {
-          "alt": "L’onglet App mobile affiche les détails de l’app et des boutons pour créer des versions Android.",
-          "caption": "Créez une copie de test ou le fichier demandé par Google Play."
-        },
-        "steps": {
-          "0": "Publiez d’abord votre app.",
-          "1": "Ouvrez l’onglet <b>App mobile</b>.",
-          "2": "Dans <b>Détails de l’app</b>, vérifiez le <b>Nom de l’app</b>, l’<b>ID de bundle / d’application</b> (comme com.votreentreprise.app ; ne le changez jamais après la mise en ligne de votre app sur une boutique), la <b>Version</b>, l’<b>Orientation</b> et les couleurs, puis appuyez sur <b>Enregistrer les paramètres</b>.",
-          "3": "Appuyez sur <b>Créer un APK de test</b> pour obtenir une copie à installer directement sur un téléphone Android.",
-          "4": "Quand vous êtes prêt à publier sur Google Play, appuyez sur <b>Créer pour Google Play</b>. Le guide <b>Publier votre app sur Google Play</b> vous accompagne dans les étapes de la boutique."
+          "alt": "L’onglet App mobile avec l’app affichée sur un iPhone et des boutons pour choisir la page, le téléphone et le mode clair ou sombre.",
+          "caption": "Votre app mobile en direct sur un iPhone ou un téléphone Android."
         }
       },
       "4": {
         "body": {
-          "0": "Google Play reconnaît votre app grâce à sa clé d’envoi, un fichier secret créé lors de votre première version pour Google Play. Appuyez sur <b>Télécharger une copie de la clé</b> et conservez-la dans un endroit sûr, comme un gestionnaire de mots de passe. Sans cette clé, vous ne pourrez plus jamais mettre à jour votre app sur Google Play. Seul le propriétaire de l’app peut la télécharger."
+          "0": "Sous <b>Est-ce que tout se ressemble ?</b>, appuyez sur <b>Vérifier cette page</b> ou <b>Vérifier toutes les pages</b>. Chaque page reçoit l’un de ces résultats : <b>Identique</b>, <b>Presque identique</b> ou <b>Différente</b>. <b>Vue côte à côte</b> affiche votre site web, l’app mobile et les différences en rouge pour repérer ce qui ne s’affiche pas comme prévu.",
+          "1": "Presque tout est affiché de façon native. Certains éléments, comme les cartes et les vidéos d’autres sites web, les dessins et les parties avec leur propre code, s’affichent plutôt dans une petite fenêtre web intégrée. La section <b>Éléments affichés dans des fenêtres web intégrées et pourquoi</b> les répertorie pour chaque page. Ils fonctionnent toujours et ressemblent à votre site web."
         },
-        "heading": "Gardez votre clé d’envoi en lieu sûr"
+        "heading": "Vérifiez que tout se ressemble"
       },
       "5": {
         "body": {
-          "0": "Appuyez sur <b>Télécharger le projet iPhone</b> dans l’onglet App mobile. Pour créer une app iPhone, vous avez besoin d’un compte Apple Developer payant et d’un Mac ou d’un compte GitHub gratuit. Le guide inclus dans le téléchargement vous explique les deux options, étape par étape."
+          "0": "Affichez votre app sur votre propre téléphone en quelques secondes, avant de créer quoi que ce soit."
+        },
+        "heading": "Essayez-la sur votre téléphone",
+        "shot": {
+          "alt": "La section Essayez-la sur votre téléphone, avec un code à scanner et trois étapes simples.",
+          "caption": "Scannez le code avec votre téléphone pour essayer votre app."
+        },
+        "steps": {
+          "0": "Installez gratuitement l’app Expo Go depuis l’App Store ou Google Play.",
+          "1": "Dans l’onglet <b>App mobile</b>, sous <b>Essayez-la sur votre téléphone</b>, scannez le code. Sur iPhone, utilisez l’app Appareil photo ; sur Android, utilisez le scanner intégré à Expo Go.",
+          "2": "Votre app s’ouvre. Cet aperçu est réservé à vous ; vos clients téléchargeront la vraie app depuis les stores."
+        }
+      },
+      "6": {
+        "body": {
+          "0": "Sur certains serveurs, vous pouvez aussi appuyer sur <b>Démarrer un téléphone Android</b> sous <b>Essayez-la dans votre navigateur (Android)</b> : un vrai téléphone Android s’affiche dans la page et vous utilisez votre app avec votre souris et votre clavier. Il s’éteint automatiquement après 10 minutes sans activité. Si cette section ne s’affiche pas, votre serveur ne propose pas cette option."
+        },
+        "heading": "Essayez-la dans votre navigateur"
+      },
+      "7": {
+        "body": {
+          "0": "Sous <b>Préparer pour les stores</b>, les apps Android sont créées pour vous sur le serveur."
+        },
+        "heading": "Créer une app Android",
+        "shot": {
+          "alt": "La section Préparer pour les stores avec des boutons pour créer une app de test et le fichier pour Google Play.",
+          "caption": "Créez une app de test ou le fichier demandé par Google Play."
+        },
+        "steps": {
+          "0": "Publiez d’abord votre app.",
+          "1": "Sous <b>Détails de l’app</b>, vérifiez le <b>Nom de l’app</b>, l’<b>ID de bundle / d’application</b> (comme com.votreentreprise.app ; ne le changez jamais une fois l’app publiée dans un store), la <b>Version</b>, l’<b>Orientation</b> et les couleurs, puis appuyez sur <b>Enregistrer les paramètres</b>.",
+          "2": "Appuyez sur <b>Créer une app de test</b> pour obtenir une version à installer directement sur un téléphone Android. Téléchargez-la sur le téléphone et ouvrez-la.",
+          "3": "Quand vous êtes prêt pour Google Play, appuyez sur <b>Créer la version Google Play</b>, puis importez le fichier généré. Le guide <b>Publier votre app sur Google Play</b> vous accompagne dans les étapes du store."
+        }
+      },
+      "8": {
+        "body": {
+          "0": "Google Play reconnaît votre app grâce à sa clé d’importation, un fichier secret créé lors de la première préparation pour Google Play. Appuyez sur <b>Télécharger une copie de la clé</b> et conservez-la dans un endroit privé, comme un gestionnaire de mots de passe. Sans elle, vous ne pourrez plus jamais mettre à jour votre app sur Google Play. Seul le propriétaire de l’app peut la télécharger."
+        },
+        "heading": "Conservez votre clé d’importation en lieu sûr"
+      },
+      "9": {
+        "body": {
+          "0": "Apple n’autorise la création d’apps iPhone qu’avec ses propres outils, sur un Mac. Appuyez sur <b>Télécharger le projet iPhone</b>, puis ouvrez-le dans Xcode sur un Mac ou, sans Mac, déposez-le dans un compte GitHub gratuit pour que GitHub le crée et l’envoie sur TestFlight. Dans les deux cas, un compte Apple Developer payant est nécessaire. Le fichier README inclus dans le téléchargement explique chaque étape.",
+          "1": "Votre app iPhone se met à jour automatiquement lorsque vous publiez, comme l’app Android. Vous n’avez besoin d’une nouvelle version iPhone que si son nom, son icône ou ses fonctionnalités mobiles changent."
         },
         "heading": "iPhone et iPad"
       },
-      "6": {
+      "10": {
+        "body": {
+          "0": "Lorsqu’une personne qui a installé votre app appuie sur un lien vers son adresse, l’app peut s’ouvrir à la place du navigateur. Cela fonctionne avec votre propre domaine (connectez-en un dans l’onglet <b>Domaines</b>), mais pas avec l’adresse partagée. La configuration Android est faite pour vous après la première création. Si vous publiez sur Google Play, collez aussi la <b>clé de signature de l’app Google Play (SHA-256)</b> depuis Play Console. Pour iPhone, saisissez votre <b>identifiant d’équipe Apple</b> sous <b>iPhone et iPad</b>."
+        },
+        "heading": "Liens qui ouvrent votre app"
+      },
+      "11": {
         "bullets": {
-          "0": "<b>Fonctionnalités du téléphone utilisées par cette app</b> indique les accès demandés par votre app, comme l’appareil photo ou la localisation. Si cette liste change, créez une nouvelle version et envoyez-la aux boutiques.",
-          "1": "Les téléphones n’ouvrent que les apps provenant d’une adresse sécurisée (https). L’onglet App mobile vous avertit si ce n’est pas le cas.",
-          "2": "Si le message <b>La création de versions Android est désactivée sur ce serveur</b> s’affiche, contactez la personne qui gère {app} pour vous.",
-          "3": "Avant de supprimer une app ou votre compte, téléchargez sa clé d’envoi Google Play."
+          "0": "Après avoir appuyé sur Publier, l’onglet Publier indique <b>App mobile mise à jour</b> lorsque la nouvelle version est disponible sur les téléphones.",
+          "1": "La section <b>Fonctionnalités du téléphone utilisées par cette app</b> répertorie ce que votre app demande au téléphone, comme l’appareil photo ou la position. Si cette liste change, créez une nouvelle version et envoyez-la aux stores.",
+          "2": "Les apps créées avant l’arrivée de l’app mobile affichent votre site web dans un cadre d’app. Elles continuent de fonctionner et vous pouvez toujours les créer sous <b>App classique (site web)</b>, en bas de l’onglet.",
+          "3": "Les téléphones n’ouvrent les apps qu’à partir d’une adresse sécurisée (https). L’onglet App mobile vous avertit si ce n’est pas le cas.",
+          "4": "Si un message indique que la création d’apps est désactivée sur ce serveur, demandez à la personne qui gère {app} pour vous.",
+          "5": "Avant de supprimer une app ou votre compte, téléchargez sa clé d’importation Google Play."
         },
         "heading": "Bon à savoir"
       }
     },
-    "summary": "Ajoutez votre app à l’écran d’accueil, envoyez des notifications et créez des versions Android et iPhone.",
+    "summary": "Votre app comme une vraie app mobile : essayez-la sur votre téléphone, envoyez des notifications et préparez-la pour Google Play et l’App Store.",
     "title": "Apps pour téléphone et notifications"
   },
   "prices-and-payments": {

@@ -1,0 +1,27 @@
+{
+  "emulatorBusy": "Semua pratinjau Android sedang digunakan. Silakan coba lagi beberapa menit lagi.",
+  "emulatorFailed": "Pratinjau Android tidak dapat dimulai. Silakan coba lagi.",
+  "emulatorUnavailable": "Pratinjau Android tidak tersedia di server ini.",
+  "emulatorViewer": {
+    "back": "Kembali",
+    "booting": "Menyalakan ponsel Android...",
+    "connecting": "Menghubungkan...",
+    "ended": "Pratinjau ini sudah berakhir.",
+    "error": "Pratinjau Android terhenti.",
+    "home": "Beranda",
+    "noDecoder": "Browser ini tidak bisa menampilkan pratinjau Android. Gunakan Chrome, Edge, Safari, atau Firefox versi terbaru.",
+    "opening": "Membuka aplikasi...",
+    "recents": "Aplikasi terbaru",
+    "screen": "Layar ponsel Android"
+  },
+  "fileGone": "File build ini sudah tidak ada. Silakan build lagi.",
+  "iosFailed": "Proyek iPhone tidak dapat dibuat. Silakan coba lagi.",
+  "notFound": "Tidak ditemukan",
+  "notReady": "Build ini belum siap.",
+  "previewPreparing": "Pratinjau aplikasi sedang disiapkan. Silakan coba lagi sebentar lagi.",
+  "publishFirst": "Publikasikan aplikasi Anda terlebih dahulu. Aplikasi di ponsel akan memuat aplikasi yang sudah dipublikasikan.",
+  "startFailed": "Build tidak dapat dimulai. Silakan coba lagi.",
+  "unauthorized": "Tidak diizinkan",
+  "unavailable": "Build aplikasi native tidak tersedia di server ini. {reason}",
+  "unknownBuild": "Build tidak dikenal"
+}

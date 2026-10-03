@@ -891,44 +891,91 @@
       },
       "3": {
         "body": {
-          "0": "Ứng dụng trên điện thoại hiển thị phiên bản ứng dụng đã xuất bản và đang hoạt động, nên các thay đổi sau khi xuất bản sẽ cập nhật mà không cần tạo bản mới."
+          "0": "Mọi ứng dụng đã xuất bản đều có phiên bản ứng dụng điện thoại thực thụ. Ứng dụng dùng chữ, nút và danh sách của điện thoại nên mang lại cảm giác như mọi ứng dụng khác, chứ không phải trang web nằm trong một khung. Ứng dụng được tạo từ phiên bản bạn đã xuất bản. Mỗi lần bạn xuất bản, những điện thoại đã cài ứng dụng sẽ nhận phiên bản mới vào lần mở tiếp theo. Bạn không cần tạo phiên bản mới trên cửa hàng.",
+          "1": "Mở thẻ <b>Ứng dụng điện thoại</b>. <b>Ứng dụng trên điện thoại</b> hiển thị ứng dụng trong một chiếc điện thoại để bạn chạm và cuộn. Chọn <b>Trang</b>, điện thoại <b>iPhone</b> hoặc <b>Android</b>, giao diện <b>Sáng</b> hoặc <b>Tối</b> và <b>Ngôn ngữ</b> nếu ứng dụng có nhiều ngôn ngữ. Bật <b>So sánh với web</b> để xem trang web cạnh ứng dụng."
         },
-        "heading": "Tạo ứng dụng Android",
+        "heading": "Ứng dụng của bạn như một ứng dụng điện thoại thực thụ",
         "shot": {
-          "alt": "Thẻ Ứng dụng di động hiển thị chi tiết ứng dụng và các nút tạo phiên bản Android.",
-          "caption": "Tạo bản dùng thử hoặc tệp Google Play yêu cầu."
-        },
-        "steps": {
-          "0": "Trước tiên, hãy xuất bản ứng dụng.",
-          "1": "Mở thẻ <b>Ứng dụng di động</b>.",
-          "2": "Trong mục <b>Chi tiết ứng dụng</b>, kiểm tra <b>Tên ứng dụng</b>, <b>Mã gói / mã ứng dụng</b> (chẳng hạn com.yourbusiness.app; không bao giờ thay đổi mã này sau khi ứng dụng đã có trên cửa hàng), <b>Phiên bản</b>, <b>Hướng màn hình</b> và màu sắc, rồi nhấn <b>Lưu cài đặt</b>.",
-          "3": "Nhấn <b>Tạo APK thử nghiệm</b> để có bản sao cài trực tiếp lên điện thoại Android và dùng thử.",
-          "4": "Khi sẵn sàng đưa ứng dụng lên Google Play, hãy nhấn <b>Tạo bản dành cho Google Play</b>. Hướng dẫn <b>Đưa ứng dụng lên Google Play</b> sẽ giúp bạn thực hiện các bước trên cửa hàng."
+          "alt": "Thẻ Ứng dụng điện thoại với ứng dụng hiển thị trên iPhone và các nút chọn trang, điện thoại và giao diện sáng hoặc tối.",
+          "caption": "Ứng dụng điện thoại trực tiếp trên iPhone hoặc Android."
         }
       },
       "4": {
         "body": {
-          "0": "Google Play nhận diện ứng dụng của bạn bằng khóa tải lên. Đây là tệp bí mật được tạo khi bạn tạo bản dành cho Google Play lần đầu. Nhấn <b>Tải bản sao lưu khóa xuống</b> và cất ở nơi riêng tư, chẳng hạn như ứng dụng quản lý mật khẩu. Nếu mất khóa, bạn sẽ không thể cập nhật ứng dụng trên Google Play nữa. Chỉ chủ sở hữu ứng dụng mới có thể tải khóa xuống."
+          "0": "Trong mục <b>Giao diện có giống nhau không?</b>, nhấn <b>Kiểm tra trang này</b> hoặc <b>Kiểm tra tất cả các trang</b>. Mỗi trang sẽ được đánh giá là <b>Giống nhau</b>, <b>Khá giống</b> hoặc <b>Khác nhau</b>. <b>So sánh cạnh nhau</b> hiển thị trang web, ứng dụng điện thoại và các điểm khác biệt màu đỏ để bạn dễ phát hiện chỗ hiển thị chưa giống.",
+          "1": "Hầu hết mọi thứ đều được hiển thị bằng thành phần gốc của điện thoại. Một số nội dung như bản đồ, video từ trang web khác, hình vẽ và phần có mã riêng sẽ được hiển thị trong một khung web nhúng nhỏ. Mục <b>Phần nào chạy trong khung web nhúng và tại sao</b> liệt kê các phần đó cho từng trang. Chúng vẫn hoạt động và trông giống như trên trang web."
         },
-        "heading": "Giữ an toàn khóa tải lên"
+        "heading": "Kiểm tra giao diện có giống nhau không"
       },
       "5": {
         "body": {
-          "0": "Nhấn <b>Tải dự án iPhone xuống</b> trong thẻ Ứng dụng di động. Để tạo ứng dụng iPhone, bạn cần có tài khoản Apple Developer trả phí và máy Mac hoặc tài khoản GitHub miễn phí. Hướng dẫn trong tệp tải xuống sẽ giải thích từng bước cho cả hai cách."
+          "0": "Xem ứng dụng của bạn trên điện thoại chỉ trong vài giây, trước khi tạo ứng dụng."
+        },
+        "heading": "Dùng thử trên điện thoại",
+        "shot": {
+          "alt": "Mục Dùng thử trên điện thoại có mã để quét và ba bước ngắn.",
+          "caption": "Quét mã bằng điện thoại để dùng thử ứng dụng."
+        },
+        "steps": {
+          "0": "Cài ứng dụng Expo Go miễn phí từ App Store hoặc Google Play.",
+          "1": "Trong thẻ <b>Ứng dụng điện thoại</b>, tìm mục <b>Dùng thử trên điện thoại</b> rồi quét mã. Trên iPhone, dùng ứng dụng Camera; trên Android, dùng trình quét trong Expo Go.",
+          "2": "Ứng dụng của bạn sẽ mở ra. Bản xem trước này chỉ dành cho bạn; khách hàng sẽ tải ứng dụng thực từ các cửa hàng."
+        }
+      },
+      "6": {
+        "body": {
+          "0": "Trên một số máy chủ, bạn cũng có thể nhấn <b>Khởi chạy điện thoại Android</b> trong mục <b>Dùng thử trong trình duyệt (Android)</b>: một chiếc điện thoại Android thực sẽ xuất hiện ngay trên trang để bạn dùng chuột và bàn phím thao tác với ứng dụng. Điện thoại sẽ tự tắt sau 10 phút không có ai xem. Nếu không thấy mục này, máy chủ của bạn không hỗ trợ tính năng đó."
+        },
+        "heading": "Dùng thử trong trình duyệt"
+      },
+      "7": {
+        "body": {
+          "0": "Trong mục <b>Tạo ứng dụng cho cửa hàng</b>, ứng dụng Android sẽ được tạo giúp bạn trên máy chủ."
+        },
+        "heading": "Tạo ứng dụng Android",
+        "shot": {
+          "alt": "Mục Tạo ứng dụng cho cửa hàng với các nút tạo ứng dụng thử nghiệm và tệp dành cho Google Play.",
+          "caption": "Tạo ứng dụng thử nghiệm hoặc tệp Google Play yêu cầu."
+        },
+        "steps": {
+          "0": "Xuất bản ứng dụng trước.",
+          "1": "Trong mục <b>Chi tiết ứng dụng</b>, kiểm tra <b>Tên ứng dụng</b>, <b>Mã gói / Mã ứng dụng</b> (chẳng hạn com.yourbusiness.app; đừng bao giờ đổi mã này sau khi ứng dụng đã có trên cửa hàng), <b>Phiên bản</b>, <b>Hướng màn hình</b> và màu sắc, rồi nhấn <b>Lưu cài đặt</b>.",
+          "2": "Nhấn <b>Tạo ứng dụng thử nghiệm</b> để tạo bản có thể cài trực tiếp lên điện thoại Android và dùng thử. Tải ứng dụng xuống điện thoại rồi mở ứng dụng.",
+          "3": "Khi sẵn sàng đưa ứng dụng lên Google Play, nhấn <b>Tạo ứng dụng cho Google Play</b> rồi tải tệp được tạo lên. Hướng dẫn <b>Đưa ứng dụng lên Google Play</b> sẽ giúp bạn thực hiện các bước trên cửa hàng."
+        }
+      },
+      "8": {
+        "body": {
+          "0": "Google Play nhận diện ứng dụng bằng khóa tải lên, một tệp bí mật được tạo khi bạn tạo ứng dụng cho Google Play lần đầu. Nhấn <b>Tải bản sao lưu khóa</b> và cất ở nơi riêng tư, chẳng hạn như ứng dụng quản lý mật khẩu. Nếu mất khóa này, bạn sẽ không thể cập nhật ứng dụng trên Google Play nữa. Chỉ chủ sở hữu ứng dụng mới tải được khóa."
+        },
+        "heading": "Giữ an toàn cho khóa tải lên"
+      },
+      "9": {
+        "body": {
+          "0": "Apple chỉ cho phép tạo ứng dụng iPhone bằng công cụ riêng của họ trên máy Mac. Nhấn <b>Tải dự án iPhone</b> rồi mở dự án trong Xcode trên máy Mac, hoặc nếu không có máy Mac, hãy tải dự án lên tài khoản GitHub miễn phí để GitHub tạo ứng dụng và gửi đến TestFlight. Cả hai cách đều cần tài khoản Apple Developer trả phí. Tệp README trong bản tải xuống giải thích từng bước.",
+          "1": "Ứng dụng iPhone sẽ tự cập nhật khi bạn xuất bản, giống như ứng dụng Android. Bạn chỉ cần tạo phiên bản iPhone mới khi tên, biểu tượng hoặc tính năng điện thoại thay đổi."
         },
         "heading": "iPhone và iPad"
       },
-      "6": {
-        "bullets": {
-          "0": "<b>Tính năng điện thoại ứng dụng này sử dụng</b> liệt kê những quyền ứng dụng yêu cầu trên điện thoại, chẳng hạn như máy ảnh hoặc vị trí. Khi danh sách này thay đổi, hãy tạo lại ứng dụng rồi gửi phiên bản mới lên cửa hàng.",
-          "1": "Điện thoại chỉ mở ứng dụng từ địa chỉ an toàn (https). Thẻ Ứng dụng di động sẽ cảnh báo nếu địa chỉ của bạn không an toàn.",
-          "2": "Nếu thấy thông báo <b>Máy chủ này đã tắt tính năng tạo bản Android</b>, hãy liên hệ người quản lý {app} cho bạn.",
-          "3": "Trước khi xóa ứng dụng hoặc tài khoản, hãy tải khóa tải lên Google Play xuống."
+      "10": {
+        "body": {
+          "0": "Khi người đã cài ứng dụng chạm vào liên kết dẫn đến địa chỉ ứng dụng, ứng dụng có thể mở thay vì trình duyệt. Tính năng này hoạt động trên tên miền riêng của bạn (kết nối một tên miền trong thẻ <b>Tên miền</b>), không áp dụng cho địa chỉ dùng chung. Android được thiết lập giúp bạn sau lần tạo đầu tiên; nếu xuất bản trên Google Play, hãy dán thêm <b>Khóa ký ứng dụng Google Play (SHA-256)</b> từ Play Console. Với iPhone, nhập <b>Mã nhóm Apple</b> trong mục <b>iPhone và iPad</b>."
         },
-        "heading": "Thông tin cần biết"
+        "heading": "Liên kết mở ứng dụng của bạn"
+      },
+      "11": {
+        "bullets": {
+          "0": "Sau khi nhấn Xuất bản, thẻ Xuất bản sẽ hiển thị <b>Ứng dụng điện thoại đã cập nhật</b> khi ứng dụng điện thoại có phiên bản mới.",
+          "1": "<b>Tính năng điện thoại ứng dụng này sử dụng</b> liệt kê những quyền ứng dụng yêu cầu trên điện thoại, chẳng hạn như camera hoặc vị trí. Khi danh sách thay đổi, hãy tạo lại ứng dụng rồi gửi phiên bản mới lên các cửa hàng.",
+          "2": "Các ứng dụng được tạo trước khi có phiên bản ứng dụng điện thoại sẽ hiển thị trang web bên trong khung ứng dụng. Chúng vẫn hoạt động, và bạn vẫn có thể tạo ứng dụng theo cách cũ trong mục <b>Ứng dụng kiểu cũ (trang web)</b> ở cuối thẻ.",
+          "3": "Điện thoại chỉ mở ứng dụng từ địa chỉ an toàn (https). Thẻ Ứng dụng điện thoại sẽ cảnh báo nếu địa chỉ của bạn chưa an toàn.",
+          "4": "Nếu thấy thông báo máy chủ này đã tắt tính năng tạo ứng dụng, hãy hỏi người quản lý {app} cho bạn.",
+          "5": "Trước khi xóa ứng dụng hoặc tài khoản, hãy tải khóa tải lên Google Play xuống."
+        },
+        "heading": "Thông tin hữu ích"
       }
     },
-    "summary": "Thêm ứng dụng vào màn hình chính, gửi thông báo và tạo phiên bản Android và iPhone.",
+    "summary": "Ứng dụng của bạn như một ứng dụng điện thoại thực thụ: dùng thử trên điện thoại, gửi thông báo và tạo ứng dụng để đưa lên Google Play và App Store.",
     "title": "Ứng dụng điện thoại và thông báo"
   },
   "prices-and-payments": {

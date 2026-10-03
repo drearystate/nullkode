@@ -227,6 +227,17 @@
     },
     "unauthorized": "Não autorizado"
   },
+  "nativePreview": {
+    "eyebrow": "PRÉVIA DO APP NATIVO",
+    "title": "Prévia do app nativo",
+    "intro": "Seu app publicado como o app nativo de celular o desenha, ao lado da página web. Esta é uma prévia inicial: formulários, listas com seus dados e login vêm a seguir.",
+    "page": "Página",
+    "reload": "Recarregar",
+    "native": "App nativo",
+    "web": "Página web",
+    "notPublished": "Publique o app para ver a prévia como app nativo.",
+    "note": "A primeira prévia depois de publicar pode levar até um minuto enquanto o app é preparado. Partes que o app nativo ainda não consegue desenhar aparecem como visualizações web incorporadas."
+  },
   "nativeApp": {
     "android": {
       "advancedDownload": "Avançado: baixe o projeto para criar a versão no Android Studio",

@@ -22,7 +22,7 @@
  *   E2E_PORT=3422 node_modules/.bin/tsx scripts/e2e-places.ts
  */
 import { chromium, type BrowserContext, type Page } from "playwright";
-import { startInstance, installOperator, checker, type Agent, type Instance } from "./e2e-harness";
+import { startInstance, installOperator, checker, warmApp, type Agent, type Instance } from "./e2e-harness";
 import { places } from "../src/lib/modules/definitions/places";
 import { PLACE_SEEDS } from "../src/lib/modules/definitions/places-seed";
 import { placesV1 } from "./fixtures/places-1.0.0";
@@ -152,6 +152,7 @@ async function main() {
     // The dev server compiles a route on first use and may reload open pages
     // when it does; compile the upload route before any browser page opens.
     await inst.agent().post("/api/upload", {});
+    await warmApp(inst, appUrl, "places-places");
     const run0 = async (slug: string) => (await inst.agent().post(`/api/run/${flow(slug).id}`, {})).json;
 
     // ── Visitors: list, near me, categories, map, details, language ──

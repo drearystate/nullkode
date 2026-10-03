@@ -891,44 +891,91 @@
       },
       "3": {
         "body": {
-          "0": "Die Smartphone-App zeigt deine veröffentlichte App. Wenn du Änderungen veröffentlichst, werden sie übernommen, ohne dass du eine neue Version erstellen musst."
+          "0": "Jede veröffentlichte App ist auch eine echte Handy-App. Sie verwendet die Texte, Schaltflächen und Listen deines Handys und fühlt sich dadurch wie jede andere App an – nicht wie eine Website in einem Rahmen. Sie wird aus deiner veröffentlichten App erstellt. Jedes Mal, wenn du veröffentlichst, erhalten Handys mit deiner App die neue Version, sobald sie sie das nächste Mal öffnen. Eine neue Version im Store ist nicht nötig.",
+          "1": "Öffne den Tab <b>Mobile-App</b>. Unter <b>Deine Handy-App</b> siehst du sie auf einem Handy, auf dem du tippen und scrollen kannst. Wähle die <b>Seite</b>, ein <b>iPhone</b> oder <b>Android</b>-Handy, <b>Hell</b> oder <b>Dunkel</b> und – falls deine App mehrere Sprachen hat – die <b>Sprache</b> aus. Aktiviere <b>Mit Website vergleichen</b>, um deine Website daneben zu sehen."
         },
-        "heading": "Eine Android-App erstellen",
+        "heading": "Deine App als echte Handy-App",
         "shot": {
-          "alt": "Der Tab „Mobile App“ mit den App-Details und Schaltflächen zum Erstellen von Android-Versionen.",
-          "caption": "Erstelle eine Testversion oder die Datei, die Google Play verlangt."
-        },
-        "steps": {
-          "0": "Veröffentliche zuerst deine App.",
-          "1": "Öffne den Tab <b>Mobile App</b>.",
-          "2": "Prüfe unter <b>App-Details</b> den <b>App-Namen</b>, die <b>Bundle-/Anwendungs-ID</b> (zum Beispiel com.yourbusiness.app; ändere sie niemals, wenn deine App bereits in einem Store ist), die <b>Version</b>, die <b>Ausrichtung</b> und die Farben. Klicke dann auf <b>Einstellungen speichern</b>.",
-          "3": "Klicke auf <b>Test-APK erstellen</b>, um eine Kopie zu erstellen, die du direkt auf einem Android-Smartphone installieren und ausprobieren kannst.",
-          "4": "Wenn du bereit für Google Play bist, klicke auf <b>Für Google Play erstellen</b>. Unter <b>Deine App bei Google Play veröffentlichen</b> findest du eine Anleitung zu den Schritten im Store."
+          "alt": "Der Tab „Mobile-App“ mit der Handy-App auf einem iPhone und Schaltflächen zur Auswahl der Seite, des Handys sowie des hellen oder dunklen Designs.",
+          "caption": "Deine Handy-App live auf einem iPhone oder Android-Handy."
         }
       },
       "4": {
         "body": {
-          "0": "Google Play erkennt deine App anhand ihres Upload-Schlüssels – einer geheimen Datei, die beim ersten Erstellen für Google Play angelegt wird. Klicke auf <b>Sicherungskopie des Schlüssels herunterladen</b> und bewahre sie an einem sicheren Ort auf, zum Beispiel in einem Passwortmanager. Ohne diesen Schlüssel kannst du deine App bei Google Play nie wieder aktualisieren. Nur der Inhaber der App kann ihn herunterladen."
+          "0": "Wähle unter <b>Sieht es gleich aus?</b> die Option <b>Diese Seite prüfen</b> oder <b>Alle Seiten prüfen</b>. Für jede Seite wird angezeigt: <b>Sieht gleich aus</b>, <b>Sieht ähnlich aus</b> oder <b>Sieht anders aus</b>. Unter <b>Nebeneinander</b> siehst du deine Website, die Handy-App und die Unterschiede in Rot. So erkennst du, wenn etwas anders aussieht.",
+          "1": "Fast alles wird direkt als Handy-App dargestellt. Einige Elemente, etwa Karten und Videos von anderen Websites, Zeichnungen und Bereiche mit eigenem Code, werden stattdessen in einem kleinen eingebetteten Webfenster angezeigt. Unter <b>Welche Bereiche laufen in eingebetteten Webfenstern und warum?</b> findest du eine Liste für jede Seite. Sie funktionieren weiterhin und sehen aus wie auf deiner Website."
         },
-        "heading": "Bewahre deinen Upload-Schlüssel sicher auf"
+        "heading": "Prüfe, ob alles gleich aussieht"
       },
       "5": {
         "body": {
-          "0": "Klicke im Tab „Mobile App“ auf <b>iPhone-Projekt herunterladen</b>. Zum Erstellen einer iPhone-App brauchst du ein kostenpflichtiges Apple-Developer-Konto und entweder einen Mac oder ein kostenloses GitHub-Konto. Die Anleitung im Download erklärt beide Möglichkeiten Schritt für Schritt."
+          "0": "Sieh dir deine App in wenigen Sekunden auf deinem eigenen Handy an, ohne vorher etwas zu erstellen."
+        },
+        "heading": "Probiere sie auf deinem Handy aus",
+        "shot": {
+          "alt": "Der Bereich „Auf dem Handy ausprobieren“ mit einem Code zum Scannen und drei kurzen Schritten.",
+          "caption": "Scanne den Code mit deinem Handy, um deine App auszuprobieren."
+        },
+        "steps": {
+          "0": "Installiere die kostenlose App Expo Go aus dem App Store oder von Google Play.",
+          "1": "Scanne im Tab <b>Mobile-App</b> unter <b>Auf dem Handy ausprobieren</b> den Code. Verwende auf einem iPhone die Kamera-App und auf Android den Scanner in Expo Go.",
+          "2": "Deine App wird geöffnet. Diese Vorschau ist nur für dich. Deine Kundinnen und Kunden laden die echte App aus den Stores herunter."
+        }
+      },
+      "6": {
+        "body": {
+          "0": "Auf manchen Servern kannst du unter <b>Im Browser ausprobieren (Android)</b> auch auf <b>Android-Handy starten</b> drücken. Dann erscheint direkt auf der Seite ein echtes Android-Handy, auf dem du deine App mit Maus und Tastatur bedienen kannst. Wenn niemand mehr zusieht, schaltet es sich nach 10 Minuten automatisch aus. Wird dieser Bereich nicht angezeigt, bietet dein Server diese Funktion nicht an."
+        },
+        "heading": "Probiere sie im Browser aus"
+      },
+      "7": {
+        "body": {
+          "0": "Android-Apps werden auf dem Server für dich erstellt. Du findest die Funktion unter <b>Für die App-Stores erstellen</b>."
+        },
+        "heading": "Erstelle eine Android-App",
+        "shot": {
+          "alt": "Der Bereich „Für die App-Stores erstellen“ mit Schaltflächen zum Erstellen einer Test-App und der Datei für Google Play.",
+          "caption": "Erstelle eine Test-App oder die Datei, die Google Play verlangt."
+        },
+        "steps": {
+          "0": "Veröffentliche zuerst deine App.",
+          "1": "Prüfe unter <b>App-Details</b> den <b>App-Namen</b>, die <b>Bundle- / Anwendungs-ID</b> (zum Beispiel com.yourbusiness.app; ändere sie niemals, sobald deine App in einem Store ist), die <b>Version</b>, die <b>Ausrichtung</b> und die Farben. Drücke dann auf <b>Einstellungen speichern</b>.",
+          "2": "Drücke auf <b>Test-App erstellen</b>, um eine Version zu erstellen, die du direkt auf einem Android-Handy installieren und ausprobieren kannst. Lade sie auf dein Handy herunter und öffne sie.",
+          "3": "Wenn du bereit für Google Play bist, drücke auf <b>Für Google Play erstellen</b> und lade die erstellte Datei hoch. Unter <b>Deine App bei Google Play veröffentlichen</b> findest du eine Anleitung für die Schritte im Store."
+        }
+      },
+      "8": {
+        "body": {
+          "0": "Google Play erkennt deine App an ihrem Upload-Schlüssel. Das ist eine geheime Datei, die beim ersten Erstellen für Google Play angelegt wird. Drücke auf <b>Sicherungskopie des Schlüssels herunterladen</b> und bewahre sie an einem sicheren Ort auf, zum Beispiel in einem Passwortmanager. Ohne sie kannst du deine App bei Google Play nie wieder aktualisieren. Nur die Inhaberin oder der Inhaber der App kann sie herunterladen."
+        },
+        "heading": "Bewahre deinen Upload-Schlüssel sicher auf"
+      },
+      "9": {
+        "body": {
+          "0": "Apple erlaubt das Erstellen von iPhone-Apps nur mit eigenen Werkzeugen auf einem Mac. Drücke auf <b>iPhone-Projekt herunterladen</b>. Öffne es entweder auf einem Mac in Xcode oder lade es ohne Mac in ein kostenloses GitHub-Konto hoch. GitHub erstellt die App dann und sendet sie an TestFlight. In beiden Fällen brauchst du ein kostenpflichtiges Apple-Developer-Konto. Die README-Datei im Download erklärt alle Schritte.",
+          "1": "Deine iPhone-App wird wie die Android-App automatisch aktualisiert, wenn du veröffentlichst. Eine neue iPhone-Version brauchst du nur, wenn sich der Name, das Symbol oder die Handyfunktionen ändern."
         },
         "heading": "iPhone und iPad"
       },
-      "6": {
+      "10": {
+        "body": {
+          "0": "Wenn jemand, der deine App installiert hat, auf einen Link zu deiner App-Adresse tippt, kann sich die App statt des Browsers öffnen. Das funktioniert mit deiner eigenen Domain (verbinde sie im Tab <b>Domains</b>), aber nicht mit der gemeinsamen Adresse. Android wird nach deinem ersten Build automatisch eingerichtet. Wenn du bei Google Play veröffentlichst, füge außerdem den <b>App-Signaturschlüssel von Google Play (SHA-256)</b> aus der Play Console ein. Für iPhone gib unter <b>iPhone und iPad</b> deine <b>Apple-Team-ID</b> ein."
+        },
+        "heading": "Links, die deine App öffnen"
+      },
+      "11": {
         "bullets": {
-          "0": "Unter <b>Von dieser App genutzte Smartphone-Funktionen</b> siehst du, worauf deine App zugreift, zum Beispiel auf Kamera oder Standort. Wenn sich diese Liste ändert, erstelle eine neue Version und sende sie an die Stores.",
-          "1": "Smartphones öffnen Apps nur über eine sichere Adresse (https). Im Tab „Mobile App“ wirst du gewarnt, wenn deine Adresse nicht sicher ist.",
-          "2": "Wenn die Meldung <b>Android-Builds sind auf diesem Server deaktiviert</b> angezeigt wird, wende dich an die Person, die {app} für dich betreibt.",
-          "3": "Lade vor dem Löschen einer App oder deines Kontos den Upload-Schlüssel für Google Play herunter."
+          "0": "Nachdem du auf „Veröffentlichen“ gedrückt hast, steht im Tab „Veröffentlichen“ <b>Handy-App aktualisiert</b>, sobald die neue Version auf dem Handy verfügbar ist.",
+          "1": "Unter <b>Handyfunktionen, die diese App verwendet</b> siehst du, worauf deine App zugreifen möchte, etwa auf die Kamera oder den Standort. Ändert sich diese Liste, erstelle die App erneut und sende den Stores die neue Version.",
+          "2": "Apps, die vor Einführung der Handy-App erstellt wurden, zeigen deine Website in einem App-Rahmen an. Sie funktionieren weiterhin. Du kannst sie unten im Tab unter <b>Klassische (Website-)App</b> erstellen.",
+          "3": "Handys öffnen Apps nur über eine sichere Adresse (https). Der Tab „Mobile-App“ weist dich darauf hin, wenn deine Adresse nicht sicher ist.",
+          "4": "Wenn angezeigt wird, dass Builds auf diesem Server deaktiviert sind, wende dich an die Person, die {app} für dich betreibt.",
+          "5": "Lade den Upload-Schlüssel für Google Play herunter, bevor du eine App oder dein Konto löschst."
         },
         "heading": "Gut zu wissen"
       }
     },
-    "summary": "Füge deine App zum Startbildschirm hinzu, sende Benachrichtigungen und erstelle Android- und iPhone-Versionen.",
+    "summary": "Deine App als echte Handy-App: Probiere sie auf deinem Handy aus, sende Mitteilungen und erstelle eine Version für Google Play und den App Store.",
     "title": "Handy-Apps und Benachrichtigungen"
   },
   "prices-and-payments": {

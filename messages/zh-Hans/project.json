@@ -227,6 +227,17 @@
     },
     "unauthorized": "未获授权"
   },
+  "nativePreview": {
+    "eyebrow": "原生应用预览",
+    "title": "原生应用预览",
+    "intro": "以原生手机应用的呈现方式显示已发布的应用，并与网页并排对比。这是早期预览：表单、来自你数据的列表和登录将随后推出。",
+    "page": "页面",
+    "reload": "重新加载",
+    "native": "原生应用",
+    "web": "网页",
+    "notPublished": "发布应用后即可预览原生应用。",
+    "note": "发布后的首次预览可能需要最多一分钟来准备应用。原生应用暂时无法绘制的部分会以内嵌网页视图显示。"
+  },
   "nativeApp": {
     "android": {
       "advancedDownload": "高级：下载项目并在 Android Studio 中自行构建",

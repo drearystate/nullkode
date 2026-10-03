@@ -9,6 +9,8 @@ import { SearchSharingCard } from "@/components/search-sharing-card";
 import { hasUnpublishedChanges } from "@/lib/deployments";
 import { appIconUrl } from "@/lib/app-icon";
 import { pageSeo, shareCardUrl, sitemapUrl } from "@/lib/seo";
+import { nativeSpecState } from "@/lib/native/status";
+import { PhoneAppUpdate } from "@/components/phone-app-update";
 
 /** A picture address this screen can load: same-server files by path, others as they are. */
 function previewSrc(url: string, origin: string): string {
@@ -40,6 +42,8 @@ export default async function PublishPage({
     ? await QRCode.toDataURL(publicUrl, { margin: 1, width: 160 }).catch(() => null)
     : null;
   const { brand } = await getRequestBrand(user);
+  // The phone app follows each publish (its screens are made again from the new version).
+  const [phoneApp, tPhone] = await Promise.all([nativeSpecState(project), getTranslations("nativeStudio.status")]);
   // How the home page looks to search engines and in shared links (the live
   // version once published; the draft before that).
   const seo = await pageSeo(project);
@@ -74,6 +78,14 @@ export default async function PublishPage({
             pending={pending}
           />
         </div>
+
+        <PhoneAppUpdate
+          className="mt-4"
+          projectId={id}
+          initial={phoneApp.state}
+          deploymentId={phoneApp.deploymentId}
+          labels={{ updating: tPhone("updating"), updated: tPhone("updated"), upToDate: tPhone("upToDate"), readyNote: tPhone("note") }}
+        />
 
         <p className="mt-5 rounded-lg border border-white/10 bg-white/[0.02] px-4 py-3 text-xs leading-relaxed text-surface-400">
           {legacyLive ? t("legacyNote") : t("draftNote")}

@@ -1,0 +1,27 @@
+{
+  "emulatorBusy": "目前所有 Android 预览都在使用中，请几分钟后重试。",
+  "emulatorFailed": "无法启动 Android 预览，请重试。",
+  "emulatorUnavailable": "此服务器无法使用 Android 预览。",
+  "emulatorViewer": {
+    "back": "返回",
+    "booting": "正在启动 Android 手机…",
+    "connecting": "正在连接…",
+    "ended": "此预览已结束。",
+    "error": "Android 预览已停止。",
+    "home": "主页",
+    "noDecoder": "此浏览器无法显示 Android 预览。请使用最新版 Chrome、Edge、Safari 或 Firefox。",
+    "opening": "正在打开应用…",
+    "recents": "最近使用的应用",
+    "screen": "Android 手机屏幕"
+  },
+  "fileGone": "此构建文件已丢失，请重新构建。",
+  "iosFailed": "无法创建 iPhone 项目，请重试。",
+  "notFound": "未找到",
+  "notReady": "此构建尚未就绪。",
+  "previewPreparing": "正在准备应用预览，请稍后再试。",
+  "publishFirst": "请先发布你的应用。手机应用会加载已发布的应用。",
+  "startFailed": "无法开始构建，请重试。",
+  "unauthorized": "未授权",
+  "unavailable": "此服务器无法构建原生应用。{reason}",
+  "unknownBuild": "未知构建"
+}

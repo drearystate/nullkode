@@ -1,0 +1,27 @@
+{
+  "unauthorized": "Unauthorized",
+  "notFound": "Not found",
+  "publishFirst": "Publish your app first. The phone app loads your published app.",
+  "unavailable": "Native app builds aren't available on this server. {reason}",
+  "startFailed": "The build couldn't start. Please try again.",
+  "unknownBuild": "Unknown build",
+  "notReady": "This build isn't ready yet.",
+  "fileGone": "This build's file is gone. Please build again.",
+  "iosFailed": "The iPhone project couldn't be made. Please try again.",
+  "previewPreparing": "The app preview is being prepared. Please try again in a minute.",
+  "emulatorUnavailable": "The Android preview isn't available on this server.",
+  "emulatorBusy": "All Android previews are in use right now. Please try again in a few minutes.",
+  "emulatorFailed": "The Android preview couldn't start. Please try again.",
+  "emulatorViewer": {
+    "booting": "Starting the Android phone...",
+    "opening": "Opening the app...",
+    "connecting": "Connecting...",
+    "ended": "This preview has ended.",
+    "noDecoder": "This browser can't show the Android preview. Use a recent Chrome, Edge, Safari or Firefox.",
+    "error": "The Android preview stopped.",
+    "back": "Back",
+    "home": "Home",
+    "recents": "Recent apps",
+    "screen": "Android phone screen"
+  }
+}

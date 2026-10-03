@@ -227,6 +227,17 @@
     },
     "unauthorized": "Non autorizzato"
   },
+  "nativePreview": {
+    "eyebrow": "ANTEPRIMA DELL'APP NATIVA",
+    "title": "Anteprima dell'app nativa",
+    "intro": "La tua app pubblicata come la disegna l'app nativa per telefono, accanto alla pagina web. È un'anteprima iniziale: moduli, elenchi dai tuoi dati e accesso arriveranno in seguito.",
+    "page": "Pagina",
+    "reload": "Ricarica",
+    "native": "App nativa",
+    "web": "Pagina web",
+    "notPublished": "Pubblica l'app per vederne l'anteprima come app nativa.",
+    "note": "La prima anteprima dopo la pubblicazione può richiedere fino a un minuto mentre l'app viene preparata. Le parti che l'app nativa non sa ancora disegnare appaiono come viste web incorporate."
+  },
   "nativeApp": {
     "android": {
       "advancedDownload": "Avanzate: scarica il progetto per creare la build in Android Studio",

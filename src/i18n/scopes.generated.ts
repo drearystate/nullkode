@@ -16,6 +16,7 @@ export const SCOPES = {
   "(main)/projects/[id]/data": ["common", "data"],
   "(main)/projects/[id]/flows": ["common", "flows"],
   "(main)/projects/[id]/modules": ["catalog", "studio"],
+  "(main)/projects/[id]/native": ["common", "nativeEngine", "nativeStudio", "project"],
   "(main)/projects/[id]/pages/[pageId]/edit": ["ai", "catalog", "common", "editor", "studio"],
   "(main)/reseller": ["account", "admin", "common", "nav", "reseller"],
   "(main)/set-password": ["account", "auth", "common", "nav"],

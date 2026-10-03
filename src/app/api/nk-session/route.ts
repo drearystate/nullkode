@@ -23,8 +23,11 @@ export async function GET(req: Request) {
 
   if (!projectId) return json({ signedIn: false });
 
+  // The phone app (NullKode Native) sends the session as a bearer token
+  // instead of the cookie; it is checked the same way.
+  const bearer = /^Bearer\s+([A-Za-z0-9._~+/=-]{10,4096})\s*$/i.exec(req.headers.get("authorization") ?? "")?.[1];
   const jar = await nextCookies();
-  const token = jar.get(sessionCookieName())?.value;
+  const token = bearer ?? jar.get(sessionCookieName())?.value;
   const session = await verifyAppSession(projectId, token);
   if (!session) return json({ signedIn: false });
   if (session.owner) return json({ signedIn: true, user: { id: session.userId, name: "Owner", role: "admin", owner: true } });

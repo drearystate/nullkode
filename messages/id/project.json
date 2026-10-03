@@ -227,6 +227,17 @@
     },
     "unauthorized": "Tidak diizinkan"
   },
+  "nativePreview": {
+    "eyebrow": "PRATINJAU APLIKASI NATIF",
+    "title": "Pratinjau aplikasi natif",
+    "intro": "Aplikasi Anda yang sudah diterbitkan seperti yang digambar oleh aplikasi ponsel natif, di samping halaman web. Ini pratinjau awal: formulir, daftar dari data Anda, dan masuk akun menyusul.",
+    "page": "Halaman",
+    "reload": "Muat ulang",
+    "native": "Aplikasi natif",
+    "web": "Halaman web",
+    "notPublished": "Terbitkan aplikasi untuk melihat pratinjaunya sebagai aplikasi natif.",
+    "note": "Pratinjau pertama setelah diterbitkan bisa memakan waktu hingga satu menit selagi aplikasi disiapkan. Bagian yang belum bisa digambar aplikasi natif tampil sebagai tampilan web tersemat."
+  },
   "nativeApp": {
     "android": {
       "advancedDownload": "Lanjutan: unduh proyek untuk membuatnya sendiri di Android Studio",

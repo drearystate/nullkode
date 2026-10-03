@@ -142,8 +142,18 @@ export function runtimeMessages(locale: Locale): Record<string, string> {
   return flatten(loadMessages(locale).runtime as Tree | undefined);
 }
 
-/** The runtime texts a page needs (the delete-account page's own texts, "account.*", stay out). */
+/** The runtime texts a page needs (the delete-account page's own texts, "account.*", and the phone app's, "native.*", stay out). */
 function pageTexts(locale: Locale): Record<string, string> {
+  return Object.fromEntries(Object.entries(runtimeMessages(locale)).filter(([k]) => !k.startsWith("account.") && !k.startsWith("native.")));
+}
+
+/**
+ * The runtime texts of the phone app (NullKode Native, NativeApp.texts): the
+ * web runtime's visitor texts plus its own ("native.*"), English where a
+ * translation is missing. English apps get them too (the engine has no other
+ * copy of the runtime's words).
+ */
+export function nativeAppTexts(locale: Locale): Record<string, string> {
   return Object.fromEntries(Object.entries(runtimeMessages(locale)).filter(([k]) => !k.startsWith("account.")));
 }
 

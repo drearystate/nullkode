@@ -1,0 +1,27 @@
+{
+  "emulatorBusy": "現在、すべてのAndroidプレビューが使用中です。数分後にもう一度お試しください。",
+  "emulatorFailed": "Androidのプレビューを開始できませんでした。もう一度お試しください。",
+  "emulatorUnavailable": "このサーバーではAndroidのプレビューを利用できません。",
+  "emulatorViewer": {
+    "back": "戻る",
+    "booting": "Androidスマホを起動しています...",
+    "connecting": "接続しています...",
+    "ended": "このプレビューは終了しました。",
+    "error": "Androidのプレビューが停止しました。",
+    "home": "ホーム",
+    "noDecoder": "このブラウザではAndroidのプレビューを表示できません。最新版のChrome、Edge、Safari、Firefoxをお使いください。",
+    "opening": "アプリを開いています...",
+    "recents": "最近使ったアプリ",
+    "screen": "Androidスマホの画面"
+  },
+  "fileGone": "このビルドのファイルがありません。もう一度ビルドしてください。",
+  "iosFailed": "iPhone用プロジェクトを作成できませんでした。もう一度お試しください。",
+  "notFound": "見つかりません",
+  "notReady": "このビルドはまだ準備できていません。",
+  "previewPreparing": "アプリのプレビューを準備しています。1分ほどしてからもう一度お試しください。",
+  "publishFirst": "まずアプリを公開してください。スマホアプリには公開済みのアプリが読み込まれます。",
+  "startFailed": "ビルドを開始できませんでした。もう一度お試しください。",
+  "unauthorized": "認証されていません",
+  "unavailable": "このサーバーではネイティブアプリをビルドできません。{reason}",
+  "unknownBuild": "不明なビルド"
+}

@@ -20,6 +20,14 @@ const required = [
   'native-templates/android-webview/gradlew','native-templates/android-webview/gradle/wrapper/gradle-wrapper.jar',
   'native-templates/capacitor-ios/ios/App/App.xcodeproj/project.pbxproj','native-templates/capacitor-ios/ios/App/CapApp-SPM/Package.swift',
   'native-templates/capacitor-ios/.github/workflows/ios.yml',
+  // Native apps: the NullKode Native engine (source + npm lockfile), its build
+  // templates, the emulator service, the phone preview and the operator tools.
+  'native-runtime/package.json','native-runtime/package-lock.json','native-runtime/app.config.ts','native-runtime/index.ts','native-runtime/src/App.tsx','native-runtime/src/spec.ts','native-runtime/scripts/copy-web.mjs',
+  'native-templates/expo-engine/app.config.js','native-templates/expo-engine/plugins/with-nk-build.js','native-templates/expo-engine/README-IOS.md','native-templates/expo-engine/github/ios-testflight.yml',
+  'services/native-emulator/server.mjs','services/native-emulator/viewer.html',
+  'src/lib/native/compile.ts','src/lib/native/engine-web.ts','src/app/nk-native/web/route.ts','src/app/(public)/nk-host/[host]/nk-native/web/route.ts',
+  'scripts/native-web.mjs','scripts/native-engine.ts','scripts/native-fidelity.ts','scripts/e2e-native.ts','scripts/e2e-native-studio.ts',
+  'messages/en/nativeStudio.json','messages/en/nativeEngine.json','docs/native-apps.md',
   // HTTPS mode (docker-compose mounts it) and custom domains / app origins.
   'Caddyfile','src/app/(public)/nk-host',
   // Backups: the nightly service, one-off backups, restores, and the
@@ -50,10 +58,13 @@ async function walk(dir='') {
     assert.ok(!(item.isDirectory() && item.name === '_host' && rel.startsWith('src/app')), `Private route folder (App Router ignores "_" folders; use nk-host): ${rel}`);
     assert.ok(!/\.(jks|keystore)$/i.test(item.name), `Signing key: ${rel}`);
     assert.ok(!(rel.startsWith('native-templates/') && item.isDirectory() && ['build','.gradle'].includes(item.name)), `Build output: ${rel}`);
+    assert.ok(!/^native-runtime\/(?:\.expo|dist-web|web-build|android|ios)$/.test(rel) && rel !== 'public/nk-native' && rel !== 'output', `Generated native files: ${rel}`);
     if(item.isDirectory())await walk(rel);
   }
 }
 await walk();
+// The engine's copy of the native spec contract is the server's.
+assert.equal(await readFile(join(root,'native-runtime/src/spec.ts'),'utf8'), await readFile(join(root,'src/lib/native/spec.ts'),'utf8'), 'native-runtime/src/spec.ts differs from src/lib/native/spec.ts (run pnpm native:web)');
 const registry=await readFile(join(root,'src/lib/templates/registry.ts'),'utf8');
 assert.ok(!/import "\.\/(crafto|litho)-/.test(registry));
 assert.match(registry,/originals\/index-a/);

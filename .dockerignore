@@ -34,3 +34,11 @@ release
 
 # Generated image masters and browser review artifacts; optimized assets live in public.
 output
+
+# NullKode Native engine: packages and build output are made in the image.
+native-runtime/.expo
+native-runtime/dist-web
+native-runtime/web-build
+native-runtime/android
+native-runtime/ios
+public/nk-native

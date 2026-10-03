@@ -227,6 +227,17 @@
     },
     "unauthorized": "Không được phép"
   },
+  "nativePreview": {
+    "eyebrow": "XEM TRƯỚC ỨNG DỤNG GỐC",
+    "title": "Xem trước ứng dụng gốc",
+    "intro": "Ứng dụng đã xuất bản của bạn theo cách ứng dụng điện thoại gốc hiển thị, bên cạnh trang web. Đây là bản xem trước sớm: biểu mẫu, danh sách từ dữ liệu của bạn và đăng nhập sẽ có sau.",
+    "page": "Trang",
+    "reload": "Tải lại",
+    "native": "Ứng dụng gốc",
+    "web": "Trang web",
+    "notPublished": "Hãy xuất bản ứng dụng để xem trước dưới dạng ứng dụng gốc.",
+    "note": "Lần xem trước đầu tiên sau khi xuất bản có thể mất đến một phút trong lúc ứng dụng được chuẩn bị. Những phần ứng dụng gốc chưa hiển thị được sẽ xuất hiện dưới dạng khung web nhúng."
+  },
   "nativeApp": {
     "android": {
       "advancedDownload": "Nâng cao: tải dự án xuống để tự tạo bằng Android Studio",

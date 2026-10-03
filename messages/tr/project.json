@@ -227,6 +227,17 @@
     },
     "unauthorized": "Yetkiniz yok"
   },
+  "nativePreview": {
+    "eyebrow": "YEREL UYGULAMA ÖNİZLEMESİ",
+    "title": "Yerel uygulama önizlemesi",
+    "intro": "Yayınlanan uygulamanız, yerel telefon uygulamasının çizdiği haliyle, web sayfasının yanında. Bu erken bir önizlemedir: formlar, verilerinizden listeler ve oturum açma sırada.",
+    "page": "Sayfa",
+    "reload": "Yeniden yükle",
+    "native": "Yerel uygulama",
+    "web": "Web sayfası",
+    "notPublished": "Yerel uygulama olarak önizlemek için uygulamayı yayınlayın.",
+    "note": "Yayınladıktan sonraki ilk önizleme, uygulama hazırlanırken bir dakikayı bulabilir. Yerel uygulamanın henüz çizemediği bölümler gömülü web görünümleri olarak görünür."
+  },
   "nativeApp": {
     "android": {
       "advancedDownload": "Gelişmiş: projeyi indirip Android Studio'da kendiniz derleyin",

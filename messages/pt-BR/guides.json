@@ -891,44 +891,91 @@
       },
       "3": {
         "body": {
-          "0": "O app para celular mostra seu app publicado e no ar. Assim, quando você publica alterações, elas aparecem sem precisar criar uma nova versão."
+          "0": "Todo app publicado também é um app de verdade no celular. Ele usa o texto, os botões e as listas do próprio celular, então funciona como qualquer outro app, não como um site dentro de uma moldura. Ele é criado a partir do seu app publicado e, sempre que você publicar, os celulares com o app recebem a nova versão na próxima vez que o abrirem. Não é preciso publicar uma nova versão na loja.",
+          "1": "Abra a aba <b>App para celular</b>. <b>Seu app no celular</b> mostra o app em um celular que você pode tocar e percorrer. Escolha a <b>Página</b>, um celular <b>iPhone</b> ou <b>Android</b>, o modo <b>Claro</b> ou <b>Escuro</b> e, se o app tiver mais de um idioma, o <b>Idioma</b>. Ative <b>Comparar com o site</b> para ver seu site ao lado do app."
         },
-        "heading": "Criar um app para Android",
+        "heading": "Seu app como um app de verdade no celular",
         "shot": {
-          "alt": "A aba App para celular, com os detalhes do app e botões para criar versões para Android.",
-          "caption": "Crie uma cópia de teste ou o arquivo solicitado pela Google Play."
-        },
-        "steps": {
-          "0": "Publique seu app primeiro.",
-          "1": "Abra a aba <b>App para celular</b>.",
-          "2": "Em <b>Detalhes do app</b>, confira o <b>Nome do app</b>, o <b>Identificador do pacote/aplicativo</b> (como com.suaempresa.app; nunca o altere depois que o app estiver em uma loja), a <b>Versão</b>, a <b>Orientação</b> e as cores. Depois, toque em <b>Salvar configurações</b>.",
-          "3": "Toque em <b>Criar APK de teste</b> para gerar uma cópia que você pode instalar direto em um celular Android e testar.",
-          "4": "Quando estiver tudo pronto para a Google Play, toque em <b>Criar para Google Play</b>. O guia <b>Colocar seu app na Google Play</b> explica as etapas da loja."
+          "alt": "A aba App para celular com o app aberto em um iPhone e botões para escolher a página, o celular e o modo claro ou escuro.",
+          "caption": "Seu app no celular, ao vivo, em um iPhone ou Android."
         }
       },
       "4": {
         "body": {
-          "0": "A Google Play reconhece seu app pela chave de envio, um arquivo secreto criado na primeira vez que você gera uma versão para a Google Play. Toque em <b>Baixar cópia de segurança da chave</b> e guarde o arquivo em um lugar privado, como um gerenciador de senhas. Sem ele, você nunca mais poderá atualizar seu app na Google Play. Só o dono do app pode baixar esse arquivo."
+          "0": "Em <b>Está igual?</b>, toque em <b>Conferir esta página</b> ou <b>Conferir todas as páginas</b>. Cada página recebe o status <b>Está igual</b>, <b>Está parecido</b> ou <b>Está diferente</b>. <b>Lado a lado</b> mostra seu site, o app no celular e as diferenças em vermelho, para você identificar o que ficou diferente.",
+          "1": "Quase tudo é exibido de forma nativa. Alguns itens, como mapas e vídeos de outros sites, desenhos e partes com código próprio, aparecem em uma pequena janela da web incorporada. <b>Quais partes são exibidas em janelas da web incorporadas e por quê</b> mostra quais são elas em cada página. Elas continuam funcionando e têm a mesma aparência do seu site."
         },
-        "heading": "Guarde sua chave de envio em segurança"
+        "heading": "Confira se está igual"
       },
       "5": {
         "body": {
-          "0": "Toque em <b>Baixar projeto para iPhone</b> na aba App para celular. Para criar um app para iPhone, você precisa de uma conta paga do Apple Developer e de um Mac ou uma conta gratuita do GitHub. As instruções no arquivo explicam tudo passo a passo."
+          "0": "Veja seu app no seu próprio celular em segundos, antes de criar qualquer coisa."
+        },
+        "heading": "Teste no seu celular",
+        "shot": {
+          "alt": "A seção Teste no seu celular com um código para escanear e três passos curtos.",
+          "caption": "Escaneie o código com seu celular para testar o app."
+        },
+        "steps": {
+          "0": "Instale o app gratuito Expo Go pela App Store ou pelo Google Play.",
+          "1": "Na aba <b>App para celular</b>, em <b>Teste no seu celular</b>, escaneie o código. No iPhone, use o app Câmera; no Android, use o leitor de códigos do Expo Go.",
+          "2": "Seu app será aberto. Só você pode ver esta prévia; seus clientes recebem o app de verdade pelas lojas."
+        }
+      },
+      "6": {
+        "body": {
+          "0": "Em alguns servidores, você também pode tocar em <b>Iniciar um celular Android</b> em <b>Teste no navegador (Android)</b>: um celular Android de verdade aparece na página e você usa o app com o mouse e o teclado. Ele desliga sozinho após 10 minutos sem ninguém visualizá-lo. Se essa seção não aparecer, seu servidor não oferece esse recurso."
+        },
+        "heading": "Teste no navegador"
+      },
+      "7": {
+        "body": {
+          "0": "Em <b>Criar para as lojas de apps</b>, os apps para Android são criados no servidor para você."
+        },
+        "heading": "Crie um app para Android",
+        "shot": {
+          "alt": "A seção Criar para as lojas de apps com botões para criar um app de teste e o arquivo para o Google Play.",
+          "caption": "Crie um app de teste ou o arquivo solicitado pelo Google Play."
+        },
+        "steps": {
+          "0": "Publique seu app primeiro.",
+          "1": "Em <b>Detalhes do app</b>, confira o <b>Nome do app</b>, o <b>ID do pacote/aplicativo</b> (como com.suaempresa.app; nunca o altere depois que o app estiver em uma loja), a <b>Versão</b>, a <b>Orientação</b> e as cores. Depois, toque em <b>Salvar configurações</b>.",
+          "2": "Toque em <b>Criar app de teste</b> para gerar uma cópia que você pode instalar direto em um celular Android para testar. Baixe-a no celular e abra.",
+          "3": "Quando estiver tudo pronto para o Google Play, toque em <b>Criar para o Google Play</b> e envie o arquivo gerado. <b>Coloque seu app no Google Play</b> explica os passos da loja."
+        }
+      },
+      "8": {
+        "body": {
+          "0": "O Google Play identifica seu app pela chave de envio, um arquivo secreto criado na primeira vez que você cria uma versão para o Google Play. Toque em <b>Baixar cópia de segurança da chave</b> e guarde-a em um lugar privado, como um gerenciador de senhas. Sem ela, você nunca mais poderá atualizar seu app no Google Play. Só quem é responsável pelo app pode baixá-la."
+        },
+        "heading": "Guarde sua chave de envio em segurança"
+      },
+      "9": {
+        "body": {
+          "0": "A Apple só permite criar apps para iPhone com as próprias ferramentas, em um Mac. Toque em <b>Baixar projeto para iPhone</b> e abra-o no Xcode em um Mac ou, se não tiver um Mac, coloque-o em uma conta gratuita do GitHub e deixe o GitHub criar o app e enviá-lo ao TestFlight. As duas opções exigem uma conta paga do Apple Developer. O README dentro do arquivo baixado explica cada passo.",
+          "1": "Seu app para iPhone é atualizado quando você publica, como o app para Android. Você só precisa criar uma nova versão para iPhone quando o nome, o ícone ou os recursos do celular mudarem."
         },
         "heading": "iPhone e iPad"
       },
-      "6": {
+      "10": {
+        "body": {
+          "0": "Quando alguém que instalou seu app toca em um link para o endereço dele, o app pode abrir em vez do navegador. Isso funciona no seu próprio domínio (conecte um na aba <b>Domínios</b>), mas não no endereço compartilhado. O Android é configurado para você após a primeira versão; se publicar no Google Play, cole também a <b>chave de assinatura do app do Google Play (SHA-256)</b> do Play Console. No iPhone, informe seu <b>ID da equipe Apple</b> em <b>iPhone e iPad</b>."
+        },
+        "heading": "Links que abrem seu app"
+      },
+      "11": {
         "bullets": {
-          "0": "<b>Recursos do celular usados por este app</b> mostra o que seu app precisa acessar no celular, como a câmera ou a localização. Quando essa lista mudar, crie uma nova versão e envie-a às lojas.",
-          "1": "Celulares só abrem apps em endereços seguros (https). A aba App para celular avisa se o seu endereço não for seguro.",
-          "2": "Se aparecer <b>A criação de versões para Android está desativada neste servidor</b>, peça ajuda a quem gerencia o {app} para você.",
-          "3": "Antes de excluir um app ou sua conta, baixe a chave de envio da Google Play."
+          "0": "Depois que você tocar em Publicar, a aba Publicar mostrará <b>App para celular atualizado</b> quando o app no celular tiver a nova versão.",
+          "1": "<b>Recursos do celular usados por este app</b> lista o que o app acessa no celular, como a câmera ou a localização. Quando essa lista mudar, crie uma nova versão e envie-a às lojas.",
+          "2": "Apps criados antes do app para celular existir mostram seu site dentro de uma moldura de app. Eles continuam funcionando, e você ainda pode criá-los em <b>App clássico (site)</b>, na parte de baixo da aba.",
+          "3": "Os celulares só abrem apps em endereços seguros (https). A aba App para celular avisa se o seu não for seguro.",
+          "4": "Se aparecer uma mensagem dizendo que a criação de apps está desativada neste servidor, peça ajuda a quem administra {app} para você.",
+          "5": "Antes de excluir um app ou sua conta, baixe a chave de envio do Google Play."
         },
         "heading": "Bom saber"
       }
     },
-    "summary": "Adicione seu app à tela inicial, envie notificações e crie versões para Android e iPhone.",
+    "summary": "Seu app como um app de verdade no celular: teste no seu celular, envie notificações e crie versões para o Google Play e a App Store.",
     "title": "Apps para celular e notificações"
   },
   "prices-and-payments": {
