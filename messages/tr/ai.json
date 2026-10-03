@@ -157,6 +157,9 @@
     "tooLong": "Açıklama çok uzun. 2.000 karakterin altında tut.",
     "tooShort": "Ne yapmak istediğin hakkında biraz daha bilgi ver."
   },
+  "policy": {
+    "refused": "NullKode LLC’nin NullKode platformuna, IgniteUps.ai’ye veya NullKode LLC tarafından geliştirilen yapay zekâ araçlarına benzer uygulamalar oluşturamam."
+  },
   "progress": {
     "buildingFlow": "{index}/{total}. akış oluşturuluyor: {name}",
     "buildingPage": "{index}/{total}. sayfa oluşturuluyor: {title}",
@@ -169,6 +172,51 @@
     "stillWorking": "{label} — hâlâ çalışıyor ({minutes} dk)",
     "updatingPlan": "Plan güncelleniyor",
     "written": "{label} — {count, number} karakter yazıldı"
+  },
+  "references": {
+    "errors": {
+      "badUrl": "“{name}” için herkese açık bir https:// görsel bağlantısı gerekiyor.",
+      "expired": "Bu görseller artık saklanmıyor (7 gün kullanılmadığında silinir). Lütfen yeniden ekleyin.",
+      "fetchFailed": "“{name}” indirilemedi. Bağlantının doğrudan görseli açtığını ve herkese açık olduğunu kontrol edin.",
+      "imagesOrId": "Yeni görselleri veya daha önce gönderdiğiniz görsellerin kimliğini gönderin; ikisini birden değil.",
+      "invalid": "Görseller okunamadı. Lütfen yeniden ekleyin.",
+      "invalidData": "“{name}” geçerli bir görsel dosyası değil. Lütfen yeniden ekleyin.",
+      "notSupported": "Bu sitenin kullandığı yapay zekâ görselleri okuyamıyor, bu yüzden referans görseller burada kullanılamıyor. Bunun yerine görünümü kelimelerle açıklayın veya görselleri kaldırın.",
+      "rateLimited": "Kısa sürede çok fazla görsel eklediniz. Lütfen {minutes, plural, one {# dakika} other {# dakika}} sonra tekrar deneyin.",
+      "tooLarge": "“{name}” çok büyük. Her görsel en fazla {size} olabilir.",
+      "tooMany": "En fazla {max} görsel ekleyebilirsiniz.",
+      "type": "“{name}” PNG, JPEG, WebP veya GIF görseli değil.",
+      "unreadable": "“{name}” görsel olarak açılamadı. Tekrar PNG veya JPEG olarak kaydetmeyi deneyin.",
+      "urlOrData": "“{name}” için bağlantı veya görselin kendisi gerekiyor; ikisi birden olamaz."
+    },
+    "picker": {
+      "add": "Görsel ekle",
+      "addHelp": "Uygulamanın nasıl görünmesi gerektiğini gösteren görseller ekleyin: konsept çizimleri, eskizler, beğendiğiniz uygulamaların ekran görüntüleri veya ilham panoları. Görselleri buraya sürükleyebilir ya da yapıştırabilirsiniz.",
+      "addMore": "Daha fazla ekle",
+      "addTitle": "Konsept çizimleri, eskizler, ekran görüntüleri veya ilham panoları ekleyin",
+      "hint": "İsteğe bağlı: nasıl görünmesi gerektiğini gösteren en fazla {max} görseli sürükleyin, yapıştırın veya ekleyin.",
+      "listHelp": "Yapay zekâ, uygulamanızın görünümü, renkleri ve ekranları için bu görselleri temel alır.",
+      "listLabel": "{count, plural, one {# referans görseli} other {# referans görseli}}",
+      "pasted": "Yapıştırılan görsel",
+      "pastedName": "pasted-image-{n}",
+      "preparing": "Görseller hazırlanıyor…",
+      "readFailed": "“{name}” okunamadı.",
+      "remove": "{name} görselini kaldır",
+      "removeHelp": "Bu görseli kaldırın. Yapay zekâ artık kullanmayacak.",
+      "thumbAlt": "Referans görseli {n}: {name}",
+      "tooBig": "“{name}” çok büyük. Her görsel en fazla {size} olabilir.",
+      "tooMany": "En fazla {max} görsel ekleyebilirsiniz.",
+      "uploadFailed": "Görselleriniz gönderilemedi. Lütfen tekrar deneyin.",
+      "wrongType": "“{name}” PNG, JPEG, WebP veya GIF görseli değil."
+    },
+    "plan": {
+      "changed": "Görselleri değiştirdiniz. Bunları kullanmak için planda değişiklik isteyin veya şimdi oluşturun; görseller görünüm için kullanılır.",
+      "help": "Bu plan hazırlanırken kullanılan görseller. Uygulamanızın görünümünü ve sayfalarını şekillendirir, uygulama oluşturulurken yeniden kullanılır.",
+      "none": "Görsel yok. Görsel ekleyip planda değişiklik isteyebilirsiniz.",
+      "title": "Referans görseller",
+      "used": "{count, plural, one {Bu plan, görselinizi temel alıyor.} other {Bu plan, # görselinizi temel alıyor.}}"
+    },
+    "reading": "{count, plural, one {Görselinize bakılıyor…} other {# görselinize bakılıyor…}}"
   },
   "runs": {
     "interrupted": "Oluşturma sürerken sunucu yeniden başlatıldı ve işlem durdu. Bu, AI kullanım hakkından düşmedi. Lütfen tekrar deneyin.",

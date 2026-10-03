@@ -2,12 +2,13 @@
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Check, Loader2 } from "lucide-react";
+import { Check, Loader2, ShieldAlert } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import type { AppPlan } from "@/lib/ai/plan";
 import { isLocale } from "@/i18n/locales";
 import { PlanReview } from "./plan-review";
 import { AppLanguageSelect } from "./app-language-select";
+import { addImageFiles, imagesFromPaste, ReferencePicker, referenceDropProps, storedImages, uploadReferences, type PickedImage } from "./reference-picker";
 
 type Stage = "input" | "planning" | "review" | "building" | "done" | "error";
 
@@ -20,7 +21,10 @@ type ScaffoldEvent =
   | { type: "planned"; plan: AppPlan }
   | { type: "token"; text: string }
   | { type: "done"; projectId: string; homePageId: string }
-  | { type: "error"; message: string; refunded?: boolean };
+  | { type: "error"; message: string; refunded?: boolean; code?: string };
+
+/** The build rule's refusal (src/lib/ai/build-policy.ts): its sentence is shown as it is. */
+const NOT_ALLOWED = "build_not_allowed";
 
 type RunSnapshot = {
   id: string;
@@ -32,10 +36,14 @@ type RunSnapshot = {
   error: string | null;
   /** The failed build's AI action was given back. */
   refunded?: boolean;
+  /** The reference images it was given. */
+  references?: { id: string; count: number } | null;
+  /** "build_not_allowed" when the build rule refused it. */
+  errorCode?: string | null;
 };
 
 /** What the user is working on, kept per tab so a refresh or a detour doesn't lose it. */
-type Draft = { prompt: string; plan: AppPlan | null; runId?: string; locale?: string };
+type Draft = { prompt: string; plan: AppPlan | null; runId?: string; locale?: string; referenceId?: string };
 /** A plan carries the app's language ("locale", lib/ai/multi-pass.ts) to the build. */
 type LocalizedPlan = AppPlan & { locale?: string };
 const DRAFT_KEY = "nk-new-app-draft";
@@ -59,13 +67,14 @@ const MAX_RECONNECTS = 3;
 /** Example ideas (texts in messages/en/ai.json, wizard.examples). */
 export const EXAMPLES = ["dogWalking", "pizza", "classes", "bookReviews", "party", "chores", "club", "art"] as const;
 
-type Failure = { phase: "plan" | "build"; message: string; quota?: boolean; refunded?: boolean };
+/** `refused`: the build rule refused it; the message is shown as it is and trying again won't help. */
+type Failure = { phase: "plan" | "build"; message: string; quota?: boolean; refunded?: boolean; refused?: boolean };
 
-async function readError(res: Response, fallback: string): Promise<{ message: string; quota: boolean }> {
+async function readError(res: Response, fallback: string): Promise<{ message: string; quota: boolean; refused?: boolean }> {
   const text = await res.text().catch(() => "");
   try {
     const data = JSON.parse(text) as { error?: string; code?: string };
-    if (data.error) return { message: data.error, quota: data.code === "ai_quota" };
+    if (data.error) return { message: data.error, quota: data.code === "ai_quota", refused: data.code === NOT_ALLOWED };
   } catch {}
   return { message: text || fallback, quota: false };
 }
@@ -98,6 +107,38 @@ export function ScaffoldWizard({ aiProblem = null, below }: { aiProblem?: string
   const startedRef = useRef(false);
   const promptRef = useRef(prompt);
   promptRef.current = prompt;
+  // Reference images (lib/ai/references.ts): picked here or on the
+  // dashboard, stored on the server before planning, reused by revisions
+  // and the build through their id.
+  const [images, setImages] = useState<PickedImage[]>([]);
+  const imagesRef = useRef(images);
+  imagesRef.current = images;
+  const [imageError, setImageError] = useState<string | null>(null);
+  const referenceIdOf = (list: PickedImage[]) => {
+    const id = list[0]?.stored?.referenceId;
+    return id && list.every((img, i) => img.stored?.referenceId === id && img.stored.index === i) ? id : undefined;
+  };
+
+  // A stored set (from the dashboard, a refresh or a saved draft) shown again.
+  const loadStoredImages = useCallback(async (referenceId: string) => {
+    const data = await fetch(`/api/ai/references/${encodeURIComponent(referenceId)}`, { cache: "no-store" }).then((r) => (r.ok ? r.json() : null)).catch(() => null) as { referenceId: string; images: Array<{ index: number; name: string; mediaType: string }> } | null;
+    if (!data?.images?.length) return [];
+    const list = storedImages(data.referenceId, data.images);
+    setImages(list);
+    imagesRef.current = list;
+    return list;
+  }, []);
+
+  /** Stores new images (if any) and returns their set's id; throws with the server's words. */
+  const ensureReferences = useCallback(async (): Promise<string | undefined> => {
+    const list = imagesRef.current;
+    if (!list.length) return undefined;
+    const stored = await uploadReferences(list, t("references.picker.uploadFailed"));
+    if (!stored) return undefined;
+    setImages(stored.images);
+    imagesRef.current = stored.images;
+    return stored.referenceId;
+  }, [t]);
 
   const setRunInUrl = useCallback((runId: string | null) => {
     const url = new URL(window.location.href);
@@ -131,7 +172,7 @@ export function ScaffoldWizard({ aiProblem = null, below }: { aiProblem?: string
       setRevising(false);
       setReviseError(null);
       setStage("review");
-      writeDraft({ prompt: promptRef.current, plan: planned, locale });
+      writeDraft({ prompt: promptRef.current, plan: planned, locale, referenceId: referenceIdOf(imagesRef.current) });
       setRunInUrl(null);
     } else if (ev.type === "done") {
       openEditor({ projectId: ev.projectId, homePageId: ev.homePageId });
@@ -155,6 +196,7 @@ export function ScaffoldWizard({ aiProblem = null, below }: { aiProblem?: string
     let toSkip = seenRef.current;
     let serverError: string | null = null;
     let serverRefunded = false;
+    let serverRefused = false;
     let ended = false;
     try {
       const res = await fetch(`/api/ai/runs/${runId}/stream`, { signal: controller.signal, cache: "no-store" });
@@ -182,12 +224,13 @@ export function ScaffoldWizard({ aiProblem = null, below }: { aiProblem?: string
           if (ev.type === "error") {
             serverError = ev.message;
             serverRefunded = Boolean(ev.refunded);
+            serverRefused = ev.code === NOT_ALLOWED;
           }
           if (ev.type === "done" || ev.type === "planned") ended = true;
           applyEvent(ev);
         }
       }
-      if (serverError) return onFail({ phase, message: serverError, refunded: serverRefunded });
+      if (serverError) return onFail({ phase, message: serverError, refunded: serverRefunded, refused: serverRefused });
       if (ended) return;
       // The stream closed early. Ask where the run is and carry on from there.
       const snap = await fetch(`/api/ai/runs/${runId}`, { cache: "no-store" }).then((r) => (r.ok ? (r.json() as Promise<RunSnapshot>) : null)).catch(() => null);
@@ -197,7 +240,7 @@ export function ScaffoldWizard({ aiProblem = null, below }: { aiProblem?: string
         applyEvent(ev);
       }
       if (snap.status === "running") return followRun(runId, phase, reconnects, onFail);
-      if (snap.status === "error") return onFail({ phase, message: snap.error ?? t("wizard.stoppedUnexpectedly"), refunded: Boolean(snap.refunded) });
+      if (snap.status === "error") return onFail({ phase, message: snap.error ?? t("wizard.stoppedUnexpectedly"), refunded: Boolean(snap.refunded), refused: snap.errorCode === NOT_ALLOWED });
       if (snap.status === "success" && snap.result && phase === "build") openEditor(snap.result);
     } catch (err) {
       if (controller.signal.aborted) return;
@@ -218,15 +261,27 @@ export function ScaffoldWizard({ aiProblem = null, below }: { aiProblem?: string
     else { setStage("planning"); setPlan(null); }
     setStatus(revision ? t("wizard.updatingPlan") : t("wizard.readingIdea"));
     seenRef.current = 0;
+    setImageError(null);
+    let referenceId: string | undefined;
+    try {
+      referenceId = await ensureReferences();
+    } catch (err) {
+      const message = err instanceof Error ? err.message : t("references.picker.uploadFailed");
+      if (revision) { setRevising(false); setReviseError(message); return; }
+      setImageError(message);
+      setStage("input");
+      return;
+    }
+    const refs = referenceId ? { referenceId } : {};
     const res = await fetch("/api/ai/plan-app", {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify(revision ? { prompt: p, change: revision.change, previous: revision.previous, locale: appLocaleRef.current } : { prompt: p, locale: appLocaleRef.current }),
+      body: JSON.stringify(revision ? { prompt: p, change: revision.change, previous: revision.previous, locale: appLocaleRef.current, ...refs } : { prompt: p, locale: appLocaleRef.current, ...refs }),
     }).catch(() => null);
     if (!res || !res.ok) {
-      const { message, quota } = res ? await readError(res, t("wizard.serverError", { status: res.status })) : { message: t("wizard.noServer"), quota: false };
+      const { message, quota, refused } = res ? await readError(res, t("wizard.serverError", { status: res.status })) : { message: t("wizard.noServer"), quota: false, refused: false };
       if (revision) { setRevising(false); setReviseError(message); return; }
-      return fail({ phase: "plan", message, quota });
+      return fail({ phase: "plan", message, quota, refused });
     }
     const { runId } = (await res.json()) as { runId: string };
     if (!revision) {
@@ -236,7 +291,7 @@ export function ScaffoldWizard({ aiProblem = null, below }: { aiProblem?: string
     // A revision keeps the current plan on screen until the new one lands,
     // and a failed revision leaves that plan in place.
     await followRun(runId, "plan", 0, (f) => { setRevising(false); setReviseError(f.message); });
-  }, [fail, followRun, setRunInUrl, t]);
+  }, [fail, followRun, setRunInUrl, t, ensureReferences]);
 
   const startBuild = useCallback(async () => {
     if (!plan) return;
@@ -247,20 +302,26 @@ export function ScaffoldWizard({ aiProblem = null, below }: { aiProblem?: string
     setCompleted({ tables: 0, pages: 0, flows: 0 });
     setBuiltPages([]);
     seenRef.current = 0;
+    let referenceId: string | undefined;
+    try {
+      referenceId = await ensureReferences();
+    } catch (err) {
+      return fail({ phase: "build", message: err instanceof Error ? err.message : t("references.picker.uploadFailed") });
+    }
     const res = await fetch("/api/ai/scaffold", {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify({ prompt: prompt.trim(), plan: { ...plan, locale: appLocale }, locale: appLocale }),
+      body: JSON.stringify({ prompt: prompt.trim(), plan: { ...plan, locale: appLocale }, locale: appLocale, ...(referenceId ? { referenceId } : {}) }),
     }).catch(() => null);
     if (!res || !res.ok) {
-      const { message, quota } = res ? await readError(res, t("wizard.serverError", { status: res.status })) : { message: t("wizard.noServer"), quota: false };
-      return fail({ phase: "build", message, quota });
+      const { message, quota, refused } = res ? await readError(res, t("wizard.serverError", { status: res.status })) : { message: t("wizard.noServer"), quota: false, refused: false };
+      return fail({ phase: "build", message, quota, refused });
     }
     const { runId } = (await res.json()) as { runId: string };
-    writeDraft({ prompt: prompt.trim(), plan, runId, locale: appLocale });
+    writeDraft({ prompt: prompt.trim(), plan, runId, locale: appLocale, referenceId });
     setRunInUrl(runId);
     await followRun(runId, "build");
-  }, [plan, prompt, appLocale, fail, followRun, setRunInUrl, t]);
+  }, [plan, prompt, appLocale, fail, followRun, setRunInUrl, t, ensureReferences]);
 
   // Pick up where the user left off: a run in the URL (refresh), an idea
   // handed over from the dashboard, or a plan still under review in this tab.
@@ -269,12 +330,14 @@ export function ScaffoldWizard({ aiProblem = null, below }: { aiProblem?: string
     startedRef.current = true;
     const runId = searchParams.get("runId") ?? readDraft()?.runId ?? null;
     const idea = searchParams.get("idea");
+    const refsParam = searchParams.get("refs");
     (async () => {
       if (runId) {
         const snap = await fetch(`/api/ai/runs/${runId}`, { cache: "no-store" }).then((r) => (r.ok ? (r.json() as Promise<RunSnapshot>) : null)).catch(() => null);
         if (snap) {
           setPrompt(snap.prompt);
           promptRef.current = snap.prompt;
+          if (snap.references?.id) await loadStoredImages(snap.references.id);
           const phase = snap.kind === "plan" ? "plan" : "build";
           if (phase === "build") {
             const draft = readDraft();
@@ -282,7 +345,7 @@ export function ScaffoldWizard({ aiProblem = null, below }: { aiProblem?: string
             if (isLocale(draft?.locale)) setAppLocale(draft.locale);
             if (snap.status === "success" && snap.result) return openEditor(snap.result);
           }
-          if (snap.status === "error") return fail({ phase, message: snap.error ?? t("wizard.stoppedUnexpectedly"), refunded: Boolean(snap.refunded) });
+          if (snap.status === "error") return fail({ phase, message: snap.error ?? t("wizard.stoppedUnexpectedly"), refunded: Boolean(snap.refunded), refused: snap.errorCode === NOT_ALLOWED });
           setStage(phase === "plan" ? "planning" : "building");
           seenRef.current = 0;
           for (const ev of snap.events) {
@@ -299,6 +362,8 @@ export function ScaffoldWizard({ aiProblem = null, below }: { aiProblem?: string
       if (idea && idea.trim().length >= 5) {
         setPrompt(idea);
         promptRef.current = idea;
+        // Images picked in the dashboard's idea box, already stored.
+        if (refsParam) await loadStoredImages(refsParam);
         if (!aiProblem) return startPlanning(idea);
         setRunInUrl(null);
         return;
@@ -307,6 +372,7 @@ export function ScaffoldWizard({ aiProblem = null, below }: { aiProblem?: string
       if (draft?.plan) {
         setPrompt(draft.prompt);
         promptRef.current = draft.prompt;
+        if (draft.referenceId) await loadStoredImages(draft.referenceId);
         setPlan(draft.plan);
         const kept = draft.locale ?? (draft.plan as LocalizedPlan).locale;
         if (isLocale(kept)) setAppLocale(kept);
@@ -325,6 +391,8 @@ export function ScaffoldWizard({ aiProblem = null, below }: { aiProblem?: string
     setPlan(null);
     setFailure(null);
     setRevising(false);
+    setImages([]);
+    setImageError(null);
     setStage("input");
   }, [setRunInUrl]);
 
@@ -348,14 +416,16 @@ export function ScaffoldWizard({ aiProblem = null, below }: { aiProblem?: string
       <div className="relative">
         {stage === "input" && (
           <>
-            <IdeaInput prompt={prompt} setPrompt={setPrompt} onSubmit={() => startPlanning(prompt)} aiProblem={aiProblem} appLocale={appLocale} onAppLocale={changeAppLocale} />
+            <IdeaInput prompt={prompt} setPrompt={setPrompt} onSubmit={() => startPlanning(prompt)} aiProblem={aiProblem} appLocale={appLocale} onAppLocale={changeAppLocale}
+              images={images} onImages={setImages} imageError={imageError} onImageError={setImageError} />
             {below}
           </>
         )}
         {stage === "planning" && <PlanningStage prompt={prompt} status={status} onCancel={startOver} />}
         {stage === "review" && plan && (
           <PlanReview plan={plan} onChange={updatePlan} onBuild={startBuild} onStartOver={startOver} appLocale={appLocale} onAppLocale={changeAppLocale}
-            onRevise={(change) => startPlanning(prompt, { change, previous: plan })} revising={revising} reviseError={reviseError} />
+            onRevise={(change) => startPlanning(prompt, { change, previous: plan })} revising={revising} reviseError={reviseError}
+            images={images} onImages={setImages} />
         )}
         {stage === "building" && <BuildingStage plan={plan} status={status} totals={totals} completed={completed} builtPages={builtPages} />}
         {stage === "done" && (
@@ -365,7 +435,16 @@ export function ScaffoldWizard({ aiProblem = null, below }: { aiProblem?: string
             <p className="mt-2 text-surface-300">{t("wizard.opening")}</p>
           </div>
         )}
-        {stage === "error" && failure && (
+        {stage === "error" && failure?.refused && (
+          <div className="card p-8 text-center" role="alert" data-testid="build-refused">
+            <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-amber-400/15 text-amber-200"><ShieldAlert size={24} aria-hidden /></span>
+            <h2 className="mx-auto mt-4 max-w-xl text-lg font-semibold leading-relaxed">{failure.message}</h2>
+            <div className="mt-6 flex flex-wrap justify-center gap-3">
+              <button className="btn-primary" onClick={() => { setFailure(null); setStage(failure.phase === "build" && plan ? "review" : "input"); }} data-help={t("wizard.changeDescriptionHelp")}>{failure.phase === "build" && plan ? t("wizard.backToPlan") : t("wizard.changeDescription")}</button>
+            </div>
+          </div>
+        )}
+        {stage === "error" && failure && !failure.refused && (
           <div className="card p-8 text-center" role="alert">
             <h2 className="text-xl font-semibold">{failure.quota ? t("wizard.quotaTitle") : t("wizard.retryTitle")}</h2>
             <p className="mx-auto mt-2 max-w-lg text-sm text-surface-400">
@@ -404,9 +483,19 @@ export function ScaffoldWizard({ aiProblem = null, below }: { aiProblem?: string
   );
 }
 
-function IdeaInput({ prompt, setPrompt, onSubmit, aiProblem, appLocale, onAppLocale }: { prompt: string; setPrompt: (s: string) => void; onSubmit: () => void; aiProblem: string | null; appLocale: string; onAppLocale: (code: string) => void }) {
+function IdeaInput({ prompt, setPrompt, onSubmit, aiProblem, appLocale, onAppLocale, images, onImages, imageError, onImageError }: {
+  prompt: string; setPrompt: (s: string) => void; onSubmit: () => void; aiProblem: string | null; appLocale: string; onAppLocale: (code: string) => void;
+  images: PickedImage[]; onImages: (images: PickedImage[]) => void; imageError: string | null; onImageError: (message: string | null) => void;
+}) {
   const t = useTranslations("ai");
   const ready = prompt.trim().length >= 5 && !aiProblem;
+  const [dropping, setDropping] = useState(false);
+  const addFiles = async (files: File[]) => {
+    if (aiProblem || files.length === 0) return;
+    const result = await addImageFiles(files, images, t);
+    onImageError(result.error);
+    if (result.images.length !== images.length) onImages(result.images);
+  };
   return (
     <>
       <div className="text-center">
@@ -414,7 +503,8 @@ function IdeaInput({ prompt, setPrompt, onSubmit, aiProblem, appLocale, onAppLoc
         <h1 className="studio-display mt-4">{t("wizard.headingLine1")}<br /><span>{t("wizard.headingLine2")}</span></h1>
         <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-surface-400">{t("wizard.intro")}</p>
       </div>
-      <form className="card mt-9 p-2" data-help={t("wizard.formHelp")} onSubmit={(e) => { e.preventDefault(); if (ready) onSubmit(); }}>
+      <form className={`card mt-9 p-2 ${dropping ? "outline-dashed outline-2 outline-brand-400/70" : ""}`} data-help={t("wizard.formHelp")} onSubmit={(e) => { e.preventDefault(); if (ready) onSubmit(); }}
+        {...referenceDropProps((files) => void addFiles(files), setDropping)}>
         <textarea
           className="w-full resize-none bg-transparent p-4 text-base text-surface-50 placeholder:text-surface-500 focus:outline-none"
           rows={4}
@@ -425,9 +515,16 @@ function IdeaInput({ prompt, setPrompt, onSubmit, aiProblem, appLocale, onAppLoc
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
           onKeyDown={(e) => { if (e.key === "Enter" && (e.metaKey || e.ctrlKey) && ready) onSubmit(); }}
+          onPaste={(e) => {
+            const files = imagesFromPaste(e);
+            if (files.length) { e.preventDefault(); void addFiles(files); }
+          }}
           disabled={Boolean(aiProblem)}
           autoFocus
         />
+        <div className="px-2 pb-2">
+          <ReferencePicker images={images} onChange={onImages} disabled={Boolean(aiProblem)} id="wizard-references" error={imageError} onError={onImageError} />
+        </div>
         <div className="flex flex-wrap items-center justify-between gap-3 px-2 pb-2">
           <span className="min-w-0 text-xs text-surface-500">{prompt.length > 1500 ? t("wizard.charsLeft", { count: 2000 - prompt.length }) : t("wizard.tip")}</span>
           <span className="flex min-w-0 flex-wrap items-center gap-3">

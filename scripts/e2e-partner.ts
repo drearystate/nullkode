@@ -65,7 +65,10 @@ function createMock() {
       let body: { model?: string; messages?: Array<{ role: string; content: unknown }> } = {};
       try { body = JSON.parse(raw); } catch { /* empty */ }
       const system = String(body.messages?.find((m) => m.role === "system")?.content ?? "");
-      const reply = queue.shift() ?? (/app planner/.test(system) ? { content: JSON.stringify(PLAN) } : { content: BUILT_PAGE });
+      // The build rule's check (src/lib/ai/build-policy.ts) is answered here; it is tested in e2e-build-policy.ts.
+      const reply: Reply = /You enforce one rule of an AI app-building platform/.test(system)
+        ? { content: JSON.stringify({ allowed: true, reason: "An ordinary app." }) }
+        : queue.shift() ?? (/app planner/.test(system) ? { content: JSON.stringify(PLAN) } : { content: BUILT_PAGE });
       if ("status" in reply) {
         res.writeHead(reply.status, { "content-type": "application/json" });
         return res.end(JSON.stringify({ error: { message: `mock ${reply.status}`, type: "mock_error", code: null } }));

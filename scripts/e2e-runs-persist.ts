@@ -55,13 +55,19 @@ function createMock() {
         res.writeHead(200, { "content-type": "application/json" });
         return res.end(JSON.stringify({ object: "list", data: [{ id: "mock-model", object: "model" }] }));
       }
-      requests++;
       let model = "mock-model";
       try { model = (JSON.parse(raw) as { model?: string }).model ?? model; } catch { /* keep */ }
       const chunk = (delta: Record<string, unknown>, finish: string | null) =>
         `data: ${JSON.stringify({ id: "chatcmpl-mock", object: "chat.completion.chunk", created: 1, model, choices: [{ index: 0, delta, finish_reason: finish }] })}\n\n`;
       res.writeHead(200, { "content-type": "text/event-stream", "cache-control": "no-cache" });
       res.write(chunk({ role: "assistant", content: "" }, null));
+      // The build rule's check (src/lib/ai/build-policy.ts) is answered at once and not counted.
+      if (raw.includes("You enforce one rule of an AI app-building platform")) {
+        res.write(chunk({ content: JSON.stringify({ allowed: true, reason: "An ordinary app." }) }, null));
+        res.write(chunk({}, "stop"));
+        return res.end("data: [DONE]\n\n");
+      }
+      requests++;
       if (mode === "hang") return; // a slow model: the stream stays open
       res.write(chunk({ content: PAGE }, null));
       res.write(chunk({}, "stop"));

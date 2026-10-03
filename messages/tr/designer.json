@@ -8,9 +8,11 @@
     "failed": "Bu kez oluşturma başarısız oldu. Hiçbir şey değiştirilmedi; lütfen tekrar deneyin.",
     "fileFailed": "Yapay zekâ {file} dosyasını oluşturamadı. Hiçbir şey değiştirilmedi; lütfen tekrar deneyin.",
     "planning": "Planlanıyor",
+    "readingImages": "{count, plural, one {Görselinize bakılıyor} other {# görselinize bakılıyor}}",
     "saving": "Uygulamanız kaydediliyor ve güncelleniyor",
     "stopped": "Durduruldu. Hiçbir şey değiştirilmedi.",
-    "updating": "{file} güncelleniyor"
+    "updating": "{file} güncelleniyor",
+    "withImages": "{count, plural, one {(1 referans görselle)} other {(# referans görselle)}}"
   },
   "card": {
     "confirmDelete": "\"{name}\" silinsin mi?",

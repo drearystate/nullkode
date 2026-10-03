@@ -23,6 +23,8 @@ export const SETTING_KEYS = {
   AI_OPENAI_MODEL_EDIT: "ai.openai.model.edit",
   AI_CLAUDE_MODEL: "ai.claude.model", // "opus" | "sonnet" | "haiku" | full id
   AI_CLAUDE_BIN: "ai.claude.bin", // path to `claude` binary (override)
+  AI_VISION: "ai.vision", // "auto" | "on" | "off": whether the model can read images (reference images)
+  AI_BUILD_POLICY: "ai.buildPolicy", // true (default) | false: refuse apps similar to NullKode LLC's products (lib/ai/build-policy.ts)
   INSTALL_COMPLETED_AT: "install.completedAt", // ISO timestamp, set by wizard
   // Email (Admin > Settings > Email). Each falls back to .env (SMTP_*, RESEND_API_KEY).
   EMAIL_PROVIDER: "email.provider", // "smtp" | "resend"; unset = use .env

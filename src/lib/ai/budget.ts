@@ -44,9 +44,9 @@ export class ContextTooSmallError extends Error {}
  * error when even a minimal answer can't fit, instead of letting the server
  * truncate the prompt and return garbage.
  */
-export async function fitMaxTokens(promptText: string, requested: number, minimum = 1024): Promise<number> {
+export async function fitMaxTokens(promptText: string, requested: number, minimum = 1024, extraPromptTokens = 0): Promise<number> {
   const window = await getContextWindow();
-  const available = window - estimateTokens(promptText) - 256;
+  const available = window - estimateTokens(promptText) - extraPromptTokens - 256;
   if (available < Math.min(minimum, requested)) {
     throw new ContextTooSmallError(
       `This request is too large for the AI model's context (${Math.round(window / 1000)}K tokens). ` +

@@ -8,9 +8,11 @@
     "failed": "La création n’a pas abouti. Rien n’a été modifié. Veuillez réessayer.",
     "fileFailed": "L’IA n’a pas pu écrire {file}. Rien n’a été modifié. Veuillez réessayer.",
     "planning": "Planification",
+    "readingImages": "{count, plural, one {Analyse de votre image} other {Analyse de vos # images}}",
     "saving": "Enregistrement et mise à jour de votre app",
     "stopped": "Arrêté. Rien n’a été modifié.",
-    "updating": "Mise à jour de {file}"
+    "updating": "Mise à jour de {file}",
+    "withImages": "{count, plural, one {(avec 1 image de référence)} other {(avec # images de référence)}}"
   },
   "card": {
     "confirmDelete": "Supprimer « {name} » ?",

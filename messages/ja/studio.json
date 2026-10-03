@@ -101,6 +101,7 @@
     "plan": "{plan}プラン",
     "planHelp": "プラン、作成したアプリ数、今月使ったAIアクション数を確認できます。クリックしてプランの詳細を表示します。",
     "planMyApp": "アプリを計画する",
+    "planMyAppHelp": "AIがあなたのアイデアと追加した画像をもとに、作り始める前に確認できるプランを作成します。",
     "previewTitle": "{name}のプレビュー",
     "problems": "{count, plural, one {過去24時間に# 件の問題} other {過去24時間に# 件の問題}}",
     "problemsFor": "{name}：{count, plural, one {過去24時間に# 件の問題} other {過去24時間に# 件の問題}}",

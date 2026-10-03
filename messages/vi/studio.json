@@ -101,6 +101,7 @@
     "plan": "Gói {plan}",
     "planHelp": "Gói hiện tại, số ứng dụng bạn đã tạo và số lượt dùng AI trong tháng này. Nhấp để xem chi tiết gói.",
     "planMyApp": "Lên kế hoạch ứng dụng",
+    "planMyAppHelp": "AI biến ý tưởng và mọi hình ảnh bạn thêm thành một kế hoạch để bạn xem lại trước khi bắt đầu xây dựng.",
     "previewTitle": "Bản xem trước của {name}",
     "problems": "{count, plural, one {# sự cố trong 24 giờ qua} other {# sự cố trong 24 giờ qua}}",
     "problemsFor": "{name}: {count, plural, one {# sự cố trong 24 giờ qua} other {# sự cố trong 24 giờ qua}}",

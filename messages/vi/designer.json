@@ -8,9 +8,11 @@
     "failed": "Lần này tạo không thành công. Không có thay đổi nào được thực hiện; vui lòng thử lại.",
     "fileFailed": "AI không thể tạo {file}. Không có thay đổi nào được thực hiện; vui lòng thử lại.",
     "planning": "Đang lên kế hoạch",
+    "readingImages": "{count, plural, one {Đang xem ảnh của bạn} other {Đang xem # ảnh của bạn}}",
     "saving": "Đang lưu và cập nhật ứng dụng",
     "stopped": "Đã dừng. Không có thay đổi nào được thực hiện.",
-    "updating": "Đang cập nhật {file}"
+    "updating": "Đang cập nhật {file}",
+    "withImages": "{count, plural, one {(có 1 ảnh tham khảo)} other {(có # ảnh tham khảo)}}"
   },
   "card": {
     "confirmDelete": "Xóa \"{name}\"?",

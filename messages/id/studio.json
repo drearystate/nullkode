@@ -101,6 +101,7 @@
     "plan": "Paket {plan}",
     "planHelp": "Paketmu, jumlah aplikasi yang sudah kamu buat, dan jumlah tindakan AI yang sudah kamu gunakan bulan ini. Klik untuk melihat detail paket.",
     "planMyApp": "Rencanakan aplikasi saya",
+    "planMyAppHelp": "AI mengubah ide Anda dan gambar yang Anda tambahkan menjadi rencana yang bisa ditinjau sebelum apa pun dibuat.",
     "previewTitle": "Pratinjau {name}",
     "problems": "{count, plural, one {# masalah dalam 24 jam terakhir} other {# masalah dalam 24 jam terakhir}}",
     "problemsFor": "{name}: {count, plural, one {# masalah dalam 24 jam terakhir} other {# masalah dalam 24 jam terakhir}}",

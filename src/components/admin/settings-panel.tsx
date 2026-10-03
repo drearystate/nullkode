@@ -46,6 +46,8 @@ const KEYS = {
   AI_OPENAI_MODEL_EDIT: "ai.openai.model.edit",
   AI_CLAUDE_MODEL: "ai.claude.model",
   AI_CLAUDE_BIN: "ai.claude.bin",
+  AI_VISION: "ai.vision",
+  AI_BUILD_POLICY: "ai.buildPolicy",
   PLAN_LIMITS: "plans.limits",
 };
 
@@ -70,6 +72,8 @@ export function SettingsPanel({
   const [editModel, setEditModel] = useState("");
   const [claudeModel, setClaudeModel] = useState("");
   const [claudeBin, setClaudeBin] = useState("");
+  const [vision, setVision] = useState("auto");
+  const [buildPolicy, setBuildPolicy] = useState(true);
   const [saving, setSaving] = useState(false);
   const [savedAt, setSavedAt] = useState<number | null>(null);
   const [testing, setTesting] = useState<string | null>(null);
@@ -114,13 +118,15 @@ export function SettingsPanel({
         setEditModel((s[KEYS.AI_OPENAI_MODEL_EDIT] as string) || "");
         setClaudeModel((s[KEYS.AI_CLAUDE_MODEL] as string) || "");
         setClaudeBin((s[KEYS.AI_CLAUDE_BIN] as string) || "");
+        setVision((s[KEYS.AI_VISION] as string) || "auto");
+        setBuildPolicy(s[KEYS.AI_BUILD_POLICY] !== false);
       });
   }, [t]);
 
   async function save() {
     setSaving(true);
     setSavedAt(null);
-    const payload: Record<string, string | number | null> = {
+    const payload: Record<string, string | number | boolean | null> = {
       "ai.baseUrl": baseUrl,
       "ai.jsonMode": jsonMode,
       "ai.maxOutputTokens": maxTokens.trim() ? Number(maxTokens) : null,
@@ -131,6 +137,8 @@ export function SettingsPanel({
       [KEYS.AI_OPENAI_MODEL_EDIT]: editModel,
       [KEYS.AI_CLAUDE_MODEL]: claudeModel,
       [KEYS.AI_CLAUDE_BIN]: claudeBin,
+      [KEYS.AI_VISION]: vision,
+      [KEYS.AI_BUILD_POLICY]: buildPolicy,
     };
     if (openaiKey.trim().length > 0) payload[KEYS.AI_OPENAI_API_KEY] = openaiKey.trim();
     const res = await fetch("/api/admin/settings", {
@@ -287,6 +295,27 @@ export function SettingsPanel({
               </div>
             </div>
           )}
+
+          <div className="rounded-lg border border-surface-700 bg-surface-900 p-4 space-y-3">
+            <div className="grid gap-3 md:grid-cols-2">
+              <Field label={t("vision")} help={t("visionHelp")} hint={t("visionHint")}>
+                <select className="input" value={vision} onChange={(e) => setVision(e.target.value)}>
+                  <option value="auto">{t("visionAuto")}</option>
+                  <option value="on">{t("visionOn")}</option>
+                  <option value="off">{t("visionOff")}</option>
+                </select>
+              </Field>
+              <div data-help={t("buildPolicyHelp")}>
+                <label className="flex items-start gap-2 text-sm text-surface-200">
+                  <input type="checkbox" className="mt-1" checked={buildPolicy} onChange={(e) => setBuildPolicy(e.target.checked)} />
+                  <span>
+                    <span className="font-medium">{t("buildPolicy")}</span>
+                    <span className="mt-1 block text-xs text-surface-400">{t("buildPolicyHint")}</span>
+                  </span>
+                </label>
+              </div>
+            </div>
+          </div>
 
           {testResult && (
             <div

@@ -1,5 +1,5 @@
 import type { User } from "@prisma/client";
-import { checkAiQuota, recordAiUsage, refundFailedAi } from "@/lib/ai-quota";
+import { checkAiQuota, recordAiUsage, refundAiUsage, refundFailedAi } from "@/lib/ai-quota";
 import { scaffoldAppStream, repairScaffold } from "@/lib/ai/scaffold";
 import { planApp, runPage, scaffoldMultiPass } from "@/lib/ai/multi-pass";
 import { AppPlanSchema, type AppPlan } from "@/lib/ai/plan";
@@ -9,14 +9,19 @@ import { autofixScaffold, checkAndFixScaffold } from "@/lib/ai/autofix";
 import { repairTruncatedJson } from "@/lib/ai/repair-json";
 import { getAIProvider } from "@/lib/settings";
 import { checkProjectLimit } from "@/lib/guard";
-import { createRun, pushEvent, finishRun, takeRunCharge, type ScaffoldEvent } from "@/lib/ai/runs";
+import { createRun, pushEvent, finishRun, setRunMeta, takeRunCharge, type ScaffoldEvent } from "@/lib/ai/runs";
+import { loadReferenceSet, processImages, referenceAttachments, ReferenceImageError, storeReferenceSet, type ReferenceErrorCode, type ReferenceSet } from "@/lib/ai/references";
+import { assertAiCanSeeImages, briefSummary, ensureBrief, paletteTheme, type BuildReferences } from "@/lib/ai/vision";
+import { limitsForUser } from "@/lib/plan-limits";
 import type { ScaffoldResult } from "@/lib/ai/schema";
 import { aiErrorFor, aiErrorWords, classifyAiFailure, UnusableOutputError } from "@/lib/ai/errors";
 import { translator, type Tr } from "@/lib/ai/i18n";
 import { hitLimit } from "@/lib/rate-limit";
 import { json } from "@/lib/utils";
+import { db } from "@/lib/db";
 import type { ErrT } from "@/lib/errors-i18n";
 import { isLocale, type Locale } from "@/i18n/locales";
+import { assertBuildAllowed, BuildNotAllowedError, BUILD_NOT_ALLOWED, enforceBuildPolicy, refusalResponse, type PolicyContext } from "@/lib/ai/build-policy";
 
 /**
  * Starting an app plan or an app build for one person. Shared by the
@@ -29,8 +34,9 @@ import { isLocale, type Locale } from "@/i18n/locales";
  * to its own error format.
  */
 
-export type StartRefusal = "unauthorized" | "invalid_request" | "ai_quota" | "plan_limit" | "rate_limited";
-export type StartResult = { ok: true; runId: string } | { ok: false; response: Response; code: StartRefusal };
+export type StartRefusal = "unauthorized" | "invalid_request" | "ai_quota" | "plan_limit" | "rate_limited" | "build_not_allowed" | ReferenceErrorCode;
+/** `referenceId`: the stored reference images (send it with revisions and the build instead of the images). */
+export type StartResult = { ok: true; runId: string; referenceId?: string } | { ok: false; response: Response; code: StartRefusal };
 
 export type StartContext = {
   /** The person's language for progress messages and errors (captured while the request is alive). */
@@ -47,6 +53,66 @@ export type ReadBody = () => Promise<unknown>;
 const refuse = (response: Response, code: StartRefusal): StartResult => ({ ok: false, response, code });
 
 /**
+ * The reference images a plan or build request carries: new ones in
+ * `images` (checked, shrunk and stored for the person, lib/ai/references.ts)
+ * or a set stored earlier, by `referenceId` (a plan's images reused by its
+ * revisions and its build). Null when there are none. Refuses when the
+ * active AI can't read images: they are never silently ignored.
+ */
+export async function referencesFromBody(user: Pick<User, "id">, body: { images?: unknown; referenceId?: unknown }, t: Tr): Promise<ReferenceSet | null> {
+  const hasImages = Array.isArray(body.images) ? body.images.length > 0 : body.images !== undefined && body.images !== null;
+  const hasId = body.referenceId !== undefined && body.referenceId !== null && body.referenceId !== "";
+  if (!hasImages && !hasId) return null;
+  if (hasImages && hasId) throw new ReferenceImageError("invalid_images", 400, t("references.errors.imagesOrId"));
+  await assertAiCanSeeImages(t);
+  if (hasId) {
+    const set = await loadReferenceSet(user.id, body.referenceId, { touch: true });
+    if (!set) throw new ReferenceImageError("references_not_found", 400, t("references.errors.expired"));
+    return set;
+  }
+  const images = await processImages(body.images, t);
+  return images.length ? storeReferenceSet(user.id, images) : null;
+}
+
+/** The refusal for a ReferenceImageError ({ error, code }, like the AI allowance refusal). */
+function referenceRefusal(err: ReferenceImageError): StartResult {
+  return refuse(json({ error: err.message, code: err.code }, { status: err.status }), err.code);
+}
+
+/** The most pages the person's plan allows in one app, when it has a limit. */
+async function pageCap(user: User): Promise<number | undefined> {
+  const limits = await limitsForUser(user).catch(() => null);
+  const max = limits?.maxPagesPerProject;
+  return typeof max === "number" && Number.isFinite(max) ? Math.max(1, max) : undefined;
+}
+
+/**
+ * Gets a run's reference images ready: reads them once (one charged vision
+ * call, lib/ai/vision.ts ensureBrief) unless the set already has a brief,
+ * saves a summary of the brief on the run (partner GET /runs/{id}), and
+ * loads the images when the page builder needs them.
+ */
+async function prepareReferences(runId: string, userId: string, set: ReferenceSet, prompt: string, contentLocale: Locale, t: Tr, withImages: boolean): Promise<BuildReferences & { visionChargeId: string | null }> {
+  if (!set.brief) pushEvent(runId, { type: "progress", step: "references", message: t("references.reading", { count: set.images.length }) });
+  const { brief, chargeId } = await ensureBrief(set, { userId, prompt, contentLocale });
+  setRunMeta(runId, { references: { id: set.id, count: set.images.length, brief: briefSummary(brief) } });
+  return { id: set.id, brief, images: withImages ? await referenceAttachments(set) : [], visionChargeId: chargeId };
+}
+
+/**
+ * Ends a run the build rule refused (lib/ai/build-policy.ts): nothing is
+ * charged (the build's action and an image reading are given back), and the
+ * run's error carries the code "build_not_allowed".
+ */
+async function endRefusedRun(runId: string, err: BuildNotAllowedError, charges: Array<string | null | undefined>): Promise<void> {
+  let refunded = false;
+  for (const id of charges) if (await refundAiUsage(id)) refunded = true;
+  setRunMeta(runId, { errorCode: BUILD_NOT_ALLOWED });
+  pushEvent(runId, { type: "error", message: err.message, code: BUILD_NOT_ALLOWED, ...(refunded ? { refunded: true } : {}) });
+  finishRun(runId, { ok: false, error: err.message, refunded });
+}
+
+/**
  * Proposes a plan (pages, data, assumptions) for the person to review
  * before the build. Planning is part of a build, so it isn't counted as an
  * AI action on its own — the build is — but it is rate limited so it can't
@@ -61,7 +127,7 @@ export async function startPlanRun(user: User | null, readBody: ReadBody, ctx: S
   const limit = await checkProjectLimit(user, ctx.errT);
   if (limit) return refuse(limit, "plan_limit");
 
-  let body: { prompt?: unknown; change?: unknown; previous?: unknown; locale?: unknown };
+  let body: { prompt?: unknown; change?: unknown; previous?: unknown; locale?: unknown; images?: unknown; referenceId?: unknown };
   try {
     body = ((await readBody()) ?? {}) as typeof body;
   } catch {
@@ -91,22 +157,59 @@ export async function startPlanRun(user: User | null, readBody: ReadBody, ctx: S
     );
   }
 
-  const run = createRun(user.id, "plan", prompt, ctx.source ? { source: ctx.source } : {});
+  // The build rule (lib/ai/build-policy.ts): the idea, or the change with
+  // the plan it changes. Nothing is charged for a refusal.
+  const policy: PolicyContext = { userId: user.id, locale, source: ctx.source ?? null };
+  const subject = revision
+    ? { kind: "revision" as const, request: revision.change, earlier: prompt, plan: revision.previous }
+    : { kind: "plan" as const, request: prompt };
+  const refused = await enforceBuildPolicy(subject, policy);
+  if (refused) return refuse(refusalResponse(refused), "build_not_allowed");
+
+  let refs: ReferenceSet | null;
+  try {
+    refs = await referencesFromBody(user, body, t);
+  } catch (err) {
+    if (err instanceof ReferenceImageError) return referenceRefusal(err);
+    throw err;
+  }
+
+  const run = createRun(user.id, "plan", prompt, {
+    ...(ctx.source ? { source: ctx.source } : {}),
+    ...(refs ? { meta: { references: { id: refs.id, count: refs.images.length } } } : {}),
+  });
   void (async () => {
+    let visionChargeId: string | null = null;
     try {
-      for await (const ev of planApp(prompt, revision, locale, appLocale)) {
+      // Screen names in the brief are in the app's language (as planApp picks it).
+      const previousLocale = (revision?.previous as { locale?: unknown } | undefined)?.locale;
+      const briefLocale: Locale = appLocale ?? (isLocale(previousLocale) ? previousLocale : locale);
+      let planRefs: { brief: BuildReferences["brief"]; maxPages?: number } | undefined;
+      if (refs) {
+        const prepared = await prepareReferences(run.id, user.id, refs, prompt, briefLocale, t, false);
+        visionChargeId = prepared.visionChargeId;
+        // A screenshot of a protected product is no "concept art".
+        await assertBuildAllowed({ ...subject, brief: prepared.brief }, { ...policy, stage: "images" });
+        planRefs = { brief: prepared.brief, maxPages: await pageCap(user) };
+      }
+      for await (const ev of planApp(prompt, revision, locale, appLocale, planRefs)) {
         if (ev.type === "progress") pushEvent(run.id, { type: "progress", step: "plan", message: ev.message });
-        else pushEvent(run.id, ev);
+        else {
+          // The plan the AI made, checked before anyone sees it.
+          if (ev.type === "planned") await assertBuildAllowed({ ...subject, plan: ev.plan, brief: planRefs?.brief }, { ...policy, stage: "plan" });
+          pushEvent(run.id, ev);
+        }
       }
       finishRun(run.id, { ok: true, result: null });
     } catch (err) {
+      if (err instanceof BuildNotAllowedError) return endRefusedRun(run.id, err, [visionChargeId]);
       const message = aiErrorFor(user, err, t("wizard.genericError"), aiErrorWords(t));
       pushEvent(run.id, { type: "error", message });
       finishRun(run.id, { ok: false, error: message });
     }
   })();
 
-  return { ok: true, runId: run.id };
+  return { ok: true, runId: run.id, ...(refs ? { referenceId: refs.id } : {}) };
 }
 
 /**
@@ -125,12 +228,14 @@ export async function startScaffoldRun(user: User | null, readBody: ReadBody, ct
 
   let prompt = "";
   let plan: AppPlan | undefined;
+  let refBody: { images?: unknown; referenceId?: unknown } = {};
   // The app's language: asked for ("locale"), else the reviewed plan's,
   // else the person's studio language (lib/app-locale.ts).
   let contentLocale: Locale = locale;
   try {
-    const body = (await readBody()) as { prompt?: string; plan?: unknown; locale?: unknown };
-    prompt = (body.prompt ?? "").trim();
+    const body = (await readBody()) as { prompt?: string; plan?: unknown; locale?: unknown; images?: unknown; referenceId?: unknown };
+    refBody = { images: body.images, referenceId: body.referenceId };
+    prompt = (typeof body.prompt === "string" ? body.prompt : "").trim();
     const planLocale = (body.plan as { locale?: unknown } | null | undefined)?.locale;
     if (isLocale(body.locale)) contentLocale = body.locale;
     else if (isLocale(planLocale)) contentLocale = planLocale;
@@ -152,16 +257,44 @@ export async function startScaffoldRun(user: User | null, readBody: ReadBody, ct
   const limitError = await checkProjectLimit(user, ctx.errT);
   if (limitError) return refuse(limitError, "plan_limit");
 
+  // The build rule (lib/ai/build-policy.ts), before anything is charged:
+  // the idea and the plan about to be built.
+  const policy: PolicyContext = { userId: user.id, locale, source: ctx.source ?? null };
+  const refused = await enforceBuildPolicy({ kind: "build", request: prompt, plan }, policy);
+  if (refused) return refuse(refusalResponse(refused), "build_not_allowed");
+
+  let refs: ReferenceSet | null;
+  try {
+    refs = await referencesFromBody(user, refBody, t);
+  } catch (err) {
+    if (err instanceof ReferenceImageError) return referenceRefusal(err);
+    throw err;
+  }
+
   // Charged before the AI runs (so parallel requests can't pass the limit)
   // and refunded by the worker or the stall sweep if the build fails.
   const chargeId = await recordAiUsage(user.id, "build");
-  const run = createRun(user.id, "scaffold", prompt, ctx.source ? { chargeId, source: ctx.source } : { chargeId });
+  // Images not read yet cost one more action (the vision call): the
+  // allowance must cover it too, so images never get past the limit.
+  if (refs && !refs.brief) {
+    // Asked while the build's charge still counts, so "one left" is refused.
+    const quotaRefusal = await checkAiQuota(user, ctx.errT);
+    if (quotaRefusal) {
+      await refundAiUsage(chargeId);
+      return refuse(quotaRefusal, "ai_quota");
+    }
+  }
+  const run = createRun(user.id, "scaffold", prompt, {
+    chargeId,
+    ...(ctx.source ? { source: ctx.source } : {}),
+    ...(refs ? { meta: { references: { id: refs.id, count: refs.images.length } } } : {}),
+  });
   // Fire-and-forget. The worker writes events to the run registry; clients
   // subscribe via /api/ai/runs/[id]/stream. Errors are caught inside the
   // worker and routed to the run's error state, so this `void` is safe.
-  void runScaffoldWorker(run.id, user.id, prompt, plan, user.role, locale, contentLocale);
+  void runScaffoldWorker(run.id, user.id, prompt, plan, user.role, locale, contentLocale, refs, policy);
 
-  return { ok: true, runId: run.id };
+  return { ok: true, runId: run.id, ...(refs ? { referenceId: refs.id } : {}) };
 }
 
 /**
@@ -240,9 +373,12 @@ function detectMilestones(accumulated: string, seen: Set<string>, t: Tr): Scaffo
   return events;
 }
 
-async function runScaffoldWorker(runId: string, userId: string, prompt: string, approvedPlan?: AppPlan, role?: string, locale: Locale = "en", contentLocale: Locale = locale): Promise<void> {
+async function runScaffoldWorker(runId: string, userId: string, prompt: string, approvedPlan?: AppPlan, role?: string, locale: Locale = "en", contentLocale: Locale = locale, refSet: ReferenceSet | null = null, policy: PolicyContext = { userId, locale }): Promise<void> {
   const send = (ev: ScaffoldEvent) => pushEvent(runId, ev);
   const t = translator(locale, "ai");
+  let visionChargeId: string | null = null;
+  // Whether the build rule has seen the plan (a reviewed plan is checked before the run starts).
+  let planChecked = Boolean(approvedPlan);
   try {
     send({ type: "progress", step: "plan", message: t("scaffold.thinking") });
     await new Promise((r) => setTimeout(r, 50));
@@ -252,7 +388,14 @@ async function runScaffoldWorker(runId: string, userId: string, prompt: string, 
     let fullContent = "";
     let builtPlan: AppPlan | null = null;
     let compact = false;
-    const multiPass = Boolean(approvedPlan) || provider === "claude-cli" || process.env.AI_SINGLE_PASS !== "1";
+    const references = refSet ? await prepareReferences(runId, userId, refSet, prompt, contentLocale, t, true) : undefined;
+    if (references) {
+      visionChargeId = references.visionChargeId;
+      await assertBuildAllowed({ kind: "build", request: prompt, plan: approvedPlan, brief: references.brief }, { ...policy, stage: "images" });
+    }
+    const maxPages = references ? await db.user.findUnique({ where: { id: userId } }).then((u) => (u ? pageCap(u) : undefined)) : undefined;
+    // The single-pass builder can't use images; reference images always build in passes.
+    const multiPass = Boolean(approvedPlan) || Boolean(references) || provider === "claude-cli" || process.env.AI_SINGLE_PASS !== "1";
 
     if (multiPass) {
       send({
@@ -260,7 +403,11 @@ async function runScaffoldWorker(runId: string, userId: string, prompt: string, 
         step: "generate",
         message: approvedPlan ? t("scaffold.fromPlan") : t("scaffold.inPasses"),
       });
-      for await (const ev of scaffoldMultiPass(prompt, { plan: approvedPlan, locale, contentLocale })) {
+      const checkPlan = async (planned: AppPlan) => {
+        await assertBuildAllowed({ kind: "build", request: prompt, plan: planned, brief: references?.brief }, { ...policy, stage: "plan" });
+        planChecked = true;
+      };
+      for await (const ev of scaffoldMultiPass(prompt, { plan: approvedPlan, locale, contentLocale, references, maxPages, checkPlan })) {
         if (ev.type === "progress") {
           send({ type: "progress", step: "phase", message: ev.message });
         } else if (ev.type === "plan") {
@@ -361,7 +508,7 @@ async function runScaffoldWorker(runId: string, userId: string, prompt: string, 
       send({ type: "progress", step: "check", message: t("scaffold.checking") });
       const plan = builtPlan;
       const { scaffold: checked, summary } = await checkAndFixScaffold(scaffold, {
-        repairPage: plan ? (page, violations, current) => repairPlannedPage(plan, compact, page, violations, current, contentLocale) : undefined,
+        repairPage: plan ? (page, violations, current) => repairPlannedPage(plan, compact, page, violations, current, contentLocale, references) : undefined,
         onProgress: (_message, title) => send({ type: "progress", step: "repair", message: t("scaffold.fixingPage", { title }) }),
       });
       scaffold = checked;
@@ -397,9 +544,26 @@ async function runScaffoldWorker(runId: string, userId: string, prompt: string, 
       send({ type: "progress", step: "check", message: checkText(t, scaffold.pages.length, fixed, validateScaffold(scaffold).length) });
     }
 
+    // A build that never had a plan (the single-pass builder): its result is checked instead.
+    if (!planChecked) {
+      await assertBuildAllowed({
+        kind: "build",
+        request: prompt,
+        plan: {
+          project: scaffold.project,
+          pages: scaffold.pages.map((p) => ({ slug: p.slug, title: p.title, summary: (p.html ?? "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").slice(0, 200) })),
+          tables: scaffold.datasource?.tables ?? [],
+          flows: (scaffold.flows ?? []).map((f) => ({ slug: (f as { slug?: string }).slug, name: (f as { name?: string }).name })),
+        },
+      }, { ...policy, stage: "result" });
+    }
+
     send({ type: "progress", step: "persist", message: t("scaffold.saving") });
 
-    const { projectId, homePageId } = await applyScaffold(userId, scaffold, { locale: contentLocale });
+    // The images' own colours and fonts, unless the person picked another look in the plan.
+    const fromImages = references ? paletteTheme(references.brief) : null;
+    const themeTokens = fromImages && (scaffold.theme ?? "").toLowerCase() === fromImages.preset.toLowerCase() ? fromImages.tokens : undefined;
+    const { projectId, homePageId } = await applyScaffold(userId, scaffold, { locale: contentLocale, themeTokens });
 
     send({ type: "progress", step: "finalize", message: t("scaffold.polishing") });
     await new Promise((r) => setTimeout(r, 200));
@@ -407,6 +571,7 @@ async function runScaffoldWorker(runId: string, userId: string, prompt: string, 
     send({ type: "done", projectId, homePageId });
     finishRun(runId, { ok: true, result: { projectId, homePageId } });
   } catch (err) {
+    if (err instanceof BuildNotAllowedError) return endRefusedRun(runId, err, [takeRunCharge(runId), visionChargeId]);
     const message = aiErrorFor({ role }, err, t("wizard.genericError"), aiErrorWords(t));
     // A failed build doesn't count (capped for unusable answers, see refundFailedAi).
     const refunded = await refundFailedAi(takeRunCharge(runId), userId, classifyAiFailure(err));
@@ -433,6 +598,7 @@ async function repairPlannedPage(
   violations: Violation[],
   current: ScaffoldResult,
   contentLocale: Locale = "en",
+  references?: BuildReferences,
 ): Promise<{ html: string; css: string } | null> {
   const planPage = plan.pages.find((p) => p.slug === page.slug);
   if (!planPage) return null;
@@ -445,5 +611,5 @@ async function repairPlannedPage(
     tables: current.datasource.tables.map((t) => ({ name: t.name, fields: t.fields, seed: t.seed })),
     flows: [...plan.flows, ...added],
   };
-  return runPage({ plan: updated, page: planPage, compact, onDelta: () => {}, repair: { html: page.html, css: page.css ?? "", violations }, contentLocale });
+  return runPage({ plan: updated, page: planPage, compact, onDelta: () => {}, repair: { html: page.html, css: page.css ?? "", violations }, contentLocale, references });
 }

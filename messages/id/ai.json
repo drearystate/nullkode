@@ -157,6 +157,9 @@
     "tooLong": "Deskripsi itu terlalu panjang. Batasi hingga 2.000 karakter.",
     "tooShort": "Ceritakan sedikit lagi tentang apa yang ingin Anda buat."
   },
+  "policy": {
+    "refused": "Saya tidak bisa membuat aplikasi yang mirip dengan platform NullKode milik NullKode LLC, IgniteUps.ai, atau alat AI apa pun yang dibuat oleh NullKode LLC."
+  },
   "progress": {
     "buildingFlow": "Membuat alur {index}/{total}: {name}",
     "buildingPage": "Membuat halaman {index}/{total}: {title}",
@@ -169,6 +172,51 @@
     "stillWorking": "{label} — masih dikerjakan ({minutes} mnt)",
     "updatingPlan": "Memperbarui rencana",
     "written": "{label} — {count, number} karakter ditulis"
+  },
+  "references": {
+    "errors": {
+      "badUrl": "“{name}” harus berupa tautan https:// publik ke gambar.",
+      "expired": "Gambar itu sudah tidak disimpan lagi (akan dihapus setelah 7 hari tanpa digunakan). Silakan tambahkan lagi.",
+      "fetchFailed": "“{name}” tidak bisa diunduh. Pastikan tautannya membuka gambar secara langsung dan bisa diakses publik.",
+      "imagesOrId": "Kirim gambar baru atau ID gambar yang sudah Anda kirim, bukan keduanya.",
+      "invalid": "Gambar tidak bisa dibaca. Silakan tambahkan lagi.",
+      "invalidData": "“{name}” bukan file gambar yang valid. Silakan tambahkan lagi.",
+      "notSupported": "AI yang digunakan situs ini tidak bisa membaca gambar, jadi gambar referensi tidak bisa digunakan di sini. Jelaskan tampilannya dengan kata-kata atau hapus gambarnya.",
+      "rateLimited": "Anda menambahkan banyak gambar dalam waktu singkat. Coba lagi dalam {minutes, plural, one {# menit} other {# menit}}.",
+      "tooLarge": "“{name}” terlalu besar. Ukuran tiap gambar maksimal {size}.",
+      "tooMany": "Anda bisa menambahkan maksimal {max} gambar.",
+      "type": "“{name}” bukan gambar PNG, JPEG, WebP, atau GIF.",
+      "unreadable": "“{name}” tidak bisa dibuka sebagai gambar. Coba simpan lagi sebagai PNG atau JPEG.",
+      "urlOrData": "“{name}” harus berupa tautan atau gambar itu sendiri, bukan keduanya."
+    },
+    "picker": {
+      "add": "Tambahkan gambar",
+      "addHelp": "Tambahkan gambar yang menunjukkan tampilan aplikasi yang Anda inginkan: seni konsep, sketsa, tangkapan layar aplikasi yang Anda suka, atau papan inspirasi. Anda juga bisa meletakkan atau menempelkannya di sini.",
+      "addMore": "Tambahkan lagi",
+      "addTitle": "Tambahkan seni konsep, sketsa, tangkapan layar, atau papan inspirasi",
+      "hint": "Opsional: letakkan, tempel, atau tambahkan hingga {max} gambar yang menunjukkan tampilan yang Anda inginkan.",
+      "listHelp": "AI akan mengikuti gambar ini untuk menentukan tampilan, warna, dan layar aplikasi Anda.",
+      "listLabel": "{count, plural, one {# gambar referensi} other {# gambar referensi}}",
+      "pasted": "Gambar yang ditempel",
+      "pastedName": "pasted-image-{n}",
+      "preparing": "Menyiapkan gambar…",
+      "readFailed": "“{name}” tidak bisa dibaca.",
+      "remove": "Hapus {name}",
+      "removeHelp": "Keluarkan gambar ini. AI tidak akan menggunakannya.",
+      "thumbAlt": "Gambar referensi {n}: {name}",
+      "tooBig": "“{name}” terlalu besar. Ukuran tiap gambar maksimal {size}.",
+      "tooMany": "Anda bisa menambahkan maksimal {max} gambar.",
+      "uploadFailed": "Gambar Anda tidak bisa dikirim. Silakan coba lagi.",
+      "wrongType": "“{name}” bukan gambar PNG, JPEG, WebP, atau GIF."
+    },
+    "plan": {
+      "changed": "Anda mengubah gambar. Minta perubahan pada rencana agar gambar tersebut digunakan, atau buat aplikasi sekarang untuk menggunakannya sebagai acuan tampilan.",
+      "help": "Gambar yang menjadi dasar pembuatan rencana ini. Gambar tersebut membentuk tampilan dan halaman aplikasi Anda, dan akan digunakan lagi saat aplikasi dibuat.",
+      "none": "Belum ada gambar. Anda bisa menambahkan gambar dan meminta perubahan pada rencana.",
+      "title": "Gambar referensi",
+      "used": "{count, plural, one {Rencana ini mengikuti gambar Anda.} other {Rencana ini mengikuti # gambar Anda.}}"
+    },
+    "reading": "{count, plural, one {Melihat gambar Anda…} other {Melihat # gambar Anda…}}"
   },
   "runs": {
     "interrupted": "Server dimulai ulang saat proses ini dibuat, jadi prosesnya terhenti. Kuota AI Anda tidak berkurang. Coba lagi.",

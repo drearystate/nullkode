@@ -17,6 +17,7 @@ import { emailEnabled } from "@/lib/mailer";
 import { getSchemaStatus, type SchemaStatus } from "@/lib/schema-check";
 import { runHealthChecks, summarize } from "@/lib/system-health";
 import { getFormatter, getTranslations } from "next-intl/server";
+import { listRefusals } from "@/lib/ai/build-policy";
 
 export const dynamic = "force-dynamic";
 
@@ -84,6 +85,8 @@ export default async function AdminDashboard() {
     console.error("[admin] the admin home couldn't load:", err instanceof Error ? err.message.split("\n")[0] : err);
   }
   const system = await runHealthChecks().then(summarize).catch(() => null);
+  // Builds the build rule refused (src/lib/ai/build-policy.ts).
+  const refusals = await listRefusals(30);
   const t = await getTranslations("admin");
   const format = await getFormatter();
   const link = (c: React.ReactNode) => <Link href="/admin/system" className="underline">{c}</Link>;
@@ -308,6 +311,42 @@ export default async function AdminDashboard() {
                         {r.status}
                       </span>
                     </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="refused-builds" className="mt-10 scroll-mt-20" aria-labelledby="refused-heading">
+          <h2 id="refused-heading" className="font-semibold text-lg" data-help={t("home.refusedHelp")}>{t("home.refusedTitle")}</h2>
+          <p className="mt-1 text-sm text-surface-400">{t("home.refusedIntro")}</p>
+          <div className="mt-3 card overflow-x-auto">
+            <table className="w-full min-w-[720px] text-sm">
+              <thead className="bg-surface-900 text-surface-400 text-xs uppercase tracking-wider">
+                <tr>
+                  <th className="text-start px-4 py-2">{t("home.colWhen")}</th>
+                  <th className="text-start px-4 py-2">{t("home.colUser")}</th>
+                  <th className="text-start px-4 py-2" data-help={t("home.refusedWhereHelp")}>{t("home.colRefusedWhere")}</th>
+                  <th className="text-start px-4 py-2">{t("home.colRequest")}</th>
+                  <th className="text-start px-4 py-2">{t("home.colReason")}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {refusals.length === 0 && (
+                  <tr>
+                    <td colSpan={5} className="px-4 py-6 text-center text-surface-500">{t("home.noRefusals")}</td>
+                  </tr>
+                )}
+                {refusals.map((r) => (
+                  <tr key={r.id} className="border-t border-surface-800 align-top">
+                    <td className="px-4 py-2 whitespace-nowrap text-surface-400">
+                      {format.dateTime(r.createdAt, { ...dateOpts, hour: "numeric", minute: "2-digit" })}
+                    </td>
+                    <td className="px-4 py-2 break-all">{r.email ?? (r.userId ? t("home.deletedUser") : "—")}{r.source?.startsWith("partner:") && <span className="ms-1 text-xs text-surface-500">{t("home.viaPartnerApi")}</span>}</td>
+                    <td className="px-4 py-2 whitespace-nowrap text-surface-300">{t(`home.refusedKind.${["plan", "revision", "build", "edit", "section", "designer"].includes(r.kind) ? r.kind : "build"}`)} · {t(`home.refusedStage.${["rule", "ai", "plan", "images", "result"].includes(r.stage) ? r.stage : "ai"}`)}</td>
+                    <td className="px-4 py-2 max-w-xs"><span className="line-clamp-3 break-words" title={r.prompt}>{r.prompt}</span></td>
+                    <td className="px-4 py-2 max-w-xs text-surface-400"><span className="line-clamp-3 break-words" title={r.reason}>{r.reason}</span></td>
                   </tr>
                 ))}
               </tbody>

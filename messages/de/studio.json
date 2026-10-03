@@ -101,6 +101,7 @@
     "plan": "Tarif {plan}",
     "planHelp": "Dein Tarif, die Anzahl deiner erstellten Apps und die Zahl deiner KI-Aktionen in diesem Monat. Klicke, um die Tarifdetails anzusehen.",
     "planMyApp": "App planen",
+    "planMyAppHelp": "Die KI macht aus deiner Idee und hinzugefügten Bildern einen Plan, den du prüfen kannst, bevor etwas erstellt wird.",
     "previewTitle": "Vorschau von {name}",
     "problems": "{count, plural, one {# Problem in den letzten 24 Stunden} other {# Probleme in den letzten 24 Stunden}}",
     "problemsFor": "{name}: {count, plural, one {# Problem in den letzten 24 Stunden} other {# Probleme in den letzten 24 Stunden}}",

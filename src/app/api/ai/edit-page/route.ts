@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { aiUsageSummary, checkAiQuota, recordAiUsage, refundFailedAi } from "@/lib/ai-quota";
+import { aiUsageSummary, checkAiQuota, recordAiUsage, refundAiUsage, refundFailedAi } from "@/lib/ai-quota";
 import { Prisma } from "@prisma/client";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
@@ -26,6 +26,7 @@ import { personLocale, translator } from "@/lib/ai/i18n";
 import { getAppLocale } from "@/lib/app-locale";
 import { pageSourceHash } from "@/lib/app-translations";
 import { isLocale } from "@/i18n/locales";
+import { appSummary, refusalResponse, withBuildPolicy } from "@/lib/ai/build-policy";
 
 export const runtime = "nodejs";
 // Give the model room to think when it has to add tables + flows + HTML.
@@ -240,9 +241,18 @@ export async function POST(req: Request) {
     );
   };
 
+  // The build rule (lib/ai/build-policy.ts), checked alongside the edit: this
+  // request together with what the app is so far (an edit can add whole
+  // features). A refusal charges nothing.
+  const policySubject = {
+    kind: "edit" as const,
+    request: message,
+    earlier: history.filter((h) => h.role === "user").slice(-4).map((h) => h.text).join(" | "),
+    app: await appSummary(projectId),
+  };
   let result: EditPageResult;
   try {
-    result = await editPage({
+    const checked = await withBuildPolicy(policySubject, { userId: user.id, locale, projectId }, async () => editPage({
       currentHtml,
       currentCss: cssOmitted ? "" : currentCss,
       cssOmitted,
@@ -256,7 +266,12 @@ export async function POST(req: Request) {
       locale,
       // The app's language, when it has one: the page's text stays in it.
       contentLocale: variant ?? (await getAppLocale(page.projectId).then((a) => (a.explicit ? a.locale : undefined), () => undefined)),
-    });
+    }));
+    if ("refused" in checked) {
+      await refundAiUsage(chargeId);
+      return refusalResponse(checked.refused, { usage: await usage() });
+    }
+    result = checked.value;
   } catch (err) {
     return fail(err, t("edit.failed"));
   }

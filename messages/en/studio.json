@@ -75,7 +75,8 @@
     "seePlansToMakeMore": "<link>See plans</link> to make more.",
     "ideaLabel": "Describe the app you want to make",
     "ideaPlaceholder": "e.g. Bookings for my dog walking business",
-    "planMyApp": "Plan my app"
+    "planMyApp": "Plan my app",
+    "planMyAppHelp": "The AI turns your idea, and any pictures you added, into a plan you can check before anything is built."
   },
   "methods": {
     "ai": {

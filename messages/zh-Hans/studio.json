@@ -101,6 +101,7 @@
     "plan": "{plan} 套餐",
     "planHelp": "查看你的套餐、已创建的应用数量，以及本月已使用的 AI 操作次数。点击查看套餐详情。",
     "planMyApp": "规划我的应用",
+    "planMyAppHelp": "AI 会把你的想法和添加的图片整理成一份计划，你可以在开始制作前先检查。",
     "previewTitle": "{name} 预览",
     "problems": "{count, plural, one {过去 24 小时内出现 # 个问题} other {过去 24 小时内出现 # 个问题}}",
     "problemsFor": "{name}：{count, plural, one {过去 24 小时内出现 # 个问题} other {过去 24 小时内出现 # 个问题}}",

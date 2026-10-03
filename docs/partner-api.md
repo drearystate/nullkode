@@ -26,6 +26,8 @@ The machine-readable description is [`partner-api.openapi.json`](partner-api.ope
 - [Idempotency](#idempotency)
 - [Pagination](#pagination)
 - [Endpoints](#endpoints)
+- [Reference images](#reference-images)
+- [The build rule](#the-build-rule)
 - [Webhook: build finished](#webhook-build-finished)
 - [A typical integration](#a-typical-integration)
 - [Security notes for operators](#security-notes-for-operators)
@@ -129,6 +131,11 @@ Codes are stable; messages are for people and may change.
 | 400 | `invalid_request` | A field is missing or wrong (the message says which). |
 | 400 | `invalid_json` | The body isn't a JSON object. |
 | 400 | `invalid_idempotency_key` | `Idempotency-Key` isn't 1–200 visible characters. |
+| 400 | `images_not_supported` | Reference images were sent, but the platform's AI can't read images. They are never ignored silently: send the request without `images` (and describe the look in words). |
+| 400 | `image_type` | An image isn't a PNG, JPEG, WebP or GIF (the file's real bytes are checked, not its name or `mediaType`), or it can't be opened. |
+| 400 | `too_many_images` | More than 6 images. |
+| 400 | `image_fetch_failed` | An image `url` isn't a public `https://` link to the image, or it couldn't be downloaded. |
+| 400 | `references_not_found` | The `referenceId` is unknown, belongs to someone else, or its images were deleted (after 7 days without use). |
 | 401 | `unauthorized` | No key, an unknown key, or a revoked key. |
 | 403 | `network_not_allowed` | The key can't be used from where the request came from. |
 | 403 | `permission_denied` | The key doesn't have the permission for this endpoint. |
@@ -137,9 +144,11 @@ Codes are stable; messages are for people and may change.
 | 403 | `seats_full` | The reseller has no client seats left. |
 | 403 | `plan_limit` | The person's plan doesn't allow it (more apps, more live apps). |
 | 404 | `not_found` | No such id, or it is outside the key's scope. |
+| 413 | `image_too_large` | An image is over 5 MB. |
 | 409 | `email_taken` | The address has an account this key doesn't manage. |
 | 409 | `idempotency_in_progress` | The first request with this Idempotency-Key is still running. |
 | 422 | `idempotency_key_reused` | The Idempotency-Key was used for a different request. |
+| 422 | `build_not_allowed` | The platform doesn't build this kind of app (see [The build rule](#the-build-rule)). The message is the sentence to show the person, in their language. |
 | 429 | `rate_limited` | Too many requests; see `Retry-After`. |
 | 429 | `ai_quota_exceeded` | The person's monthly AI allowance (or the reseller's cap) is used up. |
 | 500 | `internal` | Something went wrong on the platform's side. Retry later. |
@@ -170,7 +179,7 @@ start of the next month, UTC).
 
 ## Idempotency
 
-`POST /users`, `POST /builds` and `POST /projects/{id}/publish` accept an
+`POST /users`, `POST /plan`, `POST /builds` and `POST /projects/{id}/publish` accept an
 `Idempotency-Key` header (any unique value up to 200 characters, such as a
 UUID). Retrying with the same key and the same body within 24 hours returns
 the first answer again, with `Idempotent-Replayed: true`, instead of doing the
@@ -180,6 +189,8 @@ work twice; so a network error on `POST /builds` never charges a second build.
 - The first request still running: `409 idempotency_in_progress`.
 - Answers worth retrying (`429`, `5xx`) aren't saved, so a retry runs again.
 - Keys are per partner key.
+- The whole body counts, reference `images` included: the same Idempotency-Key
+  with other images is a different request (`422 idempotency_key_reused`).
 
 ## Pagination
 
@@ -330,9 +341,14 @@ per person.
 | `prompt` | required | 5–2000 characters. |
 | `locale` | optional | The app's language (`en`, `es`, `fr`, `de`, `ar`, ...). |
 | `change` + `previous` | optional | Revise an earlier plan (`previous`) with a change (3–1000 characters). |
+| `images` | optional | Up to 6 [reference images](#reference-images) of how the app should look. |
+| `referenceId` | optional | Reuse images sent before (instead of `images`), e.g. for a revision. |
 
-`202 Accepted`: `{ "runId": "8d3e..." }`. Poll `GET /runs/{runId}`; the
-finished run's `plan` is the proposal.
+`202 Accepted`: `{ "runId": "8d3e..." }`, plus `"referenceId"` when images
+were sent. Poll `GET /runs/{runId}`; the finished run's `plan` is the
+proposal. A request the [build rule](#the-build-rule) refuses gets
+`422 build_not_allowed` right away; when only the plan the AI made gives it
+away, the run ends with `status: "error"` and `errorCode: "build_not_allowed"`.
 
 ### POST /builds
 
@@ -349,8 +365,12 @@ the person's allowance (and the reseller's cap), refunded if the build fails.
 | `prompt` | required | 5–2000 characters. |
 | `plan` | optional | A reviewed plan from `POST /plan`, built exactly. Without one the platform plans and builds in one go. |
 | `locale` | optional | The app's language (default: the plan's, else the person's). |
+| `images` | optional | Up to 6 [reference images](#reference-images). |
+| `referenceId` | optional | The plan run's `referenceId`, to build with the images the plan was made from. |
 
-`202 Accepted`: `{ "runId": "8d3e..." }`. Builds take from about a minute to
+`202 Accepted`: `{ "runId": "8d3e..." }` (plus `"referenceId"` with images).
+A request the [build rule](#the-build-rule) refuses gets `422 build_not_allowed`
+before anything is charged. Builds take from about a minute to
 several minutes. Poll `GET /runs/{runId}` every few seconds, or set a webhook.
 Send an `Idempotency-Key` so a retried request never starts a second build.
 
@@ -368,15 +388,21 @@ restart ends as failed and refunded).
     "progress": [ { "step": "plan", "message": "Thinking about your app..." }, { "step": "pages", "message": "Built page: Home", "name": "Home" } ],
     "plan": null,
     "project": { "id": "clx9xyz...", "name": "Rise Bakery", "links": { "live": null, "preview": "...", "editor": "..." }, "paths": { "...": "..." } },
-    "error": null, "refunded": false,
+    "references": { "id": "5b0c...", "count": 2, "brief": { "summary": "Dark, warm bakery look with large photos", "palette": [ { "hex": "#1f1a17", "role": "background" } ], "fonts": { "display": "Fraunces", "body": "Inter", "style": "serif editorial" }, "mood": ["warm", "artisanal"], "layout": ["split hero"], "components": ["pill buttons"], "screens": [ { "name": "Menu", "purpose": "Breads to pre-order", "imageIndex": 0 } ], "suggestedTheme": "Warm Earth" } },
+    "error": null, "errorCode": null, "refunded": false,
     "createdAt": "2026-10-03T09:30:00.000Z", "updatedAt": "2026-10-03T09:33:10.000Z", "endedAt": "2026-10-03T09:33:10.000Z"
   }
 }
 ```
 
 `status` is `running`, `success` or `error`. On `error`, `error` says what
-went wrong in the person's language and `refunded` tells whether the AI action
-was given back. `progress` holds the latest 50 steps.
+went wrong in the person's language, `errorCode` is `build_not_allowed` when
+the [build rule](#the-build-rule) stopped it (else `failed`), and `refunded`
+tells whether the AI action was given back. `references` is set when the run
+had reference images: their `id` (send it as `referenceId`), how many, and
+`brief`, a summary of what the AI saw in them (palette, fonts, mood, layout,
+components, the screens with the image each is in, and the closest theme), or
+`null` until they have been read. `progress` holds the latest 50 steps.
 
 ### POST /projects/{id}/publish
 
@@ -413,6 +439,72 @@ allowance (`null` = unlimited).
 ### GET /openapi.json
 
 The OpenAPI 3.1 description. No key needed.
+
+## Reference images
+
+`POST /plan` and `POST /builds` take reference images: concept art, sketches,
+screenshots of apps the person likes, or mood boards. The AI reads them once
+(one vision call, counted as one AI action from the person's allowance, like
+any other) and turns them into a visual brief: a palette with roles, fonts,
+mood, layout patterns, components and the screens they show. The plan gets a
+page for each screen in the images, the theme starts from the closest built-in
+look with the images' own colours, and every page is built with the brief
+(and, on large models, with the image of its own screen).
+
+```json
+{
+  "userId": "clx1abc...",
+  "prompt": "Bread pre-orders for a small bakery",
+  "images": [
+    { "url": "https://example.com/concept/menu.png" },
+    { "data": "data:image/jpeg;base64,/9j/4AAQ...", "name": "home sketch" },
+    { "data": "iVBORw0KGgo...", "mediaType": "image/png" }
+  ]
+}
+```
+
+| Field | | |
+| --- | --- | --- |
+| `url` | one of `url`/`data` | A public `https://` link to the image. It is downloaded by the platform (never from private or local addresses, also after redirects). |
+| `data` | one of `url`/`data` | The image itself: a `data:` URL or plain base64. |
+| `mediaType` | optional | `image/png`, `image/jpeg`, `image/webp` or `image/gif`. The file's real bytes decide; a wrong type is refused. |
+| `name` | optional | A label (up to 120 characters). |
+
+Limits: at most 6 images, each at most 5 MB. Images are shrunk to at most
+1600 pixels on their longest side, stripped of their metadata (EXIF, GPS),
+and kept privately for the person who sent them; a set nobody used for 7 days
+is deleted. The answer carries a `referenceId`: send it instead of `images`
+with a plan revision or the build, so the images are neither sent nor read
+again.
+
+When the platform's AI can't read images, a request with images is refused
+with `400 images_not_supported`; images are never ignored silently. Errors:
+`image_too_large`, `image_type`, `too_many_images`, `image_fetch_failed`,
+`references_not_found` (see [Errors](#errors)).
+
+## The build rule
+
+The platform doesn't build apps similar to NullKode LLC's own products: the
+NullKode platform (a no-code / AI app and website builder), IgniteUps.ai (an
+AI platform for car dealerships: AI voice agents that call customers, AI SMS
+and email campaigns, a dealership CRM) and its NEXUS assistant, or any other
+AI tool built by NullKode LLC. Ordinary apps that use a small part of these
+ideas (a gym's member CRM, a salon booking app with SMS reminders, a bakery
+site with an FAQ chatbot, a car dealer's inventory site) are fine.
+
+The whole request is judged, not single words, together with the plan the AI
+makes, what the reference images show, and, for later changes, what the app
+already is. A refusal costs nothing (no AI action is charged, or it is given
+back) and answers:
+
+```json
+{ "error": { "code": "build_not_allowed", "message": "I can't build apps similar to NullKode LLC's NullKode platform, IgniteUps.ai, or any AI tools built by NullKode LLC." } }
+```
+
+with HTTP `422`, the message in the person's language. When it is only found
+out while a run is under way (from the plan or the images), the run ends with
+`status: "error"`, `errorCode: "build_not_allowed"` and that message as `error`.
+Operators can turn the rule off in Admin → Settings → AI.
 
 ## Webhook: build finished
 

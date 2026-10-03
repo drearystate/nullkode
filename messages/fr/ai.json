@@ -157,6 +157,9 @@
     "tooLong": "Cette description est trop longue. Elle doit faire moins de 2 000 caractères.",
     "tooShort": "Dites-nous-en un peu plus sur ce que vous voulez créer."
   },
+  "policy": {
+    "refused": "Je ne peux pas créer d’apps similaires à la plateforme NullKode de NullKode LLC, à IgniteUps.ai ou à des outils d’IA créés par NullKode LLC."
+  },
   "progress": {
     "buildingFlow": "Création du parcours {index}/{total} : {name}",
     "buildingPage": "Création de la page {index}/{total} : {title}",
@@ -169,6 +172,51 @@
     "stillWorking": "{label} — toujours en cours ({minutes} min)",
     "updatingPlan": "Mise à jour du plan",
     "written": "{label} — {count, number} caractères écrits"
+  },
+  "references": {
+    "errors": {
+      "badUrl": "« {name} » doit être un lien public https:// vers l’image.",
+      "expired": "Ces images ne sont plus conservées (elles sont supprimées après 7 jours sans utilisation). Veuillez les ajouter à nouveau.",
+      "fetchFailed": "Impossible de télécharger « {name} ». Vérifiez que le lien ouvre directement l’image et qu’elle est accessible au public.",
+      "imagesOrId": "Envoyez de nouvelles images ou l’identifiant d’images déjà envoyées, mais pas les deux.",
+      "invalid": "Impossible de lire les images. Veuillez les ajouter à nouveau.",
+      "invalidData": "« {name} » n’est pas un fichier image valide. Veuillez l’ajouter à nouveau.",
+      "notSupported": "L’IA utilisée par ce site ne peut pas lire les images. Vous ne pouvez donc pas utiliser d’images de référence ici. Décrivez plutôt le style avec des mots, ou supprimez les images.",
+      "rateLimited": "Vous avez ajouté beaucoup d’images en peu de temps. Veuillez réessayer dans {minutes, plural, one {# minute} other {# minutes}}.",
+      "tooLarge": "« {name} » est trop volumineuse. Chaque image peut faire jusqu’à {size}.",
+      "tooMany": "Vous pouvez ajouter jusqu’à {max} images.",
+      "type": "« {name} » n’est pas une image PNG, JPEG, WebP ou GIF.",
+      "unreadable": "Impossible d’ouvrir « {name} » comme image. Essayez de l’enregistrer à nouveau en PNG ou en JPEG.",
+      "urlOrData": "« {name} » doit être fourni sous forme de lien ou d’image, mais pas les deux."
+    },
+    "picker": {
+      "add": "Ajouter des images",
+      "addHelp": "Ajoutez des images qui montrent l’apparence souhaitée pour l’app : concepts visuels, croquis, captures d’écran d’apps que vous aimez ou tableaux d’inspiration. Vous pouvez aussi les déposer ou les coller ici.",
+      "addMore": "Ajouter d’autres images",
+      "addTitle": "Ajoutez des concepts visuels, des croquis, des captures d’écran ou des tableaux d’inspiration",
+      "hint": "Facultatif : déposez, collez ou ajoutez jusqu’à {max} images de l’apparence souhaitée.",
+      "listHelp": "L’IA s’inspire de ces images pour le style, les couleurs et les écrans de votre app.",
+      "listLabel": "{count, plural, one {# image de référence} other {# images de référence}}",
+      "pasted": "Image collée",
+      "pastedName": "image-collée-{n}",
+      "preparing": "Préparation des images…",
+      "readFailed": "Impossible de lire « {name} ».",
+      "remove": "Supprimer {name}",
+      "removeHelp": "Retirer cette image. L’IA ne l’utilisera pas.",
+      "thumbAlt": "Image de référence {n} : {name}",
+      "tooBig": "« {name} » est trop volumineuse. Chaque image peut faire jusqu’à {size}.",
+      "tooMany": "Vous pouvez ajouter jusqu’à {max} images.",
+      "uploadFailed": "Impossible d’envoyer vos images. Veuillez réessayer.",
+      "wrongType": "« {name} » n’est pas une image PNG, JPEG, WebP ou GIF."
+    },
+    "plan": {
+      "changed": "Vous avez modifié les images. Demandez une modification du plan pour les utiliser, ou lancez la création : elles serviront à définir le style.",
+      "help": "Les images utilisées pour créer ce plan. Elles définissent le style et les pages de votre app, et seront réutilisées lors de sa création.",
+      "none": "Aucune image. Vous pouvez en ajouter et demander une modification du plan.",
+      "title": "Images de référence",
+      "used": "{count, plural, one {Ce plan s’inspire de votre image.} other {Ce plan s’inspire de vos # images.}}"
+    },
+    "reading": "{count, plural, one {Examen de votre image…} other {Examen de vos # images…}}"
   },
   "runs": {
     "interrupted": "Le serveur a redémarré pendant la création, qui s’est donc arrêtée. Cela n’a pas été déduit de votre quota d’IA. Réessayez.",

@@ -101,6 +101,7 @@
     "plan": "Piano {plan}",
     "planHelp": "Il tuo piano, quante app hai creato e quante azioni AI hai usato questo mese. Fai clic per vedere i dettagli del piano.",
     "planMyApp": "Pianifica la mia app",
+    "planMyAppHelp": "L’IA trasforma la tua idea e le immagini che hai aggiunto in un piano da controllare prima di creare qualsiasi cosa.",
     "previewTitle": "Anteprima di {name}",
     "problems": "{count, plural, one {# problema nelle ultime 24 ore} other {# problemi nelle ultime 24 ore}}",
     "problemsFor": "{name}: {count, plural, one {# problema nelle ultime 24 ore} other {# problemi nelle ultime 24 ore}}",

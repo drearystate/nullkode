@@ -8,9 +8,11 @@
     "failed": "今回は作成できませんでした。変更はありません。もう一度お試しください。",
     "fileFailed": "AIが{file}を作成できませんでした。変更はありません。もう一度お試しください。",
     "planning": "計画中",
+    "readingImages": "{count, plural, one {画像を確認中} other {#枚の画像を確認中}}",
     "saving": "保存してアプリを更新中",
     "stopped": "停止しました。変更はありません。",
-    "updating": "{file}を更新中"
+    "updating": "{file}を更新中",
+    "withImages": "{count, plural, one {(参考画像1枚付き)} other {(参考画像#枚付き)}}"
   },
   "card": {
     "confirmDelete": "「{name}」を削除しますか？",

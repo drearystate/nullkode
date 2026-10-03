@@ -67,6 +67,8 @@ function createMock() {
       return JSON.stringify(Object.fromEntries(Object.entries(input).map(([k, v]) => [k, `[${targetCode(rec.system)}] ${v}`])));
     }
     if (/page builder|You build ONE page/.test(rec.system)) return page;
+    // The build rule's check (src/lib/ai/build-policy.ts; tested in e2e-build-policy.ts).
+    if (/You enforce one rule of an AI app-building platform/.test(rec.system)) return JSON.stringify({ allowed: true, reason: "An ordinary app." });
     return null;
   };
   const server = http.createServer((req, res) => {

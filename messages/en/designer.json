@@ -18,14 +18,38 @@
     "startFailed": "Couldn't start. Please try again.",
     "ideaHelp": "Fills the box above with a ready-made example description. Edit it to fit your idea, then press Design it.",
     "ideas": {
-      "dogWalking": { "title": "Dog walking bookings", "prompt": "A booking site for my dog walking business. Customers pick a walk (30 or 60 minutes), a day and a time, and leave their dog's name. I see every booking on a private page." },
-      "bakery": { "title": "Neighbourhood bakery", "prompt": "A warm website for a small neighbourhood bakery: today's bakes, opening hours, a pre-order form for cakes, and a map." },
-      "yoga": { "title": "Yoga studio", "prompt": "A calm yoga studio site with the weekly class schedule, teacher profiles, and a form to book a first free class." },
-      "wedding": { "title": "Wedding site", "prompt": "An elegant wedding website with our story, the day's schedule, travel tips, and an RSVP form with meal choice." },
-      "plumber": { "title": "Plumber leads", "prompt": "A trustworthy local plumber site with services, service area, reviews, and a quote request form that saves every lead." },
-      "bookClub": { "title": "Book club", "prompt": "A friendly book club site: this month's book, past reads, meeting dates, and a form to suggest the next book." },
-      "portfolio": { "title": "Portfolio", "prompt": "A bold portfolio for a freelance illustrator with selected work, about, and a contact form for commissions." },
-      "foodTruck": { "title": "Food truck", "prompt": "A punchy food truck site with the menu, where we'll be this week, and a catering enquiry form." }
+      "dogWalking": {
+        "title": "Dog walking bookings",
+        "prompt": "A booking site for my dog walking business. Customers pick a walk (30 or 60 minutes), a day and a time, and leave their dog's name. I see every booking on a private page."
+      },
+      "bakery": {
+        "title": "Neighbourhood bakery",
+        "prompt": "A warm website for a small neighbourhood bakery: today's bakes, opening hours, a pre-order form for cakes, and a map."
+      },
+      "yoga": {
+        "title": "Yoga studio",
+        "prompt": "A calm yoga studio site with the weekly class schedule, teacher profiles, and a form to book a first free class."
+      },
+      "wedding": {
+        "title": "Wedding site",
+        "prompt": "An elegant wedding website with our story, the day's schedule, travel tips, and an RSVP form with meal choice."
+      },
+      "plumber": {
+        "title": "Plumber leads",
+        "prompt": "A trustworthy local plumber site with services, service area, reviews, and a quote request form that saves every lead."
+      },
+      "bookClub": {
+        "title": "Book club",
+        "prompt": "A friendly book club site: this month's book, past reads, meeting dates, and a form to suggest the next book."
+      },
+      "portfolio": {
+        "title": "Portfolio",
+        "prompt": "A bold portfolio for a freelance illustrator with selected work, about, and a contact form for commissions."
+      },
+      "foodTruck": {
+        "title": "Food truck",
+        "prompt": "A punchy food truck site with the menu, where we'll be this week, and a catering enquiry form."
+      }
     },
     "yourDesigns": "Your designs",
     "yourDesignsHelp": "Everything you've designed with the AI. Click a card to open it and keep changing it.",
@@ -163,6 +187,8 @@
     "appNotUpdated": "Your design is saved, but its app couldn't be updated: {reason}.",
     "appNotUpdatedRetry": "please try again",
     "fileFailed": "The AI couldn't write {file}. Nothing was changed; please try again.",
-    "defaultPlanMessage": "Updating your design."
+    "defaultPlanMessage": "Updating your design.",
+    "withImages": "{count, plural, one {(with 1 reference image)} other {(with # reference images)}}",
+    "readingImages": "{count, plural, one {Looking at your image} other {Looking at your # images}}"
   }
 }

@@ -87,6 +87,18 @@ export async function PATCH(req: Request) {
     if (typeof tokens !== "number" || !Number.isInteger(tokens) || tokens < 512 || tokens > 32768) return new NextResponse(t("badTokens"), { status: 400 });
     await setSetting(SETTING_KEYS.AI_MAX_TOKENS, tokens);
   }
+  // Whether the AI can read images (reference images, lib/ai/vision.ts).
+  const vision = body[SETTING_KEYS.AI_VISION];
+  if (vision !== undefined) {
+    if (!["auto", "on", "off"].includes(String(vision))) return new NextResponse(t("invalidVision"), { status: 400 });
+    await setSetting(SETTING_KEYS.AI_VISION, vision);
+  }
+  // The build rule (lib/ai/build-policy.ts): on unless turned off here.
+  const policy = body[SETTING_KEYS.AI_BUILD_POLICY];
+  if (policy !== undefined) {
+    if (typeof policy !== "boolean") return new NextResponse(t("invalidBuildPolicy"), { status: 400 });
+    await setSetting(SETTING_KEYS.AI_BUILD_POLICY, policy);
+  }
   // Whitelist what can be set, with light validation per key.
   if (typeof body[SETTING_KEYS.AI_PROVIDER] === "string") {
     const v = body[SETTING_KEYS.AI_PROVIDER] as string;

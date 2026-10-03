@@ -21,7 +21,8 @@ import { db } from "../db";
  *    failed and their AI action refunded (recoverInterruptedRuns); a run
  *    whose server went away without restarting is caught by the minute
  *    sweep once its heartbeat is 10 minutes old;
- *  - finished runs are kept 7 days, then deleted.
+ *  - finished runs are kept 7 days, then deleted, and so are reference
+ *    image sets nobody used for 7 days (lib/ai/references.ts).
  *
  * Saving is best effort: if the database can't be written (or the table is
  * missing), builds still run from memory exactly as before.
@@ -38,9 +39,21 @@ export type ScaffoldEvent =
   | { type: "token"; text: string }
   | { type: "done"; projectId: string; homePageId: string }
   /** `refunded`: the failed build's AI action was given back ("didn't count"). */
-  | { type: "error"; message: string; refunded?: boolean };
+  | { type: "error"; message: string; refunded?: boolean; code?: string };
 
 export type RunKind = "scaffold" | "plan";
+
+/**
+ * Extra facts about a run, saved with it. `references`: the reference
+ * images it was given (lib/ai/references.ts) and, once read, a short view
+ * of the AI's visual brief (lib/ai/vision.ts briefSummary).
+ */
+export type RunMeta = {
+  references?: { id: string; count: number; brief?: unknown };
+  /** A machine code for the run's error, e.g. "build_not_allowed" (lib/ai/build-policy.ts). */
+  errorCode?: string;
+  [key: string]: unknown;
+};
 export type RunStatus = "running" | "success" | "error";
 
 export interface RunSnapshot {
@@ -56,6 +69,7 @@ export interface RunSnapshot {
   refunded: boolean;
   /** Who started it, an opaque tag: null = the studio, "partner:<partnerKeyId>" = the partner API. */
   source: string | null;
+  meta: RunMeta | null;
   createdAt: number;
   updatedAt: number;
   endedAt: number | null;
@@ -151,6 +165,7 @@ function rowState(run: InternalRun): Prisma.AiRunUpdateInput {
     error: run.error,
     refunded: run.refunded,
     chargeId: run.chargeId,
+    ...(run.meta ? { meta: run.meta as unknown as Prisma.InputJsonValue } : {}),
     updatedAt: new Date(run.updatedAt),
     heartbeatAt: new Date(),
     endedAt: run.endedAt === null ? null : new Date(run.endedAt),
@@ -263,6 +278,8 @@ export async function recoverInterruptedRuns(): Promise<number> {
 /** Deletes finished runs older than RUN_RETENTION_MS. Returns how many. */
 export async function deleteExpiredRuns(now = Date.now()): Promise<number> {
   const { count } = await db.aiRun.deleteMany({ where: { status: { not: "running" }, endedAt: { lt: new Date(now - RUN_RETENTION_MS) } } });
+  // Loaded on demand: it brings the image library, which start-up doesn't need.
+  await import("./references").then(({ sweepReferenceSets }) => sweepReferenceSets(now, RUN_RETENTION_MS)).catch((err) => console.error("[runs] couldn't sweep reference images:", err instanceof Error ? err.message : err));
   return count;
 }
 
@@ -316,6 +333,7 @@ function toSnapshot(r: InternalRun): RunSnapshot {
     error: r.error,
     refunded: r.refunded,
     source: r.source,
+    meta: r.meta,
     createdAt: r.createdAt,
     updatedAt: r.updatedAt,
     endedAt: r.endedAt,
@@ -324,7 +342,7 @@ function toSnapshot(r: InternalRun): RunSnapshot {
 
 type RunRow = {
   id: string; ownerId: string; kind: string; prompt: string; status: string; events?: Prisma.JsonValue;
-  result: Prisma.JsonValue; error: string | null; refunded: boolean; source: string | null;
+  result: Prisma.JsonValue; error: string | null; refunded: boolean; source: string | null; meta?: Prisma.JsonValue;
   createdAt: Date; updatedAt: Date; endedAt: Date | null;
 };
 
@@ -341,6 +359,7 @@ function rowSnapshot(row: RunRow): RunSnapshot {
     error: row.error,
     refunded: row.refunded,
     source: row.source,
+    meta: row.meta && typeof row.meta === "object" && !Array.isArray(row.meta) ? (row.meta as RunMeta) : null,
     createdAt: row.createdAt.getTime(),
     updatedAt: row.updatedAt.getTime(),
     endedAt: row.endedAt ? row.endedAt.getTime() : null,
@@ -349,7 +368,7 @@ function rowSnapshot(row: RunRow): RunSnapshot {
 
 const ROW_SELECT = {
   id: true, ownerId: true, kind: true, prompt: true, status: true, events: true, result: true,
-  error: true, refunded: true, source: true, createdAt: true, updatedAt: true, endedAt: true,
+  error: true, refunded: true, source: true, meta: true, createdAt: true, updatedAt: true, endedAt: true,
 } as const;
 
 /* ───────────────────────── Public API ───────────────────────── */
@@ -358,7 +377,7 @@ export function createRun(
   ownerId: string,
   kind: RunKind,
   prompt: string,
-  opts: { chargeId?: string | null; source?: string | null } = {},
+  opts: { chargeId?: string | null; source?: string | null; meta?: RunMeta | null } = {},
 ): RunSnapshot {
   startSweepOnce();
   const now = Date.now();
@@ -373,6 +392,7 @@ export function createRun(
     error: null,
     refunded: false,
     source: opts.source ?? null,
+    meta: opts.meta ?? null,
     createdAt: now,
     updatedAt: now,
     endedAt: null,
@@ -390,6 +410,7 @@ export function createRun(
     db.aiRun.create({
       data: {
         id: run.id, ownerId, kind, prompt, status: "running", events: [], chargeId: run.chargeId, source: run.source,
+        ...(run.meta ? { meta: run.meta as unknown as Prisma.InputJsonValue } : {}),
         instance: runInstanceId(), createdAt: new Date(now), updatedAt: new Date(now), heartbeatAt: new Date(now),
       },
     }),
@@ -439,6 +460,15 @@ export async function listRuns(opts: { ownerIds: string[]; status?: RunStatus; k
 /** How many runs (builds and plans) are going right now, on any server using this database. */
 export async function countRunningRuns(): Promise<number> {
   return db.aiRun.count({ where: { status: "running", heartbeatAt: { gt: new Date(Date.now() - ORPHAN_MS) } } });
+}
+
+/** Merges facts into a running run's meta (saved with its next save). */
+export function setRunMeta(id: string, patch: RunMeta): void {
+  const r = registry().map.get(id);
+  if (!r) return;
+  r.meta = { ...(r.meta ?? {}), ...patch };
+  r.updatedAt = Date.now();
+  saveSoon(r);
 }
 
 export function pushEvent(id: string, ev: ScaffoldEvent): void {

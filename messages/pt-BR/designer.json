@@ -8,9 +8,11 @@
     "failed": "Não foi possível criar desta vez. Nada foi alterado. Tente novamente.",
     "fileFailed": "A IA não conseguiu escrever {file}. Nada foi alterado. Tente novamente.",
     "planning": "Planejando",
+    "readingImages": "{count, plural, one {Analisando sua imagem} other {Analisando suas # imagens}}",
     "saving": "Salvando e atualizando seu app",
     "stopped": "Parado. Nada foi alterado.",
-    "updating": "Atualizando {file}"
+    "updating": "Atualizando {file}",
+    "withImages": "{count, plural, one {(com 1 imagem de referência)} other {(com # imagens de referência)}}"
   },
   "card": {
     "confirmDelete": "Excluir \"{name}\"?",

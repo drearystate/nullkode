@@ -8,9 +8,11 @@
     "failed": "这次构建失败了。没有更改任何内容，请重试。",
     "fileFailed": "AI 无法编写 {file}。没有更改任何内容，请重试。",
     "planning": "正在规划",
+    "readingImages": "{count, plural, one {正在查看你的图片} other {正在查看你的 # 张图片}}",
     "saving": "正在保存并更新你的应用",
     "stopped": "已停止。没有更改任何内容。",
-    "updating": "正在更新 {file}"
+    "updating": "正在更新 {file}",
+    "withImages": "{count, plural, one {(使用 1 张参考图片)} other {(使用 # 张参考图片)}}"
   },
   "card": {
     "confirmDelete": "删除“{name}”？",

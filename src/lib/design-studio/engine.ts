@@ -18,6 +18,9 @@ import { EDIT_TASK, META_TASK, PAGE_TASK, PLAN_TASK, RULES, planLanguageRule } f
 import { personLocale, translator, type Tr } from "../ai/i18n";
 import type { Locale } from "@/i18n/locales";
 import { contentLanguageRule, ensureAppLocale, getAppLocale } from "../app-locale";
+import { assertBuildAllowed, BuildNotAllowedError, designSummary, enforceBuildPolicy, type PolicyContext, type PolicySubject } from "../ai/build-policy";
+import { processImages, referenceAttachments, storeReferenceSet, type ImageAttachment, type ReferenceSet } from "../ai/references";
+import { assertAiCanSeeImages, briefText, ensureBrief, screenForPage, type VisualBrief } from "../ai/vision";
 
 /** A system prompt with the app's content language added (nothing added for English). */
 function withContentLanguage(system: string, contentLocale: Locale | undefined): string {
@@ -90,16 +93,37 @@ export async function sweepStaleJobs(userId: string): Promise<void> {
  * Throws plain-words errors (over the AI allowance, already building, moved
  * to the page builder).
  */
-export async function startGeneration(user: QuotaUser, designId: string, prompt: string, notes: ElementNote[] = []): Promise<{ jobId: string }> {
+export async function startGeneration(user: QuotaUser, designId: string, prompt: string, notes: ElementNote[] = [], images?: unknown): Promise<{ jobId: string }> {
   const design = await getDesign(user.id, designId);
   await assertDesignerCanChange(designId);
   const request = prompt.trim().slice(0, 8000);
   // The person's language, captured now: the build carries on after the request ends.
   const locale = await personLocale();
   const t = translator(locale, "designer");
-  if (!request && !notes.length) throw new Error(t("server.describe"));
+  const hasImages = Array.isArray(images) && images.length > 0;
+  if (!request && !notes.length && !hasImages) throw new Error(t("server.describe"));
   const problem = await aiQuotaProblem(user);
   if (problem) throw new Error(problem);
+  // The build rule (lib/ai/build-policy.ts): this change together with what
+  // the design is so far, before anything is charged.
+  const sofar = await designSummary(designId);
+  const subject: PolicySubject = {
+    kind: "designer",
+    request: [request, notes.length ? `Changes to specific elements:\n${notesText(notes)}` : ""].filter(Boolean).join("\n\n") || "(reference images only)",
+    earlier: sofar.earlier,
+    app: sofar.app,
+  };
+  const policy: PolicyContext = { userId: user.id, locale, projectId: design.projectId };
+  const refused = await enforceBuildPolicy(subject, policy);
+  if (refused) throw new BuildNotAllowedError(refused.message, refused.reason, refused.stage);
+  // Reference images (lib/ai/references.ts): checked and stored before
+  // anything is charged; refused when the AI can't read images.
+  let refs: ReferenceSet | null = null;
+  if (hasImages) {
+    const ta = translator(locale, "ai");
+    await assertAiCanSeeImages(ta);
+    refs = await storeReferenceSet(user.id, await processImages(images, ta));
+  }
 
   const jobId = randomUUID();
   await sweepStaleJobs(user.id);
@@ -109,11 +133,18 @@ export async function startGeneration(user: QuotaUser, designId: string, prompt:
     await tx.designerGenerationJob.create({ data: { id: jobId, designId, userId: user.id, status: "running" } });
   });
   const chargeId = await recordAiUsage(user.id, "designer", design.projectId, { ref: `designer:${jobId}` });
+  // Reading the images is one more AI action: the allowance must cover both.
+  const overQuota = refs && !refs.brief ? await aiQuotaProblem(user) : null;
+  if (overQuota) {
+    await refundAiUsage(chargeId);
+    await db.designerGenerationJob.update({ where: { id: jobId }, data: { status: "error", finishedAt: new Date() } }).catch(() => {});
+    throw new Error(overQuota);
+  }
   // The design's content language: its app's language once it has one,
   // else the person's studio language (lib/app-locale.ts).
   const app = design.projectId ? await getAppLocale(design.projectId).catch(() => null) : null;
   const contentLocale = app?.explicit ? app.locale : locale;
-  void run({ user, designId, jobId, chargeId, prompt: request, notes, locale, contentLocale });
+  void run({ user, designId, jobId, chargeId, prompt: request, notes, locale, contentLocale, refs, projectId: design.projectId, subject, policy });
   return { jobId };
 }
 
@@ -125,7 +156,18 @@ export async function cancelGeneration(userId: string, designId: string): Promis
   return jobs.length > 0;
 }
 
-async function run(opts: { user: QuotaUser; designId: string; jobId: string; chargeId: string | null; prompt: string; notes: ElementNote[]; locale: Locale; contentLocale?: Locale }) {
+/** A Designer build's reference images: the brief, and the images for full-size models. */
+type DesignReferences = { brief: VisualBrief; images: ImageAttachment[] };
+
+/** The image of the screen this page was drawn from (full-size models only), or null. */
+function pageImage(refs: DesignReferences | null, path: string, instructions: string, compact: boolean): ImageAttachment | null {
+  if (!refs || compact) return null;
+  const slug = path.replace(/\.html$/, "");
+  const screen = screenForPage(refs.brief, { slug, title: `${slug.replace(/-/g, " ")} ${instructions.slice(0, 80)}`, isHome: path === "index.html" });
+  return screen ? refs.images[screen.imageIndex] ?? null : null;
+}
+
+async function run(opts: { user: QuotaUser; designId: string; jobId: string; chargeId: string | null; prompt: string; notes: ElementNote[]; locale: Locale; contentLocale?: Locale; refs?: ReferenceSet | null; projectId?: string | null; subject: PolicySubject; policy: PolicyContext }) {
   const { user, designId, jobId } = opts;
   const t = translator(opts.locale, "designer");
   const abort = new AbortController();
@@ -138,12 +180,28 @@ async function run(opts: { user: QuotaUser; designId: string; jobId: string; cha
   const step = (id: string, label: string, status: "running" | "done" | "error") => publish(designId, { type: "step", jobId, id, label, status });
   const request = [opts.prompt, opts.notes.length ? `Changes to specific elements:\n${notesText(opts.notes)}` : ""].filter(Boolean).join("\n\n");
 
+  let visionChargeId: string | null = null;
   try {
-    await appendChat(designId, "user", request);
+    const imageCount = opts.refs?.images.length ?? 0;
+    await appendChat(designId, "user", imageCount ? [request, t("build.withImages", { count: imageCount })].filter(Boolean).join("\n\n") : request);
     publish(designId, { type: "job", jobId, status: "running" });
 
     const window = await getContextWindow();
     const compact = window < COMPACT_BELOW;
+    let references: DesignReferences | null = null;
+    if (opts.refs) {
+      step("references", t("build.readingImages", { count: imageCount }), "running");
+      const { brief, chargeId: visionCharge } = await ensureBrief(opts.refs, { userId: user.id, prompt: request, contentLocale: opts.contentLocale ?? opts.locale, signal: abort.signal, projectId: opts.projectId });
+      visionChargeId = visionCharge;
+      step("references", t("build.readingImages", { count: imageCount }), "done");
+      check();
+      // A screenshot of a protected product is no "concept art" (lib/ai/build-policy.ts).
+      await assertBuildAllowed({ ...opts.subject, brief }, { ...opts.policy, stage: "images", signal: abort.signal });
+      references = { brief, images: compact ? [] : await referenceAttachments(opts.refs) };
+    }
+    const referenceText = references
+      ? `The user attached reference images (concept art, sketches or screenshots of apps they like). Match their look and screens; never copy other companies' logos, brand names or text.\n${briefText(references.brief, { compact })}`
+      : "";
     const existing = await readFiles(user.id, designId);
     const pages = existing.filter((f) => f.path.endsWith(".html"));
     const meta = existing.filter((f) => f.path.startsWith("meta/"));
@@ -157,11 +215,14 @@ async function run(opts: { user: QuotaUser; designId: string; jobId: string; cha
       systemPrompt: [RULES, PLAN_TASK, planLanguageRule(opts.locale)].filter(Boolean).join("\n\n"),
       userMessage: JSON.stringify({
         request,
+        ...(references ? { referenceImages: `${referenceText}${references.brief.screens.length ? "\nPlan a page for each screen in the images (sign-in and settings screens excepted)." : ""}` } : {}),
         existingPages: pages.map((p) => ({ path: p.path, outline: outline(p.content) })),
         existingData: Object.fromEntries(meta.map((m) => [m.path, m.content.slice(0, 4000)])),
       }),
     });
     if (!plan.message.trim()) plan.message = t("build.defaultPlanMessage");
+    // The pages and data the AI planned, checked before any is written.
+    await assertBuildAllowed({ ...opts.subject, plan, brief: references?.brief }, { ...opts.policy, stage: "plan", signal: abort.signal });
     step("plan", t("build.planning"), "done");
     check();
 
@@ -183,7 +244,7 @@ async function run(opts: { user: QuotaUser; designId: string; jobId: string; cha
       try {
         const content = file.path.startsWith("meta/")
           ? await buildMeta({ file, request, dataFiles, signal: abort.signal, t, contentLocale: opts.contentLocale })
-          : await buildPage({ file, previous, request, planMessage: plan.message, allPages, dataFiles, window, compact, signal: abort.signal, t, contentLocale: opts.contentLocale });
+          : await buildPage({ file, previous, request, planMessage: plan.message, allPages, dataFiles, window, compact, signal: abort.signal, t, contentLocale: opts.contentLocale, referenceText, referenceImage: pageImage(references, file.path, file.instructions, compact) });
         written.set(file.path, content);
         step(file.path, label, "done");
       } catch (err) {
@@ -214,7 +275,12 @@ async function run(opts: { user: QuotaUser; designId: string; jobId: string; cha
     publish(designId, { type: "job", jobId, status: "done" });
   } catch (err) {
     const wasCancelled = err instanceof Cancelled || abort.signal.aborted;
-    if (wasCancelled) {
+    if (err instanceof BuildNotAllowedError && !wasCancelled) {
+      // Refused by the build rule: nothing is charged.
+      await refundAiUsage(opts.chargeId);
+      await refundAiUsage(visionChargeId);
+      await appendChat(designId, "error", err.message);
+    } else if (wasCancelled) {
       await refundAiUsage(opts.chargeId);
       await appendChat(designId, "assistant", t("build.stopped"));
     } else {
@@ -268,7 +334,11 @@ async function buildPage(opts: {
   t: Tr;
   /** The app's language: every visible word of the page is written in it. */
   contentLocale?: Locale;
+  /** The reference images' brief (empty without images), and this page's image on full-size models. */
+  referenceText?: string;
+  referenceImage?: ImageAttachment | null;
 }): Promise<string> {
+  const attachments = opts.referenceImage ? [opts.referenceImage] : undefined;
   const fits = estimateTokens(opts.previous) < opts.window * (opts.compact ? 0.35 : 0.5);
 
   // Focused change to an existing page: find/replace edits.
@@ -278,7 +348,8 @@ async function buildPage(opts: {
       signal: opts.signal,
       maxTokens: opts.compact ? 3000 : 6000,
       systemPrompt: withContentLanguage(`${RULES}\n\n${EDIT_TASK}`, opts.contentLocale),
-      userMessage: `REQUEST: ${opts.request}\nWHAT THIS PAGE NEEDS: ${opts.file.instructions || opts.planMessage}\nALL PAGES: ${opts.allPages.join(", ")}\n\nCURRENT PAGE (${opts.file.path}):\n${opts.previous}${generatedImageContext(`${opts.request} ${opts.file.instructions ?? ""}`, opts.compact ? 3 : 6)}`,
+      userMessage: `REQUEST: ${opts.request}\nWHAT THIS PAGE NEEDS: ${opts.file.instructions || opts.planMessage}\nALL PAGES: ${opts.allPages.join(", ")}${opts.referenceText ? `\n\nVISUAL REFERENCE: ${opts.referenceText}` : ""}\n\nCURRENT PAGE (${opts.file.path}):\n${opts.previous}${generatedImageContext(`${opts.request} ${opts.file.instructions ?? ""}`, opts.compact ? 3 : 6)}`,
+      attachments,
     });
     const blocks = parseEditBlocks(text);
     if (blocks.length) {
@@ -301,11 +372,13 @@ async function buildPage(opts: {
         page: opts.file.path,
         whatThisPageNeeds: opts.file.instructions,
         availableImages: generatedImageContext(`${opts.request} ${opts.file.instructions ?? ""}`, opts.compact ? 3 : 6),
+        ...(opts.referenceText ? { visualReference: `${opts.referenceText}${opts.referenceImage ? "\nThe attached image shows the screen this page is drawn from: follow its structure, spacing and components with this app's own content." : ""}` } : {}),
         allPages: opts.allPages,
         dataFiles: opts.dataFiles,
         ...(opts.previous ? (fits ? { currentPage: opts.previous } : { currentPageOutline: outline(opts.previous), note: "The current page is too long to include; rebuild it with the same sections and content, applying the request." }) : {}),
         ...(fix ? { fix } : {}),
       }),
+      attachments,
     });
     const html = parseHtmlDocument(text);
     if (html && /<body\b/i.test(html)) return html;

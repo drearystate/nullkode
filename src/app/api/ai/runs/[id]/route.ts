@@ -20,6 +20,10 @@ export async function GET(_req: Request, { params }: { params: Promise<{ id: str
     result: run.result,
     error: run.error,
     refunded: run.refunded,
+    // "build_not_allowed" when the build rule refused it (lib/ai/build-policy.ts).
+    errorCode: run.status === "error" && typeof run.meta?.errorCode === "string" ? run.meta.errorCode : null,
+    // The reference images it was given (lib/ai/references.ts), so a refreshed wizard can show them again.
+    references: run.meta?.references ? { id: run.meta.references.id, count: run.meta.references.count } : null,
     createdAt: run.createdAt,
     updatedAt: run.updatedAt,
     endedAt: run.endedAt,

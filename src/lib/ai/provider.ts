@@ -41,6 +41,26 @@ type ContentPart =
   | { type: "image_url"; image_url: { url: string } }
   | { type: "file"; file: { filename: string; file_data: string } };
 
+/** Rough prompt cost of one attached image, for sizing the answer. */
+const IMAGE_PROMPT_TOKENS = 1600;
+
+/** An image (or, for the Ask AI panel on OpenAI-compatible servers, a PDF) sent with a request. */
+export type Attachment = { name: string; mediaType: string; dataUrl: string };
+
+/** The user message with its attachments, in the OpenAI-compatible shape (image_url parts). */
+function withAttachments(text: string, attachments: Attachment[] | undefined): string | ContentPart[] {
+  if (!attachments?.length) return text;
+  const parts: ContentPart[] = [{ type: "text", text }];
+  for (const a of attachments) {
+    if (a.mediaType.startsWith("image/")) {
+      parts.push({ type: "image_url", image_url: { url: a.dataUrl } });
+    } else if (a.mediaType === "application/pdf") {
+      parts.push({ type: "file", file: { filename: a.name, file_data: a.dataUrl } });
+    }
+  }
+  return parts;
+}
+
 interface StreamChatOpts {
   task: "scaffold" | "edit";
   system: string;
@@ -190,7 +210,10 @@ async function streamChat(opts: StreamChatOpts): Promise<string> {
   const model = await getAIModel(opts.task);
   if (await thinkingOff(model)) opts = { ...opts, user: withNoThink(opts.user, model) };
   const userText = typeof opts.user === "string" ? opts.user : opts.user.map((p) => (p.type === "text" ? p.text : "")).join("\n");
-  const maxTokens = await fitMaxTokens(`${opts.system}\n${userText}`, opts.maxTokens, Math.min(1024, opts.maxTokens));
+  // An image costs the model roughly this many prompt tokens (a 1600 px
+  // reference image, see lib/ai/references.ts).
+  const images = typeof opts.user === "string" ? 0 : opts.user.filter((p) => p.type === "image_url").length;
+  const maxTokens = await fitMaxTokens(`${opts.system}\n${userText}`, opts.maxTokens, Math.min(1024, opts.maxTokens), images * IMAGE_PROMPT_TOKENS);
   const request = {
     model,
     stream: true as const,
@@ -392,7 +415,7 @@ interface EditPageOpts {
   userText: string;
   jsonSchema: Record<string, unknown>;
   schemaName: string;
-  attachments?: Array<{ name: string; mediaType: string; dataUrl: string }>;
+  attachments?: Attachment[];
   maxCompletionTokens?: number;
 }
 
@@ -413,21 +436,10 @@ export async function providerEditPage(opts: EditPageOpts): Promise<string> {
     });
   }
 
-  const userMessage: ContentPart[] = [{ type: "text", text: opts.userText }];
-  for (const a of opts.attachments ?? []) {
-    if (a.mediaType.startsWith("image/")) {
-      userMessage.push({ type: "image_url", image_url: { url: a.dataUrl } });
-    } else if (a.mediaType === "application/pdf") {
-      userMessage.push({
-        type: "file",
-        file: { filename: a.name, file_data: a.dataUrl },
-      });
-    }
-  }
   return streamChat({
     task: "edit",
     system: `${opts.systemPrompt}\nReturn JSON matching this schema: ${JSON.stringify(opts.jsonSchema)}`,
-    user: userMessage,
+    user: withAttachments(opts.userText, opts.attachments),
     maxTokens: opts.maxCompletionTokens ?? 20000,
     schema: { schema: opts.jsonSchema, name: opts.schemaName },
   });
@@ -450,13 +462,22 @@ export async function providerComplete(opts: {
    * error itself.
    */
   retry?: boolean;
+  /**
+   * Images sent with the request (reference images, lib/ai/references.ts),
+   * the same way providerEditPage sends the Ask AI panel's: base64 image
+   * blocks on the command-line provider, image_url parts on OpenAI-compatible
+   * servers. Callers check lib/ai/vision.ts aiCanSeeImages first: a model
+   * that can't read images must be refused, never sent them silently.
+   */
+  attachments?: Attachment[];
 }): Promise<string> {
+  const attachments = opts.attachments?.length ? opts.attachments : undefined;
   if (await getAIProvider() === "claude-cli") {
     if (!opts.onDelta) {
-      return claudeCliComplete({ systemPrompt: opts.systemPrompt, userMessage: opts.userMessage, timeoutMs: STALL_TIMEOUT_MS, signal: opts.signal });
+      return claudeCliComplete({ systemPrompt: opts.systemPrompt, userMessage: opts.userMessage, timeoutMs: STALL_TIMEOUT_MS, signal: opts.signal, attachments });
     }
     let text = "";
-    for await (const chunk of claudeCliStream({ systemPrompt: opts.systemPrompt, userMessage: opts.userMessage, timeoutMs: STALL_TIMEOUT_MS, signal: opts.signal })) {
+    for await (const chunk of claudeCliStream({ systemPrompt: opts.systemPrompt, userMessage: opts.userMessage, timeoutMs: STALL_TIMEOUT_MS, signal: opts.signal, attachments })) {
       if (chunk.kind === "thinking") continue;
       text = chunk.accumulated;
       opts.onDelta(text.length);
@@ -467,7 +488,7 @@ export async function providerComplete(opts: {
   return streamChat({
     task: opts.task ?? "edit",
     system: opts.systemPrompt,
-    user: opts.userMessage,
+    user: withAttachments(opts.userMessage, attachments),
     maxTokens: opts.maxTokens ?? 4096,
     looseJson: opts.json,
     signal: opts.signal,

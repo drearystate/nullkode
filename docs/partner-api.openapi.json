@@ -497,7 +497,7 @@
         ],
         "operationId": "planApp",
         "summary": "Propose an app plan for a person to review",
-        "description": "Same checks as the studio: the person's AI allowance must not be used up (planning itself isn't charged) and plans are limited to 30 an hour per person.",
+        "description": "Same checks as the studio: the person's AI allowance must not be used up (planning itself isn't charged) and plans are limited to 30 an hour per person. Takes up to 6 reference images (`images`), or a `referenceId`. Refused with 422 build_not_allowed when the build rule applies.",
         "requestBody": {
           "required": true,
           "content": {
@@ -554,8 +554,29 @@
           },
           "500": {
             "$ref": "#/components/responses/Internal"
+          },
+          "413": {
+            "$ref": "#/components/responses/ImageTooLarge"
+          },
+          "422": {
+            "$ref": "#/components/responses/BuildNotAllowed"
+          },
+          "409": {
+            "description": "idempotency_in_progress: a request with this Idempotency-Key is still running.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
           }
-        }
+        },
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ]
       }
     },
     "/builds": {
@@ -565,7 +586,7 @@
         ],
         "operationId": "buildApp",
         "summary": "Build an app for a person",
-        "description": "Charges one AI action to the person (refunded if the build fails). Poll GET /runs/{runId}, or configure a webhook on the key.",
+        "description": "Charges one AI action to the person (refunded if the build fails). Poll GET /runs/{runId}, or configure a webhook on the key. Takes up to 6 reference images (`images`), or a `referenceId`. Refused with 422 build_not_allowed when the build rule applies.",
         "parameters": [
           {
             "$ref": "#/components/parameters/IdempotencyKey"
@@ -627,14 +648,7 @@
             }
           },
           "422": {
-            "description": "idempotency_key_reused: this Idempotency-Key was used for a different request.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
+            "$ref": "#/components/responses/BuildNotAllowed"
           },
           "401": {
             "$ref": "#/components/responses/Unauthorized"
@@ -647,6 +661,9 @@
           },
           "500": {
             "$ref": "#/components/responses/Internal"
+          },
+          "413": {
+            "$ref": "#/components/responses/ImageTooLarge"
           }
         }
       }
@@ -945,7 +962,7 @@
     },
     "responses": {
       "BadRequest": {
-        "description": "invalid_request, invalid_json, invalid_idempotency_key.",
+        "description": "invalid_request, invalid_json, invalid_idempotency_key; with reference images also images_not_supported, image_type, too_many_images, image_fetch_failed, references_not_found.",
         "content": {
           "application/json": {
             "schema": {
@@ -1007,6 +1024,32 @@
           "application/json": {
             "schema": {
               "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "ImageTooLarge": {
+        "description": "image_too_large: a reference image is over 5 MB.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "BuildNotAllowed": {
+        "description": "build_not_allowed: the platform doesn't build apps similar to NullKode LLC's products (docs/partner-api.md, \"The build rule\"). The message is the sentence to show the person, in their language. (On POST /builds and POST /plan, idempotency_key_reused also answers 422.)",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": "build_not_allowed",
+                "message": "I can't build apps similar to NullKode LLC's NullKode platform, IgniteUps.ai, or any AI tools built by NullKode LLC."
+              }
             }
           }
         }
@@ -1257,6 +1300,18 @@
           "previous": {
             "type": "object",
             "description": "A plan from a previous run, with `change`."
+          },
+          "images": {
+            "type": "array",
+            "maxItems": 6,
+            "items": {
+              "$ref": "#/components/schemas/ReferenceImage"
+            },
+            "description": "Up to 6 reference images of how the app should look. Reading them is one AI action. Counted in the Idempotency-Key's request."
+          },
+          "referenceId": {
+            "type": "string",
+            "description": "A `referenceId` from an earlier plan or build, to reuse its images (instead of `images`)."
           }
         }
       },
@@ -1281,6 +1336,18 @@
           },
           "locale": {
             "type": "string"
+          },
+          "images": {
+            "type": "array",
+            "maxItems": 6,
+            "items": {
+              "$ref": "#/components/schemas/ReferenceImage"
+            },
+            "description": "Up to 6 reference images of how the app should look. Reading them is one AI action. Counted in the Idempotency-Key's request."
+          },
+          "referenceId": {
+            "type": "string",
+            "description": "A `referenceId` from an earlier plan or build, to reuse its images (instead of `images`)."
           }
         }
       },
@@ -1292,6 +1359,10 @@
         "properties": {
           "runId": {
             "type": "string"
+          },
+          "referenceId": {
+            "type": "string",
+            "description": "When images were sent: their id, for revisions and the build."
           }
         }
       },
@@ -1361,11 +1432,53 @@
             ],
             "description": "Successful builds: the new app."
           },
+          "references": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Send as referenceId to reuse the images."
+                  },
+                  "count": {
+                    "type": "integer"
+                  },
+                  "brief": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/VisualBrief"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The run's reference images, if any."
+          },
           "error": {
             "type": [
               "string",
               "null"
             ]
+          },
+          "errorCode": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "build_not_allowed",
+              "failed",
+              null
+            ],
+            "description": "On error: build_not_allowed when the build rule stopped the run, else failed."
           },
           "refunded": {
             "type": "boolean",
@@ -1492,6 +1605,126 @@
                 "$ref": "#/components/schemas/Run"
               }
             }
+          }
+        }
+      },
+      "ReferenceImage": {
+        "type": "object",
+        "description": "A reference image (concept art, a sketch, a screenshot, a mood board): exactly one of `url` or `data`. At most 5 MB; PNG, JPEG, WebP or GIF (checked from the file's bytes). Shrunk to at most 1600 px and kept privately for 7 days after its last use.",
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "A public https:// link to the image."
+          },
+          "data": {
+            "type": "string",
+            "description": "The image: a data: URL or plain base64."
+          },
+          "mediaType": {
+            "type": "string",
+            "enum": [
+              "image/png",
+              "image/jpeg",
+              "image/webp",
+              "image/gif"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 120
+          }
+        }
+      },
+      "VisualBrief": {
+        "type": "object",
+        "description": "What the AI saw in the reference images.",
+        "properties": {
+          "summary": {
+            "type": "string"
+          },
+          "palette": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "hex": {
+                  "type": "string",
+                  "examples": [
+                    "#1f2937"
+                  ]
+                },
+                "role": {
+                  "type": "string",
+                  "examples": [
+                    "background",
+                    "surface",
+                    "primary",
+                    "accent",
+                    "text",
+                    "muted",
+                    "border"
+                  ]
+                }
+              }
+            }
+          },
+          "fonts": {
+            "type": "object",
+            "properties": {
+              "display": {
+                "type": "string"
+              },
+              "body": {
+                "type": "string"
+              },
+              "style": {
+                "type": "string"
+              }
+            }
+          },
+          "mood": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "layout": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "components": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "screens": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "purpose": {
+                  "type": "string"
+                },
+                "imageIndex": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              }
+            }
+          },
+          "suggestedTheme": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The closest built-in look."
           }
         }
       }

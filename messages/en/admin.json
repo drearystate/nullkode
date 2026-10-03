@@ -53,7 +53,32 @@
     "colFlow": "Flow",
     "colStatus": "Status",
     "noRuns": "No runs yet.",
-    "partnerApi": "Partner API"
+    "partnerApi": "Partner API",
+    "refusedTitle": "Refused builds",
+    "refusedIntro": "Apps the platform refused to build or change because they are similar to NullKode LLC’s own products. Nothing was charged for them.",
+    "refusedHelp": "Every request the build rule refused, newest first: in the studio, the Designer, Ask AI and the partner API. You can turn the rule off in Settings → AI.",
+    "refusedWhereHelp": "What was asked (a new plan, a change, a build, an Ask AI edit, a Designer change) and what gave it away (fixed patterns, the AI check, the plan, the images or the result).",
+    "colRefusedWhere": "Where",
+    "colRequest": "Request",
+    "colReason": "Why",
+    "noRefusals": "No refused builds.",
+    "deletedUser": "Deleted account",
+    "viaPartnerApi": "(partner API)",
+    "refusedKind": {
+      "plan": "New app",
+      "revision": "Plan change",
+      "build": "Build",
+      "edit": "Ask AI",
+      "section": "Ask AI (section)",
+      "designer": "Designer"
+    },
+    "refusedStage": {
+      "rule": "fixed rule",
+      "ai": "AI check",
+      "plan": "plan",
+      "images": "images",
+      "result": "result"
+    }
   },
   "schema": {
     "columns": "{count, plural, one {# column} other {# columns}}",
@@ -265,7 +290,16 @@
     "savePlansHelp": "Saves the limits for all four plans. They apply to your direct customers straight away.",
     "savePlans": "Save plan limits",
     "resetHelp": "Fills in the built-in standard limits. Nothing changes until you press Save plan limits.",
-    "reset": "Reset to the standard limits"
+    "reset": "Reset to the standard limits",
+    "vision": "Reads images",
+    "visionHelp": "Whether the AI model can look at pictures. People can add reference images (concept art, sketches, screenshots) when they build an app; if the model can’t read them, they are refused with a clear message instead of being ignored.",
+    "visionHint": "Automatic knows the common models that can read images.",
+    "visionAuto": "Automatic",
+    "visionOn": "Yes, it reads images",
+    "visionOff": "No, refuse images",
+    "buildPolicy": "Refuse apps similar to NullKode LLC’s products",
+    "buildPolicyHelp": "When on, the AI won’t build or change apps that copy the NullKode platform, IgniteUps.ai or other AI tools made by NullKode LLC. Refusals are listed on the admin home page.",
+    "buildPolicyHint": "On by default. Checked on every plan, build, Ask AI edit and Designer change."
   },
   "language": {
     "title": "Language",
@@ -354,7 +388,9 @@
     "aiNoText": "The model returned no text. Check model support and output limits.",
     "aiConnected": "Connected — {model} replied. Context: {size}K tokens.",
     "aiConnectedCompact": "Connected — {model} replied. Context: {size}K tokens (compact prompts will be used).",
-    "aiPingFailed": "OpenAI ping failed"
+    "aiPingFailed": "OpenAI ping failed",
+    "invalidVision": "Reads images must be auto, on or off.",
+    "invalidBuildPolicy": "The build rule setting must be true or false."
   },
   "email": {
     "justNow": "just now",

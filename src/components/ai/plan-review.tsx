@@ -1,10 +1,11 @@
 "use client";
 import { useMemo, useState } from "react";
-import { Check, Database, FileText, Lock, Palette, ShieldCheck, Trash2, Wand2 } from "lucide-react";
+import { Check, Database, FileText, ImageIcon, Lock, Palette, ShieldCheck, Trash2, Wand2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import type { AppPlan } from "@/lib/ai/plan";
 import { THEME_PRESETS } from "@/lib/theme";
 import { AppLanguageSelect } from "./app-language-select";
+import { ReferencePicker, type PickedImage } from "./reference-picker";
 
 const words = (snake: string) => {
   const s = snake.replace(/_/g, " ").trim();
@@ -22,6 +23,8 @@ export function PlanReview({
   reviseError,
   appLocale,
   onAppLocale,
+  images,
+  onImages,
 }: {
   plan: AppPlan;
   onChange: (plan: AppPlan) => void;
@@ -33,6 +36,9 @@ export function PlanReview({
   /** The language the app is built in (sent with the build). */
   appLocale?: string;
   onAppLocale?: (code: string) => void;
+  /** Reference images the plan was made from (kept for revisions and the build). */
+  images?: PickedImage[];
+  onImages?: (images: PickedImage[]) => void;
 }) {
   const t = useTranslations("ai");
   const [change, setChange] = useState("");
@@ -78,6 +84,17 @@ export function PlanReview({
               <span className="truncate">{th.name}</span>
             </button>
           ))}
+        </div>
+      )}
+
+      {images && onImages && (
+        <div className="mt-6" data-help={t("references.plan.help")}>
+          <h3 className="flex items-center gap-2 text-sm font-semibold"><ImageIcon size={15} className="text-brand-300" aria-hidden />{t("references.plan.title")}</h3>
+          <p className="mt-1 text-xs text-surface-400">{images.length ? t("references.plan.used", { count: images.length }) : t("references.plan.none")}</p>
+          <div className="mt-2">
+            <ReferencePicker images={images} onChange={onImages} disabled={revising} id="plan-references" />
+          </div>
+          {images.length > 0 && !images.every((img, i) => img.stored && img.stored.referenceId === images[0].stored?.referenceId && img.stored.index === i) && <p className="mt-1.5 text-xs text-amber-200">{t("references.plan.changed")}</p>}
         </div>
       )}
 

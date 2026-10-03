@@ -69,6 +69,9 @@ function createMock() {
       let reply: Reply;
       if (/confirm a website-edit instruction/.test(rec.system)) {
         reply = { content: "I'll make that change." };
+      } else if (/You enforce one rule of an AI app-building platform/.test(rec.system)) {
+        // The build rule's check (src/lib/ai/build-policy.ts; tested in e2e-build-policy.ts).
+        reply = { content: JSON.stringify({ allowed: true, reason: "An ordinary app." }) };
       } else {
         requests.push(rec);
         reply = queue.shift() ?? fallback?.(rec) ?? { status: 500, message: "no scripted answer" };

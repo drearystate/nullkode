@@ -2,7 +2,8 @@ import { z } from "zod";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
 import { json } from "@/lib/utils";
-import { aiUsageSummary, checkAiQuota, recordAiUsage, refundFailedAi } from "@/lib/ai-quota";
+import { aiUsageSummary, checkAiQuota, recordAiUsage, refundAiUsage, refundFailedAi } from "@/lib/ai-quota";
+import { appSummary, refusalResponse, withBuildPolicy } from "@/lib/ai/build-policy";
 import { providerComplete } from "@/lib/ai/provider";
 import { DESIGN_RULES_COMPACT } from "@/lib/ai/design-system";
 import { generatedImageContext } from "@/lib/assets/generated";
@@ -73,6 +74,21 @@ export async function POST(req: Request) {
   const baseMessage = `${context}Page: ${page.title}\nRequest: ${message}\n\nSECTION HTML:\n${sectionHtml}${generatedImageContext(`${message} ${page.title}`, 3)}${languageRule ? `\n\n${languageRule}` : ""}`;
   const maxTokens = Math.min(16_000, Math.max(2_000, estimateTokens(sectionHtml) * 2 + 1_500));
 
+  // The build rule (lib/ai/build-policy.ts), checked alongside the edit: this
+  // request together with what the app is so far. A refusal charges nothing.
+  const checked = await withBuildPolicy(
+    { kind: "section", request: message, earlier: (history ?? []).filter((h) => h.role === "user").slice(-4).map((h) => h.text).join(" | "), app: await appSummary(projectId) },
+    { userId: user.id, locale, projectId },
+    () => editSection(user),
+  );
+  if ("refused" in checked) {
+    await refundAiUsage(chargeId);
+    return refusalResponse(checked.refused, { usage: await usage() });
+  }
+  return checked.value;
+
+  // `user` again: a function declaration doesn't keep the signed-in check's narrowing.
+  async function editSection(user: NonNullable<Awaited<ReturnType<typeof getCurrentUser>>>): Promise<Response> {
   let problem = "";
   let unchanged = false;
   for (let attempt = 0; attempt < 2; attempt++) {
@@ -139,4 +155,5 @@ export async function POST(req: Request) {
     },
     { status: 422 },
   );
+  }
 }

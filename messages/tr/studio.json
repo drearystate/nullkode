@@ -101,6 +101,7 @@
     "plan": "{plan} planı",
     "planHelp": "Planın, oluşturduğun uygulama sayısı ve bu ay kullandığın yapay zekâ işlemleri. Plan ayrıntılarını görmek için tıkla.",
     "planMyApp": "Uygulamamı planla",
+    "planMyAppHelp": "Yapay zekâ, fikrinizi ve eklediğiniz görselleri, herhangi bir şey oluşturulmadan önce gözden geçirebileceğiniz bir plana dönüştürür.",
     "previewTitle": "{name} önizlemesi",
     "problems": "{count, plural, one {Son 24 saatte # sorun} other {Son 24 saatte # sorun}}",
     "problemsFor": "{name}: {count, plural, one {Son 24 saatte # sorun} other {Son 24 saatte # sorun}}",

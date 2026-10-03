@@ -157,6 +157,9 @@
     "tooLong": "描述太长了。请控制在 2,000 个字符以内。",
     "tooShort": "请多告诉我们一些你想创建的内容。"
   },
+  "policy": {
+    "refused": "我无法构建与 NullKode LLC 的 NullKode 平台、IgniteUps.ai 或 NullKode LLC 开发的任何 AI 工具相似的应用。"
+  },
   "progress": {
     "buildingFlow": "正在创建流程 {index}/{total}：{name}",
     "buildingPage": "正在创建页面 {index}/{total}：{title}",
@@ -169,6 +172,51 @@
     "stillWorking": "{label} — 仍在处理中（{minutes} 分钟）",
     "updatingPlan": "正在更新计划",
     "written": "{label} — 已写入 {count, number} 个字符"
+  },
+  "references": {
+    "errors": {
+      "badUrl": "“{name}”需要一个公开的 https:// 图片链接。",
+      "expired": "这些图片已不再保留（闲置 7 天后会被删除）。请重新添加。",
+      "fetchFailed": "无法下载“{name}”。请确认链接直接指向图片，且图片是公开的。",
+      "imagesOrId": "请提供新图片，或提供已发送图片的 ID，不能两者都提供。",
+      "invalid": "无法读取这些图片。请重新添加。",
+      "invalidData": "“{name}”不是有效的图片文件。请重新添加。",
+      "notSupported": "此网站使用的 AI 无法读取图片，因此无法在此使用参考图片。请改用文字描述外观，或移除这些图片。",
+      "rateLimited": "你在短时间内添加了太多图片。请在 {minutes, plural, one {# 分钟} other {# 分钟}}后重试。",
+      "tooLarge": "“{name}”太大了。每张图片不能超过 {size}。",
+      "tooMany": "最多可以添加 {max} 张图片。",
+      "type": "“{name}”不是 PNG、JPEG、WebP 或 GIF 图片。",
+      "unreadable": "无法将“{name}”作为图片打开。请尝试重新保存为 PNG 或 JPEG 格式。",
+      "urlOrData": "“{name}”需要提供链接或图片本身，不能两者都提供。"
+    },
+    "picker": {
+      "add": "添加图片",
+      "addHelp": "添加你希望应用呈现的样子：概念图、草图、喜欢的应用截图或情绪板。你也可以将图片拖到此处或粘贴到此处。",
+      "addMore": "添加更多",
+      "addTitle": "添加概念图、草图、截图或情绪板",
+      "hint": "可选：拖放、粘贴或添加最多 {max} 张图片，展示你希望的外观。",
+      "listHelp": "AI 会参考这些图片来确定应用的外观、配色和页面。",
+      "listLabel": "{count, plural, one {# 张参考图片} other {# 张参考图片}}",
+      "pasted": "已粘贴的图片",
+      "pastedName": "pasted-image-{n}",
+      "preparing": "正在准备图片…",
+      "readFailed": "无法读取“{name}”。",
+      "remove": "移除 {name}",
+      "removeHelp": "移除此图片。AI 不会使用它。",
+      "thumbAlt": "参考图片 {n}：{name}",
+      "tooBig": "“{name}”太大了。每张图片不能超过 {size}。",
+      "tooMany": "最多可以添加 {max} 张图片。",
+      "uploadFailed": "无法发送你的图片。请重试。",
+      "wrongType": "“{name}”不是 PNG、JPEG、WebP 或 GIF 图片。"
+    },
+    "plan": {
+      "changed": "你更改了图片。请要求修改方案以使用这些图片，或者立即构建，届时会用它们来确定外观。",
+      "help": "制作此方案时参考的图片。它们会影响应用的外观和页面，并在构建应用时再次使用。",
+      "none": "没有图片。你可以添加图片，然后要求修改方案。",
+      "title": "参考图片",
+      "used": "{count, plural, one {此方案参考了你的图片。} other {此方案参考了你的 # 张图片。}}"
+    },
+    "reading": "{count, plural, one {正在查看你的图片…} other {正在查看你的 # 张图片…}}"
   },
   "runs": {
     "interrupted": "构建过程中服务器重启，因此已停止。此操作未计入你的 AI 使用额度。请重试。",

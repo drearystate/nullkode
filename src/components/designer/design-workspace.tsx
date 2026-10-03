@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useFormatter, useTranslations } from "next-intl";
 import { AlertTriangle, ArrowUpRight, Check, Download, History, Loader2, MessageSquarePlus, Monitor, Send, Smartphone, Square, Tablet, X } from "lucide-react";
+import { addImageFiles, imagesFromPaste, ReferencePicker, referenceDropProps, type PickedImage } from "@/components/ai/reference-picker";
 
 type Design = { id: string; name: string; projectId: string | null; inBuilder: boolean; files: Array<{ path: string }> };
 type Message = { seq: number; kind: "user" | "assistant" | "step" | "error"; text: string; versionId: string | null; createdAt: string };
@@ -48,6 +49,11 @@ export function DesignWorkspace({ id }: { id: string }) {
   const [stamp, setStamp] = useState(0);
   const [questions, setQuestions] = useState<{ prompt: string; list: Question[]; answers: Record<string, string> } | null>(null);
   const [mobileView, setMobileView] = useState<"chat" | "preview">("chat");
+  // Reference images sent with the next message (src/lib/ai/references.ts).
+  const [images, setImages] = useState<PickedImage[]>([]);
+  const [imageError, setImageError] = useState<string | null>(null);
+  const [dropping, setDropping] = useState(false);
+  const ta = useTranslations("ai");
   const frame = useRef<HTMLIFrameElement>(null);
   const chatEnd = useRef<HTMLDivElement>(null);
 
@@ -121,27 +127,39 @@ export function DesignWorkspace({ id }: { id: string }) {
     return () => window.removeEventListener("message", onMessage);
   }, []);
 
-  async function send(text: string, withNotes: Note[]) {
-    if (running || (!text.trim() && withNotes.length === 0)) return;
+  async function send(text: string, withNotes: Note[], withImages: PickedImage[] = []) {
+    if (running || (!text.trim() && withNotes.length === 0 && withImages.length === 0)) return;
     setError("");
+    setImageError(null);
     setRunning(true);
     setSteps([]);
-    const res = await fetch(`/api/designs/${id}/generate`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ prompt: text, notes: withNotes.map((n) => ({ text: n.text, html: n.html })) }) });
-    const data = await res.json().catch(() => ({}));
-    if (!res.ok) {
+    const sentImages = withImages.filter((img) => img.dataUrl).map((img) => ({ data: img.dataUrl!, mediaType: img.mediaType, name: img.name }));
+    const res = await fetch(`/api/designs/${id}/generate`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ prompt: text, notes: withNotes.map((n) => ({ text: n.text, html: n.html })), ...(sentImages.length ? { images: sentImages } : {}) }) }).catch(() => null);
+    const data = (await res?.json().catch(() => ({}))) ?? {};
+    if (!res || !res.ok) {
       setRunning(false);
-      setError(data.error || t("workspace.startFailed"));
+      // Problems with the images show under them; anything else (the build rule's refusal…) above the box.
+      if (typeof data.code === "string" && /image|references/.test(data.code) && withImages.length) setImageError(data.error || t("workspace.startFailed"));
+      else setError(data.error || t("workspace.startFailed"));
       return;
     }
     setPrompt("");
     setNotes([]);
+    setImages([]);
     setCommenting(false);
     setViewVersion(null);
   }
 
   function submit(e?: React.FormEvent) {
     e?.preventDefault();
-    void send(prompt, notes);
+    void send(prompt, notes, images);
+  }
+
+  async function addImages(files: File[]) {
+    if (running || files.length === 0) return;
+    const result = await addImageFiles(files, images, ta);
+    setImageError(result.error);
+    if (result.images.length !== images.length) setImages(result.images);
   }
 
   function buildWithAnswers(skip: boolean) {
@@ -261,7 +279,7 @@ export function DesignWorkspace({ id }: { id: string }) {
             </div>
           </div>
         ) : (
-          <form onSubmit={submit} className="border-t border-white/10 p-3">
+          <form onSubmit={submit} className={`border-t border-white/10 p-3 ${dropping ? "outline-dashed outline-2 -outline-offset-4 outline-brand-400/70" : ""}`} {...referenceDropProps((files) => void addImages(files), setDropping)}>
             {notes.length > 0 && (
               <ul className="mb-2 flex flex-wrap gap-1.5">
                 {notes.map((n, i) => (
@@ -273,6 +291,11 @@ export function DesignWorkspace({ id }: { id: string }) {
               </ul>
             )}
             {error && <p role="alert" className="mb-2 text-xs text-red-300">{error}</p>}
+            {(images.length > 0 || imageError) && (
+              <div className="mb-2">
+                <ReferencePicker images={images} onChange={setImages} compact id="design-references" disabled={running} error={imageError} onError={setImageError} />
+              </div>
+            )}
             <div className="flex items-end gap-2 rounded-xl border border-white/10 bg-white/[0.03] [[data-theme=light]_&]:bg-surface-900 p-2 focus-within:border-brand-500/60">
               <label htmlFor="design-prompt" className="sr-only">{t("workspace.askLabel")}</label>
               <textarea
@@ -282,14 +305,21 @@ export function DesignWorkspace({ id }: { id: string }) {
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
                 onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); submit(); } }}
+                onPaste={(e) => {
+                  const files = imagesFromPaste(e);
+                  if (files.length) { e.preventDefault(); void addImages(files); }
+                }}
                 placeholder={chat.length ? t("workspace.askPlaceholder") : t("workspace.describePlaceholder")}
                 className="min-h-[44px] flex-1 resize-none bg-transparent p-1 text-sm outline-none placeholder:text-surface-500"
                 disabled={running}
               />
+              {!running && images.length === 0 && (
+                <ReferencePicker images={images} onChange={setImages} compact id="design-references-add" error={null} onError={setImageError} />
+              )}
               {running ? (
                 <button type="button" className="btn-ghost shrink-0 p-2" aria-label={t("workspace.stop")} data-help={t("workspace.stopHelp")} onClick={() => fetch(`/api/designs/${id}/generate`, { method: "DELETE" })}><Square size={16} /></button>
               ) : (
-                <button className="btn-primary shrink-0 p-2" aria-label={t("workspace.send")} data-help={t("workspace.sendHelp")} disabled={!prompt.trim() && notes.length === 0}><Send size={16} className="rtl:-scale-x-100" /></button>
+                <button className="btn-primary shrink-0 p-2" aria-label={t("workspace.send")} data-help={t("workspace.sendHelp")} disabled={!prompt.trim() && notes.length === 0 && images.length === 0}><Send size={16} className="rtl:-scale-x-100" /></button>
               )}
             </div>
           </form>

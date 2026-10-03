@@ -2,7 +2,7 @@ import { db } from "../db";
 import { slugify, projectSlug } from "../utils";
 import { isLanguageSlug } from "../app-translations";
 import { ensureInternalTable } from "../datasources/postgres";
-import { THEME_PRESETS } from "../theme";
+import { THEME_PRESETS, type ProjectTheme } from "../theme";
 import { getModule } from "../modules/registry";
 import { installModule } from "../modules/install";
 import { syncProjectNav } from "../nav-sync";
@@ -187,7 +187,8 @@ export async function applyScaffold(
   ownerId: string,
   scaffold: ScaffoldResult,
   /** locale: the language the app was built in; saved as the app's language before any module installs. */
-  opts: { locale?: Locale } = {},
+  /** themeTokens: colours and fonts from the person's reference images (lib/ai/vision.ts paletteTheme), laid over the preset. */
+  opts: { locale?: Locale; themeTokens?: Partial<ProjectTheme> } = {},
 ): Promise<{ projectId: string; homePageId: string }> {
   // 1. Create project
   const baseSlug = slugify(scaffold.project.name) || "project";
@@ -205,7 +206,7 @@ export async function applyScaffold(
       name: scaffold.project.name,
       description: scaffold.project.description,
       slug: newSlug,
-      theme: themePreset as unknown as object,
+      theme: (opts.themeTokens ? { ...themePreset, ...opts.themeTokens } : themePreset) as unknown as object,
     },
   });
 

@@ -157,6 +157,9 @@
     "tooLong": "La descripción es demasiado larga. Debe tener menos de 2.000 caracteres.",
     "tooShort": "Cuéntanos un poco más sobre lo que quieres crear."
   },
+  "policy": {
+    "refused": "No puedo crear apps similares a la plataforma NullKode de NullKode LLC, IgniteUps.ai ni a ninguna herramienta de IA creada por NullKode LLC."
+  },
   "progress": {
     "buildingFlow": "Creando el flujo {index}/{total}: {name}",
     "buildingPage": "Creando la página {index}/{total}: {title}",
@@ -169,6 +172,51 @@
     "stillWorking": "{label} — sigue en curso ({minutes} min)",
     "updatingPlan": "Actualizando el plan",
     "written": "{label} — {count, number} caracteres escritos"
+  },
+  "references": {
+    "errors": {
+      "badUrl": "“{name}” necesita un enlace público https:// a la imagen.",
+      "expired": "Las imágenes ya no se conservan (se eliminan tras 7 días sin uso). Vuelve a añadirlas.",
+      "fetchFailed": "No se pudo descargar “{name}”. Comprueba que el enlace abra la imagen directamente y que sea público.",
+      "imagesOrId": "Envía imágenes nuevas o el id de las imágenes que ya enviaste, pero no ambas cosas.",
+      "invalid": "No se pudieron leer las imágenes. Vuelve a añadirlas.",
+      "invalidData": "“{name}” no es un archivo de imagen válido. Vuelve a añadirlo.",
+      "notSupported": "La IA que usa este sitio no puede leer imágenes, así que aquí no puedes usar imágenes de referencia. Describe el estilo con palabras o quita las imágenes.",
+      "rateLimited": "Has añadido muchas imágenes en poco tiempo. Vuelve a intentarlo dentro de {minutes, plural, one {# minuto} other {# minutos}}.",
+      "tooLarge": "“{name}” es demasiado grande. Cada imagen puede pesar hasta {size}.",
+      "tooMany": "Puedes añadir hasta {max} imágenes.",
+      "type": "“{name}” no es una imagen PNG, JPEG, WebP ni GIF.",
+      "unreadable": "No se pudo abrir “{name}” como imagen. Prueba a guardarla de nuevo como PNG o JPEG.",
+      "urlOrData": "“{name}” necesita un enlace o la imagen, pero no ambas cosas."
+    },
+    "picker": {
+      "add": "Añadir imágenes",
+      "addHelp": "Añade imágenes de cómo debería verse la app: arte conceptual, bocetos, capturas de apps que te gustan o tableros de inspiración. También puedes soltarlas o pegarlas aquí.",
+      "addMore": "Añadir más",
+      "addTitle": "Añade arte conceptual, bocetos, capturas de pantalla o tableros de inspiración",
+      "hint": "Opcional: suelta, pega o añade hasta {max} imágenes de cómo debería verse.",
+      "listHelp": "La IA se guía por estas imágenes para definir el estilo, los colores y las pantallas de tu app.",
+      "listLabel": "{count, plural, one {# imagen de referencia} other {# imágenes de referencia}}",
+      "pasted": "Imagen pegada",
+      "pastedName": "imagen-pegada-{n}",
+      "preparing": "Preparando imágenes…",
+      "readFailed": "No se pudo leer “{name}”.",
+      "remove": "Quitar {name}",
+      "removeHelp": "Quita esta imagen. La IA no la usará.",
+      "thumbAlt": "Imagen de referencia {n}: {name}",
+      "tooBig": "“{name}” es demasiado grande. Cada imagen puede pesar hasta {size}.",
+      "tooMany": "Puedes añadir hasta {max} imágenes.",
+      "uploadFailed": "No se pudieron enviar tus imágenes. Vuelve a intentarlo.",
+      "wrongType": "“{name}” no es una imagen PNG, JPEG, WebP ni GIF."
+    },
+    "plan": {
+      "changed": "Has cambiado las imágenes. Pide un cambio en el plan para usarlas, o crea la app ahora y se usarán para definir el estilo.",
+      "help": "Las imágenes a partir de las que se creó este plan. Definen el estilo y las páginas de tu app, y se vuelven a usar al crearla.",
+      "none": "No hay imágenes. Puedes añadir algunas y pedir un cambio en el plan.",
+      "title": "Imágenes de referencia",
+      "used": "{count, plural, one {Este plan sigue tu imagen.} other {Este plan sigue tus # imágenes.}}"
+    },
+    "reading": "{count, plural, one {Mirando tu imagen…} other {Mirando tus # imágenes…}}"
   },
   "runs": {
     "interrupted": "El servidor se reinició mientras se creaba, así que se detuvo. No se descontó de tu límite de IA. Inténtalo de nuevo.",

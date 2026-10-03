@@ -157,6 +157,9 @@
     "tooLong": "Essa descrição é longa demais. Use no máximo 2.000 caracteres.",
     "tooShort": "Conte um pouco mais sobre o que você quer criar."
   },
+  "policy": {
+    "refused": "Não posso criar apps semelhantes à plataforma NullKode da NullKode LLC, ao IgniteUps.ai ou a qualquer ferramenta de IA criada pela NullKode LLC."
+  },
   "progress": {
     "buildingFlow": "Criando fluxo {index}/{total}: {name}",
     "buildingPage": "Criando página {index}/{total}: {title}",
@@ -169,6 +172,51 @@
     "stillWorking": "{label} — ainda trabalhando ({minutes} min)",
     "updatingPlan": "Atualizando o plano",
     "written": "{label} — {count, number} caracteres escritos"
+  },
+  "references": {
+    "errors": {
+      "badUrl": "“{name}” precisa ter um link https:// público para a imagem.",
+      "expired": "Essas imagens não estão mais salvas (elas são excluídas após 7 dias sem uso). Adicione-as novamente.",
+      "fetchFailed": "Não foi possível baixar “{name}”. Confira se o link abre a própria imagem e se ela é pública.",
+      "imagesOrId": "Envie imagens novas ou o id das imagens que já enviou, não os dois.",
+      "invalid": "Não foi possível ler as imagens. Adicione-as novamente.",
+      "invalidData": "“{name}” não é um arquivo de imagem válido. Adicione-o novamente.",
+      "notSupported": "A IA usada neste site não consegue ler imagens, então não é possível usar imagens de referência aqui. Descreva o visual por escrito ou remova as imagens.",
+      "rateLimited": "Você adicionou muitas imagens em pouco tempo. Tente novamente em {minutes, plural, one {# minuto} other {# minutos}}.",
+      "tooLarge": "“{name}” é muito grande. Cada imagem pode ter no máximo {size}.",
+      "tooMany": "Você pode adicionar no máximo {max} imagens.",
+      "type": "“{name}” não é uma imagem PNG, JPEG, WebP ou GIF.",
+      "unreadable": "Não foi possível abrir “{name}” como imagem. Tente salvá-la novamente como PNG ou JPEG.",
+      "urlOrData": "“{name}” precisa ser um link ou a própria imagem, não os dois."
+    },
+    "picker": {
+      "add": "Adicionar imagens",
+      "addHelp": "Adicione imagens que mostrem como o app deve ser: artes conceituais, esboços, capturas de tela de apps de que você gosta ou painéis de referências. Você também pode arrastar, soltar ou colar as imagens aqui.",
+      "addMore": "Adicionar mais",
+      "addTitle": "Adicione artes conceituais, esboços, capturas de tela ou painéis de referências",
+      "hint": "Opcional: arraste, solte, cole ou adicione até {max} imagens de como o app deve ser.",
+      "listHelp": "A IA usa estas imagens como referência para o visual, as cores e as telas do seu app.",
+      "listLabel": "{count, plural, one {# imagem de referência} other {# imagens de referência}}",
+      "pasted": "Imagem colada",
+      "pastedName": "imagem-colada-{n}",
+      "preparing": "Preparando imagens…",
+      "readFailed": "Não foi possível ler “{name}”.",
+      "remove": "Remover {name}",
+      "removeHelp": "Remover esta imagem. A IA não vai usá-la.",
+      "thumbAlt": "Imagem de referência {n}: {name}",
+      "tooBig": "“{name}” é muito grande. Cada imagem pode ter no máximo {size}.",
+      "tooMany": "Você pode adicionar no máximo {max} imagens.",
+      "uploadFailed": "Não foi possível enviar suas imagens. Tente novamente.",
+      "wrongType": "“{name}” não é uma imagem PNG, JPEG, WebP ou GIF."
+    },
+    "plan": {
+      "changed": "Você alterou as imagens. Peça uma alteração no plano para usá-las ou crie o app agora para que elas sejam usadas como referência visual.",
+      "help": "As imagens usadas para criar este plano. Elas definem o visual e as páginas do seu app e serão usadas novamente na criação.",
+      "none": "Nenhuma imagem. Você pode adicionar algumas e pedir uma alteração no plano.",
+      "title": "Imagens de referência",
+      "used": "{count, plural, one {Este plano usa sua imagem como referência.} other {Este plano usa suas # imagens como referência.}}"
+    },
+    "reading": "{count, plural, one {Analisando sua imagem…} other {Analisando suas # imagens…}}"
   },
   "runs": {
     "interrupted": "O servidor reiniciou durante a criação, e ela foi interrompida. Isso não foi descontado do seu limite de IA. Tente novamente.",

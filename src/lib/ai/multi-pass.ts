@@ -15,6 +15,7 @@ import type { ScaffoldResult } from "./schema";
 import { replyLanguageRule, translator, type Tr } from "./i18n";
 import { LOCALES, isLocale, type Locale } from "@/i18n/locales";
 import { contentLanguageRule, languageLabel, runtimeText } from "../app-locale";
+import { addScreenPages, briefText, pageReferenceBlock, paletteTheme, type BuildReferences, type VisualBrief } from "./vision";
 
 export { stripThinking } from "./text";
 
@@ -100,7 +101,29 @@ function withLocale(plan: z.infer<typeof PlanWithLocale>, fallback: Locale): Loc
   return { ...normalizePlan(plan), locale: isLocale(plan.locale) ? plan.locale : fallback };
 }
 
-async function runPlan(prompt: string, templateContext: string, onDelta: (n: number) => void, revision?: PlanRevision, locale: Locale = "en", contentLocale: Locale = locale): Promise<LocalizedPlan> {
+/** Reference images for the planner: their brief, and the most pages the person's plan allows. */
+export type PlanReferences = { brief: VisualBrief; maxPages?: number };
+
+/** What the planner is told about the person's reference images. */
+function referencePlanBlock(refs: PlanReferences | undefined, revision: boolean): string {
+  if (!refs) return "";
+  const n = refs.brief.imageCount ?? 1;
+  const theme = paletteTheme(refs.brief)?.preset;
+  const screens = refs.brief.screens.length
+    ? `\nPlan a page for every screen listed (sign-in, sign-up, profile and settings screens already exist, so skip those), titled with the screen's name, and say in its summary what the image shows on it.`
+    : "";
+  return `\n\nREFERENCE IMAGES: the user attached ${n === 1 ? "an image" : `${n} images`} (concept art, sketches or screenshots of apps they like) showing how the app should look. What ${n === 1 ? "it shows" : "they show"}:\n${briefText(refs.brief)}${revision ? "" : screens}${theme ? `\nPick the theme closest to this palette (suggested: ${theme}).` : ""}`;
+}
+
+/** The plan after the planner: every screen of the images is a page, and the look is the one closest to the images. */
+function applyReferences(plan: LocalizedPlan, refs: PlanReferences | undefined): LocalizedPlan {
+  if (!refs) return plan;
+  const withScreens = addScreenPages(plan, refs.brief, Math.min(12, refs.maxPages ?? 12));
+  const theme = paletteTheme(refs.brief)?.preset;
+  return { ...withScreens, ...(theme ? { theme } : {}) };
+}
+
+async function runPlan(prompt: string, templateContext: string, onDelta: (n: number) => void, revision?: PlanRevision, locale: Locale = "en", contentLocale: Locale = locale, references?: PlanReferences): Promise<LocalizedPlan> {
   // The person reads these parts of the plan before anything is built.
   const language = replyLanguageRule(locale, 'the "assumptions", each page\'s "summary" and each flow\'s "purpose" (the person reads them on the plan screen)');
   const revise = revision
@@ -108,12 +131,14 @@ async function runPlan(prompt: string, templateContext: string, onDelta: (n: num
     : "";
   const plan = await completeJson(PlanWithLocale, "plan", {
     systemPrompt: language ? `${PLAN_SYSTEM}\n\n${language}` : PLAN_SYSTEM,
-    userMessage: `Plan this app: ${prompt}${templateContext}${generatedImageContext(prompt, 3)}${revise}${planContentNote(contentLocale)}\n\nRespond with the plan JSON only.`,
+    userMessage: `Plan this app: ${prompt}${templateContext}${generatedImageContext(prompt, 3)}${referencePlanBlock(references, Boolean(revision))}${revise}${planContentNote(contentLocale)}\n\nRespond with the plan JSON only.`,
     json: true, task: "scaffold",
     maxTokens: 6000,
     onDelta,
   });
-  return withLocale(plan, contentLocale);
+  const localized = withLocale(plan, contentLocale);
+  // A revision keeps what the person already decided (removed pages, their look).
+  return revision ? localized : applyReferences(localized, references);
 }
 
 function templateContextFor(prompt: string) {
@@ -131,7 +156,7 @@ export type PlanEvent = { type: "progress"; message: string } | { type: "planned
  * Phase 1 on its own: propose a plan the user can review (and revise)
  * before the slower page and flow phases run.
  */
-export async function* planApp(prompt: string, revision?: PlanRevision, locale: Locale = "en", contentLocale?: Locale): AsyncGenerator<PlanEvent> {
+export async function* planApp(prompt: string, revision?: PlanRevision, locale: Locale = "en", contentLocale?: Locale, references?: PlanReferences): AsyncGenerator<PlanEvent> {
   const t = translator(locale, "ai");
   // The app's language: the one asked for, else the revised plan's, else
   // the person's studio language. The plan carries it back to the build.
@@ -141,7 +166,7 @@ export async function* planApp(prompt: string, revision?: PlanRevision, locale: 
   const label = t(revision ? "progress.updatingPlan" : "progress.planning");
   yield { type: "progress", message: t("progress.started", { label }) };
   const out: { value?: LocalizedPlan } = {};
-  yield* withProgress((d) => runPlan(prompt, context, d, revision, locale, appLocale), label, out, t);
+  yield* withProgress((d) => runPlan(prompt, context, d, revision, locale, appLocale, references), label, out, t);
   yield { type: "planned", plan: out.value! };
 }
 
@@ -234,6 +259,8 @@ export async function runPage(opts: {
   repair?: PageRepair;
   /** The app's language: every word visitors see on the page is written in it. */
   contentLocale?: Locale;
+  /** Reference images: the brief always, this page's image only on full-size (non-compact) models. */
+  references?: BuildReferences;
 }): Promise<{ html: string; css: string }> {
   const otherPages = opts.plan.pages
     .filter((p) => p.slug !== opts.page.slug)
@@ -250,6 +277,7 @@ export async function runPage(opts: {
     ? `\n\nSTARTER TEMPLATE for the HOME page — adapt this HTML, keep the visual structure and sections, change the text/content to match the app (keep its layout, but not its made-up facts: no invented reviews, ratings, counts or prices):\n<starter-html>\n${opts.templateHomeHtml.slice(0, templateLimit)}\n</starter-html>`
     : "";
 
+  const reference = opts.references ? pageReferenceBlock(opts.references, opts.page, opts.compact) : null;
   const userMessage = `Project: ${opts.plan.project.name} — ${opts.plan.project.description}
 Theme: ${opts.plan.theme} (use var(--nk-*) tokens)
 
@@ -267,7 +295,7 @@ TABLES (use names exactly):
 ${tablesBlock}
 
 FLOWS (reference by slug in data-nk-flow-ref / data-nk-bind-flow-ref):
-${flowsBlock}${templateBlock}${generatedImageContext(`${opts.plan.project.description} ${opts.page.summary}`, opts.compact ? 3 : 6)}
+${flowsBlock}${templateBlock}${generatedImageContext(`${opts.plan.project.description} ${opts.page.summary}`, opts.compact ? 3 : 6)}${reference?.text ?? ""}
 
 Build THIS page only. Wire every form to a create/update flow from the FLOWS list and every list to a list flow; form fields use the table's exact column names. Wire every link to a real page slug or an external URL. Reply with the <style> block followed by the page markup.${contentBlock(opts.contentLocale)}`;
 
@@ -287,6 +315,7 @@ Build THIS page only. Wire every form to a create/update flow from the FLOWS lis
       task: "scaffold",
       maxTokens,
       onDelta: opts.onDelta,
+      ...(reference?.image ? { attachments: [reference.image] } : {}),
     });
     const page = parsePageOutput(text);
     if (page) return page;
@@ -412,7 +441,8 @@ function localizeStandardGraph<G extends { nodes: Array<{ type: string; data: un
 export async function* scaffoldMultiPass(
   userPrompt: string,
   /** contentLocale: the app's language (default: the person's studio language, `locale`). */
-  opts: { plan?: AppPlan; locale?: Locale; contentLocale?: Locale } = {},
+  /** checkPlan: called with the plan the AI made (not a reviewed one) before any page is built; throws to stop the build (lib/ai/build-policy.ts). */
+  opts: { plan?: AppPlan; locale?: Locale; contentLocale?: Locale; references?: BuildReferences; maxPages?: number; checkPlan?: (plan: AppPlan) => Promise<void> } = {},
 ): AsyncGenerator<MultiPassEvent> {
   const t = translator(opts.locale ?? "en", "ai");
   const compact = await isCompactModel();
@@ -427,10 +457,12 @@ export async function* scaffoldMultiPass(
     const label = t("progress.designingStructure");
     yield { type: "progress", message: t("progress.started", { label }) };
     const planOut: { value?: LocalizedPlan } = {};
-    yield* withProgress((d) => runPlan(userPrompt, templateContext, d, undefined, opts.locale, contentLocale), label, planOut, t);
+    const planRefs = opts.references ? { brief: opts.references.brief, maxPages: opts.maxPages } : undefined;
+    yield* withProgress((d) => runPlan(userPrompt, templateContext, d, undefined, opts.locale, contentLocale, planRefs), label, planOut, t);
     plan = planOut.value!;
     // The description may ask for the app in another language.
     if (planOut.value!.locale) contentLocale = planOut.value!.locale;
+    if (opts.checkPlan) await opts.checkPlan(plan);
   }
 
   yield {
@@ -457,10 +489,12 @@ export async function* scaffoldMultiPass(
     yield* withProgress((d) => runPage({
       plan,
       page: p,
-      templateHomeHtml: p.isHome ? homePage?.html : undefined,
+      // The person's own images set the look, not a starter template.
+      templateHomeHtml: p.isHome && !opts.references ? homePage?.html : undefined,
       compact,
       onDelta: d,
       contentLocale,
+      references: opts.references,
     }), label, out, t);
     let html = out.value!.html;
     // Gated pages always carry their markers (the model sometimes forgets);

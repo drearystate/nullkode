@@ -8,9 +8,11 @@
     "failed": "Pembuatan kali ini gagal. Tidak ada perubahan; silakan coba lagi.",
     "fileFailed": "AI tidak dapat menulis {file}. Tidak ada perubahan; silakan coba lagi.",
     "planning": "Merencanakan",
+    "readingImages": "{count, plural, one {Melihat gambar Anda} other {Melihat # gambar Anda}}",
     "saving": "Menyimpan dan memperbarui aplikasi Anda",
     "stopped": "Dihentikan. Tidak ada perubahan.",
-    "updating": "Memperbarui {file}"
+    "updating": "Memperbarui {file}",
+    "withImages": "{count, plural, one {(dengan 1 gambar referensi)} other {(dengan # gambar referensi)}}"
   },
   "card": {
     "confirmDelete": "Hapus \"{name}\"?",

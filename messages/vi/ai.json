@@ -157,6 +157,9 @@
     "tooLong": "Mô tả quá dài. Vui lòng giữ dưới 2.000 ký tự.",
     "tooShort": "Hãy cho chúng tôi biết thêm một chút về ứng dụng bạn muốn tạo."
   },
+  "policy": {
+    "refused": "Tôi không thể tạo ứng dụng giống với nền tảng NullKode của NullKode LLC, IgniteUps.ai hoặc bất kỳ công cụ AI nào do NullKode LLC xây dựng."
+  },
   "progress": {
     "buildingFlow": "Đang tạo luồng {index}/{total}: {name}",
     "buildingPage": "Đang tạo trang {index}/{total}: {title}",
@@ -169,6 +172,51 @@
     "stillWorking": "{label} — vẫn đang xử lý ({minutes} phút)",
     "updatingPlan": "Đang cập nhật kế hoạch",
     "written": "{label} — đã viết {count, number} ký tự"
+  },
+  "references": {
+    "errors": {
+      "badUrl": "“{name}” cần có liên kết https:// công khai đến ảnh.",
+      "expired": "Ảnh đó không còn được lưu nữa (ảnh sẽ bị xóa sau 7 ngày không sử dụng). Vui lòng thêm lại.",
+      "fetchFailed": "Không thể tải “{name}”. Hãy kiểm tra xem liên kết có mở trực tiếp ảnh và được công khai hay không.",
+      "imagesOrId": "Hãy gửi ảnh mới hoặc mã id của ảnh đã gửi trước đó, không gửi cả hai.",
+      "invalid": "Không thể đọc ảnh. Vui lòng thêm lại.",
+      "invalidData": "“{name}” không phải tệp ảnh hợp lệ. Vui lòng thêm lại.",
+      "notSupported": "AI mà trang web này sử dụng không thể đọc ảnh, nên bạn không thể dùng ảnh tham khảo ở đây. Hãy mô tả giao diện bằng lời hoặc xóa ảnh.",
+      "rateLimited": "Bạn đã thêm nhiều ảnh trong thời gian ngắn. Vui lòng thử lại sau {minutes, plural, one {# phút} other {# phút}}.",
+      "tooLarge": "“{name}” quá lớn. Mỗi ảnh có dung lượng tối đa là {size}.",
+      "tooMany": "Bạn có thể thêm tối đa {max} ảnh.",
+      "type": "“{name}” không phải ảnh PNG, JPEG, WebP hoặc GIF.",
+      "unreadable": "Không thể mở “{name}” dưới dạng ảnh. Hãy thử lưu lại dưới dạng PNG hoặc JPEG.",
+      "urlOrData": "“{name}” cần có liên kết hoặc chính ảnh đó, không phải cả hai."
+    },
+    "picker": {
+      "add": "Thêm ảnh",
+      "addHelp": "Thêm ảnh cho thấy giao diện ứng dụng bạn mong muốn: ảnh ý tưởng, bản phác thảo, ảnh chụp màn hình ứng dụng bạn thích hoặc bảng cảm hứng. Bạn cũng có thể thả hoặc dán ảnh vào đây.",
+      "addMore": "Thêm ảnh khác",
+      "addTitle": "Thêm ảnh ý tưởng, bản phác thảo, ảnh chụp màn hình hoặc bảng cảm hứng",
+      "hint": "Không bắt buộc: thả, dán hoặc thêm tối đa {max} ảnh thể hiện giao diện bạn mong muốn.",
+      "listHelp": "AI sẽ dựa vào những ảnh này để tạo giao diện, màu sắc và các màn hình cho ứng dụng của bạn.",
+      "listLabel": "{count, plural, one {# ảnh tham khảo} other {# ảnh tham khảo}}",
+      "pasted": "Ảnh đã dán",
+      "pastedName": "pasted-image-{n}",
+      "preparing": "Đang chuẩn bị ảnh…",
+      "readFailed": "Không thể đọc “{name}”.",
+      "remove": "Xóa {name}",
+      "removeHelp": "Xóa ảnh này. AI sẽ không sử dụng ảnh.",
+      "thumbAlt": "Ảnh tham khảo {n}: {name}",
+      "tooBig": "“{name}” quá lớn. Mỗi ảnh có dung lượng tối đa là {size}.",
+      "tooMany": "Bạn có thể thêm tối đa {max} ảnh.",
+      "uploadFailed": "Không thể gửi ảnh. Vui lòng thử lại.",
+      "wrongType": "“{name}” không phải ảnh PNG, JPEG, WebP hoặc GIF."
+    },
+    "plan": {
+      "changed": "Bạn đã thay đổi ảnh. Hãy yêu cầu chỉnh sửa kế hoạch để dùng ảnh mới, hoặc tạo ứng dụng ngay để dùng ảnh cho giao diện.",
+      "help": "Những ảnh đã dùng để tạo kế hoạch này. Chúng định hình giao diện và các trang của ứng dụng, đồng thời sẽ được dùng lại khi ứng dụng được tạo.",
+      "none": "Chưa có ảnh. Bạn có thể thêm ảnh rồi yêu cầu chỉnh sửa kế hoạch.",
+      "title": "Ảnh tham khảo",
+      "used": "{count, plural, one {Kế hoạch này dựa trên ảnh của bạn.} other {Kế hoạch này dựa trên # ảnh của bạn.}}"
+    },
+    "reading": "{count, plural, one {Đang xem ảnh của bạn…} other {Đang xem # ảnh của bạn…}}"
   },
   "runs": {
     "interrupted": "Máy chủ khởi động lại khi đang tạo, nên quá trình đã dừng. Lượt dùng AI của bạn không bị trừ. Vui lòng thử lại.",

@@ -626,6 +626,10 @@ model AiRun {
   source      String?
   // The server process that runs it (host:folder:port), see recoverInterruptedRuns.
   instance    String?
+  // Extra facts about the run, e.g. { references: { id, count, brief? } } for
+  // reference images (src/lib/ai/references.ts; the files live in
+  // uploads/<ownerId>/ai-refs/<id>/ and are deleted with the run).
+  meta        Json?
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @default(now())
   heartbeatAt DateTime  @default(now())
@@ -636,6 +640,28 @@ model AiRun {
   @@index([ownerId, createdAt])
   @@index([status, heartbeatAt])
   @@index([endedAt])
+}
+
+/// A build the platform refused under its build rule (src/lib/ai/build-policy.ts):
+/// apps similar to the platform owner's own products. Shown in Admin → Refused builds.
+model BuildRefusal {
+  id        String   @id @default(cuid())
+  // Who asked (no relation: the record outlives a deleted account).
+  userId    String?
+  // "plan" | "revision" | "build" | "edit" | "section" | "designer"
+  kind      String
+  // Where it was caught: "rule" (fixed patterns), "ai" (the AI check), "plan", "images", "result"
+  stage     String
+  // null = the studio, "partner:<partnerKeyId>" = the partner API
+  source    String?
+  projectId String?
+  // The first 500 characters of the request
+  prompt    String
+  reason    String
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([userId])
 }
 
 /// The Android upload key that signs an app's Google Play builds (AAB and

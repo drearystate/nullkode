@@ -9,7 +9,7 @@ import { localeOf, requestErrorsT, type ErrT } from "./errors-i18n";
 
 /**
  * Monthly AI allowance. Every AI action — an app build, a Designer run, an
- * Ask-AI edit, AI sample data, an AI step in a published app's flow — counts
+ * Ask-AI edit, reading a set of reference images, AI sample data, an AI step in a published app's flow — counts
  * against the owner's plan and, inside a reseller's workspace, against the
  * reseller's monthly cap (its clients' use plus the reseller's own). The
  * operator pays for the AI, so every plan can limit it.
@@ -20,7 +20,8 @@ import { localeOf, requestErrorsT, type ErrT } from "./errors-i18n";
  * when the server restarts is refunded when it starts again (build runs are
  * saved in the AiRun table, see lib/ai/runs.ts recoverInterruptedRuns).
  */
-export type AiKind = "build" | "designer" | "edit" | "seed" | "flow";
+/** "vision": reading a set of reference images once (lib/ai/vision.ts). */
+export type AiKind = "build" | "designer" | "edit" | "seed" | "flow" | "vision";
 
 type QuotaUser = Pick<User, "id" | "plan" | "role" | "resellerId">;
 

@@ -90,6 +90,7 @@
     "react-dom": "19.1.9",
     "reactflow": "^11.11.4",
     "resend": "^6.10.0",
+    "sharp": "0.35.5",
     "stripe": "^17.4.0",
     "tailwind-merge": "^2.6.0",
     "undici": "7.30.0",

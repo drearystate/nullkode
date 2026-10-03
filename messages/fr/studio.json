@@ -101,6 +101,7 @@
     "plan": "Forfait {plan}",
     "planHelp": "Votre forfait, le nombre d'apps créées et le nombre d'actions IA utilisées ce mois-ci. Cliquez pour voir les détails du forfait.",
     "planMyApp": "Planifier mon appli",
+    "planMyAppHelp": "L’IA transforme votre idée et les images que vous avez ajoutées en un plan que vous pouvez vérifier avant de créer quoi que ce soit.",
     "previewTitle": "Aperçu de {name}",
     "problems": "{count, plural, one {# problème au cours des dernières 24 heures} other {# problèmes au cours des dernières 24 heures}}",
     "problemsFor": "{name} : {count, plural, one {# problème au cours des dernières 24 heures} other {# problèmes au cours des dernières 24 heures}}",

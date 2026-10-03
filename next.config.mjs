@@ -21,6 +21,11 @@ const nextConfig = {
   serverExternalPackages: ["argon2", "undici"],
   experimental: {
     cpus: 2,
+    // Request bodies pass through the middleware, which keeps only the first
+    // 10 MB by default (the rest is silently cut off). Reference images
+    // (src/lib/ai/references.ts) may be up to 6 × 5 MB as base64 in one
+    // partner API request, so allow that much.
+    middlewareClientMaxBodySize: "45mb",
   },
   // Only the landing page's own pictures go through the image optimizer.
   // Uploads and every other path are refused, so files people upload never

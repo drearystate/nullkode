@@ -157,6 +157,9 @@
     "tooLong": "Die Beschreibung ist zu lang. Sie darf höchstens 2.000 Zeichen umfassen.",
     "tooShort": "Erzähl uns etwas mehr darüber, was du erstellen möchtest."
   },
+  "policy": {
+    "refused": "Ich kann keine Apps erstellen, die der Plattform NullKode von NullKode LLC, IgniteUps.ai oder anderen KI-Tools von NullKode LLC ähneln."
+  },
   "progress": {
     "buildingFlow": "Ablauf wird erstellt {index}/{total}: {name}",
     "buildingPage": "Seite wird erstellt {index}/{total}: {title}",
@@ -169,6 +172,51 @@
     "stillWorking": "{label} – wird noch bearbeitet ({minutes} Min.)",
     "updatingPlan": "Plan wird aktualisiert",
     "written": "{label} – {count, number} Zeichen geschrieben"
+  },
+  "references": {
+    "errors": {
+      "badUrl": "Für „{name}“ brauchst du einen öffentlichen https://-Link zum Bild.",
+      "expired": "Diese Bilder sind nicht mehr gespeichert (sie werden nach 7 Tagen ohne Verwendung gelöscht). Bitte füge sie noch einmal hinzu.",
+      "fetchFailed": "„{name}“ konnte nicht heruntergeladen werden. Prüfe, ob der Link direkt zum Bild führt und öffentlich zugänglich ist.",
+      "imagesOrId": "Sende entweder neue Bilder oder die ID von Bildern, die du bereits gesendet hast, aber nicht beides.",
+      "invalid": "Die Bilder konnten nicht gelesen werden. Bitte füge sie noch einmal hinzu.",
+      "invalidData": "„{name}“ ist keine gültige Bilddatei. Bitte füge sie noch einmal hinzu.",
+      "notSupported": "Die KI dieser Website kann keine Bilder lesen. Deshalb kannst du hier keine Referenzbilder verwenden. Beschreibe stattdessen das Aussehen oder entferne die Bilder.",
+      "rateLimited": "Du hast in kurzer Zeit viele Bilder hinzugefügt. Bitte versuche es in {minutes, plural, one {# Minute} other {# Minuten}} noch einmal.",
+      "tooLarge": "„{name}“ ist zu groß. Ein Bild darf höchstens {size} groß sein.",
+      "tooMany": "Du kannst höchstens {max} Bilder hinzufügen.",
+      "type": "„{name}“ ist kein PNG-, JPEG-, WebP- oder GIF-Bild.",
+      "unreadable": "„{name}“ konnte nicht als Bild geöffnet werden. Speichere es noch einmal als PNG oder JPEG.",
+      "urlOrData": "Für „{name}“ brauchst du entweder einen Link oder das Bild selbst, aber nicht beides."
+    },
+    "picker": {
+      "add": "Bilder hinzufügen",
+      "addHelp": "Füge Bilder hinzu, die zeigen, wie die App aussehen soll: Konzeptzeichnungen, Skizzen, Screenshots von Apps, die dir gefallen, oder Moodboards. Du kannst sie auch hier ablegen oder einfügen.",
+      "addMore": "Weitere hinzufügen",
+      "addTitle": "Füge Konzeptzeichnungen, Skizzen, Screenshots oder Moodboards hinzu",
+      "hint": "Optional: Lege bis zu {max} Bilder davon, wie es aussehen soll, hier ab, füge sie ein oder füge sie hinzu.",
+      "listHelp": "Die KI orientiert sich an diesen Bildern, wenn sie das Aussehen, die Farben und die Seiten deiner App gestaltet.",
+      "listLabel": "{count, plural, one {# Referenzbild} other {# Referenzbilder}}",
+      "pasted": "Eingefügtes Bild",
+      "pastedName": "pasted-image-{n}",
+      "preparing": "Bilder werden vorbereitet …",
+      "readFailed": "„{name}“ konnte nicht gelesen werden.",
+      "remove": "{name} entfernen",
+      "removeHelp": "Dieses Bild entfernen. Die KI verwendet es dann nicht.",
+      "thumbAlt": "Referenzbild {n}: {name}",
+      "tooBig": "„{name}“ ist zu groß. Ein Bild darf höchstens {size} groß sein.",
+      "tooMany": "Du kannst höchstens {max} Bilder hinzufügen.",
+      "uploadFailed": "Deine Bilder konnten nicht gesendet werden. Bitte versuche es noch einmal.",
+      "wrongType": "„{name}“ ist kein PNG-, JPEG-, WebP- oder GIF-Bild."
+    },
+    "plan": {
+      "changed": "Du hast die Bilder geändert. Bitte eine Änderung am Plan anfragen, damit sie verwendet werden, oder jetzt erstellen – dann werden sie für das Aussehen genutzt.",
+      "help": "Die Bilder, auf denen dieser Plan basiert. Sie prägen das Aussehen und die Seiten deiner App und werden beim Erstellen erneut verwendet.",
+      "none": "Keine Bilder. Du kannst welche hinzufügen und eine Änderung am Plan anfragen.",
+      "title": "Referenzbilder",
+      "used": "{count, plural, one {Dieser Plan orientiert sich an deinem Bild.} other {Dieser Plan orientiert sich an deinen # Bildern.}}"
+    },
+    "reading": "{count, plural, one {Ich sehe mir dein Bild an …} other {Ich sehe mir deine # Bilder an …}}"
   },
   "runs": {
     "interrupted": "Der Server wurde während des Erstellens neu gestartet, daher wurde der Vorgang gestoppt. Das wurde nicht auf dein KI-Kontingent angerechnet. Bitte versuche es erneut.",

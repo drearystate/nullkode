@@ -333,5 +333,53 @@
   "runs": {
     "interrupted": "The server restarted while this was being built, so it stopped. It didn't count against your AI allowance. Please try again.",
     "stalled": "The build stopped responding, so it was cancelled. Please try again."
+  },
+  "references": {
+    "reading": "{count, plural, one {Looking at your image…} other {Looking at your # images…}}",
+    "errors": {
+      "notSupported": "The AI this site uses can’t read images, so reference images can’t be used here. Describe the look in words instead, or remove the images.",
+      "tooLarge": "“{name}” is too big. Each image can be at most {size}.",
+      "type": "“{name}” isn’t a PNG, JPEG, WebP or GIF image.",
+      "unreadable": "“{name}” couldn’t be opened as an image. Try saving it again as a PNG or JPEG.",
+      "tooMany": "You can add at most {max} images.",
+      "fetchFailed": "“{name}” couldn’t be downloaded. Check that the link opens the image itself and is public.",
+      "badUrl": "“{name}” needs a public https:// link to the image.",
+      "invalid": "The images couldn’t be read. Please add them again.",
+      "invalidData": "“{name}” isn’t a valid image file. Please add it again.",
+      "urlOrData": "“{name}” needs either a link or the image itself, not both.",
+      "imagesOrId": "Send either new images or the id of images you already sent, not both.",
+      "expired": "Those images are no longer kept (they are deleted after 7 days without use). Please add them again.",
+      "rateLimited": "You’ve added a lot of images in a short time. Please try again in {minutes, plural, one {# minute} other {# minutes}}."
+    },
+    "picker": {
+      "add": "Add images",
+      "addMore": "Add more",
+      "addTitle": "Add concept art, sketches, screenshots or mood boards",
+      "addHelp": "Add pictures of how the app should look: concept art, sketches, screenshots of apps you like or mood boards. You can also drop or paste them here.",
+      "hint": "Optional: drop, paste or add up to {max} images of how it should look.",
+      "listLabel": "{count, plural, one {# reference image} other {# reference images}}",
+      "listHelp": "The AI follows these pictures for the look, colours and screens of your app.",
+      "thumbAlt": "Reference image {n}: {name}",
+      "remove": "Remove {name}",
+      "removeHelp": "Take this picture out. The AI won’t use it.",
+      "tooMany": "You can add at most {max} images.",
+      "wrongType": "“{name}” isn’t a PNG, JPEG, WebP or GIF image.",
+      "tooBig": "“{name}” is too big. Each image can be at most {size}.",
+      "readFailed": "“{name}” couldn’t be read.",
+      "pasted": "Pasted image",
+      "pastedName": "pasted-image-{n}",
+      "preparing": "Preparing images…",
+      "uploadFailed": "Your images couldn’t be sent. Please try again."
+    },
+    "plan": {
+      "title": "Reference images",
+      "help": "The pictures this plan was made from. They shape the look and the pages of your app, and they are used again when it is built.",
+      "used": "{count, plural, one {This plan follows your image.} other {This plan follows your # images.}}",
+      "none": "No images. You can add some and ask for a change to the plan.",
+      "changed": "You changed the images. Ask for a change to the plan to use them, or build now and they will be used for the look."
+    }
+  },
+  "policy": {
+    "refused": "I can’t build apps similar to NullKode LLC’s NullKode platform, IgniteUps.ai, or any AI tools built by NullKode LLC."
   }
 }

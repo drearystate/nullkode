@@ -8,9 +8,11 @@
     "failed": "Die Erstellung hat diesmal nicht geklappt. Es wurden keine Änderungen vorgenommen. Bitte versuche es erneut.",
     "fileFailed": "Die KI konnte {file} nicht schreiben. Es wurden keine Änderungen vorgenommen. Bitte versuche es erneut.",
     "planning": "Planung",
+    "readingImages": "{count, plural, one {Wir sehen uns dein Bild an} other {Wir sehen uns deine # Bilder an}}",
     "saving": "App wird gespeichert und aktualisiert",
     "stopped": "Gestoppt. Es wurden keine Änderungen vorgenommen.",
-    "updating": "{file} wird aktualisiert"
+    "updating": "{file} wird aktualisiert",
+    "withImages": "{count, plural, one {(mit 1 Referenzbild)} other {(mit # Referenzbildern)}}"
   },
   "card": {
     "confirmDelete": "„{name}“ löschen?",

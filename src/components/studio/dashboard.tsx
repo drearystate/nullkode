@@ -7,6 +7,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { DeleteProjectButton } from "@/components/delete-project-button";
 import { LocalTime } from "@/components/local-time";
 import { AppLanguageSelect } from "@/components/ai/app-language-select";
+import { addImageFiles, imagesFromPaste, ReferencePicker, referenceDropProps, uploadReferences, type PickedImage } from "@/components/ai/reference-picker";
 import { BuildMethods } from "./build-methods";
 
 type Project = {
@@ -62,15 +63,44 @@ export function StudioDashboard({ name, plan, maxProjects, projects, ai, canDesc
 function IdeaBox() {
   const router = useRouter();
   const t = useTranslations("studio.dashboard");
+  const ta = useTranslations("ai");
   const [idea, setIdea] = useState("");
   // The app's language (default: the studio's), handed to /new with the idea.
   const [lang, setLang] = useState(useLocale());
-  const ready = idea.trim().length >= 5;
-  return <form className="mt-7 flex max-w-xl flex-col gap-2 rounded-xl border border-white/10 bg-surface-950/40 p-2 sm:flex-row sm:flex-wrap sm:items-center" onSubmit={(e) => { e.preventDefault(); if (ready) router.push(`/new?idea=${encodeURIComponent(idea.trim().slice(0, 2000))}&lang=${encodeURIComponent(lang)}`); }}>
+  // Reference images: stored first, then handed to /new by their id.
+  const [images, setImages] = useState<PickedImage[]>([]);
+  const [imageError, setImageError] = useState<string | null>(null);
+  const [sending, setSending] = useState(false);
+  const [dropping, setDropping] = useState(false);
+  const ready = idea.trim().length >= 5 && !sending;
+  const addFiles = async (files: File[]) => {
+    const result = await addImageFiles(files, images, ta);
+    setImageError(result.error);
+    if (result.images.length !== images.length) setImages(result.images);
+  };
+  const submit = async () => {
+    let refs = "";
+    if (images.length) {
+      setSending(true);
+      try {
+        const stored = await uploadReferences(images, ta("references.picker.uploadFailed"));
+        if (stored) refs = `&refs=${encodeURIComponent(stored.referenceId)}`;
+      } catch (err) {
+        setSending(false);
+        setImageError(err instanceof Error ? err.message : ta("references.picker.uploadFailed"));
+        return;
+      }
+    }
+    router.push(`/new?idea=${encodeURIComponent(idea.trim().slice(0, 2000))}&lang=${encodeURIComponent(lang)}${refs}`);
+  };
+  return <form className={`mt-7 flex max-w-xl flex-col gap-2 rounded-xl border border-white/10 bg-surface-950/40 p-2 sm:flex-row sm:flex-wrap sm:items-center ${dropping ? "outline-dashed outline-2 outline-brand-400/70" : ""}`} onSubmit={(e) => { e.preventDefault(); if (ready) void submit(); }}
+    {...referenceDropProps((files) => void addFiles(files), setDropping)}>
     <label htmlFor="dashboard-idea" className="sr-only">{t("ideaLabel")}</label>
-    <input id="dashboard-idea" className="min-w-0 flex-1 bg-transparent px-3 py-2 text-sm text-surface-50 placeholder:text-surface-500 focus:outline-none" maxLength={2000} value={idea} onChange={(e) => setIdea(e.target.value)} placeholder={t("ideaPlaceholder")} />
+    <input id="dashboard-idea" className="min-w-0 flex-1 bg-transparent px-3 py-2 text-sm text-surface-50 placeholder:text-surface-500 focus:outline-none" maxLength={2000} value={idea} onChange={(e) => setIdea(e.target.value)} placeholder={t("ideaPlaceholder")}
+      onPaste={(e) => { const files = imagesFromPaste(e); if (files.length) { e.preventDefault(); void addFiles(files); } }} />
+    <ReferencePicker images={images} onChange={setImages} compact id="dashboard-references" error={imageError} onError={setImageError} disabled={sending} />
     <AppLanguageSelect value={lang} onChange={setLang} compact id="dashboard-app-language" className="px-2" />
-    <button className="btn-primary shrink-0" disabled={!ready}>{t("planMyApp")} <ArrowRight size={15} className="rtl:-scale-x-100" /></button>
+    <button className="btn-primary shrink-0" disabled={!ready} data-help={t("planMyAppHelp")}>{t("planMyApp")} <ArrowRight size={15} className="rtl:-scale-x-100" /></button>
   </form>;
 }
 
