@@ -407,7 +407,9 @@
     "domainHelp": "Hubungkan alamat web Anda sendiri untuk tempat klien masuk.",
     "label": "Reseller",
     "overview": "Ringkasan",
-    "overviewHelp": "Lihat penggunaan, langkah penyiapan, dan klien terbaru Anda sekilas."
+    "overviewHelp": "Lihat penggunaan, langkah penyiapan, dan klien terbaru Anda sekilas.",
+    "partnerApi": "API Mitra",
+    "partnerApiHelp": "Kunci untuk software Anda membuat akun klien, membantu klien masuk, dan membuat aplikasi untuk mereka."
   },
   "openApp": {
     "failed": "Tidak bisa membuka ruang kerja klien ini.",

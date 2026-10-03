@@ -149,6 +149,7 @@ model User {
   @@index([signupIp, createdAt])
   @@index([resellerId])
   aiUsage AiUsage[]
+  aiRuns  AiRun[]
 }
 
 /**
@@ -185,6 +186,7 @@ model Reseller {
 
   owner   User   @relation("ResellerOwner", fields: [ownerId], references: [id], onDelete: Cascade)
   clients User[] @relation("ResellerClients")
+  partnerKeys PartnerKey[]
 }
 
 /// One-time links for account invitations and password resets. Only a hash
@@ -599,6 +601,43 @@ model AiUsage {
   @@index([userId, createdAt])
 }
 
+/// An app build or plan run (src/lib/ai/runs.ts). The live copy is in the
+/// server's memory; this row keeps it through restarts: status, the events a
+/// reader replays, the result. A run still "running" when the server starts
+/// again is marked failed and its AI action (chargeId) refunded. Finished
+/// runs are kept 7 days.
+model AiRun {
+  id          String    @id
+  ownerId     String
+  // "scaffold" | "plan"
+  kind        String
+  prompt      String
+  // "running" | "success" | "error"
+  status      String    @default("running")
+  events      Json      @default("[]")
+  result      Json?
+  // result.projectId, for lookups by app
+  projectId   String?
+  error       String?
+  refunded    Boolean   @default(false)
+  // The AiUsage row this run was charged, until it ends (see lib/ai-quota.ts).
+  chargeId    String?
+  // Who started it, an opaque tag: null = the studio, "partner:<partnerKeyId>" = the partner API.
+  source      String?
+  // The server process that runs it (host:folder:port), see recoverInterruptedRuns.
+  instance    String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @default(now())
+  heartbeatAt DateTime  @default(now())
+  endedAt     DateTime?
+
+  owner User @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+
+  @@index([ownerId, createdAt])
+  @@index([status, heartbeatAt])
+  @@index([endedAt])
+}
+
 /// The Android upload key that signs an app's Google Play builds (AAB and
 /// release APK). The keystore file is in private storage
 /// (uploads/.signing/<projectId>/, never under public/); both passwords are
@@ -623,4 +662,68 @@ model AndroidSigningKey {
   updatedAt       DateTime @updatedAt
 
   project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
+
+/// Partner API keys (src/lib/partner, docs/partner-api.md). Another service
+/// manages accounts, signs people in and builds apps through /api/partner/v1.
+/// Only a SHA-256 hash of the key is stored; `prefix` (8 characters of the
+/// random part, unique) finds the row and is shown in the key lists.
+model PartnerKey {
+  id          String    @id @default(cuid())
+  name        String
+  prefix      String    @unique
+  hash        String
+  /// Scope: one reseller's clients, or (null) the platform's own customers.
+  resellerId  String?
+  /// { users, sso, build, publish, usage }: booleans, all on by default.
+  permissions Json
+  /// Empty = same server only. Otherwise IPs/CIDRs matched against X-Real-IP.
+  allowedIps  String[]  @default([])
+  /// Build-finished callback: URL, encrypted signing secret, private targets allowed (operator only).
+  webhook     Json?
+  createdById String?
+  lastUsedAt  DateTime?
+  rotatedAt   DateTime?
+  revokedAt   DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  reseller    Reseller? @relation(fields: [resellerId], references: [id], onDelete: Cascade)
+  tickets     PartnerSsoTicket[]
+  idempotency PartnerIdempotency[]
+
+  @@index([resellerId])
+}
+
+/// One-time sign-in tickets from POST /api/partner/v1/sso. `id` is the
+/// ticket's SHA-256; tickets live 60 seconds and work once.
+model PartnerSsoTicket {
+  id        String    @id
+  keyId     String
+  userId    String
+  to        String
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  key PartnerKey @relation(fields: [keyId], references: [id], onDelete: Cascade)
+
+  @@index([expiresAt])
+}
+
+/// Saved answers for partner POSTs sent with an Idempotency-Key (24 hours).
+model PartnerIdempotency {
+  id          String   @id @default(cuid())
+  keyId       String
+  idemKey     String
+  fingerprint String
+  /// Null while the first request is still running.
+  status      Int?
+  body        Json?
+  createdAt   DateTime @default(now())
+
+  key PartnerKey @relation(fields: [keyId], references: [id], onDelete: Cascade)
+
+  @@unique([keyId, idemKey])
+  @@index([createdAt])
 }

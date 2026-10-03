@@ -170,6 +170,10 @@
     "updatingPlan": "正在更新计划",
     "written": "{label} — 已写入 {count, number} 个字符"
   },
+  "runs": {
+    "interrupted": "构建过程中服务器重启，因此已停止。此操作未计入你的 AI 使用额度。请重试。",
+    "stalled": "构建没有响应，因此已取消。请重试。"
+  },
   "scaffold": {
     "badPlan": "无法使用此计划，请重新规划应用。",
     "building": "正在创建：{name}",

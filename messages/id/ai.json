@@ -170,6 +170,10 @@
     "updatingPlan": "Memperbarui rencana",
     "written": "{label} — {count, number} karakter ditulis"
   },
+  "runs": {
+    "interrupted": "Server dimulai ulang saat proses ini dibuat, jadi prosesnya terhenti. Kuota AI Anda tidak berkurang. Coba lagi.",
+    "stalled": "Proses pembuatan tidak merespons, jadi dibatalkan. Coba lagi."
+  },
   "scaffold": {
     "badPlan": "Rencana itu tidak dapat digunakan. Silakan buat rencana aplikasi lagi.",
     "building": "Membuat: {name}",

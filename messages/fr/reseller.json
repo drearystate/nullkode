@@ -407,7 +407,9 @@
     "domainHelp": "Connectez votre propre adresse web, où vos clients se connectent.",
     "label": "Revendeur",
     "overview": "Vue d’ensemble",
-    "overviewHelp": "Consultez en un coup d’œil votre utilisation, les étapes de configuration et vos clients les plus récents."
+    "overviewHelp": "Consultez en un coup d’œil votre utilisation, les étapes de configuration et vos clients les plus récents.",
+    "partnerApi": "API partenaire",
+    "partnerApiHelp": "Clés permettant à votre logiciel de créer des comptes client, de permettre aux clients de se connecter et de créer des applis pour eux."
   },
   "openApp": {
     "failed": "Impossible d’ouvrir l’espace de travail de ce client.",

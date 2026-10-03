@@ -41,14 +41,15 @@ async function checkResellerAppQuota(user: User, t?: ErrT) {
   );
 }
 
-export async function checkProjectLimit(user: User) {
-  const quota = await checkResellerAppQuota(user);
+/** `t`: the language to word the refusal in (default: the request's). */
+export async function checkProjectLimit(user: User, t?: ErrT) {
+  const quota = await checkResellerAppQuota(user, t);
   if (quota) return quota;
   const limits = await limitsForUser(user);
   if (limits.maxProjects === Infinity) return null;
   const count = await db.project.count({ where: { ownerId: user.id } });
   if (count >= limits.maxProjects) {
-    const t = await requestErrorsT(user);
+    t ??= await requestErrorsT(user);
     return json(
       { error: t("guard.appLimit", { count: limits.maxProjects, hint: await moreHint(user, t) }) },
       { status: 403 },
@@ -100,12 +101,12 @@ export async function checkProjectLimitFor(
   return null;
 }
 
-export async function checkPublishLimit(user: User) {
+export async function checkPublishLimit(user: User, t?: ErrT) {
   const limits = await limitsForUser(user);
   if (limits.maxPublished === Infinity) return null;
   const count = await db.project.count({ where: { ownerId: user.id, published: true } });
   if (count >= limits.maxPublished) {
-    const t = await requestErrorsT(user);
+    t ??= await requestErrorsT(user);
     return json(
       { error: t("guard.publishLimit", { count: limits.maxPublished, hint: await moreHint(user, t) }) },
       { status: 403 },

@@ -52,7 +52,8 @@
     "colProject": "Project",
     "colFlow": "Flow",
     "colStatus": "Status",
-    "noRuns": "No runs yet."
+    "noRuns": "No runs yet.",
+    "partnerApi": "Partner API"
   },
   "schema": {
     "columns": "{count, plural, one {# column} other {# columns}}",
@@ -572,7 +573,11 @@
     "inviteLinkFor": "Invitation link for {email}:",
     "inviteLinkForEmailed": "Invitation link for {email} (also emailed):",
     "resetLinkFor": "Password reset link for {email}:",
-    "resetLinkForEmailed": "Password reset link for {email} (also emailed):"
+    "resetLinkForEmailed": "Password reset link for {email} (also emailed):",
+    "partnerCardTitle": "Partner access",
+    "partnerCardBody": "Give a reseller's own software a key to create its clients' accounts, sign them in and build apps for them. Keys are made, rotated and revoked under Partner API.",
+    "partnerCardLink": "Open Partner API",
+    "partnerCardLinkHelp": "Create, rotate or revoke partner keys, for one reseller or for the whole platform."
   },
   "planPrices": {
     "loadFailed": "Couldn't load your prices.",

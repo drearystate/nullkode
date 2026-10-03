@@ -13,7 +13,9 @@
     "domain": "Domain",
     "domainHelp": "Connect your own web address, where your clients sign in.",
     "billing": "Billing & plans",
-    "billingHelp": "Set your prices, connect Stripe, and choose what each plan includes."
+    "billingHelp": "Set your prices, connect Stripe, and choose what each plan includes.",
+    "partnerApi": "Partner API",
+    "partnerApiHelp": "Keys that let your own software create client accounts, sign clients in and build apps for them."
   },
   "openApp": {
     "failed": "Couldn't open this client's workspace.",

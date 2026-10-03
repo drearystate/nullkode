@@ -11,11 +11,14 @@
  *    origin and /app/<slug> redirects there;
  *  - requests that try to call a Server Action (Next-Action header) get a
  *    404, and the image optimizer refuses uploaded files while still
- *    serving the landing page's own pictures.
+ *    serving the landing page's own pictures;
+ *  - /api/internal/* answers only this server itself: a request carrying
+ *    X-Real-IP (nginx) or a non-loopback X-Forwarded-For gets a 404.
  *
  * Needs Docker (for a scratch Postgres). Run from the repo root:
  *   node_modules/.bin/tsx scripts/e2e-security.ts
  */
+import http from "node:http";
 import { unlink } from "node:fs/promises";
 import path from "node:path";
 import { startInstance, installOperator, checker, type Agent } from "./e2e-harness";
@@ -239,6 +242,33 @@ async function main() {
 
     r = await visitor.post("/api/me/password", { current: "x", next: "yyyyyyyyyy" });
     ok("signed-out visitors can't change a password", r.status === 401, r.status);
+
+    /* ── /api/internal/* is for this server only ───────────── */
+    // Raw requests: the harness agents always send X-Real-IP like nginx does.
+    const raw = (path: string, headers: Record<string, string> = {}) =>
+      new Promise<{ status: number; text: string }>((resolve, reject) => {
+        const req = http.request({ host: "127.0.0.1", port, path, method: "GET", headers }, (res) => {
+          let text = "";
+          res.setEncoding("utf8");
+          res.on("data", (d) => (text += d));
+          res.on("end", () => resolve({ status: res.statusCode ?? 0, text }));
+        });
+        req.on("error", reject);
+        req.end();
+      });
+    const hk = "/api/internal/host-kind?host=example.com";
+    let x = await raw(hk);
+    ok("host-kind answers a same-server call", x.status === 200 && x.text.includes('"kind":"app"'), x);
+    x = await raw(hk, { "x-forwarded-for": "127.0.0.1" });
+    ok("host-kind answers a loopback X-Forwarded-For (what Next adds itself)", x.status === 200, x.status);
+    x = await raw(hk, { "x-real-ip": "203.0.113.9" });
+    ok("host-kind refuses a request that came through nginx (X-Real-IP)", x.status === 404, x.status);
+    x = await raw(hk, { "x-forwarded-for": "203.0.113.9, 127.0.0.1" });
+    ok("host-kind refuses an outside X-Forwarded-For", x.status === 404, x.status);
+    x = await raw(hk, { "x-real-ip": "203.0.113.9", "x-nk-internal-sig": "00".repeat(32) });
+    ok("host-kind refuses a forged signature from outside", x.status === 404, x.status);
+    x = await raw("/api/internal/tls-allow?domain=example.com&token=wrong", { "x-real-ip": "203.0.113.9" });
+    ok("tls-allow refuses outside calls without the token", x.status === 404, x.status);
 
     console.log(JSON.stringify({ ok: true, checks: checks.length }));
   } catch (err) {

@@ -1,5 +1,5 @@
 import { getCurrentUser } from "@/lib/auth";
-import { getRun } from "@/lib/ai/runs";
+import { loadRun } from "@/lib/ai/runs";
 
 export const runtime = "nodejs";
 
@@ -7,7 +7,7 @@ export async function GET(_req: Request, { params }: { params: Promise<{ id: str
   const user = await getCurrentUser();
   if (!user) return new Response("Unauthorized", { status: 401 });
   const { id } = await params;
-  const run = getRun(id);
+  const run = await loadRun(id);
   if (!run || run.ownerId !== user.id) {
     return new Response("Not found", { status: 404 });
   }

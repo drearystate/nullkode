@@ -19,6 +19,8 @@ export type Instance = {
   agent: (host?: string, extraHeaders?: Record<string, string>) => Agent;
   log: () => string;
   stop: () => Promise<void>;
+  /** Kills the dev server (SIGKILL: like a crash or a hard restart) and starts it again on the same database. */
+  restart: () => Promise<void>;
 };
 
 export type Agent = {
@@ -59,10 +61,14 @@ export async function startInstance(opts: { port: number; buildDir: string; env?
   }
   await new Promise((r) => setTimeout(r, 1500));
   execFileSync("node", [`${root}/node_modules/prisma/build/index.js`, "db", "push", "--skip-generate"], { cwd: root, env, stdio: "pipe" });
-  const next: ChildProcess = spawn("node", [`${root}/node_modules/next/dist/bin/next`, "dev", "-p", String(opts.port), "-H", "127.0.0.1"], { cwd: root, env, stdio: ["ignore", "pipe", "pipe"] });
   let log = "";
-  next.stdout?.on("data", (d) => (log += d));
-  next.stderr?.on("data", (d) => (log += d));
+  const launch = (): ChildProcess => {
+    const child = spawn("node", [`${root}/node_modules/next/dist/bin/next`, "dev", "-p", String(opts.port), "-H", "127.0.0.1"], { cwd: root, env, stdio: ["ignore", "pipe", "pipe"] });
+    child.stdout?.on("data", (d) => (log += d));
+    child.stderr?.on("data", (d) => (log += d));
+    return child;
+  };
+  let next: ChildProcess = launch();
 
   const agent = (host?: string, extraHeaders: Record<string, string> = {}): Agent => {
     const jar = new Map<string, string>();
@@ -116,10 +122,13 @@ export async function startInstance(opts: { port: number; buildDir: string; env?
     };
   };
 
-  for (let i = 0; i < 180; i++) {
-    try { if ((await agent().get("/api/health")).status === 200) break; } catch { /* booting */ }
-    await new Promise((r) => setTimeout(r, 1000));
-  }
+  const waitHealthy = async () => {
+    for (let i = 0; i < 180; i++) {
+      try { if ((await agent().get("/api/health")).status === 200) break; } catch { /* booting */ }
+      await new Promise((r) => setTimeout(r, 1000));
+    }
+  };
+  await waitHealthy();
   const db = new PrismaClient({ datasourceUrl: env.DATABASE_URL });
   return {
     base, root, db, installToken, agent,
@@ -128,6 +137,22 @@ export async function startInstance(opts: { port: number; buildDir: string; env?
       await db.$disconnect().catch(() => {});
       next.kill("SIGTERM");
       try { execFileSync("docker", ["rm", "-f", pgName], { stdio: "pipe" }); } catch { /* gone */ }
+    },
+    restart: async () => {
+      const exited = new Promise<void>((r) => (next.exitCode !== null || next.signalCode !== null ? r() : next.once("exit", () => r())));
+      // next dev runs the server in a child process: kill the whole tree.
+      const tree = (pid: number): number[] => {
+        let kids: number[] = [];
+        try { kids = execFileSync("ps", ["-o", "pid=", "--ppid", String(pid)], { encoding: "utf8" }).split("\n").map((x) => Number(x.trim())).filter(Boolean); } catch { /* none */ }
+        return [...kids.flatMap(tree), pid];
+      };
+      for (const pid of next.pid ? tree(next.pid) : []) { try { process.kill(pid, "SIGKILL"); } catch { /* gone */ } }
+      await exited;
+      for (let i = 0; i < 50; i++) {
+        try { await agent().get("/api/health"); await new Promise((r) => setTimeout(r, 200)); } catch { break; }
+      }
+      next = launch();
+      await waitHealthy();
     },
   };
 }

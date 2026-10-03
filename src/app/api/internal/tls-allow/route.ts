@@ -2,6 +2,7 @@ import { createHash, timingSafeEqual } from "node:crypto";
 import { projectForHost } from "@/lib/app-hosts";
 import { appLabelFromHost, isValidDomainName, normalizeHost } from "@/lib/hosts";
 import { resellerForHost } from "@/lib/reseller";
+import { internalOnly } from "@/lib/same-server";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -79,7 +80,10 @@ async function allowed(host: string): Promise<boolean> {
 
 export async function GET(req: Request) {
   const params = new URL(req.url).searchParams;
-  if (!tokenMatches(params.get("token"))) return answer(false);
+  // From the internet only with the token (Caddy, in its own container,
+  // reaches the app over the network); the token is required either way.
+  const tokenOk = tokenMatches(params.get("token"));
+  if (internalOnly(req, tokenOk) || !tokenOk) return answer(false);
 
   // Lower case, no trailing dot. A port, path, IP address or anything that
   // isn't a plain DNS name is refused.

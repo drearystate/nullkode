@@ -1,5 +1,9 @@
-import { spawn } from "child_process";
+import { spawn, type ChildProcessWithoutNullStreams } from "child_process";
+import { accessSync, chownSync, constants as fsConstants, mkdtempSync, rmSync } from "fs";
+import { tmpdir } from "os";
+import { delimiter, dirname, isAbsolute, join } from "path";
 import { getClaudeBin, getClaudeModel } from "../settings";
+import { getRunnerConfig } from "../runner-config";
 
 /**
  * Claude CLI provider — shells out to the locally-installed `claude` binary
@@ -7,10 +11,73 @@ import { getClaudeBin, getClaudeModel } from "../settings";
  * generator interface used by the OpenAI scaffold path so the rest of the
  * pipeline doesn't need to know which provider answered.
  *
- * IMPORTANT: this expects `claude` to be authenticated for the user that
- * runs the Next.js server (root, in our setup). One-time `claude login`
- * is required outside of this code.
+ * Locked down (see sandboxedSpawn): the tool runs as the unprivileged
+ * runner account (src/lib/runner-config.ts), in a new empty folder, with
+ * only PATH, HOME, CLAUDE_CONFIG_DIR and CLAUDE_CODE_OAUTH_TOKEN in its
+ * environment, so it never sees the database password, AUTH_SECRET or any
+ * other secret of the server, nor the app's files as its working folder.
+ * Auth: CLAUDE_CODE_OAUTH_TOKEN from the server's .env (a long-lived token),
+ * with CLAUDE_CONFIG_DIR (default /home/claude-runner/.claude-nullkode) for
+ * the tool's own state files.
  */
+
+const DEFAULT_CONFIG_DIR = "/home/claude-runner/.claude-nullkode";
+const SYSTEM_PATH = ["/usr/local/bin", "/usr/bin", "/bin"];
+
+/** The binary's absolute path, looked up in the server's own PATH. */
+function resolveBin(bin: string): string {
+  if (isAbsolute(bin)) return bin;
+  for (const dir of (process.env.PATH ?? "").split(delimiter).filter(Boolean)) {
+    const candidate = join(dir, bin);
+    try {
+      accessSync(candidate, fsConstants.X_OK);
+      return candidate;
+    } catch {
+      // not here
+    }
+  }
+  return bin;
+}
+
+/**
+ * Starts the AI command-line tool as the runner account in an empty
+ * temporary folder with a minimal environment. `cleanup` removes the folder.
+ */
+export function sandboxedSpawn(bin: string, args: string[]): ChildProcessWithoutNullStreams {
+  const runner = getRunnerConfig();
+  if (runner.problem) {
+    console.error("[claude-cli]", runner.problem);
+    throw new Error("The AI connection isn't set up correctly on this server. The site owner needs to check it in Admin → Settings.");
+  }
+  const abs = resolveBin(bin);
+  const path = [...new Set([...(isAbsolute(abs) ? [dirname(abs)] : []), ...SYSTEM_PATH])].join(delimiter);
+  const env: Record<string, string> = {
+    PATH: path,
+    HOME: runner.home,
+    CLAUDE_CONFIG_DIR: process.env.CLAUDE_CONFIG_DIR || DEFAULT_CONFIG_DIR,
+  };
+  if (process.env.CLAUDE_CODE_OAUTH_TOKEN) env.CLAUDE_CODE_OAUTH_TOKEN = process.env.CLAUDE_CODE_OAUTH_TOKEN;
+  const cwd = mkdtempSync(join(tmpdir(), "nk-ai-"));
+  if (runner.enabled) chownSync(cwd, runner.uid, runner.gid);
+  const cleanup = () => {
+    try { rmSync(cwd, { recursive: true, force: true }); } catch {}
+  };
+  try {
+    const proc: ChildProcessWithoutNullStreams = spawn(abs, args, {
+      cwd,
+      env: env as NodeJS.ProcessEnv,
+      stdio: "pipe",
+      uid: runner.enabled ? runner.uid : undefined,
+      gid: runner.enabled ? runner.gid : undefined,
+    });
+    proc.once("close", cleanup);
+    proc.once("error", cleanup);
+    return proc;
+  } catch (err) {
+    cleanup();
+    throw err;
+  }
+}
 
 export type StreamChunk = {
   delta: string;
@@ -122,10 +189,11 @@ export async function* claudeCliStream(opts: RunOpts): AsyncGenerator<StreamChun
   const bin = await getClaudeBin();
   const args = await buildArgs(opts);
 
-  const proc = spawn(bin, args, {
-    stdio: ["pipe", "pipe", "pipe"],
-    env: { ...process.env },
-  });
+  const proc = sandboxedSpawn(bin, args);
+  // A missing binary or a refused account switch arrives as an "error"
+  // event; record it so the exit check below explains the failure.
+  let spawnError: string | null = null;
+  proc.once("error", (err) => { spawnError = err.message; });
 
   // Pipe the user message via stdin — avoids ARG_MAX (E2BIG) on large
   // repair payloads. End the stream so the CLI knows input is done.
@@ -193,7 +261,9 @@ export async function* claudeCliStream(opts: RunOpts): AsyncGenerator<StreamChun
 
     const exitCode: number = await new Promise((resolve) => {
       if (proc.exitCode !== null) return resolve(proc.exitCode);
-      proc.once("exit", (c) => resolve(c ?? 0));
+      if (proc.signalCode !== null || spawnError) return resolve(1);
+      proc.once("exit", (c) => resolve(c ?? 1));
+      proc.once("error", () => resolve(1));
     });
 
     // These messages reach end users: keep them provider-neutral and log
@@ -204,8 +274,8 @@ export async function* claudeCliStream(opts: RunOpts): AsyncGenerator<StreamChun
         `The AI stopped responding (no output for ${Math.round((opts.timeoutMs ?? 0) / 1000)}s), so the request was stopped.`,
       );
     }
-    if (textAcc.length === 0 && (cliError || exitCode !== 0)) {
-      console.error("[claude-cli] failed", { exitCode, cliError, stderr: stderrChunks.join("").slice(-2000) });
+    if (textAcc.length === 0 && (cliError || spawnError || exitCode !== 0)) {
+      console.error("[claude-cli] failed", { exitCode, cliError, spawnError, stderr: stderrChunks.join("").slice(-2000) });
       throw new Error("The AI request failed. Please try again; if it keeps failing, check the AI connection in Admin → Settings.");
     }
   } finally {

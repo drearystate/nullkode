@@ -170,6 +170,10 @@
     "updatingPlan": "Plan güncelleniyor",
     "written": "{label} — {count, number} karakter yazıldı"
   },
+  "runs": {
+    "interrupted": "Oluşturma sürerken sunucu yeniden başlatıldı ve işlem durdu. Bu, AI kullanım hakkından düşmedi. Lütfen tekrar deneyin.",
+    "stalled": "Oluşturma yanıt vermeyi durdurdu ve iptal edildi. Lütfen tekrar deneyin."
+  },
   "scaffold": {
     "badPlan": "Bu plan kullanılamadı. Lütfen uygulamayı yeniden planla.",
     "building": "Oluşturuluyor: {name}",

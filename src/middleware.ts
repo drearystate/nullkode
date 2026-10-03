@@ -15,7 +15,12 @@ async function hostKind(host: string): Promise<"reseller" | "app"> {
   let kind: "reseller" | "app" = "app";
   try {
     const base = process.env.NK_INTERNAL_URL || `http://127.0.0.1:${process.env.PORT || "3001"}`;
-    const res = await fetch(`${base}/api/internal/host-kind?host=${encodeURIComponent(host)}`, { cache: "no-store" });
+    // Straight to this server (never the public address), signed, so the
+    // route can refuse everyone else (see src/lib/same-server.ts).
+    const res = await fetch(`${base}/api/internal/host-kind?host=${encodeURIComponent(host)}`, {
+      cache: "no-store",
+      headers: { "x-nk-internal-sig": await sign(`nk-internal:host-kind:${host}`) },
+    });
     if (res.ok) kind = ((await res.json()) as { kind?: string }).kind === "reseller" ? "reseller" : "app";
   } catch {
     // Unknown: treat as a published app (the previous behaviour).
@@ -41,10 +46,14 @@ function crossSiteWrite(req: NextRequest): boolean {
 }
 
 let hmacKey: Promise<CryptoKey> | null = null;
-async function hostSignature(host: string): Promise<string> {
+/** HMAC-SHA256 of `text` with AUTH_SECRET, as hex (same as node's createHmac). */
+async function sign(text: string): Promise<string> {
   hmacKey ??= crypto.subtle.importKey("raw", new TextEncoder().encode(process.env.AUTH_SECRET ?? ""), { name: "HMAC", hash: "SHA-256" }, false, ["sign"]);
-  const sig = await crypto.subtle.sign("HMAC", await hmacKey, new TextEncoder().encode(`nk-host:${host}`));
+  const sig = await crypto.subtle.sign("HMAC", await hmacKey, new TextEncoder().encode(text));
   return Array.from(new Uint8Array(sig), (b) => b.toString(16).padStart(2, "0")).join("");
+}
+async function hostSignature(host: string): Promise<string> {
+  return sign(`nk-host:${host}`);
 }
 
 // Files people uploaded are served from this site's own address, so they

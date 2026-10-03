@@ -170,6 +170,10 @@
     "updatingPlan": "Plan wird aktualisiert",
     "written": "{label} – {count, number} Zeichen geschrieben"
   },
+  "runs": {
+    "interrupted": "Der Server wurde während des Erstellens neu gestartet, daher wurde der Vorgang gestoppt. Das wurde nicht auf dein KI-Kontingent angerechnet. Bitte versuche es erneut.",
+    "stalled": "Der Build reagierte nicht mehr und wurde abgebrochen. Bitte versuche es erneut."
+  },
   "scaffold": {
     "badPlan": "Dieser Plan konnte nicht verwendet werden. Bitte plane die App noch einmal.",
     "building": "Wird erstellt: {name}",

@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { CreditCard, Globe, LayoutDashboard, Palette, AppWindow, Users } from "lucide-react";
+import { CreditCard, Globe, KeyRound, LayoutDashboard, Palette, AppWindow, Users } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 const ITEMS = [
@@ -11,6 +11,7 @@ const ITEMS = [
   { href: "/reseller/branding", id: "branding", Icon: Palette },
   { href: "/reseller/domain", id: "domain", Icon: Globe },
   { href: "/reseller/billing", id: "billing", Icon: CreditCard },
+  { href: "/reseller/partner-api", id: "partnerApi", Icon: KeyRound },
 ] as const;
 
 export function ResellerNav({ name }: { name: string }) {

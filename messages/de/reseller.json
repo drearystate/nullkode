@@ -407,7 +407,9 @@
     "domainHelp": "Verbinde deine eigene Webadresse, unter der sich deine Kunden anmelden.",
     "label": "Wiederverkäufer",
     "overview": "Übersicht",
-    "overviewHelp": "Nutzung, Einrichtungsschritte und neueste Kunden auf einen Blick."
+    "overviewHelp": "Nutzung, Einrichtungsschritte und neueste Kunden auf einen Blick.",
+    "partnerApi": "Partner-API",
+    "partnerApiHelp": "Schlüssel, mit denen deine eigene Software Kundenkonten erstellen, Kunden anmelden und Apps für sie erstellen kann."
   },
   "openApp": {
     "failed": "Der Arbeitsbereich dieses Kunden konnte nicht geöffnet werden.",

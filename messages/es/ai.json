@@ -170,6 +170,10 @@
     "updatingPlan": "Actualizando el plan",
     "written": "{label} — {count, number} caracteres escritos"
   },
+  "runs": {
+    "interrupted": "El servidor se reinició mientras se creaba, así que se detuvo. No se descontó de tu límite de IA. Inténtalo de nuevo.",
+    "stalled": "La creación dejó de responder y se canceló. Inténtalo de nuevo."
+  },
   "scaffold": {
     "badPlan": "No se pudo usar ese plan. Vuelve a planificar la app.",
     "building": "Creando: {name}",

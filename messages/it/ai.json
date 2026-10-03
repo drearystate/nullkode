@@ -170,6 +170,10 @@
     "updatingPlan": "Aggiornamento del piano",
     "written": "{label} — scritti {count, number} caratteri"
   },
+  "runs": {
+    "interrupted": "Il server si è riavviato durante la creazione, quindi è stata interrotta. Non verrà conteggiata nel tuo limite AI. Riprova.",
+    "stalled": "La creazione ha smesso di rispondere, quindi è stata annullata. Riprova."
+  },
   "scaffold": {
     "badPlan": "Impossibile usare questo piano. Pianifica di nuovo l'app.",
     "building": "Creazione: {name}",

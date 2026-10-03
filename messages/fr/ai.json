@@ -170,6 +170,10 @@
     "updatingPlan": "Mise à jour du plan",
     "written": "{label} — {count, number} caractères écrits"
   },
+  "runs": {
+    "interrupted": "Le serveur a redémarré pendant la création, qui s’est donc arrêtée. Cela n’a pas été déduit de votre quota d’IA. Réessayez.",
+    "stalled": "La création ne répondait plus, elle a donc été annulée. Réessayez."
+  },
   "scaffold": {
     "badPlan": "Impossible d’utiliser ce plan. Veuillez planifier à nouveau votre app.",
     "building": "Création : {name}",

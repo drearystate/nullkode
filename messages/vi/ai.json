@@ -170,6 +170,10 @@
     "updatingPlan": "Đang cập nhật kế hoạch",
     "written": "{label} — đã viết {count, number} ký tự"
   },
+  "runs": {
+    "interrupted": "Máy chủ khởi động lại khi đang tạo, nên quá trình đã dừng. Lượt dùng AI của bạn không bị trừ. Vui lòng thử lại.",
+    "stalled": "Quá trình tạo không phản hồi nên đã bị hủy. Vui lòng thử lại."
+  },
   "scaffold": {
     "badPlan": "Không thể dùng kế hoạch này. Vui lòng lập kế hoạch lại cho ứng dụng.",
     "building": "Đang tạo: {name}",

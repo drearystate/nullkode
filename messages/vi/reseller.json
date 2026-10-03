@@ -407,7 +407,9 @@
     "domainHelp": "Kết nối địa chỉ web riêng để khách hàng đăng nhập.",
     "label": "Đại lý",
     "overview": "Tổng quan",
-    "overviewHelp": "Xem nhanh mức sử dụng, các bước thiết lập và khách hàng mới nhất."
+    "overviewHelp": "Xem nhanh mức sử dụng, các bước thiết lập và khách hàng mới nhất.",
+    "partnerApi": "API đối tác",
+    "partnerApiHelp": "Khóa cho phép phần mềm của bạn tạo tài khoản khách hàng, đăng nhập cho khách hàng và tạo ứng dụng cho họ."
   },
   "openApp": {
     "failed": "Không thể mở không gian làm việc của khách hàng này.",

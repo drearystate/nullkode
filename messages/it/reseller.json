@@ -407,7 +407,9 @@
     "domainHelp": "Collega il tuo indirizzo web, dove i clienti accedono.",
     "label": "Rivenditore",
     "overview": "Panoramica",
-    "overviewHelp": "Scopri a colpo d'occhio l'utilizzo, i passaggi di configurazione e i nuovi clienti."
+    "overviewHelp": "Scopri a colpo d'occhio l'utilizzo, i passaggi di configurazione e i nuovi clienti.",
+    "partnerApi": "API per partner",
+    "partnerApiHelp": "Chiavi che permettono al tuo software di creare account cliente, far accedere i clienti e creare app per loro."
   },
   "openApp": {
     "failed": "Non è stato possibile aprire lo spazio di lavoro di questo cliente.",

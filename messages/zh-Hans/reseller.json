@@ -407,7 +407,9 @@
     "domainHelp": "连接你自己的网址，供客户登录。",
     "label": "经销商",
     "overview": "总览",
-    "overviewHelp": "快速查看用量、设置步骤和最新客户。"
+    "overviewHelp": "快速查看用量、设置步骤和最新客户。",
+    "partnerApi": "合作伙伴 API",
+    "partnerApiHelp": "可让你自己的软件创建客户账号、帮助客户登录并为他们构建应用的密钥。"
   },
   "openApp": {
     "failed": "无法打开这位客户的工作区。",

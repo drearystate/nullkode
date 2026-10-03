@@ -407,7 +407,9 @@
     "domainHelp": "Müşterilerinizin oturum açacağı kendi web adresinizi bağlayın.",
     "label": "Bayi",
     "overview": "Genel bakış",
-    "overviewHelp": "Kullanımınızı, kurulum adımlarını ve en yeni müşterilerinizi tek bakışta görün."
+    "overviewHelp": "Kullanımınızı, kurulum adımlarını ve en yeni müşterilerinizi tek bakışta görün.",
+    "partnerApi": "İş Ortağı API'si",
+    "partnerApiHelp": "Kendi yazılımınızın müşteri hesapları oluşturmasını, müşterilerinizin oturum açmasını sağlamasını ve onlar için uygulamalar geliştirmesini sağlayan anahtarlar."
   },
   "openApp": {
     "failed": "Bu müşterinin çalışma alanı açılamadı.",

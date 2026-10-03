@@ -16,9 +16,9 @@ import { localeOf, requestErrorsT, type ErrT } from "./errors-i18n";
  *
  * An action is charged before the AI runs (charging only on success would
  * let parallel requests run past the limit) and refunded when the work
- * fails: refundAiUsage deletes the charge row. Known gap: an app build still
- * running when the server restarts stays charged, because build runs live
- * in memory (lib/ai/runs.ts); moving builds to durable jobs fixes that.
+ * fails: refundAiUsage deletes the charge row. An app build still running
+ * when the server restarts is refunded when it starts again (build runs are
+ * saved in the AiRun table, see lib/ai/runs.ts recoverInterruptedRuns).
  */
 export type AiKind = "build" | "designer" | "edit" | "seed" | "flow";
 

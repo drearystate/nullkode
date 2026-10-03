@@ -59,3 +59,12 @@ Stripe account), and use the limits above to match what they pay for.
   `myapps.site`) so their customers' app addresses don't show your brand.
 - Everything a reseller can do is limited to their own customers. They can't
   see your other customers, other resellers, or your settings.
+
+## Connecting a reseller's own software
+
+A reseller (or you, for your own customers) can connect other software
+through the [partner API](partner-api.md): create client accounts, sign
+clients straight into their workspace, build and publish apps for them, and
+read their AI usage. Keys are made under Admin → Partner API, or by the
+reseller under Reseller → Partner API, and only ever reach that reseller's
+clients.

@@ -56,6 +56,13 @@ export default async function AdminResellersPage() {
             domainVerified: Boolean(r.domainVerifiedAt),
           }))}
         />
+        <section className="card mt-6 flex flex-wrap items-center justify-between gap-4 p-6">
+          <div className="max-w-2xl">
+            <h2 className="font-semibold">{t("resellers.partnerCardTitle")}</h2>
+            <p className="mt-1 text-sm text-surface-400">{t("resellers.partnerCardBody")}</p>
+          </div>
+          <Link href="/admin/partner-api" className="btn-secondary" data-help={t("resellers.partnerCardLinkHelp")}>{t("resellers.partnerCardLink")}</Link>
+        </section>
       </div>
     </main>
   );

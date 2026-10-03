@@ -329,5 +329,9 @@
     "added": "Added {total, plural, one {# sample row} other {# sample rows}} across {tables, plural, one {# table} other {# tables}}.",
     "none": "No sample rows were added (the AI didn't return any rows that fit your tables).",
     "noneRefunded": "No sample rows were added (the AI didn't return any rows that fit your tables). It wasn't counted."
+  },
+  "runs": {
+    "interrupted": "The server restarted while this was being built, so it stopped. It didn't count against your AI allowance. Please try again.",
+    "stalled": "The build stopped responding, so it was cancelled. Please try again."
   }
 }

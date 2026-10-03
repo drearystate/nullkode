@@ -25,6 +25,14 @@ backfillHostLabels()
   .then((n) => { if (n) console.log(`[apps] gave ${n} app${n === 1 ? "" : "s"} a web address name`); })
   .catch((err) => console.error("[apps] address names failed:", err instanceof Error ? err.message : err));
 
+// App builds and plans the previous server process was still running when
+// it stopped are marked failed and their AI action refunded; finished runs
+// older than 7 days are deleted (src/lib/ai/runs.ts).
+import("./lib/ai/runs")
+  .then((m) => m.recoverInterruptedRuns())
+  .then((n) => { if (n) console.log(`[runs] ended ${n} build${n === 1 ? "" : "s"} interrupted by the restart (refunded)`); })
+  .catch((err) => console.error("[runs] start-up check failed:", err instanceof Error ? err.message : err));
+
 // Scheduled flows and the nightly clean-up: a tick every minute, unless an
 // outside timer calls /api/cron instead (NK_EXTERNAL_SCHEDULER=1).
 startScheduler();

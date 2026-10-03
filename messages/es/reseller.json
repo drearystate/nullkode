@@ -407,7 +407,9 @@
     "domainHelp": "Conecta tu propia dirección web, donde tus clientes iniciarán sesión.",
     "label": "Revendedores",
     "overview": "Resumen",
-    "overviewHelp": "Consulta de un vistazo tu uso, los pasos de configuración y los clientes más recientes."
+    "overviewHelp": "Consulta de un vistazo tu uso, los pasos de configuración y los clientes más recientes.",
+    "partnerApi": "API para partners",
+    "partnerApiHelp": "Claves para que tu propio software cree cuentas de clientes, inicie sesión por ellos y cree apps para ellos."
   },
   "openApp": {
     "failed": "No se pudo abrir el espacio de trabajo de este cliente.",

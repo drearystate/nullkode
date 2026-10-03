@@ -122,7 +122,7 @@ export default async function AdminDashboard() {
               {t("home.subtitle")}
             </p>
           </div>
-          <div className="flex shrink-0 flex-wrap gap-2 whitespace-nowrap"><Link href="/admin/resellers" className="btn-secondary">{t("home.resellers")}</Link><Link href="/admin/system" className="btn-secondary">{t("home.system")}</Link><Link href="/admin/settings" className="btn-secondary">{t("home.allSettings")}</Link></div>
+          <div className="flex shrink-0 flex-wrap gap-2 whitespace-nowrap"><Link href="/admin/resellers" className="btn-secondary">{t("home.resellers")}</Link><Link href="/admin/partner-api" className="btn-secondary">{t("home.partnerApi")}</Link><Link href="/admin/system" className="btn-secondary">{t("home.system")}</Link><Link href="/admin/settings" className="btn-secondary">{t("home.allSettings")}</Link></div>
         </div>
 
         <SchemaBanner schema={schema} />
