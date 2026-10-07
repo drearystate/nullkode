@@ -1,0 +1,698 @@
+{
+ "version": 1,
+ "tokenRule": "tokens = ceil(characters / 4)",
+ "budgets": {
+  "CORE-RULES.md": 1300,
+  "genres/*.md": 700
+ },
+ "files": {
+  "CORE-RULES.md": 1146,
+  "PLAYTEST-CHECKLIST.md": 2274,
+  "README.md": 1103
+ },
+ "matching": {
+  "how": "lower-case the idea; for each genre count alias hits (whole word or phrase; a phrase of n words scores n); best score >= 1 wins; ties -> the genre listed first; none -> CORE-RULES only. Re-run on the brief's 'genre' string if the idea had no hit. Store the id with the game.",
+  "engineHint": "genre.engine is the usual kit: 'phaser-2d', 'three-3d' or 'either' (decide by the idea/2D-3D choice)."
+ },
+ "genres": [
+  {
+   "id": "platformer",
+   "title": "Platformer (2D side view)",
+   "file": "genres/platformer.md",
+   "engine": "phaser-2d",
+   "tokens": 694,
+   "aliases": [
+    "platformer",
+    "platform game",
+    "jump and run",
+    "jump n run",
+    "jump 'n' run",
+    "side scroller",
+    "side-scroller",
+    "sidescroller",
+    "mario",
+    "super mario",
+    "sonic",
+    "celeste",
+    "jump on enemies",
+    "stomp",
+    "2d jumping",
+    "jumping game"
+   ]
+  },
+  {
+   "id": "top-down-adventure",
+   "title": "Top-down action/adventure (Zelda-like)",
+   "file": "genres/top-down-adventure.md",
+   "engine": "phaser-2d",
+   "tokens": 691,
+   "aliases": [
+    "zelda",
+    "zelda-like",
+    "action adventure",
+    "action-adventure",
+    "top-down adventure",
+    "top down adventure",
+    "dungeon",
+    "rpg",
+    "action rpg",
+    "arpg",
+    "hero quest",
+    "explore rooms",
+    "link to the past",
+    "pokemon"
+   ]
+  },
+  {
+   "id": "twin-stick-shooter",
+   "title": "Top-down shooter / twin-stick",
+   "file": "genres/twin-stick-shooter.md",
+   "engine": "phaser-2d",
+   "tokens": 634,
+   "aliases": [
+    "twin-stick",
+    "twin stick",
+    "top-down shooter",
+    "top down shooter",
+    "arena shooter",
+    "survivors",
+    "vampire survivors",
+    "bullet heaven",
+    "zombie shooter",
+    "shoot zombies",
+    "tank game",
+    "tanks",
+    "geometry wars",
+    "brotato"
+   ]
+  },
+  {
+   "id": "shmup",
+   "title": "Shoot-'em-up (scrolling)",
+   "file": "genres/shmup.md",
+   "engine": "phaser-2d",
+   "tokens": 625,
+   "aliases": [
+    "shmup",
+    "shoot em up",
+    "shoot 'em up",
+    "shoot-em-up",
+    "space shooter",
+    "spaceship",
+    "space invaders",
+    "galaga",
+    "bullet hell",
+    "scrolling shooter",
+    "vertical shooter",
+    "plane shooter",
+    "1942",
+    "r-type",
+    "asteroids"
+   ]
+  },
+  {
+   "id": "endless-runner",
+   "title": "Endless runner",
+   "file": "genres/endless-runner.md",
+   "engine": "phaser-2d",
+   "tokens": 621,
+   "aliases": [
+    "endless runner",
+    "runner",
+    "infinite runner",
+    "auto runner",
+    "auto-runner",
+    "subway surfers",
+    "temple run",
+    "flappy",
+    "flappy bird",
+    "dino game",
+    "chrome dino",
+    "jetpack joyride",
+    "tap to fly",
+    "lane runner",
+    "crossy road"
+   ]
+  },
+  {
+   "id": "puzzle",
+   "title": "Puzzle (grid / sokoban / physics)",
+   "file": "genres/puzzle.md",
+   "engine": "phaser-2d",
+   "tokens": 676,
+   "aliases": [
+    "puzzle",
+    "sokoban",
+    "push boxes",
+    "box pushing",
+    "block puzzle",
+    "physics puzzle",
+    "angry birds",
+    "cut the rope",
+    "sliding puzzle",
+    "logic puzzle",
+    "tetris",
+    "2048",
+    "brain teaser",
+    "maze puzzle",
+    "pipe puzzle",
+    "laser puzzle"
+   ]
+  },
+  {
+   "id": "match-3",
+   "title": "Match-3",
+   "file": "genres/match-3.md",
+   "engine": "phaser-2d",
+   "tokens": 650,
+   "aliases": [
+    "match-3",
+    "match 3",
+    "match three",
+    "candy crush",
+    "bejeweled",
+    "swap gems",
+    "gems",
+    "jewels",
+    "tile matching",
+    "connect three",
+    "matching game"
+   ]
+  },
+  {
+   "id": "tower-defence",
+   "title": "Tower defence",
+   "file": "genres/tower-defence.md",
+   "engine": "phaser-2d",
+   "tokens": 638,
+   "aliases": [
+    "tower defence",
+    "tower defense",
+    "td",
+    "defend the base",
+    "place towers",
+    "kingdom rush",
+    "bloons",
+    "plants vs zombies",
+    "waves of enemies path"
+   ]
+  },
+  {
+   "id": "racing",
+   "title": "Racing (top-down and 3D arcade)",
+   "file": "genres/racing.md",
+   "engine": "either",
+   "tokens": 687,
+   "aliases": [
+    "racing",
+    "race",
+    "racer",
+    "kart",
+    "mario kart",
+    "car game",
+    "cars",
+    "drift",
+    "drifting",
+    "rally",
+    "f1",
+    "formula",
+    "micro machines",
+    "time trial",
+    "driving",
+    "motorbike",
+    "boat race"
+   ]
+  },
+  {
+   "id": "card-board",
+   "title": "Card and board games",
+   "file": "genres/card-board.md",
+   "engine": "phaser-2d",
+   "tokens": 698,
+   "aliases": [
+    "card game",
+    "cards",
+    "solitaire",
+    "klondike",
+    "poker",
+    "blackjack",
+    "uno",
+    "deck",
+    "board game",
+    "chess",
+    "checkers",
+    "draughts",
+    "ludo",
+    "snakes and ladders",
+    "dominoes",
+    "dice game",
+    "yahtzee",
+    "tic tac toe",
+    "tic-tac-toe",
+    "connect four",
+    "memory cards",
+    "mahjong",
+    "go game",
+    "reversi",
+    "othello",
+    "backgammon"
+   ]
+  },
+  {
+   "id": "idle-clicker",
+   "title": "Idle / clicker",
+   "file": "genres/idle-clicker.md",
+   "engine": "phaser-2d",
+   "tokens": 653,
+   "aliases": [
+    "idle",
+    "idle game",
+    "clicker",
+    "incremental",
+    "cookie clicker",
+    "tap tycoon",
+    "tycoon",
+    "adventure capitalist",
+    "tapper",
+    "upgrade game",
+    "prestige"
+   ]
+  },
+  {
+   "id": "3d-action-collectathon",
+   "title": "3D third-person action / collectathon",
+   "file": "genres/3d-action-collectathon.md",
+   "engine": "three-3d",
+   "tokens": 679,
+   "aliases": [
+    "3d platformer",
+    "collectathon",
+    "third person",
+    "third-person",
+    "3d adventure",
+    "3d action",
+    "mario 64",
+    "banjo",
+    "spyro",
+    "crash bandicoot",
+    "3d knight",
+    "3d explore",
+    "open world",
+    "3d character",
+    "3d hero",
+    "fall guys",
+    "obby"
+   ]
+  },
+  {
+   "id": "3d-first-person",
+   "title": "3D first-person (simple)",
+   "file": "genres/3d-first-person.md",
+   "engine": "three-3d",
+   "tokens": 689,
+   "aliases": [
+    "first person",
+    "first-person",
+    "fps",
+    "shooter 3d",
+    "3d shooter",
+    "doom",
+    "escape room",
+    "3d maze",
+    "walking simulator",
+    "shooting gallery",
+    "backrooms",
+    "exploration 3d"
+   ]
+  },
+  {
+   "id": "sports-arcade",
+   "title": "Sports / arcade (pong, breakout, pinball)",
+   "file": "genres/sports-arcade.md",
+   "engine": "phaser-2d",
+   "tokens": 698,
+   "aliases": [
+    "pong",
+    "breakout",
+    "arkanoid",
+    "brick breaker",
+    "pinball",
+    "air hockey",
+    "paddle",
+    "minigolf",
+    "mini golf",
+    "golf",
+    "basketball",
+    "soccer",
+    "football",
+    "penalty",
+    "bowling",
+    "table tennis",
+    "ping pong",
+    "tennis",
+    "hockey",
+    "billiards",
+    "pool game",
+    "sports"
+   ]
+  },
+  {
+   "id": "rhythm",
+   "title": "Rhythm",
+   "file": "genres/rhythm.md",
+   "engine": "phaser-2d",
+   "tokens": 672,
+   "aliases": [
+    "rhythm",
+    "rhythm game",
+    "music game",
+    "guitar hero",
+    "osu",
+    "dance",
+    "piano tiles",
+    "tap to the beat",
+    "beat saber",
+    "drum"
+   ]
+  },
+  {
+   "id": "metroidvania",
+   "title": "Metroidvania (lite)",
+   "file": "genres/metroidvania.md",
+   "engine": "phaser-2d",
+   "tokens": 675,
+   "aliases": [
+    "metroidvania",
+    "metroid",
+    "castlevania",
+    "hollow knight",
+    "ori",
+    "ability gates",
+    "backtracking",
+    "interconnected map",
+    "explore and unlock abilities"
+   ]
+  },
+  {
+   "id": "roguelite",
+   "title": "Roguelite (lite)",
+   "file": "genres/roguelite.md",
+   "engine": "phaser-2d",
+   "tokens": 633,
+   "aliases": [
+    "roguelite",
+    "roguelike",
+    "dungeon crawler",
+    "rogue-like",
+    "rogue-lite",
+    "binding of isaac",
+    "hades",
+    "dead cells",
+    "permadeath",
+    "procedural dungeon",
+    "run-based",
+    "dungeon runs",
+    "random dungeon",
+    "enter the gungeon"
+   ]
+  },
+  {
+   "id": "survival-crafting",
+   "title": "Survival / crafting (lite)",
+   "file": "genres/survival-crafting.md",
+   "engine": "either",
+   "tokens": 700,
+   "aliases": [
+    "survival",
+    "crafting",
+    "craft",
+    "minecraft",
+    "don't starve",
+    "dont starve",
+    "gather resources",
+    "build a base",
+    "base building",
+    "hunger",
+    "stranded",
+    "island survival",
+    "terraria",
+    "valheim"
+   ]
+  },
+  {
+   "id": "cosy-sim",
+   "title": "Fishing / farming / cosy sim (lite)",
+   "file": "genres/cosy-sim.md",
+   "engine": "phaser-2d",
+   "tokens": 692,
+   "aliases": [
+    "farming",
+    "farm",
+    "stardew",
+    "harvest moon",
+    "fishing",
+    "cozy",
+    "cosy",
+    "relaxing",
+    "garden",
+    "gardening",
+    "animal crossing",
+    "life sim",
+    "plant crops",
+    "pet care",
+    "cafe",
+    "bakery"
+   ]
+  },
+  {
+   "id": "quiz-trivia",
+   "title": "Quiz / trivia",
+   "file": "genres/quiz-trivia.md",
+   "engine": "phaser-2d",
+   "tokens": 663,
+   "aliases": [
+    "quiz",
+    "trivia",
+    "questions",
+    "pub quiz",
+    "general knowledge",
+    "who wants to be a millionaire",
+    "true or false",
+    "guess the flag",
+    "flag quiz",
+    "kahoot"
+   ]
+  },
+  {
+   "id": "word-game",
+   "title": "Word games",
+   "file": "genres/word-game.md",
+   "engine": "phaser-2d",
+   "tokens": 664,
+   "aliases": [
+    "word game",
+    "wordle",
+    "word search",
+    "crossword",
+    "anagram",
+    "scrabble",
+    "boggle",
+    "hangman",
+    "spelling bee",
+    "letters",
+    "word puzzle",
+    "typing game",
+    "words"
+   ]
+  },
+  {
+   "id": "educational",
+   "title": "Educational mini-games",
+   "file": "genres/educational.md",
+   "engine": "phaser-2d",
+   "tokens": 673,
+   "aliases": [
+    "educational",
+    "education",
+    "learning",
+    "learn",
+    "kids",
+    "children",
+    "math",
+    "maths",
+    "arithmetic",
+    "times tables",
+    "spelling",
+    "alphabet",
+    "counting",
+    "geography",
+    "science",
+    "school",
+    "teach",
+    "preschool",
+    "flashcards",
+    "vocabulary"
+   ]
+  }
+ ],
+ "stepTypes": {
+  "shell": {
+   "keywords": [
+    "shell",
+    "config",
+    "empty",
+    "backdrop",
+    "setup",
+    "skeleton",
+    "boot"
+   ]
+  },
+  "assets": {
+   "keywords": [
+    "assets",
+    "art",
+    "background",
+    "parallax",
+    "tileset",
+    "sprites",
+    "models"
+   ]
+  },
+  "level": {
+   "keywords": [
+    "level",
+    "map",
+    "tiles",
+    "tilemap",
+    "world",
+    "room",
+    "arena",
+    "track",
+    "board",
+    "grid",
+    "dungeon",
+    "layout",
+    "course"
+   ]
+  },
+  "player": {
+   "keywords": [
+    "player",
+    "hero",
+    "character",
+    "movement",
+    "controls",
+    "camera",
+    "ship",
+    "car",
+    "paddle"
+   ]
+  },
+  "pickups": {
+   "keywords": [
+    "pickup",
+    "pickups",
+    "coins",
+    "collectible",
+    "collectibles",
+    "items",
+    "hud",
+    "score",
+    "gems",
+    "stars"
+   ]
+  },
+  "enemies": {
+   "keywords": [
+    "enemy",
+    "enemies",
+    "hazard",
+    "hazards",
+    "spikes",
+    "lives",
+    "health",
+    "damage",
+    "game over",
+    "lose",
+    "boss",
+    "waves",
+    "obstacles"
+   ]
+  },
+  "goal": {
+   "keywords": [
+    "goal",
+    "flag",
+    "win",
+    "finish",
+    "exit",
+    "more levels",
+    "next level",
+    "chest",
+    "victory"
+   ]
+  },
+  "polish": {
+   "keywords": [
+    "polish",
+    "touch",
+    "mobile",
+    "juice",
+    "sound",
+    "sounds",
+    "music",
+    "particles",
+    "effects",
+    "menu"
+   ]
+  },
+  "order": "classify by the first matching type in this order: polish, enemies, goal, pickups, player, level, assets, shell (a step can be both; the later build stage wins)"
+ },
+ "stages": {
+  "clarify": {
+   "include": []
+  },
+  "brief": {
+   "include": [
+    "genre"
+   ]
+  },
+  "plan": {
+   "include": [
+    "genre"
+   ]
+  },
+  "step": {
+   "include": [
+    "CORE-RULES.md",
+    "genre"
+   ],
+   "placement": "system prompt, after ENGINE CARD, before STEP_RULES (stable prefix)"
+  },
+  "change": {
+   "include": [
+    "CORE-RULES.md",
+    "genre"
+   ]
+  },
+  "playtest": {
+   "include": [
+    "PLAYTEST-CHECKLIST.md",
+    "genre"
+   ],
+   "after": [
+    "level",
+    "enemies",
+    "polish"
+   ],
+   "filter": "cumulative by [stages] tag: after level -> level+all; after enemies -> level+enemies+all; after polish -> every item (final pass). Automatic checks A1-A7 run in code first and are passed as results"
+  }
+ },
+ "estimatedTokensPerCall": {
+  "brief": "<= 700",
+  "plan": "<= 700",
+  "step": "<= 1846",
+  "change": "<= 1846",
+  "playtest": "<= 2974 (less when filtered)"
+ }
+}

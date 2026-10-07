@@ -70,7 +70,8 @@
       "build": "Build",
       "edit": "Ask AI",
       "section": "Ask AI (section)",
-      "designer": "Designer"
+      "designer": "Designer",
+      "game": "Game Studio"
     },
     "refusedStage": {
       "rule": "fixed rule",

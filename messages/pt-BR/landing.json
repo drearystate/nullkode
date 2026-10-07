@@ -75,6 +75,34 @@
     "copyright": "© {year} {app}",
     "tagline": "O criador visual de apps com um backend de verdade. Lance produtos completos — não só páginas de marketing."
   },
+  "games": {
+    "cta": "Crie seu próprio jogo",
+    "eyebrow": "Jogos oficiais da NullKode",
+    "heading": "Jogos de verdade, não só apps.",
+    "intro": "Três jogos feitos com o motor Game Studio da NullKode e sua biblioteca gratuita de recursos 3D. Cada imagem abaixo é uma captura de tela real, e todos os jogos podem ser jogados no computador e no celular.",
+    "items": {
+      "dungeon": {
+        "alt": "Vault of Embers: um cavaleiro e uma maga lutando contra esqueletos em um salão de masmorra iluminado por tochas",
+        "body": "Guie um cavaleiro e uma maga por uma cripta iluminada por tochas. Bloqueie os ataques anunciados dos esqueletos, contra-ataque e abra a câmara do tesouro.",
+        "genre": "Ação em masmorras",
+        "title": "Vault of Embers"
+      },
+      "mars": {
+        "alt": "Red Horizon: uma base branca em Marte com um centro abobadado, painéis solares, uma plataforma de pouso e um rover ao lado de um depósito de cristais",
+        "body": "Comande uma colônia em Marte. Conecte a energia solar, envie o rover em busca de cristais, derrube meteoros e mantenha o oxigênio fluindo.",
+        "genre": "Construtor de bases",
+        "title": "Red Horizon"
+      },
+      "village": {
+        "alt": "Hearthvale: uma vila medieval em uma ilha verde com formato hexagonal e uma barra de construções",
+        "body": "Desenvolva uma vila medieval em uma ilha hexagonal. Escolha uma construção, veja onde ela cabe e acompanhe sua cidade ganhar forma.",
+        "genre": "Construtor de vilas",
+        "title": "Hearthvale"
+      }
+    },
+    "note": "Feitos com os mesmos kits de motor e a mesma biblioteca com mais de 74.000 recursos 2D e 3D gratuitos (CC0) disponíveis em todos os projetos do Game Studio.",
+    "play": "Jogar agora"
+  },
   "hero": {
     "badge": "Descreva, confira o plano e publique",
     "charsLeft": "{count, plural, one {resta # caractere} other {restam # caracteres}}",

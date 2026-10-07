@@ -7,6 +7,8 @@
   "billing": "Faturalandırma ve plan",
   "designer": "Tasarım aracı",
   "designerHelp": "Bir web sitesini kendi kelimelerinizle anlatın; yapay zekâ tasarlasın ve siz istedikçe değişiklikler yapsın.",
+  "games": "Oyunlar",
+  "gamesHelp": "Bir oyunu anlatın, yapay zekâ adım adım oynanabilir bir oyun oluştursun. Oyun geliştikçe oynayabilirsiniz.",
   "help": "Yardım",
   "helpGuides": "Yardım ve kılavuzlar",
   "helpHelp": "Adım adım kılavuzlar. Bulunduğunuz ekranın kılavuzu açılır.",

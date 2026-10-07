@@ -6,7 +6,10 @@ import { PartnerSsoRedeemer } from "@/components/partner/sso-redeemer";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = { referrer: "no-referrer", robots: { index: false, follow: false } };
+// "same-origin", not "no-referrer": under no-referrer the browser sends `Origin: null` with the ticket form's
+// same-site POST, and middleware refuses that as a cross-site write. The ticket lives in the #fragment, which is
+// never part of a Referer, and other sites still get no referrer at all.
+export const metadata: Metadata = { referrer: "same-origin", robots: { index: false, follow: false } };
 
 /**
  * Landing page of a partner's one-time sign-in link (/partner-sso#t=…).

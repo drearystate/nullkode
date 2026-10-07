@@ -184,7 +184,9 @@
     "backToApps": "Torna alle mie app",
     "backToAppsHelp": "Torna all’elenco di tutte le tue app.",
     "backToDesigner": "Torna al Designer",
-    "backToDesignerHelp": "Torna al Designer IA."
+    "backToDesignerHelp": "Torna al Designer IA.",
+    "backToGame": "Torna al gioco",
+    "backToGameHelp": "Torna a questo gioco in Game Studio per continuare a crearlo."
   },
   "modulesPage": {
     "help": "Le funzioni sono elementi già pronti, come prenotazioni o un negozio, che aggiungono alla tua app pagine complete e i relativi dati.",
@@ -226,17 +228,6 @@
       "versionFormat": "Usa una versione come 1.0.0"
     },
     "unauthorized": "Non autorizzato"
-  },
-  "nativePreview": {
-    "eyebrow": "ANTEPRIMA DELL'APP NATIVA",
-    "title": "Anteprima dell'app nativa",
-    "intro": "La tua app pubblicata come la disegna l'app nativa per telefono, accanto alla pagina web. È un'anteprima iniziale: moduli, elenchi dai tuoi dati e accesso arriveranno in seguito.",
-    "page": "Pagina",
-    "reload": "Ricarica",
-    "native": "App nativa",
-    "web": "Pagina web",
-    "notPublished": "Pubblica l'app per vederne l'anteprima come app nativa.",
-    "note": "La prima anteprima dopo la pubblicazione può richiedere fino a un minuto mentre l'app viene preparata. Le parti che l'app nativa non sa ancora disegnare appaiono come viste web incorporate."
   },
   "nativeApp": {
     "android": {
@@ -449,6 +440,17 @@
     "eyebrow": "TELEFONI E TABLET",
     "intro": "Trasforma questo progetto in una vera app per Google Play e l’App Store di Apple. L’app mostra il tuo sito pubblicato e aggiornato: ogni modifica viene applicata subito, senza creare una nuova versione.",
     "title": "App per dispositivi mobili"
+  },
+  "nativePreview": {
+    "eyebrow": "ANTEPRIMA APP NATIVA",
+    "intro": "La tua app pubblicata, mostrata come app nativa sul telefono, accanto alla pagina web. Questa è un’anteprima iniziale: moduli, elenchi dei tuoi dati e accesso arriveranno in seguito.",
+    "native": "App nativa",
+    "notPublished": "Pubblica l’app per vederla in anteprima come app nativa.",
+    "note": "La prima anteprima dopo la pubblicazione può richiedere fino a un minuto mentre l’app viene preparata. Le parti che l’app nativa non può ancora mostrare appariranno in viste web incorporate.",
+    "page": "Pagina",
+    "reload": "Ricarica",
+    "title": "Anteprima app nativa",
+    "web": "Pagina web"
   },
   "newPageButton": {
     "create": "Crea",

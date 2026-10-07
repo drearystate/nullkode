@@ -184,7 +184,9 @@
     "backToApps": "Retour à mes apps",
     "backToAppsHelp": "Retournez à la liste de toutes vos apps.",
     "backToDesigner": "Retour au Designer",
-    "backToDesignerHelp": "Retournez dans le Designer IA."
+    "backToDesignerHelp": "Retournez dans le Designer IA.",
+    "backToGame": "Retour au jeu",
+    "backToGameHelp": "Retournez à ce jeu dans le Studio de jeux pour continuer à le créer."
   },
   "modulesPage": {
     "help": "Les fonctionnalités sont des éléments prêts à l’emploi, comme les réservations ou une boutique. Elles ajoutent à votre app des pages et les données qui vont avec.",
@@ -226,17 +228,6 @@
       "versionFormat": "Utilisez une version au format 1.0.0"
     },
     "unauthorized": "Accès non autorisé"
-  },
-  "nativePreview": {
-    "eyebrow": "APERÇU DE L’APPLI NATIVE",
-    "title": "Aperçu de l’appli native",
-    "intro": "Votre appli publiée telle que l’appli native pour téléphone l’affiche, à côté de la page web. C’est un premier aperçu : les formulaires, les listes de vos données et la connexion arrivent ensuite.",
-    "page": "Page",
-    "reload": "Recharger",
-    "native": "Appli native",
-    "web": "Page web",
-    "notPublished": "Publiez l’appli pour la prévisualiser en appli native.",
-    "note": "Le premier aperçu après publication peut prendre jusqu’à une minute pendant la préparation de l’appli. Les parties que l’appli native ne sait pas encore dessiner apparaissent comme des vues web intégrées."
   },
   "nativeApp": {
     "android": {
@@ -449,6 +440,17 @@
     "eyebrow": "TÉLÉPHONES ET TABLETTES",
     "intro": "Transformez ce projet en une vraie app pour Google Play et l’App Store d’Apple. L’app affiche votre site publié en ligne : les changements sont donc appliqués immédiatement, sans nouvelle version à créer.",
     "title": "App mobile"
+  },
+  "nativePreview": {
+    "eyebrow": "APERÇU DE L’APPLICATION NATIVE",
+    "intro": "Votre application publiée telle qu’elle s’affiche sur un téléphone, à côté de la page web. Cet aperçu est préliminaire : les formulaires, les listes de vos données et la connexion seront bientôt disponibles.",
+    "native": "Application native",
+    "notPublished": "Publiez l’application pour en afficher un aperçu natif.",
+    "note": "Le premier aperçu après la publication peut prendre jusqu’à une minute, le temps de préparer l’application. Les éléments que l’application native ne peut pas encore afficher apparaissent dans des pages web intégrées.",
+    "page": "Page",
+    "reload": "Recharger",
+    "title": "Aperçu de l’application native",
+    "web": "Page web"
   },
   "newPageButton": {
     "create": "Créer",

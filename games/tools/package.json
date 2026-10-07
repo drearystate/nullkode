@@ -1,0 +1,9 @@
+{
+  "name": "nk-games-tools",
+  "private": true,
+  "type": "module",
+  "description": "Asset search over the NullKode game-asset library",
+  "dependencies": {
+    "better-sqlite3": "^12.11.1"
+  }
+}

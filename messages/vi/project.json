@@ -184,7 +184,9 @@
     "backToApps": "Quay lại ứng dụng của tôi",
     "backToAppsHelp": "Quay lại danh sách tất cả ứng dụng của bạn.",
     "backToDesigner": "Quay lại Trình thiết kế",
-    "backToDesignerHelp": "Quay lại Trình thiết kế AI."
+    "backToDesignerHelp": "Quay lại Trình thiết kế AI.",
+    "backToGame": "Quay lại trò chơi",
+    "backToGameHelp": "Quay lại trò chơi này trong Studio trò chơi để tiếp tục xây dựng."
   },
   "modulesPage": {
     "help": "Tính năng là những phần có sẵn như đặt lịch hoặc cửa hàng, giúp thêm các trang hoàn chỉnh và dữ liệu đi kèm vào ứng dụng của bạn.",
@@ -226,17 +228,6 @@
       "versionFormat": "Dùng phiên bản như 1.0.0"
     },
     "unauthorized": "Không được phép"
-  },
-  "nativePreview": {
-    "eyebrow": "XEM TRƯỚC ỨNG DỤNG GỐC",
-    "title": "Xem trước ứng dụng gốc",
-    "intro": "Ứng dụng đã xuất bản của bạn theo cách ứng dụng điện thoại gốc hiển thị, bên cạnh trang web. Đây là bản xem trước sớm: biểu mẫu, danh sách từ dữ liệu của bạn và đăng nhập sẽ có sau.",
-    "page": "Trang",
-    "reload": "Tải lại",
-    "native": "Ứng dụng gốc",
-    "web": "Trang web",
-    "notPublished": "Hãy xuất bản ứng dụng để xem trước dưới dạng ứng dụng gốc.",
-    "note": "Lần xem trước đầu tiên sau khi xuất bản có thể mất đến một phút trong lúc ứng dụng được chuẩn bị. Những phần ứng dụng gốc chưa hiển thị được sẽ xuất hiện dưới dạng khung web nhúng."
   },
   "nativeApp": {
     "android": {
@@ -449,6 +440,17 @@
     "eyebrow": "ĐIỆN THOẠI VÀ MÁY TÍNH BẢNG",
     "intro": "Biến dự án này thành ứng dụng thật trên Google Play và Apple App Store. Ứng dụng hiển thị trang web đã xuất bản trực tiếp của bạn, nên các thay đổi sẽ cập nhật ngay mà không cần tạo bản dựng mới.",
     "title": "Ứng dụng di động"
+  },
+  "nativePreview": {
+    "eyebrow": "BẢN XEM TRƯỚC ỨNG DỤNG GỐC",
+    "intro": "Xem ứng dụng đã xuất bản như trên điện thoại, cạnh trang web. Đây là bản xem trước ban đầu: biểu mẫu, danh sách từ dữ liệu của bạn và đăng nhập sẽ có sau.",
+    "native": "Ứng dụng gốc",
+    "notPublished": "Hãy xuất bản ứng dụng để xem trước dưới dạng ứng dụng gốc.",
+    "note": "Lần xem trước đầu tiên sau khi xuất bản có thể mất đến một phút để chuẩn bị ứng dụng. Những phần ứng dụng gốc chưa hiển thị được sẽ xuất hiện dưới dạng trang web nhúng.",
+    "page": "Trang",
+    "reload": "Tải lại",
+    "title": "Xem trước ứng dụng gốc",
+    "web": "Trang web"
   },
   "newPageButton": {
     "create": "Tạo",

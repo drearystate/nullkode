@@ -565,6 +565,93 @@
     "summary": "Uygulamanızın kaydettiği mesaj, rezervasyon ve kayıt gibi tüm bilgileri görüntüleyin, arayın, düzenleyin ve indirin.",
     "title": "Formlar ve verileriniz"
   },
+  "game-studio": {
+    "sections": {
+      "0": {
+        "heading": "Oyun başlatın",
+        "steps": {
+          "0": "Üst çubuktan <b>Oyunlar</b>'a tıklayın. Kontrol panelinizden <b>Oyun yap</b>'ı da seçebilirsiniz.",
+          "1": "<b>Nasıl bir oyun yapmak istiyorsunuz?</b> bölümünde oyununuzu tarif edin: oyuncu ne yapıyor, neleri topluyor veya nelerden kaçınıyor ve oyun nasıl görünmeli? Örnek fikirlerden birine dokunup onu değiştirebilirsiniz.",
+          "2": "<b>2D</b> veya <b>3D</b>'yi ya da <b>Yapay zekâ seçsin</b>'i seçin. İstediğiniz görünümü göstermek için görsel düğmesini kullanarak resim ekleyin.",
+          "3": "<b>Oyunu oluştur</b>'a basın. Yapay zekâ önce <b>Birkaç kısa soru</b> sorabilir. Yanıtları seçin veya yazın, ardından <b>Oyunu oluştur</b>'a ya da <b>Soruları atla</b>'ya basın."
+        }
+      },
+      "1": {
+        "body": {
+          "0": "Yapay zekâ önce bir <b>Oyun planı</b> yazar: oyunun türü, nasıl oynandığı, nasıl kazanılıp kaybedildiği ve görünümü. Ardından içerik kütüphanesinden oyuna uygun görseller ve sesler seçer.",
+          "1": "Plan'daki <b>Sanat yönetimi</b> bölümünde oyununuz için seçilen görünümü görürsünüz: renkleri, kamera açısını, şekilleri, ışıklandırmayı, arayüzü ve hareketleri. Her adım bu doğrultuda ilerler; böylece oyun en başından tamamlanmış görünür.",
+          "2": "Ardından oyunu küçük adımlarla oluşturur. Her adım tamamlandığında sohbet içinde yanında bir onay işareti görünür. Her adımdan sonra sağdaki oyun yerinde güncellenir ve hemen oynayabilirsin: önce arka plan, sonra oyuncu ve kontroller, seviye, toplanabilir nesneler, düşmanlar, menüler, sesler ve son rötuşlar.",
+          "3": "Her adım oyuna eklenmeden önce kontrol edilir: hatasız yüklenmeli ve oynanmalıdır. Başarısız olan bir adım bir kez daha denenir.",
+          "4": "Seviye, düşmanlar ve son rötuşlar tamamlandıktan sonra bir oyun testçisi oyunu oyuncu gibi dener: Her zıplama yapılabiliyor mu? Hedefe ve toplanabilir nesnelere ulaşılabiliyor mu? Başlangıç noktası güvenli mi? Oyuncu kolayca görülebiliyor mu? Dokunmatik düğmeler herhangi bir şeyi kapatıyor mu? Ayrıca oyunu bilgisayar ve telefon ekranlarında inceler, her şeyin tek ve tamamlanmış bir oyun gibi göründüğünü kontrol eder. Bulduklarını sohbette sana bildirir. Gerçek sorunlar hemen ek bir adımda, daha küçük sorunlar ise sonraki adımda giderilir."
+        },
+        "heading": "Oyunun gelişimini izleyin"
+      },
+      "2": {
+        "body": {
+          "0": "Oyuna tıklayın, ardından klavyeyi kullanın (ok tuşları veya WASD, zıplamak için Boşluk). Telefonda oyunda dokunmatik kontroller görünür.",
+          "1": "Oyunun üzerindeki çubuk, baktığınız adımı ve oyunun ne kadar akıcı çalıştığını gösterir. Oyunu duraklatmak, yeniden başlatmak, bilgisayar ve telefon görünümü arasında geçiş yapmak, tam ekranda oynamak veya oyunu yeni bir sekmede açmak için buradaki düğmeleri kullanın.",
+          "2": "Oyunda hata varsa sarı düğmede hata sayısı görünür. Hataları görmek için düğmeye tıklayın ve <b>Yapay zekâdan bunları düzeltmesini iste</b>'ye basın."
+        },
+        "heading": "Oynayın ve test edin"
+      },
+      "3": {
+        "heading": "Değişiklik isteyin",
+        "steps": {
+          "0": "<b>Değişiklik isteyin</b> kutusuna istediğinizi yazın. Örneğin, “daha yükseğe zıplasın”, “ikinci bir bölüm ekle” veya “kahramanı robotla değiştir”.",
+          "1": "Enter'a basın. Yapay zekâ değişikliği bir veya birkaç adımda planlar ve her adım tamamlandığında oyun güncellenir."
+        }
+      },
+      "4": {
+        "body": {
+          "0": "Oluşturmanın bitmesini beklemeniz gerekmez. Yapay zekâ çalışırken mesaj kutusuna yazmaya devam edin: ne yaptığını sorun ya da “kahramanı turuncu yap” veya “zıplayan bir kurbağa düşman ekle” gibi değişiklikler isteyin. Resim ve varlık da ekleyebilirsiniz.",
+          "1": "Notunuz sohbette hemen görünür ve yapay zekâ anında yanıt verir. Bir sonraki adımına geçmeden önce tüm notlarınızı okur ve isteklerinizi ilk planının önüne alır. Plan isteğinizi kapsamıyorsa listeye yeni bir adım eklenir. Son adım sırasında gönderilen bir not için ayrıca yeni bir adım eklenir.",
+          "2": "Her notun altında durumunu görebilirsiniz; örneğin <b>3. adımda uygulandı</b>."
+        },
+        "heading": "Oluşturulurken yön verin",
+        "steps": {
+          "0": "Şu anda çalışan adım kaydedilince durdurmak için <b>Bu adımdan sonra durdur</b> seçeneğine basın. Fikriniz değişirse <b>Devam et</b> seçeneğine basın.",
+          "1": "Hemen durdurmak için <b>Şimdi durdur</b> seçeneğine basın. Yapay zekânın üzerinde çalıştığı adım iptal edilir ve oyununuz son tamamlanan adımdaki hâlinde kalır.",
+          "2": "Tamamlanmış bir adımı geri almak için <b>Sürümler</b> bölümünü açıp önceki sürümü geri yükleyin."
+        }
+      },
+      "5": {
+        "body": {
+          "0": "Oyunun üstündeki <b>Varlıklar</b> seçeneğine basın (telefonda <b>Varlıklar</b> sekmesine). Binlerce sprite, 3D model, ses ve müzik arasında arama yapın; oyununuzda kullanılanları <b>Bu oyunda</b> bölümünde görün.",
+          "1": "Bir varlığı mesaj kutusuna sürükleyin ya da + düğmesine basın, ardından “bunu kahraman olarak kullan” gibi ne yapmasını istediğinizi yazın.",
+          "2": "<b>Yalnızca barındırılan</b> olarak işaretlenen varlıklar burada yayımladığınız oyunlarda kullanılabilir, ancak oyunu indirirken bunlar eklenmez."
+        },
+        "heading": "Varlık kitaplığını kullanın"
+      },
+      "6": {
+        "body": {
+          "0": "Her adım, oyunun o andaki görüntüsüyle birlikte bir sürüm olarak kaydedilir."
+        },
+        "heading": "Önceki bir sürüme dönün",
+        "steps": {
+          "0": "Oyunun üstündeki <b>Sürümler</b> seçeneğine basın.",
+          "1": "Eski bir sürümü tuvalde denemek için <b>Oynat</b> seçeneğine basın. Oyununuz değişmez.",
+          "2": "O sürümü geçerli sürüm yapmak için <b>Geri yükle</b> seçeneğine basın. Mevcut sürümünüz listede kalır."
+        }
+      },
+      "7": {
+        "body": {
+          "0": "<b>Yayımla</b>, oyununuzu herkesin oynayabileceği kendine ait bir web adresi olan uygulamaya dönüştürür. Uygulamadan ayrıca telefon uygulaması oluşturabilir ve kendi alan adınızı ekleyebilirsiniz. Değişiklik yaptıktan sonra <b>Yeniden yayımla</b> seçeneğine basın.",
+          "1": "<b>İndir</b>, oyununuzu tüm web sunucularında çalışabilen bir .zip dosyası olarak kaydeder."
+        },
+        "heading": "Yayımlayın veya indirin"
+      },
+      "8": {
+        "bullets": {
+          "0": "Bir oyun oluşturmak ve istediğiniz her değişiklik, kaç adım sürerse sürsün, planınızın aylık yapay zekâ hakkından bir işlem kullanır. Yapay zekâ hiçbir sonuç üretemezse işlem sayılmaz.",
+          "1": "Oyun oluşturulurken sunucu yeniden başlarsa oluşturma kaldığı adımdan devam eder.",
+          "2": "Oyunlar gerçek oyun motorlarıyla oluşturulur: 2D için Phaser, 3D için three.js."
+        },
+        "heading": "Bilmenizde fayda var"
+      }
+    },
+    "summary": "Bir oyunu tarif edin; yapay zekâ adım adım gerçek, oynanabilir bir oyun oluşturur. Oyun geliştikçe oynayabilir ve sohbet ederek değiştirebilirsiniz.",
+    "title": "Oyun Stüdyosu'nda oyun yapın"
+  },
   "getting-started": {
     "sections": {
       "0": {

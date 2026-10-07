@@ -1,0 +1,95 @@
+#!/usr/bin/env node
+// asset-search CLI - see ASSET-SEARCH-CARD.md. One line per asset:
+//   id | name | kind style view | metrics | usage note
+// URLs: /game-assets/<file> (printed with --urls or --json); preview: /game-assets/_previews/<id>.webp
+import { search, listSet, similar, checkStyle, searchSets, getAsset, formatLine, meta } from "./asset-search.mjs";
+
+const HELP = `asset-search "<query>" [filters]       search assets (one line each)
+asset-search --sets "<query>"                 find coherent asset sets (pack/category cards)
+asset-search --set <pack/set[/sub]> ["<query>"] list a whole modular set (or narrow it)
+asset-search --similar <id>                   same-set / same-style neighbours
+asset-search --check <id> <id> ...            style coherence warnings for chosen ids
+asset-search --get <id>                       full record (JSON)
+filters: --kind sprite,animation --style pixel|pixel-8bit|pixel-1bit|low-poly|stylised-3d|flat-vector|cartoon-hd
+  --pack kenney|kenney/nature-kit --view side|top-down|isometric|three-quarter|3d --licence exportable|cc0|any
+  --2d --3d --audio --animated --rigged --tile 16 --limit 20 --desc --urls --json --all (incl. svg twins)`;
+
+const argv = process.argv.slice(2);
+if (!argv.length || argv.includes("-h") || argv.includes("--help")) { console.log(HELP); process.exit(0); }
+const f = {}; const words = []; let mode = "search"; let modeArg = null; const ids = [];
+let json = false, desc = false, urls = false;
+for (let i = 0; i < argv.length; i++) {
+  const a = argv[i];
+  const next = () => argv[++i];
+  switch (a) {
+    case "--sets": mode = "sets"; break;
+    case "--set": mode = "set"; modeArg = next(); break;
+    case "--similar": mode = "similar"; modeArg = next(); break;
+    case "--check": mode = "check"; break;
+    case "--get": mode = "get"; modeArg = next(); break;
+    case "--kind": f.kind = next(); break;
+    case "--style": f.style = next(); break;
+    case "--pack": f.pack = next(); break;
+    case "--view": case "--perspective": f.view = next(); break;
+    case "--licence": case "--license": f.licence = next(); break;
+    case "--exportable": f.licence = "exportable"; break;
+    case "--2d": f.dim = "2d"; break;
+    case "--3d": f.dim = "3d"; break;
+    case "--audio": f.dim = "audio"; break;
+    case "--animated": f.animated = true; break;
+    case "--rigged": f.rigged = true; break;
+    case "--tile": f.tile = +next(); break;
+    case "--limit": f.limit = +next(); break;
+    case "--engine": f.engine = next(); break;
+    case "--all": f.includeAlts = true; break;
+    case "--json": json = true; break;
+    case "--desc": desc = true; break;
+    case "--urls": urls = true; break;
+    default:
+      if (mode === "check" && !a.startsWith("--")) ids.push(...a.split(",").filter(Boolean));
+      else words.push(a);
+  }
+}
+const q = words.join(" ");
+const line = (r) => formatLine(r, { showDesc: desc }) + (urls ? ` | ${r.url}` : "");
+try {
+  if (mode === "get") {
+    console.log(JSON.stringify(getAsset(modeArg), null, 1));
+  } else if (mode === "check") {
+    const r = checkStyle(ids);
+    if (json) console.log(JSON.stringify(r, null, 1));
+    else {
+      console.log(r.ok ? `OK - coherent. ${r.summary}` : `WARN - ${r.summary}`);
+      for (const w of r.warnings) console.log("- " + w);
+      if (r.missing.length) console.log("- unknown ids: " + r.missing.join(", "));
+    }
+  } else if (mode === "sets") {
+    const r = searchSets(q, f);
+    if (json) console.log(JSON.stringify(r, null, 1));
+    else for (const s of r) console.log(`${s.set} | ${s.title} | ${s.assets} assets | ${s.style} ${s.view} | ${s.engine.split(" ")[0]} | ${s.licence === "cc0" ? "cc0" : "not-redistributable"} | ${s.summary}`);
+  } else if (mode === "set") {
+    const r = listSet(modeArg, { ...f, query: q || undefined });
+    if (json) console.log(JSON.stringify(r, null, 1));
+    else {
+      let lastCat = null;
+      const pre = modeArg.replace(/\/$/, "") + "/";
+      if (r.total !== undefined) console.log(`# ${modeArg}: ${r.total} assets${r.total > r.length ? ` (showing ${r.length}; add words or --limit)` : ""}; card: /game-assets/_cards/${modeArg.split("/").slice(0, 2).join("/")}.md`);
+      for (const a of r) {
+        const cat = a.id.slice(0, a.id.lastIndexOf("/"));
+        if (!q && cat !== lastCat) { console.log(`## ${cat}/`); lastCat = cat; }
+        console.log(q ? line(a) : `${a.id.startsWith(pre) && !q ? a.id.slice(cat.length + 1) : a.id} | ${a.name} | ${a.kind} | ${a.metrics}${a.use ? " | " + a.use : ""}`);
+      }
+    }
+  } else if (mode === "similar") {
+    const r = similar(modeArg, f);
+    if (json) console.log(JSON.stringify(r, null, 1)); else for (const a of r) console.log(line(a));
+  } else {
+    if (!q) { console.log(HELP); process.exit(1); }
+    const r = search(q, f);
+    if (json) console.log(JSON.stringify(r, null, 1));
+    else { if (!r.length) console.log("(no results - try fewer words or drop a filter)"); for (const a of r) console.log(line(a)); }
+  }
+} catch (e) {
+  console.error("asset-search: " + e.message);
+  process.exit(1);
+}

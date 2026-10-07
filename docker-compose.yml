@@ -54,6 +54,14 @@ services:
       # The scheduler service below checks for due scheduled workflows every
       # minute, so the app doesn't run its own timer as well.
       NK_EXTERNAL_SCHEDULER: ${NK_EXTERNAL_SCHEDULER:-1}
+      # Game Studio (docs/games.md): the engine kits, design playbook and asset
+      # search ship in games/. The asset library is built on this computer
+      # (bash games/setup-library.sh) and mounted below, read-only.
+      NK_GAME_KITS: /app/games/engine/kits
+      NK_GAME_DESIGN: /app/games/design
+      NK_ASSET_SEARCH: /app/games/tools/asset-search.mjs
+      NK_GAME_ASSETS: /app/games/library
+      NK_ASSET_INDEX: /app/games/library/_index/assets.db
     ports:
       - "${BIND_ADDRESS:-127.0.0.1}:${APP_PORT:-3001}:3001"
     extra_hosts:
@@ -62,6 +70,10 @@ services:
       - uploads:/app/uploads
       - public_uploads:/app/public/uploads
       - imported_assets:/app/public/assets/cloned
+      # The Game Studio's asset library (about 1 GB once built). Until it is
+      # built the folder is empty and the Game Studio says it isn't set up.
+      # Elsewhere on this computer: NK_GAME_LIBRARY=/path/to/library in .env.
+      - ${NK_GAME_LIBRARY:-./games/library}:/app/games/library:ro
     healthcheck:
       test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3001/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
       start_period: 90s

@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import { requestHost, resellerForHost } from "@/lib/reseller";
 import { LandingHero } from "@/components/landing/landing-hero";
 import { FeatureBento } from "@/components/landing/feature-bento";
+import { GameShowcase } from "@/components/landing/game-showcase";
 import { PricingSection } from "@/components/landing/pricing-section";
 import { FaqSection } from "@/components/landing/faq-section";
 import { LandingNav } from "@/components/landing/landing-nav";
@@ -30,6 +31,7 @@ export default async function HomePage() {
       <LandingNav authed={authed} name={brand.appName} logo={brand.logoDataUrl} />
       <LandingHero authed={authed} moduleCount={MODULE_REGISTRY.length} aiReady={canDescribe} />
       <FeatureBento name={brand.appName} moduleCount={MODULE_REGISTRY.length} autoTls={process.env.NK_AUTO_TLS === "1"} />
+      <GameShowcase authed={authed} />
       <PricingSection authed={authed} />
       <FaqSection name={brand.appName} />
 

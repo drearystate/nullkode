@@ -184,7 +184,9 @@
     "backToApps": "Zurück zu meinen Apps",
     "backToAppsHelp": "Geh zurück zur Übersicht mit all deinen Apps.",
     "backToDesigner": "Zurück zum Designer",
-    "backToDesignerHelp": "Geh zurück zum KI-Designer."
+    "backToDesignerHelp": "Geh zurück zum KI-Designer.",
+    "backToGame": "Zurück zum Spiel",
+    "backToGameHelp": "Kehre im Game Studio zu diesem Spiel zurück, um weiter daran zu arbeiten."
   },
   "modulesPage": {
     "help": "Funktionen sind fertige Bausteine wie Buchungen oder ein Shop. Sie ergänzen deine App um fertige Seiten und die dazugehörigen Daten.",
@@ -226,17 +228,6 @@
       "versionFormat": "Verwende eine Version wie 1.0.0"
     },
     "unauthorized": "Nicht autorisiert"
-  },
-  "nativePreview": {
-    "eyebrow": "VORSCHAU DER NATIVEN APP",
-    "title": "Vorschau der nativen App",
-    "intro": "Deine veröffentlichte App so, wie die native Handy-App sie darstellt, neben der Webseite. Dies ist eine frühe Vorschau: Formulare, Listen aus deinen Daten und die Anmeldung folgen als Nächstes.",
-    "page": "Seite",
-    "reload": "Neu laden",
-    "native": "Native App",
-    "web": "Webseite",
-    "notPublished": "Veröffentliche die App, um sie als native App anzusehen.",
-    "note": "Die erste Vorschau nach dem Veröffentlichen kann bis zu einer Minute dauern, während die App vorbereitet wird. Teile, die die native App noch nicht darstellen kann, erscheinen als eingebettete Webansichten."
   },
   "nativeApp": {
     "android": {
@@ -449,6 +440,17 @@
     "eyebrow": "SMARTPHONES UND TABLETS",
     "intro": "Mach aus diesem Projekt eine echte App für Google Play und den Apple App Store. Die App zeigt deine veröffentlichte Website live an. Änderungen werden also sofort übernommen, ohne dass ein neuer Build nötig ist.",
     "title": "Mobile App"
+  },
+  "nativePreview": {
+    "eyebrow": "VORSCHAU DER NATIVEN APP",
+    "intro": "So sieht deine veröffentlichte App in der nativen Handy-App aus – neben der Webseite. Dies ist eine frühe Vorschau: Formulare, Listen aus deinen Daten und die Anmeldung folgen später.",
+    "native": "Native App",
+    "notPublished": "Veröffentliche die App, um sie als native App in der Vorschau anzusehen.",
+    "note": "Die erste Vorschau nach der Veröffentlichung kann bis zu einer Minute dauern, während die App vorbereitet wird. Teile, die die native App noch nicht darstellen kann, erscheinen als eingebettete Webansichten.",
+    "page": "Seite",
+    "reload": "Neu laden",
+    "title": "Vorschau der nativen App",
+    "web": "Webseite"
   },
   "newPageButton": {
     "create": "Erstellen",

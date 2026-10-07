@@ -92,6 +92,34 @@
       "body": "Treat any spreadsheet as a database. Read, write, and query rows — no migration, no DevOps, no setup."
     }
   },
+  "games": {
+    "eyebrow": "Official NullKode games",
+    "heading": "Real games, not just apps.",
+    "intro": "Three games made with NullKode's Game Studio engine and its free 3D asset library. Every frame below is a real screenshot, and every game is playable on desktop and phone.",
+    "play": "Play now",
+    "cta": "Make your own game",
+    "note": "Built on the same engine kits and the same library of 74,000+ free (CC0) 2D and 3D assets that every Game Studio project gets.",
+    "items": {
+      "village": {
+        "title": "Hearthvale",
+        "genre": "Village builder",
+        "body": "Grow a medieval village on a hex island. Pick a building, see where it fits, and watch your town come together.",
+        "alt": "Hearthvale: a medieval village on a green hex island, with a building toolbar"
+      },
+      "mars": {
+        "title": "Red Horizon",
+        "genre": "Base builder",
+        "body": "Run a colony on Mars. Hook up solar power, send the rover for crystals, shoot down meteors and keep the oxygen flowing.",
+        "alt": "Red Horizon: a white Mars base with a domed hub, solar panels, a landing pad and a rover beside a crystal deposit"
+      },
+      "dungeon": {
+        "title": "Vault of Embers",
+        "genre": "Dungeon action",
+        "body": "Lead a knight and a mage through a torch-lit crypt. Block the skeletons' telegraphed attacks, strike back and open the vault.",
+        "alt": "Vault of Embers: a knight and a mage fighting skeletons in a torch-lit dungeon hall"
+      }
+    }
+  },
   "pricing": {
     "heading": "Room for your next idea.",
     "intro": "Choose the plan that fits what you want to build.",

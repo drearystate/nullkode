@@ -59,10 +59,35 @@ async function walk(dir='') {
     assert.ok(!/\.(jks|keystore)$/i.test(item.name), `Signing key: ${rel}`);
     assert.ok(!(rel.startsWith('native-templates/') && item.isDirectory() && ['build','.gradle'].includes(item.name)), `Build output: ${rel}`);
     assert.ok(!/^native-runtime\/(?:\.expo|dist-web|web-build|android|ios)$/.test(rel) && rel !== 'public/nk-native' && rel !== 'output', `Generated native files: ${rel}`);
+    assert.ok(!(item.isDirectory() && /^games\/(?:library|work|packs)$/.test(rel)), `Game asset files or pipeline scratch space: ${rel}`);
     if(item.isDirectory())await walk(rel);
   }
 }
 await walk();
+
+// Game Studio (docs/games.md): kits, playbook, asset tools and CC0 metadata,
+// with no asset files and nothing from packs that may not be shared.
+assert.ok(await stat(join(root, 'docs/games.md')).catch(() => null), 'Missing docs/games.md');
+if (await stat(join(root, 'games')).catch(() => null)) {
+  for (const f of ['games/engine/kits/phaser-2d','games/engine/kits/three-3d','games/design/INDEX.json','games/tools/asset-search.mjs','games/tools/package-lock.json','games/ingest/ingest.py','games/ingest/prepare-packs.py','games/tagging/runner.py','games/metadata/tags-cc0.jsonl.gz','games/metadata/cards-cc0.json.gz','games/setup-library.sh','games/THIRD-PARTY-NOTICES.md','games/showcase/serve.mjs']) {
+    assert.ok(await stat(join(root, f)).catch(() => null), `Missing ${f}`);
+  }
+  const { checkTree } = await import('./package-games.mjs');
+  await checkTree(join(root, 'games'), 'games');
+  const assetFile = /\.(?:glb|gltf|ogg|mp3|wav)$/i;
+  const found = [];
+  const look = async (dir) => { for (const item of await readdir(join(root, dir), { withFileTypes: true })) { const rel = join(dir, item.name); if (item.isDirectory()) await look(rel); else if (assetFile.test(item.name)) found.push(rel); } };
+  await look('games');
+  assert.equal(found.length, 0, `Asset files in games/ (the library is built by each install): ${found.slice(0, 5).join(', ')}`);
+}
+{
+  // No file anywhere names the pack nullkode.com may use but not share.
+  const { NR_RE } = await import('./package-games.mjs');
+  const hits = [];
+  const scan = async (dir) => { for (const item of await readdir(join(root, dir), { withFileTypes: true })) { const rel = join(dir, item.name); if (NR_RE.test(item.name)) hits.push(rel); if (item.isDirectory()) await scan(rel); else if (NR_RE.test((await readFile(join(root, rel))).toString('latin1'))) hits.push(rel); } };
+  await scan('');
+  assert.equal(hits.length, 0, `Files naming a pack that can't ship: ${hits.join(', ')}`);
+}
 // The engine's copy of the native spec contract is the server's.
 assert.equal(await readFile(join(root,'native-runtime/src/spec.ts'),'utf8'), await readFile(join(root,'src/lib/native/spec.ts'),'utf8'), 'native-runtime/src/spec.ts differs from src/lib/native/spec.ts (run pnpm native:web)');
 const registry=await readFile(join(root,'src/lib/templates/registry.ts'),'utf8');

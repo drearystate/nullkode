@@ -150,6 +150,7 @@ model User {
   @@index([resellerId])
   aiUsage AiUsage[]
   aiRuns  AiRun[]
+  games   GameProject[]
 }
 
 /**
@@ -752,4 +753,147 @@ model PartnerIdempotency {
 
   @@unique([keyId, idemKey])
   @@index([createdAt])
+}
+
+// ── Game Studio (src/lib/game-studio) ───────────────────────────────────
+// A game is its own source files on one of the engine kits (nk-games), the
+// versions saved after every build step, the conversation and the AI jobs
+// that build it step by step (they carry on after a restart).
+
+model GameProject {
+  id         String    @id @default(cuid())
+  ownerId    String
+  name       String    @default("Untitled game")
+  // "phaser-2d" | "three-3d"
+  engine     String
+  kitVersion String    @default("1.0.0")
+  // "new" | "building" | "ready" | "error"
+  status     String    @default("new")
+  // The NullKode app the game is published as (a Project of kind DESIGNER).
+  projectId  String?
+  // The game design brief (genre, core loop, controls, art, chosen assets…).
+  plan       Json?
+  // The design playbook's genre card the game follows (nk-games/design INDEX.json id), null = core rules only.
+  genreId    String?
+  // The game's own files as they are now: path -> source.
+  files      Json      @default("{}")
+  // The newest GameVersion.seq
+  seq        Int       @default(0)
+  deletedAt  DateTime?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  owner    User          @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  versions GameVersion[]
+  jobs     GameJob[]
+  chat     GameChat[]
+  notes    GameNote[]
+
+  @@index([ownerId])
+  @@index([projectId])
+}
+
+/// The game after one build step (or a restore): every file, the step it came from and the headless check's result.
+model GameVersion {
+  id        String   @id @default(cuid())
+  gameId    String
+  seq       Int
+  // path -> source of every file of the game at this version
+  files     Json
+  stepLabel String
+  note      String?
+  // "step" | "restore"
+  kind      String   @default("step")
+  // The headless check: { ok, errors, fps, state, ms } (null = not run)
+  check     Json?
+  // A small WebP screenshot of the game at this version (from the headless check)
+  shot      Bytes?
+  createdAt DateTime @default(now())
+
+  game GameProject @relation(fields: [gameId], references: [id], onDelete: Cascade)
+
+  @@unique([gameId, seq])
+}
+
+/// A build or a change, run step by step in the background (like DesignerGenerationJob). It survives restarts:
+/// its plan, steps and the next step to run are kept here and a restarted server carries on (src/lib/game-studio/engine.ts).
+model GameJob {
+  id              String    @id
+  gameId          String
+  userId          String
+  // "build" | "change"
+  kind            String
+  prompt          String
+  // "running" | "done" | "error" | "cancelled"
+  status          String    @default("running")
+  cancelRequested Boolean   @default(false)
+  // "Stop after this step": the job ends once the step running now is saved.
+  stopAfterStep   Boolean   @default(false)
+  // [{ id, label, goal, status: "todo"|"running"|"done"|"error", seq?, error? }]
+  steps           Json      @default("[]")
+  // index of the next step to run
+  stepIndex       Int       @default(0)
+  // the AiUsage charge (refunded when nothing was delivered)
+  chargeId        String?
+  // the server process running it (host:folder:port) and its heartbeat
+  instance        String?
+  heartbeatAt     DateTime  @default(now())
+  resumes         Int       @default(0)
+  error           String?
+  // { locale, references, phase … }
+  meta            Json?
+  startedAt       DateTime  @default(now())
+  finishedAt      DateTime?
+
+  game GameProject @relation(fields: [gameId], references: [id], onDelete: Cascade)
+
+  @@index([gameId])
+  @@index([status, heartbeatAt])
+}
+
+/// The Game Studio conversation.
+model GameChat {
+  id         String   @id @default(cuid())
+  gameId     String
+  seq        Int
+  // "user" | "assistant" | "error"
+  kind       String
+  text       String
+  versionSeq Int?
+  createdAt  DateTime @default(now())
+
+  game GameProject @relation(fields: [gameId], references: [id], onDelete: Cascade)
+
+  @@unique([gameId, seq])
+}
+
+/// A note the person sent while a build or change was running ("steer while building"). The build rule
+/// checks it, a short AI reply answers it at once, and the build loop reads it before every step: the
+/// owner's instructions go into the step prompt, ahead of the original plan (src/lib/game-studio/notes.ts).
+model GameNote {
+  id           String   @id @default(cuid())
+  gameId       String
+  jobId        String
+  userId       String
+  // GameChat.seq of the person's message
+  chatSeq      Int?
+  text         String
+  // reference images sent with it: { id, count } (lib/ai/references.ts)
+  references   Json?
+  // "new" | "checking" | "accepted" | "question" | "refused" | "applied" | "dropped"
+  status       String   @default("new")
+  // what the quick reply decided: "change" | "question"; newStep = the plan needs a step for it
+  kind         String?
+  newStep      Boolean  @default(false)
+  // the step id it is planned for, and the step (1-based number, label) it was applied in
+  planStep     String?
+  appliedStep  Int?
+  appliedLabel String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  game GameProject @relation(fields: [gameId], references: [id], onDelete: Cascade)
+
+  @@index([jobId, status])
+  @@index([gameId])
 }

@@ -75,6 +75,34 @@
     "copyright": "© {year} {app}",
     "tagline": "Công cụ tạo ứng dụng trực quan với backend thực thụ. Ra mắt sản phẩm hoàn chỉnh — không chỉ trang tiếp thị."
   },
+  "games": {
+    "cta": "Tạo trò chơi của riêng bạn",
+    "eyebrow": "Trò chơi chính thức của NullKode",
+    "heading": "Game thật, không chỉ là ứng dụng.",
+    "intro": "Ba trò chơi được tạo bằng engine Game Studio của NullKode và thư viện tài nguyên 3D miễn phí. Mỗi khung hình bên dưới đều là ảnh chụp màn hình thật, và bạn có thể chơi mọi trò trên máy tính lẫn điện thoại.",
+    "items": {
+      "dungeon": {
+        "alt": "Vault of Embers: một hiệp sĩ và một pháp sư chiến đấu với bộ xương trong hành lang hầm ngục sáng đuốc",
+        "body": "Dẫn dắt một hiệp sĩ và một pháp sư băng qua hầm mộ sáng đuốc. Đỡ các đòn tấn công báo trước của bộ xương, phản công và mở kho báu.",
+        "genre": "Hành động trong hầm ngục",
+        "title": "Vault of Embers"
+      },
+      "mars": {
+        "alt": "Red Horizon: căn cứ Sao Hỏa màu trắng với trung tâm mái vòm, các tấm pin mặt trời, bãi đáp và xe tự hành bên cạnh mỏ tinh thể",
+        "body": "Điều hành một thuộc địa trên Sao Hỏa. Kết nối nguồn điện mặt trời, cử xe tự hành đi tìm tinh thể, bắn hạ thiên thạch và duy trì nguồn oxy.",
+        "genre": "Xây dựng căn cứ",
+        "title": "Red Horizon"
+      },
+      "village": {
+        "alt": "Hearthvale: ngôi làng thời trung cổ trên hòn đảo lục giác xanh mướt, cùng thanh công cụ xây dựng",
+        "body": "Phát triển một ngôi làng thời trung cổ trên hòn đảo lục giác. Chọn công trình, xem nơi nào phù hợp rồi ngắm thị trấn của bạn dần hình thành.",
+        "genre": "Xây dựng làng",
+        "title": "Hearthvale"
+      }
+    },
+    "note": "Được xây dựng bằng cùng bộ công cụ engine và thư viện hơn 74.000 tài nguyên 2D và 3D miễn phí (CC0) mà mọi dự án Game Studio đều có.",
+    "play": "Chơi ngay"
+  },
   "hero": {
     "badge": "Mô tả, xem kế hoạch, ra mắt",
     "charsLeft": "{count, plural, one {còn # ký tự} other {còn # ký tự}}",

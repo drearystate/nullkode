@@ -1,0 +1,24 @@
+[
+  {
+    "slug": "kenney",
+    "title": "Kenney Game Assets All-in-1 3.7.0",
+    "zip": "kenney.zip",
+    "rules": "kenney",
+    "licence": "cc0",
+    "licenceName": "CC0 1.0 Universal (public domain)",
+    "attribution": "Kenney (www.kenney.nl) - CC0, credit appreciated but not required",
+    "redistributable": true,
+    "defaultStyle3d": "low-poly"
+  },
+  {
+    "slug": "kaykit",
+    "title": "The Complete KayKit Collection v7",
+    "zip": "kaykit.zip",
+    "rules": "kaykit",
+    "licence": "cc0",
+    "licenceName": "CC0 1.0 Universal (public domain)",
+    "attribution": "KayKit by Kay Lousberg (www.kaylousberg.com) - CC0, credit appreciated but not required",
+    "redistributable": true,
+    "defaultStyle3d": "low-poly"
+  }
+]

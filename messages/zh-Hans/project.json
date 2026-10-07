@@ -184,7 +184,9 @@
     "backToApps": "返回我的应用",
     "backToAppsHelp": "返回所有应用列表。",
     "backToDesigner": "返回设计器",
-    "backToDesignerHelp": "返回 AI 设计器。"
+    "backToDesignerHelp": "返回 AI 设计器。",
+    "backToGame": "返回游戏",
+    "backToGameHelp": "返回游戏工作室中的此游戏，继续制作。"
   },
   "modulesPage": {
     "help": "功能是现成的模块，比如预约或商店，可以为你的应用添加完整页面和相关数据。",
@@ -226,17 +228,6 @@
       "versionFormat": "版本号格式示例：1.0.0"
     },
     "unauthorized": "未获授权"
-  },
-  "nativePreview": {
-    "eyebrow": "原生应用预览",
-    "title": "原生应用预览",
-    "intro": "以原生手机应用的呈现方式显示已发布的应用，并与网页并排对比。这是早期预览：表单、来自你数据的列表和登录将随后推出。",
-    "page": "页面",
-    "reload": "重新加载",
-    "native": "原生应用",
-    "web": "网页",
-    "notPublished": "发布应用后即可预览原生应用。",
-    "note": "发布后的首次预览可能需要最多一分钟来准备应用。原生应用暂时无法绘制的部分会以内嵌网页视图显示。"
   },
   "nativeApp": {
     "android": {
@@ -449,6 +440,17 @@
     "eyebrow": "手机和平板",
     "intro": "将此项目变成可在 Google Play 和 Apple App Store 上架的真正 app。app 会显示已发布的网站，因此发布更改后会立即更新，无需重新构建。",
     "title": "移动 app"
+  },
+  "nativePreview": {
+    "eyebrow": "原生应用预览",
+    "intro": "查看已发布应用在手机原生应用中的显示效果，并与网页对比。这是早期预览：表单、数据列表和登录功能即将推出。",
+    "native": "原生应用",
+    "notPublished": "发布应用后，即可预览原生应用效果。",
+    "note": "发布后的首次预览可能需要一分钟来准备应用。原生应用暂时无法显示的部分会以嵌入式网页视图呈现。",
+    "page": "页面",
+    "reload": "重新加载",
+    "title": "原生应用预览",
+    "web": "网页"
   },
   "newPageButton": {
     "create": "创建",

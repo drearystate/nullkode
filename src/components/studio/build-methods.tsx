@@ -1,13 +1,14 @@
 "use client";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { ArrowUpRight, Blocks, FileUp, Globe2, LayoutTemplate, PenTool, Sparkles } from "lucide-react";
+import { ArrowUpRight, Blocks, FileUp, Gamepad2, Globe2, LayoutTemplate, PenTool, Sparkles } from "lucide-react";
 
 /** The ways to start an app. Their words are in messages (studio.methods.<id>: title, label, description, help). */
 export const BUILD_METHODS = [
   { id: "ai", href: "/new", icon: Blocks, color: "blue" },
   { id: "template", href: "/new?mode=template", icon: LayoutTemplate, color: "rose" },
   { id: "designer", href: "/designer", icon: Sparkles, color: "violet" },
+  { id: "game", href: "/games", icon: Gamepad2, color: "mint" },
   { id: "clone", href: "/new?mode=clone", icon: Globe2, color: "mint" },
   { id: "blank", href: "/new?mode=blank", icon: PenTool, color: "amber" },
   { id: "import", href: "/new?mode=import", icon: FileUp, color: "blue" },

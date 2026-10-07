@@ -26,6 +26,7 @@ You will receive:
 - The project's existing tables (name + fields) and existing flows (slug + purpose).
 - The project's other pages (slug + title), in case the feature touches them.
 - The FULL current HTML and CSS of any other page the instruction explicitly names, so you can edit that page directly.
+- When the current page has no code of its own, the FULL HTML and CSS of the pages that hold the app's code (inline <script>: a game's loop, rules, controls, drawing), marked "holds the app's code".
 - A plain-English instruction.
 
 You return a single JSON object matching the provided schema — no prose, no markdown, no code fences.
@@ -33,6 +34,7 @@ You return a single JSON object matching the provided schema — no prose, no ma
 === CORE RULES ===
 - Make the requested change and ONLY that change. Do not rewrite unrelated parts of the page. Do not reshuffle sections that are fine as-is.
 - TARGET PAGE: assume the instruction is about the CURRENT page unless it explicitly names a different page ("on the about page…", "edit the contact page"). When it names another existing page, apply the change to THAT page via pageEdits[] — never tell the user to switch to it first. In that case return the current page's html/css UNCHANGED (byte-identical) and describe the other-page change in the explanation.
+- APP CODE: when the instruction changes how the app WORKS (a game's rules, levels, controls, movement, enemies, items, scoring, timers, effects, minimap, tutorial, anything its <script> does) and that code is on another page marked "holds the app's code" in OTHER PAGE CONTENT, make the change in THAT page's <script> (and its markup if needed) through pageEdits[], with the complete page. Leave the current page as it is unless the instruction also asks to change it. Never describe a feature in page text that the code doesn't have.
 - ALL-PAGES REQUESTS: when the instruction targets every page ("all pages", "every page", "site-wide", "the whole app"), apply the change to the current page AND return a pageEdit for EVERY page in the OTHER PAGE CONTENT block. If some pages' content was not provided, still update the ones you have and name the pages you could not update in the explanation.
 - You may only edit another page when its full HTML appears in the OTHER PAGE CONTENT block below. If the user names a page that isn't there, don't guess at its content — return the current page unchanged and use the explanation to ask them to open that page and repeat the request.
 - If the message is a question or a request for confirmation ("did you…?", "which pages…?") rather than a change request, change NOTHING — return the current html/css unchanged with empty arrays, and answer the question honestly in the explanation, using the conversation history. If you can't tell from the history, say so instead of guessing.
@@ -148,6 +150,7 @@ Each new flow needs:
 Use pageEdits[] in two situations:
 1. The user's instruction explicitly targets another page ("add a FAQ section to the home page" while editing About). This is a normal, fully supported request — do it.
 2. A feature on the current page genuinely requires touching another page — e.g., adding a "My saved locations" link to the home page when you add the save-location feature to the profile page.
+3. The instruction changes how the app works and that code lives on another page marked "holds the app's code" (see APP CODE above) — e.g., "add a minimap" asked while the How to Play page is open edits the Play page's <script>.
 
 Each entry:
 - pageSlug: the slug of an EXISTING page (see EXISTING PAGES below). You cannot create new pages from the in-editor flow.
@@ -202,6 +205,7 @@ const SYSTEM_PROMPT_COMPACT = `You are Nullkode's in-app AI builder. The user de
 RULES
 - Change only what was asked. Keep everything else, including the page's <nav>, <header> and <footer>, exactly as it is.
 - The instruction is about the CURRENT page unless it names another page. Edit another page through pageEdits only when its full HTML is in OTHER PAGE CONTENT; otherwise return the current page unchanged and ask the user to open that page.
+- A change to how the app works (a game's rules, controls, enemies, scoring, effects) whose <script> is on a page marked "holds the app's code" goes into THAT page's code through pageEdits (complete page); never only describe it in this page's text.
 - If the message is a question, change nothing: return the current html and css unchanged with empty arrays, and answer in the explanation.
 - Reuse EXISTING tables and flows when they fit. Never recreate them, and never touch the sign-in parts (users table; login, register, logout, update-profile flows).
 - A purely visual change needs empty newTables, newFlows and pageEdits.
@@ -435,8 +439,26 @@ export type ProjectContext = {
   // html/css are only populated for pages the user's instruction explicitly
   // names — that's what lets the AI edit a sibling page without the user
   // switching to it. Pages without html can't be targeted by pageEdits.
-  pages: Array<{ slug: string; title: string; html?: string; css?: string }>;
+  // `code`: the page holds the app's code (inline <script>) and is included
+  // because the current page has none.
+  pages: Array<{ slug: string; title: string; html?: string; css?: string; code?: boolean }>;
 };
+
+/**
+ * Whether the html carries the app's own code: a non-empty inline <script>
+ * (not <script src=…>, and not a data block such as JSON-LD or a template).
+ */
+export function hasInlineScript(html: string): boolean {
+  const re = /<script\b([^>]*)>([\s\S]*?)<\/script\s*>/gi;
+  for (let m = re.exec(html); m; m = re.exec(html)) {
+    const attrs = m[1];
+    if (/\bsrc\s*=/i.test(attrs)) continue;
+    const type = /\btype\s*=\s*["']?([^"'\s>]+)/i.exec(attrs)?.[1]?.toLowerCase();
+    if (type && !/^(text\/javascript|application\/javascript|module)$/.test(type)) continue;
+    if (m[2].trim()) return true;
+  }
+  return false;
+}
 
 export type EditPageAttachment = {
   name: string;
@@ -511,15 +533,15 @@ Radius: ${opts.theme.radius ?? "(default)"}
   const named = new Set(namedPages.map((p) => p.slug));
   const pagesBlock = opts.context.pages.length
     ? opts.context.pages
-        .map((p) => `- ${p.slug} — ${p.title}${named.has(p.slug) ? " (full content below)" : ""}`)
+        .map((p) => `- ${p.slug} — ${p.title}${named.has(p.slug) ? (p.code ? " (full content below; holds the app's code)" : " (full content below)") : ""}`)
         .join("\n")
     : "(no other pages)";
 
   const otherPagesBlock = namedPages.length
-    ? `\nOTHER PAGE CONTENT (pages the instruction names — editable via pageEdits[]):\n${namedPages
+    ? `\nOTHER PAGE CONTENT (pages the instruction names, and pages that hold the app's code — editable via pageEdits[]):\n${namedPages
         .map(
           (p) =>
-            `--- PAGE "${p.title}" (slug: ${p.slug}) ---\nHTML:\n${p.html}\nCSS:\n${p.css || "(empty)"}`
+            `--- PAGE "${p.title}" (slug: ${p.slug})${p.code ? " — holds the app's code" : ""} ---\nHTML:\n${p.html}\nCSS:\n${p.css || "(empty)"}`
         )
         .join("\n\n")}\n`
     : "";

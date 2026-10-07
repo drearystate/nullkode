@@ -344,7 +344,7 @@ export default async function AdminDashboard() {
                       {format.dateTime(r.createdAt, { ...dateOpts, hour: "numeric", minute: "2-digit" })}
                     </td>
                     <td className="px-4 py-2 break-all">{r.email ?? (r.userId ? t("home.deletedUser") : "—")}{r.source?.startsWith("partner:") && <span className="ms-1 text-xs text-surface-500">{t("home.viaPartnerApi")}</span>}</td>
-                    <td className="px-4 py-2 whitespace-nowrap text-surface-300">{t(`home.refusedKind.${["plan", "revision", "build", "edit", "section", "designer"].includes(r.kind) ? r.kind : "build"}`)} · {t(`home.refusedStage.${["rule", "ai", "plan", "images", "result"].includes(r.stage) ? r.stage : "ai"}`)}</td>
+                    <td className="px-4 py-2 whitespace-nowrap text-surface-300">{t(`home.refusedKind.${["plan", "revision", "build", "edit", "section", "designer", "game"].includes(r.kind) ? r.kind : "build"}`)} · {t(`home.refusedStage.${["rule", "ai", "plan", "images", "result"].includes(r.stage) ? r.stage : "ai"}`)}</td>
                     <td className="px-4 py-2 max-w-xs"><span className="line-clamp-3 break-words" title={r.prompt}>{r.prompt}</span></td>
                     <td className="px-4 py-2 max-w-xs text-surface-400"><span className="line-clamp-3 break-words" title={r.reason}>{r.reason}</span></td>
                   </tr>

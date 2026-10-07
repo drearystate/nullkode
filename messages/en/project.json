@@ -50,7 +50,9 @@
     "backToDesigner": "Back to Designer",
     "backToApps": "Back to my apps",
     "backToDesignerHelp": "Go back to the AI Designer.",
-    "backToAppsHelp": "Go back to the list of all your apps."
+    "backToAppsHelp": "Go back to the list of all your apps.",
+    "backToGame": "Back to the game",
+    "backToGameHelp": "Go back to this game in the Game Studio to keep building it."
   },
   "overview": {
     "launch": {

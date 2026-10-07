@@ -7,6 +7,8 @@
   "billing": "Facturation et forfait",
   "designer": "Concepteur",
   "designerHelp": "Décrivez un site web avec vos propres mots : l’IA le conçoit, puis le modifie selon vos demandes.",
+  "games": "Jeux",
+  "gamesHelp": "Décrivez un jeu et l’IA crée un vrai jeu auquel vous pouvez jouer, étape par étape. Vous pouvez y jouer au fur et à mesure qu’il prend forme.",
   "help": "Aide",
   "helpGuides": "Aide et guides",
   "helpHelp": "Des guides étape par étape. Ouvre le guide correspondant à l’écran affiché.",

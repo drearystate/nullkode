@@ -1,9 +1,10 @@
 <h1 align="center">Nullkode</h1>
 
 <p align="center">
-  <strong>The open-source app builder you can run as your own SaaS.</strong><br>
+  <strong>The free, open-source universal builder: apps, websites and games.</strong><br>
   Describe an app and get a real one: pages, database, backend, web, Android and iPhone.<br>
-  Then sell app building to everyone else, under your own brand.
+  Describe a game and watch it being built: 2D or 3D, playable on desktop and phone.<br>
+  Free forever at nullkode.com, or run it yourself (even as your own SaaS) under MIT.
 </p>
 
 <p align="center">
@@ -16,6 +17,8 @@
   <a href="LICENSE"><img alt="MIT license" src="https://img.shields.io/badge/license-MIT-7c3aed"></a>
   <img alt="Self-hosted" src="https://img.shields.io/badge/self--hosted-yes-0ea5e9">
   <img alt="Features" src="https://img.shields.io/badge/ready--made%20features-135-10b981">
+  <img alt="Languages" src="https://img.shields.io/badge/languages-18-f59e0b">
+  <img alt="Game assets" src="https://img.shields.io/badge/CC0%20game%20assets-63k-ef4444">
   <img alt="Next.js 15" src="https://img.shields.io/badge/Next.js-15-111827">
   <img alt="PostgreSQL" src="https://img.shields.io/badge/PostgreSQL-16-336791">
 </p>
@@ -54,8 +57,15 @@ paid core and no license server.
 - **135 ready-made features.** Bookings, shops, memberships, CRM, reviews,
   forums, invoices, event tickets and more. Each one adds its own pages, tables
   and admin screens.
-- **Ship everywhere.** Web, installable app, Android (APK and Google Play), iPhone
-  (Xcode and TestFlight), plus Windows and Mac shortcuts.
+- **Make real games.** The Game Studio builds 2D and 3D games step by step on a
+  live canvas, from a library of 63,000+ free (CC0) sprites, models, sounds and
+  fonts that the AI has tagged and can search. Chat with it while it builds.
+- **Ship everywhere.** Web, installable app, real native Android and iPhone apps
+  (APK, Google Play, Xcode and TestFlight), plus Windows and Mac shortcuts.
+- **18 languages.** The whole studio, plus apps in any language, or several at
+  once with a language switcher. Right-to-left included.
+- **An API for everything.** A partner API that lets your own tools and agents
+  create, build and publish apps. See [docs/partner-api.md](docs/partner-api.md).
 - **Run it as your business.** Your brand on everything. Agencies resell it
   under theirs, on their own domains, billing their own clients.
 - **Any AI, including local.** OpenAI or any compatible service, or a model on
@@ -84,6 +94,31 @@ paid core and no license server.
 <td colspan="2"><img src="docs/screenshots/features.webp" alt="Features gallery"><br><b>Add a superpower.</b> 135 features, one click each: bookings, shop, memberships, reviews, forums, tickets…</td>
 </tr>
 </table>
+
+## Make games
+
+Official NullKode games, on the same engine kits and asset library every Game
+Studio project uses. These are real screenshots, and every game plays with a
+mouse and keys or on a phone.
+
+<table>
+<tr>
+<td colspan="2"><img src="docs/screenshots/game-village.webp" alt="Hearthvale: a medieval village on a green hex island"><br><b>Hearthvale</b> · village builder. Grow a medieval village on a hex island: pick a building, see where it fits, place it. <a href="https://hearthvale-m920yo.apps.nullkode.io"><b>Play it</b></a></td>
+</tr>
+<tr>
+<td width="50%"><img src="docs/screenshots/game-mars-base.webp" alt="Red Horizon: a Mars base with solar panels, a landing pad and a rover"><br><b>Red Horizon</b> · base builder. Power up a Mars colony, send the rover for crystals and shoot down meteors. <a href="https://red-horizon-q-nmxt.apps.nullkode.io"><b>Play it</b></a></td>
+<td width="50%"><img src="docs/screenshots/game-dungeon.webp" alt="Vault of Embers: a knight and a mage fighting skeletons in a dungeon"><br><b>Vault of Embers</b> · dungeon action. Block the skeletons' telegraphed attacks, strike back and open the vault. <a href="https://vault-of-embers-tjene-e467c8.apps.nullkode.io"><b>Play it</b></a></td>
+</tr>
+</table>
+
+**How the Game Studio works:** describe the game and the AI writes a short
+plan, then builds it one step at a time while the canvas shows it growing. Keep
+chatting while it works; your notes go into the next step. Every step is checked
+in a headless browser and play-tested against a game-design playbook (feel,
+readability, difficulty, phone controls), and every version can be restored.
+2D games run on Phaser, 3D games on three.js with Rapier physics. Publish a game
+and it becomes an app with its own address, like anything else you build.
+Setup for self-hosters: [docs/games.md](docs/games.md).
 
 ## Publish everywhere
 
@@ -164,6 +199,9 @@ templates are the easiest way to contribute.
 | **Features** | 135 ready-made: commerce (32), utility (26), community (26), productivity (20), content (17), media (9), communication (5) |
 | **Publishing** | Draft and live versions with rollback, own address per app, custom domains, automatic HTTPS, PWA and offline, push notifications, QR codes |
 | **Mobile** | Real native iOS and Android apps compiled from your pages (React Native), previews in the browser, in Expo Go and in an Android emulator, Android APK and Google Play (AAB) with per-app signing keys, iOS Xcode project and TestFlight workflow |
+| **Games** | Game Studio with a live step-by-step canvas, chat while it builds, 2D (Phaser) and 3D (three.js + Rapier) kits, 63k+ tagged CC0 assets with AI search, automatic play-testing, versions, phone controls, publish as an app |
+| **Languages** | Studio in 18 languages with right-to-left support, apps in any language, multilingual apps with a language switcher |
+| **API** | Partner API to create, build, change and publish apps from your own tools ([docs](docs/partner-api.md)) |
 | **Business** | Plans and limits, Stripe billing, white-label, resellers with their own Stripe and domains, admin panel, user impersonation for support |
 | **Security** | Owner-only admin pages locked automatically, app data isolated per app, cross-site request blocking, sign-up spam protection, safe upload handling |
 | **AI** | OpenAI or any compatible API, local models, AI usage limits per plan |
@@ -184,7 +222,8 @@ pnpm dev                 # http://localhost:3001/install
 Checks: `pnpm typecheck`, `pnpm check:js`, `pnpm check:extensions`,
 `pnpm test:e2e`. More: [architecture](docs/architecture.md),
 [contributing](CONTRIBUTING.md), [local AI](docs/local-ai.md),
-[mobile apps](docs/mobile-apps.md), [native apps](docs/native-apps.md), [deployment](docs/deploy/).
+[mobile apps](docs/mobile-apps.md), [native apps](docs/native-apps.md), [games](docs/games.md),
+[partner API](docs/partner-api.md), [deployment](docs/deploy/).
 
 ## License
 

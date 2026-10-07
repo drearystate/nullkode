@@ -312,6 +312,11 @@ html[data-theme="light"] {
 .studio-workspace-label { color:var(--nk-dim); font-size:13px; }
 .studio-top-link { display:inline-flex; align-items:center; gap:8px; font-size:13px; color:var(--nk-muted); padding:8px 4px; }
 .studio-top-link:hover { color:rgb(var(--c-white)); }
+/* Narrow phones: the icon-only links plus the brand fill the bar; drop the "Workspace" label and tighten spacing so nothing scrolls sideways. */
+@media (max-width: 479px) {
+  .studio-topbar-divider, .studio-workspace-label { display:none; }
+  .studio-top-link { padding:8px 2px; }
+}
 .studio-avatar { width:30px; height:30px; display:grid; place-items:center; border-radius:50%; background:var(--nk-avatar-bg); color:var(--nk-avatar-text); font-size:12px; font-weight:600; border:1px solid rgb(var(--c-brand-300) / .19); }
 .studio-account { position:relative; }
 .studio-account summary { display:flex; align-items:center; gap:8px; cursor:pointer; list-style:none; }
@@ -370,6 +375,8 @@ html[data-theme="light"] {
 .studio-icon-button { display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px; color:var(--nk-dim); border-radius:6px; }.studio-icon-button:hover { background:rgb(var(--c-white) / calc(.043 * var(--nk-k))); color:var(--nk-accent); }
 .studio-empty { display:flex; align-items:center; flex-direction:column; text-align:center; padding:40px 20px; border:1px dashed rgb(var(--c-white) / calc(.102 * var(--nk-k))); border-radius:16px; background:rgb(var(--c-white) / calc(.008 * var(--nk-k))); }
 .studio-methods { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+/* A last card alone on its row (7 ways to start) takes the whole row. */
+.studio-methods > .studio-method:last-child:nth-child(3n+1) { grid-column:1 / -1; }
 .studio-method { --method-color:#bc9aef; position:relative; display:block; border:1px solid rgb(var(--c-white) / calc(.063 * var(--nk-k))); border-radius:15px; padding:22px; background:var(--nk-card); transition:background .2s,border-color .2s,transform .2s; }
 .studio-method:hover { transform:translateY(-4px); background:var(--nk-card-hover); border-color:color-mix(in srgb,var(--method-color) 45%,transparent); }
 .studio-accent-blue { --method-color:#94b8f7; }.studio-accent-rose { --method-color:#e9a7bf; }.studio-accent-mint { --method-color:#8fd2bb; }.studio-accent-amber { --method-color:#e4c291; }
@@ -390,6 +397,9 @@ html[data-theme="light"] {
 @media(max-width:1150px) { .studio-blueprint { width:280px; transform:scale(.85); }.studio-methods { grid-template-columns:repeat(3,minmax(0,1fr)); }.studio-dashboard { padding:28px; }.studio-welcome { padding:30px; }.studio-project-nav-links > a { padding:19px 9px; }.studio-project-nav-links > a svg { display:none; } }
 @media(max-width:800px) { .studio-project-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }.studio-blueprint { display:none; }.studio-welcome { min-height:0; }.studio-creation-nav { padding:16px 24px; flex-direction:column; align-items:stretch; gap:12px; }.studio-topbar-inner { padding:0 20px; gap:14px; }.studio-workspace-label { display:none; }.studio-project-actions { gap:10px; }.studio-preview-link span { display:none; }.studio-project-nav { padding:0 12px; } }
 @media(max-width:540px) { .studio-dashboard { padding:20px 16px; }.studio-welcome { padding:26px 22px; border-radius:16px; }.studio-display { letter-spacing:-1.3px; }.studio-methods { grid-template-columns:1fr; }.studio-methods .studio-method { padding:20px; }.studio-methods .studio-method .studio-eyebrow { margin-top:14px; }.studio-project-grid { grid-template-columns:1fr; }.studio-project-tools { align-items:stretch; }.studio-project-tools > div:last-child { justify-content:flex-start; }.studio-search { flex:1; }.studio-search input { width:100%; }.studio-topbar-inner { min-height:60px; gap:10px; padding:0 16px; }.studio-wordmark { font-size:22px; }.studio-topbar-divider { display:none; }.studio-create > p { display:block; text-align:center; }.studio-creation-nav { padding:15px 16px; }.studio-project-actions .btn { padding:7px 9px; }.studio-project-actions .btn svg { display:none; } }
+/* 360 px phones with every top-bar icon (admins get one more): a smaller wordmark and tighter gaps keep the account button on screen. */
+@media(max-width:379px) { .studio-topbar-inner { gap:6px; padding:0 12px; }.studio-wordmark { font-size:19px; gap:7px; }.studio-topbar-inner > nav { gap:4px; } }
+@media(max-width:339px) { .studio-topbar-inner > nav { gap:0; }.studio-wordmark { font-size:17px; } }
 @media(prefers-reduced-motion:reduce) { .studio-shell *, .studio-shell *::before, .studio-shell *::after { scroll-behavior:auto!important; animation:none!important; transition:none!important; } }
 .studio-editor-shell { display:flex; flex-direction:column; height:calc(100dvh - 127px); min-height:400px; }
 .studio-page-bar { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:8px 22px; min-height:49px; border-bottom:1px solid rgb(var(--c-white) / calc(.039 * var(--nk-k))); background:var(--nk-card); }

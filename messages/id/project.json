@@ -184,7 +184,9 @@
     "backToApps": "Kembali ke aplikasi saya",
     "backToAppsHelp": "Kembali ke daftar semua aplikasi Anda.",
     "backToDesigner": "Kembali ke Desainer",
-    "backToDesignerHelp": "Kembali ke Desainer AI."
+    "backToDesignerHelp": "Kembali ke Desainer AI.",
+    "backToGame": "Kembali ke game",
+    "backToGameHelp": "Kembali ke game ini di Game Studio untuk terus membuatnya."
   },
   "modulesPage": {
     "help": "Fitur adalah bagian siap pakai, seperti pemesanan atau toko, yang menambahkan halaman lengkap dan data pendukungnya ke aplikasi Anda.",
@@ -226,17 +228,6 @@
       "versionFormat": "Gunakan versi seperti 1.0.0"
     },
     "unauthorized": "Tidak diizinkan"
-  },
-  "nativePreview": {
-    "eyebrow": "PRATINJAU APLIKASI NATIF",
-    "title": "Pratinjau aplikasi natif",
-    "intro": "Aplikasi Anda yang sudah diterbitkan seperti yang digambar oleh aplikasi ponsel natif, di samping halaman web. Ini pratinjau awal: formulir, daftar dari data Anda, dan masuk akun menyusul.",
-    "page": "Halaman",
-    "reload": "Muat ulang",
-    "native": "Aplikasi natif",
-    "web": "Halaman web",
-    "notPublished": "Terbitkan aplikasi untuk melihat pratinjaunya sebagai aplikasi natif.",
-    "note": "Pratinjau pertama setelah diterbitkan bisa memakan waktu hingga satu menit selagi aplikasi disiapkan. Bagian yang belum bisa digambar aplikasi natif tampil sebagai tampilan web tersemat."
   },
   "nativeApp": {
     "android": {
@@ -449,6 +440,17 @@
     "eyebrow": "PONSEL DAN TABLET",
     "intro": "Ubah proyek ini menjadi aplikasi sungguhan untuk Google Play dan Apple App Store. Aplikasi menampilkan situs Anda yang sudah dipublikasikan, jadi perubahan yang diterbitkan langsung terlihat tanpa perlu build baru.",
     "title": "Aplikasi seluler"
+  },
+  "nativePreview": {
+    "eyebrow": "PRATINJAU APLIKASI NATIF",
+    "intro": "Aplikasi yang Anda publikasikan, ditampilkan seperti di aplikasi ponsel natif, berdampingan dengan halaman web. Ini pratinjau awal: formulir, daftar dari data Anda, dan login akan menyusul.",
+    "native": "Aplikasi natif",
+    "notPublished": "Publikasikan aplikasi untuk melihat pratinjau sebagai aplikasi natif.",
+    "note": "Pratinjau pertama setelah publikasi dapat memerlukan waktu hingga satu menit saat aplikasi disiapkan. Bagian yang belum dapat ditampilkan oleh aplikasi natif akan muncul sebagai tampilan web tersemat.",
+    "page": "Halaman",
+    "reload": "Muat ulang",
+    "title": "Pratinjau aplikasi natif",
+    "web": "Halaman web"
   },
   "newPageButton": {
     "create": "Buat",

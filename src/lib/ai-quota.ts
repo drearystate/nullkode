@@ -20,8 +20,8 @@ import { localeOf, requestErrorsT, type ErrT } from "./errors-i18n";
  * when the server restarts is refunded when it starts again (build runs are
  * saved in the AiRun table, see lib/ai/runs.ts recoverInterruptedRuns).
  */
-/** "vision": reading a set of reference images once (lib/ai/vision.ts). */
-export type AiKind = "build" | "designer" | "edit" | "seed" | "flow" | "vision";
+/** "vision": reading a set of reference images once (lib/ai/vision.ts). "game": a Game Studio build or change (lib/game-studio). */
+export type AiKind = "build" | "designer" | "edit" | "seed" | "flow" | "vision" | "game";
 
 type QuotaUser = Pick<User, "id" | "plan" | "role" | "resellerId">;
 

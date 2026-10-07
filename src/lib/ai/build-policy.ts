@@ -57,8 +57,8 @@ export const PROTECTED_PRODUCTS = `1. NullKode — a no-code / AI app and websit
 
 /* ───────────────────────── Types ───────────────────────── */
 
-/** What is being asked: a new plan, a plan revision, a build, an Ask-AI page or section edit, a Designer change. */
-export type PolicyKind = "plan" | "revision" | "build" | "edit" | "section" | "designer";
+/** What is being asked: a new plan, a plan revision, a build, an Ask-AI page or section edit, a Designer change, a game (Game Studio). */
+export type PolicyKind = "plan" | "revision" | "build" | "edit" | "section" | "designer" | "game";
 /** Where a refusal was caught. */
 export type PolicyStage = "rule" | "ai" | "plan" | "images" | "result";
 
@@ -245,6 +245,7 @@ const KIND_WORDS: Record<PolicyKind, string> = {
   edit: "an Ask-AI change to a page of an existing app (it can also add data tables and server flows)",
   section: "an Ask-AI change to one section of a page of an existing app",
   designer: "a change in the AI site designer (it can add pages, data and flows)",
+  game: "a browser game made in the Game Studio (the idea for a new game, or a change to one). Ordinary games (platformers, puzzles, racing, shooters, quizzes…) are allowed; refuse only when the \"game\" is really one of the protected products, or a tool for making apps, sites or games for others",
 };
 
 /* ───────────────────────── The AI check ───────────────────────── */

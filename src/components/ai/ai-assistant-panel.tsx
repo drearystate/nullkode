@@ -294,42 +294,69 @@ export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor, lang
       const currentHtml = editor.getHtml();
       const currentCss = editor.getCss() ?? "";
 
-      const res = isSeed
+      const editWholePage = () =>
+        fetch("/api/ai/edit-page", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({
+            projectId,
+            pageId,
+            message: msg || t("assistant.seeAttached"),
+            currentHtml,
+            currentCss,
+            history: sentHistory,
+            ...(lang ? { lang } : {}),
+            attachments: sentAttachments.map((a) => ({
+              name: a.name,
+              mediaType: a.mediaType,
+              dataUrl: a.dataUrl,
+            })),
+          }),
+        });
+      // The selected part, while the edit stays scoped to it.
+      let section = scopedComp;
+      let res = isSeed
         ? await fetch("/api/ai/seed-data", {
             method: "POST",
             headers: { "content-type": "application/json" },
             body: JSON.stringify({ projectId, message: msg }),
           })
-        : scopedComp
+        : section
         ? await fetch("/api/ai/edit-section", {
             method: "POST",
             headers: { "content-type": "application/json" },
-            body: JSON.stringify({ projectId, pageId, message: msg, sectionHtml: scopedComp.toHTML(), history: sentHistory, ...(lang ? { lang } : {}) }),
+            body: JSON.stringify({ projectId, pageId, message: msg, sectionHtml: section.toHTML(), pageHasCode: /<script\b/i.test(currentHtml), history: sentHistory, ...(lang ? { lang } : {}) }),
           })
-        : await fetch("/api/ai/edit-page", {
-            method: "POST",
-            headers: { "content-type": "application/json" },
-            body: JSON.stringify({
-              projectId,
-              pageId,
-              message: msg || t("assistant.seeAttached"),
-              currentHtml,
-              currentCss,
-              history: sentHistory,
-              ...(lang ? { lang } : {}),
-              attachments: sentAttachments.map((a) => ({
-                name: a.name,
-                mediaType: a.mediaType,
-                dataUrl: a.dataUrl,
-              })),
-            }),
-          });
+        : await editWholePage();
 
-      if (!res.ok) {
-        const data = (await res.json().catch(() => ({}))) as { error?: string; code?: string; refunded?: boolean; usage?: Usage | null };
+      // The request changes how the app works and its code is outside the
+      // selected part: the section edit hands it to the whole-page edit,
+      // which sees the code (on this page, or on the page that holds it).
+      let answer: unknown = null;
+      if (section && res.ok) {
+        answer = await res.json().catch(() => null);
+        if ((answer as { needsPage?: boolean } | null)?.needsPage) {
+          section = undefined;
+          answer = null;
+          setMessages((current) =>
+            current.length && current[current.length - 1].role === "assistant-thinking"
+              ? [...current.slice(0, -1), { role: "assistant-thinking", label: t("assistant.thinking") }]
+              : current
+          );
+          res = await editWholePage();
+        }
+      }
+
+      // A long edit answers 200 and sends its result at the end (the server
+      // keeps the connection alive meanwhile), so a failure can arrive as a
+      // 200 body with `error` (and the real status in `httpStatus`).
+      if (answer === null) answer = await res.json().catch(() => null);
+      const failure = answer as { error?: unknown; httpStatus?: number } | null;
+      if (!res.ok || !failure || typeof failure.error === "string") {
+        const data = (answer ?? {}) as { error?: string; code?: string; refunded?: boolean; usage?: Usage | null; httpStatus?: number };
         if (data.usage) setUsage(data.usage);
         else void refreshUsage();
-        let text = data.error ?? t("assistant.httpError", { status: res.status });
+        let text = data.error ?? t("assistant.httpError", { status: data.httpStatus ?? res.status });
         // The server says so itself when it can; otherwise add it here.
         if (data.refunded && !/didn't count|wasn't counted/i.test(text) && !text.includes(t("assistant.didntCount", { message: "" }).trim())) text = t("assistant.didntCount", { message: text });
         throw new AiRequestError(text, data.code === "ai_quota");
@@ -345,7 +372,7 @@ export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor, lang
         suggestions = [],
         noChange = false,
         usage: nextUsage,
-      } = (await res.json()) as {
+      } = answer as {
         html: string | null;
         css: string | null;
         explanation: string;
@@ -375,9 +402,9 @@ export function AiAssistantPanel({ projectId, pageId, pageTitle, getEditor, lang
           pageIdRef.current === sentPageId ? getEditor() : null;
         if (liveEditor) {
           try {
-            if (scopedComp) {
+            if (section) {
               // Swap only the selected section; the editor's autosave keeps it.
-              const added = scopedComp.replaceWith(html);
+              const added = section.replaceWith(html);
               if (css) liveEditor.Css.addRules(css);
               const first = Array.isArray(added) ? added[0] : added;
               if (first) liveEditor.select(first);

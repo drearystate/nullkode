@@ -565,6 +565,93 @@
     "summary": "Xem, tìm kiếm, chỉnh sửa và tải xuống mọi thứ ứng dụng lưu, như tin nhắn, lượt đặt chỗ và thông tin đăng ký.",
     "title": "Biểu mẫu và dữ liệu"
   },
+  "game-studio": {
+    "sections": {
+      "0": {
+        "heading": "Bắt đầu tạo trò chơi",
+        "steps": {
+          "0": "Nhấp vào <b>Trò chơi</b> trên thanh trên cùng. Trên trang tổng quan, bạn cũng có thể chọn <b>Tạo trò chơi</b>.",
+          "1": "Trong mục <b>Bạn muốn tạo trò chơi nào?</b>, hãy mô tả trò chơi: người chơi làm gì, thu thập hay tránh những gì và trò chơi trông như thế nào. Bạn cũng có thể chọn một ý tưởng mẫu rồi chỉnh sửa.",
+          "2": "Chọn <b>2D</b>, <b>3D</b> hoặc <b>Để AI chọn</b>. Để thể hiện phong cách bạn muốn, hãy thêm hình ảnh bằng nút hình ảnh.",
+          "3": "Nhấn <b>Tạo trò chơi</b>. AI có thể hỏi <b>Vài câu hỏi nhanh trước khi bắt đầu</b>. Hãy chọn hoặc nhập câu trả lời, rồi nhấn <b>Tạo trò chơi</b> hoặc <b>Bỏ qua câu hỏi</b>."
+        }
+      },
+      "1": {
+        "body": {
+          "0": "Đầu tiên, AI viết <b>Kế hoạch trò chơi</b>: thể loại, cách chơi, cách thắng và thua, cùng phong cách hình ảnh. AI chọn hình ảnh và âm thanh phù hợp từ thư viện tài nguyên.",
+          "1": "Trong phần <b>Định hướng nghệ thuật</b> của kế hoạch, bạn sẽ thấy phong cách được chọn cho trò chơi: màu sắc, góc máy, hình khối, ánh sáng, giao diện và chuyển động. Mọi bước đều theo phong cách này, nên trò chơi trông hoàn chỉnh ngay từ đầu.",
+          "2": "Sau đó, trò chơi được xây dựng từng bước nhỏ. Mỗi bước hoàn tất sẽ được đánh dấu trong đoạn chat. Sau mỗi bước, trò chơi ở bên phải sẽ được cập nhật ngay và bạn có thể chơi thử: đầu tiên là phông nền, rồi đến nhân vật và nút điều khiển, màn chơi, vật phẩm, kẻ địch, menu, âm thanh và các chi tiết hoàn thiện.",
+          "3": "Mỗi bước đều được kiểm tra trước khi đưa vào trò chơi: trò chơi phải tải được và chơi được mà không gặp lỗi. Nếu một bước không đạt, bước đó sẽ được thử lại một lần.",
+          "4": "Sau khi hoàn thành màn chơi, kẻ địch và các chi tiết cuối cùng, người chơi thử sẽ kiểm tra trò chơi như một người chơi thực thụ: có thể thực hiện mọi cú nhảy không, có thể đến đích và nhặt vật phẩm không, vị trí bắt đầu có an toàn không, có dễ nhìn thấy nhân vật không, các nút cảm ứng có che mất thứ gì không. Họ cũng xem trò chơi trên máy tính và điện thoại để kiểm tra xem mọi thứ có đồng nhất như một trò chơi hoàn chỉnh không. Kết quả sẽ được gửi cho bạn trong đoạn chat. Các vấn đề nghiêm trọng sẽ được sửa ngay trong một bước bổ sung; vấn đề nhỏ hơn sẽ được sửa ở bước tiếp theo."
+        },
+        "heading": "Theo dõi quá trình tạo"
+      },
+      "2": {
+        "body": {
+          "0": "Nhấp vào trò chơi rồi dùng bàn phím (các phím mũi tên hoặc WASD, phím cách để nhảy). Trên điện thoại, trò chơi sẽ hiển thị nút điều khiển cảm ứng.",
+          "1": "Thanh phía trên trò chơi cho biết bước bạn đang xem và trò chơi chạy mượt đến đâu. Dùng các nút ở đó để tạm dừng, chơi lại, chuyển giữa màn hình máy tính và điện thoại, chơi toàn màn hình hoặc mở trò chơi trong thẻ mới.",
+          "2": "Nếu trò chơi báo có lỗi, một nút màu vàng sẽ hiển thị số lỗi. Nhấp vào nút để xem lỗi, rồi nhấn <b>Yêu cầu AI sửa lỗi này</b>."
+        },
+        "heading": "Chơi thử và kiểm tra"
+      },
+      "3": {
+        "heading": "Yêu cầu thay đổi",
+        "steps": {
+          "0": "Nhập điều bạn muốn vào ô <b>Yêu cầu thay đổi</b>, chẳng hạn như “nhảy cao hơn”, “thêm màn chơi thứ hai” hoặc “đổi nhân vật chính thành rô-bốt”.",
+          "1": "Nhấn Enter. AI sẽ chia thay đổi thành một hoặc vài bước và cập nhật trò chơi sau mỗi bước."
+        }
+      },
+      "4": {
+        "body": {
+          "0": "Bạn không cần đợi tạo xong mới thao tác. Hãy tiếp tục nhập vào ô tin nhắn khi AI đang làm việc: hỏi AI đang làm gì hoặc yêu cầu chỉnh sửa như “đổi nhân vật chính sang màu cam” hay “thêm kẻ địch là chú ếch biết nhảy”. Bạn cũng có thể thêm hình ảnh và tài nguyên.",
+          "1": "Ghi chú của bạn sẽ hiện ngay trong cuộc trò chuyện và AI trả lời tức thì. AI đọc mọi ghi chú trước bước tiếp theo và ưu tiên yêu cầu của bạn hơn kế hoạch ban đầu. Nếu kế hoạch chưa có yêu cầu đó, một bước sẽ được thêm vào danh sách. Ghi chú gửi trong bước cuối sẽ có thêm một bước riêng.",
+          "2": "Bạn có thể xem trạng thái bên dưới mỗi ghi chú, chẳng hạn <b>Đã áp dụng ở bước 3</b>."
+        },
+        "heading": "Điều khiển trong lúc tạo",
+        "steps": {
+          "0": "Để dừng sau khi lưu bước đang chạy, hãy nhấn <b>Dừng sau bước này</b>. Nếu đổi ý, hãy nhấn <b>Tiếp tục</b>.",
+          "1": "Để dừng ngay, hãy nhấn <b>Dừng ngay</b>. Bước AI đang thực hiện sẽ bị hủy và trò chơi sẽ giữ nguyên như sau bước hoàn tất gần nhất.",
+          "2": "Để hoàn tác một bước đã hoàn tất, hãy mở <b>Phiên bản</b> và khôi phục phiên bản trước đó."
+        }
+      },
+      "5": {
+        "body": {
+          "0": "Nhấn <b>Tài nguyên</b> phía trên trò chơi (trên điện thoại, nhấn thẻ <b>Tài nguyên</b>). Tìm trong hàng nghìn hình nhân vật, mô hình 3D, âm thanh và nhạc, hoặc xem trò chơi đang dùng gì trong mục <b>Trong trò chơi này</b>.",
+          "1": "Kéo tài nguyên vào ô tin nhắn hoặc nhấn nút + bên cạnh, rồi nói bạn muốn dùng tài nguyên đó như thế nào, chẳng hạn “dùng làm nhân vật chính”.",
+          "2": "Tài nguyên có nhãn <b>Chỉ lưu trữ trên máy chủ</b> có thể dùng trong trò chơi xuất bản tại đây, nhưng sẽ không có trong bản tải xuống."
+        },
+        "heading": "Dùng thư viện tài nguyên"
+      },
+      "6": {
+        "body": {
+          "0": "Mỗi bước được lưu thành một phiên bản, kèm ảnh chụp trò chơi tại thời điểm đó."
+        },
+        "heading": "Quay lại phiên bản trước",
+        "steps": {
+          "0": "Nhấn <b>Phiên bản</b> phía trên trò chơi.",
+          "1": "Nhấn <b>Chơi</b> để thử phiên bản cũ trên khung vẽ. Trò chơi của bạn sẽ không thay đổi.",
+          "2": "Nhấn <b>Khôi phục</b> để đặt phiên bản đó làm phiên bản hiện tại. Phiên bản bạn đang dùng vẫn được giữ trong danh sách."
+        }
+      },
+      "7": {
+        "body": {
+          "0": "<b>Xuất bản</b> biến trò chơi của bạn thành ứng dụng có địa chỉ web riêng để mọi người cùng chơi. Bạn cũng có thể tạo ứng dụng điện thoại và thêm tên miền riêng. Sau khi chỉnh sửa thêm, hãy nhấn <b>Xuất bản lại</b>.",
+          "1": "<b>Tải xuống</b> lưu trò chơi thành tệp .zip có thể chạy trên mọi máy chủ web."
+        },
+        "heading": "Xuất bản hoặc tải xuống"
+      },
+      "8": {
+        "bullets": {
+          "0": "Mỗi lần tạo trò chơi hoặc yêu cầu chỉnh sửa sẽ dùng một lượt trong hạn mức AI hằng tháng của gói, dù cần bao nhiêu bước. Nếu AI không tạo được kết quả, lượt đó sẽ không bị tính.",
+          "1": "Nếu máy chủ khởi động lại trong lúc tạo trò chơi, quá trình sẽ tiếp tục từ bước đang thực hiện.",
+          "2": "Trò chơi được tạo bằng các công cụ làm game thực thụ: Phaser cho trò chơi 2D và three.js cho trò chơi 3D."
+        },
+        "heading": "Thông tin hữu ích"
+      }
+    },
+    "summary": "Mô tả trò chơi, AI sẽ tạo một trò chơi thật có thể chơi được theo từng bước. Bạn có thể chơi thử khi trò chơi dần hoàn thiện và yêu cầu thay đổi bằng cách trò chuyện.",
+    "title": "Tạo trò chơi trong Studio trò chơi"
+  },
   "getting-started": {
     "sections": {
       "0": {

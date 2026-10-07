@@ -1,0 +1,6 @@
+{
+  "id": "slime-hop",
+  "title": "Slime Hop",
+  "kit": "phaser-2d@1.0.0",
+  "files": ["src/config.js", "src/scenes/game.js"]
+}

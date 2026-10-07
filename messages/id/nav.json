@@ -7,6 +7,8 @@
   "billing": "Tagihan & paket",
   "designer": "Perancang",
   "designerHelp": "Jelaskan situs web dengan kata-kata Anda sendiri. AI akan membuat desainnya dan terus mengubahnya sesuai permintaan Anda.",
+  "games": "Permainan",
+  "gamesHelp": "Jelaskan permainan, lalu AI akan membuatnya langkah demi langkah hingga bisa dimainkan. Kamu bisa memainkannya sambil dibuat.",
   "help": "Bantuan",
   "helpGuides": "Bantuan & panduan",
   "helpHelp": "Panduan langkah demi langkah. Halaman ini membuka panduan untuk layar yang sedang Anda lihat.",

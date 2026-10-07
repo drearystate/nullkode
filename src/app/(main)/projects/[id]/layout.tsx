@@ -26,9 +26,11 @@ export default async function ProjectLayout({
   // send it to the dashboard. A real "back" arrow makes it obvious where
   // the user came from (the user kept getting stranded in the GrapesJS
   // editor with no exit).
-  const backHref = project.kind === "DESIGNER" ? "/designer" : "/dashboard";
+  // A published game's app goes back to the game in the Game Studio.
+  const game = project.kind === "DESIGNER" ? await db.gameProject.findFirst({ where: { projectId: project.id, deletedAt: null }, select: { id: true } }) : null;
+  const backHref = game ? `/games/${game.id}` : project.kind === "DESIGNER" ? "/designer" : "/dashboard";
   const t = await getTranslations("project.layout");
-  const backLabel = project.kind === "DESIGNER" ? t("backToDesigner") : t("backToApps");
+  const backLabel = game ? t("backToGame") : project.kind === "DESIGNER" ? t("backToDesigner") : t("backToApps");
 
   const hasPush = Boolean(await db.projectModule.findFirst({ where: { projectId: project.id, moduleId: "push-notifications" }, select: { id: true } }));
   return (
@@ -40,7 +42,7 @@ export default async function ProjectLayout({
           <Link
             href={backHref}
             aria-label={backLabel}
-            data-help={project.kind === "DESIGNER" ? t("backToDesignerHelp") : t("backToAppsHelp")}
+            data-help={game ? t("backToGameHelp") : project.kind === "DESIGNER" ? t("backToDesignerHelp") : t("backToAppsHelp")}
             className="studio-back-link shrink-0"
           >
             <span aria-hidden className="inline-block rtl:-scale-x-100">←</span>

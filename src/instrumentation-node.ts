@@ -33,6 +33,17 @@ import("./lib/ai/runs")
   .then((n) => { if (n) console.log(`[runs] ended ${n} build${n === 1 ? "" : "s"} interrupted by the restart (refunded)`); })
   .catch((err) => console.error("[runs] start-up check failed:", err instanceof Error ? err.message : err));
 
+// Game Studio builds a restart cut off carry on from the step they were on
+// (src/lib/game-studio/engine.ts); a minute sweep catches jobs whose server
+// went quiet.
+import("./lib/game-studio/engine")
+  .then(async (m) => {
+    m.startGameJobSweep();
+    return m.resumeGameJobs();
+  })
+  .then((n) => { if (n) console.log(`[game-studio] carrying on with ${n} game build${n === 1 ? "" : "s"} after the restart`); })
+  .catch((err) => console.error("[game-studio] start-up check failed:", err instanceof Error ? err.message : err));
+
 // Scheduled flows and the nightly clean-up: a tick every minute, unless an
 // outside timer calls /api/cron instead (NK_EXTERNAL_SCHEDULER=1).
 startScheduler();

@@ -75,6 +75,34 @@
     "copyright": "© {year} {app}",
     "tagline": "El creador visual de aplicaciones con un backend completo. Lanza productos completos, no solo páginas de marketing."
   },
+  "games": {
+    "cta": "Crea tu propio juego",
+    "eyebrow": "Juegos oficiales de NullKode",
+    "heading": "Juegos de verdad, no solo apps.",
+    "intro": "Tres juegos creados con el motor Game Studio de NullKode y su biblioteca gratuita de recursos 3D. Cada imagen de abajo es una captura real, y puedes jugar a todos en computadora y celular.",
+    "items": {
+      "dungeon": {
+        "alt": "Vault of Embers: un caballero y una maga luchan contra esqueletos en una sala de mazmorra iluminada con antorchas",
+        "body": "Guía a un caballero y una maga por una cripta iluminada con antorchas. Bloquea los ataques anunciados de los esqueletos, contraataca y abre la bóveda.",
+        "genre": "Acción en mazmorras",
+        "title": "Vault of Embers"
+      },
+      "mars": {
+        "alt": "Red Horizon: una base blanca en Marte con un centro abovedado, paneles solares, una plataforma de aterrizaje y un vehículo explorador junto a un yacimiento de cristales",
+        "body": "Dirige una colonia en Marte. Conecta la energía solar, envía el vehículo explorador a buscar cristales, derriba meteoritos y mantén el oxígeno en circulación.",
+        "genre": "Constructor de bases",
+        "title": "Red Horizon"
+      },
+      "village": {
+        "alt": "Hearthvale: un pueblo medieval en una isla hexagonal verde, con una barra de herramientas de edificios",
+        "body": "Haz crecer un pueblo medieval en una isla hexagonal. Elige un edificio, mira dónde encaja y observa cómo toma forma tu pueblo.",
+        "genre": "Constructor de pueblos",
+        "title": "Hearthvale"
+      }
+    },
+    "note": "Creado con los mismos kits de motor y la misma biblioteca de más de 74.000 recursos 2D y 3D gratuitos (CC0) que incluye cada proyecto de Game Studio.",
+    "play": "Jugar ahora"
+  },
   "hero": {
     "badge": "Descríbela, revisa el plan y publícala",
     "charsLeft": "{count, plural, one {queda # carácter} other {quedan # caracteres}}",

@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { heartbeatJson } from "@/lib/heartbeat-json";
 import { aiUsageSummary, checkAiQuota, recordAiUsage, refundAiUsage, refundFailedAi } from "@/lib/ai-quota";
 import { Prisma } from "@prisma/client";
 import { db } from "@/lib/db";
@@ -6,6 +7,7 @@ import { getCurrentUser } from "@/lib/auth";
 import {
   editPage,
   findLostWiring,
+  hasInlineScript,
   repairLostWiring,
   type EditPageResult,
   type ProjectContext,
@@ -84,7 +86,13 @@ const Body = z.object({
 type TableFieldRow = { name?: unknown; type?: unknown };
 type TableSchemaShape = { fields?: TableFieldRow[] };
 
+// A long edit outlives the proxies' idle timeout: keep the answer alive
+// (lib/heartbeat-json.ts) so the browser gets the result, not a proxy error.
 export async function POST(req: Request) {
+  return heartbeatJson(() => handle(req));
+}
+
+async function handle(req: Request): Promise<Response> {
   const user = await getCurrentUser();
   const locale = await personLocale();
   const t = translator(locale, "ai");
@@ -196,6 +204,23 @@ export async function POST(req: Request) {
       .map((p) => p.slug)
   );
 
+  // An app's behaviour (a game's loop, rules, controls and drawing) lives in
+  // the inline <script> of the page that runs it. When the open page has no
+  // code of its own, the pages that do go to the AI in full as well, so a
+  // request like "add a minimap" asked from the How to Play page changes the
+  // game itself through pageEdits instead of finding nothing to change here.
+  const MAX_CODE_PAGES = 2;
+  const MAX_CODE_HTML = 150_000;
+  const codeSlugs = new Set(
+    hasInlineScript(currentHtml)
+      ? []
+      : existingPages
+          .filter((p) => p.slug !== page.slug && hasInlineScript(p.html) && p.html.length <= MAX_CODE_HTML)
+          .sort((a, b) => b.html.length - a.html.length)
+          .slice(0, MAX_CODE_PAGES)
+          .map((p) => p.slug)
+  );
+
   const context: ProjectContext = {
     tables: existingTables.map((t) => {
       const s = (t.schema as TableSchemaShape) ?? {};
@@ -217,13 +242,16 @@ export async function POST(req: Request) {
       // "don't recreate login when it already exists" check.
       purpose: f.name,
     })),
+    // A page goes in whole or not at all: the AI rewrites the pages it edits
+    // in full, so a cut-off copy would be saved as a cut-off page.
     pages: existingPages.map((p) =>
-      namedSlugs.has(p.slug)
+      codeSlugs.has(p.slug) || (namedSlugs.has(p.slug) && p.html.length <= MAX_NAMED_HTML)
         ? {
             slug: p.slug,
             title: p.title,
-            html: p.html.slice(0, MAX_NAMED_HTML),
+            html: p.html,
             css: p.css ?? "",
+            ...(codeSlugs.has(p.slug) ? { code: true } : {}),
           }
         : { slug: p.slug, title: p.title }
     ),

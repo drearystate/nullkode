@@ -184,7 +184,9 @@
     "backToApps": "Uygulamalarıma dön",
     "backToAppsHelp": "Tüm uygulamalarınızın listesine dönün.",
     "backToDesigner": "Tasarımcıya dön",
-    "backToDesignerHelp": "Yapay Zekâ Tasarımcısı'na dönün."
+    "backToDesignerHelp": "Yapay Zekâ Tasarımcısı'na dönün.",
+    "backToGame": "Oyuna dön",
+    "backToGameHelp": "Oyunu geliştirmeye devam etmek için Game Studio'da bu oyuna geri dönün."
   },
   "modulesPage": {
     "help": "Özellikler, rezervasyon veya mağaza gibi, uygulamanıza hazır sayfalar ve bunların arkasındaki verileri ekleyen hazır parçalardır.",
@@ -226,17 +228,6 @@
       "versionFormat": "1.0.0 gibi bir sürüm numarası kullanın"
     },
     "unauthorized": "Yetkiniz yok"
-  },
-  "nativePreview": {
-    "eyebrow": "YEREL UYGULAMA ÖNİZLEMESİ",
-    "title": "Yerel uygulama önizlemesi",
-    "intro": "Yayınlanan uygulamanız, yerel telefon uygulamasının çizdiği haliyle, web sayfasının yanında. Bu erken bir önizlemedir: formlar, verilerinizden listeler ve oturum açma sırada.",
-    "page": "Sayfa",
-    "reload": "Yeniden yükle",
-    "native": "Yerel uygulama",
-    "web": "Web sayfası",
-    "notPublished": "Yerel uygulama olarak önizlemek için uygulamayı yayınlayın.",
-    "note": "Yayınladıktan sonraki ilk önizleme, uygulama hazırlanırken bir dakikayı bulabilir. Yerel uygulamanın henüz çizemediği bölümler gömülü web görünümleri olarak görünür."
   },
   "nativeApp": {
     "android": {
@@ -449,6 +440,17 @@
     "eyebrow": "TELEFONLAR VE TABLETLER",
     "intro": "Bu projeyi Google Play ve Apple App Store için gerçek bir uygulamaya dönüştürün. Uygulama, yayınlanmış sitenizin güncel hâlini gösterir. Böylece yaptığınız değişiklikler yeni bir derleme gerekmeden hemen yansır.",
     "title": "Mobil uygulama"
+  },
+  "nativePreview": {
+    "eyebrow": "YEREL UYGULAMA ÖNİZLEMESİ",
+    "intro": "Yayımlanan uygulamanızın telefondaki yerel uygulama görünümü ve web sayfası yan yana. Bu erken bir önizlemedir: formlar, verilerinizden oluşturulan listeler ve oturum açma daha sonra eklenecek.",
+    "native": "Yerel uygulama",
+    "notPublished": "Yerel uygulama olarak önizlemek için uygulamayı yayımlayın.",
+    "note": "Yayımladıktan sonraki ilk önizlemenin hazırlanması bir dakika kadar sürebilir. Yerel uygulamanın henüz gösteremediği bölümler, gömülü web görünümleri olarak görünür.",
+    "page": "Sayfa",
+    "reload": "Yenile",
+    "title": "Yerel uygulama önizlemesi",
+    "web": "Web sayfası"
   },
   "newPageButton": {
     "create": "Oluştur",

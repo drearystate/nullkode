@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { heartbeatJson } from "@/lib/heartbeat-json";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
 import { json } from "@/lib/utils";
@@ -8,7 +9,7 @@ import { providerComplete } from "@/lib/ai/provider";
 import { DESIGN_RULES_COMPACT } from "@/lib/ai/design-system";
 import { generatedImageContext } from "@/lib/assets/generated";
 import { parsePageOutput } from "@/lib/ai/text";
-import { findLostWiring } from "@/lib/ai/edit-page";
+import { findLostWiring, hasInlineScript } from "@/lib/ai/edit-page";
 import { estimateTokens } from "@/lib/ai/budget";
 import { aiErrorFor, aiErrorWords, classifyAiFailure } from "@/lib/ai/errors";
 import { personLocale, translator } from "@/lib/ai/i18n";
@@ -28,7 +29,12 @@ const Body = z.object({
   history: z.array(z.object({ role: z.enum(["user", "assistant"]), text: z.string().max(2000) })).max(8).optional(),
   /** The page's language being edited (a multilingual app's translation); default: the app's. */
   lang: z.string().max(16).optional(),
+  /** The open page (as the editor has it now) carries the app's code: an inline <script>. */
+  pageHasCode: z.boolean().optional(),
 });
+
+/** The section answer that hands a request over to the whole-page edit. */
+const NEEDS_PAGE = "NEEDS_PAGE_CODE";
 
 const SYSTEM = `You edit ONE section of a web page, as asked. The rest of the page is not your concern.
 
@@ -46,7 +52,13 @@ RULES:
 ${DESIGN_RULES_COMPACT}`;
 
 /** Ask AI, scoped to the selected section: small, fast and safe on any model. */
+// A long edit outlives the proxies' idle timeout: keep the answer alive
+// (lib/heartbeat-json.ts) so the browser gets the result, not a proxy error.
 export async function POST(req: Request) {
+  return heartbeatJson(() => handle(req));
+}
+
+async function handle(req: Request): Promise<Response> {
   const user = await getCurrentUser();
   const locale = await personLocale();
   const t = translator(locale, "ai");
@@ -59,8 +71,8 @@ export async function POST(req: Request) {
     const key = parsed.error.issues[0]?.message;
     return json({ error: key?.startsWith("edit.") ? t(key) : t("errors.invalidRequest") }, { status: 400 });
   }
-  const { projectId, pageId, message, sectionHtml, history, lang } = parsed.data;
-  const page = await db.page.findFirst({ where: { id: pageId, projectId, project: { ownerId: user.id } }, select: { title: true } });
+  const { projectId, pageId, message, sectionHtml, history, lang, pageHasCode } = parsed.data;
+  const page = await db.page.findFirst({ where: { id: pageId, projectId, project: { ownerId: user.id } }, select: { title: true, html: true } });
   if (!page) return json({ error: t("errors.pageNotFound") }, { status: 404 });
 
   // Charged before the AI runs; every failure below gives it back.
@@ -71,7 +83,21 @@ export async function POST(req: Request) {
   const app = await getAppLocale(projectId).catch(() => null);
   const contentLocale = isLocale(lang) && app?.locales.includes(lang) ? lang : app?.explicit ? app.locale : null;
   const languageRule = contentLanguageRule(contentLocale);
-  const baseMessage = `${context}Page: ${page.title}\nRequest: ${message}\n\nSECTION HTML:\n${sectionHtml}${generatedImageContext(`${message} ${page.title}`, 3)}${languageRule ? `\n\n${languageRule}` : ""}`;
+  // The app's code (a game's loop, rules, drawing) sits in a <script> outside
+  // the selected part, on this page or on another one: a change to how the
+  // app works can't be made here, so the model hands it to the whole-page
+  // edit, which sees that code.
+  const codeOnPage = pageHasCode === true || hasInlineScript(page.html);
+  const codePages = codeOnPage
+    ? []
+    : (await db.page.findMany({ where: { projectId, id: { not: pageId }, html: { contains: "<script" } }, select: { title: true, html: true } }))
+        .filter((p) => hasInlineScript(p.html))
+        .map((p) => `"${p.title}"`);
+  const codeElsewhere = !hasInlineScript(sectionHtml) && (codeOnPage || codePages.length > 0);
+  const codeRule = codeElsewhere
+    ? `\n\nAPP CODE: the app's behaviour (its game or interactive logic) is in a <script> OUTSIDE this section (${codeOnPage ? "elsewhere on this page" : `on the ${codePages.slice(0, 3).join(", ")} page`}). If the request needs a change to how the app works (rules, controls, movement, enemies, items, scoring, timing, effects, a minimap or tutorial, anything a script does), do not imitate it in this section's markup or text: reply with exactly ${NEEDS_PAGE} and nothing else. Only change the section yourself when the request is about this section's own content or look.`
+    : "";
+  const baseMessage = `${context}Page: ${page.title}\nRequest: ${message}\n\nSECTION HTML:\n${sectionHtml}${generatedImageContext(`${message} ${page.title}`, 3)}${languageRule ? `\n\n${languageRule}` : ""}${codeRule}`;
   const maxTokens = Math.min(16_000, Math.max(2_000, estimateTokens(sectionHtml) * 2 + 1_500));
 
   // The build rule (lib/ai/build-policy.ts), checked alongside the edit: this
@@ -99,6 +125,12 @@ export async function POST(req: Request) {
         task: "edit",
         maxTokens,
       });
+      // Handed over to the whole-page edit (the Ask AI panel sends it there
+      // straight away). Not the person's fault, so it never counts.
+      if (codeElsewhere && text.trim().replace(/^[`"'\s]+|[`"'.\s]+$/g, "") === NEEDS_PAGE) {
+        await refundAiUsage(chargeId);
+        return json({ html: null, css: null, needsPage: true, usage: await usage() });
+      }
       const out = parsePageOutput(text);
       if (!out) {
         problem = "was not usable HTML";

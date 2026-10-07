@@ -1,0 +1,84 @@
+{
+  "name": "three-3d",
+  "version": "1.0.0",
+  "engine": {
+    "three": "0.186.1",
+    "rapier3d-compat": "0.21.0",
+    "draco": "1.5.7 (three examples copy)",
+    "meshopt": "three examples copy"
+  },
+  "runtime": {
+    "nk-game": "1.0.0"
+  },
+  "load": [
+    "nk-game.min.js",
+    "nk-three.min.js"
+  ],
+  "needs": {
+    "wasm": "Rapier (inline base64) and meshopt decoder instantiate WebAssembly → CSP 'wasm-unsafe-eval'",
+    "workers": "Draco/KTX2 decoders run in blob: workers → CSP worker-src blob:"
+  },
+  "uiAssets": [
+    "kenney/mobile-controls/joystick-circle-pad-a",
+    "kenney/mobile-controls/joystick-circle-nub-a",
+    "kenney/mobile-controls/button-circle",
+    "kenney/mobile-controls/icon-jump",
+    "kenney/mobile-controls/icon-pause",
+    "kenney/mobile-controls/icon-sword",
+    "kenney/mobile-controls/icon-hand"
+  ],
+  "files": {
+    "ENGINE-CARD.md": {
+      "bytes": 5557,
+      "integrity": "sha384-cD9erAdr+Eklqrzt3CoIcM3ArZCAJZLo0yZXQta8VtEt4Sd8WrfTz98TnkeBLi3H"
+    },
+    "decoders/basis/basis_transcoder.js": {
+      "bytes": 57529,
+      "integrity": "sha384-kWnnj9LTiulmvzVhfRTdAs7wcVH7SngxPFtXiPFbqGDg72LOftkS9HBZIrtDIp8C"
+    },
+    "decoders/basis/basis_transcoder.wasm": {
+      "bytes": 527333,
+      "integrity": "sha384-gvjbljHqyqHvdVmQwHnnsrCiXMtLTfoccEK9W5TwWJI99ZjAD+W8XubPeuqTa6xh"
+    },
+    "decoders/draco/draco_decoder.js": {
+      "bytes": 719410,
+      "integrity": "sha384-1OJdSLFwIRJzwdarBhBULqlxq/dA+h0D2TUmjRBU4yVfzsxPrOVyk5oDRDxK0iQO"
+    },
+    "decoders/draco/draco_decoder.wasm": {
+      "bytes": 285747,
+      "integrity": "sha384-RWzQ6S2mgcSVKbbYnF779QxAiSOCEVwe/0KdVTnF6QbrBGceORNZkwb2wgrumugr"
+    },
+    "decoders/draco/draco_wasm_wrapper.js": {
+      "bytes": 58763,
+      "integrity": "sha384-omhL1Vj0Gp0S1OtPFh1jdo0fXv+KQnJSbyL2Y15Nh57a1AnkQm4N4DeLvBH4Apcp"
+    },
+    "fonts/kenney-future.ttf": {
+      "bytes": 34160,
+      "integrity": "sha384-Q4W5bxhuqFzHm17r0l1sayMzwGwSFFXg1Hs/cVTIic3MzSrk72ClWD0WSC/nnmiu"
+    },
+    "licenses/rapier-LICENSE": {
+      "bytes": 11343,
+      "integrity": "sha384-jm/zl4tDqSUx2RYZuMkZzq9Fc9fnRdxglTCPrYx01Stwb6np/0LT+e5o2CSCT7ox"
+    },
+    "licenses/three-LICENSE": {
+      "bytes": 1081,
+      "integrity": "sha384-dZIEXnc8kDiJUEWlKdsN+V7yvZT/HbLEL7IFgYWNSRkA0ErUhU5jIL71XpYCHvDY"
+    },
+    "nk-game.min.js": {
+      "bytes": 39484,
+      "integrity": "sha384-weLhL/GhD7+9vBnrbpaoEqsLrIDpzot+yPuus/NrRIz3M38LmPEJUFtHmkckJeFK"
+    },
+    "nk-three.min.js": {
+      "bytes": 924776,
+      "integrity": "sha384-QNSwsh7H0+UffZqmJPqADTNFANtlUXELwad1Qh3YD4fO0cp0ZSOWhn3LpN80/PVB"
+    },
+    "rapier.min.js": {
+      "bytes": 4337347,
+      "integrity": "sha384-Mg1ZUI5Nadm0PyeD6squLrdV6VDIemxf9iBNsTDD68l4khjfPE92i8RCjovbclnd"
+    },
+    "src/nk-game-3d.js": {
+      "bytes": 43980,
+      "integrity": "sha384-QZeqGSShOgnKKO1CMBHGaDu2BSVqcQs6VwtnkoFT3o7MHjp9DLzb+nGjrI0cArcS"
+    }
+  }
+}

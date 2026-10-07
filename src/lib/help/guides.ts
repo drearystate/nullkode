@@ -282,6 +282,98 @@ const GUIDE_LIST: Guide[] = [
     related: ["getting-started", "publishing", "page-editor"],
   },
   {
+    slug: "game-studio",
+    title: "Make a game in the Game Studio",
+    summary: "Describe a game and the AI builds a real, playable game step by step, which you can play as it grows and change by chatting.",
+    audience: "everyone",
+    group: "build",
+    sections: [
+      {
+        heading: "Start a game",
+        body: [],
+        steps: [
+          "Click **Games** in the top bar. On your dashboard you can also choose **Make a game**.",
+          "Under **What game do you want to make?**, describe your game: what the player does, what they collect or avoid, and how it should look. You can also tap one of the example ideas and change it.",
+          "Choose **2D** or **3D**, or **Let the AI choose**. To show the look you want, add pictures with the image button.",
+          "Press **Build it**. The AI may ask **A few quick questions first**. Pick or type answers, then press **Build it**, or **Skip questions**.",
+        ],
+      },
+      {
+        heading: "Watch it grow",
+        body: [
+          "The AI first writes a **Game plan**: the kind of game, how you play, how you win and lose, and the look. It picks matching art and sound from the asset library.",
+          "Under **Art direction** in the plan you see the look it chose for your game: the colours, the camera, the shapes, the lighting, the interface and the motion. Every step follows it, so the game looks finished from the start.",
+          "Then it builds the game in small steps, shown in the chat with a tick as each one is done. After every step the game on the right updates in place and you can play it straight away: the background first, then the player and controls, the level, things to collect, enemies, menus, sounds and polish.",
+          "Every step is checked before it reaches your game: it must load and play without errors. A step that fails gets one more try.",
+          "After the level, the enemies and the final polish, a playtester checks the game the way a player would: can every jump be made, can the goal and the collectibles be reached, is the start safe, is the player easy to see, do the touch buttons cover anything. It also looks at the game on a computer screen and a phone and checks that everything looks like one finished game. It tells you in the chat what it found. Real problems are fixed in an extra step straight away; smaller ones are fixed in the next step.",
+        ],
+      },
+      {
+        heading: "Play and test",
+        body: [
+          "Click the game, then use the keyboard (arrow keys or WASD, Space to jump). On a phone the game shows touch controls.",
+          "The bar above the game shows the step you're looking at and how smoothly it runs. Use the buttons there to pause, restart, switch between a computer screen and a phone, play full screen or open the game in a new tab.",
+          "If the game reports errors, a yellow button shows how many. Click it to see them and press **Ask the AI to fix these**.",
+        ],
+      },
+      {
+        heading: "Ask for changes",
+        body: [],
+        steps: [
+          "Type what you want in the **Ask for a change** box, for example “make the jump higher”, “add a second level” or “swap the hero for a robot”.",
+          "Press Enter. The AI plans the change as one or a few steps, and the game updates as each one lands.",
+        ],
+      },
+      {
+        heading: "Steer it while it builds",
+        body: [
+          "You don't have to wait for a build to finish. Keep typing in the message box while the AI works: ask what it is doing, or ask for a change like “make the hero orange” or “add a jumping frog enemy”. You can add pictures and assets too.",
+          "Your note shows in the chat straight away and the AI answers at once. It reads every note before its next step and puts what you asked ahead of its original plan. If the plan doesn't cover it, a step is added to the list. A note sent during the last step gets an extra step of its own.",
+          "Under each note you can see where it stands, for example **Applied in step 3**.",
+        ],
+        steps: [
+          "To stop once the step that's running now is saved, press **Stop after this step**. Press **Keep going** if you change your mind.",
+          "To stop straight away, press **Stop now**. The step the AI was working on is dropped and your game stays as it was after the last finished step.",
+          "To undo a finished step, open **Versions** and restore the version before it.",
+        ],
+      },
+      {
+        heading: "Use the asset library",
+        body: [
+          "Press **Assets** above the game (on a phone, the **Assets** tab). Search thousands of sprites, 3D models, sounds and music, and see what your game uses under **In this game**.",
+          "Drag an asset onto the message box, or press its + button, then say what to do with it, like “use this as the hero”.",
+          "Assets marked **Hosted only** can be used in games published here but are left out when you download the game.",
+        ],
+      },
+      {
+        heading: "Go back to an earlier version",
+        body: ["Every step is saved as a version with a picture of the game at that point."],
+        steps: [
+          "Press **Versions** above the game.",
+          "Press **Play** to try an older version on the canvas. Your game doesn't change.",
+          "Press **Restore** to make it the current version. The version you had stays in the list.",
+        ],
+      },
+      {
+        heading: "Publish or download",
+        body: [
+          "**Publish** turns your game into an app with its own web address that anyone can play. From the app you can also make a phone app and add your own domain. After more changes, press **Publish again**.",
+          "**Download** saves the game as a .zip that runs on any web host.",
+        ],
+      },
+      {
+        heading: "Good to know",
+        body: [],
+        bullets: [
+          "Building a game, and each change you ask for, uses one action of your plan's monthly AI allowance, however many steps it takes. If the AI can't deliver anything, it doesn't count.",
+          "If the server restarts while your game is being built, the build carries on from the step it was on.",
+          "Games are built with real game engines: Phaser for 2D and three.js for 3D.",
+        ],
+      },
+    ],
+    related: ["ai-designer", "publishing", "phone-apps"],
+  },
+  {
     slug: "page-editor",
     title: "Edit your pages",
     summary: "Change words, pictures and layout by clicking and dragging, or ask the AI to do it for you.",

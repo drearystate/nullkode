@@ -1,0 +1,15 @@
+{
+  "name": "nk-game",
+  "version": "1.0.0",
+  "description": "Shared game runtime: lifecycle, bus, input, touch controls, audio, assets, saves, settings, overlay UI, platform hooks, studio live-patch bridge.",
+  "files": {
+    "nk-game.js": {
+      "bytes": 64211,
+      "integrity": "sha384-Mec0ZPRqwJIulGqfA+nLe/lGHd9KW8PJKaDT89+OCW4Rmv8GwnmlKia1CtVAZDr8"
+    },
+    "nk-game.min.js": {
+      "bytes": 39484,
+      "integrity": "sha384-weLhL/GhD7+9vBnrbpaoEqsLrIDpzot+yPuus/NrRIz3M38LmPEJUFtHmkckJeFK"
+    }
+  }
+}

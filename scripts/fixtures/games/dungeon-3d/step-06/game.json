@@ -1,0 +1,14 @@
+{
+  "id": "crypt-run",
+  "title": "Crypt Run",
+  "kit": "three-3d@1.0.0",
+  "files": [
+    "src/config.js",
+    "src/assets.js",
+    "src/level.js",
+    "src/entities/hero.js",
+    "src/entities/skeleton.js",
+    "src/scenes/menu.js",
+    "src/scenes/game.js"
+  ]
+}

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ChevronDown, LayoutGrid, LogOut, Sparkles, CreditCard, Shield, Briefcase, CircleHelp, UserRound } from "lucide-react";
+import { ChevronDown, Gamepad2, LayoutGrid, LogOut, Sparkles, CreditCard, Shield, Briefcase, CircleHelp, UserRound } from "lucide-react";
 import { getRealUser, getImpersonation, getCurrentUser } from "@/lib/auth";
 import { getRequestBrand } from "@/lib/reseller";
 import { getTranslations } from "next-intl/server";
@@ -34,6 +34,7 @@ export async function TopBar({ user, children }: { user: User; children?: React.
         <nav aria-label={t("accountNavigation")} className="flex shrink-0 items-center gap-2 sm:gap-4">
           <Link href="/dashboard" className="studio-top-link" data-help={t("myAppsHelp")}><LayoutGrid size={15} /><span className="hidden md:inline">{t("myApps")}</span></Link>
           <Link href="/designer" className="studio-top-link" aria-label={t("designer")} data-help={t("designerHelp")}><Sparkles size={15} /><span className="hidden md:inline">{t("designer")}</span></Link>
+          <Link href="/games" className="studio-top-link" aria-label={t("games")} data-help={t("gamesHelp")}><Gamepad2 size={15} /><span className="hidden md:inline">{t("games")}</span></Link>
           {real?.role === "RESELLER" && <Link href="/reseller" className="studio-top-link" aria-label={t("resellerDashboard")} data-help={t("resellerHelp")}><Briefcase size={15} /><span className="hidden md:inline">{t("resellerDashboard")}</span></Link>}
           {real?.role === "ADMIN" && <Link href="/admin" className="studio-top-link" aria-label={t("admin")} data-help={t("adminHelp")}><Shield size={15} /><span className="hidden md:inline">{t("admin")}</span></Link>}
           <HelpLink />

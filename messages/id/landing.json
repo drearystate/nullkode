@@ -75,6 +75,34 @@
     "copyright": "© {year} {app}",
     "tagline": "Pembuat aplikasi visual dengan backend sungguhan. Luncurkan produk lengkap — bukan sekadar halaman pemasaran."
   },
+  "games": {
+    "cta": "Buat game sendiri",
+    "eyebrow": "Game resmi NullKode",
+    "heading": "Game sungguhan, bukan sekadar aplikasi.",
+    "intro": "Tiga game yang dibuat dengan mesin Game Studio NullKode dan pustaka aset 3D gratisnya. Semua gambar di bawah adalah tangkapan layar asli, dan semua game bisa dimainkan di komputer dan ponsel.",
+    "items": {
+      "dungeon": {
+        "alt": "Vault of Embers: seorang kesatria dan penyihir melawan kerangka di lorong ruang bawah tanah bercahaya obor",
+        "body": "Pimpin seorang kesatria dan penyihir menjelajahi ruang bawah tanah bercahaya obor. Tangkis serangan kerangka yang terlihat, balas menyerang, lalu buka ruang harta.",
+        "genre": "Aksi ruang bawah tanah",
+        "title": "Vault of Embers"
+      },
+      "mars": {
+        "alt": "Red Horizon: pangkalan putih di Mars dengan pusat berkubah, panel surya, landasan pendaratan, dan rover di dekat endapan kristal",
+        "body": "Kelola koloni di Mars. Hubungkan tenaga surya, kirim rover untuk mencari kristal, tembak jatuh meteor, dan jaga agar oksigen tetap mengalir.",
+        "genre": "Pembangun pangkalan",
+        "title": "Red Horizon"
+      },
+      "village": {
+        "alt": "Hearthvale: desa abad pertengahan di pulau hijau berbentuk heksagon, dengan bilah alat bangunan",
+        "body": "Kembangkan desa abad pertengahan di pulau berbentuk heksagon. Pilih bangunan, lihat lokasi yang cocok, dan saksikan desamu berkembang.",
+        "genre": "Pembangun desa",
+        "title": "Hearthvale"
+      }
+    },
+    "note": "Dibuat dengan kit mesin yang sama dan pustaka berisi lebih dari 74.000 aset 2D dan 3D gratis (CC0) yang tersedia di setiap proyek Game Studio.",
+    "play": "Mainkan sekarang"
+  },
   "hero": {
     "badge": "Jelaskan, periksa rencananya, lalu luncurkan",
     "charsLeft": "{count, plural, one {tersisa # karakter} other {tersisa # karakter}}",

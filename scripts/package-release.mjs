@@ -1,5 +1,6 @@
 import { cp, mkdir, readFile, readdir, writeFile, stat } from 'node:fs/promises';
 import { resolve, join } from 'node:path';
+import { packageGames, scrubRelease } from './package-games.mjs';
 const root = process.cwd();
 const output = resolve(process.argv[2] || '/tmp/nullkode-release');
 if (output === root || root.startsWith(output + '/') || output.startsWith(root + '/')) throw new Error('Choose an output directory outside the source checkout.');
@@ -78,5 +79,13 @@ await writeFile(configPath, JSON.stringify(config,null,2)+'\n');
 const pkg = JSON.parse(await readFile(join(output,'package.json'),'utf8'));
 for (const k of ['homepage','repository','bugs']) if (JSON.stringify(pkg[k]).includes('YOUR_ORG')) delete pkg[k];
 await writeFile(join(output,'package.json'), JSON.stringify(pkg,null,2)+'\n');
+// The Game Studio's files (games/, see scripts/package-games.mjs and docs/games.md):
+// engine kits, design playbook, asset tools, AI tags for the CC0 assets and
+// example games. No asset files.
+const games = await packageGames(root, output);
+if (games?.games) console.log(`games/: ${games.games.length} example games (${games.games.join(', ')})${games.held.length ? `; waiting for a README.md: ${games.held.join(', ')}` : ''}; metadata for ${games.assets} CC0 assets (${(games.metadataBytes / 1048576).toFixed(1)} MB compressed).`);
+for (const w of games?.warnings ?? []) console.warn(`games/: ${w}`);
+const scrubbed = await scrubRelease(output);
+if (scrubbed.length) console.log(`Neutral pack name in: ${scrubbed.join(', ')}`);
 // The package is the complete platform, with original MIT starter designs.
 console.log(`Release source prepared at ${output}`);

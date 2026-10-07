@@ -6,6 +6,7 @@
 export const GUIDE_SLUGS = [
   "getting-started",
   "ai-designer",
+  "game-studio",
   "page-editor",
   "look-and-feel",
   "features",
@@ -47,6 +48,7 @@ export function guideForPath(pathname: string): GuideSlug | null {
     return "getting-started";
   }
   if (/^\/designer(?:\/|$)/.test(pathname)) return "ai-designer";
+  if (/^\/games(?:\/|$)/.test(pathname)) return "game-studio";
   if (/^\/(?:dashboard|new)(?:\/|$)/.test(pathname) || pathname === "/") return "getting-started";
   if (/^\/(?:billing|account)(?:\/|$)/.test(pathname)) return "account-and-billing";
   if (/^\/reseller\/billing(?:\/|$)/.test(pathname)) return "prices-and-payments";

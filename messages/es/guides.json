@@ -565,6 +565,93 @@
     "summary": "Consulta, busca, cambia y descarga todo lo que guarda tu app, como mensajes, reservas e inscripciones.",
     "title": "Formularios y tus datos"
   },
+  "game-studio": {
+    "sections": {
+      "0": {
+        "heading": "Empieza un juego",
+        "steps": {
+          "0": "Haz clic en <b>Juegos</b> en la barra superior. También puedes elegir <b>Crear un juego</b> en el panel.",
+          "1": "En <b>¿Qué juego quieres crear?</b>, describe tu juego: qué hace el jugador, qué recoge o evita y qué aspecto debe tener. También puedes tocar una de las ideas de ejemplo y modificarla.",
+          "2": "Elige <b>2D</b>, <b>3D</b> o <b>Dejar que la IA elija</b>. Para mostrar el estilo que quieres, añade imágenes con el botón de imagen.",
+          "3": "Pulsa <b>Crear</b>. Puede que la IA te haga <b>Unas preguntas rápidas primero</b>. Elige o escribe las respuestas y pulsa <b>Crear</b>, o bien <b>Omitir preguntas</b>."
+        }
+      },
+      "1": {
+        "body": {
+          "0": "Primero, la IA escribe un <b>Plan del juego</b>: el tipo de juego, cómo se juega, cómo se gana y se pierde, y el estilo visual. Después, elige imágenes y sonidos adecuados de la biblioteca de recursos.",
+          "1": "En <b>Dirección artística</b> del plan verás el estilo que ha elegido para tu juego: los colores, la cámara, las formas, la iluminación, la interfaz y el movimiento. Cada paso lo sigue para que el juego tenga un aspecto acabado desde el principio.",
+          "2": "Luego crea el juego en pasos pequeños, que aparecen en el chat con una marca de verificación al completarse. Después de cada paso, el juego de la derecha se actualiza y puedes jugarlo enseguida: primero el fondo, luego el personaje y los controles, el nivel, los objetos que recoger, los enemigos, los menús, los sonidos y los retoques finales.",
+          "3": "Cada paso se comprueba antes de añadirse al juego: debe cargar y funcionar sin errores. Si un paso falla, se intenta una vez más.",
+          "4": "Después del nivel, los enemigos y los retoques finales, alguien prueba el juego como lo haría cualquier jugador: comprueba si se pueden hacer todos los saltos, llegar a la meta y recoger los objetos, si el inicio es seguro, si el personaje se distingue bien y si los botones táctiles tapan algo. También revisa el juego en una pantalla de ordenador y en un teléfono, y comprueba que todo parezca parte de un mismo juego terminado. Te cuenta en el chat lo que encontró. Los problemas importantes se corrigen enseguida en un paso adicional; los menores, en el siguiente."
+        },
+        "heading": "Mira cómo toma forma"
+      },
+      "2": {
+        "body": {
+          "0": "Haz clic en el juego y usa el teclado (las flechas o WASD; la barra espaciadora para saltar). En el teléfono, el juego muestra controles táctiles.",
+          "1": "La barra sobre el juego muestra el paso que estás viendo y qué tan bien funciona. Usa los botones para pausarlo, reiniciarlo, cambiar entre la vista de ordenador y la de teléfono, jugar a pantalla completa o abrirlo en una pestaña nueva.",
+          "2": "Si el juego muestra errores, aparecerá un botón amarillo con la cantidad. Haz clic para verlos y pulsa <b>Pedir a la IA que los corrija</b>."
+        },
+        "heading": "Juega y prueba"
+      },
+      "3": {
+        "heading": "Pide cambios",
+        "steps": {
+          "0": "Escribe lo que quieres en el cuadro <b>Pide un cambio</b>, por ejemplo: «haz que el salto sea más alto», «añade un segundo nivel» o «cambia al héroe por un robot».",
+          "1": "Pulsa Intro. La IA planificará el cambio en uno o varios pasos y el juego se actualizará a medida que los complete."
+        }
+      },
+      "4": {
+        "body": {
+          "0": "No tienes que esperar a que termine de crearse. Sigue escribiendo en el cuadro de mensaje mientras trabaja la IA: pregúntale qué está haciendo o pídele un cambio, como «pon naranja al personaje principal» o «añade un enemigo rana que salte». También puedes añadir imágenes y recursos.",
+          "1": "Tu nota aparece enseguida en el chat y la IA responde al momento. Lee todas las notas antes de dar el siguiente paso y prioriza lo que le pidas sobre su plan original. Si el plan no lo incluye, se añade un paso a la lista. Si envías una nota durante el último paso, se añade otro paso para hacerla.",
+          "2": "Debajo de cada nota puedes ver su estado, por ejemplo <b>Aplicada en el paso 3</b>."
+        },
+        "heading": "Dirígelo mientras se crea",
+        "steps": {
+          "0": "Para detener la creación cuando se guarde el paso actual, pulsa <b>Detener después de este paso</b>. Pulsa <b>Seguir</b> si cambias de opinión.",
+          "1": "Para detenerla de inmediato, pulsa <b>Detener ahora</b>. Se descarta el paso en el que estaba trabajando la IA y el juego queda como estaba al terminar el paso anterior.",
+          "2": "Para deshacer un paso terminado, abre <b>Versiones</b> y restaura la versión anterior."
+        }
+      },
+      "5": {
+        "body": {
+          "0": "Pulsa <b>Recursos</b> encima del juego (en el móvil, la pestaña <b>Recursos</b>). Busca entre miles de sprites, modelos 3D, sonidos y música, y consulta qué usa tu juego en <b>En este juego</b>.",
+          "1": "Arrastra un recurso al cuadro de mensaje o pulsa su botón + y luego indica qué quieres hacer con él, como «usa esto para el personaje principal».",
+          "2": "Los recursos marcados como <b>Solo alojados</b> se pueden usar en juegos publicados aquí, pero no se incluyen al descargar el juego."
+        },
+        "heading": "Usa la biblioteca de recursos"
+      },
+      "6": {
+        "body": {
+          "0": "Cada paso se guarda como una versión con una imagen del juego en ese momento."
+        },
+        "heading": "Vuelve a una versión anterior",
+        "steps": {
+          "0": "Pulsa <b>Versiones</b> encima del juego.",
+          "1": "Pulsa <b>Reproducir</b> para probar una versión anterior en el lienzo. El juego no cambiará.",
+          "2": "Pulsa <b>Restaurar</b> para convertirla en la versión actual. La versión que tenías seguirá en la lista."
+        }
+      },
+      "7": {
+        "body": {
+          "0": "<b>Publicar</b> convierte tu juego en una app con su propia dirección web para que cualquiera pueda jugar. Desde la app también puedes crear una app para el móvil y añadir tu propio dominio. Cuando hagas más cambios, pulsa <b>Volver a publicar</b>.",
+          "1": "<b>Descargar</b> guarda el juego en un archivo .zip que funciona en cualquier servicio de alojamiento web."
+        },
+        "heading": "Publica o descarga"
+      },
+      "8": {
+        "bullets": {
+          "0": "Crear un juego y cada cambio que pidas consume una acción de la cuota mensual de IA de tu plan, independientemente de cuántos pasos necesite. Si la IA no consigue hacer ningún cambio, no cuenta.",
+          "1": "Si se reinicia el servidor mientras se crea tu juego, el proceso continúa desde el paso en el que estaba.",
+          "2": "Los juegos se crean con motores de videojuegos reales: Phaser para 2D y three.js para 3D."
+        },
+        "heading": "Información útil"
+      }
+    },
+    "summary": "Describe un juego y la IA creará un juego real y jugable paso a paso. Podrás jugar mientras se va creando y hacer cambios por chat.",
+    "title": "Crea un juego en el Estudio de juegos"
+  },
   "getting-started": {
     "sections": {
       "0": {

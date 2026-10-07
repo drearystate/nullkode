@@ -33,6 +33,11 @@ COPY . .
 COPY --from=engine /engine/dist-web ./public/nk-native/web
 ENV NEXT_TELEMETRY_DISABLED=1
 RUN pnpm build
+# Game Studio asset search (games/tools, see docs/games.md): its SQLite package,
+# built for this image's Node. The asset library itself is mounted at run time.
+RUN if [ -f games/tools/package-lock.json ]; then \
+      cd games/tools && npm ci --omit=dev --no-audit --no-fund --loglevel=error; \
+    fi
 
 FROM node:20.19.2-bookworm-slim AS runtime
 WORKDIR /app

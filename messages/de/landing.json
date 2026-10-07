@@ -75,6 +75,34 @@
     "copyright": "© {year} {app}",
     "tagline": "Der visuelle App-Builder mit einem echten Backend. Veröffentliche vollständige Produkte – keine Marketingseiten."
   },
+  "games": {
+    "cta": "Eigenes Spiel erstellen",
+    "eyebrow": "Offizielle NullKode-Spiele",
+    "heading": "Echte Spiele, nicht nur Apps.",
+    "intro": "Drei Spiele mit der Game-Studio-Engine von NullKode und ihrer kostenlosen 3D-Asset-Bibliothek. Jeder Frame unten ist ein echter Screenshot, und jedes Spiel läuft auf Desktop und Smartphone.",
+    "items": {
+      "dungeon": {
+        "alt": "Vault of Embers: ein Ritter und eine Magierin kämpfen in einer von Fackeln erleuchteten Dungeonhalle gegen Skelette",
+        "body": "Führe einen Ritter und eine Magierin durch eine von Fackeln erleuchtete Krypta. Blocke die angekündigten Angriffe der Skelette, schlage zurück und öffne das Gewölbe.",
+        "genre": "Dungeon-Action",
+        "title": "Vault of Embers"
+      },
+      "mars": {
+        "alt": "Red Horizon: eine weiße Marsbasis mit einer Kuppelzentrale, Solarpanels, einer Landeplattform und einem Rover neben einem Kristallvorkommen",
+        "body": "Führe eine Kolonie auf dem Mars. Schließe Solarenergie an, schicke den Rover auf Kristallsuche, schieße Meteoriten ab und sorge für ausreichend Sauerstoff.",
+        "genre": "Basenbauspiel",
+        "title": "Red Horizon"
+      },
+      "village": {
+        "alt": "Hearthvale: ein mittelalterliches Dorf auf einer grünen, sechseckigen Insel mit einer Gebäudeleiste",
+        "body": "Baue ein mittelalterliches Dorf auf einer sechseckigen Insel. Wähle ein Gebäude, sieh, wo es hinpasst, und beobachte, wie dein Dorf wächst.",
+        "genre": "Dorfbauspiel",
+        "title": "Hearthvale"
+      }
+    },
+    "note": "Entwickelt mit denselben Engine-Kits und derselben Bibliothek mit über 74.000 kostenlosen 2D- und 3D-Assets (CC0), die jedem Game-Studio-Projekt zur Verfügung steht.",
+    "play": "Jetzt spielen"
+  },
   "hero": {
     "badge": "Beschreiben, Plan prüfen, starten",
     "charsLeft": "{count, plural, one {Noch # Zeichen} other {Noch # Zeichen}}",

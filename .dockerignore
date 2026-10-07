@@ -42,3 +42,9 @@ native-runtime/web-build
 native-runtime/android
 native-runtime/ios
 public/nk-native
+
+# Game Studio: the asset library is mounted at run time (docker-compose.yml),
+# not copied into the image; the downloaded zips and scratch space stay out.
+games/packs
+games/work
+games/library

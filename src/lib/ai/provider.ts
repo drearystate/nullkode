@@ -470,14 +470,22 @@ export async function providerComplete(opts: {
    * that can't read images must be refused, never sent them silently.
    */
   attachments?: Attachment[];
+  /**
+   * A short side call (the Game Studio's reply to a note sent during a
+   * build): on the command-line provider the small model (CLAUDE_QUICK_MODEL,
+   * default "haiku") at low effort; elsewhere the "edit" model with the
+   * caller's token cap.
+   */
+  quick?: boolean;
 }): Promise<string> {
   const attachments = opts.attachments?.length ? opts.attachments : undefined;
   if (await getAIProvider() === "claude-cli") {
+    const quick = opts.quick ? { model: process.env.CLAUDE_QUICK_MODEL || "haiku", effort: "low" } : {};
     if (!opts.onDelta) {
-      return claudeCliComplete({ systemPrompt: opts.systemPrompt, userMessage: opts.userMessage, timeoutMs: STALL_TIMEOUT_MS, signal: opts.signal, attachments });
+      return claudeCliComplete({ systemPrompt: opts.systemPrompt, userMessage: opts.userMessage, timeoutMs: STALL_TIMEOUT_MS, signal: opts.signal, attachments, ...quick });
     }
     let text = "";
-    for await (const chunk of claudeCliStream({ systemPrompt: opts.systemPrompt, userMessage: opts.userMessage, timeoutMs: STALL_TIMEOUT_MS, signal: opts.signal, attachments })) {
+    for await (const chunk of claudeCliStream({ systemPrompt: opts.systemPrompt, userMessage: opts.userMessage, timeoutMs: STALL_TIMEOUT_MS, signal: opts.signal, attachments, ...quick })) {
       if (chunk.kind === "thinking") continue;
       text = chunk.accumulated;
       opts.onDelta(text.length);

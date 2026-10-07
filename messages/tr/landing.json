@@ -75,6 +75,34 @@
     "copyright": "© {year} {app}",
     "tagline": "Gerçek bir arka uca sahip görsel uygulama oluşturucu. Pazarlama sayfaları değil, eksiksiz ürünler yayınlayın."
   },
+  "games": {
+    "cta": "Kendi oyununu yap",
+    "eyebrow": "Resmî NullKode oyunları",
+    "heading": "Bunlar sadece uygulama değil, gerçek oyunlar.",
+    "intro": "NullKode'un Game Studio motoru ve ücretsiz 3D varlık kütüphanesiyle yapılmış üç oyun. Aşağıdaki her kare gerçek bir ekran görüntüsü ve oyunların hepsi bilgisayarda ve telefonda oynanabilir.",
+    "items": {
+      "dungeon": {
+        "alt": "Vault of Embers: Meşalelerle aydınlatılmış bir zindan salonunda iskeletlerle savaşan bir şövalye ve büyücü",
+        "body": "Bir şövalye ve büyücüyü meşalelerle aydınlatılmış bir mahzenden geçir. İskeletlerin önceden belli olan saldırılarını savuştur, karşılık ver ve mahzeni aç.",
+        "genre": "Zindan aksiyonu",
+        "title": "Vault of Embers"
+      },
+      "mars": {
+        "alt": "Red Horizon: Kubbeli bir merkezi, güneş panelleri, iniş pisti ve kristal yatağının yanında gezgini olan beyaz bir Mars üssü",
+        "body": "Mars'ta bir koloniyi yönet. Güneş enerjisini bağla, kristal toplaması için gezgini gönder, meteorları düşür ve oksijen akışını sürdür.",
+        "genre": "Üs kurma",
+        "title": "Red Horizon"
+      },
+      "village": {
+        "alt": "Hearthvale: Yeşil, altıgen bir adada Orta Çağ köyü ve bina araç çubuğu",
+        "body": "Altıgen bir adada Orta Çağ köyü kur. Bir bina seç, uygun bir yer bul ve kasabanın oluşmasını izle.",
+        "genre": "Köy kurma",
+        "title": "Hearthvale"
+      }
+    },
+    "note": "Her Game Studio projesinde bulunan aynı oyun motoru kitleri ve 74.000'den fazla ücretsiz (CC0) 2D ve 3D varlık içeren kütüphaneyle yapıldı.",
+    "play": "Hemen oyna"
+  },
   "hero": {
     "badge": "Anlat, planı kontrol et, yayına al",
     "charsLeft": "{count, plural, one {# karakter kaldı} other {# karakter kaldı}}",

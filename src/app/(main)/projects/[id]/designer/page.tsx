@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
 
-// A Designer app's "Designer" tab opens the design that app came from.
+// A Designer app's "Designer" tab opens the design that app came from (or the game, for a published game).
 export default async function ProjectDesignerRedirect({
   params,
 }: {
@@ -16,6 +16,10 @@ export default async function ProjectDesignerRedirect({
     select: { id: true },
   });
   if (!project) redirect("/dashboard");
+
+  // A published game's app: its "Designer" tab is the game in the Game Studio.
+  const game = await db.gameProject.findFirst({ where: { projectId: project.id, ownerId: user.id, deletedAt: null }, select: { id: true } });
+  if (game) redirect(`/games/${game.id}`);
 
   const design = await db.designerDesign.findFirst({
     where: { projectId: project.id, deletedAt: null },

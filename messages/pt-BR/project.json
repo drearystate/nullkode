@@ -184,7 +184,9 @@
     "backToApps": "Voltar aos meus apps",
     "backToAppsHelp": "Volte à lista de todos os seus apps.",
     "backToDesigner": "Voltar ao Designer",
-    "backToDesignerHelp": "Volte ao Designer de IA."
+    "backToDesignerHelp": "Volte ao Designer de IA.",
+    "backToGame": "Voltar ao jogo",
+    "backToGameHelp": "Volte para este jogo no Game Studio para continuar criando."
   },
   "modulesPage": {
     "help": "Recursos prontos, como agendamentos ou uma loja, que adicionam páginas completas e os dados necessários ao seu app.",
@@ -226,17 +228,6 @@
       "versionFormat": "Use uma versão como 1.0.0"
     },
     "unauthorized": "Não autorizado"
-  },
-  "nativePreview": {
-    "eyebrow": "PRÉVIA DO APP NATIVO",
-    "title": "Prévia do app nativo",
-    "intro": "Seu app publicado como o app nativo de celular o desenha, ao lado da página web. Esta é uma prévia inicial: formulários, listas com seus dados e login vêm a seguir.",
-    "page": "Página",
-    "reload": "Recarregar",
-    "native": "App nativo",
-    "web": "Página web",
-    "notPublished": "Publique o app para ver a prévia como app nativo.",
-    "note": "A primeira prévia depois de publicar pode levar até um minuto enquanto o app é preparado. Partes que o app nativo ainda não consegue desenhar aparecem como visualizações web incorporadas."
   },
   "nativeApp": {
     "android": {
@@ -449,6 +440,17 @@
     "eyebrow": "CELULARES E TABLETS",
     "intro": "Transforme este projeto em um app de verdade para o Google Play e a App Store da Apple. O app mostra seu site publicado e atualizado, então as alterações entram no ar na hora, sem precisar criar uma nova versão.",
     "title": "App para celular"
+  },
+  "nativePreview": {
+    "eyebrow": "PRÉVIA DO APP NATIVO",
+    "intro": "Veja seu app publicado como ele aparece no celular, ao lado da página da web. Esta é uma prévia inicial: formulários, listas com seus dados e login serão adicionados em breve.",
+    "native": "App nativo",
+    "notPublished": "Publique o app para ver a prévia como app nativo.",
+    "note": "A primeira prévia após a publicação pode levar até um minuto para preparar o app. As partes que o app nativo ainda não consegue exibir aparecem como páginas da web incorporadas.",
+    "page": "Página",
+    "reload": "Recarregar",
+    "title": "Prévia do app nativo",
+    "web": "Página da web"
   },
   "newPageButton": {
     "create": "Criar",

@@ -184,7 +184,9 @@
     "backToApps": "Volver a mis apps",
     "backToAppsHelp": "Vuelve a la lista de todas tus apps.",
     "backToDesigner": "Volver al Diseñador",
-    "backToDesignerHelp": "Vuelve al Diseñador con IA."
+    "backToDesignerHelp": "Vuelve al Diseñador con IA.",
+    "backToGame": "Volver al juego",
+    "backToGameHelp": "Vuelve a este juego en el Estudio de juegos para seguir creándolo."
   },
   "modulesPage": {
     "help": "Las funciones son secciones listas para usar, como reservas o una tienda, que añaden a tu app páginas completas y los datos que necesitan.",
@@ -226,17 +228,6 @@
       "versionFormat": "Usa una versión como 1.0.0"
     },
     "unauthorized": "No autorizado"
-  },
-  "nativePreview": {
-    "eyebrow": "VISTA PREVIA DE LA APP NATIVA",
-    "title": "Vista previa de la app nativa",
-    "intro": "Tu app publicada tal como la dibuja la app nativa para teléfonos, junto a la página web. Es una vista previa temprana: los formularios, las listas con tus datos y el inicio de sesión llegarán después.",
-    "page": "Página",
-    "reload": "Recargar",
-    "native": "App nativa",
-    "web": "Página web",
-    "notPublished": "Publica la app para verla como app nativa.",
-    "note": "La primera vista previa después de publicar puede tardar hasta un minuto mientras se prepara la app. Las partes que la app nativa aún no puede dibujar aparecen como vistas web integradas."
   },
   "nativeApp": {
     "android": {
@@ -449,6 +440,17 @@
     "eyebrow": "TELÉFONOS Y TABLETAS",
     "intro": "Convierte este proyecto en una app real para Google Play y Apple App Store. La app muestra tu sitio publicado y actualizado, así que los cambios se reflejan enseguida, sin necesidad de crear una nueva versión.",
     "title": "App móvil"
+  },
+  "nativePreview": {
+    "eyebrow": "VISTA PREVIA DE LA APP NATIVA",
+    "intro": "Tu app publicada tal como se ve en un teléfono, junto a la página web. Esta es una vista previa inicial: pronto podrás ver formularios, listas con tus datos e inicio de sesión.",
+    "native": "App nativa",
+    "notPublished": "Publica la app para verla como una app nativa.",
+    "note": "La primera vista previa después de publicar puede tardar hasta un minuto mientras se prepara la app. Las partes que la app nativa aún no puede mostrar aparecen como páginas web integradas.",
+    "page": "Página",
+    "reload": "Volver a cargar",
+    "title": "Vista previa de la app nativa",
+    "web": "Página web"
   },
   "newPageButton": {
     "create": "Crear",

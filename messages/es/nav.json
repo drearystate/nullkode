@@ -7,6 +7,8 @@
   "billing": "Facturación y plan",
   "designer": "Diseñador",
   "designerHelp": "Describe un sitio web con tus propias palabras y la IA lo diseñará. Después, seguirá cambiándolo según lo que le pidas.",
+  "games": "Juegos",
+  "gamesHelp": "Describe un juego y la IA creará un juego real y jugable paso a paso. Puedes jugar mientras va tomando forma.",
   "help": "Ayuda",
   "helpGuides": "Ayuda y guías",
   "helpHelp": "Guías paso a paso. Aquí se abre la guía de la pantalla en la que estás.",

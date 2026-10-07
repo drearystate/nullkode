@@ -75,6 +75,34 @@
     "copyright": "© {year} {app}",
     "tagline": "L’outil visuel pour créer des applications avec un vrai serveur. Lancez des produits complets, pas seulement des pages marketing."
   },
+  "games": {
+    "cta": "Créer votre jeu",
+    "eyebrow": "Jeux officiels NullKode",
+    "heading": "De vrais jeux, pas de simples applis.",
+    "intro": "Trois jeux créés avec le moteur Game Studio de NullKode et sa bibliothèque gratuite de ressources 3D. Chaque image ci-dessous est une vraie capture d’écran, et tous les jeux sont jouables sur ordinateur et téléphone.",
+    "items": {
+      "dungeon": {
+        "alt": "Vault of Embers : un chevalier et une mage affrontent des squelettes dans une salle de donjon éclairée par des torches",
+        "body": "Guidez un chevalier et une mage dans une crypte éclairée par des torches. Bloquez les attaques annoncées des squelettes, ripostez et ouvrez le caveau.",
+        "genre": "Action dans un donjon",
+        "title": "Vault of Embers"
+      },
+      "mars": {
+        "alt": "Red Horizon : une base blanche sur Mars avec un centre en dôme, des panneaux solaires, une plateforme d’atterrissage et un rover près d’un gisement de cristaux",
+        "body": "Dirigez une colonie sur Mars. Branchez l’énergie solaire, envoyez le rover chercher des cristaux, détruisez les météores et assurez l’approvisionnement en oxygène.",
+        "genre": "Construction de base",
+        "title": "Red Horizon"
+      },
+      "village": {
+        "alt": "Hearthvale : un village médiéval sur une île hexagonale verdoyante, avec une barre d’outils de construction",
+        "body": "Développez un village médiéval sur une île hexagonale. Choisissez un bâtiment, voyez où il peut être placé et regardez votre village prendre forme.",
+        "genre": "Construction de village",
+        "title": "Hearthvale"
+      }
+    },
+    "note": "Créés avec les mêmes kits de moteur et la même bibliothèque de plus de 74 000 ressources 2D et 3D gratuites (CC0) disponibles dans chaque projet Game Studio.",
+    "play": "Jouer"
+  },
   "hero": {
     "badge": "Décrivez votre idée, vérifiez le plan, lancez-la",
     "charsLeft": "{count, plural, one {# caractère restant} other {# caractères restants}}",

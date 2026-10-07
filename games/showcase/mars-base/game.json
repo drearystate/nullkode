@@ -1,0 +1,25 @@
+{
+  "id": "mars-base",
+  "title": "Red Horizon",
+  "kit": "three-3d@1.1.0",
+  "files": [
+    "src/config.js",
+    "src/assets.js",
+    "src/levels.js",
+    "src/world/materials.js",
+    "src/world/terrain.js",
+    "src/entities/buildings.js",
+    "src/entities/astronaut.js",
+    "src/entities/rover.js",
+    "src/world/colony.js",
+    "src/world/camera-rig.js",
+    "src/systems/effects.js",
+    "src/systems/placement.js",
+    "src/systems/meteors.js",
+    "src/ui/icons.js",
+    "src/ui/hud.js",
+    "src/ui/minimap.js",
+    "src/scenes/menu.js",
+    "src/scenes/game.js"
+  ]
+}

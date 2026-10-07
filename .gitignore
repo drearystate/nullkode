@@ -81,3 +81,9 @@ native-runtime/dist-web/
 /public/nk-native/web/
 # Native fidelity harness output (pnpm native:fidelity)
 /output/native-fidelity/
+
+# Game Studio: zips you download, the pipeline's scratch space and the built
+# asset library (docs/games.md). Made on each computer, never committed.
+/games/packs/
+/games/work/
+/games/library/

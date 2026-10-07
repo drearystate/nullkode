@@ -565,6 +565,93 @@
     "summary": "Sieh dir alles an, was deine App speichert – zum Beispiel Nachrichten, Buchungen und Anmeldungen. Du kannst danach suchen, es ändern und herunterladen.",
     "title": "Formulare und deine Daten"
   },
+  "game-studio": {
+    "sections": {
+      "0": {
+        "heading": "Ein Spiel starten",
+        "steps": {
+          "0": "Klicke oben in der Leiste auf <b>Spiele</b>. Auf deinem Dashboard kannst du auch <b>Spiel erstellen</b> auswählen.",
+          "1": "Beschreibe unter <b>Was für ein Spiel möchtest du erstellen?</b> dein Spiel: Was macht die Spielfigur? Was sammelt oder vermeidet sie? Wie soll das Spiel aussehen? Du kannst auch auf eine Beispielidee tippen und sie anpassen.",
+          "2": "Wähle <b>2D</b> oder <b>3D</b> oder <b>Die KI entscheiden lassen</b>. Füge über die Bild-Schaltfläche Bilder hinzu, um zu zeigen, wie das Spiel aussehen soll.",
+          "3": "Klicke auf <b>Erstellen</b>. Die KI stellt dir vielleicht zuerst <b>Ein paar kurze Fragen</b>. Wähle Antworten aus oder gib eigene ein. Klicke dann auf <b>Erstellen</b> oder <b>Fragen überspringen</b>."
+        }
+      },
+      "1": {
+        "body": {
+          "0": "Zuerst erstellt die KI einen <b>Spielplan</b>: die Art des Spiels, die Spielweise, wie du gewinnst und verlierst und wie es aussehen soll. Passende Grafiken und Sounds sucht sie aus der Medienbibliothek aus.",
+          "1": "Unter <b>Gestaltung</b> im Plan siehst du den Look, den das Spiel bekommen hat: Farben, Kamera, Formen, Beleuchtung, Benutzeroberfläche und Bewegung. Jeder Schritt orientiert sich daran, damit das Spiel von Anfang an fertig aussieht.",
+          "2": "Dann entsteht das Spiel in kleinen Schritten, die im Chat mit einem Häkchen markiert werden, sobald sie erledigt sind. Nach jedem Schritt wird das Spiel rechts direkt aktualisiert und du kannst es sofort spielen: zuerst der Hintergrund, dann die Spielfigur und die Steuerung, das Level, Sammelobjekte, Gegner, Menüs, Sounds und der Feinschliff.",
+          "3": "Jeder Schritt wird geprüft, bevor er in dein Spiel übernommen wird: Es muss ohne Fehler laden und spielbar sein. Wenn ein Schritt fehlschlägt, wird es noch einmal versucht.",
+          "4": "Nach dem Level, den Gegnern und dem letzten Feinschliff prüft ein Spieletester das Spiel so, wie es jemand beim Spielen tun würde: Sind alle Sprünge machbar? Lassen sich das Ziel und die Sammelobjekte erreichen? Ist der Start sicher? Ist die Spielfigur gut zu erkennen? Verdecken die Touch-Schaltflächen etwas? Außerdem wird das Spiel auf einem Computerbildschirm und einem Smartphone angesehen. Dabei wird geprüft, ob alles wie ein fertiges Spiel wirkt. Im Chat erfährst du, was dabei herauskommt. Echte Probleme werden sofort in einem zusätzlichen Schritt behoben, kleinere im nächsten Schritt."
+        },
+        "heading": "Zusehen, wie es wächst"
+      },
+      "2": {
+        "body": {
+          "0": "Klicke auf das Spiel und benutze dann die Tastatur (Pfeiltasten oder WASD, Leertaste zum Springen). Auf dem Smartphone zeigt das Spiel eine Touch-Steuerung an.",
+          "1": "Die Leiste über dem Spiel zeigt, welchen Schritt du gerade siehst und wie flüssig das Spiel läuft. Mit den Schaltflächen dort kannst du pausieren, neu starten, zwischen Computer- und Smartphone-Ansicht wechseln, im Vollbild spielen oder das Spiel in einem neuen Tab öffnen.",
+          "2": "Wenn das Spiel Fehler meldet, zeigt eine gelbe Schaltfläche deren Anzahl an. Klicke darauf, um die Fehler zu sehen, und dann auf <b>Die KI bitten, diese Fehler zu beheben</b>."
+        },
+        "heading": "Spielen und testen"
+      },
+      "3": {
+        "heading": "Änderungen anfragen",
+        "steps": {
+          "0": "Gib im Feld <b>Änderung anfragen</b> ein, was du möchtest, zum Beispiel „den Sprung höher machen“, „ein zweites Level hinzufügen“ oder „den Helden durch einen Roboter ersetzen“.",
+          "1": "Drücke die Eingabetaste. Die KI plant die Änderung in einem oder mehreren Schritten. Das Spiel wird aktualisiert, sobald die einzelnen Schritte fertig sind."
+        }
+      },
+      "4": {
+        "body": {
+          "0": "Du musst nicht warten, bis ein Build fertig ist. Schreib weiter ins Nachrichtenfeld, während die KI arbeitet: Frag, woran sie gerade arbeitet, oder bitte um eine Änderung wie „Mach den Helden orange“ oder „Füge einen springenden Froschgegner hinzu“. Du kannst auch Bilder und Assets hinzufügen.",
+          "1": "Deine Nachricht erscheint sofort im Chat und die KI antwortet direkt. Vor dem nächsten Schritt liest sie alle Nachrichten und setzt deine Wünsche vor ihren ursprünglichen Plan. Falls der Plan sie nicht abdeckt, wird ein Schritt zur Liste hinzugefügt. Eine Nachricht während des letzten Schritts erhält einen eigenen zusätzlichen Schritt.",
+          "2": "Unter jeder Nachricht siehst du ihren Status, zum Beispiel <b>In Schritt 3 angewendet</b>."
+        },
+        "heading": "Während des Erstellens steuern",
+        "steps": {
+          "0": "Um nach dem Speichern des gerade laufenden Schritts zu stoppen, drücke <b>Nach diesem Schritt stoppen</b>. Wenn du es dir anders überlegst, drücke <b>Weitermachen</b>.",
+          "1": "Um sofort zu stoppen, drücke <b>Jetzt stoppen</b>. Der Schritt, an dem die KI gerade arbeitet, wird verworfen. Dein Spiel bleibt so, wie es nach dem letzten abgeschlossenen Schritt war.",
+          "2": "Um einen abgeschlossenen Schritt rückgängig zu machen, öffne <b>Versionen</b> und stelle die vorherige Version wieder her."
+        }
+      },
+      "5": {
+        "body": {
+          "0": "Drücke über dem Spiel auf <b>Assets</b> (auf dem Smartphone auf den Tab <b>Assets</b>). Durchsuche Tausende Sprites, 3D-Modelle, Sounds und Musik. Unter <b>In diesem Spiel</b> siehst du, was dein Spiel verwendet.",
+          "1": "Ziehe ein Asset auf das Nachrichtenfeld oder drücke auf die Schaltfläche +. Sag dann, was damit geschehen soll, zum Beispiel „Verwende das als Helden“.",
+          "2": "Assets mit der Kennzeichnung <b>Nur gehostet</b> können in hier veröffentlichten Spielen verwendet werden. Beim Herunterladen des Spiels sind sie jedoch nicht enthalten."
+        },
+        "heading": "Asset-Bibliothek verwenden"
+      },
+      "6": {
+        "body": {
+          "0": "Jeder Schritt wird als Version gespeichert – mit einem Bild des Spiels zu diesem Zeitpunkt."
+        },
+        "heading": "Zu einer früheren Version zurückkehren",
+        "steps": {
+          "0": "Drücke über dem Spiel auf <b>Versionen</b>.",
+          "1": "Drücke auf <b>Abspielen</b>, um eine ältere Version auf der Leinwand auszuprobieren. Dein Spiel wird dadurch nicht geändert.",
+          "2": "Drücke auf <b>Wiederherstellen</b>, um diese Version zur aktuellen Version zu machen. Die bisherige Version bleibt in der Liste."
+        }
+      },
+      "7": {
+        "body": {
+          "0": "Mit <b>Veröffentlichen</b> wird dein Spiel zu einer App mit eigener Webadresse, die alle spielen können. Über die App kannst du außerdem eine Smartphone-App erstellen und deine eigene Domain hinzufügen. Wenn du weitere Änderungen vorgenommen hast, drücke auf <b>Erneut veröffentlichen</b>.",
+          "1": "Mit <b>Herunterladen</b> speicherst du das Spiel als .zip-Datei, die auf jedem Webhost läuft."
+        },
+        "heading": "Veröffentlichen oder herunterladen"
+      },
+      "8": {
+        "bullets": {
+          "0": "Ein Spiel zu erstellen und jede gewünschte Änderung verbrauchen jeweils eine Aktion deines monatlichen KI-Kontingents – unabhängig davon, wie viele Schritte nötig sind. Wenn die KI nichts liefern kann, wird nichts abgezogen.",
+          "1": "Wenn der Server während der Erstellung deines Spiels neu startet, wird ab dem aktuellen Schritt weitergebaut.",
+          "2": "Spiele werden mit echten Game-Engines erstellt: Phaser für 2D und three.js für 3D."
+        },
+        "heading": "Gut zu wissen"
+      }
+    },
+    "summary": "Beschreibe ein Spiel und die KI erstellt Schritt für Schritt ein echtes, spielbares Spiel. Du kannst es spielen, während es wächst, und per Chat Änderungen vornehmen.",
+    "title": "Ein Spiel im Spiele-Studio erstellen"
+  },
   "getting-started": {
     "sections": {
       "0": {

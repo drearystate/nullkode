@@ -403,6 +403,10 @@ printf 'Your private setup code: %s\n' "$(sed -n 's/^INSTALL_TOKEN=//p' .env | h
 if [[ "$android" == 1 ]]; then
   echo 'Android APK building is on: open an app, then Mobile App → Build APK.'
 fi
+game_library=$(env_value NK_GAME_LIBRARY)
+if [[ -d games && ! -f "${game_library:-games/library}/catalog.jsonl" ]]; then
+  echo 'To make games: download the free Kenney and KayKit packs, then run bash games/setup-library.sh (docs/games.md).'
+fi
 echo 'Keep .env safe. It contains the keys needed to recover your installation.'
 if [[ "$https" != 1 ]]; then
   echo 'To use a domain name with automatic HTTPS, run this installer again on your server and answer y.'

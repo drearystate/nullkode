@@ -22,13 +22,13 @@ export async function personLocale(): Promise<Locale> {
   }
 }
 
-export function translator(locale: Locale, namespace: "ai" | "designer" | "errors"): Tr {
+export function translator(locale: Locale, namespace: "ai" | "designer" | "errors" | "games"): Tr {
   const t = createTranslator({ locale, messages: loadMessages(locale), onError: () => {} }) as unknown as (key: string, values?: Record<string, string | number | Date>) => string;
   return Object.assign((key: string, values?: Record<string, string | number | Date>) => t(`${namespace}.${key}`, values), { locale });
 }
 
 /** Translator for the current request's language. */
-export async function requestTranslator(namespace: "ai" | "designer" | "errors"): Promise<Tr> {
+export async function requestTranslator(namespace: "ai" | "designer" | "errors" | "games"): Promise<Tr> {
   return translator(await personLocale(), namespace);
 }
 

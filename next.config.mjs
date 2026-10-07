@@ -18,7 +18,8 @@ const nextConfig = {
   deploymentId: process.env.NK_DEPLOYMENT_ID || undefined,
   outputFileTracingRoot: projectRoot,
   poweredByHeader: false,
-  serverExternalPackages: ["argon2", "undici"],
+  // better-sqlite3: the game asset search (nk-games/tools/asset-search.mjs, loaded at run time).
+  serverExternalPackages: ["argon2", "undici", "better-sqlite3"],
   experimental: {
     cpus: 2,
     // Request bodies pass through the middleware, which keeps only the first

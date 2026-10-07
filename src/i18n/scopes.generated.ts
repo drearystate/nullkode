@@ -8,6 +8,7 @@ export const SCOPES = {
   "(main)/dashboard": ["account", "ai", "apps", "common", "nav", "project", "studio"],
   "(main)/designer": ["account", "ai", "common", "designer", "nav"],
   "(main)/forgot-password": ["account", "auth", "common", "nav"],
+  "(main)/games": ["account", "ai", "common", "games", "nav"],
   "(main)/help": ["account", "common", "helpui", "nav"],
   "(main)/login": ["account", "auth", "common", "nav"],
   "(main)/new": ["account", "ai", "apps", "catalog", "common", "nav", "studio"],

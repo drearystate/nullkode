@@ -565,6 +565,93 @@
     "summary": "Lihat, cari, ubah, dan unduh semua yang disimpan aplikasi Anda, seperti pesan, pemesanan, dan pendaftaran.",
     "title": "Formulir dan data Anda"
   },
+  "game-studio": {
+    "sections": {
+      "0": {
+        "heading": "Mulai buat game",
+        "steps": {
+          "0": "Klik <b>Game</b> di bilah atas. Dari dasbor, kamu juga bisa memilih <b>Buat game</b>.",
+          "1": "Di bagian <b>Game apa yang ingin kamu buat?</b>, ceritakan game-mu: apa yang dilakukan pemain, apa yang dikumpulkan atau dihindari, dan seperti apa tampilannya. Kamu juga bisa mengetuk salah satu contoh ide lalu mengubahnya.",
+          "2": "Pilih <b>2D</b> atau <b>3D</b>, atau <b>Biarkan AI memilih</b>. Untuk menunjukkan tampilan yang kamu inginkan, tambahkan gambar dengan tombol gambar.",
+          "3": "Tekan <b>Buat</b>. AI mungkin akan bertanya <b>Beberapa pertanyaan singkat dulu</b>. Pilih atau ketik jawaban, lalu tekan <b>Buat</b>, atau <b>Lewati pertanyaan</b>."
+        }
+      },
+      "1": {
+        "body": {
+          "0": "AI akan menulis <b>Rencana game</b> terlebih dahulu: jenis game, cara bermain, cara menang dan kalah, serta tampilannya. AI memilih gambar dan suara yang cocok dari pustaka aset.",
+          "1": "Di bagian <b>Arah seni</b> pada rencana, Anda bisa melihat tampilan yang dipilih untuk game Anda: warna, kamera, bentuk, pencahayaan, antarmuka, dan gerakannya. Setiap langkah mengikutinya, jadi game terlihat matang sejak awal.",
+          "2": "Lalu game dibuat sedikit demi sedikit. Setiap langkah muncul di chat dengan tanda centang setelah selesai. Setelah tiap langkah, game di sebelah kanan langsung diperbarui dan bisa langsung kamu mainkan: mulai dari latar, lalu karakter dan kontrol, level, barang koleksi, musuh, menu, suara, hingga sentuhan akhir.",
+          "3": "Setiap langkah diperiksa sebelum diterapkan ke game-mu: game harus bisa dimuat dan dimainkan tanpa error. Langkah yang gagal akan dicoba sekali lagi.",
+          "4": "Setelah level, musuh, dan sentuhan akhir selesai, penguji akan memainkan game seperti pemain biasa: apakah semua lompatan bisa dilakukan, apakah tujuan dan barang koleksi bisa dijangkau, apakah titik awal aman, apakah karakter mudah dilihat, dan apakah tombol sentuh menutupi sesuatu. Penguji juga melihat game di layar komputer dan ponsel, lalu memastikan semuanya terlihat seperti satu game yang utuh. Hasilnya akan disampaikan di chat. Masalah yang serius langsung diperbaiki dalam langkah tambahan; masalah kecil diperbaiki pada langkah berikutnya."
+        },
+        "heading": "Lihat proses pembuatannya"
+      },
+      "2": {
+        "body": {
+          "0": "Klik game, lalu gunakan keyboard (tombol panah atau WASD, Spasi untuk melompat). Di ponsel, game akan menampilkan kontrol sentuh.",
+          "1": "Bilah di atas game menunjukkan langkah yang sedang dilihat dan kelancaran game saat dijalankan. Gunakan tombol di sana untuk menjeda, memulai ulang, beralih antara tampilan komputer dan ponsel, bermain dalam layar penuh, atau membuka game di tab baru.",
+          "2": "Jika game menampilkan error, tombol kuning akan menunjukkan jumlahnya. Klik tombol itu untuk melihat error, lalu tekan <b>Minta AI memperbaikinya</b>."
+        },
+        "heading": "Mainkan dan uji"
+      },
+      "3": {
+        "heading": "Minta perubahan",
+        "steps": {
+          "0": "Ketik perubahan yang kamu inginkan di kotak <b>Minta perubahan</b>, misalnya “buat lompatan lebih tinggi”, “tambahkan level kedua”, atau “ganti tokoh utama dengan robot”.",
+          "1": "Tekan Enter. AI akan merencanakan perubahan dalam satu atau beberapa langkah, dan game diperbarui setiap kali langkah selesai."
+        }
+      },
+      "4": {
+        "body": {
+          "0": "Kamu tidak perlu menunggu proses pembuatan selesai. Terus ketik di kotak pesan saat AI bekerja: tanyakan apa yang sedang dikerjakan, atau minta perubahan seperti “buat bagian utama berwarna oranye” atau “tambahkan musuh katak yang melompat”. Kamu juga bisa menambahkan gambar dan aset.",
+          "1": "Catatanmu langsung muncul di chat dan AI segera menjawab. AI membaca setiap catatan sebelum melanjutkan, lalu mengutamakan permintaanmu daripada rencana awalnya. Jika belum tercakup dalam rencana, langkah baru akan ditambahkan ke daftar. Catatan yang dikirim pada langkah terakhir akan mendapat langkah tambahan tersendiri.",
+          "2": "Di bawah setiap catatan, kamu bisa melihat statusnya, misalnya <b>Diterapkan di langkah 3</b>."
+        },
+        "heading": "Arahkan saat game dibuat",
+        "steps": {
+          "0": "Untuk berhenti setelah langkah yang sedang berjalan selesai disimpan, tekan <b>Berhenti setelah langkah ini</b>. Tekan <b>Lanjutkan</b> jika berubah pikiran.",
+          "1": "Untuk langsung berhenti, tekan <b>Berhenti sekarang</b>. Langkah yang sedang dikerjakan AI akan dibatalkan dan game tetap seperti setelah langkah terakhir selesai.",
+          "2": "Untuk membatalkan langkah yang sudah selesai, buka <b>Versi</b> dan pulihkan versi sebelumnya."
+        }
+      },
+      "5": {
+        "body": {
+          "0": "Tekan <b>Aset</b> di atas game (di ponsel, tab <b>Aset</b>). Cari ribuan sprite, model 3D, efek suara, dan musik. Lihat aset yang digunakan game di bagian <b>Di game ini</b>.",
+          "1": "Seret aset ke kotak pesan, atau tekan tombol + pada aset, lalu jelaskan cara menggunakannya, misalnya “gunakan ini sebagai karakter utama”.",
+          "2": "Aset berlabel <b>Hanya dihosting</b> bisa digunakan di game yang dipublikasikan di sini, tetapi tidak disertakan saat kamu mengunduh game."
+        },
+        "heading": "Gunakan pustaka aset"
+      },
+      "6": {
+        "body": {
+          "0": "Setiap langkah disimpan sebagai versi, lengkap dengan gambar game saat itu."
+        },
+        "heading": "Kembali ke versi sebelumnya",
+        "steps": {
+          "0": "Tekan <b>Versi</b> di atas game.",
+          "1": "Tekan <b>Putar</b> untuk mencoba versi lama di kanvas. Game-mu tidak akan berubah.",
+          "2": "Tekan <b>Pulihkan</b> untuk menjadikannya versi saat ini. Versi yang kamu gunakan sebelumnya tetap ada di daftar."
+        }
+      },
+      "7": {
+        "body": {
+          "0": "<b>Publikasikan</b> mengubah game-mu menjadi aplikasi dengan alamat web sendiri yang bisa dimainkan siapa saja. Dari aplikasi itu, kamu juga bisa membuat aplikasi ponsel dan menambahkan domain sendiri. Setelah melakukan perubahan, tekan <b>Publikasikan lagi</b>.",
+          "1": "<b>Unduh</b> menyimpan game sebagai file .zip yang bisa dijalankan di layanan hosting web apa pun."
+        },
+        "heading": "Publikasikan atau unduh"
+      },
+      "8": {
+        "bullets": {
+          "0": "Membuat game dan setiap perubahan yang kamu minta menggunakan satu aksi dari jatah AI bulanan paketmu, berapa pun langkah yang diperlukan. Jika AI tidak bisa menyelesaikannya, jatahmu tidak akan terpakai.",
+          "1": "Jika server dimulai ulang saat game sedang dibuat, prosesnya akan dilanjutkan dari langkah terakhir.",
+          "2": "Game dibuat dengan mesin game sungguhan: Phaser untuk 2D dan three.js untuk 3D."
+        },
+        "heading": "Info penting"
+      }
+    },
+    "summary": "Ceritakan game yang ingin dibuat, lalu AI akan membangunnya langkah demi langkah hingga bisa dimainkan. Mainkan sambil prosesnya berlangsung dan ubah game dengan mengobrol.",
+    "title": "Buat game di Studio Game"
+  },
   "getting-started": {
     "sections": {
       "0": {

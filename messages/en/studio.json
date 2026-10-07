@@ -76,7 +76,37 @@
     "ideaLabel": "Describe the app you want to make",
     "ideaPlaceholder": "e.g. Bookings for my dog walking business",
     "planMyApp": "Plan my app",
-    "planMyAppHelp": "The AI turns your idea, and any pictures you added, into a plan you can check before anything is built."
+    "planMyAppHelp": "The AI turns your idea, and any pictures you added, into a plan you can check before anything is built.",
+    "makeGame": "Make a game",
+    "makeGameHelp": "Open the Game Studio: describe a 2D or 3D game and the AI builds it step by step, so you can play it, change it and share it.",
+    "gamesEyebrow": "PLAY WHAT YOU MADE",
+    "yourGames": "Your games",
+    "yourGamesHelp": "The games you made in the Game Studio, most recently changed first.",
+    "newGame": "New game",
+    "newGameHelp": "Start another game in the Game Studio.",
+    "seeAllGames": "See all",
+    "seeAllGamesHelp": "Open the Game Studio to see all your games.",
+    "firstGameTitle": "Make a game too",
+    "firstGameText": "Describe a 2D or 3D game and watch it being built step by step. Then play it, change it and share it.",
+    "openGame": "Open {name} in the Game Studio",
+    "openGameHelp": "Open this game in the Game Studio to play it, change it or publish it.",
+    "openInGameStudio": "Open in Game Studio",
+    "gameFirstPicture": "The first picture is on its way",
+    "gameNoPicture": "No picture yet",
+    "engine2d": "2D",
+    "engine3d": "3D",
+    "gameKind": "{engine} game",
+    "versionCount": "{count, plural, =0 {No versions yet} one {# version} other {# versions}}",
+    "gameBuilding": "Building…",
+    "gameBuildingHelp": "The AI is building or changing this game right now. Its picture updates after each step.",
+    "gameLiveHelp": "Live: this game is published as an app, so anyone with its link can play it.",
+    "gameDraftHelp": "Draft: this game has an app, but it isn't published yet, so only you can play it there.",
+    "openGameApp": "Open the app for {name}",
+    "openGameAppTitle": "Open the app",
+    "openGameAppHelp": "Open the app this game is published as: its overview, link and publishing settings.",
+    "gameBadge": "Game",
+    "gameBadgeHelp": "This app was made by publishing a game from the Game Studio.",
+    "openAppGameHelp": "Open the game behind this app in the Game Studio to keep changing it."
   },
   "methods": {
     "ai": {
@@ -96,6 +126,12 @@
       "label": "Create together",
       "description": "Shape your idea through a conversation. Design, refine, and explore.",
       "help": "Chat with the AI to design your app step by step. Ask for changes, click parts of the preview to comment, and go back to older versions."
+    },
+    "game": {
+      "title": "Make a game",
+      "label": "Game Studio",
+      "description": "Describe a game and watch the AI build it step by step, with real art and sound.",
+      "help": "Opens the Game Studio. Describe a 2D or 3D game; the AI builds it in small steps and you can play it after every one."
     },
     "clone": {
       "title": "Copy a website",
