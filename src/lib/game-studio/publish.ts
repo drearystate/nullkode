@@ -11,6 +11,7 @@ import type { Locale } from "@/i18n/locales";
 import { publishGame } from "./events";
 import { gameHtml, isEngine } from "./kits";
 import { asFiles, ownedGame } from "./store";
+import { GameError } from "./errors";
 
 /**
  * Publishing a game: it becomes a NullKode app (a Project of kind DESIGNER,
@@ -31,23 +32,23 @@ export function publishedGameHtml(opts: { engine: string; title: string; files: 
 export async function publishGameAsApp(user: User, gameId: string, locale: Locale): Promise<{ projectId: string; url: string; version: number }> {
   const t = translator(locale, "games");
   const game = await ownedGame(user.id, gameId);
-  if (game.seq < 1) throw new Error(t("server.nothingToPublish"));
+  if (game.seq < 1) throw new GameError("nothing_to_publish", t("server.nothingToPublish"));
   const running = await db.gameJob.findFirst({ where: { gameId, status: "running" }, select: { id: true } });
-  if (running) throw new Error(t("server.stillBuilding"));
+  if (running) throw new GameError("still_building", t("server.stillBuilding"));
   const html = publishedGameHtml({ engine: game.engine, title: game.name, files: asFiles(game.files) });
 
   let project = game.projectId ? await db.project.findFirst({ where: { id: game.projectId, ownerId: user.id } }) : null;
   if (project && project.kind !== "DESIGNER") project = null;
   if (!project) {
     const limit = await checkProjectLimit(user);
-    if (limit) throw new Error(((await limit.json()) as { error?: string }).error ?? t("server.error"));
+    if (limit) throw new GameError("plan_limit", ((await limit.json()) as { error?: string }).error ?? t("server.error"));
     const slug = `${slugify(game.name) || "game"}-${nanoid(6).toLowerCase()}`;
     project = await db.project.create({ data: { name: game.name, slug, kind: "DESIGNER", ownerId: user.id, description: t("publish.appDescription") } });
     await db.gameProject.update({ where: { id: gameId }, data: { projectId: project.id } });
   }
   if (!project.published) {
     const limit = await checkPublishLimit(user);
-    if (limit) throw new Error(((await limit.json()) as { error?: string }).error ?? t("server.error"));
+    if (limit) throw new GameError("plan_limit", ((await limit.json()) as { error?: string }).error ?? t("server.error"));
   }
   const projectId = project.id;
   await db.$transaction(async (tx) => {

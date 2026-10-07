@@ -25,8 +25,9 @@ import { dropOpenNotes, settleNotes } from "./notes";
 import { matchGenre, playtestAfter, stepType } from "./design";
 import { bare, findingLine, playtest, reviewFiles, type PlaytestStage } from "./playtest";
 import { cleanSpec, type VisualSpec } from "./art";
-import { appendChat, asFiles, earlierRequests, gameSummary, ownedGame, readGameFiles, saveVersion, type GameFiles } from "./store";
+import { appendChat, asFiles, createGame, earlierRequests, gameSummary, ownedGame, readGameFiles, saveVersion, type GameFiles, type GameSummary } from "./store";
 import { validateGame } from "./validate";
+import { GameError } from "./errors";
 
 /**
  * The Game Studio's AI build loop. A build is a job (GameJob) that runs in
@@ -123,6 +124,10 @@ type JobMeta = {
   endReviews?: number;
   /** "Feature fixes" steps added at the end (at most MAX_FEATURE_FIXES; they count toward MAX_ADDED_STEPS too). */
   featureFixes?: number;
+  /** Who started the job: null = the studio, "partner:<keyId>" = the partner API (for the build rule's records). */
+  source?: string;
+  /** Why a job that ended in an error did: "build_not_allowed" when the build rule stopped it (the partner API shows it). */
+  errorCode?: string;
 };
 
 /** A note the build has taken in (notes.ts): the owner's words, the step it's planned for, its images. */
@@ -187,36 +192,45 @@ const TestFix = z.object({ tests: z.array(z.object({ id: Str(60), test: z.unknow
 /**
  * Starts a build (a new game) or a change (a game that has been built).
  * Returns at once; progress arrives as game events. Throws plain-words
- * errors (allowance used up, already building), BuildNotAllowedError and
- * ReferenceImageError.
+ * errors (GameError: allowance used up, already building…),
+ * BuildNotAllowedError and ReferenceImageError.
+ *
+ * `locale`: the person's language for the job (default: this request's);
+ * `references`: reference images already checked and stored (a partner
+ * request's `images` or `referenceId`), instead of `images`.
  */
-export async function startGameJob(user: QuotaUser, gameId: string, prompt: string, opts: { images?: unknown; engine?: Engine | "auto" } = {}): Promise<{ jobId: string }> {
+export async function startGameJob(
+  user: QuotaUser,
+  gameId: string,
+  prompt: string,
+  opts: { images?: unknown; engine?: Engine | "auto"; locale?: Locale; references?: ReferenceSet | null; source?: string | null } = {},
+): Promise<{ jobId: string; referenceId: string | null }> {
   const game = await ownedGame(user.id, gameId);
-  const locale = await personLocale();
+  const locale = opts.locale ?? (await personLocale());
   const t = translator(locale, "games");
-  if (!gamesAvailable()) throw new Error(t("server.notInstalled"));
+  if (!gamesAvailable()) throw new GameError("not_installed", t("server.notInstalled"));
   const request = prompt.trim().slice(0, 6000);
-  const hasImages = Array.isArray(opts.images) && opts.images.length > 0;
-  if (!request && !hasImages) throw new Error(t("server.describe"));
+  const hasImages = Boolean(opts.references) || (Array.isArray(opts.images) && opts.images.length > 0);
+  if (!request && !hasImages) throw new GameError("invalid_request", t("server.describe"));
   const problem = await aiQuotaProblem(user);
-  if (problem) throw new Error(problem);
+  if (problem) throw new GameError("ai_quota", problem);
   const earlier = await earlierRequests(gameId);
   const subject: PolicySubject = { kind: "game", request: request || "(reference images only)", earlier: earlier.join("\n"), app: game.seq > 0 ? gameSummary(game) : "" };
-  const policy: PolicyContext = { userId: user.id, locale, projectId: game.projectId };
+  const policy: PolicyContext = { userId: user.id, locale, projectId: game.projectId, source: opts.source ?? null };
   const refused = await enforceBuildPolicy(subject, policy);
   if (refused) throw new BuildNotAllowedError(refused.message, refused.reason, refused.stage);
-  let refs: ReferenceSet | null = null;
-  if (hasImages) {
+  let refs: ReferenceSet | null = opts.references ?? null;
+  if (!refs && hasImages) {
     const ta = translator(locale, "ai");
     await assertAiCanSeeImages(ta);
     refs = await storeReferenceSet(user.id, await processImages(opts.images, ta));
   }
   const kind = game.seq > 0 && game.plan ? "change" : "build";
   const jobId = randomUUID();
-  const meta: JobMeta = { locale, engineChoice: opts.engine ?? (game.engine as Engine), phase: "plan", delivered: 0, references: refs ? { id: refs.id, count: refs.images.length } : null, startSeq: game.seq };
+  const meta: JobMeta = { locale, engineChoice: opts.engine ?? (game.engine as Engine), phase: "plan", delivered: 0, references: refs ? { id: refs.id, count: refs.images.length } : null, startSeq: game.seq, ...(opts.source ? { source: opts.source } : {}) };
   await db.$transaction(async (tx) => {
     await tx.$executeRaw`SELECT pg_advisory_xact_lock(hashtext(${`game-job:${gameId}`}))`;
-    if (await tx.gameJob.findFirst({ where: { gameId, status: "running" }, select: { id: true } })) throw new Error(t("server.alreadyBuilding"));
+    if (await tx.gameJob.findFirst({ where: { gameId, status: "running" }, select: { id: true } })) throw new GameError("already_building", t("server.alreadyBuilding"));
     await tx.gameJob.create({ data: { id: jobId, gameId, userId: user.id, kind, prompt: request || "(reference images)", status: "running", instance: runInstanceId(), meta: meta as Prisma.InputJsonValue } });
   });
   const chargeId = await recordAiUsage(user.id, "game", game.projectId, { ref: `game:${jobId}` });
@@ -226,7 +240,7 @@ export async function startGameJob(user: QuotaUser, gameId: string, prompt: stri
     if (over) {
       await refundAiUsage(chargeId);
       await db.gameJob.update({ where: { id: jobId }, data: { status: "error", finishedAt: new Date(), error: "quota" } }).catch(() => {});
-      throw new Error(over);
+      throw new GameError("ai_quota", over);
     }
   }
   await db.gameJob.update({ where: { id: jobId }, data: { chargeId } });
@@ -234,7 +248,33 @@ export async function startGameJob(user: QuotaUser, gameId: string, prompt: stri
   await db.gameProject.update({ where: { id: gameId }, data: { status: "building", ...(game.kitVersion !== KIT_VERSION ? { kitVersion: KIT_VERSION } : {}) } });
   await appendChat(gameId, "user", refs ? [request, t("build.withImages", { count: refs.images.length })].filter(Boolean).join("\n\n") : request);
   void runJob(jobId);
-  return { jobId };
+  return { jobId, referenceId: refs?.id ?? null };
+}
+
+/**
+ * A new game, and its first build when there is a prompt or images: the
+ * "new game" form of the workspace and the partner API's POST /games. A
+ * build that can't start (refused, allowance used up) leaves no empty game
+ * behind. `engine` "auto" lets the AI choose (2D until it does).
+ */
+export async function createGameAndBuild(
+  user: QuotaUser,
+  opts: { name?: string; engine: Engine | "auto"; prompt: string; images?: unknown; references?: ReferenceSet | null; locale?: Locale; source?: string | null },
+): Promise<{ game: GameSummary; jobId: string | null; referenceId: string | null }> {
+  const t = translator(opts.locale ?? (await personLocale()), "games");
+  if (!gamesAvailable()) throw new GameError("not_installed", t("server.notInstalled"));
+  const prompt = opts.prompt.trim();
+  const name = opts.name?.trim() ? opts.name : prompt.split(/\s+/).slice(0, 6).join(" ");
+  const game = await createGame(user.id, { name, engine: opts.engine === "auto" ? "phaser-2d" : opts.engine });
+  if (!prompt && !opts.references && !(Array.isArray(opts.images) && opts.images.length)) return { game, jobId: null, referenceId: null };
+  try {
+    const job = await startGameJob(user, game.id, prompt, { images: opts.images, engine: opts.engine, locale: opts.locale, references: opts.references, source: opts.source });
+    return { game, jobId: job.jobId, referenceId: job.referenceId };
+  } catch (err) {
+    // Nothing was built: the empty game goes again.
+    await db.gameProject.delete({ where: { id: game.id } }).catch(() => {});
+    throw err;
+  }
 }
 
 /** Asks the running job to stop; it stops before its next AI call or save. */
@@ -381,7 +421,7 @@ export async function runJob(jobId: string, opts: { resumed?: boolean } = {}): P
       else await planChange(ctx, job.prompt);
       await assertBuildAllowed(
         { kind: "game", request: job.prompt, app: gameSummary({ name: ctx.title, engine: ctx.engine, plan: ctx.plan as Prisma.JsonValue }), plan: { message: [ctx.plan.brief?.pitch, ctx.meta.message].filter(Boolean).join(" "), files: ctx.steps.map((s) => ({ path: s.label, instructions: s.goal })) } },
-        { userId: job.userId, locale: meta.locale, projectId: game.projectId, stage: "plan", signal: abort.signal },
+        { userId: job.userId, locale: meta.locale, projectId: game.projectId, stage: "plan", signal: abort.signal, source: meta.source ?? null },
       );
       // A change's new features become the game's once the build rule has passed its plan.
       if (job.kind === "change" && ctx.plan.features?.length) await saveFeatures(ctx, ctx.plan.features);
@@ -510,6 +550,7 @@ export async function runJob(jobId: string, opts: { resumed?: boolean } = {}): P
     const fresh = await db.gameJob.findUnique({ where: { id: jobId }, select: { chargeId: true } }).catch(() => null);
     const chargeId = fresh?.chargeId ?? job.chargeId;
     if (err instanceof BuildNotAllowedError && !wasCancelled) {
+      meta.errorCode = "build_not_allowed";
       await refundAiUsage(chargeId);
       await refundAiUsage(meta.visionChargeId);
       await appendChat(gameId, "error", err.message);

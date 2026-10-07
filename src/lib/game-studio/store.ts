@@ -2,6 +2,10 @@ import { Prisma } from "@prisma/client";
 import { db } from "../db";
 import { publishGame } from "./events";
 import { KIT_VERSION, templateFiles, type Engine } from "./kits";
+import { asFeatures } from "./features";
+import { GameError } from "./errors";
+import { translator } from "../ai/i18n";
+import type { Locale } from "@/i18n/locales";
 
 /**
  * Games, their versions and conversation. Everything is scoped to the owner:
@@ -54,7 +58,8 @@ export async function ownedGame(userId: string, gameId: string) {
   return g;
 }
 
-async function summary(g: { id: string; name: string; engine: string; status: string; projectId: string | null; seq: number; createdAt: Date; updatedAt: Date }): Promise<GameSummary> {
+/** A game as the lists show it (the card): its app, and the newest version with a screenshot. */
+export async function summary(g: { id: string; name: string; engine: string; status: string; projectId: string | null; seq: number; createdAt: Date; updatedAt: Date }): Promise<GameSummary> {
   const [project, shot] = await Promise.all([
     g.projectId ? db.project.findUnique({ where: { id: g.projectId }, select: { published: true } }) : null,
     db.gameVersion.findFirst({ where: { gameId: g.id, shot: { not: null } }, orderBy: { seq: "desc" }, select: { seq: true } }),
@@ -185,7 +190,7 @@ export async function listVersions(userId: string, gameId: string): Promise<Vers
   }));
 }
 
-function featureTally(v: Prisma.JsonValue | null): VersionSummary["features"] {
+export function featureTally(v: Prisma.JsonValue | null): VersionSummary["features"] {
   if (!Array.isArray(v) || !v.length) return null;
   const list = v as Array<{ status?: unknown }>;
   return { passing: list.filter((f) => f?.status === "passing").length, failing: list.filter((f) => f?.status === "failing").length, total: list.length };
@@ -196,6 +201,32 @@ export async function versionFiles(userId: string, gameId: string, seq: number):
   const v = await db.gameVersion.findUnique({ where: { gameId_seq: { gameId, seq } }, select: { files: true } });
   if (!v) throw new NotFound();
   return asFiles(v.files);
+}
+
+/**
+ * Makes an earlier version the current one (saved as a new version, so nothing is lost) and returns the
+ * new version's number. Its planned features come back with it, with the test status they had at that
+ * version (features.ts). Refused while the AI is working on the game.
+ */
+export async function restoreVersion(userId: string, gameId: string, seq: number, locale: Locale): Promise<number> {
+  const t = translator(locale, "games");
+  await ownedGame(userId, gameId);
+  if (await db.gameJob.findFirst({ where: { gameId, status: "running" }, select: { id: true } })) throw new GameError("still_building", t("server.stillBuilding"));
+  const files = await versionFiles(userId, gameId, seq);
+  const v = await db.gameVersion.findUnique({ where: { gameId_seq: { gameId, seq } }, select: { stepLabel: true, check: true, shot: true, features: true } });
+  const label = t("versions.restoredLabel", { seq });
+  const plan = ((await db.gameProject.findUnique({ where: { id: gameId }, select: { plan: true } }))?.plan ?? {}) as Record<string, unknown>;
+  // A version without a snapshot (the empty start) has none of the planned features built yet.
+  const kept = asFeatures(v?.features) ?? asFeatures(plan.features)?.map(({ last: _l, ...f }) => ({ ...f, status: "planned" as const })) ?? null;
+  const next = await saveVersion(gameId, files, {
+    label,
+    kind: "restore",
+    check: (v?.check as Record<string, unknown> | null) ?? null,
+    shot: v?.shot ? Buffer.from(v.shot) : null,
+    ...(kept?.length ? { features: () => ({ features: kept, plan: { ...plan, features: kept } }) } : {}),
+  });
+  await appendChat(gameId, "assistant", label, next);
+  return next;
 }
 
 export async function versionShot(userId: string, gameId: string, seq: number): Promise<Buffer | null> {

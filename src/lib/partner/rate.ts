@@ -45,4 +45,14 @@ export const ROUTE_LIMITS = {
   plan: { max: 300, windowMs: 60 * 60_000 },
   builds: { max: 300, windowMs: 60 * 60_000 },
   publish: { max: 120, windowMs: 60_000 },
+  /** POST /games and POST /games/{id}/changes (each starts an AI build). */
+  games: { max: 300, windowMs: 60 * 60_000 },
+  /** POST /games/clarify (not charged; also 20 an hour per person, as in the studio). */
+  clarify: { max: 300, windowMs: 60 * 60_000 },
+  /** POST /games/{id}/notes (also 10 a minute per person, as in the studio). */
+  notes: { max: 120, windowMs: 60_000 },
+  /** GET /games/{id}/export downloads (also 20 an hour per person, as in the studio). */
+  exports: { max: 60, windowMs: 60 * 60_000 },
+  /** GET /games/assets/search. */
+  assets: { max: 600, windowMs: 60 * 60_000 },
 } as const;

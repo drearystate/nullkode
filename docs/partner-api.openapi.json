@@ -3,7 +3,7 @@
   "info": {
     "title": "Partner API",
     "version": "1.0.0",
-    "description": "Lets another service create accounts, sign people in, plan, build and publish apps, and read AI usage on their behalf. See docs/partner-api.md for the full guide.",
+    "description": "Lets another service create accounts, sign people in, plan, build and publish apps, make games with the Game Studio, and read AI usage on their behalf. See docs/partner-api.md for the full guide.",
     "license": {
       "name": "See the repository's LICENSE"
     }
@@ -43,6 +43,10 @@
     },
     {
       "name": "usage"
+    },
+    {
+      "name": "games",
+      "description": "The Game Studio: make, build, steer, change, publish and download games for a person."
     }
   ],
   "paths": {
@@ -911,6 +915,1538 @@
           }
         }
       }
+    },
+    "/games": {
+      "post": {
+        "tags": [
+          "games"
+        ],
+        "operationId": "createGame",
+        "summary": "Make a game for a person and start its build",
+        "description": "Charges one AI action to the person (given back when the build delivers nothing). Follow it with GET /games/{id} or /events, or the game.* webhooks. Refused with 422 build_not_allowed by the build rule (no game is left).",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateGame"
+              },
+              "example": {
+                "userId": "clx1abc",
+                "prompt": "A cat platformer: collect 10 fish to open the door",
+                "engine": "2d"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Started.",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimitLimit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimitRemaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimitReset"
+              },
+              "X-Request-Id": {
+                "$ref": "#/components/headers/RequestId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameStarted"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "409": {
+            "description": "idempotency_in_progress.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "413": {
+            "$ref": "#/components/responses/ImageTooLarge"
+          },
+          "422": {
+            "$ref": "#/components/responses/BuildNotAllowed"
+          },
+          "503": {
+            "description": "games_unavailable: the game engines and the asset library aren't installed on this server.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/Internal"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "games"
+        ],
+        "operationId": "listGames",
+        "summary": "A person's games, newest first",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "A person in the key's scope."
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            },
+            "description": "Items per page."
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "The nextCursor of the previous page."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A page of games.",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimitLimit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimitRemaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimitReset"
+              },
+              "X-Request-Id": {
+                "$ref": "#/components/headers/RequestId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/GameCard"
+                      }
+                    },
+                    "nextCursor": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/Internal"
+          }
+        }
+      }
+    },
+    "/games/clarify": {
+      "post": {
+        "tags": [
+          "games"
+        ],
+        "operationId": "clarifyGame",
+        "summary": "The studio's quick questions before a first build (free)",
+        "description": "Up to 3 questions when the idea leaves big choices open; none when it doesn't. Append the answers to the prompt as \"<label> <answer>\" lines. 20 an hour per person.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "userId": {
+                    "type": "string"
+                  },
+                  "prompt": {
+                    "type": "string",
+                    "minLength": 3,
+                    "maxLength": 6000
+                  },
+                  "locale": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "userId",
+                  "prompt"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The questions.",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimitLimit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimitRemaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimitReset"
+              },
+              "X-Request-Id": {
+                "$ref": "#/components/headers/RequestId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "questions": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "label": {
+                            "type": "string"
+                          },
+                          "options": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/Internal"
+          }
+        }
+      }
+    },
+    "/games/assets/search": {
+      "get": {
+        "tags": [
+          "games"
+        ],
+        "operationId": "searchGameAssets",
+        "summary": "Search the game asset library",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "dim",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2d",
+                "3d",
+                "audio",
+                "font"
+              ]
+            }
+          },
+          {
+            "name": "kind",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "sprite, spritesheet, tileset, model, sfx, music… (comma-separated)."
+          },
+          {
+            "name": "set",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "A pack's id prefix."
+          },
+          {
+            "name": "exportable",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "1"
+              ]
+            },
+            "description": "Only assets a download may contain."
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 48
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Matching assets.",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimitLimit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimitRemaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimitReset"
+              },
+              "X-Request-Id": {
+                "$ref": "#/components/headers/RequestId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/GameAsset"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "503": {
+            "description": "games_unavailable: the game engines and the asset library aren't installed on this server.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/Internal"
+          }
+        }
+      }
+    },
+    "/games/{id}": {
+      "get": {
+        "tags": [
+          "games"
+        ],
+        "operationId": "getGame",
+        "summary": "One game: status, plan, features, the newest job, versions, app, screenshot",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Game id."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The game.",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimitLimit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimitRemaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimitReset"
+              },
+              "X-Request-Id": {
+                "$ref": "#/components/headers/RequestId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "game": {
+                      "$ref": "#/components/schemas/Game"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/Internal"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "games"
+        ],
+        "operationId": "deleteGame",
+        "summary": "Delete a game (and the app it was published as)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Game id."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deleted.",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimitLimit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimitRemaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimitReset"
+              },
+              "X-Request-Id": {
+                "$ref": "#/components/headers/RequestId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/Internal"
+          }
+        }
+      }
+    },
+    "/games/{id}/jobs/{jobId}": {
+      "get": {
+        "tags": [
+          "games"
+        ],
+        "operationId": "getGameJob",
+        "summary": "One build or change of the game",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Game id."
+          },
+          {
+            "name": "jobId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The job.",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimitLimit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimitRemaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimitReset"
+              },
+              "X-Request-Id": {
+                "$ref": "#/components/headers/RequestId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "job": {
+                      "$ref": "#/components/schemas/GameJob"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/Internal"
+          }
+        }
+      }
+    },
+    "/games/{id}/events": {
+      "get": {
+        "tags": [
+          "games"
+        ],
+        "operationId": "getGameEvents",
+        "summary": "The game's conversation since `after`, with the newest job",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Game id."
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0
+            },
+            "description": "The lastSeq of the previous answer."
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Messages, oldest first.",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimitLimit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimitRemaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimitReset"
+              },
+              "X-Request-Id": {
+                "$ref": "#/components/headers/RequestId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ChatMessage"
+                      }
+                    },
+                    "lastSeq": {
+                      "type": "integer"
+                    },
+                    "more": {
+                      "type": "boolean"
+                    },
+                    "game": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "string"
+                        },
+                        "seq": {
+                          "type": "integer"
+                        }
+                      }
+                    },
+                    "job": {
+                      "oneOf": [
+                        {
+                          "$ref": "#/components/schemas/GameJob"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/Internal"
+          }
+        }
+      }
+    },
+    "/games/{id}/notes": {
+      "post": {
+        "tags": [
+          "games"
+        ],
+        "operationId": "addGameNote",
+        "summary": "Steer the running build (a note), with the AI's immediate answer",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Game id."
+          },
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GameNote"
+              },
+              "example": {
+                "text": "make the hero orange"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Taken.",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimitLimit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimitRemaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimitReset"
+              },
+              "X-Request-Id": {
+                "$ref": "#/components/headers/RequestId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameNoteResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "409": {
+            "description": "not_running (send a change instead), too_many_notes, idempotency_in_progress.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "413": {
+            "$ref": "#/components/responses/ImageTooLarge"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/Internal"
+          }
+        }
+      }
+    },
+    "/games/{id}/stop": {
+      "post": {
+        "tags": [
+          "games"
+        ],
+        "operationId": "stopGame",
+        "summary": "Stop the running build: after this step, or now",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Game id."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "mode": {
+                    "type": "string",
+                    "enum": [
+                      "after-step",
+                      "now",
+                      "continue"
+                    ]
+                  }
+                },
+                "required": [
+                  "mode"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Stopping.",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimitLimit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimitRemaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimitReset"
+              },
+              "X-Request-Id": {
+                "$ref": "#/components/headers/RequestId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "mode": {
+                      "type": "string"
+                    },
+                    "job": {
+                      "oneOf": [
+                        {
+                          "$ref": "#/components/schemas/GameJob"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "409": {
+            "description": "not_running.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/Internal"
+          }
+        }
+      }
+    },
+    "/games/{id}/changes": {
+      "post": {
+        "tags": [
+          "games"
+        ],
+        "operationId": "changeGame",
+        "summary": "Change a built game (one AI action)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Game id."
+          },
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GameChange"
+              },
+              "example": {
+                "prompt": "make the jump higher"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Started.",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimitLimit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimitRemaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimitReset"
+              },
+              "X-Request-Id": {
+                "$ref": "#/components/headers/RequestId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "job": {
+                      "$ref": "#/components/schemas/GameJob"
+                    },
+                    "referenceId": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "409": {
+            "description": "already_building (send a note instead), idempotency_in_progress.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "413": {
+            "$ref": "#/components/responses/ImageTooLarge"
+          },
+          "422": {
+            "$ref": "#/components/responses/BuildNotAllowed"
+          },
+          "503": {
+            "description": "games_unavailable: the game engines and the asset library aren't installed on this server.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/Internal"
+          }
+        }
+      }
+    },
+    "/games/{id}/versions": {
+      "get": {
+        "tags": [
+          "games"
+        ],
+        "operationId": "listGameVersions",
+        "summary": "The game's versions, newest first",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Game id."
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            },
+            "description": "Items per page."
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "The nextCursor of the previous page (a seq)."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A page of versions.",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimitLimit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimitRemaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimitReset"
+              },
+              "X-Request-Id": {
+                "$ref": "#/components/headers/RequestId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/GameVersion"
+                      }
+                    },
+                    "nextCursor": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/Internal"
+          }
+        }
+      }
+    },
+    "/games/{id}/versions/{seq}/shot": {
+      "get": {
+        "tags": [
+          "games"
+        ],
+        "operationId": "getGameVersionShot",
+        "summary": "A version's screenshot (WebP)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Game id."
+          },
+          {
+            "name": "seq",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "description": "Version number (`seq`)."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The screenshot.",
+            "content": {
+              "image/webp": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/Internal"
+          }
+        }
+      }
+    },
+    "/games/{id}/versions/{seq}/restore": {
+      "post": {
+        "tags": [
+          "games"
+        ],
+        "operationId": "restoreGameVersion",
+        "summary": "Make an earlier version the current one (saved as a new version)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Game id."
+          },
+          {
+            "name": "seq",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "description": "Version number (`seq`)."
+          },
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Restored.",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimitLimit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimitRemaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimitReset"
+              },
+              "X-Request-Id": {
+                "$ref": "#/components/headers/RequestId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "seq": {
+                      "type": "integer"
+                    },
+                    "restoredFrom": {
+                      "type": "integer"
+                    },
+                    "game": {
+                      "$ref": "#/components/schemas/Game"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "still_building, idempotency_in_progress.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/Internal"
+          }
+        }
+      }
+    },
+    "/games/{id}/publish": {
+      "post": {
+        "tags": [
+          "games"
+        ],
+        "operationId": "publishGame",
+        "summary": "Publish the game as an app (or update its live version)",
+        "description": "Needs the publish permission. The person's plan limits on apps and live apps apply (403 plan_limit). Sends game.published.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Game id."
+          },
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Published.",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimitLimit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimitRemaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimitReset"
+              },
+              "X-Request-Id": {
+                "$ref": "#/components/headers/RequestId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "version": {
+                      "type": "integer"
+                    },
+                    "project": {
+                      "$ref": "#/components/schemas/Project"
+                    },
+                    "game": {
+                      "$ref": "#/components/schemas/GameCard"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "not_built, still_building, idempotency_in_progress.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/Internal"
+          }
+        }
+      }
+    },
+    "/games/{id}/export": {
+      "get": {
+        "tags": [
+          "games"
+        ],
+        "operationId": "exportGame",
+        "summary": "Download the game as a .zip (hosted-only assets left out)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Game id."
+          },
+          {
+            "name": "check",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "1"
+              ]
+            },
+            "description": "Answer, as JSON, which assets a download would leave out."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The .zip, or with check=1 the assets it leaves out.",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimitLimit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimitRemaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimitReset"
+              },
+              "X-Request-Id": {
+                "$ref": "#/components/headers/RequestId"
+              }
+            },
+            "content": {
+              "application/zip": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "excluded": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "included": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "not_built.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/Internal"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -1535,6 +3071,10 @@
                   "integer",
                   "null"
                 ]
+              },
+              "games": {
+                "type": "integer",
+                "description": "This month's Game Studio builds and changes in the key's scope (part of `used`)."
               }
             }
           },
@@ -1563,6 +3103,10 @@
                         "integer",
                         "null"
                       ]
+                    },
+                    "games": {
+                      "type": "integer",
+                      "description": "This month's Game Studio builds and changes (part of `used`)."
                     }
                   }
                 }
@@ -1727,6 +3271,977 @@
             "description": "The closest built-in look."
           }
         }
+      },
+      "GameEngine": {
+        "type": "string",
+        "enum": [
+          "2d",
+          "3d"
+        ],
+        "description": "2d = Phaser, 3d = three.js."
+      },
+      "FeatureCounts": {
+        "type": [
+          "object",
+          "null"
+        ],
+        "properties": {
+          "total": {
+            "type": "integer"
+          },
+          "passing": {
+            "type": "integer"
+          },
+          "failing": {
+            "type": "integer"
+          },
+          "built": {
+            "type": "integer"
+          },
+          "planned": {
+            "type": "integer"
+          }
+        },
+        "description": "How many of the game's planned features are in each status."
+      },
+      "GameFeature": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "priority": {
+            "type": "string",
+            "enum": [
+              "core",
+              "extra"
+            ]
+          },
+          "how": {
+            "type": "string",
+            "description": "What the feature does, in a sentence."
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "planned",
+              "built",
+              "passing",
+              "failing"
+            ],
+            "description": "planned = not built yet; built = built, no usable test; passing / failing = its test's newest result."
+          },
+          "test": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "description": "The feature's test: {start, setup?, steps: [key presses and waits], expect: [read-only expressions]}. Null when the AI's test couldn't be used.",
+            "properties": {
+              "start": {
+                "type": "boolean"
+              },
+              "setup": {
+                "type": "object"
+              },
+              "steps": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              },
+              "expect": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "last": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "description": "The newest test result.",
+            "properties": {
+              "seq": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "ok": {
+                "type": "boolean"
+              },
+              "text": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "priority",
+          "status"
+        ]
+      },
+      "GameJobStep": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "todo",
+              "running",
+              "done",
+              "error"
+            ]
+          },
+          "seq": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "description": "The version the step saved."
+          },
+          "note": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "What the step did, in a sentence."
+          },
+          "error": {
+            "type": "string",
+            "description": "Only on a step that failed."
+          },
+          "added": {
+            "type": "boolean",
+            "description": "Added while running (for notes, or by the checks)."
+          },
+          "kind": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "playtest-fix",
+              "feature-fix",
+              null
+            ]
+          },
+          "features": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Ids of the features this step builds."
+          }
+        }
+      },
+      "GameJob": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "gameId": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "build",
+              "change"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "running",
+              "done",
+              "error",
+              "cancelled"
+            ]
+          },
+          "phase": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "plan",
+              "steps",
+              null
+            ]
+          },
+          "prompt": {
+            "type": "string"
+          },
+          "progress": {
+            "type": "object",
+            "properties": {
+              "step": {
+                "type": "integer",
+                "description": "The step running now (1-based), or the number of finished steps when none runs."
+              },
+              "total": {
+                "type": "integer"
+              },
+              "done": {
+                "type": "integer"
+              },
+              "label": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "That step's label."
+              },
+              "running": {
+                "type": "boolean",
+                "description": "A step is running now."
+              }
+            }
+          },
+          "steps": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GameJobStep"
+            }
+          },
+          "stopAfterStep": {
+            "type": "boolean",
+            "description": "\"Stop after this step\" is on."
+          },
+          "references": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "count": {
+                "type": "integer"
+              }
+            }
+          },
+          "error": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "On error: what went wrong, in the person's language."
+          },
+          "errorCode": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "build_not_allowed",
+              "failed",
+              null
+            ]
+          },
+          "refunded": {
+            "type": "boolean",
+            "description": "The AI action was given back (nothing was delivered)."
+          },
+          "startedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "finishedAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          }
+        },
+        "description": "A build or a change of a game."
+      },
+      "GameVersion": {
+        "type": "object",
+        "properties": {
+          "seq": {
+            "type": "integer"
+          },
+          "label": {
+            "type": "string"
+          },
+          "note": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "start",
+              "step",
+              "restore"
+            ]
+          },
+          "ok": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "The headless check passed (null = not run)."
+          },
+          "features": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "passing": {
+                "type": "integer"
+              },
+              "failing": {
+                "type": "integer"
+              },
+              "total": {
+                "type": "integer"
+              }
+            }
+          },
+          "screenshotPath": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Under the API's base: GET it with the key (image/webp)."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "GameCard": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "engine": {
+            "$ref": "#/components/schemas/GameEngine"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "new",
+              "building",
+              "ready",
+              "error"
+            ]
+          },
+          "seq": {
+            "type": "integer",
+            "description": "The newest version."
+          },
+          "published": {
+            "type": "boolean"
+          },
+          "app": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "description": "The app the game is published as.",
+            "properties": {
+              "projectId": {
+                "type": "string"
+              },
+              "published": {
+                "type": "boolean"
+              },
+              "url": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "uri"
+              }
+            }
+          },
+          "screenshot": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "description": "The newest version with a screenshot; `path` is under the API's base (GET it with the key).",
+            "properties": {
+              "seq": {
+                "type": "integer"
+              },
+              "path": {
+                "type": "string"
+              }
+            }
+          },
+          "links": {
+            "type": "object",
+            "properties": {
+              "workspace": {
+                "type": "string",
+                "format": "uri",
+                "description": "The game's workspace (needs the person signed in)."
+              }
+            }
+          },
+          "paths": {
+            "type": "object",
+            "properties": {
+              "workspace": {
+                "type": "string",
+                "description": "Use as `to` for POST /sso."
+              }
+            }
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "description": "A game as lists show it."
+      },
+      "ChatMessage": {
+        "type": "object",
+        "properties": {
+          "seq": {
+            "type": "integer"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "user",
+              "assistant",
+              "error"
+            ]
+          },
+          "text": {
+            "type": "string"
+          },
+          "versionSeq": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "note": {
+            "type": "object",
+            "description": "On a note sent while building: where it stands.",
+            "properties": {
+              "status": {
+                "type": "string",
+                "enum": [
+                  "new",
+                  "checking",
+                  "accepted",
+                  "question",
+                  "refused",
+                  "applied",
+                  "dropped"
+                ]
+              },
+              "step": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "label": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "planned": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "Game": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/GameCard"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "kitVersion": {
+                "type": "string"
+              },
+              "plan": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "description": "Null until the plan is made.",
+                "properties": {
+                  "title": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "message": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "brief": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "string"
+                    },
+                    "description": "genre, pitch, coreLoop, controls, levels, winLose, artStyle, audio."
+                  },
+                  "visual": {
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "description": "The art direction: camera, palette [{hex, role}], shapes, materials, lighting, density, ui, motion."
+                  },
+                  "assets": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "key": {
+                          "type": "string"
+                        },
+                        "id": {
+                          "type": "string"
+                        },
+                        "use": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "steps": {
+                    "type": "array",
+                    "description": "The first build's steps.",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "label": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "string"
+                        },
+                        "features": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "features": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/GameFeature"
+                    }
+                  }
+                }
+              },
+              "features": {
+                "$ref": "#/components/schemas/FeatureCounts"
+              },
+              "job": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/GameJob"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "The newest build or change."
+              },
+              "versions": {
+                "type": "object",
+                "properties": {
+                  "count": {
+                    "type": "integer"
+                  },
+                  "latest": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/GameVersion"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                }
+              },
+              "lastMessage": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/ChatMessage"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "description": "Everything about one game."
+      },
+      "CreateGame": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string"
+          },
+          "prompt": {
+            "type": "string",
+            "maxLength": 6000,
+            "description": "The game. Required unless images are sent."
+          },
+          "engine": {
+            "type": "string",
+            "enum": [
+              "2d",
+              "3d",
+              "auto"
+            ],
+            "default": "auto"
+          },
+          "locale": {
+            "type": "string",
+            "description": "The game's language and its progress messages' (default: the person's)."
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "images": {
+            "type": "array",
+            "maxItems": 6,
+            "items": {
+              "$ref": "#/components/schemas/ReferenceImage"
+            }
+          },
+          "referenceId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "userId"
+        ]
+      },
+      "GameStarted": {
+        "type": "object",
+        "properties": {
+          "game": {
+            "$ref": "#/components/schemas/Game"
+          },
+          "job": {
+            "$ref": "#/components/schemas/GameJob"
+          },
+          "referenceId": {
+            "type": "string"
+          }
+        }
+      },
+      "GameChange": {
+        "type": "object",
+        "properties": {
+          "prompt": {
+            "type": "string",
+            "maxLength": 6000,
+            "description": "The change. Required unless images are sent."
+          },
+          "images": {
+            "type": "array",
+            "maxItems": 6,
+            "items": {
+              "$ref": "#/components/schemas/ReferenceImage"
+            }
+          },
+          "referenceId": {
+            "type": "string"
+          }
+        }
+      },
+      "GameNote": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "images": {
+            "type": "array",
+            "maxItems": 6,
+            "items": {
+              "$ref": "#/components/schemas/ReferenceImage"
+            }
+          },
+          "wait": {
+            "type": "boolean",
+            "default": true,
+            "description": "Wait up to 30 seconds for the immediate answer."
+          }
+        }
+      },
+      "GameNoteResult": {
+        "type": "object",
+        "properties": {
+          "note": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "chatSeq": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "reply": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "description": "The immediate answer (null when it took longer than the wait).",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "accepted",
+                      "question",
+                      "refused",
+                      "dropped"
+                    ]
+                  },
+                  "kind": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "text": {
+                    "type": "string"
+                  },
+                  "chatSeq": {
+                    "type": [
+                      "integer",
+                      "null"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "GameAsset": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "style": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "set": {
+            "type": "string"
+          },
+          "licence": {
+            "type": "string"
+          },
+          "redistributable": {
+            "type": "boolean"
+          },
+          "hostedOnly": {
+            "type": "boolean",
+            "description": "Usable in games on the platform, never in a download (= not redistributable)."
+          },
+          "preview": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uri"
+          },
+          "url": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uri"
+          },
+          "metrics": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "use": {
+            "type": "string"
+          }
+        }
+      },
+      "GameWebhookEvent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "game.step.completed",
+              "game.build.completed",
+              "game.build.failed",
+              "game.build.stopped",
+              "game.published"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "attempt": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "game": {
+                "description": "GameCard on game.step.completed and game.published; Game on the others.",
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/Game"
+                  },
+                  {
+                    "$ref": "#/components/schemas/GameCard"
+                  }
+                ]
+              },
+              "job": {
+                "$ref": "#/components/schemas/GameJob"
+              },
+              "step": {
+                "type": "object",
+                "properties": {
+                  "index": {
+                    "type": "integer"
+                  },
+                  "total": {
+                    "type": "integer"
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "label": {
+                    "type": "string"
+                  },
+                  "seq": {
+                    "type": [
+                      "integer",
+                      "null"
+                    ]
+                  },
+                  "note": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "features": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "description": "game.step.completed only."
+              },
+              "features": {
+                "$ref": "#/components/schemas/FeatureCounts"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri",
+                "description": "game.published only."
+              },
+              "version": {
+                "type": "integer",
+                "description": "game.published only."
+              },
+              "project": {
+                "$ref": "#/components/schemas/Project"
+              }
+            }
+          }
+        },
+        "description": "POSTed to the key's webhook address for games built with the key. Same headers and signature as WebhookEvent."
       }
     }
   },
@@ -1739,6 +4254,25 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/WebhookEvent"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Any 2xx stops the retries."
+          }
+        }
+      }
+    },
+    "gameEvent": {
+      "post": {
+        "summary": "A game built with this key: a step was saved, the build ended or stopped, or it was published",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GameWebhookEvent"
               }
             }
           }

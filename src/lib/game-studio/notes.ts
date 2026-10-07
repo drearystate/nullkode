@@ -13,6 +13,7 @@ import { hitLimit } from "../rate-limit";
 import { publishGame } from "./events";
 import { noteReplySystem } from "./prompts";
 import { appendChat, gameSummary, ownedGame } from "./store";
+import { GameError } from "./errors";
 
 /**
  * Steer while building: the person keeps chatting while a build or change
@@ -53,22 +54,28 @@ export class NoJobRunning extends Error {
 
 type QuotaUser = Pick<User, "id" | "plan" | "role" | "resellerId">;
 export type NoteView = { id: string; status: string; chatSeq: number | null };
+/** The immediate answer to a note: where it stands now and the chat message that answered it (a reply, or the build rule's refusal). */
+export type NoteAnswer = { status: string; kind: string | null; text: string; chatSeq: number | null };
 
 /**
  * Saves a note on the game's running job and returns at once; the check and
  * the reply follow in the background (game events). Throws NoJobRunning when
  * no job is running (the caller starts a change instead), plain-words errors
- * (empty, too long, too many) and ReferenceImageError.
+ * (GameError: empty, too long, too many) and ReferenceImageError.
+ *
+ * `locale`: the person's language (default: this request's). `waitMs`: wait
+ * up to this long for the immediate answer and return it as `reply` (null
+ * when it takes longer; it still arrives in the chat).
  */
-export async function addNote(user: QuotaUser, gameId: string, raw: string, opts: { images?: unknown } = {}): Promise<NoteView> {
+export async function addNote(user: QuotaUser, gameId: string, raw: string, opts: { images?: unknown; locale?: Locale; waitMs?: number } = {}): Promise<NoteView & { reply?: NoteAnswer | null }> {
   const game = await ownedGame(user.id, gameId);
-  const locale = await personLocale();
+  const locale = opts.locale ?? (await personLocale());
   const t = translator(locale, "games");
   const text = raw.trim();
   const hasImages = Array.isArray(opts.images) && opts.images.length > 0;
-  if (!text && !hasImages) throw new Error(t("server.describe"));
-  if (text.length > NOTE_MAX_CHARS) throw new Error(t("notes.tooLong", { max: NOTE_MAX_CHARS }));
-  if (!hitLimit(`game-note:${user.id}`, NOTES_PER_MINUTE, 60_000).ok) throw new Error(t("notes.slowDown"));
+  if (!text && !hasImages) throw new GameError("invalid_request", t("server.describe"));
+  if (text.length > NOTE_MAX_CHARS) throw new GameError("invalid_request", t("notes.tooLong", { max: NOTE_MAX_CHARS }));
+  if (!hitLimit(`game-note:${user.id}`, NOTES_PER_MINUTE, 60_000).ok) throw new GameError("rate_limited", t("notes.slowDown"));
   const running = await db.gameJob.findFirst({ where: { gameId, status: "running" }, select: { id: true } });
   if (!running) throw new NoJobRunning(t("notes.notRunning"));
   let references: { id: string; count: number } | null = null;
@@ -77,7 +84,7 @@ export async function addNote(user: QuotaUser, gameId: string, raw: string, opts
     await assertAiCanSeeImages(ta);
     // Reading the images is one "vision" action when the build reads them.
     const over = await aiQuotaProblem(user);
-    if (over) throw new Error(over);
+    if (over) throw new GameError("ai_quota", over);
     const set = await storeReferenceSet(user.id, await processImages(opts.images, ta));
     references = { id: set.id, count: set.images.length };
   }
@@ -86,15 +93,23 @@ export async function addNote(user: QuotaUser, gameId: string, raw: string, opts
     await tx.$executeRaw`SELECT pg_advisory_xact_lock(hashtext(${`game-job:${gameId}`}))`;
     const job = await tx.gameJob.findFirst({ where: { gameId, status: "running" }, select: { id: true } });
     if (!job) throw new NoJobRunning(t("notes.notRunning"));
-    if ((await tx.gameNote.count({ where: { jobId: job.id } })) >= MAX_NOTES_PER_JOB) throw new Error(t("notes.tooMany", { max: MAX_NOTES_PER_JOB }));
+    if ((await tx.gameNote.count({ where: { jobId: job.id } })) >= MAX_NOTES_PER_JOB) throw new GameError("too_many_notes", t("notes.tooMany", { max: MAX_NOTES_PER_JOB }));
     return tx.gameNote.create({ data: { gameId, jobId: job.id, userId: user.id, text: text || "(reference images)", references: (references ?? undefined) as Prisma.InputJsonValue | undefined } });
   });
   const shown = references ? [text, t("build.withImages", { count: references.count })].filter(Boolean).join("\n\n") : text;
   const chatSeq = await appendChat(gameId, "user", shown);
   await db.gameNote.update({ where: { id: note.id }, data: { chatSeq } });
   publishGame(gameId, { type: "chat" });
-  void checkAndAnswer(note.id, locale, game.projectId).catch((err) => console.error("[game-studio] note check failed", note.id, err instanceof Error ? err.message : err));
-  return { id: note.id, status: note.status, chatSeq };
+  const answered = checkAndAnswer(note.id, locale, game.projectId).catch((err) => {
+    console.error("[game-studio] note check failed", note.id, err instanceof Error ? err.message : err);
+    return null;
+  });
+  if (!opts.waitMs) return { id: note.id, status: note.status, chatSeq };
+  let timer: NodeJS.Timeout | undefined;
+  const reply = await Promise.race([answered, new Promise<null>((r) => (timer = setTimeout(() => r(null), opts.waitMs)))]);
+  clearTimeout(timer);
+  const now = await db.gameNote.findUnique({ where: { id: note.id }, select: { status: true } });
+  return { id: note.id, status: reply?.status ?? now?.status ?? note.status, chatSeq, reply };
 }
 
 const Reply = z.object({
@@ -135,27 +150,28 @@ function replyContext(game: { name: string; plan: Prisma.JsonValue | null }, ste
 /**
  * The build rule and the immediate reply for one note (run in the background
  * after addNote, or by the build loop for a note whose checker was lost).
- * Claims the note first, so it runs once.
+ * Claims the note first, so it runs once. Returns the answer (null when
+ * another checker had it).
  */
-export async function checkAndAnswer(noteId: string, locale: Locale, projectId: string | null, opts: { signal?: AbortSignal; reclaim?: boolean } = {}): Promise<void> {
+export async function checkAndAnswer(noteId: string, locale: Locale, projectId: string | null, opts: { signal?: AbortSignal; reclaim?: boolean } = {}): Promise<NoteAnswer | null> {
   const claim = await db.gameNote.updateMany({
     where: { id: noteId, status: opts.reclaim ? { in: ["new", "checking"] } : "new" },
     data: { status: "checking" },
   });
-  if (!claim.count) return;
+  if (!claim.count) return null;
   const note = await db.gameNote.findUniqueOrThrow({ where: { id: noteId } });
   const [job, game] = await Promise.all([
     db.gameJob.findUnique({ where: { id: note.jobId }, select: { prompt: true, steps: true, meta: true, status: true } }),
     db.gameProject.findUnique({ where: { id: note.gameId }, select: { name: true, engine: true, plan: true } }),
   ]);
   const t = translator(locale, "games");
-  if (!job || !game) return;
+  if (!job || !game) return null;
   const earlier = await db.gameNote.findMany({ where: { jobId: note.jobId, createdAt: { lt: note.createdAt }, status: { in: ["accepted", "applied", "question"] } }, orderBy: { createdAt: "asc" }, select: { text: true, status: true }, take: 12 });
 
   // The build rule and the reply side by side (the reply is only shown when the rule allows the note).
   const policy = enforceBuildPolicy(
     { kind: "game", request: note.text, earlier: [job.prompt, ...earlier.map((n) => n.text)].join("\n").slice(0, 4000), app: gameSummary(game) },
-    { userId: note.userId, locale, projectId, signal: opts.signal },
+    { userId: note.userId, locale, projectId, signal: opts.signal, source: (job.meta as { source?: string } | null)?.source ?? null },
   );
   const steps = (Array.isArray(job.steps) ? job.steps : []) as StepLite[];
   const phase = (job.meta as { phase?: string } | null)?.phase;
@@ -179,8 +195,8 @@ export async function checkAndAnswer(noteId: string, locale: Locale, projectId: 
   const refused = await policy;
   if (refused) {
     await db.gameNote.update({ where: { id: noteId }, data: { status: "refused" } });
-    await appendChat(note.gameId, "error", refused.message);
-    return;
+    const seq = await appendChat(note.gameId, "error", refused.message);
+    return { status: "refused", kind: null, text: refused.message, chatSeq: seq };
   }
   const answer = await reply;
   // Images are always something to build with; without an answer it's treated as a change the plan may need a step for.
@@ -190,7 +206,8 @@ export async function checkAndAnswer(noteId: string, locale: Locale, projectId: 
   const status = !stillRunning ? "dropped" : kind === "question" ? "question" : "accepted";
   await db.gameNote.updateMany({ where: { id: noteId, status: "checking" }, data: { status, kind, newStep: kind === "change" && (answer ? answer.newStep : true) } });
   const fallback = kind === "question" ? t("notes.ackQuestion") : t("notes.ackChange");
-  await appendChat(note.gameId, "assistant", said || fallback);
+  const seq = await appendChat(note.gameId, "assistant", said || fallback);
+  return { status, kind, text: said || fallback, chatSeq: seq };
 }
 
 /**

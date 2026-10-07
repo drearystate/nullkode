@@ -153,3 +153,24 @@ export function compactRecord(a: AssetHit): Record<string, unknown> {
   const { tags: _t, debug: _d, score: _s, ...rest } = a as AssetHit & { debug?: unknown; score?: unknown };
   return { ...rest, ...(a.frameNames ? { frameNames: a.frameNames.slice(0, 400) } : {}) };
 }
+
+/** A library asset as the Assets panel and the partner API show it. `redistributable: false` = "Hosted only" (never in a download). */
+export type LibraryResult = Pick<AssetHit, "id" | "name" | "kind" | "style" | "set" | "licence" | "redistributable" | "preview" | "url" | "metrics" | "use">;
+
+const DIMS = new Set(["2d", "3d", "audio", "font"]);
+
+/**
+ * The Assets panel's search: `q` (words), `dim` (2d | 3d | audio | font),
+ * `kind` (sprite, tileset, model, sfx, music…; comma-separated), `set` (a
+ * pack's id prefix, listed whole or searched with `q`), `exportable` (only
+ * assets that may go in a download). Nothing without `q` or `set`.
+ */
+export async function searchLibrary(p: { q?: string | null; dim?: string | null; kind?: string | null; set?: string | null; exportable?: boolean; limit?: number }): Promise<LibraryResult[]> {
+  const q = (p.q ?? "").slice(0, 120);
+  const dim = p.dim ?? "";
+  const kind = (p.kind ?? "").replace(/[^a-z,-]/g, "").slice(0, 60);
+  const set = (p.set ?? "").replace(/[^a-z0-9/_.-]/gi, "").slice(0, 120);
+  const filters = { limit: Math.min(Math.max(p.limit ?? 48, 1), 100), ...(DIMS.has(dim) ? { dim: dim as "2d" } : {}), ...(kind ? { kind } : {}), ...(p.exportable ? { licence: "exportable" as const } : {}) };
+  const hits = set ? await listSet(set, { ...filters, ...(q ? { query: q } : {}) }) : q ? await searchAssets(q, filters) : [];
+  return hits.map((h) => ({ id: h.id, name: h.name, kind: h.kind, style: h.style, set: h.set, licence: h.licence, redistributable: h.redistributable, preview: h.preview, url: h.url, metrics: h.metrics, use: h.use }));
+}
