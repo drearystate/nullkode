@@ -1,6 +1,6 @@
 // The Game Studio's files for the release: games/ (engine kits, design
 // playbook, asset search, the ingest and tagging pipelines, AI tags for the
-// CC0 assets, example games). See docs/games.md.
+// CC0 assets). The official games never ship. See docs/games.md.
 //
 // Built from the server's game workspace (NK_GAMES_SRC, default ../nk-games)
 // and asset library (NK_GAME_ASSETS_SRC, default ../game-assets), next to this
@@ -209,54 +209,17 @@ export async function packageGames(root, output) {
   const meta = await metadata(lib, keepPacks, cc0, libPacks);
   for (const [name, data] of Object.entries(meta.files)) await put(`metadata/${name}`, data);
 
-  // Example games (a game ships once its README.md exists).
+  // The official games (nk-games/showcase) are nullkode.com's own and never ship: they are
+  // played on nullkode.com only. Only the 3D look card distilled from them (design/3D-LOOK.md) ships.
   const games = [];
   const held = [];
   const warnings = [];
-  for (const d of (await readdir(join(src, 'showcase'), { withFileTypes: true })).filter((d) => d.isDirectory()).sort((a, b) => a.name.localeCompare(b.name))) {
-    const g = `showcase/${d.name}`;
-    if (!existsSync(join(src, g, 'game.json'))) continue;
-    if (!existsSync(join(src, g, 'README.md'))) { held.push(d.name); continue; }
-    const lockText = await readFile(join(src, g, 'assets.lock.json'), 'utf8');
-    const lock = JSON.parse(lockText);
-    // Every asset must be CC0 from a pack that ships.
-    const bad = Object.entries(lock).filter(([id, e]) => !cc0(e) || !keepPacks.has(e.pack) || NR_RE.test(id)).map(([id]) => id);
-    if (bad.length || NR_RE.test(lockText)) throw new Error(`games/: ${g} uses assets that can't ship: ${bad.slice(0, 5).join(', ')}`);
-    // Not a licence problem, but worth knowing: entries that point at no library file.
-    const stale = Object.entries(lock).filter(([id, e]) => !meta.ids.has(id) && !meta.primaries.has(e.files?.primary)).map(([id]) => id);
-    if (stale.length) warnings.push(`${g}/assets.lock.json: ${stale.length} entries point at no library file (${stale.slice(0, 3).join(', ')}${stale.length > 3 ? ', ...' : ''})`);
-    for (const rel of ['game.json', 'assets.lock.json', 'README.md', 'spec.md']) if (existsSync(join(src, g, rel))) await take(`${g}/${rel}`, [[new RegExp(`No ${NRT} Ink assets are used\\.`, 'g'), 'Every asset is CC0.']]);
-    await take(`${g}/index.html`, [[/<meta name="nk-studio-origin"[^>]*>\n?/, '']]);
-    await tree(`${g}/src`);
-    const shots = [];
-    for (const dir of ['screenshots', 'shots']) {
-      if (!existsSync(join(src, g, dir))) continue;
-      const names = (await readdir(join(src, g, dir))).filter((n) => /\.(?:png|webp|jpe?g)$/.test(n)).sort();
-      const pick = ['final-1600x900.png', 'menu.png'].filter((n) => names.includes(n));
-      shots.push(...(pick.length ? pick : names.filter((n) => /^final/.test(n)).slice(0, 2)).map((n) => `${dir}/${n}`));
-      if (shots.length) break;
-    }
-    for (const s of shots) await tree(`${g}/${s}`, `${g}/screenshots/${s.split('/').pop()}`);
-    games.push({ name: d.name, title: JSON.parse(await readFile(join(src, g, 'game.json'), 'utf8')).title ?? d.name, kit: JSON.parse(await readFile(join(src, g, 'game.json'), 'utf8')).kit ?? '', assets: Object.keys(lock).length });
-  }
-  await overlay('serve.mjs', 'showcase/serve.mjs');
-  await put('showcase/README.md', [
-    '# Example games', '',
-    'Complete games made on the Game Studio\'s engine kits and the CC0 asset library. Each folder is',
-    'a game exactly as the studio stores one: `game.json`, `index.html`, `assets.lock.json` (every',
-    'asset it uses, all CC0) and `src/`. `README.md` and `spec.md` explain how it was designed.', '',
-    '| Folder | Game | Kit | Assets |', '|---|---|---|---:|',
-    ...games.map((g) => `| \`${g.name}/\` | ${g.title} | ${g.kit} | ${g.assets} |`), '',
-    'Play one on this computer (needs the asset library, see docs/games.md):', '',
-    '```', `node games/showcase/serve.mjs ${games[0]?.name ?? '<game>'}`, '```', '',
-    'Only the final screenshots are included. The development scripts, review and play-test',
-    'captures and reference pictures the READMEs mention are not.', '',
-  ].join('\n'));
 
   await put('README.md', (await readFile(join(OVERLAY, 'games-README.md'), 'utf8')).replace('65,993', meta.count.toLocaleString('en-US')));
   await overlay('THIRD-PARTY-NOTICES.md', 'THIRD-PARTY-NOTICES.md');
   await overlay('setup-library.sh', 'setup-library.sh', 0o755);
 
+  if (existsSync(join(out, 'showcase'))) throw new Error('games/: the official games must not ship');
   await checkTree(out, 'games');
   return { games: games.map((g) => g.name), held, warnings, assets: meta.count, metadataBytes: meta.bytes };
 }

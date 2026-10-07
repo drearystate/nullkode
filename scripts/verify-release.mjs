@@ -69,7 +69,8 @@ await walk();
 // with no asset files and nothing from packs that may not be shared.
 assert.ok(await stat(join(root, 'docs/games.md')).catch(() => null), 'Missing docs/games.md');
 if (await stat(join(root, 'games')).catch(() => null)) {
-  for (const f of ['games/engine/kits/phaser-2d','games/engine/kits/three-3d','games/design/INDEX.json','games/tools/asset-search.mjs','games/tools/package-lock.json','games/ingest/ingest.py','games/ingest/prepare-packs.py','games/tagging/runner.py','games/metadata/tags-cc0.jsonl.gz','games/metadata/cards-cc0.json.gz','games/setup-library.sh','games/THIRD-PARTY-NOTICES.md','games/showcase/serve.mjs']) {
+  assert.ok(!(await stat(join(root, 'games/showcase')).catch(() => null)), 'The official games must not ship (games/showcase)');
+  for (const f of ['games/engine/kits/phaser-2d','games/engine/kits/three-3d','games/design/INDEX.json','games/tools/asset-search.mjs','games/tools/package-lock.json','games/ingest/ingest.py','games/ingest/prepare-packs.py','games/tagging/runner.py','games/metadata/tags-cc0.jsonl.gz','games/metadata/cards-cc0.json.gz','games/setup-library.sh','games/THIRD-PARTY-NOTICES.md']) {
     assert.ok(await stat(join(root, f)).catch(() => null), `Missing ${f}`);
   }
   const { checkTree } = await import('./package-games.mjs');

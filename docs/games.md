@@ -141,17 +141,11 @@ python3 games/tools/build-index.py          # search index
 Delete `games/library/.tags-from-release` first, or `setup-library.sh` will
 replace `tags.jsonl` with the shipped tags next time.
 
-## Example games
+## The official games
 
-`games/showcase/` has complete games made on the kits, with their source and
-design notes. To play one on the server:
-
-```bash
-node games/showcase/serve.mjs mars-base
-```
-
-and open the address it prints (it listens on 127.0.0.1 only). The games load
-their assets from the library, so build it first.
+Hearthvale, Red Horizon and Vault of Embers are NullKode's own games. They are
+played on nullkode.com and are not part of this release. What they taught the
+Game Studio about 3D looks ships in `games/design/3D-LOOK.md`.
 
 ## Licences
 

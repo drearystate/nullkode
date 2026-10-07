@@ -10,7 +10,6 @@ What the Game Studio needs besides the app itself. Setup: `docs/games.md`.
 | `ingest/` | Turns the downloaded Kenney, KayKit, Quaternius and Pixel Frog zips into the asset library (`prepare-packs.py`, `ingest.py`). |
 | `tagging/` | Optional: AI tags and set cards for assets the shipped tags don't cover, through any OpenAI-compatible API. |
 | `metadata/` | AI tags, descriptions and set cards for the 65,993 CC0 Kenney, KayKit, Quaternius and Pixel Frog assets, plus their catalog. |
-| `showcase/` | Example games with their source (`showcase/README.md`). Play one: `node games/showcase/serve.mjs mars-base`. |
 | `setup-library.sh` | Builds the library from your zips in one go. |
 
 Made on your computer and never committed (see `.gitignore`):
