@@ -44,12 +44,19 @@ Kapoulkine") and for ktx-parse and zstddec ("Copyright (c) Don McCurdy"):
 
 ## Game assets
 
-No asset files are included. You download the Kenney and KayKit packs yourself
-(see `docs/games.md`). Both are CC0 1.0 (public domain): free for any use,
-credit appreciated but not required.
+No asset files are included. You download the packs yourself (see
+`docs/games.md`). All four publishers' packs used here are CC0 1.0 (public
+domain): free for any use, credit appreciated but not required.
 
-- Kenney: www.kenney.nl
-- KayKit by Kay Lousberg: www.kaylousberg.com
+- Kenney: www.kenney.nl (packs at kenney.nl/assets)
+- KayKit by Kay Lousberg: www.kaylousberg.com (packs at kaylousberg.itch.io)
+- Quaternius: quaternius.com (packs at quaternius.com)
+- Pixel Frog: pixelfrog-assets.itch.io (Pixel Adventure 1 and 2, Kings and
+  Pigs, Treasure Hunters, Pirate Bomb)
+
+Only packs released as CC0 are covered. Some publishers release other packs
+under licences that allow using them in games but not sharing the files;
+`games/ingest/prepare-packs.py` leaves those out.
 
 `games/metadata/` holds descriptions, tags and set cards for those assets,
 written by AI for NullKode. They are under NullKode's MIT licence.

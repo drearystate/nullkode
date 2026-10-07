@@ -8,9 +8,9 @@ and every version can be restored. 2D games run on Phaser, 3D games on three.js
 with Rapier physics. A finished game is published like any app, or downloaded
 as a zip that runs on any static web host.
 
-Games are made from a library of free CC0 assets: about 63,000 sprites, 3D
-models, sounds, music and fonts from Kenney and KayKit, each tagged by AI so the
-AI builder can search them. It works with any supported model; larger models
+Games are made from a library of free CC0 assets: about 66,000 sprites, 3D
+models (many rigged and animated), sounds, music and fonts from Kenney, KayKit,
+Quaternius and Pixel Frog, each tagged by AI so the AI builder can search them. It works with any supported model; larger models
 make better games.
 
 This page is for people who run their own NullKode server.
@@ -21,7 +21,7 @@ This page is for people who run their own NullKode server.
 |---|---|
 | Engine kits, design playbook, asset search | `games/` in this repository |
 | AI tags and set cards for the CC0 assets | `games/metadata/` in this repository |
-| The asset files (about 1 GB) | You download the free packs and build the library once (below) |
+| The asset files (about 2.5 GB) | You download the free packs and build the library once (below) |
 
 The asset files are not in the repository: they are large, and the
 publishers ask people to download them from their own sites. Until the library
@@ -31,7 +31,8 @@ is built, the Game Studio says it isn't set up yet; everything else works.
 
 ### 1. Download the packs
 
-Both are CC0 (public domain): free for any use, including commercial games.
+All of them are CC0 (public domain): free for any use, including commercial
+games.
 
 - **Kenney**: every pack is free at [kenney.nl/assets](https://kenney.nl/assets).
   Kenney also sells all of them as one download, "Kenney Game Assets
@@ -41,11 +42,24 @@ Both are CC0 (public domain): free for any use, including commercial games.
   [kaylousberg.itch.io](https://kaylousberg.itch.io) (most have a free
   version), or all of them as "The Complete KayKit Collection" at
   [kaylousberg.itch.io/kaykit-complete](https://kaylousberg.itch.io/kaykit-complete).
+- **Quaternius**: low-poly 3D packs, many with rigged and animated characters,
+  at [quaternius.com](https://quaternius.com). Each pack page has a download
+  link; keep the zips' names as they are. The shipped AI tags cover the 50
+  packs listed in `games/ingest/packs.json` (`"zips"` under `quaternius`).
+  Quaternius releases some newer packs under its own licence, which allows
+  using them in games but not sharing the files. Those zips are skipped, since
+  this library only takes CC0 packs.
+- **Pixel Frog**: pixel-art platformer packs at
+  [pixelfrog-assets.itch.io](https://pixelfrog-assets.itch.io): Pixel
+  Adventure 1 and 2, Kings and Pigs, Treasure Hunters and Pirate Bomb. The
+  shipped AI tags cover Pixel Adventure 1 and Kings and Pigs. Packs on that page
+  that aren't CC0 are skipped.
 
 You can take everything or only the packs you want. The shipped AI tags match
-the All-in-1 3.7.0 bundle and the Complete KayKit Collection v7 exactly. Single
-packs match wherever their names are the same as in the bundles; assets without
-AI tags still get tags made from their file names, so they can be found.
+the All-in-1 3.7.0 bundle, the Complete KayKit Collection v7, and the
+Quaternius and Pixel Frog packs by name. Single Kenney and KayKit packs match
+wherever their names are the same as in the bundles. Assets without AI tags
+still get tags made from their file names, so they can be found.
 
 Put the zips, as downloaded, in `games/packs/`.
 
@@ -67,13 +81,14 @@ export NK_BLENDER=/path/to/blender-4.x/blender
 bash games/setup-library.sh
 ```
 
-It combines the zips (`games/ingest/prepare-packs.py`), unpacks them,
-converts every asset to web formats with a preview picture (`ingest.py`),
-adds the shipped AI tags and set cards, and builds the search index. The first
-run with everything takes a few hours and needs about 6 GB of free space (zips included)
-while it works; the finished library in `games/library/` is about 1 GB, and the
-scratch folder `games/work/` can be deleted afterwards. Running it again only
-processes what changed, so you can add packs later.
+It sorts and combines the zips (`games/ingest/prepare-packs.py`, which
+also says which zips it skipped and why), unpacks them, converts every asset to
+web formats with a preview picture (`ingest.py`), adds the shipped AI tags and
+set cards, and builds the search index. The first run with everything takes a
+few hours and needs about 15 GB of free space (zips included) while it works;
+the finished library in `games/library/` is about 2.5 GB, and the scratch
+folder `games/work/` can be deleted afterwards. Running it again only processes
+what changed, so you can add packs later.
 
 ### 4. Start or restart NullKode
 
@@ -111,8 +126,8 @@ on app domains load them.
 
 ## Tagging new assets (optional)
 
-The shipped tags cover the Kenney and KayKit bundles. To tag assets they don't
-cover, `games/tagging/` asks any OpenAI-compatible API with a model that reads
+The shipped tags cover the Kenney and KayKit bundles and the Quaternius and
+Pixel Frog packs in `games/ingest/packs.json`. To tag assets they don't cover, `games/tagging/` asks any OpenAI-compatible API with a model that reads
 images (a hosted model, or a local one through vLLM, llama.cpp or Ollama):
 
 ```bash
@@ -140,13 +155,14 @@ their assets from the library, so build it first.
 
 ## Licences
 
-- Kenney and KayKit assets: CC0 1.0. Credit is appreciated but not required.
+- Kenney, KayKit, Quaternius and Pixel Frog assets: CC0 1.0. Credit is
+  appreciated but not required.
 - The engine kits include Phaser (MIT), three.js (MIT), Rapier (Apache-2.0)
   and the Draco and Basis decoders (Apache-2.0). Their notices are in
   `games/THIRD-PARTY-NOTICES.md` and in each kit's `licenses/` folder.
 - The AI tags, set cards and everything else in `games/` are NullKode's (MIT).
-- nullkode.com also uses an asset pack whose licence doesn't allow sharing its
-  files. It is not part of this release, and nothing here needs it.
+- nullkode.com also uses two asset packs whose licences don't allow sharing
+  their files. They are not part of this release, and nothing here needs them.
 
 ## Troubleshooting
 
@@ -156,7 +172,10 @@ their assets from the library, so build it first.
 - **Asset search fails**: `games/tools/node_modules` is missing (Docker builds
   it; without Docker run `npm ci --omit=dev` in `games/tools`), or the index
   isn't built (`python3 games/tools/build-index.py`).
-- **A pack was skipped**: `prepare-packs.py` only takes Kenney and KayKit zips.
-  Check that the zip opens and wasn't renamed from another publisher's pack.
+- **A pack was skipped**: `prepare-packs.py` only takes CC0 zips from Kenney,
+  KayKit, Quaternius and Pixel Frog, and prints why it skipped each other zip.
+  Check that the zip opens and wasn't renamed from another publisher's pack. A
+  Quaternius zip without a licence file is only taken if `packs.json` lists it;
+  if its page on quaternius.com says CC0, add a `License.txt` saying so.
 - **3D models missing**: Blender wasn't found. Set `NK_BLENDER` and run the
   script again; only the missing models are processed.

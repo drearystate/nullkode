@@ -808,6 +808,9 @@ model GameVersion {
   check     Json?
   // A small WebP screenshot of the game at this version (from the headless check)
   shot      Bytes?
+  // The planned features and their test status at this version: [{ id, name, priority, how, test, status, last }]
+  // (src/lib/game-studio/features.ts); null for games without planned features. A restore brings them back.
+  features  Json?
   createdAt DateTime @default(now())
 
   game GameProject @relation(fields: [gameId], references: [id], onDelete: Cascade)

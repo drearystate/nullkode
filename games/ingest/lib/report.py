@@ -48,6 +48,17 @@ def _model_bytes(models):
     return out
 
 
+def _bound_textures(models):
+    ids = {m['id'] for m in models}
+    n = 0
+    with open(os.path.join(WORK, 'plan.jsonl')) as f:
+        for l in f:
+            if '"matTextures"' in l:
+                r = json.loads(l)
+                n += r['id'] in ids and bool(r['src'].get('matTextures'))
+    return n
+
+
 def write(packs):
     recs = [json.loads(l) for l in open(os.path.join(LIB, 'catalog.jsonl'))]
     packs_json = read_json(os.path.join(LIB, 'packs.json'), {})
@@ -77,6 +88,14 @@ def write(packs):
     c = collections.Counter(r['kind'] for r in recs)
     L.append('| **all** | %s | **%d** | %s |' % (' | '.join(str(c.get(k, 0)) for k in kinds), len(recs), _mb(total_b)))
     L += ['', 'Licences: kenney and kaykit are `cc0` (redistributable).', '']
+    for p in packs:
+        if p['slug'] in ('kenney', 'kaykit') or not p.get('licenceEvidence'):
+            continue
+        L += ['- %s: `%s`%s. Evidence: %s' % (p['slug'], p['licence'], ' (redistributable)' if p.get('redistributable', True)
+                                             else ' (**NOT redistributable - nullkode.com only, never in the GitHub release**)',
+                                             p['licenceEvidence'])]
+    if any(p.get('licenceEvidence') for p in packs):
+        L.append('')
     # conversions
     models = [r for r in recs if r['kind'] == 'model']
     fmt = collections.Counter((r['pack'], r['metrics'].get('sourceFormat')) for r in models)
@@ -100,6 +119,11 @@ def write(packs):
           '- Rigged: %d, with animation clips: %d. Kenney "Animated Characters" packs: model FBX + separate animation '
           'FBX files merged into one GLB per body type with every clip; skins kept as `texture` assets '
           '(`metrics.skins` / `metrics.skinFor`).' % (rigged, animated),
+          '- Quaternius: one model per name from glTF > FBX > OBJ (format folders of a pack/section are the same '
+          'model; Unity humanoid-rig copies, all-in-one master files and modular body-part kits skipped). FBX/OBJ '
+          'exports carry no texture links, so each model\'s .blend source was probed with Blender for its '
+          'material -> image names and those images were bound before export: %d models. Opacity-0 FBX materials '
+          'made opaque, FBX take names cleaned (`Armature|Death` -> `Death`).' % _bound_textures(models),
           '- Scale: sizes are recorded as-is in metres (`metrics.bbox.size`, `maxDimM`); nothing was rescaled. '
           '%d models carry a `scaleNote` (suspiciously large/small).' % len(scale_notes), '']
     if scale_notes:
@@ -121,6 +145,9 @@ def write(packs):
           '- %d Kenney TextureAtlas XML sheets parsed (%d frames) and also written as Phaser JSON-hash atlases' % (
               len(atlases), sum(r['metrics'].get('frames', 0) for r in atlases)),
           '- %d plain sheets with a detected frame grid (transparent gutters / square strip / sibling frame size)' % len(grids),
+          '- Pixel Frog: %d sheets whose grid comes from the frame size in the file name (`Run (32x32).png`), '
+          'with the publisher\'s fps in `metrics.suggestedFps` (Kings and Pigs 10, Pixel Adventure 20)' % sum(
+              1 for r in grids if r['metrics']['grid'].get('source') == 'file-name'),
           '- %d animations grouped from %d numbered frame files (strip/grid PNG generated, frames kept)' % (
               len(anims), sum(r['metrics'].get('frames', 0) for r in anims)),
           '- %d tilesets; tile parameters from: %s' % (len(tiles), ', '.join('%s %d' % kv for kv in tsrc.most_common())), '']
@@ -165,6 +192,19 @@ def write(packs):
                          ('images', 'sprites: PNG size vs catalog, WebP pixel-identical, preview 256 px, atlas frames in bounds'),
                          ('audio', 'audio: ogg + mp3 decode cleanly, duration within 0.15 s of catalog')):
             xs = verify.get(k, [])
+            L.append('- %s: **%d/%d ok**' % (label, sum(1 for x in xs if x['ok']), len(xs)))
+            for x in xs:
+                if not x['ok']:
+                    L.append('  - FAIL `%s`: %s' % (x['id'], x.get('problems') or x.get('load', {}).get('error')))
+        L.append('')
+    for fn in sorted(os.listdir(STATE)):
+        if not (fn.startswith('verify-') and fn.endswith('.json')):
+            continue
+        v = read_json(os.path.join(STATE, fn), {}) or {}
+        L += ['### Verification of %s only (seed %s, %s)' % (', '.join(v.get('packs', [])), v.get('seed'), v.get('time')), '']
+        for k, label in (('glb', 'GLBs loaded with three.js GLTFLoader + MeshoptDecoder (tris/clips/rig compared to catalog)'),
+                         ('images', 'images: PNG size vs catalog, WebP pixel-identical, preview 256 px')):
+            xs = v.get(k, [])
             L.append('- %s: **%d/%d ok**' % (label, sum(1 for x in xs if x['ok']), len(xs)))
             for x in xs:
                 if not x['ok']:

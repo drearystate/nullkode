@@ -62,6 +62,10 @@ type SearchModule = {
 let loaded: Promise<SearchModule> | null = null;
 
 function mod(): Promise<SearchModule> {
+  // The search tool hides licences the Studio didn't accept yet (its default: "platform-only"). The Studio accepts
+  // every licence in the library now (catalog.ts GAME_LICENCES; non-redistributable ones stay out of exports), so
+  // nothing is hidden here unless the server sets NK_ASSET_HIDE_LICENCES itself. Read once, when the tool loads.
+  if (process.env.NK_ASSET_HIDE_LICENCES === undefined) process.env.NK_ASSET_HIDE_LICENCES = "";
   loaded ??= import(/* webpackIgnore: true */ pathToFileURL(assetSearchModule()).href).then((m) => m as SearchModule).catch((err) => {
     loaded = null;
     throw err;

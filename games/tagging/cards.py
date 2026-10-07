@@ -320,6 +320,9 @@ def title_of(set_id, assets):
         return parts[1]
     if assets[0]["pack"] == "kaykit" and len(parts) > 2:
         return re.sub(r"\s+\d+(\.\d+)*$", "", parts[1])
+    if assets[0]["pack"] in ("quaternius", "pixel-frog") and len(parts) > 1:
+        t = re.sub(r"\s*\[[^\]]*\]$", "", parts[0])  # 'Some Kit[Standard]' -> 'Some Kit'
+        return ("Quaternius " if assets[0]["pack"].startswith("quaternius") else "Pixel Frog ") + t
     return set_id.split("/", 1)[1].replace("-", " ").title()
 
 
@@ -427,15 +430,18 @@ def cmd_index(args):
                      "view": st["views"].most_common(1)[0][0], "engine": engine_for(st), "licence": st["licence"],
                      "redistributable": st["redistributable"], "summary": summary,
                      "card": os.path.relpath(p, LIB) if os.path.exists(p) else None})
-    json.dump(rows, open(os.path.join(CARDS_DIR, "cards.json"), "w"), ensure_ascii=False, indent=0)
+    with open(os.path.join(CARDS_DIR, "cards.json.tmp"), "w") as fh:  # live readers: swap atomically
+        json.dump(rows, fh, ensure_ascii=False, indent=0)
+    os.replace(os.path.join(CARDS_DIR, "cards.json.tmp"), os.path.join(CARDS_DIR, "cards.json"))
     lines = ["# Asset set cards", "", f"{len(rows)} sets. One line each: set | assets | main kinds | style | view | engine | licence | summary.",
              "Open `_cards/<pack>/<set>.md` for the full card.", ""]
     for r in rows:
         kinds = ",".join(k for k, _ in collections.Counter(r["kinds"]).most_common(3))
-        lic = "cc0" if r["licence"] == "cc0" else "CI-no-redistrib"
+        lic = "cc0" if r["licence"] == "cc0" else "not-redistributable"
         lines.append(f"- `{r['set']}` ({r['title']}) | {r['assets']} | {kinds} | {r['style']} | {r['view']} | "
                      f"{r['engine'].split(' ')[0]} | {lic} | {r['summary'][:160]}")
-    open(os.path.join(CARDS_DIR, "INDEX.md"), "w").write("\n".join(lines) + "\n")
+    open(os.path.join(CARDS_DIR, "INDEX.md.tmp"), "w").write("\n".join(lines) + "\n")
+    os.replace(os.path.join(CARDS_DIR, "INDEX.md.tmp"), os.path.join(CARDS_DIR, "INDEX.md"))
     print(f"index: {len(rows)} sets -> {CARDS_DIR}/INDEX.md, cards.json")
 
 

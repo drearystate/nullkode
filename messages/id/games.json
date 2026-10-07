@@ -140,6 +140,14 @@
   "export": {
     "confirmExcluded": "{count, plural, one {# aset} other {# aset}} hanya bisa digunakan di game yang di-host di sini, jadi unduhan tidak menyertakan {count, plural, one {aset ini} other {aset-aset ini}}: {names}. Tetap unduh?"
   },
+  "features": {
+    "allCorePass": "{count, plural, one {Fitur utama lulus pengujian.} other {Semua # fitur utama lulus pengujian.}}",
+    "coreFailing": "Masih belum berfungsi: {names}. Minta saya untuk memperbaikinya.",
+    "coreUnverified": "Tidak bisa diuji secara otomatis: {names}. Coba sendiri.",
+    "extrasFailing": "Fitur tambahan yang belum berfungsi: {names}.",
+    "fixing": "Fitur utama yang belum berfungsi: {names}. Menambahkan langkah untuk memperbaikinya.",
+    "line": "Fitur: {passing} lulus{failing, plural, =0 {} other {, # gagal ({failingNames})}}{unverified, plural, =0 {} other {, # belum terbukti ({unverifiedNames})}}."
+  },
   "gameTitle": "{name} · Studio Game",
   "home": {
     "aiNotReady": "AI belum disiapkan di server ini, jadi game belum bisa dibuat.",
@@ -211,6 +219,24 @@
     "audio": "Suara",
     "controls": "Kontrol",
     "coreLoop": "Cara bermain",
+    "features": {
+      "count": "{passing} dari {total} fitur lulus",
+      "extra": "Tambahan",
+      "help": "Apa yang harus dilakukan game, dan apakah game sudah melakukannya. Setelah setiap langkah pembuatan, pengujian tiap fitur dijalankan pada game sungguhan dengan menekan tombol sungguhan. Jadi, ini menunjukkan apa yang benar-benar berfungsi saat ini.",
+      "status": {
+        "built": "Dibuat",
+        "failing": "Gagal",
+        "passing": "Lulus",
+        "planned": "Direncanakan"
+      },
+      "statusHelp": {
+        "built": "Sudah dibuat, tetapi pengujiannya tidak bisa memeriksanya, jadi belum terbukti berfungsi.",
+        "failing": "Pengujiannya dijalankan pada game sungguhan dan gagal. Baris di bawah menjelaskan hasil pengujian.",
+        "passing": "Pengujiannya dijalankan pada game sungguhan setelah langkah terakhir dan berhasil.",
+        "planned": "Ini akan dibuat pada langkah berikutnya."
+      },
+      "title": "Fitur"
+    },
     "genre": "Jenis game",
     "help": "Desain yang sedang dibuat AI: jenis game, cara bermain, cara menang dan kalah, serta tampilannya.",
     "levels": "Level",
@@ -275,6 +301,9 @@
   },
   "steps": {
     "added": "dari catatanmu",
+    "featureFixHelp": "Pengujian fitur utama gagal, jadi langkah ini memperbaikinya sebelum pembuatan selesai.",
+    "featureFixLabel": "Perbaikan fitur",
+    "featureFixTag": "dari pengujian fitur",
     "followUpLabel": "Catatanmu dari chat",
     "help": "Langkah-langkah pembuatan. Setelah setiap langkah, game disimpan sebagai versi dan kanvas diperbarui agar bisa langsung dimainkan.",
     "keepGoing": "Lanjutkan",
@@ -318,6 +347,8 @@
     "confirmRestore": "Jadikan \"{label}\" sebagai versi game kamu saat ini?",
     "current": "Saat ini",
     "earlier": "Kamu sedang memainkan versi sebelumnya.",
+    "features": "Fitur {passing}/{total}",
+    "featuresHelp": "Jumlah fitur yang direncanakan dan lulus pengujian pada versi ini.",
     "help": "Setiap langkah pembuatan dan pemulihan, dari yang terbaru, beserta gambar game pada saat itu.",
     "none": "Belum ada versi. Versi akan muncul saat AI membuat game.",
     "restore": "Pulihkan",

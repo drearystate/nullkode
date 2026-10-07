@@ -140,6 +140,14 @@
   "export": {
     "confirmExcluded": "{count, plural, one {个素材} other {个素材}} 只能用于在此处托管的游戏，因此下载内容不会包含{count, plural, one {它} other {它们}}：{names}。仍要下载吗？"
   },
+  "features": {
+    "allCorePass": "{count, plural, one {核心功能已通过测试。} other {所有 # 项核心功能均已通过测试。}}",
+    "coreFailing": "仍无法正常运行：{names}。请让我修复它们。",
+    "coreUnverified": "无法自动测试：{names}。请亲自试用。",
+    "extrasFailing": "尚未正常运行的额外功能：{names}。",
+    "fixing": "尚未正常运行的核心功能：{names}。正在添加修复步骤。",
+    "line": "功能：{passing} 项通过{failing, plural, =0 {} other {，# 项未通过（{failingNames}）}}{unverified, plural, =0 {} other {，# 项尚未确认（{unverifiedNames}）}}。"
+  },
   "gameTitle": "{name} · 游戏工作室",
   "home": {
     "aiNotReady": "此服务器尚未配置 AI，因此无法制作游戏。",
@@ -211,6 +219,24 @@
     "audio": "音效",
     "controls": "操作方式",
     "coreLoop": "玩法",
+    "features": {
+      "count": "{passing}/{total} 项功能通过测试",
+      "extra": "额外功能",
+      "help": "游戏必须具备的功能，以及它们是否正常运行。每完成一个构建步骤，都会在真实游戏中通过实际按键测试每项功能，因此这里显示的是当前实际可用的功能。",
+      "status": {
+        "built": "已构建",
+        "failing": "未通过",
+        "passing": "通过",
+        "planned": "计划中"
+      },
+      "statusHelp": {
+        "built": "已构建，但测试无法检查此功能，因此还不能确认它是否正常。",
+        "failing": "测试在真实游戏中运行，但未通过。下方说明了测试结果。",
+        "passing": "上一步完成后，测试在真实游戏中运行并通过。",
+        "planned": "后续构建步骤会添加此功能。"
+      },
+      "title": "功能"
+    },
     "genre": "游戏类型",
     "help": "AI 正在制作的设计：游戏类型、玩法、胜负条件和外观。",
     "levels": "关卡",
@@ -275,6 +301,9 @@
   },
   "steps": {
     "added": "根据你的意见",
+    "featureFixHelp": "一项核心功能未通过测试，因此会在构建完成前修复它。",
+    "featureFixLabel": "修复功能",
+    "featureFixTag": "来自功能测试",
     "followUpLabel": "你在聊天中的意见",
     "help": "制作步骤。每完成一步，游戏都会保存为一个版本并更新画布，你可以马上试玩。",
     "keepGoing": "继续",
@@ -318,6 +347,8 @@
     "confirmRestore": "要将“{label}”设为游戏的当前版本吗？",
     "current": "当前版本",
     "earlier": "你正在试玩较早的版本。",
+    "features": "功能 {passing}/{total}",
+    "featuresHelp": "此版本中通过测试的计划功能数量。",
     "help": "按从新到旧的顺序显示每个构建步骤和恢复操作，并附有游戏在当时的画面。",
     "none": "还没有版本。AI 构建游戏时，版本会显示在这里。",
     "restore": "恢复",

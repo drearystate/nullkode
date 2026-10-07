@@ -117,7 +117,51 @@ def _root_generic(comps):
     return ([slug(clean_dir(comps[0]))], comps[0], 1), None
 
 
-ROOTS = {'kenney': _root_kenney, 'kaykit': _root_kaykit, 'generic': _root_generic}
+def clean_pack_name(name):
+    """'Ultimate Stylized Nature - May 2022' / 'Ships by @Quaternius' / 'Some Kit[Standard]'
+    -> the pack's own name (first id category)."""
+    s = re.sub(r'\s*\[[^\]]*\]\s*$', '', name)
+    s = re.sub(r'\s*by @?Quaternius$', '', s, flags=re.I)
+    s = re.sub(r'\s*-\s*Quaternius$', '', s, flags=re.I)
+    s = re.sub(r'\s*-\s*(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\s+\d{4}$', '', s, flags=re.I)
+    return s.strip()
+
+
+def _root_publisher(comps):
+    """Publisher packs (quaternius, pixel-frog): <pack folder>/... -> <publisher>/<pack>/..."""
+    if len(comps) < 2:
+        return None, 'pack-level docs'
+    return ([slug(clean_pack_name(comps[0]))], clean_pack_name(comps[0]), 1), None
+
+
+ROOTS = {'kenney': _root_kenney, 'kaykit': _root_kaykit, 'generic': _root_generic,
+         'quaternius': _root_publisher, 'pixel-frog': _root_publisher}
+
+# Per-rule-set extras (kept out of the shared tables so existing packs' ids never change).
+EXTRA_SKIP_DIRS = {
+    'quaternius': {
+        'humanoid rig': 'duplicate format (Unity humanoid-rig FBX, no animations)',
+        'humanoid rigs': 'duplicate format (Unity humanoid-rig FBX, no animations)',
+        'humanoid rig versions': 'duplicate format (Unity humanoid-rig FBX, no animations)',
+        'all together': 'all-in-one master file (every model is ingested on its own)',
+        'separate skeletal meshes and animations':
+            'modular body-part meshes + shared animation FBX (each outfit is ingested as a complete rigged character with its clips)',
+        'unreal normals': 'duplicate normal maps (Unreal green-channel convention)',
+    },
+    'pixel-frog': {'aseprite': 'Aseprite source (editable; the PNG exports are kept)'},
+}
+EXTRA_FORMAT_DIRS = {
+    'quaternius': {'blends', 'blend', 'blender', 'textures', 'texture', 'exports', 'glb (godot-unreal)', 'fbx'},
+    'pixel-frog': {'sprites'},
+}
+EXTRA_SKIP_EXT = {
+    '.gif': 'animated preview GIF (pack marketing)', '.mp4': 'preview video (pack marketing)',
+    '.docx': 'docs (licence copied to library per pack)', '.aseprite': 'Aseprite source (editable; the PNG exports are kept)',
+}
+_doc_image = re.compile(r'^(preview\w*|colorspreview|color guide|\w*_atlas_help|importing_\w*|texturetutorial|hello|20 enemies)'
+                        r'\.(png|jpe?g)$', re.I)
+_frame_size = re.compile(r'\s*\((\d{1,3})x(\d{1,3})\)\s*$')
+_num_prefix = re.compile(r'^\d{1,2}-(?=\D)')
 
 
 def analyze(pack, rel):
@@ -134,6 +178,9 @@ def analyze(pack, rel):
     if r is None:
         return None, reason
     root, pack_title, used = r
+    rs = pack.get('rules')
+    if rs in EXTRA_SKIP_DIRS:
+        return _analyze_publisher(pack, rel, rel_n, comps, fname, low, ext, root, pack_title, used)
     dirs = comps[used:-1]
     parts, variant, folders = [], None, []
     for d in dirs:
@@ -179,6 +226,78 @@ def analyze(pack, rel):
     }, None
 
 
+def _analyze_publisher(pack, rel, rel_n, comps, fname, low, ext, root, pack_title, used):
+    """quaternius / pixel-frog. Besides the category parts, records `preparts` (the parts before the first
+    format folder: models of one pack/section in FBX/, OBJ/, glTF/ ... are the same model) and, for pixel
+    art named 'Run (32x32).png', the frame size from the file name."""
+    rs = pack['rules']
+    skip_dirs = EXTRA_SKIP_DIRS[rs]
+    fmt_dirs = FORMAT_DIRS | EXTRA_FORMAT_DIRS[rs]
+    parts, folders, preparts, seen_fmt = [], [], None, False
+    for d in comps[used:-1]:
+        cd = clean_dir(d)
+        if rs == 'pixel-frog':
+            cd = _num_prefix.sub('', cd).replace('Thowing', 'Throwing')  # publisher typo in a folder name
+        lcd = cd.lower()
+        if lcd in skip_dirs:
+            return None, skip_dirs[lcd]
+        if lcd in SKIP_DIRS:
+            return None, SKIP_DIRS[lcd]
+        folders.append(cd)
+        if lcd in fmt_dirs:
+            if not seen_fmt:
+                preparts, seen_fmt = list(parts), True
+            continue
+        parts.append(slug(cd))
+    if preparts is None:
+        preparts = list(parts)
+    if ext in SKIP_EXT:
+        return None, SKIP_EXT[ext]
+    if ext in EXTRA_SKIP_EXT:
+        return None, EXTRA_SKIP_EXT[ext]
+    if ext in IMG_EXT and (_preview_file.match(fname) or _doc_image.match(fname)):
+        return None, 'preview/docs image (pack marketing or instructions)'
+    if re.match(r'^licen[cs]e([_ ].*)?\.(txt|md)$', low):
+        return None, 'licence text (copied to library per pack)'
+    if ext in ('.txt', '.md'):
+        return None, 'text/docs'
+    stem = _stem(fname)
+    if rs == 'quaternius' and stem == 'OBJ' and ext == '.obj':
+        return None, 'stray export named OBJ.obj (same mesh as Suit_Male)'
+    info = {'root': root, 'parts': parts, 'preparts': preparts, 'variant': None, 'folders': folders,
+            'packTitle': pack_title, 'ext': ext, 'stem': stem, 'rel': rel,
+            'sourcePath': rel_n.replace('.zip/', '.zip!/')}
+    if rs == 'pixel-frog':
+        stem = stem.replace('!!!', 'Exclamation').replace('Closiong', 'Closing').replace('Thowing', 'Throwing')
+    m = _frame_size.search(stem)
+    if m and ext in IMG_EXT:
+        info['frameSize'] = [int(m.group(1)), int(m.group(2))]
+        info['stem'] = stem[:m.start()].strip() or stem
+    # 'Bob/glTF/Bob.gltf' (one folder per model): the model is quaternius/<pack>/bob, not .../bob/bob
+    if parts and parts[-1] == slug(info['stem']):
+        info['parts'] = parts[:-1]
+        if preparts and preparts[-1] == parts[-1]:
+            info['preparts'] = preparts[:-1]
+    return info, None
+
+
+def publisher_kind_2d(pack, info):
+    """2D kind for quaternius / pixel-frog images."""
+    fl = [x.lower() for x in info['folders']]
+    words = set(_words(*info['folders'], info['stem']))
+    if pack['rules'] == 'quaternius':
+        if 'icons' in fl:
+            return 'icon'
+        if fl and fl[0] == 'png' and info['packTitle'].lower().startswith('ultimate fantasy rts'):
+            return 'icon'  # 1024 px renders of each building/unit: portrait icons for an RTS UI
+        return 'texture'  # Textures/, Blends/, palettes and atlases at the pack root
+    if 'background' in fl:
+        return 'background'
+    if words & {'menu', 'buttons', 'button', 'levels', 'text', 'dialogue', 'live', 'bar'} or 'live and coins' in ' '.join(fl):
+        return 'ui'
+    return 'sprite'
+
+
 # ---------------------------------------------------------------- kinds & styles
 
 def _words(*strs):
@@ -193,6 +312,8 @@ TEXTURE_PACK_WORDS = ('prototype textures', 'pattern pack', 'retro textures', 'r
 
 
 def kind_2d(pack, info, is_svg=False):
+    if pack.get('rules') in EXTRA_SKIP_DIRS:
+        return publisher_kind_2d(pack, info)
     path_l = ('/'.join(info['folders']) + '/' + info['packTitle']).lower()
     rel_l = info['rel'].lower()
     words = set(_words(info['packTitle'], *info['folders']))
@@ -226,6 +347,10 @@ PIXEL_WORDS = ('pixel', '8bit', '8-bit', 'tiny ', 'micro roguelike', 'pico-8', '
 def style_hints(pack, info, kind, is_svg=False, dims=None):
     p = ('/'.join(info['folders']) + '/' + info['packTitle'] + '/' + info['rel']).lower()
     hints = []
+    if pack.get('rules') == 'pixel-frog':
+        return ['pixel-8bit', 'side-view'] if kind not in ('sfx', 'music', 'font') else ['retro']
+    if pack.get('rules') == 'quaternius' and kind == 'model':
+        return [pack.get('defaultStyle3d', 'low-poly')] + (['voxel'] if 'cube world' in p else [])
     if kind == 'model':
         hints.append(pack.get('defaultStyle3d', 'low-poly'))
         if 'voxel' in p or 'blocky' in p or 'block bits' in p:
@@ -261,12 +386,16 @@ NOISE_TAGS = {'png', 'svg', 'vector', 'default', 'double', 'retina', 'size', 'fo
               'sheet', 'spritesheet', 'spritesheets', 'tilesheet', 'tilemap', 'x', 'mtl', 'audio', 'ogg', 'wav',
               'collection', 'bits', 'early', 'access', 'kay'}
 
+PUBLISHER_NOISE = {'ultimate', 'blends', 'blend', 'blender', 'exports', 'godot', 'unreal', 'unity', 'sprites',
+                   'quaternius', 'standard', 'jpg', 'free'}
+
 
 def tags_for(pack, info, extra=()):
     words = _words(info['packTitle'], *info['folders'], info['stem']) + list(extra)
+    noise = NOISE_TAGS | PUBLISHER_NOISE if pack.get('rules') in EXTRA_SKIP_DIRS else NOISE_TAGS
     out = []
     for w in words:
-        if w in NOISE_TAGS or w.isdigit() or len(w) < 2:
+        if w in noise or w.isdigit() or len(w) < 2:
             continue
         if re.fullmatch(r'\d+(px|x)?', w) or re.fullmatch(r'[a-z]\d+', w) and len(w) <= 2:
             continue

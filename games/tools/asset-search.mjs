@@ -11,16 +11,29 @@
 import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
+import fs from "node:fs";
 
 const require = createRequire(import.meta.url);
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 export const DB_PATH = process.env.NK_ASSET_INDEX || path.join(process.env.NK_GAME_ASSETS || path.resolve(HERE, "../library"), "_index", "assets.db");
 
 let _db = null;
+let _dbIno = 0, _dbChecked = 0;
 function db() {
+  // build-index.py swaps in a new file (rename): a long-running server reopens it instead of reading the
+  // old, unlinked copy forever. Checked at most every 5 s.
+  const now = Date.now();
+  if (_db && now - _dbChecked > 5000) {
+    _dbChecked = now;
+    try {
+      if (fs.statSync(DB_PATH).ino !== _dbIno) { try { _db.close(); } catch { /* ignore */ } _db = null; _idf.clear(); _total = 0; }
+    } catch { /* keep the open handle */ }
+  }
   if (!_db) {
     const Database = require(path.join(HERE, "node_modules", "better-sqlite3"));
     _db = new Database(DB_PATH, { readonly: true, fileMustExist: true });
+    try { _dbIno = fs.statSync(DB_PATH).ino; } catch { _dbIno = 0; }
+    _dbChecked = now;
   }
   return _db;
 }
@@ -156,7 +169,15 @@ function ftsQuery(terms) {
 }
 
 // ------------------------------------------------------------------ filters
+// Licences the Studio's lock builder (game-studio catalog.ts GAME_LICENCES) does not accept yet: hidden from
+// search so the AI never picks an asset the platform then rejects. Empty this (or set NK_ASSET_HIDE_LICENCES="")
+// once the app allows them. An explicit --licence <name> still finds them.
+const HIDDEN_LICENCES = (process.env.NK_ASSET_HIDE_LICENCES ?? "").split(",").map((s) => s.trim()).filter(Boolean);
+
 function addFilters(f, where, params) {
+  const want = String(f.licence || f.license || "");
+  const hide = HIDDEN_LICENCES.filter((l) => l !== want);
+  if (hide.length) { where.push(`a.licence NOT IN (${hide.map(() => "?").join(",")})`); params.push(...hide); }
   const arr = (v) => (Array.isArray(v) ? v : String(v).split(",")).map((s) => s.trim()).filter(Boolean);
   if (f.kind) { const k = arr(f.kind); where.push(`a.kind IN (${k.map(() => "?").join(",")})`); params.push(...k); }
   if (f.style) {
@@ -244,6 +265,9 @@ function rerank(rows, pq, filters) {
     let s = coverage * 10 + nameHits * 1.5 + Math.min(4, -r.bm25 / 4) - 0.5 * missing;
     // soft hints (ignored when the caller fixed the same filter)
     if (h.kind && !filters.kind) s += h.kind.includes(r.kind) ? (h.kind[0] === r.kind ? 4 : 2.5) : -3;
+    // Model/sprite packs ship their colour maps as 'texture' assets tagged with the object's words (a mech's
+    // skin says "mech"): unless textures are asked for, the object itself should come first.
+    else if (!filters.kind && r.kind === "texture") s -= 2;
     if (h.dim && !filters.dim) s += r.dim === h.dim ? 1.5 : -2;
     if (h.animated && filters.animated === undefined) s += r.animated ? 3 : -1;
     if (h.rigged) s += r.rigged ? 2 : 0;
@@ -386,6 +410,8 @@ export function searchSets(query, filters = {}) {
   const pq = parseQuery(query);
   const where = [], params = [];
   if (filters.licence === "exportable" || filters.licence === "open-source") where.push("s.redistributable = 1");
+  const hideSets = HIDDEN_LICENCES.filter((l) => l !== filters.licence);
+  if (hideSets.length) { where.push(`s.licence NOT IN (${hideSets.map(() => "?").join(",")})`); params.push(...hideSets); }
   if (filters.pack) { where.push("s.set_id LIKE ?"); params.push(filters.pack + "%"); }
   if (filters.engine) { where.push("s.engine LIKE ?"); params.push(filters.engine + "%"); }
   if (!pq.terms.length) {

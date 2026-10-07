@@ -30,7 +30,7 @@ export async function GET(_req: Request, ctx: Ctx) {
       .slice(0, 200)
       .map((k) => {
         const e = getEntry(k);
-        return { id: k, name: String(e?.name ?? k.split("/").pop()), kind: String(e?.kind ?? lock[k].kind ?? ""), licence: String(e?.licence ?? lock[k].licence ?? ""), preview: typeof e?.previewUrl === "string" ? e.previewUrl : null };
+        return { id: k, name: String(e?.name ?? k.split("/").pop()), kind: String(e?.kind ?? lock[k].kind ?? ""), licence: String(e?.licence ?? lock[k].licence ?? ""), redistributable: (e?.redistributable ?? lock[k].redistributable) !== false, preview: typeof e?.previewUrl === "string" ? e.previewUrl : null };
       });
     return {
       game,

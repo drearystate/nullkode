@@ -14,11 +14,14 @@ import xml.etree.ElementTree as ET
 
 from common import (UNPACKED, LIB, WORK, STATE, STAGE3D, TMP, PREVIEWS, BLENDER, NODE, HERE, WORKERS,
                     PIPELINE_VERSION, read_json, write_json, sha256_file, atomic_copy, state_path, id_hash,
-                    url_of, log)
+                    url_of, log, load_packs)
 
 PROC_VERSION = {'image': 5, 'svg': 3, 'atlas': 3, 'tileset': 3, 'anim': 4, 'audio': 2, 'font': 1,
                 'model': 1, 'charpack': 3}
 PREVIEW = 256
+PUBLISHER_VERSION = 3  # bump to reprocess only the quaternius / pixel-frog packs
+# packs whose rules set is a publisher one (quaternius, pixel-frog): conversion extras, frame size from file names
+PUBLISHER_PACKS = {p['slug'] for p in (load_packs() or []) if p.get('rules') in ('quaternius', 'pixel-frog')}
 
 # --------------------------------------------------------------------------- helpers
 
@@ -29,9 +32,11 @@ def src_abs(rec, rel):
 
 def fingerprint(rec):
     h = hashlib.sha1()
-    h.update(json.dumps([PIPELINE_VERSION, PROC_VERSION.get(rec['proc']), rec['id'], rec['kind'], rec['src'],
-                         rec.get('srcSha'), rec.get('frameShas'), rec.get('tileHints'),
-                         rec.get('siblingTileSize')], sort_keys=True).encode())
+    parts = [PIPELINE_VERSION, PROC_VERSION.get(rec['proc']), rec['id'], rec['kind'], rec['src'],
+             rec.get('srcSha'), rec.get('frameShas'), rec.get('tileHints'), rec.get('siblingTileSize')]
+    if rec['pack'] in PUBLISHER_PACKS:  # appended only for these packs so older fingerprints stay the same
+        parts.append([PUBLISHER_VERSION, rec.get('frameSize'), rec.get('fps')])
+    h.update(json.dumps(parts, sort_keys=True).encode())
     return h.hexdigest()
 
 
@@ -222,14 +227,67 @@ def proc_image(rec, ctx):
     kind = rec['kind']
     stem = os.path.splitext(os.path.basename(rec['src']['primary']))[0]
     extra = []
-    if kind in ('sprite', 'background', 'texture') and (SHEET_NAME.search(stem) or
+    fs = rec.get('frameSize')
+    if fs and w % fs[0] == 0 and h % fs[1] == 0:
+        cols, rows = w // fs[0], h // fs[1]
+        g = {'frameWidth': fs[0], 'frameHeight': fs[1], 'columns': cols, 'rows': rows, 'frames': cols * rows,
+             'source': 'file-name'}
+        if cols * rows >= 2:
+            metrics['grid'] = g
+            metrics['frameWidth'], metrics['frameHeight'], metrics['frames'] = fs[0], fs[1], cols * rows
+            if rec.get('fps'):
+                metrics['suggestedFps'] = rec['fps']
+            kind = 'spritesheet'
+            extra.append('grid-sheet')
+        else:
+            kind = 'sprite' if kind == 'spritesheet' else kind
+    elif fs:
+        metrics['frameSizeFromName'] = fs  # name says WxH but the image doesn't divide evenly: look for gutters
+        g = detect_grid(rgba)
+        if g and (g['frameWidth'] * g['columns'] > w or g['frameHeight'] * g['rows'] > h):
+            g = None  # gutter period overruns the image: not a real grid
+        if not (g and g['source'] == 'transparent-gutters'):
+            # frames of equal width whose content is not evenly placed (speech bubbles growing in): n blobs, w % n == 0
+            import numpy as np
+            occ = list(np.asarray(rgba)[:, :, 3].max(axis=0) > 0)
+            n = sum(1 for i, v in enumerate(occ) if v and (i == 0 or not occ[i - 1]))
+            g = ({'frameWidth': w // n, 'frameHeight': h, 'columns': n, 'rows': 1, 'frames': n, 'source': 'equal-blobs'}
+                 if n >= 2 and w % n == 0 else None)
+        if g and g['frames'] >= 2 and g['source'] in ('transparent-gutters', 'equal-blobs'):
+            metrics['grid'] = g
+            metrics['frameWidth'], metrics['frameHeight'], metrics['frames'] = g['frameWidth'], g['frameHeight'], g['frames']
+            if rec.get('fps'):
+                metrics['suggestedFps'] = rec['fps']
+            kind = 'spritesheet'
+            extra.append('grid-sheet')
+        elif kind == 'spritesheet':
+            kind = 'sprite'
+    elif rec['pack'] in PUBLISHER_PACKS and kind in ('sprite', 'ui') and w >= 2 * h and w % h == 0 and h <= 64 \
+            and not rec['src'].get('alts'):
+        # Pixel Frog strips without a size in the name (fruits, 'Collected'): square frames
+        g = detect_grid(rgba)
+        if g and g['source'] in ('square-strip', 'transparent-gutters') and g['frameWidth'] == h:
+            metrics['grid'] = g
+            metrics['frameWidth'], metrics['frameHeight'], metrics['frames'] = h, h, g['frames']
+            if rec.get('fps'):
+                metrics['suggestedFps'] = rec['fps']
+            kind = 'spritesheet'
+            extra.append('grid-sheet')
+    if 'grid' in metrics:
+        pass
+    elif kind in ('sprite', 'background', 'texture') and (SHEET_NAME.search(stem) or
                                                           (max(w, h) >= 3 * min(w, h) and min(w, h) <= 128)):
         g = detect_grid(rgba, ctx.get('frameHint', {}).get(rec['id']))
         if g and (SHEET_NAME.search(stem) or g['source'] != 'square-strip' or min(w, h) <= 64):
             metrics['grid'] = g
             kind = 'spritesheet'
             extra.append('grid-sheet')
-    prev = save_preview(rgba, rec['id'], pixel, crop=kind in ('sprite', 'ui', 'icon'))
+    g = metrics.get('grid')
+    if rec['pack'] in PUBLISHER_PACKS and g and g['rows'] == 1 and g['frames'] >= 2:
+        # animation strip: preview its first frame (a 12-frame strip shrunk to 256 px shows nothing)
+        prev = save_preview(rgba.crop((0, 0, g['frameWidth'], g['frameHeight'])), rec['id'], pixel, crop=True)
+    else:
+        prev = save_preview(rgba, rec['id'], pixel, crop=kind in ('sprite', 'ui', 'icon'))
     style = list(rec.get('style', []))
     if pixel and not any(s.startswith('pixel') for s in style) and isinstance(metrics.get('colors'), int) \
             and metrics['colors'] <= 32 and max(w, h) <= 64:
@@ -642,6 +700,11 @@ def run_3d(recs):
                        'skin': skins[0] if skins else None}
             else:
                 job = {'type': 'convert', 'input': src_abs(r, r['src']['primary'])}
+                if r['pack'] in PUBLISHER_PACKS:
+                    # Quaternius FBX/OBJ: textures named by the .blend sources, opacity-0 fix, clean clip names
+                    job['matTextures'] = {m: src_abs(r, p) for m, p in (r['src'].get('matTextures') or {}).items()}
+                    job['fixAlpha'] = True
+                    job['cleanClips'] = True
             job.update(output=r['_stage'], result=r['_conv_res'])
             conv.append(job)
     log('3D: %d conversions (Blender)' % len(conv))

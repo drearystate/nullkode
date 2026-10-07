@@ -53,7 +53,10 @@ def main():
             catalog.sheets()
         elif st == 'verify':
             import verify
-            verify.run()
+            if args.pack:
+                verify.run(n_glb=args.limit or 30, n_img=args.limit or 30, packs=set(args.pack))
+            else:
+                verify.run()
         elif st == 'report':
             import report
             report.write(load_packs())

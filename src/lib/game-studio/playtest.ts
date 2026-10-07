@@ -56,7 +56,7 @@ const Review = z.object({
 });
 
 /** The files the reviewer reads: config, levels, entities, scenes, cut to a budget. */
-function reviewFiles(files: GameFiles, budget = 14_000): string {
+export function reviewFiles(files: GameFiles, budget = 14_000): string {
   const order = (p: string) => (p === "src/config.js" ? 0 : p === "src/levels.js" ? 1 : p.startsWith("src/entities/") ? 2 : p.startsWith("src/scenes/") ? 3 : p.startsWith("levels/") ? 4 : 5);
   let left = budget;
   const out: string[] = [];
@@ -98,12 +98,14 @@ export async function playtest(opts: {
   visual?: boolean;
   spec?: VisualSpec | null;
   engine?: Engine;
+  /** The planned features' test results (features.ts), as facts. */
+  featureFacts?: string[];
 }): Promise<PlaytestResult | null> {
   const probe = opts.check?.probe;
   if (!probe) return null;
   const raw = probe.spawnShot ? await sharp(probe.spawnShot).removeAlpha().raw().toBuffer({ resolveWithObject: true }).catch(() => null) : null;
   const auto = autoChecks(probe, opts.stage, raw ? { data: raw.data, width: raw.info.width, height: raw.info.height, channels: raw.info.channels } : null);
-  const facts = [...auto.facts, `headless run: state ${opts.check?.state ?? "?"}, ${opts.check?.errors.length ?? 0} errors${opts.check?.fps ? `, ${opts.check.fps} fps (software rendering on the server, not representative)` : ""}`];
+  const facts = [...auto.facts, ...(opts.featureFacts ?? []), `headless run: state ${opts.check?.state ?? "?"}, ${opts.check?.errors.length ?? 0} errors${opts.check?.fps ? `, ${opts.check.fps} fps (software rendering on the server, not representative)` : ""}`];
   const findings: Finding[] = auto.findings.map((f) => ({ id: f.id, severity: f.severity, say: autoSay(opts.t, f), fix: f.fix, evidence: f.evidence, auto: true }));
   let reviewed = false;
   const items = opts.stage === "fix" ? [] : checklistFor(opts.stage);

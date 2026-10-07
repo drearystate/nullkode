@@ -140,6 +140,14 @@
   "export": {
     "confirmExcluded": "{count, plural, one {# Element} other {# Elemente}} können nur in Spielen verwendet werden, die hier gehostet werden. Deshalb enthält der Download {count, plural, one {es} other {sie}} nicht: {names}. Trotzdem herunterladen?"
   },
+  "features": {
+    "allCorePass": "{count, plural, one {Die wichtige Funktion hat den Test bestanden.} other {Alle # wichtigen Funktionen haben ihre Tests bestanden.}}",
+    "coreFailing": "Funktioniert noch nicht: {names}. Bitte mich, das zu beheben.",
+    "coreUnverified": "Konnte nicht automatisch getestet werden: {names}. Probier es selbst aus.",
+    "extrasFailing": "Diese Zusatzfunktionen funktionieren noch nicht: {names}.",
+    "fixing": "Diese wichtigen Funktionen funktionieren noch nicht: {names}. Ich füge einen Schritt hinzu, um sie zu beheben.",
+    "line": "Funktionen: {passing} bestanden{failing, plural, =0 {} other {, # nicht bestanden ({failingNames})}}{unverified, plural, =0 {} other {, # nicht bestätigt ({unverifiedNames})}}."
+  },
   "gameTitle": "{name} · Spielestudio",
   "home": {
     "aiNotReady": "Die KI ist auf diesem Server noch nicht eingerichtet. Daher können keine Spiele erstellt werden.",
@@ -211,6 +219,24 @@
     "audio": "Sound",
     "controls": "Steuerung",
     "coreLoop": "Spielablauf",
+    "features": {
+      "count": "{passing} von {total} Funktionstests bestanden",
+      "extra": "Zusatz",
+      "help": "Was das Spiel können muss und ob es das kann. Nach jedem Entwicklungsschritt wird jede Funktion im echten Spiel mit echten Tastendrücken getestet. So siehst du, was gerade wirklich funktioniert.",
+      "status": {
+        "built": "Erstellt",
+        "failing": "Nicht bestanden",
+        "passing": "Bestanden",
+        "planned": "Geplant"
+      },
+      "statusHelp": {
+        "built": "Erstellt, aber der Test konnte die Funktion nicht prüfen. Sie ist also noch nicht bestätigt.",
+        "failing": "Die Funktion wurde im echten Spiel getestet und hat nicht bestanden. In der Zeile darunter steht, was der Test festgestellt hat.",
+        "passing": "Die Funktion wurde nach dem letzten Schritt im echten Spiel getestet und hat bestanden.",
+        "planned": "Das entsteht in einem späteren Entwicklungsschritt."
+      },
+      "title": "Funktionen"
+    },
     "genre": "Spielart",
     "help": "Der Entwurf, den die KI umsetzt: die Art des Spiels, wie du spielst, wie du gewinnst und verlierst und wie es aussieht.",
     "levels": "Level",
@@ -275,6 +301,9 @@
   },
   "steps": {
     "added": "aus deinem Hinweis",
+    "featureFixHelp": "Eine wichtige Funktion hat den Test nicht bestanden. In diesem Schritt wird sie behoben, bevor der Bau abgeschlossen ist.",
+    "featureFixLabel": "Fehler bei Funktionen beheben",
+    "featureFixTag": "auf Grundlage der Funktionstests",
     "followUpLabel": "Deine Hinweise aus dem Chat",
     "help": "Die Entwicklungsschritte. Nach jedem Schritt wird das Spiel als Version gespeichert und die Vorschau aktualisiert, damit du es sofort spielen kannst.",
     "keepGoing": "Weiterarbeiten",
@@ -318,6 +347,8 @@
     "confirmRestore": "Möchtest du „{label}“ zur aktuellen Version deines Spiels machen?",
     "current": "Aktuell",
     "earlier": "Du spielst eine frühere Version.",
+    "features": "Funktionen {passing}/{total}",
+    "featuresHelp": "So viele der geplanten Funktionen haben in dieser Version ihre Tests bestanden.",
     "help": "Alle Erstellungsschritte und Wiederherstellungen, neueste zuerst, mit einem Bild des Spiels zu diesem Zeitpunkt.",
     "none": "Noch keine Versionen. Sie erscheinen, während die KI das Spiel erstellt.",
     "restore": "Wiederherstellen",

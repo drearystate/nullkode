@@ -72,12 +72,26 @@ Rules:
 - assetSearches: 6-12 searches covering the hero, the world/level art, collectibles, enemies or hazards, a background, music and 3-5 sound effects. Use concrete nouns ("cat character side view", "fish pickup", "coin sound").
 - "visual" is the game's art direction, decided by you from the idea, its genre and mood (never ask the person): deliberate choices for THIS game, not a default look. 5-7 palette colours with hex values that work together (contrast between hero, danger, pickups and background). Keep it consistent with the art style and the kind of assets the searches will find.`;
 
+/**
+ * How a feature test is written (features.ts runs them). In the plan, change, revision and test-fix prompts;
+ * the step prompt only gets the probe rule and this step's tests.
+ */
+export const FEATURE_TEST_RULES = `FEATURE TESTS (each runs in a headless browser on the real game after every build step: a new game, 0.5 s to land, then "steps" as real input, then every "expect" must be true):
+- steps (max 12, 15 s in all; times are GAME ms): {"key": "ArrowRight", "holdMs": 600} (KeyboardEvent.code names: ArrowLeft/Right/Up/Down, Space, KeyA…; never Escape or P), {"keys": ["ArrowRight", "Space"], "holdMs": 300}, {"down": "ArrowRight"} … {"up": "ArrowRight"}, {"tap": "<touch action>"}, {"click": [0.5, 0.5]} (canvas fraction), {"waitMs": 500}.
+- expect (1-4): READ-ONLY JavaScript expressions over NK.run (now), start.run / start.player {x,y,z} (at the start), player {x,y,z,vx,vy} (now; 2D pixels, y grows DOWN; 3D metres, y up), track.minX/maxX/minY/maxY (the player during the steps), track.max.<key> / track.min.<key> (NK.run numbers during the steps), track.states (e.g. track.states.includes("over")), state, and this = the play scene. No assignments; no calls except Math.*, some/every/filter/find/includes (with an arrow function) and countActive.
+- Prove the feature itself, not "no crash": an observable result of the input (an NK.run counter, a position change, a state). Use the brief's controls and what is near the start of the first level; never a long precise route.
+- Name the counters a test reads (jumps, kills, pickups, doorsOpened…): the game keeps them in NK.run (defaults in config.run).`;
+
+/** Features as the AI writes them (plan, change, revision). */
+const FEATURE_JSON = `{"id": "kebab-id", "name": "what the player calls it (max 6 words)", "priority": "core" or "extra", "how": "one sentence: what the player does and what happens", "test": {"steps": [{"key": "Space"}, {"waitMs": 150}, {"key": "Space"}], "expect": ["NK.run.jumps >= 2", "track.minY < start.player.y - 150"]}}`;
+
 export const PLAN_TASK = `TASK: Pick the game's assets from the search results and plan the build steps.
 
 Reply with ONLY a JSON object:
 {
   "assets": [{"key": "short-key", "id": "<an exact id from the results>", "use": "what it is in the game"}],
-  "steps": [{"id": "kebab-id", "label": "what the player will see after this step (max 6 words)", "goal": "concretely what this step adds, which files and assets"}],
+  "features": [${FEATURE_JSON}],
+  "steps": [{"id": "kebab-id", "label": "what the player will see after this step (max 6 words)", "goal": "concretely what this step adds, which files and assets", "features": ["ids of the features this step builds"]}],
   "message": "one sentence to the person about the plan",
   "assetNotes": "the compatible asset subset you picked and how to normalise it: one tile/pixel size, the hero/enemy/prop scales relative to a tile, tints to match the palette, what to leave out"
 }
@@ -86,17 +100,24 @@ Rules:
 - One main art set for the world and characters (same style and view; "Never mix style families"). UI, audio and fonts may come from other sets.
 - Prefer a spritesheet (atlas) of a set over many single sprites: one load, frame names known.
 - 10-24 assets: hero, level/tiles, background, collectibles, enemies/hazards, goal, music, 3-6 sound effects.
-- steps: 6-9 steps that follow the ENGINE CARD's build-step order, and build a REPRESENTATIVE PLAYABLE SECTION early: by step 3-4 the hero plays in a short slice of the real level with the final art, palette, HUD style and feedback, so the visual language is resolved before the game is extended (more level, enemies, levels). Every step finishes the visuals of what it adds; never defer art, layout, animation or feedback to a later "polish" step. Goals name only the kit's own files (src/config.js, src/assets.js, src/levels.js, src/entities/*.js, src/scenes/*.js, levels/*.json), never index.html or a main.js. Step 1 is the shell (config + the empty Game scene with a visible backdrop). Every step adds something you can SEE or PLAY, and leaves the game running on its own. The last step is polish (touch controls, juice, sounds) — never "testing".`;
+- steps: 6-9 steps that follow the ENGINE CARD's build-step order, and build a REPRESENTATIVE PLAYABLE SECTION early: by step 3-4 the hero plays in a short slice of the real level with the final art, palette, HUD style and feedback, so the visual language is resolved before the game is extended (more level, enemies, levels). Every step finishes the visuals of what it adds; never defer art, layout, animation or feedback to a later "polish" step. Goals name only the kit's own files (src/config.js, src/assets.js, src/levels.js, src/entities/*.js, src/scenes/*.js, levels/*.json), never index.html or a main.js. Step 1 is the shell (config + the empty Game scene with a visible backdrop). Every step adds something you can SEE or PLAY, and leaves the game running on its own. The last step is polish (touch controls, juice, sounds) — never "testing".
+- features: 3-8, the game's mechanics the player would name ("Double jump", "Collect 10 fish", "Door opens with all fish", "Stomp enemies"): "core" = the idea doesn't work without it, "extra" = nice to have. Every feature is built by exactly one step (the first that makes it work: its "features"); every core feature has a step.
+
+${FEATURE_TEST_RULES}`;
 
 export const CHANGE_TASK = `TASK: The person asked for a change to their game. Plan it as 1-3 small build steps (one step for a small tweak like "jump higher").
 
 Reply with ONLY a JSON object:
 {
   "message": "one sentence to the person about what you'll change",
-  "steps": [{"id": "kebab-id", "label": "max 6 words", "goal": "concretely what to change, in which files"}],
+  "steps": [{"id": "kebab-id", "label": "max 6 words", "goal": "concretely what to change, in which files", "features": ["ids of the features this step builds or changes"]}],
+  "features": [new or changed features, as ${FEATURE_JSON}],
   "assetSearches": [{"query": "...", "kind": "...", "dim": "2d|3d|audio"}]
 }
-assetSearches: only when the change needs art or sound the game doesn't have yet (e.g. "swap the hero for a robot"); else [].`;
+assetSearches: only when the change needs art or sound the game doesn't have yet (e.g. "swap the hero for a robot"); else [].
+features: a new mechanic the player would name ("a dash") is a new feature with a test; a change to a listed FEATURE uses its id (its test is rewritten to match). A pure look or tuning change ("jump higher", "make it blue"): [] (the existing tests keep running) unless it changes what a test checks. Each feature in exactly one step's "features".
+
+${FEATURE_TEST_RULES}`;
 
 export function stepSystem(engine: Engine, locale: Locale, genreId?: string | null, spec?: VisualSpec | null): string {
   return [
@@ -122,6 +143,7 @@ const STEP_RULES = `HOW TO WRITE A STEP
 - Never write index.html or assets.lock.json (the platform writes them from the ids you use).
 - game.json "files" lists every script in load order (config, assets, levels, entities, then scenes).
 - Keep the player in this.player and run state (score, lives, level, items) in NK.run with defaults in config.run.
+- FEATURE TESTS run on the real game after every step (FEATURES below): make this step's pass, keep the earlier ones passing. TEST PROBES: count what a feature does in NK.run under the exact names its test reads (e.g. NK.run.jumps++ on every jump; defaults in config.run). Never special-case a test.
 - Real game feel: sensible speeds and gravity, camera follow, readable HUD, sounds on actions, a win and a lose state when the step calls for them.
 
 OUTPUT FORMAT (nothing else):
@@ -197,14 +219,17 @@ export function reviseSystem(engine: Engine, locale: Locale, maxNew: number): st
 
 Reply with ONLY a JSON object:
 {
-  "steps": [{"id": "kebab-id", "label": "what the player will see after this step (max 6 words)", "goal": "concretely what this step adds, which files and assets"}],
-  "notes": [{"id": "<note id>", "step": "<the id of the step that will carry it out>"}]
+  "steps": [{"id": "kebab-id", "label": "what the player will see after this step (max 6 words)", "goal": "concretely what this step adds, which files and assets", "features": ["ids of NEW features it builds"]}],
+  "notes": [{"id": "<note id>", "step": "<the id of the step that will carry it out>"}],
+  "features": [only for a note that adds a new mechanic the player would name: ${FEATURE_JSON}]
 }
 Rules:
 - "steps" is the full list of REMAINING steps in the order to build them. Keep every remaining step (same id, label and goal); you may move one earlier when a note makes it more urgent.
 - Add a new step only when no remaining step can reasonably include the note: at most ${maxNew} new step${maxNew === 1 ? "" : "s"}. A note that fits an existing step goes to that step.
 - Every note gets a "step" from your list. The first remaining step runs next.
-- Goals name only the kit's own files (src/config.js, src/assets.js, src/levels.js, src/entities/*.js, src/scenes/*.js, levels/*.json). Every step leaves the game running and playable.`,
+- Goals name only the kit's own files (src/config.js, src/assets.js, src/levels.js, src/entities/*.js, src/scenes/*.js, levels/*.json). Every step leaves the game running and playable.
+- "features": usually []. A note that adds a new mechanic ("add a dash") gets one feature with a test, built by the step that carries the note (list its id in that step's "features"; an existing step may take it).`,
+    `${FEATURE_TEST_RULES}`,
     `ENGINE: ${engine}.`,
     personWords(locale, 'every new "label"'),
   ]
@@ -238,10 +263,25 @@ export function playtestSystem(locale: Locale, items: Array<{ id: string; severi
 {"findings": [{"id": "PT-xx", "say": "one short sentence for the game's owner, plain words, no ids or code", "evidence": "the number or what the screenshot shows", "fix": "which file and what to change"}]${opts.visual ? `,
  "visual": [{"say": "one short sentence for the owner: the visible problem", "evidence": "where on which screenshot", "fix": "which file and what to change, concretely"}]` : ""}}
 Rules:
+- FEATURE TESTS in the FACTS ran on the real game with real input: trust them. Don't report what they prove (a passing feature works; a failing one is being fixed); judge feel, fairness, readability and looks.
 - "findings": checklist items that FAIL, at most 6, most serious first. Include every AUTOMATIC FINDING given to you (same id) with its "say" and "fix", plus what you find yourself. Report a failure only with evidence (a fact, a line of code, or something visible on a screenshot). Items about parts the game doesn't have yet are not failures at this stage. Nothing fails: [].${opts.visual ? `
 - "visual": the 3 MOST CONSEQUENTIAL visible problems a player would notice at play resolution (things that don't belong to the same game, unclear gameplay focus, accidental empty areas or clutter, interface or motion that doesn't match, placeholders, broken assets, awkward intersections, unreadable elements, inconsistent scales), most consequential first. Only real, visible problems on the screenshots; if the game already looks finished and cohesive: [].` : ""}`,
     personWords(locale, 'every "say"'),
   ]
     .filter(Boolean)
     .join("\n\n");
+}
+
+/* ───────────── Feature tests (features.ts) ───────────── */
+
+/** Rewriting tests that are at fault themselves (an expression error, a counter the game never had). */
+export function featureTestFixSystem(engine: Engine): string {
+  return [
+    STUDIO,
+    `TASK: Some feature tests are broken themselves (not the game): an expectation threw an error, or reads something the game never has. Rewrite each test so it checks the same feature against THIS game as its files are now: the game's real NK.run keys, this.player, the scene's real fields, the controls the game binds. Keep the feature's meaning; don't make it trivially true (a test that passes on a game without the feature is worthless). If the feature needs a counter the game doesn't keep, test an observable effect instead (position, state, a group's countActive()).
+
+Reply with ONLY a JSON object: {"tests": [{"id": "<feature id>", "test": {"start": true, "steps": [...], "expect": ["..."]}}]}`,
+    FEATURE_TEST_RULES,
+    `ENGINE: ${engine}.`,
+  ].join("\n\n");
 }

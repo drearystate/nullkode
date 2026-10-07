@@ -34,6 +34,18 @@
  *    reaches a step; a note sent during the last step gets a follow-up step;
  *    "Stop after this step" and "Stop now" (the running AI call is aborted,
  *    the last good version stays); notes charge nothing;
+ *  - planned features with real tests: the plan's features + tests; a step
+ *    that breaks its new feature is caught by the test (real key presses in
+ *    the headless check) and repaired with the test output; a regression from
+ *    a later step is caught; a broken test is rewritten once; per-step chat
+ *    lines and per-version status; the end gate adds a "Feature fixes" step
+ *    when a core feature still fails, and the last message names what still
+ *    fails; a chat change adds a feature with a test; a note adds one; restore
+ *    brings a version's feature status back; the plan card's Features section
+ *    (en + ar, 1440 + 390);
+ *  - licences: Quaternius platform-only (platform-only) assets are searchable,
+ *    usable in games and left out of downloads (redistributable: false), with
+ *    the "Hosted only" badge;
  *  - publish: the game becomes an app whose page boots the game and plays;
  *  - download: a .zip with the engine and CC0 assets, Platform-only pack assets
  *    left out and listed;
@@ -54,6 +66,8 @@ import argon2 from "argon2";
 import JSZip from "jszip";
 import { chromium, type Browser, type BrowserContext, type Frame, type Page } from "playwright";
 import { startInstance, installOperator, checker, warmApp, type Agent, type Instance } from "./e2e-harness";
+import { buildLock } from "../src/lib/game-studio/catalog";
+import { exportPreview } from "../src/lib/game-studio/export";
 
 const port = Number(process.env.E2E_PORT || 3321);
 const mockPort = port + 1;
@@ -84,8 +98,8 @@ function fileBlocks(files: Record<string, string>, note: string): string {
   return Object.entries(files).map(([p, c]) => `=== FILE ${p}\n${c}\n=== END`).join("\n") + `\nNOTE: ${note}`;
 }
 
-/** Step label → what the mock writes for it. */
-const STEPS: Record<string, { fixture?: number; three?: boolean; slow?: boolean | number; broken?: "once" | "always"; search?: boolean; gappy?: boolean }> = {
+/** Step label → what the mock writes for it. `breaks`: a feature the first try breaks (the repair after its failed test fixes it; `always`: never). */
+const STEPS: Record<string, { fixture?: number; three?: boolean; slow?: boolean | number; broken?: "once" | "always"; search?: boolean; gappy?: boolean; breaks?: "coins" | "jump"; always?: boolean }> = {
   "Dungeon shell": { fixture: 1, three: true },
   "Dungeon hall": { fixture: 2, three: true },
   "Knight hero": { fixture: 3, three: true },
@@ -93,8 +107,8 @@ const STEPS: Record<string, { fixture?: number; three?: boolean; slow?: boolean 
   "Art and backdrop": { fixture: 2, search: true },
   "First level": { fixture: 3 },
   "Hero and controls": { fixture: 4, broken: "once" },
-  "Fish and score": { fixture: 5 },
-  "Enemies and lives": { fixture: 6 },
+  "Fish and score": { fixture: 5, breaks: "coins" },
+  "Enemies and lives": { fixture: 6, breaks: "jump" },
   "Goal and second level": { fixture: 7 },
   "Touch controls and polish": { fixture: 8 },
   "Doomed step": { broken: "always" },
@@ -108,7 +122,23 @@ const STEPS: Record<string, { fixture?: number; three?: boolean; slow?: boolean 
   "Gappy level": { fixture: 3, gappy: true },
   "Playtest fixes": { fixture: 3 },
   "Playtest hero": { fixture: 4 },
+  // The feature end gate: a polish step whose coins never count, then the fix.
+  "Coinless polish": { fixture: 8, breaks: "coins", always: true },
+  "Feature fixes": { fixture: 8 },
 };
+/** A feature broken on purpose: coins no longer counted, or the jump gone. */
+function breakFeature(files: Record<string, string>, what: "coins" | "jump"): Record<string, string> {
+  if (what === "coins") return { ...files, "src/scenes/game.js": files["src/scenes/game.js"].replace("NK.run.coins++;", "") };
+  return { ...files, "src/entities/player.js": files["src/entities/player.js"].replace("body.setVelocityY(-1000);", "body.setVelocityY(-1);") };
+}
+/** The main build's planned features (calibrated on the sample game: real key presses in game time). "three-lives" reads a run key the game never has: a bad test, rewritten once. */
+const FEATURES = {
+  runJump: { id: "run-jump", name: "Run and jump", priority: "core", how: "Arrows run, Space jumps.", test: { steps: [{ key: "ArrowRight", holdMs: 400 }, { key: "Space", holdMs: 250 }, { waitMs: 100 }], expect: ["track.maxX > start.player.x + 60", "track.minY < start.player.y - 60"] } },
+  coins: { id: "collect-coins", name: "Collect coins", priority: "core", how: "Touching a coin adds it to the counter and the score.", test: { steps: [{ down: "ArrowRight" }, { waitMs: 300 }, { key: "Space", holdMs: 200 }, { waitMs: 900 }, { up: "ArrowRight" }], expect: ["NK.run.coins >= 1", "track.max.score >= 10"] } },
+  lives: { id: "three-lives", name: "Three lives", priority: "extra", how: "You start with three hearts.", test: { steps: [{ waitMs: 200 }], expect: ["NK.run.hearts === 3"] } },
+  stomp: { id: "stomp-slimes", name: "Stomp slimes", priority: "extra", how: "Jumping on a slime squashes it for 100 points.", test: { steps: [{ waitMs: 300 }], expect: ["track.max.score >= 99999"] } },
+};
+const STEP_FEATURES: Record<string, string[]> = { "Hero and controls": ["run-jump"], "Fish and score": ["collect-coins"], "Enemies and lives": ["three-lives"], "Coinless polish": ["collect-coins", "stomp-slimes"] };
 /** Fixture 3's level with a 14-tile hole from tile 27 (ground and platforms), so the flag can't be reached. */
 function gappy(files: Record<string, string>): Record<string, string> {
   return { ...files, "src/levels.js": files["src/levels.js"].replace(/"([ #=XcPshmgbF^k]{60,})"/g, (_m, row: string) => `"${row.slice(0, 27)}${" ".repeat(14)}${row.slice(41)}"`) };
@@ -145,14 +175,20 @@ function createMock() {
       const visual = gap && ((/this pass: after the level step/.test(user)) || (end && n <= 2)) ? [{ say: `MOCK-VIS${n} the hero is too small next to the tiles`, evidence: "spawn screenshot", fix: "src/entities/player.js: scale 0.75 → 0.9" }] : [];
       return JSON.stringify({ findings: gap && /after the level step/.test(user) ? [{ id: "PT-17", say: "MOCK-PT17 checkpoints are too far apart", evidence: "no checkpoint flag in 70 tiles", fix: "src/levels.js: a checkpoint every 30-60 s" }] : [], visual });
     }
+    // Planned features: a test that is broken itself gets rewritten (the game's files are in the message).
+    if (/Some feature tests are broken themselves/.test(system)) {
+      const ids = [...user.matchAll(/^- ([a-z0-9-]+): "/gm)].map((m) => m[1]);
+      return JSON.stringify({ tests: ids.map((id) => ({ id, test: id === "three-lives" && /GAME FILES:[\s\S]*lives: 3/.test(user) ? { steps: [{ waitMs: 200 }], expect: ["NK.run.lives === 3"] } : { steps: [], expect: ["NK.run.nothing === 1"] } })) });
+    }
     // Steer while building: revising the remaining steps for the notes.
     if (/the person \(the game's owner\) sent NOTES/.test(system)) {
       const remaining = JSON.parse(/REMAINING STEPS \(in order\):\n(.+)/.exec(user)?.[1] ?? "[]") as Array<{ id: string; label: string; goal: string }>;
       const notes = JSON.parse(/NOTES:\n(.+)/.exec(user)?.[1] ?? "[]") as Array<{ id: string; text: string }>;
       const frog = notes.some((n) => /frog/i.test(n.text));
       return JSON.stringify({
-        steps: [...remaining, ...(frog ? [{ id: "frog-enemy", label: "Frog enemy", goal: "Add a jumping frog enemy" }] : [])],
+        steps: [...remaining, ...(frog ? [{ id: "frog-enemy", label: "Frog enemy", goal: "Add a jumping frog enemy", features: ["frog-lives"] }] : [])],
         notes: notes.map((n) => ({ id: n.id, step: /frog/i.test(n.text) ? "frog-enemy" : remaining[0]?.id })),
+        features: frog ? [{ id: "frog-lives", name: "Survive the frog", priority: "extra", how: "The frog hurts but you keep your lives at the start.", test: { steps: [{ waitMs: 200 }], expect: ["NK.run.lives >= 1"] } }] : [],
       });
     }
     if (/game designer doing a 10-second intake/.test(system)) {
@@ -171,7 +207,7 @@ function createMock() {
       });
     }
     if (/Pick the game's assets from the search results and plan the build steps/.test(system)) {
-      const labels = /IDEA: .*change test/i.test(user) ? ["Sky and ground", "Touch controls and polish"] : /IDEA: .*playtest test/i.test(user) ? ["Sky and ground", "Gappy level", "Playtest hero", "Touch controls and polish"] : /IDEA: .*(steering|stop-after|stop-now)/i.test(user) ? (/steering/i.test(user) ? STEER_STEPS : STEER_STEPS.slice(0, 3)) : /IDEA: .*doomed/i.test(user) ? ["Doomed step"] : /IDEA: .*restart/i.test(user) ? ["Sky and ground", "Slow art step", "First level"] : /IDEA: .*dungeon/i.test(user) ? ["Dungeon shell", "Dungeon hall", "Knight hero"] : MAIN_STEPS;
+      const labels = /IDEA: .*feature gate/i.test(user) ? ["Sky and ground", "Coinless polish"] : /IDEA: .*change test/i.test(user) ? ["Sky and ground", "Touch controls and polish"] : /IDEA: .*playtest test/i.test(user) ? ["Sky and ground", "Gappy level", "Playtest hero", "Touch controls and polish"] : /IDEA: .*(steering|stop-after|stop-now)/i.test(user) ? (/steering/i.test(user) ? STEER_STEPS : STEER_STEPS.slice(0, 3)) : /IDEA: .*doomed/i.test(user) ? ["Doomed step"] : /IDEA: .*restart/i.test(user) ? ["Sky and ground", "Slow art step", "First level"] : /IDEA: .*dungeon/i.test(user) ? ["Dungeon shell", "Dungeon hall", "Knight hero"] : MAIN_STEPS;
       return JSON.stringify({
         assets: [
           { key: "tiles", id: "kenney/new-platformer-pack/spritesheet-tiles", use: "ground, coins, flag" },
@@ -181,14 +217,16 @@ function createMock() {
           { key: "coin", id: "kenney/new-platformer-pack/sounds/sfx-coin", use: "pickup" },
           { key: "made-up", id: "kenney/not-a-real-pack/nothing", use: "dropped: not a library id" },
         ],
-        steps: labels.map((l, i) => ({ id: `s${i + 1}`, label: l, goal: `Build: ${l}` })),
+        steps: labels.map((l, i) => ({ id: `s${i + 1}`, label: l, goal: `Build: ${l}`, ...(STEP_FEATURES[l] ? { features: STEP_FEATURES[l] } : {}) })),
+        features: /IDEA: .*feature gate/i.test(user) ? [FEATURES.coins, FEATURES.stomp] : /IDEA: .*cat collecting fish/.test(user) ? [FEATURES.runJump, FEATURES.coins, FEATURES.lives] : [],
         message: "Eight small steps, playable after each.",
         assetNotes: "New Platformer Pack only: 64 px tiles, hero at 0.75 scale, enemies 0.6, backgrounds at 2x.",
       });
     }
     if (/The person asked for a change to their game/.test(system)) {
       if (/meow/i.test(user)) return JSON.stringify({ message: "Adding a meow when the cat jumps.", steps: [{ id: "meow", label: "Meow sound", goal: "Add a meow sound" }], assetSearches: [{ query: "cat meow", kind: "sfx", dim: "audio" }] });
-      return JSON.stringify({ message: "Making the jump higher.", steps: [{ id: "jump", label: "Higher jump", goal: "Raise the jump speed in src/entities/player.js" }], assetSearches: [] });
+      // A change that adds a feature with a test (the old jump height fails it: the test proves the change).
+      return JSON.stringify({ message: "Making the jump higher.", steps: [{ id: "jump", label: "Higher jump", goal: "Raise the jump speed in src/entities/player.js", features: ["high-jump"] }], features: [{ id: "high-jump", name: "Higher jump", priority: "core", how: "A held jump goes over five tiles high.", test: { steps: [{ key: "Space", holdMs: 700 }], expect: ["track.minY < start.player.y - 330"] } }], assetSearches: [] });
     }
     if (/HOW TO WRITE A STEP/.test(system)) {
       const label = /THIS STEP: (.+)/.exec(user)?.[1]?.trim() ?? "";
@@ -201,6 +239,7 @@ function createMock() {
       if (spec.slow) await sleep(typeof spec.slow === "number" ? spec.slow : 15_000);
       if (spec.search && !/ASSET SEARCH RESULTS \(you asked\)/.test(user)) return JSON.stringify({ searches: [{ query: "grass platform tiles", kind: "spritesheet", dim: "2d" }, { set: "kenney/new-platformer-pack", query: "slime" }] });
       const repairing = /YOUR LAST ANSWER FAILED THESE CHECKS/.test(user);
+      if (spec.breaks && (spec.always || !/FEATURE TESTS FAILED/.test(user))) return fileBlocks(breakFeature(loadStep(spec.fixture!), spec.breaks), `${label} is in.`);
       if (spec.broken === "always" || (spec.broken === "once" && !repairing)) {
         const files = spec.fixture ? loadStep(spec.fixture) : loadStep(1);
         files["src/scenes/game.js"] = files["src/scenes/game.js"].replace("create() {", "create() {{ // a typo the checks must catch");
@@ -365,6 +404,45 @@ async function main() {
       const g = await inst.db.gameProject.findUniqueOrThrow({ where: { id: gid } });
       ok("the genre was matched and kept on the game", g.genreId === "platformer", g.genreId);
     };
+    /** The feature end gate (E2E_ONLY=gate runs only this). */
+    const gateSection = async () => {
+      const inst = live;
+      console.log("The feature end gate");
+      const r = await alice.agent.post("/api/games", { prompt: "a feature gate test game", engine: "phaser-2d" });
+      ok("gate build starts", r.status === 200, r.text);
+      const gid = r.json.game.id as string;
+      const job = await waitJob(inst, gid, 400_000);
+      const steps = job.steps as Array<{ label: string; status: string; kind?: string; features?: string[] }>;
+      ok("a core feature still failing at the end gets a \"Feature fixes\" step", job.status === "done" && steps.map((st) => st.label).join("|") === "Sky and ground|Coinless polish|Feature fixes" && steps[2].kind === "feature-fix" && steps[2].features?.join() === "collect-coins", steps);
+      const coinless = mock.requests.filter((q) => /HOW TO WRITE A STEP/.test(q.system) && /THIS STEP: Coinless polish/.test(q.user));
+      ok("…after the step's own repair didn't fix it (one repair, then kept with the feature failing)", coinless.length === 2 && /FEATURE TESTS FAILED[\s\S]*NEW "Collect coins"/.test(coinless[1].user));
+      const fixCall = mock.requests.find((q) => /HOW TO WRITE A STEP/.test(q.system) && /THIS STEP: Feature fixes/.test(q.user));
+      ok("the fix step's goal carries the failed test's output", Boolean(fixCall && /GOAL: Make these CORE features work[\s\S]*"Collect coins" \(collect-coins\)[\s\S]*last run: pressed: new game, hold ArrowRight[\s\S]*NK\.run\.coins >= 1` → false \(FAILED\)/.test(fixCall.user) && !/"Stomp slimes" \(stomp-slimes\)/.test(/GOAL:[\s\S]*?\n\n/.exec(fixCall.user)?.[0] ?? "")), /GOAL:[\s\S]{0,900}/.exec(fixCall?.user ?? "")?.[0]);
+      const chat = (await inst.db.gameChat.findMany({ where: { gameId: gid }, orderBy: { seq: "asc" } })).map((c) => c.text);
+      ok("the chat: per-step feature lines, the gate, and an honest final message", chat.includes("Features: 0 passing, 2 failing (Collect coins, Stomp slimes).") && chat.includes("Core features that don't work yet: Collect coins. Adding a step to fix them.") && chat.includes("Features: 1 passing, 1 failing (Stomp slimes).") && chat.some((c) => /is ready to play[\s\S]*The core feature passes its test\. Extras that don't work yet: Stomp slimes\./.test(c)), chat);
+      const g = await inst.db.gameProject.findUniqueOrThrow({ where: { id: gid } });
+      const fs = (g.plan as { features: Array<{ id: string; status: string }> }).features;
+      ok("…and the game's features: the core one passing, the extra failing", fs.map((f) => `${f.id}:${f.status}`).join() === "collect-coins:passing,stomp-slimes:failing", fs);
+      const gv = await inst.db.gameVersion.findMany({ where: { gameId: gid }, orderBy: { seq: "asc" }, select: { stepLabel: true, features: true } });
+      ok("the failing version is kept with its status (the game itself worked)", (gv.find((v) => v.stepLabel === "Coinless polish")?.features as Array<{ status: string }>).every((f) => f.status === "failing"), gv);
+      // The plan card on a phone and in Arabic: the status chips (icon + word, never colour alone).
+      for (const [loc, w, h] of [["en", 1440, 900], ["en", 390, 844], ["ar", 1440, 900], ["ar", 390, 844]] as const) {
+        const { context, page: p } = await browserFor(inst, alice.agent, { locale: loc, width: w, height: h });
+        await p.goto(`${inst.base}/games/${gid}`, { waitUntil: "domcontentloaded" });
+        await p.waitForSelector("[data-testid=plan-card]", { timeout: 60_000 });
+        if (!(await p.locator("[data-testid=plan-card]").getAttribute("open").catch(() => null))) await p.locator("[data-testid=plan-card] summary").click();
+        await p.waitForSelector("[data-testid=features] [data-testid=feature]", { timeout: 20_000 });
+        const items = await p.locator("[data-testid=features] [data-testid=feature]").evaluateAll((els) => els.map((e) => ({ status: e.getAttribute("data-status"), text: (e as HTMLElement).innerText, icon: !!e.querySelector("svg") })));
+        ok(`the plan card shows the features with status chips (${loc} ${w})`, items.length === 2 && items[0].status === "passing" && items[1].status === "failing" && items.every((i) => i.icon) && (loc === "ar" || (/Passing/.test(items[0].text) && /Failing/.test(items[1].text) && /track\.max\.score >= 99999/.test(items[1].text))), items);
+        if (loc === "ar") ok(`…right-to-left in Arabic (${w})`, (await p.evaluate(() => document.documentElement.dir)) === "rtl");
+        const overflow = await p.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+        ok(`…with no sideways scrolling (${loc} ${w})`, overflow <= 1, overflow);
+        await sleep(600);
+        await p.locator("[data-testid=plan-card]").screenshot({ path: path.join(SHOTS, `features-card-${loc}-${w}.png`) });
+        await p.screenshot({ path: path.join(SHOTS, `features-${loc}-${w}.png`) });
+        await context.close();
+      }
+    };
     const steerSection = async () => {
       const inst = live;
       console.log("Steer while building");
@@ -434,6 +512,8 @@ async function main() {
       ok("…and gets a follow-up step, so nothing is ignored", steerJob.status === "done" && steerSteps.length >= 6 && steerSteps[5].label === "Your notes from the chat" && steerSteps[5].added === true && steerSteps.every((s) => s.status === "done"), steerSteps);
       const coins = await inst.db.gameNote.findFirst({ where: { gameId: steer, text: "make the coins spin" } });
       ok("the late note was applied in the follow-up step", coins?.status === "applied" && coins.appliedStep === 6, coins);
+      const steerPlan = (await inst.db.gameProject.findUniqueOrThrow({ where: { id: steer } })).plan as { features?: Array<{ id: string; status: string }> };
+      ok("a note that adds a mechanic adds a feature with a test (the revision call), built and passing in its step", steerPlan.features?.map((f) => `${f.id}:${f.status}`).join() === "frog-lives:passing" && (steerSteps.find((st) => st.label === "Frog enemy") as { features?: string[] } | undefined)?.features?.join() === "frog-lives", { features: steerPlan.features, steps: steerSteps });
       ok("the follow-up step's prompt carries it", mock.requests.some((q) => /THIS STEP: Your notes from the chat/.test(q.user) && /DO IN THIS STEP: make the coins spin/.test(q.user)));
       const sv = await inst.db.gameVersion.findMany({ where: { gameId: steer }, orderBy: { seq: "asc" } });
       // The follow-up is the build's last step, so the end review runs after it (the mock's step has no touch controls: a fix step).
@@ -514,6 +594,11 @@ async function main() {
     if (ONLY === "playtest") {
       await playtestSection();
       console.log(`\nAll ${checks.length} playtest checks passed.`);
+      return;
+    }
+    if (ONLY === "gate") {
+      await gateSection();
+      console.log(`\nAll ${checks.length} feature gate checks passed. Screenshots in ${SHOTS}`);
       return;
     }
     if (ONLY === "steer") {
@@ -613,6 +698,34 @@ async function main() {
     ok("the AI asked for assets and got library results", stepCalls.some((q) => /THIS STEP: Art and backdrop/.test(q.user) && /ASSET SEARCH RESULTS \(you asked\):[\s\S]*kenney\/new-platformer-pack/.test(q.user)));
     ok("the broken step was caught and repaired once", stepCalls.some((q) => /THIS STEP: Hero and controls/.test(q.user) && /YOUR LAST ANSWER FAILED THESE CHECKS:[\s\S]*SyntaxError/.test(q.user)) && versions.some((v) => v.stepLabel === "Hero and controls"));
     ok("plan searches went to the library", mock.requests.some((q) => /Pick the game's assets/.test(q.system) && /SEARCH RESULTS:[\s\S]*\|/.test(q.user)));
+
+    /* ── Planned features with real tests ── */
+    console.log("Planned features");
+    type F = { id: string; name: string; status: string; priority: string; rewritten?: boolean; test?: { expect: string[] } | null; last?: { text: string } };
+    const planFeatures = (game.plan as { features?: F[] }).features ?? [];
+    ok("the plan has its features with tests (3, one extra)", planFeatures.length === 3 && planFeatures.filter((f) => f.priority === "extra").length === 1 && planFeatures.every((f) => f.test !== undefined), planFeatures);
+    ok("the plan prompt asked for features with tests (format + read-only rules)", mock.requests.some((q) => /Pick the game's assets/.test(q.system) && /"features": \[\{"id": "kebab-id"/.test(q.system) && /FEATURE TESTS \(each runs in a headless browser/.test(q.system) && /READ-ONLY JavaScript/.test(q.system)));
+    const job1Steps = job1.steps as Array<{ label: string; features?: string[] }>;
+    ok("every step lists the features it builds; every core feature has a step", job1Steps.find((st) => st.label === "Hero and controls")?.features?.join() === "run-jump" && job1Steps.find((st) => st.label === "Fish and score")?.features?.join() === "collect-coins", job1Steps.map((st) => [st.label, st.features]));
+    const stepCall = (label: string) => stepCalls.filter((q) => new RegExp(`THIS STEP: ${label}`).test(q.user));
+    const fish = stepCall("Fish and score");
+    ok("the step prompt names the feature to build with its test, and the probe rule", Boolean(fish[0] && /BUILD IN THIS STEP: "Collect coins" \(collect-coins, core\)[\s\S]*Test: \{"steps"/.test(fish[0].user) && /keep working: "Run and jump" \[passing\]/.test(fish[0].user) && /TEST PROBES/.test(fish[0].system)), fish[0]?.user.slice(0, 200));
+    ok("a step that breaks its new feature: caught by the test, repaired once with the test output", fish.length === 2 && /FEATURE TESTS FAILED[\s\S]*NEW "Collect coins" \(collect-coins\)[\s\S]*pressed: new game, hold ArrowRight, wait 300 ms, Space 200 ms[\s\S]*expect `NK\.run\.coins >= 1` → false \(FAILED\)[\s\S]*console errors: none/.test(fish[1].user), fish[1]?.user.slice(-1800));
+    const enemies = stepCall("Enemies and lives");
+    ok("a regression from a later step is caught and repaired (the jump stopped working)", enemies.length === 2 && /REGRESSION \(passed before this step\) "Run and jump"[\s\S]*track\.minY < start\.player\.y - 60` → false \(FAILED\)/.test(enemies[1].user), enemies[1]?.user.slice(-2000));
+    const rewrites = mock.requests.filter((q) => /Some feature tests are broken themselves/.test(q.system) && /cat collecting fish|Whisker Dash/.test(q.user));
+    ok("a bad test (reads NK.run.hearts, which the game never has) was rewritten once, with the game's files", rewrites.length === 1 && /three-lives[\s\S]*reads NK\.run\.hearts, which this game never has[\s\S]*GAME FILES:/.test(rewrites[0].user), rewrites.map((q) => q.user.slice(0, 400)));
+    const lives = planFeatures.find((f) => f.id === "three-lives");
+    ok("…and the rewritten test passes (not counted against the game)", lives?.status === "passing" && lives.rewritten === true && lives.test?.expect.join() === "NK.run.lives === 3", lives);
+    ok("every feature passes at the end of the build", planFeatures.every((f) => f.status === "passing"), planFeatures.map((f) => [f.id, f.status, f.last?.text]));
+    const fv = versions.map((v) => ({ label: v.stepLabel, f: (v.features as F[] | null)?.map((x) => `${x.id}:${x.status}`).join(",") }));
+    ok("each version keeps its features' status", fv.find((v) => v.label === "First level")?.f === "run-jump:planned,collect-coins:planned,three-lives:planned" && fv.find((v) => v.label === "Fish and score")?.f === "run-jump:passing,collect-coins:passing,three-lives:planned" && fv.find((v) => v.label === "Touch controls and polish")?.f === "run-jump:passing,collect-coins:passing,three-lives:passing", fv);
+    const featureLines = (await inst.db.gameChat.findMany({ where: { gameId, text: { startsWith: "Features:" } }, orderBy: { seq: "asc" } })).map((c) => c.text);
+    ok("one chat line per step once a feature is built", featureLines.length === 5 && featureLines[0] === "Features: 1 passing." && featureLines[4] === "Features: 3 passing.", featureLines);
+    const finalMsg = (await inst.db.gameChat.findMany({ where: { gameId, kind: "assistant", text: { contains: "is ready to play" } } }))[0]?.text ?? "";
+    ok("the final message says the core features pass", /All 2 core features pass their tests\./.test(finalMsg), finalMsg);
+    const review = mock.requests.find((q) => /You are the game studio's playtester/.test(q.system) && /Whisker Dash/.test(q.user) && /after the enemies step/.test(q.user));
+    ok("the playtester gets the feature results as facts (and is told not to redo them)", Boolean(review && /feature test "Run and jump" \[core\]: passing/.test(review.user) && /FEATURE TESTS in the FACTS ran on the real game/.test(review.system)), review?.user.slice(0, 600));
     ok("still one AI action for the whole build", (await charges(alice.id)) === before + 1);
     // The design playbook.
     ok("the genre was matched (the brief's genre) and kept on the game", game.genreId === "platformer", game.genreId);
@@ -663,6 +776,7 @@ async function main() {
     await page.waitForSelector("[data-testid=versions-panel] img", { timeout: 20_000 });
     await page.waitForFunction(() => [...document.querySelectorAll<HTMLImageElement>("[data-testid=versions-panel] img")].filter((i) => i.offsetParent !== null).every((i) => i.complete && i.naturalWidth > 0), null, { timeout: 60_000 });
     ok("version screenshots load in the Versions list", true);
+    ok("the Versions list shows each version's feature pass count", /Features 3\/3/.test(await page.locator("[data-testid=version-features]").first().innerText()), await page.locator("[data-testid=version-features]").first().innerText().catch(() => ""));
     await sleep(400);
     await page.screenshot({ path: path.join(SHOTS, "workspace-en-1440-versions.png") });
     await ctx1.close();
@@ -714,6 +828,9 @@ async function main() {
     ok("the running game was patched in place (hot)", hot.some((m) => m.mode === "hot" && m.ok), hot);
     const jumpNow = await canvasFrame(page2)!.evaluate(() => (window as unknown as { NK: { fileText: (p: string) => string | null } }).NK.fileText("src/entities/player.js"));
     ok("the canvas runs the changed code", /-1250/.test(jumpNow ?? ""));
+    const changed = (await inst.db.gameProject.findUniqueOrThrow({ where: { id: gameId } })).plan as { features: Array<{ id: string; status: string; priority: string }> };
+    ok("a chat change added a feature with a test, and it passes (the old jump would fail it)", changed.features.map((f) => `${f.id}:${f.status}`).join() === "run-jump:passing,collect-coins:passing,three-lives:passing,high-jump:passing", changed.features);
+    ok("the change's step ran every feature's test (new + regression)", ((job2.steps as Array<{ features?: string[] }>)[0].features ?? []).join() === "high-jump" && mock.requests.some((q) => /The person asked for a change to their game/.test(q.system) && /FEATURES \(tested after every step\):\n- run-jump: "Run and jump" \[core, passing\]/.test(q.user)));
     ok("a change is one more AI action", (await charges(alice.id)) === before + 2);
     await ctx2.close();
     r = await alice.agent.post(`/api/games/${gameId}/build`, { prompt: "add a meow sound" });
@@ -727,8 +844,13 @@ async function main() {
     const restored = await inst.db.gameProject.findUniqueOrThrow({ where: { id: gameId } });
     const v3 = await inst.db.gameVersion.findUniqueOrThrow({ where: { gameId_seq: { gameId, seq: 3 } } });
     ok("restore saves the old version as a new one", r.status === 200 && restored.seq === seqBefore + 1 && JSON.stringify(restored.files) === JSON.stringify(v3.files), r.text);
+    const restoredFeatures = ((await inst.db.gameProject.findUniqueOrThrow({ where: { id: gameId } })).plan as { features: Array<{ id: string; status: string }> }).features;
+    ok("restore brings back that version's features and their status", restoredFeatures.map((f) => `${f.id}:${f.status}`).join() === "run-jump:planned,collect-coins:planned,three-lives:planned", restoredFeatures);
     r = await alice.agent.post(`/api/games/${gameId}/versions/${seqBefore}/restore`, {});
-    ok("and back again", r.status === 200);
+    const backFeatures = ((await inst.db.gameProject.findUniqueOrThrow({ where: { id: gameId } })).plan as { features: Array<{ id: string; status: string }> }).features;
+    ok("and back again (the features too)", r.status === 200 && backFeatures.length === 4 && backFeatures.every((f) => f.status === "passing"), backFeatures);
+    const vlist = (await alice.agent.get(`/api/games/${gameId}/versions`)).json.versions as Array<{ seq: number; features: { passing: number; total: number } | null }>;
+    ok("the versions list carries feature pass counts", vlist[0].features?.passing === 4 && vlist[0].features.total === 4 && vlist.find((v) => v.seq === 3)?.features?.passing === 0, vlist.slice(0, 3));
 
     /* ── Download ── */
     console.log("Download");
@@ -739,6 +861,15 @@ async function main() {
     const names = Object.keys(zip.files);
     ok("the zip has the game, the engine and CC0 assets", names.includes("index.html") && names.includes("engine/phaser-2d/1.1.0/phaser.min.js") && names.some((n) => n.startsWith("game-assets/kenney/new-platformer-pack/")), names.slice(0, 20));
     ok("…and no Platform-only pack files, listed in README.txt", !names.some((n) => n.includes("platform-only")) && /platform-only\/audio-arcade-sound-fx\/animal-cat/.test(await zip.file("README.txt")!.async("string")));
+
+    /* ── Licences: Quaternius platform-only (platform-only) ── */
+    console.log("Licences");
+    r = await alice.agent.get("/api/games/assets/search?q=imp%20monster&dim=3d");
+    const qal = (r.json.results ?? []).find((x: { licence: string }) => x.licence === "platform-only");
+    ok(platform-only (platform-only) assets are searchable for the Studio, marked not redistributable", r.status === 200 && qal && qal.redistributable === false, r.json.results?.slice(0, 3));
+    const qalLock = buildLock(['"platform-only/platform-only-dungeon-monsters-kit/imp"']);
+    ok("…a game may use them (accepted by the lock)", qalLock.badLicence.length === 0 && qalLock.used.some((u) => u.licence === "platform-only" && u.redistributable === false), qalLock);
+    ok("…and a download leaves them out", exportPreview({ "assets.lock.json": JSON.stringify(qalLock.lock) }).excluded.some((x) => x.id === "platform-only/platform-only-dungeon-monsters-kit/imp"));
 
     /* ── Publish ── */
     console.log("Publish");
@@ -824,6 +955,9 @@ async function main() {
     /* ── The playtester ── */
     await playtestSection();
 
+    /* ── The feature end gate ── */
+    await gateSection();
+
     /* ── Steer while building ── */
     await steerSection();
 
@@ -847,6 +981,13 @@ async function main() {
       await sleep(2500);
       await p.screenshot({ path: path.join(SHOTS, "workspace-3d-en-1440.png") });
       ok("the 3D game plays in the canvas", st === "play", st);
+      // The Assets panel marks assets that stay on the platform (redistributable: false), platform-only ones too.
+      await p.getByRole("button", { name: "Assets" }).first().click();
+      await p.fill("#game-asset-q", "imp monster");
+      await p.locator("[data-testid=assets-panel] form button").first().click();
+      await p.waitForSelector("section[aria-label=Results] [data-testid=asset-card]", { timeout: 30_000 });
+      const badges = await p.locator("section[aria-label=Results] [data-testid=asset-card]").evaluateAll((els) => els.filter((e) => /Hosted only/.test((e as HTMLElement).innerText) && /imp/i.test(e.querySelector("p")?.getAttribute("title") ?? "")).length);
+      ok("the Assets panel shows \"Hosted only\" on a platform-only asset (not redistributable)", badges >= 1, badges);
       await context.close();
     }
 

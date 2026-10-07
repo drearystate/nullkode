@@ -10,6 +10,7 @@ import time
 from common import (LIB, WORK, STATE, SHEETS, UNPACKED, WORKERS, read_json, write_json, state_path, log, url_of)
 
 PROCESS_TAGS = {'grid-sheet', 'atlas', 'rigged', 'animated', 'loop', 'jingle'}
+CONTINUOUS_PACKS = {'kaykit', 'kenney'}
 KIND_ORDER = ['model', 'sprite', 'spritesheet', 'animation', 'tileset', 'ui', 'icon', 'background', 'texture',
               'material', 'font', 'sfx', 'music']
 
@@ -27,7 +28,9 @@ def _licence_text(pack, rec):
         'Licence: %s (%s)' % (pack['licence'], pack['licenceName']),
         'Attribution: %s' % pack['attribution'],
     ]
-    if not pack.get('redistributable', True):
+    if not pack.get('redistributable', True) and pack.get('licenceNote'):
+        head += [''] + list(pack['licenceNote'])  # pack-specific wording from packs.json
+    elif not pack.get('redistributable', True):
         head += ['', 'IMPORTANT: these assets may be used in games (including commercial games) but must NOT be',
                  'sold or redistributed as unaltered assets. Keep them out of any public copy',
                  'of this library.']
@@ -35,7 +38,7 @@ def _licence_text(pack, rec):
     sp = rec['sourcePath'].split('!/')[0].split('/')
     base = os.path.join(UNPACKED, pack['slug'])
     for depth in range(len(sp) - 1, 0, -1):
-        for name in ('License.txt', 'LICENSE.txt', 'license.txt', 'Licence.txt'):
+        for name in ('License.txt', 'LICENSE.txt', 'license.txt', 'Licence.txt', 'License_Standard.txt'):
             p = os.path.join(base, *sp[:depth], name)
             if os.path.exists(p):
                 orig = p
@@ -51,6 +54,8 @@ def _licence_text(pack, rec):
     if orig:
         head += ['', 'Original licence text (%s):' % os.path.relpath(orig, base), '',
                  open(orig, errors='replace').read().strip()]
+    elif pack.get('licenceEvidence'):
+        head += ['', 'Licence evidence: %s' % pack['licenceEvidence']]
     return '\n'.join(head) + '\n'
 
 
@@ -135,6 +140,8 @@ def build(packs, prune=False):
             'countsByKind': {k: kinds[k] for k in KIND_ORDER if kinds.get(k)},
             'bytesOnDisk': size, 'files': nfiles, 'previewBytes': psize,
             'categories': len({'/'.join(r['id'].split('/')[:2]) for r in recs}),
+            **({'readmeNote': p['readmeNote']} if p.get('readmeNote') else {}),
+            **({'licenceEvidence': p['licenceEvidence']} if p.get('licenceEvidence') else {}),
             'licenceFile': url_of(p['slug'] + '/LICENSE.txt'),
         })
     write_json(os.path.join(LIB, 'packs.json'), {'generated': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
@@ -154,9 +161,13 @@ def build(packs, prune=False):
     for d in lic_dirs:
         expected.add(d + '/LICENSE.txt')
     orphans = []
-    for root, _, files in os.walk(LIB):
+    for root, dirs, files in os.walk(LIB):
+        if root == LIB:  # tagging / cards / search index live beside the catalog and are not ingest output
+            dirs[:] = [d for d in dirs if d not in ('_tags', '_cards', '_index')]
         for f in files:
             rel = os.path.relpath(os.path.join(root, f), LIB)
+            if rel in ('tags.jsonl',) or rel.endswith('.tmp'):
+                continue
             if rel not in expected:
                 orphans.append(rel)
     write_json(os.path.join(STATE, 'orphans.json'), orphans[:5000], indent=1)
@@ -209,11 +220,14 @@ def _readme(packs_out, total):
             p['title'], p['pack'], p['assets'], p['licenceName'], p['attribution']))
     lines += [
         '', '> Packs marked `"redistributable": false` in packs.json may be used in games but not shared as files.', '',
-        'Kenney and KayKit assets are CC0 (public domain); credit is appreciated but not required.', '',
+    ] + [x for p in packs_out if p.get('readmeNote') for x in (p['readmeNote'], '')] + [
+        'Kenney, KayKit, Quaternius (`quaternius/`) and Pixel Frog (`pixel-frog/`) assets are CC0 (public domain);',
+        'credit is appreciated but not required.', '',
         'Total assets: %d.' % total, '',
     ]
-    with open(os.path.join(LIB, 'README.md'), 'w') as f:
+    with open(os.path.join(LIB, 'README.md.tmp'), 'w') as f:
         f.write('\n'.join(lines))
+    os.replace(os.path.join(LIB, 'README.md.tmp'), os.path.join(LIB, 'README.md'))
 
 
 # ------------------------------------------------------------------ contact sheets
@@ -272,9 +286,18 @@ def sheets():
     old_sig = {s['file']: s['sig'] for s in old.get('sheets', [])}
     out_sheets, jobs = [], []
     per = COLS * ROWS
-    for i in range(0, len(recs), per):
-        chunk = recs[i:i + per]
-        n = i // per + 1
+    # Packs added after the first tagging pass start on a fresh sheet, so adding a pack never changes the
+    # earlier sheets (their AI tags stay valid). The first three packs keep their original running layout.
+    chunks, cur = [], []
+    for r in recs:
+        if cur and (len(cur) == per or (r['pack'] != cur[-1]['pack'] and r['pack'] not in CONTINUOUS_PACKS)):
+            chunks.append(cur)
+            cur = []
+        cur.append(r)
+    if cur:
+        chunks.append(cur)
+    for ci, chunk in enumerate(chunks):
+        n = ci + 1
         fname = 's%05d.webp' % n
         sig = hashlib.sha1(json.dumps([[r['id'], r['sha256'], _pstat(r)] for r in chunk]).encode()).hexdigest()
         entry = {'file': fname, 'sig': sig, 'pack': chunk[0]['pack'],

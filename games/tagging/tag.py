@@ -30,7 +30,8 @@ import prompts
 import runner
 
 AUDIO_KINDS = {"sfx", "music"}
-PACK_WORDS = {"kenney", "kaykit", "kay", "lousberg"}
+PACK_WORDS = {"kenney", "kaykit", "kay", "lousberg", "quaternius", "pixel-frog",
+              "pixelfrog"}
 LOG_LOCK = threading.Lock()
 os.makedirs(WORK, exist_ok=True)
 os.makedirs(os.path.join(TAGS_DIR, "sheets"), exist_ok=True)

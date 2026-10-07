@@ -9,7 +9,7 @@ import { Pause, Play, Plus, Search, X } from "lucide-react";
  * request (drag it onto the message box, or press +).
  */
 
-export type PanelAsset = { id: string; name: string; kind: string; licence: string; preview: string | null; url?: string | null; set?: string; use?: string };
+export type PanelAsset = { id: string; name: string; kind: string; licence: string; redistributable?: boolean; preview: string | null; url?: string | null; set?: string; use?: string };
 
 export const ASSET_DRAG_TYPE = "application/x-nk-game-asset";
 
@@ -76,7 +76,7 @@ export function AssetsPanel({ used, defaultDim, onUse, onClose }: { used: PanelA
           // eslint-disable-next-line @next/next/no-img-element
           <img src={a.preview} alt="" loading="lazy" className="max-h-full max-w-full object-contain p-1.5" />
         ) : null}
-        {a.licence === "platform-only" && <span className="absolute start-1 top-1 rounded bg-amber-400/20 px-1 text-[10px] text-amber-100" data-help={t("assets.platformOnlyHelp")}>{t("assets.platformOnly")}</span>}
+        {a.redistributable === false && <span className="absolute start-1 top-1 rounded bg-amber-400/20 px-1 text-[10px] text-amber-100" data-help={t("assets.platformOnlyHelp")}>{t("assets.platformOnly")}</span>}
       </div>
       <div className="flex items-start gap-1 p-1.5">
         <p className="line-clamp-2 min-w-0 flex-1 text-[11px] leading-tight text-surface-300" title={a.id} dir="auto">{a.name}</p>

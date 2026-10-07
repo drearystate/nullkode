@@ -106,13 +106,85 @@ def charpack(job):
     return {'clips': clips}
 
 
+def _base_name(n):
+    import re
+    return re.sub(r'\.\d{3}$', '', n or '')
+
+
+def bind_textures(mat_textures):
+    """{material name: image path}: link each image to that material's base colour (Quaternius FBX/OBJ
+    exports carry no texture links; the names come from the pack's .blend sources)."""
+    mats = [m for m in bpy.data.materials if m.users]
+    bound = 0
+    for m in mats:
+        path = mat_textures.get(m.name) or mat_textures.get(_base_name(m.name))
+        if not path and len(mat_textures) == 1 and len(mats) == 1:
+            path = next(iter(mat_textures.values()))
+        if not path:
+            continue
+        if not m.use_nodes:
+            m.use_nodes = True
+        nt = m.node_tree
+        p = next((n for n in nt.nodes if n.type == 'BSDF_PRINCIPLED'), None)
+        if not p:
+            continue
+        tex = next((n for n in nt.nodes if n.type == 'TEX_IMAGE'), None) or nt.nodes.new('ShaderNodeTexImage')
+        tex.image = bpy.data.images.load(path, check_existing=True)
+        nt.links.new(tex.outputs['Color'], p.inputs['Base Color'])
+        bound += 1
+    return bound
+
+
+def fix_alpha():
+    """FBX opacity 0 on opaque materials (common in old Quaternius exports) would export as alphaMode MASK
+    with alpha 0, i.e. invisible. An untextured alpha below 5 % is never intended: make it opaque."""
+    fixed = 0
+    for m in bpy.data.materials:
+        if not (m.use_nodes and m.node_tree):
+            continue
+        p = next((n for n in m.node_tree.nodes if n.type == 'BSDF_PRINCIPLED'), None)
+        if not p or 'Alpha' not in p.inputs:
+            continue
+        a = p.inputs['Alpha']
+        if not a.is_linked and a.default_value < 0.05:
+            a.default_value = 1.0
+            fixed += 1
+        bc = p.inputs['Base Color']
+        if not bc.is_linked and bc.default_value[3] < 0.05:
+            bc.default_value[3] = 1.0
+        try:
+            if m.blend_method != 'OPAQUE' and not a.is_linked and a.default_value >= 0.999:
+                m.blend_method = 'OPAQUE'
+        except Exception:
+            pass
+    return fixed
+
+
+def clean_clip_names():
+    """'Armature|Armature|Death' (FBX take names) -> 'Death'."""
+    names = set()
+    for a in bpy.data.actions:
+        n = a.name.split('|')[-1].strip() or a.name
+        if n in names:
+            continue
+        names.add(n)
+        a.name = n
+
+
 def convert(job):
     import_any(job['input'])
     strip_extras()
     if not any(o.type == 'MESH' for o in bpy.data.objects):
         raise RuntimeError('no mesh after import')
+    info = {}
+    if job.get('matTextures'):
+        info['texturesBound'] = bind_textures(job['matTextures'])
+    if job.get('fixAlpha'):
+        info['alphaFixed'] = fix_alpha()
+    if job.get('cleanClips'):
+        clean_clip_names()
     export(job['output'])
-    return {}
+    return info
 
 
 for job in jobs:

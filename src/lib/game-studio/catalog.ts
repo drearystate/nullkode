@@ -28,8 +28,11 @@ export type CatalogEntry = {
   [key: string]: unknown;
 };
 
-/** Licences a game made on this platform may use. Platform-only pack: nullkode.com only, never exported. */
-export const GAME_LICENCES = new Set(["cc0", "platform-only"]);
+/**
+ * Licences a game made on this platform may use. Platform-only pack and the platform-only asset licence:
+ * nullkode.com only, never exported (catalog redistributable: false; export.ts leaves them out).
+ */
+export const GAME_LICENCES = new Set(["cc0", "platform-only", "platform-only"]);
 
 type Index = {
   file: string;
@@ -110,7 +113,7 @@ function idx(): Index {
   return index;
 }
 
-/** Pack names in the library ("kenney", "kaykit", "platform-only"). */
+/** Pack names in the library ("kenney", "kaykit", "quaternius", "platform-only", …). */
 export function libraryPacks(): Set<string> {
   return idx().packs;
 }

@@ -1,6 +1,7 @@
 # Asset search card
 
-Assets: Kenney + KayKit (CC0). Ids look like `<pack>/<set>/.../<name>`. Put ids in
+Assets: Kenney, KayKit, Quaternius (3D, many rigged + animated) and Pixel Frog
+(pixel art), all CC0. Ids look like `<pack>/<set>/.../<name>`. Put ids in
 `NK.assets.define({...})`; the platform writes the lock (never hand-write URLs or `assets.lock.json`).
 
 ## Commands (one line per asset: `id | name | kind style view | metrics | use note`)

@@ -140,6 +140,14 @@
   "export": {
     "confirmExcluded": "{count, plural, one {tài nguyên} other {tài nguyên}} chỉ dùng được trong trò chơi được lưu trữ ở đây, nên tệp tải xuống sẽ không có {count, plural, one {tài nguyên này} other {các tài nguyên này}}: {names}. Vẫn tải xuống chứ?"
   },
+  "features": {
+    "allCorePass": "{count, plural, one {Tính năng cốt lõi đã đạt bài kiểm tra.} other {Cả # tính năng cốt lõi đều đạt bài kiểm tra.}}",
+    "coreFailing": "Vẫn chưa hoạt động: {names}. Hãy yêu cầu tôi sửa.",
+    "coreUnverified": "Không thể kiểm tra tự động: {names}. Hãy tự kiểm tra.",
+    "extrasFailing": "Các tính năng bổ sung chưa hoạt động: {names}.",
+    "fixing": "Các tính năng cốt lõi chưa hoạt động: {names}. Đang thêm bước để sửa chúng.",
+    "line": "Tính năng: {passing} đạt{failing, plural, =0 {} other {, # không đạt ({failingNames})}}{unverified, plural, =0 {} other {, # chưa được xác nhận ({unverifiedNames})}}."
+  },
   "gameTitle": "{name} · Studio trò chơi",
   "home": {
     "aiNotReady": "AI chưa được thiết lập trên máy chủ này, nên chưa thể tạo game.",
@@ -211,6 +219,24 @@
     "audio": "Âm thanh",
     "controls": "Điều khiển",
     "coreLoop": "Cách chơi",
+    "features": {
+      "count": "{passing}/{total} tính năng đạt",
+      "extra": "Bổ sung",
+      "help": "Trò chơi cần làm gì và có làm được không. Sau mỗi bước tạo, bài kiểm tra của từng tính năng sẽ chạy trên trò chơi thật bằng các lần nhấn phím thực tế, để cho biết hiện tại tính năng nào thực sự hoạt động.",
+      "status": {
+        "built": "Đã tạo",
+        "failing": "Không đạt",
+        "passing": "Đạt",
+        "planned": "Dự kiến"
+      },
+      "statusHelp": {
+        "built": "Đã tạo, nhưng bài kiểm tra không thể kiểm tra tính năng này nên vẫn chưa được xác nhận.",
+        "failing": "Bài kiểm tra đã chạy trên trò chơi thật nhưng không đạt. Dòng bên dưới cho biết kết quả bài kiểm tra.",
+        "passing": "Bài kiểm tra đã chạy trên trò chơi thật sau bước gần nhất và đạt.",
+        "planned": "Sẽ được thực hiện ở bước tạo sau."
+      },
+      "title": "Tính năng"
+    },
     "genre": "Thể loại trò chơi",
     "help": "Thiết kế mà AI đang tạo: thể loại trò chơi, cách chơi, cách thắng và thua, cùng phong cách hình ảnh.",
     "levels": "Màn chơi",
@@ -275,6 +301,9 @@
   },
   "steps": {
     "added": "theo ghi chú của bạn",
+    "featureFixHelp": "Một tính năng cốt lõi không đạt bài kiểm tra, nên bước này sẽ sửa tính năng đó trước khi hoàn tất.",
+    "featureFixLabel": "Sửa tính năng",
+    "featureFixTag": "từ bài kiểm tra tính năng",
     "followUpLabel": "Ghi chú của bạn trong cuộc trò chuyện",
     "help": "Các bước tạo trò chơi. Sau mỗi bước, trò chơi được lưu thành một phiên bản và khung trò chơi sẽ cập nhật để bạn có thể chơi ngay.",
     "keepGoing": "Tiếp tục",
@@ -318,6 +347,8 @@
     "confirmRestore": "Đặt \"{label}\" làm phiên bản hiện tại của trò chơi?",
     "current": "Hiện tại",
     "earlier": "Bạn đang chơi một phiên bản cũ hơn.",
+    "features": "Tính năng {passing}/{total}",
+    "featuresHelp": "Số tính năng dự kiến đạt bài kiểm tra ở phiên bản này.",
     "help": "Các bước tạo và khôi phục, phiên bản mới nhất ở trên cùng, kèm hình ảnh trò chơi ở mỗi bước.",
     "none": "Chưa có phiên bản nào. Các phiên bản sẽ xuất hiện khi AI tạo trò chơi.",
     "restore": "Khôi phục",

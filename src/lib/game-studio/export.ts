@@ -9,9 +9,10 @@ import type { GameFiles } from "./store";
  * A game as a .zip that runs on any static web host: its source, the engine
  * files and copies of the library assets it uses.
  *
- * Licences: Kenney and KayKit assets are CC0 and are copied in. Platform-only
- * pack assets may be used in games on nullkode.com but must never be handed
- * out as files, so they're left out of the download (the game shows nothing
+ * Licences: Kenney, KayKit, Quaternius and Pixel Frog assets are CC0 and are
+ * copied in. Assets that aren't redistributable (Platform-only pack, the platform-only
+ * asset licence pack) may be used in games on nullkode.com but must
+ * never be handed out as files, so they're left out of the download (the game shows nothing
  * where they were) and README.txt lists them; the studio warns before the
  * download starts (redistributable: false in the catalog).
  */
@@ -24,7 +25,7 @@ export function exportPreview(files: GameFiles): ExportInfo {
   const excluded: ExportInfo["excluded"] = [];
   let included = 0;
   for (const [id, e] of Object.entries(lock)) {
-    if (e.redistributable === false || e.licence === "platform-only") excluded.push({ id, name: String((getEntry(id)?.name as string | undefined) ?? id) });
+    if (e.redistributable === false) excluded.push({ id, name: String((getEntry(id)?.name as string | undefined) ?? id) });
     else included++;
   }
   return { excluded, included };
@@ -91,7 +92,7 @@ export async function exportGameZip(opts: { name: string; engine: Engine; versio
     "Open index.html through a web server (not as a file:// page), e.g. `npx serve .` in this folder.",
     "",
     "Engine: " + (opts.engine === "three-3d" ? "three.js + Rapier (MIT / Apache-2.0)" : "Phaser (MIT)") + ", see engine/*/licenses.",
-    "Art and sound: Kenney (www.kenney.nl) and KayKit by Kay Lousberg (www.kaylousberg.com), CC0 1.0 (public domain).",
+    "Art and sound: Kenney (www.kenney.nl), KayKit by Kay Lousberg (www.kaylousberg.com), Quaternius (quaternius.com) and Pixel Frog (pixelfrog-assets.itch.io), CC0 1.0 (public domain).",
   ];
   if (info.excluded.length) {
     lines.push(

@@ -22,6 +22,14 @@ const OVERLAY = join(dirname(fileURLToPath(import.meta.url)), 'games-release');
 const NR = ['cheq', 'uered'].join('');
 const NR_RE = new RegExp(NR, 'i');
 const NRT = NR[0].toUpperCase() + NR.slice(1);
+// Other packs that may be used on this server but never shipped (packs.json "redistributable": false).
+// Packaging stops if packs.json has a non-redistributable pack missing here, so a new one can't slip through.
+// Spelled in parts, like NR, so that the release itself never contains these names.
+const OTHER_NR = [['quaternius', 'qal'].join('-')];
+// The names those packs and their licence go by: no shipped file may contain them either.
+const QAL_NAME = ['Quaternius', 'Asset', 'License'].join(' ');
+const OTHER_WORDS = [...OTHER_NR.map((n) => `\\b${n}\\b`), ['best', 'iary'].join(''), ['quaternius', 'asset', 'licen[cs]e'].join('\\s+')];
+const OTHER_NR_RE = new RegExp(`(?:${OTHER_WORDS.join('|')})`, 'i');
 const SERVER_RE = /\/var\/www\b|\/root\/\.|\/home\/claude|claude-runner|CLAUDE_CODE_OAUTH_TOKEN|httpdocs/;
 const BRAND_RE = /\bclaude\b|claude-[a-z]+-\d|anthropic/i;
 const SECRET_RE = /\bsk-[A-Za-z0-9_-]{20,}|-----BEGIN [A-Z ]*PRIVATE KEY-----|\bAKIA[0-9A-Z]{16}\b|\bghp_[A-Za-z0-9]{30,}/;
@@ -71,6 +79,8 @@ export async function packageGames(root, output) {
   const cc0 = (x) => x && x.licence === 'cc0' && x.redistributable === true;
   const keepPacks = new Set(libPacks.filter(cc0).map((p) => p.pack));
   if (!keepPacks.size) throw new Error('games/: no CC0 packs in packs.json');
+  const unknownNR = libPacks.filter((p) => !cc0(p) && !NR_RE.test(p.pack) && !OTHER_NR.includes(p.pack)).map((p) => p.pack);
+  if (unknownNR.length) throw new Error(`games/: packs.json has packs that can't ship and aren't in OTHER_NR yet: ${unknownNR.join(', ')}`);
 
   // Engine kits: every version (games keep the version they were made with).
   await tree('engine/kits');
@@ -88,6 +98,12 @@ export async function packageGames(root, output) {
 
   // Asset search.
   await take('tools/asset-search.mjs', [
+    // Licences hidden from search by default: only this server's library has them.
+    [new RegExp(`\\(process\\.env\\.NK_ASSET_HIDE_LICENCES \\?\\? "${OTHER_NR[0]}"\\)`), '(process.env.NK_ASSET_HIDE_LICENCES ?? "")'],
+    // One warning for every asset that isn't redistributable.
+    [/  const qal = ci\.filter[^\n]*\n  const ciOnly = [^\n]*\n  if \(qal\.length\)[^\n]*\n  if \(ciOnly\.length\)[^\n]*\n/,
+      '  if (ci.length) warnings.push(`${ci.length} asset(s) that are not redistributable (this server only, not for exported/open-source games): ${ci.slice(0, 4).map((r) => r.id).join(", ")}${ci.length > 4 ? " ..." : ""}`);\n'],
+    [new RegExp(`  if \\(r\\.licence === "${OTHER_NR[0]}"\\) tags\\.push\\("QAL-licence"\\);\\n  else if \\(r\\.licence !== "cc0"\\)`), '  if (r.licence !== "cc0")'],
     [/export const DB_PATH = process\.env\.NK_ASSET_INDEX \|\| "[^"]*";/, 'export const DB_PATH = process.env.NK_ASSET_INDEX || path.join(process.env.NK_GAME_ASSETS || path.resolve(HERE, "../library"), "_index", "assets.db");', true],
     ['tags.push("CI-licence")', 'tags.push("not-redistributable")'],
     [new RegExp(`with the ${NRT} Ink licence \\(nullkode\\.com only, not for exported/open-source games\\)`), 'that are not redistributable (this server only, not for exported/open-source games)'],
@@ -95,6 +111,8 @@ export async function packageGames(root, output) {
   await take('tools/asset-search', [['"CI-licence"', '"not-redistributable"']]);
   await chmod(join(out, 'tools/asset-search'), 0o755);
   await take('tools/ASSET-SEARCH-CARD.md', [
+    [new RegExp(`^[\\d.]+k assets: Kenney \\+ KayKit \\(CC0\\), ${NRT} Ink \\(CI\\)\\. Quaternius \\(([^)]*)\\) and Pixel Frog\\n\\(pixel art\\) are CC0 too\\. `, 'm'),
+      'Assets: Kenney, KayKit, Quaternius ($1) and Pixel Frog\n(pixel art), all CC0. '],
     [new RegExp(`^[\\d.]+k assets: Kenney \\+ KayKit \\(CC0\\), ${NRT} Ink \\(CI\\)\\. `, 'm'), 'Assets: Kenney + KayKit (CC0). '],
     [new RegExp(`\`${NR}-ink/\\*\` \\(CI-licence\\) is for games hosted on nullkode\\.com only\\.`), 'assets that are not redistributable are for games hosted on this server only.'],
   ]);
@@ -114,8 +132,26 @@ export async function packageGames(root, output) {
     [/NODE = shutil\.which\('node'\) or '[^']*'/, "NODE = shutil.which('node') or 'node'", true],
     // A fresh install has no work/unpacked yet, and unzip doesn't make parent folders.
     ['for d in (WORK, STATE, ASSET_STATE, STAGE3D, TMP):', 'for d in (WORK, UNPACKED, STATE, ASSET_STATE, STAGE3D, TMP):', true],
-    ["def load_packs():\n    return read_json(os.path.join(HERE, 'packs.json'))\n",
-      "def load_packs():\n    \"\"\"packs.json, each zip from PACKS_DIR. A pack whose zip isn't there is skipped.\"\"\"\n    out = []\n    for p in read_json(os.path.join(HERE, 'packs.json')) or []:\n        p['zip'] = os.path.join(PACKS_DIR, p['zip'])\n        if os.path.exists(p['zip']):\n            out.append(p)\n        else:\n            log('pack %s: no %s (run prepare-packs.py), skipped' % (p['slug'], p['zip']))\n    return out\n", true],
+    ["def load_packs():\n    return read_json(os.path.join(HERE, 'packs.json'))\n", [
+      'def load_packs():',
+      '    """packs.json, the zips from PACKS_DIR (prepare-packs.py puts them there). A pack whose zip isn\'t there',
+      '    is skipped. A pack of several zips ("zips": {folder: zip}, "zip": their folder) takes the zips that are',
+      '    there: the ones packs.json lists, and any other pack prepare-packs.py added (ids from its name)."""',
+      '    out = []',
+      "    for p in read_json(os.path.join(HERE, 'packs.json')) or []:",
+      "        p['zip'] = os.path.join(PACKS_DIR, p['zip'])",
+      "        if 'zips' in p:",
+      "            have = sorted(n for n in os.listdir(p['zip']) if n.endswith('.zip')) if os.path.isdir(p['zip']) else []",
+      "            p['zips'] = {n[:-4]: n for n in have}",
+      '            if not have:',
+      "                log('pack %s: no zips in %s (run prepare-packs.py), skipped' % (p['slug'], p['zip']))",
+      '                continue',
+      '            out.append(p)',
+      "        elif os.path.exists(p['zip']):",
+      '            out.append(p)',
+      '        else:',
+      "            log('pack %s: no %s (run prepare-packs.py), skipped' % (p['slug'], p['zip']))",
+      '    return out', ''].join('\n'), true],
   ]);
   await take('ingest/lib/rules.py', [
     [new RegExp(`def _root_${NR}\\(comps\\):\\n[\\s\\S]*?\\n\\n\\n(?=def )`), ''],
@@ -123,6 +159,7 @@ export async function packageGames(root, output) {
     [new RegExp(` or \\(pack\\['rules'\\] == '${NR}-ink' and p\\.startswith\\('pixel art'\\)\\)`), ''],
   ]);
   await take('ingest/lib/catalog.py', [
+    [new RegExp(`CONTINUOUS_PACKS = \\{'${NR}-ink', `), 'CONTINUOUS_PACKS = {'],
     [/They are served for games built on nullkode\.com only',\n(\s*)'and are excluded from the open-source release\.'\]/, "Keep them out of any public copy',\n$1'of this library.']"],
     [new RegExp(`'> \\*\\*${NRT} Ink[\\s\\S]*?\`"redistributable": false\`\\.', '',`), "'> Packs marked `\"redistributable\": false` in packs.json may be used in games but not shared as files.', '',"],
   ]);
@@ -131,7 +168,15 @@ export async function packageGames(root, output) {
   ]);
   for (const rel of ['scan.py', 'process.py', 'verify.py']) await tree(`ingest/lib/${rel}`);
   const srcPacks = JSON.parse(await readFile(join(src, 'ingest/packs.json'), 'utf8'));
-  const shipPacks = srcPacks.filter((p) => cc0(p) && keepPacks.has(p.slug)).map((p) => ({ ...p, zip: `${p.slug}.zip` }));
+  // Zips are read from <work>/packs (prepare-packs.py): <slug>.zip, or for a pack of several zips the
+  // folder <slug>/ with one <pack folder>.zip each (the folder names give the ids the shipped tags use).
+  const evidence = (t) => t.replace(/\s*\((?:saved|copies in)\b[^)]*\)/g, '');
+  const shipPacks = srcPacks.filter((p) => cc0(p) && keepPacks.has(p.slug)).map((p) => {
+    const q = { ...p, zip: p.zips ? p.slug : `${p.slug}.zip` };
+    if (p.zips) q.zips = Object.fromEntries(Object.keys(p.zips).sort().map((f) => [f, `${f}.zip`]));
+    if (q.licenceEvidence) q.licenceEvidence = evidence(q.licenceEvidence);
+    return q;
+  });
   await put('ingest/packs.json', JSON.stringify(shipPacks, null, 2) + '\n');
   await overlay('prepare-packs.py', 'ingest/prepare-packs.py', 0o755);
 
@@ -144,6 +189,7 @@ export async function packageGames(root, output) {
   await take('tagging/tag.py', [
     modelArg,
     [new RegExp(`"kenney", "kaykit", "${NR}-ink", "${NR}", "ink", `), '"kenney", "kaykit", '],
+    ['"quaternius", "qal", ', '"quaternius", '],
     [/The tool runs the way the platform runs it \(see runner\.py\)\. A quota guard pauses work when the account's\n5-hour \/ 7-day usage passes the given fractions, so the live site always keeps headroom\./,
       'The AI is called through runner.py (any OpenAI-compatible API, see there). The quota guard\n(--max-week, --max-5h) only acts when an API reports usage windows.'],
   ]);
@@ -151,6 +197,10 @@ export async function packageGames(root, output) {
     modelArg,
     [new RegExp(`"${NRT} Ink licence: use in nullkode\\.com games only, NOT redistributable \\(exclude from exportable/open-source games\\)"`), '"NOT redistributable: games on this server only (exclude from exportable/open-source games)"'],
     [new RegExp(`    if assets\\[0\\]\\["pack"\\] == "${NR}-ink" and len\\(parts\\) > 2:\\n[^\\n]*\\n`), ''],
+    [new RegExp(`\\("${QAL_NAME}:[^\\n]*\\n[^\\n]*\\) if st\\["licence"\\] == "${OTHER_NR[0]}" else \\\\\\n\\s*`), ''],
+    [`"quaternius", "${OTHER_NR[0]}", `, '"quaternius", '],
+    [new RegExp(`\\("QAL-no-redistrib" if r\\["licence"\\] == "${OTHER_NR[0]}" else "CI-no-redistrib"\\)`), '"not-redistributable"'],
+    ['"CI-no-redistrib"', '"not-redistributable"'],
   ]);
   for (const rel of ['tagging/prompts.py', 'tagging/show.py']) await tree(rel);
   await overlay('runner.py', 'tagging/runner.py');
@@ -203,7 +253,7 @@ export async function packageGames(root, output) {
     'captures and reference pictures the READMEs mention are not.', '',
   ].join('\n'));
 
-  await put('README.md', (await readFile(join(OVERLAY, 'games-README.md'), 'utf8')).replace('63,130', meta.count.toLocaleString('en-US')));
+  await put('README.md', (await readFile(join(OVERLAY, 'games-README.md'), 'utf8')).replace('65,993', meta.count.toLocaleString('en-US')));
   await overlay('THIRD-PARTY-NOTICES.md', 'THIRD-PARTY-NOTICES.md');
   await overlay('setup-library.sh', 'setup-library.sh', 0o755);
 
@@ -221,7 +271,7 @@ async function metadata(lib, keepPacks, cc0, libPacks) {
     if (!line.trim()) continue;
     const a = JSON.parse(line);
     if (!cc0(a) || !keepPacks.has(a.pack)) continue;
-    if (NR_RE.test(line)) throw new Error(`games/: catalog row ${a.id} mentions a pack that can't ship`);
+    if (NR_RE.test(line) || OTHER_NR_RE.test(line)) throw new Error(`games/: catalog row ${a.id} mentions a pack that can't ship`);
     ids.add(a.id);
     if (a.files?.primary) primaries.add(a.files.primary);
     catalog.push(line);
@@ -248,7 +298,7 @@ async function metadata(lib, keepPacks, cc0, libPacks) {
   const cardsText = JSON.stringify({ cards, pages });
   const texts = { 'catalog-cc0.jsonl': catalog.join('\n') + '\n', 'tags-cc0.jsonl': tags.join('\n') + '\n', 'cards-cc0.json': cardsText };
   for (const [name, text] of Object.entries(texts)) {
-    for (const [re, why] of [[NR_RE, 'a pack that can\'t ship'], [SERVER_RE, 'a server path'], [BRAND_RE, 'an AI provider'], [SECRET_RE, 'a secret']]) {
+    for (const [re, why] of [[NR_RE, 'a pack that can\'t ship'], [OTHER_NR_RE, 'a pack that can\'t ship'], [SERVER_RE, 'a server path'], [BRAND_RE, 'an AI provider'], [SECRET_RE, 'a secret']]) {
       const m = re.exec(text);
       if (m) throw new Error(`games/: metadata ${name} mentions ${why}: ${text.slice(Math.max(0, m.index - 60), m.index + 60)}`);
     }
@@ -261,7 +311,7 @@ async function metadata(lib, keepPacks, cc0, libPacks) {
   }
   files['README.md'] = [
     '# Asset metadata (CC0 packs)', '',
-    `Made for the ${ids.size.toLocaleString('en-US')} Kenney and KayKit assets in the bundles below; \`setup-library.sh\` installs it.`, '',
+    `Made for the ${ids.size.toLocaleString('en-US')} Kenney, KayKit, Quaternius and Pixel Frog assets in the packs below; \`setup-library.sh\` installs it.`, '',
     '| File | What |', '|---|---|',
     `| \`tags-cc0.jsonl.gz\` | AI tags, one JSON object per asset: name, description, style, view, roles, tags, usage note (${tags.length.toLocaleString('en-US')} rows) |`,
     `| \`cards-cc0.json.gz\` | Set cards: a summary of each pack and its full card page (${cards.length} sets) |`,
@@ -269,8 +319,10 @@ async function metadata(lib, keepPacks, cc0, libPacks) {
     'Made from:', '',
     ...titles.map(([pack, t, n]) => `- \`${pack}\`: ${t} (${n.toLocaleString('en-US')} assets)`),
     '', 'Tags are matched by asset id. Ids come from the folder and file names in the zips, so the',
-    'bundles give exactly these ids; single packs from the publishers\' sites match where their',
-    'folder names are the same. Assets without tags get tags made from their file names.', '',
+    'Kenney and KayKit bundles give exactly these ids, and single Kenney and KayKit packs match where',
+    'their folder names are the same. Quaternius and Pixel Frog zips are matched by pack name',
+    '(`ingest/packs.json` lists the packs), so each one you have gets its tags. Assets without tags',
+    'get tags made from their file names.', '',
   ].join('\n');
   return { ids, primaries, count: ids.size, files, bytes };
 }
@@ -294,7 +346,7 @@ async function checkTree(dir, label) {
   for (const rel of await files(dir)) {
     const ext = extname(rel).toLowerCase();
     const text = (await readFile(join(dir, rel))).toString(TEXT.has(ext) ? 'utf8' : 'latin1');
-    if (NR_RE.test(text) || NR_RE.test(rel)) problems.push(`${label}/${rel}: names a pack that can't ship`);
+    if (NR_RE.test(text) || NR_RE.test(rel) || OTHER_NR_RE.test(text) || OTHER_NR_RE.test(rel)) problems.push(`${label}/${rel}: names a pack that can't ship`);
     if (!TEXT.has(ext)) continue;
     for (const [re, why] of [[SERVER_RE, 'server path or account'], [BRAND_RE, 'AI provider name'], [SECRET_RE, 'secret']]) {
       const m = re.exec(text);
@@ -306,8 +358,9 @@ async function checkTree(dir, label) {
 
 /**
  * The rest of the release: platform code that names the non-redistributable
- * pack (licence checks for nullkode.com's own library) gets a neutral name,
- * since a self-hosted library never has it. Then no file may name it.
+ * packs or their licences (licence checks for nullkode.com's own library) gets
+ * a neutral name, since a self-hosted library never has them. Then no file may
+ * name them.
  */
 export async function scrubRelease(output) {
   const changed = [];
@@ -317,17 +370,23 @@ export async function scrubRelease(output) {
     if (rel.startsWith('games/') || !/\.(?:[cm]?[jt]sx?|json|md|txt|ya?ml)$/.test(rel)) continue;
     const file = join(output, rel);
     const text = await readFile(file, 'utf8');
-    if (!NR_RE.test(text)) continue;
-    const next = text.replace(lower, 'platform-only').replace(title, 'Platform-only$1pack').replace(new RegExp(NR, 'gi'), 'checkered');
+    if (!NR_RE.test(text) && !OTHER_NR_RE.test(text)) continue;
+    const next = text.replace(lower, 'platform-only').replace(title, 'Platform-only$1pack').replace(new RegExp(NR, 'gi'), 'checkered')
+      // The other packs that can't ship, and their licence's name.
+      .replace(new RegExp(`\\s*\\(\\s*"?${OTHER_WORDS[1]}"?\\s*\\)|\\s*"${OTHER_WORDS[1]}"(?=\\s+pack)`, 'gi'), '')
+      .replace(new RegExp(OTHER_NR.join('|'), 'g'), 'platform-only')
+      .replace(new RegExp(`Quaternius(\\s+(?:\\*\\s+)?)Asset(\\s+(?:\\*\\s+)?)Licen[cs]e(?:\\s*\\(QAL\\))?`, 'gi'), 'platform-only$1asset$2licence')
+      .replace(new RegExp(`"?${OTHER_WORDS[1]}"?`, 'gi'), 'platform-only');
     await writeFile(file, next);
     changed.push(rel);
   }
   const left = [];
   for (const rel of await files(output)) {
-    if (NR_RE.test(rel) || NR_RE.test((await readFile(join(output, rel))).toString('latin1'))) left.push(rel);
+    const text = (await readFile(join(output, rel))).toString('latin1');
+    if (NR_RE.test(rel) || NR_RE.test(text) || OTHER_NR_RE.test(rel) || OTHER_NR_RE.test(text)) left.push(rel);
   }
   if (left.length) throw new Error(`The release still names a pack that can't ship: ${left.join(', ')}`);
   return changed;
 }
 
-export { checkTree, NR_RE };
+export { checkTree, NR_RE, OTHER_NR_RE };

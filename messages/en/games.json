@@ -151,6 +151,24 @@
       "ui": "Interface",
       "motion": "Motion",
       "assets": "Art and scale"
+    },
+    "features": {
+      "title": "Features",
+      "help": "What the game must do, and whether it does. After every build step each feature's test runs on the real game with real key presses, so these show what actually works right now.",
+      "count": "{passing} of {total} features pass",
+      "extra": "Extra",
+      "status": {
+        "planned": "Planned",
+        "built": "Built",
+        "passing": "Passing",
+        "failing": "Failing"
+      },
+      "statusHelp": {
+        "planned": "A later build step makes this.",
+        "built": "Built, but its test couldn't check it, so it isn't proven yet.",
+        "passing": "Its test ran on the real game after the last step and passed.",
+        "failing": "Its test ran on the real game and failed. The line below says what the test saw."
+      }
     }
   },
   "steps": {
@@ -168,7 +186,10 @@
     "stopNowHelp": "Stops the AI straight away. The step it was working on is dropped and your game stays as it was after the last finished step. To undo a finished step, use Versions.",
     "playtestFixLabel": "Playtest fixes",
     "playtestTag": "from the playtest",
-    "playtestHelp": "The playtester found something that stops the game from being playable, so this step fixes it before the build goes on."
+    "playtestHelp": "The playtester found something that stops the game from being playable, so this step fixes it before the build goes on.",
+    "featureFixLabel": "Feature fixes",
+    "featureFixTag": "from the feature tests",
+    "featureFixHelp": "A core feature failed its test, so this step fixes it before the build is done."
   },
   "canvas": {
     "title": "Game",
@@ -239,7 +260,9 @@
     "restoreItHelp": "Makes this version the current one.",
     "back": "Back to the current version",
     "backHelp": "Shows the game as it is now.",
-    "restoredLabel": "Restored version {seq}"
+    "restoredLabel": "Restored version {seq}",
+    "features": "Features {passing}/{total}",
+    "featuresHelp": "How many of the planned features passed their tests at this version."
   },
   "assets": {
     "title": "Assets",
@@ -329,5 +352,13 @@
       "touchHud": "on a phone the touch buttons cover part of the score display",
       "contrast": "the player is hard to see against the background (contrast {ratio}:1)"
     }
+  },
+  "features": {
+    "line": "Features: {passing} passing{failing, plural, =0 {} other {, # failing ({failingNames})}}{unverified, plural, =0 {} other {, # not proven ({unverifiedNames})}}.",
+    "fixing": "Core features that don't work yet: {names}. Adding a step to fix them.",
+    "coreFailing": "Still not working: {names}. Ask me to fix them.",
+    "coreUnverified": "Couldn't be tested automatically: {names}. Try them yourself.",
+    "allCorePass": "{count, plural, one {The core feature passes its test.} other {All # core features pass their tests.}}",
+    "extrasFailing": "Extras that don't work yet: {names}."
   }
 }

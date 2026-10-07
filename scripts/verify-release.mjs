@@ -81,10 +81,11 @@ if (await stat(join(root, 'games')).catch(() => null)) {
   assert.equal(found.length, 0, `Asset files in games/ (the library is built by each install): ${found.slice(0, 5).join(', ')}`);
 }
 {
-  // No file anywhere names the pack nullkode.com may use but not share.
-  const { NR_RE } = await import('./package-games.mjs');
+  // No file anywhere names the packs nullkode.com may use but not share, or their licences.
+  const { NR_RE, OTHER_NR_RE } = await import('./package-games.mjs');
+  const names = (s) => NR_RE.test(s) || OTHER_NR_RE.test(s);
   const hits = [];
-  const scan = async (dir) => { for (const item of await readdir(join(root, dir), { withFileTypes: true })) { const rel = join(dir, item.name); if (NR_RE.test(item.name)) hits.push(rel); if (item.isDirectory()) await scan(rel); else if (NR_RE.test((await readFile(join(root, rel))).toString('latin1'))) hits.push(rel); } };
+  const scan = async (dir) => { for (const item of await readdir(join(root, dir), { withFileTypes: true })) { const rel = join(dir, item.name); if (names(item.name)) hits.push(rel); if (item.isDirectory()) await scan(rel); else if (names((await readFile(join(root, rel))).toString('latin1'))) hits.push(rel); } };
   await scan('');
   assert.equal(hits.length, 0, `Files naming a pack that can't ship: ${hits.join(', ')}`);
 }

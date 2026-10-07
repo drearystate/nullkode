@@ -13,7 +13,7 @@ export type GameEvent =
   | { type: "game" };
 
 /** `added`: a step the person's notes added during the build (steer while building). */
-export type JobStepView = { id: string; label: string; status: "todo" | "running" | "done" | "error"; seq?: number; note?: string; added?: boolean; kind?: "playtest-fix" };
+export type JobStepView = { id: string; label: string; status: "todo" | "running" | "done" | "error"; seq?: number; note?: string; added?: boolean; kind?: "playtest-fix" | "feature-fix"; features?: string[] };
 
 const store = globalThis as unknown as { __nkGameEvents?: EventEmitter };
 const emitter = (store.__nkGameEvents ??= new EventEmitter().setMaxListeners(0));

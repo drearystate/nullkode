@@ -3,17 +3,19 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useFormatter, useTranslations } from "next-intl";
-import { AlertTriangle, ArrowUpRight, Check, Circle, CircleDot, Download, Gamepad2, History, Loader2, Maximize2, MessageSquareReply, Monitor, Pause, Play, Rocket, RotateCcw, Send, Shapes, Smartphone, Square, StepForward, X } from "lucide-react";
+import { AlertTriangle, ArrowUpRight, Check, CheckCircle2, Circle, CircleDashed, CircleDot, Download, Gamepad2, History, Loader2, Maximize2, MessageSquareReply, Monitor, Pause, Play, Rocket, RotateCcw, Send, Shapes, Smartphone, Square, StepForward, X, XCircle } from "lucide-react";
 import { addImageFiles, imagesFromPaste, ReferencePicker, referenceDropProps, type PickedImage } from "@/components/ai/reference-picker";
 import { GameCanvas, type CanvasStatus, type GameCanvasHandle } from "./game-canvas";
 import { ASSET_DRAG_TYPE, AssetsPanel, type PanelAsset } from "./assets-panel";
 
 type Game = { id: string; name: string; engine: "phaser-2d" | "three-3d"; status: string; projectId: string | null; published: boolean; seq: number; plan: Plan | null };
 type Visual = { camera?: string; palette?: Array<{ hex: string; role: string }>; shapes?: string; materials?: string; lighting?: string; density?: string; ui?: string; motion?: string; assets?: string };
-type Plan = { title?: string; brief?: Record<string, string>; assets?: Array<{ key: string; id: string; use: string }>; message?: string; visual?: Visual | null };
+type FeatureStatus = "planned" | "built" | "passing" | "failing";
+type Feature = { id: string; name: string; priority: "core" | "extra"; how?: string; status: FeatureStatus; last?: { ok: boolean; text: string; bad?: string } };
+type Plan = { title?: string; brief?: Record<string, string>; assets?: Array<{ key: string; id: string; use: string }>; message?: string; visual?: Visual | null; features?: Feature[] };
 type NoteState = { status: string; step: number | null; label: string | null; planned: string | null };
 type Message = { seq: number; kind: "user" | "assistant" | "error"; text: string; versionSeq: number | null; createdAt: string; note?: NoteState };
-type Version = { seq: number; label: string; note: string | null; kind: string; ok: boolean | null; hasShot: boolean; createdAt: string };
+type Version = { seq: number; label: string; note: string | null; kind: string; ok: boolean | null; hasShot: boolean; createdAt: string; features?: { passing: number; failing: number; total: number } | null };
 type Step = { id: string; label: string; status: "todo" | "running" | "done" | "error"; seq?: number; note?: string; added?: boolean; kind?: string };
 type Job = { id: string; steps: Step[]; phase: string | null; stopAfterStep?: boolean };
 
@@ -205,6 +207,8 @@ export function GameWorkspace({ id }: { id: string }) {
   if (!game) return <div className="grid min-h-[60vh] place-items-center text-surface-400"><Loader2 className="animate-spin" /></div>;
 
   const plan = game.plan;
+  const features = plan?.features ?? [];
+  const passingCount = features.filter((f) => f.status === "passing").length;
   const steps = job?.steps ?? [];
   const doneCount = steps.filter((s) => s.status === "done").length;
   const errors = status?.errors ?? [];
@@ -235,7 +239,29 @@ export function GameWorkspace({ id }: { id: string }) {
         <div className="min-h-0 flex-1 space-y-3 overflow-y-auto px-4 py-4" aria-live="polite">
           {plan?.brief && (
             <details open={versions.length <= 2} className="rounded-xl border border-white/10 bg-white/[0.03] p-3 text-sm [[data-theme=light]_&]:bg-surface-900" data-help={t("plan.help")} data-testid="plan-card">
-              <summary className="flex cursor-pointer items-center gap-2 font-medium"><Gamepad2 size={15} className="text-brand-300" />{t("plan.title")}</summary>
+              <summary className="flex cursor-pointer flex-wrap items-center gap-2 font-medium"><Gamepad2 size={15} className="text-brand-300" />{t("plan.title")}{features.length > 0 && <span className="ms-auto rounded-full border border-white/10 px-2 py-0.5 text-[11px] font-normal text-surface-300" data-testid="features-count">{t("plan.features.count", { passing: passingCount, total: features.length })}</span>}</summary>
+              {features.length > 0 && (
+                <div className="mt-2 border-b border-white/10 pb-2.5" data-testid="features" data-help={t("plan.features.help")}>
+                  <p className="text-xs font-medium text-surface-300">{t("plan.features.title")}</p>
+                  <ul className="mt-1.5 space-y-1.5">
+                    {features.map((f) => (
+                      <li key={f.id} className="flex items-start gap-2 text-xs" data-testid="feature" data-status={f.status}>
+                        <FeatureChip status={f.status} />
+                        <div className="min-w-0 flex-1">
+                          <p className="text-surface-100" dir="auto">
+                            {f.name}
+                            {f.priority === "extra" && <span className="ms-1.5 rounded border border-white/10 px-1 py-px text-[10px] text-surface-400">{t("plan.features.extra")}</span>}
+                          </p>
+                          {f.how && <p className="text-surface-400" dir="auto">{f.how}</p>}
+                          {f.last && f.status !== "passing" && f.status !== "planned" && (
+                            <p className="mt-0.5 break-words font-mono text-[10px] text-surface-400" dir="ltr" data-testid="feature-last">{f.last.text}</p>
+                          )}
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
               <dl className="mt-2 space-y-1.5">
                 {BRIEF_KEYS.filter((k) => plan.brief?.[k]).map((k) => (
                   <div key={k}><dt className="text-xs text-surface-400">{t(`plan.${k}`)}</dt><dd className="text-surface-200" dir="auto">{plan.brief![k]}</dd></div>
@@ -293,7 +319,7 @@ export function GameWorkspace({ id }: { id: string }) {
                   {steps.map((s) => (
                     <li key={s.id} className="flex items-start gap-2 text-xs" data-status={s.status}>
                       <span className="mt-0.5">{s.status === "running" ? <Loader2 size={12} className="animate-spin text-brand-300" /> : s.status === "done" ? <Check size={12} className="text-emerald-400" /> : s.status === "error" ? <X size={12} className="text-red-400" /> : <Circle size={12} className="text-surface-500" />}</span>
-                      <span className={s.status === "todo" ? "text-surface-500" : "text-surface-200"} dir="auto">{s.label}{s.added && <span className="ms-1.5 rounded bg-brand-500/15 px-1 py-px text-[10px] text-brand-200" data-testid="step-added">{t("steps.added")}</span>}{s.kind === "playtest-fix" && <span className="ms-1.5 rounded bg-amber-400/15 px-1 py-px text-[10px] text-amber-100" data-testid="step-playtest" data-help={t("steps.playtestHelp")}>{t("steps.playtestTag")}</span>}{s.note && s.status === "done" ? <span className="block text-surface-400">{s.note}</span> : null}</span>
+                      <span className={s.status === "todo" ? "text-surface-500" : "text-surface-200"} dir="auto">{s.label}{s.added && s.kind !== "feature-fix" && <span className="ms-1.5 rounded bg-brand-500/15 px-1 py-px text-[10px] text-brand-200" data-testid="step-added">{t("steps.added")}</span>}{s.kind === "playtest-fix" && <span className="ms-1.5 rounded bg-amber-400/15 px-1 py-px text-[10px] text-amber-100" data-testid="step-playtest" data-help={t("steps.playtestHelp")}>{t("steps.playtestTag")}</span>}{s.kind === "feature-fix" && <span className="ms-1.5 rounded bg-sky-400/15 px-1 py-px text-[10px] text-sky-100" data-testid="step-feature-fix" data-help={t("steps.featureFixHelp")}>{t("steps.featureFixTag")}</span>}{s.note && s.status === "done" ? <span className="block text-surface-400">{s.note}</span> : null}</span>
                     </li>
                   ))}
                 </ol>
@@ -449,6 +475,23 @@ export function GameWorkspace({ id }: { id: string }) {
   );
 }
 
+/** A feature's test status: icon shape, colour and the word (never colour alone). */
+function FeatureChip({ status }: { status: FeatureStatus }) {
+  const t = useTranslations("games");
+  const look = {
+    passing: { Icon: CheckCircle2, cls: "border-emerald-400/40 text-emerald-200" },
+    failing: { Icon: XCircle, cls: "border-red-400/40 text-red-200" },
+    built: { Icon: CircleDot, cls: "border-sky-400/40 text-sky-200" },
+    planned: { Icon: CircleDashed, cls: "border-white/15 text-surface-400" },
+  }[status] ?? { Icon: Circle, cls: "border-white/15 text-surface-400" };
+  return (
+    <span className={`inline-flex min-w-[4.75rem] shrink-0 items-center justify-center gap-1 rounded-full border px-1.5 py-0.5 text-[10px] font-medium ${look.cls}`} data-help={t(`plan.features.statusHelp.${status}`)}>
+      <look.Icon size={11} aria-hidden />
+      {t(`plan.features.status.${status}`)}
+    </span>
+  );
+}
+
 function NoteBadge({ note }: { note: NoteState }) {
   const t = useTranslations("games");
   const text =
@@ -495,6 +538,12 @@ function VersionsList({ versions, current, viewSeq, gameId, onView, onRestore, o
               <div className="min-w-0 flex-1">
                 <p className="line-clamp-2 text-surface-200" dir="auto">{v.label}</p>
                 <p className="mt-0.5 text-xs text-surface-500">{[format(v.createdAt), v.seq === current ? t("versions.current") : ""].filter(Boolean).join(" · ")}</p>
+                {v.features && v.features.total > 0 && (
+                  <p className={`mt-0.5 flex items-center gap-1 text-xs ${v.features.failing ? "text-amber-200" : "text-surface-300"}`} data-testid="version-features" data-help={t("versions.featuresHelp")}>
+                    {v.features.failing ? <XCircle size={12} aria-hidden /> : <CheckCircle2 size={12} aria-hidden />}
+                    <span>{t("versions.features", { passing: v.features.passing, total: v.features.total })}</span>
+                  </p>
+                )}
                 <div className="mt-1 flex gap-3 text-xs">
                   <button type="button" className="text-brand-300 hover:underline" data-help={t("versions.viewHelp")} onClick={() => onView(v.seq)}>{t("versions.view")}</button>
                   {v.seq !== current && <button type="button" className="text-brand-300 hover:underline" data-help={t("versions.restoreHelp")} onClick={() => onRestore(v)}>{t("versions.restore")}</button>}

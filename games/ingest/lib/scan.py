@@ -27,8 +27,66 @@ def _count_files(d):
     return n
 
 
+def _extract_strip(zp, out):
+    """Extract zp into out; when every entry sits under one top folder, that folder is dropped
+    (a publisher's single-pack zip becomes out/<files>, the way the bundles lay packs out)."""
+    import zipfile
+    with zipfile.ZipFile(zp) as z:
+        ents = [i for i in z.infolist() if not i.is_dir() and not i.filename.startswith('__MACOSX/')]
+        tops = {e.filename.split('/', 1)[0] for e in ents}
+        strip = ''
+        if len(tops) == 1 and all('/' in e.filename for e in ents):
+            strip = next(iter(tops)) + '/'
+        for info in ents:
+            rel = info.filename[len(strip):]
+            if not rel or rel.startswith('/') or '..' in rel.split('/'):
+                continue
+            dst = os.path.join(out, rel)
+            os.makedirs(os.path.dirname(dst), exist_ok=True)
+            with z.open(info) as src, open(dst, 'wb') as f:
+                shutil.copyfileobj(src, f, 1 << 20)
+    return len(ents)
+
+
+def zip_of(pack, rel):
+    """Source zip (basename) of a file in a pack's unpack tree (multi-zip packs: by first folder)."""
+    zips = pack.get('zips')
+    if zips and os.path.isdir(pack['zip']):
+        return zips.get(rel.split('/', 1)[0], os.path.basename(pack['zip']))
+    return os.path.basename(pack['zip'])
+
+
+def _unpack_multi(p):
+    """Packs made of several publisher zips ("zips": {folder: zip basename}, "zip": their directory):
+    each zip is extracted to <unpacked>/<slug>/<folder>/ with its single top folder dropped."""
+    dest = os.path.join(UNPACKED, p['slug'])
+    os.makedirs(dest, exist_ok=True)
+    for folder, zname in sorted(p['zips'].items()):
+        zp = os.path.join(p['zip'], zname)
+        out = os.path.join(dest, folder)
+        marker = os.path.join(out, '.ingest-unpacked.json')
+        st = os.stat(zp)
+        sig = {'zip': zname, 'size': st.st_size, 'mtime': int(st.st_mtime)}
+        if (read_json(marker) or {}).get('sig') == sig:
+            continue
+        part = out + '.partial'
+        shutil.rmtree(part, ignore_errors=True)
+        n = _extract_strip(zp, part)
+        shutil.rmtree(out, ignore_errors=True)
+        os.replace(part, out)
+        write_json(marker, {'sig': sig, 'files': n})
+        log('unpack %s: %s -> %s/ (%d files)' % (p['slug'], zname, folder, n))
+    stale = [d for d in os.listdir(dest) if os.path.isdir(os.path.join(dest, d)) and d not in p['zips']]
+    for d in stale:
+        log('unpack %s: removing %s/ (no longer in packs.json)' % (p['slug'], d))
+        shutil.rmtree(os.path.join(dest, d))
+
+
 def unpack(packs):
     for p in packs:
+        if p.get('zips') and os.path.isdir(p['zip']):
+            _unpack_multi(p)
+            continue
         dest = os.path.join(UNPACKED, p['slug'])
         marker = os.path.join(dest, '.ingest-unpacked.json')
         st = os.stat(p['zip'])
@@ -224,6 +282,118 @@ def _tile_hints(pack_dir_abs, files_by_dir):
     return hints
 
 
+# ------------------------------------------------------------------ Quaternius: textures from the .blend sources
+
+_BLEND_CACHE = os.path.join(STATE, 'blend-textures.json')
+# Old character packs whose .blend points at a texture that isn't in the zip: use the pack's default skin.
+# Packs whose .blend files name textures that ship under other names: material -> shipped file.
+QUAT_MATERIAL_TEXTURES = {
+    'Textured Stylized Trees': {'Bark': 'Textures/Tree_Bark.jpg', 'Birch_Bark': 'Textures/Birch_Bark.png',
+                                'Birch_Leaves': 'Textures/Birch_Leaves_Yellow.png',  # .blend: birchYellow.png
+                                'Tree_Leaves': 'Textures/Tree_Leaves.png', 'Pine_Leaves': 'Textures/Pine_Leaves.png'},
+    # .blend: Texture.png (not shipped); Texture_Light is the plain variant, the other colours are texture assets
+    'Ultimate Textured Building Pack': {'Texture': 'Textured Models/Textures/Texture_Light.png'},
+}
+QUAT_TEXTURE_FALLBACK = {
+    'Woman Animated': 'Blends/LightSkin.png',
+    'Man Animated': 'Blend/Textures/ClothedLightSkin.png',
+    'Zombie': 'Blends/ZombieTexture.png',
+}
+
+
+def _probe_blends(paths):
+    """{blend path: {'materials': {mat: [image basename, ...]}}} via Blender (cached by size+mtime)."""
+    import concurrent.futures as cf
+    from common import BLENDER, HERE, TMP
+    cache = read_json(_BLEND_CACHE, {}) or {}
+    todo = []
+    for p in paths:
+        st = os.stat(p)
+        c = cache.get(p)
+        if not c or c.get('sig') != [st.st_size, int(st.st_mtime)]:
+            todo.append(p)
+    if todo:
+        log('blend texture probe: %d .blend files' % len(todo))
+        jdir = os.path.join(TMP, 'blendprobe')
+        os.makedirs(jdir, exist_ok=True)
+        chunks = [todo[i:i + 40] for i in range(0, len(todo), 40)]
+
+        def run(ix):
+            jf, of = os.path.join(jdir, 'j%04d.json' % ix), os.path.join(jdir, 'o%04d.json' % ix)
+            with open(jf, 'w') as f:
+                json.dump(chunks[ix], f)
+            subprocess.run(['nice', '-n', '10', BLENDER, '--background', '--factory-startup', '--python',
+                            os.path.join(HERE, 'blender', 'blend-textures.py'), '--', jf, of],
+                           capture_output=True, text=True, timeout=1800)
+            return read_json(of, {}) or {}
+        with cf.ThreadPoolExecutor(min(8, WORKERS)) as ex:
+            for res in ex.map(run, range(len(chunks))):
+                for p, r in res.items():
+                    st = os.stat(p)
+                    r['sig'] = [st.st_size, int(st.st_mtime)]
+                    cache[p] = r
+        shutil.rmtree(jdir, ignore_errors=True)
+        write_json(_BLEND_CACHE, cache)
+    return cache
+
+
+def _attach_blend_textures(pack, base, recs):
+    """FBX/OBJ exports in Quaternius packs carry material names but no texture links; the .blend with the
+    same name does. rec.src.matTextures = {material: image path in the pack}, used by blender/convert.py."""
+    by_pack = collections.defaultdict(list)
+    for r in recs:
+        by_pack[r['_needTex']['rel'].split('/', 1)[0]].append(r)
+    files_in = {}
+    want = {}
+    for top, rs in by_pack.items():
+        files = []
+        for root, _, fs in os.walk(os.path.join(base, top)):
+            files += [os.path.join(root, f) for f in fs]
+        files_in[top] = files
+        blends = {}
+        for f in files:
+            if f.lower().endswith('.blend'):
+                blends.setdefault(slug(os.path.splitext(os.path.basename(f))[0]), []).append(f)
+        for r in rs:
+            cands = blends.get(slug(r['_needTex']['stem'])) or []
+            if cands:
+                want[id(r)] = sorted(cands, key=len)[0]
+    probed = _probe_blends(sorted(set(want.values()))) if want else {}
+    n_tex = 0
+    for top, rs in by_pack.items():
+        imgs = collections.defaultdict(list)
+        for f in files_in[top]:
+            if os.path.splitext(f)[1].lower() in ('.png', '.jpg', '.jpeg'):
+                imgs[os.path.basename(f).lower()].append(f)
+        for r in rs:
+            info = r.pop('_needTex')
+            bl = want.get(id(r))
+            mats = ((probed.get(bl) or {}).get('materials') or {}) if bl else {}
+            out = {}
+            for mat, names in mats.items():
+                for nm in names:
+                    hits = imgs.get(os.path.basename(nm).lower())
+                    if hits:
+                        # prefer the copy in a Textures folder, then the shortest path
+                        hits = sorted(hits, key=lambda h: ('/textures/' not in h.lower(), len(h)))
+                        out[mat] = os.path.relpath(hits[0], base)
+                        break
+            for mat, names in mats.items():
+                alias = QUAT_MATERIAL_TEXTURES.get(top, {}).get(mat)
+                if names and mat not in out and alias and os.path.exists(os.path.join(base, top, alias)):
+                    out[mat] = os.path.join(top, alias)
+            if mats and not out and any(mats.values()) and top in QUAT_TEXTURE_FALLBACK:
+                fb = os.path.join(base, top, QUAT_TEXTURE_FALLBACK[top])
+                if os.path.exists(fb):
+                    out = {m: os.path.relpath(fb, base) for m, n in mats.items() if n}
+            if out:
+                r['src']['matTextures'] = out
+                n_tex += 1
+            if bl:
+                r['src']['blend'] = os.path.relpath(bl, base)
+    log('  %s: %d FBX/OBJ models, %d got textures from their .blend' % (pack['slug'], len(recs), n_tex))
+
+
 # ------------------------------------------------------------------ scan
 
 
@@ -290,7 +460,7 @@ def scan_pack(pack):
             '_key': cat + '/' + slug(stem), 'pack': pack['slug'], 'kind': kind, 'proc': proc,
             'category': cat, 'name': slug(stem).replace('-', ' '),
             'style': [], 'tags': rules.tags_for(pack, info, extra_tags),
-            'sourceZip': os.path.basename(pack['zip']), 'sourcePath': info['sourcePath'],
+            'sourceZip': zip_of(pack, info['rel']), 'sourcePath': info['sourcePath'],
             'src': {'primary': info['rel']}, 'srcSha': facts.get(info['abs'], {}).get('sha256'),
         }
 
@@ -310,6 +480,9 @@ def scan_pack(pack):
             if 'models' in fl or 'model' in fl:
                 cp['models'].append(i)
                 continue
+        if 'preparts' in i:  # publisher packs: FBX/x, OBJ/x, glTF/x (and FBX/Details/x) are one model
+            models[(tuple(i['root'] + i['preparts']), slug(i['stem']))].append(i)
+            continue
         models[(cat_of(i), slug(i['stem']))].append(i)
     order = {'.glb': 0, '.gltf': 1, '.fbx': 2, '.obj': 3, '.dae': 4, '.3ds': 5, '.stl': 6}
     for key, group in sorted(models.items()):
@@ -343,7 +516,11 @@ def scan_pack(pack):
         tl = [x.lower() for x in best['folders']]
         if 'animations' in tl:
             rec['tags'].append('animation-library')
+        if conv and pack['rules'] == 'quaternius':
+            rec['_needTex'] = best
         recs.append(rec)
+    if pack['rules'] == 'quaternius':
+        _attach_blend_textures(pack, base, [r for r in recs if r.get('_needTex')])
     for root, cp in sorted(charpacks.items()):
         anims = sorted(cp['anims'], key=lambda i: i['rel'])
         for a in anims:
@@ -480,7 +657,25 @@ def scan_pack(pack):
             proc = 'svg' if is_svg else 'image'
             if is_svg and re.match(r'^(vector|sheet)', pi['stem'], re.I):
                 kind = 'spritesheet'
+        if pi.get('frameSize') and not is_svg and proc != 'atlas':
+            # pixel art named 'Run (32x32).png': frame size from the file name
+            fl_l = [x.lower() for x in pi['folders']]
+            if kind == 'tileset' or 'tilesets' in fl_l or pi['stem'].lower() in ('terrain', 'decorations'):
+                kind, proc = 'tileset', 'tileset'
+            elif kind != 'background':
+                kind = 'spritesheet'
         rec = base_rec(pi, kind, proc, name_stem=g['stem'])
+        if pack['rules'] == 'quaternius' and (kind == 'texture' or (kind == 'icon' and 'icons' not in pi['parts'])):
+            # textures get their own 'textures' folder so they never share an id with the model they belong to
+            pre = pi['root'] + pi['preparts']
+            rest = pi['parts'][len(pi['preparts']):] if pi['parts'][:len(pi['preparts'])] == pi['preparts'] else []
+            rec['category'] = '/'.join([pack['slug']] + pre + [kind + 's'] + rest)
+            rec['_key'] = rec['category'] + '/' + slug(g['stem'])
+        if pi.get('frameSize') and not is_svg and proc != 'atlas':
+            rec['frameSize'] = pi['frameSize']
+        fps = (pack.get('fps') or {}).get(pi['rel'].split('/', 1)[0])
+        if fps and not is_svg:
+            rec['fps'] = fps  # the publisher's stated animation speed (itch page)
         rec['src']['alts'] = alts
         f = facts.get(pi['abs'], {})
         if 'w' in f:
@@ -519,7 +714,9 @@ def scan_pack(pack):
     for rec in image_recs:
         if rec['proc'] == 'tileset':
             sc = size_counts.get(rec.pop('_tilepack'))
-            if sc:
+            if rec.get('frameSize'):
+                rec['siblingTileSize'] = list(rec['frameSize'])
+            elif sc:
                 rec['siblingTileSize'] = list(sc.most_common(1)[0][0])
 
     # ---------------- frame grouping (numbered single images -> animation)

@@ -140,6 +140,14 @@
   "export": {
     "confirmExcluded": "{count, plural, one {에셋 #개} other {에셋 #개}}는 여기서 호스팅하는 게임에서만 사용할 수 있어 다운로드 파일에서 제외됩니다: {names}. 그래도 다운로드할까요?"
   },
+  "features": {
+    "allCorePass": "{count, plural, one {핵심 기능이 테스트를 통과했어요.} other {핵심 기능 #개가 모두 테스트를 통과했어요.}}",
+    "coreFailing": "아직 작동하지 않아요: {names}. 수정해 달라고 요청해 보세요.",
+    "coreUnverified": "자동으로 테스트할 수 없어요: {names}. 직접 확인해 보세요.",
+    "extrasFailing": "아직 작동하지 않는 추가 기능: {names}.",
+    "fixing": "아직 작동하지 않는 핵심 기능: {names}. 수정 단계를 추가하고 있어요.",
+    "line": "기능: {passing}개 통과{failing, plural, =0 {} other {, #개 실패 ({failingNames})}}{unverified, plural, =0 {} other {, #개 미검증 ({unverifiedNames})}}."
+  },
   "gameTitle": "{name} · 게임 스튜디오",
   "home": {
     "aiNotReady": "이 서버에서는 아직 AI를 사용할 수 없어 게임을 만들 수 없어요.",
@@ -211,6 +219,24 @@
     "audio": "사운드",
     "controls": "조작법",
     "coreLoop": "플레이 방법",
+    "features": {
+      "count": "기능 {passing}/{total}개 통과",
+      "extra": "추가 기능",
+      "help": "게임이 해야 할 일과 실제로 되는지 확인해 보세요. 빌드 단계가 끝날 때마다 실제 게임에서 실제 키 입력으로 각 기능을 테스트하므로, 지금 실제로 작동하는 기능을 확인할 수 있어요.",
+      "status": {
+        "built": "구현됨",
+        "failing": "실패",
+        "passing": "통과",
+        "planned": "예정"
+      },
+      "statusHelp": {
+        "built": "만들어졌지만 테스트로 확인할 수 없어 아직 검증되지 않았어요.",
+        "failing": "실제 게임에서 테스트에 실패했어요. 아래 줄에서 테스트 결과를 확인할 수 있어요.",
+        "passing": "마지막 단계 후 실제 게임에서 테스트를 통과했어요.",
+        "planned": "이후 빌드 단계에서 만들어집니다."
+      },
+      "title": "기능"
+    },
     "genre": "게임 종류",
     "help": "AI가 만들 게임의 설계입니다. 게임 종류, 플레이 방법, 승리와 패배 방식, 모습이 포함됩니다.",
     "levels": "레벨",
@@ -275,6 +301,9 @@
   },
   "steps": {
     "added": "메모 반영",
+    "featureFixHelp": "핵심 기능이 테스트에 실패해 빌드가 끝나기 전에 수정하는 단계예요.",
+    "featureFixLabel": "기능 수정",
+    "featureFixTag": "기능 테스트 결과",
     "followUpLabel": "채팅에서 보낸 메모",
     "help": "제작 단계입니다. 각 단계가 끝나면 게임이 버전으로 저장되고 캔버스가 업데이트되어 바로 플레이할 수 있습니다.",
     "keepGoing": "계속 진행",
@@ -318,6 +347,8 @@
     "confirmRestore": "게임의 현재 버전을 \"{label}\"로 바꿀까요?",
     "current": "현재 버전",
     "earlier": "이전 버전을 플레이하고 있습니다.",
+    "features": "기능 {passing}/{total}",
+    "featuresHelp": "이 버전에서 계획한 기능 중 테스트를 통과한 개수예요.",
     "help": "게임의 각 빌드 단계와 복원 기록을 최신순으로 표시합니다. 각 단계의 게임 화면도 함께 볼 수 있습니다.",
     "none": "아직 버전이 없습니다. AI가 게임을 만들면 여기에 표시됩니다.",
     "restore": "복원",

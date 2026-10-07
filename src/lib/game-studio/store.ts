@@ -30,7 +30,8 @@ export type GameSummary = {
   updatedAt: string;
 };
 
-export type VersionSummary = { seq: number; label: string; note: string | null; kind: string; ok: boolean | null; hasShot: boolean; createdAt: string };
+/** `features`: how many of the game's planned features passed their tests at this version (null = the game has none). */
+export type VersionSummary = { seq: number; label: string; note: string | null; kind: string; ok: boolean | null; hasShot: boolean; createdAt: string; features: { passing: number; failing: number; total: number } | null };
 /** A note sent during a build (steer while building): where it stands. `step` = the 1-based step it was applied in. */
 export type ChatNote = { status: string; step: number | null; label: string | null; planned: string | null };
 export type ChatMessage = { seq: number; kind: "user" | "assistant" | "error"; text: string; versionSeq: number | null; createdAt: string; note?: ChatNote };
@@ -127,12 +128,21 @@ export async function readGameFiles(gameId: string): Promise<GameFiles> {
 export async function saveVersion(
   gameId: string,
   files: GameFiles,
-  opts: { label: string; note?: string | null; kind?: string; check?: Record<string, unknown> | null; shot?: Buffer | null },
+  opts: {
+    label: string;
+    note?: string | null;
+    kind?: string;
+    check?: Record<string, unknown> | null;
+    shot?: Buffer | null;
+    /** The planned features as they stand at this version (features.ts), and the game's plan carrying them; given the new seq. */
+    features?: (seq: number) => { features: unknown[]; plan: Record<string, unknown> };
+  },
 ): Promise<number> {
   const seq = await db.$transaction(async (tx) => {
     await tx.$executeRaw`SELECT pg_advisory_xact_lock(hashtext(${`game-version:${gameId}`}))`;
     const g = await tx.gameProject.findUniqueOrThrow({ where: { id: gameId }, select: { seq: true } });
     const next = g.seq + 1;
+    const f = opts.features?.(next);
     await tx.gameVersion.create({
       data: {
         gameId,
@@ -143,11 +153,13 @@ export async function saveVersion(
         kind: opts.kind ?? "step",
         check: (opts.check ?? undefined) as Prisma.InputJsonValue | undefined,
         shot: opts.shot ? new Uint8Array(opts.shot) : null,
+        ...(f ? { features: f.features as Prisma.InputJsonValue } : {}),
       },
     });
-    await tx.gameProject.update({ where: { id: gameId }, data: { files, seq: next } });
+    await tx.gameProject.update({ where: { id: gameId }, data: { files, seq: next, ...(f ? { plan: f.plan as Prisma.InputJsonValue } : {}) } });
     return next;
-  });
+    // A game's files (and a screenshot) are written twice: on a busy server that can pass Prisma's 5 s default.
+  }, { timeout: 30_000, maxWait: 15_000 });
   publishGame(gameId, { type: "version", seq, label: opts.label });
   return seq;
 }
@@ -158,7 +170,7 @@ export async function listVersions(userId: string, gameId: string): Promise<Vers
     where: { gameId },
     orderBy: { seq: "desc" },
     take: 300,
-    select: { seq: true, stepLabel: true, note: true, kind: true, check: true, createdAt: true, shot: false },
+    select: { seq: true, stepLabel: true, note: true, kind: true, check: true, features: true, createdAt: true, shot: false },
   });
   const shots = new Set((await db.gameVersion.findMany({ where: { gameId, shot: { not: null } }, select: { seq: true } })).map((v) => v.seq));
   return rows.map((v) => ({
@@ -169,7 +181,14 @@ export async function listVersions(userId: string, gameId: string): Promise<Vers
     ok: v.check && typeof v.check === "object" && !Array.isArray(v.check) && typeof (v.check as { ok?: unknown }).ok === "boolean" ? ((v.check as { ok: boolean }).ok) : null,
     hasShot: shots.has(v.seq),
     createdAt: v.createdAt.toISOString(),
+    features: featureTally(v.features),
   }));
+}
+
+function featureTally(v: Prisma.JsonValue | null): VersionSummary["features"] {
+  if (!Array.isArray(v) || !v.length) return null;
+  const list = v as Array<{ status?: unknown }>;
+  return { passing: list.filter((f) => f?.status === "passing").length, failing: list.filter((f) => f?.status === "failing").length, total: list.length };
 }
 
 export async function versionFiles(userId: string, gameId: string, seq: number): Promise<GameFiles> {

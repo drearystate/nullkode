@@ -3,6 +3,7 @@ import path from "node:path";
 import type { Browser } from "playwright";
 import { assetsRoot, engineFile, gameHtml, type Engine } from "./kits";
 import type { GameFiles } from "./store";
+import { runTestsInPage, TICK_HOOK, type FeatureRun, type FeatureTest } from "./features";
 
 /**
  * The headless check every build step passes before it's saved: the game
@@ -16,6 +17,11 @@ import type { GameFiles } from "./store";
  * refused. One browser is shared and closed when idle; two checks at most
  * run at once. NK_GAME_CHECK=off skips the check (the syntax and asset
  * checks still run); so does a server without Chromium.
+ *
+ * Feature tests (features.ts): with `tests`, after the check (and its
+ * screenshots) every given feature test runs in the same page, each from a
+ * new game, through real key presses and taps in game time. Errors logged
+ * while they run belong to the tests, not to the check.
  */
 
 export type CheckResult = {
@@ -31,6 +37,8 @@ export type CheckResult = {
   skipped?: string;
   /** With `measure`: what the playtester needs (playtest.ts): the level, the player, speeds, HUD, and a PNG at spawn. */
   probe?: Probe | null;
+  /** With `tests`: one result per feature test (features.ts), in the order given. */
+  features?: FeatureRun[];
 };
 
 /** Raw facts read from the running game (2D: level grid, player, objects, measured speeds; 3D: little). */
@@ -221,7 +229,7 @@ function contentType(p: string): string {
 }
 
 /** Runs the game headless and reports what happened. */
-export async function checkGame(opts: { engine: Engine; title: string; files: GameFiles; timeoutMs?: number; measure?: boolean; phone?: boolean }): Promise<CheckResult> {
+export async function checkGame(opts: { engine: Engine; title: string; files: GameFiles; timeoutMs?: number; measure?: boolean; phone?: boolean; tests?: Array<{ id: string; test: FeatureTest }> }): Promise<CheckResult> {
   const t0 = Date.now();
   if (!enabled()) return { ok: true, ran: false, errors: [], state: null, scene: null, fps: null, ms: 0, shot: null, skipped: "off" };
   let browser: Browser;
@@ -236,14 +244,21 @@ export async function checkGame(opts: { engine: Engine; title: string; files: Ga
     const context = await browser.newContext({ viewport: opts.measure ? { width: 1600, height: 900 } : { width: 960, height: 540 }, deviceScaleFactor: 1 });
     const page = await context.newPage();
     const errors: string[] = [];
+    // Every error in order (for the feature tests: which ones came while a test ran).
+    const raw: string[] = [];
     const note = (s: string) => {
-      if (!NOISE.test(s) && errors.length < 20 && !errors.includes(s)) errors.push(s.slice(0, 400));
+      if (NOISE.test(s)) return;
+      if (raw.length < 500) raw.push(s.slice(0, 400));
+      if (errors.length < 20 && !errors.includes(s)) errors.push(s.slice(0, 400));
     };
     page.on("console", (m) => {
       if (m.type() === "error") note(m.text());
     });
     page.on("pageerror", (e) => note(`${e.name}: ${e.message}`));
     const html = gameHtml({ engine: opts.engine, title: opts.title, studioOrigins: [] });
+    const tests = opts.tests?.length ? opts.tests : null;
+    // The feature tests count game time in the kits' fixed ticks (features.ts TICK_HOOK); without tests the page is untouched.
+    if (tests) await context.addInitScript({ content: TICK_HOOK });
     await context.route("**/*", async (route) => {
       const url = new URL(route.request().url());
       if (url.origin !== ORIGIN) return route.abort();
@@ -280,6 +295,8 @@ export async function checkGame(opts: { engine: Engine; title: string; files: Ga
     let fps: number | null = null;
     let shot: Buffer | null = null;
     let probe: Probe | null = null;
+    let base: string[] | null = null;
+    let features: FeatureRun[] | undefined;
     try {
       await page.goto(`${ORIGIN}/index.html`, { waitUntil: "load", timeout: limit });
       const menu = await page
@@ -363,11 +380,18 @@ export async function checkGame(opts: { engine: Engine; title: string; files: Ga
       for (const e of s.errors) note(e);
       const jpeg = await page.screenshot({ type: "jpeg", quality: 80 });
       shot = await import("sharp").then(({ default: sharp }) => sharp(jpeg).resize({ width: 640 }).webp({ quality: 72 }).toBuffer()).catch(() => null);
+      // The check's verdict is made here; what the feature tests log is theirs.
+      base = [...errors];
+      if (tests && errors.length === 0 && state === "play") {
+        features = await runTestsInPage(page, tests, { errorMark: () => raw.length, errorsSince: (m) => [...new Set(raw.slice(m))], files: opts.files });
+      }
     } catch (err) {
-      note(`the check failed: ${err instanceof Error ? err.message.split("\n")[0] : err}`);
+      if (base) console.warn("[game-studio] feature tests stopped:", err instanceof Error ? err.message.split("\n")[0] : err);
+      else note(`the check failed: ${err instanceof Error ? err.message.split("\n")[0] : err}`);
     } finally {
       await context.close().catch(() => {});
     }
-    return { ok: errors.length === 0 && state === "play", ran: true, errors, state, scene, fps, ms: Date.now() - t0, shot, ...(opts.measure ? { probe } : {}) };
+    const errs = base ?? errors;
+    return { ok: errs.length === 0 && state === "play", ran: true, errors: errs, state, scene, fps, ms: Date.now() - t0, shot, ...(opts.measure ? { probe } : {}), ...(tests ? { features: features ?? [] } : {}) };
   });
 }

@@ -140,6 +140,14 @@
   "export": {
     "confirmExcluded": "{count, plural, one {# öğe} other {# öğe}} yalnızca burada barındırılan oyunlarda kullanılabilir. Bu yüzden indirilen dosyada {count, plural, one {yer almaz} other {yer almaz}}: {names}. Yine de indirilsin mi?"
   },
+  "features": {
+    "allCorePass": "{count, plural, one {Temel özellik testini geçti.} other {Tüm # temel özellik testlerini geçti.}}",
+    "coreFailing": "Hâlâ çalışmıyor: {names}. Bunları düzeltmemi isteyin.",
+    "coreUnverified": "Otomatik olarak test edilemedi: {names}. Kendiniz deneyin.",
+    "extrasFailing": "Henüz çalışmayan ekstra özellikler: {names}.",
+    "fixing": "Henüz çalışmayan temel özellikler: {names}. Bunları düzeltmek için bir adım ekleniyor.",
+    "line": "Özellikler: {passing} başarılı{failing, plural, =0 {} other {, # başarısız ({failingNames})}}{unverified, plural, =0 {} other {, # doğrulanmadı ({unverifiedNames})}}."
+  },
   "gameTitle": "{name} · Oyun Stüdyosu",
   "home": {
     "aiNotReady": "Yapay zekâ henüz bu sunucuda ayarlanmadığı için oyun oluşturulamıyor.",
@@ -211,6 +219,24 @@
     "audio": "Ses",
     "controls": "Kontroller",
     "coreLoop": "Nasıl oynanır",
+    "features": {
+      "count": "{passing}/{total} özellik testleri geçti",
+      "extra": "Ekstra",
+      "help": "Oyunun neler yapması gerektiğini ve bunları yapıp yapmadığını gösterir. Her derleme adımından sonra her özelliğin testi, gerçek oyunda gerçek tuş basışlarıyla çalışır. Böylece şu anda gerçekten nelerin çalıştığını görebilirsiniz.",
+      "status": {
+        "built": "Tamamlandı",
+        "failing": "Başarısız",
+        "passing": "Başarılı",
+        "planned": "Planlandı"
+      },
+      "statusHelp": {
+        "built": "Yapıldı ama testi kontrol edemedi; bu yüzden henüz doğrulanmadı.",
+        "failing": "Gerçek oyunda test edildi ve başarısız oldu. Aşağıdaki satırda testin ne gördüğü yazıyor.",
+        "passing": "Son adımdan sonra gerçek oyunda test edildi ve başarılı oldu.",
+        "planned": "Bu, sonraki bir derleme adımında yapılacak."
+      },
+      "title": "Özellikler"
+    },
     "genre": "Oyun türü",
     "help": "Yapay zekânın oluşturduğu tasarım: oyunun türü, nasıl oynandığı, nasıl kazanılıp kaybedildiği ve görünümü.",
     "levels": "Bölümler",
@@ -275,6 +301,9 @@
   },
   "steps": {
     "added": "notuna göre",
+    "featureFixHelp": "Temel bir özellik testini geçemedi. Bu adım, derleme tamamlanmadan önce özelliği düzeltir.",
+    "featureFixLabel": "Özellik düzeltmeleri",
+    "featureFixTag": "özellik testlerinden",
     "followUpLabel": "Sohbetten notların",
     "help": "Oluşturma adımları. Her adımın ardından oyun bir sürüm olarak kaydedilir ve oyun alanı güncellenir; böylece hemen oynayabilirsin.",
     "keepGoing": "Devam et",
@@ -318,6 +347,8 @@
     "confirmRestore": "\"{label}\" oyununuza ait geçerli sürüm olsun mu?",
     "current": "Geçerli",
     "earlier": "Daha eski bir sürümü oynuyorsunuz.",
+    "features": "Özellikler {passing}/{total}",
+    "featuresHelp": "Bu sürümde planlanan özelliklerden kaçının testleri geçtiğini gösterir.",
     "help": "En yeniden başlayarak oyunun her oluşturma adımını ve geri yüklemesini, o andaki oyun görüntüsüyle birlikte gösterir.",
     "none": "Henüz sürüm yok. Yapay zekâ oyunu oluşturdukça burada görünürler.",
     "restore": "Geri yükle",

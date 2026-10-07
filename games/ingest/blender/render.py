@@ -47,6 +47,32 @@ def render(job):
     for img in bpy.data.images:
         pass
     sc.frame_set(sc.frame_start)
+    pts = _points(sc)
+    arms = [o for o in sc.objects if o.type == 'ARMATURE']
+    if arms and pts:
+        # The first frame of the active clip can fling or squash the mesh (seen in a Quaternius FBX gun whose
+        # 'Fire' clip throws a bullet 400 units away). If the posed extent is far from the rest-pose extent,
+        # show the rest pose instead.
+        for o in arms:
+            o.data.pose_position = 'REST'
+        bpy.context.view_layer.update()
+        rest = _points(sc)
+        if rest and not (0.2 <= _span(pts) / max(_span(rest), 1e-6) <= 5.0):
+            pts = rest
+        else:
+            for o in arms:
+                o.data.pose_position = 'POSE'
+            bpy.context.view_layer.update()
+    if not pts:
+        raise RuntimeError('no mesh geometry')
+    return _shoot(sc, pts, job)
+
+
+def _span(pts):
+    return max(max(p[k] for p in pts) - min(p[k] for p in pts) for k in range(3))
+
+
+def _points(sc):
     dg = bpy.context.evaluated_depsgraph_get()
     pts = []
     for o in sc.objects:
@@ -62,8 +88,10 @@ def render(job):
                 oe.to_mesh_clear()
             except Exception:
                 pts += [oe.matrix_world @ mathutils.Vector(c) for c in oe.bound_box]
-    if not pts:
-        raise RuntimeError('no mesh geometry')
+    return pts
+
+
+def _shoot(sc, pts, job):
     mn = mathutils.Vector([min(p[k] for p in pts) for k in range(3)])
     mx = mathutils.Vector([max(p[k] for p in pts) for k in range(3)])
     center = (mn + mx) / 2

@@ -140,6 +140,14 @@
   "export": {
     "confirmExcluded": "{count, plural, one {# risorsa} other {# risorse}} si può usare solo nei giochi ospitati qui, quindi il download {count, plural, one {esclude questa risorsa} other {esclude queste risorse}}: {names}. Vuoi scaricare comunque?"
   },
+  "features": {
+    "allCorePass": "{count, plural, one {La funzionalità principale ha superato il test.} other {Tutte le # funzionalità principali hanno superato i test.}}",
+    "coreFailing": "Ancora non funzionano: {names}. Chiedimi di correggerle.",
+    "coreUnverified": "Non è stato possibile verificarle automaticamente: {names}. Provale tu.",
+    "extrasFailing": "Extra che non funzionano ancora: {names}.",
+    "fixing": "Funzionalità principali che non funzionano ancora: {names}. Aggiungo un passaggio per correggerle.",
+    "line": "Funzionalità: {passing} superate{failing, plural, =0 {} other {, # non superate ({failingNames})}}{unverified, plural, =0 {} other {, # non verificate ({unverifiedNames})}}."
+  },
   "gameTitle": "{name} · Game Studio",
   "home": {
     "aiNotReady": "L'IA non è ancora configurata su questo server, quindi non è possibile creare giochi.",
@@ -211,6 +219,24 @@
     "audio": "Audio",
     "controls": "Comandi",
     "coreLoop": "Come si gioca",
+    "features": {
+      "count": "{passing} di {total} funzionalità superate",
+      "extra": "Extra",
+      "help": "Cosa deve fare il gioco e se ci riesce. Dopo ogni passaggio di creazione, il test di ogni funzionalità viene eseguito sul gioco vero, premendo i tasti: così puoi vedere cosa funziona davvero in questo momento.",
+      "status": {
+        "built": "Creata",
+        "failing": "Non superato",
+        "passing": "Superato",
+        "planned": "In programma"
+      },
+      "statusHelp": {
+        "built": "Creata, ma il test non è riuscito a verificarla: non è ancora confermato che funzioni.",
+        "failing": "Il test è stato eseguito sul gioco vero e non è stato superato. La riga qui sotto mostra cosa ha rilevato il test.",
+        "passing": "Dopo l'ultimo passaggio, il test è stato eseguito sul gioco vero ed è stato superato.",
+        "planned": "Verrà creata in un passaggio successivo."
+      },
+      "title": "Funzionalità"
+    },
     "genre": "Tipo di gioco",
     "help": "Il progetto che l'IA sta realizzando: tipo di gioco, come si gioca, come si vince o perde e aspetto.",
     "levels": "Livelli",
@@ -275,6 +301,9 @@
   },
   "steps": {
     "added": "dalla tua nota",
+    "featureFixHelp": "Una funzionalità principale non ha superato il test, quindi questo passaggio la corregge prima di completare la creazione.",
+    "featureFixLabel": "Correzioni delle funzionalità",
+    "featureFixTag": "dai test delle funzionalità",
     "followUpLabel": "Le tue note dalla chat",
     "help": "I passaggi di creazione. Dopo ognuno, il gioco viene salvato come versione e l'area di gioco si aggiorna: puoi provarlo subito.",
     "keepGoing": "Continua",
@@ -318,6 +347,8 @@
     "confirmRestore": "Vuoi impostare \"{label}\" come versione attuale del gioco?",
     "current": "Attuale",
     "earlier": "Stai giocando a una versione precedente.",
+    "features": "Funzionalità {passing}/{total}",
+    "featuresHelp": "Quante delle funzionalità previste hanno superato i test in questa versione.",
     "help": "Tutti i passaggi di creazione e ripristino, dal più recente, con un'immagine del gioco in quel momento.",
     "none": "Non ci sono ancora versioni. Compariranno man mano che l'IA crea il gioco.",
     "restore": "Ripristina",

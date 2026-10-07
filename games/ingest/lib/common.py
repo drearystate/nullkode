@@ -103,11 +103,20 @@ def url_of(rel):
 
 
 def load_packs():
-    """packs.json, each zip from PACKS_DIR. A pack whose zip isn't there is skipped."""
+    """packs.json, the zips from PACKS_DIR (prepare-packs.py puts them there). A pack whose zip isn't there
+    is skipped. A pack of several zips ("zips": {folder: zip}, "zip": their folder) takes the zips that are
+    there: the ones packs.json lists, and any other pack prepare-packs.py added (ids from its name)."""
     out = []
     for p in read_json(os.path.join(HERE, 'packs.json')) or []:
         p['zip'] = os.path.join(PACKS_DIR, p['zip'])
-        if os.path.exists(p['zip']):
+        if 'zips' in p:
+            have = sorted(n for n in os.listdir(p['zip']) if n.endswith('.zip')) if os.path.isdir(p['zip']) else []
+            p['zips'] = {n[:-4]: n for n in have}
+            if not have:
+                log('pack %s: no zips in %s (run prepare-packs.py), skipped' % (p['slug'], p['zip']))
+                continue
+            out.append(p)
+        elif os.path.exists(p['zip']):
             out.append(p)
         else:
             log('pack %s: no %s (run prepare-packs.py), skipped' % (p['slug'], p['zip']))

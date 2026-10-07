@@ -140,6 +140,14 @@
   "export": {
     "confirmExcluded": "ここでホストされるゲームでのみ使える{count, plural, one {# 個のアセット} other {# 個のアセット}}があります。{count, plural, one {それを含めずに} other {それらを含めずに}}ダウンロードします: {names}。続けますか？"
   },
+  "features": {
+    "allCorePass": "{count, plural, one {主要機能のテストに合格しました。} other {# 個の主要機能すべてがテストに合格しました。}}",
+    "coreFailing": "まだ動作しません: {names}。修正するよう依頼してください。",
+    "coreUnverified": "自動テストできませんでした: {names}。自分で試してみてください。",
+    "extrasFailing": "まだ動作しない追加機能: {names}。",
+    "fixing": "まだ動作しない主要機能: {names}。修正する手順を追加します。",
+    "line": "機能: {passing} 件合格{failing, plural, =0 {} other {、# 件不合格（{failingNames}）}}{unverified, plural, =0 {} other {、# 件未確認（{unverifiedNames}）}}。"
+  },
   "gameTitle": "{name} · ゲームスタジオ",
   "home": {
     "aiNotReady": "このサーバーではAIの準備ができていないため、ゲームを作成できません。",
@@ -211,6 +219,24 @@
     "audio": "サウンド",
     "controls": "操作方法",
     "coreLoop": "遊び方",
+    "features": {
+      "count": "{passing}/{total} 個の機能が合格",
+      "extra": "追加",
+      "help": "ゲームに必要な機能と、実際に動くかどうかを確認できます。各ビルド手順の後、実際のゲームでキーを押して機能ごとのテストを実行するため、今動作するものがわかります。",
+      "status": {
+        "built": "作成済み",
+        "failing": "不合格",
+        "passing": "合格",
+        "planned": "計画中"
+      },
+      "statusHelp": {
+        "built": "作成済みですが、テストで確認できなかったため、まだ動作は確認できていません。",
+        "failing": "実際のゲームでテストを実行しましたが、不合格でした。下の行にテスト結果が表示されます。",
+        "passing": "最後の手順の後、実際のゲームでテストを実行し、合格しました。",
+        "planned": "後のビルド手順で作成します。"
+      },
+      "title": "機能"
+    },
     "genre": "ゲームの種類",
     "help": "AIが作成するゲームの設計です。ゲームの種類や遊び方、勝ち負けの条件、見た目を確認できます。",
     "levels": "レベル",
@@ -275,6 +301,9 @@
   },
   "steps": {
     "added": "メモから追加",
+    "featureFixHelp": "主要機能のテストに失敗したため、ビルド完了前にこの手順で修正します。",
+    "featureFixLabel": "機能の修正",
+    "featureFixTag": "機能テストによる",
     "followUpLabel": "チャットで送ったメモ",
     "help": "ゲームの作成手順です。手順ごとにバージョンとして保存され、画面も更新されるので、すぐにプレイできます。",
     "keepGoing": "続ける",
@@ -318,6 +347,8 @@
     "confirmRestore": "「{label}」をゲームの現在のバージョンにしますか？",
     "current": "現在",
     "earlier": "過去のバージョンをプレイしています。",
+    "features": "機能 {passing}/{total}",
+    "featuresHelp": "このバージョンで、計画した機能のうちテストに合格した数です。",
     "help": "ゲームの各作業段階と復元内容を、新しい順にゲームの画像付きで表示します。",
     "none": "まだバージョンはありません。AIがゲームを作ると、ここに表示されます。",
     "restore": "復元",

@@ -19,10 +19,11 @@ import { checkGame, type CheckResult } from "./check";
 import { publishGame, type JobStepView } from "./events";
 import { applyFileOps, parseFileOps, parseSearchRequest } from "./files";
 import { gamesAvailable, isEngine, KIT_VERSION, templateFiles, type Engine } from "./kits";
-import { briefSystem, changeSystem, CLARIFY_SYSTEM, ownerNotesBlock, planSystem, reviseSystem, stepSystem } from "./prompts";
+import { briefSystem, changeSystem, CLARIFY_SYSTEM, featureTestFixSystem, ownerNotesBlock, planSystem, reviseSystem, stepSystem } from "./prompts";
+import { cleanFeatures, cleanTest, featureCounts, lastText, mergeFeatures, resultText, testJson, type Feature, type FeatureRun, type FeatureTest } from "./features";
 import { dropOpenNotes, settleNotes } from "./notes";
 import { matchGenre, playtestAfter, stepType } from "./design";
-import { bare, findingLine, playtest, type PlaytestStage } from "./playtest";
+import { bare, findingLine, playtest, reviewFiles, type PlaytestStage } from "./playtest";
 import { cleanSpec, type VisualSpec } from "./art";
 import { appendChat, asFiles, earlierRequests, gameSummary, ownedGame, readGameFiles, saveVersion, type GameFiles } from "./store";
 import { validateGame } from "./validate";
@@ -68,6 +69,17 @@ import { validateGame } from "./validate";
  * game: blockers get a fix step right away, should-fix items go into the
  * next step's prompt.
  *
+ * Planned features with real tests (features.ts): the plan lists 3-8
+ * features with a test each and every step names the features it builds.
+ * After each step's check the tests of every feature built so far run in the
+ * same headless page: a new feature that fails, or an earlier one that
+ * stopped passing, gets the step's one repair with the test output; a test
+ * that is itself broken is rewritten once (with the game's files) and run
+ * again. Each version keeps its features' status (planned / built / passing /
+ * failing). Before a job ends every core feature must pass: otherwise up to
+ * 2 "Feature fixes" steps (sharing the cap on added steps); the last message
+ * names whatever still fails.
+ *
  * Restarts: the job keeps its plan, steps and next step in the database and
  * a heartbeat. When the server starts (instrumentation-node.ts) or the
  * minute sweep finds a job whose server went quiet, the job carries on from
@@ -77,7 +89,7 @@ import { validateGame } from "./validate";
 
 type QuotaUser = Pick<User, "id" | "plan" | "role" | "resellerId">;
 
-type StepState = { id: string; label: string; goal: string; status: "todo" | "running" | "done" | "error"; seq?: number; note?: string; error?: string; added?: boolean; kind?: "playtest-fix" };
+type StepState = { id: string; label: string; goal: string; status: "todo" | "running" | "done" | "error"; seq?: number; note?: string; error?: string; added?: boolean; kind?: "playtest-fix" | "feature-fix"; features?: string[] };
 type ChosenAsset = { key: string; id: string; use: string };
 export type GamePlan = {
   title?: string;
@@ -87,6 +99,8 @@ export type GamePlan = {
   engine?: Engine;
   /** The game's art direction (art.ts), made at the brief and the plan. */
   visual?: VisualSpec | null;
+  /** The planned features, their tests and where each stands now (features.ts). */
+  features?: Feature[];
 };
 type JobMeta = {
   locale: Locale;
@@ -107,6 +121,8 @@ type JobMeta = {
   playtestFixes?: number;
   /** Review passes at the end (the polish step and the re-checks after its fixes): at most END_REVIEWS. */
   endReviews?: number;
+  /** "Feature fixes" steps added at the end (at most MAX_FEATURE_FIXES; they count toward MAX_ADDED_STEPS too). */
+  featureFixes?: number;
 };
 
 /** A note the build has taken in (notes.ts): the owner's words, the step it's planned for, its images. */
@@ -126,6 +142,8 @@ const MAX_REVIEW_FIXES = 5;
 const END_REVIEWS = 3;
 /** Note images sent with one step. */
 const MAX_NOTE_IMAGES = 4;
+/** "Feature fixes" steps at the end of a job when a core feature fails (sharing MAX_ADDED_STEPS). */
+const MAX_FEATURE_FIXES = 2;
 
 // Shared by every copy of this module in the process (route handlers and
 // instrumentation-node.ts are bundled separately), so the start-up resume and
@@ -151,15 +169,18 @@ const Brief = z.object({
   setSearches: z.array(Str(160)).max(6).default([]),
   assetSearches: z.array(SearchSpec).max(14).default([]),
 });
-const StepSpec = z.object({ id: Str(60).default("step"), label: Str(80), goal: Str(1200).default("") });
+const FeatureIds = z.preprocess((v) => (Array.isArray(v) ? v.filter((x) => typeof x === "string").slice(0, 8) : []), z.array(z.string().max(80)));
+const StepSpec = z.object({ id: Str(60).default("step"), label: Str(80), goal: Str(1200).default(""), features: FeatureIds.default([]) });
 const Plan = z.object({
   assets: z.array(z.object({ key: Str(40), id: Str(200), use: Str(200).default("") })).max(40).default([]),
   steps: z.array(StepSpec).min(1).max(12),
   message: Str(600).default(""),
   assetNotes: Str(600).default(""),
+  features: z.unknown().optional(),
 });
-const Change = z.object({ message: Str(600).default(""), steps: z.array(StepSpec).min(1).max(4), assetSearches: z.array(SearchSpec).max(8).default([]) });
-const Revision = z.object({ steps: z.array(StepSpec).max(20).default([]), notes: z.array(z.object({ id: Str(60), step: Str(60).default("") })).max(30).default([]) });
+const Change = z.object({ message: Str(600).default(""), steps: z.array(StepSpec).min(1).max(4), assetSearches: z.array(SearchSpec).max(8).default([]), features: z.unknown().optional() });
+const Revision = z.object({ steps: z.array(StepSpec).max(20).default([]), notes: z.array(z.object({ id: Str(60), step: Str(60).default("") })).max(30).default([]), features: z.unknown().optional() });
+const TestFix = z.object({ tests: z.array(z.object({ id: Str(60), test: z.unknown() })).max(16).default([]) });
 
 /* ───────────────────────── Starting ───────────────────────── */
 
@@ -274,7 +295,7 @@ type Ctx = {
 };
 
 function view(steps: StepState[]): JobStepView[] {
-  return steps.map((s) => ({ id: s.id, label: s.label, status: s.status, ...(s.seq !== undefined ? { seq: s.seq } : {}), ...(s.note ? { note: s.note } : {}), ...(s.added ? { added: true } : {}), ...(s.kind ? { kind: s.kind } : {}) }));
+  return steps.map((s) => ({ id: s.id, label: s.label, status: s.status, ...(s.seq !== undefined ? { seq: s.seq } : {}), ...(s.note ? { note: s.note } : {}), ...(s.added ? { added: true } : {}), ...(s.kind ? { kind: s.kind } : {}), ...(s.features?.length ? { features: s.features } : {}) }));
 }
 
 async function persist(ctx: Ctx, data: Partial<{ stepIndex: number }> = {}) {
@@ -362,6 +383,8 @@ export async function runJob(jobId: string, opts: { resumed?: boolean } = {}): P
         { kind: "game", request: job.prompt, app: gameSummary({ name: ctx.title, engine: ctx.engine, plan: ctx.plan as Prisma.JsonValue }), plan: { message: [ctx.plan.brief?.pitch, ctx.meta.message].filter(Boolean).join(" "), files: ctx.steps.map((s) => ({ path: s.label, instructions: s.goal })) } },
         { userId: job.userId, locale: meta.locale, projectId: game.projectId, stage: "plan", signal: abort.signal },
       );
+      // A change's new features become the game's once the build rule has passed its plan.
+      if (job.kind === "change" && ctx.plan.features?.length) await saveFeatures(ctx, ctx.plan.features);
       meta.phase = "steps";
       await persist(ctx, { stepIndex: 0 });
       job = { ...job, stepIndex: 0 };
@@ -415,7 +438,28 @@ export async function runJob(jobId: string, opts: { resumed?: boolean } = {}): P
           await persist(ctx, { stepIndex: i });
           throw new StepFailed(step.error);
         }
-        const seq = await saveVersion(gameId, result.files, { label: step.label, note: result.note, kind: "step", check: checkSummary(result.check), shot: result.check?.shot ?? null });
+        // The features' status goes with the version (and onto the game's plan) in the same transaction.
+        const hasFeatures = Boolean(ctx.plan.features?.length);
+        let after: Feature[] = [];
+        const seq = await saveVersion(gameId, result.files, {
+          label: step.label,
+          note: result.note,
+          kind: "step",
+          check: checkSummary(result.check),
+          shot: result.check?.shot ?? null,
+          ...(hasFeatures
+            ? {
+                features: (next: number) => {
+                  after = featuresAfter(ctx, i, result.runs, next, Boolean(result.check?.ran));
+                  return { features: after, plan: { ...ctx.plan, features: after } };
+                },
+              }
+            : {}),
+        });
+        if (hasFeatures) {
+          ctx.plan = { ...ctx.plan, features: after };
+          await featureLine(ctx, seq);
+        }
         step.status = "done";
         step.seq = seq;
         step.note = result.note;
@@ -431,6 +475,11 @@ export async function runJob(jobId: string, opts: { resumed?: boolean } = {}): P
       // (unless the person asked to stop after this step).
       const stopAfter = Boolean((await db.gameJob.findUnique({ where: { id: jobId }, select: { stopAfterStep: true } }))?.stopAfterStep);
       if (!stopAfter && (await addFollowUp(ctx))) {
+        await persist(ctx, { stepIndex: i });
+        continue;
+      }
+      // The end gate: every core feature must pass; otherwise a "Feature fixes" step (at most MAX_FEATURE_FIXES).
+      if (!stopAfter && (await addFeatureFix(ctx))) {
         await persist(ctx, { stepIndex: i });
         continue;
       }
@@ -450,7 +499,7 @@ export async function runJob(jobId: string, opts: { resumed?: boolean } = {}): P
     const last = ctx.steps[ctx.steps.length - 1]?.seq ?? null;
     const done = ctx.steps.filter((s) => s.status === "done").map((s) => s.note).filter(Boolean);
     const summary = job.kind === "build" ? t("build.ready", { title: ctx.title }) : (ctx.meta.message || t("build.changed"));
-    await appendChat(gameId, "assistant", [summary, done.length > 1 ? done.map((n) => `- ${n}`).join("\n") : done[0] ?? ""].filter(Boolean).join("\n\n"), last);
+    await appendChat(gameId, "assistant", [summary, done.length > 1 ? done.map((n) => `- ${n}`).join("\n") : done[0] ?? "", featureVerdict(ctx)].filter(Boolean).join("\n\n"), last);
     await db.gameProject.update({ where: { id: gameId }, data: { status: "ready" } });
     publishGame(gameId, { type: "job", jobId, status: "done" });
   } catch (err) {
@@ -582,9 +631,10 @@ async function planBuild(ctx: Ctx, request: string, refs: ReferenceSet | null) {
   }
   // The visual spec: the brief's art direction plus the plan's asset subset and scale notes.
   const visual = cleanSpec({ ...((brief.visual && typeof brief.visual === "object" ? brief.visual : {}) as object), assets: plan.assetNotes || undefined });
-  ctx.plan = { title, brief: brief.brief, assets, message: [brief.message, plan.message].filter(Boolean).join(" ").slice(0, 1200), engine, visual };
+  const features = cleanFeatures(plan.features, { max: 8 });
+  ctx.plan = { title, brief: brief.brief, assets, message: [brief.message, plan.message].filter(Boolean).join(" ").slice(0, 1200), engine, visual, ...(features.length ? { features } : {}) };
   ctx.meta.message = plan.message || brief.message;
-  ctx.steps = uniqueSteps(plan.steps);
+  ctx.steps = assignFeatures(uniqueSteps(plan.steps), features);
   await db.gameProject.update({ where: { id: ctx.gameId }, data: { plan: ctx.plan as unknown as Prisma.InputJsonValue } });
   publishGame(ctx.gameId, { type: "game" });
   await appendChat(ctx.gameId, "assistant", ctx.plan.message || t("build.defaultPlanMessage"));
@@ -602,24 +652,67 @@ async function planChange(ctx: Ctx, request: string) {
       `REQUEST: ${request}`,
       `GAME: ${JSON.stringify({ title: ctx.title, ...(ctx.plan.brief ?? {}) })}`,
       `CHOSEN ASSETS:\n${(ctx.plan.assets ?? []).map((a) => `${a.key}: ${a.id} (${a.use})`).join("\n")}`,
+      ctx.plan.features?.length ? `FEATURES (tested after every step):\n${ctx.plan.features.map((f) => `- ${f.id}: "${f.name}" [${f.priority}, ${f.status}] ${f.how} Test: ${testJson(f.test)}`).join("\n")}` : "",
       `FILES: ${Object.keys(files).filter((p) => p !== "assets.lock.json").join(", ")}`,
-    ].join("\n\n"),
+    ].filter(Boolean).join("\n\n"),
   });
   ctx.check();
   if (plan.assetSearches.length) ctx.meta.searchesAnswered = await answerAssetQueries(plan.assetSearches.map((s) => ({ query: s.query, kind: s.kind || undefined, dim: s.dim, set: s.set || undefined, get: s.get || undefined, limit: 10 })));
   ctx.meta.message = plan.message;
-  ctx.steps = uniqueSteps(plan.steps);
+  // New and changed features (a changed one is tested as new again by the step that changes it).
+  const changed = cleanFeatures(plan.features, { max: 4, keep: ctx.plan.features ?? [] });
+  ctx.steps = assignFeatures(uniqueSteps(plan.steps), changed);
+  // Kept in the job until the build rule has passed the plan (runJob stores them then).
+  if (changed.length) ctx.plan = { ...ctx.plan, features: mergeFeatures(ctx.plan.features ?? [], changed) };
   if (plan.message) await appendChat(ctx.gameId, "assistant", plan.message);
 }
 
-function uniqueSteps(steps: Array<{ id: string; label: string; goal: string }>): StepState[] {
+function uniqueSteps(steps: Array<{ id: string; label: string; goal: string; features?: string[] }>): StepState[] {
   const seen = new Set<string>();
   return steps.map((s, i) => {
     let id = (s.id || `step-${i + 1}`).toLowerCase().replace(/[^a-z0-9-]+/g, "-").slice(0, 40) || `step-${i + 1}`;
     while (seen.has(id)) id = `${id}-${i + 1}`;
     seen.add(id);
-    return { id, label: s.label.trim() || `Step ${i + 1}`, goal: s.goal, status: "todo" as const };
+    return { id, label: s.label.trim() || `Step ${i + 1}`, goal: s.goal, status: "todo" as const, ...(s.features?.length ? { features: s.features.map(featureKey) } : {}) };
   });
+}
+
+const featureKey = (s: string) => s.toLowerCase().replace(/[^a-z0-9-]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 40);
+
+/**
+ * Every feature built by exactly one of these steps: the steps keep only ids
+ * of `features` (the first step that names one builds it); a feature no step
+ * names goes to the step whose label or goal mentions it, else the last step
+ * before the polish step (else the last step).
+ */
+function assignFeatures(steps: StepState[], features: Feature[], all: Feature[] = features): StepState[] {
+  if (!steps.length) return steps;
+  const ids = new Set(all.map((f) => f.id));
+  const taken = new Set<string>();
+  for (const s of steps) {
+    if (!s.features) continue;
+    s.features = s.features.filter((id) => ids.has(id) && !taken.has(id));
+    s.features.forEach((id) => taken.add(id));
+    if (!s.features.length) delete s.features;
+  }
+  const open = steps.filter((s) => s.status !== "done");
+  if (!open.length) return steps;
+  const fallback = open.length > 1 && stepType(open[open.length - 1]) === "polish" ? open[open.length - 2] : open[open.length - 1];
+  for (const f of features) {
+    if (taken.has(f.id)) continue;
+    const words = f.name.toLowerCase().split(/\s+/).filter((w) => w.length > 3);
+    const hit = open.find((s) => words.some((w) => `${s.label} ${s.goal}`.toLowerCase().includes(w))) ?? fallback;
+    (hit.features ??= []).push(f.id);
+    taken.add(f.id);
+  }
+  return steps;
+}
+
+/** Keeps the game's features (in the job and on the game). */
+async function saveFeatures(ctx: Ctx, features: Feature[]): Promise<void> {
+  ctx.plan = { ...ctx.plan, features };
+  await db.gameProject.update({ where: { id: ctx.gameId }, data: { plan: ctx.plan as unknown as Prisma.InputJsonValue } });
+  publishGame(ctx.gameId, { type: "game" });
 }
 
 /** The chosen assets as the AI needs them: one line each, plus frame names and animation clips. */
@@ -640,7 +733,7 @@ async function assetContext(assets: ChosenAsset[]): Promise<string> {
 
 /* ───────────────────────── One step ───────────────────────── */
 
-type StepResult = { ok: boolean; files: GameFiles; note: string; errors: string[]; check: CheckResult | null; usedNotes: string[] };
+type StepResult = { ok: boolean; files: GameFiles; note: string; errors: string[]; check: CheckResult | null; usedNotes: string[]; runs: FeatureRun[] };
 
 function filesText(files: GameFiles): string {
   return Object.entries(files)
@@ -648,6 +741,24 @@ function filesText(files: GameFiles): string {
     .sort(([a], [b]) => (a === "game.json" ? -1 : b === "game.json" ? 1 : a.localeCompare(b)))
     .map(([p, c]) => `--- ${p} ---\n${c}`)
     .join("\n\n");
+}
+
+/** The FEATURES block of a step prompt: what this step builds (with its test), what must keep working, what comes later. */
+function featuresBlock(ctx: Ctx, index: number): string {
+  const list = ctx.plan.features ?? [];
+  if (!list.length) return "";
+  const mine = new Set(ctx.steps[index].features ?? []);
+  const now = list.filter((f) => mine.has(f.id));
+  const keep = list.filter((f) => !mine.has(f.id) && f.status !== "planned");
+  const later = list.filter((f) => !mine.has(f.id) && f.status === "planned");
+  return [
+    "FEATURES (their tests run on the real game right after this step):",
+    ...now.map((f) => `- BUILD IN THIS STEP: "${f.name}" (${f.id}, ${f.priority}): ${f.how}${f.test ? ` Test: ${testJson(f.test)}` : ""}${f.status === "failing" && f.last ? ` Last result: ${f.last.text}` : ""}`),
+    keep.length ? `- keep working: ${keep.map((f) => `"${f.name}" [${f.status}${f.status === "failing" && f.last ? `: ${f.last.text}` : ""}]`).join(", ")}` : "",
+    later.length ? `- later steps: ${later.map((f) => `"${f.name}"`).join(", ")}` : "",
+  ]
+    .filter(Boolean)
+    .join("\n");
 }
 
 function stepMessage(ctx: Ctx, index: number, files: GameFiles, extra: string[]): string {
@@ -660,6 +771,7 @@ function stepMessage(ctx: Ctx, index: number, files: GameFiles, extra: string[])
     ctx.meta.searchesAnswered ? `ASSET SEARCH RESULTS:\n${ctx.meta.searchesAnswered}` : "",
     `BUILD STEPS:\n${list}`,
     `THIS STEP: ${step.label}\nGOAL: ${step.goal}`,
+    featuresBlock(ctx, index),
     ctx.meta.playtestNotes?.length ? `PLAYTEST NOTES (the playtester checked the game after the last ${step.kind === "playtest-fix" ? "step; fix the blockers named in the GOAL first, then these where they fit" : "steps; fix them in this step where they fit, without dropping this step's goal"}):\n${ctx.meta.playtestNotes.map((n) => `- ${n}`).join("\n")}` : "",
     `CURRENT FILES:\n${filesText(files)}`,
     ...extra,
@@ -668,9 +780,100 @@ function stepMessage(ctx: Ctx, index: number, files: GameFiles, extra: string[])
     .join("\n\n");
 }
 
+/** The tests to run after step `index`: every feature built so far plus this step's, that has a usable test. */
+function testsFor(ctx: Ctx, index: number): Array<{ id: string; test: FeatureTest }> {
+  const mine = new Set(ctx.steps[index].features ?? []);
+  return (ctx.plan.features ?? []).filter((f) => f.test && (f.status !== "planned" || mine.has(f.id))).map((f) => ({ id: f.id, test: f.test! }));
+}
+
+type Blocker = { feature: Feature; run: FeatureRun; kind: "new" | "regression" };
+
+/** What the results mean for step `index`: a new feature failing, or an earlier passing one that stopped passing, blocks. */
+function judgeRuns(ctx: Ctx, index: number, runs: FeatureRun[]): { blockers: Blocker[]; passing: number; stillFailing: Blocker[] } {
+  const mine = new Set(ctx.steps[index].features ?? []);
+  const blockers: Blocker[] = [];
+  const stillFailing: Blocker[] = [];
+  for (const r of runs) {
+    const f = ctx.plan.features?.find((x) => x.id === r.id);
+    if (!f || r.ok || r.skipped || r.bad) continue;
+    if (mine.has(f.id)) blockers.push({ feature: f, run: r, kind: "new" });
+    else if (f.status === "passing") blockers.push({ feature: f, run: r, kind: "regression" });
+    else stillFailing.push({ feature: f, run: r, kind: "new" });
+  }
+  return { blockers, passing: runs.filter((r) => r.ok).length, stillFailing };
+}
+
+/** The repair prompt's part about failed feature tests. */
+function featureRepairText(b: { blockers: Blocker[]; stillFailing: Blocker[] }): string {
+  const line = (x: Blocker) => `- ${x.kind === "regression" ? "REGRESSION (passed before this step)" : "NEW"} "${x.feature.name}" (${x.feature.id}): ${x.feature.how}\n  test: ${testJson(x.feature.test)}\n  ${resultText(x.feature, x.run)}`;
+  return [
+    `FEATURE TESTS FAILED (each ran in a headless browser on the game as your last answer left it: a new game via NK.start(), then real key presses in game time, then the expectations):`,
+    ...b.blockers.map(line),
+    b.stillFailing.length ? `Also still failing from before (fix if it fits): ${b.stillFailing.map((x) => `"${x.feature.name}"`).join(", ")}` : "",
+    `Fix the GAME so these tests pass, keeping everything else working. Never special-case a test. If a test reads an NK.run counter, count that event in NK.run under that exact name (TEST PROBES).`,
+  ]
+    .filter(Boolean)
+    .join("\n");
+}
+
+/**
+ * Tests that are broken themselves (an expectation threw, it reads an NK.run
+ * key the game never had, or the plan's test couldn't be used) are rewritten
+ * once by the AI with the game's files, then run again on the same files.
+ * Returns the runs with the rewritten tests' new results in place.
+ */
+async function fixBadTests(ctx: Ctx, index: number, files: GameFiles, runs: FeatureRun[]): Promise<FeatureRun[]> {
+  const mine = new Set(ctx.steps[index].features ?? []);
+  const list = ctx.plan.features ?? [];
+  const bad = list.filter((f) => !f.rewritten && ((!f.test && (mine.has(f.id) || f.status !== "planned")) || runs.some((r) => r.id === f.id && r.bad)));
+  if (!bad.length) return runs;
+  let fixed: z.infer<typeof TestFix> = { tests: [] };
+  try {
+    fixed = await completeJson(TestFix, "game feature test fix", {
+      task: "edit",
+      json: true,
+      signal: ctx.signal,
+      maxTokens: 2000,
+      systemPrompt: featureTestFixSystem(ctx.engine),
+      userMessage: [
+        `GAME: ${JSON.stringify({ title: ctx.title, ...(ctx.plan.brief ?? {}) })}`,
+        `BROKEN TESTS:\n${bad
+          .map((f) => {
+            const r = runs.find((x) => x.id === f.id);
+            return `- ${f.id}: "${f.name}" (${f.priority}): ${f.how}\n  test: ${testJson(f.test)}\n  problem: ${r?.bad ?? f.problem ?? "unusable"}${r ? `\n  ${resultText(f, r)}` : ""}`;
+          })
+          .join("\n")}`,
+        `GAME FILES:\n${reviewFiles(files, 16_000)}`,
+      ].join("\n\n"),
+    });
+  } catch (err) {
+    if (ctx.signal.aborted) throw err;
+    console.warn("[game-studio] feature test rewrite failed:", err instanceof Error ? err.message : err);
+  }
+  ctx.check();
+  const again: Array<{ id: string; test: FeatureTest }> = [];
+  const features = list.map((f) => {
+    if (!bad.includes(f)) return f;
+    const w = fixed.tests.find((x) => featureKey(x.id) === f.id);
+    const c = w ? cleanTest(w.test) : { test: null, problem: "the rewrite gave no test" };
+    if (c.test) again.push({ id: f.id, test: c.test });
+    return { ...f, rewritten: true, ...(c.test ? { test: c.test, problem: undefined } : { problem: c.problem ?? f.problem }) };
+  });
+  ctx.plan = { ...ctx.plan, features };
+  console.log(`[game-studio] feature tests rewritten after step ${index + 1}: ${bad.map((f) => f.id).join(", ")} (${again.length} usable)`);
+  if (!again.length) return runs;
+  const check = await checkGame({ engine: ctx.engine, title: ctx.title, files, tests: again });
+  ctx.check();
+  const rerun = check.features ?? [];
+  return [...runs.filter((r) => !again.some((a) => a.id === r.id)), ...again.map((a) => rerun.find((r) => r.id === a.id) ?? { id: a.id, ok: false, skipped: check.ran ? "the re-run didn't reach the tests" : "no headless check here", pressed: [], expects: [], errors: [], ms: 0 })];
+}
+
 /**
  * One build step: the AI's edit (after at most two asset-search rounds),
- * the checks, and one repair with the errors if they fail.
+ * the checks and the feature tests, and one repair with the errors (or the
+ * failed tests' output) if they fail. A step whose game works but whose
+ * feature still fails after the repair is kept, its feature marked failing
+ * (the end gate takes it up).
  */
 async function runStep(ctx: Ctx, index: number, before: GameFiles, opts: { measure?: boolean; phone?: boolean } = {}): Promise<StepResult> {
   const system = stepSystem(ctx.engine, ctx.locale, ctx.genreId, ctx.plan.visual);
@@ -684,6 +887,9 @@ async function runStep(ctx: Ctx, index: number, before: GameFiles, opts: { measu
   let errors: string[] = [];
   let lastCheck: CheckResult | null = null;
   let used = new Set<string>();
+  // A try whose game works but whose features fail: kept in case the repair does no better.
+  let kept: (StepResult & { blockers: number; passing: number }) | null = null;
+  let featureText = "";
   for (let attempt = 0; attempt < 2; attempt++) {
     ctx.check();
     // A repair also takes in notes sent while the first try ran.
@@ -703,6 +909,7 @@ async function runStep(ctx: Ctx, index: number, before: GameFiles, opts: { measu
     }
     ctx.check();
     const parsed = parseFileOps(text);
+    featureText = "";
     if (!parsed.ops.length) {
       errors = [parsed.bad.length ? `these paths can't be written: ${parsed.bad.join(", ")} (only game.json, src/**.js, levels/*.json)` : "the answer had no === FILE or === EDIT blocks"];
       if (attempt === 0 && !parsed.bad.length && parseSearchRequest(text)) errors = ["you asked for more assets again: use the search results you have and write the step now"];
@@ -711,21 +918,53 @@ async function runStep(ctx: Ctx, index: number, before: GameFiles, opts: { measu
       const v = validateGame(applied.files, ctx.engine);
       errors = [...applied.problems, ...v.errors];
       if (!errors.length) {
-        lastCheck = await checkGame({ engine: ctx.engine, title: ctx.title, files: v.files, measure: opts.measure, phone: opts.phone });
+        lastCheck = await checkGame({ engine: ctx.engine, title: ctx.title, files: v.files, measure: opts.measure, phone: opts.phone, tests: testsFor(ctx, index) });
         ctx.check();
-        if (lastCheck.ok) return { ok: true, files: v.files, note: parsed.note || ctx.steps[index].label, errors: [], check: lastCheck, usedNotes: [...used] };
-        errors = lastCheck.errors.length ? lastCheck.errors : [`the game ended in state "${lastCheck.state ?? "loading"}" instead of playing`];
+        if (lastCheck.ok) {
+          // No browser here (or the check is off): nothing ran, nothing to judge or rewrite.
+          const runs = lastCheck.ran ? await fixBadTests(ctx, index, v.files, lastCheck.features ?? []) : [];
+          const verdict = judgeRuns(ctx, index, runs);
+          const result: StepResult = { ok: true, files: v.files, note: parsed.note || ctx.steps[index].label, errors: [], check: lastCheck, usedNotes: [...used], runs };
+          if (!verdict.blockers.length) return result;
+          if (!kept || verdict.blockers.length < kept.blockers || (verdict.blockers.length === kept.blockers && verdict.passing >= kept.passing)) kept = { ...result, blockers: verdict.blockers.length, passing: verdict.passing };
+          console.log(`[game-studio] step ${index + 1} try ${attempt + 1}: feature tests failed: ${verdict.blockers.map((b) => `${b.feature.id}/${b.kind}`).join(", ")}`);
+          errors = verdict.blockers.map((b) => `feature "${b.feature.name}" ${b.kind === "regression" ? "stopped working" : "doesn't work"} (its test failed; details below)`);
+          featureText = featureRepairText(verdict);
+        } else errors = lastCheck.errors.length ? lastCheck.errors : [`the game ended in state "${lastCheck.state ?? "loading"}" instead of playing`];
       }
       // The repair works on the files as this attempt left them (so its EDIT blocks match).
       working = v.files;
     }
     if (attempt === 0) {
       extra.push(
-        `YOUR LAST ANSWER FAILED THESE CHECKS:\n${errors.map((e) => `- ${e}`).join("\n")}\n\nCURRENT FILES above now include your last change. Fix the problems (=== FILE / === EDIT blocks against the CURRENT FILES), keeping the step's goal. Reply with the blocks and the NOTE line only.`,
+        `YOUR LAST ANSWER FAILED THESE CHECKS:\n${errors.map((e) => `- ${e}`).join("\n")}${featureText ? `\n\n${featureText}` : ""}\n\nCURRENT FILES above now include your last change. Fix the problems (=== FILE / === EDIT blocks against the CURRENT FILES), keeping the step's goal. Reply with the blocks and the NOTE line only.`,
       );
     }
   }
-  return { ok: false, files: before, note: "", errors, check: lastCheck, usedNotes: [] };
+  // The game works, a feature doesn't: keep the better try; the feature is marked failing.
+  if (kept) {
+    const { blockers: _b, passing: _p, ...result } = kept;
+    return result;
+  }
+  return { ok: false, files: before, note: "", errors, check: lastCheck, usedNotes: [], runs: [] };
+}
+
+/**
+ * The features after step `index` was saved as version `seq`: tested ones
+ * passing or failing (with the result), broken tests and untested new ones
+ * "built", the rest unchanged. Returns the list (not yet stored).
+ */
+function featuresAfter(ctx: Ctx, index: number, runs: FeatureRun[], seq: number, checked: boolean): Feature[] {
+  const mine = new Set(ctx.steps[index].features ?? []);
+  return (ctx.plan.features ?? []).map((f) => {
+    const built = f.status !== "planned" || mine.has(f.id);
+    if (!built) return f;
+    const r = runs.find((x) => x.id === f.id);
+    if (r && !r.skipped && !r.bad) return { ...f, status: r.ok ? ("passing" as const) : ("failing" as const), last: { seq, ok: r.ok, text: lastText(r), ...(r.ok ? {} : { detail: resultText(f, r).slice(0, 1500) }) } };
+    if (r?.bad || (!f.test && f.rewritten)) return { ...f, status: "built" as const, last: { seq, ok: false, text: r?.bad ?? f.problem ?? "no usable test", bad: r?.bad ?? f.problem ?? "no usable test" } };
+    if (f.status === "planned") return { ...f, status: "built" as const, ...(checked || r ? {} : { last: { seq, ok: false, text: "not tested (no headless check on this server)" } }) };
+    return f;
+  });
 }
 
 /** The newest version's screenshot as an image for the AI, when the model can read images (not on small local models). */
@@ -822,8 +1061,9 @@ async function reviseForNotes(ctx: Ctx, index: number, notes: TakenNote[]): Prom
         `GAME: ${JSON.stringify({ title: ctx.title, ...(ctx.plan.brief ?? {}) })}`,
         `DONE STEPS:\n${ctx.steps.filter((s) => s.status === "done").map((s, i) => `${i + 1}. ${s.label}${s.note ? ` — ${s.note}` : ""}`).join("\n") || "(none yet)"}`,
         `REMAINING STEPS (in order):\n${JSON.stringify(remaining.map((s) => ({ id: s.id, label: s.label, goal: s.goal })))}`,
+        ctx.plan.features?.length ? `FEATURES ALREADY PLANNED (don't repeat them):\n${ctx.plan.features.map((f) => `- ${f.id}: ${f.name}`).join("\n")}` : "",
         `NOTES:\n${JSON.stringify(notes.map((n) => ({ id: n.id, text: n.text })))}`,
-      ].join("\n\n"),
+      ].filter(Boolean).join("\n\n"),
     });
   } catch (err) {
     if (ctx.signal.aborted) throw err;
@@ -847,7 +1087,7 @@ async function reviseForNotes(ctx: Ctx, index: number, notes: TakenNote[]): Prom
     while (taken.has(id)) id = `${id}-${taken.size + 1}`;
     taken.add(id);
     ids.set(s.id, id);
-    const step: StepState = { id, label: s.label.trim(), goal: s.goal, status: "todo", added: true };
+    const step: StepState = { id, label: s.label.trim(), goal: s.goal, status: "todo", added: true, ...(s.features.length ? { features: s.features.map(featureKey) } : {}) };
     added.push(step);
     out.push(step);
   }
@@ -863,6 +1103,18 @@ async function reviseForNotes(ctx: Ctx, index: number, notes: TakenNote[]): Prom
       await appendChat(ctx.gameId, "error", refusalMessage(ctx.locale));
       return;
     }
+  }
+  // A note that adds a mechanic adds a feature with a test (built by the step the revision names, else the note's step).
+  const fresh = cleanFeatures(rev.features, { max: 2, keep: ctx.plan.features ?? [] }).filter((f) => !(ctx.plan.features ?? []).some((x) => x.id === f.id));
+  if (fresh.length) {
+    for (const s of rev.steps) {
+      const old = byId.get(s.id);
+      const take = s.features.map(featureKey).filter((id) => fresh.some((f) => f.id === id));
+      if (old && take.length) old.features = [...(old.features ?? []), ...take];
+    }
+    const all = mergeFeatures(ctx.plan.features ?? [], fresh);
+    assignFeatures(out, fresh, all);
+    await saveFeatures(ctx, all);
   }
   ctx.steps = [...ctx.steps.slice(0, index), ...ctx.steps.slice(index).filter((s) => s.status === "done"), ...out];
   ctx.meta.addedSteps = (ctx.meta.addedSteps ?? 0) + added.length;
@@ -920,6 +1172,64 @@ async function addFollowUp(ctx: Ctx): Promise<boolean> {
   return true;
 }
 
+/* ───────────────────────── Feature status in the chat, the end gate ───────────────────────── */
+
+/** One chat line per step: "Features: 3 passing, 1 failing (Double jump)." Nothing before any feature is built. */
+async function featureLine(ctx: Ctx, seq: number): Promise<void> {
+  const list = ctx.plan.features ?? [];
+  const c = featureCounts(list);
+  if (!list.some((f) => f.status !== "planned")) return;
+  const names = (l: Feature[]) => l.map((f) => f.name).join(", ");
+  await appendChat(ctx.gameId, "assistant", ctx.t("features.line", { passing: c.passing, failing: c.failing.length, failingNames: names(c.failing), unverified: c.unverified.length, unverifiedNames: names(c.unverified) }), seq);
+}
+
+/**
+ * Before a job ends: a core feature that fails its test (or was never built)
+ * gets a "Feature fixes" step with the failed tests' output, at most
+ * MAX_FEATURE_FIXES per job, sharing MAX_ADDED_STEPS. Returns whether one was added.
+ */
+async function addFeatureFix(ctx: Ctx): Promise<boolean> {
+  const list = ctx.plan.features ?? [];
+  const need = list.filter((f) => f.priority === "core" && (f.status === "failing" || f.status === "planned"));
+  if (!need.length) return false;
+  if ((ctx.meta.featureFixes ?? 0) >= MAX_FEATURE_FIXES || (ctx.meta.addedSteps ?? 0) >= MAX_ADDED_STEPS) return false;
+  ctx.meta.featureFixes = (ctx.meta.featureFixes ?? 0) + 1;
+  ctx.meta.addedSteps = (ctx.meta.addedSteps ?? 0) + 1;
+  const taken = new Set(ctx.steps.map((s) => s.id));
+  let id = `feature-fix-${ctx.meta.featureFixes}`;
+  while (taken.has(id)) id = `${id}-x`;
+  const lines = need.map((f) => `- "${f.name}" (${f.id}): ${f.how}${f.status === "planned" ? " — NOT BUILT YET: build it." : ""}\n  test: ${testJson(f.test)}${f.last?.detail ? `\n  last run: ${f.last.detail}` : f.last?.text ? `\n  last run: ${f.last.text}` : ""}`);
+  ctx.steps.push({
+    id,
+    label: ctx.t("steps.featureFixLabel"),
+    goal: `Make these CORE features work; their tests ran on the real game and failed (keep everything else as it is):\n${lines.join("\n")}`,
+    status: "todo",
+    added: true,
+    kind: "feature-fix",
+    features: need.map((f) => f.id),
+  });
+  console.log(`[game-studio] end gate: feature fix step ${ctx.meta.featureFixes} for ${need.map((f) => f.id).join(", ")}`);
+  await appendChat(ctx.gameId, "assistant", ctx.t("features.fixing", { names: need.map((f) => f.name).join(", ") }));
+  return true;
+}
+
+/** The honest last word on the features, for the job's final message. "" when the game has none. */
+function featureVerdict(ctx: Ctx): string {
+  const list = ctx.plan.features ?? [];
+  if (!list.length) return "";
+  const names = (l: Feature[]) => l.map((f) => f.name).join(", ");
+  const core = list.filter((f) => f.priority === "core");
+  const coreFailing = core.filter((f) => f.status === "failing" || f.status === "planned");
+  const coreUnverified = core.filter((f) => f.status === "built");
+  const extras = list.filter((f) => f.priority === "extra" && (f.status === "failing" || f.status === "planned"));
+  const out: string[] = [];
+  if (coreFailing.length) out.push(ctx.t("features.coreFailing", { names: names(coreFailing) }));
+  if (coreUnverified.length) out.push(ctx.t("features.coreUnverified", { names: names(coreUnverified) }));
+  if (!coreFailing.length && !coreUnverified.length && core.length) out.push(ctx.t("features.allCorePass", { count: core.length }));
+  if (extras.length) out.push(ctx.t("features.extrasFailing", { names: names(extras) }));
+  return out.join(" ");
+}
+
 /* ───────────────────────── The playtester ───────────────────────── */
 
 /** Which playtest pass follows a step: after the level, enemies and polish steps, and the re-check after a fix step. */
@@ -942,7 +1252,9 @@ async function playtestPass(ctx: Ctx, index: number, stage: PlaytestStage, resul
   const atEnd = stage === "polish" || (stage === "fix" && (ctx.meta.endReviews ?? 0) > 0);
   const visual = stage !== "fix" || (atEnd && (ctx.meta.endReviews ?? 0) < END_REVIEWS);
   if (atEnd && visual) ctx.meta.endReviews = (ctx.meta.endReviews ?? 0) + 1;
-  const report = await playtest({ stage, check: result.check, files: result.files, title: ctx.title, genreId: ctx.genreId, stepLabel: step.label, locale: ctx.locale, t: ctx.t, signal: ctx.signal, visual, spec: ctx.plan.visual, engine: ctx.engine });
+  // The feature tests' results are facts for the reviewer (it doesn't redo what they prove).
+  const featureFacts = (ctx.plan.features ?? []).map((f) => `feature test "${f.name}" [${f.priority}]: ${f.status === "planned" ? "not built yet" : f.status === "built" ? "built, no usable test" : f.status}${f.status === "failing" && f.last ? ` (${f.last.text})` : ""}`);
+  const report = await playtest({ stage, check: result.check, files: result.files, title: ctx.title, genreId: ctx.genreId, stepLabel: step.label, locale: ctx.locale, t: ctx.t, signal: ctx.signal, visual, spec: ctx.plan.visual, engine: ctx.engine, featureFacts });
   ctx.check();
   if (!report) return;
   const blockers = report.findings.filter((f) => f.severity === "blocker");

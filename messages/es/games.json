@@ -140,6 +140,14 @@
   "export": {
     "confirmExcluded": "{count, plural, one {# recurso} other {# recursos}} solo se pueden usar en juegos alojados aquí, así que la descarga {count, plural, one {lo} other {los}} omitirá: {names}. ¿Descargar de todos modos?"
   },
+  "features": {
+    "allCorePass": "{count, plural, one {La característica principal supera la prueba.} other {Las # características principales superan las pruebas.}}",
+    "coreFailing": "Aún no funcionan: {names}. Pídeme que las corrija.",
+    "coreUnverified": "No se pudieron probar automáticamente: {names}. Pruébalas tú.",
+    "extrasFailing": "Estos extras aún no funcionan: {names}.",
+    "fixing": "Estas características principales aún no funcionan: {names}. Añadiendo un paso para corregirlas.",
+    "line": "Características: {passing} aprobadas{failing, plural, =0 {} other {, # fallidas ({failingNames})}}{unverified, plural, =0 {} other {, # sin verificar ({unverifiedNames})}}."
+  },
   "gameTitle": "{name} · Estudio de juegos",
   "home": {
     "aiNotReady": "La IA aún no está configurada en este servidor, así que no se pueden crear juegos.",
@@ -211,6 +219,24 @@
     "audio": "Sonido",
     "controls": "Controles",
     "coreLoop": "Cómo se juega",
+    "features": {
+      "count": "{passing} de {total} características superan la prueba",
+      "extra": "Extra",
+      "help": "Qué debe hacer el juego y si lo hace. Después de cada paso de creación, se prueba cada característica en el juego real con pulsaciones de teclas reales. Así puedes ver qué funciona ahora mismo.",
+      "status": {
+        "built": "Creada",
+        "failing": "Fallida",
+        "passing": "Aprobada",
+        "planned": "Planificada"
+      },
+      "statusHelp": {
+        "built": "Está creada, pero no se pudo comprobar con la prueba, así que aún no está verificada.",
+        "failing": "La prueba se ejecutó en el juego real y falló. La línea de abajo indica qué detectó la prueba.",
+        "passing": "La prueba se ejecutó en el juego real después del último paso y se aprobó.",
+        "planned": "Se creará en un paso posterior."
+      },
+      "title": "Características"
+    },
     "genre": "Tipo de juego",
     "help": "El diseño que está creando la IA: el tipo de juego, cómo se juega, cómo se gana y se pierde, y su aspecto.",
     "levels": "Niveles",
@@ -275,6 +301,9 @@
   },
   "steps": {
     "added": "a partir de tu nota",
+    "featureFixHelp": "Una característica principal no superó la prueba, así que este paso la corregirá antes de terminar la creación.",
+    "featureFixLabel": "Correcciones de características",
+    "featureFixTag": "a partir de las pruebas de características",
     "followUpLabel": "Tus notas del chat",
     "help": "Los pasos de creación. Después de cada uno, el juego se guarda como una versión y el lienzo se actualiza para que puedas jugar enseguida.",
     "keepGoing": "Seguir",
@@ -318,6 +347,8 @@
     "confirmRestore": "¿Quieres que «{label}» sea la versión actual de tu juego?",
     "current": "Actual",
     "earlier": "Estás jugando una versión anterior.",
+    "features": "Características {passing}/{total}",
+    "featuresHelp": "Cuántas de las características previstas superaron las pruebas en esta versión.",
     "help": "Cada paso de creación y cada restauración, del más reciente al más antiguo, con una imagen del juego en ese momento.",
     "none": "Todavía no hay versiones. Aparecerán a medida que la IA cree el juego.",
     "restore": "Restaurar",

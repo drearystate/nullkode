@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# Builds the Game Studio's asset library from the Kenney and KayKit zips you
-# downloaded, then adds the AI tags that ship with NullKode and builds the
-# search index. See docs/games.md.
+# Builds the Game Studio's asset library from the CC0 zips you downloaded
+# (Kenney, KayKit, Quaternius, Pixel Frog), then adds the AI tags that ship
+# with NullKode and builds the search index. See docs/games.md.
 #
 #   bash games/setup-library.sh            (zips in games/packs/)
 #
@@ -43,7 +43,7 @@ done
 echo "== Preparing the packs in $NK_GAME_PACKS"
 python3 "$GAMES/ingest/prepare-packs.py" "$NK_GAME_PACKS"
 
-echo "== Building the library in $NK_GAME_ASSETS (the first run with both bundles can take a few hours)"
+echo "== Building the library in $NK_GAME_ASSETS (the first run with everything can take a few hours)"
 for stage in unpack scan process catalog; do
   nice -n 10 python3 "$GAMES/ingest/ingest.py" "$stage"
 done

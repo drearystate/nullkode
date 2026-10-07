@@ -15,12 +15,14 @@ def _cat():
         return [json.loads(l) for l in f]
 
 
-def run(n_glb=30, n_img=30, n_audio=10, seed=None):
+def run(n_glb=30, n_img=30, n_audio=10, seed=None, packs=None):
     import numpy as np
     from PIL import Image
     seed = seed if seed is not None else int(time.time())
     rnd = random.Random(seed)
     recs = _cat()
+    if packs:  # ingest.py verify --pack x: check those packs only (results in verify-<packs>.json)
+        recs = [r for r in recs if r['pack'] in packs]
     res = {'seed': seed, 'time': time.strftime('%Y-%m-%d %H:%M:%S'), 'glb': [], 'images': [], 'audio': []}
     # GLBs via three.js GLTFLoader
     models = [r for r in recs if r['kind'] == 'model']
@@ -104,5 +106,7 @@ def run(n_glb=30, n_img=30, n_audio=10, seed=None):
         for x in res[k]:
             if not x['ok']:
                 log('   FAIL %s %s' % (x['id'], x.get('problems') or x.get('load', {}).get('error')))
-    write_json(os.path.join(STATE, 'verify.json'), res, indent=1)
+    if packs:
+        res['packs'] = sorted(packs)
+    write_json(os.path.join(STATE, 'verify-%s.json' % '-'.join(sorted(packs)) if packs else 'verify.json'), res, indent=1)
     return res

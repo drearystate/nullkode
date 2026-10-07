@@ -18,7 +18,7 @@
   <img alt="Self-hosted" src="https://img.shields.io/badge/self--hosted-yes-0ea5e9">
   <img alt="Features" src="https://img.shields.io/badge/ready--made%20features-135-10b981">
   <img alt="Languages" src="https://img.shields.io/badge/languages-18-f59e0b">
-  <img alt="Game assets" src="https://img.shields.io/badge/CC0%20game%20assets-63k-ef4444">
+  <img alt="Game assets" src="https://img.shields.io/badge/CC0%20game%20assets-66k-ef4444">
   <img alt="Next.js 15" src="https://img.shields.io/badge/Next.js-15-111827">
   <img alt="PostgreSQL" src="https://img.shields.io/badge/PostgreSQL-16-336791">
 </p>
@@ -58,7 +58,7 @@ paid core and no license server.
   forums, invoices, event tickets and more. Each one adds its own pages, tables
   and admin screens.
 - **Make real games.** The Game Studio builds 2D and 3D games step by step on a
-  live canvas, from a library of 63,000+ free (CC0) sprites, models, sounds and
+  live canvas, from a library of 66,000+ free (CC0) sprites, models, sounds and
   fonts that the AI has tagged and can search. Chat with it while it builds.
 - **Ship everywhere.** Web, installable app, real native Android and iPhone apps
   (APK, Google Play, Xcode and TestFlight), plus Windows and Mac shortcuts.
@@ -199,7 +199,7 @@ templates are the easiest way to contribute.
 | **Features** | 135 ready-made: commerce (32), utility (26), community (26), productivity (20), content (17), media (9), communication (5) |
 | **Publishing** | Draft and live versions with rollback, own address per app, custom domains, automatic HTTPS, PWA and offline, push notifications, QR codes |
 | **Mobile** | Real native iOS and Android apps compiled from your pages (React Native), previews in the browser, in Expo Go and in an Android emulator, Android APK and Google Play (AAB) with per-app signing keys, iOS Xcode project and TestFlight workflow |
-| **Games** | Game Studio with a live step-by-step canvas, chat while it builds, 2D (Phaser) and 3D (three.js + Rapier) kits, 63k+ tagged CC0 assets with AI search, automatic play-testing, versions, phone controls, publish as an app |
+| **Games** | Game Studio with a live step-by-step canvas, chat while it builds, 2D (Phaser) and 3D (three.js + Rapier) kits, 66k+ tagged CC0 assets with AI search, automatic play-testing, versions, phone controls, publish as an app |
 | **Languages** | Studio in 18 languages with right-to-left support, apps in any language, multilingual apps with a language switcher |
 | **API** | Partner API to create, build, change and publish apps from your own tools ([docs](docs/partner-api.md)) |
 | **Business** | Plans and limits, Stripe billing, white-label, resellers with their own Stripe and domains, admin panel, user impersonation for support |
