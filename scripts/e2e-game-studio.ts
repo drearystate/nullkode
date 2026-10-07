@@ -43,6 +43,12 @@
  *    fails; a chat change adds a feature with a test; a note adds one; restore
  *    brings a version's feature status back; the plan card's Features section
  *    (en + ar, 1440 + 390);
+ *  - test setup (gated features): a door that opens with 10 coins, proven
+ *    by a test that starts with 9 (setup) and takes the last coin for real
+ *    (a door counting outside NK.run fails it and is repaired); a setup that
+ *    sets the outcome is refused; a setup key the game doesn't have and a
+ *    setup that leaves nothing to prove are bad tests, rewritten once; a
+ *    placed player reaches the flag; the server's setup checks;
  *  - licences: Quaternius platform-only (platform-only) assets are searchable,
  *    usable in games and left out of downloads (redistributable: false), with
  *    the "Hosted only" badge;
@@ -68,11 +74,12 @@ import { chromium, type Browser, type BrowserContext, type Frame, type Page } fr
 import { startInstance, installOperator, checker, warmApp, type Agent, type Instance } from "./e2e-harness";
 import { buildLock } from "../src/lib/game-studio/catalog";
 import { exportPreview } from "../src/lib/game-studio/export";
+import { cleanTest } from "../src/lib/game-studio/features";
 
 const port = Number(process.env.E2E_PORT || 3321);
 const mockPort = port + 1;
 const SHOTS = process.env.E2E_SHOTS || "/tmp/nk-e2e-game-studio";
-/** E2E_ONLY=steer|playtest|change: just that part (quicker while working on it; "change" prints the canvas messages around a chat change). */
+/** E2E_ONLY=steer|playtest|gate|setup|change: just that part (quicker while working on it; "change" prints the canvas messages around a chat change). */
 const ONLY = process.env.E2E_ONLY ?? "";
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 mkdirSync(SHOTS, { recursive: true });
@@ -99,7 +106,7 @@ function fileBlocks(files: Record<string, string>, note: string): string {
 }
 
 /** Step label → what the mock writes for it. `breaks`: a feature the first try breaks (the repair after its failed test fixes it; `always`: never). */
-const STEPS: Record<string, { fixture?: number; three?: boolean; slow?: boolean | number; broken?: "once" | "always"; search?: boolean; gappy?: boolean; breaks?: "coins" | "jump"; always?: boolean }> = {
+const STEPS: Record<string, { fixture?: number; three?: boolean; slow?: boolean | number; broken?: "once" | "always"; search?: boolean; gappy?: boolean; breaks?: "coins" | "jump"; always?: boolean; door?: boolean }> = {
   "Dungeon shell": { fixture: 1, three: true },
   "Dungeon hall": { fixture: 2, three: true },
   "Knight hero": { fixture: 3, three: true },
@@ -125,6 +132,8 @@ const STEPS: Record<string, { fixture?: number; three?: boolean; slow?: boolean 
   // The feature end gate: a polish step whose coins never count, then the fix.
   "Coinless polish": { fixture: 8, breaks: "coins", always: true },
   "Feature fixes": { fixture: 8 },
+  // Test setup: a door that opens with 10 coins (first try counts in the scene, so a setup can't drive it; the repair reads NK.run).
+  "Door level": { fixture: 8, door: true },
 };
 /** A feature broken on purpose: coins no longer counted, or the jump gone. */
 function breakFeature(files: Record<string, string>, what: "coins" | "jump"): Record<string, string> {
@@ -138,7 +147,41 @@ const FEATURES = {
   lives: { id: "three-lives", name: "Three lives", priority: "extra", how: "You start with three hearts.", test: { steps: [{ waitMs: 200 }], expect: ["NK.run.hearts === 3"] } },
   stomp: { id: "stomp-slimes", name: "Stomp slimes", priority: "extra", how: "Jumping on a slime squashes it for 100 points.", test: { steps: [{ waitMs: 300 }], expect: ["track.max.score >= 99999"] } },
 };
-const STEP_FEATURES: Record<string, string[]> = { "Hero and controls": ["run-jump"], "Fish and score": ["collect-coins"], "Enemies and lives": ["three-lives"], "Coinless polish": ["collect-coins", "stomp-slimes"] };
+/**
+ * Fixture 8 with a door that opens once 10 coins are taken. "scene": the door counts the coins in a scene field
+ * (this.collected), so a test that starts with NK.run.coins = 9 can't open it with one coin; "run": the door reads
+ * NK.run (the step rules' convention), so the setup drives it.
+ */
+function doorGame(files: Record<string, string>, how: "scene" | "run"): Record<string, string> {
+  const cfg = files["src/config.js"].replace("run: { score: 0, coins: 0, lives: 3, level: 1 },", "run: { score: 0, coins: 0, lives: 3, level: 1, coinsNeeded: 10, doorOpen: false, doorsOpened: 0 },");
+  let game = files["src/scenes/game.js"]
+    .replace("    this.done = false;\n  }", "    this.done = false;\n    this.collected = 0;\n  }")
+    .replace("    NK.run.coins++;\n", "    NK.run.coins++;\n    this.collected++;\n")
+    .replace("    if (this.player.y > this.lvl.height + 150) this.fell();", `    if (this.player.y > this.lvl.height + 150) this.fell();\n    if (!NK.run.doorOpen && ${how === "run" ? "NK.run.coins" : "this.collected"} >= NK.run.coinsNeeded) { NK.run.doorOpen = true; NK.run.doorsOpened++; }`);
+  if (cfg === files["src/config.js"] || !game.includes("NK.run.doorsOpened++") || !game.includes("this.collected++")) throw new Error("the door fixture no longer matches fixture 8");
+  return { ...files, "src/config.js": cfg, "src/scenes/game.js": game };
+}
+/** The coin route of the "Collect coins" test (one coin at least, from the level's start). */
+const COIN_ROUTE = [{ down: "ArrowRight" }, { waitMs: 300 }, { key: "Space", holdMs: 200 }, { waitMs: 900 }, { up: "ArrowRight" }];
+/**
+ * The door game's features: "door-opens" starts with 9 of 10 coins and takes the last one for real; "door-cheat" sets the
+ * outcome itself (refused when the plan is read); "reach-flag" places the player near the flag but also sets a run key the
+ * game doesn't have (a bad test, rewritten once); "door-early" starts past the threshold, so the door is open before any
+ * input (a bad test once the game reads NK.run).
+ */
+const DOOR_FEATURES = {
+  door: { id: "door-opens", name: "Door opens with all coins", priority: "core", how: "Taking the 10th coin opens the door.", test: { setup: { run: { coins: 9 } }, steps: COIN_ROUTE, expect: ["NK.run.doorOpen === true", "NK.run.coins >= 10", "NK.run.doorsOpened === 1"] } },
+  cheat: { id: "door-cheat", name: "Door cheat", priority: "extra", how: "The door is open.", test: { setup: { run: { doorOpen: true } }, steps: [{ waitMs: 200 }], expect: ["NK.run.doorOpen === true"] } },
+  flag: { id: "reach-flag", name: "Reach the flag", priority: "core", how: "Touching the flag finishes the level for 500 points.", test: { setup: { run: { gems: 5 }, player: { x: 4350, y: 480 } }, steps: [{ key: "ArrowRight", holdMs: 1200 }, { waitMs: 300 }], expect: ["NK.run.score >= 500"] } },
+  early: { id: "door-early", name: "Door stays open", priority: "extra", how: "Once open, the door stays open.", test: { setup: { run: { coins: 12 } }, steps: [{ waitMs: 200 }], expect: ["NK.run.doorOpen === true"] } },
+};
+/** The mock's rewrites of the door game's bad tests. */
+const DOOR_REWRITES: Record<string, unknown> = {
+  "door-cheat": { setup: { run: { coins: 9 } }, steps: COIN_ROUTE, expect: ["NK.run.doorOpen"] },
+  "reach-flag": { setup: { player: { x: 4350, y: 480 } }, steps: [{ key: "ArrowRight", holdMs: 1200 }, { waitMs: 300 }], expect: ["NK.run.score >= 500", "track.maxX > 4500"] },
+  "door-early": { setup: { run: { coins: 9 } }, steps: [...COIN_ROUTE, { waitMs: 500 }], expect: ["NK.run.doorsOpened === 1", "NK.run.doorOpen === true"] },
+};
+const STEP_FEATURES: Record<string, string[]> = { "Hero and controls": ["run-jump"], "Fish and score": ["collect-coins"], "Enemies and lives": ["three-lives"], "Coinless polish": ["collect-coins", "stomp-slimes"], "Door level": ["door-opens", "door-cheat", "reach-flag", "door-early"] };
 /** Fixture 3's level with a 14-tile hole from tile 27 (ground and platforms), so the flag can't be reached. */
 function gappy(files: Record<string, string>): Record<string, string> {
   return { ...files, "src/levels.js": files["src/levels.js"].replace(/"([ #=XcPshmgbF^k]{60,})"/g, (_m, row: string) => `"${row.slice(0, 27)}${" ".repeat(14)}${row.slice(41)}"`) };
@@ -178,7 +221,7 @@ function createMock() {
     // Planned features: a test that is broken itself gets rewritten (the game's files are in the message).
     if (/Some feature tests are broken themselves/.test(system)) {
       const ids = [...user.matchAll(/^- ([a-z0-9-]+): "/gm)].map((m) => m[1]);
-      return JSON.stringify({ tests: ids.map((id) => ({ id, test: id === "three-lives" && /GAME FILES:[\s\S]*lives: 3/.test(user) ? { steps: [{ waitMs: 200 }], expect: ["NK.run.lives === 3"] } : { steps: [], expect: ["NK.run.nothing === 1"] } })) });
+      return JSON.stringify({ tests: ids.map((id) => ({ id, test: DOOR_REWRITES[id] ? DOOR_REWRITES[id] : id === "three-lives" && /GAME FILES:[\s\S]*lives: 3/.test(user) ? { steps: [{ waitMs: 200 }], expect: ["NK.run.lives === 3"] } : { steps: [], expect: ["NK.run.nothing === 1"] } })) });
     }
     // Steer while building: revising the remaining steps for the notes.
     if (/the person \(the game's owner\) sent NOTES/.test(system)) {
@@ -195,7 +238,7 @@ function createMock() {
       return JSON.stringify(/vague/.test(user) ? { questions: [{ id: "kind", label: "What kind of game?", options: ["Platformer", "Puzzle"] }] } : { questions: [] });
     }
     if (/Turn the person's idea into a short game design brief/.test(system)) {
-      const title = /playtest test/i.test(user) ? "Gap Test" : /doomed/i.test(user) ? "Doomed Game" : /restart/i.test(user) ? "Restart Game" : /dungeon/i.test(user) ? "Knight Hall" : "Whisker Dash";
+      const title = /playtest test/i.test(user) ? "Gap Test" : /door setup/i.test(user) ? "Door Test" : /doomed/i.test(user) ? "Doomed Game" : /restart/i.test(user) ? "Restart Game" : /dungeon/i.test(user) ? "Knight Hall" : "Whisker Dash";
       return JSON.stringify({
         title,
         engine: /dungeon/i.test(user) ? "three-3d" : "phaser-2d",
@@ -207,7 +250,7 @@ function createMock() {
       });
     }
     if (/Pick the game's assets from the search results and plan the build steps/.test(system)) {
-      const labels = /IDEA: .*feature gate/i.test(user) ? ["Sky and ground", "Coinless polish"] : /IDEA: .*change test/i.test(user) ? ["Sky and ground", "Touch controls and polish"] : /IDEA: .*playtest test/i.test(user) ? ["Sky and ground", "Gappy level", "Playtest hero", "Touch controls and polish"] : /IDEA: .*(steering|stop-after|stop-now)/i.test(user) ? (/steering/i.test(user) ? STEER_STEPS : STEER_STEPS.slice(0, 3)) : /IDEA: .*doomed/i.test(user) ? ["Doomed step"] : /IDEA: .*restart/i.test(user) ? ["Sky and ground", "Slow art step", "First level"] : /IDEA: .*dungeon/i.test(user) ? ["Dungeon shell", "Dungeon hall", "Knight hero"] : MAIN_STEPS;
+      const labels = /IDEA: .*door setup/i.test(user) ? ["Sky and ground", "Door level"] : /IDEA: .*feature gate/i.test(user) ? ["Sky and ground", "Coinless polish"] : /IDEA: .*change test/i.test(user) ? ["Sky and ground", "Touch controls and polish"] : /IDEA: .*playtest test/i.test(user) ? ["Sky and ground", "Gappy level", "Playtest hero", "Touch controls and polish"] : /IDEA: .*(steering|stop-after|stop-now)/i.test(user) ? (/steering/i.test(user) ? STEER_STEPS : STEER_STEPS.slice(0, 3)) : /IDEA: .*doomed/i.test(user) ? ["Doomed step"] : /IDEA: .*restart/i.test(user) ? ["Sky and ground", "Slow art step", "First level"] : /IDEA: .*dungeon/i.test(user) ? ["Dungeon shell", "Dungeon hall", "Knight hero"] : MAIN_STEPS;
       return JSON.stringify({
         assets: [
           { key: "tiles", id: "kenney/new-platformer-pack/spritesheet-tiles", use: "ground, coins, flag" },
@@ -218,7 +261,7 @@ function createMock() {
           { key: "made-up", id: "kenney/not-a-real-pack/nothing", use: "dropped: not a library id" },
         ],
         steps: labels.map((l, i) => ({ id: `s${i + 1}`, label: l, goal: `Build: ${l}`, ...(STEP_FEATURES[l] ? { features: STEP_FEATURES[l] } : {}) })),
-        features: /IDEA: .*feature gate/i.test(user) ? [FEATURES.coins, FEATURES.stomp] : /IDEA: .*cat collecting fish/.test(user) ? [FEATURES.runJump, FEATURES.coins, FEATURES.lives] : [],
+        features: /IDEA: .*door setup/i.test(user) ? Object.values(DOOR_FEATURES) : /IDEA: .*feature gate/i.test(user) ? [FEATURES.coins, FEATURES.stomp] : /IDEA: .*cat collecting fish/.test(user) ? [FEATURES.runJump, FEATURES.coins, FEATURES.lives] : [],
         message: "Eight small steps, playable after each.",
         assetNotes: "New Platformer Pack only: 64 px tiles, hero at 0.75 scale, enemies 0.6, backgrounds at 2x.",
       });
@@ -239,6 +282,7 @@ function createMock() {
       if (spec.slow) await sleep(typeof spec.slow === "number" ? spec.slow : 15_000);
       if (spec.search && !/ASSET SEARCH RESULTS \(you asked\)/.test(user)) return JSON.stringify({ searches: [{ query: "grass platform tiles", kind: "spritesheet", dim: "2d" }, { set: "kenney/new-platformer-pack", query: "slime" }] });
       const repairing = /YOUR LAST ANSWER FAILED THESE CHECKS/.test(user);
+      if (spec.door) return fileBlocks(doorGame(loadStep(spec.fixture!), /FEATURE TESTS FAILED/.test(user) ? "run" : "scene"), `${label} is in.`);
       if (spec.breaks && (spec.always || !/FEATURE TESTS FAILED/.test(user))) return fileBlocks(breakFeature(loadStep(spec.fixture!), spec.breaks), `${label} is in.`);
       if (spec.broken === "always" || (spec.broken === "once" && !repairing)) {
         const files = spec.fixture ? loadStep(spec.fixture) : loadStep(1);
@@ -443,6 +487,57 @@ async function main() {
         await context.close();
       }
     };
+    /** Test setup: gated features proven from a set-up start (E2E_ONLY=setup runs only this). */
+    const setupSection = async () => {
+      const inst = live;
+      console.log("Test setup (gated features)");
+      // The server-side checks of a setup (types, sizes, known fields, and the outcome set by the setup itself).
+      const clean = (setup: unknown, expect: string[]) => cleanTest({ setup, steps: [{ waitMs: 100 }], expect });
+      const good = clean({ run: { fish: 9 }, player: { x: 1200, y: 300 } }, ["NK.run.fish >= 10", "NK.run.doorOpen === true"]);
+      ok("a setup is kept with the test (run values + player position)", JSON.stringify(good.test?.setup) === '{"run":{"fish":9},"player":{"x":1200,"y":300}}', good);
+      const refused = [
+        [{ run: { doorOpen: true } }, ["NK.run.doorOpen === true"], /already true from the setup \(NK\.run\.doorOpen = true\)/],
+        [{ run: { fish: 10 } }, ["10 <= NK.run.fish"], /already true from the setup/],
+        [{ run: { fish: 9 } }, ["track.max.fish >= 9"], /already true from the setup/],
+        [{ run: { locked: false } }, ["!NK.run.locked"], /already true from the setup/],
+        [{ run: { taken: { a: 1 } } }, ["NK.run.coins >= 1"], /only numbers, booleans and short strings/],
+        [{ run: { name: "x".repeat(41) } }, ["NK.run.coins >= 1"], /strings of at most 40/],
+        [{ run: { constructor: 1 } }, ["NK.run.coins >= 1"], /can't be set/],
+        [{ run: Object.fromEntries([...Array(9)].map((_, i) => [`k${i}`, i])) }, ["NK.run.coins >= 1"], /9 run values \(at most 8\)/],
+        [{ run: { coins: 1 }, state: "play" }, ["NK.run.coins >= 2"], /only "run" and "player"/],
+        [{ player: { x: 1, y: "2" } }, ["NK.run.coins >= 1"], /needs numbers x and y/],
+        [{ player: { x: 1, y: 2, vx: 300 } }, ["NK.run.coins >= 1"], /only x, y and z/],
+      ] as Array<[unknown, string[], RegExp]>;
+      const verdicts = refused.map(([setup, expect, want]) => ({ setup, problem: clean(setup, expect).problem ?? "", want }));
+      ok("bad setups are refused on the server: the outcome set by the setup, wrong types, sizes and fields", verdicts.every((v) => v.want.test(v.problem)), verdicts.filter((v) => !v.want.test(v.problem)));
+      ok("…a setup short of the goal is fine (start.run reads and other keys are not the outcome)", Boolean(clean({ run: { fish: 9, fishNeeded: 10 } }, ["NK.run.fish >= NK.run.fishNeeded", "NK.run.fish > start.run.fish"]).test));
+
+      const mark = mock.requests.length;
+      const r = await alice.agent.post("/api/games", { prompt: "a door setup test game", engine: "phaser-2d" });
+      ok("door build starts", r.status === 200, r.text);
+      const gid = r.json.game.id as string;
+      const job = await waitJob(inst, gid, 400_000);
+      const reqs = mock.requests.slice(mark);
+      const steps = job.steps as Array<{ label: string; status: string; kind?: string; features?: string[] }>;
+      ok("the build finished without a feature-fix step", job.status === "done" && !steps.some((st) => st.kind === "feature-fix") && steps.find((st) => st.label === "Door level")?.features?.join() === "door-opens,door-cheat,reach-flag,door-early", steps);
+      const planCall = reqs.find((q) => /Pick the game's assets/.test(q.system));
+      ok("the plan prompt explains the setup (start just short, never the outcome)", Boolean(planCall && /setup \(optional\): \{"run": \{"fish": 9\}, "player"/.test(planCall.system) && /start JUST SHORT of it/.test(planCall.system) && /Never set the outcome itself/.test(planCall.system)));
+      const doorCalls = reqs.filter((q) => /HOW TO WRITE A STEP/.test(q.system) && /THIS STEP: Door level/.test(q.user));
+      ok("the step rules: gated logic reads NK.run, so a setup drives it", Boolean(doorCalls[0] && /make gated logic READ NK\.run/.test(doorCalls[0].system) && /BUILD IN THIS STEP: "Door opens with all coins"[^\n]*Test: \{"setup":\{"run":\{"coins":9\}\}/.test(doorCalls[0].user)), doorCalls[0]?.user.slice(-1500));
+      ok("a door that counts coins outside NK.run fails the setup test (9 + 1 coin, the door stays shut), repaired with the test output", doorCalls.length === 2 && /NEW "Door opens with all coins" \(door-opens\)[\s\S]*pressed: new game, setup: NK\.run\.coins = 9, hold ArrowRight[\s\S]*expect `NK\.run\.doorOpen === true` → false \(FAILED\)[\s\S]*expect `NK\.run\.coins >= 10` → true \(ok\)/.test(doorCalls[1].user) && /A test's "setup" was written into NK\.run/.test(doorCalls[1].user), doorCalls[1]?.user.slice(-2500));
+      const rewrites = reqs.filter((q) => /Some feature tests are broken themselves/.test(q.system));
+      const all = rewrites.map((q) => q.user).join("\n");
+      ok("the tautological setup (doorOpen: true) was refused and rewritten once", /- door-cheat: "Door cheat"[\s\S]*?problem: `NK\.run\.doorOpen === true` is already true from the setup \(NK\.run\.doorOpen = true\)/.test(all) && (all.match(/- door-cheat:/g) ?? []).length === 1, rewrites.map((q) => q.user.slice(0, 700)));
+      ok("a setup key the game doesn't have is a bad test, rewritten once with the game's keys", /- reach-flag: "Reach the flag"[\s\S]*?problem: setup sets NK\.run\.gems, which this game doesn't have \(its NK\.run keys: score, coins, lives, level, coinsNeeded, doorOpen, doorsOpened/.test(all) && (all.match(/- reach-flag:/g) ?? []).length === 1, rewrites.map((q) => q.user.slice(0, 900)));
+      ok("a setup that opens the door before any input is a bad test (nothing left to prove), rewritten once", /- door-early: "Door stays open"[\s\S]*?problem: every expectation is already true right after the setup, before any input/.test(all) && (all.match(/- door-early:/g) ?? []).length === 1, rewrites.map((q) => q.user.slice(0, 900)));
+      ok("the rewrite prompt explains a bad setup", rewrites.length > 0 && rewrites.every((q) => /A bad setup: use the game's real NK\.run keys/.test(q.system)));
+      const g = await inst.db.gameProject.findUniqueOrThrow({ where: { id: gid } });
+      type DF = { id: string; status: string; rewritten?: boolean; test?: { setup?: unknown; expect: string[] } | null; last?: { text: string } };
+      const fs = (g.plan as { features: DF[] }).features;
+      ok("every door feature passes at the end: the door proven from 9 coins + the last one taken for real, the flag from a placed player", fs.map((f) => `${f.id}:${f.status}`).join() === "door-opens:passing,door-cheat:passing,reach-flag:passing,door-early:passing" && fs.find((f) => f.id === "door-opens")?.rewritten !== true && JSON.stringify(fs.find((f) => f.id === "reach-flag")?.test?.setup) === '{"player":{"x":4350,"y":480}}', fs.map((f) => [f.id, f.status, f.rewritten, f.last?.text]));
+      const v = await inst.db.gameVersion.findFirst({ where: { gameId: gid, stepLabel: "Door level" }, orderBy: { seq: "desc" } });
+      ok("the saved game's door reads NK.run (the repaired try)", /NK\.run\.coins >= NK\.run\.coinsNeeded/.test((v?.files as Record<string, string>)["src/scenes/game.js"] ?? ""));
+    };
     const steerSection = async () => {
       const inst = live;
       console.log("Steer while building");
@@ -599,6 +694,11 @@ async function main() {
     if (ONLY === "gate") {
       await gateSection();
       console.log(`\nAll ${checks.length} feature gate checks passed. Screenshots in ${SHOTS}`);
+      return;
+    }
+    if (ONLY === "setup") {
+      await setupSection();
+      console.log(`\nAll ${checks.length} test setup checks passed.`);
       return;
     }
     if (ONLY === "steer") {
@@ -957,6 +1057,9 @@ async function main() {
 
     /* ── The feature end gate ── */
     await gateSection();
+
+    /* ── Test setup (gated features) ── */
+    await setupSection();
 
     /* ── Steer while building ── */
     await steerSection();

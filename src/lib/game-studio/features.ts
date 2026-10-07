@@ -14,6 +14,19 @@ import type { GameFiles } from "./store";
  *
  * - start (default true): a new game (NK.start()), then 0.5 s of game time
  *   for the player to land; the START snapshot is taken then.
+ * - setup (optional): {"run": {"fish": 9}, "player": {"x": 1200, "y": 300}}
+ *   written by the HARNESS right after the start and the landing wait,
+ *   before the START snapshot, so a gated feature (collect 10, a door that
+ *   opens with all fish, a checkpoint, the level's end) can be proven
+ *   without a long route: NK.run values (numbers, booleans, short strings;
+ *   at most 8; only keys the game's config.run or NK.run already has, of
+ *   the same type) and/or the player's position (this.player, inside the
+ *   level's bounds, velocity zeroed, then 0.5 s to land). The writes are
+ *   fixed code with the values as data; expressions stay read-only. A setup
+ *   that sets what the test then expects ("doorOpen": true, then expect
+ *   NK.run.doorOpen) is refused here (setupTautology), and a test whose
+ *   expectations all hold right after its setup, before any input, is a bad
+ *   test (it proves nothing).
  * - steps (at most 12, at most 15 s of game time in all), played by
  *   Playwright: {key, holdMs?} / {keys: [...], holdMs?} press (and hold) keys
  *   (KeyboardEvent.code names: ArrowLeft, Space, KeyA …); {down} / {up} hold
@@ -53,7 +66,9 @@ export type TestStep =
   | { tap: string; holdMs?: number }
   | { click: [number, number]; holdMs?: number }
   | { waitMs: number };
-export type FeatureTest = { start: boolean; steps: TestStep[]; expect: string[] };
+/** Written by the harness after the start (see above): NK.run values and/or the player's position. */
+export type TestSetup = { run?: Record<string, number | boolean | string>; player?: { x: number; y: number; z?: number } };
+export type FeatureTest = { start: boolean; setup?: TestSetup; steps: TestStep[]; expect: string[] };
 /** The newest test result of a feature, kept with it (the plan card and the repair prompts read it). */
 export type FeatureLast = { seq?: number; ok: boolean; text: string; bad?: string; /** A failed run in full (what was pressed, every expectation's value, errors) for a fix step. */ detail?: string };
 export type Feature = {
@@ -168,7 +183,133 @@ export function cleanTest(raw: unknown): { test: FeatureTest | null; problem?: s
     const p = checkExpression(e);
     if (p) return { test: null, problem: `expectation \`${e.slice(0, 120)}\`: ${p}` };
   }
-  return { test: { start: o.start !== false, steps, expect } };
+  const s = cleanSetup(o.setup);
+  if (s.problem) return { test: null, problem: `setup: ${s.problem}` };
+  if (s.setup) {
+    const t = setupTautology(s.setup, expect);
+    if (t) return { test: null, problem: t };
+  }
+  return { test: { start: o.start !== false, ...(s.setup ? { setup: s.setup } : {}), steps, expect } };
+}
+
+/* ───────────────────────── Test setup ───────────────────────── */
+
+const MAX_SETUP_KEYS = 8;
+const MAX_SETUP_STRING = 40;
+const MAX_SETUP_NUMBER = 1_000_000;
+const MAX_SETUP_POS = 100_000;
+/** An NK.run key a setup may write: a plain identifier, never an Object.prototype name. */
+const SETUP_KEY = /^[A-Za-z][A-Za-z0-9_]{0,39}$/;
+const PROTO_NAMES = new Set(Object.getOwnPropertyNames(Object.prototype));
+
+/** Cleans a test's setup (types, sizes, known fields). No setup → {}. */
+export function cleanSetup(raw: unknown): { setup?: TestSetup; problem?: string } {
+  if (raw === undefined || raw === null) return {};
+  if (typeof raw !== "object" || Array.isArray(raw)) return { problem: 'an object like {"run": {"fish": 9}, "player": {"x": 1200, "y": 300}}' };
+  const o = raw as Record<string, unknown>;
+  const extra = Object.keys(o).filter((k) => k !== "run" && k !== "player");
+  if (extra.length) return { problem: `only "run" and "player" (not ${extra.map((k) => JSON.stringify(k.slice(0, 30))).join(", ")})` };
+  const setup: TestSetup = {};
+  if (o.run !== undefined) {
+    if (!o.run || typeof o.run !== "object" || Array.isArray(o.run)) return { problem: '"run" is an object of NK.run values, e.g. {"fish": 9}' };
+    const entries = Object.entries(o.run as Record<string, unknown>);
+    if (entries.length > MAX_SETUP_KEYS) return { problem: `${entries.length} run values (at most ${MAX_SETUP_KEYS})` };
+    const run: Record<string, number | boolean | string> = {};
+    for (const [k, v] of entries) {
+      if (!SETUP_KEY.test(k) || PROTO_NAMES.has(k)) return { problem: `${JSON.stringify(k.slice(0, 50))} can't be set (an NK.run key: a letter, then letters, digits, _)` };
+      if (typeof v === "number") {
+        if (!Number.isFinite(v) || Math.abs(v) > MAX_SETUP_NUMBER) return { problem: `run.${k}: numbers must be finite, at most ${MAX_SETUP_NUMBER} in size` };
+      } else if (typeof v === "string") {
+        if (v.length > MAX_SETUP_STRING || /[\u0000-\u001f\u007f]/.test(v)) return { problem: `run.${k}: strings of at most ${MAX_SETUP_STRING} plain characters` };
+      } else if (typeof v !== "boolean") return { problem: `run.${k}: only numbers, booleans and short strings (got ${v === null ? "null" : Array.isArray(v) ? "an array" : typeof v})` };
+      run[k] = v;
+    }
+    if (entries.length) setup.run = run;
+  }
+  if (o.player !== undefined) {
+    const p = o.player;
+    if (!p || typeof p !== "object" || Array.isArray(p)) return { problem: '"player" is a position like {"x": 1200, "y": 300} (3D: also "z")' };
+    const q = p as Record<string, unknown>;
+    const bad = Object.keys(q).filter((k) => !["x", "y", "z"].includes(k));
+    if (bad.length) return { problem: `"player" takes only x, y and z (not ${bad.map((k) => JSON.stringify(k.slice(0, 20))).join(", ")})` };
+    const num = (v: unknown) => typeof v === "number" && Number.isFinite(v) && Math.abs(v) <= MAX_SETUP_POS;
+    if (!num(q.x) || !num(q.y) || (q.z !== undefined && !num(q.z))) return { problem: `"player" needs numbers x and y (and z in 3D), at most ${MAX_SETUP_POS} in size` };
+    setup.player = { x: q.x as number, y: q.y as number, ...(q.z !== undefined ? { z: q.z as number } : {}) };
+  }
+  return setup.run || setup.player ? { setup } : {};
+}
+
+const CMP = ["===", "!==", "==", "!=", ">=", "<=", ">", "<"] as const;
+type Cmp = (typeof CMP)[number];
+function compare(a: unknown, op: Cmp, b: unknown): boolean {
+  switch (op) {
+    case "===": case "==": return a === b;
+    case "!==": case "!=": return a !== b;
+    case ">=": return (a as number) >= (b as number);
+    case "<=": return (a as number) <= (b as number);
+    case ">": return (a as number) > (b as number);
+    case "<": return (a as number) < (b as number);
+  }
+}
+const FLIP: Record<Cmp, Cmp> = { "===": "===", "!==": "!==", "==": "==", "!=": "!=", ">=": "<=", "<=": ">=", ">": "<", "<": ">" };
+
+/**
+ * A cheap guard against tests that prove nothing: an expectation that reads
+ * a value the setup writes (NK.run.<key>, run.<key>, track.max/min.<key>;
+ * not start.run) and is already true with the setup's value alone (compared
+ * to a literal or to another setup value, or read as true/false on its own),
+ * e.g. setup {"doorOpen": true} and expect "NK.run.doorOpen === true", or
+ * {"fish": 10} and "NK.run.fish >= 10". Also track.maxX/minX against the
+ * setup's player x. Returns the problem in words, or null.
+ */
+export function setupTautology(setup: TestSetup, expect: string[]): string | null {
+  const run = setup.run ?? {};
+  const keys = Object.keys(run);
+  if (!keys.length && !setup.player) return null;
+  // One operand: a reference to a setup value, or a literal.
+  const REF = String.raw`(?<![\w$.])(?:(?:NK\s*\.\s*)?run|track\s*\.\s*(?:max|min))\s*\.\s*([A-Za-z_$][\w$]*)(?![\w$])(?!\s*(?:\.|\[|\())`;
+  const LIT = String.raw`(-?\d+(?:\.\d+)?(?:e[+-]?\d+)?|true|false|"[^"]*"|'[^']*')`;
+  const OP = String.raw`(===|!==|==|!=|>=|<=|>|<)`;
+  // What may stand before / after a whole comparison (so "a + 1 >= …" or "… >= 9 + 1" is not read as a plain one).
+  const BEFORE = String.raw`(?:^|[(!,?:]|&&|\|\|)\s*`;
+  const AFTER = String.raw`\s*(?=$|[),?:]|&&|\|\|)`;
+  const lit = (s: string): unknown => (s === "true" ? true : s === "false" ? false : /^["']/.test(s) ? s.slice(1, -1) : Number(s));
+  const val = (ref: string, key: string): { has: boolean; v?: unknown } => {
+    if (/^track\s*\.\s*(max|min)/.test(ref) && typeof run[key] !== "number") return { has: false };
+    return Object.prototype.hasOwnProperty.call(run, key) ? { has: true, v: run[key] } : { has: false };
+  };
+  const say = (expr: string, what: string) => `\`${expr.slice(0, 120)}\` is already true from the setup (${what}): never set the outcome; set up just short of it and let the steps reach it`;
+  for (const raw of expect) {
+    const e = raw.replace(/\s+/g, " ");
+    // ref OP (lit | ref)
+    for (const m of e.matchAll(new RegExp(`${BEFORE}(${REF})\\s*${OP}\\s*(?:${LIT}|(${REF}))${AFTER}`, "g"))) {
+      const [, ref, key, op, l, ref2, key2] = m;
+      const a = val(ref, key);
+      if (!a.has) continue;
+      const b = l !== undefined ? { has: true, v: lit(l) } : val(ref2, key2);
+      if (b.has && compare(a.v, op as Cmp, b.v)) return say(raw, `NK.run.${key} = ${JSON.stringify(a.v)}`);
+    }
+    // lit OP ref
+    for (const m of e.matchAll(new RegExp(`${BEFORE}${LIT}\\s*${OP}\\s*(${REF})${AFTER}`, "g"))) {
+      const [, l, op, ref, key] = m;
+      const a = val(ref, key);
+      if (a.has && compare(a.v, FLIP[op as Cmp], lit(l))) return say(raw, `NK.run.${key} = ${JSON.stringify(a.v)}`);
+    }
+    // A value read on its own as true / false: "NK.run.doorOpen", "!NK.run.locked".
+    for (const m of e.matchAll(new RegExp(`${BEFORE.replace("[(!,?:]", "[(,?:]")}(!?)\\s*(${REF})${AFTER}`, "g"))) {
+      const [, not, ref, key] = m;
+      const a = val(ref, key);
+      if (a.has && Boolean(a.v) !== Boolean(not)) return say(raw, `NK.run.${key} = ${JSON.stringify(a.v)}`);
+    }
+    // The player placed past a line the test then expects it to cross.
+    if (setup.player) {
+      const x = setup.player.x;
+      for (const m of e.matchAll(new RegExp(`${BEFORE}track\\s*\\.\\s*(maxX|minX)\\s*${OP}\\s*(-?\\d+(?:\\.\\d+)?)${AFTER}`, "g"))) {
+        if (compare(x, m[2] as Cmp, Number(m[3])) && ((m[1] === "maxX" && /^>/.test(m[2])) || (m[1] === "minX" && /^</.test(m[2])))) return say(raw, `the player starts at x ${x}`);
+      }
+    }
+  }
+  return null;
 }
 
 function featureId(raw: unknown, i: number): string {
@@ -411,6 +552,72 @@ const SAMPLER_START = `(() => {${PAGE_HELPERS}
   return true;
 })()`;
 
+/**
+ * Applies a test's setup in the page (fixed code; the setup arrives as JSON
+ * data). Everything is checked before anything is written: each run key must
+ * be in NK.run or the game's config.run with a value of the same type (or
+ * none yet), and the player position inside the level (2D: the camera's
+ * bounds, else the physics world's; 3D: the scene's bounding box plus a
+ * margin). Returns {ok} or {problem} (a bad test: rewritten once).
+ */
+const APPLY_SETUP = `((setup) => {${PAGE_HELPERS}
+  var own = function (o, k) { return !!o && Object.prototype.hasOwnProperty.call(o, k); };
+  var cfg = {}; try { cfg = (typeof window.NK.config === "function" ? window.NK.config() : window.NK.config) || {}; } catch (e) {}
+  var defs = cfg.run || {}, run = window.NK.run || {};
+  var have = Object.keys(run).concat(Object.keys(defs).filter(function (k) { return !own(run, k); })).slice(0, 24).join(", ") || "none";
+  var problems = [];
+  var vals = setup.run || {};
+  Object.keys(vals).forEach(function (k) {
+    if (!own(run, k) && !own(defs, k)) { problems.push("setup sets NK.run." + k + ", which this game doesn't have (its NK.run keys: " + have + ")"); return; }
+    var cur = own(run, k) ? run[k] : defs[k];
+    if (cur !== null && cur !== undefined && typeof cur !== typeof vals[k]) problems.push("setup gives NK.run." + k + " a " + typeof vals[k] + ", but the game keeps a " + (Array.isArray(cur) ? "list" : typeof cur) + " there");
+  });
+  var sc = sceneOf(), p = sc && sc.player, at = setup.player, box = null;
+  if (at) {
+    if (!p) problems.push("setup places the player, but the play scene has no this.player");
+    else if (window.NK2D) {
+      var cam = sc.cameras && sc.cameras.main, b = null;
+      if (cam && cam.useBounds && cam._bounds && cam._bounds.width > 0) b = cam._bounds;
+      else if (sc.physics && sc.physics.world && sc.physics.world.bounds) b = sc.physics.world.bounds;
+      else b = { x: 0, y: 0, width: sc.scale ? sc.scale.width : 0, height: sc.scale ? sc.scale.height : 0 };
+      box = { x0: b.x, x1: b.x + b.width, y0: b.y, y1: b.y + b.height };
+      if (!(at.x >= box.x0 && at.x <= box.x1 && at.y >= box.y0 && at.y <= box.y1)) problems.push("setup puts the player at (" + at.x + ", " + at.y + "), outside the level (x " + Math.round(box.x0) + ".." + Math.round(box.x1) + ", y " + Math.round(box.y0) + ".." + Math.round(box.y1) + ")");
+    } else if (window.THREE && sc.root) {
+      var bb = new window.THREE.Box3().setFromObject(sc.root);
+      if (!bb.isEmpty()) {
+        box = { x0: bb.min.x - 2, x1: bb.max.x + 2, y0: bb.min.y - 2, y1: bb.max.y + 10, z0: bb.min.z - 2, z1: bb.max.z + 2 };
+        var z = typeof at.z === "number" ? at.z : 0;
+        if (!(at.x >= box.x0 && at.x <= box.x1 && at.y >= box.y0 && at.y <= box.y1 && z >= box.z0 && z <= box.z1)) problems.push("setup puts the player at (" + at.x + ", " + at.y + ", " + z + "), outside the level (x " + bb.min.x.toFixed(1) + ".." + bb.max.x.toFixed(1) + ", y " + bb.min.y.toFixed(1) + ".." + bb.max.y.toFixed(1) + ", z " + bb.min.z.toFixed(1) + ".." + bb.max.z.toFixed(1) + ")");
+      }
+    }
+  }
+  if (problems.length) return { problem: problems.slice(0, 3).join("; ") };
+  Object.keys(vals).forEach(function (k) { window.NK.run[k] = vals[k]; });
+  if (at && p) {
+    if (window.NK2D) {
+      if (p.setPosition) p.setPosition(at.x, at.y); else { p.x = at.x; p.y = at.y; }
+      if (p.body && p.body.reset) p.body.reset(at.x, at.y);
+      if (p.body && p.body.velocity && p.body.velocity.set) p.body.velocity.set(0, 0);
+    } else {
+      var pos = [at.x, at.y, typeof at.z === "number" ? at.z : 0];
+      if (typeof p.teleport === "function") p.teleport(pos);
+      else {
+        var obj = p.object || p;
+        if (obj.position && obj.position.set) obj.position.set(pos[0], pos[1], pos[2]);
+        if (p.velocity && p.velocity.set) p.velocity.set(0, 0, 0);
+        if (p.body && typeof p.body.setLinvel === "function") p.body.setLinvel({ x: 0, y: 0, z: 0 }, true);
+      }
+    }
+  }
+  return { ok: true };
+})`;
+
+/** The setup in words (what the harness did), for the "pressed" list. */
+function describeSetup(s: TestSetup): string {
+  const parts = [...Object.entries(s.run ?? {}).map(([k, v]) => `NK.run.${k} = ${JSON.stringify(v)}`), ...(s.player ? [`player at (${[s.player.x, s.player.y, ...(s.player.z !== undefined ? [s.player.z] : [])].join(", ")})`] : [])];
+  return `setup: ${parts.join(", ")}`;
+}
+
 const short = (v: unknown): string => {
   try {
     const s = typeof v === "string" ? JSON.stringify(v) : JSON.stringify(v) ?? String(v);
@@ -420,10 +627,10 @@ const short = (v: unknown): string => {
   }
 };
 
-/** Evaluates the expectations in the page (after a last sample). Runs only in the headless check. */
-const EVALUATE = `((exprs) => {${PAGE_HELPERS}
+/** Evaluates the expectations in the page (after a last sample; `pre`: a look before the steps, sampling goes on). Runs only in the headless check. */
+const EVALUATE = `((exprs, pre) => {${PAGE_HELPERS}
   if (window.__nkSample) { try { window.__nkSample(); } catch (e) {} }
-  window.__nkSample = null;
+  if (!pre) window.__nkSample = null;
   var t = window.__nkTest || { start: {}, track: {} };
   var sc = sceneOf();
   var run = copyRun();
@@ -504,7 +711,25 @@ export async function runTestsInPage(
         hooked ||= await page.evaluate(() => (window as unknown as { __nkTicks?: number }).__nkTicks! > 0).catch(() => false);
         if (!(await waitGame(500))) slow = true;
       }
+      if (test.setup) {
+        const s = (await page.evaluate(`${APPLY_SETUP}(${JSON.stringify(test.setup)})`)) as { ok?: boolean; problem?: string };
+        if (s.problem) {
+          out.push({ id, ok: false, bad: s.problem, pressed, expects: test.expect.map((e) => ({ expr: e, ok: false, error: "not run (bad setup)" })), errors: [], ms: Date.now() - t0, slow });
+          continue;
+        }
+        pressed.push(describeSetup(test.setup));
+        // A placed player lands first; NK.run values get a tick for the game to see them.
+        if (!(await waitGame(test.setup.player ? 500 : 50))) slow = true;
+      }
       await page.evaluate(SAMPLER_START);
+      // A test with a setup must have something left to prove: its expectations can't all hold before any input.
+      if (test.setup) {
+        const pre = (await Promise.race([page.evaluate(`${EVALUATE}(${JSON.stringify(test.expect)}, true)`) as Promise<PageEval>, new Promise<null>((r) => setTimeout(() => r(null), 4000))])) as PageEval | null;
+        if (pre && pre.results.length && pre.results.every((x) => x.ok)) {
+          out.push({ id, ok: false, bad: `every expectation is already true right after the setup, before any input (${test.expect.map((e, k) => `${e} → ${pre.results[k]?.value ?? "?"}`).join("; ").slice(0, 240)}): the test proves nothing; set up short of the goal and let the steps reach it`, pressed, expects: test.expect.map((e, k) => ({ expr: e, ok: true, ...(pre.results[k]?.value !== undefined ? { value: pre.results[k].value } : {}) })), errors: [], context: pre.context, ms: Date.now() - t0, slow });
+          continue;
+        }
+      }
       for (const s of test.steps) {
         pressed.push(describeStep(s));
         if ("waitMs" in s) {
@@ -633,7 +858,7 @@ export function lastText(r: FeatureRun): string {
 
 /** The test as one line of JSON for prompts. */
 export function testJson(t: FeatureTest | null): string {
-  return t ? JSON.stringify({ ...(t.start ? {} : { start: false }), steps: t.steps, expect: t.expect }) : "(none)";
+  return t ? JSON.stringify({ ...(t.start ? {} : { start: false }), ...(t.setup ? { setup: t.setup } : {}), steps: t.steps, expect: t.expect }) : "(none)";
 }
 
 /** Counts for the chat line and the versions list. */

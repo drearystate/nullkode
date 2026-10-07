@@ -811,6 +811,7 @@ function featureRepairText(b: { blockers: Blocker[]; stillFailing: Blocker[] }):
     ...b.blockers.map(line),
     b.stillFailing.length ? `Also still failing from before (fix if it fits): ${b.stillFailing.map((x) => `"${x.feature.name}"`).join(", ")}` : "",
     `Fix the GAME so these tests pass, keeping everything else working. Never special-case a test. If a test reads an NK.run counter, count that event in NK.run under that exact name (TEST PROBES).`,
+    [...b.blockers, ...b.stillFailing].some((x) => x.feature.test?.setup) ? `A test's "setup" was written into NK.run (and the player placed) right after NK.start(): the game's gated logic must read NK.run (e.g. the door checks NK.run.fish >= NK.run.fishNeeded in fixedUpdate or on pickup) and pickups add to it (NK.run.fish++), not a count kept elsewhere.` : "",
   ]
     .filter(Boolean)
     .join("\n");

@@ -76,7 +76,8 @@ Rules:
  * How a feature test is written (features.ts runs them). In the plan, change, revision and test-fix prompts;
  * the step prompt only gets the probe rule and this step's tests.
  */
-export const FEATURE_TEST_RULES = `FEATURE TESTS (each runs in a headless browser on the real game after every build step: a new game, 0.5 s to land, then "steps" as real input, then every "expect" must be true):
+export const FEATURE_TEST_RULES = `FEATURE TESTS (each runs in a headless browser on the real game after every build step: a new game, 0.5 s to land, the optional "setup", then "steps" as real input, then every "expect" must be true):
+- setup (optional): {"run": {"fish": 9}, "player": {"x": 1200, "y": 300}}: NK.run values (numbers/booleans/short strings, keys in config.run, max 8) and/or the player's position (inside the level; 3D adds "z"), written before the START snapshot. For a threshold/unlock/goal feature (collect 10, door opens with all fish, checkpoint, level end) start JUST SHORT of it (fish: 9, or the player near the door / past the checkpoint), do the last action for real in "steps", then expect the outcome (door open, level complete, checkpoint respawn). Never set the outcome itself (no "doorOpen": true): a test already true after its setup is rejected. A feature with two claims (lives AND checkpoints): test the gated one.
 - steps (max 12, 15 s in all; times are GAME ms): {"key": "ArrowRight", "holdMs": 600} (KeyboardEvent.code names: ArrowLeft/Right/Up/Down, Space, KeyA…; never Escape or P), {"keys": ["ArrowRight", "Space"], "holdMs": 300}, {"down": "ArrowRight"} … {"up": "ArrowRight"}, {"tap": "<touch action>"}, {"click": [0.5, 0.5]} (canvas fraction), {"waitMs": 500}.
 - expect (1-4): READ-ONLY JavaScript expressions over NK.run (now), start.run / start.player {x,y,z} (at the start), player {x,y,z,vx,vy} (now; 2D pixels, y grows DOWN; 3D metres, y up), track.minX/maxX/minY/maxY (the player during the steps), track.max.<key> / track.min.<key> (NK.run numbers during the steps), track.states (e.g. track.states.includes("over")), state, and this = the play scene. No assignments; no calls except Math.*, some/every/filter/find/includes (with an arrow function) and countActive.
 - Prove the feature itself, not "no crash": an observable result of the input (an NK.run counter, a position change, a state). Use the brief's controls and what is near the start of the first level; never a long precise route.
@@ -143,7 +144,7 @@ const STEP_RULES = `HOW TO WRITE A STEP
 - Never write index.html or assets.lock.json (the platform writes them from the ids you use).
 - game.json "files" lists every script in load order (config, assets, levels, entities, then scenes).
 - Keep the player in this.player and run state (score, lives, level, items) in NK.run with defaults in config.run.
-- FEATURE TESTS run on the real game after every step (FEATURES below): make this step's pass, keep the earlier ones passing. TEST PROBES: count what a feature does in NK.run under the exact names its test reads (e.g. NK.run.jumps++ on every jump; defaults in config.run). Never special-case a test.
+- FEATURE TESTS run on the real game after every step (FEATURES below): make this step's pass, keep the earlier ones passing. TEST PROBES: count what a feature does in NK.run under the exact names its test reads (e.g. NK.run.jumps++ on every jump; defaults in config.run), and make gated logic READ NK.run (the door opens when NK.run.fish >= NK.run.fishNeeded, checked in fixedUpdate or on pickup; pickups do NK.run.fish++, never recount), so a test's setup (NK.run values written after the start) drives it. Never special-case a test.
 - Real game feel: sensible speeds and gravity, camera follow, readable HUD, sounds on actions, a win and a lose state when the step calls for them.
 
 OUTPUT FORMAT (nothing else):
@@ -278,7 +279,7 @@ Rules:
 export function featureTestFixSystem(engine: Engine): string {
   return [
     STUDIO,
-    `TASK: Some feature tests are broken themselves (not the game): an expectation threw an error, or reads something the game never has. Rewrite each test so it checks the same feature against THIS game as its files are now: the game's real NK.run keys, this.player, the scene's real fields, the controls the game binds. Keep the feature's meaning; don't make it trivially true (a test that passes on a game without the feature is worthless). If the feature needs a counter the game doesn't keep, test an observable effect instead (position, state, a group's countActive()).
+    `TASK: Some feature tests are broken themselves (not the game): an expectation threw an error, or reads something the game never has. Rewrite each test so it checks the same feature against THIS game as its files are now: the game's real NK.run keys, this.player, the scene's real fields, the controls the game binds. Keep the feature's meaning; don't make it trivially true (a test that passes on a game without the feature is worthless). If the feature needs a counter the game doesn't keep, test an observable effect instead (position, state, a group's countActive()). A bad setup: use the game's real NK.run keys (config.run) and a position inside its level, and set up short of the goal, never the outcome.
 
 Reply with ONLY a JSON object: {"tests": [{"id": "<feature id>", "test": {"start": true, "steps": [...], "expect": ["..."]}}]}`,
     FEATURE_TEST_RULES,
