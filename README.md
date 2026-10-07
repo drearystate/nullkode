@@ -103,11 +103,11 @@ mouse and keys or on a phone.
 
 <table>
 <tr>
-<td colspan="2"><img src="docs/screenshots/game-village.webp" alt="Hearthvale: a medieval village on a green hex island"><br><b>Hearthvale</b> · village builder. Grow a medieval village on a hex island: pick a building, see where it fits, place it. <a href="https://hearthvale-m920yo.apps.nullkode.io"><b>Play it</b></a></td>
+<td colspan="2"><img src="docs/screenshots/game-village.webp" alt="Hearthvale: a medieval village on a green hex island"><br><b>Hearthvale</b> · village builder. Grow a medieval village on a hex island: pick a building, see where it fits, place it.</td>
 </tr>
 <tr>
-<td width="50%"><img src="docs/screenshots/game-mars-base.webp" alt="Red Horizon: a Mars base with solar panels, a landing pad and a rover"><br><b>Red Horizon</b> · base builder. Power up a Mars colony, send the rover for crystals and shoot down meteors. <a href="https://red-horizon-q-nmxt.apps.nullkode.io"><b>Play it</b></a></td>
-<td width="50%"><img src="docs/screenshots/game-dungeon.webp" alt="Vault of Embers: a knight and a mage fighting skeletons in a dungeon"><br><b>Vault of Embers</b> · dungeon action. Block the skeletons' telegraphed attacks, strike back and open the vault. <a href="https://vault-of-embers-tjene-e467c8.apps.nullkode.io"><b>Play it</b></a></td>
+<td width="50%"><img src="docs/screenshots/game-mars-base.webp" alt="Red Horizon: a Mars base with solar panels, a landing pad and a rover"><br><b>Red Horizon</b> · base builder. Power up a Mars colony, send the rover for crystals and shoot down meteors.</td>
+<td width="50%"><img src="docs/screenshots/game-dungeon.webp" alt="Vault of Embers: a knight and a mage fighting skeletons in a dungeon"><br><b>Vault of Embers</b> · dungeon action. Block the skeletons' telegraphed attacks, strike back and open the vault.</td>
 </tr>
 </table>
 
