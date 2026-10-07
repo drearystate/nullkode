@@ -67,5 +67,8 @@
   }
   /** Rotation that turns a model's +Z front to face world direction j. */
   function faceRot(j) { const a = (30 + 60 * j) * Math.PI / 180; return Math.atan2(Math.cos(a), Math.sin(a)); }
-  NK.def("hex", { SQ3, DIRS, key, world, cellAt, neighbour, dirTo, distance, line, path, autotile, faceRot, ROAD, RIVER, R: 2 / SQ3 });
+  // The bridge model is authored in the pack's pointy-top tile frame (like the river and road tiles), so it turns by
+  // odd multiples of 30° like them; faceRot's frame would leave its deck 30° off the roads on either bank.
+  function bridgeRot(axis) { return faceRot(axis) - Math.PI / 6; }
+  NK.def("hex", { SQ3, DIRS, key, world, cellAt, neighbour, dirTo, distance, line, path, autotile, faceRot, bridgeRot, ROAD, RIVER, R: 2 / SQ3 });
 })();

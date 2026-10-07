@@ -142,7 +142,7 @@
       if (st.ghost) {
         st.ghost.visible = true;
         st.ghost.position.set(cell.x, cell.kind === "river" ? 0 : 0, cell.z);
-        st.ghost.rotation.y = st.tool === "bridge" ? HX.faceRot(r.axis >= 0 ? r.axis : (cell.flow[0] || 0) + 1) : st.tool === "farm" ? Math.PI / 6 : HX.faceRot(r.face === undefined ? 1 : r.face);
+        st.ghost.rotation.y = st.tool === "bridge" ? (r.axis >= 0 ? HX.bridgeRot(r.axis) : cell.building && cell.building.group ? cell.building.group.rotation.y : HX.bridgeRot((cell.flow[0] || 0) + 1)) : st.tool === "farm" ? Math.PI / 6 : HX.faceRot(r.face === undefined ? 1 : r.face);
         st.ghost.traverse((n) => { if (n.isMesh) n.material = r.ok ? ghostOk : ghostBad; });
       }
       const touch = NK.input.lastDevice === "touch";
@@ -159,7 +159,7 @@
       scene.add(holder);
       let bld;
       if (type === "bridge") {
-        bld = BLD.make(scene, "bridge", 0, 0, HX.faceRot(r.axis), {});
+        bld = BLD.make(scene, "bridge", 0, 0, HX.bridgeRot(r.axis), {});
         cell.kind = "bridge";
       } else if (type === "farm") {
         bld = BLD.make(scene, "farm", 0, 0, Math.PI / 6, {});

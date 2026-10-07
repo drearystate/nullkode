@@ -42,3 +42,4 @@
 
 ## Review
 - Screenshot at 1600×900 and 844×390 with real input; also zoom in on close-ups for floating, clipping and scale errors. Name the 3 most visible problems, fix, shoot again.
+- Joins: zoom in on every piece that connects two things (bridge to the road on each bank, road and river tiles to each other, doors to paths, walls at corners, cables to sockets) and check that it meets both ends square-on. Models from tile packs are authored in the tile frame (hex packs: pointy-top, odd multiples of 30°), so rotate them like the tiles, not like buildings; a 30° error reads as broken at once. Check it also for pieces the player places, not only the starting layout.

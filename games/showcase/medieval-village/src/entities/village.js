@@ -276,7 +276,7 @@
     }
     for (const br of L.bridges) {
       const cl = cellOf(br.at[0], br.at[1]);
-      const bld = BLD.make(scene, "bridge", cl.x, cl.z, HX.faceRot(br.axis), {});
+      const bld = BLD.make(scene, "bridge", cl.x, cl.z, HX.bridgeRot(br.axis), {});
       root.add(bld.group); bld.cell = cl; cl.building = bld; V.buildings.push(bld);
     }
     // jetty: a row of KayKit pallets from the bank out over the water (the pack's own dock is a raised wharf

@@ -17,14 +17,14 @@ NK.scene("Game", class extends NK3D.Scene {
     this.speed = run.speed;
     const self = this;
     // ---- economy
-    const NAMES = { townhall: "Town Hall", house: "Cottage", market: "Market", windmill: "Windmill", stables: "Granary", lumber: "Lumber Camp", blacksmith: "Smithy", well: "Well", farm: "Farm", docks: "Dock" };
+    const NAMES = { townhall: "Town Hall", house: "Cottage", market: "Market", windmill: "Windmill", stables: "Granary", lumber: "Lumber Camp", blacksmith: "Smithy", well: "Well", farm: "Farm", docks: "Dock", bridge: "Bridge" };
     const econ = {
       run: () => run,
       spend(cost) { for (const k of Object.keys(cost)) run[k] -= cost[k]; self.refresh(); },
       built(type, cell, bld) {
         run.built[type] = (run.built[type] || 0) + 1;
         if (type === "farm") { const W = V.HX; for (let j = 0; j < 6; j++) { const nb = V.cell(...W.neighbour(cell.c, cell.r, j)); if (nb && nb.building && nb.building.type === "windmill") run.farmByMill = true; } }
-        self.float(NAMES[type] + " built", cell.x, cell.z, 1.4);
+        self.float((NAMES[type] || "Building") + " built", cell.x, cell.z, 1.4);
         self.stats();
         self.refresh();
       },
