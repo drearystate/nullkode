@@ -22,6 +22,9 @@ import { db } from "@/lib/db";
 import type { ErrT } from "@/lib/errors-i18n";
 import { isLocale, type Locale } from "@/i18n/locales";
 import { assertBuildAllowed, BuildNotAllowedError, BUILD_NOT_ALLOWED, enforceBuildPolicy, refusalResponse, type PolicyContext } from "@/lib/ai/build-policy";
+import { planUsesAi } from "@/lib/app-ai/detect";
+import { isPlatformOwner } from "@/lib/app-ai/connections";
+import { projectAiStatus } from "@/lib/app-ai/status";
 
 /**
  * Starting an app plan or an app build for one person. Shared by the
@@ -196,8 +199,13 @@ export async function startPlanRun(user: User | null, readBody: ReadBody, ctx: S
         if (ev.type === "progress") pushEvent(run.id, { type: "progress", step: "plan", message: ev.message });
         else {
           // The plan the AI made, checked before anyone sees it.
-          if (ev.type === "planned") await assertBuildAllowed({ ...subject, plan: ev.plan, brief: planRefs?.brief }, { ...policy, stage: "plan" });
-          pushEvent(run.id, ev);
+          if (ev.type === "planned") {
+            await assertBuildAllowed({ ...subject, plan: ev.plan, brief: planRefs?.brief }, { ...policy, stage: "plan" });
+            // AI features: published apps use the person's own AI key (never for the platform owner).
+            const aiNotice = planUsesAi(ev.plan) && !(await isPlatformOwner(user)) ? t("aiApps.planNotice") : undefined;
+            if (aiNotice) setRunMeta(run.id, { ai: { usesAi: true, needsKey: true } });
+            pushEvent(run.id, aiNotice ? { ...ev, aiNotice } : ev);
+          } else pushEvent(run.id, ev);
         }
       }
       finishRun(run.id, { ok: true, result: null });
@@ -568,7 +576,12 @@ async function runScaffoldWorker(runId: string, userId: string, prompt: string, 
     send({ type: "progress", step: "finalize", message: t("scaffold.polishing") });
     await new Promise((r) => setTimeout(r, 200));
 
-    send({ type: "done", projectId, homePageId });
+    // An app with AI steps needs the person's own AI key before people use it (docs/ai-in-apps.md).
+    const ai = await projectAiStatus(projectId).catch(() => null);
+    const aiNotice = ai?.needsKey ? t("aiApps.buildNotice") : undefined;
+    if (ai) setRunMeta(runId, { ai: { usesAi: ai.usesAi, needsKey: ai.needsKey } });
+    if (aiNotice) send({ type: "progress", step: "ai-key", message: aiNotice });
+    send({ type: "done", projectId, homePageId, ...(aiNotice ? { aiNotice } : {}) });
     finishRun(runId, { ok: true, result: { projectId, homePageId } });
   } catch (err) {
     if (err instanceof BuildNotAllowedError) return endRefusedRun(runId, err, [takeRunCharge(runId), visionChargeId]);

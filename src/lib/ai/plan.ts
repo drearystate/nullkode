@@ -14,6 +14,8 @@ export const AppPlanSchema = z.object({
   project: z.object({ name: text(80).pipe(z.string().min(1)), description: text(600).default("") }),
   theme: text(60).default("Clean Slate"),
   assumptions: z.array(text(240)).transform((a) => a.filter(Boolean).slice(0, 6)).catch([]),
+  // The app's AI features in plain words (chat with a persona, an agent, search by meaning…); empty when none.
+  aiFeatures: z.array(text(200)).transform((a) => a.filter(Boolean).slice(0, 8)).catch([]).default([]),
   tables: z.array(z.object({
     name: z.string().regex(/^[a-z][a-z0-9_]*$/).max(48),
     fields: z.array(z.object({ name: z.string().regex(/^[a-z][a-z0-9_]*$/).max(48), type: z.enum(["text", "int", "float", "bool", "timestamp", "json"]) })).max(40),

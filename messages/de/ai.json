@@ -1,4 +1,14 @@
 {
+  "aiApps": {
+    "addKey": "KI-Schlüssel hinzufügen",
+    "aiFeatures": "KI in dieser App",
+    "buildNotice": "Deine App enthält KI-Funktionen. Veröffentlichte Apps können die KI der Plattform nicht nutzen. Füge also unter „KI-Schlüssel“ in der App deinen eigenen KI-Schlüssel hinzu, bevor andere sie nutzen. Bis dahin sehen Besucher: „Die KI dieser App ist noch nicht eingerichtet.“",
+    "editNotice": "Diese Änderungen nutzen KI. Veröffentlichte Apps können die KI der Plattform nicht nutzen: Füge unter „KI-Schlüssel“ in der App deinen eigenen KI-Schlüssel hinzu, bevor andere die KI-Funktionen nutzen.",
+    "moduleNotice": "Diese Funktion nutzt KI. Veröffentlichte Apps können die KI der Plattform nicht nutzen: Füge unter „KI-Schlüssel“ in der App deinen eigenen KI-Schlüssel hinzu, bevor andere die Funktion nutzen.",
+    "noticeTitle": "Die KI deiner App braucht einen eigenen Schlüssel",
+    "openEditor": "Editor öffnen",
+    "planNotice": "Diese App bietet KI-Funktionen. Veröffentlichte Apps können die KI der Plattform nicht nutzen: Füge nach dem Erstellen deinen eigenen KI-Schlüssel (OpenAI, Google Gemini, xAI, OpenRouter oder einen beliebigen OpenAI-kompatiblen Server) unter „KI-Schlüssel“ in der App hinzu, bevor andere die KI-Funktionen nutzen."
+  },
   "assistant": {
     "alsoCreated": "{things} erstellt",
     "alsoDid": "{explanation} (Außerdem: {things}.)",

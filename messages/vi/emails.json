@@ -1,4 +1,12 @@
 {
+  "aiKey": {
+    "add": "Thêm khóa tại đây:",
+    "change": "{app} có các bước AI. Ứng dụng đã xuất bản trên {platform} giờ dùng khóa AI riêng thay vì AI của nền tảng, nên các bước đó sẽ tạm dừng cho đến khi bạn thêm khóa.",
+    "once": "Đây là email duy nhất về việc này cho ứng dụng này.",
+    "subject": "{app}: thêm khóa AI của riêng bạn",
+    "visitor": "Có người vừa dùng một tính năng AI của {app}, nhưng ứng dụng chưa có khóa AI riêng nên đã thông báo: \"AI của ứng dụng này chưa được thiết lập.\"",
+    "why": "Thêm khóa từ OpenAI, Google Gemini, xAI (Grok), OpenRouter hoặc bất kỳ máy chủ nào tương thích với OpenAI (bạn cũng có thể dùng Ollama hoặc LM Studio của riêng mình). Khóa được mã hóa và lưu trên máy chủ, không bao giờ hiển thị cho khách truy cập. Các tính năng AI sẽ hoạt động ngay sau khi bạn lưu khóa."
+  },
   "aiQuota": {
     "body80": "{reseller} đã dùng {used}/{max} lượt thao tác AI trong tháng này. Khi dùng hết, bạn và khách hàng sẽ không thể tạo và chỉnh sửa bằng AI cho đến {resets}.",
     "bodyFull": "{reseller} đã dùng hết {max} lượt thao tác AI trong tháng này. Bạn và khách hàng sẽ không thể tạo và chỉnh sửa bằng AI cho đến {resets}.",

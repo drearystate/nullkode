@@ -1,3 +1,4 @@
+import { graphUsesAi as graphUsesAiSteps } from "../app-ai/detect";
 /**
  * Plain-language schedules for flows ("every 15 minutes", "weekdays at
  * 09:00"), stored as JSON in Flow.schedule. Older flows stored a bare number
@@ -137,8 +138,7 @@ export function sameSchedule(a: ScheduleSpec | null, b: ScheduleSpec | null): bo
 
 /** Whether a flow graph has a step that calls the AI. */
 export function graphUsesAi(graph: unknown): boolean {
-  const nodes = (graph as { nodes?: unknown } | null)?.nodes;
-  return Array.isArray(nodes) && nodes.some((n) => (n as { type?: unknown } | null)?.type === "ai_prompt");
+  return graphUsesAiSteps(graph);
 }
 
 /** The shortest gap between two runs, in minutes. */

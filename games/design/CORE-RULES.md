@@ -56,6 +56,9 @@ Never colour-only: add shape, icon or pattern (blue/orange, not red/green). Key 
 ## Session
 1–5 min per level or run; menu → playing in ≤ 2 taps; retry in ≤ 1 s. A replay reason: best score, 1–3 stars, best time or unlocks (`NK.save`).
 
+## Full game, not a demo
+≥ 10 min of real content (the genre card's Full game targets), one core mechanic deepened over it. Title → level/world select or map → levels → an ending screen for the whole game. Progress saved (`NK.save`, Continue). Levels are data built by one loader from `NK.run.level`.
+
 ## DON'T
 - Unavoidable damage, hidden required items, undo-less dead ends.
 - Input lag, floaty jumps (apex > 0.6 s), off-screen threats.

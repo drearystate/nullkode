@@ -13,6 +13,8 @@ export type DashboardGame = {
   engine: "phaser-2d" | "three-3d";
   /** A build or a change is running right now. */
   building: boolean;
+  /** A full game's build is waiting for the owner at its check-in (after the first playable part). */
+  waiting: boolean;
   /** Versions the builds made (the empty starter shell, version 0, isn't counted). */
   versions: number;
   /** The newest version with a screenshot (/api/games/<id>/versions/<seq>/shot), or null. */
@@ -38,12 +40,13 @@ export async function dashboardGames(userId: string, take = DASHBOARD_GAMES): Pr
   const [versions, shots, running, projects] = await Promise.all([
     db.gameVersion.groupBy({ by: ["gameId"], where: { gameId: { in: ids }, seq: { gt: 0 } }, _count: { _all: true } }),
     db.gameVersion.groupBy({ by: ["gameId"], where: { gameId: { in: ids }, shot: { not: null } }, _max: { seq: true } }),
-    db.gameJob.findMany({ where: { gameId: { in: ids }, status: "running" }, select: { gameId: true } }),
+    db.gameJob.findMany({ where: { gameId: { in: ids }, status: { in: ["running", "review"] } }, select: { gameId: true, status: true } }),
     projectIds.length ? db.project.findMany({ where: { id: { in: projectIds }, ownerId: userId }, select: { id: true, published: true } }) : Promise.resolve([]),
   ]);
   const versionCount = new Map(versions.map((v) => [v.gameId, v._count._all]));
   const shotSeq = new Map(shots.map((s) => [s.gameId, s._max.seq]));
-  const busy = new Set(running.map((j) => j.gameId));
+  const busy = new Set(running.filter((j) => j.status === "running").map((j) => j.gameId));
+  const waiting = new Set(running.filter((j) => j.status === "review").map((j) => j.gameId));
   const project = new Map(projects.map((p) => [p.id, p.published]));
   return {
     total,
@@ -52,6 +55,7 @@ export async function dashboardGames(userId: string, take = DASHBOARD_GAMES): Pr
       name: g.name,
       engine: g.engine === "three-3d" ? "three-3d" : "phaser-2d",
       building: busy.has(g.id),
+      waiting: !busy.has(g.id) && waiting.has(g.id),
       versions: versionCount.get(g.id) ?? 0,
       shotSeq: shotSeq.get(g.id) ?? null,
       projectId: g.projectId && project.has(g.projectId) ? g.projectId : null,

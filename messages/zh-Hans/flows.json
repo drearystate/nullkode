@@ -53,9 +53,37 @@
       "help": "统计数据表中的记录数，或汇总某一列的数值，例如注册人数或销售总额。后续步骤可以使用结果。",
       "label": "统计或汇总记录"
     },
+    "ai_agent": {
+      "help": "使用你列出的工具（本应用的流程或网址）一步步完成目标。标记为“需要批准”的工具会等待人工批准。使用本应用自己的 AI 密钥。",
+      "label": "AI 智能体"
+    },
+    "ai_chat": {
+      "help": "结合角色设定和表格中已有的对话，回复一条消息（也可以保存对话和回复）。适用于聊天机器人和 AI 伙伴。使用本应用自己的 AI 密钥。",
+      "label": "AI 聊天回复"
+    },
+    "ai_embed": {
+      "help": "将文本转换为能体现其含义的数字，或将长文本切成片段并为每段生成数字，方便保存。与“按含义搜索”搭配使用。使用本应用自己的 AI 密钥。",
+      "label": "AI 嵌入向量"
+    },
     "ai_prompt": {
-      "help": "向 AI 提出问题或交代任务，例如总结一条消息。后续步骤可以使用 AI 的回复。每次运行都会计入你的 AI 使用额度。",
+      "help": "给 AI 一个问题或任务，比如总结一条消息。后续步骤可以使用它的回答。使用本应用自己的 AI 密钥（AI keys）。",
       "label": "询问 AI"
+    },
+    "ai_search": {
+      "help": "使用表格中保存的嵌入向量，找出含义最接近问题的行。每次搜索最多读取 1,000 行。",
+      "label": "按含义搜索"
+    },
+    "ai_speech": {
+      "help": "如果应用的 AI 密钥支持语音，就用它将文本转换为语音；否则由页面使用浏览器自带的语音朗读。",
+      "label": "朗读"
+    },
+    "ai_structured": {
+      "help": "让 AI 按你描述的字段以数据（JSON）形式回答，方便后续步骤保存或检查每个字段。使用本应用自己的 AI 密钥。",
+      "label": "AI 数据回答"
+    },
+    "ai_vision": {
+      "help": "向 AI 发送一张图片和一个问题（图片可以是上传的文件、https 地址或数据 URL）。使用本应用自己的 AI 密钥。",
+      "label": "AI 看图"
     },
     "branch": {
       "help": "检查某项条件，并将自动化流程分成两条路径：条件成立时执行一条，不成立时执行另一条。",
@@ -271,6 +299,29 @@
       "sum": "合计一列"
     },
     "aggregateEmptyHint": "留空则包含所有行。多个条件必须全部符合。",
+    "aiKeyLink": "AI 密钥",
+    "aiKeyNote": "AI 步骤使用此应用自己的 AI 密钥。",
+    "aiOptions": {
+      "embedChunks": "长文本分段",
+      "embedSingle": "单个嵌入向量",
+      "safetyNone": "关闭",
+      "safetyStandard": "标准"
+    },
+    "aiTool": {
+      "add": "添加工具",
+      "description": "功能",
+      "flow": "流程",
+      "kind": "使用方式",
+      "kindFlow": "此应用中的流程",
+      "kindHttp": "网址",
+      "method": "方法",
+      "name": "名称",
+      "needsApproval": "需要批准",
+      "none": "还没有工具：代理会直接回答。",
+      "params": "参数（用逗号分隔）",
+      "remove": "移除",
+      "url": "网址"
+    },
     "biggestFirst": "结果从大到小排列",
     "body": "请求正文",
     "bodyEmpty": "添加要在请求正文中发送的字段。",
@@ -287,13 +338,109 @@
     "deleteHelp": "移除此步骤及其在自动化流程中的连接。此操作无法撤销，只能重新添加。",
     "deleteNeedsCondition": "必须设置条件才能删除，否则此步骤会失败。",
     "fields": {
+      "aiApprovalsTable": {
+        "help": "保存待处理操作的表格（包含 tool、args、note、status、state 列），可用于创建审批页面。",
+        "label": "审批表格（可选）"
+      },
+      "aiConnection": {
+        "help": "按名称选择要使用的本应用 AI 密钥。留空则使用应用的默认密钥。",
+        "label": "AI 连接（可选）"
+      },
+      "aiContext": {
+        "help": "本次回复所需的信息，例如 AI 对用户的记忆或 AI 当前的心情。",
+        "label": "额外背景（可选）"
+      },
+      "aiDecision": {
+        "help": "用于等待批准的运行：批准或拒绝，通常取自请求。",
+        "label": "批准决定（可选）"
+      },
+      "aiEmbedInput": {
+        "help": "要转换为嵌入向量的文本。",
+        "label": "文本"
+      },
+      "aiEmbedMode": {
+        "help": "为整段文本生成一个嵌入向量，或将长文本拆分成多段，每段生成一个（可用于“批量添加多行”）。",
+        "label": "生成内容"
+      },
+      "aiField": {
+        "help": "保存嵌入向量的列。",
+        "label": "嵌入向量列"
+      },
+      "aiGoal": {
+        "help": "智能体要完成的事情，或用户发来的下一条消息。",
+        "label": "目标或消息"
+      },
+      "aiHistoryFilter": {
+        "help": "用于筛选此对话行的值，例如 conversation_id。新行也会保存这些值。",
+        "label": "选择对话"
+      },
+      "aiHistoryLimit": {
+        "help": "AI 要读取的最新消息数量（1 到 100）。",
+        "label": "记住的消息数"
+      },
+      "aiHistoryTable": {
+        "help": "存放已有消息的表格（包含 role 和 content 列）。此步骤会读取最新消息，并保存新消息和回复。",
+        "label": "对话表格（可选）"
+      },
+      "aiImage": {
+        "help": "上传的文件（/uploads/…）、https 地址或数据 URL，通常来自请求。",
+        "label": "图片"
+      },
+      "aiMaxSteps": {
+        "help": "智能体使用工具达到此次数后会停止（1 到 12 步），并报告进度。",
+        "label": "每次运行的最多步数"
+      },
+      "aiMessage": {
+        "help": "用户刚刚写的内容，通常是 '{{'trigger.message'}}'。",
+        "label": "新消息"
+      },
+      "aiModel": {
+        "help": "此步骤使用其他模型，而不是连接自带的模型。",
+        "label": "模型（可选）"
+      },
+      "aiPersona": {
+        "help": "说明 AI 的身份和说话方式，例如回答简短的友善教练。",
+        "label": "角色设定和说明"
+      },
       "aiPrompt": {
         "help": "给 AI 的问题或任务。插入值可以加入用户消息等内容。",
         "label": "提示词"
       },
+      "aiQuery": {
+        "help": "用简单的话描述要查找的内容。",
+        "label": "问题"
+      },
+      "aiSafety": {
+        "help": "“标准”会确保回复适合大众阅读（不含性内容，并提供危机帮助）。“关闭”则只遵循你的说明。",
+        "label": "安全设置"
+      },
+      "aiSchema": {
+        "help": "JSON 格式的回答示例，例如 '{'\"title\":\"\",\"tags\":[]'}'，或 JSON 架构。",
+        "label": "要填写的字段"
+      },
+      "aiSpeechText": {
+        "help": "通常是 AI 的回复。",
+        "label": "要朗读的文本"
+      },
+      "aiState": {
+        "help": "使用之前运行中保存的状态值，继续一项任务。",
+        "label": "从此处继续（可选）"
+      },
       "aiSystem": {
         "help": "每次都适用的 AI 背景说明，例如“用一句友好的话回答”或“你在一家面包店工作”。",
         "label": "系统指令（可选）"
+      },
+      "aiTools": {
+        "help": "智能体可以使用的工具：本应用的其他流程或网址。请将有风险的工具标记为需要批准。",
+        "label": "工具"
+      },
+      "aiTopK": {
+        "help": "返回最匹配的结果（1 到 50 个）。",
+        "label": "结果数量"
+      },
+      "aiVoice": {
+        "help": "AI 服务支持的语音名称，例如 alloy。",
+        "label": "语音（可选）"
       },
       "dataSource": {
         "help": "数据的存放位置。大多数应用只使用内置数据库；只有在你自己连接了其他数据源时，才选择其他来源。",
@@ -533,6 +680,9 @@
     "pickTable": "选择一个记录列表来设置此步骤。",
     "placeholders": {
       "aNumber": "一个数字",
+      "aiConnection": "默认",
+      "aiGoal": "找出本周尚未回复的邮件，并起草回复",
+      "aiPersona": "你是 Nova，一位喜欢分享太空知识的开朗伙伴……",
       "aiPrompt": "总结这条客户消息……",
       "aiSystem": "你是一位乐于助人的助手……",
       "eg10": "例如：10",
@@ -754,6 +904,14 @@
   },
   "summary": {
     "aggregateFallback": "统计记录或计算总数",
+    "aiAgent": "{count, plural, =0 {还没有工具} one {# 个工具} other {# 个工具}}",
+    "aiChat": "回复消息",
+    "aiChatWithHistory": "回复并记住 {table}",
+    "aiEmbed": "文本转嵌入向量",
+    "aiEmbedChunks": "长文本切分",
+    "aiSpeech": "朗读文本",
+    "aiStructured": "以数据形式回答",
+    "aiVision": "看图",
     "askAi": "向 AI 提问",
     "bulkDeleteFallback": "一次删除多行",
     "bulkInsertFallback": "一次添加多行",

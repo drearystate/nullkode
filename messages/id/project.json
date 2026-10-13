@@ -335,6 +335,7 @@
       "locationRemoved": "Aplikasi Anda tidak lagi menggunakan lokasi. Unduh ulang proyek iPhone untuk build berikutnya agar aplikasi berhenti meminta akses lokasi.",
       "newBuildNeeded": "<b>Perlu build baru.</b> {reason}",
       "readme": "README di dalam unduhan menjelaskan kedua cara tersebut langkah demi langkah.",
+      "storeAssets": "Folder AppStore di unduhan berisi ikon App Store dan tangkapan layar aplikasi Anda dalam semua ukuran yang diminta Apple.",
       "title": "iPhone dan iPad",
       "withMac": "<b>Dengan Mac:</b> buka <mono>{path}</mono>, pilih tim Anda, lalu Product → Archive.",
       "withoutMac": "<b>Tanpa Mac:</b> unggah folder ke GitHub dan tambahkan kunci Apple Anda sebagai rahasia. Alur kerja yang disertakan akan membuat aplikasi di Mac milik GitHub dan mengirimkannya ke TestFlight."
@@ -814,6 +815,10 @@
     "invalidInput": "Input tidak valid"
   },
   "tabs": {
+    "aiKeys": {
+      "help": "Kunci AI aplikasi Anda: chat, agen, dan fitur AI lainnya menggunakannya saat orang memakai aplikasi.",
+      "label": "Kunci AI"
+    },
     "data": {
       "help": "Lihat dan edit informasi yang disimpan aplikasi Anda, seperti pendaftaran, pesanan, dan pesan yang dikirim orang.",
       "label": "Data"

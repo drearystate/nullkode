@@ -12,16 +12,19 @@ export interface ClarifyQuestion {
   label: string;
   /** Optional quick-pick chips. Omitted means free text only. */
   options?: string[];
+  /** Several chips may be picked (and a typed answer added). */
+  multi: boolean;
 }
 
 const SYSTEM_PROMPT = `You are a design consultant doing a 10-second intake call before a builder takes the brief. Given the user's design prompt, return AT MOST 3 short questions that would materially improve the result.
 
 Hard rules:
 - Return JSON only. No markdown fences, no prose. Schema:
-  { "questions": [ { "id": "...", "label": "...", "options": ["...", "..."] } ] }
+  { "questions": [ { "id": "...", "label": "...", "options": ["...", "..."], "multi": true or false } ] }
 - 0 questions if the prompt is already concrete enough (specific audience, content, style, must-haves all stated).
 - Each question is ≤ 12 words, plain language, no jargon.
-- Each question may include 2–4 quick-pick options ("options" array). Omit options for genuinely open questions.
+- Each question may include 2–6 quick-pick options ("options" array). Omit options for genuinely open questions.
+- "multi": true when several answers make sense together ("Which pages?", "Which sections?", "Which features?"): the person may pick any number. false when the answers exclude each other ("Which tone?", "Light or dark?").
 - Don't ask about things the user already specified.
 - Don't ask trivial questions like "what colors do you want?" unless the prompt has no style direction at all.
 - Prioritize: audience, primary call-to-action, tone, must-have sections/content.
@@ -42,7 +45,7 @@ export async function askClarifyingQuestions(prompt: string, locale: Locale = "e
   try {
     const text = await providerComplete({ systemPrompt: language ? `${SYSTEM_PROMPT}\n\n${language}` : SYSTEM_PROMPT, userMessage: prompt.slice(0, 12000), json: true, maxTokens: 1024, signal: AbortSignal.timeout(20000) });
     const result = JSON.parse(extractJson(text));
-    const questions = (Array.isArray(result.questions) ? result.questions : []).filter((q: ClarifyQuestion) => typeof q?.id === "string" && typeof q?.label === "string").slice(0, 3).map((q: ClarifyQuestion) => ({ id: q.id.slice(0, 80), label: q.label.slice(0, 300), ...(Array.isArray(q.options) ? { options: q.options.filter(o => typeof o === "string").slice(0, 4) } : {}) }));
+    const questions = (Array.isArray(result.questions) ? result.questions : []).filter((q: ClarifyQuestion) => typeof q?.id === "string" && typeof q?.label === "string").slice(0, 3).map((q: Omit<ClarifyQuestion, "multi"> & { multi?: unknown }) => ({ id: q.id.slice(0, 80), label: q.label.slice(0, 300), ...(Array.isArray(q.options) ? { options: q.options.filter(o => typeof o === "string").slice(0, 6) } : {}), multi: q.multi === true || q.multi === "true" }));
     return { questions };
   } catch { return { questions: [] }; }
 }

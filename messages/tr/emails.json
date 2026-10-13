@@ -1,4 +1,12 @@
 {
+  "aiKey": {
+    "add": "Anahtarınızı buraya ekleyin:",
+    "change": "{app} uygulamasında yapay zekâ adımları var. {platform} üzerindeki yayınlanmış uygulamalar artık platformun yapay zekâsı yerine kendi yapay zekâ anahtarlarını kullanıyor. Bu yüzden anahtar ekleyene kadar bu adımlar duraklatıldı.",
+    "once": "Bu uygulamayla ilgili bu konuda alacağınız tek e-posta bu.",
+    "subject": "{app}: kendi yapay zekâ anahtarınızı ekleyin",
+    "visitor": "Birisi az önce {app} uygulamasındaki bir yapay zekâ özelliğini kullandı, ancak uygulamanın kendi yapay zekâ anahtarı olmadığı için şu mesajı gördü: \"Bu uygulamanın yapay zekâsı henüz ayarlanmadı.\"",
+    "why": "OpenAI, Google Gemini, xAI (Grok), OpenRouter veya OpenAI ile uyumlu herhangi bir sunucudan (kendi Ollama ya da LM Studio sunucunuz da olur) bir anahtar ekleyin. Anahtar sunucuda şifrelenmiş olarak saklanır ve ziyaretçilerinize asla gösterilmez. Kaydeder kaydetmez yapay zekâ özellikleri çalışmaya başlar."
+  },
   "aiQuota": {
     "body80": "{reseller}, bu ay tanımlanan {max} yapay zekâ işleminin {used} kadarını kullandı. İşlemler tükendiğinde {resets} tarihine kadar siz ve müşterileriniz yapay zekâyla uygulama oluşturup düzenleyemeyeceksiniz.",
     "bodyFull": "{reseller}, bu ay için tanımlanan {max} yapay zekâ işleminin tamamını kullandı. {resets} tarihine kadar siz ve müşterileriniz yapay zekâyla uygulama oluşturup düzenleyemeyeceksiniz.",

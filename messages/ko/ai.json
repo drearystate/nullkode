@@ -1,4 +1,14 @@
 {
+  "aiApps": {
+    "addKey": "AI 키 추가",
+    "aiFeatures": "이 앱의 AI",
+    "buildNotice": "앱에 AI 기능이 있습니다. 게시된 앱에서는 플랫폼 AI를 사용할 수 없습니다. 사람들이 AI 기능을 사용하기 전에 앱의 AI 키에 직접 발급한 AI 키를 추가하세요. 그전까지 방문자에게 “이 앱의 AI가 아직 설정되지 않았습니다.”라고 표시됩니다.",
+    "editNotice": "이 변경사항은 AI를 사용합니다. 게시된 앱에서는 플랫폼 AI를 사용할 수 없습니다. 사람들이 AI 기능을 사용하기 전에 앱의 AI 키에 직접 발급한 AI 키를 추가하세요.",
+    "moduleNotice": "이 기능은 AI를 사용합니다. 게시된 앱에서는 플랫폼 AI를 사용할 수 없습니다. 사람들이 이 기능을 사용하기 전에 앱의 AI 키에 직접 발급한 AI 키를 추가하세요.",
+    "noticeTitle": "앱의 AI를 사용하려면 직접 발급한 키가 필요합니다",
+    "openEditor": "편집기 열기",
+    "planNotice": "이 앱에는 AI 기능이 있습니다. 게시된 앱에서는 플랫폼 AI를 사용할 수 없습니다. 빌드 후 사람들이 AI 기능을 사용하기 전에 앱의 AI 키에 직접 발급한 AI 키(OpenAI, Google Gemini, xAI, OpenRouter 또는 OpenAI 호환 서버)를 추가하세요."
+  },
   "assistant": {
     "alsoCreated": "{things}도 만들었어요",
     "alsoDid": "{explanation} ({things}도 했어요.)",

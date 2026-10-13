@@ -6,9 +6,9 @@
   "genres/*.md": 700
  },
  "files": {
-  "CORE-RULES.md": 1146,
+  "CORE-RULES.md": 1221,
   "PLAYTEST-CHECKLIST.md": 2274,
-  "README.md": 1103
+  "README.md": 1118
  },
  "matching": {
   "how": "lower-case the idea; for each genre count alias hits (whole word or phrase; a phrase of n words scores n); best score >= 1 wins; ties -> the genre listed first; none -> CORE-RULES only. Re-run on the brief's 'genre' string if the idea had no hit. Store the id with the game.",
@@ -20,7 +20,7 @@
    "title": "Platformer (2D side view)",
    "file": "genres/platformer.md",
    "engine": "phaser-2d",
-   "tokens": 694,
+   "tokens": 699,
    "aliases": [
     "platformer",
     "platform game",
@@ -45,7 +45,7 @@
    "title": "Top-down action/adventure (Zelda-like)",
    "file": "genres/top-down-adventure.md",
    "engine": "phaser-2d",
-   "tokens": 691,
+   "tokens": 698,
    "aliases": [
     "zelda",
     "zelda-like",
@@ -68,7 +68,7 @@
    "title": "Top-down shooter / twin-stick",
    "file": "genres/twin-stick-shooter.md",
    "engine": "phaser-2d",
-   "tokens": 634,
+   "tokens": 687,
    "aliases": [
     "twin-stick",
     "twin stick",
@@ -91,7 +91,7 @@
    "title": "Shoot-'em-up (scrolling)",
    "file": "genres/shmup.md",
    "engine": "phaser-2d",
-   "tokens": 625,
+   "tokens": 697,
    "aliases": [
     "shmup",
     "shoot em up",
@@ -115,7 +115,7 @@
    "title": "Endless runner",
    "file": "genres/endless-runner.md",
    "engine": "phaser-2d",
-   "tokens": 621,
+   "tokens": 700,
    "aliases": [
     "endless runner",
     "runner",
@@ -139,7 +139,7 @@
    "title": "Puzzle (grid / sokoban / physics)",
    "file": "genres/puzzle.md",
    "engine": "phaser-2d",
-   "tokens": 676,
+   "tokens": 697,
    "aliases": [
     "puzzle",
     "sokoban",
@@ -164,7 +164,7 @@
    "title": "Match-3",
    "file": "genres/match-3.md",
    "engine": "phaser-2d",
-   "tokens": 650,
+   "tokens": 698,
    "aliases": [
     "match-3",
     "match 3",
@@ -184,7 +184,7 @@
    "title": "Tower defence",
    "file": "genres/tower-defence.md",
    "engine": "phaser-2d",
-   "tokens": 638,
+   "tokens": 696,
    "aliases": [
     "tower defence",
     "tower defense",
@@ -202,7 +202,7 @@
    "title": "Racing (top-down and 3D arcade)",
    "file": "genres/racing.md",
    "engine": "either",
-   "tokens": 687,
+   "tokens": 698,
    "aliases": [
     "racing",
     "race",
@@ -228,7 +228,7 @@
    "title": "Card and board games",
    "file": "genres/card-board.md",
    "engine": "phaser-2d",
-   "tokens": 698,
+   "tokens": 699,
    "aliases": [
     "card game",
     "cards",
@@ -263,7 +263,7 @@
    "title": "Idle / clicker",
    "file": "genres/idle-clicker.md",
    "engine": "phaser-2d",
-   "tokens": 653,
+   "tokens": 696,
    "aliases": [
     "idle",
     "idle game",
@@ -283,7 +283,7 @@
    "title": "3D third-person action / collectathon",
    "file": "genres/3d-action-collectathon.md",
    "engine": "three-3d",
-   "tokens": 679,
+   "tokens": 697,
    "aliases": [
     "3d platformer",
     "collectathon",
@@ -309,7 +309,7 @@
    "title": "3D first-person (simple)",
    "file": "genres/3d-first-person.md",
    "engine": "three-3d",
-   "tokens": 689,
+   "tokens": 699,
    "aliases": [
     "first person",
     "first-person",
@@ -330,7 +330,7 @@
    "title": "Sports / arcade (pong, breakout, pinball)",
    "file": "genres/sports-arcade.md",
    "engine": "phaser-2d",
-   "tokens": 698,
+   "tokens": 697,
    "aliases": [
     "pong",
     "breakout",
@@ -361,7 +361,7 @@
    "title": "Rhythm",
    "file": "genres/rhythm.md",
    "engine": "phaser-2d",
-   "tokens": 672,
+   "tokens": 700,
    "aliases": [
     "rhythm",
     "rhythm game",
@@ -380,7 +380,7 @@
    "title": "Metroidvania (lite)",
    "file": "genres/metroidvania.md",
    "engine": "phaser-2d",
-   "tokens": 675,
+   "tokens": 696,
    "aliases": [
     "metroidvania",
     "metroid",
@@ -398,7 +398,7 @@
    "title": "Roguelite (lite)",
    "file": "genres/roguelite.md",
    "engine": "phaser-2d",
-   "tokens": 633,
+   "tokens": 697,
    "aliases": [
     "roguelite",
     "roguelike",
@@ -421,7 +421,7 @@
    "title": "Survival / crafting (lite)",
    "file": "genres/survival-crafting.md",
    "engine": "either",
-   "tokens": 700,
+   "tokens": 699,
    "aliases": [
     "survival",
     "crafting",
@@ -444,7 +444,7 @@
    "title": "Fishing / farming / cosy sim (lite)",
    "file": "genres/cosy-sim.md",
    "engine": "phaser-2d",
-   "tokens": 692,
+   "tokens": 700,
    "aliases": [
     "farming",
     "farm",
@@ -469,7 +469,7 @@
    "title": "Quiz / trivia",
    "file": "genres/quiz-trivia.md",
    "engine": "phaser-2d",
-   "tokens": 663,
+   "tokens": 686,
    "aliases": [
     "quiz",
     "trivia",
@@ -488,7 +488,7 @@
    "title": "Word games",
    "file": "genres/word-game.md",
    "engine": "phaser-2d",
-   "tokens": 664,
+   "tokens": 700,
    "aliases": [
     "word game",
     "wordle",
@@ -510,7 +510,7 @@
    "title": "Educational mini-games",
    "file": "genres/educational.md",
    "engine": "phaser-2d",
-   "tokens": 673,
+   "tokens": 698,
    "aliases": [
     "educational",
     "education",
@@ -691,8 +691,8 @@
  "estimatedTokensPerCall": {
   "brief": "<= 700",
   "plan": "<= 700",
-  "step": "<= 1846",
-  "change": "<= 1846",
+  "step": "<= 1921",
+  "change": "<= 1921",
   "playtest": "<= 2974 (less when filtered)"
  }
 }

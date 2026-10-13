@@ -46,7 +46,7 @@ export type ModuleCapability =
   | "coupons" // contributes discount codes
   | "reviews" // contributes reviews or ratings
   | "email" // uses the email flow node (needs RESEND_API_KEY)
-  | "ai" // uses the ai_prompt flow node (needs OPENAI_API_KEY)
+  | "ai" // uses AI flow steps (ai_prompt, ai_chat, ai_agent…): the app's own AI key (AI keys, docs/ai-in-apps.md)
   | "file-upload" // uses the /api/upload endpoint
   | "push" // uses the /api/push/* endpoints
   | "payments" // integrates with Stripe
@@ -91,6 +91,15 @@ export type ModuleFlowNode = {
     | "response"
     | "email"
     | "ai_prompt"
+    | "ai_chat"
+    | "ai_agent"
+    | "ai_structured"
+    | "ai_vision"
+    | "ai_embed"
+    | "ai_search"
+    | "ai_speech"
+    | "bulk_insert"
+    | "custom_js"
     | "delay"
     | "parse_json"
     | "math"
@@ -116,6 +125,12 @@ export type ModuleFlow = {
   name: string;
   httpMethod?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
   purpose?: string;
+  /**
+   * Runs on a schedule instead of being called by pages: a schedule as the
+   * Flows tab saves it ('{"kind":"every","minutes":15}', lib/flow/schedule-spec.ts).
+   * It runs once the app is published, like any scheduled flow (plan limits apply).
+   */
+  schedule?: string;
   nodes: ModuleFlowNode[];
   edges: ModuleFlowEdge[];
 };

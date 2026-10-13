@@ -48,6 +48,7 @@
     "noMacTitle": "Macがない場合",
     "preparing": "プロジェクトを準備しています…",
     "readme": "手順はすべてダウンロードしたファイル内のREADMEに記載されています。公開するとアプリは自動で更新されるため、名前、アイコン、スマートフォンの機能を変更するときだけ、新しいiPhone版が必要です。",
+    "storeAssets": "ダウンロードには、App Store用のアイコンと、Appleが指定する各サイズのアプリのスクリーンショットを含む「AppStore」フォルダも入っています。新バージョンのスクリーンショット作成には、最大1分かかることがあります。",
     "teamId": "Apple Team ID",
     "teamIdHelp": "Apple DeveloperのTeam ID（英数字10文字）です。アプリへのリンクをiPhoneアプリで開けるようになります。developer.apple.comの「Membership」で確認できます。",
     "teamIdHint": "任意です。アプリへのリンクをiPhoneアプリで開く場合のみ必要です（「アプリを開くリンク」を参照）。",

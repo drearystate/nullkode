@@ -50,7 +50,7 @@
     "buildMobileHelp": "Trasforma questa app in un’app per Android, iPhone e iPad.",
     "buildMobileTitle": "Crea un’app mobile",
     "buildYourWay": "Crea a modo tuo.",
-    "buildYourWayIntro": "Gli stessi potenti strumenti. Un punto di partenza tutto tuo.",
+    "buildYourWayIntro": "Non sai da dove iniziare? Inizia con Designer AI.",
     "clearFilters": "Cancella i filtri",
     "clearFiltersHelp": "Cancella la ricerca e i filtri per mostrare di nuovo tutte le tue app.",
     "clearSearch": "Cancella la ricerca",
@@ -92,6 +92,8 @@
     "gameKind": "Gioco {engine}",
     "gameLiveHelp": "Pubblicato: questo gioco è disponibile come app, quindi chiunque abbia il link può giocarci.",
     "gameNoPicture": "Ancora nessuna immagine",
+    "gameWaiting": "In attesa di te",
+    "gameWaitingHelp": "La prima parte giocabile è pronta. Apri il gioco per provarlo e dicci se vuoi continuare a svilupparlo.",
     "gamesEyebrow": "GIOCA A CIÒ CHE HAI CREATO",
     "getMoreApps": "Ottieni più app",
     "headline": "Una piccola idea.<br></br><accent>Infinite possibilità.</accent>",
@@ -142,7 +144,7 @@
     "sortName": "Nome A–Z",
     "sortRecent": "Modificate di recente",
     "versionCount": "{count, plural, =0 {Ancora nessuna versione} one {# versione} other {# versioni}}",
-    "waysEyebrow": "SEI MODI PER INIZIARE",
+    "waysEyebrow": "MODI PER INIZIARE",
     "welcome": "Benvenuto, {name}. Dicci cosa vuoi creare e lo progetteremo insieme.",
     "welcomeBack": "Bentornato, {name}. Riprendi da dove avevi lasciato,<br></br> oppure dai vita a qualcosa di nuovo.",
     "yourApps": "Le tue app",
@@ -167,10 +169,17 @@
       "description": "Spiega con parole tue cosa vuoi. Controlla il piano, poi crea pagine, dati e moduli funzionanti.",
       "help": "Descrivi la tua app in poche parole. L’IA suggerirà un piano che potrai controllare e modificare, poi creerà pagine, moduli e dati per te.",
       "label": "Dall’idea all’app",
-      "title": "Descrivila"
+      "title": "Descrivila",
+      "demo": {
+        "idea": "Un'app per gestire le prenotazioni della mia attività di dog sitter",
+        "plan": "Il tuo piano",
+        "pages": "3 pagine",
+        "table": "Una tabella delle prenotazioni",
+        "form": "Un modulo di prenotazione"
+      }
     },
     "blank": {
-      "description": "Crea a mano con blocchi trascinabili e funzioni già pronte.",
+      "description": "Crea ogni pagina a mano con blocchi da trascinare. Ideale se sai già cosa vuoi.",
       "help": "Parti da una semplice pagina di benvenuto e crea tutto il resto trascinandoci sopra i blocchi. Ideale se vuoi avere il pieno controllo.",
       "label": "La tua tela, le tue regole",
       "title": "App vuota"
@@ -182,10 +191,12 @@
       "title": "Copia un sito web"
     },
     "designer": {
-      "description": "Dai forma alla tua idea conversando. Progetta, perfeziona ed esplora.",
+      "description": "Spiega all'AI cosa vuoi e guarda il tuo progetto prendere forma. Poi chiedi le modifiche con parole semplici.",
       "help": "Chatta con l’IA per progettare la tua app passo dopo passo. Chiedi modifiche, fai clic sulle parti dell’anteprima per commentarle e torna alle versioni precedenti.",
       "label": "Creala insieme",
-      "title": "Designer IA"
+      "title": "Designer IA",
+      "badge": "Consigliato",
+      "cta": "Inizia a progettare"
     },
     "game": {
       "description": "Descrivi un gioco e guarda l’IA crearlo un passo alla volta, con grafica e audio reali.",
@@ -237,6 +248,7 @@
     "clearFiltersHelp": "Cancella la ricerca e la categoria per mostrare di nuovo tutte le funzioni.",
     "clearSearch": "Cancella ricerca",
     "clearSearchHelp": "Cancella la ricerca e mostra di nuovo tutte le funzionalità.",
+    "continue": "Continua",
     "details": "Dettagli",
     "detailsHelp": "Scopri esattamente cosa aggiunge questa funzione alla tua app: quante pagine, elenchi di contenuti salvati e automazioni.",
     "dialogTitle": "Aggiungi {name}",

@@ -15,8 +15,10 @@ async function tr() {
 
 /**
  * Download this app's iOS project (NullKode Native engine, prebuilt for the
- * app) as a zip, owner only. Takes a few seconds (expo prebuild). The
- * X-NK-Check header carries the structure check ("ok" or the problems).
+ * app) as a zip, owner only. Takes a few seconds (expo prebuild), up to a
+ * minute when the App Store screenshots of a new version are made. The
+ * X-NK-Check header carries the structure check ("ok" or the problems),
+ * X-NK-Store-Shots whether the screenshots are in it (ok, pending, failed, off).
  */
 export async function GET(_req: Request, ctx: { params: Promise<{ id: string }> }) {
   const { id } = await ctx.params;
@@ -38,6 +40,7 @@ export async function GET(_req: Request, ctx: { params: Promise<{ id: string }> 
         "cache-control": "no-store",
         "x-content-type-options": "nosniff",
         "x-nk-check": zip.check.ok ? "ok" : zip.check.problems.join("; ").replace(/[^\x20-\x7e]/g, "?").slice(0, 500),
+        "x-nk-store-shots": zip.storeShots,
       },
     });
   } catch (err) {

@@ -21,7 +21,11 @@ import type { GameFiles } from "./store";
  *   without a long route: NK.run values (numbers, booleans, short strings;
  *   at most 8; only keys the game's config.run or NK.run already has, of
  *   the same type) and/or the player's position (this.player, inside the
- *   level's bounds, velocity zeroed, then 0.5 s to land). The writes are
+ *   level's bounds, velocity zeroed, then 0.5 s to land). "reload": true
+ *   restarts the play scene after the run values are written (the kits'
+ *   own next-level path, NK.state.go("play")), so a test can start in a
+ *   later level, world or the last level (late content, the ending); the
+ *   player is placed in that level. The writes are
  *   fixed code with the values as data; expressions stay read-only. A setup
  *   that sets what the test then expects ("doorOpen": true, then expect
  *   NK.run.doorOpen) is refused here (setupTautology), and a test whose
@@ -67,7 +71,7 @@ export type TestStep =
   | { click: [number, number]; holdMs?: number }
   | { waitMs: number };
 /** Written by the harness after the start (see above): NK.run values and/or the player's position. */
-export type TestSetup = { run?: Record<string, number | boolean | string>; player?: { x: number; y: number; z?: number } };
+export type TestSetup = { run?: Record<string, number | boolean | string>; player?: { x: number; y: number; z?: number }; /** After the run values: the play scene starts again (NK.state.go("play")), so it builds the level NK.run names (late content). */ reload?: boolean };
 export type FeatureTest = { start: boolean; setup?: TestSetup; steps: TestStep[]; expect: string[] };
 /** The newest test result of a feature, kept with it (the plan card and the repair prompts read it). */
 export type FeatureLast = { seq?: number; ok: boolean; text: string; bad?: string; /** A failed run in full (what was pressed, every expectation's value, errors) for a fix step. */ detail?: string };
@@ -83,6 +87,12 @@ export type Feature = {
   last?: FeatureLast;
   /** The test was rewritten once already (a bad test is rewritten at most once). */
   rewritten?: boolean;
+  /** Where it lives once built (feature-list.ts): the files and names the code must keep. */
+  anchors?: { files: Array<{ path: string; size: number }>; keys: string[] };
+  /** How it got on the list (feature-list.ts FeatureSource). */
+  source?: "plan" | "change" | "note" | "person" | "import" | "step";
+  /** When it got on the list and from which request (the person's words, shortened), shown in the workspace's feature list. */
+  added?: { at: string; text?: string };
 };
 
 /** One test run in the page. */
@@ -207,8 +217,9 @@ export function cleanSetup(raw: unknown): { setup?: TestSetup; problem?: string 
   if (raw === undefined || raw === null) return {};
   if (typeof raw !== "object" || Array.isArray(raw)) return { problem: 'an object like {"run": {"fish": 9}, "player": {"x": 1200, "y": 300}}' };
   const o = raw as Record<string, unknown>;
-  const extra = Object.keys(o).filter((k) => k !== "run" && k !== "player");
-  if (extra.length) return { problem: `only "run" and "player" (not ${extra.map((k) => JSON.stringify(k.slice(0, 30))).join(", ")})` };
+  const extra = Object.keys(o).filter((k) => k !== "run" && k !== "player" && k !== "reload");
+  if (extra.length) return { problem: `only "run", "player" and "reload" (not ${extra.map((k) => JSON.stringify(k.slice(0, 30))).join(", ")})` };
+  if (o.reload !== undefined && typeof o.reload !== "boolean") return { problem: '"reload" is true or false' };
   const setup: TestSetup = {};
   if (o.run !== undefined) {
     if (!o.run || typeof o.run !== "object" || Array.isArray(o.run)) return { problem: '"run" is an object of NK.run values, e.g. {"fish": 9}' };
@@ -235,6 +246,10 @@ export function cleanSetup(raw: unknown): { setup?: TestSetup; problem?: string 
     const num = (v: unknown) => typeof v === "number" && Number.isFinite(v) && Math.abs(v) <= MAX_SETUP_POS;
     if (!num(q.x) || !num(q.y) || (q.z !== undefined && !num(q.z))) return { problem: `"player" needs numbers x and y (and z in 3D), at most ${MAX_SETUP_POS} in size` };
     setup.player = { x: q.x as number, y: q.y as number, ...(q.z !== undefined ? { z: q.z as number } : {}) };
+  }
+  if (o.reload === true) {
+    if (!setup.run) return { problem: '"reload" restarts the level NK.run names: give the run values too, e.g. {"run": {"level": 9}, "reload": true}' };
+    setup.reload = true;
   }
   return setup.run || setup.player ? { setup } : {};
 }
@@ -355,11 +370,18 @@ export function cleanFeatures(raw: unknown, opts: { max?: number; keep?: Feature
   return out;
 }
 
-/** Features merged by id: `add` replaces features with the same id (their status starts over) and appends new ones. */
-export function mergeFeatures(list: Feature[], add: Feature[]): Feature[] {
-  const out = list.map((f) => add.find((a) => a.id === f.id) ?? f);
-  for (const a of add) if (!list.some((f) => f.id === a.id)) out.push(a);
-  return out.slice(0, 16);
+/**
+ * Features merged by id: `add` replaces features with the same id (their status starts over; where the old one lives
+ * and how it got on the list stay) and appends new ones. Never drops a listed feature: the list only shrinks by an
+ * explicit removal (feature-list.ts). New ones beyond `max` are left out.
+ */
+export function mergeFeatures(list: Feature[], add: Feature[], max = 60): Feature[] {
+  const out = list.map((f) => {
+    const a = add.find((x) => x.id === f.id);
+    return a ? { ...a, ...(f.anchors ? { anchors: f.anchors } : {}), ...(f.source ? { source: f.source } : {}), ...(f.added ? { added: f.added } : {}) } : f;
+  });
+  for (const a of add) if (!list.some((f) => f.id === a.id) && out.length < Math.max(max, list.length)) out.push(a);
+  return out;
 }
 
 /* ───────────────────────── Read-only expressions ───────────────────────── */
@@ -612,9 +634,24 @@ const APPLY_SETUP = `((setup) => {${PAGE_HELPERS}
   return { ok: true };
 })`;
 
+/** Restarts the play scene (the kits' next-level path) after a setup's run values, for "reload": marks the old player so the new level can be told apart. */
+const RELOAD_START = `(() => {${PAGE_HELPERS}
+  var sc = sceneOf();
+  window.__nkReloadOld = sc && sc.player ? sc.player : null;
+  window.NK.state.go("play", { level: window.NK.run && window.NK.run.level });
+  return true;
+})()`;
+/** The play scene has been built again with a new player (or, without a player, is playing). */
+const RELOAD_DONE = `(() => {${PAGE_HELPERS}
+  var sc = sceneOf();
+  if (!sc || window.NK.state.current !== "play") return false;
+  if (!window.__nkReloadOld) return true;
+  return !!sc.player && sc.player !== window.__nkReloadOld;
+})()`;
+
 /** The setup in words (what the harness did), for the "pressed" list. */
 function describeSetup(s: TestSetup): string {
-  const parts = [...Object.entries(s.run ?? {}).map(([k, v]) => `NK.run.${k} = ${JSON.stringify(v)}`), ...(s.player ? [`player at (${[s.player.x, s.player.y, ...(s.player.z !== undefined ? [s.player.z] : [])].join(", ")})`] : [])];
+  const parts = [...Object.entries(s.run ?? {}).map(([k, v]) => `NK.run.${k} = ${JSON.stringify(v)}`), ...(s.reload ? ["play scene restarted on that level"] : []), ...(s.player ? [`player at (${[s.player.x, s.player.y, ...(s.player.z !== undefined ? [s.player.z] : [])].join(", ")})`] : [])];
   return `setup: ${parts.join(", ")}`;
 }
 
@@ -712,7 +749,23 @@ export async function runTestsInPage(
         if (!(await waitGame(500))) slow = true;
       }
       if (test.setup) {
-        const s = (await page.evaluate(`${APPLY_SETUP}(${JSON.stringify(test.setup)})`)) as { ok?: boolean; problem?: string };
+        // "reload": the run values first, then the play scene starts again on that level, then the player is placed there.
+        const first: TestSetup = test.setup.reload ? { run: test.setup.run } : test.setup;
+        let s = (await page.evaluate(`${APPLY_SETUP}(${JSON.stringify(first)})`)) as { ok?: boolean; problem?: string };
+        if (!s.problem && test.setup.reload) {
+          await page.evaluate(RELOAD_START);
+          const rebuilt = await page.waitForFunction(RELOAD_DONE, null, { timeout: 20_000, polling: 50 }).then(() => true).catch(() => false);
+          if (!rebuilt) {
+            // The game's fault, not the test's: its create() couldn't build that level.
+            const st = await page.evaluate(() => (window as unknown as { NK: { state: { current: string } } }).NK.state.current).catch(() => "?");
+            pressed.push(`${describeSetup(test.setup)}: the play scene did NOT start again with a new this.player (state "${st}"); create() must build the level NK.run.level names`);
+            out.push({ id, ok: false, pressed, expects: test.expect.map((e) => ({ expr: e, ok: false, error: "not run (the level didn't load)" })), errors: opts.errorsSince(mark).slice(0, 6), ms: Date.now() - t0, slow });
+            continue;
+          } else {
+            if (!(await waitGame(500))) slow = true;
+            if (test.setup.player) s = (await page.evaluate(`${APPLY_SETUP}(${JSON.stringify({ player: test.setup.player })})`)) as { ok?: boolean; problem?: string };
+          }
+        }
         if (s.problem) {
           out.push({ id, ok: false, bad: s.problem, pressed, expects: test.expect.map((e) => ({ expr: e, ok: false, error: "not run (bad setup)" })), errors: [], ms: Date.now() - t0, slow });
           continue;

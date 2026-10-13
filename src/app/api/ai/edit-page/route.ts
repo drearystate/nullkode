@@ -1,3 +1,5 @@
+import { graphUsesAi } from "@/lib/app-ai/detect";
+import { projectAiStatus } from "@/lib/app-ai/status";
 import { z } from "zod";
 import { heartbeatJson } from "@/lib/heartbeat-json";
 import { aiUsageSummary, checkAiQuota, recordAiUsage, refundAiUsage, refundFailedAi } from "@/lib/ai-quota";
@@ -493,6 +495,12 @@ async function handle(req: Request): Promise<Response> {
 
     const note = unconnectedNote(unconnected, t, locale);
     if (note) userNotes.push(note);
+    // New AI steps: published apps use the person's own AI key (docs/ai-in-apps.md).
+    let aiNotice: string | undefined;
+    if (result.newFlows.some((f) => graphUsesAi({ nodes: f.nodes })) && (await projectAiStatus(projectId).catch(() => null))?.needsKey) {
+      aiNotice = t("aiApps.editNotice");
+      userNotes.push(aiNotice);
+    }
 
     return json({
       html: rewrittenHtml,
@@ -505,6 +513,7 @@ async function handle(req: Request): Promise<Response> {
       createdFlowSlugs: result.newFlows.map((f) => f.slug),
       updatedPages: appliedPageEdits,
       suggestions: result.suggestions ?? [],
+      ...(aiNotice ? { aiNotice, aiKeysUrl: `/projects/${projectId}/ai` } : {}),
       usage: await usage(),
     });
   } catch (err) {

@@ -48,6 +48,7 @@
     "noMacTitle": "Sin un Mac",
     "preparing": "Preparando el proyecto…",
     "readme": "El archivo README incluido en la descarga explica cada paso. Tu app se actualiza cuando la publicas; solo necesitas una nueva versión para iPhone si cambian su nombre, icono o funciones del teléfono.",
+    "storeAssets": "La descarga también incluye una carpeta de App Store con el icono de tu app y capturas de pantalla en todos los tamaños que pide Apple. Crear las capturas de una nueva versión puede tardar hasta un minuto.",
     "teamId": "ID de equipo de Apple",
     "teamIdHelp": "El ID de equipo de Apple Developer, de 10 letras y números. Permite que los enlaces a tu app la abran en el iPhone. Lo encontrarás en developer.apple.com, en la sección Membership.",
     "teamIdHint": "Opcional. Solo hace falta para que los enlaces a tu app la abran en el iPhone (consulta «Enlaces que abren tu app»).",

@@ -66,7 +66,7 @@
     },
     "ai_prompt": {
       "label": "Ask AI",
-      "help": "Gives the AI a question or task, like summarizing a message. Later steps can use its answer. Each run counts toward your AI allowance."
+      "help": "Gives the AI a question or task, like summarizing a message. Later steps can use its answer. Uses this app's own AI key (AI keys)."
     },
     "hash_password": {
       "label": "Protect a password",
@@ -115,6 +115,34 @@
     "response": {
       "label": "Reply",
       "help": "Sends an answer back to the page or form that started the automation, like a success message or the records found."
+    },
+    "ai_chat": {
+      "label": "AI chat reply",
+      "help": "Answers a message in a conversation, with a persona and the conversation so far from a table (it can save both). For chatbots and AI companions. Uses this app's own AI key."
+    },
+    "ai_agent": {
+      "label": "AI agent",
+      "help": "Works toward a goal using tools you list (this app's flows or web addresses), step by step. Tools marked \"needs approval\" wait for a person to approve. Uses this app's own AI key."
+    },
+    "ai_structured": {
+      "label": "AI answer as data",
+      "help": "Asks the AI for an answer as data with the fields you describe (JSON), so later steps can save or check each field. Uses this app's own AI key."
+    },
+    "ai_vision": {
+      "label": "AI looks at a picture",
+      "help": "Sends a picture with a question to the AI (an uploaded file, an https address or a data URL). Uses this app's own AI key."
+    },
+    "ai_embed": {
+      "label": "AI embeddings",
+      "help": "Turns text into numbers that capture its meaning, or cuts a long text into pieces with numbers for each, ready to save. Used with \"Search by meaning\". Uses this app's own AI key."
+    },
+    "ai_search": {
+      "label": "Search by meaning",
+      "help": "Finds the rows of a table closest in meaning to a question, using the embeddings saved in them. Reads up to 1,000 rows per search."
+    },
+    "ai_speech": {
+      "label": "Read aloud",
+      "help": "Turns text into speech with the app's AI key when it can speak; otherwise the page reads it with the browser's own voice."
     }
   },
   "categories": {
@@ -157,7 +185,15 @@
     "needsRole": "Needs: {role}",
     "checkRoleFallback": "Check what the person may do",
     "reply": "Sends a reply",
-    "repliesWith": "{count, plural, one {Replies with # value} other {Replies with # values}}"
+    "repliesWith": "{count, plural, one {Replies with # value} other {Replies with # values}}",
+    "aiChat": "Reply to a message",
+    "aiChatWithHistory": "Reply, remembering {table}",
+    "aiAgent": "{count, plural, =0 {No tools yet} one {# tool} other {# tools}}",
+    "aiStructured": "Answer as data",
+    "aiVision": "Look at a picture",
+    "aiEmbed": "Text to embedding",
+    "aiEmbedChunks": "Long text to pieces",
+    "aiSpeech": "Speak the text"
   },
   "editor": {
     "flow": "Flow",
@@ -372,6 +408,102 @@
       "roleSource": {
         "label": "Where their role is (optional)",
         "help": "Leave empty to use the role of whoever is signed in, from a “Who is signed in” step before this one. Change it only if an earlier step saved the role under another name."
+      },
+      "aiConnection": {
+        "label": "AI connection (optional)",
+        "help": "Which of this app's AI keys to use, by name. Empty: the app's default key."
+      },
+      "aiModel": {
+        "label": "Model (optional)",
+        "help": "Use another model than the connection's own for this step."
+      },
+      "aiPersona": {
+        "label": "Persona and instructions",
+        "help": "Who the AI is and how it talks, for example a friendly coach who keeps answers short."
+      },
+      "aiMessage": {
+        "label": "The new message",
+        "help": "What the person just wrote, usually '{{'trigger.message'}}'."
+      },
+      "aiContext": {
+        "label": "Extra context (optional)",
+        "help": "Facts for this reply, like what the AI remembers about the person or its mood."
+      },
+      "aiHistoryTable": {
+        "label": "Conversation table (optional)",
+        "help": "The table with the messages so far (columns role and content). The step reads the latest ones and saves the new message and the reply."
+      },
+      "aiHistoryFilter": {
+        "label": "Which conversation",
+        "help": "Values that pick this conversation's rows, like conversation_id. They are saved on the new rows too."
+      },
+      "aiHistoryLimit": {
+        "label": "Messages to remember",
+        "help": "How many of the latest messages the AI reads (1 to 100)."
+      },
+      "aiSafety": {
+        "label": "Safety",
+        "help": "Standard keeps replies safe for a general audience (no sexual content, crisis help). Off uses only your instructions."
+      },
+      "aiGoal": {
+        "label": "Goal or message",
+        "help": "What the agent should get done, or the person's next message."
+      },
+      "aiTools": {
+        "label": "Tools",
+        "help": "What the agent may use: another flow of this app, or a web address. Mark risky ones as needing approval."
+      },
+      "aiMaxSteps": {
+        "label": "Most steps per run",
+        "help": "The agent stops after this many tool uses (1 to 12) and reports where it got to."
+      },
+      "aiState": {
+        "label": "Continue from (optional)",
+        "help": "A saved state from an earlier run (its state value), to carry on a task."
+      },
+      "aiDecision": {
+        "label": "Approval decision (optional)",
+        "help": "For a run waiting on approval: approve or reject, usually from the request."
+      },
+      "aiApprovalsTable": {
+        "label": "Approvals table (optional)",
+        "help": "Where a waiting action is saved (columns tool, args, note, status, state), for an approvals page."
+      },
+      "aiSchema": {
+        "label": "Fields to fill in",
+        "help": "An example of the answer as JSON, like '{'\"title\":\"\",\"tags\":[]'}', or a JSON schema."
+      },
+      "aiImage": {
+        "label": "Picture",
+        "help": "An uploaded file (/uploads/…), an https address or a data URL, usually from the request."
+      },
+      "aiEmbedInput": {
+        "label": "Text",
+        "help": "The text to turn into an embedding."
+      },
+      "aiEmbedMode": {
+        "label": "What to make",
+        "help": "One embedding for the text, or pieces of a long text with one each (rows ready for \"Add many rows\")."
+      },
+      "aiQuery": {
+        "label": "Question",
+        "help": "What to look for, in plain words."
+      },
+      "aiField": {
+        "label": "Embedding column",
+        "help": "The column where the embeddings are saved."
+      },
+      "aiTopK": {
+        "label": "How many results",
+        "help": "The closest matches to return (1 to 50)."
+      },
+      "aiSpeechText": {
+        "label": "Text to read",
+        "help": "Usually the AI's reply."
+      },
+      "aiVoice": {
+        "label": "Voice (optional)",
+        "help": "A voice name your AI service knows, like alloy."
       }
     },
     "placeholders": {
@@ -398,7 +530,10 @@
       "keepCurrent": "leave blank to keep current value",
       "trueOrFalse": "true or false",
       "aNumber": "a number",
-      "fieldName": "field name (e.g. email)"
+      "fieldName": "field name (e.g. email)",
+      "aiPersona": "You are Nova, a cheerful companion who loves space facts...",
+      "aiGoal": "Find this week's unanswered emails and draft replies",
+      "aiConnection": "default"
     },
     "step": "Step",
     "deleteHelp": "Removes this step and its connections from the automation. There’s no undo, so you’d have to add it again.",
@@ -564,7 +699,30 @@
       "how4": "Scripts are killed after 3 seconds. If your code throws, the whole flow fails with your error message."
     },
     "rolePassHint": "Add a “Who is signed in” step before this one, or nobody will pass this check.",
-    "roleResult": "The answer, true or false, is saved as {name}. Follow this with an “If this, otherwise that” step that checks whether {token} is equal to true."
+    "roleResult": "The answer, true or false, is saved as {name}. Follow this with an “If this, otherwise that” step that checks whether {token} is equal to true.",
+    "aiOptions": {
+      "safetyStandard": "Standard",
+      "safetyNone": "Off",
+      "embedSingle": "One embedding",
+      "embedChunks": "Pieces of a long text"
+    },
+    "aiTool": {
+      "add": "Add a tool",
+      "remove": "Remove",
+      "name": "Name",
+      "description": "What it does",
+      "kind": "Uses",
+      "kindFlow": "A flow of this app",
+      "kindHttp": "A web address",
+      "flow": "Flow",
+      "url": "Address",
+      "method": "Method",
+      "params": "Arguments (comma separated)",
+      "needsApproval": "Needs approval",
+      "none": "No tools yet: the agent answers directly."
+    },
+    "aiKeyNote": "AI steps use this app's own AI key.",
+    "aiKeyLink": "AI keys"
   },
   "enabledSwitch": {
     "helpScheduled": "When paused, its scheduled runs stop and anything in your app that uses it gets an error instead. It applies straight away; no need to publish.",

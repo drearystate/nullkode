@@ -9,18 +9,20 @@ export async function GET() {
 }
 
 /**
- * A new game: {name?, engine: "phaser-2d" | "three-3d" | "auto", prompt?, images?}.
+ * A new game: {name?, engine: "phaser-2d" | "three-3d" | "auto", prompt?, images?, brand?}.
  * With a prompt its first build starts at once (images: reference images, lib/ai/references.ts).
+ * brand: a promotional game's branding {name, logo: {data, mediaType}, colors, link, offer} (lib/game-studio/brand.ts).
  */
 export async function POST(req: Request) {
   return withGameUser(async (user) => {
-    const body = await readJson<{ name?: string; engine?: string; prompt?: string; images?: unknown }>(req);
+    const body = await readJson<{ name?: string; engine?: string; prompt?: string; images?: unknown; brand?: unknown }>(req);
     const engine = body.engine === "auto" ? "auto" : isEngine(body.engine) ? body.engine : "phaser-2d";
     const { game, jobId } = await createGameAndBuild(user, {
       name: typeof body.name === "string" ? body.name : undefined,
       engine,
       prompt: typeof body.prompt === "string" ? body.prompt : "",
       images: body.images,
+      brand: body.brand,
     });
     return { game, jobId };
   });

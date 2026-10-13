@@ -4,6 +4,9 @@ import { publishGame } from "./events";
 import { KIT_VERSION, templateFiles, type Engine } from "./kits";
 import { asFeatures } from "./features";
 import { GameError } from "./errors";
+import { withBrandFile, type GameBrand } from "./brand";
+import { CONTINUE_COST, phaseCount, phaseOf, phaseViews, type PhaseInfo, type ReviewView } from "./phases";
+import { DEFAULT_LOCALE, isLocale } from "@/i18n/locales";
 import { translator } from "../ai/i18n";
 import type { Locale } from "@/i18n/locales";
 
@@ -89,8 +92,9 @@ export async function getGame(userId: string, gameId: string) {
 }
 
 /** A new game with the kit's starter files as version 0 (the empty, running shell). */
-export async function createGame(userId: string, opts: { name?: string; engine: Engine }): Promise<GameSummary> {
-  const files = templateFiles(opts.engine, KIT_VERSION);
+export async function createGame(userId: string, opts: { name?: string; engine: Engine; brand?: { brand: GameBrand; png: Buffer | null } | null }): Promise<GameSummary> {
+  // A promotional game starts with its brand file (brand.ts) in the empty shell already.
+  const files = opts.brand ? withBrandFile(templateFiles(opts.engine, KIT_VERSION), opts.brand.brand, opts.brand.png) : templateFiles(opts.engine, KIT_VERSION);
   const name = (opts.name ?? "").trim().slice(0, 120) || "Untitled game";
   const g = await db.gameProject.create({
     data: {
@@ -100,6 +104,7 @@ export async function createGame(userId: string, opts: { name?: string; engine: 
       kitVersion: KIT_VERSION,
       files,
       seq: 0,
+      ...(opts.brand ? { plan: { brand: opts.brand.brand } as unknown as Prisma.InputJsonValue } : {}),
       versions: { create: { seq: 0, files, stepLabel: "start", kind: "start" } },
     },
   });
@@ -118,7 +123,40 @@ export async function deleteGame(userId: string, gameId: string): Promise<void> 
   const g = await ownedGame(userId, gameId);
   await db.gameProject.update({ where: { id: gameId }, data: { deletedAt: new Date() } });
   await db.gameJob.updateMany({ where: { gameId, status: "running" }, data: { cancelRequested: true } });
+  // A build waiting at its check-in ends with the game.
+  await db.gameJob.updateMany({ where: { gameId, status: "review" }, data: { status: "cancelled", finishedAt: new Date() } });
   if (g.projectId) await db.project.deleteMany({ where: { id: g.projectId, ownerId: userId, kind: "DESIGNER" } });
+}
+
+/**
+ * The game's check-in, when a full game's build waits for the owner after a
+ * phase (phases.ts): the phases done and to come, the chat message with the
+ * question, and what "Keep building" costs. Null when nothing waits.
+ */
+export async function gameReview(gameId: string, opts: { question?: string; continueCost?: number } = {}): Promise<ReviewView | null> {
+  const job = await db.gameJob.findFirst({ where: { gameId, status: "review" }, orderBy: { startedAt: "desc" }, select: { id: true, steps: true, meta: true, stepIndex: true, startedAt: true } });
+  if (!job) return null;
+  const game = await db.gameProject.findUnique({ where: { id: gameId }, select: { plan: true } });
+  const meta = (job.meta ?? {}) as { review?: { at?: string; chatSeq?: number | null; phase?: number; free?: boolean } | null; locale?: string };
+  const steps = (Array.isArray(job.steps) ? job.steps : []) as Array<{ id?: string; label?: string; status?: string; phase?: number }>;
+  const phases = ((game?.plan ?? {}) as { phases?: PhaseInfo[] }).phases ?? [];
+  const at = Math.min(job.stepIndex, steps.length);
+  const phase = meta.review?.phase ?? (at > 0 ? phaseOf(steps, at - 1) : 1);
+  const views = phaseViews(phases, steps);
+  const chat = meta.review?.chatSeq ? await db.gameChat.findUnique({ where: { gameId_seq: { gameId, seq: meta.review.chatSeq } }, select: { text: true } }) : null;
+  return {
+    jobId: job.id,
+    phase,
+    phases: Math.max(phaseCount(steps), ...phases.map((p) => p.n)),
+    message: chat?.text ?? null,
+    // In the person's language (the job's), like the chat.
+    question: opts.question ?? translator(isLocale(meta.locale ?? "") ? (meta.locale as Locale) : DEFAULT_LOCALE, "games")("review.question"),
+    done: views.filter((p) => p.status === "done").map((p) => ({ n: p.n, name: p.name, summary: p.summary })),
+    next: views.filter((p) => p.status !== "done").map((p) => ({ n: p.n, name: p.name, summary: p.summary, steps: p.steps - p.done })),
+    // Back after a failure in a part already paid for: carrying on is free.
+    continueCost: meta.review?.free ? 0 : (opts.continueCost ?? CONTINUE_COST),
+    since: meta.review?.at ?? job.startedAt.toISOString(),
+  };
 }
 
 export async function readGameFiles(gameId: string): Promise<GameFiles> {

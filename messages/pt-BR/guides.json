@@ -568,21 +568,26 @@
   "game-studio": {
     "sections": {
       "0": {
+        "bullets": {
+          "0": "Vai criar um jogo para sua empresa ou uma promoção? Abra <b>Identidade visual</b>, abaixo da descrição (ela também aparece quando você responde que o jogo é para uma empresa). Adicione o nome da empresa, o logo, as cores da marca (ou <b>Usar as cores do logo</b>), seu site e uma <b>Oferta no final</b>, como \"Mostre esta tela e ganhe 10% de desconto\". O jogo mostra o nome e o logo na tela de título e na tela final, usa as cores da sua marca e termina com sua oferta e um botão que abre seu site. Você pode mudar a identidade visual depois em <b>Identidade visual</b>, acima do jogo."
+        },
         "heading": "Comece um jogo",
         "steps": {
           "0": "Clique em <b>Jogos</b> na barra superior. No painel, você também pode escolher <b>Criar um jogo</b>.",
           "1": "Em <b>Que tipo de jogo você quer criar?</b>, descreva seu jogo: o que o jogador faz, o que coleta ou evita e como ele deve ser. Você também pode tocar em uma das ideias de exemplo e alterá-la.",
           "2": "Escolha <b>2D</b>, <b>3D</b> ou <b>Deixe a IA escolher</b>. Para mostrar o visual que você quer, adicione imagens pelo botão de imagem.",
-          "3": "Clique em <b>Criar</b>. A IA pode fazer <b>Algumas perguntas rápidas primeiro</b>. Escolha ou digite as respostas e clique em <b>Criar</b> ou em <b>Pular perguntas</b>."
+          "3": "Pressione <b>Criar</b>. A IA pode fazer <b>Algumas perguntas rápidas primeiro</b>. Escolha ou digite as respostas e depois pressione <b>Criar</b> ou <b>Pular perguntas</b>. Onde aparecer <b>Escolha quantas quiser</b>, você pode escolher várias respostas e digitar outras no campo."
         }
       },
       "1": {
         "body": {
-          "0": "Primeiro, a IA cria um <b>Plano do jogo</b>: o tipo de jogo, como jogar, como vencer e perder e o visual. Ela escolhe imagens e sons da biblioteca de recursos que combinam com o jogo.",
-          "1": "Em <b>Direção de arte</b> no plano, você vê o visual escolhido para o seu jogo: as cores, a câmera, as formas, a iluminação, a interface e o movimento. Cada etapa segue essa direção, então o jogo já parece pronto desde o início.",
-          "2": "Depois, ele cria o jogo em pequenas etapas, exibidas no chat com uma marca de concluído ao fim de cada uma. Após cada etapa, o jogo à direita é atualizado na hora e você já pode jogar: primeiro o cenário, depois o personagem e os controles, a fase, os itens para coletar, os inimigos, os menus, os sons e os retoques finais.",
-          "3": "Cada etapa é verificada antes de entrar no seu jogo: ela precisa carregar e funcionar sem erros. Se uma etapa falhar, há mais uma tentativa.",
-          "4": "Depois da fase, dos inimigos e dos retoques finais, um testador joga como qualquer jogador: verifica se dá para fazer todos os saltos, alcançar o objetivo e os itens coletáveis, se o início é seguro, se o personagem fica fácil de ver e se os botões de toque não cobrem nada. Ele também confere o jogo em uma tela de computador e em um celular e verifica se tudo parece fazer parte de um único jogo pronto. O testador conta no chat o que encontrou. Problemas importantes são corrigidos na hora, em uma etapa extra; os menores, na etapa seguinte."
+          "0": "A IA primeiro cria um <b>Plano do jogo</b> completo, não uma demonstração rápida: o tipo de jogo, como jogar, como vencer e perder e o visual. Em <b>O jogo completo</b>, ela lista as fases e os mundos, os inimigos, as novidades ao longo do jogo, a progressão e o salvamento, os chefes e o final, além de uma estimativa de quanto tempo leva para jogar. Ela escolhe artes e sons da biblioteca de recursos que combinam com o jogo.",
+          "1": "O jogo é criado em <b>Fases de criação</b>. A primeira fase é uma parte jogável, com o menu, os controles principais e a primeira ou as duas primeiras fases prontas. Então, a IA para e pergunta: <b>Quer que eu continue criando nessa direção ou faça algumas mudanças?</b> Jogue e depois pressione <b>Continuar criando (usa 1 ação de IA)</b> para criar o restante do jogo, ou pressione <b>Fazer mudanças</b> e descreva o que quer mudar. Mudanças pequenas são feitas enquanto a criação continua; as grandes são feitas primeiro, para você poder testá-las. Os jogos que aguardam você mostram <b>Aguardando você</b> no painel e em <b>Jogos</b>.",
+          "2": "Em <b>Direção de arte</b>, no plano, você vê o visual escolhido para o jogo: as cores, a câmera, as formas, a iluminação, a interface e os movimentos. Cada etapa segue essa direção, para o jogo parecer pronto desde o início.",
+          "3": "Depois, o jogo é criado em pequenas etapas, exibidas no chat com uma marca de seleção quando cada uma é concluída. Após cada etapa, o jogo à direita é atualizado na hora e você já pode jogar: primeiro o cenário, depois o personagem e os controles, a fase, os itens para coletar, os inimigos, os menus, os sons e os retoques finais.",
+          "4": "Cada etapa é verificada antes de entrar no jogo: ela precisa carregar e funcionar sem erros. Se uma etapa falhar, haverá mais uma tentativa.",
+          "5": "Depois de criar a fase, os inimigos e dar os retoques finais, uma pessoa testa o jogo como se fosse jogá-lo: dá para fazer todos os saltos, alcançar o objetivo e coletar os itens, o início é seguro, o jogador fica fácil de ver, os botões de toque cobrem alguma coisa? Ela também confere o jogo em uma tela de computador e em um celular e verifica se tudo parece parte de um jogo pronto. Ela conta no chat o que encontrou. Os problemas reais são corrigidos na próxima etapa ou em uma etapa extra no fim de uma fase; os menores ficam anotados para etapas futuras.",
+          "6": "Acima do chat, <b>Recursos</b> lista tudo o que seu jogo tem: os recursos do plano e tudo o que foi adicionado depois com suas mensagens e anotações, cada um com o resultado do teste e a origem (por exemplo, \"Adicionado pela sua mensagem …\"). Todos os recursos são testados novamente após cada alteração, e a IA mantém todos: só remove um quando você pede. Uma alteração que quebraria um recurso não é mantida, e o chat conta qual recurso seria afetado. Use <b>Adicionar recurso</b> para incluir algo novo, <b>Remover</b> para retirar um recurso e <b>Histórico</b> para ver quando cada um foi adicionado, alterado ou removido. Para um jogo feito em outro lugar, <b>Listar recursos dos arquivos do jogo</b> cria a lista para você confirmar."
         },
         "heading": "Veja o jogo ganhar forma"
       },

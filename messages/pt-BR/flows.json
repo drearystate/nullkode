@@ -53,9 +53,37 @@
       "help": "Conta registros ou soma os valores de uma coluna em uma tabela, como o número de cadastros ou o total de vendas. Os próximos passos podem usar o resultado.",
       "label": "Contar ou somar registros"
     },
+    "ai_agent": {
+      "help": "Trabalha para alcançar um objetivo usando as ferramentas que você listar (fluxos deste app ou endereços da web), passo a passo. Ferramentas marcadas como \"precisa de aprovação\" aguardam a aprovação de uma pessoa. Usa a chave de IA deste app.",
+      "label": "Agente de IA"
+    },
+    "ai_chat": {
+      "help": "Responde a uma mensagem em uma conversa, usando uma personalidade e o histórico da conversa em uma tabela (também pode salvar os dois). Para chatbots e companheiros de IA. Usa a chave de IA deste app.",
+      "label": "Resposta de chat com IA"
+    },
+    "ai_embed": {
+      "help": "Transforma um texto em números que representam seu significado ou divide um texto longo em partes, com números para cada uma, prontas para salvar. Usado com \"Buscar por significado\". Usa a chave de IA deste app.",
+      "label": "Embeddings de IA"
+    },
     "ai_prompt": {
-      "help": "Dá uma pergunta ou tarefa para a IA, como resumir uma mensagem. Os próximos passos podem usar a resposta. Cada execução conta para o seu limite de uso de IA.",
+      "help": "Dá à IA uma pergunta ou tarefa, como resumir uma mensagem. Etapas posteriores podem usar a resposta. Usa a chave de IA deste app (chaves de IA).",
       "label": "Perguntar à IA"
+    },
+    "ai_search": {
+      "help": "Encontra os registros de uma tabela com significado mais próximo ao de uma pergunta, usando os embeddings salvos neles. Lê até 1.000 registros por busca.",
+      "label": "Buscar por significado"
+    },
+    "ai_speech": {
+      "help": "Transforma texto em fala com a chave de IA do app, se ela puder falar; caso contrário, a página lê o texto com a voz do navegador.",
+      "label": "Ler em voz alta"
+    },
+    "ai_structured": {
+      "help": "Pede à IA uma resposta em formato de dados, com os campos que você descreve (JSON), para que etapas posteriores possam salvar ou verificar cada campo. Usa a chave de IA deste app.",
+      "label": "Resposta da IA como dados"
+    },
+    "ai_vision": {
+      "help": "Envia uma imagem com uma pergunta para a IA (um arquivo enviado, um endereço https ou uma URL de dados). Usa a chave de IA deste app.",
+      "label": "IA analisa uma imagem"
     },
     "branch": {
       "help": "Verifica uma condição e divide a automação em dois caminhos: um é executado se ela for verdadeira, e o outro, se não for.",
@@ -271,6 +299,29 @@
       "sum": "Somar uma coluna"
     },
     "aggregateEmptyHint": "Deixe vazio para incluir todas as linhas. Todas as condições precisam corresponder.",
+    "aiKeyLink": "Chaves de IA",
+    "aiKeyNote": "As etapas de IA usam a chave de IA deste app.",
+    "aiOptions": {
+      "embedChunks": "Partes de um texto longo",
+      "embedSingle": "Um vetor",
+      "safetyNone": "Desativada",
+      "safetyStandard": "Padrão"
+    },
+    "aiTool": {
+      "add": "Adicionar uma ferramenta",
+      "description": "O que faz",
+      "flow": "Fluxo",
+      "kind": "Usa",
+      "kindFlow": "Um fluxo deste app",
+      "kindHttp": "Um endereço da web",
+      "method": "Método",
+      "name": "Nome",
+      "needsApproval": "Precisa de aprovação",
+      "none": "Ainda não há ferramentas: o agente responde diretamente.",
+      "params": "Argumentos (separados por vírgula)",
+      "remove": "Remover",
+      "url": "Endereço"
+    },
     "biggestFirst": "Maior resultado primeiro",
     "body": "Corpo",
     "bodyEmpty": "Adicione os campos que serão enviados no corpo da solicitação.",
@@ -287,13 +338,109 @@
     "deleteHelp": "Remove esta etapa e as conexões dela da automação. Não é possível desfazer, então você teria que adicioná-la novamente.",
     "deleteNeedsCondition": "É necessária uma condição para excluir — caso contrário, a etapa vai falhar.",
     "fields": {
+      "aiApprovalsTable": {
+        "help": "Onde uma ação aguardando aprovação é salva (colunas tool, args, note, status, state), para uma página de aprovações.",
+        "label": "Tabela de aprovações (opcional)"
+      },
+      "aiConnection": {
+        "help": "Qual chave de IA deste app usar, pelo nome. Vazio: usa a chave padrão do app.",
+        "label": "Conexão de IA (opcional)"
+      },
+      "aiContext": {
+        "help": "Informações para esta resposta, como o que a IA lembra sobre a pessoa ou o humor dela.",
+        "label": "Contexto extra (opcional)"
+      },
+      "aiDecision": {
+        "help": "Para uma execução aguardando aprovação: aprovar ou rejeitar, geralmente a partir da solicitação.",
+        "label": "Decisão de aprovação (opcional)"
+      },
+      "aiEmbedInput": {
+        "help": "O texto que será transformado em embedding.",
+        "label": "Texto"
+      },
+      "aiEmbedMode": {
+        "help": "Um vetor para o texto ou partes de um texto longo, com um para cada parte (linhas prontas para \"Adicionar várias linhas\").",
+        "label": "O que criar"
+      },
+      "aiField": {
+        "help": "A coluna onde os vetores são salvos.",
+        "label": "Coluna de vetores"
+      },
+      "aiGoal": {
+        "help": "O que o agente deve fazer ou a próxima mensagem da pessoa.",
+        "label": "Objetivo ou mensagem"
+      },
+      "aiHistoryFilter": {
+        "help": "Valores que selecionam os registros desta conversa, como conversation_id. Eles também são salvos nos novos registros.",
+        "label": "Qual conversa"
+      },
+      "aiHistoryLimit": {
+        "help": "Quantas das mensagens mais recentes a IA lê (de 1 a 100).",
+        "label": "Mensagens para lembrar"
+      },
+      "aiHistoryTable": {
+        "help": "A tabela com as mensagens anteriores (colunas role e content). A etapa lê as mais recentes e salva a nova mensagem e a resposta.",
+        "label": "Tabela da conversa (opcional)"
+      },
+      "aiImage": {
+        "help": "Um arquivo enviado (/uploads/…), um endereço https ou uma URL de dados, geralmente da solicitação.",
+        "label": "Imagem"
+      },
+      "aiMaxSteps": {
+        "help": "O agente para depois de usar as ferramentas este número de vezes (de 1 a 12) e informa até onde chegou.",
+        "label": "Máximo de etapas por execução"
+      },
+      "aiMessage": {
+        "help": "O que a pessoa acabou de escrever, geralmente '{{'trigger.message'}}'.",
+        "label": "A nova mensagem"
+      },
+      "aiModel": {
+        "help": "Usa outro modelo nesta etapa, diferente do modelo da conexão.",
+        "label": "Modelo (opcional)"
+      },
+      "aiPersona": {
+        "help": "Quem é a IA e como ela fala, por exemplo, uma orientadora simpática que dá respostas curtas.",
+        "label": "Personalidade e instruções"
+      },
       "aiPrompt": {
         "help": "A pergunta ou tarefa para a IA. Insira valores para incluir informações como a mensagem do cliente.",
         "label": "Comando"
       },
+      "aiQuery": {
+        "help": "O que procurar, em palavras simples.",
+        "label": "Pergunta"
+      },
+      "aiSafety": {
+        "help": "A opção padrão mantém as respostas seguras para o público em geral (sem conteúdo sexual e com ajuda em situações de crise). Desativada, usa apenas suas instruções.",
+        "label": "Segurança"
+      },
+      "aiSchema": {
+        "help": "Um exemplo da resposta em JSON, como '{'\"title\":\"\",\"tags\":[]'}', ou um esquema JSON.",
+        "label": "Campos para preencher"
+      },
+      "aiSpeechText": {
+        "help": "Geralmente, a resposta da IA.",
+        "label": "Texto para ler"
+      },
+      "aiState": {
+        "help": "Um estado salvo de uma execução anterior (o valor do estado), para continuar uma tarefa.",
+        "label": "Continuar de (opcional)"
+      },
       "aiSystem": {
         "help": "Informações de contexto para a IA, que permanecem iguais sempre, como “Responda com uma frase simpática” ou “Você trabalha em uma padaria”.",
         "label": "Instruções para a IA (opcional)"
+      },
+      "aiTools": {
+        "help": "O que o agente pode usar: outro fluxo deste app ou um endereço da web. Marque as ferramentas arriscadas como aquelas que precisam de aprovação.",
+        "label": "Ferramentas"
+      },
+      "aiTopK": {
+        "help": "As correspondências mais próximas que serão retornadas (de 1 a 50).",
+        "label": "Número de resultados"
+      },
+      "aiVoice": {
+        "help": "Um nome de voz reconhecido pelo seu serviço de IA, como alloy.",
+        "label": "Voz (opcional)"
       },
       "dataSource": {
         "help": "Onde seus dados ficam armazenados. A maioria dos apps tem apenas o banco de dados integrado; escolha outra opção somente se você tiver conectado uma.",
@@ -533,6 +680,9 @@
     "pickTable": "Escolha uma lista de registros para configurar esta etapa.",
     "placeholders": {
       "aNumber": "um número",
+      "aiConnection": "padrão",
+      "aiGoal": "Encontre os e-mails desta semana que ainda não foram respondidos e escreva rascunhos de resposta",
+      "aiPersona": "Você é Nova, uma companhia alegre que adora fatos sobre o espaço...",
       "aiPrompt": "Resuma esta mensagem de cliente...",
       "aiSystem": "Você é um assistente prestativo...",
       "eg10": "ex.: 10",
@@ -754,6 +904,14 @@
   },
   "summary": {
     "aggregateFallback": "Contar ou somar registros",
+    "aiAgent": "{count, plural, =0 {Nenhuma ferramenta ainda} one {# ferramenta} other {# ferramentas}}",
+    "aiChat": "Responder a uma mensagem",
+    "aiChatWithHistory": "Responder lembrando de {table}",
+    "aiEmbed": "Texto em embedding",
+    "aiEmbedChunks": "Texto longo em partes",
+    "aiSpeech": "Falar o texto",
+    "aiStructured": "Responder como dados",
+    "aiVision": "Analisar uma imagem",
     "askAi": "Fazer uma pergunta à IA",
     "bulkDeleteFallback": "Excluir várias linhas de uma vez",
     "bulkInsertFallback": "Adicionar várias linhas de uma vez",

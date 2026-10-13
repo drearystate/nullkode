@@ -1,4 +1,12 @@
 {
+  "aiKey": {
+    "add": "在这里添加密钥：",
+    "change": "{app} 有 AI 步骤。现在，{platform} 上已发布的应用会使用自己的 AI 密钥，而不是平台的 AI，因此这些步骤已暂停，直到你添加密钥。",
+    "once": "这封邮件是关于此应用的唯一一封相关邮件。",
+    "subject": "{app}：添加你自己的 AI 密钥",
+    "visitor": "有人刚刚使用了 {app} 的 AI 功能，但这个应用没有自己的 AI 密钥，所以它告诉对方：“此应用的 AI 尚未设置。”",
+    "why": "添加 OpenAI、Google Gemini、xAI (Grok)、OpenRouter 或任何兼容 OpenAI 的服务器的密钥（你自己的 Ollama 或 LM Studio 也可以）。密钥会加密保存在服务器上，绝不会向访客显示。保存后，AI 功能就会开始运行。"
+  },
   "aiQuota": {
     "body80": "{reseller} 本月已使用 {used}/{max} 次 AI 操作。次数用完后，在 {resets} 之前，你和你的客户将无法使用 AI 创建和编辑。",
     "bodyFull": "{reseller} 本月的 {max} 次 AI 操作已全部用完。在 {resets} 之前，你和你的客户将无法使用 AI 创建和编辑。",

@@ -35,9 +35,11 @@ export type ScaffoldEvent =
   /** `name`: the table, page or flow a milestone is about (the message is in the person's language). */
   | { type: "progress"; step: string; message: string; name?: string }
   | { type: "plan"; totalTables: number; totalPages: number; totalFlows: number }
-  | { type: "planned"; plan: AppPlan }
+  /** `aiNotice`: the plan has AI features and the person must add their own AI key (docs/ai-in-apps.md). */
+  | { type: "planned"; plan: AppPlan; aiNotice?: string }
   | { type: "token"; text: string }
-  | { type: "done"; projectId: string; homePageId: string }
+  /** `aiNotice`: the app has AI steps and no AI key of its own yet (never for the platform owner). */
+  | { type: "done"; projectId: string; homePageId: string; aiNotice?: string }
   /** `refunded`: the failed build's AI action was given back ("didn't count"). */
   | { type: "error"; message: string; refunded?: boolean; code?: string };
 

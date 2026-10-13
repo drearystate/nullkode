@@ -18,6 +18,8 @@ export type InstallResult = {
   /** Every page of the app afterwards, home first, oldest first. */
   pages: Array<{ id: string; title: string; slug: string; isHome: boolean }>;
   installed: InstalledModule[];
+  /** The feature uses AI and the app has no AI key of its own yet (docs/ai-in-apps.md). */
+  aiNotice?: string;
 };
 
 /** The plain-words line about what a feature needs, or null. */
@@ -65,6 +67,9 @@ export function InstallDialog({ projectId, projectName, module, installedCount =
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [needs, setNeeds] = useState<Array<{ id: string; name: string }>>([]);
+  // Added, but its AI needs the person's own key: say so before moving on.
+  const [aiDone, setAiDone] = useState<InstallResult | null>(null);
+  const tk = useTranslations("aiKeys");
   const busyRef = useRef(false);
 
   useEffect(() => {
@@ -101,6 +106,12 @@ export function InstallDialog({ projectId, projectName, module, installedCount =
         setNeeds(Array.isArray(data.needs) ? data.needs : []);
         throw new Error(data.error ?? t("addFailed"));
       }
+      if ((data as InstallResult).aiNotice) {
+        setAiDone(data as InstallResult);
+        busyRef.current = false;
+        setBusy(false);
+        return;
+      }
       await onInstalled(data as InstallResult);
     } catch (err) {
       setError(err instanceof Error ? err.message : t("addFailed"));
@@ -135,6 +146,18 @@ export function InstallDialog({ projectId, projectName, module, installedCount =
           </div>
         </div>
 
+        {aiDone ? (
+          <div className="space-y-4 p-6" data-testid="module-ai-notice">
+            <p role="status" className="rounded-lg border border-amber-400/30 bg-amber-400/10 p-3 text-sm text-amber-100">
+              <span className="block font-medium">{tk("notice.title")}</span>
+              <span className="mt-1 block">{aiDone.aiNotice}</span>
+            </p>
+            <div className="flex flex-wrap justify-end gap-2">
+              <a className="btn-ghost" href={`/projects/${projectId}/ai`}>{tk("notice.cta")}</a>
+              <button type="button" className="btn-primary" onClick={() => void onInstalled(aiDone)}>{t("continue")}</button>
+            </div>
+          </div>
+        ) : (<>
         <div className="min-h-0 flex-1 space-y-4 overflow-y-auto p-6">
           {installedCount > 0 && (
             <div className="rounded-lg border border-amber-400/30 bg-amber-400/10 p-3 text-sm text-amber-100">
@@ -232,6 +255,7 @@ export function InstallDialog({ projectId, projectName, module, installedCount =
             {busy ? t("adding") : installedCount > 0 ? t("addAnother") : t("addToApp")}
           </button>
         </div>
+        </>)}
       </div>
     </div>
   );

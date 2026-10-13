@@ -71,6 +71,9 @@ import { weddingRsvp } from "./definitions/wedding-rsvp";
 import { budget } from "./definitions/budget";
 // AI + Utility
 import { aiAssistant } from "./definitions/ai-assistant";
+import { aiCompanion } from "./definitions/ai-companion";
+import { aiAgent } from "./definitions/ai-agent";
+import { knowledgeBot } from "./definitions/knowledge-bot";
 import { emergencyContacts } from "./definitions/emergency-contacts";
 
 // --- Wave 3: advanced features ---
@@ -237,6 +240,9 @@ export const MODULE_REGISTRY: ModuleDefinition[] = [
   course,
   // AI
   aiAssistant,
+  aiCompanion,
+  aiAgent,
+  knowledgeBot,
   // Utility
   links,
   places,

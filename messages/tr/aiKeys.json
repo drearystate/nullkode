@@ -1,0 +1,123 @@
+{
+  "banner": {
+    "body": "Bu uygulamada yapay zekâ adımları var. Yayınlanan uygulamalar platformun yapay zekâsı yerine kendi yapay zekâ anahtarlarını kullanır. Bu adımların çalışması için bir anahtar ekleyin.",
+    "cta": "Yapay zekâ anahtarı ekle",
+    "title": "Bu uygulamanın yapay zekâsı ayarlanmadı"
+  },
+  "dashboard": {
+    "app": "{name} için anahtar ekle",
+    "body": "Yayınlanan uygulamalar, yapay zekâ özellikleri için artık platformun yapay zekâsı yerine kendi yapay zekâ anahtarlarını kullanıyor. Anahtar ekleyene kadar ziyaretçiler “Bu uygulamanın yapay zekâsı henüz ayarlanmadı.” mesajını görür.",
+    "title": "Bazı uygulamalarınız için kendi yapay zekâ anahtarınız gerekiyor"
+  },
+  "errors": {
+    "baseUrlBad": "Bu adres kullanılamıyor. Kullanıcı adı veya parola içermeyen bir http:// ya da https:// adresi girin.",
+    "baseUrlMissing": "Sunucu adresini girin (ör. https://ai.example.com/v1).",
+    "invalid": "Bazı bilgiler eksik veya yanlış biçimde.",
+    "keyBad": "Bu, geçerli bir API anahtarına benzemiyor.",
+    "keyMissing": "API anahtarını girin.",
+    "model": "Kullanılacak modeli girin.",
+    "network": "Sunucuya bağlanılamadı. Bağlantınızı kontrol edip yeniden deneyin.",
+    "notFound": "Bu yapay zekâ bağlantısı bulunamadı.",
+    "provider": "Bir yapay zekâ hizmeti seçin.",
+    "saveFailed": "Anahtar kaydedilemedi. Lütfen yeniden deneyin.",
+    "tooManyTests": "Kısa sürede çok fazla test yaptınız. Birkaç dakika bekleyin."
+  },
+  "form": {
+    "addTitle": "Yapay zekâ anahtarı ekle",
+    "apiKey": "API anahtarı",
+    "apiKeyHelp": "Bir kez yapıştırılır, ardından şifrelenerek saklanır. Bir daha gösterilmez.",
+    "apiKeySaved": "Kaydedildi ({hint}). Koruması için boş bırakın.",
+    "baseUrl": "Sunucu adresi",
+    "baseUrlHelp": "API adresi; örneğin https://ai.example.com/v1. Listelenen hizmetler için isteğe bağlıdır.",
+    "can": "Bu hizmet şunları destekler: {list}",
+    "canChat": "sohbet",
+    "canEmbed": "anlam araması",
+    "canSpeech": "ses",
+    "canVision": "görseller",
+    "cancel": "İptal",
+    "chatModel": "Sohbet modeli",
+    "chatModelHelp": "Ana modelden farklıysa sohbet yanıtları ve ajanlar için kullanılır.",
+    "editTitle": "“{name}” bağlantısını değiştir",
+    "embedModel": "Anlam araması modeli",
+    "embedModelHelp": "Anlam tabanlı arama ve bilgi botları için kullanılır.",
+    "makeDefault": "Varsayılan bağlantı olarak kullan",
+    "model": "Model",
+    "modelExample": "Örneğin {model}",
+    "modelHelp": "Yapay zekâ adımlarınızın kullanacağı model. Hizmetinizde nasıl adlandırılıyorsa öyle yazın.",
+    "more": "Diğer modeller (isteğe bağlı)",
+    "name": "Bağlantı adı",
+    "nameHelp": "Yapay zekâ adımlarının seçebileceği kısa bir ad (örneğin, konuşabilen ikinci bir anahtar için “ses”). Tek anahtarınız varsa “varsayılan” olarak bırakın.",
+    "provider": "Yapay zekâ hizmeti",
+    "providerHelp": "Anahtarınızı aldığınız hizmet. Son seçenekte kendi Ollama veya LM Studio’nuz dâhil OpenAI tarzı API kullanan tüm hizmetler çalışır.",
+    "save": "Anahtarı kaydet",
+    "saved": "Kaydedildi.",
+    "saving": "Kaydediliyor…",
+    "speechModel": "Ses modeli",
+    "speechModelHelp": "Yanıtları sesli okumak için kullanılır. Model yoksa sayfalar tarayıcının kendi sesini kullanır.",
+    "test": "Kaydetmeden önce test et",
+    "visionModel": "Görsel modeli",
+    "visionModelHelp": "Görsellere bakan adımlar için kullanılır.",
+    "voice": "Ses"
+  },
+  "limits": {
+    "intro": "Anahtarınızı kötüye kullanıma karşı korur: sınıra ulaşıldığında yapay zekâ adımları saat bitene kadar bekler.",
+    "perHour": "Tüm uygulama için saatteki yapay zekâ isteği sayısı",
+    "perVisitorHour": "Bir ziyaretçi için saatteki yapay zekâ isteği sayısı",
+    "save": "Sınırları kaydet",
+    "saved": "Sınırlar kaydedildi.",
+    "title": "Sınırlar"
+  },
+  "list": {
+    "default": "Varsayılan",
+    "edit": "Değiştir",
+    "empty": "Henüz yapay zekâ anahtarı yok.",
+    "key": "Anahtar",
+    "lastFailed": "Son test başarısız: {when}",
+    "lastOk": "Son test başarılı: {when}",
+    "makeDefault": "Varsayılan yap",
+    "makeDefaultHelp": "Bağlantıyı adıyla seçmeyen yapay zekâ adımları varsayılan bağlantıyı kullanır.",
+    "model": "Model",
+    "name": "Ad: {name}",
+    "remove": "Kaldır",
+    "removeConfirm": "“{name}” yapay zekâ bağlantısı kaldırılsın mı? Yerine başka bir anahtar ekleyene kadar bu bağlantıyı kullanan yapay zekâ adımları çalışmaz.",
+    "test": "Bağlantıyı test et",
+    "testing": "Test ediliyor…",
+    "title": "Bağlantılar"
+  },
+  "notice": {
+    "body": "Bu uygulamada yapay zekâ özellikleri var. Yayınlanan uygulamalar platformun yapay zekâsını kullanamaz. Yapay zekâ özelliklerini kullanıma açmadan önce kendi yapay zekâ anahtarınızı ekleyin (OpenAI, Google Gemini, xAI, OpenRouter veya OpenAI uyumlu herhangi bir sunucu).",
+    "cta": "Yapay zekâ anahtarı ekle",
+    "later": "İstediğiniz zaman uygulamanın yapay zekâ anahtarları bölümünden ekleyebilirsiniz.",
+    "title": "Uygulamanızın yapay zekâsı için kendi anahtarınız gerekiyor"
+  },
+  "page": {
+    "eyebrow": "Yapay zekâ anahtarları",
+    "intro": "Yayınlanan uygulamanızdaki yapay zekâ özellikleri (sohbet, yardımcılar, ajanlar, anlam tabanlı arama) uygulamanın kendi yapay zekâ anahtarıyla çalışır. Platformun yapay zekâsı uygulamanızı oluşturur ve düzenler, ancak kullanıcılar uygulamanızı kullanırken devreye girmez.",
+    "introHelp": "Ücretini ödediğiniz bir yapay zekâ hizmetinin anahtarını ekleyin. Uygulamanızın yapay zekâ adımları bu anahtarı önizlemede ve yayınlanan uygulamada kullanır.",
+    "needsKey": "Bu uygulamada yapay zekâ adımları var ama henüz anahtar yok. Bu yüzden ziyaretçiler “Bu uygulamanın yapay zekâsı henüz ayarlanmadı.” mesajını görür. Aşağıdan bir anahtar ekleyin.",
+    "noAiYet": "Bu uygulamada henüz yapay zekâ adımı yok. Şimdi bir anahtar ekleyin; daha sonra ekleyeceğiniz yapay zekâ adımları hemen çalışsın.",
+    "ownerNote": "Bu platformu siz yönetiyorsunuz. Bu uygulamanın kendi anahtarı olmadığı sürece yapay zekâ adımları platformun yapay zekâsını kullanır. Bunun yerine kendi anahtarınızı kullanmak için buraya ekleyin.",
+    "ready": "Bu uygulamanın yapay zekâsı ayarlandı.",
+    "security": "Anahtarlar sunucuda şifrelenerek saklanır. Uygulamanızın sayfalarına veya ziyaretçilere gönderilmez, kayıtlara yazılmaz ve kaydettikten sonra tekrar gösterilmez.",
+    "title": "Uygulamanızın kendi yapay zekâsı"
+  },
+  "providers": {
+    "anthropic": "Messages API (sk-ant- ile başlayan anahtarlar)",
+    "custom": "OpenAI uyumlu tüm sunucular (Ollama, LM Studio, vLLM…)",
+    "gemini": "Google Gemini",
+    "openai": "OpenAI",
+    "openrouter": "OpenRouter",
+    "xai": "xAI (Grok)"
+  },
+  "test": {
+    "detail": "Ayrıntılar: {detail}",
+    "key": "Yapay zekâ hizmeti anahtarı kabul etmedi. Doğru ve hâlâ etkin olup olmadığını kontrol edin.",
+    "model": "Yapay zekâ hizmeti bu modeli veya adresi tanımıyor. Model adını ve adresi kontrol edin.",
+    "ok": "Bağlandı. Yapay zekâ yanıt verdi.",
+    "other": "Test başarısız oldu.",
+    "private": "Bu adres özel bir ağda. Bu sunucudaki uygulamalar bu ağa erişemiyor.",
+    "quota": "Yapay zekâ hizmeti, bu anahtarın kullanım sınırını aştığını veya kredisi kalmadığını belirtiyor.",
+    "timeout": "Yapay zekâ hizmetinin yanıt vermesi çok uzun sürdü.",
+    "unreadable": "Kayıtlı anahtar artık okunamıyor. Yeniden girin."
+  }
+}

@@ -255,7 +255,8 @@
     "tooManyAccounts": "Too many accounts have been created from this network today.",
     "permanentEmail": "Please sign up with a permanent email address.",
     "alreadyRegistered": "Email already registered",
-    "domainNoMail": "That email domain doesn't accept mail. Please use a different address."
+    "domainNoMail": "That email domain doesn't accept mail. Please use a different address.",
+    "oneFreeAccount": "A free account has already been created from this network. Please sign in to it instead."
   },
   "account": {
     "ownerOnlyDelete": "Only the person who owns this account can delete it. Admins can delete accounts from Admin, under Users.",

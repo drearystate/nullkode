@@ -2,12 +2,14 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { ArrowRight, Box, Gamepad2, MoreHorizontal, Pencil, Sparkles, Square, Trash2 } from "lucide-react";
+import { ArrowRight, Box, ChevronDown, Gamepad2, MoreHorizontal, Pencil, Sparkles, Square, Store, Trash2 } from "lucide-react";
+import { ClarifyQuestions, clarifyAnswerLines, saidBusiness, type ClarifyAnswers, type ClarifyQuestion } from "@/components/ai/clarify-questions";
+import { BrandForm, brandFilled, brandPayload, EMPTY_BRAND, type BrandDraft } from "./brand-form";
 import { useFormatter, useTranslations } from "next-intl";
 import { addImageFiles, imagesFromPaste, ReferencePicker, referenceDropProps, type PickedImage } from "@/components/ai/reference-picker";
 
 type GameCard = { id: string; name: string; engine: "phaser-2d" | "three-3d"; status: string; published: boolean; seq: number; shotSeq: number | null; updatedAt: string };
-type Question = { id: string; label: string; options?: string[] };
+type Question = ClarifyQuestion;
 type EngineChoice = "phaser-2d" | "three-3d" | "auto";
 
 const IDEAS = ["catFish", "spaceShooter", "dungeon", "runner", "kart", "puzzle"] as const;
@@ -36,7 +38,10 @@ export function GamesHome({ available, aiReady }: { available: boolean; aiReady:
   const [dropping, setDropping] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
-  const [questions, setQuestions] = useState<{ prompt: string; list: Question[]; answers: Record<string, string> } | null>(null);
+  const [questions, setQuestions] = useState<{ prompt: string; list: Question[]; answers: ClarifyAnswers } | null>(null);
+  // Branding for a promotional game: optional, collapsed until opened (or the person says the game is for a business).
+  const [brandOpen, setBrandOpen] = useState(false);
+  const [brand, setBrand] = useState<BrandDraft>(EMPTY_BRAND);
   const box = useRef<HTMLTextAreaElement>(null);
   const ready = available && aiReady;
 
@@ -56,7 +61,7 @@ export function GamesHome({ available, aiReady }: { available: boolean; aiReady:
     setError("");
     setImageError(null);
     const sent = images.filter((i) => i.dataUrl).map((i) => ({ data: i.dataUrl!, mediaType: i.mediaType, name: i.name }));
-    const res = await fetch("/api/games", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ prompt: text, engine, ...(sent.length ? { images: sent } : {}) }) }).catch(() => null);
+    const res = await fetch("/api/games", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ prompt: text, engine, ...(sent.length ? { images: sent } : {}), ...(brandFilled(brand) ? { brand: brandPayload(brand) } : {}) }) }).catch(() => null);
     const data = (await res?.json().catch(() => ({}))) ?? {};
     if (!res?.ok || !data.game?.id) {
       setBusy(false);
@@ -85,7 +90,7 @@ export function GamesHome({ available, aiReady }: { available: boolean; aiReady:
 
   function buildWithAnswers(skip: boolean) {
     if (!questions) return;
-    const answers = skip ? "" : questions.list.map((q) => (questions.answers[q.id] ? `${q.label} ${questions.answers[q.id]}` : "")).filter(Boolean).join("\n");
+    const answers = skip ? "" : clarifyAnswerLines(questions.list, questions.answers);
     const text = answers ? `${questions.prompt}\n\n${answers}` : questions.prompt;
     setQuestions(null);
     void create(text);
@@ -139,22 +144,35 @@ export function GamesHome({ available, aiReady }: { available: boolean; aiReady:
           </div>
         </form>
         {error && <p role="alert" className="mx-auto mt-3 max-w-3xl text-sm text-red-400">{error}</p>}
+        <div className="mx-auto mt-3 max-w-3xl rounded-xl border border-white/10 bg-white/[0.02] text-start [[data-theme=light]_&]:bg-surface-900" data-testid="brand-panel">
+          <button type="button" aria-expanded={brandOpen} aria-controls="game-brand-body" onClick={() => setBrandOpen(!brandOpen)} className="flex w-full items-center gap-2 px-4 py-2.5 text-sm text-surface-200" data-help={t("brand.panelHelp")} data-testid="brand-toggle">
+            <Store size={15} className="text-brand-300" />
+            <span className="font-medium">{t("brand.panelTitle")}</span>
+            <span className="text-xs text-surface-400">{brandFilled(brand) ? t("brand.panelSet", { name: brand.name || t("brand.panelUnnamed") }) : t("brand.panelOptional")}</span>
+            <ChevronDown size={15} className={`ms-auto transition ${brandOpen ? "rotate-180" : ""}`} aria-hidden />
+          </button>
+          {brandOpen && (
+            <div id="game-brand-body" className="border-t border-white/10 px-4 py-3">
+              <p className="mb-3 text-xs text-surface-400">{t("brand.panelIntro")}</p>
+              <BrandForm value={brand} onChange={setBrand} idPrefix="home-brand" />
+            </div>
+          )}
+        </div>
         {questions && (
           <div className="mx-auto mt-4 max-w-3xl space-y-3 rounded-xl border border-brand-500/30 bg-brand-500/5 p-4 text-start text-sm" data-help={t("home.questionsHelp")}>
             <p className="font-medium">{t("home.questionsTitle")}</p>
-            {questions.list.map((q) => (
-              <div key={q.id}>
-                <p className="text-surface-200" dir="auto">{q.label}</p>
-                <div className="mt-1.5 flex flex-wrap gap-1.5">
-                  {(q.options ?? []).map((o) => (
-                    <button key={o} type="button" data-help={t("home.pickAnswerHelp")} onClick={() => setQuestions({ ...questions, answers: { ...questions.answers, [q.id]: o } })} className={`rounded-full border px-2.5 py-1 text-xs ${questions.answers[q.id] === o ? "border-brand-400 bg-brand-500/20 text-white" : "border-white/15 text-surface-300 hover:border-white/30"}`} dir="auto">{o}</button>
-                  ))}
-                </div>
-                <input className="input mt-1.5 py-1.5 text-xs" placeholder={t("home.typeAnswer")} value={questions.answers[q.id] ?? ""} onChange={(e) => setQuestions({ ...questions, answers: { ...questions.answers, [q.id]: e.target.value } })} dir="auto" />
-              </div>
-            ))}
+            <ClarifyQuestions
+              list={questions.list}
+              answers={questions.answers}
+              onChange={(answers) => {
+                setQuestions({ ...questions, answers });
+                // "Yes, for my business": the Branding panel opens (still optional).
+                if (saidBusiness(questions.list, answers) && !saidBusiness(questions.list, questions.answers)) setBrandOpen(true);
+              }}
+              words={{ typeAnswer: t("home.typeAnswer"), typeMore: t("home.typeMore"), pickAny: t("home.pickAny"), pickHelp: t("home.pickAnswerHelp"), pickAnyHelp: t("home.pickAnyHelp") }}
+            />
             <div className="flex gap-2">
-              <button type="button" className="btn-primary px-3 py-1.5 text-sm" data-help={t("home.buildItHelp")} disabled={busy} onClick={() => buildWithAnswers(false)}>{t("home.buildIt")}</button>
+              <button type="button" className="btn-primary px-3 py-1.5 text-sm" data-help={t("home.buildItHelp")} data-testid="clarify-build" disabled={busy} onClick={() => buildWithAnswers(false)}>{t("home.buildIt")}</button>
               <button type="button" className="btn-ghost px-3 py-1.5 text-sm" data-help={t("home.skipHelp")} disabled={busy} onClick={() => buildWithAnswers(true)}>{t("home.skip")}</button>
             </div>
           </div>
@@ -219,6 +237,7 @@ function Card({ game, onChanged }: { game: GameCard; onChanged: () => void }) {
           )}
           <span className="absolute start-2 top-2 rounded bg-black/60 px-1.5 py-0.5 text-[11px] font-medium text-white">{t(game.engine === "three-3d" ? "engine.threeD" : "engine.twoD")}</span>
           {game.status === "building" && <span className="absolute end-2 top-2 rounded bg-brand-600/90 px-1.5 py-0.5 text-[11px] text-white">{t("card.building")}</span>}
+          {game.status === "review" && <span className="absolute end-2 top-2 rounded bg-amber-400/95 px-1.5 py-0.5 text-[11px] font-medium text-black" data-testid="game-waiting" data-help={t("card.waitingHelp")}>{t("card.waiting")}</span>}
         </div>
       </Link>
       <div className="flex items-start justify-between gap-2 px-5 py-4">

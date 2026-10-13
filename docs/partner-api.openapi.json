@@ -47,6 +47,10 @@
     {
       "name": "games",
       "description": "The Game Studio: make, build, steer, change, publish and download games for a person."
+    },
+    {
+      "name": "ai",
+      "description": "Apps' own AI keys (published apps never use the platform's AI)."
     }
   ],
   "paths": {
@@ -1184,6 +1188,14 @@
                             "items": {
                               "type": "string"
                             }
+                          },
+                          "multi": {
+                            "type": "boolean",
+                            "description": "Several options may be picked (join them with \", \")."
+                          },
+                          "business": {
+                            "type": "boolean",
+                            "description": "The \"for a business or a promotion?\" question; its first option means yes (then send `brand`)."
                           }
                         }
                       }
@@ -1878,7 +1890,8 @@
           "500": {
             "$ref": "#/components/responses/Internal"
           }
-        }
+        },
+        "description": "At a check-in (status `review`), `now` ends the build there (game.build.stopped)."
       }
     },
     "/games/{id}/changes": {
@@ -1992,7 +2005,101 @@
           "500": {
             "$ref": "#/components/responses/Internal"
           }
-        }
+        },
+        "description": "At a full game's check-in (status `review`) the prompt is changes to the same job: applied now, the later phases revised; small changes carry on to the end, big ones stop at a check-in again."
+      }
+    },
+    "/games/{id}/continue": {
+      "post": {
+        "tags": [
+          "games"
+        ],
+        "operationId": "continueGame",
+        "summary": "Keep building at the check-in (one AI action)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Game id."
+          },
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Started.",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimitLimit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimitRemaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimitReset"
+              },
+              "X-Request-Id": {
+                "$ref": "#/components/headers/RequestId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "job": {
+                      "$ref": "#/components/schemas/GameJob"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "409": {
+            "description": "not_waiting (the game isn't waiting at a check-in), idempotency_in_progress.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "games_unavailable: the game engines and the asset library aren't installed on this server.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/Internal"
+          }
+        },
+        "description": "A full game waiting at its check-in (status `review`, after the first playable part): the same job carries on and builds every remaining phase to the end, like the workspace's Keep building button. One AI action, given back when this part delivers nothing. Accepts Idempotency-Key."
       }
     },
     "/games/{id}/versions": {
@@ -2446,6 +2553,763 @@
             "$ref": "#/components/responses/Internal"
           }
         }
+      }
+    },
+    "/projects/{id}/ai-connection": {
+      "get": {
+        "tags": [
+          "ai"
+        ],
+        "operationId": "getAiConnections",
+        "summary": "An app's own AI connections (keys never returned)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "App id."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The connections and the app's AI status.",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimitLimit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimitRemaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimitReset"
+              },
+              "X-Request-Id": {
+                "$ref": "#/components/headers/RequestId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AiConnections"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ai"
+        ],
+        "operationId": "saveAiConnection",
+        "summary": "Add or replace an app's AI connection (the key is write-only)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "App id."
+          },
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AiConnectionInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Saved.",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimitLimit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimitRemaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimitReset"
+              },
+              "X-Request-Id": {
+                "$ref": "#/components/headers/RequestId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/AiConnections"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "connection": {
+                          "$ref": "#/components/schemas/AiConnection"
+                        },
+                        "test": {
+                          "type": "object",
+                          "properties": {
+                            "ok": {
+                              "type": "boolean"
+                            },
+                            "code": {
+                              "type": "string",
+                              "enum": [
+                                "ok",
+                                "key",
+                                "model",
+                                "quota",
+                                "timeout",
+                                "private",
+                                "unreadable",
+                                "other"
+                              ]
+                            },
+                            "message": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid_request: a field is missing or wrong.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "ai"
+        ],
+        "operationId": "deleteAiConnection",
+        "summary": "Remove an app's AI connection",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "App id."
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "default"
+            }
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Removed.",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimitLimit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimitRemaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimitReset"
+              },
+              "X-Request-Id": {
+                "$ref": "#/components/headers/RequestId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/AiConnections"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "ok": {
+                          "const": true
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/games/{id}/features": {
+      "get": {
+        "tags": [
+          "games"
+        ],
+        "operationId": "getGameFeatures",
+        "summary": "The game's feature list",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Game id."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The list.",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimitLimit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimitRemaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimitReset"
+              },
+              "X-Request-Id": {
+                "$ref": "#/components/headers/RequestId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameFeatureList"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "503": {
+            "description": "games_unavailable: the game engines and the asset library aren't installed on this server.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/Internal"
+          }
+        },
+        "description": "Every feature the game has (the plan's, and everything added later by changes, notes, the person or a scan), its status and origin, plus the history. Changes keep every listed feature; only an explicit removal takes one off."
+      },
+      "post": {
+        "tags": [
+          "games"
+        ],
+        "operationId": "addGameFeature",
+        "summary": "Add a feature (one AI action)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Game id."
+          },
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "name"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 2,
+                    "maxLength": 80
+                  },
+                  "how": {
+                    "type": "string",
+                    "maxLength": 400
+                  },
+                  "priority": {
+                    "type": "string",
+                    "enum": [
+                      "core",
+                      "extra"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Started: a change that plans, builds and tests it.",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimitLimit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimitRemaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimitReset"
+              },
+              "X-Request-Id": {
+                "$ref": "#/components/headers/RequestId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "job": {
+                      "$ref": "#/components/schemas/GameJob"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "503": {
+            "description": "games_unavailable: the game engines and the asset library aren't installed on this server.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/Internal"
+          },
+          "409": {
+            "description": "not_built (build the game first), already_building.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "description": "A change (one AI action, given back when it delivers nothing) that adds the feature with a test."
+      }
+    },
+    "/games/{id}/features/{featureId}": {
+      "delete": {
+        "tags": [
+          "games"
+        ],
+        "operationId": "removeGameFeature",
+        "summary": "Remove a feature (only when the person asked)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Game id."
+          },
+          {
+            "name": "featureId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The feature's id."
+          },
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A feature not built yet left the list: {removed: true, job: null} plus the list.",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimitLimit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimitRemaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimitReset"
+              },
+              "X-Request-Id": {
+                "$ref": "#/components/headers/RequestId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "503": {
+            "description": "games_unavailable: the game engines and the asset library aren't installed on this server.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/Internal"
+          },
+          "202": {
+            "description": "A built feature: a change that takes it out of the game (one AI action).",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimitLimit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimitRemaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimitReset"
+              },
+              "X-Request-Id": {
+                "$ref": "#/components/headers/RequestId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "removed": {
+                      "type": "boolean"
+                    },
+                    "job": {
+                      "$ref": "#/components/schemas/GameJob"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "already_building.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "description": "The only way a listed feature leaves the list. Send it only when the person asked to remove the feature."
+      }
+    },
+    "/games/{id}/features/scan": {
+      "post": {
+        "tags": [
+          "games"
+        ],
+        "operationId": "scanGameFeatures",
+        "summary": "List a game's features from its files (one AI action)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Game id."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The features found, nothing stored.",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimitLimit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimitRemaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimitReset"
+              },
+              "X-Request-Id": {
+                "$ref": "#/components/headers/RequestId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "features": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/GameFeatureScanItem"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "503": {
+            "description": "games_unavailable: the game engines and the asset library aren't installed on this server.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/Internal"
+          },
+          "409": {
+            "description": "not_built.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "ai_failed: the scan didn't work (refunded).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "description": "For a game made elsewhere or before the feature list: the features its files already have, each with a test and where it lives. Confirm with POST /games/{id}/features/import."
+      }
+    },
+    "/games/{id}/features/import": {
+      "post": {
+        "tags": [
+          "games"
+        ],
+        "operationId": "importGameFeatures",
+        "summary": "Put scanned features on the list",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Game id."
+          },
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "features"
+                ],
+                "properties": {
+                  "features": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/GameFeatureScanItem"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The list now.",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimitLimit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimitRemaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimitReset"
+              },
+              "X-Request-Id": {
+                "$ref": "#/components/headers/RequestId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameFeatureList"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "503": {
+            "description": "games_unavailable: the game engines and the asset library aren't installed on this server.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/Internal"
+          }
+        },
+        "description": "The features from a scan the person kept: on the list as built; their tests run with the next change."
       }
     }
   },
@@ -3034,6 +3898,32 @@
               "null"
             ],
             "format": "date-time"
+          },
+          "ai": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "usesAi": {
+                    "type": "boolean"
+                  },
+                  "needsKey": {
+                    "type": "boolean"
+                  },
+                  "notice": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "description": "Show this to the person: add your own AI key (in their language; null for the platform owner)."
+                  }
+                }
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "AI features of the app or plan: published apps use their own AI key."
           }
         }
       },
@@ -3438,8 +4328,10 @@
             "enum": [
               "playtest-fix",
               "feature-fix",
+              "change",
               null
-            ]
+            ],
+            "description": "playtest-fix / feature-fix: added by the checks; change: a change made at the check-in."
           },
           "features": {
             "type": "array",
@@ -3447,6 +4339,13 @@
               "type": "string"
             },
             "description": "Ids of the features this step builds."
+          },
+          "phase": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "description": "The build phase the step belongs to (1 = the playable slice). Null for a build without phases."
           }
         }
       },
@@ -3472,8 +4371,10 @@
               "running",
               "done",
               "error",
-              "cancelled"
-            ]
+              "cancelled",
+              "review"
+            ],
+            "description": "`review`: a full game's build waits for the owner at its check-in (after the first playable part): POST /games/{id}/continue or /changes."
           },
           "phase": {
             "type": [
@@ -3571,6 +4472,64 @@
               "null"
             ],
             "format": "date-time"
+          },
+          "buildPhase": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "description": "A full game's build phases: the phase running now (or next) and how many there are. Null for a build without phases.",
+            "properties": {
+              "current": {
+                "type": "integer"
+              },
+              "total": {
+                "type": "integer"
+              }
+            }
+          },
+          "aiActions": {
+            "type": "integer",
+            "description": "AI actions this job used: the build, plus one for Keep building or for changes at a check-in."
+          },
+          "features": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "description": "What a change did to the feature list (ids). Null for a build.",
+            "properties": {
+              "added": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "changed": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "removed": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "refusedRemovals": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "reverted": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
           }
         },
         "description": "A build or a change of a game."
@@ -3655,9 +4614,11 @@
             "enum": [
               "new",
               "building",
+              "review",
               "ready",
               "error"
-            ]
+            ],
+            "description": "`review`: waiting for the owner at the check-in after the first playable part (see `review`)."
           },
           "seq": {
             "type": "integer",
@@ -3879,6 +4840,12 @@
                           "items": {
                             "type": "string"
                           }
+                        },
+                        "phase": {
+                          "type": [
+                            "integer",
+                            "null"
+                          ]
                         }
                       }
                     }
@@ -3887,6 +4854,75 @@
                     "type": "array",
                     "items": {
                       "$ref": "#/components/schemas/GameFeature"
+                    }
+                  },
+                  "content": {
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "description": "The full game's content from the brief.",
+                    "properties": {
+                      "levels": {
+                        "type": "string"
+                      },
+                      "enemies": {
+                        "type": "string"
+                      },
+                      "mechanics": {
+                        "type": "string"
+                      },
+                      "progression": {
+                        "type": "string"
+                      },
+                      "bosses": {
+                        "type": "string"
+                      },
+                      "structure": {
+                        "type": "string"
+                      },
+                      "playMinutes": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ],
+                        "description": "Estimated minutes for a first play-through."
+                      }
+                    }
+                  },
+                  "phases": {
+                    "type": "array",
+                    "description": "The build's phases (empty for a build without phases).",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "n": {
+                          "type": "integer"
+                        },
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "summary": {
+                          "type": "string"
+                        },
+                        "steps": {
+                          "type": "integer"
+                        },
+                        "done": {
+                          "type": "integer"
+                        },
+                        "status": {
+                          "type": "string",
+                          "enum": [
+                            "done",
+                            "running",
+                            "todo"
+                          ]
+                        }
+                      }
                     }
                   }
                 }
@@ -3932,6 +4968,21 @@
                     "type": "null"
                   }
                 ]
+              },
+              "review": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/GameReview"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "Set while the game waits at a check-in (status `review`)."
+              },
+              "brand": {
+                "$ref": "#/components/schemas/GameBrand",
+                "description": "A promotional game's branding, or null."
               }
             }
           }
@@ -3975,6 +5026,9 @@
           },
           "referenceId": {
             "type": "string"
+          },
+          "brand": {
+            "$ref": "#/components/schemas/GameBrandInput"
           }
         },
         "required": [
@@ -4160,6 +5214,7 @@
               "game.build.completed",
               "game.build.failed",
               "game.build.stopped",
+              "game.build.review",
               "game.published"
             ]
           },
@@ -4237,11 +5292,539 @@
               },
               "project": {
                 "$ref": "#/components/schemas/Project"
+              },
+              "review": {
+                "$ref": "#/components/schemas/GameReview",
+                "description": "game.build.review only."
               }
             }
           }
         },
         "description": "POSTed to the key's webhook address for games built with the key. Same headers and signature as WebhookEvent."
+      },
+      "GameReview": {
+        "type": "object",
+        "description": "A full game's check-in: the build stopped after a phase and waits for the owner.",
+        "properties": {
+          "jobId": {
+            "type": "string",
+            "description": "The waiting build (the same job carries on)."
+          },
+          "phase": {
+            "type": "integer",
+            "description": "The phase just finished (1 = the playable slice)."
+          },
+          "phases": {
+            "type": "integer",
+            "description": "How many phases the build has."
+          },
+          "message": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The check-in message in the chat: what's playable now, the phases to come, the question. In the person's language."
+          },
+          "question": {
+            "type": "string",
+            "description": "\"Do you want me to keep building in this direction, or make some changes?\" in the person's language."
+          },
+          "done": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "n": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "summary": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "next": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "n": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "summary": {
+                  "type": "string"
+                },
+                "steps": {
+                  "type": "integer",
+                  "description": "Steps left in that phase."
+                }
+              }
+            }
+          },
+          "continueCost": {
+            "type": "integer",
+            "description": "AI actions POST /games/{id}/continue uses: 1, or 0 when the build came back to the check-in after a failure in a part that had delivered steps."
+          },
+          "since": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "GameBrandInput": {
+        "type": "object",
+        "description": "A promotional game's branding. Every field is optional.",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "logoImage": {
+            "$ref": "#/components/schemas/ReferenceImage"
+          },
+          "colors": {
+            "type": "array",
+            "maxItems": 3,
+            "items": {
+              "type": "string",
+              "pattern": "^#[0-9a-fA-F]{6}$"
+            }
+          },
+          "link": {
+            "type": "string",
+            "description": "https:// is added when missing."
+          },
+          "offer": {
+            "type": "string",
+            "maxLength": 160
+          }
+        }
+      },
+      "GameBrand": {
+        "type": [
+          "object",
+          "null"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "colors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "link": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "offer": {
+            "type": "string"
+          },
+          "logo": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "width": {
+                "type": "integer"
+              },
+              "height": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      },
+      "AiStatus": {
+        "type": "object",
+        "description": "Whether the app's AI is ready: published apps use their own AI key (docs/ai-in-apps.md).",
+        "properties": {
+          "usesAi": {
+            "type": "boolean",
+            "description": "The app has AI steps."
+          },
+          "hasKey": {
+            "type": "boolean"
+          },
+          "platformOwner": {
+            "type": "boolean",
+            "description": "The owner is a platform admin: their apps may use the platform's AI."
+          },
+          "needsKey": {
+            "type": "boolean",
+            "description": "usesAi and no key and not the platform owner: the AI parts don't work until a key is added."
+          }
+        }
+      },
+      "AiConnection": {
+        "type": "object",
+        "description": "An app's AI connection. The key itself is never returned.",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "provider": {
+            "type": "string",
+            "enum": [
+              "openai",
+              "anthropic",
+              "xai",
+              "gemini",
+              "openrouter",
+              "custom"
+            ]
+          },
+          "baseUrl": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "keyHint": {
+            "type": "string",
+            "description": "The key's first and last 4 characters."
+          },
+          "model": {
+            "type": "string"
+          },
+          "chatModel": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "visionModel": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "speechModel": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "voice": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "embedModel": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "isDefault": {
+            "type": "boolean"
+          },
+          "lastTestAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "lastTestOk": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "lastError": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "AiConnectionInput": {
+        "type": "object",
+        "required": [
+          "provider",
+          "model"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "default": "default",
+            "maxLength": 40
+          },
+          "provider": {
+            "type": "string",
+            "enum": [
+              "openai",
+              "anthropic",
+              "xai",
+              "gemini",
+              "openrouter",
+              "custom"
+            ]
+          },
+          "baseUrl": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Required for custom (an OpenAI-compatible server)."
+          },
+          "apiKey": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "writeOnly": true,
+            "description": "Write-only. Omit to keep the saved key."
+          },
+          "model": {
+            "type": "string"
+          },
+          "chatModel": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "visionModel": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "speechModel": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "voice": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "embedModel": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "isDefault": {
+            "type": "boolean"
+          },
+          "test": {
+            "type": "boolean",
+            "description": "Try the connection once after saving."
+          }
+        }
+      },
+      "AiConnections": {
+        "type": "object",
+        "properties": {
+          "connections": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AiConnection"
+            }
+          },
+          "ai": {
+            "$ref": "#/components/schemas/AiStatus"
+          }
+        }
+      },
+      "GameFeatureListItem": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "priority": {
+            "type": "string",
+            "enum": [
+              "core",
+              "extra"
+            ]
+          },
+          "how": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "planned",
+              "built",
+              "passing",
+              "failing"
+            ]
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "plan",
+              "change",
+              "note",
+              "person",
+              "import",
+              "step"
+            ],
+            "description": "How it got on the list."
+          },
+          "added": {
+            "type": "object",
+            "properties": {
+              "at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "text": {
+                "type": "string",
+                "description": "The request that added it (shortened)."
+              }
+            }
+          },
+          "last": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The newest test result in words."
+          },
+          "tested": {
+            "type": "boolean"
+          }
+        }
+      },
+      "GameFeatureLogEntry": {
+        "type": "object",
+        "properties": {
+          "at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "what": {
+            "type": "string",
+            "enum": [
+              "added",
+              "changed",
+              "removed",
+              "refused-removal",
+              "reverted"
+            ]
+          },
+          "source": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          }
+        }
+      },
+      "GameFeatureList": {
+        "type": "object",
+        "properties": {
+          "features": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GameFeatureListItem"
+            }
+          },
+          "counts": {
+            "type": "object",
+            "properties": {
+              "total": {
+                "type": "integer"
+              },
+              "passing": {
+                "type": "integer"
+              },
+              "failing": {
+                "type": "integer"
+              },
+              "untested": {
+                "type": "integer"
+              },
+              "planned": {
+                "type": "integer"
+              }
+            }
+          },
+          "log": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GameFeatureLogEntry"
+            },
+            "description": "Newest first, at most 100."
+          }
+        }
+      },
+      "GameFeatureScanItem": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "priority": {
+            "type": "string",
+            "enum": [
+              "core",
+              "extra"
+            ]
+          },
+          "how": {
+            "type": "string"
+          },
+          "test": {
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "keys": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
       }
     }
   },
@@ -4267,7 +5850,7 @@
     },
     "gameEvent": {
       "post": {
-        "summary": "A game built with this key: a step was saved, the build ended or stopped, or it was published",
+        "summary": "A game built with this key: a step was saved, the build ended, stopped or reached its check-in, or it was published",
         "requestBody": {
           "content": {
             "application/json": {

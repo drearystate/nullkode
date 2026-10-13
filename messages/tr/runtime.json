@@ -36,6 +36,8 @@
     "typeDelete": "Onaylamak için DELETE yazın.",
     "typeDeleteLabel": "Onaylamak için DELETE yazın"
   },
+  "aiBusy": "Bu uygulama şu anda çok fazla yapay zekâ isteği alıyor. Lütfen daha sonra tekrar deneyin.",
+  "aiNotSetUp": "Bu uygulamanın yapay zekâsı henüz ayarlanmadı.",
   "alreadyExists": "Bu zaten var.",
   "badInput": "Bazı bilgiler eksik veya yanlış biçimde.",
   "cartAdded": "✓ Eklendi",

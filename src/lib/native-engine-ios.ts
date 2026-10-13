@@ -8,6 +8,7 @@ import { appStoreIcon, decodeIconPng, decodePng, drawIcon } from "@/lib/native-i
 import { defaultAppIconPng } from "@/lib/app-icon";
 import { nativeBrandFor, normalizeHexColor, resolveAppIcon, sanitizeBundleSegment, type NativeConfig } from "@/lib/native";
 import { nativeNeedsFor, usageTextsFor } from "@/lib/native-permissions";
+import { appStoreFolder, appStoreScreenshots } from "@/lib/native-store-assets";
 import { engineAppConfig, type EngineAppConfig } from "@/lib/native-engine-app";
 import {
   closeLog,
@@ -38,9 +39,20 @@ import {
  *
  * Prebuild runs per download (a few seconds, no CocoaPods on this server) in
  * the engine's iOS workspace (src/lib/native-engine.ts), one at a time.
+ *
+ * AppStore/ holds what App Store Connect asks for besides the build: the
+ * store icon, the logo and screenshots of the app at Apple's sizes
+ * (src/lib/native-store-assets.ts), with a README.txt.
  */
 
 const PROJECT_NAME = "App";
+
+/**
+ * How long a download waits for the App Store screenshots (made alongside the
+ * prebuild, src/lib/native-store-assets.ts) before it goes without them; the
+ * capture then finishes in the background for the next download.
+ */
+const STORE_SHOTS_WAIT_MS = 60_000;
 
 // Engine files never put in the download.
 const SKIP = /^(node_modules|android|ios|dist|dist-[^/]*|\.expo|\.claude|\.git|\.vscode|\.idea|web-build|nk-overlay|nk-assets)(\/|$)|(^|\/)\.DS_Store$/;
@@ -147,7 +159,7 @@ function iosPrebuildConfig(app: EngineAppConfig, cfg: NativeConfig, usage: Retur
  * structure check (`check.ok` false means the project looks wrong; the zip is
  * still returned for inspection).
  */
-export async function engineIosProjectZip(project: Project): Promise<{ data: Buffer; name: string; check: IosProjectCheck }> {
+export async function engineIosProjectZip(project: Project): Promise<{ data: Buffer; name: string; check: IosProjectCheck; storeShots: "ok" | "pending" | "failed" | "off" }> {
   const cfg = await nativeConfigForOutput(project);
   const app = await engineAppConfig(project, cfg);
   const needs = await nativeNeedsFor(project.id);
@@ -158,8 +170,10 @@ export async function engineIosProjectZip(project: Project): Promise<{ data: Buf
   const iconSrc = await resolveAppIcon(project.icon, themeColor, 1024);
   const image = (await decodeIconPng(iconSrc.png)) ?? decodePng(defaultAppIconPng(1024, themeColor));
   if (!image) throw new Error("Could not draw the app icon.");
+  // App Store screenshots, made (or read from the cache) while the project is prebuilt.
+  const shotsJob = appStoreScreenshots(project, { renderer: "engine", orientation: cfg.orientation, tablet: true, waitMs: STORE_SHOTS_WAIT_MS });
 
-  return withWorkspaceLock("ios", async () => {
+  const built = await withWorkspaceLock("ios", async () => {
     const log = await openLog(join(engineCacheRoot(), "ios.log"));
     try {
       log.write(`\n=== ${new Date().toISOString()} ${project.id} ${cfg.appId}\n`);
@@ -206,10 +220,17 @@ export async function engineIosProjectZip(project: Project): Promise<{ data: Buf
         .replace(/__NK_BRAND__/g, brand.name);
       await add("README-IOS.md", readme);
       await add(".gitignore", "node_modules/\nios/Pods/\nios/build/\n.expo/\n*.xcuserstate\nxcuserdata/\n");
-      const data = await zip.generateAsync({ type: "nodebuffer", compression: "DEFLATE", compressionOptions: { level: 6 }, platform: "UNIX" });
-      return { data, name: `${root}-${cfg.version}-ios.zip`, check };
+      return { zip, root, check };
     } finally {
       await closeLog(log);
     }
   });
+
+  // AppStore/: store icon, logo, screenshots and where they go (waited for outside the workspace lock).
+  const shots = await shotsJob;
+  for (const f of appStoreFolder({ cfg, icon: image, background, shots, appUrl: app.extra.nk.base, project: "engine" })) {
+    built.zip.file(`${built.root}/AppStore/${f.path}`, f.data, { unixPermissions: 0o644, ...(f.path.endsWith(".png") ? { compression: "STORE" as const } : {}) });
+  }
+  const data = await built.zip.generateAsync({ type: "nodebuffer", compression: "DEFLATE", compressionOptions: { level: 6 }, platform: "UNIX" });
+  return { data, name: `${built.root}-${cfg.version}-ios.zip`, check: built.check, storeShots: shots.status };
 }

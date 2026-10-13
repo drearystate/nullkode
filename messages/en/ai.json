@@ -381,5 +381,15 @@
   },
   "policy": {
     "refused": "I can’t build apps similar to NullKode LLC’s NullKode platform, IgniteUps.ai, or any AI tools built by NullKode LLC."
+  },
+  "aiApps": {
+    "planNotice": "This app has AI features. Published apps can't use the platform's AI: after the build, add your own AI key (OpenAI, Google Gemini, xAI, OpenRouter or any OpenAI-compatible server) in the app's AI keys before people use the AI parts.",
+    "buildNotice": "Your app has AI parts. Published apps can't use the platform's AI, so add your own AI key in the app's AI keys before people use them. Until then, visitors see “This app's AI isn't set up yet.”",
+    "editNotice": "These changes use AI. Published apps can't use the platform's AI: add your own AI key in the app's AI keys before people use them.",
+    "moduleNotice": "This feature uses AI. Published apps can't use the platform's AI: add your own AI key in the app's AI keys before people use it.",
+    "noticeTitle": "Your app's AI needs your own key",
+    "addKey": "Add an AI key",
+    "openEditor": "Open the editor",
+    "aiFeatures": "AI in this app"
   }
 }

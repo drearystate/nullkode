@@ -142,5 +142,7 @@
     "fieldNamed": "{label}: {message}",
     "more": "More",
     "sessionExpired": "Your session has ended. Please sign in again."
-  }
+  },
+  "aiNotSetUp": "This app's AI isn't set up yet.",
+  "aiBusy": "This app is receiving too many AI requests right now. Please try again later."
 }

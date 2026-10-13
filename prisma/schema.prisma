@@ -151,6 +151,8 @@ model User {
   aiUsage AiUsage[]
   aiRuns  AiRun[]
   games   GameProject[]
+  storeAccounts StoreAccount[]
+  fdroidRepo    FdroidRepo?
 }
 
 /**
@@ -279,6 +281,9 @@ model Project {
   pushMessages PushMessage[]
   nativePushTokens NativePushToken[]
   androidSigningKey AndroidSigningKey?
+  aiConnections AppAiConnection[]
+  storeReleases StoreRelease[]
+  fdroidApps    FdroidRepoApp[]
 }
 
 // ── AI Designer ─────────────────────────────────────────────────────────
@@ -899,4 +904,148 @@ model GameNote {
 
   @@index([jobId, status])
   @@index([gameId])
+}
+
+/// An app's own AI connection ("AI keys", src/lib/app-ai): published and previewed apps call AI with
+/// their owner's key, never the platform's (except apps of the platform's own admins). The key is
+/// encrypted with AUTH_SECRET (lib/settings.ts encryptSecret), write-only: only keyHint is ever shown.
+model AppAiConnection {
+  id          String    @id @default(cuid())
+  projectId   String
+  // a short name flow steps can pick ("default" unless the owner adds more)
+  name        String    @default("default")
+  // "openai" | "anthropic" | "xai" | "gemini" | "openrouter" | "custom" (any OpenAI-compatible server)
+  provider    String
+  baseUrl     String?
+  apiKeyEnc   String
+  keyHint     String
+  model       String
+  chatModel   String?
+  visionModel String?
+  speechModel String?
+  voice       String?
+  embedModel  String?
+  isDefault   Boolean   @default(false)
+  lastTestAt  DateTime?
+  lastTestOk  Boolean?
+  lastError   String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, name])
+  @@index([projectId])
+}
+
+/// A person's connected Google Play developer account (src/lib/store-publish, docs/mobile-apps.md):
+/// "oauth" = signed in with Google (secretEnc holds the refresh token), "service_account" = a
+/// service-account JSON key. Encrypted with encryptSecret (lib/settings.ts), write-only: screens only
+/// see `label` (the Google account's email or the service account's client_email).
+model StoreAccount {
+  id         String    @id @default(cuid())
+  userId     String
+  store      String    @default("google_play")
+  kind       String
+  label      String
+  secretEnc  String
+  lastUsedAt DateTime?
+  lastError  String?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  user     User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  releases StoreRelease[]
+
+  @@unique([userId, store, label])
+  @@index([userId])
+}
+
+/// One send of an app's release build to a store: a Google Play track, or the owner's F-Droid
+/// repository. Runs in the background (status "running" | "done" | "error"); `owner` is the server
+/// process that runs it, so a restart marks it failed instead of leaving it running forever.
+model StoreRelease {
+  id            String    @id @default(cuid())
+  projectId     String
+  userId        String
+  accountId     String?
+  // "google_play" | "fdroid"
+  store         String
+  buildId       String
+  packageName   String
+  versionCode   Int
+  versionName   String
+  // Google Play: "internal" | "alpha" | "beta" | "production"
+  track         String?
+  // Google Play: "draft" | "completed" | "inProgress" (staged rollout, userFraction)
+  releaseStatus String?
+  userFraction  Float?
+  notes         String?
+  status        String    @default("running")
+  step          String?
+  owner         String?
+  error         String?
+  // e.g. { draftOnly: true, notSentForReview: true }
+  result        Json?
+  createdAt     DateTime  @default(now())
+  finishedAt    DateTime?
+
+  project Project       @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  account StoreAccount? @relation(fields: [accountId], references: [id], onDelete: SetNull)
+
+  @@index([projectId, createdAt])
+}
+
+/// A person's own F-Droid repository, served at /fdroid/<slug>/repo (src/lib/store-publish/fdroid.ts).
+/// Anyone can add it in the F-Droid app; its index is signed with this repository key (private
+/// storage, uploads/.fdroid/<id>/, password encrypted). `fingerprint` is the key certificate's
+/// SHA-256 (lower-case hex), which the F-Droid app checks.
+model FdroidRepo {
+  id            String   @id @default(cuid())
+  userId        String   @unique
+  slug          String   @unique
+  name          String
+  description   String   @default("")
+  keyFile       String
+  keyAlias      String
+  storePassword String
+  fingerprint   String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  user User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  apps FdroidRepoApp[]
+}
+
+/// One APK in a person's F-Droid repository (the newest few versions of each app are kept).
+model FdroidRepoApp {
+  id          String   @id @default(cuid())
+  repoId      String
+  projectId   String
+  packageName String
+  versionCode Int
+  versionName String
+  apkFile     String
+  sha256      String
+  size        Int
+  minSdk      Int
+  targetSdk   Int
+  nativecode  String[] @default([])
+  permissions String[] @default([])
+  // APK signer: certificate SHA-256 (hex) and F-Droid's old "sig" (MD5 of the hex certificate)
+  signer      String
+  sig         String
+  name        String
+  summary     String   @default("")
+  description String   @default("")
+  iconFile    String
+  whatsNew    String   @default("")
+  addedAt     DateTime @default(now())
+
+  repo    FdroidRepo @relation(fields: [repoId], references: [id], onDelete: Cascade)
+  project Project    @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@unique([repoId, packageName, versionCode])
+  @@index([repoId])
+  @@index([projectId])
 }

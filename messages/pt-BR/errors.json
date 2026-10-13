@@ -62,7 +62,8 @@
     "tooManyAccounts": "Muitas contas foram criadas nesta rede hoje.",
     "tooManyAttempts": "Muitas tentativas de cadastro nesta rede. Tente novamente mais tarde.",
     "tooQuick": "Foi rápido demais. Tente novamente.",
-    "verificationFailed": "Falha na verificação. Atualize a página e tente novamente."
+    "verificationFailed": "Falha na verificação. Atualize a página e tente novamente.",
+    "oneFreeAccount": "Já foi criada uma conta gratuita a partir desta rede. Entre nessa conta."
   },
   "apk": {
     "alreadyHasKey": "Este app já tem uma chave de envio. Marque \"Substituir minha chave atual\" para usar esta no lugar.",

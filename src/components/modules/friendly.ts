@@ -30,6 +30,9 @@ const NAMES: Record<string, string> = {
   "user-favorites": "Favorites",
   "user-profile-card": "Profile card",
   "ai-assistant": "Chat helper",
+  "ai-companion": "AI companion",
+  "ai-agent": "Personal AI agent",
+  "knowledge-bot": "Knowledge bot",
 };
 
 const SUMMARIES: Record<string, string> = {
@@ -97,6 +100,9 @@ const SUMMARIES: Record<string, string> = {
   recipes: "Share recipes with ingredients and steps.",
   course: "Teach an online course, lesson by lesson.",
   "ai-assistant": "Let visitors chat with a helpful assistant.",
+  "ai-companion": "An animated AI character people chat and talk with, that remembers them.",
+  "ai-agent": "Your own AI helper that works on goals, asks before risky steps and reports back.",
+  "knowledge-bot": "Answers questions from your documents, with sources.",
   links: "Share a simple page of your important links.",
   places: "A guide to places on a map, with photos and nearest first.",
   "emergency-contacts": "Keep important phone numbers one tap away.",

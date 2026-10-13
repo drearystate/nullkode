@@ -13,7 +13,8 @@ export const dynamic = "force-dynamic";
  * idea leaves big choices open (none when it doesn't). Not charged; 20 an
  * hour per person, as in the studio (over that: no questions). Append the
  * answers to the prompt ("<question> <answer>" lines) for POST /games, or
- * skip them: the build never waits for answers.
+ * skip them: the build never waits for answers. A "multi" question takes
+ * several answers ("<question> a, b, c").
  */
 export const POST = partnerRoute({ permission: "build", limit: "clarify" }, async (ctx) => {
   const body = ctx.body();
@@ -25,5 +26,6 @@ export const POST = partnerRoute({ permission: "build", limit: "clarify" }, asyn
   if (!hitLimit(`game-clarify:${user.id}`, 20, 60 * 60_000).ok) return ok({ questions: [] });
   const locale = isLocale(body.locale) ? body.locale : await localeForUser(user);
   const { questions } = await clarifyGame(body.prompt.slice(0, 4000), locale).catch(() => ({ questions: [] }));
-  return ok({ questions: questions.map((q) => ({ id: q.id, label: q.label, options: q.options ?? [] })) });
+  // multi: several options may be picked (join them: "<label> a, b"); business: the "for a business or promotion?" question (the first option means yes: send "brand" with POST /games).
+  return ok({ questions: questions.map((q) => ({ id: q.id, label: q.label, options: q.options ?? [], multi: q.multi, business: q.business === true })) });
 });

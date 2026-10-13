@@ -62,7 +62,8 @@
     "tooManyAccounts": "Terlalu banyak akun dibuat dari jaringan ini hari ini.",
     "tooManyAttempts": "Terlalu banyak upaya mendaftar dari jaringan ini. Coba lagi nanti.",
     "tooQuick": "Anda mengisi terlalu cepat — silakan coba lagi.",
-    "verificationFailed": "Verifikasi gagal. Muat ulang halaman, lalu coba lagi."
+    "verificationFailed": "Verifikasi gagal. Muat ulang halaman, lalu coba lagi.",
+    "oneFreeAccount": "Akun gratis sudah dibuat dari jaringan ini. Silakan masuk ke akun tersebut."
   },
   "apk": {
     "alreadyHasKey": "Aplikasi ini sudah memiliki kunci upload. Centang \"Ganti kunci saya saat ini\" untuk menggunakan kunci ini.",

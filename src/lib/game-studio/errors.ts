@@ -14,7 +14,13 @@ export type GameErrorCode =
   | "nothing_to_publish"
   | "nothing_to_export"
   | "plan_limit"
-  | "too_many_notes";
+  | "too_many_notes"
+  /** "Keep building" for a game that isn't waiting at a check-in. */
+  | "not_waiting"
+  /** The feature list: a game not built yet, a feature that isn't on the list, a scan that failed. */
+  | "not_built"
+  | "not_found"
+  | "ai_failed";
 
 export class GameError extends Error {
   constructor(

@@ -3,6 +3,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import type { Node, Edge } from "reactflow";
 import { Plus, Trash2, ChevronDown, X } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { usePathname } from "next/navigation";
 import { friendlyTable, stepLabel, type FlowsT } from "./catalog";
 
 type DSColumn = { name: string; type: string };
@@ -30,6 +31,13 @@ const IMPLICIT_OUTPUT: Record<string, string> = {
   sheets_read: "rows",
   http_request: "response",
   ai_prompt: "ai",
+  ai_chat: "reply",
+  ai_agent: "agent",
+  ai_structured: "data",
+  ai_vision: "vision",
+  ai_embed: "embedding",
+  ai_search: "matches",
+  ai_speech: "speech",
   parse_json: "parsed",
   math: "result",
   hash_password: "hash",
@@ -320,6 +328,12 @@ export function NodeInspector({ node, nodes, edges, datasources, onChange, onDel
             onChange={(v) => onChange({ output: v })}
           />
         </>
+      )}
+
+      {t.startsWith("ai_") && <AiKeyNote />}
+
+      {t !== "ai_prompt" && t.startsWith("ai_") && (
+        <AiNodeFields node={node} datasources={datasources.filter((d) => d.kind !== "GOOGLE_SHEETS")} varOptions={varOptions} onChange={onChange} />
       )}
 
       {t === "ai_prompt" && (
@@ -1846,3 +1860,203 @@ function CheckRoleFields({
     </>
   );
 }
+
+// ────────────────────────────────────────────────────────────────────────────
+// AI steps (lib/app-ai/nodes.ts): all of them run with the app's own AI key
+// ────────────────────────────────────────────────────────────────────────────
+
+type VarOpts = { fromSteps: VarOption[]; hasTrigger: boolean };
+
+function AiKeyNote() {
+  const tr = useTranslations("flows");
+  const pathname = usePathname() ?? "";
+  const projectId = /\/projects\/([^/]+)/.exec(pathname)?.[1];
+  return (
+    <p className="rounded-md border border-brand-400/20 bg-brand-500/10 px-3 py-2 text-[11px] text-surface-300">
+      {tr("inspector.aiKeyNote")}{" "}
+      {projectId && <a className="underline" href={`/projects/${projectId}/ai`}>{tr("inspector.aiKeyLink")}</a>}
+    </p>
+  );
+}
+
+function AiTablePicker({ node, datasources, onChange, label, help }: { node: Node; datasources: DS[]; onChange: (patch: Record<string, unknown>) => void; label: string; help: string }) {
+  const tr = useTranslations("flows");
+  const dsId = (node.data.datasourceId as string | undefined) ?? (datasources.length === 1 ? datasources[0].id : undefined);
+  const ds = datasources.find((d) => d.id === dsId);
+  return (
+    <Field label={label} help={help}>
+      <div className="flex gap-1.5">
+        {datasources.length > 1 && (
+          <select className="input w-1/2" value={dsId ?? ""} onChange={(e) => onChange({ datasourceId: e.target.value || undefined, table: undefined })}>
+            <option value="">{tr("inspector.choose")}</option>
+            {datasources.map((d) => <option key={d.id} value={d.id}>{d.name}</option>)}
+          </select>
+        )}
+        <select className="input flex-1 min-w-0" value={(node.data.table as string) ?? ""} onChange={(e) => onChange({ table: e.target.value || undefined, ...(dsId ? { datasourceId: dsId } : {}) })}>
+          <option value="">{tr("inspector.choose")}</option>
+          {(ds?.tables ?? []).map((tb) => <option key={tb.name} value={tb.name}>{friendlyTable(tb.name)}</option>)}
+        </select>
+      </div>
+    </Field>
+  );
+}
+
+type ToolRow = { name: string; description?: string; kind?: "flow" | "http"; flow?: string; method?: string; url?: string; params?: string; needsApproval?: boolean };
+
+function AiToolsEditor({ tools, onChange }: { tools: ToolRow[]; onChange: (tools: ToolRow[]) => void }) {
+  const tr = useTranslations("flows");
+  const set = (i: number, patch: Partial<ToolRow>) => onChange(tools.map((tool, j) => (j === i ? { ...tool, ...patch } : tool)));
+  return (
+    <div className="space-y-2" data-help={tr("inspector.fields.aiTools.help")}>
+      <div className="label">{tr("inspector.fields.aiTools.label")}</div>
+      {tools.length === 0 && <Hint>{tr("inspector.aiTool.none")}</Hint>}
+      {tools.map((tool, i) => (
+        <div key={i} className="rounded-md border border-surface-800 p-2 space-y-1.5">
+          <div className="flex gap-1.5">
+            <input className="input flex-1 min-w-0" aria-label={tr("inspector.aiTool.name")} placeholder={tr("inspector.aiTool.name")} value={tool.name} onChange={(e) => set(i, { name: e.target.value })} />
+            <button type="button" className="btn-ghost text-xs" onClick={() => onChange(tools.filter((_, j) => j !== i))} aria-label={tr("inspector.aiTool.remove")}><Trash2 size={13} /></button>
+          </div>
+          <input className="input" aria-label={tr("inspector.aiTool.description")} placeholder={tr("inspector.aiTool.description")} value={tool.description ?? ""} onChange={(e) => set(i, { description: e.target.value })} />
+          <select className="input" aria-label={tr("inspector.aiTool.kind")} value={tool.kind ?? "flow"} onChange={(e) => set(i, { kind: e.target.value as "flow" | "http" })}>
+            <option value="flow">{tr("inspector.aiTool.kindFlow")}</option>
+            <option value="http">{tr("inspector.aiTool.kindHttp")}</option>
+          </select>
+          {(tool.kind ?? "flow") === "flow" ? (
+            <input className="input" aria-label={tr("inspector.aiTool.flow")} placeholder={tr("inspector.aiTool.flow")} value={tool.flow ?? ""} onChange={(e) => set(i, { flow: e.target.value })} />
+          ) : (
+            <div className="flex gap-1.5">
+              <select className="input w-24" aria-label={tr("inspector.aiTool.method")} value={tool.method ?? "POST"} onChange={(e) => set(i, { method: e.target.value })}>
+                {["GET", "POST", "PUT", "PATCH", "DELETE"].map((m) => <option key={m}>{m}</option>)}
+              </select>
+              <input className="input flex-1 min-w-0" aria-label={tr("inspector.aiTool.url")} placeholder="https://" value={tool.url ?? ""} onChange={(e) => set(i, { url: e.target.value })} />
+            </div>
+          )}
+          <input className="input" aria-label={tr("inspector.aiTool.params")} placeholder={tr("inspector.aiTool.params")} value={tool.params ?? ""} onChange={(e) => set(i, { params: e.target.value })} />
+          <label className="flex items-center gap-2 text-xs text-surface-300">
+            <input type="checkbox" checked={Boolean(tool.needsApproval)} onChange={(e) => set(i, { needsApproval: e.target.checked })} />
+            {tr("inspector.aiTool.needsApproval")}
+          </label>
+        </div>
+      ))}
+      <button type="button" className="btn-ghost text-xs" onClick={() => onChange([...tools, { name: `tool_${tools.length + 1}`, kind: "flow" }])}><Plus size={13} /> {tr("inspector.aiTool.add")}</button>
+    </div>
+  );
+}
+
+function AiNodeFields({ node, datasources, varOptions, onChange }: { node: Node; datasources: DS[]; varOptions: VarOpts; onChange: (patch: Record<string, unknown>) => void }) {
+  const tr = useTranslations("flows");
+  const t = node.data.nkType as string;
+  const str = (k: string) => (node.data[k] as string | undefined) ?? "";
+  const text = (k: string, field: string, placeholder?: string, minHeight?: number) => (
+    <Field label={tr(`inspector.fields.${field}.label`)} help={tr(`inspector.fields.${field}.help`)}>
+      {minHeight ? (
+        <ValueTextarea value={str(k)} onChange={(v) => onChange({ [k]: v })} varOptions={varOptions} placeholder={placeholder} minHeight={minHeight} />
+      ) : (
+        <ValueInput value={str(k)} onChange={(v) => onChange({ [k]: v })} varOptions={varOptions} placeholder={placeholder} />
+      )}
+    </Field>
+  );
+  const number = (k: string, field: string, min: number, max: number) => (
+    <Field label={tr(`inspector.fields.${field}.label`)} help={tr(`inspector.fields.${field}.help`)}>
+      <input className="input" type="number" min={min} max={max} value={(node.data[k] as number | undefined) ?? ""} onChange={(e) => onChange({ [k]: e.target.value === "" ? undefined : Number(e.target.value) })} />
+    </Field>
+  );
+  const tableCols = datasources.find((d) => d.id === node.data.datasourceId)?.tables.find((tb) => tb.name === node.data.table)?.columns ?? [];
+  return (
+    <>
+      {t === "ai_chat" && (
+        <>
+          {text("system", "aiPersona", tr("inspector.placeholders.aiPersona"), 90)}
+          {text("message", "aiMessage", "{{trigger.message}}")}
+          {text("context", "aiContext", undefined, 60)}
+          <AiTablePicker node={node} datasources={datasources} onChange={onChange} label={tr("inspector.fields.aiHistoryTable.label")} help={tr("inspector.fields.aiHistoryTable.help")} />
+          {Boolean(node.data.table) && (
+            <div data-help={tr("inspector.fields.aiHistoryFilter.help")}>
+              <div className="label">{tr("inspector.fields.aiHistoryFilter.label")}</div>
+              <WhereBuilder where={(node.data.where as Record<string, string> | undefined) ?? {}} columns={tableCols} varOptions={varOptions} onChange={(w) => onChange({ where: w })} />
+            </div>
+          )}
+          {number("historyLimit", "aiHistoryLimit", 1, 100)}
+          <Field label={tr("inspector.fields.aiSafety.label")} help={tr("inspector.fields.aiSafety.help")}>
+            <select className="input" value={node.data.safety === "none" ? "none" : "standard"} onChange={(e) => onChange({ safety: e.target.value })}>
+              <option value="standard">{tr("inspector.aiOptions.safetyStandard")}</option>
+              <option value="none">{tr("inspector.aiOptions.safetyNone")}</option>
+            </select>
+          </Field>
+        </>
+      )}
+      {t === "ai_agent" && (
+        <>
+          {text("system", "aiPersona", undefined, 80)}
+          {text("prompt", "aiGoal", tr("inspector.placeholders.aiGoal"), 70)}
+          <AiToolsEditor tools={(node.data.tools as ToolRow[] | undefined) ?? []} onChange={(tools) => onChange({ tools })} />
+          {number("maxSteps", "aiMaxSteps", 1, 12)}
+          {text("state", "aiState")}
+          {text("decision", "aiDecision")}
+          <AiTablePicker node={node} datasources={datasources} onChange={onChange} label={tr("inspector.fields.aiApprovalsTable.label")} help={tr("inspector.fields.aiApprovalsTable.help")} />
+        </>
+      )}
+      {t === "ai_structured" && (
+        <>
+          {text("system", "aiSystem", undefined, 60)}
+          {text("prompt", "aiPrompt", undefined, 90)}
+          <Field label={tr("inspector.fields.aiSchema.label")} help={tr("inspector.fields.aiSchema.help")}>
+            <textarea className="input w-full font-mono text-xs" style={{ minHeight: 80 }} value={str("schema")} onChange={(e) => onChange({ schema: e.target.value })} />
+          </Field>
+        </>
+      )}
+      {t === "ai_vision" && (
+        <>
+          {text("image", "aiImage", "{{trigger.image}}")}
+          {text("prompt", "aiPrompt", undefined, 70)}
+        </>
+      )}
+      {t === "ai_embed" && (
+        <>
+          {text("input", "aiEmbedInput", undefined, 70)}
+          <Field label={tr("inspector.fields.aiEmbedMode.label")} help={tr("inspector.fields.aiEmbedMode.help")}>
+            <select className="input" value={node.data.mode === "chunks" ? "chunks" : "single"} onChange={(e) => onChange({ mode: e.target.value })}>
+              <option value="single">{tr("inspector.aiOptions.embedSingle")}</option>
+              <option value="chunks">{tr("inspector.aiOptions.embedChunks")}</option>
+            </select>
+          </Field>
+        </>
+      )}
+      {t === "ai_search" && (
+        <>
+          {text("query", "aiQuery")}
+          <AiTablePicker node={node} datasources={datasources} onChange={onChange} label={tr("inspector.fields.table.label")} help={tr("inspector.fields.table.help")} />
+          <Field label={tr("inspector.fields.aiField.label")} help={tr("inspector.fields.aiField.help")}>
+            <input className="input" value={str("field")} placeholder="embedding" onChange={(e) => onChange({ field: e.target.value })} />
+          </Field>
+          {number("topK", "aiTopK", 1, 50)}
+        </>
+      )}
+      {t === "ai_speech" && (
+        <>
+          {text("text", "aiSpeechText", "{{vars.reply}}", 60)}
+          <Field label={tr("inspector.fields.aiVoice.label")} help={tr("inspector.fields.aiVoice.help")}>
+            <input className="input" value={str("voice")} onChange={(e) => onChange({ voice: e.target.value })} />
+          </Field>
+        </>
+      )}
+      <details className="group rounded-md border border-surface-800 bg-surface-950/40">
+        <summary className="cursor-pointer list-none px-3 py-2 flex items-center justify-between text-xs text-surface-400 hover:text-surface-200">
+          <span>{tr("inspector.advanced")}</span>
+          <ChevronDown size={14} className="transition group-open:rotate-180" />
+        </summary>
+        <div className="px-3 pb-3 pt-1 space-y-2">
+          <Field label={tr("inspector.fields.aiConnection.label")} help={tr("inspector.fields.aiConnection.help")}>
+            <input className="input" value={str("connection")} placeholder={tr("inspector.placeholders.aiConnection")} onChange={(e) => onChange({ connection: e.target.value })} />
+          </Field>
+          <Field label={tr("inspector.fields.aiModel.label")} help={tr("inspector.fields.aiModel.help")}>
+            <input className="input" value={str("model")} onChange={(e) => onChange({ model: e.target.value })} />
+          </Field>
+          <div className="text-[11px] text-surface-500">{tr("inspector.outputName")}</div>
+          <input className="input" value={str("output")} placeholder={IMPLICIT_OUTPUT[t] ?? ""} onChange={(e) => onChange({ output: e.target.value })} />
+        </div>
+      </details>
+    </>
+  );
+}
+

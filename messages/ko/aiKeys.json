@@ -1,0 +1,123 @@
+{
+  "banner": {
+    "body": "이 앱에는 AI 단계가 있습니다. 게시된 앱은 플랫폼의 AI가 아닌 자체 AI 키를 사용하므로, 키를 추가할 때까지 이 단계가 작동하지 않습니다.",
+    "cta": "AI 키 추가",
+    "title": "이 앱의 AI가 설정되지 않았습니다"
+  },
+  "dashboard": {
+    "app": "{name}에 키 추가",
+    "body": "이제 게시된 앱은 AI 기능에 플랫폼의 AI 대신 자체 AI 키를 사용합니다. 키를 추가하기 전까지 방문자에게 “이 앱의 AI가 아직 설정되지 않았습니다.”라는 메시지가 표시됩니다.",
+    "title": "일부 앱에는 자체 AI 키가 필요합니다"
+  },
+  "errors": {
+    "baseUrlBad": "이 주소는 사용할 수 없습니다. 사용자 이름이나 비밀번호가 없는 http:// 또는 https:// 주소를 입력하세요.",
+    "baseUrlMissing": "서버 주소를 입력하세요 (예: https://ai.example.com/v1).",
+    "invalid": "정보가 누락되었거나 형식이 잘못되었습니다.",
+    "keyBad": "올바른 API 키가 아닌 것 같습니다.",
+    "keyMissing": "API 키를 입력하세요.",
+    "model": "사용할 모델을 입력하세요.",
+    "network": "서버에 연결할 수 없습니다. 연결을 확인하고 다시 시도하세요.",
+    "notFound": "해당 AI 연결이 없습니다.",
+    "provider": "AI 서비스를 선택하세요.",
+    "saveFailed": "키를 저장하지 못했습니다. 다시 시도하세요.",
+    "tooManyTests": "짧은 시간에 테스트를 너무 많이 했습니다. 몇 분 후 다시 시도하세요."
+  },
+  "form": {
+    "addTitle": "AI 키 추가",
+    "apiKey": "API 키",
+    "apiKeyHelp": "한 번 입력하면 암호화되어 저장되며, 다시 표시되지 않습니다.",
+    "apiKeySaved": "저장됨 ({hint}). 그대로 두려면 비워 두세요.",
+    "baseUrl": "서버 주소",
+    "baseUrlHelp": "API 주소입니다. 예: https://ai.example.com/v1. 지정된 서비스에서는 선택 입력입니다.",
+    "can": "이 서비스에서 사용할 수 있는 기능: {list}",
+    "canChat": "채팅",
+    "canEmbed": "임베딩",
+    "canSpeech": "음성",
+    "canVision": "이미지",
+    "cancel": "취소",
+    "chatModel": "채팅 모델",
+    "chatModelHelp": "기본 모델과 다른 경우, 채팅 답변과 에이전트에 사용할 모델입니다.",
+    "editTitle": "“{name}” 변경",
+    "embedModel": "임베딩 모델",
+    "embedModelHelp": "의미 검색과 지식 봇에 사용할 모델입니다.",
+    "makeDefault": "기본 연결로 사용",
+    "model": "모델",
+    "modelExample": "예: {model}",
+    "modelHelp": "AI 기능에서 사용할 모델입니다. 서비스에 표시된 이름을 입력하세요.",
+    "more": "모델 추가 설정(선택)",
+    "name": "연결 이름",
+    "nameHelp": "AI 기능에서 선택할 짧은 이름입니다(예: 말하기 기능이 있는 두 번째 키라면 “음성”). 키가 하나라면 기본값으로 두세요.",
+    "provider": "AI 서비스",
+    "providerHelp": "키를 발급받은 곳입니다. 마지막 옵션을 선택하면 직접 운영하는 Ollama나 LM Studio를 포함해 OpenAI 스타일 API를 지원하는 서비스를 사용할 수 있습니다.",
+    "save": "키 저장",
+    "saved": "저장했습니다.",
+    "saving": "저장 중…",
+    "speechModel": "음성 모델",
+    "speechModelHelp": "답변을 소리 내어 읽을 때 사용할 모델입니다. 지정하지 않으면 페이지에서 브라우저의 음성을 사용합니다.",
+    "test": "저장하기 전에 테스트",
+    "visionModel": "이미지 모델",
+    "visionModelHelp": "이미지를 살펴보는 기능에 사용할 모델입니다.",
+    "voice": "음성"
+  },
+  "limits": {
+    "intro": "키를 오용으로부터 보호합니다. 한도에 도달하면 시간이 끝날 때까지 AI 단계가 대기합니다.",
+    "perHour": "앱 전체 시간당 AI 요청 수",
+    "perVisitorHour": "방문자 1명당 시간당 AI 요청 수",
+    "save": "한도 저장",
+    "saved": "한도를 저장했습니다.",
+    "title": "한도"
+  },
+  "list": {
+    "default": "기본값",
+    "edit": "변경",
+    "empty": "아직 AI 키가 없습니다.",
+    "key": "키",
+    "lastFailed": "{when} 테스트 실패",
+    "lastOk": "{when} 테스트 성공",
+    "makeDefault": "기본값으로 설정",
+    "makeDefaultHelp": "이름으로 연결을 지정하지 않은 AI 기능은 기본 연결을 사용합니다.",
+    "model": "모델",
+    "name": "이름: {name}",
+    "remove": "삭제",
+    "removeConfirm": "AI 연결 “{name}”을 삭제할까요? 이 연결을 사용하는 AI 기능은 새 키를 추가할 때까지 작동하지 않습니다.",
+    "test": "연결 테스트",
+    "testing": "테스트 중…",
+    "title": "연결"
+  },
+  "notice": {
+    "body": "이 앱에는 AI 기능이 있습니다. 게시된 앱은 플랫폼의 AI를 사용할 수 없습니다. 사람들이 AI 기능을 사용하기 전에 자체 AI 키(OpenAI, Google Gemini, xAI, OpenRouter 또는 OpenAI 호환 서버)를 추가하세요.",
+    "cta": "AI 키 추가",
+    "later": "앱의 AI 키에서 언제든 추가할 수 있습니다.",
+    "title": "앱의 AI를 사용하려면 자체 키가 필요합니다"
+  },
+  "page": {
+    "eyebrow": "AI 키",
+    "intro": "게시된 앱의 AI 기능(채팅, 동반자, 에이전트, 의미 검색)은 앱 전용 AI 키로 작동합니다. 플랫폼의 AI는 앱을 만들고 수정하지만, 사용자가 앱을 이용할 때는 사용할 수 없습니다.",
+    "introHelp": "결제 중인 AI 서비스의 키를 추가하세요. 앱의 AI 기능은 미리보기와 게시된 앱에서 이 키를 사용합니다.",
+    "needsKey": "이 앱에는 AI 기능이 있지만 아직 키가 없어 방문자에게 “이 앱의 AI가 아직 설정되지 않았습니다.”라는 메시지가 표시됩니다. 아래에 키를 추가하세요.",
+    "noAiYet": "이 앱에는 아직 AI 기능이 없습니다. 지금 키를 추가하면 나중에 추가하는 AI 기능도 바로 작동합니다.",
+    "ownerNote": "이 플랫폼을 운영하고 있으므로, 앱 전용 키가 없으면 앱의 AI 기능은 플랫폼의 AI를 사용합니다. 대신 내 키를 사용하려면 여기에 키를 추가하세요.",
+    "ready": "앱의 AI가 설정되었습니다.",
+    "security": "키는 서버에서 암호화됩니다. 앱 페이지나 방문자에게 전송되지 않고, 로그에 기록되거나 저장 후 다시 표시되지 않습니다.",
+    "title": "앱 전용 AI"
+  },
+  "providers": {
+    "anthropic": "Messages API (sk-ant-로 시작하는 키)",
+    "custom": "OpenAI 호환 서버 (Ollama, LM Studio, vLLM 등)",
+    "gemini": "Google Gemini",
+    "openai": "OpenAI",
+    "openrouter": "OpenRouter",
+    "xai": "xAI (Grok)"
+  },
+  "test": {
+    "detail": "세부 정보: {detail}",
+    "key": "AI 서비스에서 키를 거부했습니다. 키가 올바르고 아직 유효한지 확인하세요.",
+    "model": "AI 서비스에서 해당 모델이나 주소를 찾을 수 없습니다. 모델 이름과 주소를 확인하세요.",
+    "ok": "연결되었습니다. AI가 응답했습니다.",
+    "other": "테스트에 실패했습니다.",
+    "private": "이 주소는 비공개 네트워크에 있어 이 서버의 앱에서 연결할 수 없습니다.",
+    "quota": "AI 서비스에서 이 키의 한도를 초과했거나 크레딧이 부족하다고 합니다.",
+    "timeout": "AI 서비스의 응답이 너무 오래 걸립니다.",
+    "unreadable": "저장된 키를 더 이상 읽을 수 없습니다. 다시 입력하세요."
+  }
+}

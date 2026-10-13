@@ -1,4 +1,5 @@
 "use client";
+import { ClarifyQuestions, clarifyAnswerLines, type ClarifyAnswers } from "@/components/ai/clarify-questions";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -11,7 +12,7 @@ type Message = { seq: number; kind: "user" | "assistant" | "step" | "error"; tex
 type Version = { id: string; prompt: string | null; message: string | null; complete: boolean; createdAt: string };
 type Step = { id: string; label: string; status: "running" | "done" | "error" };
 type Note = { text: string; html: string; label: string };
-type Question = { id: string; label: string; options?: string[] };
+type Question = { id: string; label: string; options?: string[]; multi?: boolean };
 
 const VIEWPORTS = { desktop: "100%", tablet: "820px", phone: "390px" } as const;
 
@@ -47,7 +48,7 @@ export function DesignWorkspace({ id }: { id: string }) {
   const [showVersions, setShowVersions] = useState(false);
   const [viewVersion, setViewVersion] = useState<string | null>(null);
   const [stamp, setStamp] = useState(0);
-  const [questions, setQuestions] = useState<{ prompt: string; list: Question[]; answers: Record<string, string> } | null>(null);
+  const [questions, setQuestions] = useState<{ prompt: string; list: Question[]; answers: ClarifyAnswers } | null>(null);
   const [mobileView, setMobileView] = useState<"chat" | "preview">("chat");
   // Reference images sent with the next message (src/lib/ai/references.ts).
   const [images, setImages] = useState<PickedImage[]>([]);
@@ -164,7 +165,7 @@ export function DesignWorkspace({ id }: { id: string }) {
 
   function buildWithAnswers(skip: boolean) {
     if (!questions) return;
-    const answers = skip ? "" : questions.list.map((q) => (questions.answers[q.id] ? `${q.label} ${questions.answers[q.id]}` : "")).filter(Boolean).join("\n");
+    const answers = skip ? "" : clarifyAnswerLines(questions.list, questions.answers);
     setQuestions(null);
     void send(answers ? `${questions.prompt}\n\n${answers}` : questions.prompt, []);
   }
@@ -250,19 +251,14 @@ export function DesignWorkspace({ id }: { id: string }) {
           {questions && (
             <div className="space-y-3 rounded-xl border border-brand-500/30 bg-brand-500/5 p-3 text-sm" data-help={t("workspace.questionsHelp")}>
               <p className="font-medium">{t("workspace.questionsTitle")}</p>
-              {questions.list.map((q) => (
-                <div key={q.id}>
-                  <p className="text-surface-200">{q.label}</p>
-                  <div className="mt-1.5 flex flex-wrap gap-1.5">
-                    {(q.options ?? []).map((o) => (
-                      <button key={o} type="button" data-help={t("workspace.pickAnswerHelp")} onClick={() => setQuestions({ ...questions, answers: { ...questions.answers, [q.id]: o } })} className={`rounded-full border px-2.5 py-1 text-xs ${questions.answers[q.id] === o ? "border-brand-400 bg-brand-500/20 text-white" : "border-white/15 text-surface-300 hover:border-white/30"}`}>{o}</button>
-                    ))}
-                  </div>
-                  <input className="input mt-1.5 py-1.5 text-xs" placeholder={t("workspace.typeAnswer")} value={questions.answers[q.id] ?? ""} onChange={(e) => setQuestions({ ...questions, answers: { ...questions.answers, [q.id]: e.target.value } })} />
-                </div>
-              ))}
+              <ClarifyQuestions
+                list={questions.list}
+                answers={questions.answers}
+                onChange={(answers) => setQuestions({ ...questions, answers })}
+                words={{ typeAnswer: t("workspace.typeAnswer"), typeMore: t("workspace.typeMore"), pickAny: t("workspace.pickAny"), pickHelp: t("workspace.pickAnswerHelp"), pickAnyHelp: t("workspace.pickAnyHelp") }}
+              />
               <div className="flex gap-2">
-                <button type="button" className="btn-primary px-3 py-1.5 text-sm" data-help={t("workspace.buildItHelp")} onClick={() => buildWithAnswers(false)}>{t("workspace.buildIt")}</button>
+                <button type="button" className="btn-primary px-3 py-1.5 text-sm" data-help={t("workspace.buildItHelp")} data-testid="clarify-build" onClick={() => buildWithAnswers(false)}>{t("workspace.buildIt")}</button>
                 <button type="button" className="btn-ghost px-3 py-1.5 text-sm" data-help={t("workspace.skipQuestionsHelp")} onClick={() => buildWithAnswers(true)}>{t("workspace.skipQuestions")}</button>
               </div>
             </div>

@@ -31,7 +31,9 @@
     "invalidNote": "\"text\" must be the note's text (up to 2000 characters).",
     "invalidWait": "\"wait\" must be true or false.",
     "notRunning": "Nothing is being built for this game right now.",
-    "internal": "Something went wrong on our side. Please try again."
+    "internal": "Something went wrong on our side. Please try again.",
+    "invalidBrand": "\"brand\" is an object with \"name\", \"logoImage\" (an image, as in \"images\"), \"colors\" (a list of up to 3, like #e85d04), \"link\" (https://…) and \"offer\".",
+    "invalidFeature": "Send the feature's name (2 to 80 characters) and, if you like, what it does in \"how\" (up to 400 characters)."
   },
   "sso": {
     "title": "Signing you in",

@@ -1,0 +1,123 @@
+{
+  "banner": {
+    "body": "Ứng dụng này có các bước AI. Ứng dụng đã xuất bản dùng khóa AI riêng, không dùng AI của nền tảng, nên các bước này sẽ không hoạt động cho đến khi bạn thêm khóa.",
+    "cta": "Thêm khóa AI",
+    "title": "AI của ứng dụng này chưa được thiết lập"
+  },
+  "dashboard": {
+    "app": "Thêm khóa cho {name}",
+    "body": "Ứng dụng đã xuất bản hiện dùng khóa AI riêng cho các tính năng AI thay vì AI của nền tảng. Cho đến khi bạn thêm khóa, khách truy cập sẽ thấy “AI của ứng dụng này chưa được thiết lập.”",
+    "title": "Một số ứng dụng của bạn cần khóa AI riêng"
+  },
+  "errors": {
+    "baseUrlBad": "Không thể dùng địa chỉ này. Hãy dùng địa chỉ http:// hoặc https:// không có tên người dùng hay mật khẩu.",
+    "baseUrlMissing": "Nhập địa chỉ máy chủ (ví dụ: https://ai.example.com/v1).",
+    "invalid": "Một số thông tin còn thiếu hoặc không đúng định dạng.",
+    "keyBad": "Thông tin này có vẻ không phải khóa API.",
+    "keyMissing": "Nhập khóa API.",
+    "model": "Nhập tên mô hình cần dùng.",
+    "network": "Không thể kết nối với máy chủ. Hãy kiểm tra kết nối rồi thử lại.",
+    "notFound": "Không tìm thấy kết nối AI này.",
+    "provider": "Hãy chọn một dịch vụ AI.",
+    "saveFailed": "Không thể lưu khóa. Vui lòng thử lại.",
+    "tooManyTests": "Bạn đã kiểm tra quá nhiều lần trong thời gian ngắn. Hãy đợi vài phút."
+  },
+  "form": {
+    "addTitle": "Thêm khóa AI",
+    "apiKey": "Khóa API",
+    "apiKeyHelp": "Chỉ cần dán một lần, sau đó khóa được lưu mã hóa. Khóa sẽ không bao giờ hiển thị lại.",
+    "apiKeySaved": "Đã lưu ({hint}). Để trống nếu bạn muốn giữ nguyên.",
+    "baseUrl": "Địa chỉ máy chủ",
+    "baseUrlHelp": "Địa chỉ API, ví dụ https://ai.example.com/v1. Không bắt buộc với các dịch vụ có tên trong danh sách.",
+    "can": "Dịch vụ này hỗ trợ: {list}",
+    "canChat": "trò chuyện",
+    "canEmbed": "mô hình nhúng",
+    "canSpeech": "giọng nói",
+    "canVision": "hình ảnh",
+    "cancel": "Hủy",
+    "chatModel": "Mô hình trò chuyện",
+    "chatModelHelp": "Dùng cho câu trả lời trò chuyện và trợ lý, nếu khác với mô hình chính.",
+    "editTitle": "Thay đổi “{name}”",
+    "embedModel": "Mô hình nhúng",
+    "embedModelHelp": "Dùng cho tìm kiếm theo ý nghĩa và bot kiến thức.",
+    "makeDefault": "Dùng làm kết nối mặc định",
+    "model": "Mô hình",
+    "modelExample": "Ví dụ {model}",
+    "modelHelp": "Tên mô hình mà dịch vụ của bạn cung cấp để các bước AI sử dụng.",
+    "more": "Thêm mô hình (không bắt buộc)",
+    "name": "Tên kết nối",
+    "nameHelp": "Tên ngắn để các bước AI có thể chọn (ví dụ “giọng nói” cho khóa thứ hai có thể nói). Nếu chỉ có một khóa, hãy để là mặc định.",
+    "provider": "Dịch vụ AI",
+    "providerHelp": "Nơi cấp khóa của bạn. Lựa chọn cuối cùng dùng được với mọi dịch vụ hỗ trợ API theo kiểu OpenAI, kể cả Ollama hoặc LM Studio của riêng bạn.",
+    "save": "Lưu khóa",
+    "saved": "Đã lưu.",
+    "saving": "Đang lưu…",
+    "speechModel": "Mô hình giọng nói",
+    "speechModelHelp": "Dùng để đọc câu trả lời thành tiếng. Nếu không có, các trang sẽ dùng giọng nói có sẵn trong trình duyệt.",
+    "test": "Kiểm tra trước khi lưu",
+    "visionModel": "Mô hình hình ảnh",
+    "visionModelHelp": "Dùng cho các bước phân tích hình ảnh.",
+    "voice": "Giọng nói"
+  },
+  "limits": {
+    "intro": "Giúp bảo vệ khóa khỏi bị lạm dụng: khi đạt đến giới hạn, các bước AI sẽ tạm dừng cho đến hết giờ.",
+    "perHour": "Số yêu cầu AI mỗi giờ cho toàn bộ ứng dụng",
+    "perVisitorHour": "Số yêu cầu AI mỗi giờ cho từng khách truy cập",
+    "save": "Lưu giới hạn",
+    "saved": "Đã lưu giới hạn.",
+    "title": "Giới hạn"
+  },
+  "list": {
+    "default": "Mặc định",
+    "edit": "Thay đổi",
+    "empty": "Chưa có khóa AI.",
+    "key": "Khóa",
+    "lastFailed": "Kiểm tra thất bại vào {when}",
+    "lastOk": "Kiểm tra thành công vào {when}",
+    "makeDefault": "Đặt làm mặc định",
+    "makeDefaultHelp": "Các bước AI không chọn kết nối theo tên sẽ dùng kết nối mặc định.",
+    "model": "Mô hình",
+    "name": "Tên: {name}",
+    "remove": "Xóa",
+    "removeConfirm": "Xóa kết nối AI “{name}”? Các bước AI dùng kết nối này sẽ ngừng hoạt động cho đến khi bạn thêm khóa khác.",
+    "test": "Kiểm tra kết nối",
+    "testing": "Đang kiểm tra…",
+    "title": "Kết nối"
+  },
+  "notice": {
+    "body": "Ứng dụng này có các tính năng AI. Ứng dụng đã xuất bản không thể dùng AI của nền tảng: hãy thêm khóa AI riêng (OpenAI, Google Gemini, xAI, OpenRouter hoặc bất kỳ máy chủ nào tương thích với OpenAI) trước khi mọi người sử dụng các tính năng AI.",
+    "cta": "Thêm khóa AI",
+    "later": "Bạn có thể thêm khóa bất cứ lúc nào trong mục khóa AI của ứng dụng.",
+    "title": "Ứng dụng của bạn cần khóa AI riêng"
+  },
+  "page": {
+    "eyebrow": "Khóa AI",
+    "intro": "Các tính năng AI trong ứng dụng đã xuất bản (trò chuyện, bạn đồng hành, trợ lý, tìm kiếm theo ý nghĩa) dùng khóa AI riêng của ứng dụng. AI của nền tảng giúp tạo và chỉnh sửa ứng dụng, nhưng ứng dụng không thể dùng AI đó khi mọi người sử dụng.",
+    "introHelp": "Thêm khóa của dịch vụ AI mà bạn trả phí. Các bước AI trong ứng dụng dùng khóa này ở bản xem trước và ứng dụng đã xuất bản.",
+    "needsKey": "Ứng dụng này có các bước AI nhưng chưa có khóa, nên khách truy cập sẽ thấy “AI của ứng dụng này chưa được thiết lập”. Thêm khóa bên dưới.",
+    "noAiYet": "Ứng dụng này chưa có bước AI nào. Thêm khóa ngay để các bước AI bạn thêm sau này hoạt động ngay.",
+    "ownerNote": "Bạn đang chạy nền tảng này, nên khi ứng dụng chưa có khóa riêng, các bước AI sẽ dùng AI của nền tảng. Thêm khóa tại đây để dùng khóa của bạn.",
+    "ready": "AI của ứng dụng đã được thiết lập.",
+    "security": "Khóa được mã hóa trên máy chủ. Khóa không bao giờ được gửi đến trang của ứng dụng hoặc khách truy cập, ghi vào nhật ký hay hiển thị lại sau khi bạn lưu.",
+    "title": "AI riêng cho ứng dụng của bạn"
+  },
+  "providers": {
+    "anthropic": "Messages API (khóa bắt đầu bằng sk-ant-)",
+    "custom": "Bất kỳ máy chủ nào tương thích với OpenAI (Ollama, LM Studio, vLLM…)",
+    "gemini": "Google Gemini",
+    "openai": "OpenAI",
+    "openrouter": "OpenRouter",
+    "xai": "xAI (Grok)"
+  },
+  "test": {
+    "detail": "Chi tiết: {detail}",
+    "key": "Dịch vụ AI từ chối khóa này. Hãy kiểm tra khóa có chính xác và còn hoạt động không.",
+    "model": "Dịch vụ AI không nhận ra tên mô hình hoặc địa chỉ này. Hãy kiểm tra tên mô hình và địa chỉ.",
+    "ok": "Đã kết nối. AI đã trả lời.",
+    "other": "Kiểm tra thất bại.",
+    "private": "Địa chỉ này nằm trong mạng riêng, máy chủ này không thể truy cập.",
+    "quota": "Dịch vụ AI cho biết khóa này đã hết hạn mức hoặc hết tín dụng.",
+    "timeout": "Dịch vụ AI phản hồi quá lâu.",
+    "unreadable": "Không thể đọc khóa đã lưu. Hãy nhập lại."
+  }
+}

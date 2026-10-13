@@ -17,9 +17,12 @@ import {
   nativeMetaJson,
   sanitizeBundleSegment,
   resolveIconPng,
+  normalizeHexColor,
   type NativeConfig,
 } from "@/lib/native";
-import { iosProjectFiles } from "@/lib/native-ios";
+import { decodeIconPng, decodePng, iosProjectFiles } from "@/lib/native-ios";
+import { defaultAppIconPng } from "@/lib/app-icon";
+import { appStoreFolder, appStoreScreenshots } from "@/lib/native-store-assets";
 import { nativeConfigForOutput } from "@/lib/apk-build";
 import { nativeNeedsFor, permissionFeaturesOf, usageTextsFor } from "@/lib/native-permissions";
 
@@ -59,6 +62,10 @@ export async function GET(req: Request, ctx: { params: Promise<{ id: string }> }
 
   // Saves the bundle ID the first time, so later downloads keep it.
   const cfg = await nativeConfigForOutput(project);
+  // App Store screenshots of the published pages (what this app shows), made
+  // or read from the cache while the rest is put together; waited for at most
+  // 45 seconds (then they finish in the background for the next download).
+  const shotsJob = appStoreScreenshots(project, { renderer: "web", orientation: cfg.orientation, tablet: true, waitMs: 45_000 });
   const url = await publishedAppUrl(project);
   const brand = await nativeBrandFor(project.ownerId);
   const hosts = await appNavigationHosts(project);
@@ -86,6 +93,15 @@ export async function GET(req: Request, ctx: { params: Promise<{ id: string }> }
   const privacy = { texts: usageTextsFor(cfg.appName, cfg.permissionText, needs), location: needs.features.includes("location") };
   for (const entry of await iosProjectFiles({ cfg, url, allowNavigation: hosts, iconPng, www, privacy })) {
     zip.file(entry.path, entry.data);
+  }
+  // AppStore/: store icon, logo, screenshots and README.txt (src/lib/native-store-assets.ts).
+  const background = normalizeHexColor(cfg.backgroundColor);
+  const storeIcon = (await decodeIconPng(iconPng)) ?? decodePng(defaultAppIconPng(1024, normalizeHexColor(cfg.themeColor, background)));
+  const shots = await shotsJob;
+  if (storeIcon) {
+    for (const f of appStoreFolder({ cfg, icon: storeIcon, background, shots, appUrl: url, project: "classic" })) {
+      zip.file(`AppStore/${f.path}`, f.data, f.path.endsWith(".png") ? { compression: "STORE" } : {});
+    }
   }
   // Remembered, so the Mobile app tab can say when the iPhone app needs a new build.
   const saved = project.native && typeof project.native === "object" && !Array.isArray(project.native) ? project.native : {};

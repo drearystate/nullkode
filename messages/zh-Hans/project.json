@@ -335,6 +335,7 @@
       "locationRemoved": "你的 app 不再使用位置信息。请为下次构建重新下载 iPhone 项目，这样 app 就不会再请求使用位置信息。",
       "newBuildNeeded": "<b>需要重新构建。</b> {reason}",
       "readme": "下载文件中的 README 会分步介绍这两种方式。",
+      "storeAssets": "下载文件中的 AppStore 文件夹包含 App Store 图标和符合 Apple 要求的各种尺寸的应用截图。",
       "title": "iPhone 和 iPad",
       "withMac": "<b>使用 Mac：</b>打开 <mono>{path}</mono>，选择你的团队，然后点击 Product → Archive。",
       "withoutMac": "<b>不使用 Mac：</b>将文件夹上传到 GitHub，并将 Apple 密钥添加为机密。随附的工作流会在 GitHub 的 Mac 上构建 app，并将其发送到 TestFlight。"
@@ -814,6 +815,10 @@
     "invalidInput": "输入无效"
   },
   "tabs": {
+    "aiKeys": {
+      "help": "应用自己的 AI 密钥：用户使用应用时，聊天、智能体和其他 AI 功能会使用它。",
+      "label": "AI 密钥"
+    },
     "data": {
       "help": "查看和编辑应用保存的信息，比如注册信息、订单和用户发送的消息。",
       "label": "数据"

@@ -1,0 +1,123 @@
+{
+  "banner": {
+    "body": "Cette app comporte des étapes d’IA. Les apps publiées utilisent leur propre clé d’IA, et non celle de la plateforme. Ces étapes ne fonctionnent donc pas tant que vous n’en avez pas ajouté une.",
+    "cta": "Ajouter une clé d’IA",
+    "title": "L’IA de cette app n’est pas configurée"
+  },
+  "dashboard": {
+    "app": "Ajouter une clé pour {name}",
+    "body": "Les apps publiées utilisent désormais leur propre clé d’IA pour leurs fonctionnalités d’IA, au lieu de celle de la plateforme. Tant que vous n’en ajoutez pas une, les visiteurs voient le message « L’IA de cette app n’est pas encore configurée. »",
+    "title": "Certaines de vos apps ont besoin de leur propre clé d’IA"
+  },
+  "errors": {
+    "baseUrlBad": "Cette adresse ne peut pas être utilisée. Utilisez une adresse http:// ou https:// sans nom d’utilisateur ni mot de passe.",
+    "baseUrlMissing": "Saisissez l’adresse du serveur (par exemple https://ai.example.com/v1).",
+    "invalid": "Certaines informations sont manquantes ou dans un format incorrect.",
+    "keyBad": "Cette clé ne semble pas être une clé API.",
+    "keyMissing": "Saisissez la clé API.",
+    "model": "Saisissez le modèle à utiliser.",
+    "network": "Impossible de joindre le serveur. Vérifiez votre connexion et réessayez.",
+    "notFound": "Cette connexion d’IA n’existe pas.",
+    "provider": "Choisissez un service d’IA.",
+    "saveFailed": "Impossible d’enregistrer la clé. Veuillez réessayer.",
+    "tooManyTests": "Trop de tests en peu de temps. Attendez quelques minutes."
+  },
+  "form": {
+    "addTitle": "Ajouter une clé d’IA",
+    "apiKey": "Clé API",
+    "apiKeyHelp": "Collez-la une seule fois : elle sera ensuite conservée chiffrée. Elle ne sera plus jamais affichée.",
+    "apiKeySaved": "Enregistrée ({hint}). Laissez ce champ vide pour la conserver.",
+    "baseUrl": "Adresse du serveur",
+    "baseUrlHelp": "L’adresse de l’API, par exemple https://ai.example.com/v1. Facultatif pour les services nommés.",
+    "can": "Ce service peut : {list}",
+    "canChat": "discuter",
+    "canEmbed": "créer des intégrations",
+    "canSpeech": "parler",
+    "canVision": "analyser des images",
+    "cancel": "Annuler",
+    "chatModel": "Modèle de chat",
+    "chatModelHelp": "Pour les réponses dans le chat et les agents, si vous utilisez un modèle différent du modèle principal.",
+    "editTitle": "Modifier « {name} »",
+    "embedModel": "Modèle d’intégration",
+    "embedModelHelp": "Pour la recherche par sens et les bots de connaissances.",
+    "makeDefault": "Utiliser comme connexion par défaut",
+    "model": "Modèle",
+    "modelExample": "Par exemple {model}",
+    "modelHelp": "Le modèle utilisé par vos étapes d’IA, selon le nom donné par votre service.",
+    "more": "Autres modèles (facultatif)",
+    "name": "Nom de la connexion",
+    "nameHelp": "Un nom court que les étapes d’IA peuvent choisir (par exemple « voix » pour une deuxième clé qui peut parler). Si vous n’avez qu’une clé, laissez la valeur par défaut.",
+    "provider": "Service d’IA",
+    "providerHelp": "Le service auquel appartient votre clé. Avec le dernier choix, tous les services compatibles avec l’API de type OpenAI fonctionnent, y compris votre propre Ollama ou LM Studio.",
+    "save": "Enregistrer la clé",
+    "saved": "Enregistrée.",
+    "saving": "Enregistrement…",
+    "speechModel": "Modèle vocal",
+    "speechModelHelp": "Pour lire les réponses à voix haute. Sans modèle vocal, les pages utilisent la voix intégrée au navigateur.",
+    "test": "Tester avant d’enregistrer",
+    "visionModel": "Modèle d’analyse d’images",
+    "visionModelHelp": "Pour les étapes qui analysent des images.",
+    "voice": "Voix"
+  },
+  "limits": {
+    "intro": "Protégez votre clé contre les abus : une fois une limite atteinte, les étapes d’IA attendent la fin de l’heure.",
+    "perHour": "Requêtes d’IA par heure pour toute l’app",
+    "perVisitorHour": "Requêtes d’IA par heure et par visiteur",
+    "save": "Enregistrer les limites",
+    "saved": "Limites enregistrées.",
+    "title": "Limites"
+  },
+  "list": {
+    "default": "Par défaut",
+    "edit": "Modifier",
+    "empty": "Aucune clé d’IA pour le moment.",
+    "key": "Clé",
+    "lastFailed": "Test échoué le {when}",
+    "lastOk": "Test réussi le {when}",
+    "makeDefault": "Définir par défaut",
+    "makeDefaultHelp": "Les étapes d’IA qui ne choisissent pas une connexion par son nom utilisent celle définie par défaut.",
+    "model": "Modèle",
+    "name": "Nom : {name}",
+    "remove": "Supprimer",
+    "removeConfirm": "Supprimer la connexion d’IA « {name} » ? Les étapes d’IA qui l’utilisent cesseront de fonctionner jusqu’à ce que vous ajoutiez une autre clé.",
+    "test": "Tester la connexion",
+    "testing": "Test en cours…",
+    "title": "Connexions"
+  },
+  "notice": {
+    "body": "Cette app comporte des fonctionnalités d’IA. Les apps publiées ne peuvent pas utiliser l’IA de la plateforme : ajoutez votre propre clé d’IA (OpenAI, Google Gemini, xAI, OpenRouter ou tout serveur compatible avec OpenAI) avant que les utilisateurs se servent des fonctionnalités d’IA.",
+    "cta": "Ajouter une clé d’IA",
+    "later": "Vous pouvez l’ajouter à tout moment dans les clés d’IA de l’app.",
+    "title": "L’IA de votre app a besoin de votre propre clé"
+  },
+  "page": {
+    "eyebrow": "Clés d’IA",
+    "intro": "Les fonctions d’IA d’une app publiée (chat, assistants, agents, recherche par sens) utilisent la clé d’IA de l’app. L’IA de la plateforme crée et modifie votre app, mais les apps ne peuvent pas l’utiliser une fois qu’elles sont utilisées par des personnes.",
+    "introHelp": "Ajoutez la clé d’un service d’IA que vous payez. Les étapes d’IA de votre app l’utilisent dans l’aperçu et dans l’app publiée.",
+    "needsKey": "Cette app contient des étapes d’IA, mais n’a pas encore de clé. Les visiteurs voient donc « L’IA de cette app n’est pas encore configurée. » Ajoutez une clé ci-dessous.",
+    "noAiYet": "Cette app ne contient pas encore d’étapes d’IA. Ajoutez une clé maintenant pour que les étapes d’IA que vous ajouterez plus tard fonctionnent tout de suite.",
+    "ownerNote": "Vous gérez cette plateforme. Tant que cette app n’a pas sa propre clé, ses étapes d’IA utilisent l’IA de la plateforme. Ajoutez une clé ici pour utiliser la vôtre.",
+    "ready": "L’IA de cette app est configurée.",
+    "security": "Les clés sont chiffrées sur le serveur. Elles ne sont jamais envoyées aux pages de votre app ni aux visiteurs, ne sont jamais inscrites dans les journaux et ne sont plus affichées après leur enregistrement.",
+    "title": "L’IA propre à votre app"
+  },
+  "providers": {
+    "anthropic": "API Messages (clés commençant par sk-ant-)",
+    "custom": "Tout serveur compatible avec OpenAI (Ollama, LM Studio, vLLM…)",
+    "gemini": "Google Gemini",
+    "openai": "OpenAI",
+    "openrouter": "OpenRouter",
+    "xai": "xAI (Grok)"
+  },
+  "test": {
+    "detail": "Détails : {detail}",
+    "key": "Le service d’IA a refusé la clé. Vérifiez qu’elle est correcte et toujours active.",
+    "model": "Le service d’IA ne reconnaît pas ce modèle ou cette adresse. Vérifiez le nom du modèle et l’adresse.",
+    "ok": "Connecté. L’IA a répondu.",
+    "other": "Le test a échoué.",
+    "private": "Cette adresse se trouve sur un réseau privé, auquel les apps de ce serveur ne peuvent pas accéder.",
+    "quota": "Le service d’IA indique que cette clé a atteint sa limite ou qu’elle n’a plus de crédit.",
+    "timeout": "Le service d’IA a mis trop de temps à répondre.",
+    "unreadable": "La clé enregistrée ne peut plus être lue. Saisissez-la à nouveau."
+  }
+}

@@ -1,4 +1,14 @@
 {
+  "aiApps": {
+    "addKey": "Aggiungi una chiave AI",
+    "aiFeatures": "AI in questa app",
+    "buildNotice": "La tua app ha funzioni AI. Le app pubblicate non possono usare l'AI della piattaforma, quindi aggiungi la tua chiave AI alle chiavi AI dell'app prima che qualcuno le usi. Fino ad allora, i visitatori vedranno “L'AI di questa app non è ancora configurata.”",
+    "editNotice": "Queste modifiche usano l'AI. Le app pubblicate non possono usare l'AI della piattaforma: aggiungi la tua chiave AI alle chiavi AI dell'app prima che qualcuno le usi.",
+    "moduleNotice": "Questa funzione usa l'AI. Le app pubblicate non possono usare l'AI della piattaforma: aggiungi la tua chiave AI alle chiavi AI dell'app prima che qualcuno la usi.",
+    "noticeTitle": "L'AI della tua app richiede la tua chiave",
+    "openEditor": "Apri l'editor",
+    "planNotice": "Questa app ha funzioni AI. Le app pubblicate non possono usare l'AI della piattaforma: dopo la creazione, aggiungi la tua chiave AI (OpenAI, Google Gemini, xAI, OpenRouter o qualsiasi server compatibile con OpenAI) alle chiavi AI dell'app prima che qualcuno usi le funzioni AI."
+  },
   "assistant": {
     "alsoCreated": "ho creato {things}",
     "alsoDid": "{explanation} (Inoltre, {things}.)",

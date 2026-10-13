@@ -1,4 +1,12 @@
 {
+  "aiKey": {
+    "add": "Aggiungi la tua chiave qui:",
+    "change": "{app} ha dei passaggi AI. Le app pubblicate su {platform} ora usano la propria chiave AI anziché quella della piattaforma, quindi questi passaggi sono in pausa finché non ne aggiungi una.",
+    "once": "Questa è l’unica email che riceverai in merito per questa app.",
+    "subject": "{app}: aggiungi la tua chiave AI",
+    "visitor": "Qualcuno ha appena usato una funzionalità AI di {app}, ma l’app non ha una chiave AI propria, quindi ha mostrato questo messaggio: \"L’AI di questa app non è ancora configurata.\"",
+    "why": "Aggiungi una chiave di OpenAI, Google Gemini, xAI (Grok), OpenRouter o di qualsiasi server compatibile con OpenAI (puoi usare anche il tuo Ollama o LM Studio). La chiave resta sul server, crittografata, e non viene mai mostrata ai visitatori. Le funzionalità AI iniziano a funzionare appena la salvi."
+  },
   "aiQuota": {
     "body80": "{reseller} ha usato {used} delle {max} azioni AI disponibili questo mese. Quando saranno esaurite, tu e i tuoi clienti non potrete creare e modificare con l'AI fino al {resets}.",
     "bodyFull": "{reseller} ha usato tutte le {max} azioni AI disponibili per questo mese. Tu e i tuoi clienti non potrete creare e modificare con l'AI fino al {resets}.",

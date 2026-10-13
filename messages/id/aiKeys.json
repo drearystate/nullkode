@@ -1,0 +1,123 @@
+{
+  "banner": {
+    "body": "Aplikasi ini memiliki langkah AI. Aplikasi yang dipublikasikan menggunakan kunci AI sendiri, bukan AI platform, jadi langkah-langkah ini tidak akan berfungsi sampai Anda menambahkan kunci.",
+    "cta": "Tambahkan kunci AI",
+    "title": "AI aplikasi ini belum disiapkan"
+  },
+  "dashboard": {
+    "app": "Tambahkan kunci untuk {name}",
+    "body": "Aplikasi yang dipublikasikan sekarang menggunakan kunci AI sendiri untuk fitur AI, bukan AI platform. Sebelum Anda menambahkan kunci, pengunjung akan melihat “AI aplikasi ini belum disiapkan.”",
+    "title": "Beberapa aplikasi Anda memerlukan kunci AI sendiri"
+  },
+  "errors": {
+    "baseUrlBad": "Alamat itu tidak bisa digunakan. Gunakan alamat http:// atau https:// tanpa nama pengguna atau kata sandi.",
+    "baseUrlMissing": "Masukkan alamat server (misalnya https://ai.example.com/v1).",
+    "invalid": "Ada informasi yang belum diisi atau formatnya salah.",
+    "keyBad": "Sepertinya itu bukan kunci API.",
+    "keyMissing": "Masukkan kunci API.",
+    "model": "Masukkan model yang akan digunakan.",
+    "network": "Tidak bisa terhubung ke server. Periksa koneksi Anda dan coba lagi.",
+    "notFound": "Koneksi AI itu tidak ada.",
+    "provider": "Pilih layanan AI.",
+    "saveFailed": "Kunci tidak bisa disimpan. Silakan coba lagi.",
+    "tooManyTests": "Terlalu banyak tes dalam waktu singkat. Tunggu beberapa menit."
+  },
+  "form": {
+    "addTitle": "Tambahkan kunci AI",
+    "apiKey": "Kunci API",
+    "apiKeyHelp": "Tempel sekali, lalu kunci disimpan dalam keadaan terenkripsi. Kunci tidak akan ditampilkan lagi.",
+    "apiKeySaved": "Tersimpan ({hint}). Biarkan kosong untuk tetap menggunakan kunci ini.",
+    "baseUrl": "Alamat server",
+    "baseUrlHelp": "Alamat API, misalnya https://ai.example.com/v1. Tidak wajib untuk layanan yang namanya tercantum.",
+    "can": "Layanan ini mendukung: {list}",
+    "canChat": "chat",
+    "canEmbed": "embedding",
+    "canSpeech": "suara",
+    "canVision": "gambar",
+    "cancel": "Batal",
+    "chatModel": "Model chat",
+    "chatModelHelp": "Untuk balasan chat dan agen, jika berbeda dari model utama.",
+    "editTitle": "Ubah “{name}”",
+    "embedModel": "Model embedding",
+    "embedModelHelp": "Untuk pencarian berdasarkan makna dan bot pengetahuan.",
+    "makeDefault": "Gunakan sebagai koneksi bawaan",
+    "model": "Model",
+    "modelExample": "Misalnya {model}",
+    "modelHelp": "Model yang digunakan oleh langkah AI Anda, sesuai nama yang digunakan layanan Anda.",
+    "more": "Model lainnya (opsional)",
+    "name": "Nama koneksi",
+    "nameHelp": "Nama singkat yang bisa dipilih oleh langkah AI (misalnya “suara” untuk kunci kedua yang bisa berbicara). Jika hanya ada satu kunci, biarkan sebagai bawaan.",
+    "provider": "Layanan AI",
+    "providerHelp": "Tempat Anda mendapatkan kunci. Layanan apa pun yang menggunakan API bergaya OpenAI bisa dipakai dengan pilihan terakhir, termasuk Ollama atau LM Studio milik Anda sendiri.",
+    "save": "Simpan kunci",
+    "saved": "Tersimpan.",
+    "saving": "Menyimpan…",
+    "speechModel": "Model suara",
+    "speechModelHelp": "Untuk membacakan balasan. Jika tidak ada, halaman akan menggunakan suara bawaan browser.",
+    "test": "Uji sebelum menyimpan",
+    "visionModel": "Model gambar",
+    "visionModelHelp": "Untuk langkah yang memeriksa gambar.",
+    "voice": "Suara"
+  },
+  "limits": {
+    "intro": "Melindungi kunci Anda dari penyalahgunaan: saat batas tercapai, langkah AI akan menunggu sampai jam berganti.",
+    "perHour": "Permintaan AI per jam untuk seluruh aplikasi",
+    "perVisitorHour": "Permintaan AI per jam untuk satu pengunjung",
+    "save": "Simpan batas",
+    "saved": "Batas tersimpan.",
+    "title": "Batas"
+  },
+  "list": {
+    "default": "Bawaan",
+    "edit": "Ubah",
+    "empty": "Belum ada kunci AI.",
+    "key": "Kunci",
+    "lastFailed": "Gagal saat diuji {when}",
+    "lastOk": "Berhasil saat diuji {when}",
+    "makeDefault": "Jadikan bawaan",
+    "makeDefaultHelp": "Langkah AI yang tidak memilih koneksi berdasarkan nama akan menggunakan koneksi bawaan.",
+    "model": "Model",
+    "name": "Nama: {name}",
+    "remove": "Hapus",
+    "removeConfirm": "Hapus koneksi AI “{name}”? Langkah AI yang menggunakannya akan berhenti berfungsi sampai Anda menambahkan kunci lain.",
+    "test": "Uji koneksi",
+    "testing": "Menguji…",
+    "title": "Koneksi"
+  },
+  "notice": {
+    "body": "Aplikasi ini memiliki fitur AI. Aplikasi yang dipublikasikan tidak bisa menggunakan AI platform: tambahkan kunci AI sendiri (OpenAI, Google Gemini, xAI, OpenRouter, atau server apa pun yang kompatibel dengan OpenAI) sebelum orang menggunakan fitur AI.",
+    "cta": "Tambahkan kunci AI",
+    "later": "Anda bisa menambahkannya kapan saja di bagian kunci AI aplikasi.",
+    "title": "AI aplikasi Anda memerlukan kunci sendiri"
+  },
+  "page": {
+    "eyebrow": "Kunci AI",
+    "intro": "Bagian AI di aplikasi yang sudah dipublikasikan (chat, pendamping, agen, pencarian berdasarkan makna) berjalan dengan kunci AI milik aplikasi. AI platform digunakan untuk membuat dan mengedit aplikasi Anda, tetapi aplikasi tidak bisa menggunakannya saat dipakai orang lain.",
+    "introHelp": "Tambahkan kunci dari layanan AI berbayar yang Anda gunakan. Langkah AI di aplikasi Anda akan menggunakannya di pratinjau dan aplikasi yang sudah dipublikasikan.",
+    "needsKey": "Aplikasi ini memiliki langkah AI, tetapi belum memiliki kunci. Pengunjung akan melihat “AI aplikasi ini belum disiapkan.” Tambahkan kunci di bawah.",
+    "noAiYet": "Aplikasi ini belum memiliki langkah AI. Tambahkan kunci sekarang agar langkah AI yang Anda tambahkan nanti bisa langsung digunakan.",
+    "ownerNote": "Anda mengelola platform ini, jadi selama aplikasi ini belum memiliki kunci sendiri, langkah AI-nya menggunakan AI platform. Tambahkan kunci di sini untuk menggunakan kunci Anda sendiri.",
+    "ready": "AI aplikasi ini sudah disiapkan.",
+    "security": "Kunci dienkripsi di server. Kunci tidak pernah dikirim ke halaman aplikasi atau pengunjung, ditulis ke log, atau ditampilkan lagi setelah disimpan.",
+    "title": "AI milik aplikasi Anda"
+  },
+  "providers": {
+    "anthropic": "Messages API (kunci yang diawali sk-ant-)",
+    "custom": "Server apa pun yang kompatibel dengan OpenAI (Ollama, LM Studio, vLLM…)",
+    "gemini": "Google Gemini",
+    "openai": "OpenAI",
+    "openrouter": "OpenRouter",
+    "xai": "xAI (Grok)"
+  },
+  "test": {
+    "detail": "Detail: {detail}",
+    "key": "Layanan AI menolak kunci ini. Periksa apakah kuncinya benar dan masih aktif.",
+    "model": "Layanan AI tidak mengenali model atau alamat tersebut. Periksa nama model dan alamatnya.",
+    "ok": "Terhubung. AI sudah memberi jawaban.",
+    "other": "Tes gagal.",
+    "private": "Alamat ini berada di jaringan privat, yang tidak bisa dijangkau oleh aplikasi di server ini.",
+    "quota": "Layanan AI mengatakan kunci ini sudah mencapai batas atau kehabisan kredit.",
+    "timeout": "Layanan AI terlalu lama memberi jawaban.",
+    "unreadable": "Kunci yang tersimpan tidak bisa dibaca lagi. Masukkan ulang."
+  }
+}

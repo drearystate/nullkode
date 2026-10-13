@@ -54,6 +54,8 @@ export async function runView(run: RunSnapshot) {
     // "build_not_allowed" when the build rule refused it while it ran (docs/partner-api.md).
     errorCode: run.status === "error" ? (typeof run.meta?.errorCode === "string" ? run.meta.errorCode : "failed") : null,
     refunded: run.refunded,
+    // AI features: the app's AI needs the person's own key (docs/ai-in-apps.md). Null when unknown.
+    ai: aiBlock(run, events),
     createdAt: new Date(run.createdAt).toISOString(),
     updatedAt: new Date(run.updatedAt).toISOString(),
     endedAt: run.endedAt ? new Date(run.endedAt).toISOString() : null,
@@ -66,4 +68,12 @@ export async function scopedRun(key: Pick<PartnerKey, "resellerId">, id: string)
   if (!run) return null;
   const owner = await db.user.findUnique({ where: { id: run.ownerId }, select: { role: true, resellerId: true } });
   return owner && inScope(key, owner) ? run : null;
+}
+
+/** A run's AI block: usesAi, needsKey and the notice for the person (never for the platform owner). */
+function aiBlock(run: RunSnapshot, events: ScaffoldEvent[]): { usesAi: boolean; needsKey: boolean; notice: string | null } | null {
+  const meta = run.meta?.ai as { usesAi?: boolean; needsKey?: boolean } | undefined;
+  const noticeEvent = [...events].reverse().find((e) => (e.type === "done" || e.type === "planned") && "aiNotice" in e && e.aiNotice) as { aiNotice?: string } | undefined;
+  if (!meta && !noticeEvent) return run.status === "success" ? { usesAi: false, needsKey: false, notice: null } : null;
+  return { usesAi: Boolean(meta?.usesAi ?? noticeEvent), needsKey: Boolean(meta?.needsKey ?? noticeEvent), notice: noticeEvent?.aiNotice ?? null };
 }

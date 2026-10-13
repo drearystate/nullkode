@@ -1,4 +1,14 @@
 {
+  "aiApps": {
+    "addKey": "添加 AI 密钥",
+    "aiFeatures": "此应用中的 AI",
+    "buildNotice": "你的应用包含 AI 功能。已发布的应用无法使用平台提供的 AI，因此请在应用的 AI 密钥设置中添加你自己的 AI 密钥，然后再让用户使用这些功能。在此之前，访客会看到“此应用的 AI 尚未设置好。”",
+    "editNotice": "这些更改使用了 AI。已发布的应用无法使用平台提供的 AI：请在应用的 AI 密钥设置中添加你自己的 AI 密钥，然后再让用户使用这些更改。",
+    "moduleNotice": "此功能使用了 AI。已发布的应用无法使用平台提供的 AI：请在应用的 AI 密钥设置中添加你自己的 AI 密钥，然后再让用户使用此功能。",
+    "noticeTitle": "你的应用需要自己的 AI 密钥",
+    "openEditor": "打开编辑器",
+    "planNotice": "此应用包含 AI 功能。已发布的应用无法使用平台提供的 AI：构建完成后，请在应用的 AI 密钥设置中添加你自己的 AI 密钥（OpenAI、Google Gemini、xAI、OpenRouter 或任何兼容 OpenAI 的服务器），然后再让用户使用 AI 功能。"
+  },
   "assistant": {
     "alsoCreated": "还创建了 {things}",
     "alsoDid": "{explanation}（还{things}。）",

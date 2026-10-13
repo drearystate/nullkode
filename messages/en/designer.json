@@ -159,7 +159,10 @@
     "view": "View",
     "viewHelp": "Show this version in the preview. Nothing changes until you restore it.",
     "restore": "Restore",
-    "restoreHelp": "Make this version the current one. The version you have now stays in the history."
+    "restoreHelp": "Make this version the current one. The version you have now stays in the history.",
+    "typeMore": "Add your own (optional)",
+    "pickAny": "Pick any",
+    "pickAnyHelp": "Pick as many as you like. Press a picked one again to take it back. You can also type more in the box below."
   },
   "server": {
     "signIn": "Please sign in.",

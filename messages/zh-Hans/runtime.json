@@ -36,6 +36,8 @@
     "typeDelete": "输入 DELETE 以确认。",
     "typeDeleteLabel": "输入 DELETE 以确认"
   },
+  "aiBusy": "此应用当前收到的 AI 请求过多，请稍后重试。",
+  "aiNotSetUp": "此应用尚未设置 AI。",
   "alreadyExists": "此内容已存在。",
   "badInput": "部分信息缺失或格式不正确。",
   "cartAdded": "✓ 已添加",

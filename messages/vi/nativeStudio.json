@@ -48,6 +48,7 @@
     "noMacTitle": "Không có máy Mac",
     "preparing": "Đang chuẩn bị dự án…",
     "readme": "README trong tệp tải xuống có hướng dẫn từng bước. Ứng dụng sẽ tự cập nhật khi bạn xuất bản; bạn chỉ cần tạo phiên bản iPhone mới khi tên, biểu tượng hoặc tính năng trên điện thoại thay đổi.",
+    "storeAssets": "Bản tải xuống cũng có thư mục AppStore chứa biểu tượng App Store và ảnh chụp màn hình ứng dụng ở mọi kích thước Apple yêu cầu. Tạo ảnh chụp màn hình cho phiên bản mới có thể mất đến một phút.",
     "teamId": "Apple Team ID",
     "teamIdHelp": "Apple Developer Team ID của bạn gồm 10 chữ cái và chữ số. Mã này giúp liên kết đến ứng dụng mở được ứng dụng iPhone. Tìm mã tại developer.apple.com trong mục Membership.",
     "teamIdHint": "Không bắt buộc. Chỉ cần nếu bạn muốn liên kết đến ứng dụng mở được ứng dụng iPhone (xem mục Liên kết mở ứng dụng).",

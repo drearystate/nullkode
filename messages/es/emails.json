@@ -1,4 +1,12 @@
 {
+  "aiKey": {
+    "add": "Añade tu clave aquí:",
+    "change": "{app} tiene pasos de IA. Las apps publicadas en {platform} ahora usan su propia clave de IA en lugar de la IA de la plataforma, así que esos pasos están en pausa hasta que añadas una.",
+    "once": "Este es el único correo sobre este tema para esta app.",
+    "subject": "{app}: añade tu propia clave de IA",
+    "visitor": "Alguien acaba de usar una función de IA de {app}, pero la app no tiene su propia clave de IA, así que le mostró: \"La IA de esta app aún no está configurada.\"",
+    "why": "Añade una clave de OpenAI, Google Gemini, xAI (Grok), OpenRouter o cualquier servidor compatible con OpenAI (también puedes usar tu propio Ollama o LM Studio). La clave se guarda en el servidor, cifrada, y nunca se muestra a tus visitantes. Las funciones de IA empezarán a funcionar en cuanto la guardes."
+  },
   "aiQuota": {
     "body80": "{reseller} usó {used} de sus {max} acciones de IA de este mes. Cuando se agoten, la creación y edición con IA se pausarán para ti y tus clientes hasta {resets}.",
     "bodyFull": "{reseller} usó las {max} acciones de IA disponibles para este mes. La creación y edición con IA están pausadas para ti y tus clientes hasta {resets}.",

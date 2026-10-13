@@ -62,7 +62,8 @@
     "tooManyAccounts": "Trop de comptes ont été créés depuis ce réseau aujourd'hui.",
     "tooManyAttempts": "Trop de tentatives d'inscription depuis ce réseau. Réessayez plus tard.",
     "tooQuick": "C'était trop rapide — veuillez réessayer.",
-    "verificationFailed": "Échec de la vérification. Rechargez la page et réessayez."
+    "verificationFailed": "Échec de la vérification. Rechargez la page et réessayez.",
+    "oneFreeAccount": "Un compte gratuit a déjà été créé depuis ce réseau. Connectez-vous plutôt à ce compte."
   },
   "apk": {
     "alreadyHasKey": "Cette application a déjà une clé d’importation. Cochez « Remplacer ma clé actuelle » pour utiliser celle-ci.",

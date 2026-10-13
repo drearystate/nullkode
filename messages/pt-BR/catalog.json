@@ -21,6 +21,35 @@
       "name": "Confirmações de leitura",
       "summary": "Garanta que as pessoas leiam mensagens importantes."
     },
+    "ai-agent": {
+      "description": "Seu próprio agente de IA dentro do app. Defina metas para ele: o agente trabalha nelas em algumas etapas (enquanto a página estiver aberta e, depois que o app for publicado, a cada 15 minutos), salva notas, cria rascunhos de e-mail e pede sua aprovação antes de enviar um e-mail ou chamar um serviço externo que você gerencia, como um OpenMuse hospedado por você. Acompanhe o progresso ao vivo, pause, retome ou cancele, consulte o registro de etapas de cada tarefa e receba um resumo diário. Ele não consegue navegar na internet nem ler uma caixa de entrada por conta própria. Usa a chave de IA do próprio app; todas as páginas são só suas.",
+      "fields": {
+        "agentName": {
+          "label": "Nome do agente"
+        },
+        "instructions": {
+          "label": "Como o agente deve agir"
+        },
+        "ownerEmail": {
+          "help": "Endereço para receber o resumo diário. Deixe vazio para ver os resumos apenas no app. Os e-mails enviados pelo agente (após sua aprovação) saem pelo endereço de e-mail deste app.",
+          "label": "Seu e-mail (opcional)"
+        },
+        "serviceName": {
+          "label": "Nome do seu serviço externo (opcional)",
+          "placeholder": "Meu OpenMuse"
+        },
+        "serviceToken": {
+          "help": "Enviada como \"Authorization: Bearer ...\". Ela fica guardada nos fluxos do app, que só você pode ver.",
+          "label": "Chave do seu serviço externo (opcional)"
+        },
+        "serviceUrl": {
+          "help": "Um endereço https público. Depois da sua aprovação, o agente envia '{'\"task\": \"...\"'}' como JSON e lê a resposta. Deixe vazio se você não tiver um.",
+          "label": "Endereço do seu serviço externo (opcional)"
+        }
+      },
+      "name": "Agente de IA pessoal",
+      "summary": "Seu próprio assistente de IA que trabalha em metas, pede autorização antes de ações arriscadas e dá retorno."
+    },
     "ai-assistant": {
       "description": "Adicione ao seu site um campo para perguntas à IA. As pessoas fazem uma pergunta, a IA responde com base nas instruções que você define e a resposta aparece logo abaixo do formulário. Todas as perguntas e respostas são salvas em uma página privada que só você pode abrir.",
       "fields": {
@@ -37,6 +66,39 @@
       },
       "name": "Assistente de chat",
       "summary": "Permita que as pessoas conversem com um assistente útil."
+    },
+    "ai-companion": {
+      "description": "Um personagem animado e simpático que conversa com seus visitantes, lembra o que eles compartilham, mostra seu humor e o quanto vocês se aproximaram, e pode ouvir e falar em voz alta no navegador. Você escolhe o nome, a personalidade, a saudação e os limites; as respostas são adequadas para todos os públicos, os visitantes podem denunciar uma resposta ou recomeçar, e você consulta as denúncias em uma página privada. Ele usa a chave de IA do seu app.",
+      "fields": {
+        "avatarImages": {
+          "help": "Uma linha por humor: neutral, happy, curious, thinking, sad, surprised ou calm, depois = e o endereço da imagem. Deixe vazio para usar o personagem animado desenhado.",
+          "label": "Imagens (opcional)"
+        },
+        "boundaries": {
+          "help": "Regras que o companheiro sempre segue. Uma camada de segurança integrada também se aplica.",
+          "label": "Limites"
+        },
+        "companionName": {
+          "label": "Nome do companheiro"
+        },
+        "greeting": {
+          "help": "Exibida quando alguém inicia uma nova conversa.",
+          "label": "Primeira mensagem"
+        },
+        "personality": {
+          "help": "Como o companheiro fala e como ele é. Escrito para a IA, com palavras simples.",
+          "label": "Personalidade"
+        },
+        "voiceDefault": {
+          "label": "Ler respostas em voz alta por padrão",
+          "options": {
+            "off": "Desativado (os visitantes podem ativar)",
+            "on": "Ativado (os visitantes podem desativar)"
+          }
+        }
+      },
+      "name": "Companheiro de IA",
+      "summary": "Um personagem animado de IA com quem as pessoas conversam e que se lembra delas."
     },
     "analytics-dashboard": {
       "description": "Acompanhe visualizações de página e eventos personalizados, como “cadastro” e “compra”. Inclui um endereço para registrar visitas em qualquer página, uma API de contadores e um painel de administração com totais, páginas mais acessadas e tendências dos últimos 7 dias.",
@@ -624,6 +686,25 @@
       },
       "name": "Central de ajuda",
       "summary": "Publique artigos de ajuda que seus clientes possam pesquisar."
+    },
+    "knowledge-bot": {
+      "description": "Adicione seus documentos (manuais, políticas, perguntas frequentes, notas) para que os visitantes possam fazer perguntas sobre eles. O bot encontra os trechos mais relevantes e responde apenas com base neles, citando as fontes numeradas. Quando os documentos não respondem a uma pergunta, ele avisa com sinceridade. Usa a chave de IA do próprio app, que precisa de um modelo de embeddings (OpenAI, Google Gemini ou um servidor compatível com OpenAI, como Ollama). As perguntas e respostas ficam salvas em uma página privada que só você pode abrir.",
+      "fields": {
+        "botName": {
+          "help": "O título da página de perguntas.",
+          "label": "Nome do bot"
+        },
+        "disclosure": {
+          "help": "Informa aos visitantes que as respostas vêm de uma IA.",
+          "label": "Aviso abaixo da caixa de perguntas"
+        },
+        "instructions": {
+          "help": "Como o bot deve responder. Ele sempre responde apenas com base nos seus documentos e cita as fontes.",
+          "label": "Tom e regras"
+        }
+      },
+      "name": "Bot de conhecimento",
+      "summary": "Responde a perguntas com base nos seus documentos e mostra as fontes."
     },
     "leaderboard": {
       "description": "Um placar genérico. Adicione pontuações associadas a um user_label (qualquer texto — e-mail, nome, membro da academia, funcionário); o placar organiza as pontuações da maior para a menor. Filtre por categoria para manter vários placares (passos, vendas, pontos). O endpoint submit-score pode ser chamado por qualquer outro módulo.",

@@ -21,6 +21,35 @@
       "name": "Accusés de lecture",
       "summary": "Vérifiez que les utilisateurs ont lu les messages importants."
     },
+    "ai-agent": {
+      "description": "Votre propre agent IA dans l’app. Donnez-lui des objectifs : il avance étape par étape (tant que sa page est ouverte, puis toutes les 15 minutes une fois l’app publiée), enregistre des notes, rédige des e-mails et demande votre accord avant d’envoyer un e-mail ou d’appeler un service externe que vous utilisez, comme OpenMuse hébergé par vos soins. Suivez sa progression en direct, mettez-le en pause, reprenez ou annulez ses tâches, consultez le journal de chaque tâche et recevez un résumé quotidien. Il ne peut pas naviguer sur le Web ni lire une boîte mail de lui-même. Il utilise la clé IA de l’app ; ses pages ne sont visibles que par vous.",
+      "fields": {
+        "agentName": {
+          "label": "Nom de l’agent"
+        },
+        "instructions": {
+          "label": "Comportement de l’agent"
+        },
+        "ownerEmail": {
+          "help": "Adresse à laquelle envoyer le résumé quotidien. Laissez vide pour consulter les résumés dans l’app uniquement. Les e-mails envoyés par l’agent (après votre accord) partent de l’adresse e-mail de cette app.",
+          "label": "Votre e-mail (facultatif)"
+        },
+        "serviceName": {
+          "label": "Nom de votre service externe (facultatif)",
+          "placeholder": "Mon OpenMuse"
+        },
+        "serviceToken": {
+          "help": "Envoyée sous la forme « Authorization: Bearer ... ». Elle est conservée dans les flux de l’app, visibles par vous seul.",
+          "label": "Clé de votre service externe (facultatif)"
+        },
+        "serviceUrl": {
+          "help": "Une adresse https publique. Après votre accord, l’agent lui envoie '{\"task\": \"...\"}' au format JSON et lit la réponse. Laissez vide si vous n’en utilisez pas.",
+          "label": "Adresse de votre service externe (facultatif)"
+        }
+      },
+      "name": "Agent IA personnel",
+      "summary": "Votre assistant IA qui avance vers ses objectifs, demande votre accord avant les étapes risquées et vous tient au courant."
+    },
     "ai-assistant": {
       "description": "Ajoutez un champ de questions sur l’IA à votre site. Les visiteurs posent une question, l’IA répond en suivant les instructions que vous avez définies et la réponse s’affiche juste sous le formulaire. Chaque question et chaque réponse sont enregistrées sur une page privée, accessible uniquement par vous.",
       "fields": {
@@ -37,6 +66,39 @@
       },
       "name": "Assistant de chat",
       "summary": "Permettez aux visiteurs de discuter avec un assistant utile."
+    },
+    "ai-companion": {
+      "description": "Un personnage animé et sympathique qui discute avec vos visiteurs, se souvient de ce qu’ils lui racontent, montre son humeur et le lien qui vous unit, et peut écouter et parler à voix haute dans le navigateur. Vous choisissez son nom, sa personnalité, son message d’accueil et ses limites ; ses réponses conviennent à tous les publics, les visiteurs peuvent signaler une réponse ou recommencer, et vous consultez les signalements sur une page privée. Le module utilise la clé IA de votre app.",
+      "fields": {
+        "avatarImages": {
+          "help": "Une ligne par humeur : neutral, happy, curious, thinking, sad, surprised ou calm, puis = et l’adresse de l’image. Laissez vide pour utiliser le personnage animé dessiné.",
+          "label": "Images (facultatif)"
+        },
+        "boundaries": {
+          "help": "Les règles que le compagnon respecte toujours. Une protection intégrée s’y ajoute.",
+          "label": "Limites"
+        },
+        "companionName": {
+          "label": "Nom du compagnon"
+        },
+        "greeting": {
+          "help": "Affiché à l’ouverture d’une nouvelle conversation.",
+          "label": "Premier message"
+        },
+        "personality": {
+          "help": "Comment le compagnon s’exprime et quel est son caractère. Décrivez-le simplement pour l’IA.",
+          "label": "Personnalité"
+        },
+        "voiceDefault": {
+          "label": "Lire les réponses à voix haute par défaut",
+          "options": {
+            "off": "Désactivé (les visiteurs peuvent l’activer)",
+            "on": "Activé (les visiteurs peuvent le désactiver)"
+          }
+        }
+      },
+      "name": "Compagnon IA",
+      "summary": "Un personnage animé avec qui discuter et parler, qui se souvient de vous."
     },
     "analytics-dashboard": {
       "description": "Suivez les pages vues et les événements personnalisés (« inscription », « achat »). Comprend un point de collecte à appeler depuis n’importe quelle page, une API de compteurs et un tableau de bord d’administration avec les totaux, les pages les plus consultées et les tendances sur 7 jours.",
@@ -624,6 +686,25 @@
       },
       "name": "Base de connaissances",
       "summary": "Publiez des articles d’aide que vos clients peuvent rechercher."
+    },
+    "knowledge-bot": {
+      "description": "Ajoutez vos documents (manuels, règles, FAQ, notes) pour que les visiteurs puissent poser des questions à leur sujet. Le bot repère les passages les plus pertinents et répond uniquement à partir de ceux-ci, en citant des sources numérotées. Il indique clairement quand les documents ne permettent pas de répondre. Il utilise la clé IA de l’app, qui doit donner accès à un modèle d’embeddings (OpenAI, Google Gemini ou un serveur compatible avec OpenAI comme Ollama). Les questions et réponses sont enregistrées sur une page privée, accessible à vous seul.",
+      "fields": {
+        "botName": {
+          "help": "Titre de la page de questions.",
+          "label": "Nom du bot"
+        },
+        "disclosure": {
+          "help": "Indique aux visiteurs que les réponses viennent d’une IA.",
+          "label": "Note sous le champ de question"
+        },
+        "instructions": {
+          "help": "Comment le bot doit répondre. Il répond toujours uniquement à partir de vos documents et les cite.",
+          "label": "Ton et règles"
+        }
+      },
+      "name": "Bot de connaissances",
+      "summary": "Répond aux questions à partir de vos documents et cite ses sources."
     },
     "leaderboard": {
       "description": "Un classement polyvalent. Ajoutez des scores associés à un libellé d’utilisateur (n’importe quel texte : e-mail, nom, membre d’une salle de sport, employé) pour les trier du plus élevé au plus bas. Filtrez par catégorie pour gérer plusieurs classements (pas, ventes, points). Le point de terminaison d’envoi des scores peut être appelé depuis n’importe quel autre module.",

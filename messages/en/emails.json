@@ -45,5 +45,13 @@
     "hello": "Hello,",
     "body": "This is a test email from {app}. If you can read it, email works: invitations, password links and app alerts will be sent from {from}.",
     "noReply": "You don't need to reply."
+  },
+  "aiKey": {
+    "subject": "{app}: add your own AI key",
+    "visitor": "Someone just used an AI part of {app}, but the app has no AI key of its own, so it told them: \"This app's AI isn't set up yet.\"",
+    "change": "{app} has AI steps. Published apps on {platform} now use their own AI key instead of the platform's AI, so those steps are paused until you add one.",
+    "why": "Add a key from OpenAI, Google Gemini, xAI (Grok), OpenRouter or any OpenAI-compatible server (your own Ollama or LM Studio works too). The key stays on the server, encrypted, and is never shown to your visitors. The AI parts start working as soon as it is saved.",
+    "add": "Add your key here:",
+    "once": "This is the only email about this for this app."
   }
 }

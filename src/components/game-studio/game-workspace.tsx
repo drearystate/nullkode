@@ -3,24 +3,30 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useFormatter, useTranslations } from "next-intl";
-import { AlertTriangle, ArrowUpRight, Check, CheckCircle2, Circle, CircleDashed, CircleDot, Download, Gamepad2, History, Loader2, Maximize2, MessageSquareReply, Monitor, Pause, Play, Rocket, RotateCcw, Send, Shapes, Smartphone, Square, StepForward, X, XCircle } from "lucide-react";
+import { AlertTriangle, ArrowUpRight, Check, CheckCircle2, Circle, CircleDashed, CircleDot, Download, Gamepad2, Hammer, History, Store, Loader2, Maximize2, MessageSquareReply, Monitor, Pause, PencilLine, Play, Rocket, RotateCcw, Send, Shapes, Smartphone, Square, StepForward, X, XCircle } from "lucide-react";
 import { addImageFiles, imagesFromPaste, ReferencePicker, referenceDropProps, type PickedImage } from "@/components/ai/reference-picker";
 import { GameCanvas, type CanvasStatus, type GameCanvasHandle } from "./game-canvas";
+import { BrandForm, brandPayload, EMPTY_BRAND, type BrandDraft } from "./brand-form";
 import { ASSET_DRAG_TYPE, AssetsPanel, type PanelAsset } from "./assets-panel";
+import { FeatureChip, FeatureListPanel, type FeatureLogEntry, type ListFeature } from "./feature-list";
 
 type Game = { id: string; name: string; engine: "phaser-2d" | "three-3d"; status: string; projectId: string | null; published: boolean; seq: number; plan: Plan | null };
 type Visual = { camera?: string; palette?: Array<{ hex: string; role: string }>; shapes?: string; materials?: string; lighting?: string; density?: string; ui?: string; motion?: string; assets?: string };
-type FeatureStatus = "planned" | "built" | "passing" | "failing";
-type Feature = { id: string; name: string; priority: "core" | "extra"; how?: string; status: FeatureStatus; last?: { ok: boolean; text: string; bad?: string } };
-type Plan = { title?: string; brief?: Record<string, string>; assets?: Array<{ key: string; id: string; use: string }>; message?: string; visual?: Visual | null; features?: Feature[] };
+type Feature = ListFeature;
+type Content = { levels?: string; enemies?: string; mechanics?: string; progression?: string; bosses?: string; structure?: string; playMinutes?: number | null };
+type PhaseInfo = { n: number; id: string; name: string; summary: string };
+type Plan = { title?: string; brief?: Record<string, string>; assets?: Array<{ key: string; id: string; use: string }>; message?: string; visual?: Visual | null; features?: Feature[]; featureLog?: FeatureLogEntry[]; content?: Content | null; phases?: PhaseInfo[] };
+/** A full game waiting for the owner after a phase (the check-in). */
+type Review = { jobId: string; phase: number; phases: number; message: string | null; question: string; done: Array<{ n: number; name: string; summary: string }>; next: Array<{ n: number; name: string; summary: string; steps: number }>; continueCost: number; since: string };
 type NoteState = { status: string; step: number | null; label: string | null; planned: string | null };
 type Message = { seq: number; kind: "user" | "assistant" | "error"; text: string; versionSeq: number | null; createdAt: string; note?: NoteState };
 type Version = { seq: number; label: string; note: string | null; kind: string; ok: boolean | null; hasShot: boolean; createdAt: string; features?: { passing: number; failing: number; total: number } | null };
-type Step = { id: string; label: string; status: "todo" | "running" | "done" | "error"; seq?: number; note?: string; added?: boolean; kind?: string };
+type Step = { id: string; label: string; status: "todo" | "running" | "done" | "error"; seq?: number; note?: string; added?: boolean; kind?: string; phase?: number };
 type Job = { id: string; steps: Step[]; phase: string | null; stopAfterStep?: boolean };
 
 const BRIEF_KEYS = ["pitch", "genre", "coreLoop", "controls", "levels", "winLose", "artStyle", "audio"] as const;
 const VISUAL_KEYS = ["camera", "shapes", "materials", "lighting", "density", "ui", "motion", "assets"] as const;
+const CONTENT_KEYS = ["levels", "enemies", "mechanics", "progression", "bosses", "structure"] as const;
 
 function viewerZone(): string | undefined {
   try {
@@ -41,6 +47,13 @@ export function GameWorkspace({ id }: { id: string }) {
   const [versions, setVersions] = useState<Version[]>([]);
   const [used, setUsed] = useState<PanelAsset[]>([]);
   const [job, setJob] = useState<Job | null>(null);
+  const [review, setReview] = useState<Review | null>(null);
+  // A promotional game's branding as stored (the link the "Visit us" button opens comes only from here).
+  const [brand, setBrand] = useState<{ name: string; colors: string[]; link: string | null; offer: string; logo: { width: number; height: number } | null; logoUrl: string | null } | null>(null);
+  const [brandDraft, setBrandDraft] = useState<BrandDraft>(EMPTY_BRAND);
+  const [brandSaving, setBrandSaving] = useState(false);
+  const lastLinkOpen = useRef(0);
+  const [continuing, setContinuing] = useState(false);
   const [appUrl, setAppUrl] = useState<string | null>(null);
   const [prompt, setPrompt] = useState("");
   const [chips, setChips] = useState<Array<{ id: string; name: string }>>([]);
@@ -49,7 +62,7 @@ export function GameWorkspace({ id }: { id: string }) {
   const [error, setError] = useState("");
   const [notice, setNotice] = useState<{ text: string; href?: string } | null>(null);
   const [dropping, setDropping] = useState(false);
-  const [side, setSide] = useState<"assets" | "versions" | null>(null);
+  const [side, setSide] = useState<"assets" | "versions" | "brand" | null>(null);
   const [mobileView, setMobileView] = useState<"chat" | "game" | "assets">("chat");
   const [frame, setFrame] = useState<"desktop" | "phone">("desktop");
   const [viewSeq, setViewSeq] = useState<number | null>(null);
@@ -61,6 +74,7 @@ export function GameWorkspace({ id }: { id: string }) {
   const [stopping, setStopping] = useState(false);
   const canvas = useRef<GameCanvasHandle>(null);
   const chatEnd = useRef<HTMLDivElement>(null);
+  const promptBox = useRef<HTMLTextAreaElement>(null);
   const running = Boolean(job);
 
   const refresh = useCallback(async () => {
@@ -75,6 +89,8 @@ export function GameWorkspace({ id }: { id: string }) {
     setUsed(d.assets ?? []);
     setAppUrl(d.appUrl ?? null);
     setJob(d.job ? { id: d.job.id, steps: Array.isArray(d.job.steps) ? d.job.steps : [], phase: d.job.phase, stopAfterStep: Boolean(d.job.stopAfterStep) } : null);
+    setReview(d.review ?? null);
+    setBrand(d.brand ?? null);
   }, [id, router]);
 
   useEffect(() => {
@@ -99,7 +115,7 @@ export function GameWorkspace({ id }: { id: string }) {
 
   useEffect(() => {
     chatEnd.current?.scrollIntoView({ block: "end" });
-  }, [chat.length, job?.steps.length]);
+  }, [chat.length, job?.steps.length, review?.jobId]);
 
   const latestLabel = useMemo(() => versions[0]?.label ?? "", [versions]);
 
@@ -147,6 +163,51 @@ export function GameWorkspace({ id }: { id: string }) {
     clear();
     setViewSeq(null);
     void refresh();
+  }
+
+  /** "Keep building" at the check-in: the rest of the phases, one more AI action. */
+  async function keepBuilding() {
+    if (continuing) return;
+    setContinuing(true);
+    setError("");
+    const res = await fetch(`/api/games/${id}/continue`, { method: "POST" }).catch(() => null);
+    const data = (await res?.json().catch(() => ({}))) ?? {};
+    setContinuing(false);
+    if (!res?.ok) return setError(data.error || t("review.continueFailed"));
+    setReview(null);
+    setViewSeq(null);
+    void refresh();
+  }
+
+  /** The game's "Visit us" button: opens the business's stored link (never one from the game), at most once every 2 seconds. */
+  const openBrandLink = useCallback(() => {
+    const link = brand?.link;
+    if (!link || !/^https?:\/\//.test(link) || Date.now() - lastLinkOpen.current < 2000) return;
+    lastLinkOpen.current = Date.now();
+    window.open(link, "_blank", "noopener,noreferrer");
+  }, [brand?.link]);
+
+  function openBranding() {
+    setBrandDraft(brand ? { name: brand.name, colors: brand.colors, link: brand.link ?? "", offer: brand.offer, logo: null, logoUrl: brand.logoUrl } : EMPTY_BRAND);
+    setSide(side === "brand" ? null : "brand");
+  }
+
+  /** Saves the branding (at once, as a version) and, for a built game, starts the change that brings the game in line. */
+  async function saveBranding() {
+    setBrandSaving(true);
+    setError("");
+    const res = await fetch(`/api/games/${id}/brand`, { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify({ brand: brandPayload(brandDraft) }) }).catch(() => null);
+    const data = (await res?.json().catch(() => ({}))) ?? {};
+    setBrandSaving(false);
+    if (!res?.ok) return setError(data.error || t("brand.saveFailed"));
+    setSide(null);
+    void refresh();
+  }
+
+  /** "Make changes" at the check-in: the chat box takes the changes. */
+  function makeChanges() {
+    setMobileView("chat");
+    requestAnimationFrame(() => promptBox.current?.focus());
   }
 
   async function stop() {
@@ -211,6 +272,15 @@ export function GameWorkspace({ id }: { id: string }) {
   const passingCount = features.filter((f) => f.status === "passing").length;
   const steps = job?.steps ?? [];
   const doneCount = steps.filter((s) => s.status === "done").length;
+  // A full game's phases: the one running now is open in the step list, the others are one line each.
+  const phaseTotal = Math.max(1, ...steps.map((s) => s.phase ?? 1), ...(plan?.phases ?? []).map((p) => p.n));
+  const currentPhase = steps.find((s) => s.status === "running")?.phase ?? steps.find((s) => s.status === "todo")?.phase ?? steps[steps.length - 1]?.phase ?? 1;
+  const phaseStatus = (n: number): "done" | "now" | "next" => {
+    if (review) return review.done.some((p) => p.n === n) ? "done" : "next";
+    const mine = steps.filter((s) => s.phase === n);
+    if (mine.length) return mine.every((s) => s.status === "done") ? "done" : mine.some((s) => s.status !== "todo") || n === currentPhase ? "now" : "next";
+    return game.status === "ready" ? "done" : "next";
+  };
   const errors = status?.errors ?? [];
   const stepShown = status?.shownSeq !== undefined && status.shownSeq >= 0 ? versions.find((v) => v.seq === status.shownSeq)?.label ?? null : null;
 
@@ -235,6 +305,8 @@ export function GameWorkspace({ id }: { id: string }) {
           </div>
           {game.projectId && <Link href={`/projects/${game.projectId}`} className="btn-ghost shrink-0 px-3 py-1.5 text-xs" data-help={t("chat.openAppHelp")}>{t("chat.openApp")}</Link>}
         </div>
+        {/* The feature list: always on screen, so the person sees every feature is still there. */}
+        {(features.length > 0 || game.seq > 0) && <FeatureListPanel gameId={id} features={features} log={[...(plan?.featureLog ?? [])].reverse()} built={game.seq > 0} running={running} onChanged={() => void refresh()} onError={setError} />}
 
         <div className="min-h-0 flex-1 space-y-3 overflow-y-auto px-4 py-4" aria-live="polite">
           {plan?.brief && (
@@ -267,6 +339,35 @@ export function GameWorkspace({ id }: { id: string }) {
                   <div key={k}><dt className="text-xs text-surface-400">{t(`plan.${k}`)}</dt><dd className="text-surface-200" dir="auto">{plan.brief![k]}</dd></div>
                 ))}
               </dl>
+              {plan.content && (
+                <div className="mt-3 border-t border-white/10 pt-2" data-testid="game-content" data-help={t("plan.content.help")}>
+                  <p className="flex flex-wrap items-baseline justify-between gap-2 text-xs font-medium text-surface-300">
+                    {t("plan.content.title")}
+                    {plan.content.playMinutes ? <span className="font-normal text-surface-400">{t("plan.content.playMinutes", { count: plan.content.playMinutes })}</span> : null}
+                  </p>
+                  <dl className="mt-1.5 space-y-1">
+                    {CONTENT_KEYS.filter((k) => plan.content?.[k]).map((k) => (
+                      <div key={k} className="text-xs"><dt className="inline text-surface-400">{t(`plan.content.${k}`)}: </dt><dd className="inline text-surface-200" dir="auto">{plan.content![k]}</dd></div>
+                    ))}
+                  </dl>
+                </div>
+              )}
+              {(plan.phases?.length ?? 0) > 1 && (
+                <div className="mt-3 border-t border-white/10 pt-2" data-testid="game-phases" data-help={t("plan.phases.help")}>
+                  <p className="text-xs font-medium text-surface-300">{t("plan.phases.title")}</p>
+                  <ol className="mt-1.5 space-y-1">
+                    {plan.phases!.map((p) => {
+                      const st = phaseStatus(p.n);
+                      return (
+                        <li key={p.n} className="flex items-start gap-2 text-xs" data-status={st}>
+                          <span className="mt-0.5 shrink-0" aria-hidden>{st === "done" ? <Check size={12} className="text-emerald-400" /> : st === "now" ? <CircleDot size={12} className="text-brand-300" /> : <Circle size={12} className="text-surface-500" />}</span>
+                          <span className="min-w-0"><span className="text-surface-100" dir="auto">{t("plan.phases.item", { n: p.n, name: p.name })}</span><span className="sr-only"> ({t(`plan.phases.${st}`)})</span>{p.summary && <span className="block text-surface-400" dir="auto">{p.summary}</span>}</span>
+                        </li>
+                      );
+                    })}
+                  </ol>
+                </div>
+              )}
               {plan.visual && (
                 <div className="mt-3 border-t border-white/10 pt-2" data-testid="visual-spec" data-help={t("plan.visual.help")}>
                   <p className="text-xs font-medium text-surface-300">{t("plan.visual.title")}</p>
@@ -316,14 +417,53 @@ export function GameWorkspace({ id }: { id: string }) {
               )}
               {steps.length > 0 && (
                 <ol className="mt-2 space-y-1.5">
-                  {steps.map((s) => (
-                    <li key={s.id} className="flex items-start gap-2 text-xs" data-status={s.status}>
+                  {steps.map((s, i) => {
+                    const n = s.phase ?? 0;
+                    const head = n > 0 && (i === 0 || steps[i - 1].phase !== n);
+                    const mine = n > 0 ? steps.filter((x) => x.phase === n) : [];
+                    const open = n === 0 || n === currentPhase;
+                    if (!open && !head) return null;
+                    return (
+                    <li key={s.id} data-status={open ? s.status : undefined} data-phase={n || undefined}>
+                      {head && (
+                        <p className="mb-1 mt-2 flex flex-wrap items-baseline justify-between gap-x-2 border-t border-white/10 pt-1.5 text-[11px] font-medium text-surface-300 first:mt-0 first:border-0 first:pt-0" data-testid="phase-heading" data-help={t("steps.phaseHelp")}>
+                          <span dir="auto">{t("steps.phase", { n, total: phaseTotal, name: plan?.phases?.find((p) => p.n === n)?.name ?? "" })}</span>
+                          <span className="font-normal text-surface-400">{t("steps.phaseProgress", { done: mine.filter((x) => x.status === "done").length, total: mine.length })}</span>
+                        </p>
+                      )}
+                      {open && (
+                    <div className="flex items-start gap-2 text-xs">
                       <span className="mt-0.5">{s.status === "running" ? <Loader2 size={12} className="animate-spin text-brand-300" /> : s.status === "done" ? <Check size={12} className="text-emerald-400" /> : s.status === "error" ? <X size={12} className="text-red-400" /> : <Circle size={12} className="text-surface-500" />}</span>
-                      <span className={s.status === "todo" ? "text-surface-500" : "text-surface-200"} dir="auto">{s.label}{s.added && s.kind !== "feature-fix" && <span className="ms-1.5 rounded bg-brand-500/15 px-1 py-px text-[10px] text-brand-200" data-testid="step-added">{t("steps.added")}</span>}{s.kind === "playtest-fix" && <span className="ms-1.5 rounded bg-amber-400/15 px-1 py-px text-[10px] text-amber-100" data-testid="step-playtest" data-help={t("steps.playtestHelp")}>{t("steps.playtestTag")}</span>}{s.kind === "feature-fix" && <span className="ms-1.5 rounded bg-sky-400/15 px-1 py-px text-[10px] text-sky-100" data-testid="step-feature-fix" data-help={t("steps.featureFixHelp")}>{t("steps.featureFixTag")}</span>}{s.note && s.status === "done" ? <span className="block text-surface-400">{s.note}</span> : null}</span>
+                      <span className={s.status === "todo" ? "text-surface-500" : "text-surface-200"} dir="auto">{s.label}{s.added && s.kind !== "feature-fix" && <span className="ms-1.5 rounded bg-brand-500/15 px-1 py-px text-[10px] text-brand-200" data-testid="step-added">{t("steps.added")}</span>}{s.kind === "playtest-fix" && <span className="ms-1.5 rounded bg-amber-400/15 px-1 py-px text-[10px] text-amber-100" data-testid="step-playtest" data-help={t("steps.playtestHelp")}>{t("steps.playtestTag")}</span>}{s.kind === "feature-fix" && <span className="ms-1.5 rounded bg-sky-400/15 px-1 py-px text-[10px] text-sky-100" data-testid="step-feature-fix" data-help={t("steps.featureFixHelp")}>{t("steps.featureFixTag")}</span>}{s.kind === "change" && <span className="ms-1.5 rounded bg-brand-500/15 px-1 py-px text-[10px] text-brand-200" data-testid="step-change">{t("steps.changeTag")}</span>}{s.note && s.status === "done" ? <span className="block text-surface-400">{s.note}</span> : null}</span>
+                    </div>
+                      )}
                     </li>
-                  ))}
+                    );
+                  })}
                 </ol>
               )}
+            </div>
+          )}
+          {review && !running && (
+            <div className="rounded-xl border border-brand-400/40 bg-brand-500/10 p-3 text-sm" role="region" aria-labelledby="review-title" data-testid="review-card" data-help={t("review.help")}>
+              <p id="review-title" className="flex items-center gap-2 font-medium text-surface-50"><Gamepad2 size={15} className="text-brand-300" />{t("review.title")}</p>
+              {review.next.length > 0 && (
+                <div className="mt-2">
+                  <p className="text-xs text-surface-400">{t("review.stillToBuild")}</p>
+                  <ul className="mt-1 space-y-0.5 text-xs">
+                    {review.next.map((p) => (
+                      <li key={p.n} className="flex items-baseline justify-between gap-2">
+                        <span className="min-w-0 text-surface-200" dir="auto">{t("plan.phases.item", { n: p.n, name: p.name })}</span>
+                        <span className="shrink-0 text-surface-400">{t("review.phaseSteps", { count: p.steps })}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              <div className="mt-3 flex flex-wrap gap-2">
+                <button type="button" className="btn-primary flex items-center gap-1.5 px-3 py-1.5 text-sm" data-testid="review-continue" data-help={t("review.keepBuildingHelp")} disabled={continuing} onClick={() => void keepBuilding()}>{continuing ? <Loader2 size={15} className="animate-spin" /> : <Hammer size={15} />}{t("review.keepBuilding", { count: review.continueCost })}</button>
+                <button type="button" className="btn-ghost flex items-center gap-1.5 px-3 py-1.5 text-sm" data-testid="review-changes" data-help={t("review.makeChangesHelp")} onClick={makeChanges}><PencilLine size={15} />{t("review.makeChanges")}</button>
+              </div>
             </div>
           )}
           <div ref={chatEnd} />
@@ -369,6 +509,7 @@ export function GameWorkspace({ id }: { id: string }) {
             </ul>
           )}
           {error && <p role="alert" className="mb-2 text-xs text-red-300">{error}</p>}
+          {review && !running && <p className="mb-2 text-xs text-surface-400" data-testid="review-hint">{t("review.changesHint")}</p>}
           {(images.length > 0 || imageError) && (
             <div className="mb-2">
               <ReferencePicker images={images} onChange={setImages} compact id="game-references" error={imageError} onError={setImageError} />
@@ -378,6 +519,7 @@ export function GameWorkspace({ id }: { id: string }) {
             <label htmlFor="game-prompt" className="sr-only">{running ? t("chat.steerLabel") : t("chat.askLabel")}</label>
             <textarea
               id="game-prompt"
+              ref={promptBox}
               data-help={running ? t("chat.steerHelp") : t("chat.askHelp")}
               rows={2}
               value={prompt}
@@ -387,7 +529,7 @@ export function GameWorkspace({ id }: { id: string }) {
                 const files = imagesFromPaste(e);
                 if (files.length) { e.preventDefault(); void addImages(files); }
               }}
-              placeholder={running ? t("chat.steerPlaceholder") : versions.length > 1 ? t("chat.askPlaceholder") : t("chat.describePlaceholder")}
+              placeholder={running ? t("chat.steerPlaceholder") : review ? t("review.changesPlaceholder") : versions.length > 1 ? t("chat.askPlaceholder") : t("chat.describePlaceholder")}
               className="min-h-[44px] flex-1 resize-none bg-transparent p-1 text-sm outline-none placeholder:text-surface-500"
               dir="auto"
             />
@@ -419,6 +561,7 @@ export function GameWorkspace({ id }: { id: string }) {
           </div>
           <div className="ms-auto flex flex-wrap items-center gap-1">
             <button type="button" aria-pressed={side === "assets"} data-help={t("toolbar.assetsHelp")} onClick={() => setSide(side === "assets" ? null : "assets")} className="hidden items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm text-surface-300 hover:bg-white/5 hover:text-white lg:flex"><Shapes size={15} />{t("toolbar.assets")}</button>
+            <button type="button" aria-pressed={side === "brand"} data-help={t("brand.toolbarHelp")} onClick={openBranding} data-testid="brand-open" className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm text-surface-300 hover:bg-white/5 hover:text-white"><Store size={15} /><span className="hidden sm:inline">{t("brand.toolbar")}</span></button>
             <button type="button" aria-pressed={side === "versions"} data-help={t("toolbar.versionsHelp")} onClick={() => setSide(side === "versions" ? null : "versions")} className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm text-surface-300 hover:bg-white/5 hover:text-white"><History size={15} /><span className="hidden sm:inline">{t("toolbar.versions")}</span></button>
             {game.seq > 0 && <button type="button" data-help={t("toolbar.exportHelp")} disabled={busy !== null} onClick={exportZip} className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm text-surface-300 hover:bg-white/5 hover:text-white"><Download size={15} /><span className="hidden sm:inline">{t("toolbar.export")}</span></button>}
             {game.seq > 0 && <button type="button" data-help={t("toolbar.publishHelp")} disabled={busy !== null || running} onClick={publish} className="btn-primary flex items-center gap-1.5 px-3 py-1.5 text-sm" data-testid="publish-game">{busy === "publish" ? <Loader2 size={15} className="animate-spin" /> : <Rocket size={15} />}{game.published ? t("toolbar.republish") : t("toolbar.publish")}</button>}
@@ -442,7 +585,7 @@ export function GameWorkspace({ id }: { id: string }) {
 
         <div className="relative flex min-h-0 flex-1">
           <div className="flex min-h-0 flex-1 p-3">
-            <GameCanvas key={game.engine} ref={canvas} gameId={id} pass={pass} seq={game.seq} label={latestLabel} viewSeq={viewSeq} frame={frame} onStatus={onStatus} />
+            <GameCanvas key={game.engine} ref={canvas} gameId={id} pass={pass} seq={game.seq} label={latestLabel} viewSeq={viewSeq} frame={frame} onStatus={onStatus} onBrandLink={openBrandLink} />
           </div>
           {showErrors && errors.length > 0 && (
             <div className="absolute inset-x-3 bottom-3 z-20 max-h-48 overflow-y-auto rounded-xl border border-amber-400/30 bg-surface-900 p-3 text-xs shadow-2xl" role="log" data-help={t("canvas.errorListHelp")}>
@@ -451,11 +594,25 @@ export function GameWorkspace({ id }: { id: string }) {
               <button type="button" className="mt-2 text-brand-300 hover:underline" data-help={t("canvas.askFixHelp")} onClick={() => { setPrompt(t("canvas.fixPrompt", { errors: errors.slice(-3).join("\n") })); setShowErrors(false); setMobileView("chat"); }}>{t("canvas.askFix")}</button>
             </div>
           )}
-          {side && (
+          {(side === "assets" || side === "versions") && (
             <aside className="absolute inset-y-0 end-0 z-10 hidden w-80 max-w-full flex-col border-s border-white/10 bg-surface-900 shadow-2xl lg:flex" aria-label={side === "assets" ? t("assets.title") : t("versions.title")}>
               {side === "assets" ? assetsPanel : (
                 <VersionsList versions={versions} current={game.seq} viewSeq={viewSeq} gameId={id} onView={(s) => setViewSeq(s === game.seq ? null : s)} onRestore={restore} onClose={() => setSide(null)} format={(d) => format.dateTime(new Date(d), { dateStyle: "medium", timeStyle: "short", timeZone: localZone })} />
               )}
+            </aside>
+          )}
+          {side === "brand" && (
+            <aside className="absolute inset-0 z-10 flex flex-col overflow-y-auto bg-surface-900 p-4 lg:inset-y-0 lg:end-0 lg:start-auto lg:w-[26rem] lg:border-s lg:border-white/10 lg:shadow-2xl" aria-label={t("brand.title")} data-testid="brand-side" data-help={t("brand.sideHelp")}>
+              <div className="mb-3 flex items-center justify-between">
+                <h2 className="flex items-center gap-2 font-semibold"><Store size={16} className="text-brand-300" />{t("brand.title")}</h2>
+                <button type="button" aria-label={t("brand.close")} className="rounded p-1 text-surface-400 hover:text-white" onClick={() => setSide(null)}><X size={16} /></button>
+              </div>
+              <p className="mb-3 text-xs text-surface-400">{t("brand.sideIntro")}</p>
+              <BrandForm value={brandDraft} onChange={setBrandDraft} idPrefix="ws-brand" />
+              <div className="mt-4 flex flex-wrap items-center gap-2">
+                <button type="button" className="btn-primary flex items-center gap-1.5 px-3 py-1.5 text-sm" disabled={brandSaving || running} onClick={() => void saveBranding()} data-testid="brand-save" data-help={t("brand.saveHelp")}>{brandSaving ? <Loader2 size={15} className="animate-spin" /> : <Check size={15} />}{game.seq > 0 ? t("brand.saveApply", { count: 1 }) : t("brand.save")}</button>
+                {running && <span className="text-xs text-surface-400">{t("brand.whileBuilding")}</span>}
+              </div>
             </aside>
           )}
           {/* Versions on phones open over the canvas. */}
@@ -472,23 +629,6 @@ export function GameWorkspace({ id }: { id: string }) {
         {assetsPanel}
       </section>
     </div>
-  );
-}
-
-/** A feature's test status: icon shape, colour and the word (never colour alone). */
-function FeatureChip({ status }: { status: FeatureStatus }) {
-  const t = useTranslations("games");
-  const look = {
-    passing: { Icon: CheckCircle2, cls: "border-emerald-400/40 text-emerald-200" },
-    failing: { Icon: XCircle, cls: "border-red-400/40 text-red-200" },
-    built: { Icon: CircleDot, cls: "border-sky-400/40 text-sky-200" },
-    planned: { Icon: CircleDashed, cls: "border-white/15 text-surface-400" },
-  }[status] ?? { Icon: Circle, cls: "border-white/15 text-surface-400" };
-  return (
-    <span className={`inline-flex min-w-[4.75rem] shrink-0 items-center justify-center gap-1 rounded-full border px-1.5 py-0.5 text-[10px] font-medium ${look.cls}`} data-help={t(`plan.features.statusHelp.${status}`)}>
-      <look.Icon size={11} aria-hidden />
-      {t(`plan.features.status.${status}`)}
-    </span>
   );
 }
 

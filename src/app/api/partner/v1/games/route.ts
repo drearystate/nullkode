@@ -30,6 +30,7 @@ export const POST = partnerRoute({ permission: "build", idempotent: true, limit:
   if (body.name !== undefined && body.name !== null && (typeof body.name !== "string" || body.name.length > 120)) throw new PartnerError(400, "invalid_request", ctx.t("invalidGameName"));
   const prompt = body.prompt === undefined || body.prompt === null ? "" : body.prompt;
   if (typeof prompt !== "string" || prompt.length > 6000) throw new PartnerError(400, "invalid_request", ctx.t("invalidPrompt"));
+  if (body.brand !== undefined && body.brand !== null && (typeof body.brand !== "object" || Array.isArray(body.brand) || ((body.brand as { colors?: unknown }).colors !== undefined && !Array.isArray((body.brand as { colors?: unknown }).colors)))) throw new PartnerError(400, "invalid_request", ctx.t("invalidBrand"));
   const locale = isLocale(body.locale) ? body.locale : await localeForUser(user);
   const started = await gameCall(ctx, async () => {
     const references = await referencesFromBody(user, { images: body.images, referenceId: body.referenceId }, translator(locale, "ai"));
@@ -42,6 +43,8 @@ export const POST = partnerRoute({ permission: "build", idempotent: true, limit:
       references,
       locale,
       source: `partner:${ctx.key.id}`,
+      // A promotional game's branding: {name, logoImage, colors, link, offer} (lib/game-studio/brand.ts).
+      ...(body.brand ? { brand: body.brand } : {}),
     });
   });
   if (!started.jobId) throw new Error("no build started");

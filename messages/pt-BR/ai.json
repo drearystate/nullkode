@@ -1,4 +1,14 @@
 {
+  "aiApps": {
+    "addKey": "Adicionar chave de IA",
+    "aiFeatures": "IA neste app",
+    "buildNotice": "Seu app tem recursos de IA. Apps publicados não podem usar a IA da plataforma, então adicione sua própria chave de IA nas chaves de IA do app antes que as pessoas usem esses recursos. Até lá, os visitantes verão “A IA deste app ainda não está configurada.”",
+    "editNotice": "Estas alterações usam IA. Apps publicados não podem usar a IA da plataforma: adicione sua própria chave de IA nas chaves de IA do app antes que as pessoas usem esses recursos.",
+    "moduleNotice": "Este recurso usa IA. Apps publicados não podem usar a IA da plataforma: adicione sua própria chave de IA nas chaves de IA do app antes que as pessoas o usem.",
+    "noticeTitle": "A IA do seu app precisa da sua própria chave",
+    "openEditor": "Abrir o editor",
+    "planNotice": "Este app tem recursos de IA. Apps publicados não podem usar a IA da plataforma: depois de criar o app, adicione sua própria chave de IA (OpenAI, Google Gemini, xAI, OpenRouter ou qualquer servidor compatível com OpenAI) nas chaves de IA do app antes que as pessoas usem esses recursos."
+  },
   "assistant": {
     "alsoCreated": "também criou {things}",
     "alsoDid": "{explanation} (Também {things}.)",

@@ -65,6 +65,8 @@ function GameCard({ game }: { game: DashboardGame }) {
         <span className="flex shrink-0 items-center gap-1.5">
           {game.building
             ? <span className="studio-status inline-flex items-center gap-1.5 !text-brand-200" data-help={t("gameBuildingHelp")} data-testid="game-building"><span className="!bg-brand-400 animate-pulse" />{t("gameBuilding")}</span>
+            : game.waiting
+            ? <span className="studio-status inline-flex items-center gap-1.5 !text-amber-200" data-help={t("gameWaitingHelp")} data-testid="game-waiting"><span className="!bg-amber-400" />{t("gameWaiting")}</span>
             : game.projectId ? <span className={`studio-status ${game.published ? "is-live" : ""}`} data-help={game.published ? t("gameLiveHelp") : t("gameDraftHelp")}><span />{game.published ? t("live") : t("draft")}</span> : null}
         </span>
       </div>

@@ -36,6 +36,7 @@ import { readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import argon2 from "argon2";
 import JSZip from "jszip";
+import sharp from "sharp";
 import { startInstance, installOperator, checker, warmApp, type Agent, type Instance } from "./e2e-harness";
 
 const port = Number(process.env.E2E_PORT || 3281);
@@ -92,7 +93,17 @@ const GAME_STEPS: Record<string, { fixture: number; slow?: number }> = {
   "Stop slow one": { fixture: 1, slow: 10_000 },
   "Stop slow two": { fixture: 2, slow: 10_000 },
   "Stop slow three": { fixture: 3 },
+  // A full game in phases (the check-in after Phase 1).
+  "Phase two fish": { fixture: 5 },
+  "Phase polish": { fixture: 8 },
+  "Fish tweak": { fixture: 4 },
 };
+/** A full game's phases: the slice, then two more phases. */
+const GAME_PHASES = [
+  { id: "slice", name: "Slice", summary: "The first level, finished.", steps: ["Sky and ground", "First level", "Hero and controls"] },
+  { id: "fish", name: "Fish world", summary: "Fish to collect.", steps: ["Phase two fish"] },
+  { id: "end", name: "Ending", summary: "Polish and the win screen.", steps: ["Phase polish"] },
+];
 const GAME_MAIN = ["Sky and ground", "Partner slow art", "First level", "Hero and controls", "Fish and score", "Touch controls and polish"];
 let lastGameFixture = 1;
 /** The main game's features (calibrated on the sample game in e2e-game-studio.ts: real key presses in game time). */
@@ -116,11 +127,13 @@ async function gameAnswer(system: string, user: string): Promise<string | null> 
     return JSON.stringify({ steps: remaining, notes: notes.map((n) => ({ id: n.id, step: remaining[0]?.id ?? "" })), features: [] });
   }
   if (/game designer doing a 10-second intake/.test(system)) {
+    if (/bakery/i.test(user)) return JSON.stringify({ questions: [{ id: "powerups", label: "Which power-ups?", options: ["Magnet", "Shield"], multi: true }, { id: "promo", label: "Is this game for a business or a promotion?", options: ["Yes, for my business", "No, just for fun"], multi: false, business: true }] });
     return JSON.stringify(/vague/.test(user) ? { questions: [{ id: "kind", label: "What kind of game?", options: ["Platformer", "Puzzle"] }] } : { questions: [] });
   }
   if (/Turn the person's idea into a short game design brief/.test(system)) {
     return JSON.stringify({
-      title: /stop test/i.test(user) ? "Stop Game" : "Partner Cat",
+      title: /stop test/i.test(user) ? "Stop Game" : /phased/i.test(user) ? "Partner Quest" : "Partner Cat",
+      ...(/phased/i.test(user) ? { content: { levels: "9 levels in 3 worlds", enemies: "slimes, bees, moles, a boss", mechanics: "one new thing per level", progression: "world map, stars, Continue", bosses: "a boss per world", structure: "menu, map, levels, ending", playMinutes: 15 } } : {}),
       engine: "phaser-2d",
       brief: { genre: "side-scrolling platformer", pitch: "A cat runs and jumps through grassy hills collecting fish.", coreLoop: "Run, jump, collect fish.", controls: "Arrows to run, Space to jump.", levels: "One short level.", winLose: "Reach the flag to win.", artStyle: "bright cartoon side view", audio: "coin and jump sounds" },
       message: "A cheerful platformer: a cat collecting fish.",
@@ -132,6 +145,15 @@ async function gameAnswer(system: string, user: string): Promise<string | null> 
   if (/Pick the game's assets from the search results and plan the build steps/.test(system)) {
     const stop = /IDEA: .*stop test/i.test(user);
     const labels = stop ? ["Stop slow one", "Stop slow two", "Stop slow three"] : GAME_MAIN;
+    if (/IDEA: .*phased/i.test(user)) {
+      return JSON.stringify({
+        assets: [{ key: "tiles", id: "kenney/new-platformer-pack/spritesheet-tiles", use: "ground" }, { key: "chars", id: "kenney/new-platformer-pack/spritesheet-characters", use: "hero" }],
+        phases: GAME_PHASES.map((ph) => ({ id: ph.id, name: ph.name, summary: ph.summary, steps: ph.steps.map((l, i) => ({ id: `${ph.id}-${i + 1}`, label: l, goal: `Build: ${l}`, ...(GAME_STEP_FEATURES[l] ? { features: GAME_STEP_FEATURES[l] } : {}) })) })),
+        features: [GAME_FEATURES[0]],
+        message: "A full game in three phases; I'll stop after the first one.",
+        assetNotes: "New Platformer Pack only.",
+      });
+    }
     return JSON.stringify({
       assets: [
         { key: "tiles", id: "kenney/new-platformer-pack/spritesheet-tiles", use: "ground, coins, flag" },
@@ -144,6 +166,9 @@ async function gameAnswer(system: string, user: string): Promise<string | null> 
       message: /IDEA: .*sneaky/i.test(user) ? "MOCK-JUDGE-REFUSE a site builder dressed up as a game." : "Small steps, playable after each.",
       assetNotes: "New Platformer Pack only.",
     });
+  }
+  if (/The person played the first playable part of their game/.test(system)) {
+    return JSON.stringify({ message: "MOCK-CHANGE More fish now; the rest follows.", big: false, steps: [{ id: "tweak", label: "Fish tweak", goal: "More fish" }], phases: [{ id: "fish", name: "Fish and more fish", summary: "Lots of fish.", steps: [{ id: "fish-1", label: "Phase two fish", goal: "Fish" }] }, { id: "end", name: "Ending", summary: "The end.", steps: [{ id: "end-1", label: "Phase polish", goal: "Polish" }] }], features: [], dropFeatures: [], assetSearches: [] });
   }
   if (/The person asked for a change to their game/.test(system)) {
     if (/slower/i.test(user)) return JSON.stringify({ message: "Slowing it down.", steps: [{ id: "slow", label: "Stop slow two", goal: "Slow" }], assetSearches: [] });
@@ -309,7 +334,7 @@ async function main() {
   try {
     inst = await startInstance({
       port,
-      buildDir: ".next-e2e-partner",
+      buildDir: `.next-e2e-partner-${port}`,
       env: {
         OPENAI_BASE_URL: `http://127.0.0.1:${mockPort}/v1`,
         OPENAI_SCAFFOLD_MODEL: "mock-model",
@@ -868,6 +893,17 @@ async function main() {
     const high = changed.plan.features.find((f: { id: string }) => f.id === "high-jump");
     ok("the change finished: two steps, its new feature built and tested", changed.job.status === "done" && changed.job.steps.length === 2 && changed.versions.count === 9 && Boolean(high) && high.status !== "planned" && changed.plan.features.length === 3, { job: changed.job.steps, high });
 
+    // The feature list: the change's new feature with where it came from; removals only by explicit request.
+    ok("the change's job says what it did to the feature list", (changed.job.features?.added ?? []).includes("high-jump") && Array.isArray(changed.job.features?.refusedRemovals), changed.job.features);
+    r = await partner("GET", `/games/${gameId}/features`, { key: kA.secret });
+    ok("GET /games/{id}/features: every feature with its status and origin, counts, the history", r.status === 200 && r.json.features.length === 3 && r.json.counts.total === 3 && r.json.features.find((f: { id: string }) => f.id === "high-jump")?.source === "change" && /make the jump higher/.test(r.json.features.find((f: { id: string }) => f.id === "high-jump")?.added?.text ?? "") && r.json.log.some((e: { what: string; id: string }) => e.what === "added" && e.id === "high-jump"), r.json);
+    dump("games-features", r.json);
+    r = await partner("POST", `/games/${gameId}/features`, { key: kA.secret, body: { how: "no name" } });
+    ok("POST /games/{id}/features without a name → 400 invalid_request", isErr(r, 400, "invalid_request"), r.text);
+    r = await partner("DELETE", `/games/${gameId}/features/not-on-the-list`, { key: kA.secret });
+    ok("DELETE /games/{id}/features/{featureId} for a feature that isn't listed → 404", isErr(r, 404, "not_found"), r.text);
+    ok("GET /games/{id}: features carry their origin", changed.plan.features.find((f: { id: string }) => f.id === "high-jump")?.source === "change" && Boolean(changed.plan.features.find((f: { id: string }) => f.id === "high-jump")?.added?.at));
+
     // Versions, screenshots, restore.
     r = await partner("GET", `/games/${gameId}/versions?limit=3`, { key: kA.secret });
     const page1 = r.json;
@@ -910,6 +946,77 @@ async function main() {
     for (const end = Date.now() + 20_000; Date.now() < end && gameHooks(gameId, "game.published").length < 1; ) await sleep(500);
     const pubHook = gameHooks(gameId, "game.published")[0];
     ok("…game.published was sent with the address", Boolean(pubHook) && JSON.parse(pubHook.body).data.url === gameUrl);
+
+    // A full game in phases: the check-in after Phase 1 (status "review"), game.build.review, continue, changes at the check-in.
+    console.log("Games: the check-in (full games in phases)");
+    const reviewCharges0 = await gameCharges(ana.id);
+    r = await partner("POST", "/games", { key: kA.secret, body: { userId: ana.id, prompt: "a partner phased cat platformer" } });
+    ok("a full game starts (202)", r.status === 202, r.text);
+    const phasedId = r.json.game.id as string;
+    const phasedJob = r.json.job.id as string;
+    let pg = await waitGame(phasedId, phasedJob);
+    ok("GET /games/{id} at the check-in: status review, the job waiting (review), the phases and content", pg.status === "review" && pg.job.status === "review" && pg.job.buildPhase?.current === 2 && pg.job.buildPhase.total === 3 && pg.job.aiActions === 1 && pg.plan.phases.map((p: { n: number; status: string }) => `${p.n}:${p.status}`).join() === "1:done,2:todo,3:todo" && pg.plan.content?.levels === "9 levels in 3 worlds" && /^1+23$/.test(pg.plan.steps.map((st: { phase: number }) => st.phase).join("")), { status: pg.status, job: pg.job?.status, buildPhase: pg.job?.buildPhase, phases: pg.plan?.phases });
+    ok("…with the check-in: the message, the question, the phases to come and what continuing costs", pg.review?.phase === 1 && pg.review.phases === 3 && pg.review.question === "Do you want me to keep building in this direction, or make some changes?" && /Partner Quest: phase 1 of 3 is ready to play/.test(pg.review.message ?? "") && pg.review.next.map((p: { n: number; name: string; steps: number }) => `${p.n}:${p.name}:${p.steps}`).join() === "2:Fish world:1,3:Ending:1" && pg.review.continueCost === 1 && pg.review.jobId === phasedJob, pg.review);
+    dump("games-get-review", { game: pg });
+    for (const end = Date.now() + 20_000; Date.now() < end && gameHooks(phasedId, "game.build.review").length < 1; ) await sleep(500);
+    const reviewHook = gameHooks(phasedId, "game.build.review")[0];
+    const reviewBody = reviewHook ? JSON.parse(reviewHook.body) : null;
+    const rsig = reviewHook ? /^t=(\d+),v1=([0-9a-f]{64})$/.exec(String(reviewHook.headers["x-nk-signature"] ?? "")) : null;
+    ok("game.build.review: the game, the job and the check-in, signed like every webhook", Boolean(reviewBody && reviewBody.type === "game.build.review" && reviewBody.data.game.status === "review" && reviewBody.data.job.status === "review" && reviewBody.data.review?.question && reviewBody.data.review.next.length === 2 && rsig && rsig[2] === createHmac("sha256", whsec).update(`${rsig[1]}.${reviewHook!.body}`).digest("hex")), reviewBody?.data?.review);
+    ok("…and no game.build.completed (it isn't finished)", gameHooks(phasedId, "game.build.completed").length === 0 && gameHooks(phasedId, "game.step.completed").length >= 3);
+    dump("games-hook-review", reviewBody);
+    r = await partner("POST", `/games/${phasedId}/notes`, { key: kA.secret, body: { text: "hello" } });
+    ok("a note at the check-in → 409 not_running (send changes, or continue)", isErr(r, 409, "not_running"), r.text);
+    ok("Phase 1 is one AI action", (await gameCharges(ana.id)) === reviewCharges0 + 1);
+    r = await partner("POST", `/games/${phasedId}/continue`, { key: kA.secret, headers: { "idempotency-key": "continue-1" } });
+    ok("POST /games/{id}/continue: 202, the same job running again, one more AI action", r.status === 202 && r.json.job.id === phasedJob && r.json.job.status === "running" && r.json.job.aiActions === 2 && (await gameCharges(ana.id)) === reviewCharges0 + 2, r.text);
+    dump("games-continue", r.json);
+    const contAgain = await partner("POST", `/games/${phasedId}/continue`, { key: kA.secret, headers: { "idempotency-key": "continue-1" } });
+    ok("…a retry with the same Idempotency-Key continues nothing new, charges nothing", contAgain.status === 202 && contAgain.headers["idempotent-replayed"] === "true" && (await gameCharges(ana.id)) === reviewCharges0 + 2, contAgain.text);
+    r = await partner("POST", `/games/${phasedId}/continue`, { key: kA.secret });
+    ok("…continue while it builds → 409 not_waiting", isErr(r, 409, "not_waiting"), r.text);
+    pg = await waitGame(phasedId, phasedJob);
+    ok("the remaining phases ran to the end: done, ready, nothing waiting", pg.status === "ready" && pg.job.status === "done" && pg.review === null && pg.plan.steps.every((st: { status: string }) => st.status === "done") && (await gameCharges(ana.id)) === reviewCharges0 + 2, { status: pg.status, job: pg.job?.status });
+    for (const end = Date.now() + 20_000; Date.now() < end && gameHooks(phasedId, "game.build.completed").length < 1; ) await sleep(500);
+    const phasedSteps = gameHooks(phasedId, "game.step.completed").map((h) => JSON.parse(h.body).data.step.label);
+    ok("…game.build.completed, and every step reported once (the slice's steps not again)", gameHooks(phasedId, "game.build.completed").length === 1 && phasedSteps.length >= 5 && phasedSteps.length === gameHooks(phasedId, "game.step.completed").map((h) => JSON.parse(h.body).data.step.id).filter((x: string, i: number, all: string[]) => all.indexOf(x) === i).length, phasedSteps);
+    // Changes at the check-in, through POST /changes.
+    r = await partner("POST", "/games", { key: kA.secret, body: { userId: ana.id, prompt: "a partner phased change game" } });
+    const changeId = r.json.game.id as string;
+    const reviewChangeJob = r.json.job.id as string;
+    pg = await waitGame(changeId, reviewChangeJob);
+    ok("a second full game waits at its check-in", pg.status === "review", pg.status);
+    const c1 = await gameCharges(ana.id);
+    r = await partner("POST", `/games/${changeId}/changes`, { key: kA.secret, body: { prompt: "more fish please" } });
+    ok("POST /games/{id}/changes at the check-in: 202, the same job (the changes, then the rest), one AI action", r.status === 202 && r.json.job.id === reviewChangeJob && r.json.job.status === "running" && (await gameCharges(ana.id)) === c1 + 1, r.text);
+    dump("games-changes-review", r.json);
+    pg = await waitGame(changeId, reviewChangeJob);
+    ok("…small changes: made, the later phases revised, carried on to the end", pg.status === "ready" && pg.job.status === "done" && /^Sky and ground\|First level\|Hero and controls\|(Playtest fixes\||Feature fixes\|)*Fish tweak\|Phase two fish\|Phase polish(\|Playtest fixes|\|Feature fixes)*$/.test(pg.plan.steps.map((st: { label: string }) => st.label).join("|")) && pg.plan.phases.map((p: { name: string }) => p.name).join("|") === "Slice|Fish and more fish|Ending" && (await gameCharges(ana.id)) === c1 + 1, pg.plan?.steps);
+    r = await partner("GET", `/games/${changeId}/events`, { key: kA.secret });
+    ok("…the chat log has the question, the changes and the carry-on", r.status === 200 && r.json.data.some((m: { text: string }) => /keep building in this direction/.test(m.text)) && r.json.data.some((m: { text: string }) => /MOCK-CHANGE More fish now; the rest follows\. Then I'll carry on/.test(m.text)), r.json.data?.map((m: { text: string }) => m.text.slice(0, 80)));
+    r = await partner("POST", `/games/${changeId}/continue`, { key: kA.secret });
+    ok("continue on a finished game → 409 not_waiting", isErr(r, 409, "not_waiting"), r.text);
+
+    // Multi-select questions and a promotional game's branding.
+    console.log("Games: multi-select questions and branding");
+    r = await partner("POST", "/games/clarify", { key: kA.secret, body: { userId: ana.id, prompt: "a catch game for my bakery" } });
+    ok("POST /games/clarify: multi-select and business questions are marked", r.status === 200 && r.json.questions[0].multi === true && r.json.questions[0].business === false && r.json.questions[1].multi === false && r.json.questions[1].business === true && r.json.questions[1].options[0] === "Yes, for my business", r.text);
+    dump("games-clarify-multi", r.json);
+    r = await partner("POST", "/games", { key: kA.secret, body: { userId: ana.id, prompt: "a catch game", brand: "Sweet Rise" } });
+    ok("POST /games with a brand that isn't an object → 400 invalid_request", isErr(r, 400, "invalid_request") && /"brand"/.test(r.json.error.message), r.text);
+    r = await partner("POST", "/games", { key: kA.secret, body: { userId: ana.id, prompt: "a catch game", brand: { name: "Sweet Rise", logoImage: { data: "bm90IGFuIGltYWdl", mediaType: "image/png" } } } });
+    ok("…a logo that isn't an image → 400 image_type, no game left", isErr(r, 400, "image_type") && (await db.gameProject.count({ where: { ownerId: ana.id, deletedAt: null, name: { contains: "catch" } } })) === 0, r.text);
+    const logoB64 = (await sharp(Buffer.from('<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120"><circle cx="60" cy="60" r="55" fill="#e85d04"/><circle cx="60" cy="60" r="25" fill="#fde68a"/></svg>')).png().toBuffer()).toString("base64");
+    r = await partner("POST", "/games", { key: kA.secret, body: { userId: ana.id, prompt: "a catch game for my bakery: catch falling pastries\n\nWhich power-ups? Magnet, Shield", brand: { name: "Sweet Rise", logoImage: { data: logoB64, mediaType: "image/png" }, colors: ["#E85D04", "#fde68a", "nope"], link: "sweetrise.example/menu", offer: "Show this screen for 10% off" } } });
+    ok("POST /games with a brand: 202, the game carries it (colours cleaned, link made https, the logo's size)", r.status === 202 && r.json.game.brand?.name === "Sweet Rise" && r.json.game.brand.colors.join() === "#e85d04,#fde68a" && r.json.game.brand.link === "https://sweetrise.example/menu" && r.json.game.brand.offer === "Show this screen for 10% off" && r.json.game.brand.logo?.width === 120, r.json.game?.brand);
+    dump("games-create-brand", { game: { id: r.json.game?.id, brand: r.json.game?.brand }, job: { id: r.json.job?.id } });
+    const brandGame = r.json.game.id as string;
+    const brandFiles = (await db.gameProject.findUniqueOrThrow({ where: { id: brandGame } })).files as Record<string, string>;
+    ok("…its brand file holds the logo and the link, listed first", /data:image\/png;base64,/.test(brandFiles["src/brand.js"] ?? "") && brandFiles["src/brand.js"].includes('"https://sweetrise.example/menu"') && (JSON.parse(brandFiles["game.json"]) as { files: string[] }).files[0] === "src/brand.js");
+    r = await partner("GET", `/games/${brandGame}`, { key: kA.secret });
+    ok("GET /games/{id} returns the brand", r.status === 200 && r.json.game.brand?.name === "Sweet Rise" && r.json.game.brand.logo?.height === 120, r.json.game?.brand);
+    await partner("POST", `/games/${brandGame}/stop`, { key: kA.secret, body: { mode: "now" } });
+    await sleep(1500);
 
     // The asset library.
     r = await partner("GET", "/games/assets/search?q=fish&dim=2d", { key: kA.secret });

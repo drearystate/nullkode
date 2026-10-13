@@ -7,6 +7,8 @@ import { ProjectTabs } from "@/components/project-tabs";
 import { HelpTips } from "@/components/help-tips";
 import { getTranslations } from "next-intl/server";
 import { ScopedIntl } from "@/i18n/scoped-intl";
+import { AiKeyBanner } from "@/components/app-ai/ai-key-banner";
+import { projectAiStatus } from "@/lib/app-ai/status";
 
 export default async function ProjectLayout({
   children,
@@ -33,6 +35,8 @@ export default async function ProjectLayout({
   const backLabel = game ? t("backToGame") : project.kind === "DESIGNER" ? t("backToDesigner") : t("backToApps");
 
   const hasPush = Boolean(await db.projectModule.findFirst({ where: { projectId: project.id, moduleId: "push-notifications" }, select: { id: true } }));
+  // AI steps without the app's own key (never for the platform owner): docs/ai-in-apps.md.
+  const aiStatus = await projectAiStatus(project.id).catch(() => null);
   return (
     // Heavier pages below (editor, data, flows, modules) open their own ScopedIntl.
     <ScopedIntl segment="(main)/projects/[id]">
@@ -62,6 +66,7 @@ export default async function ProjectLayout({
         </div>
       </TopBar>
       <ProjectTabs projectId={project.id} kind={project.kind} hasPush={hasPush} />
+      {aiStatus?.needsKey && <AiKeyBanner projectId={project.id} />}
       <main id="main">{children}</main>
     </div>
     </ScopedIntl>

@@ -62,7 +62,8 @@
     "tooManyAccounts": "今天已通过此网络创建了太多账号。",
     "tooManyAttempts": "此网络的注册尝试次数过多，请稍后重试。",
     "tooQuick": "操作太快了，请重试。",
-    "verificationFailed": "验证失败。请刷新页面后重试。"
+    "verificationFailed": "验证失败。请刷新页面后重试。",
+    "oneFreeAccount": "此网络已创建过一个免费账户。请改为登录该账户。"
   },
   "apk": {
     "alreadyHasKey": "此应用已有上传密钥。勾选“替换我当前的密钥”以改用此密钥。",

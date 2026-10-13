@@ -62,7 +62,8 @@
     "tooManyAccounts": "Bugün bu ağdan çok fazla hesap oluşturuldu.",
     "tooManyAttempts": "Bu ağdan çok fazla kayıt denemesi yapıldı. Daha sonra tekrar deneyin.",
     "tooQuick": "Çok hızlı oldu — lütfen tekrar deneyin.",
-    "verificationFailed": "Doğrulama başarısız oldu. Lütfen sayfayı yenileyip tekrar deneyin."
+    "verificationFailed": "Doğrulama başarısız oldu. Lütfen sayfayı yenileyip tekrar deneyin.",
+    "oneFreeAccount": "Bu ağdan zaten ücretsiz bir hesap oluşturulmuş. Lütfen bunun yerine o hesaba giriş yapın."
   },
   "apk": {
     "alreadyHasKey": "Bu uygulamanın zaten bir yükleme anahtarı var. Bunun yerine bu anahtarı kullanmak için \"Mevcut anahtarımı değiştir\" seçeneğini işaretleyin.",

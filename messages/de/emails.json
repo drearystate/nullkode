@@ -1,4 +1,12 @@
 {
+  "aiKey": {
+    "add": "Hier kannst du deinen Schlüssel hinzufügen:",
+    "change": "{app} enthält KI-Schritte. Veröffentlichte Apps auf {platform} verwenden jetzt ihren eigenen KI-Schlüssel statt der KI der Plattform. Deshalb sind diese Schritte pausiert, bis du einen Schlüssel hinzufügst.",
+    "once": "Du erhältst zu diesem Thema nur diese eine E-Mail für diese App.",
+    "subject": "{app}: eigenen KI-Schlüssel hinzufügen",
+    "visitor": "Jemand hat gerade eine KI-Funktion von {app} verwendet. Da die App keinen eigenen KI-Schlüssel hat, wurde diese Nachricht angezeigt: „Die KI dieser App ist noch nicht eingerichtet.“",
+    "why": "Füge einen Schlüssel von OpenAI, Google Gemini, xAI (Grok), OpenRouter oder einem OpenAI-kompatiblen Server hinzu (auch dein eigenes Ollama oder LM Studio funktioniert). Der Schlüssel bleibt verschlüsselt auf dem Server und wird deinen Besuchern nie angezeigt. Sobald du ihn gespeichert hast, funktionieren die KI-Funktionen."
+  },
   "aiQuota": {
     "body80": "{reseller} hat diesen Monat {used} von {max} KI-Aktionen verbraucht. Sobald alle aufgebraucht sind, wird das Erstellen und Bearbeiten mit KI für dich und deine Kunden bis zum {resets} pausiert.",
     "bodyFull": "{reseller} hat alle {max} KI-Aktionen für diesen Monat verbraucht. Das Erstellen und Bearbeiten mit KI ist für dich und deine Kunden bis zum {resets} pausiert.",

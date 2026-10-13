@@ -1,0 +1,123 @@
+{
+  "banner": {
+    "body": "Questa app include operazioni con l'IA. Le app pubblicate usano la propria chiave IA, non quella della piattaforma, quindi queste operazioni non funzionano finché non ne aggiungi una.",
+    "cta": "Aggiungi una chiave IA",
+    "title": "L'IA di questa app non è configurata"
+  },
+  "dashboard": {
+    "app": "Aggiungi una chiave per {name}",
+    "body": "Ora le app pubblicate usano la propria chiave IA per le funzioni di IA, invece di quella della piattaforma. Finché non ne aggiungi una, i visitatori vedranno «L'IA di questa app non è ancora configurata».",
+    "title": "Alcune delle tue app hanno bisogno di una propria chiave IA"
+  },
+  "errors": {
+    "baseUrlBad": "Non è possibile usare questo indirizzo. Usa un indirizzo http:// o https:// senza nome utente o password.",
+    "baseUrlMissing": "Inserisci l'indirizzo del server (per esempio https://ai.example.com/v1).",
+    "invalid": "Mancano alcune informazioni o il formato non è corretto.",
+    "keyBad": "La chiave non sembra una chiave API.",
+    "keyMissing": "Inserisci la chiave API.",
+    "model": "Inserisci il modello da usare.",
+    "network": "Impossibile raggiungere il server. Controlla la connessione e riprova.",
+    "notFound": "Questa connessione IA non esiste.",
+    "provider": "Scegli un servizio di IA.",
+    "saveFailed": "Impossibile salvare la chiave. Riprova.",
+    "tooManyTests": "Hai eseguito troppi test in poco tempo. Aspetta qualche minuto."
+  },
+  "form": {
+    "addTitle": "Aggiungi una chiave IA",
+    "apiKey": "Chiave API",
+    "apiKeyHelp": "Incollala una volta: verrà conservata in modo cifrato e non sarà più mostrata.",
+    "apiKeySaved": "Salvata ({hint}). Lasciala vuota per mantenerla.",
+    "baseUrl": "Indirizzo del server",
+    "baseUrlHelp": "L’indirizzo API, per esempio https://ai.example.com/v1. Facoltativo per i servizi elencati.",
+    "can": "Questo servizio supporta: {list}",
+    "canChat": "chat",
+    "canEmbed": "embedding",
+    "canSpeech": "voce",
+    "canVision": "immagini",
+    "cancel": "Annulla",
+    "chatModel": "Modello chat",
+    "chatModelHelp": "Per le risposte in chat e gli agenti, se diverso dal modello principale.",
+    "editTitle": "Modifica “{name}”",
+    "embedModel": "Modello per gli embedding",
+    "embedModelHelp": "Per la ricerca semantica e i bot basati sulla conoscenza.",
+    "makeDefault": "Usa come connessione predefinita",
+    "model": "Modello",
+    "modelExample": "Per esempio {model}",
+    "modelHelp": "Il nome del modello usato dalle funzioni IA, così come lo indica il tuo servizio.",
+    "more": "Altri modelli (facoltativo)",
+    "name": "Nome della connessione",
+    "nameHelp": "Un nome breve che le funzioni IA possono selezionare (per esempio “voce” per una seconda chiave che può parlare). Se usi una sola chiave, lascia il nome predefinito.",
+    "provider": "Servizio IA",
+    "providerHelp": "Il servizio da cui proviene la chiave. L’ultima opzione funziona con qualsiasi servizio compatibile con l’API in stile OpenAI, incluso il tuo Ollama o LM Studio.",
+    "save": "Salva chiave",
+    "saved": "Salvata.",
+    "saving": "Salvataggio…",
+    "speechModel": "Modello vocale",
+    "speechModelHelp": "Per leggere ad alta voce le risposte. Se non lo imposti, le pagine usano la voce del browser.",
+    "test": "Prova prima di salvare",
+    "visionModel": "Modello per immagini",
+    "visionModelHelp": "Per le funzioni che analizzano le immagini.",
+    "voice": "Voce"
+  },
+  "limits": {
+    "intro": "Proteggi la tua chiave dagli abusi: al raggiungimento di un limite, le operazioni con l'IA restano in attesa fino alla fine dell'ora.",
+    "perHour": "Richieste all'IA all'ora per tutta l'app",
+    "perVisitorHour": "Richieste all'IA all'ora per ogni visitatore",
+    "save": "Salva limiti",
+    "saved": "Limiti salvati.",
+    "title": "Limiti"
+  },
+  "list": {
+    "default": "Predefinita",
+    "edit": "Modifica",
+    "empty": "Nessuna chiave IA.",
+    "key": "Chiave",
+    "lastFailed": "Ultimo test non riuscito: {when}",
+    "lastOk": "Ultimo test riuscito: {when}",
+    "makeDefault": "Imposta come predefinita",
+    "makeDefaultHelp": "Le funzioni IA che non scelgono una connessione per nome usano quella predefinita.",
+    "model": "Modello",
+    "name": "Nome: {name}",
+    "remove": "Rimuovi",
+    "removeConfirm": "Rimuovere la connessione IA “{name}”? Le funzioni IA che la usano smetteranno di funzionare finché non aggiungi un’altra chiave.",
+    "test": "Prova la connessione",
+    "testing": "Verifica in corso…",
+    "title": "Connessioni"
+  },
+  "notice": {
+    "body": "Questa app include funzioni di IA. Le app pubblicate non possono usare l'IA della piattaforma: aggiungi una tua chiave IA (OpenAI, Google Gemini, xAI, OpenRouter o qualsiasi server compatibile con OpenAI) prima che le persone usino le funzioni di IA.",
+    "cta": "Aggiungi una chiave IA",
+    "later": "Puoi aggiungerla in qualsiasi momento nelle chiavi IA dell'app.",
+    "title": "L'IA della tua app ha bisogno di una tua chiave"
+  },
+  "page": {
+    "eyebrow": "Chiavi IA",
+    "intro": "Le funzioni IA di un’app pubblicata (chat, assistenti, agenti, ricerca semantica) usano la chiave IA dell’app. L’IA della piattaforma crea e modifica la tua app, ma non può essere usata nell’app dai suoi utenti.",
+    "introHelp": "Aggiungi la chiave di un servizio IA a pagamento. Le funzioni IA della tua app la usano nell’anteprima e nell’app pubblicata.",
+    "needsKey": "Questa app ha funzioni IA ma non ha ancora una chiave. Perciò i visitatori vedono “L’IA di questa app non è ancora configurata.” Aggiungi una chiave qui sotto.",
+    "noAiYet": "Questa app non ha ancora funzioni IA. Aggiungi una chiave ora: le funzioni IA che aggiungerai in seguito funzioneranno subito.",
+    "ownerNote": "Gestisci questa piattaforma, quindi finché l’app non ha una sua chiave, le sue funzioni IA usano l’IA della piattaforma. Aggiungi qui una chiave per usare la tua.",
+    "ready": "L’IA di questa app è configurata.",
+    "security": "Le chiavi sono cifrate sul server. Non vengono mai inviate alle pagine della tua app o ai visitatori, salvate nei log o mostrate dopo il salvataggio.",
+    "title": "L’IA della tua app"
+  },
+  "providers": {
+    "anthropic": "API Messages (chiavi che iniziano con sk-ant-)",
+    "custom": "Qualsiasi server compatibile con OpenAI (Ollama, LM Studio, vLLM…)",
+    "gemini": "Google Gemini",
+    "openai": "OpenAI",
+    "openrouter": "OpenRouter",
+    "xai": "xAI (Grok)"
+  },
+  "test": {
+    "detail": "Dettagli: {detail}",
+    "key": "Il servizio di IA ha rifiutato la chiave. Controlla che sia corretta e ancora attiva.",
+    "model": "Il servizio di IA non riconosce il modello o l'indirizzo. Controlla il nome del modello e l'indirizzo.",
+    "ok": "Connesso. L'IA ha risposto.",
+    "other": "Test non riuscito.",
+    "private": "Questo indirizzo si trova su una rete privata, non raggiungibile dalle app su questo server.",
+    "quota": "Il servizio di IA segnala che la chiave ha superato il limite o ha esaurito il credito.",
+    "timeout": "Il servizio di IA ha impiegato troppo tempo per rispondere.",
+    "unreadable": "Non è più possibile leggere la chiave salvata. Inseriscila di nuovo."
+  }
+}

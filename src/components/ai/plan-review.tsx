@@ -1,6 +1,6 @@
 "use client";
 import { useMemo, useState } from "react";
-import { Check, Database, FileText, ImageIcon, Lock, Palette, ShieldCheck, Trash2, Wand2 } from "lucide-react";
+import { Bot, Check, Database, FileText, ImageIcon, KeyRound, Lock, Palette, ShieldCheck, Trash2, Wand2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import type { AppPlan } from "@/lib/ai/plan";
 import { THEME_PRESETS } from "@/lib/theme";
@@ -25,6 +25,7 @@ export function PlanReview({
   onAppLocale,
   images,
   onImages,
+  aiNotice,
 }: {
   plan: AppPlan;
   onChange: (plan: AppPlan) => void;
@@ -39,6 +40,8 @@ export function PlanReview({
   /** Reference images the plan was made from (kept for revisions and the build). */
   images?: PickedImage[];
   onImages?: (images: PickedImage[]) => void;
+  /** The plan has AI features: published apps need the person's own AI key (docs/ai-in-apps.md). */
+  aiNotice?: string | null;
 }) {
   const t = useTranslations("ai");
   const [change, setChange] = useState("");
@@ -95,6 +98,25 @@ export function PlanReview({
             <ReferencePicker images={images} onChange={onImages} disabled={revising} id="plan-references" />
           </div>
           {images.length > 0 && !images.every((img, i) => img.stored && img.stored.referenceId === images[0].stored?.referenceId && img.stored.index === i) && <p className="mt-1.5 text-xs text-amber-200">{t("references.plan.changed")}</p>}
+        </div>
+      )}
+
+      {((plan.aiFeatures?.length ?? 0) > 0 || aiNotice) && (
+        <div className="mt-6" data-testid="plan-ai">
+          {(plan.aiFeatures?.length ?? 0) > 0 && (
+            <>
+              <h3 className="flex items-center gap-2 text-sm font-semibold"><Bot size={15} className="text-brand-300" aria-hidden />{t("aiApps.aiFeatures")}</h3>
+              <ul className="mt-2 list-disc space-y-1 ps-5 text-sm text-surface-300">
+                {plan.aiFeatures!.map((f, i) => <li key={i} dir="auto">{f}</li>)}
+              </ul>
+            </>
+          )}
+          {aiNotice && (
+            <p role="note" data-testid="plan-ai-notice" className="mt-3 flex items-start gap-2 rounded-lg border border-amber-400/25 bg-amber-400/10 px-4 py-3 text-sm text-amber-100">
+              <KeyRound size={16} className="mt-0.5 shrink-0" aria-hidden />
+              <span>{aiNotice}</span>
+            </p>
+          )}
         </div>
       )}
 

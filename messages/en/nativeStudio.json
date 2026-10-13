@@ -192,6 +192,7 @@
     "gh2": "Add your Apple signing details as GitHub secrets, as the README explains.",
     "gh3": "Run <b>iOS (TestFlight)</b> under Actions. Your app appears in TestFlight to test, then submit it to the App Store.",
     "readme": "Every step is explained in the README inside the download. Your app keeps updating itself when you publish; you only need a new iPhone version when its name, icon or phone features change.",
+    "storeAssets": "The download also has an AppStore folder with your App Store icon and screenshots of your app in every size Apple asks for. Making the screenshots of a new version can take up to a minute.",
     "download": "Download iPhone project",
     "downloadHelp": "Download your app's iPhone (Xcode) project as a .zip file. It takes a few seconds to prepare.",
     "preparing": "Preparing the project…",

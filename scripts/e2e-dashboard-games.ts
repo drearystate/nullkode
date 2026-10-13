@@ -7,6 +7,8 @@
  *    /games/<id> and "See all" → /games;
  *  - a running GameJob shows a "Building…" badge, and the badge goes by itself when the job ends
  *    (the dashboard polls /api/me/games while something builds);
+ *  - a full game waiting at its check-in (GameJob status "review") shows "Waiting for you", on the
+ *    dashboard and on /games;
  *  - an app published from a game gets a "Game" badge in "Your apps"; its card still opens the
  *    app, plus an "Open in Game Studio" action; the game card shows Live and links to its app;
  *  - other people's games never show; signed out → 401;
@@ -31,7 +33,10 @@ const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 mkdirSync(SHOTS, { recursive: true });
 
 /** A real game screenshot when the Game Studio's sample runs are around, else a drawn one. */
-async function shot(name: string, hue: number): Promise<Buffer> {
+async function shot(name: string, hue: number): Promise<Uint8Array<ArrayBuffer>> {
+  return new Uint8Array(await shotBuffer(name, hue));
+}
+async function shotBuffer(name: string, hue: number): Promise<Buffer> {
   for (const dir of ["real-2d", "real-2d-run1"]) {
     const p = path.join(process.cwd(), "..", "nk-plan", "game-studio-shots", dir, name);
     if (existsSync(p)) return readFileSync(p);
@@ -49,7 +54,7 @@ async function signIn(inst: Instance, email: string, name: string, opts: { host?
   return { agent, id: user.id };
 }
 
-type Seed = { name: string; engine?: "phaser-2d" | "three-3d"; versions?: number; shots?: Record<number, Buffer>; minutesAgo?: number };
+type Seed = { name: string; engine?: "phaser-2d" | "three-3d"; versions?: number; shots?: Record<number, Uint8Array<ArrayBuffer>>; minutesAgo?: number };
 async function seedGame(inst: Instance, ownerId: string, s: Seed): Promise<string> {
   const n = s.versions ?? 0;
   const g = await inst.db.gameProject.create({
@@ -163,6 +168,30 @@ async function main() {
     ok("…and the new picture shows", (await knight.locator("img[data-testid=game-shot]").getAttribute("src").catch(() => null)) === `/api/games/${knightId}/versions/1/shot`);
     await page.context().close();
 
+    console.log("Waiting for you (a full game at its check-in)");
+    const waitingId = await seedGame(inst, alice.id, { name: "Meadow Cat", versions: 2, shots: { 2: await shot("version-04.webp", 90) } });
+    await inst.db.gameJob.create({ data: { id: `job-${Date.now()}-review`, gameId: waitingId, userId: alice.id, kind: "build", prompt: "a cat platformer", status: "review", stepIndex: 2, steps: [{ id: "a", label: "Shell", status: "done", phase: 1 }, { id: "b", label: "Level 1", status: "done", phase: 1 }, { id: "c", label: "World 2", status: "todo", phase: 2 }] } });
+    await inst.db.gameProject.update({ where: { id: waitingId }, data: { status: "review" } });
+    r = await alice.agent.get("/api/me/games");
+    const waitingRow = r.json.games.find((g: { id: string }) => g.id === waitingId);
+    ok("the API marks a game waiting at its check-in (waiting, not building)", waitingRow?.waiting === true && waitingRow.building === false && r.json.games.filter((g: { waiting: boolean }) => g.waiting).length === 1, waitingRow);
+    page = await dashboard(inst, alice.agent);
+    const waitingCard = page.locator(`[data-testid=dashboard-game-card][data-game-id="${waitingId}"]`);
+    ok("the dashboard card says Waiting for you", (await waitingCard.locator("[data-testid=game-waiting]").innerText()) === "Waiting for you" && (await waitingCard.locator("[data-testid=game-building]").count()) === 0);
+    ok("…with a help tip", Boolean(await waitingCard.locator("[data-testid=game-waiting]").getAttribute("data-help")));
+    await page.context().close();
+    {
+      const context = await browser!.newContext({ viewport: { width: 1440, height: 900 } });
+      await context.addCookies([...alice.agent.jar].map(([name, value]) => ({ name, value, url: inst!.base })));
+      const p = await context.newPage();
+      await p.goto(`${inst.base}/games`, { waitUntil: "domcontentloaded" });
+      await p.waitForSelector("[data-testid=game-card]", { timeout: 60_000 });
+      const badge = p.locator("[data-testid=game-card]", { hasText: "Meadow Cat" }).locator("[data-testid=game-waiting]");
+      ok("/games shows Waiting for you on the game's card", (await badge.count()) === 1 && (await badge.innerText()) === "Waiting for you");
+      await p.screenshot({ path: path.join(SHOTS, "games-waiting-en-1440.png") });
+      await context.close();
+    }
+
     console.log("Apps published from a game");
     const appId = await seedApp(inst, alice.id, "Whisker Dash", { kind: "DESIGNER", published: true, html: `<div style="background:#13233b;color:#fff;min-height:720px;display:grid;place-items:center;font:600 64px system-ui">Whisker Dash</div>` });
     await inst.db.gameProject.update({ where: { id: catId }, data: { projectId: appId } });
@@ -198,9 +227,10 @@ async function main() {
     for (const locale of ["en", "ar"]) {
       for (const width of [1440, 390]) {
         page = await dashboard(inst, alice.agent, { locale, width });
-        ok(`${locale} ${width}: games section renders${locale === "ar" ? " right-to-left" : ""}`, (await page.locator("[data-testid=dashboard-game-card]").count()) === 3 && (locale !== "ar" || (await page.evaluate(() => document.documentElement.dir)) === "rtl"));
-        // (The shared top bar is checked elsewhere: only the dashboard's own sections here.)
-        const over = await page.evaluate(() => [...document.querySelectorAll(".studio-dashboard *")].filter((e) => { const r = e.getBoundingClientRect(); return r.width > 0 && (r.right > window.innerWidth + 1 || r.left < -1) && !e.closest(".studio-blueprint, .studio-project-preview"); }).slice(0, 8).map((e) => `${e.tagName.toLowerCase()}.${String(e.className).slice(0, 60)}`));
+        ok(`${locale} ${width}: games section renders${locale === "ar" ? " right-to-left" : ""}`, (await page.locator("[data-testid=dashboard-game-card]").count()) === 4 && (locale !== "ar" || (await page.evaluate(() => document.documentElement.dir)) === "rtl"));
+        // (The shared top bar is checked elsewhere: only the dashboard's own sections here. The start cards' moving
+        // previews (nk-sp-*) slide pictures through a clipped frame on purpose.)
+        const over = await page.evaluate(() => [...document.querySelectorAll(".studio-dashboard *")].filter((e) => { const r = e.getBoundingClientRect(); return r.width > 0 && (r.right > window.innerWidth + 1 || r.left < -1) && !e.closest(".studio-blueprint, .studio-project-preview, [class*='nk-sp-']"); }).slice(0, 8).map((e) => `${e.tagName.toLowerCase()}.${String(e.className).slice(0, 60)}`));
         ok(`${locale} ${width}: nothing on the dashboard runs off the side`, over.length === 0, over);
         await shotsLoaded(page);
         await page.screenshot({ path: path.join(SHOTS, `dashboard-${locale}-${width}.png`), fullPage: true });

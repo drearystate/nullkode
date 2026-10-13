@@ -48,6 +48,7 @@
     "noMacTitle": "没有 Mac",
     "preparing": "正在准备项目…",
     "readme": "下载文件中的 README 说明了每个步骤。发布后，应用会自动更新；只有名称、图标或手机功能有变化时，才需要制作新的 iPhone 版本。",
+    "storeAssets": "下载内容还包含一个 App Store 文件夹，里面有 App Store 图标和符合 Apple 要求的各种尺寸的应用截图。生成新版本的截图最多需要一分钟。",
     "teamId": "Apple Team ID",
     "teamIdHelp": "你的 Apple Developer Team ID，由 10 个字母和数字组成。它可以让指向应用的链接打开 iPhone 应用。可在 developer.apple.com 的 Membership 页面找到。",
     "teamIdHint": "可选。只有想让指向应用的链接打开 iPhone 应用时才需要（请参阅“可打开应用的链接”）。",

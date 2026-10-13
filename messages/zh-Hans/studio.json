@@ -50,7 +50,7 @@
     "buildMobileHelp": "将这个应用变成适用于 Android、iPhone 和 iPad 的手机应用。",
     "buildMobileTitle": "构建手机应用",
     "buildYourWay": "按你的方式创建。",
-    "buildYourWayIntro": "同样强大的工具，适合你的起点。",
+    "buildYourWayIntro": "不知道从哪里开始？试试 AI 设计器。",
     "clearFilters": "清除筛选条件",
     "clearFiltersHelp": "清除搜索和筛选条件，重新显示所有应用。",
     "clearSearch": "清除搜索",
@@ -92,6 +92,8 @@
     "gameKind": "{engine} 游戏",
     "gameLiveHelp": "已上线：这款游戏已发布为应用，任何拥有链接的人都可以玩。",
     "gameNoPicture": "暂无图片",
+    "gameWaiting": "等你来体验",
+    "gameWaitingHelp": "第一个可玩的部分已准备好。打开游戏试试看，并告诉我们是否继续制作。",
     "gamesEyebrow": "玩玩你制作的游戏",
     "getMoreApps": "获取更多应用",
     "headline": "一个小小的点子。<br></br><accent>开启无限可能。</accent>",
@@ -142,7 +144,7 @@
     "sortName": "名称 A–Z",
     "sortRecent": "最近更新",
     "versionCount": "{count, plural, =0 {还没有版本} one {# 个版本} other {# 个版本}}",
-    "waysEyebrow": "六种开始方式",
+    "waysEyebrow": "开始方式",
     "welcome": "欢迎，{name}。告诉我们你想制作什么，我们会和你一起规划。",
     "welcomeBack": "欢迎回来，{name}。继续上次的创作，<br></br>或开启全新的灵感之旅。",
     "yourApps": "你的应用",
@@ -167,10 +169,17 @@
       "description": "用自己的话说出你的需求。检查方案后，即可生成页面、数据和可用表单。",
       "help": "用几句话描述你的应用。AI 会提供一份可检查和修改的方案，然后为你创建页面、表单和数据。",
       "label": "从想法到应用",
-      "title": "描述需求"
+      "title": "描述需求",
+      "demo": {
+        "idea": "为我的遛狗业务制作一个预约应用",
+        "plan": "你的计划",
+        "pages": "3 个页面",
+        "table": "一个预约表",
+        "form": "一个预约表单"
+      }
     },
     "blank": {
-      "description": "使用拖放区块和现成功能，亲手创建应用。",
+      "description": "用拖放模块手动搭建每个页面。适合已经想好要做什么的人。",
       "help": "从简单的欢迎页开始，将区块拖到页面上，亲手创建其余内容。适合喜欢完全掌控的人。",
       "label": "你的画布，你做主",
       "title": "空白应用"
@@ -182,10 +191,12 @@
       "title": "复制网站"
     },
     "designer": {
-      "description": "通过对话完善你的想法。设计、调整，不断探索。",
+      "description": "告诉 AI 你想做什么，看着完整设计逐渐成形。然后用简单的话提出修改要求。",
       "help": "与 AI 聊天，一步步设计你的应用。提出修改要求，点击预览中的部分内容进行评论，还可以返回旧版本。",
       "label": "一起创作",
-      "title": "AI 设计师"
+      "title": "AI 设计师",
+      "badge": "推荐",
+      "cta": "开始设计"
     },
     "game": {
       "description": "描述一款游戏，看 AI 一步步制作出真实的画面和音效。",
@@ -237,6 +248,7 @@
     "clearFiltersHelp": "清除搜索内容和分类，重新显示所有功能。",
     "clearSearch": "清除搜索",
     "clearSearchHelp": "清除搜索并重新显示所有功能。",
+    "continue": "继续",
     "details": "详情",
     "detailsHelp": "查看此功能会为你的应用添加哪些内容：页面数量、已保存内容列表和自动化流程。",
     "dialogTitle": "添加{name}",

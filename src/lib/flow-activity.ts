@@ -173,6 +173,13 @@ function doneText(type: string, table: string | undefined, node: FlowNode | unde
     case "http_request":
       return t("describe.done.http");
     case "ai_prompt":
+    case "ai_chat":
+    case "ai_agent":
+    case "ai_structured":
+    case "ai_vision":
+    case "ai_embed":
+    case "ai_search":
+    case "ai_speech":
       return t("describe.done.ai");
     case "set_session":
       return t("describe.done.signedIn");
@@ -208,6 +215,13 @@ function failedText(type: string | null, table: string | undefined, label: strin
     case "http_request":
       return t("describe.failed.http");
     case "ai_prompt":
+    case "ai_chat":
+    case "ai_agent":
+    case "ai_structured":
+    case "ai_vision":
+    case "ai_embed":
+    case "ai_search":
+    case "ai_speech":
       return t("describe.failed.ai");
     default:
       return label ? t("describe.failed.stoppedAt", { label: label.slice(0, 60) }) : t("describe.failed.didntFinish");

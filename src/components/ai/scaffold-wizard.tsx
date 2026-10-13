@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Check, Loader2, ShieldAlert } from "lucide-react";
+import { Check, KeyRound, Loader2, ShieldAlert } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import type { AppPlan } from "@/lib/ai/plan";
 import { isLocale } from "@/i18n/locales";
@@ -18,9 +18,9 @@ type Completed = { tables: number; pages: number; flows: number };
 type ScaffoldEvent =
   | { type: "progress"; step: string; message: string; name?: string }
   | { type: "plan"; totalTables: number; totalPages: number; totalFlows: number }
-  | { type: "planned"; plan: AppPlan }
+  | { type: "planned"; plan: AppPlan; aiNotice?: string }
   | { type: "token"; text: string }
-  | { type: "done"; projectId: string; homePageId: string }
+  | { type: "done"; projectId: string; homePageId: string; aiNotice?: string }
   | { type: "error"; message: string; refunded?: boolean; code?: string };
 
 /** The build rule's refusal (src/lib/ai/build-policy.ts): its sentence is shown as it is. */
@@ -64,6 +64,12 @@ function writeDraft(draft: Draft | null) {
 
 const MAX_RECONNECTS = 3;
 
+/** A finished build's "add your own AI key" notice, from its saved events (docs/ai-in-apps.md). */
+function doneNotice(snap: { events: ScaffoldEvent[] }): string | undefined {
+  const done = snap.events.find((e) => e.type === "done") as Extract<ScaffoldEvent, { type: "done" }> | undefined;
+  return done?.aiNotice;
+}
+
 /** Example ideas (texts in messages/en/ai.json, wizard.examples). */
 export const EXAMPLES = ["dogWalking", "pizza", "classes", "bookReviews", "party", "chores", "club", "art"] as const;
 
@@ -95,6 +101,9 @@ export function ScaffoldWizard({ aiProblem = null, below }: { aiProblem?: string
   const [prompt, setPrompt] = useState("");
   const [stage, setStage] = useState<Stage>("input");
   const [plan, setPlan] = useState<AppPlan | null>(null);
+  // The plan's and the finished build's "add your own AI key" notice (docs/ai-in-apps.md).
+  const [planAiNotice, setPlanAiNotice] = useState<string | null>(null);
+  const [built, setBuilt] = useState<{ projectId: string; homePageId: string; aiNotice: string } | null>(null);
   const [status, setStatus] = useState("");
   const [totals, setTotals] = useState<Totals | null>(null);
   const [completed, setCompleted] = useState<Completed>({ tables: 0, pages: 0, flows: 0 });
@@ -148,9 +157,14 @@ export function ScaffoldWizard({ aiProblem = null, below }: { aiProblem?: string
     window.history.replaceState(null, "", url.toString());
   }, []);
 
-  const openEditor = useCallback((result: { projectId: string; homePageId: string }) => {
+  const openEditor = useCallback((result: { projectId: string; homePageId: string; aiNotice?: string }) => {
     writeDraft(null);
     setStage("done");
+    // An app whose AI needs the person's own key: the notice stays until they choose (docs/ai-in-apps.md).
+    if (result.aiNotice) {
+      setBuilt({ projectId: result.projectId, homePageId: result.homePageId, aiNotice: result.aiNotice });
+      return;
+    }
     setTimeout(() => router.push(`/projects/${result.projectId}/pages/${result.homePageId}/edit?welcome=1`), 900);
   }, [router]);
 
@@ -169,13 +183,14 @@ export function ScaffoldWizard({ aiProblem = null, below }: { aiProblem?: string
       const locale = isLocale(planned.locale) ? planned.locale : appLocaleRef.current;
       setAppLocale(locale);
       setPlan(planned);
+      setPlanAiNotice(ev.aiNotice ?? null);
       setRevising(false);
       setReviseError(null);
       setStage("review");
       writeDraft({ prompt: promptRef.current, plan: planned, locale, referenceId: referenceIdOf(imagesRef.current) });
       setRunInUrl(null);
     } else if (ev.type === "done") {
-      openEditor({ projectId: ev.projectId, homePageId: ev.homePageId });
+      openEditor({ projectId: ev.projectId, homePageId: ev.homePageId, aiNotice: ev.aiNotice });
     }
   }, [openEditor, setRunInUrl]);
 
@@ -241,7 +256,7 @@ export function ScaffoldWizard({ aiProblem = null, below }: { aiProblem?: string
       }
       if (snap.status === "running") return followRun(runId, phase, reconnects, onFail);
       if (snap.status === "error") return onFail({ phase, message: snap.error ?? t("wizard.stoppedUnexpectedly"), refunded: Boolean(snap.refunded), refused: snap.errorCode === NOT_ALLOWED });
-      if (snap.status === "success" && snap.result && phase === "build") openEditor(snap.result);
+      if (snap.status === "success" && snap.result && phase === "build") openEditor({ ...snap.result, aiNotice: doneNotice(snap) });
     } catch (err) {
       if (controller.signal.aborted) return;
       if (reconnects < MAX_RECONNECTS) {
@@ -343,7 +358,7 @@ export function ScaffoldWizard({ aiProblem = null, below }: { aiProblem?: string
             const draft = readDraft();
             if (draft?.plan) setPlan(draft.plan);
             if (isLocale(draft?.locale)) setAppLocale(draft.locale);
-            if (snap.status === "success" && snap.result) return openEditor(snap.result);
+            if (snap.status === "success" && snap.result) return openEditor({ ...snap.result, aiNotice: doneNotice(snap) });
           }
           if (snap.status === "error") return fail({ phase, message: snap.error ?? t("wizard.stoppedUnexpectedly"), refunded: Boolean(snap.refunded), refused: snap.errorCode === NOT_ALLOWED });
           setStage(phase === "plan" ? "planning" : "building");
@@ -425,14 +440,25 @@ export function ScaffoldWizard({ aiProblem = null, below }: { aiProblem?: string
         {stage === "review" && plan && (
           <PlanReview plan={plan} onChange={updatePlan} onBuild={startBuild} onStartOver={startOver} appLocale={appLocale} onAppLocale={changeAppLocale}
             onRevise={(change) => startPlanning(prompt, { change, previous: plan })} revising={revising} reviseError={reviseError}
-            images={images} onImages={setImages} />
+            images={images} onImages={setImages} aiNotice={planAiNotice} />
         )}
         {stage === "building" && <BuildingStage plan={plan} status={status} totals={totals} completed={completed} builtPages={builtPages} />}
         {stage === "done" && (
           <div className="card p-10 text-center" role="status">
             <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500/15 text-emerald-300"><Check size={24} aria-hidden /></span>
             <h2 className="mt-4 text-3xl font-semibold tracking-tight">{t("wizard.ready")}</h2>
-            <p className="mt-2 text-surface-300">{t("wizard.opening")}</p>
+            {built?.aiNotice ? (
+              <div className="mx-auto mt-5 max-w-xl rounded-lg border border-amber-400/25 bg-amber-400/10 p-4 text-start text-sm text-amber-100" data-testid="build-ai-notice">
+                <p className="flex items-center gap-2 font-medium"><KeyRound size={16} aria-hidden />{t("aiApps.noticeTitle")}</p>
+                <p className="mt-1 text-amber-100/85">{built.aiNotice}</p>
+                <div className="mt-4 flex flex-wrap gap-3">
+                  <Link href={`/projects/${built.projectId}/ai`} className="btn-primary">{t("aiApps.addKey")}</Link>
+                  <Link href={`/projects/${built.projectId}/pages/${built.homePageId}/edit?welcome=1`} className="btn-ghost">{t("aiApps.openEditor")}</Link>
+                </div>
+              </div>
+            ) : (
+              <p className="mt-2 text-surface-300">{t("wizard.opening")}</p>
+            )}
           </div>
         )}
         {stage === "error" && failure?.refused && (

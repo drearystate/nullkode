@@ -50,7 +50,7 @@
     "buildMobileHelp": "Bu uygulamayı Android, iPhone ve iPad için bir telefon uygulamasına dönüştürün.",
     "buildMobileTitle": "Mobil uygulama oluştur",
     "buildYourWay": "Kendi yolunuzla oluşturun.",
-    "buildYourWayIntro": "Aynı güçlü araçlar. Size uygun bir başlangıç.",
+    "buildYourWayIntro": "Nereden başlayacağınızdan emin değil misiniz? AI Tasarımcısı ile başlayın.",
     "clearFilters": "Filtreleri temizle",
     "clearFiltersHelp": "Tüm uygulamalarını yeniden görmek için aramayı ve filtreyi temizle.",
     "clearSearch": "Aramayı temizle",
@@ -92,6 +92,8 @@
     "gameKind": "{engine} oyun",
     "gameLiveHelp": "Yayında: Bu oyun bir uygulama olarak yayımlandı. Bağlantısına sahip olan herkes oynayabilir.",
     "gameNoPicture": "Henüz görsel yok",
+    "gameWaiting": "Seni bekliyor",
+    "gameWaitingHelp": "Oynanabilir ilk bölüm hazır. Denemek için oyunu aç ve geliştirmeye devam edip etmeyeceğimizi söyle.",
     "gamesEyebrow": "YAPTIKLARINI OYNA",
     "getMoreApps": "Daha fazla uygulama edin",
     "headline": "Küçük bir fikir.<br></br><accent>Sınırsız olasılık.</accent>",
@@ -142,7 +144,7 @@
     "sortName": "Ada göre A–Z",
     "sortRecent": "Son güncellenenler",
     "versionCount": "{count, plural, =0 {Henüz sürüm yok} one {# sürüm} other {# sürüm}}",
-    "waysEyebrow": "BAŞLAMANIN 6 YOLU",
+    "waysEyebrow": "BAŞLAMA YOLLARI",
     "welcome": "Hoş geldin, {name}. Ne yapmak istediğini anlat, planlamana yardımcı olalım.",
     "welcomeBack": "Tekrar hoş geldin, {name}. Kaldığın yerden devam et,<br></br> ya da yeni bir şey ortaya çıkar.",
     "yourApps": "Uygulamaların",
@@ -167,10 +169,17 @@
       "description": "Ne istediğinizi kendi sözlerinizle anlatın. Planı gözden geçirin, ardından sayfalar, veriler ve çalışan formlar oluşturun.",
       "help": "Uygulamanızı birkaç kelimeyle açıklayın. Yapay zekâ inceleyip değiştirebileceğiniz bir plan önerir, ardından sayfaları, formları ve verileri sizin için oluşturur.",
       "label": "Fikirden uygulamaya",
-      "title": "Açıklayın"
+      "title": "Açıklayın",
+      "demo": {
+        "idea": "Köpek gezdirme işim için bir rezervasyon uygulaması",
+        "plan": "Planınız",
+        "pages": "3 sayfa",
+        "table": "Bir rezervasyon tablosu",
+        "form": "Bir rezervasyon formu"
+      }
     },
     "blank": {
-      "description": "Sürükle bırak blokları ve hazır özelliklerle uygulamanızı kendiniz oluşturun.",
+      "description": "Sürükle bırak bloklarla her sayfayı kendiniz oluşturun. Ne istediğinizi zaten biliyorsanız en iyisi.",
       "help": "Basit bir karşılama sayfasıyla başlayın, ardından blokları sürükleyip sayfaya bırakarak gerisini kendiniz oluşturun. Her şeyi kontrol etmeyi seviyorsanız bu seçenek tam size göre.",
       "label": "Tuvaliniz, kurallarınız",
       "title": "Boş uygulama"
@@ -182,10 +191,12 @@
       "title": "Bir web sitesini kopyalayın"
     },
     "designer": {
-      "description": "Fikrinizi sohbet ederek şekillendirin. Tasarlayın, iyileştirin ve keşfedin.",
+      "description": "Ne istediğinizi yapay zekâya anlatın ve tasarımın şekillenişini izleyin. Ardından değişiklikleri günlük ifadelerle isteyin.",
       "help": "Uygulamanızı adım adım tasarlamak için yapay zekâyla sohbet edin. Değişiklik isteyin, yorum yapmak için önizlemedeki bölümlere tıklayın ve önceki sürümlere dönün.",
       "label": "Birlikte oluşturun",
-      "title": "Yapay Zekâ Tasarımcısı"
+      "title": "Yapay Zekâ Tasarımcısı",
+      "badge": "Önerilen",
+      "cta": "Tasarıma başlayın"
     },
     "game": {
       "description": "Bir oyun tarif et, yapay zekanın gerçek görseller ve seslerle adım adım oluşturmasını izle.",
@@ -237,6 +248,7 @@
     "clearFiltersHelp": "Tüm özellikleri yeniden göstermek için aramayı ve kategoriyi temizleyin.",
     "clearSearch": "Aramayı temizle",
     "clearSearchHelp": "Aramayı temizleyip tüm özellikleri yeniden göster.",
+    "continue": "Devam et",
     "details": "Ayrıntılar",
     "detailsHelp": "Bu özelliğin uygulamanıza tam olarak neler eklediğini görün: sayfa sayısını, kayıtlı öğe listelerini ve otomasyonları.",
     "dialogTitle": "{name} ekle",

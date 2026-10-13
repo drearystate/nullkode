@@ -1,0 +1,123 @@
+{
+  "page": {
+    "eyebrow": "AI keys",
+    "title": "Your app's own AI",
+    "intro": "The AI parts of a published app (chat, companions, agents, search by meaning) run with the app's own AI key. The platform's AI builds and edits your app, but apps can't use it once people use them.",
+    "introHelp": "Add the key of an AI service you pay for. Your app's AI steps use it in the preview and in the published app.",
+    "ownerNote": "You run this platform, so while this app has no key of its own, its AI steps use the platform's AI. Add a key here to use your own instead.",
+    "needsKey": "This app has AI steps but no key yet, so visitors see “This app's AI isn't set up yet.” Add a key below.",
+    "noAiYet": "This app has no AI steps yet. Add a key now and AI steps you add later work right away.",
+    "ready": "This app's AI is set up.",
+    "security": "Keys are encrypted on the server. They are never sent to your app's pages or visitors, never written to logs, and never shown again after you save them."
+  },
+  "list": {
+    "title": "Connections",
+    "empty": "No AI key yet.",
+    "default": "Default",
+    "makeDefault": "Make default",
+    "makeDefaultHelp": "AI steps that don't pick a connection by name use the default one.",
+    "edit": "Change",
+    "remove": "Remove",
+    "removeConfirm": "Remove the AI connection “{name}”? AI steps that use it stop working until you add another key.",
+    "test": "Test connection",
+    "testing": "Testing…",
+    "key": "Key",
+    "model": "Model",
+    "lastOk": "Worked when tested {when}",
+    "lastFailed": "Failed when tested {when}",
+    "name": "Name: {name}"
+  },
+  "form": {
+    "addTitle": "Add an AI key",
+    "editTitle": "Change “{name}”",
+    "provider": "AI service",
+    "providerHelp": "Where your key comes from. Any service that speaks the OpenAI-style API works with the last choice, including your own Ollama or LM Studio.",
+    "name": "Connection name",
+    "nameHelp": "A short name AI steps can pick (for example “speech” for a second key that can talk). Leave it as default for one key.",
+    "baseUrl": "Server address",
+    "baseUrlHelp": "The API address, for example https://ai.example.com/v1. Optional for the named services.",
+    "apiKey": "API key",
+    "apiKeyHelp": "Pasted once, then kept encrypted. It is never shown again.",
+    "apiKeySaved": "Saved ({hint}). Leave empty to keep it.",
+    "model": "Model",
+    "modelHelp": "The model your AI steps use, as your service names it.",
+    "modelExample": "For example {model}",
+    "more": "More models (optional)",
+    "chatModel": "Chat model",
+    "chatModelHelp": "For chat replies and agents, if different from the main model.",
+    "visionModel": "Picture model",
+    "visionModelHelp": "For steps that look at pictures.",
+    "speechModel": "Voice model",
+    "speechModelHelp": "For reading replies aloud. Without one, pages use the browser's own voice.",
+    "voice": "Voice",
+    "embedModel": "Embeddings model",
+    "embedModelHelp": "For search by meaning and knowledge bots.",
+    "makeDefault": "Use as the default connection",
+    "save": "Save key",
+    "saving": "Saving…",
+    "saved": "Saved.",
+    "cancel": "Cancel",
+    "test": "Test before saving",
+    "can": "This service can: {list}",
+    "canChat": "chat",
+    "canVision": "pictures",
+    "canEmbed": "embeddings",
+    "canSpeech": "voice"
+  },
+  "providers": {
+    "openai": "OpenAI",
+    "anthropic": "Messages API (keys that start with sk-ant-)",
+    "xai": "xAI (Grok)",
+    "gemini": "Google Gemini",
+    "openrouter": "OpenRouter",
+    "custom": "Any OpenAI-compatible server (Ollama, LM Studio, vLLM…)"
+  },
+  "test": {
+    "ok": "Connected. The AI answered.",
+    "key": "The AI service refused the key. Check that it is right and still active.",
+    "model": "The AI service doesn't know that model or address. Check the model name and the address.",
+    "quota": "The AI service says this key is over its limit or out of credit.",
+    "timeout": "The AI service took too long to answer.",
+    "private": "This address is on a private network, which apps on this server can't reach.",
+    "unreadable": "The saved key can't be read any more. Enter it again.",
+    "other": "The test failed.",
+    "detail": "Details: {detail}"
+  },
+  "limits": {
+    "title": "Limits",
+    "intro": "Protects your key from abuse: when a limit is reached, AI steps wait until the hour is over.",
+    "perHour": "AI requests per hour, for the whole app",
+    "perVisitorHour": "AI requests per hour, for one visitor",
+    "save": "Save limits",
+    "saved": "Limits saved."
+  },
+  "errors": {
+    "invalid": "Some of the information is missing or in the wrong format.",
+    "provider": "Pick an AI service.",
+    "baseUrlMissing": "Enter the server's address (for example https://ai.example.com/v1).",
+    "baseUrlBad": "That address can't be used. Use an http:// or https:// address without a user name or password.",
+    "model": "Enter the model to use.",
+    "keyMissing": "Enter the API key.",
+    "keyBad": "That doesn't look like an API key.",
+    "saveFailed": "The key couldn't be saved. Please try again.",
+    "notFound": "That AI connection doesn't exist.",
+    "tooManyTests": "Too many tests in a short time. Wait a few minutes.",
+    "network": "Couldn't reach the server. Check your connection and try again."
+  },
+  "banner": {
+    "title": "This app's AI isn't set up",
+    "body": "This app has AI steps. Published apps use their own AI key, not the platform's AI, so these steps don't work until you add one.",
+    "cta": "Add an AI key"
+  },
+  "dashboard": {
+    "title": "Some of your apps need their own AI key",
+    "body": "Published apps now use their own AI key for their AI parts instead of the platform's AI. Until you add one, visitors see “This app's AI isn't set up yet.”",
+    "app": "Add a key for {name}"
+  },
+  "notice": {
+    "title": "Your app's AI needs your own key",
+    "body": "This app has AI features. Published apps can't use the platform's AI: add your own AI key (OpenAI, Google Gemini, xAI, OpenRouter or any OpenAI-compatible server) before people use the AI parts.",
+    "cta": "Add an AI key",
+    "later": "You can add it any time in the app's AI keys."
+  }
+}

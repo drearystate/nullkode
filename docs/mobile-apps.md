@@ -203,6 +203,66 @@ by Google Play from 31 August 2026).
   the app's own colors (readable on dark and light backgrounds) with a "Try
   again" button; it also retries by itself when the connection comes back.
 
+### Publishing to Google Play and F-Droid
+
+The **Publish to stores** card on the Mobile app page sends a finished Google
+Play build to the owner's own store accounts (`src/lib/store-publish/`,
+`src/components/store-publish-card.tsx`). Sends run in the background and are
+listed under "Sent to stores" (`StoreRelease` rows; one send per app at a
+time; a send that was running when the server restarted shows as failed).
+Connecting accounts and sending are owner-only (an admin acting as the owner
+can't).
+
+**Google Play** uses the Google Play Developer API (androidpublisher v3):
+`edits.insert` → `edits.bundles.upload` (the AAB, streamed) →
+`edits.tracks.update` (internal / closed / open testing or production; full
+release, staged rollout or draft; "What's new" in en-US) → `edits.commit`.
+Owners connect their account in one of two ways (`StoreAccount`, secret
+encrypted with `encryptSecret`, write-only):
+
+- **Sign in with Google** (OAuth, refresh token kept). Needs a Google OAuth
+  client from the operator: Admin → Settings → App stores, or
+  `GOOGLE_PLAY_CLIENT_ID` / `GOOGLE_PLAY_CLIENT_SECRET`. Register
+  `<PUBLIC_BASE_URL>/api/store-accounts/google/callback` as the redirect URI
+  and add the `https://www.googleapis.com/auth/androidpublisher` scope to the
+  consent screen (Google may require app verification before people outside
+  the test users can sign in). People on a reseller's domain are sent back
+  to that domain; the sign-in is bound to their browser by a cookie and to
+  their account by a signed state.
+- **A service-account key** (.json): works on every install with no setup.
+  The owner turns on the Play Developer API in a Google Cloud project,
+  creates a service account with a JSON key, and invites its email in Play
+  Console → Users and permissions with release permissions.
+
+Google only lets the API update apps that already exist: the owner creates
+the app in Play Console with the same package name and uploads the first
+AAB by hand once. "Check access" opens and discards an edit to tell whether
+that's done. Apps that were never published only accept draft releases: a
+send is then saved as a draft automatically and the owner finishes it in
+Play Console. If Google wants changes sent for review by hand, the commit is
+retried with `changesNotSentForReview` and the owner is told to press "Send
+for review".
+
+**F-Droid** has no upload API or developer accounts; its main catalogue only
+takes apps it builds from public open-source code, which these apps can't
+meet (the engine links Google's push and install-referrer libraries). So
+each person gets their own F-Droid repository, served at
+`<their studio address>/fdroid/<slug>/repo` and signed with their own
+repository key (`FdroidRepo`; keystore in
+`<NK_NATIVE_DIR>/.fdroid/<repoId>/key/`, password encrypted). Adding an app
+copies the build's signed release APK and an icon into
+`<NK_NATIVE_DIR>/.fdroid/<repoId>/repo/` and rewrites the index the way
+fdroidserver does: `index-v1.jar` (JAR-signed, SHA1withRSA for old clients)
+and `entry.jar` (apksigner, v1 only) pointing at `index-v2.json`. The newest
+3 versions of each app are kept. People add the repository with the shared
+link (it carries the key fingerprint) or the "Add to F-Droid" button on the
+repository page. Needs the Android SDK's `aapt2` and `apksigner` and a JDK,
+like the builds. Deleting an app takes it out of the repository; deleting an
+account deletes the repository.
+
+`scripts/e2e-store-publish.ts` tests both, including fdroidserver's own
+client code verifying the repository against its fingerprint.
+
 ## iOS
 
 The **Download iPhone project** button gives a folder with:
@@ -219,6 +279,9 @@ The **Download iPhone project** button gives a folder with:
   App Store provisioning profile (stored as repository secrets).
 - `README.md` — step-by-step instructions for both ways (with a Mac, and
   without one through GitHub).
+- `AppStore/` — the store icon, the logo and screenshots of the published
+  pages in the sizes App Store Connect asks for, with a `README.txt` (see
+  "iPhone" in native-apps.md).
 
 What it can't change: Apple requires a paid Apple Developer Program
 membership to publish, only macOS can build iOS apps, and since 28 April

@@ -48,6 +48,7 @@
     "noMacTitle": "Tanpa Mac",
     "preparing": "Menyiapkan proyek…",
     "readme": "Semua langkah dijelaskan di README dalam file unduhan. Aplikasi Anda akan terus diperbarui saat diterbitkan; Anda hanya perlu versi iPhone baru jika nama, ikon, atau fitur ponselnya berubah.",
+    "storeAssets": "Unduhan ini juga menyertakan folder AppStore berisi ikon App Store dan tangkapan layar aplikasi dalam semua ukuran yang diminta Apple. Membuat tangkapan layar untuk versi baru bisa memakan waktu hingga satu menit.",
     "teamId": "ID Tim Apple",
     "teamIdHelp": "ID Tim Apple Developer Anda, terdiri dari 10 huruf dan angka. ID ini memungkinkan tautan ke aplikasi Anda membuka aplikasi iPhone. Cari di developer.apple.com pada bagian Membership.",
     "teamIdHint": "Opsional. Hanya diperlukan agar tautan ke aplikasi Anda membuka aplikasi iPhone (lihat Tautan yang membuka aplikasi Anda).",

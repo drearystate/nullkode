@@ -1087,6 +1087,87 @@
         }
       }
     },
+    "ai-companion": {
+      "name": "AI companion",
+      "summary": "An animated AI character people chat and talk with, that remembers them.",
+      "description": "A friendly animated character that chats with your visitors, remembers what they share, shows its mood and how close you've become, and can listen and talk out loud in the browser. You choose its name, personality, greeting and boundaries; replies stay general-audience, visitors can report a reply or start over, and you read the reports on a private page. It runs on your app's own AI key.",
+      "fields": {
+        "companionName": {
+          "label": "Companion's name"
+        },
+        "personality": {
+          "label": "Personality",
+          "help": "How the companion talks and what it's like. Written for the AI, in plain words."
+        },
+        "greeting": {
+          "label": "First message",
+          "help": "Shown when someone opens a new conversation."
+        },
+        "boundaries": {
+          "label": "Boundaries",
+          "help": "Rules the companion always keeps. A built-in safety layer applies on top."
+        },
+        "avatarImages": {
+          "label": "Pictures (optional)",
+          "help": "One line per mood: neutral, happy, curious, thinking, sad, surprised or calm, then = and the picture's address. Leave empty for the drawn, animated character."
+        },
+        "voiceDefault": {
+          "label": "Read replies aloud by default",
+          "options": {
+            "off": "Off (visitors can turn it on)",
+            "on": "On (visitors can turn it off)"
+          }
+        }
+      }
+    },
+    "ai-agent": {
+      "name": "Personal AI agent",
+      "summary": "Your own AI helper that works on goals, asks before risky steps and reports back.",
+      "description": "Your own AI agent inside the app. Give it goals: it works on them a few steps at a time (while its page is open, and every 15 minutes once the app is published), saves notes, drafts emails, and asks for your approval before it sends an email or calls an outside service you run, such as a self-hosted OpenMuse. Live progress with pause, resume and cancel, a step log for every task, and a daily summary. It can't browse the web or read a mailbox by itself. Uses the app's own AI key; all its pages are for you only.",
+      "fields": {
+        "agentName": {
+          "label": "Agent name"
+        },
+        "instructions": {
+          "label": "How the agent should behave"
+        },
+        "ownerEmail": {
+          "label": "Your email (optional)",
+          "help": "Where the daily summary is sent. Leave it empty to see summaries only in the app. Emails the agent sends (after you approve them) go out from this app's email address."
+        },
+        "serviceName": {
+          "label": "Your outside service's name (optional)",
+          "placeholder": "My OpenMuse"
+        },
+        "serviceUrl": {
+          "label": "Your outside service's address (optional)",
+          "help": "A public https address. After you approve it, the agent sends it '{'\"task\": \"...\"'}' as JSON and reads the answer. Leave it empty if you don''t run one."
+        },
+        "serviceToken": {
+          "label": "Your outside service's key (optional)",
+          "help": "Sent as \"Authorization: Bearer ...\". It is kept in the app's flows, which only you can see."
+        }
+      }
+    },
+    "knowledge-bot": {
+      "name": "Knowledge bot",
+      "summary": "Answers questions from your documents, with sources.",
+      "description": "Add your documents (manuals, policies, FAQs, notes) and visitors can ask questions about them. The bot finds the closest passages and answers only from them, citing numbered sources, and says so honestly when the documents don't cover a question. Uses the app's own AI key, which needs an embeddings model (OpenAI, Google Gemini or an OpenAI-compatible server such as Ollama). Questions and answers are saved on a private page only you can open.",
+      "fields": {
+        "botName": {
+          "label": "Bot name",
+          "help": "The heading of the question page."
+        },
+        "instructions": {
+          "label": "Tone and rules",
+          "help": "How the bot should answer. It always answers only from your documents and cites them."
+        },
+        "disclosure": {
+          "label": "Note under the question box",
+          "help": "Tells visitors the answers come from an AI."
+        }
+      }
+    },
     "links": {
       "name": "Link Directory",
       "summary": "Share a simple page of your important links.",

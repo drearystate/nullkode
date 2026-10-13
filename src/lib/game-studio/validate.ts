@@ -3,6 +3,9 @@ import { buildLock, type LockResult } from "./catalog";
 import { KIT_VERSION, readKit, type Engine } from "./kits";
 import type { GameFiles } from "./store";
 
+/** The platform's own game file (brand.ts): not the AI's, so not held to the AI's rules, never scanned for asset ids. */
+const PLATFORM_FILE = "src/brand.js";
+
 /**
  * Checks a game's files after an AI step, before anything is saved or sent
  * to the canvas: game.json lists every script in load order, every script
@@ -32,6 +35,7 @@ const FORBIDDEN: Array<[RegExp, string]> = [
   [/\b(?:window\s*\.\s*)?(?:parent|top|opener)\s*\.\s*(?:postMessage|location|document)\b/, "a game must not talk to the page around it"],
   [/\b(?:fetch|XMLHttpRequest|WebSocket|EventSource)\s*\(/, "no network calls: assets come through NK.assets.define, saves through NK.save"],
   [/\beval\s*\(|\bnew\s+Function\s*\(/, "no eval or new Function"],
+  [/\bwindow\s*\.\s*open\s*\(|(?<![\w$.])open\s*\(\s*["'`]https?:|\blocation\s*\.\s*(?:href\s*=(?!=)|assign\s*\(|replace\s*\()|(?:window|document)\s*\.\s*location\s*=(?!=)/, "a game never opens links or changes the page's address: a branded game's link button calls NK.brand.openLink()"],
 ];
 
 const WARN: Array<[RegExp, string]> = [
@@ -82,6 +86,10 @@ export function validateGame(input: GameFiles, engine: Engine): Validation {
     game.files = order;
     warnings.push(`added to game.json: ${unlisted.join(", ")}`);
   }
+  // The platform's brand file loads first (the rest may read NK.brand at load time).
+  if (files[PLATFORM_FILE] !== undefined && Array.isArray(game.files) && game.files[0] !== PLATFORM_FILE) {
+    game.files = [PLATFORM_FILE, ...(game.files as unknown[]).filter((f) => f !== PLATFORM_FILE)];
+  }
   const kit = `${engine}@${KIT_VERSION}`;
   if (game.kit !== kit && files["game.json"] !== undefined) game.kit = kit;
   if (files["game.json"] !== undefined && !errors.some((e) => e.startsWith("game.json is not valid"))) files["game.json"] = JSON.stringify(game, null, 2) + "\n";
@@ -99,7 +107,7 @@ export function validateGame(input: GameFiles, engine: Engine): Validation {
     const code = files[p];
     const bad = syntaxError(p, code);
     if (bad) errors.push(bad);
-    for (const [re, why] of FORBIDDEN) if (re.test(code)) errors.push(`${p}: ${why}`);
+    if (p !== PLATFORM_FILE) for (const [re, why] of FORBIDDEN) if (re.test(code)) errors.push(`${p}: ${why}`);
     for (const [re, why] of WARN) if (re.test(code)) warnings.push(`${p}: ${why}`);
   }
   // levels
@@ -120,7 +128,7 @@ export function validateGame(input: GameFiles, engine: Engine): Validation {
   } catch {
     /* no kit: reported elsewhere */
   }
-  const lock = buildLock(Object.entries(files).filter(([p]) => p.endsWith(".js") || p.startsWith("levels/")).map(([, c]) => c), ui, uiIds);
+  const lock = buildLock(Object.entries(files).filter(([p]) => p !== PLATFORM_FILE && (p.endsWith(".js") || p.startsWith("levels/"))).map(([, c]) => c), ui, uiIds);
   for (const id of lock.missing) errors.push(`unknown asset id "${id}": use only ids from the asset search results`);
   for (const id of lock.badLicence) errors.push(`asset "${id}" has a licence games can't use: pick another`);
   files["assets.lock.json"] = JSON.stringify(lock.lock, null, 1) + "\n";

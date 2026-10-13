@@ -164,7 +164,7 @@ export function watchBuild(key: Pick<PartnerKey, "id" | "webhook">, runId: strin
 
 /* ── Games ─────────────────────────────────────────────────── */
 
-export type GameWebhookEvent = "game.step.completed" | "game.build.completed" | "game.build.failed" | "game.build.stopped" | "game.published";
+export type GameWebhookEvent = "game.step.completed" | "game.build.completed" | "game.build.failed" | "game.build.stopped" | "game.build.review" | "game.published";
 
 /**
  * Sends a game event to the key's webhook (when it has one). The data is
@@ -186,12 +186,15 @@ const GAME_WATCH_MS = 12 * 60 * 60_000;
  * Follows a build or change the key started (in this process): every saved
  * step sends game.step.completed (with the features' counts at that step), and
  * the end sends game.build.completed, game.build.failed or game.build.stopped.
- * Best effort, like the build webhook: a job carried on after a restart isn't
- * followed (GET /games/{id} shows how it ended).
+ * A full game's build that stops at its check-in (after Phase 1) sends
+ * game.build.review and is followed again when the key continues it or sends
+ * changes (steps already reported aren't sent twice). Best effort, like the
+ * build webhook: a job carried on after a restart isn't followed (GET
+ * /games/{id} shows how it ended).
  */
-export function watchGameJob(key: Pick<PartnerKey, "id" | "webhook" | "resellerId">, gameId: string, jobId: string): void {
+export function watchGameJob(key: Pick<PartnerKey, "id" | "webhook" | "resellerId">, gameId: string, jobId: string, opts: { reported?: string[] } = {}): void {
   if (!webhookOf(key)) return;
-  const sent = new Set<string>();
+  const sent = new Set<string>(opts.reported ?? []);
   let ended = false;
   const stepData = async (stepId: string) => {
     const [job, game] = await Promise.all([db.gameJob.findUniqueOrThrow({ where: { id: jobId } }), db.gameProject.findUniqueOrThrow({ where: { id: gameId } })]);
@@ -216,11 +219,12 @@ export function watchGameJob(key: Pick<PartnerKey, "id" | "webhook" | "resellerI
     if (ev.type === "job" && ev.jobId === jobId && ev.status !== "running" && !ended) {
       ended = true;
       stop();
-      const event = ev.status === "done" ? "game.build.completed" : ev.status === "cancelled" ? "game.build.stopped" : "game.build.failed";
+      const event = ev.status === "done" ? "game.build.completed" : ev.status === "cancelled" ? "game.build.stopped" : ev.status === "review" ? "game.build.review" : "game.build.failed";
       setTimeout(() => {
         sendGameEvent(key, gameId, event, async () => {
           const [job, game] = await Promise.all([db.gameJob.findUniqueOrThrow({ where: { id: jobId } }), db.gameProject.findUniqueOrThrow({ where: { id: gameId } })]);
-          return { game: await gameView(game), job: await jobView(job) };
+          const view = await gameView(game);
+          return { game: view, job: await jobView(job), ...(event === "game.build.review" ? { review: view.review } : {}) };
         });
       }, 250);
     }
@@ -231,4 +235,10 @@ export function watchGameJob(key: Pick<PartnerKey, "id" | "webhook" | "resellerI
     unsubscribe();
     clearTimeout(timer);
   }
+}
+
+/** The steps of a job already done (reported before a check-in), so following it again doesn't send them twice. */
+export async function doneStepIds(jobId: string): Promise<string[]> {
+  const job = await db.gameJob.findUnique({ where: { id: jobId }, select: { steps: true } });
+  return (Array.isArray(job?.steps) ? (job.steps as Array<{ id?: string; status?: string }>) : []).filter((s) => s.status === "done" && s.id).map((s) => s.id!);
 }

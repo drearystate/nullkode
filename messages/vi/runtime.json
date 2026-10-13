@@ -36,6 +36,8 @@
     "typeDelete": "Nhập DELETE để xác nhận.",
     "typeDeleteLabel": "Nhập DELETE để xác nhận"
   },
+  "aiBusy": "Ứng dụng này đang nhận quá nhiều yêu cầu AI. Vui lòng thử lại sau.",
+  "aiNotSetUp": "AI của ứng dụng này chưa được thiết lập.",
   "alreadyExists": "Mục này đã tồn tại.",
   "badInput": "Một số thông tin còn thiếu hoặc không đúng định dạng.",
   "cartAdded": "✓ Đã thêm",

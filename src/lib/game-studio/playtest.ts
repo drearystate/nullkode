@@ -28,7 +28,7 @@ import type { GameFiles } from "./store";
 
 export type PlaytestStage = "level" | "enemies" | "polish" | "fix";
 /** A gameplay finding (checklist id, its severity) or a visual one ("VIS-n", severity "visual"). */
-export type Finding = { id: string; severity: Severity | "visual"; say: string; fix: string; evidence: string; auto: boolean };
+export type Finding = { id: string; severity: Severity | "visual" | "visual-polish"; say: string; fix: string; evidence: string; auto: boolean };
 export type PlaytestResult = { stage: PlaytestStage; facts: string[]; findings: Finding[]; reviewed: boolean };
 
 const Review = z.object({
@@ -49,6 +49,8 @@ const Review = z.object({
         say: z.preprocess((v) => (typeof v === "string" ? v : ""), z.string()),
         fix: z.preprocess((v) => (typeof v === "string" ? v : ""), z.string()),
         evidence: z.preprocess((v) => (typeof v === "string" ? v : ""), z.string()),
+        // "blocker": broken, unreadable, placeholder, overlapping UI, wrong scale (a player notices at once): a fix step; "polish": taste-level, a note for the next step.
+        severity: z.preprocess((v) => (v === "blocker" ? "blocker" : "polish"), z.enum(["blocker", "polish"])),
       }),
     )
     .max(8)
@@ -60,7 +62,7 @@ export function reviewFiles(files: GameFiles, budget = 14_000): string {
   const order = (p: string) => (p === "src/config.js" ? 0 : p === "src/levels.js" ? 1 : p.startsWith("src/entities/") ? 2 : p.startsWith("src/scenes/") ? 3 : p.startsWith("levels/") ? 4 : 5);
   let left = budget;
   const out: string[] = [];
-  for (const p of Object.keys(files).filter((x) => /\.(js|json)$/.test(x) && x !== "assets.lock.json" && x !== "game.json").sort((a, b) => order(a) - order(b) || a.localeCompare(b))) {
+  for (const p of Object.keys(files).filter((x) => /\.(js|json)$/.test(x) && x !== "assets.lock.json" && x !== "game.json" && x !== "src/brand.js").sort((a, b) => order(a) - order(b) || a.localeCompare(b))) {
     if (left <= 200) break;
     const body = files[p].length > left ? `${files[p].slice(0, left)}\n… (cut)` : files[p];
     left -= body.length;
@@ -100,6 +102,8 @@ export async function playtest(opts: {
   engine?: Engine;
   /** The planned features' test results (features.ts), as facts. */
   featureFacts?: string[];
+  /** false: the code checks only (no AI review call), e.g. for a later level step of a build phase. */
+  ai?: boolean;
 }): Promise<PlaytestResult | null> {
   const probe = opts.check?.probe;
   if (!probe) return null;
@@ -109,7 +113,7 @@ export async function playtest(opts: {
   const findings: Finding[] = auto.findings.map((f) => ({ id: f.id, severity: f.severity, say: autoSay(opts.t, f), fix: f.fix, evidence: f.evidence, auto: true }));
   let reviewed = false;
   const items = opts.stage === "fix" ? [] : checklistFor(opts.stage);
-  if (items.length || opts.visual) {
+  if (opts.ai !== false && (items.length || opts.visual)) {
     try {
       const attachments: Array<{ name: string; mediaType: string; dataUrl: string }> = [];
       if ((await aiCanSeeImages()) && (await getContextWindow()) >= COMPACT_BELOW) {
@@ -159,7 +163,7 @@ export async function playtest(opts: {
         review.visual
           .filter((v) => clean(v.say, 240))
           .slice(0, 3)
-          .forEach((v, i) => findings.push({ id: `VIS-${i + 1}`, severity: "visual", say: clean(v.say, 240), fix: clean(v.fix, 400), evidence: clean(v.evidence, 300), auto: false }));
+          .forEach((v, i) => findings.push({ id: `VIS-${i + 1}`, severity: v.severity === "blocker" ? "visual" : "visual-polish", say: clean(v.say, 240), fix: clean(v.fix, 400), evidence: clean(v.evidence, 300), auto: false }));
       }
     } catch (err) {
       if (opts.signal.aborted) throw err;

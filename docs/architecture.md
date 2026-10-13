@@ -21,6 +21,8 @@ Publishing freezes the app's pages, flows, and theme into an immutable `Deployme
 
 Published apps are served from `/app/[slug]` on the studio's address, from `<label>.<APPS_DOMAIN>` when `APPS_DOMAIN` is set (each app its own web origin), or from a verified custom domain. `src/middleware.ts` rewrites requests on those app addresses to `/nk-host/<host>/<path>` (including the app's manifest, service worker, `robots.txt` and `sitemap.xml`), passing the original host in a header signed with `AUTH_SECRET`; the `nk-host` routes refuse unsigned requests. (App Router ignores folders whose name starts with `_`, so the route can't be called `_host`.) Reseller dashboard domains are served by the normal app under the reseller's brand.
 
+AI steps in apps (`ai_prompt`, `ai_chat`, `ai_agent`, `ai_structured`, `ai_vision`, `ai_embed`, `ai_search`, `ai_speech`; `src/lib/app-ai`) run with each app's own AI connection ("AI keys", table `AppAiConnection`, keys encrypted with AUTH_SECRET and never sent to pages), not with the platform's AI, except in the apps of platform admins. The platform's AI only plans, builds and edits apps. See `docs/ai-in-apps.md`.
+
 Builder sessions and published-app visitor sessions are separate. Project routes check builder ownership. Designer routes check design ownership before every file, version and build operation. Administrative settings use the real signed-in administrator, including during impersonation. The app has no Server Actions, so requests carrying a `Next-Action` header are refused with 404 in the middleware (and in the Caddyfile).
 
 ## Configuration

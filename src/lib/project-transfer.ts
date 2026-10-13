@@ -77,6 +77,8 @@ export async function transferProjectTo(
       if (refused) return refused;
       await tx.designerDesign.updateMany({ where: { projectId }, data: { projectId: null } });
       await tx.project.update({ where: { id: projectId }, data: { ownerId: target.id } });
+      // The old owner's AI keys stay theirs: the new owner adds their own (docs/ai-in-apps.md).
+      await tx.appAiConnection.deleteMany({ where: { projectId } });
       return null;
     },
     { timeout: 20_000 },

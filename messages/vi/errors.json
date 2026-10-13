@@ -62,7 +62,8 @@
     "tooManyAccounts": "Hôm nay đã có quá nhiều tài khoản được tạo từ mạng này.",
     "tooManyAttempts": "Có quá nhiều lần đăng ký từ mạng này. Hãy thử lại sau.",
     "tooQuick": "Bạn thao tác quá nhanh — vui lòng thử lại.",
-    "verificationFailed": "Xác minh không thành công. Vui lòng tải lại trang rồi thử lại."
+    "verificationFailed": "Xác minh không thành công. Vui lòng tải lại trang rồi thử lại.",
+    "oneFreeAccount": "Một tài khoản miễn phí đã được tạo từ mạng này. Vui lòng đăng nhập vào tài khoản đó."
   },
   "apk": {
     "alreadyHasKey": "Ứng dụng này đã có khóa tải lên. Chọn \"Thay thế khóa hiện tại\" để dùng khóa này.",

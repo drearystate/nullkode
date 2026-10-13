@@ -50,7 +50,7 @@
     "buildMobileHelp": "Mach aus dieser App eine App für Android, iPhone und iPad.",
     "buildMobileTitle": "Mobile App erstellen",
     "buildYourWay": "Gestalte es auf deine Weise.",
-    "buildYourWayIntro": "Dieselben leistungsstarken Tools. Dein persönlicher Startpunkt.",
+    "buildYourWayIntro": "Du weißt nicht, wo du anfangen sollst? Beginne mit dem KI-Designer.",
     "clearFilters": "Filter löschen",
     "clearFiltersHelp": "Suche und Filter löschen, damit wieder alle deine Apps angezeigt werden.",
     "clearSearch": "Suche löschen",
@@ -92,6 +92,8 @@
     "gameKind": "{engine}-Spiel",
     "gameLiveHelp": "Veröffentlicht: Dieses Spiel ist als App veröffentlicht, also kann jeder mit dem Link spielen.",
     "gameNoPicture": "Noch kein Bild",
+    "gameWaiting": "Wartet auf dich",
+    "gameWaitingHelp": "Der erste spielbare Teil ist fertig. Öffne das Spiel, probiere es aus und sag, ob wir weiterbauen sollen.",
     "gamesEyebrow": "SPIELE DEINE EIGENEN SPIELE",
     "getMoreApps": "Mehr Apps erhalten",
     "headline": "Eine kleine Idee.<br></br><accent>Unzählige Möglichkeiten.</accent>",
@@ -142,7 +144,7 @@
     "sortName": "Name A–Z",
     "sortRecent": "Zuletzt aktualisiert",
     "versionCount": "{count, plural, =0 {Noch keine Versionen} one {# Version} other {# Versionen}}",
-    "waysEyebrow": "SECHS WEGE ZUM START",
+    "waysEyebrow": "SO KANNST DU STARTEN",
     "welcome": "Willkommen, {name}. Erzähl uns, was du erstellen möchtest, und wir planen es gemeinsam mit dir.",
     "welcomeBack": "Willkommen zurück, {name}. Mach weiter, wo du aufgehört hast,<br></br> oder erwecke etwas Neues zum Leben.",
     "yourApps": "Deine Apps",
@@ -167,10 +169,17 @@
       "description": "Beschreibe mit deinen eigenen Worten, was du möchtest. Prüfe den Plan und erstelle dann Seiten, Daten und funktionierende Formulare.",
       "help": "Beschreibe deine App in wenigen Worten. Die KI schlägt einen Plan vor, den du prüfen und ändern kannst. Anschließend erstellt sie Seiten, Formulare und Daten für dich.",
       "label": "Von der Idee zur App",
-      "title": "Beschreiben"
+      "title": "Beschreiben",
+      "demo": {
+        "idea": "Eine Buchungs-App für mein Gassi-Service-Unternehmen",
+        "plan": "Dein Plan",
+        "pages": "3 Seiten",
+        "table": "Eine Buchungstabelle",
+        "form": "Ein Buchungsformular"
+      }
     },
     "blank": {
-      "description": "Baue deine App selbst – mit Drag-and-drop-Blöcken und fertigen Funktionen.",
+      "description": "Erstelle jede Seite selbst mit Drag-and-drop-Blöcken. Am besten, wenn du schon weißt, was du möchtest.",
       "help": "Starte mit einer einfachen Willkommensseite und baue den Rest selbst, indem du Blöcke darauf ziehst. Ideal, wenn du alles selbst bestimmen möchtest.",
       "label": "Deine Fläche, deine Regeln",
       "title": "Leere App"
@@ -182,10 +191,12 @@
       "title": "Website kopieren"
     },
     "designer": {
-      "description": "Entwickle deine Idee im Gespräch weiter. Gestalte, verfeinere und entdecke neue Möglichkeiten.",
+      "description": "Sag der KI, was du möchtest, und sieh zu, wie ein fertiges Design entsteht. Bitte sie dann in einfachen Worten um Änderungen.",
       "help": "Gestalte deine App Schritt für Schritt im Chat mit der KI. Bitte um Änderungen, klicke auf Bereiche in der Vorschau, um Feedback zu geben, und kehre zu älteren Versionen zurück.",
       "label": "Gemeinsam gestalten",
-      "title": "KI-Designer"
+      "title": "KI-Designer",
+      "badge": "Empfohlen",
+      "cta": "Design starten"
     },
     "game": {
       "description": "Beschreibe ein Spiel und sieh zu, wie die KI es Schritt für Schritt mit echter Grafik und Sound erstellt.",
@@ -237,6 +248,7 @@
     "clearFiltersHelp": "Setze Suche und Kategorie zurück, damit wieder alle Funktionen angezeigt werden.",
     "clearSearch": "Suche löschen",
     "clearSearchHelp": "Suche löschen und wieder alle Funktionen anzeigen.",
+    "continue": "Weiter",
     "details": "Details",
     "detailsHelp": "Hier erfährst du genau, was diese Funktion zu deiner App hinzufügt: wie viele Seiten, Listen mit gespeicherten Einträgen und Automatisierungen.",
     "dialogTitle": "{name} hinzufügen",

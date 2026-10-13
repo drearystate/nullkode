@@ -36,6 +36,8 @@
     "typeDelete": "Digita ELIMINA per confermare.",
     "typeDeleteLabel": "Digita ELIMINA per confermare"
   },
+  "aiBusy": "Questa app sta ricevendo troppe richieste all’IA. Riprova più tardi.",
+  "aiNotSetUp": "L’IA di questa app non è ancora configurata.",
   "alreadyExists": "Esiste già.",
   "badInput": "Mancano alcune informazioni o il formato non è corretto.",
   "cartAdded": "✓ Aggiunto",

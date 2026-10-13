@@ -21,6 +21,35 @@
       "name": "Okundu Onayları",
       "summary": "Önemli mesajların okunduğundan emin olun."
     },
+    "ai-agent": {
+      "description": "Uygulamanızda çalışan kişisel yapay zekâ asistanınız. Ona hedefler verin: birkaç adımda bir hedef üzerinde çalışır (sayfası açıkken ve uygulama yayınlandıktan sonra her 15 dakikada bir), notları kaydeder, e-posta taslakları hazırlar ve e-posta göndermeden veya kendi çalıştırdığınız OpenMuse gibi harici bir hizmeti çağırmadan önce onayınızı ister. Duraklatma, devam ettirme ve iptal seçenekleriyle canlı ilerleme, her görev için adım kaydı ve günlük özet sunar. Kendi başına internette arama yapamaz veya bir posta kutusunu okuyamaz. Uygulamanın kendi yapay zekâ anahtarını kullanır; tüm sayfaları yalnızca size özeldir.",
+      "fields": {
+        "agentName": {
+          "label": "Asistanın adı"
+        },
+        "instructions": {
+          "label": "Asistan nasıl davranmalı?"
+        },
+        "ownerEmail": {
+          "help": "Günlük özetin gönderileceği adres. Özetleri yalnızca uygulamada görmek için boş bırakın. Asistanın gönderdiği e-postalar (onayınızdan sonra) bu uygulamanın e-posta adresinden gönderilir.",
+          "label": "E-posta adresiniz (isteğe bağlı)"
+        },
+        "serviceName": {
+          "label": "Harici hizmetinizin adı (isteğe bağlı)",
+          "placeholder": "OpenMuse hizmetim"
+        },
+        "serviceToken": {
+          "help": "\"Authorization: Bearer ...\" olarak gönderilir. Yalnızca sizin görebildiğiniz uygulama akışlarında saklanır.",
+          "label": "Harici hizmetinizin anahtarı (isteğe bağlı)"
+        },
+        "serviceUrl": {
+          "help": "Herkese açık bir https adresi girin. Onayınızdan sonra asistan buraya JSON olarak '{'\"task\": \"...\"'}' gönderir ve yanıtı okur. Böyle bir hizmet çalıştırmıyorsanız boş bırakın.",
+          "label": "Harici hizmetinizin adresi (isteğe bağlı)"
+        }
+      },
+      "name": "Kişisel yapay zekâ asistanı",
+      "summary": "Hedefler üzerinde çalışan, riskli adımlardan önce onay isteyen ve size bilgi veren kişisel yapay zekâ yardımcınız."
+    },
     "ai-assistant": {
       "description": "Sitenize bir yapay zekâ soru kutusu ekleyin. Ziyaretçiler soru sorar, yapay zekâ belirlediğiniz talimatları kullanarak yanıt verir ve yanıt formun hemen altında görünür. Tüm soru ve yanıtlar yalnızca sizin açabileceğiniz özel bir sayfaya kaydedilir.",
       "fields": {
@@ -37,6 +66,39 @@
       },
       "name": "Sohbet Asistanı",
       "summary": "Ziyaretçilerin yardımcı bir asistanla sohbet etmesini sağlayın."
+    },
+    "ai-companion": {
+      "description": "Ziyaretçilerinizle sohbet eden, paylaştıklarını hatırlayan, ruh hâlini ve aranızdaki yakınlığı gösteren, tarayıcıda onları dinleyip sesli konuşabilen sevimli animasyonlu bir karakter. Adını, kişiliğini, selamlamasını ve sınırlarını siz belirlersiniz; yanıtları herkes için uygun olur. Ziyaretçiler bir yanıtı bildirebilir veya baştan başlayabilir. Bildirimleri yalnızca sizin görebileceğiniz özel bir sayfada inceleyebilirsiniz. Uygulamanızın kendi yapay zekâ anahtarıyla çalışır.",
+      "fields": {
+        "avatarImages": {
+          "help": "Her ruh hâli için bir satır yazın: neutral, happy, curious, thinking, sad, surprised veya calm; ardından = ve resmin adresini ekleyin. Çizim tarzı hareketli karakteri kullanmak için boş bırakın.",
+          "label": "Resimler (isteğe bağlı)"
+        },
+        "boundaries": {
+          "help": "Arkadaşınızın her zaman uyması gereken kurallar. Bunlara ek olarak yerleşik bir güvenlik katmanı da uygulanır.",
+          "label": "Sınırlar"
+        },
+        "companionName": {
+          "label": "Arkadaşın adı"
+        },
+        "greeting": {
+          "help": "Yeni bir sohbet açıldığında gösterilir.",
+          "label": "İlk mesaj"
+        },
+        "personality": {
+          "help": "Arkadaşınızın nasıl konuştuğunu ve nasıl biri olduğunu açıklayın. Yapay zekâ için sade bir dille yazın.",
+          "label": "Kişilik"
+        },
+        "voiceDefault": {
+          "label": "Yanıtları varsayılan olarak sesli oku",
+          "options": {
+            "off": "Kapalı (ziyaretçiler açabilir)",
+            "on": "Açık (ziyaretçiler kapatabilir)"
+          }
+        }
+      },
+      "name": "Yapay zekâ arkadaşı",
+      "summary": "İnsanların sohbet edip konuşabildiği, onları hatırlayan animasyonlu bir yapay zekâ karakteri."
     },
     "analytics-dashboard": {
       "description": "Sayfa görüntülemelerini ve özel etkinlikleri (“kayıt”, “satın alma”) takip edin. Her sayfadan çağrılabilen bir takip adresi, sayaç API'si ve toplamları, en çok görüntülenen sayfaları ve son 7 günlük eğilimi gösteren yönetici paneli içerir.",
@@ -624,6 +686,25 @@
       },
       "name": "Bilgi Bankası",
       "summary": "Müşterilerinizin arayabileceği yardım yazıları yayımlayın."
+    },
+    "knowledge-bot": {
+      "description": "Belgelerinizi (kılavuzlar, politikalar, sık sorulan sorular, notlar) ekleyin; ziyaretçileriniz bunlarla ilgili sorular sorabilsin. Bot, en alakalı bölümleri bulup yalnızca bu bölümlere dayanarak yanıt verir ve numaralı kaynakları gösterir. Belgeler bir sorunun yanıtını içermiyorsa bunu açıkça belirtir. Uygulamanızın kendi yapay zekâ anahtarını kullanır; bu anahtarın bir gömme modeline (OpenAI, Google Gemini veya Ollama gibi OpenAI uyumlu bir sunucu) erişmesi gerekir. Sorular ve yanıtlar yalnızca sizin açabileceğiniz özel bir sayfada saklanır.",
+      "fields": {
+        "botName": {
+          "help": "Soru sayfasının başlığı.",
+          "label": "Botun adı"
+        },
+        "disclosure": {
+          "help": "Ziyaretçilere yanıtların yapay zekâ tarafından oluşturulduğunu belirtir.",
+          "label": "Soru kutusunun altındaki not"
+        },
+        "instructions": {
+          "help": "Botun nasıl yanıt vermesi gerektiğini açıklayın. Bot yalnızca belgelerinize dayanarak yanıt verir ve kaynakları gösterir.",
+          "label": "Üslup ve kurallar"
+        }
+      },
+      "name": "Bilgi botu",
+      "summary": "Belgelerinizden kaynak göstererek soruları yanıtlar."
     },
     "leaderboard": {
       "description": "Genel amaçlı bir liderlik tablosu. Bir user_label (e-posta, ad, spor salonu üyesi, çalışan gibi herhangi bir metin) için puan ekleyin; puanlar azalan sırada listelenir. Birden fazla tablo oluşturmak için kategoriye göre filtreleyin (adım, satış, puan). Puan gönderme uç noktası başka herhangi bir modülden çağrılabilir.",

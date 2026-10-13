@@ -335,6 +335,7 @@
       "locationRemoved": "La tua app non usa più la posizione. Scarica di nuovo il progetto per iPhone prima della prossima versione, così non la richiederà più.",
       "newBuildNeeded": "<b>Serve una nuova versione.</b> {reason}",
       "readme": "Il file README incluso nel download ti guida passo passo in entrambe le procedure.",
+      "storeAssets": "La cartella AppStore nel download contiene l’icona per l’App Store e gli screenshot della tua app in tutti i formati richiesti da Apple.",
       "title": "iPhone e iPad",
       "withMac": "<b>Con un Mac:</b> apri <mono>{path}</mono>, scegli il tuo team, poi vai su Product → Archive.",
       "withoutMac": "<b>Senza un Mac:</b> carica la cartella su GitHub e aggiungi le tue chiavi Apple come segreti. Il flusso di lavoro incluso compila la tua app sui Mac di GitHub e la invia a TestFlight."
@@ -814,6 +815,10 @@
     "invalidInput": "Dati non validi"
   },
   "tabs": {
+    "aiKeys": {
+      "help": "La chiave IA della tua app: la chat, gli agenti e le altre funzioni IA la usano quando le persone usano l’app.",
+      "label": "Chiavi IA"
+    },
     "data": {
       "help": "Visualizza e modifica le informazioni che la tua app conserva, come iscrizioni, ordini e messaggi inviati dalle persone.",
       "label": "Dati"

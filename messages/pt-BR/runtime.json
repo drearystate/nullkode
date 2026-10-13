@@ -36,6 +36,8 @@
     "typeDelete": "Digite EXCLUIR para confirmar.",
     "typeDeleteLabel": "Digite EXCLUIR para confirmar"
   },
+  "aiBusy": "Este app está recebendo muitas solicitações de IA no momento. Tente novamente mais tarde.",
+  "aiNotSetUp": "A IA deste app ainda não está configurada.",
   "alreadyExists": "Isso já existe.",
   "badInput": "Algumas informações estão faltando ou no formato errado.",
   "cartAdded": "✓ Adicionado",

@@ -63,7 +63,10 @@
     "yourGames": "Your games",
     "yourGamesHelp": "Every game you've made. Click a card to open it, play it and keep changing it.",
     "loading": "Loading…",
-    "empty": "Nothing yet. Describe your first game above."
+    "empty": "Nothing yet. Describe your first game above.",
+    "typeMore": "Add your own (optional)",
+    "pickAny": "Pick any",
+    "pickAnyHelp": "Pick as many as you like. Press a picked one again to take it back. You can also type more in the box below."
   },
   "card": {
     "justNow": "just now",
@@ -79,7 +82,9 @@
     "delete": "Delete",
     "deleteHelp": "Deletes this game for good after you confirm. This can't be undone.",
     "confirmDelete": "Delete \"{name}\"?",
-    "confirmDeletePublished": "Delete \"{name}\"? Its published app is deleted too."
+    "confirmDeletePublished": "Delete \"{name}\"? Its published app is deleted too.",
+    "waiting": "Waiting for you",
+    "waitingHelp": "The first playable part of this game is ready. Open it to try it and say whether to keep building."
   },
   "tabs": {
     "chat": "Chat",
@@ -169,6 +174,25 @@
         "passing": "Its test ran on the real game after the last step and passed.",
         "failing": "Its test ran on the real game and failed. The line below says what the test saw."
       }
+    },
+    "content": {
+      "title": "The full game",
+      "help": "What the finished game will have: its levels, enemies, what's new over time, progression, bosses and how long it takes to play.",
+      "levels": "Levels",
+      "enemies": "Enemies and hazards",
+      "mechanics": "New things over time",
+      "progression": "Progression and saving",
+      "bosses": "Bosses and set pieces",
+      "structure": "Structure",
+      "playMinutes": "{count, plural, one {About # minute to play} other {About # minutes to play}}"
+    },
+    "phases": {
+      "title": "Build phases",
+      "help": "The order the AI builds the game in. After phase 1 it stops so you can try the game before the rest is built.",
+      "item": "Phase {n}: {name}",
+      "done": "Done",
+      "now": "In progress",
+      "next": "To come"
     }
   },
   "steps": {
@@ -189,7 +213,11 @@
     "playtestHelp": "The playtester found something that stops the game from being playable, so this step fixes it before the build goes on.",
     "featureFixLabel": "Feature fixes",
     "featureFixTag": "from the feature tests",
-    "featureFixHelp": "A core feature failed its test, so this step fixes it before the build is done."
+    "featureFixHelp": "A core feature failed its test, so this step fixes it before the build is done.",
+    "phase": "Phase {n} of {total}: {name}",
+    "phaseProgress": "{done} of {total} steps",
+    "phaseHelp": "A full game is built in phases. The first phase is a playable slice; the later phases add the rest of the levels, enemies, progression and the ending.",
+    "changeTag": "your changes"
   },
   "canvas": {
     "title": "Game",
@@ -306,7 +334,8 @@
     "alreadyBuilding": "The AI is still working on this game. Wait for it to finish, or stop it first.",
     "stillBuilding": "The AI is still working on this game. Try again when it's done.",
     "nothingToPublish": "Build the game first, then publish it.",
-    "nothingToExport": "Build the game first, then download it."
+    "nothingToExport": "Build the game first, then download it.",
+    "notWaiting": "This game isn't waiting for you right now: there's nothing to continue."
   },
   "build": {
     "withImages": "{count, plural, one {(with # reference image)} other {(with # reference images)}}",
@@ -320,7 +349,8 @@
     "stepFailedKept": "A build step kept failing its checks, so I stopped there. The steps before it are saved and playable. Ask me to try that part again.",
     "failed": "Building the game failed. Please try again.",
     "interrupted": "The build was interrupted several times, so it was stopped. The steps that were done are saved.",
-    "stoppedAfterStep": "{count, plural, =0 {Stopped, as you asked. Nothing was changed.} one {Stopped after step #, as you asked. It's saved in your game.} other {Stopped after step #, as you asked. The finished steps are saved in your game.}}"
+    "stoppedAfterStep": "{count, plural, =0 {Stopped, as you asked. Nothing was changed.} one {Stopped after step #, as you asked. It's saved in your game.} other {Stopped after step #, as you asked. The finished steps are saved in your game.}}",
+    "readyFull": "{title} is finished and ready to play."
   },
   "notes": {
     "tooLong": "That note is too long. Keep it under {max} characters.",
@@ -359,6 +389,136 @@
     "coreFailing": "Still not working: {names}. Ask me to fix them.",
     "coreUnverified": "Couldn't be tested automatically: {names}. Try them yourself.",
     "allCorePass": "{count, plural, one {The core feature passes its test.} other {All # core features pass their tests.}}",
-    "extrasFailing": "Extras that don't work yet: {names}."
+    "extrasFailing": "Extras that don't work yet: {names}.",
+    "theGame": "the game",
+    "listAdded": "Added to the feature list: {names}.",
+    "listRemoved": "Removed from the feature list, as you asked: {names}.",
+    "listRefused": "Kept on the list (you didn't ask to remove it): {names}.",
+    "listKept": "{count, plural, one {The feature list has # feature, and it is still there.} other {All # features on the list are still there.}}",
+    "reverted": "I didn't keep this change: it would have broken {names}. Your game is as it was before, with every feature on the list still working. Try asking for it another way.",
+    "revertedKept": "I stopped this change before it broke {names}. The steps before that are saved, and every feature on the list still works."
+  },
+  "review": {
+    "ready": "{title}: phase {phase} of {total} is ready to play.",
+    "features": "Features so far: {passing} of {total} pass their tests.",
+    "next": "Still to build:",
+    "phaseLine": "Phase {n}, {name}",
+    "question": "Do you want me to keep building in this direction, or make some changes?",
+    "keepBuildingSaid": "Keep building",
+    "continuing": "Building the rest of the game now, phase by phase. You can keep chatting while I work.",
+    "ended": "Stopped here, as you asked. The game stays as it is, and you can ask for changes any time.",
+    "failed": "A build step kept failing its checks, so I stopped and came back to you. Nothing was changed and this didn't count against your AI allowance.",
+    "failedKept": "A build step kept failing its checks, so I stopped there. The steps before it are saved and playable.",
+    "stoppedIn": "{title}: I stopped partway through phase {phase} of {total}. Everything built so far is saved and playable.",
+    "retryFree": "Keep building picks up where I stopped, without using another AI action.",
+    "changeBig": "These are big changes, so I'll stop again afterwards for you to try them.",
+    "changeSmall": "Then I'll carry on with the rest of the game.",
+    "title": "Your turn: try it out",
+    "help": "The first playable part of your game is ready. Play it, then let the AI keep building the rest in this direction, or tell it what to change first.",
+    "keepBuilding": "{count, plural, =0 {Keep building (no extra AI action)} one {Keep building (uses # AI action)} other {Keep building (uses # AI actions)}}",
+    "keepBuildingHelp": "Builds every remaining phase to the end in this direction: the rest of the levels, enemies, progression, saving and the ending. You can still chat and steer while it builds.",
+    "makeChanges": "Make changes",
+    "makeChangesHelp": "Type what to change in the chat box. Small changes are made and the build then carries on; big ones are made and you get to try them first.",
+    "changesHint": "Changes use 1 AI action. Small ones: the build then carries on with the rest. Big ones: it stops again so you can try them.",
+    "changesPlaceholder": "Describe your changes, e.g. make the jump floatier",
+    "stillToBuild": "Still to build",
+    "phaseSteps": "{count, plural, one {# step} other {# steps}}",
+    "continueFailed": "Couldn't continue. Please try again.",
+    "waiting": "Waiting for you"
+  },
+  "brand": {
+    "panelTitle": "Branding",
+    "panelOptional": "Optional: for a business or a promotion",
+    "panelSet": "For {name}",
+    "panelUnnamed": "your business",
+    "panelHelp": "Making a game for your business or a promotion? Add your name, logo, colours, a link and an offer, and the game is built around them.",
+    "panelIntro": "The game shows your name and logo on its title screen and ending, uses your colours, and ends with your offer and a button to your website.",
+    "name": "Business name",
+    "namePlaceholder": "e.g. Sweet Rise Bakery",
+    "nameHelp": "Shown in the game's title and menu.",
+    "logo": "Logo",
+    "logoAlt": "Your logo",
+    "logoAdd": "Add a logo",
+    "logoReplace": "Change",
+    "logoRemove": "Remove the logo",
+    "logoRemoveHelp": "Takes the logo out of the game.",
+    "logoHelp": "A PNG, JPG, WebP or SVG image, up to 5 MB. It shows on the title screen, small while playing, and on the ending screen.",
+    "logoType": "Use a PNG, JPG, WebP, GIF or SVG image.",
+    "logoTooBig": "The logo is too big: up to 5 MB.",
+    "colors": "Brand colours",
+    "colorN": "Brand colour {n}",
+    "colorRemove": "Remove brand colour {n}",
+    "colorAdd": "Add a colour",
+    "colorAddHelp": "Up to 3 colours. The game's look is built around them, and stays easy to read.",
+    "fromLogo": "Take them from the logo",
+    "fromLogoHelp": "Picks the main colours of your logo.",
+    "link": "Website or link",
+    "linkHelp": "The ending screen shows a button that opens this link in a new tab.",
+    "offer": "Offer at the end",
+    "offerPlaceholder": "e.g. Show this screen for 10% off",
+    "offerHelp": "A short call to action or coupon code, shown big on the ending screen.",
+    "toolbar": "Branding",
+    "toolbarHelp": "Your business's name, logo, colours, link and offer for this game.",
+    "title": "Branding",
+    "sideHelp": "Change the branding the game is built around.",
+    "sideIntro": "Saving updates the logo, name, colours, link and offer the game uses right away, then the AI brings the title, interface and ending in line.",
+    "close": "Close branding",
+    "save": "Save branding",
+    "saveApply": "{count, plural, one {Save and update the game (uses # AI action)} other {Save and update the game (uses # AI actions)}}",
+    "saveHelp": "Saves the branding. For a game that's built, the AI then updates the title, interface, colours and ending to match.",
+    "saveFailed": "Couldn't save the branding. Please try again.",
+    "whileBuilding": "You can save once the AI has finished building.",
+    "versionLabel": "Branding updated",
+    "changePrompt": "Update the game to the new branding ({what}): the title and menu, the HUD, the colours and the ending screen with the offer and the link button."
+  },
+  "featureList": {
+    "title": "Features",
+    "help": "Everything your game has: the planned features and everything added later from your messages and notes. Each one is tested after every change, and the AI keeps them all unless you remove one here.",
+    "count": "{count, plural, one {# feature} other {# features}}",
+    "passingCount": "{passing} of {total} pass their tests",
+    "empty": "No features listed yet.",
+    "add": "Add feature",
+    "addHelp": "Add something new to the game. The AI plans it, builds it and gives it a test (uses 1 AI action).",
+    "addName": "Feature name",
+    "addNamePlaceholder": "e.g. Double jump",
+    "addHow": "What it does (optional)",
+    "addHowPlaceholder": "e.g. Press jump again in the air to jump once more",
+    "addSubmit": "Add and build it (uses 1 AI action)",
+    "cancel": "Cancel",
+    "remove": "Remove",
+    "removeHelp": "Takes this feature out of the game. Only you can remove features: the AI never removes one on its own.",
+    "removeConfirm": "Remove \"{name}\" from the game? The AI takes it out and keeps everything else.",
+    "removeConfirmPlanned": "Remove \"{name}\" from the plan? It isn't built yet.",
+    "fromPlan": "In the plan from your first idea, {date}",
+    "fromMessage": "Added from your message \"{text}\", {date}",
+    "fromNote": "Added from your note \"{text}\", {date}",
+    "fromPerson": "You added it, {date}",
+    "fromImport": "Found in the game's files, {date}",
+    "fromStep": "Added while building, {date}",
+    "history": "History",
+    "historyHelp": "When each feature was added, changed or removed, and changes that weren't kept because they would have broken one.",
+    "log": {
+      "added": "Added \"{name}\"",
+      "changed": "Changed \"{name}\"",
+      "removed": "Removed \"{name}\"",
+      "refused-removal": "Kept \"{name}\" (a change tried to remove it)",
+      "reverted": "Undid a change that broke \"{name}\""
+    },
+    "scan": "List features from the game's files",
+    "scanHelp": "For a game made elsewhere or before the feature list: the AI reads the game's files and lists what it already has, with tests, for you to confirm (uses 1 AI action).",
+    "scanning": "Reading the game's files…",
+    "scanFound": "{count, plural, one {Found # feature. Untick any that are wrong, then confirm.} other {Found # features. Untick any that are wrong, then confirm.}}",
+    "scanConfirm": "Put them on the list",
+    "scanFailed": "Couldn't read the game's features. Please try again.",
+    "importedText": "Listed from the game's files",
+    "nameNeeded": "Give the feature a name (at least 2 characters).",
+    "notBuilt": "Build the game first, then add features to it.",
+    "notFound": "That feature isn't on the game's list.",
+    "addPrompt": "Add a new feature to the game: \"{name}\" ({how}). Keep every other feature working.",
+    "removePrompt": "Remove the feature \"{name}\" from the game. Keep every other feature working.",
+    "failed": "Couldn't do that. Please try again.",
+    "status": {
+      "removing": "Removing…"
+    }
   }
 }

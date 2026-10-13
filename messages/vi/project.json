@@ -335,6 +335,7 @@
       "locationRemoved": "Ứng dụng của bạn không còn sử dụng vị trí. Hãy tải lại dự án iPhone cho bản dựng tiếp theo để ứng dụng không còn xin quyền này.",
       "newBuildNeeded": "<b>Cần bản dựng mới.</b> {reason}",
       "readme": "Tệp README trong gói tải xuống hướng dẫn bạn từng bước cả hai cách.",
+      "storeAssets": "Thư mục AppStore trong tệp tải xuống có biểu tượng App Store và ảnh chụp màn hình ứng dụng ở mọi kích thước Apple yêu cầu.",
       "title": "iPhone và iPad",
       "withMac": "<b>Với máy Mac:</b> mở <mono>{path}</mono>, chọn nhóm của bạn, rồi chọn Product → Archive.",
       "withoutMac": "<b>Không có máy Mac:</b> đưa thư mục lên GitHub và thêm khóa Apple của bạn làm thông tin bí mật. Quy trình có sẵn sẽ tạo ứng dụng trên máy Mac của GitHub và gửi lên TestFlight."
@@ -814,6 +815,10 @@
     "invalidInput": "Thông tin nhập không hợp lệ"
   },
   "tabs": {
+    "aiKeys": {
+      "help": "Khóa AI riêng của ứng dụng: tính năng trò chuyện, trợ lý và các tính năng AI khác sẽ dùng khóa này khi có người sử dụng ứng dụng.",
+      "label": "Khóa AI"
+    },
     "data": {
       "help": "Xem và chỉnh sửa thông tin ứng dụng lưu lại, như lượt đăng ký, đơn hàng và tin nhắn mọi người gửi.",
       "label": "Dữ liệu"

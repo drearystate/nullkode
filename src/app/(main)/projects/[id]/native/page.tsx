@@ -62,6 +62,7 @@ export default async function NativeAppPage({
           android={toolchain.ready ? { ready: true } : { ready: false, reason: toolchain.reason }}
           isOperator={realUser?.role === "ADMIN"}
           ownerActions={!impersonation}
+          appDescription={project.description ?? ""}
           initialKey={key}
           initialBuilds={builds.map(({ owner: _owner, ...b }) => b)}
           native={{

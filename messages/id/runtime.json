@@ -36,6 +36,8 @@
     "typeDelete": "Ketik DELETE untuk mengonfirmasi.",
     "typeDeleteLabel": "Ketik DELETE untuk mengonfirmasi"
   },
+  "aiBusy": "Aplikasi ini sedang menerima terlalu banyak permintaan AI. Coba lagi nanti.",
+  "aiNotSetUp": "AI aplikasi ini belum disiapkan.",
   "alreadyExists": "Itu sudah ada.",
   "badInput": "Sebagian informasi belum diisi atau formatnya salah.",
   "cartAdded": "✓ Ditambahkan",

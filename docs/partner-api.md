@@ -153,6 +153,7 @@ Codes are stable; messages are for people and may change.
 | 409 | `already_building` | Games: a build or change is already running (send a note instead, or stop it). |
 | 409 | `still_building` | Games: can't restore or publish while the AI works on the game. |
 | 409 | `not_running` | Games: nothing is running to take a note or to stop (send a change instead). |
+| 409 | `not_waiting` | Games: `POST /games/{id}/continue` on a game that isn't waiting at a check-in. |
 | 409 | `not_built` | Games: build the game first (publish, download). |
 | 409 | `too_many_notes` | Games: this build has taken 25 notes, the most one build takes. |
 | 422 | `idempotency_key_reused` | The Idempotency-Key was used for a different request. |
@@ -425,6 +426,15 @@ had reference images: their `id` (send it as `referenceId`), how many, and
 components, the screens with the image each is in, and the closest theme), or
 `null` until they have been read. `progress` holds the latest 50 steps.
 
+`ai` says whether the app (or the plan) has AI features: `{ "usesAi": true,
+"needsKey": true, "notice": "This app has AI features. Published apps can't
+use the platform's AI: …" }`. Published apps run their AI parts with their
+own AI key, never the platform's AI (except apps of the platform's own
+admins), so when `needsKey` is true show `notice` to the person and add a key
+with [`POST /projects/{id}/ai-connection`](#post-projectsidai-connection).
+`notice` is in the person's language; it is `null` for the platform owner.
+`ai` is `null` while a run is still going and nothing is known yet.
+
 ### POST /projects/{id}/publish
 
 Publishes the app's current draft to its live address, like the studio's
@@ -434,6 +444,46 @@ that is already live). Accepts `Idempotency-Key`.
 ```json
 { "ok": true, "version": 2, "project": { "id": "clx9xyz...", "published": true, "links": { "live": "https://rise-bakery.apps.example.com", "...": "..." } } }
 ```
+
+### GET /projects/{id}/ai-connection
+
+The app's own AI connections ("AI keys", see docs/ai-in-apps.md) and whether
+its AI is ready. Keys are never returned: only `keyHint`.
+
+```json
+{
+  "connections": [ { "id": "clxk...", "name": "default", "provider": "openai", "baseUrl": null, "keyHint": "sk-p…wxyz",
+    "model": "gpt-4.1-mini", "chatModel": null, "visionModel": null, "speechModel": null, "voice": null, "embedModel": "text-embedding-3-small",
+    "isDefault": true, "lastTestAt": "2026-10-12T20:01:00.000Z", "lastTestOk": true, "lastError": null, "updatedAt": "..." } ],
+  "ai": { "usesAi": true, "hasKey": true, "platformOwner": false, "needsKey": false }
+}
+```
+
+### POST /projects/{id}/ai-connection
+
+Adds or replaces a connection, by `name` (default `"default"`). Accepts
+`Idempotency-Key`. The key is write-only: send it once; omit `apiKey` to keep
+the saved one when changing models.
+
+```json
+{ "name": "default", "provider": "openai", "apiKey": "sk-...", "model": "gpt-4.1-mini",
+  "embedModel": "text-embedding-3-small", "isDefault": true, "test": true }
+```
+
+`provider` is `openai`, `anthropic` (the Messages API), `xai`, `gemini`,
+`openrouter` or `custom` (any OpenAI-compatible server; `baseUrl` required,
+for example `https://ai.example.com/v1`). Optional: `baseUrl`, `chatModel`,
+`visionModel`, `speechModel`, `voice`, `embedModel`. With `"test": true` the
+connection is tried once after saving and the answer has `test: { ok, code,
+message }` (`code`: `ok`, `key`, `model`, `quota`, `timeout`, `private`,
+`unreadable`, `other`). Bad input: 400 `invalid_request`. The answer is the
+saved `connection` plus the same body as GET.
+
+### DELETE /projects/{id}/ai-connection?name=default
+
+Removes a connection (`?name=` or `?id=`; default `default`). The app's AI
+steps stop working until another key is added (visitors read "This app's AI
+isn't set up yet."). 404 when there is no such connection.
 
 ### GET /usage
 
@@ -475,13 +525,15 @@ it as a .zip, and delete it. It is the studio's own code, with the same
 checks, limits and allowance:
 
 - **One AI action per build and per change** from the person's monthly
-  allowance (and the reseller's cap), however many steps it takes. It is
-  given back when the build or change delivers nothing (it fails, or is
-  stopped, before its first step is saved, or the build rule refuses it).
-  Once a step is saved the person has a better game, so a later failure
-  isn't refunded. Reading reference images is one more action, as for apps.
-  Notes, their replies, clarifying questions, restores, publishing and
-  downloads are free.
+  allowance (and the reseller's cap), however many steps it takes. A full
+  game's build is two: one for the first playable part (Phase 1), one more
+  when the person chooses to keep building (all the remaining phases);
+  changes sent at the check-in are one, as any change. It is given back when
+  that part delivers nothing (it fails, or is stopped, before its first step
+  is saved, or the build rule refuses it). Once a step is saved the person
+  has a better game, so a later failure isn't refunded. Reading reference
+  images is one more action, as for apps. Notes, their replies, clarifying
+  questions, restores, publishing and downloads are free.
 - **The build rule** applies to games too (see [The build rule](#the-build-rule)).
 - Endpoints need the `build` permission, except publishing (`publish`).
 
@@ -490,9 +542,14 @@ checks, limits and allowance:
 A build is a **job** that runs in the background (it survives server
 restarts and carries on from its step):
 
-1. **Plan** (`job.phase: "plan"`): a game design brief (genre, core loop,
-   controls, levels, art direction), library searches, the assets it will use,
-   **3-8 planned features**, each with a real test, and 4-12 build steps.
+1. **Plan** (`job.phase: "plan"`): a game design brief for a **full game**
+   (genre, core loop, controls, art direction, and the content: levels and
+   worlds, enemies, what is introduced over time, progression and saving,
+   bosses, the ending, play time), library searches, the assets it will use,
+   **6-14 planned features** (the mechanics, progression, saving and the
+   ending), each with a real test, and the build steps in **phases**: Phase 1
+   is the first playable part (title menu, the core mechanic, the first level
+   or two finished with final art, HUD and sound), Phases 2..n build the rest.
 2. **Steps** (`job.phase: "steps"`): every step edits the game, is checked
    (syntax, allowed APIs, asset licences) and played in a headless browser
    (it must load, start and run without errors; a screenshot is taken), and
@@ -503,15 +560,31 @@ restarts and carries on from its step):
    problems it finds get a fix step. Before the end, a core feature that
    still fails gets up to two "Feature fixes" steps. So `progress.total` can
    grow while it runs.
+4. **The check-in**: after Phase 1 the build stops and waits for the person
+   (the job's and the game's `status: "review"`; not an error, not finished).
+   The chat says what's playable now and lists the phases to come, then asks
+   "Do you want me to keep building in this direction, or make some changes?"
+   (in the person's language; `game.review`). Then either
+   [`POST /games/{id}/continue`](#post-gamesidcontinue) (keep building: the
+   same job builds every remaining phase to the end, one more AI action) or
+   [`POST /games/{id}/changes`](#post-gamesidchanges) (the changes are made
+   now and the later phases revised; small changes then carry on to the end,
+   big ones stop at a check-in again). A game waiting at its check-in stays
+   waiting through server restarts; nothing is charged while it waits. At the
+   very end every core feature must pass (the end gate above) and the last
+   message sums up the finished game.
 
 A **change** ("make the jump higher") is a short change plan, then the same
 steps, checks and tests. Feature status: `planned` (not built yet) → `built`
 (built, no usable test) → `passing` | `failing`, with `last`, the newest test
 result.
 
-Job `status`: `running`, `done`, `error` (`errorCode`: `build_not_allowed`
-or `failed`), or `cancelled` (stopped). `refunded` says whether the AI action
-was given back.
+Job `status`: `running`, `review` (waiting at the check-in), `done`,
+`error` (`errorCode`: `build_not_allowed` or `failed`), or `cancelled`
+(stopped). `refunded` says whether the AI action of the part that ran last
+was given back; `aiActions` counts the actions the job used (1, or 2 after
+keep building). After a check-in, a part that fails or is stopped goes back to
+`review` (the steps left stay planned) instead of ending the job.
 
 ### POST /games
 
@@ -533,6 +606,25 @@ curl -s -X POST "$API/games" -H "Authorization: Bearer $KEY" \
 | `name` | optional | Up to 120 characters. Default: the first words of the prompt, then the plan's title once the plan is made. |
 | `images` | optional | Up to 6 [reference images](#reference-images) (concept art, screenshots of games they like). |
 | `referenceId` | optional | Images sent before (instead of `images`). |
+| `brand` | optional | A promotional game's branding: `{ "name", "logoImage", "colors", "link", "offer" }`, see below. |
+
+**Branding** (a game a business makes for a promotion at its store or
+business). Every field is optional:
+
+| `brand.` | |
+| --- | --- |
+| `name` | The business name (up to 80 characters): the title and menu carry it. |
+| `logoImage` | The logo, as one of `images` (`{url}` or `{data, mediaType}`): PNG, JPG, WebP, GIF or SVG (SVG is drawn to a PNG; scripts and outside references are removed), up to 5 MB, shrunk to 256 px. It shows on the title screen, small in play, and on the ending. A bad image: `400 image_type`, and no game is made. |
+| `colors` | Up to 3 brand colours, `#rrggbb` (invalid ones are dropped). The game's palette is built around them (still readable). Left out with a logo: taken from the logo. |
+| `link` | The business's website (`https://` is added when missing; other schemes are dropped). The ending shows a "Visit us" button that opens it. |
+| `offer` | The end-of-game offer, up to 160 characters ("Show this screen for 10% off", a coupon code). |
+
+A promotional game may have short rounds (1-3 minutes) but is a complete
+game: a full loop with rising difficulty, a score and best score, instant
+replay, and a branded title and ending with the offer and the link button.
+The link is never given to the game's code: the game calls the platform's
+`NK.brand.openLink()` and the page (or the studio) opens the stored link
+with `noopener`. A `brand` that isn't an object: `400 invalid_request`.
 
 `202 Accepted`: `{ "game": { ... as GET /games/{id} }, "job": { ... } }`, plus
 `referenceId` with images. Right after it starts the job is in its plan phase:
@@ -552,11 +644,25 @@ questions).
 { "userId": "clx1abc...", "prompt": "a fun game" }
 ```
 
-`200 OK`: `{ "questions": [ { "id": "kind", "label": "What kind of game?", "options": ["Platformer", "Puzzle"] } ] }`
-(`options` may be empty: a free answer). The build never waits for answers:
-to use them, add one line per answer, `<label> <answer>`, after a blank line
-at the end of the prompt (as the studio does), then `POST /games`. An empty
-list means: build straight away.
+`200 OK`:
+
+```json
+{ "questions": [
+  { "id": "powerups", "label": "Which power-ups?", "options": ["Magnet", "Shield", "Double points"], "multi": true, "business": false },
+  { "id": "promo", "label": "Is this game for a business or a promotion?", "options": ["Yes, for my business", "No, just for fun"], "multi": false, "business": true }
+] }
+```
+
+`options` may be empty (a free answer). `multi: true`: the person may pick
+several options (show toggle chips) and type one more; `multi: false`: one
+option, or a typed answer instead. `business: true` marks the question "is
+this for a business or a promotion?" (asked when the idea hints at a
+business, a product, an event or a promotion); its first option means yes:
+offer the branding fields then (`brand` in `POST /games`). The build never
+waits for answers: to use them, add one line per answered question,
+`<label> <answers joined with ", ">` (e.g. `Which power-ups? Magnet, Shield,
+slow motion`), after a blank line at the end of the prompt (as the studio
+does), then `POST /games`. An empty list means: build straight away.
 
 ### GET /games?userId=
 
@@ -579,8 +685,9 @@ The person's games, newest first. Paginated.
 }
 ```
 
-`status`: `new`, `building`, `ready` (playable) or `error` (the first build
-failed). `seq` is the newest version. `screenshot.path` (and every
+`status`: `new`, `building`, `review` (a full game waiting for the person at
+its check-in: playable, more to build), `ready` (playable) or `error` (the
+first build failed). `seq` is the newest version. `screenshot.path` (and every
 `screenshotPath`) is under the API's base: GET it with the key (an
 `image/webp`). `links.workspace` needs the person signed in: make a sign-in
 link with `to` = `paths.workspace` ([POST /sso](#post-sso)).
@@ -635,6 +742,32 @@ Everything about one game: the fields above, plus
   for notes or checks; `error` is set on a step that failed.
 - `features` counts are `null` for a game without planned features.
 - `versions.latest.ok` is whether the headless check passed (`null` = not run).
+- A full game: `plan.content` (`levels`, `enemies`, `mechanics`,
+  `progression`, `bosses`, `structure`, `playMinutes`), `plan.phases` (`n`,
+  `id`, `name`, `summary`, `steps`, `done`, `status`: `done`, `running` or
+  `todo`), every step's `phase`, and `job.buildPhase` (`current`, `total`).
+  Games from before phases have `content: null`, `phases: []`, `phase: null`.
+- `brand` is the game's branding (`{ "name", "colors", "link", "offer", "logo": { "width", "height" } | null }`) or `null`.
+- `review` is set while the game waits at its check-in (`status: "review"`),
+  else `null`:
+
+```json
+"review": {
+  "jobId": "6c1f...", "phase": 1, "phases": 3,
+  "message": "Whisker Quest: phase 1 of 3 is ready to play. The menu and the first meadow level, finished.\n\nFeatures so far: 2 of 2 pass their tests.\n\nStill to build:\n- Phase 2, More levels and enemies: ...\n- Phase 3, The finale: ...\n\nDo you want me to keep building in this direction, or make some changes?",
+  "question": "Do you want me to keep building in this direction, or make some changes?",
+  "done": [ { "n": 1, "name": "Meadow slice", "summary": "The menu and the first meadow level, finished." } ],
+  "next": [ { "n": 2, "name": "More levels and enemies", "summary": "...", "steps": 2 }, { "n": 3, "name": "The finale", "summary": "...", "steps": 2 } ],
+  "continueCost": 1, "since": "2026-10-07T10:12:00.000Z"
+}
+```
+
+  `message` and `question` are in the person's language; show the question
+  with two buttons: keep building ([continue](#post-gamesidcontinue), "uses 1
+  AI action") and make changes ([changes](#post-gamesidchanges)).
+  `continueCost` is `0` when the build came back to the check-in after a
+  failure (an AI outage, a step that kept failing) in a part that had already
+  delivered steps: carrying on is then free.
 
 ### GET /games/{id}/jobs/{jobId}
 
@@ -698,8 +831,8 @@ follow-up step). Free. Accepts `Idempotency-Key`.
 
 `reply` is `null` when it took longer (it still arrives in the events);
 `reply.status` is `refused` (with the build rule's sentence as `text`) when
-the rule refuses the note. `409 not_running` when nothing is running: send a
-change instead. `409 too_many_notes` after 25 notes on one build. 10 notes a
+the rule refuses the note. `409 not_running` when nothing is running (also at
+a check-in): send a change instead. `409 too_many_notes` after 25 notes on one build. 10 notes a
 minute per person.
 
 ### POST /games/{id}/stop
@@ -712,7 +845,10 @@ minute per person.
 takes that back); `now` cancels the running AI call at once and keeps the
 versions already saved. A build stopped before its first saved step gives
 the AI action back. `200 OK`: `{ "ok": true, "mode": "after-step", "job": { ... } }`;
-`409 not_running` when nothing runs. The job ends with `status: "cancelled"`.
+`409 not_running` when nothing runs. The job ends with `status: "cancelled"`,
+except after a check-in: then a stopped build goes back to `review` (the steps
+left stay planned). At a check-in, `now` ends the build there for good: the
+game stays as it is (`game.build.stopped`).
 
 ### POST /games/{id}/changes
 
@@ -725,6 +861,59 @@ A change to a built game, as if the person typed it in the chat.
 `prompt` (or `images` / `referenceId`) as for `POST /games`. One AI action.
 Accepts `Idempotency-Key`. `202 Accepted`: `{ "job": { "kind": "change", ... } }`.
 `409 already_building` while a build or change runs (send a note instead).
+
+At a full game's check-in (`status: "review"`) the prompt is the person's
+answer to the question: the **same job** carries on (`job.id` and
+`job.kind: "build"` stay) with the changes made first (steps with
+`kind: "change"`), and its later phases revised to match. Small changes then
+carry on to the end without asking again; big ones (a different direction)
+stop at a check-in again after the changes. One AI action either way; the
+webhooks follow the job again.
+
+**Every listed feature is kept.** A change never removes a feature on the
+game's [feature list](#the-feature-list) unless the prompt asks for that
+removal ("remove the timer"): a change plan that drops one anyway is refused
+and made again, and a change that still breaks a listed feature (its test
+fails after the repair, its files are deleted or emptied, or the game's code
+shrinks by more than a quarter without a removal request) is **not kept**:
+the job ends with `status: "error"`, `errorCode: "feature_regression"`, the
+game stays at its last good version and the chat says which feature it would
+have broken. The job's `features` says what the change did to the list:
+`{"added": [ids], "changed": [ids], "removed": [ids], "refusedRemovals": [ids], "reverted": [ids]}`.
+
+### The feature list
+
+Every game has one list of the features it has: the plan's, everything added
+later by changes, steer notes or `POST …/features`, and (for a game made
+elsewhere) the ones a scan found. Each feature is tested on the real game
+after every step and change; only an explicit removal takes one off.
+
+- `GET /games/{id}/features` → `{"features": [{"id","name","priority","how","status","source","added":{"at","text"},"last","tested"}], "counts": {"total","passing","failing","untested","planned"}, "log": [{"at","id","name","what","source","text"}]}`.
+  `source`: `plan`, `change` (a chat change), `note` (a steer note), `person` (added from the list), `import` (a scan), `step` (added while building).
+  `log[].what` (newest first): `added`, `changed`, `removed`, `refused-removal` (a change tried to remove it without being asked), `reverted` (a change that would have broken it wasn't kept).
+- `POST /games/{id}/features` `{"name": "Double jump", "how": "Press jump again in the air", "priority": "core"}` → `202 {"job": {...}}`: a change (one AI action) that plans, builds and tests it. `409 not_built` before the first build.
+- `DELETE /games/{id}/features/{featureId}` — only when the person asked to remove it. A feature not built yet just leaves the list (`200 {"removed": true, "job": null, ...the list}`); a built one is a change that takes it out of the game (`202 {"removed": false, "job": {...}}`, one AI action).
+- `POST /games/{id}/features/scan` → `{"features": [{"id","name","priority","how","test","files","keys"}]}`: for a game made elsewhere, one AI pass lists what its files already have (one AI action, nothing stored). Show it to the person, then `POST /games/{id}/features/import` `{"features": [the ones they kept]}` puts them on the list (status `built`; their tests run with the next change).
+
+`GET /games/{id}` `plan.features[]` also carry `source` and `added` (`{"at","text"}`: when, and the request that added it).
+
+### POST /games/{id}/continue
+
+"Keep building" at a full game's check-in: the same job builds every
+remaining phase to the end, as when the person presses the button in the
+workspace. No body. One AI action (given back when this part delivers
+nothing; none when `review.continueCost` is `0`, after a failure in a part
+that had delivered). Accepts `Idempotency-Key` (a retry continues nothing new and
+charges nothing).
+
+```bash
+curl -s -X POST "$API/games/cmg1.../continue" -H "Authorization: Bearer $KEY" -H "Idempotency-Key: $(uuidgen)"
+```
+
+`202 Accepted`: `{ "job": { "id": "6c1f...", "kind": "build", "status": "running", "aiActions": 2, ... } }`.
+`409 not_waiting` when the game isn't waiting at a check-in (still building,
+finished, or never had one). Notes, stop and the webhooks work as for any
+build while it runs.
 
 ### GET /games/{id}/versions
 
@@ -850,10 +1039,14 @@ builds and changes it started ([Webhooks](#webhooks)):
 | `game.build.completed` | A build or change finished | `game` (as GET /games/{id}), `job` |
 | `game.build.failed` | It ended with an error | `game`, `job` (`error`, `errorCode`, `refunded`) |
 | `game.build.stopped` | It was stopped (`POST /stop`) | `game`, `job` |
+| `game.build.review` | A full game's build stopped at its check-in after Phase 1 (or went back to it) | `game` (as GET /games/{id}, `status: "review"`), `job` (`status: "review"`), `review` (as `game.review`) |
 | `game.published` | `POST /games/{id}/publish` published it | `game`, `url`, `version`, `project` |
 
 `job.kind` tells a build from a change. The data is what was true when the
-event happened (it isn't read again on retries).
+event happened (it isn't read again on retries). A full game's build sends
+`game.build.review` at its check-in instead of an end event; after
+`POST /continue` or `/changes` the same job is followed again (its earlier
+steps aren't reported twice) until `game.build.completed`.
 
 ### A game in five calls
 
@@ -862,7 +1055,11 @@ event happened (it isn't read again on retries).
 2. Show progress: poll `GET /games/{id}/events?after=<lastSeq>` (or use the
    webhooks); show `job.progress` ("step 4 of 8: Hero and controls").
 3. Pass the person's messages while it builds to `POST /games/{id}/notes`
-   (show `note.reply.text`); afterwards to `POST /games/{id}/changes`.
+   (show `note.reply.text`); afterwards to `POST /games/{id}/changes`. When
+   `status` is `review` (or `game.build.review` arrives), show
+   `review.question` with two buttons: keep building → `POST
+   /games/{id}/continue`; make changes → their message to `POST
+   /games/{id}/changes`.
 4. Show `game.screenshot` and `game.plan.features` with their status; open
    the workspace with `POST /sso` and `to` = `game.paths.workspace`.
 5. `POST /games/{id}/publish` and share `url`.
@@ -948,7 +1145,7 @@ the key send their own events too (see [Following a game](#following-a-game)):
 
 ```
 Content-Type: application/json
-X-NK-Event: build.succeeded            (build.failed, or game.*)
+X-NK-Event: build.succeeded            (build.failed, or game.*, e.g. game.build.review)
 X-NK-Delivery: 3b5f...                  (the same on every retry)
 X-NK-Signature: t=1790000000,v1=5d1c...
 ```

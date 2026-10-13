@@ -53,6 +53,9 @@ uploads it to TestFlight.
 
 ## What's inside
 
+- `AppStore/`: what App Store Connect asks for besides the build: the store
+  icon (1024 x 1024, no transparency), your logo and screenshots of your app
+  in the sizes Apple asks for. `AppStore/README.txt` says where each one goes.
 - `ios/`: the Xcode project, made by `expo prebuild` for this app (name, bundle
   ID, version, icon, colours and URL scheme are already set).
 - `nk-app.json`: this app's settings, read when the app is built

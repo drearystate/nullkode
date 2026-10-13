@@ -5,7 +5,7 @@ import { localeForUser } from "@/i18n/server-locale";
 import { startGameJob } from "@/lib/game-studio/engine";
 import { ok, partnerRoute, PartnerError } from "@/lib/partner/api";
 import { gameCall, jobView, requireGame } from "@/lib/partner/games";
-import { watchGameJob } from "@/lib/partner/webhooks";
+import { doneStepIds, watchGameJob } from "@/lib/partner/webhooks";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -15,12 +15,17 @@ export const dynamic = "force-dynamic";
  * chat ("make the jump higher"): a short change plan, then the same steps,
  * checks and feature tests as a build. One AI action, given back when it
  * delivers nothing. While a build or change runs, send a note instead
- * (409 already_building).
+ * (409 already_building). A full game waiting at its check-in (status
+ * "review") takes the message as changes to the same job: applied now, its
+ * later phases revised; small changes carry on to the end, big ones stop at
+ * a check-in again (one AI action, like any change).
  */
 export const POST = partnerRoute<{ id: string }>({ permission: "build", idempotent: true, limit: "games" }, async (ctx, { id }) => {
   const game = await requireGame(ctx, id);
   const body = ctx.body();
   const prompt = body.prompt === undefined || body.prompt === null ? "" : body.prompt;
+  const waiting = await db.gameJob.findFirst({ where: { gameId: game.id, status: "review" }, select: { id: true } });
+  const reported = waiting ? await doneStepIds(waiting.id) : [];
   if (typeof prompt !== "string" || prompt.length > 6000) throw new PartnerError(400, "invalid_request", ctx.t("invalidPrompt"));
   const locale = await localeForUser(game.owner);
   const started = await gameCall(ctx, async () => {
@@ -29,7 +34,7 @@ export const POST = partnerRoute<{ id: string }>({ permission: "build", idempote
     return startGameJob(game.owner, game.id, prompt, { references, locale, source: `partner:${ctx.key.id}` });
   });
   ctx.audit.jobId = started.jobId;
-  watchGameJob(ctx.key, game.id, started.jobId);
+  watchGameJob(ctx.key, game.id, started.jobId, { reported });
   const job = await db.gameJob.findUniqueOrThrow({ where: { id: started.jobId } });
   return ok({ job: await jobView(job), ...(started.referenceId ? { referenceId: started.referenceId } : {}) }, 202);
 });

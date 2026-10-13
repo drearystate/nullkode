@@ -36,6 +36,8 @@
     "typeDelete": "Saisissez DELETE pour confirmer.",
     "typeDeleteLabel": "Saisissez DELETE pour confirmer"
   },
+  "aiBusy": "Cette application reçoit trop de demandes à l’IA en ce moment. Réessayez plus tard.",
+  "aiNotSetUp": "L’IA de cette application n’est pas encore configurée.",
   "alreadyExists": "Cet élément existe déjà.",
   "badInput": "Certaines informations sont manquantes ou au mauvais format.",
   "cartAdded": "✓ Ajouté",

@@ -21,6 +21,35 @@
       "name": "Bestätigungen",
       "summary": "Stelle sicher, dass wichtige Mitteilungen gelesen wurden."
     },
+    "ai-agent": {
+      "description": "Dein eigener KI-Agent in der App. Gib ihm Ziele: Er arbeitet in mehreren Schritten daran (solange seine Seite geöffnet ist und nach Veröffentlichung der App alle 15 Minuten), speichert Notizen, entwirft E-Mails und fragt dich um Erlaubnis, bevor er eine E-Mail versendet oder einen externen Dienst aufruft, den du betreibst, etwa ein selbst gehostetes OpenMuse. Mit Live-Status, Pausieren, Fortsetzen und Abbrechen, einem Schrittprotokoll für jede Aufgabe und einer täglichen Zusammenfassung. Er kann nicht selbst im Web surfen oder ein Postfach lesen. Er nutzt den eigenen KI-Schlüssel der App. Alle Seiten des Agenten sind nur für dich sichtbar.",
+      "fields": {
+        "agentName": {
+          "label": "Name des Agenten"
+        },
+        "instructions": {
+          "label": "So soll sich der Agent verhalten"
+        },
+        "ownerEmail": {
+          "help": "An diese Adresse wird die tägliche Zusammenfassung gesendet. Leer lassen, um Zusammenfassungen nur in der App zu sehen. E-Mails, die der Agent versendet, nachdem du sie genehmigt hast, werden von der E-Mail-Adresse dieser App aus verschickt.",
+          "label": "Deine E-Mail-Adresse (optional)"
+        },
+        "serviceName": {
+          "label": "Name deines externen Dienstes (optional)",
+          "placeholder": "Mein OpenMuse"
+        },
+        "serviceToken": {
+          "help": "Wird als \"Authorization: Bearer ...\" gesendet. Der Schlüssel wird in den Abläufen der App gespeichert, die nur du sehen kannst.",
+          "label": "Schlüssel für deinen externen Dienst (optional)"
+        },
+        "serviceUrl": {
+          "help": "Eine öffentliche https-Adresse. Nach deiner Genehmigung sendet der Agent ihr '{'\"task\": \"...\"'}' als JSON und liest die Antwort. Leer lassen, wenn du keinen solchen Dienst betreibst.",
+          "label": "Adresse deines externen Dienstes (optional)"
+        }
+      },
+      "name": "Persönlicher KI-Agent",
+      "summary": "Dein eigener KI-Helfer, der an Zielen arbeitet, vor riskanten Schritten nachfragt und dir Bericht erstattet."
+    },
     "ai-assistant": {
       "description": "Füge deiner Website ein KI-Fragenfeld hinzu. Besucher stellen eine Frage, die KI antwortet anhand deiner Vorgaben und die Antwort erscheint direkt unter dem Formular. Alle Fragen und Antworten werden auf einer privaten Seite gespeichert, die nur du öffnen kannst.",
       "fields": {
@@ -37,6 +66,39 @@
       },
       "name": "Chat-Assistent",
       "summary": "Lass Besucher mit einem hilfreichen Assistenten chatten."
+    },
+    "ai-companion": {
+      "description": "Eine freundliche, animierte Figur, die mit deinen Besuchern chattet, sich merkt, was sie erzählen, ihre Stimmung und eure wachsende Vertrautheit zeigt und im Browser zuhören und laut sprechen kann. Du legst Name, Persönlichkeit, Begrüßung und Grenzen fest. Die Antworten sind für alle Altersgruppen geeignet. Besucher können eine Antwort melden oder von vorn beginnen. Die Meldungen kannst du auf einer privaten Seite lesen. Die Figur nutzt den eigenen KI-Schlüssel deiner App.",
+      "fields": {
+        "avatarImages": {
+          "help": "Eine Zeile pro Stimmung: neutral, happy, curious, thinking, sad, surprised oder calm, dann = und die Bildadresse. Leer lassen, um die gezeichnete, animierte Figur zu verwenden.",
+          "label": "Bilder (optional)"
+        },
+        "boundaries": {
+          "help": "Regeln, an die sich der Begleiter immer hält. Zusätzlich gilt ein integrierter Sicherheitsschutz.",
+          "label": "Grenzen"
+        },
+        "companionName": {
+          "label": "Name des Begleiters"
+        },
+        "greeting": {
+          "help": "Wird angezeigt, wenn jemand ein neues Gespräch beginnt.",
+          "label": "Erste Nachricht"
+        },
+        "personality": {
+          "help": "Wie der Begleiter spricht und was ihn ausmacht. In einfachen Worten für die KI geschrieben.",
+          "label": "Persönlichkeit"
+        },
+        "voiceDefault": {
+          "label": "Antworten standardmäßig vorlesen",
+          "options": {
+            "off": "Aus (Besucher können es einschalten)",
+            "on": "Ein (Besucher können es ausschalten)"
+          }
+        }
+      },
+      "name": "KI-Begleiter",
+      "summary": "Eine animierte KI-Figur, mit der man chatten und sprechen kann und die sich an einen erinnert."
     },
     "analytics-dashboard": {
       "description": "Erfasse Seitenaufrufe und eigene Ereignisse wie „signup“ oder „purchase“. Enthält einen Beacon-Endpunkt, den du von jeder Seite aus aufrufen kannst, eine API für Zähler und ein Admin-Dashboard mit Gesamtzahlen, meistbesuchten Seiten und einem Trend der letzten 7 Tage.",
@@ -624,6 +686,25 @@
       },
       "name": "Wissensdatenbank",
       "summary": "Veröffentliche Hilfeartikel, die deine Kunden durchsuchen können."
+    },
+    "knowledge-bot": {
+      "description": "Füge deine Dokumente hinzu (Handbücher, Richtlinien, FAQs, Notizen), damit Besucher Fragen dazu stellen können. Der Bot findet die passendsten Textstellen, antwortet nur anhand dieser und nennt nummerierte Quellen. Wenn die Dokumente eine Frage nicht beantworten, sagt er das offen. Er nutzt den eigenen KI-Schlüssel der App. Dafür wird ein Embedding-Modell benötigt (OpenAI, Google Gemini oder ein OpenAI-kompatibler Server wie Ollama). Fragen und Antworten werden auf einer privaten Seite gespeichert, die nur du öffnen kannst.",
+      "fields": {
+        "botName": {
+          "help": "Die Überschrift der Fragenseite.",
+          "label": "Name des Bots"
+        },
+        "disclosure": {
+          "help": "Informiert Besucher darüber, dass die Antworten von einer KI stammen.",
+          "label": "Hinweis unter dem Fragenfeld"
+        },
+        "instructions": {
+          "help": "So soll der Bot antworten. Er antwortet immer nur anhand deiner Dokumente und nennt die Quellen.",
+          "label": "Ton und Regeln"
+        }
+      },
+      "name": "Wissens-Bot",
+      "summary": "Beantwortet Fragen anhand deiner Dokumente und nennt die Quellen."
     },
     "leaderboard": {
       "description": "Eine allgemeine Bestenliste. Füge Punktzahlen für ein user_label hinzu (beliebiger Text – E-Mail, Name, Studiomitglied, Mitarbeiter). Die Bestenliste sortiert die Ergebnisse absteigend. Mit Filtern nach Kategorie kannst du mehrere Bestenlisten verwalten (Schritte, Verkäufe, Punkte). Der submit-score-Endpunkt kann von jedem anderen Modul aufgerufen werden.",

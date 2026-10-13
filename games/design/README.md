@@ -5,8 +5,8 @@ Design knowledge the Game Studio AI follows so built games play like well-made r
 ## Files
 | File | What | Budget |
 |---|---|---|
-| `CORE-RULES.md` | Rules for every game: feel, readability, feedback, pacing, onboarding, UI, mobile, accessibility, performance, audio, session, DON'Ts | ≤ 1,300 tokens |
-| `genres/<id>.md` | One card per genre (22): loop, verbs, tuning numbers, level rules, win/lose, mobile scheme, juice, mistakes, matching asset sets | ≤ 700 tokens each |
+| `CORE-RULES.md` | Rules for every game: feel, readability, feedback, pacing, onboarding, UI, mobile, accessibility, performance, audio, session, full game, DON'Ts | ≤ 1,300 tokens |
+| `genres/<id>.md` | One card per genre (22): loop, verbs, tuning numbers, level rules, win/lose, full-game content targets + the phase-1 slice, mobile scheme, juice, mistakes, matching asset sets | ≤ 700 tokens each |
 | `PLAYTEST-CHECKLIST.md` | 39 yes/no items with severity and stage tags, plus automatic checks A1–A7 (jump envelopes, BFS, spawn, speed ratio, touch overlap, contrast) | ~2,300 tokens |
 | `INDEX.json` | Genre ids, aliases for matching an idea, token counts, what to include at each stage | data |
 
@@ -23,7 +23,7 @@ Step type comes from the step id/goal keywords listed in `INDEX.json → stepTyp
 
 ## Keeping tokens low
 - Include **one** genre card, never several. For hybrids (for example a "platformer roguelite"), take the primary verb's card. The other card's rules are only needed when its systems get built.
-- CORE-RULES + genre card ≈ 1,850 tokens per step call, sent once in the cached system prefix.
+- CORE-RULES + genre card ≈ 1,920 tokens per step call, sent once in the cached system prefix.
 - Filter the checklist by stage tag: 17 of the 39 items after the level step, 27 after enemies, all 39 only in the final polish pass. Send automatic-check results as one line each.
 - Don't paste the cards into chat replies or the person's messages. They are instructions, not content.
 

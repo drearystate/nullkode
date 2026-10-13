@@ -335,6 +335,7 @@
       "locationRemoved": "Deine App verwendet den Standort nicht mehr. Lade das iPhone-Projekt für deinen nächsten Build erneut herunter, damit die App nicht mehr danach fragt.",
       "newBuildNeeded": "<b>Neuer Build erforderlich.</b> {reason}",
       "readme": "Die README im Download führt dich Schritt für Schritt durch beide Möglichkeiten.",
+      "storeAssets": "Im heruntergeladenen Ordner „AppStore“ findest du dein App-Store-Symbol und Screenshots deiner App in allen von Apple geforderten Größen.",
       "title": "iPhone und iPad",
       "withMac": "<b>Mit einem Mac:</b> Öffne <mono>{path}</mono>, wähle dein Team aus und dann „Product“ → „Archive“.",
       "withoutMac": "<b>Ohne Mac:</b> Lege den Ordner auf GitHub ab und füge deine Apple-Schlüssel als Secrets hinzu. Der enthaltene Workflow erstellt deine App auf den Macs von GitHub und sendet sie an TestFlight."
@@ -814,6 +815,10 @@
     "invalidInput": "Ungültige Eingabe"
   },
   "tabs": {
+    "aiKeys": {
+      "help": "Der eigene KI-Schlüssel deiner App: Chat, Agenten und andere KI-Funktionen verwenden ihn, sobald jemand die App nutzt.",
+      "label": "KI-Schlüssel"
+    },
     "data": {
       "help": "Sieh dir die Informationen an, die deine App speichert, und bearbeite sie – zum Beispiel Anmeldungen, Bestellungen und Nachrichten.",
       "label": "Daten"

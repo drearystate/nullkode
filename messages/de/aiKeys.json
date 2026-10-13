@@ -1,0 +1,123 @@
+{
+  "banner": {
+    "body": "Diese App enthält KI-Schritte. Veröffentlichte Apps verwenden ihren eigenen KI-Schlüssel statt der KI der Plattform. Diese Schritte funktionieren also erst, wenn du einen Schlüssel hinzufügst.",
+    "cta": "KI-Schlüssel hinzufügen",
+    "title": "Die KI dieser App ist nicht eingerichtet"
+  },
+  "dashboard": {
+    "app": "Schlüssel für {name} hinzufügen",
+    "body": "Veröffentlichte Apps verwenden für ihre KI-Funktionen jetzt einen eigenen KI-Schlüssel statt der KI der Plattform. Bis du einen Schlüssel hinzufügst, sehen Besucher die Meldung „Die KI dieser App ist noch nicht eingerichtet.“",
+    "title": "Einige deiner Apps brauchen einen eigenen KI-Schlüssel"
+  },
+  "errors": {
+    "baseUrlBad": "Diese Adresse kann nicht verwendet werden. Nutze eine http://- oder https://-Adresse ohne Benutzername oder Passwort.",
+    "baseUrlMissing": "Gib die Serveradresse ein (zum Beispiel https://ai.example.com/v1).",
+    "invalid": "Einige Angaben fehlen oder haben das falsche Format.",
+    "keyBad": "Das sieht nicht nach einem API-Schlüssel aus.",
+    "keyMissing": "Gib den API-Schlüssel ein.",
+    "model": "Gib das gewünschte Modell ein.",
+    "network": "Der Server ist nicht erreichbar. Prüfe deine Verbindung und versuche es erneut.",
+    "notFound": "Diese KI-Verbindung gibt es nicht.",
+    "provider": "Wähle einen KI-Dienst aus.",
+    "saveFailed": "Der Schlüssel konnte nicht gespeichert werden. Bitte versuche es erneut.",
+    "tooManyTests": "Zu viele Tests in kurzer Zeit. Warte ein paar Minuten."
+  },
+  "form": {
+    "addTitle": "KI-Schlüssel hinzufügen",
+    "apiKey": "API-Schlüssel",
+    "apiKeyHelp": "Wird einmal eingefügt und dann verschlüsselt gespeichert. Er wird nie wieder angezeigt.",
+    "apiKeySaved": "Gespeichert ({hint}). Leer lassen, um den Schlüssel beizubehalten.",
+    "baseUrl": "Serveradresse",
+    "baseUrlHelp": "Die API-Adresse, zum Beispiel https://ai.example.com/v1. Für die aufgeführten Dienste optional.",
+    "can": "Dieser Dienst kann: {list}",
+    "canChat": "chatten",
+    "canEmbed": "semantische Suche",
+    "canSpeech": "sprechen",
+    "canVision": "Bilder ansehen",
+    "cancel": "Abbrechen",
+    "chatModel": "Chat-Modell",
+    "chatModelHelp": "Für Chat-Antworten und Agenten, falls es ein anderes als das Hauptmodell ist.",
+    "editTitle": "„{name}“ ändern",
+    "embedModel": "Modell für semantische Suche",
+    "embedModelHelp": "Für die semantische Suche und Wissens-Bots.",
+    "makeDefault": "Als Standardverbindung verwenden",
+    "model": "Modell",
+    "modelExample": "Zum Beispiel {model}",
+    "modelHelp": "Das Modell, das deine KI-Schritte nutzen – so, wie dein Dienst es nennt.",
+    "more": "Weitere Modelle (optional)",
+    "name": "Verbindungsname",
+    "nameHelp": "Ein kurzer Name, den KI-Schritte auswählen können (zum Beispiel „Sprache“ für einen zweiten Schlüssel, der sprechen kann). Lass das Feld auf „Standard“, wenn du nur einen Schlüssel hast.",
+    "provider": "KI-Dienst",
+    "providerHelp": "Hier erhältst du deinen Schlüssel. Mit der letzten Option funktionieren alle Dienste, die die OpenAI-API unterstützen – auch dein eigenes Ollama oder LM Studio.",
+    "save": "Schlüssel speichern",
+    "saved": "Gespeichert.",
+    "saving": "Wird gespeichert …",
+    "speechModel": "Sprachmodell",
+    "speechModelHelp": "Zum Vorlesen von Antworten. Ohne dieses Modell nutzen Seiten die Stimme des Browsers.",
+    "test": "Vor dem Speichern testen",
+    "visionModel": "Bildmodell",
+    "visionModelHelp": "Für Schritte, die Bilder ansehen.",
+    "voice": "Stimme"
+  },
+  "limits": {
+    "intro": "Schützt deinen Schlüssel vor Missbrauch: Wenn ein Limit erreicht ist, warten KI-Schritte bis zum Ende der Stunde.",
+    "perHour": "KI-Anfragen pro Stunde für die gesamte App",
+    "perVisitorHour": "KI-Anfragen pro Stunde und Besucher",
+    "save": "Limits speichern",
+    "saved": "Limits gespeichert.",
+    "title": "Limits"
+  },
+  "list": {
+    "default": "Standard",
+    "edit": "Ändern",
+    "empty": "Noch kein KI-Schlüssel.",
+    "key": "Schlüssel",
+    "lastFailed": "Beim Test am {when} fehlgeschlagen",
+    "lastOk": "Beim Test am {when} erfolgreich",
+    "makeDefault": "Als Standard festlegen",
+    "makeDefaultHelp": "KI-Schritte, die keine Verbindung namentlich auswählen, nutzen die Standardverbindung.",
+    "model": "Modell",
+    "name": "Name: {name}",
+    "remove": "Entfernen",
+    "removeConfirm": "Die KI-Verbindung „{name}“ entfernen? KI-Schritte, die sie nutzen, funktionieren erst wieder, wenn du einen anderen Schlüssel hinzufügst.",
+    "test": "Verbindung testen",
+    "testing": "Wird getestet …",
+    "title": "Verbindungen"
+  },
+  "notice": {
+    "body": "Diese App bietet KI-Funktionen. Veröffentlichte Apps können die KI der Plattform nicht verwenden. Füge deinen eigenen KI-Schlüssel hinzu (OpenAI, Google Gemini, xAI, OpenRouter oder ein beliebiger OpenAI-kompatibler Server), bevor andere die KI-Funktionen nutzen.",
+    "cta": "KI-Schlüssel hinzufügen",
+    "later": "Du kannst ihn jederzeit unter „KI-Schlüssel“ in der App hinzufügen.",
+    "title": "Die KI deiner App braucht deinen eigenen Schlüssel"
+  },
+  "page": {
+    "eyebrow": "KI-Schlüssel",
+    "intro": "Die KI-Funktionen einer veröffentlichten App (Chat, Begleiter, Agenten, semantische Suche) laufen mit dem eigenen KI-Schlüssel der App. Die Plattform-KI erstellt und bearbeitet deine App, aber deine App kann sie nicht nutzen, sobald andere sie verwenden.",
+    "introHelp": "Füge den Schlüssel eines KI-Dienstes hinzu, für den du zahlst. Die KI-Schritte deiner App nutzen ihn in der Vorschau und in der veröffentlichten App.",
+    "needsKey": "Diese App hat KI-Schritte, aber noch keinen Schlüssel. Besucher sehen deshalb „Die KI dieser App ist noch nicht eingerichtet.“ Füge unten einen Schlüssel hinzu.",
+    "noAiYet": "Diese App hat noch keine KI-Schritte. Wenn du jetzt einen Schlüssel hinzufügst, funktionieren später hinzugefügte KI-Schritte sofort.",
+    "ownerNote": "Du betreibst diese Plattform. Solange diese App keinen eigenen Schlüssel hat, nutzen ihre KI-Schritte die Plattform-KI. Füge hier einen Schlüssel hinzu, um stattdessen deinen eigenen zu nutzen.",
+    "ready": "Die KI dieser App ist eingerichtet.",
+    "security": "Schlüssel werden auf dem Server verschlüsselt. Sie werden niemals an die Seiten deiner App oder an Besucher gesendet, in Protokollen gespeichert oder nach dem Speichern erneut angezeigt.",
+    "title": "Die eigene KI deiner App"
+  },
+  "providers": {
+    "anthropic": "Messages API (Schlüssel, die mit sk-ant- anfangen)",
+    "custom": "Jeder OpenAI-kompatible Server (Ollama, LM Studio, vLLM …)",
+    "gemini": "Google Gemini",
+    "openai": "OpenAI",
+    "openrouter": "OpenRouter",
+    "xai": "xAI (Grok)"
+  },
+  "test": {
+    "detail": "Details: {detail}",
+    "key": "Der KI-Dienst hat den Schlüssel abgelehnt. Prüfe, ob er richtig und noch aktiv ist.",
+    "model": "Der KI-Dienst kennt dieses Modell oder diese Adresse nicht. Prüfe den Modellnamen und die Adresse.",
+    "ok": "Verbunden. Die KI hat geantwortet.",
+    "other": "Der Test ist fehlgeschlagen.",
+    "private": "Diese Adresse liegt in einem privaten Netzwerk, auf das Apps auf diesem Server nicht zugreifen können.",
+    "quota": "Laut KI-Dienst ist das Limit für diesen Schlüssel erreicht oder das Guthaben aufgebraucht.",
+    "timeout": "Der KI-Dienst hat zu lange für eine Antwort gebraucht.",
+    "unreadable": "Der gespeicherte Schlüssel kann nicht mehr gelesen werden. Gib ihn erneut ein."
+  }
+}

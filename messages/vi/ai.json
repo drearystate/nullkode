@@ -1,4 +1,14 @@
 {
+  "aiApps": {
+    "addKey": "Thêm khóa AI",
+    "aiFeatures": "AI trong ứng dụng này",
+    "buildNotice": "Ứng dụng của bạn có các tính năng AI. Ứng dụng đã xuất bản không thể dùng AI của nền tảng, vì vậy hãy thêm khóa AI của riêng bạn vào mục khóa AI của ứng dụng trước khi mọi người sử dụng. Trong thời gian chờ, khách truy cập sẽ thấy “AI của ứng dụng này chưa được thiết lập.”",
+    "editNotice": "Những thay đổi này sử dụng AI. Ứng dụng đã xuất bản không thể dùng AI của nền tảng: hãy thêm khóa AI của riêng bạn vào mục khóa AI của ứng dụng trước khi mọi người sử dụng.",
+    "moduleNotice": "Tính năng này sử dụng AI. Ứng dụng đã xuất bản không thể dùng AI của nền tảng: hãy thêm khóa AI của riêng bạn vào mục khóa AI của ứng dụng trước khi mọi người sử dụng.",
+    "noticeTitle": "AI trong ứng dụng cần khóa riêng của bạn",
+    "openEditor": "Mở trình chỉnh sửa",
+    "planNotice": "Ứng dụng này có tính năng AI. Ứng dụng đã xuất bản không thể dùng AI của nền tảng: sau khi tạo ứng dụng, hãy thêm khóa AI của riêng bạn (OpenAI, Google Gemini, xAI, OpenRouter hoặc máy chủ tương thích với OpenAI) vào mục khóa AI của ứng dụng trước khi mọi người sử dụng các tính năng AI."
+  },
   "assistant": {
     "alsoCreated": "đã tạo {things}",
     "alsoDid": "{explanation} (Ngoài ra, {things}.)",

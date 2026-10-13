@@ -48,6 +48,7 @@
     "noMacTitle": "Mac olmadan",
     "preparing": "Proje hazırlanıyor…",
     "readme": "Her adım indirdiğin dosyanın içindeki README'de açıklanır. Yayınladığında uygulaman kendini güncellemeye devam eder; yalnızca adı, simgesi veya telefon özellikleri değiştiğinde yeni bir iPhone sürümü oluşturman gerekir.",
+    "storeAssets": "İndirmede ayrıca App Store simgenizi ve Apple'ın istediği tüm boyutlarda uygulamanızın ekran görüntülerini içeren bir AppStore klasörü bulunur. Yeni sürümün ekran görüntülerini hazırlamak bir dakika kadar sürebilir.",
     "teamId": "Apple Team ID",
     "teamIdHelp": "Apple Developer Team ID'n; 10 harf ve rakamdan oluşur. Uygulamana giden bağlantıların iPhone uygulamasını açmasını sağlar. developer.apple.com adresinde Membership bölümünde bulabilirsin.",
     "teamIdHint": "İsteğe bağlı. Yalnızca uygulamana giden bağlantıların iPhone uygulamasını açmasını istiyorsan gerekir (Uygulamanı açan bağlantılar bölümüne bak).",

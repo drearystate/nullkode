@@ -1867,7 +1867,8 @@ const escapeText = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;")
 /** What visitors see on a sign-in-only page of an app that has no sign-in page, in the app's language. */
 function teamOnlyHtml(locale: Locale = DEFAULT_LOCALE): string {
   const t = (key: string) => escapeText(runtimeText(locale, key));
-  return `<section style="padding:clamp(3rem,10vw,7rem) 1.25rem;text-align:center;">
+  // data-nk-team-only: App Store screenshots skip these pages (src/lib/native-store-assets.ts).
+  return `<section data-nk-team-only style="padding:clamp(3rem,10vw,7rem) 1.25rem;text-align:center;">
   <div style="max-width:32rem;margin:0 auto;">
     <h1 style="font-size:1.6rem;margin-bottom:.75rem;">${t("teamOnlyTitle")}</h1>
     <p style="color:var(--nk-text-muted);margin-bottom:1.5rem;">${t("teamOnlyBody")}</p>

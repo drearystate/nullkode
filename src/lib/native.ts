@@ -523,6 +523,8 @@ What's inside:
   Package Manager, so there are no extra setup commands.
 - \`.github/workflows/ios.yml\` — builds the iPhone app on GitHub's Mac
   computers and sends it to TestFlight, for people without a Mac.
+- \`AppStore/\` — your App Store icon, logo and screenshots of your app in
+  the sizes App Store Connect asks for (see \`AppStore/README.txt\`).
 - \`capacitor.config.json\`, \`www/\` and \`package.json\` — the app's settings
   and the pages it shows before your site loads (\`www/offline.html\` appears
   when there's no internet).
@@ -651,7 +653,9 @@ if the upload step says the key isn't allowed, make a new key with the
 
 In App Store Connect, open your app, fill in the store listing (description,
 screenshots, privacy details), pick the build from TestFlight, and click
-**Add for Review**. Apple reviews every app. Apps that only show a website
+**Add for Review**. The \`AppStore/\` folder has your store icon and
+screenshots of your app in the sizes Apple asks for; its \`README.txt\` says
+where each file goes. Apple reviews every app. Apps that only show a website
 can be turned down, so make sure yours works well as an app (sign-in, useful
 screens, no broken links).
 

@@ -28,6 +28,13 @@ export type FlowNode =
   | EmailNode
   | SendPushNode
   | AiPromptNode
+  | AiChatNode
+  | AiAgentNode
+  | AiStructuredNode
+  | AiVisionNode
+  | AiEmbedNode
+  | AiSearchNode
+  | AiSpeechNode
   | DelayNode
   | ParseJsonNode
   | MathNode
@@ -200,15 +207,105 @@ export type SendPushNode = BaseNode<
   }
 >;
 
+/**
+ * The AI steps run with the app's own AI connection (AI keys, lib/app-ai);
+ * `connection` picks one by name (default: the app's default one), `model`
+ * overrides its model. See docs/ai-in-apps.md.
+ */
+type AiCommon = {
+  label?: string;
+  connection?: string;
+  model?: string;
+  maxTokens?: number;
+  temperature?: number;
+  output?: string;
+};
+
 export type AiPromptNode = BaseNode<
   "ai_prompt",
-  {
-    label?: string;
+  AiCommon & {
     prompt?: string;
     system?: string;
-    output?: string;
   }
 >;
+
+/** A reply in a conversation: persona + the conversation so far (from a table) + the new message. */
+export type AiChatNode = BaseNode<
+  "ai_chat",
+  AiCommon & {
+    /** The persona and instructions. */
+    system?: string;
+    /** The new message ("{{trigger.message}}"). */
+    message?: string;
+    /** Extra facts for this reply (memories, mood): added to the instructions. */
+    context?: string;
+    /** "standard" (default): safe for a general audience; "none": only the owner's instructions. */
+    safety?: "standard" | "none";
+    datasourceId?: string;
+    /** The conversation table (role + content columns). Optional. */
+    table?: string;
+    /** Which rows are this conversation ({"conversation_id":"{{trigger.conversation_id}}"}); also saved on new rows. */
+    where?: Record<string, string>;
+    historyLimit?: number;
+    roleField?: string;
+    contentField?: string;
+    /** Save the message and the reply to the table (default true when a table is set). */
+    save?: boolean;
+    /** More values saved on both new rows. */
+    extra?: Record<string, string>;
+  }
+>;
+
+/** A tool-using agent: works toward a goal with the app's own flows or web addresses as tools. */
+export type AiAgentNode = BaseNode<
+  "ai_agent",
+  AiCommon & {
+    system?: string;
+    /** The goal: starts a task (ignored when `state` continues one). */
+    prompt?: string;
+    /** A follow-up message from the person, added to a continued task. */
+    message?: string;
+    tools?: Array<{
+      name: string;
+      description?: string;
+      kind?: "flow" | "http";
+      flow?: string;
+      method?: string;
+      url?: string;
+      headers?: Record<string, string>;
+      body?: string;
+      params?: string;
+      needsApproval?: boolean;
+    }>;
+    maxSteps?: number;
+    /** A saved state to continue from (the "state" of an earlier run). */
+    state?: string;
+    /** For a run waiting on approval: "approve" or "reject". */
+    decision?: string;
+    datasourceId?: string;
+    /** Optional approvals table: a pending action is saved there (tool, args, note, status, state). */
+    table?: string;
+    extra?: Record<string, string>;
+  }
+>;
+
+/** An answer as a JSON object that follows a schema or an example. */
+export type AiStructuredNode = BaseNode<"ai_structured", AiCommon & { system?: string; prompt?: string; schema?: string }>;
+
+/** A picture and a question about it. */
+export type AiVisionNode = BaseNode<"ai_vision", AiCommon & { system?: string; prompt?: string; image?: string }>;
+
+/** Embeddings: one vector, or a long text cut into pieces with a vector each ("chunks"). */
+export type AiEmbedNode = BaseNode<"ai_embed", AiCommon & { input?: string; mode?: "single" | "chunks"; chunkSize?: number; extra?: Record<string, string> }>;
+
+/** Rows of a table most similar in meaning to a question (cosine over stored embeddings). */
+export type AiSearchNode = BaseNode<
+  "ai_search",
+  AiCommon & { query?: string; datasourceId?: string; table?: string; field?: string; where?: Record<string, string>; topK?: number; minScore?: number; scanLimit?: number }
+>;
+
+/** Text to speech with the app's AI, else the page reads it with the browser's voice. */
+export type AiSpeechNode = BaseNode<"ai_speech", AiCommon & { text?: string; voice?: string }>;
 
 export type DelayNode = BaseNode<
   "delay",
@@ -432,6 +529,10 @@ export type RunContext = {
    * default). Templates read it as {{request.lang}}.
    */
   request?: { lang: string };
+  /** The run uses the published version (visitors, webhooks, schedules). */
+  live?: boolean;
+  /** How many flows deep this run is (an agent's tool can run another flow). */
+  depth?: number;
 };
 
 export type RunResult = {

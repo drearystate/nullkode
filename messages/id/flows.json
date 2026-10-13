@@ -53,9 +53,37 @@
       "help": "Menghitung jumlah data atau menjumlahkan kolom di tabel, seperti jumlah pendaftar atau total penjualan. Langkah berikutnya bisa menggunakan hasilnya.",
       "label": "Hitung atau jumlahkan data"
     },
+    "ai_agent": {
+      "help": "Mencapai tujuan dengan menggunakan alat yang Anda daftarkan (alur aplikasi ini atau alamat web), langkah demi langkah. Alat yang bertanda \"perlu persetujuan\" akan menunggu persetujuan seseorang. Menggunakan kunci AI milik aplikasi ini.",
+      "label": "Agen AI"
+    },
+    "ai_chat": {
+      "help": "Membalas pesan dalam percakapan menggunakan persona dan riwayat percakapan dari tabel (keduanya bisa disimpan). Untuk chatbot dan teman AI. Menggunakan kunci AI milik aplikasi ini.",
+      "label": "Balasan chat AI"
+    },
+    "ai_embed": {
+      "help": "Mengubah teks menjadi angka yang mewakili maknanya, atau membagi teks panjang menjadi beberapa bagian dengan angka untuk masing-masing bagian, siap disimpan. Digunakan bersama \"Cari berdasarkan makna\". Menggunakan kunci AI milik aplikasi ini.",
+      "label": "Embedding AI"
+    },
     "ai_prompt": {
-      "help": "Memberi AI pertanyaan atau tugas, seperti merangkum pesan. Langkah berikutnya bisa menggunakan jawabannya. Setiap kali dijalankan, jatah AI Anda akan berkurang.",
+      "help": "Beri AI pertanyaan atau tugas, misalnya merangkum pesan. Langkah berikutnya bisa menggunakan jawabannya. Menggunakan kunci AI milik aplikasi ini (kunci AI).",
       "label": "Tanya AI"
+    },
+    "ai_search": {
+      "help": "Menemukan baris tabel yang paling mirip maknanya dengan pertanyaan, menggunakan embedding yang tersimpan di dalamnya. Membaca hingga 1.000 baris per pencarian.",
+      "label": "Cari berdasarkan makna"
+    },
+    "ai_speech": {
+      "help": "Mengubah teks menjadi suara menggunakan kunci AI aplikasi jika mendukung suara; jika tidak, halaman akan membacakannya dengan suara bawaan browser.",
+      "label": "Bacakan"
+    },
+    "ai_structured": {
+      "help": "Meminta AI memberikan jawaban sebagai data dengan kolom yang Anda jelaskan (JSON), agar langkah berikutnya bisa menyimpan atau memeriksa tiap kolom. Menggunakan kunci AI milik aplikasi ini.",
+      "label": "Jawaban AI sebagai data"
+    },
+    "ai_vision": {
+      "help": "Mengirim gambar beserta pertanyaan ke AI (file yang diunggah, alamat https, atau URL data). Menggunakan kunci AI milik aplikasi ini.",
+      "label": "AI melihat gambar"
     },
     "branch": {
       "help": "Memeriksa sesuatu lalu membagi otomatisasi menjadi dua jalur: satu dijalankan jika kondisinya benar, satu lagi jika tidak.",
@@ -271,6 +299,29 @@
       "sum": "Jumlahkan nilai dalam kolom"
     },
     "aggregateEmptyHint": "Kosongkan untuk menyertakan semua baris. Semua kondisi harus cocok.",
+    "aiKeyLink": "Kunci AI",
+    "aiKeyNote": "Langkah AI menggunakan kunci AI milik aplikasi ini.",
+    "aiOptions": {
+      "embedChunks": "Beberapa bagian dari teks panjang",
+      "embedSingle": "Satu embedding",
+      "safetyNone": "Nonaktif",
+      "safetyStandard": "Standar"
+    },
+    "aiTool": {
+      "add": "Tambahkan alat",
+      "description": "Fungsinya",
+      "flow": "Flow",
+      "kind": "Menggunakan",
+      "kindFlow": "Flow di aplikasi ini",
+      "kindHttp": "Alamat web",
+      "method": "Metode",
+      "name": "Nama",
+      "needsApproval": "Perlu persetujuan",
+      "none": "Belum ada alat: agen akan menjawab langsung.",
+      "params": "Argumen (pisahkan dengan koma)",
+      "remove": "Hapus",
+      "url": "Alamat"
+    },
     "biggestFirst": "Hasil terbesar dulu",
     "body": "Isi",
     "bodyEmpty": "Tambahkan kolom yang akan dikirim di isi permintaan.",
@@ -287,13 +338,109 @@
     "deleteHelp": "Menghapus langkah ini dan koneksinya dari otomatisasi. Tindakan ini tidak bisa dibatalkan, jadi Anda harus menambahkannya lagi.",
     "deleteNeedsCondition": "Perlu kondisi untuk menghapus — jika tidak, langkah ini akan gagal.",
     "fields": {
+      "aiApprovalsTable": {
+        "help": "Tempat tindakan yang menunggu disimpan (kolom tool, args, note, status, state), untuk halaman persetujuan.",
+        "label": "Tabel persetujuan (opsional)"
+      },
+      "aiConnection": {
+        "help": "Nama kunci AI aplikasi ini yang akan digunakan. Kosongkan untuk menggunakan kunci bawaan aplikasi.",
+        "label": "Koneksi AI (opsional)"
+      },
+      "aiContext": {
+        "help": "Fakta untuk balasan ini, seperti hal yang diingat AI tentang orang tersebut atau suasana hatinya.",
+        "label": "Konteks tambahan (opsional)"
+      },
+      "aiDecision": {
+        "help": "Untuk proses yang menunggu persetujuan: setujui atau tolak, biasanya berdasarkan permintaan.",
+        "label": "Keputusan persetujuan (opsional)"
+      },
+      "aiEmbedInput": {
+        "help": "Teks yang akan diubah menjadi embedding.",
+        "label": "Teks"
+      },
+      "aiEmbedMode": {
+        "help": "Satu embedding untuk teks, atau beberapa bagian dari teks panjang dengan satu embedding tiap bagian (baris siap untuk \"Tambah banyak baris\").",
+        "label": "Yang akan dibuat"
+      },
+      "aiField": {
+        "help": "Kolom tempat embedding disimpan.",
+        "label": "Kolom embedding"
+      },
+      "aiGoal": {
+        "help": "Hal yang perlu diselesaikan agen, atau pesan terbaru dari seseorang.",
+        "label": "Tujuan atau pesan"
+      },
+      "aiHistoryFilter": {
+        "help": "Nilai untuk memilih baris percakapan ini, seperti conversation_id. Nilai ini juga disimpan di baris baru.",
+        "label": "Percakapan yang mana"
+      },
+      "aiHistoryLimit": {
+        "help": "Jumlah pesan terbaru yang dibaca AI (1 sampai 100).",
+        "label": "Jumlah pesan untuk diingat"
+      },
+      "aiHistoryTable": {
+        "help": "Tabel yang berisi pesan-pesan sebelumnya (kolom role dan content). Langkah ini membaca pesan terbaru, lalu menyimpan pesan baru dan balasannya.",
+        "label": "Tabel percakapan (opsional)"
+      },
+      "aiImage": {
+        "help": "File yang diunggah (/uploads/…), alamat https, atau URL data, biasanya dari permintaan.",
+        "label": "Gambar"
+      },
+      "aiMaxSteps": {
+        "help": "Agen berhenti setelah menggunakan alat sebanyak ini (1 sampai 12), lalu melaporkan perkembangannya.",
+        "label": "Langkah maksimal per proses"
+      },
+      "aiMessage": {
+        "help": "Apa yang baru saja ditulis seseorang, biasanya '{{'trigger.message'}}'.",
+        "label": "Pesan baru"
+      },
+      "aiModel": {
+        "help": "Gunakan model lain untuk langkah ini, bukan model bawaan koneksi.",
+        "label": "Model (opsional)"
+      },
+      "aiPersona": {
+        "help": "Siapa AI ini dan bagaimana cara bicaranya, misalnya pelatih ramah yang menjawab dengan singkat.",
+        "label": "Persona dan petunjuk"
+      },
       "aiPrompt": {
         "help": "Pertanyaan atau tugas untuk AI. Sisipkan nilai untuk menyertakan hal seperti pesan pelanggan.",
         "label": "Perintah"
       },
+      "aiQuery": {
+        "help": "Apa yang ingin dicari, dengan kata-kata sederhana.",
+        "label": "Pertanyaan"
+      },
+      "aiSafety": {
+        "help": "Standar menjaga balasan tetap aman untuk semua kalangan (tanpa konten seksual, dengan bantuan untuk situasi krisis). Nonaktif hanya menggunakan petunjuk Anda.",
+        "label": "Keamanan"
+      },
+      "aiSchema": {
+        "help": "Contoh jawaban dalam format JSON, seperti '{'\"title\":\"\",\"tags\":[]'}', atau skema JSON.",
+        "label": "Kolom yang perlu diisi"
+      },
+      "aiSpeechText": {
+        "help": "Biasanya balasan AI.",
+        "label": "Teks untuk dibacakan"
+      },
+      "aiState": {
+        "help": "Status tersimpan dari proses sebelumnya (nilai statusnya), untuk melanjutkan tugas.",
+        "label": "Lanjutkan dari (opsional)"
+      },
       "aiSystem": {
         "help": "Latar belakang untuk AI yang tetap sama setiap kali, seperti “Jawab dengan satu kalimat yang ramah” atau “Anda bekerja di toko roti”.",
         "label": "Instruksi sistem (opsional)"
+      },
+      "aiTools": {
+        "help": "Yang boleh digunakan agen: alur lain di aplikasi ini atau alamat web. Tandai alat berisiko agar memerlukan persetujuan.",
+        "label": "Alat"
+      },
+      "aiTopK": {
+        "help": "Hasil yang paling cocok (1 sampai 50).",
+        "label": "Jumlah hasil"
+      },
+      "aiVoice": {
+        "help": "Nama suara yang dikenali layanan AI Anda, seperti alloy.",
+        "label": "Suara (opsional)"
       },
       "dataSource": {
         "help": "Tempat data Anda disimpan. Kebanyakan aplikasi hanya memiliki database bawaan sendiri; pilih sumber lain hanya jika Anda menghubungkannya sendiri.",
@@ -533,6 +680,9 @@
     "pickTable": "Pilih daftar data untuk menyiapkan langkah ini.",
     "placeholders": {
       "aNumber": "angka",
+      "aiConnection": "default",
+      "aiGoal": "Cari email yang belum dibalas minggu ini dan buat draf balasannya",
+      "aiPersona": "Anda adalah Nova, teman ceria yang suka berbagi fakta tentang luar angkasa...",
       "aiPrompt": "Ringkas pesan pelanggan ini...",
       "aiSystem": "Anda adalah asisten yang siap membantu...",
       "eg10": "mis. 10",
@@ -754,6 +904,14 @@
   },
   "summary": {
     "aggregateFallback": "Hitung atau jumlahkan data",
+    "aiAgent": "{count, plural, =0 {Belum ada alat} one {# alat} other {# alat}}",
+    "aiChat": "Balas pesan",
+    "aiChatWithHistory": "Balas dengan mengingat {table}",
+    "aiEmbed": "Teks menjadi embedding",
+    "aiEmbedChunks": "Teks panjang menjadi beberapa bagian",
+    "aiSpeech": "Bacakan teks",
+    "aiStructured": "Jawab sebagai data",
+    "aiVision": "Lihat gambar",
     "askAi": "Ajukan pertanyaan ke AI",
     "bulkDeleteFallback": "Hapus banyak baris sekaligus",
     "bulkInsertFallback": "Tambahkan banyak baris sekaligus",

@@ -335,6 +335,7 @@
       "locationRemoved": "アプリで位置情報を使わなくなりました。次回のビルドでは使用許可を求めないように、iPhone用プロジェクトをもう一度ダウンロードしてください。",
       "newBuildNeeded": "<b>新しいビルドが必要です。</b>{reason}",
       "readme": "ダウンロード内のREADMEで、どちらの方法も手順に沿って確認できます。",
+      "storeAssets": "ダウンロード内のAppStoreフォルダには、App Store用のアイコンと、Appleが指定するすべてのサイズのアプリのスクリーンショットが入っています。",
       "title": "iPhoneとiPad",
       "withMac": "<b>Macを使う場合：</b><mono>{path}</mono>を開き、チームを選んでから「Product」→「Archive」を選びます。",
       "withoutMac": "<b>Macを使わない場合：</b>フォルダをGitHubにアップロードし、Appleのキーをシークレットとして追加します。付属のワークフローがGitHubのMacでアプリをビルドし、TestFlightに送信します。"
@@ -814,6 +815,10 @@
     "invalidInput": "入力が正しくありません"
   },
   "tabs": {
+    "aiKeys": {
+      "help": "アプリ専用のAIキーです。ユーザーがアプリを使うと、チャットやエージェントなどのAI機能で使われます。",
+      "label": "AIキー"
+    },
     "data": {
       "help": "登録情報、注文、届いたメッセージなど、アプリに保存されている情報を確認・編集できます。",
       "label": "データ"

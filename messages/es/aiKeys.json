@@ -1,0 +1,123 @@
+{
+  "banner": {
+    "body": "Esta app tiene pasos de IA. Las apps publicadas usan su propia clave de IA, no la de la plataforma, así que estos pasos no funcionan hasta que añadas una.",
+    "cta": "Añadir una clave de IA",
+    "title": "La IA de esta app no está configurada"
+  },
+  "dashboard": {
+    "app": "Añadir una clave para {name}",
+    "body": "Ahora, las apps publicadas usan su propia clave de IA para las funciones de IA, en lugar de la de la plataforma. Hasta que añadas una, los visitantes verán «La IA de esta app aún no está configurada».",
+    "title": "Algunas de tus apps necesitan su propia clave de IA"
+  },
+  "errors": {
+    "baseUrlBad": "No se puede usar esa dirección. Usa una dirección http:// o https:// sin nombre de usuario ni contraseña.",
+    "baseUrlMissing": "Introduce la dirección del servidor (por ejemplo, https://ai.example.com/v1).",
+    "invalid": "Falta información o tiene un formato incorrecto.",
+    "keyBad": "Eso no parece una clave de API.",
+    "keyMissing": "Introduce la clave de API.",
+    "model": "Introduce el modelo que quieres usar.",
+    "network": "No se pudo conectar con el servidor. Comprueba la conexión e inténtalo de nuevo.",
+    "notFound": "Esa conexión de IA no existe.",
+    "provider": "Elige un servicio de IA.",
+    "saveFailed": "No se pudo guardar la clave. Inténtalo de nuevo.",
+    "tooManyTests": "Has hecho demasiadas pruebas en poco tiempo. Espera unos minutos."
+  },
+  "form": {
+    "addTitle": "Añadir una clave de IA",
+    "apiKey": "Clave de API",
+    "apiKeyHelp": "Se pega una vez y luego se guarda cifrada. No vuelve a mostrarse.",
+    "apiKeySaved": "Guardada ({hint}). Déjala vacía para conservarla.",
+    "baseUrl": "Dirección del servidor",
+    "baseUrlHelp": "La dirección de la API, por ejemplo, https://ai.example.com/v1. Opcional para los servicios con nombre.",
+    "can": "Este servicio permite: {list}",
+    "canChat": "chat",
+    "canEmbed": "embeddings",
+    "canSpeech": "voz",
+    "canVision": "imágenes",
+    "cancel": "Cancelar",
+    "chatModel": "Modelo de chat",
+    "chatModelHelp": "Para respuestas de chat y agentes, si es distinto del modelo principal.",
+    "editTitle": "Cambiar «{name}»",
+    "embedModel": "Modelo de embeddings",
+    "embedModelHelp": "Para la búsqueda por significado y los bots de conocimiento.",
+    "makeDefault": "Usar como conexión predeterminada",
+    "model": "Modelo",
+    "modelExample": "Por ejemplo, {model}",
+    "modelHelp": "El modelo que usan las funciones de IA, tal como lo nombra tu servicio.",
+    "more": "Más modelos (opcional)",
+    "name": "Nombre de la conexión",
+    "nameHelp": "Un nombre corto que las funciones de IA puedan elegir (por ejemplo, «voz» para una segunda clave que pueda hablar). Si solo tienes una clave, déjalo como predeterminado.",
+    "provider": "Servicio de IA",
+    "providerHelp": "De dónde viene tu clave. Cualquier servicio compatible con la API de estilo OpenAI funciona con la última opción, incluidos Ollama o LM Studio propios.",
+    "save": "Guardar clave",
+    "saved": "Guardada.",
+    "saving": "Guardando…",
+    "speechModel": "Modelo de voz",
+    "speechModelHelp": "Para leer las respuestas en voz alta. Si no hay uno, las páginas usan la voz del navegador.",
+    "test": "Probar antes de guardar",
+    "visionModel": "Modelo para imágenes",
+    "visionModelHelp": "Para funciones que analizan imágenes.",
+    "voice": "Voz"
+  },
+  "limits": {
+    "intro": "Protege tu clave contra el uso indebido: cuando se alcanza un límite, los pasos de IA esperan hasta que termine la hora.",
+    "perHour": "Solicitudes de IA por hora para toda la app",
+    "perVisitorHour": "Solicitudes de IA por hora para cada visitante",
+    "save": "Guardar límites",
+    "saved": "Límites guardados.",
+    "title": "Límites"
+  },
+  "list": {
+    "default": "Predeterminada",
+    "edit": "Cambiar",
+    "empty": "Aún no hay claves de IA.",
+    "key": "Clave",
+    "lastFailed": "La prueba falló {when}",
+    "lastOk": "La prueba funcionó {when}",
+    "makeDefault": "Hacer predeterminada",
+    "makeDefaultHelp": "Las funciones de IA que no eligen una conexión por nombre usan la predeterminada.",
+    "model": "Modelo",
+    "name": "Nombre: {name}",
+    "remove": "Quitar",
+    "removeConfirm": "¿Quieres quitar la conexión de IA «{name}»? Las funciones de IA que la usan dejarán de funcionar hasta que añadas otra clave.",
+    "test": "Probar conexión",
+    "testing": "Probando…",
+    "title": "Conexiones"
+  },
+  "notice": {
+    "body": "Esta app tiene funciones de IA. Las apps publicadas no pueden usar la IA de la plataforma: añade tu propia clave de IA (OpenAI, Google Gemini, xAI, OpenRouter o cualquier servidor compatible con OpenAI) antes de que la gente use las funciones de IA.",
+    "cta": "Añadir una clave de IA",
+    "later": "Puedes añadirla cuando quieras en las claves de IA de la app.",
+    "title": "La IA de tu app necesita tu propia clave"
+  },
+  "page": {
+    "eyebrow": "Claves de IA",
+    "intro": "Las funciones de IA de una app publicada (chat, asistentes, agentes y búsqueda por significado) funcionan con la clave de IA propia de la app. La IA de la plataforma crea y edita tu app, pero las apps no pueden usarla cuando la gente las utiliza.",
+    "introHelp": "Añade la clave de un servicio de IA que pagues. Las funciones de IA de tu app la usan en la vista previa y en la app publicada.",
+    "needsKey": "Esta app tiene funciones de IA, pero aún no tiene una clave. Por eso, los visitantes ven «La IA de esta app aún no está configurada». Añade una clave abajo.",
+    "noAiYet": "Esta app todavía no tiene funciones de IA. Añade una clave ahora y las funciones de IA que agregues más adelante estarán listas para usarse.",
+    "ownerNote": "Como administras esta plataforma, mientras esta app no tenga una clave propia, sus funciones de IA usan la IA de la plataforma. Añade una clave aquí para usar la tuya.",
+    "ready": "La IA de esta app está configurada.",
+    "security": "Las claves se cifran en el servidor. Nunca se envían a las páginas de tu app ni a sus visitantes, nunca se guardan en los registros y no vuelven a mostrarse después de guardarlas.",
+    "title": "La IA propia de tu app"
+  },
+  "providers": {
+    "anthropic": "API de Messages (claves que empiezan por sk-ant-)",
+    "custom": "Cualquier servidor compatible con OpenAI (Ollama, LM Studio, vLLM…)",
+    "gemini": "Google Gemini",
+    "openai": "OpenAI",
+    "openrouter": "OpenRouter",
+    "xai": "xAI (Grok)"
+  },
+  "test": {
+    "detail": "Detalles: {detail}",
+    "key": "El servicio de IA rechazó la clave. Comprueba que sea correcta y siga activa.",
+    "model": "El servicio de IA no reconoce ese modelo o esa dirección. Comprueba el nombre del modelo y la dirección.",
+    "ok": "Conectado. La IA respondió.",
+    "other": "No se pudo completar la prueba.",
+    "private": "Esta dirección está en una red privada a la que las apps de este servidor no pueden acceder.",
+    "quota": "El servicio de IA indica que la clave superó su límite o se quedó sin crédito.",
+    "timeout": "El servicio de IA tardó demasiado en responder.",
+    "unreadable": "Ya no se puede leer la clave guardada. Introdúcela de nuevo."
+  }
+}

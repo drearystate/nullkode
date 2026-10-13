@@ -1,5 +1,6 @@
 import { promises as dns } from "dns";
 import { randomBytes } from "crypto";
+import type { Prisma } from "@prisma/client";
 import { db } from "./db";
 import { powIsValid } from "./pow";
 
@@ -11,7 +12,8 @@ import { powIsValid } from "./pow";
  *                       ticket is single-use and bound to the requesting IP.
  *   2. Honeypot       — hidden fields only an automated form filler touches.
  *   3. Timing         — a form submitted faster than a human can type is a bot.
- *   4. Per-IP limits  — caps tickets issued and accounts created per IP.
+ *   4. Per-IP limits  — caps tickets issued and accounts created per IP, and
+ *                       allows one free account per network (paid ones don't count).
  *   5. Email identity — alias-normalised duplicates, disposable domains, and
  *                       a live MX lookup so made-up domains can't sign up.
  *
@@ -33,6 +35,12 @@ const MIN_FILL_MS = 1_500;
 
 const MAX_CHALLENGES_PER_IP_PER_HOUR = 20;
 const MAX_SIGNUPS_PER_IP_PER_DAY = Number(process.env.SIGNUP_MAX_PER_IP_PER_DAY ?? 3);
+/**
+ * Free accounts allowed per network, ever (paid accounts don't count). Signups
+ * always start on the free plan, so this is checked against every new account.
+ * 0 turns the rule off.
+ */
+const MAX_FREE_ACCOUNTS_PER_IP = Math.max(0, Number(process.env.SIGNUP_MAX_FREE_PER_IP ?? 1) || 0);
 
 /** Fields the form renders hidden; a filled one means a script did it. */
 export const HONEYPOT_FIELDS = ["website", "company"] as const;
@@ -68,6 +76,7 @@ const USER_MESSAGE_KEYS: Record<string, string> = {
   "Please sign up with a permanent email address.": "permanentEmail",
   "Email already registered": "alreadyRegistered",
   "That email domain doesn't accept mail. Please use a different address.": "domainNoMail",
+  "A free account has already been created from this network. Please sign in to it instead.": "oneFreeAccount",
 };
 
 function staleTicket(reason: string) {
@@ -107,6 +116,70 @@ export function clientIp(req: Request): string {
     if (!isPrivate(chain[i])) return chain[i];
   }
   return real || chain[0] || "unknown";
+}
+
+/**
+ * The network an address counts as for the free-account rule. One IPv6
+ * subscriber is handed a whole /64 and can rotate through it at will, so v6 is
+ * compared by that prefix; IPv4 (bare or v4-mapped) by the full address.
+ */
+export function signupNetwork(ip: string): string {
+  const v4 = ip.match(/^(?:::ffff:)?(\d{1,3}(?:\.\d{1,3}){3})$/i);
+  if (v4) return v4[1];
+  if (!ip.includes(":")) return ip;
+
+  const addr = ip.toLowerCase().split("%")[0];
+  const [head, tail] = addr.split("::");
+  const headParts = head ? head.split(":") : [];
+  const tailParts = tail ? tail.split(":") : [];
+  const groups =
+    tail === undefined
+      ? headParts
+      : [...headParts, ...Array(Math.max(0, 8 - headParts.length - tailParts.length)).fill("0"), ...tailParts];
+  const prefix = groups.slice(0, 4).map((g) => (parseInt(g, 16) || 0).toString(16));
+  while (prefix.length < 4) prefix.push("0");
+  return `${prefix.join(":")}::/64`;
+}
+
+/**
+ * Enforces "one free account per network" (paid accounts are unlimited). Must
+ * run inside the transaction that creates the account: it takes a lock on the
+ * network so two signups racing from the same address can't both get through.
+ * Accounts on a reseller's domain are counted separately from the platform's.
+ */
+export async function assertFreeAccountAvailable(
+  tx: Prisma.TransactionClient,
+  ip: string,
+  resellerId: string | null,
+): Promise<void> {
+  // A private or missing address means we can't see the visitor (a LAN or
+  // container install) — everyone would share it, so the rule can't apply.
+  if (MAX_FREE_ACCOUNTS_PER_IP === 0 || ip === "unknown" || isPrivate(ip)) return;
+
+  const network = signupNetwork(ip);
+  await tx.$executeRaw`SELECT pg_advisory_xact_lock(hashtext(${`nk-free-signup:${network}`}))`;
+
+  const base = { plan: "FREE" as const, resellerId };
+  let free: number;
+  if (network.endsWith("::/64")) {
+    const rows = await tx.user.findMany({
+      where: { ...base, signupIp: { startsWith: `${network.split(":")[0]}:` } },
+      select: { signupIp: true },
+    });
+    free = rows.filter((r) => r.signupIp && signupNetwork(r.signupIp) === network).length;
+  } else {
+    free = await tx.user.count({
+      where: { ...base, signupIp: { in: [network, `::ffff:${network}`] } },
+    });
+  }
+
+  if (free >= MAX_FREE_ACCOUNTS_PER_IP) {
+    throw new SignupBlocked(
+      "free account limit per ip",
+      "A free account has already been created from this network. Please sign in to it instead.",
+      409,
+    );
+  }
 }
 
 /* ------------------------------------------------------------------- email id */

@@ -62,7 +62,8 @@
     "tooManyAccounts": "Über dieses Netzwerk wurden heute zu viele Konten erstellt.",
     "tooManyAttempts": "Zu viele Registrierungsversuche über dieses Netzwerk. Bitte versuche es später erneut.",
     "tooQuick": "Das ging zu schnell – bitte versuche es erneut.",
-    "verificationFailed": "Die Überprüfung ist fehlgeschlagen. Bitte lade die Seite neu und versuche es erneut."
+    "verificationFailed": "Die Überprüfung ist fehlgeschlagen. Bitte lade die Seite neu und versuche es erneut.",
+    "oneFreeAccount": "Von diesem Netzwerk aus wurde bereits ein kostenloses Konto erstellt. Bitte melde dich stattdessen dort an."
   },
   "apk": {
     "alreadyHasKey": "Diese App hat bereits einen Upload-Schlüssel. Aktiviere „Meinen aktuellen Schlüssel ersetzen“, um stattdessen diesen zu verwenden.",

@@ -16,6 +16,8 @@ import { replyLanguageRule, translator, type Tr } from "./i18n";
 import { LOCALES, isLocale, type Locale } from "@/i18n/locales";
 import { contentLanguageRule, languageLabel, runtimeText } from "../app-locale";
 import { addScreenPages, briefText, pageReferenceBlock, paletteTheme, type BuildReferences, type VisualBrief } from "./vision";
+import { AI_FLOW_GUIDE, AI_PAGE_GUIDE, AI_PLAN_GUIDE, looksLikeAiApp } from "./ai-products-guide";
+import { planUsesAi } from "../app-ai/detect";
 
 export { stripThinking } from "./text";
 
@@ -59,13 +61,14 @@ CRITICAL OUTPUT RULES:
 - Tables: snake_case names. Fields are { name (snake_case), type: "text" | "int" | "float" | "bool" | "timestamp" | "json" }. Do NOT include id/created_at/updated_at/created_by — they're auto-managed. DO NOT add a "user_id" column or any per-user ownership column — data is shared across all users by default. Access is gated at the page level, not the row level.
 - Pages: aim for 3-6 pages. Each is { slug (kebab-case), title, isHome, summary, requiresAuth, requiresRole }. Exactly one isHome=true. Mark requiresAuth=true for any page that requires the visitor to be signed in. Mark requiresRole="admin" (or another role string) ONLY for admin/staff/manager pages — leave it null otherwise. Public pages (landing, marketing) leave both false/null.
 - Flows: aim for 2-10 flows. Each is { slug (kebab-case), name, purpose, kind, table, auth }.
-  kind is one of: "list" (all rows of a table), "load" (one row by id), "create" (insert a row from a form), "update" (change a row by id), "delete" (remove a row by id), "aggregate" (a count for a KPI), or "custom" (anything else: emails, calculations, several tables, external APIs).
+  kind is one of: "list" (all rows of a table), "load" (one row by id), "create" (insert a row from a form), "update" (change a row by id), "delete" (remove a row by id), "aggregate" (a count for a KPI), "ai" (calls an AI model: a chat reply, an agent, an answer as data, search by meaning, reading aloud), or "custom" (anything else: emails, calculations, several tables, external APIs).
   table is the table the flow works on (required for every kind except custom; null for custom when no single table applies).
   auth is true when only signed-in visitors may run it (e.g. writes behind a login), else false.
   Queries return all rows — visibility is controlled by which role can see the page, not by who owns the row.
 - seed: for tables whose rows visitors CHOOSE FROM or BROWSE (services, products, menu items, classes, rooms, events), include 3-6 realistic example rows for this business as "seed": [{ "<field>": value, ... }] using the table's own field names. Leave "seed" out for tables visitors FILL IN (bookings, messages, orders, sign-ups).
 - Every table the owner has to keep up to date (services, products, menu items, classes…) needs an admin page (requiresRole "admin") where they can add new rows and see the list, plus the flows for it.
 - assumptions: 2-4 short, plain-English sentences about decisions you made that the user did not spell out — who can see or change what, whether visitors need an account, what gets saved. The user reads these before anything is built, so no jargon and no table, field or flow names.
+- aiFeatures: the app's AI features in plain words (an AI chat with a persona, an agent that works on tasks, search by meaning…), or [] when the app has none.
 - locale: the language the app's visitors read, as one of these codes: ${LOCALES.map((l) => l.code).join(", ")}. The user message says which one to use, unless the description itself asks for the app in another language.
 
 JSON SHAPE:
@@ -74,6 +77,7 @@ JSON SHAPE:
   "locale": "en",
   "theme": "Theme Name",
   "assumptions": ["Visitors can book a walk without making an account.", "Only you can see the full list of bookings."],
+  "aiFeatures": [],
   "tables": [{ "name": "services", "fields": [{ "name": "name", "type": "text" }, { "name": "price", "type": "float" }], "seed": [{ "name": "Full groom", "price": 55 }] }],
   "pages": [{ "slug": "home", "title": "Home", "isHome": true, "summary": "Hero + features", "requiresAuth": false, "requiresRole": null }],
   "flows": [{ "slug": "list-tasks", "name": "List tasks", "purpose": "Returns every task", "kind": "list", "table": "tasks", "auth": false }]
@@ -129,8 +133,10 @@ async function runPlan(prompt: string, templateContext: string, onDelta: (n: num
   const revise = revision
     ? `\n\nYou planned this app before (JSON below). The user reviewed that plan and asked for this change:\n"""${revision.change}"""\nReturn the complete updated plan. Keep everything the user did not ask to change, and update the assumptions to match.\n\nPrevious plan:\n${JSON.stringify(revision.previous)}`
     : "";
+  // AI products (companions, agents, chatbots, knowledge bots) get the playbook.
+  const aiGuide = looksLikeAiApp(`${prompt} ${revision?.change ?? ""}`) || planUsesAi(revision?.previous) ? `\n\n${AI_PLAN_GUIDE}` : "";
   const plan = await completeJson(PlanWithLocale, "plan", {
-    systemPrompt: language ? `${PLAN_SYSTEM}\n\n${language}` : PLAN_SYSTEM,
+    systemPrompt: `${PLAN_SYSTEM}${aiGuide}${language ? `\n\n${language}` : ""}`,
     userMessage: `Plan this app: ${prompt}${templateContext}${generatedImageContext(prompt, 3)}${referencePlanBlock(references, Boolean(revision))}${revise}${planContentNote(contentLocale)}\n\nRespond with the plan JSON only.`,
     json: true, task: "scaffold",
     maxTokens: 6000,
@@ -297,7 +303,7 @@ ${tablesBlock}
 FLOWS (reference by slug in data-nk-flow-ref / data-nk-bind-flow-ref):
 ${flowsBlock}${templateBlock}${generatedImageContext(`${opts.plan.project.description} ${opts.page.summary}`, opts.compact ? 3 : 6)}${reference?.text ?? ""}
 
-Build THIS page only. Wire every form to a create/update flow from the FLOWS list and every list to a list flow; form fields use the table's exact column names. Wire every link to a real page slug or an external URL. Reply with the <style> block followed by the page markup.${contentBlock(opts.contentLocale)}`;
+Build THIS page only. Wire every form to a create/update flow from the FLOWS list and every list to a list flow; form fields use the table's exact column names. Wire every link to a real page slug or an external URL. Reply with the <style> block followed by the page markup.${planUsesAi(opts.plan) ? `\n\n${AI_PAGE_GUIDE}` : ""}${contentBlock(opts.contentLocale)}`;
 
   const repairBlock = opts.repair
     ? `\n\nYOUR PREVIOUS VERSION OF THIS PAGE:\n<style>\n${opts.repair.css}\n</style>\n${opts.repair.html}\n\nPROBLEMS FOUND IN IT:\n${formatViolationsForRepair(opts.repair.violations)}\n\nReturn the corrected page: fix every problem listed and keep everything else as it is (same sections, same text, same markers at the top). Reply with the <style> block followed by the complete page markup.`
@@ -390,7 +396,7 @@ async function runCustomFlow(plan: Plan, flow: Plan["flows"][number], onDelta: (
     ? plan.tables.map((t) => `- ${t.name}(${t.fields.map((f) => `${f.name}: ${f.type}`).join(", ")})`).join("\n")
     : "(no app tables)";
   return completeJson(FlowGraphSchema, `flow "${flow.slug}"`, {
-    systemPrompt: FLOW_SYSTEM,
+    systemPrompt: (flow.kind ?? "").toLowerCase() === "ai" || planUsesAi(plan) ? `${FLOW_SYSTEM}\n\n${AI_FLOW_GUIDE}` : FLOW_SYSTEM,
     userMessage: `Project: ${plan.project.name}
 
 THIS FLOW

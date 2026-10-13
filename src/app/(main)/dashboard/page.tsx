@@ -13,6 +13,8 @@ import { themeToCss, type ProjectTheme } from "@/lib/theme";
 import { problemCountsByProject } from "@/lib/flow-activity";
 import { getTranslations } from "next-intl/server";
 import { dashboardGames, gamesByProject } from "@/lib/dashboard-games";
+import { appsNeedingKeys } from "@/lib/app-ai/status";
+import { AiKeysNotice } from "@/components/app-ai/ai-keys-notice";
 
 export default async function DashboardPage() {
   const user = await getCurrentUser();
@@ -31,9 +33,12 @@ export default async function DashboardPage() {
   // Apps whose flows failed or had a problem for visitors in the last 24 hours.
   const [t, tb] = await Promise.all([getTranslations("studio.dashboard"), getTranslations("billing")]);
   const problems = await problemCountsByProject(projects.map((p) => p.id)).catch(() => new Map<string, number>());
+  // Apps with AI steps but no AI key of their own (docs/ai-in-apps.md).
+  const needKeys = await appsNeedingKeys(user).catch(() => []);
   return (
     <main className="studio-shell min-h-screen">
       <TopBar user={user} />
+      <AiKeysNotice apps={needKeys} />
       <StudioDashboard name={user.name?.split(" ")[0] || t("fallbackName")} plan={tb(`planNames.${user.plan}`)}
         maxProjects={Number.isFinite(limits.maxProjects) ? limits.maxProjects : null}
         ai={ai}

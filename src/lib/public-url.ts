@@ -72,3 +72,14 @@ export async function publicFetch(input: string, init: RequestInit = {}): Promis
   }
   throw new Error("Too many redirects.");
 }
+
+/**
+ * One request to a public address, redirects NOT followed (a 3xx comes back
+ * as it is). For calls that carry a credential in a header of their own
+ * (an app's AI key in x-api-key, lib/app-ai), which a redirect to another
+ * host must never receive.
+ */
+export async function publicFetchOnce(input: string, init: RequestInit = {}): Promise<Response> {
+  await assertPublicUrl(input);
+  return (await undiciFetch(input, { ...(init as object), redirect: "manual", signal: init.signal ?? AbortSignal.timeout(20000), dispatcher: publicDispatcher } as never)) as unknown as Response;
+}

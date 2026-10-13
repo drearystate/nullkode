@@ -119,3 +119,21 @@ export function testEmail(locale: Locale, o: { app: string; from: string }): Ren
   const { t, dir } = translatorFor(locale, "emails");
   return renderEmail(locale, dir, t("test.subject", { app: o.app }), [t("test.hello"), t("test.body", { app: o.app, from: o.from }), t("test.noReply")]);
 }
+
+/**
+ * An app uses AI steps but has no AI key of its own (lib/app-ai/notify.ts).
+ * `reason`: "visitor" (someone just used the AI part) or "change" (the
+ * existing app lost the platform's AI when apps moved to their own keys).
+ * Sent once per app.
+ */
+export function aiKeyNeededEmail(locale: Locale, o: { name?: string | null; app: string; platform: string; link: string; reason: "visitor" | "change" }): RenderedEmail {
+  const { t, dir } = translatorFor(locale, "emails");
+  const values = { app: o.app, platform: o.platform };
+  return renderEmail(
+    locale,
+    dir,
+    t("aiKey.subject", values),
+    [hi(t, o.name), o.reason === "visitor" ? t("aiKey.visitor", values) : t("aiKey.change", values), t("aiKey.why", values), { text: t("aiKey.add"), link: o.link }, t("aiKey.once")],
+    false,
+  );
+}

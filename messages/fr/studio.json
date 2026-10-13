@@ -50,7 +50,7 @@
     "buildMobileHelp": "Transformez cette appli en appli mobile pour Android, iPhone et iPad.",
     "buildMobileTitle": "Créer une appli mobile",
     "buildYourWay": "Créez à votre façon.",
-    "buildYourWayIntro": "Les mêmes outils puissants. Un point de départ qui vous ressemble.",
+    "buildYourWayIntro": "Vous ne savez pas par où commencer ? Lancez-vous avec le concepteur IA.",
     "clearFilters": "Effacer les filtres",
     "clearFiltersHelp": "Effacez la recherche et les filtres pour afficher à nouveau toutes vos apps.",
     "clearSearch": "Effacer la recherche",
@@ -92,6 +92,8 @@
     "gameKind": "Jeu {engine}",
     "gameLiveHelp": "Publié : ce jeu est disponible sous forme d’application. Toute personne ayant son lien peut y jouer.",
     "gameNoPicture": "Pas encore d’image",
+    "gameWaiting": "À vous de jouer",
+    "gameWaitingHelp": "La première partie jouable est prête. Ouvrez le jeu pour l’essayer et dites-nous si vous souhaitez poursuivre sa création.",
     "gamesEyebrow": "JOUEZ À VOS CRÉATIONS",
     "getMoreApps": "Créer plus d'apps",
     "headline": "Une petite idée.<br></br><accent>Un monde de possibilités.</accent>",
@@ -142,7 +144,7 @@
     "sortName": "Nom A–Z",
     "sortRecent": "Modifiées récemment",
     "versionCount": "{count, plural, =0 {Pas encore de versions} one {# version} other {# versions}}",
-    "waysEyebrow": "SIX FAÇONS DE COMMENCER",
+    "waysEyebrow": "FAÇONS DE COMMENCER",
     "welcome": "Bienvenue, {name}. Dites-nous ce que vous voulez créer et nous le préparerons avec vous.",
     "welcomeBack": "Bon retour, {name}. Reprenez là où vous en étiez,<br></br> ou donnez vie à une nouvelle idée.",
     "yourApps": "Vos apps",
@@ -167,10 +169,17 @@
       "description": "Décrivez ce que vous voulez avec vos propres mots. Vérifiez le plan, puis obtenez des pages, des données et des formulaires fonctionnels.",
       "help": "Décrivez votre appli en quelques mots. L’IA vous propose un plan que vous pouvez vérifier et modifier, puis crée les pages, les formulaires et les données pour vous.",
       "label": "De l’idée à l’appli",
-      "title": "Décrivez votre idée"
+      "title": "Décrivez votre idée",
+      "demo": {
+        "idea": "Une appli de réservation pour mon entreprise de promenade de chiens",
+        "plan": "Votre plan",
+        "pages": "3 pages",
+        "table": "Un tableau de réservations",
+        "form": "Un formulaire de réservation"
+      }
     },
     "blank": {
-      "description": "Créez votre appli à la main avec des blocs à glisser-déposer et des fonctionnalités prêtes à l’emploi.",
+      "description": "Créez chaque page à la main avec des blocs à glisser-déposer. Idéal si vous savez déjà ce que vous voulez.",
       "help": "Commencez avec une simple page d’accueil, puis créez le reste vous-même en y faisant glisser des blocs. Idéal si vous aimez tout contrôler.",
       "label": "Votre espace, vos règles",
       "title": "Appli vierge"
@@ -182,10 +191,12 @@
       "title": "Copier un site web"
     },
     "designer": {
-      "description": "Donnez forme à votre idée en discutant. Concevez, peaufinez et explorez.",
+      "description": "Dites à l’IA ce que vous voulez et regardez votre design prendre forme. Demandez ensuite des changements avec vos propres mots.",
       "help": "Discutez avec l’IA pour concevoir votre appli étape par étape. Demandez des modifications, cliquez sur des éléments de l’aperçu pour les commenter et revenez à des versions précédentes.",
       "label": "Créez ensemble",
-      "title": "Designer IA"
+      "title": "Designer IA",
+      "badge": "Recommandé",
+      "cta": "Commencer la conception"
     },
     "game": {
       "description": "Décrivez un jeu et regardez l’IA le créer étape par étape, avec de vrais visuels et sons.",
@@ -237,6 +248,7 @@
     "clearFiltersHelp": "Effacez la recherche et la catégorie pour afficher à nouveau toutes les fonctionnalités.",
     "clearSearch": "Effacer la recherche",
     "clearSearchHelp": "Effacer la recherche et afficher à nouveau toutes les fonctionnalités.",
+    "continue": "Continuer",
     "details": "Détails",
     "detailsHelp": "Découvrez précisément ce que cette fonctionnalité ajoute à votre app : le nombre de pages, les listes d’éléments enregistrés et les automatisations.",
     "dialogTitle": "Ajouter {name}",

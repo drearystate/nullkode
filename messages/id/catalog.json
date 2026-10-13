@@ -21,6 +21,35 @@
       "name": "Konfirmasi Baca",
       "summary": "Pastikan orang sudah membaca pesan penting."
     },
+    "ai-agent": {
+      "description": "Agen AI pribadi Anda di dalam aplikasi. Beri agen ini tujuan: ia akan mengerjakannya beberapa langkah sekaligus (selama halamannya terbuka, lalu setiap 15 menit setelah aplikasi dipublikasikan), menyimpan catatan, membuat draf email, dan meminta persetujuan Anda sebelum mengirim email atau menghubungi layanan luar yang Anda jalankan, seperti OpenMuse yang dihosting sendiri. Lihat kemajuan secara langsung, jeda, lanjutkan, atau batalkan tugas, periksa catatan setiap langkah, dan dapatkan ringkasan harian. Agen ini tidak bisa menjelajahi web atau membaca kotak masuk sendiri. Menggunakan kunci AI milik aplikasi; semua halamannya hanya bisa Anda lihat.",
+      "fields": {
+        "agentName": {
+          "label": "Nama agen"
+        },
+        "instructions": {
+          "label": "Cara agen harus bekerja"
+        },
+        "ownerEmail": {
+          "help": "Alamat untuk menerima ringkasan harian. Kosongkan jika Anda hanya ingin melihat ringkasan di aplikasi. Email yang dikirim agen (setelah Anda menyetujuinya) akan dikirim dari alamat email aplikasi ini.",
+          "label": "Email Anda (opsional)"
+        },
+        "serviceName": {
+          "label": "Nama layanan luar Anda (opsional)",
+          "placeholder": "OpenMuse saya"
+        },
+        "serviceToken": {
+          "help": "Dikirim sebagai \"Authorization: Bearer ...\". Kunci ini disimpan di alur aplikasi yang hanya bisa Anda lihat.",
+          "label": "Kunci layanan luar Anda (opsional)"
+        },
+        "serviceUrl": {
+          "help": "Alamat https yang bisa diakses publik. Setelah Anda menyetujuinya, agen akan mengirimkan '{\"task\": \"...\"}' dalam format JSON dan membaca jawabannya. Kosongkan jika Anda tidak menjalankan layanan seperti ini.",
+          "label": "Alamat layanan luar Anda (opsional)"
+        }
+      },
+      "name": "Agen AI pribadi",
+      "summary": "Asisten AI pribadi yang mengerjakan tujuan, meminta persetujuan sebelum melakukan hal berisiko, dan memberi kabar tentang hasilnya."
+    },
     "ai-assistant": {
       "description": "Tambahkan kotak tanya AI ke situs Anda. Pengunjung mengajukan pertanyaan, AI menjawab berdasarkan instruksi yang Anda berikan, lalu jawaban muncul tepat di bawah formulir. Semua pertanyaan dan jawaban tersimpan di halaman pribadi yang hanya bisa Anda buka.",
       "fields": {
@@ -37,6 +66,39 @@
       },
       "name": "Asisten Obrolan",
       "summary": "Biarkan pengunjung mengobrol dengan asisten yang siap membantu."
+    },
+    "ai-companion": {
+      "description": "Karakter animasi ramah yang mengobrol dengan pengunjung, mengingat hal yang mereka ceritakan, menunjukkan suasana hatinya dan seberapa dekat hubungan kalian, serta bisa mendengarkan dan berbicara dengan lantang di browser. Anda bisa memilih nama, kepribadian, sapaan, dan batasannya; balasan selalu cocok untuk semua kalangan, pengunjung bisa melaporkan balasan atau memulai dari awal, dan Anda bisa membaca laporan di halaman pribadi. Fitur ini berjalan menggunakan kunci AI milik aplikasi Anda.",
+      "fields": {
+        "avatarImages": {
+          "help": "Satu baris untuk setiap suasana hati: netral, senang, ingin tahu, berpikir, sedih, terkejut, atau tenang, lalu = dan alamat gambar. Kosongkan untuk menggunakan karakter animasi yang digambar.",
+          "label": "Gambar (opsional)"
+        },
+        "boundaries": {
+          "help": "Aturan yang selalu dipatuhi teman ini. Lapisan keamanan bawaan juga akan diterapkan.",
+          "label": "Batasan"
+        },
+        "companionName": {
+          "label": "Nama teman"
+        },
+        "greeting": {
+          "help": "Ditampilkan saat seseorang membuka percakapan baru.",
+          "label": "Pesan pertama"
+        },
+        "personality": {
+          "help": "Cara teman ini berbicara dan seperti apa sifatnya. Tulis dengan kata-kata sederhana untuk AI.",
+          "label": "Kepribadian"
+        },
+        "voiceDefault": {
+          "label": "Bacakan balasan secara default",
+          "options": {
+            "off": "Nonaktif (pengunjung bisa mengaktifkannya)",
+            "on": "Aktif (pengunjung bisa menonaktifkannya)"
+          }
+        }
+      },
+      "name": "Teman AI",
+      "summary": "Karakter AI animasi yang bisa diajak mengobrol dan berbicara, serta mengingat penggunanya."
     },
     "analytics-dashboard": {
       "description": "Lacak tayangan halaman dan aktivitas khusus ('signup', 'purchase'). Termasuk endpoint beacon yang bisa dipanggil dari halaman mana pun, API penghitung, dan dasbor admin dengan total, halaman teratas, serta tren 7 hari.",
@@ -624,6 +686,25 @@
       },
       "name": "Pusat Bantuan",
       "summary": "Terbitkan artikel bantuan yang bisa dicari pelanggan."
+    },
+    "knowledge-bot": {
+      "description": "Tambahkan dokumen Anda (panduan, kebijakan, FAQ, catatan) agar pengunjung bisa bertanya tentang isinya. Bot mencari bagian yang paling sesuai dan hanya menjawab berdasarkan bagian tersebut, dengan mencantumkan sumber bernomor. Bot juga akan terus terang jika dokumen tidak memuat jawaban atas suatu pertanyaan. Fitur ini menggunakan kunci AI milik aplikasi Anda, yang memerlukan model embedding (OpenAI, Google Gemini, atau server yang kompatibel dengan OpenAI seperti Ollama). Pertanyaan dan jawaban disimpan di halaman pribadi yang hanya bisa Anda buka.",
+      "fields": {
+        "botName": {
+          "help": "Judul halaman pertanyaan.",
+          "label": "Nama bot"
+        },
+        "disclosure": {
+          "help": "Memberi tahu pengunjung bahwa jawaban berasal dari AI.",
+          "label": "Catatan di bawah kotak pertanyaan"
+        },
+        "instructions": {
+          "help": "Cara bot harus menjawab. Bot selalu menjawab hanya berdasarkan dokumen Anda dan mencantumkan sumbernya.",
+          "label": "Nada bicara dan aturan"
+        }
+      },
+      "name": "Bot pengetahuan",
+      "summary": "Menjawab pertanyaan berdasarkan dokumen Anda, dengan mencantumkan sumber."
     },
     "leaderboard": {
       "description": "Papan peringkat umum. Tambahkan skor untuk user_label (teks apa pun — email, nama, anggota gym, karyawan), lalu papan peringkat akan mengurutkannya dari yang tertinggi. Filter berdasarkan kategori untuk mengelola beberapa papan (langkah, penjualan, poin). Endpoint submit-score bisa dipanggil dari modul lain.",

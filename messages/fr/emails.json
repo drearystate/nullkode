@@ -1,4 +1,12 @@
 {
+  "aiKey": {
+    "add": "Ajoutez votre clé ici :",
+    "change": "{app} contient des étapes d’IA. Les apps publiées sur {platform} utilisent maintenant leur propre clé d’IA au lieu de celle de la plateforme. Ces étapes sont donc en pause jusqu’à ce que vous en ajoutiez une.",
+    "once": "C’est le seul e-mail à ce sujet pour cette app.",
+    "subject": "{app} : ajoutez votre propre clé d’IA",
+    "visitor": "Quelqu’un vient d’utiliser une fonctionnalité d’IA de {app}, mais l’app n’a pas sa propre clé d’IA. Elle lui a donc indiqué : « L’IA de cette app n’est pas encore configurée. »",
+    "why": "Ajoutez une clé OpenAI, Google Gemini, xAI (Grok), OpenRouter ou d’un serveur compatible avec OpenAI (votre propre Ollama ou LM Studio fonctionne aussi). La clé reste sur le serveur, chiffrée, et n’est jamais visible par vos visiteurs. Les fonctionnalités d’IA se mettent à fonctionner dès qu’elle est enregistrée."
+  },
   "aiQuota": {
     "body80": "{reseller} a utilisé {used} des {max} actions IA disponibles ce mois-ci. Une fois le quota épuisé, vous et vos clients ne pourrez plus créer ni modifier avec l'IA jusqu'au {resets}.",
     "bodyFull": "{reseller} a utilisé les {max} actions IA disponibles pour ce mois. Vous et vos clients ne pouvez plus créer ni modifier avec l'IA jusqu'au {resets}.",

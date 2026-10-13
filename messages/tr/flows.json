@@ -53,9 +53,37 @@
       "help": "Bir tablodaki kayıtları sayar veya bir sütundaki değerleri toplar. Örneğin, kayıt olan kişi sayısını ya da toplam satışları bulur. Sonraki adımlarda sonucu kullanabilirsiniz.",
       "label": "Kayıtları say veya topla"
     },
+    "ai_agent": {
+      "help": "Listelediğiniz araçları (bu uygulamanın akışları veya web adresleri) kullanarak adım adım bir hedefe ulaşmaya çalışır. \"Onay gerekli\" olarak işaretlenen araçlar, bir kişi onay verene kadar bekler. Bu uygulamanın kendi AI anahtarını kullanır.",
+      "label": "AI aracısı"
+    },
+    "ai_chat": {
+      "help": "Bir konuşmadaki mesaja, bir kişilik ve tablodaki konuşma geçmişiyle yanıt verir (ikisini de kaydedebilir). Sohbet botları ve AI arkadaşları için. Bu uygulamanın kendi AI anahtarını kullanır.",
+      "label": "AI sohbet yanıtı"
+    },
+    "ai_embed": {
+      "help": "Metni, anlamını yansıtan sayılara dönüştürür veya uzun bir metni, her biri için sayılarla birlikte parçalara ayırıp kaydetmeye hazırlar. \"Anlama göre ara\" ile kullanılır. Bu uygulamanın kendi AI anahtarını kullanır.",
+      "label": "AI metin vektörleri"
+    },
     "ai_prompt": {
-      "help": "Yapay zekâya bir soru sorar veya mesajı özetlemek gibi bir görev verir. Sonraki adımlarda yanıtı kullanabilirsiniz. Her çalıştırma yapay zekâ kullanım hakkınızdan düşer.",
+      "help": "AI'ya bir soru veya görev verir; örneğin bir mesajı özetlemesini ister. Sonraki adımlar yanıtını kullanabilir. Bu uygulamanın kendi AI anahtarını (AI anahtarları) kullanır.",
       "label": "Yapay zekâya sor"
+    },
+    "ai_search": {
+      "help": "Tabloda kaydedilmiş vektörleri kullanarak, bir soruyla anlam bakımından en çok eşleşen satırları bulur. Her aramada en fazla 1.000 satırı okur.",
+      "label": "Anlama göre ara"
+    },
+    "ai_speech": {
+      "help": "Uygulamanın AI anahtarıyla metni konuşmaya dönüştürür; bunu yapamazsa sayfa tarayıcının kendi sesini kullanarak okur.",
+      "label": "Sesli oku"
+    },
+    "ai_structured": {
+      "help": "AI'dan belirttiğiniz alanları içeren bir veri (JSON) olarak yanıt vermesini ister. Böylece sonraki adımlar her alanı kaydedebilir veya kontrol edebilir. Bu uygulamanın kendi AI anahtarını kullanır.",
+      "label": "Veri olarak AI yanıtı"
+    },
+    "ai_vision": {
+      "help": "Bir soruyla birlikte AI'ya resim gönderir (yüklenen bir dosya, https adresi veya data URL). Bu uygulamanın kendi AI anahtarını kullanır.",
+      "label": "AI bir resme bakar"
     },
     "branch": {
       "help": "Bir şeyi kontrol eder ve otomasyonu iki yola ayırır: Koşul doğruysa bir yol, değilse diğer yol çalışır.",
@@ -271,6 +299,29 @@
       "sum": "Bir sütundaki değerleri topla"
     },
     "aggregateEmptyHint": "Tüm satırları dahil etmek için boş bırakın. Birden çok koşul varsa tümü karşılanmalıdır.",
+    "aiKeyLink": "Yapay zekâ anahtarları",
+    "aiKeyNote": "Yapay zekâ adımları bu uygulamanın kendi yapay zekâ anahtarını kullanır.",
+    "aiOptions": {
+      "embedChunks": "Uzun metnin parçaları",
+      "embedSingle": "Tek vektör",
+      "safetyNone": "Kapalı",
+      "safetyStandard": "Standart"
+    },
+    "aiTool": {
+      "add": "Araç ekle",
+      "description": "Ne işe yarar",
+      "flow": "Akış",
+      "kind": "Kullanım türü",
+      "kindFlow": "Bu uygulamanın akışı",
+      "kindHttp": "Web adresi",
+      "method": "Yöntem",
+      "name": "Ad",
+      "needsApproval": "Onay gerekiyor",
+      "none": "Henüz araç yok: temsilci doğrudan yanıt verir.",
+      "params": "Parametreler (virgülle ayırın)",
+      "remove": "Kaldır",
+      "url": "Adres"
+    },
     "biggestFirst": "En büyük sonuç önce",
     "body": "Gövde",
     "bodyEmpty": "İstek gövdesinde gönderilecek alanları ekleyin.",
@@ -287,13 +338,109 @@
     "deleteHelp": "Bu adımı ve otomasyondaki bağlantılarını kaldırır. Geri alamazsınız; adımı yeniden eklemeniz gerekir.",
     "deleteNeedsCondition": "Silmek için bir koşul gerekli — yoksa adım başarısız olur.",
     "fields": {
+      "aiApprovalsTable": {
+        "help": "Onay bekleyen işlemin kaydedildiği yer (tool, args, note, status, state sütunları); onay sayfası için.",
+        "label": "Onaylar tablosu (isteğe bağlı)"
+      },
+      "aiConnection": {
+        "help": "Bu uygulamanın hangi AI anahtarının kullanılacağını ada göre seçin. Boş bırakılırsa uygulamanın varsayılan anahtarı kullanılır.",
+        "label": "AI bağlantısı (isteğe bağlı)"
+      },
+      "aiContext": {
+        "help": "Bu yanıt için gerekli bilgiler; örneğin AI'nın kişi hakkında hatırladıkları veya ruh hâli.",
+        "label": "Ek bilgiler (isteğe bağlı)"
+      },
+      "aiDecision": {
+        "help": "Onay bekleyen bir çalıştırma için: genellikle istekten gelen onay veya ret kararı.",
+        "label": "Onay kararı (isteğe bağlı)"
+      },
+      "aiEmbedInput": {
+        "help": "Vektöre dönüştürülecek metin.",
+        "label": "Metin"
+      },
+      "aiEmbedMode": {
+        "help": "Metin için tek bir vektör ya da uzun metnin her parçası için bir vektör (\"Çok sayıda satır ekle\" için hazır satırlar).",
+        "label": "Ne oluşturulsun"
+      },
+      "aiField": {
+        "help": "Vektörlerin kaydedildiği sütun.",
+        "label": "Vektör sütunu"
+      },
+      "aiGoal": {
+        "help": "Aracının neyi tamamlaması gerektiği veya kişinin bir sonraki mesajı.",
+        "label": "Hedef veya mesaj"
+      },
+      "aiHistoryFilter": {
+        "help": "conversation_id gibi, bu konuşmanın satırlarını seçen değerler. Yeni satırlara da kaydedilir.",
+        "label": "Hangi konuşma"
+      },
+      "aiHistoryLimit": {
+        "help": "AI'nın okuyacağı en son mesaj sayısı (1–100).",
+        "label": "Hatırlanacak mesaj sayısı"
+      },
+      "aiHistoryTable": {
+        "help": "Şu ana kadarki mesajların bulunduğu tablo (role ve content sütunları). Adım, en son mesajları okur ve yeni mesajı ve yanıtı kaydeder.",
+        "label": "Konuşma tablosu (isteğe bağlı)"
+      },
+      "aiImage": {
+        "help": "Yüklenen bir dosya (/uploads/…), https adresi veya data URL; genellikle istekten alınır.",
+        "label": "Resim"
+      },
+      "aiMaxSteps": {
+        "help": "Araç kullanım sayısı bu sınıra ulaştığında aracı durdurur (1–12) ve ne kadar ilerlediğini bildirir.",
+        "label": "Çalıştırma başına en fazla adım"
+      },
+      "aiMessage": {
+        "help": "Kişinin az önce yazdığı mesaj; genellikle '{{'trigger.message'}}'.",
+        "label": "Yeni mesaj"
+      },
+      "aiModel": {
+        "help": "Bu adımda bağlantının kendi modeli yerine başka bir model kullanın.",
+        "label": "Model (isteğe bağlı)"
+      },
+      "aiPersona": {
+        "help": "AI'nın kim olduğunu ve nasıl konuştuğunu belirtin; örneğin kısa yanıtlar veren samimi bir koç.",
+        "label": "Kişilik ve talimatlar"
+      },
       "aiPrompt": {
         "help": "Yapay zekâya sorulan soru veya verilen görev. Müşterinin mesajı gibi bilgileri eklemek için değer ekleyin.",
         "label": "İstek"
       },
+      "aiQuery": {
+        "help": "Aranacak şeyi günlük bir dille yazın.",
+        "label": "Soru"
+      },
+      "aiSafety": {
+        "help": "Standart ayar, genel kitleye uygun yanıtlar verir (cinsel içerik yoktur; kriz desteği sunar). Kapalı ayarı yalnızca talimatlarınızı kullanır.",
+        "label": "Güvenlik"
+      },
+      "aiSchema": {
+        "help": "JSON olarak bir yanıt örneği; örneğin '{'\"title\":\"\",\"tags\":[]'}' veya bir JSON şeması.",
+        "label": "Doldurulacak alanlar"
+      },
+      "aiSpeechText": {
+        "help": "Genellikle yapay zekânın yanıtı.",
+        "label": "Okunacak metin"
+      },
+      "aiState": {
+        "help": "Bir göreve devam etmek için önceki çalıştırmadan kaydedilmiş durum (state değeri).",
+        "label": "Şuradan devam et (isteğe bağlı)"
+      },
       "aiSystem": {
         "help": "Yapay zekâya her seferinde verilen arka plan bilgisi. Örneğin: “Tek, samimi bir cümleyle yanıt ver” veya “Bir fırında çalışıyorsun”.",
         "label": "Sistem talimatları (isteğe bağlı)"
+      },
+      "aiTools": {
+        "help": "Aracının kullanabileceği araçlar: bu uygulamanın başka bir akışı veya bir web adresi. Riskli olanları onay gerektirecek şekilde işaretleyin.",
+        "label": "Araçlar"
+      },
+      "aiTopK": {
+        "help": "Döndürülecek en yakın eşleşme sayısı (1–50).",
+        "label": "Sonuç sayısı"
+      },
+      "aiVoice": {
+        "help": "Yapay zekâ servisinizin bildiği bir ses adı; örneğin alloy.",
+        "label": "Ses (isteğe bağlı)"
       },
       "dataSource": {
         "help": "Verilerinizin saklandığı yer. Çoğu uygulamada yalnızca kendi yerleşik veritabanı bulunur. Başka bir kaynak eklediyseniz onu seçin.",
@@ -533,6 +680,9 @@
     "pickTable": "Bu adımı ayarlamak için bir kayıt listesi seçin.",
     "placeholders": {
       "aNumber": "bir sayı",
+      "aiConnection": "varsayılan",
+      "aiGoal": "Bu haftanın yanıtsız e-postalarını bul ve yanıt taslakları hazırla",
+      "aiPersona": "Sen, uzayla ilgili bilgilere bayılan neşeli bir yol arkadaşı Nova'sın...",
       "aiPrompt": "Bu müşteri mesajını özetleyin...",
       "aiSystem": "Yardımcı bir asistansınız...",
       "eg10": "örn. 10",
@@ -754,6 +904,14 @@
   },
   "summary": {
     "aggregateFallback": "Kayıtları say veya değerlerini topla",
+    "aiAgent": "{count, plural, =0 {Henüz araç yok} one {# araç} other {# araç}}",
+    "aiChat": "Bir mesaja yanıt ver",
+    "aiChatWithHistory": "{table} geçmişini hatırlayarak yanıt ver",
+    "aiEmbed": "Metinden vektör oluştur",
+    "aiEmbedChunks": "Uzun metni parçalara ayır",
+    "aiSpeech": "Metni seslendir",
+    "aiStructured": "Veri olarak yanıtla",
+    "aiVision": "Bir resme bak",
     "askAi": "AI'ya soru sor",
     "bulkDeleteFallback": "Tek seferde birçok satırı sil",
     "bulkInsertFallback": "Tek seferde birçok satır ekle",

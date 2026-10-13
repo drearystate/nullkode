@@ -335,6 +335,7 @@
       "locationRemoved": "Votre app n’utilise plus la localisation. Téléchargez à nouveau le projet iPhone pour votre prochaine version afin qu’elle cesse de la demander.",
       "newBuildNeeded": "<b>Nouvelle version nécessaire.</b> {reason}",
       "readme": "Le fichier README inclus dans le téléchargement vous guide pas à pas pour les deux options.",
+      "storeAssets": "Le dossier AppStore du téléchargement contient l’icône de votre app pour l’App Store et des captures d’écran dans toutes les tailles demandées par Apple.",
       "title": "iPhone et iPad",
       "withMac": "<b>Avec un Mac :</b> ouvrez <mono>{path}</mono>, choisissez votre équipe, puis sélectionnez Product → Archive.",
       "withoutMac": "<b>Sans Mac :</b> placez le dossier sur GitHub et ajoutez vos clés Apple comme secrets. Le workflow inclus crée votre app sur les Mac de GitHub et l’envoie dans TestFlight."
@@ -814,6 +815,10 @@
     "invalidInput": "Saisie invalide"
   },
   "tabs": {
+    "aiKeys": {
+      "help": "La clé IA de votre app : son chat, ses agents et ses autres fonctionnalités d’IA l’utilisent quand les utilisateurs se servent de l’app.",
+      "label": "Clés IA"
+    },
     "data": {
       "help": "Consultez et modifiez les informations que votre app conserve, comme les inscriptions, les commandes et les messages reçus.",
       "label": "Données"

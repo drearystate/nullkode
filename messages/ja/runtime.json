@@ -36,6 +36,8 @@
     "typeDelete": "確認のためDELETEと入力してください。",
     "typeDeleteLabel": "確認のためDELETEと入力"
   },
+  "aiBusy": "このアプリへのAIリクエストが現在多すぎます。しばらくしてからもう一度お試しください。",
+  "aiNotSetUp": "このアプリのAIはまだ設定されていません。",
   "alreadyExists": "すでに存在します。",
   "badInput": "情報が足りないか、形式が正しくありません。",
   "cartAdded": "✓ 追加しました",

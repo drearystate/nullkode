@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { db } from "@/lib/db";
 import { hashPassword, createSession, promoteIfSeededAdmin } from "@/lib/auth";
-import { guardSignup, SignupBlocked } from "@/lib/antibot";
+import { assertFreeAccountAvailable, guardSignup, SignupBlocked } from "@/lib/antibot";
 import { json } from "@/lib/utils";
 import { requestErrorsT } from "@/lib/errors-i18n";
 import { requestHost, resellerForHost } from "@/lib/reseller";
@@ -28,6 +28,13 @@ export async function POST(req: Request) {
 
   const { password, name, challenge, nonce, website, company, arrivedWithIdea } = parsed.data;
   const email = parsed.data.email.trim().toLowerCase();
+  const blocked = (err: SignupBlocked) => {
+    console.warn(`[signup blocked] ${err.reason} — ${email}`);
+    return json(
+      { error: t(`antibot.${err.userMessageKey}`), retryable: err.retryable || undefined },
+      { status: err.status },
+    );
+  };
 
   // Signing up on a reseller's domain makes you that reseller's client.
   const reseller = await resellerForHost(await requestHost());
@@ -51,13 +58,7 @@ export async function POST(req: Request) {
       req,
     }));
   } catch (err) {
-    if (err instanceof SignupBlocked) {
-      console.warn(`[signup blocked] ${err.reason} — ${email}`);
-      return json(
-        { error: t(`antibot.${err.userMessageKey}`), retryable: err.retryable || undefined },
-        { status: err.status },
-      );
-    }
+    if (err instanceof SignupBlocked) return blocked(err);
     throw err;
   }
 
@@ -65,13 +66,23 @@ export async function POST(req: Request) {
   if (exists) return json({ error: t("auth.exists") }, { status: 409 });
 
   const passwordHash = await hashPassword(password);
-  const user = await db.user.create({
-    data: {
-      email, passwordHash, name, emailNormalized, signupIp: ip, resellerId: reseller?.id ?? null,
-      ...(arrivedWithIdea ? { prefs: { arrivedWithIdea: true } } : {}),
-    },
-    select: { id: true, email: true, name: true },
-  });
+  let user: { id: string; email: string; name: string | null };
+  try {
+    user = await db.$transaction(async (tx) => {
+      // New accounts are free, and each network gets one free account.
+      await assertFreeAccountAvailable(tx, ip, reseller?.id ?? null);
+      return tx.user.create({
+        data: {
+          email, passwordHash, name, emailNormalized, signupIp: ip, resellerId: reseller?.id ?? null,
+          ...(arrivedWithIdea ? { prefs: { arrivedWithIdea: true } } : {}),
+        },
+        select: { id: true, email: true, name: true },
+      });
+    });
+  } catch (err) {
+    if (err instanceof SignupBlocked) return blocked(err);
+    throw err;
+  }
 
   await promoteIfSeededAdmin(user.id, user.email);
 

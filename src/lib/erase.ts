@@ -147,6 +147,17 @@ export async function eraseProject(projectId: string, slug: string): Promise<Era
     if (await exists(builds)) report.moved.push(await moveFolder(builds, join(trashDir, "private")));
   });
 
+  // Its versions in the owner's F-Droid repository (src/lib/store-publish/fdroid.ts): files and index.
+  await step("F-Droid repository", async () => {
+    const rows = await db.fdroidRepoApp.findMany({ where: { projectId }, select: { repoId: true }, distinct: ["repoId"] });
+    if (!rows.length) return;
+    const { removeApp } = await import("./store-publish/fdroid");
+    for (const { repoId } of rows) {
+      const repo = await db.fdroidRepo.findUnique({ where: { id: repoId } });
+      if (repo) await removeApp(repo, projectId);
+    }
+  });
+
   await step("upload key", async () => {
     const signing = join(nativeDataRoot(), ".signing", projectId);
     if (await exists(signing)) {
@@ -310,6 +321,9 @@ export async function deleteUserAccount(userId: string, opts: DeleteAccountOptio
       throw new AccountDeletionError("Some apps couldn't be deleted, so the account was kept. Please try again.", 500, "erase-failed");
     }
   }
+  // Their F-Droid repository: signing key and files (the rows go with the account).
+  const repo = await db.fdroidRepo.findUnique({ where: { userId } });
+  if (repo) await (await import("./store-publish/fdroid")).deleteRepo(repo);
   await db.user.deleteMany({ where: { id: userId } });
   if (opts.log !== false) {
     await appendErasureLog({ email: user.email, actor: opts.actor, apps: projects.length }).catch((err) =>

@@ -1,4 +1,14 @@
 {
+  "aiApps": {
+    "addKey": "AIキーを追加",
+    "aiFeatures": "このアプリのAI",
+    "buildNotice": "このアプリにはAI機能があります。公開したアプリではプラットフォームのAIを使えないため、ユーザーが使う前にアプリのAIキーに自分のAIキーを追加してください。それまでは、訪問者に「このアプリのAIはまだ設定されていません」と表示されます。",
+    "editNotice": "この変更ではAIを使います。公開したアプリではプラットフォームのAIを使えません。ユーザーが使う前に、アプリのAIキーに自分のAIキーを追加してください。",
+    "moduleNotice": "この機能ではAIを使います。公開したアプリではプラットフォームのAIを使えません。ユーザーが使う前に、アプリのAIキーに自分のAIキーを追加してください。",
+    "noticeTitle": "アプリのAIには自分のキーが必要です",
+    "openEditor": "エディターを開く",
+    "planNotice": "このアプリにはAI機能があります。公開したアプリではプラットフォームのAIを使えません。ビルド後、ユーザーがAI機能を使う前に、アプリのAIキーに自分のAIキー（OpenAI、Google Gemini、xAI、OpenRouter、またはOpenAI互換サーバー）を追加してください。"
+  },
   "assistant": {
     "alsoCreated": "{things}を作成しました",
     "alsoDid": "{explanation}（ほかに{things}も行いました。）",

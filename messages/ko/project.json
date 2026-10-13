@@ -335,6 +335,7 @@
       "locationRemoved": "이제 앱에서 위치를 사용하지 않습니다. 다음 빌드부터 위치 권한을 요청하지 않도록 iPhone 프로젝트를 다시 다운로드하세요.",
       "newBuildNeeded": "<b>새 빌드가 필요합니다.</b> {reason}",
       "readme": "다운로드에 포함된 README에서 두 가지 방법을 차근차근 안내합니다.",
+      "storeAssets": "다운로드한 파일의 AppStore 폴더에는 App Store 아이콘과 Apple에서 요구하는 모든 크기의 앱 스크린샷이 들어 있어요.",
       "title": "iPhone 및 iPad",
       "withMac": "<b>Mac이 있는 경우:</b> <mono>{path}</mono>을(를) 열고 팀을 선택한 다음 Product → Archive를 선택하세요.",
       "withoutMac": "<b>Mac이 없는 경우:</b> 폴더를 GitHub에 올리고 Apple 키를 보안 비밀로 추가하세요. 함께 제공되는 워크플로가 GitHub의 Mac에서 앱을 빌드하고 TestFlight로 보냅니다."
@@ -814,6 +815,10 @@
     "invalidInput": "입력값이 올바르지 않습니다"
   },
   "tabs": {
+    "aiKeys": {
+      "help": "앱 전용 AI 키: 사용자가 앱을 사용하면 채팅, 에이전트 및 기타 AI 기능에서 이 키를 사용합니다.",
+      "label": "AI 키"
+    },
     "data": {
       "help": "가입 정보, 주문, 받은 메시지처럼 앱에 저장된 정보를 확인하고 수정하세요.",
       "label": "데이터"

@@ -21,6 +21,35 @@
       "name": "Xác nhận đã đọc",
       "summary": "Đảm bảo mọi người đã đọc các thông báo quan trọng."
     },
+    "ai-agent": {
+      "description": "Trợ lý AI của riêng bạn trong ứng dụng. Giao mục tiêu cho trợ lý: trợ lý sẽ thực hiện từng bước một (khi trang của trợ lý đang mở và cứ mỗi 15 phút sau khi ứng dụng được xuất bản), lưu ghi chú, soạn email và hỏi ý kiến bạn trước khi gửi email hoặc gọi dịch vụ bên ngoài do bạn vận hành, chẳng hạn như OpenMuse tự lưu trữ. Theo dõi tiến độ trực tiếp, tạm dừng, tiếp tục hoặc hủy tác vụ, xem nhật ký từng bước và nhận bản tóm tắt hằng ngày. Trợ lý không thể tự duyệt web hoặc đọc hộp thư. Trợ lý dùng khóa AI riêng của ứng dụng; mọi trang của trợ lý chỉ dành cho bạn.",
+      "fields": {
+        "agentName": {
+          "label": "Tên trợ lý"
+        },
+        "instructions": {
+          "label": "Cách trợ lý nên hoạt động"
+        },
+        "ownerEmail": {
+          "help": "Địa chỉ nhận bản tóm tắt hằng ngày. Để trống nếu bạn chỉ muốn xem bản tóm tắt trong ứng dụng. Email trợ lý gửi (sau khi bạn phê duyệt) sẽ được gửi từ địa chỉ email của ứng dụng này.",
+          "label": "Email của bạn (không bắt buộc)"
+        },
+        "serviceName": {
+          "label": "Tên dịch vụ bên ngoài của bạn (không bắt buộc)",
+          "placeholder": "OpenMuse của tôi"
+        },
+        "serviceToken": {
+          "help": "Được gửi dưới dạng \"Authorization: Bearer ...\". Khóa được lưu trong các luồng của ứng dụng mà chỉ bạn mới xem được.",
+          "label": "Khóa dịch vụ bên ngoài của bạn (không bắt buộc)"
+        },
+        "serviceUrl": {
+          "help": "Địa chỉ https công khai. Sau khi bạn phê duyệt, trợ lý sẽ gửi '{\"task\": \"...\"}' dưới dạng JSON đến dịch vụ rồi đọc câu trả lời. Để trống nếu bạn không vận hành dịch vụ nào.",
+          "label": "Địa chỉ dịch vụ bên ngoài của bạn (không bắt buộc)"
+        }
+      },
+      "name": "Trợ lý AI cá nhân",
+      "summary": "Trợ lý AI riêng giúp bạn hoàn thành mục tiêu, hỏi trước khi làm việc có rủi ro và báo cáo kết quả."
+    },
     "ai-assistant": {
       "description": "Thêm hộp đặt câu hỏi cho AI vào trang web của bạn. Khách truy cập đặt câu hỏi, AI trả lời theo hướng dẫn bạn đặt và câu trả lời xuất hiện ngay bên dưới biểu mẫu. Mọi câu hỏi và câu trả lời được lưu trên một trang riêng chỉ bạn mới mở được.",
       "fields": {
@@ -37,6 +66,39 @@
       },
       "name": "Trợ lý trò chuyện",
       "summary": "Cho phép khách truy cập trò chuyện với trợ lý hữu ích."
+    },
+    "ai-companion": {
+      "description": "Nhân vật hoạt hình thân thiện trò chuyện với khách truy cập, ghi nhớ những gì họ chia sẻ, thể hiện tâm trạng và mức độ thân thiết, đồng thời có thể nghe và nói thành tiếng ngay trong trình duyệt. Bạn chọn tên, tính cách, lời chào và giới hạn của nhân vật; câu trả lời luôn phù hợp với mọi đối tượng, khách truy cập có thể báo cáo câu trả lời hoặc bắt đầu lại, còn bạn xem báo cáo trên một trang riêng tư. Nhân vật dùng khóa AI riêng của ứng dụng.",
+      "fields": {
+        "avatarImages": {
+          "help": "Mỗi dòng ghi một tâm trạng: neutral, happy, curious, thinking, sad, surprised hoặc calm, rồi đến dấu = và địa chỉ ảnh. Để trống để dùng nhân vật hoạt hình được vẽ sẵn.",
+          "label": "Ảnh (không bắt buộc)"
+        },
+        "boundaries": {
+          "help": "Những quy tắc người bạn đồng hành luôn tuân theo. Hệ thống cũng tự áp dụng các biện pháp an toàn.",
+          "label": "Giới hạn"
+        },
+        "companionName": {
+          "label": "Tên người bạn đồng hành"
+        },
+        "greeting": {
+          "help": "Hiển thị khi có người mở cuộc trò chuyện mới.",
+          "label": "Tin nhắn đầu tiên"
+        },
+        "personality": {
+          "help": "Cách người bạn đồng hành trò chuyện và tính cách của họ. Viết bằng ngôn ngữ đơn giản để AI hiểu.",
+          "label": "Tính cách"
+        },
+        "voiceDefault": {
+          "label": "Mặc định đọc câu trả lời thành tiếng",
+          "options": {
+            "off": "Tắt (khách truy cập có thể bật)",
+            "on": "Bật (khách truy cập có thể tắt)"
+          }
+        }
+      },
+      "name": "Người bạn AI",
+      "summary": "Nhân vật AI hoạt hình để mọi người trò chuyện, có khả năng ghi nhớ họ."
     },
     "analytics-dashboard": {
       "description": "Theo dõi lượt xem trang và các sự kiện tùy chỉnh như “đăng ký” hay “mua hàng”. Có điểm nhận dữ liệu để gọi từ bất kỳ trang nào, API thống kê và bảng quản trị hiển thị tổng số, các trang được xem nhiều nhất và xu hướng trong 7 ngày.",
@@ -624,6 +686,25 @@
       },
       "name": "Trung tâm trợ giúp",
       "summary": "Đăng bài hướng dẫn để khách hàng tìm kiếm."
+    },
+    "knowledge-bot": {
+      "description": "Thêm tài liệu của bạn (hướng dẫn sử dụng, chính sách, câu hỏi thường gặp, ghi chú) để khách truy cập có thể đặt câu hỏi. Bot tìm các đoạn liên quan nhất và chỉ trả lời dựa trên những đoạn đó, dẫn nguồn bằng số thứ tự, đồng thời thành thật cho biết khi tài liệu không có thông tin để trả lời. Bot dùng khóa AI riêng của ứng dụng, cần có mô hình embeddings (OpenAI, Google Gemini hoặc máy chủ tương thích với OpenAI như Ollama). Câu hỏi và câu trả lời được lưu trên một trang riêng tư chỉ bạn mới mở được.",
+      "fields": {
+        "botName": {
+          "help": "Tiêu đề của trang đặt câu hỏi.",
+          "label": "Tên bot"
+        },
+        "disclosure": {
+          "help": "Cho khách truy cập biết câu trả lời do AI tạo.",
+          "label": "Ghi chú bên dưới ô câu hỏi"
+        },
+        "instructions": {
+          "help": "Cách bot nên trả lời. Bot luôn chỉ dựa vào tài liệu của bạn và dẫn nguồn.",
+          "label": "Giọng điệu và quy tắc"
+        }
+      },
+      "name": "Bot kiến thức",
+      "summary": "Trả lời câu hỏi dựa trên tài liệu của bạn và dẫn nguồn."
     },
     "leaderboard": {
       "description": "Bảng xếp hạng tổng quát. Thêm điểm theo user_label (bất kỳ chuỗi nào — email, tên, hội viên phòng tập, nhân viên); bảng sẽ xếp hạng từ cao xuống thấp. Lọc theo danh mục để tạo nhiều bảng (số bước, doanh số, điểm). Có thể gọi điểm cuối submit-score từ bất kỳ mô-đun nào khác.",

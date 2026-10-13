@@ -68,9 +68,9 @@
     "buildMobile": "Build mobile app for {name}",
     "buildMobileTitle": "Build mobile app",
     "buildMobileHelp": "Turn this app into a phone app for Android, iPhone and iPad.",
-    "waysEyebrow": "SIX WAYS TO START",
+    "waysEyebrow": "WAYS TO START",
     "buildYourWay": "Build your way.",
-    "buildYourWayIntro": "The same powerful tools. Your kind of starting point.",
+    "buildYourWayIntro": "Not sure where to begin? Start with the AI Designer.",
     "limitReached": "You’ve reached your app limit.",
     "seePlansToMakeMore": "<link>See plans</link> to make more.",
     "ideaLabel": "Describe the app you want to make",
@@ -99,6 +99,8 @@
     "versionCount": "{count, plural, =0 {No versions yet} one {# version} other {# versions}}",
     "gameBuilding": "Building…",
     "gameBuildingHelp": "The AI is building or changing this game right now. Its picture updates after each step.",
+    "gameWaiting": "Waiting for you",
+    "gameWaitingHelp": "The first playable part is ready. Open the game to try it and say whether to keep building.",
     "gameLiveHelp": "Live: this game is published as an app, so anyone with its link can play it.",
     "gameDraftHelp": "Draft: this game has an app, but it isn't published yet, so only you can play it there.",
     "openGameApp": "Open the app for {name}",
@@ -113,7 +115,14 @@
       "title": "Describe it",
       "label": "From idea to app",
       "description": "Say what you want in your own words. Check the plan, then get pages, data and working forms.",
-      "help": "Describe your app in a few words. The AI suggests a plan you can check and change, then builds the pages, forms and data for you."
+      "help": "Describe your app in a few words. The AI suggests a plan you can check and change, then builds the pages, forms and data for you.",
+      "demo": {
+        "idea": "A booking app for my dog walking business",
+        "plan": "Your plan",
+        "pages": "3 pages",
+        "table": "A bookings table",
+        "form": "A booking form"
+      }
     },
     "template": {
       "title": "Templates",
@@ -124,8 +133,10 @@
     "designer": {
       "title": "AI Designer",
       "label": "Create together",
-      "description": "Shape your idea through a conversation. Design, refine, and explore.",
-      "help": "Chat with the AI to design your app step by step. Ask for changes, click parts of the preview to comment, and go back to older versions."
+      "description": "Tell the AI what you want and watch a finished design take shape. Then ask for changes in plain words.",
+      "help": "Chat with the AI to design your app step by step. Ask for changes, click parts of the preview to comment, and go back to older versions.",
+      "badge": "Recommended",
+      "cta": "Start designing"
     },
     "game": {
       "title": "Make a game",
@@ -142,7 +153,7 @@
     "blank": {
       "title": "Blank app",
       "label": "Your canvas, your rules",
-      "description": "Build by hand with drag-and-drop blocks and ready-made features.",
+      "description": "Build every page by hand with drag-and-drop blocks. Best if you already know what you want.",
       "help": "Start from a simple welcome page and build the rest yourself by dragging blocks onto it. Best if you like to be fully in control."
     },
     "import": {
@@ -340,6 +351,7 @@
     "cancel": "Cancel",
     "installAgainHelp": "Adds a second, separate copy of this feature with its own pages and saved items. The copy you already have isn't changed.",
     "installHelp": "Adds this feature's pages, and any lists or automations it needs, to your app. You can change everything afterwards.",
-    "adding": "Adding…"
+    "adding": "Adding…",
+    "continue": "Continue"
   }
 }

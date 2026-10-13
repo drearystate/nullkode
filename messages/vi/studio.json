@@ -50,7 +50,7 @@
     "buildMobileHelp": "Biến ứng dụng này thành ứng dụng điện thoại cho Android, iPhone và iPad.",
     "buildMobileTitle": "Tạo ứng dụng di động",
     "buildYourWay": "Tạo theo cách của bạn.",
-    "buildYourWayIntro": "Cùng bộ công cụ mạnh mẽ. Bắt đầu theo cách bạn thích.",
+    "buildYourWayIntro": "Chưa biết bắt đầu từ đâu? Hãy bắt đầu với Trình thiết kế AI.",
     "clearFilters": "Xóa bộ lọc",
     "clearFiltersHelp": "Xóa nội dung tìm kiếm và bộ lọc để hiển thị lại tất cả ứng dụng.",
     "clearSearch": "Xóa nội dung tìm kiếm",
@@ -92,6 +92,8 @@
     "gameKind": "Trò chơi {engine}",
     "gameLiveHelp": "Đã xuất bản: trò chơi này được xuất bản dưới dạng ứng dụng, nên ai có đường liên kết đều có thể chơi.",
     "gameNoPicture": "Chưa có ảnh",
+    "gameWaiting": "Đang chờ bạn",
+    "gameWaitingHelp": "Phần chơi thử đầu tiên đã sẵn sàng. Mở trò chơi để trải nghiệm và cho biết bạn có muốn tiếp tục phát triển không.",
     "gamesEyebrow": "CHƠI TRÒ CHƠI BẠN ĐÃ TẠO",
     "getMoreApps": "Tạo thêm ứng dụng",
     "headline": "Một ý tưởng nhỏ.<br></br><accent>Muôn vàn khả năng.</accent>",
@@ -142,7 +144,7 @@
     "sortName": "Tên A–Z",
     "sortRecent": "Mới cập nhật gần đây",
     "versionCount": "{count, plural, =0 {Chưa có phiên bản} one {# phiên bản} other {# phiên bản}}",
-    "waysEyebrow": "SÁU CÁCH BẮT ĐẦU",
+    "waysEyebrow": "CÁCH BẮT ĐẦU",
     "welcome": "Chào mừng, {name}. Hãy cho chúng tôi biết bạn muốn tạo gì, chúng tôi sẽ cùng bạn lên kế hoạch.",
     "welcomeBack": "Chào mừng trở lại, {name}. Tiếp tục từ nơi bạn dừng lại,<br></br> hoặc tạo nên điều gì đó mới.",
     "yourApps": "Ứng dụng của bạn",
@@ -167,10 +169,17 @@
       "description": "Mô tả điều bạn muốn bằng lời của mình. Xem lại kế hoạch, rồi tạo trang, dữ liệu và biểu mẫu hoạt động.",
       "help": "Mô tả ứng dụng bằng vài từ. AI sẽ đề xuất một kế hoạch để bạn xem lại và chỉnh sửa, rồi tạo trang, biểu mẫu và dữ liệu cho bạn.",
       "label": "Từ ý tưởng đến ứng dụng",
-      "title": "Mô tả ý tưởng"
+      "title": "Mô tả ý tưởng",
+      "demo": {
+        "idea": "Ứng dụng đặt lịch cho dịch vụ dắt chó đi dạo của tôi",
+        "plan": "Kế hoạch của bạn",
+        "pages": "3 trang",
+        "table": "Bảng đặt lịch",
+        "form": "Biểu mẫu đặt lịch"
+      }
     },
     "blank": {
-      "description": "Tự xây dựng bằng cách kéo thả khối và dùng các tính năng có sẵn.",
+      "description": "Tự tạo từng trang bằng cách kéo thả các khối. Phù hợp nhất nếu bạn đã biết mình muốn gì.",
       "help": "Bắt đầu với một trang chào mừng đơn giản, rồi tự xây dựng phần còn lại bằng cách kéo các khối vào trang. Phù hợp nhất nếu bạn muốn tự kiểm soát mọi thứ.",
       "label": "Không gian của bạn, quy tắc của bạn",
       "title": "Ứng dụng trống"
@@ -182,10 +191,12 @@
       "title": "Sao chép trang web"
     },
     "designer": {
-      "description": "Phát triển ý tưởng qua trò chuyện. Thiết kế, chỉnh sửa và khám phá.",
+      "description": "Cho AI biết bạn muốn gì và xem thiết kế hoàn chỉnh dần thành hình. Sau đó, yêu cầu chỉnh sửa bằng lời lẽ đơn giản.",
       "help": "Trò chuyện với AI để thiết kế ứng dụng từng bước. Yêu cầu chỉnh sửa, nhấp vào các phần trong bản xem trước để nhận xét và quay lại phiên bản cũ.",
       "label": "Cùng nhau sáng tạo",
-      "title": "Nhà thiết kế AI"
+      "title": "Nhà thiết kế AI",
+      "badge": "Đề xuất",
+      "cta": "Bắt đầu thiết kế"
     },
     "game": {
       "description": "Mô tả trò chơi và xem AI tạo trò chơi từng bước với hình ảnh và âm thanh chân thực.",
@@ -237,6 +248,7 @@
     "clearFiltersHelp": "Xóa nội dung tìm kiếm và danh mục để hiện lại tất cả tính năng.",
     "clearSearch": "Xóa tìm kiếm",
     "clearSearchHelp": "Xóa nội dung tìm kiếm và hiển thị lại tất cả tính năng.",
+    "continue": "Tiếp tục",
     "details": "Chi tiết",
     "detailsHelp": "Xem chính xác tính năng này sẽ thêm gì vào ứng dụng: số trang, danh sách mục đã lưu và quy trình tự động hóa.",
     "dialogTitle": "Thêm {name}",

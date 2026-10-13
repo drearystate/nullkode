@@ -1,4 +1,14 @@
 {
+  "aiApps": {
+    "addKey": "Yapay zekâ anahtarı ekle",
+    "aiFeatures": "Bu uygulamadaki yapay zekâ",
+    "buildNotice": "Uygulamanızda yapay zekâ özellikleri var. Yayınlanan uygulamalar platformun yapay zekâsını kullanamaz. Kullanıcılar bu özellikleri kullanmadan önce uygulamanın yapay zekâ anahtarlarına kendi anahtarınızı ekleyin. O zamana kadar ziyaretçiler “Bu uygulamanın yapay zekâsı henüz ayarlanmadı.” mesajını görür.",
+    "editNotice": "Bu değişiklikler yapay zekâ kullanıyor. Yayınlanan uygulamalar platformun yapay zekâsını kullanamaz: kullanıcılar bu özellikleri kullanmadan önce uygulamanın yapay zekâ anahtarlarına kendi anahtarınızı ekleyin.",
+    "moduleNotice": "Bu özellik yapay zekâ kullanıyor. Yayınlanan uygulamalar platformun yapay zekâsını kullanamaz: kullanıcılar bu özelliği kullanmadan önce uygulamanın yapay zekâ anahtarlarına kendi anahtarınızı ekleyin.",
+    "noticeTitle": "Uygulamanızın yapay zekâsı için kendi anahtarınız gerekiyor",
+    "openEditor": "Düzenleyiciyi aç",
+    "planNotice": "Bu uygulamada yapay zekâ özellikleri var. Yayınlanan uygulamalar platformun yapay zekâsını kullanamaz: uygulamayı oluşturduktan sonra, kullanıcılar yapay zekâ özelliklerini kullanmadan önce uygulamanın yapay zekâ anahtarlarına kendi anahtarınızı ekleyin (OpenAI, Google Gemini, xAI, OpenRouter veya OpenAI uyumlu herhangi bir sunucu)."
+  },
   "assistant": {
     "alsoCreated": "{things} oluşturuldu",
     "alsoDid": "{explanation} (Ayrıca {things}.)",

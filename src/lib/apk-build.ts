@@ -106,6 +106,11 @@ function sdkDir(): string {
   return process.env.ANDROID_HOME || process.env.ANDROID_SDK_ROOT || "/opt/android-sdk";
 }
 
+/** A tool from the SDK's build-tools (aapt2, apksigner, zipalign). */
+export function buildToolPath(name: string): string {
+  return join(sdkDir(), "build-tools", BUILD_TOOLS, name);
+}
+
 function workRoot(): string {
   return process.env.NK_APK_WORK_DIR || join(tmpdir(), "nk-apk");
 }
@@ -743,7 +748,7 @@ export type UploadKeyInfo = {
 };
 
 /** Runs the JDK's keytool. Passwords are passed in environment variables (`-storepass:env`). */
-async function keytool(args: string[], secrets: Record<string, string> = {}): Promise<string> {
+export async function keytool(args: string[], secrets: Record<string, string> = {}): Promise<string> {
   const javaHome = await findJavaHome();
   if (!javaHome) throw new NativeBuildError(apkMsg("noJdk"), 503);
   return new Promise((resolve, reject) => {
@@ -766,7 +771,7 @@ async function keytool(args: string[], secrets: Record<string, string> = {}): Pr
 }
 
 /** SHA-256 and SHA-1 fingerprints ("AB:CD:…") of the certificate of a key. */
-async function keyFingerprints(path: string, alias: string, storePassword: string): Promise<{ sha256: string; sha1: string }> {
+export async function keyFingerprints(path: string, alias: string, storePassword: string): Promise<{ sha256: string; sha1: string }> {
   const pem = await keytool(
     ["-exportcert", "-rfc", "-keystore", path, "-alias", alias, "-storepass:env", "NK_STOREPASS"],
     { NK_STOREPASS: storePassword },

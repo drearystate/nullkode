@@ -6,14 +6,14 @@ import { EventEmitter } from "node:events";
  * per game, in this process (jobs run here too).
  */
 export type GameEvent =
-  | { type: "job"; jobId: string; status: "running" | "done" | "error" | "cancelled"; stopAfterStep?: boolean }
+  | { type: "job"; jobId: string; status: "running" | "done" | "error" | "cancelled" | "review"; stopAfterStep?: boolean }
   | { type: "steps"; jobId: string; steps: JobStepView[]; phase?: string }
   | { type: "version"; seq: number; label: string }
   | { type: "chat" }
   | { type: "game" };
 
-/** `added`: a step the person's notes added during the build (steer while building). */
-export type JobStepView = { id: string; label: string; status: "todo" | "running" | "done" | "error"; seq?: number; note?: string; added?: boolean; kind?: "playtest-fix" | "feature-fix"; features?: string[] };
+/** `added`: a step the person's notes added during the build (steer while building). `phase`: the build phase of a full game (phases.ts). */
+export type JobStepView = { id: string; label: string; status: "todo" | "running" | "done" | "error"; seq?: number; note?: string; added?: boolean; kind?: "playtest-fix" | "feature-fix" | "change"; features?: string[]; phase?: number };
 
 const store = globalThis as unknown as { __nkGameEvents?: EventEmitter };
 const emitter = (store.__nkGameEvents ??= new EventEmitter().setMaxListeners(0));

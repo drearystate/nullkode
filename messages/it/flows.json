@@ -53,9 +53,37 @@
       "help": "Conta i record o somma una colonna di una tabella, ad esempio il numero di iscrizioni o le vendite totali. I passaggi successivi possono usare il risultato.",
       "label": "Conta o somma i record"
     },
+    "ai_agent": {
+      "help": "Lavora per raggiungere un obiettivo usando gli strumenti che indichi (flussi di questa app o indirizzi web), un passaggio alla volta. Gli strumenti che richiedono approvazione attendono il via libera di una persona. Usa la chiave AI di questa app.",
+      "label": "Agente AI"
+    },
+    "ai_chat": {
+      "help": "Risponde a un messaggio in una conversazione, usando una personalità e i messaggi precedenti salvati in una tabella (può salvare anche la risposta). Per chatbot e compagni AI. Usa la chiave AI di questa app.",
+      "label": "Risposta dell’AI in chat"
+    },
+    "ai_embed": {
+      "help": "Trasforma un testo in numeri che ne rappresentano il significato, oppure divide un testo lungo in parti e crea numeri per ciascuna, pronte da salvare. Si usa con «Cerca per significato». Usa la chiave AI di questa app.",
+      "label": "Incorpora testi con l’AI"
+    },
     "ai_prompt": {
-      "help": "Assegna all'AI una domanda o un compito, ad esempio riassumere un messaggio. I passaggi successivi possono usare la risposta. Ogni esecuzione viene conteggiata nel tuo limite di utilizzo dell'AI.",
+      "help": "Dà all’AI una domanda o un compito, per esempio riassumere un messaggio. I passaggi successivi possono usare la sua risposta. Usa la chiave AI di questa app (chiavi AI).",
       "label": "Chiedi all'AI"
+    },
+    "ai_search": {
+      "help": "Trova le righe di una tabella più vicine nel significato a una domanda, usando gli incorporamenti salvati al loro interno. Legge fino a 1.000 righe per ricerca.",
+      "label": "Cerca per significato"
+    },
+    "ai_speech": {
+      "help": "Trasforma il testo in voce usando la chiave AI dell’app, se può parlare; altrimenti la pagina lo legge con la voce del browser.",
+      "label": "Leggi ad alta voce"
+    },
+    "ai_structured": {
+      "help": "Chiede all’AI una risposta in formato dati, con i campi che descrivi (JSON), così i passaggi successivi possono salvare o controllare ogni campo. Usa la chiave AI di questa app.",
+      "label": "Risposta dell’AI come dati"
+    },
+    "ai_vision": {
+      "help": "Invia un’immagine e una domanda all’AI (un file caricato, un indirizzo https o un URL dati). Usa la chiave AI di questa app.",
+      "label": "L’AI guarda un’immagine"
     },
     "branch": {
       "help": "Controlla una condizione e divide l'automazione in due: un percorso viene eseguito se è vera, l'altro se non lo è.",
@@ -271,6 +299,29 @@
       "sum": "Somma una colonna"
     },
     "aggregateEmptyHint": "Lascia vuoto per includere tutte le righe. Tutte le condizioni devono essere rispettate.",
+    "aiKeyLink": "Chiavi IA",
+    "aiKeyNote": "Le azioni IA usano la chiave IA di questa app.",
+    "aiOptions": {
+      "embedChunks": "Parti di un testo lungo",
+      "embedSingle": "Un embedding",
+      "safetyNone": "Disattivata",
+      "safetyStandard": "Standard"
+    },
+    "aiTool": {
+      "add": "Aggiungi uno strumento",
+      "description": "Cosa fa",
+      "flow": "Flusso",
+      "kind": "Usa",
+      "kindFlow": "Un flusso di questa app",
+      "kindHttp": "Un indirizzo web",
+      "method": "Metodo",
+      "name": "Nome",
+      "needsApproval": "Richiede approvazione",
+      "none": "Non ci sono ancora strumenti: l'agente risponde direttamente.",
+      "params": "Argomenti (separati da virgole)",
+      "remove": "Rimuovi",
+      "url": "Indirizzo"
+    },
     "biggestFirst": "Risultato più alto per primo",
     "body": "Corpo",
     "bodyEmpty": "Aggiungi i campi da inviare nel corpo della richiesta.",
@@ -287,13 +338,109 @@
     "deleteHelp": "Rimuove questo passaggio e i suoi collegamenti dall’automazione. Non puoi annullare l’operazione, quindi dovrai aggiungerlo di nuovo.",
     "deleteNeedsCondition": "Serve una condizione per eliminare, altrimenti il passaggio non andrà a buon fine.",
     "fields": {
+      "aiApprovalsTable": {
+        "help": "Dove viene salvata un’azione in attesa (colonne tool, args, note, status, state), per una pagina delle approvazioni.",
+        "label": "Tabella delle approvazioni (facoltativa)"
+      },
+      "aiConnection": {
+        "help": "Quale chiave AI di questa app usare, indicandone il nome. Vuoto: usa la chiave predefinita dell’app.",
+        "label": "Connessione AI (facoltativa)"
+      },
+      "aiContext": {
+        "help": "Informazioni utili per la risposta, come ciò che l’AI ricorda della persona o il suo umore.",
+        "label": "Contesto aggiuntivo (facoltativo)"
+      },
+      "aiDecision": {
+        "help": "Per un’esecuzione in attesa di approvazione: approva o rifiuta, di solito dalla richiesta.",
+        "label": "Decisione sull’approvazione (facoltativa)"
+      },
+      "aiEmbedInput": {
+        "help": "Il testo da trasformare in un incorporamento.",
+        "label": "Testo"
+      },
+      "aiEmbedMode": {
+        "help": "Un embedding per il testo oppure uno per ogni parte di un testo lungo (righe pronte per «Aggiungi molte righe»).",
+        "label": "Cosa creare"
+      },
+      "aiField": {
+        "help": "La colonna in cui vengono salvati i vettori.",
+        "label": "Colonna dei vettori"
+      },
+      "aiGoal": {
+        "help": "Cosa deve fare l’agente o il messaggio successivo della persona.",
+        "label": "Obiettivo o messaggio"
+      },
+      "aiHistoryFilter": {
+        "help": "Valori per scegliere le righe di questa conversazione, come conversation_id. Vengono salvati anche nelle nuove righe.",
+        "label": "Quale conversazione"
+      },
+      "aiHistoryLimit": {
+        "help": "Quanti degli ultimi messaggi legge l’AI (da 1 a 100).",
+        "label": "Messaggi da ricordare"
+      },
+      "aiHistoryTable": {
+        "help": "La tabella con i messaggi precedenti (colonne role e content). Il passaggio legge gli ultimi messaggi e salva il nuovo messaggio e la risposta.",
+        "label": "Tabella della conversazione (facoltativa)"
+      },
+      "aiImage": {
+        "help": "Un file caricato (/uploads/…), un indirizzo https o un URL dati, di solito dalla richiesta.",
+        "label": "Immagine"
+      },
+      "aiMaxSteps": {
+        "help": "L’agente si ferma dopo aver usato gli strumenti questo numero di volte (da 1 a 12) e indica a che punto è arrivato.",
+        "label": "Numero massimo di passaggi per esecuzione"
+      },
+      "aiMessage": {
+        "help": "Quello che la persona ha appena scritto, di solito '{{'trigger.message'}}'.",
+        "label": "Il nuovo messaggio"
+      },
+      "aiModel": {
+        "help": "Per questo passaggio, usa un modello diverso da quello della connessione.",
+        "label": "Modello (facoltativo)"
+      },
+      "aiPersona": {
+        "help": "Chi è l’AI e come parla, per esempio una guida amichevole che dà risposte brevi.",
+        "label": "Personalità e istruzioni"
+      },
       "aiPrompt": {
         "help": "La domanda o l’attività per l’AI. Inserisci dei valori per includere, ad esempio, il messaggio del cliente.",
         "label": "Prompt"
       },
+      "aiQuery": {
+        "help": "Cosa cercare, in parole semplici.",
+        "label": "Domanda"
+      },
+      "aiSafety": {
+        "help": "Standard mantiene le risposte adatte a tutti (niente contenuti sessuali e aiuto in caso di crisi). Disattivata: valgono solo le tue istruzioni.",
+        "label": "Sicurezza"
+      },
+      "aiSchema": {
+        "help": "Un esempio di risposta in formato JSON, come '{'\"title\":\"\",\"tags\":[]'}', oppure uno schema JSON.",
+        "label": "Campi da compilare"
+      },
+      "aiSpeechText": {
+        "help": "Di solito, la risposta dell'IA.",
+        "label": "Testo da leggere"
+      },
+      "aiState": {
+        "help": "Uno stato salvato da un’esecuzione precedente (il suo valore state), per riprendere un’attività.",
+        "label": "Riprendi da (facoltativo)"
+      },
       "aiSystem": {
         "help": "Informazioni di contesto che restano uguali ogni volta, come “Rispondi con una frase cordiale” o “Lavori in una panetteria”.",
         "label": "Istruzioni per l’AI (facoltative)"
+      },
+      "aiTools": {
+        "help": "Cosa può usare l’agente: un altro flusso di questa app o un indirizzo web. Indica quali strumenti rischiosi richiedono approvazione.",
+        "label": "Strumenti"
+      },
+      "aiTopK": {
+        "help": "Il numero di risultati più simili da mostrare (da 1 a 50).",
+        "label": "Numero di risultati"
+      },
+      "aiVoice": {
+        "help": "Il nome di una voce riconosciuta dal tuo servizio IA, come alloy.",
+        "label": "Voce (facoltativa)"
       },
       "dataSource": {
         "help": "Dove sono conservati i dati. La maggior parte delle app usa solo il database integrato; scegli un’altra fonte solo se l’hai collegata tu.",
@@ -533,6 +680,9 @@
     "pickTable": "Scegli un elenco di record per configurare questo passaggio.",
     "placeholders": {
       "aNumber": "un numero",
+      "aiConnection": "predefinita",
+      "aiGoal": "Trova le email senza risposta di questa settimana e prepara delle risposte",
+      "aiPersona": "Sei Nova, una compagna allegra che ama le curiosità sullo spazio...",
       "aiPrompt": "Riassumi questo messaggio del cliente...",
       "aiSystem": "Sei un assistente utile...",
       "eg10": "es. 10",
@@ -754,6 +904,14 @@
   },
   "summary": {
     "aggregateFallback": "Conta i record o calcolane il totale",
+    "aiAgent": "{count, plural, =0 {Nessuno strumento} one {# strumento} other {# strumenti}}",
+    "aiChat": "Rispondi a un messaggio",
+    "aiChatWithHistory": "Rispondi ricordando {table}",
+    "aiEmbed": "Testo in incorporamento",
+    "aiEmbedChunks": "Dividi il testo lungo in parti",
+    "aiSpeech": "Leggi il testo ad alta voce",
+    "aiStructured": "Rispondi come dati",
+    "aiVision": "Guarda un’immagine",
     "askAi": "Fai una domanda all’AI",
     "bulkDeleteFallback": "Elimina più righe in una volta",
     "bulkInsertFallback": "Aggiungi più righe in una volta",

@@ -44,7 +44,11 @@
     "preview": "Preview",
     "previewHelp": "Open your app in a new tab with your latest changes, to try it before your visitors see them.",
     "publish": "Publish",
-    "publishHelp": "Go to Publish, where you make your latest changes live for visitors and get your app's link to share."
+    "publishHelp": "Go to Publish, where you make your latest changes live for visitors and get your app's link to share.",
+    "aiKeys": {
+      "label": "AI keys",
+      "help": "Your app's own AI key: its chat, agents and other AI parts use it once people use the app."
+    }
   },
   "layout": {
     "backToDesigner": "Back to Designer",
@@ -336,6 +340,7 @@
       "withMac": "<b>With a Mac:</b> open <mono>{path}</mono>, pick your team, then Product → Archive.",
       "withoutMac": "<b>Without a Mac:</b> put the folder on GitHub and add your Apple keys as secrets. The included workflow builds your app on GitHub's Macs and sends it to TestFlight.",
       "readme": "The README in the download walks you through both, step by step.",
+      "storeAssets": "The AppStore folder in the download has your App Store icon and screenshots of your app in every size Apple asks for.",
       "newBuildNeeded": "<b>New build needed.</b> {reason}",
       "locationAdded": "Your app now uses the location. Download the iPhone project again and send Apple a new build, or the app can't ask for it.",
       "locationRemoved": "Your app no longer uses the location. Download the iPhone project again for your next build, so it stops asking for it.",

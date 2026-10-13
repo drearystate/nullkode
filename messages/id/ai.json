@@ -1,4 +1,14 @@
 {
+  "aiApps": {
+    "addKey": "Tambahkan kunci AI",
+    "aiFeatures": "AI di aplikasi ini",
+    "buildNotice": "Aplikasi Anda memiliki fitur AI. Aplikasi yang dipublikasikan tidak bisa menggunakan AI platform, jadi tambahkan kunci AI Anda sendiri di bagian kunci AI aplikasi sebelum orang menggunakannya. Sampai saat itu, pengunjung akan melihat “AI di aplikasi ini belum disiapkan.”",
+    "editNotice": "Perubahan ini menggunakan AI. Aplikasi yang dipublikasikan tidak bisa menggunakan AI platform: tambahkan kunci AI Anda sendiri di bagian kunci AI aplikasi sebelum orang menggunakannya.",
+    "moduleNotice": "Fitur ini menggunakan AI. Aplikasi yang dipublikasikan tidak bisa menggunakan AI platform: tambahkan kunci AI Anda sendiri di bagian kunci AI aplikasi sebelum orang menggunakannya.",
+    "noticeTitle": "AI di aplikasi Anda memerlukan kunci sendiri",
+    "openEditor": "Buka editor",
+    "planNotice": "Aplikasi ini memiliki fitur AI. Aplikasi yang dipublikasikan tidak bisa menggunakan AI platform: setelah build selesai, tambahkan kunci AI Anda sendiri (OpenAI, Google Gemini, xAI, OpenRouter, atau server apa pun yang kompatibel dengan OpenAI) di bagian kunci AI aplikasi sebelum orang menggunakannya."
+  },
   "assistant": {
     "alsoCreated": "membuat {things}",
     "alsoDid": "{explanation} (Juga {things}.)",

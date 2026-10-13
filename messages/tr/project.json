@@ -335,6 +335,7 @@
       "locationRemoved": "Uygulamanız artık konum bilgisini kullanmıyor. Bir sonraki derlemenizde konum izni istememesi için iPhone projesini yeniden indirin.",
       "newBuildNeeded": "<b>Yeni derleme gerekiyor.</b> {reason}",
       "readme": "İndirdiğiniz dosyalardaki README, her iki seçenekte de adım adım yol gösterir.",
+      "storeAssets": "İndirdiğiniz dosyadaki AppStore klasöründe App Store simgeniz ve Apple’ın istediği tüm boyutlarda uygulama ekran görüntüleri bulunur.",
       "title": "iPhone ve iPad",
       "withMac": "<b>Mac kullanıyorsanız:</b> <mono>{path}</mono> dosyasını açın, ekibinizi seçin, ardından Product → Archive'ı seçin.",
       "withoutMac": "<b>Mac kullanmıyorsanız:</b> klasörü GitHub'a koyun ve Apple anahtarlarınızı gizli bilgiler olarak ekleyin. Dahil edilen iş akışı, uygulamanızı GitHub'ın Mac'lerinde derler ve TestFlight'a gönderir."
@@ -814,6 +815,10 @@
     "invalidInput": "Geçersiz giriş"
   },
   "tabs": {
+    "aiKeys": {
+      "help": "Uygulamanızın kendi yapay zekâ anahtarı; insanlar uygulamayı kullandığında sohbet, ajanlar ve diğer yapay zekâ özellikleri bu anahtarı kullanır.",
+      "label": "Yapay zekâ anahtarları"
+    },
     "data": {
       "help": "Kayıtlar, siparişler ve insanların gönderdiği mesajlar gibi uygulamanızın sakladığı bilgileri görün ve düzenleyin.",
       "label": "Veriler"

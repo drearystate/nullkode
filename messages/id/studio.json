@@ -50,7 +50,7 @@
     "buildMobileHelp": "Ubah aplikasi ini menjadi aplikasi untuk Android, iPhone, dan iPad.",
     "buildMobileTitle": "Buat aplikasi seluler",
     "buildYourWay": "Berkarya dengan cara Anda.",
-    "buildYourWayIntro": "Alat canggih yang sama. Awal yang sesuai untuk Anda.",
+    "buildYourWayIntro": "Belum yakin harus mulai dari mana? Mulailah dengan Desainer AI.",
     "clearFilters": "Hapus filter",
     "clearFiltersHelp": "Hapus pencarian dan filter untuk menampilkan semua aplikasimu lagi.",
     "clearSearch": "Hapus pencarian",
@@ -92,6 +92,8 @@
     "gameKind": "Game {engine}",
     "gameLiveHelp": "Tayang: game ini diterbitkan sebagai aplikasi, jadi siapa pun yang punya tautannya bisa memainkannya.",
     "gameNoPicture": "Belum ada gambar",
+    "gameWaiting": "Menunggu Anda",
+    "gameWaitingHelp": "Bagian pertama yang bisa dimainkan sudah siap. Buka game untuk mencobanya dan beri tahu apakah pembuatannya perlu dilanjutkan.",
     "gamesEyebrow": "MAINKAN KARYAMU",
     "getMoreApps": "Dapatkan lebih banyak aplikasi",
     "headline": "Ide kecil.<br></br><accent>Kemungkinan tak terbatas.</accent>",
@@ -142,7 +144,7 @@
     "sortName": "Nama A–Z",
     "sortRecent": "Terakhir diperbarui",
     "versionCount": "{count, plural, =0 {Belum ada versi} one {# versi} other {# versi}}",
-    "waysEyebrow": "ENAM CARA MEMULAI",
+    "waysEyebrow": "CARA MEMULAI",
     "welcome": "Selamat datang, {name}. Ceritakan apa yang ingin kamu buat, dan kami akan merencanakannya bersamamu.",
     "welcomeBack": "Selamat datang kembali, {name}. Lanjutkan dari terakhir kali,<br></br> atau wujudkan sesuatu yang baru.",
     "yourApps": "Aplikasimu",
@@ -167,10 +169,17 @@
       "description": "Ceritakan keinginan Anda dengan kata-kata sendiri. Periksa rencananya, lalu buat halaman, data, dan formulir yang berfungsi.",
       "help": "Jelaskan aplikasi Anda secara singkat. AI akan menyarankan rencana yang bisa Anda periksa dan ubah, lalu membuatkan halaman, formulir, dan datanya.",
       "label": "Dari ide menjadi aplikasi",
-      "title": "Jelaskan ide Anda"
+      "title": "Jelaskan ide Anda",
+      "demo": {
+        "idea": "Aplikasi pemesanan untuk bisnis jasa jalan-jalan anjing saya",
+        "plan": "Rencana Anda",
+        "pages": "3 halaman",
+        "table": "Tabel pemesanan",
+        "form": "Formulir pemesanan"
+      }
     },
     "blank": {
-      "description": "Buat sendiri dengan blok seret dan lepas serta fitur siap pakai.",
+      "description": "Buat setiap halaman sendiri dengan blok seret dan lepas. Cocok jika Anda sudah tahu apa yang diinginkan.",
       "help": "Mulai dari halaman sambutan sederhana, lalu buat sisanya sendiri dengan menyeret blok ke halaman. Cocok jika Anda ingin mengendalikan semuanya.",
       "label": "Kanvas Anda, aturan Anda",
       "title": "Aplikasi kosong"
@@ -182,10 +191,12 @@
       "title": "Salin situs web"
     },
     "designer": {
-      "description": "Kembangkan ide Anda lewat percakapan. Rancang, sempurnakan, dan jelajahi.",
+      "description": "Ceritakan kepada AI apa yang Anda inginkan dan lihat desain jadi dibuat. Lalu minta perubahan dengan kata-kata biasa.",
       "help": "Mengobrollah dengan AI untuk merancang aplikasi langkah demi langkah. Minta perubahan, klik bagian pratinjau untuk memberi komentar, dan kembali ke versi sebelumnya.",
       "label": "Berkreasi bersama",
-      "title": "Desainer AI"
+      "title": "Desainer AI",
+      "badge": "Direkomendasikan",
+      "cta": "Mulai mendesain"
     },
     "game": {
       "description": "Jelaskan game yang ingin dibuat, lalu lihat AI membuatnya langkah demi langkah dengan gambar dan suara sungguhan.",
@@ -237,6 +248,7 @@
     "clearFiltersHelp": "Hapus pencarian dan kategori agar semua fitur tampil lagi.",
     "clearSearch": "Hapus pencarian",
     "clearSearchHelp": "Hapus pencarian dan tampilkan lagi semua fitur.",
+    "continue": "Lanjutkan",
     "details": "Detail",
     "detailsHelp": "Lihat dengan tepat apa saja yang ditambahkan fitur ini ke aplikasi Anda: jumlah halaman, daftar item tersimpan, dan otomatisasi.",
     "dialogTitle": "Tambahkan {name}",

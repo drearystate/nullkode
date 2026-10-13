@@ -43,9 +43,13 @@ type Props = {
   viewSeq: number | null;
   frame: "desktop" | "phone";
   onStatus?: (s: CanvasStatus) => void;
+  /** A branded game's "Visit us" button (NK.brand.openLink() in the sandboxed game): the workspace opens the link IT stored; the message carries none. */
+  onBrandLink?: () => void;
 };
 
-export const GameCanvas = forwardRef<GameCanvasHandle, Props>(function GameCanvas({ gameId, pass, seq, label, viewSeq, frame, onStatus }, ref) {
+export const GameCanvas = forwardRef<GameCanvasHandle, Props>(function GameCanvas({ gameId, pass, seq, label, viewSeq, frame, onStatus, onBrandLink }, ref) {
+  const brandLink = useRef(onBrandLink);
+  brandLink.current = onBrandLink;
   const t = useTranslations("games");
   const iframe = useRef<HTMLIFrameElement>(null);
   const box = useRef<HTMLDivElement>(null);
@@ -105,6 +109,11 @@ export const GameCanvas = forwardRef<GameCanvasHandle, Props>(function GameCanva
       if (!iframe.current || e.source !== iframe.current.contentWindow) return;
       const m = e.data as Record<string, unknown> | null;
       if (!m || typeof m !== "object" || typeof m.type !== "string" || !m.type.startsWith("nk-game:")) return;
+      if (m.type === "nk-game:brand-link") {
+        // Rate-limited by the click itself (a user gesture in the game); anything in the message is ignored.
+        brandLink.current?.();
+        return;
+      }
       if (m.type === "nk-game:ready") {
         const first = !status.current.ready;
         status.current.ready = true;

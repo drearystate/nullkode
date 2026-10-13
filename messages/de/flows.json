@@ -53,9 +53,37 @@
       "help": "Zählt Datensätze oder summiert eine Spalte in einer Tabelle, zum Beispiel die Anzahl der Anmeldungen oder den Gesamtumsatz. Spätere Schritte können das Ergebnis verwenden.",
       "label": "Datensätze zählen oder summieren"
     },
+    "ai_agent": {
+      "help": "Arbeitet Schritt für Schritt auf ein Ziel hin und verwendet dafür die von dir angegebenen Tools (Abläufe dieser App oder Webadressen). Bei Tools mit „Bestätigung erforderlich“ muss eine Person erst zustimmen. Verwendet den eigenen KI-Schlüssel dieser App.",
+      "label": "KI-Agent"
+    },
+    "ai_chat": {
+      "help": "Beantwortet eine Nachricht in einer Unterhaltung. Dabei werden eine Persona und der bisherige Gesprächsverlauf aus einer Tabelle verwendet (beides kann gespeichert werden). Für Chatbots und KI-Begleiter. Verwendet den eigenen KI-Schlüssel dieser App.",
+      "label": "KI-Chatantwort"
+    },
+    "ai_embed": {
+      "help": "Wandelt Text in Zahlen um, die seine Bedeutung erfassen, oder teilt einen langen Text in Abschnitte auf und erstellt für jeden Zahlen. Die Ergebnisse können gespeichert werden. Wird mit „Nach Bedeutung suchen“ verwendet. Verwendet den eigenen KI-Schlüssel dieser App.",
+      "label": "KI-Einbettungen"
+    },
     "ai_prompt": {
-      "help": "Gibt der KI eine Frage oder Aufgabe, zum Beispiel eine Nachricht zusammenzufassen. Spätere Schritte können die Antwort verwenden. Jeder Durchlauf wird auf dein KI-Kontingent angerechnet.",
+      "help": "Gibt der KI eine Frage oder Aufgabe, zum Beispiel eine Nachricht zusammenzufassen. Spätere Schritte können die Antwort verwenden. Verwendet den eigenen KI-Schlüssel dieser App (KI-Schlüssel).",
       "label": "KI fragen"
+    },
+    "ai_search": {
+      "help": "Findet die Tabellenzeilen, die einer Frage inhaltlich am nächsten kommen. Dazu werden die darin gespeicherten Einbettungen verwendet. Durchsucht bis zu 1.000 Zeilen pro Suche.",
+      "label": "Nach Bedeutung suchen"
+    },
+    "ai_speech": {
+      "help": "Wandelt Text mit dem KI-Schlüssel der App in Sprache um, sofern die KI sprechen kann. Andernfalls liest die Seite den Text mit der Browserstimme vor.",
+      "label": "Vorlesen"
+    },
+    "ai_structured": {
+      "help": "Bittet die KI um eine Antwort als Daten mit den von dir beschriebenen Feldern (JSON), damit spätere Schritte jedes Feld speichern oder prüfen können. Verwendet den eigenen KI-Schlüssel dieser App.",
+      "label": "KI-Antwort als Daten"
+    },
+    "ai_vision": {
+      "help": "Sendet der KI ein Bild mit einer Frage (eine hochgeladene Datei, eine https-Adresse oder eine Daten-URL). Verwendet den eigenen KI-Schlüssel dieser App.",
+      "label": "KI betrachtet ein Bild"
     },
     "branch": {
       "help": "Prüft etwas und teilt die Automatisierung in zwei Wege auf: Der eine wird ausgeführt, wenn die Bedingung zutrifft, der andere, wenn nicht.",
@@ -271,6 +299,29 @@
       "sum": "Spaltenwerte addieren"
     },
     "aggregateEmptyHint": "Leer lassen, um alle Zeilen einzubeziehen. Mehrere Bedingungen müssen alle erfüllt sein.",
+    "aiKeyLink": "KI-Schlüssel",
+    "aiKeyNote": "KI-Schritte verwenden den eigenen KI-Schlüssel dieser App.",
+    "aiOptions": {
+      "embedChunks": "Abschnitte eines langen Textes",
+      "embedSingle": "Eine Einbettung",
+      "safetyNone": "Aus",
+      "safetyStandard": "Standard"
+    },
+    "aiTool": {
+      "add": "Tool hinzufügen",
+      "description": "Was es tut",
+      "flow": "Ablauf",
+      "kind": "Verwendet",
+      "kindFlow": "Einen Ablauf dieser App",
+      "kindHttp": "Eine Webadresse",
+      "method": "Methode",
+      "name": "Name",
+      "needsApproval": "Genehmigung erforderlich",
+      "none": "Noch keine Tools: Der Agent antwortet direkt.",
+      "params": "Argumente (durch Kommas getrennt)",
+      "remove": "Entfernen",
+      "url": "Adresse"
+    },
     "biggestFirst": "Größtes Ergebnis zuerst",
     "body": "Inhalt",
     "bodyEmpty": "Füge die Felder hinzu, die im Anfrageinhalt gesendet werden sollen.",
@@ -287,13 +338,109 @@
     "deleteHelp": "Entfernt diesen Schritt und seine Verbindungen aus der Automatisierung. Das lässt sich nicht rückgängig machen – du müsstest ihn neu hinzufügen.",
     "deleteNeedsCondition": "Zum Löschen ist eine Bedingung erforderlich – sonst schlägt der Schritt fehl.",
     "fields": {
+      "aiApprovalsTable": {
+        "help": "Hier wird eine wartende Aktion gespeichert (Spalten „tool“, „args“, „note“, „status“, „state“), zum Beispiel für eine Bestätigungsseite.",
+        "label": "Bestätigungstabelle (optional)"
+      },
+      "aiConnection": {
+        "help": "Gibt an, welcher KI-Schlüssel dieser App verwendet werden soll. Wähle ihn anhand seines Namens aus. Leer lassen: der Standardschlüssel der App.",
+        "label": "KI-Verbindung (optional)"
+      },
+      "aiContext": {
+        "help": "Wichtige Informationen für diese Antwort, zum Beispiel, woran sich die KI über die Person erinnert oder welche Stimmung sie hat.",
+        "label": "Zusätzlicher Kontext (optional)"
+      },
+      "aiDecision": {
+        "help": "Für eine Ausführung, die auf Bestätigung wartet: bestätigen oder ablehnen, normalerweise anhand der Anfrage.",
+        "label": "Bestätigungsentscheidung (optional)"
+      },
+      "aiEmbedInput": {
+        "help": "Der Text, der in eine Einbettung umgewandelt werden soll.",
+        "label": "Text"
+      },
+      "aiEmbedMode": {
+        "help": "Eine Einbettung für den Text oder einzelne Abschnitte eines langen Textes (als Zeilen für „Viele Zeilen hinzufügen“).",
+        "label": "Was soll erstellt werden"
+      },
+      "aiField": {
+        "help": "In dieser Spalte werden die Einbettungen gespeichert.",
+        "label": "Spalte für Einbettungen"
+      },
+      "aiGoal": {
+        "help": "Was der Agent erledigen soll oder die nächste Nachricht der Person.",
+        "label": "Ziel oder Nachricht"
+      },
+      "aiHistoryFilter": {
+        "help": "Werte, die die Zeilen dieser Unterhaltung auswählen, zum Beispiel conversation_id. Sie werden auch in den neuen Zeilen gespeichert.",
+        "label": "Welche Unterhaltung"
+      },
+      "aiHistoryLimit": {
+        "help": "Wie viele der neuesten Nachrichten die KI liest (1 bis 100).",
+        "label": "Zu merkende Nachrichten"
+      },
+      "aiHistoryTable": {
+        "help": "Die Tabelle mit den bisherigen Nachrichten (Spalten „role“ und „content“). Der Schritt liest die neuesten Nachrichten und speichert die neue Nachricht und die Antwort.",
+        "label": "Unterhaltungstabelle (optional)"
+      },
+      "aiImage": {
+        "help": "Eine hochgeladene Datei (/uploads/…), eine https-Adresse oder eine Daten-URL, normalerweise aus der Anfrage.",
+        "label": "Bild"
+      },
+      "aiMaxSteps": {
+        "help": "Der Agent stoppt nach dieser Anzahl von Tool-Aufrufen (1 bis 12) und gibt an, wie weit er gekommen ist.",
+        "label": "Maximale Schritte pro Ausführung"
+      },
+      "aiMessage": {
+        "help": "Was die Person gerade geschrieben hat, normalerweise '{{'trigger.message'}}'.",
+        "label": "Die neue Nachricht"
+      },
+      "aiModel": {
+        "help": "Verwendet für diesen Schritt ein anderes Modell als das der Verbindung.",
+        "label": "Modell (optional)"
+      },
+      "aiPersona": {
+        "help": "Wer die KI ist und wie sie spricht, zum Beispiel ein freundlicher Coach, der sich kurzfasst.",
+        "label": "Persona und Anweisungen"
+      },
       "aiPrompt": {
         "help": "Die Frage oder Aufgabe für die KI. Füge Werte ein, zum Beispiel die Nachricht des Kunden.",
         "label": "Prompt"
       },
+      "aiQuery": {
+        "help": "Wonach gesucht werden soll, in einfachen Worten.",
+        "label": "Frage"
+      },
+      "aiSafety": {
+        "help": "„Standard“ sorgt für Antworten, die für ein allgemeines Publikum geeignet sind (keine sexuellen Inhalte, Hilfe in Krisen). Bei „Aus“ gelten nur deine Anweisungen.",
+        "label": "Sicherheit"
+      },
+      "aiSchema": {
+        "help": "Ein Beispiel für die Antwort als JSON, zum Beispiel '{'\"title\":\"\",\"tags\":[]'}', oder ein JSON-Schema.",
+        "label": "Auszufüllende Felder"
+      },
+      "aiSpeechText": {
+        "help": "Meist die Antwort der KI.",
+        "label": "Vorlesetext"
+      },
+      "aiState": {
+        "help": "Ein gespeicherter Status aus einer früheren Ausführung (sein Statuswert), um eine Aufgabe fortzusetzen.",
+        "label": "Fortsetzen ab (optional)"
+      },
       "aiSystem": {
         "help": "Hintergrundinformationen für die KI, die jedes Mal gleich bleiben, zum Beispiel „Antworte in einem freundlichen Satz“ oder „Du arbeitest in einer Bäckerei“.",
         "label": "Systemanweisungen (optional)"
+      },
+      "aiTools": {
+        "help": "Was der Agent verwenden darf: einen anderen Ablauf dieser App oder eine Webadresse. Markiere riskante Tools als bestätigungspflichtig.",
+        "label": "Tools"
+      },
+      "aiTopK": {
+        "help": "Die ähnlichsten Treffer (1 bis 50).",
+        "label": "Anzahl der Ergebnisse"
+      },
+      "aiVoice": {
+        "help": "Ein deiner KI bekannte Stimmenname, zum Beispiel alloy.",
+        "label": "Stimme (optional)"
       },
       "dataSource": {
         "help": "Hier werden deine Daten gespeichert. Die meisten Apps haben nur ihre eigene integrierte Datenbank. Wähle nur dann eine andere aus, wenn du selbst eine verbunden hast.",
@@ -533,6 +680,9 @@
     "pickTable": "Wähle eine Liste mit Einträgen aus, um diesen Schritt einzurichten.",
     "placeholders": {
       "aNumber": "eine Zahl",
+      "aiConnection": "default",
+      "aiGoal": "Finde die unbeantworteten E-Mails dieser Woche und entwirf Antworten",
+      "aiPersona": "Du bist Nova, eine fröhliche Begleiterin, die Fakten über den Weltraum liebt ...",
       "aiPrompt": "Fasse diese Nachricht eines Kunden zusammen ...",
       "aiSystem": "Du bist ein hilfreicher Assistent ...",
       "eg10": "z. B. 10",
@@ -754,6 +904,14 @@
   },
   "summary": {
     "aggregateFallback": "Einträge zählen oder zusammenrechnen",
+    "aiAgent": "{count, plural, =0 {Noch keine Tools} one {# Tool} other {# Tools}}",
+    "aiChat": "Auf eine Nachricht antworten",
+    "aiChatWithHistory": "Antworten und {table} berücksichtigen",
+    "aiEmbed": "Text in Einbettung umwandeln",
+    "aiEmbedChunks": "Langen Text in Abschnitte aufteilen",
+    "aiSpeech": "Text vorlesen",
+    "aiStructured": "Als Daten antworten",
+    "aiVision": "Ein Bild betrachten",
     "askAi": "KI eine Frage stellen",
     "bulkDeleteFallback": "Mehrere Zeilen auf einmal löschen",
     "bulkInsertFallback": "Mehrere Zeilen auf einmal hinzufügen",

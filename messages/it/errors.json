@@ -62,7 +62,8 @@
     "tooManyAccounts": "Oggi sono stati creati troppi account da questa rete.",
     "tooManyAttempts": "Ci sono stati troppi tentativi di registrazione da questa rete. Riprova più tardi.",
     "tooQuick": "Hai fatto troppo in fretta: riprova.",
-    "verificationFailed": "Verifica non riuscita. Ricarica la pagina e riprova."
+    "verificationFailed": "Verifica non riuscita. Ricarica la pagina e riprova.",
+    "oneFreeAccount": "Da questa rete è già stato creato un account gratuito. Accedi a quell'account."
   },
   "apk": {
     "alreadyHasKey": "Questa app ha già una chiave di caricamento. Seleziona \"Sostituisci la chiave attuale\" per usare questa.",

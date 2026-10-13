@@ -16,6 +16,7 @@ import {
   type EngineBuild,
 } from "@/components/native-studio";
 import { PhoneAppUpdate, type PhoneAppState } from "@/components/phone-app-update";
+import { StorePublishCard } from "@/components/store-publish-card";
 
 type WordingKey = "camera" | "microphone" | "photos" | "location";
 
@@ -124,6 +125,7 @@ export function NativeAppPanel({
   initialKey,
   initialBuilds,
   native,
+  appDescription = "",
 }: {
   projectId: string;
   initialConfig: NativeConfig;
@@ -153,6 +155,8 @@ export function NativeAppPanel({
     initialBuilds: EngineBuild[];
     spec: { state: PhoneAppState; deploymentId: string | null };
   };
+  /** The app's description (suggested text for store listings). */
+  appDescription?: string;
 }) {
   const [cfg, setCfg] = useState<NativeConfig>(initialConfig);
   const [saving, setSaving] = useState(false);
@@ -421,6 +425,17 @@ export function NativeAppPanel({
         </div>
       </section>
 
+      {/* ── Publish to Google Play / F-Droid ─────────────────────── */}
+      <StorePublishCard
+        projectId={projectId}
+        appId={cfg.appId}
+        appName={cfg.appName}
+        appDescription={appDescription}
+        builds={releaseBuilds}
+        published={published}
+        ownerActions={ownerActions}
+      />
+
       {/* ── 5. Links that open the app ────────────────────────────── */}
       <AppLinksCard projectId={projectId} published={published} teamId={cfg.iosTeamId ?? ""} />
 
@@ -533,6 +548,7 @@ export function NativeAppPanel({
               </li>
             </ul>
             <p className="mt-3 text-sm text-surface-400">{t("ios.readme")}</p>
+            <p className="mt-1 text-sm text-surface-400">{t("ios.storeAssets")}</p>
             {published ? (
               <a
                 href={`/api/projects/${projectId}/native/download?platform=ios`}

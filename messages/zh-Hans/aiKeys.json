@@ -1,0 +1,123 @@
+{
+  "banner": {
+    "body": "此应用包含 AI 步骤。已发布的应用使用自己的 AI 密钥，而不是平台的 AI，因此添加密钥后这些步骤才能正常使用。",
+    "cta": "添加 AI 密钥",
+    "title": "此应用尚未设置 AI"
+  },
+  "dashboard": {
+    "app": "为 {name} 添加密钥",
+    "body": "现在，已发布的应用会使用自己的 AI 密钥来运行 AI 功能，而不是平台的 AI。在添加密钥之前，访客会看到“此应用尚未设置 AI”。",
+    "title": "部分应用需要自己的 AI 密钥"
+  },
+  "errors": {
+    "baseUrlBad": "此地址无法使用。请输入以 http:// 或 https:// 开头且不含用户名或密码的地址。",
+    "baseUrlMissing": "请输入服务器地址（例如 https://ai.example.com/v1）。",
+    "invalid": "部分信息缺失或格式不正确。",
+    "keyBad": "这看起来不像 API 密钥。",
+    "keyMissing": "请输入 API 密钥。",
+    "model": "请输入要使用的模型。",
+    "network": "无法连接到服务器。请检查网络连接后重试。",
+    "notFound": "此 AI 连接不存在。",
+    "provider": "请选择 AI 服务。",
+    "saveFailed": "无法保存密钥。请重试。",
+    "tooManyTests": "短时间内测试次数过多。请等待几分钟。"
+  },
+  "form": {
+    "addTitle": "添加 AI 密钥",
+    "apiKey": "API 密钥",
+    "apiKeyHelp": "粘贴一次后会加密保存，之后不会再次显示。",
+    "apiKeySaved": "已保存（{hint}）。留空即可保留。",
+    "baseUrl": "服务器地址",
+    "baseUrlHelp": "API 地址，例如 https://ai.example.com/v1。选择具名服务时可不填。",
+    "can": "此服务支持：{list}",
+    "canChat": "聊天",
+    "canEmbed": "嵌入",
+    "canSpeech": "语音",
+    "canVision": "图片",
+    "cancel": "取消",
+    "chatModel": "聊天模型",
+    "chatModelHelp": "用于聊天回复和智能代理；如果与主模型不同，请填写。",
+    "editTitle": "更改“{name}”",
+    "embedModel": "嵌入模型",
+    "embedModelHelp": "用于语义搜索和知识机器人。",
+    "makeDefault": "设为默认连接",
+    "model": "模型",
+    "modelExample": "例如 {model}",
+    "modelHelp": "AI 步骤使用的模型名称，以服务提供的名称为准。",
+    "more": "更多模型（可选）",
+    "name": "连接名称",
+    "nameHelp": "AI 步骤可选择的简短名称（例如，为第二个支持语音的密钥命名为“语音”）。如果只有一个密钥，请留空以使用默认名称。",
+    "provider": "AI 服务",
+    "providerHelp": "密钥的来源。最后一个选项兼容任何支持 OpenAI 风格 API 的服务，包括你自己的 Ollama 或 LM Studio。",
+    "save": "保存密钥",
+    "saved": "已保存。",
+    "saving": "正在保存…",
+    "speechModel": "语音模型",
+    "speechModelHelp": "用于朗读回复。不填写时，页面会使用浏览器自带的语音。",
+    "test": "保存前测试",
+    "visionModel": "图片模型",
+    "visionModelHelp": "用于识别图片的步骤。",
+    "voice": "语音"
+  },
+  "limits": {
+    "intro": "保护你的密钥免遭滥用：达到限额后，AI 步骤会暂停，直到本小时结束。",
+    "perHour": "整个应用每小时的 AI 请求数",
+    "perVisitorHour": "每位访客每小时的 AI 请求数",
+    "save": "保存限额",
+    "saved": "已保存限额。",
+    "title": "限额"
+  },
+  "list": {
+    "default": "默认",
+    "edit": "更改",
+    "empty": "还没有 AI 密钥。",
+    "key": "密钥",
+    "lastFailed": "上次测试失败：{when}",
+    "lastOk": "上次测试成功：{when}",
+    "makeDefault": "设为默认",
+    "makeDefaultHelp": "未按名称选择连接的 AI 步骤会使用默认连接。",
+    "model": "模型",
+    "name": "名称：{name}",
+    "remove": "移除",
+    "removeConfirm": "要移除 AI 连接“{name}”吗？使用此连接的 AI 步骤会停止工作，直到你添加其他密钥。",
+    "test": "测试连接",
+    "testing": "正在测试…",
+    "title": "连接"
+  },
+  "notice": {
+    "body": "此应用包含 AI 功能。已发布的应用无法使用平台的 AI：请在用户使用 AI 功能前，添加你自己的 AI 密钥（OpenAI、Google Gemini、xAI、OpenRouter 或任何兼容 OpenAI 的服务器）。",
+    "cta": "添加 AI 密钥",
+    "later": "你可以随时在应用的 AI 密钥设置中添加。",
+    "title": "此应用的 AI 需要你自己的密钥"
+  },
+  "page": {
+    "eyebrow": "AI 密钥",
+    "intro": "已发布应用中的 AI 功能（聊天、陪伴助手、智能代理、语义搜索）会使用应用自己的 AI 密钥。平台的 AI 可以帮你创建和编辑应用，但用户开始使用应用后，应用就不能再使用它了。",
+    "introHelp": "添加你付费使用的 AI 服务密钥。应用的 AI 步骤会在预览和已发布的应用中使用它。",
+    "needsKey": "此应用包含 AI 步骤，但还没有密钥，因此访客会看到“此应用的 AI 尚未设置”。请在下方添加密钥。",
+    "noAiYet": "此应用还没有 AI 步骤。现在添加密钥后，你之后添加的 AI 步骤就能立即使用。",
+    "ownerNote": "你在运行这个平台，因此在此应用拥有自己的密钥之前，AI 步骤会使用平台的 AI。在这里添加密钥，即可改用你自己的 AI。",
+    "ready": "此应用的 AI 已设置好。",
+    "security": "密钥会在服务器上加密。它们绝不会发送到应用页面或访客那里，不会写入日志，保存后也不会再次显示。",
+    "title": "应用专属 AI"
+  },
+  "providers": {
+    "anthropic": "Messages API（以 sk-ant- 开头的密钥）",
+    "custom": "任何兼容 OpenAI 的服务器（Ollama、LM Studio、vLLM…）",
+    "gemini": "Google Gemini",
+    "openai": "OpenAI",
+    "openrouter": "OpenRouter",
+    "xai": "xAI（Grok）"
+  },
+  "test": {
+    "detail": "详情：{detail}",
+    "key": "AI 服务拒绝了此密钥。请检查密钥是否正确且仍有效。",
+    "model": "AI 服务无法识别此模型或地址。请检查模型名称和地址。",
+    "ok": "已连接。AI 已回复。",
+    "other": "测试失败。",
+    "private": "此地址位于私有网络中，无法从此服务器上的应用访问。",
+    "quota": "AI 服务提示此密钥已超出限额或余额不足。",
+    "timeout": "AI 服务响应时间过长。",
+    "unreadable": "无法再读取已保存的密钥。请重新输入。"
+  }
+}

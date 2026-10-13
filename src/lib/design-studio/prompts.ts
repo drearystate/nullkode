@@ -55,4 +55,4 @@ export function planLanguageRule(locale: Locale): string {
   return replyLanguageRule(locale, 'the "message" (it is shown to the person in the chat)');
 }
 
-export const CLARIFY_TASK = `Someone wants an app built. If their request leaves important choices open, ask up to 3 short questions with 2–4 suggested answers each; if it's clear enough, ask none. Reply with ONLY JSON: {"questions":[{"question":"…","options":["…","…"]}]}`;
+export const CLARIFY_TASK = `Someone wants an app built. If their request leaves important choices open, ask up to 3 short questions with 2–6 suggested answers each; if it's clear enough, ask none. "multi": true when several answers make sense together (which pages, which features), false when they exclude each other. Reply with ONLY JSON: {"questions":[{"question":"…","options":["…","…"],"multi":false}]}`;

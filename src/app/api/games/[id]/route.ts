@@ -1,5 +1,8 @@
 import { db } from "@/lib/db";
-import { deleteGame, getGame, listChat, listVersions, renameGame, asFiles } from "@/lib/game-studio/store";
+import { deleteGame, gameReview, getGame, listChat, listVersions, renameGame, asFiles } from "@/lib/game-studio/store";
+import { CONTINUE_COST } from "@/lib/game-studio/phases";
+import { asBrand, logoFromFiles } from "@/lib/game-studio/brand";
+import { requestTranslator } from "@/lib/ai/i18n";
 import { readJson, withGameUser } from "@/lib/game-studio/http";
 import { playPass } from "@/lib/game-studio/play-pass";
 import { getEntry } from "@/lib/game-studio/catalog";
@@ -12,12 +15,15 @@ export async function GET(_req: Request, ctx: Ctx) {
   const { id } = await ctx.params;
   return withGameUser(async (user) => {
     const game = await getGame(user.id, id);
-    const [chat, versions, job, row, project] = await Promise.all([
+    const t = await requestTranslator("games");
+    const [chat, versions, job, row, project, review] = await Promise.all([
       listChat(user.id, id),
       listVersions(user.id, id),
       db.gameJob.findFirst({ where: { gameId: id, status: "running" }, orderBy: { startedAt: "desc" }, select: { id: true, steps: true, meta: true, kind: true, stopAfterStep: true } }),
       db.gameProject.findUnique({ where: { id }, select: { files: true } }),
       game.projectId ? db.project.findUnique({ where: { id: game.projectId } }) : null,
+      // A full game waiting for the owner after Phase 1 (the check-in).
+      gameReview(id, { question: t("review.question"), continueCost: CONTINUE_COST }),
     ]);
     let lock: Record<string, { licence?: string; redistributable?: boolean; kind?: string }> = {};
     try {
@@ -37,6 +43,9 @@ export async function GET(_req: Request, ctx: Ctx) {
       chat,
       versions,
       job: job ? { id: job.id, kind: job.kind, steps: job.steps, phase: (job.meta as { phase?: string } | null)?.phase ?? null, stopAfterStep: job.stopAfterStep } : null,
+      review,
+      // A promotional game's branding, with the logo as a data: URL for the Branding form (brand.ts).
+      brand: asBrand(game.plan?.brand) ? { ...asBrand(game.plan?.brand)!, logoUrl: logoFromFiles(asFiles(row?.files)) } : null,
       assets,
       appUrl: project?.published ? await appPublicUrl(project) : null,
       playPass: playPass(user.id, id),

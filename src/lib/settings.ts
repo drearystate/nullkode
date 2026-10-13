@@ -37,6 +37,9 @@ export const SETTING_KEYS = {
   EMAIL_FROM: "email.from", // sender address
   EMAIL_FROM_NAME: "email.fromName",
   EMAIL_STATS: "email.stats", // {sent24h, failed24h, lastError, lastAt, ...}, written by mailer.ts
+  // Google sign-in for publishing to Google Play (Admin > Settings > App stores). Fall back to .env (GOOGLE_PLAY_CLIENT_ID/SECRET).
+  GOOGLE_PLAY_CLIENT_ID: "storePublish.google.clientId",
+  GOOGLE_PLAY_CLIENT_SECRET: "storePublish.google.clientSecret", // encrypted
 } as const;
 
 const SECRET_KEYS = new Set<string>([
@@ -46,6 +49,7 @@ const SECRET_KEYS = new Set<string>([
   "push.vapidPrivateKey",
   SETTING_KEYS.EMAIL_SMTP_PASSWORD,
   SETTING_KEYS.EMAIL_RESEND_API_KEY,
+  SETTING_KEYS.GOOGLE_PLAY_CLIENT_SECRET,
 ]);
 
 export type AIProvider = "openai" | "claude-cli";

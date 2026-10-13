@@ -6,7 +6,9 @@ import { appPublicUrl, publicBaseUrlFor } from "../reseller";
 import { GameError, type GameErrorCode } from "../game-studio/errors";
 import { asFeatures, type Feature } from "../game-studio/features";
 import { NoJobRunning } from "../game-studio/notes";
-import { featureTally, NotFound, type VersionSummary } from "../game-studio/store";
+import { featureTally, gameReview, NotFound, type VersionSummary } from "../game-studio/store";
+import { phaseOf, phaseViews, type GameContent, type PhaseInfo } from "../game-studio/phases";
+import { asBrand, brandView } from "../game-studio/brand";
 import type { Engine } from "../game-studio/kits";
 import { PartnerError, type PartnerCtx } from "./api";
 import { scopeWhere } from "./scope";
@@ -57,6 +59,10 @@ const GAME_CODES: Record<GameErrorCode, [number, string]> = {
   nothing_to_export: [409, "not_built"],
   plan_limit: [403, "plan_limit"],
   too_many_notes: [409, "too_many_notes"],
+  not_waiting: [409, "not_waiting"],
+  not_built: [409, "not_built"],
+  not_found: [404, "not_found"],
+  ai_failed: [502, "ai_failed"],
 };
 
 /**
@@ -83,22 +89,24 @@ export async function gameCall<T>(ctx: PartnerCtx, fn: () => Promise<T>): Promis
 
 /* ── Views ─────────────────────────────────────────────────── */
 
-type StepState = { id?: string; label?: string; status?: string; seq?: number; note?: string; error?: string; added?: boolean; kind?: string; features?: string[] };
+type StepState = { id?: string; label?: string; status?: string; seq?: number; note?: string; error?: string; added?: boolean; kind?: string; features?: string[]; phase?: number };
 
 /** A build or change: its steps, where it is now, and how it ended. */
 export async function jobView(job: GameJob) {
   const steps = (Array.isArray(job.steps) ? job.steps : []) as StepState[];
-  const meta = (job.meta ?? {}) as { phase?: string; errorCode?: string; references?: { id: string; count: number } | null };
+  const meta = (job.meta ?? {}) as { phase?: string; errorCode?: string; references?: { id: string; count: number } | null; charges?: string[]; reviewPhase?: number | null; featureChanges?: { added: string[]; changed: string[]; removed: string[]; refusedRemovals: string[]; reverted: string[] } };
   const running = steps.findIndex((s) => s.status === "running");
   const done = steps.filter((s) => s.status === "done").length;
   const lastDone = steps.map((s) => s.status).lastIndexOf("done");
   const at = running >= 0 ? running : lastDone;
   const charge = job.status !== "running" && job.chargeId ? await db.aiUsage.findUnique({ where: { id: job.chargeId }, select: { id: true } }) : undefined;
+  const phased = steps.some((s) => s.phase);
+  const next = running >= 0 ? running : steps.findIndex((s) => s.status !== "done");
   return {
     id: job.id,
     gameId: job.gameId,
     kind: job.kind as "build" | "change",
-    status: job.status as "running" | "done" | "error" | "cancelled",
+    status: job.status as "running" | "done" | "error" | "cancelled" | "review",
     phase: (meta.phase ?? null) as "plan" | "steps" | null,
     prompt: job.prompt,
     progress: { step: running >= 0 ? running + 1 : done, total: steps.length, done, label: at >= 0 ? steps[at].label ?? null : null, running: running >= 0 },
@@ -112,12 +120,19 @@ export async function jobView(job: GameJob) {
       added: s.added === true,
       kind: s.kind ?? null,
       features: s.features ?? [],
+      phase: phased ? phaseOf(steps, steps.indexOf(s)) : null,
     })),
+    // A full game's build phases: the phase running now (or next), and how many there are. Null for a build without phases.
+    buildPhase: phased ? { current: phaseOf(steps, next >= 0 ? next : steps.length - 1), total: Math.max(...steps.map((_s, i) => phaseOf(steps, i))) } : null,
+    // AI actions this job used: the build, plus "keep building" or changes at a check-in.
+    aiActions: Math.max(1, meta.charges?.length ?? (job.chargeId ? 1 : 0)),
     stopAfterStep: job.stopAfterStep,
     references: meta.references ? { id: meta.references.id, count: meta.references.count } : null,
     error: job.status === "error" ? job.error : null,
     errorCode: job.status === "error" ? (meta.errorCode ?? "failed") : null,
     refunded: charge === undefined ? false : charge === null,
+    // What a change did to the game's feature list (ids): added, changed, removed (asked for), removals refused (not asked for), features a change would have broken (the change wasn't kept). Null for a build.
+    features: job.kind === "change" || meta.featureChanges ? { added: meta.featureChanges?.added ?? [], changed: meta.featureChanges?.changed ?? [], removed: meta.featureChanges?.removed ?? [], refusedRemovals: meta.featureChanges?.refusedRemovals ?? [], reverted: meta.featureChanges?.reverted ?? [] } : null,
     startedAt: job.startedAt.toISOString(),
     finishedAt: job.finishedAt?.toISOString() ?? null,
   };
@@ -134,6 +149,8 @@ export function featureView(f: Feature) {
     status: f.status,
     test: f.test,
     last: f.last ? { seq: f.last.seq ?? null, ok: f.last.ok, text: f.last.text } : null,
+    source: f.source ?? null,
+    added: f.added ? { at: f.added.at, text: f.added.text ?? null } : null,
   };
 }
 
@@ -165,7 +182,7 @@ export async function gameCard(g: GameProject, opts: ViewOpts = {}) {
     userId: g.ownerId,
     name: g.name,
     engine: engineName(g.engine),
-    status: g.status as "new" | "building" | "ready" | "error",
+    status: g.status as "new" | "building" | "review" | "ready" | "error",
     seq: g.seq,
     published: Boolean(project?.published),
     app: project ? { projectId: project.id, published: project.published, url: project.published ? await appPublicUrl(project) : null } : null,
@@ -191,13 +208,15 @@ export async function gameView(g: GameProject, opts: ViewOpts = {}) {
     db.gameVersion.findFirst({ where: { gameId: g.id }, orderBy: { seq: "desc" }, select: { seq: true, stepLabel: true, note: true, kind: true, check: true, features: true, createdAt: true } }),
     db.gameChat.findFirst({ where: { gameId: g.id }, orderBy: { seq: "desc" } }),
   ]);
-  const plan = (g.plan ?? null) as { title?: string; message?: string; brief?: Record<string, string>; visual?: unknown; assets?: Array<{ key: string; id: string; use: string }>; features?: unknown } | null;
+  const plan = (g.plan ?? null) as { title?: string; message?: string; brief?: Record<string, string>; visual?: unknown; assets?: Array<{ key: string; id: string; use: string }>; features?: unknown; content?: GameContent | null; phases?: PhaseInfo[] } | null;
   const features = asFeatures(plan?.features) ?? [];
   const buildSteps = (Array.isArray(buildJob?.steps) ? buildJob.steps : []) as StepState[];
   const hasShot = latest ? Boolean(await db.gameVersion.count({ where: { gameId: g.id, seq: latest.seq, shot: { not: null } } })) : false;
   return {
     ...card,
     kitVersion: g.kitVersion,
+    // A promotional game's branding (name, colours, link, offer, the logo's size); null for other games.
+    brand: brandView(asBrand((g.plan as { brand?: unknown } | null)?.brand)),
     plan: plan
       ? {
           title: plan.title ?? null,
@@ -205,10 +224,14 @@ export async function gameView(g: GameProject, opts: ViewOpts = {}) {
           brief: plan.brief ?? {},
           visual: plan.visual ?? null,
           assets: (plan.assets ?? []).map((a) => ({ key: a.key, id: a.id, use: a.use })),
-          steps: buildSteps.map((s) => ({ id: s.id ?? "", label: s.label ?? "", status: s.status ?? "todo", features: s.features ?? [] })),
+          steps: buildSteps.map((s, i) => ({ id: s.id ?? "", label: s.label ?? "", status: s.status ?? "todo", features: s.features ?? [], phase: buildSteps.some((x) => x.phase) ? phaseOf(buildSteps, i) : null })),
           features: features.map(featureView),
+          content: plan.content ?? null,
+          phases: phaseViews(plan.phases, buildSteps).map((p) => ({ n: p.n, id: p.id, name: p.name, summary: p.summary, steps: p.steps, done: p.done, status: p.status })),
         }
       : null,
+    // The check-in: the build waits for the owner after a phase (status "review"). POST /games/{id}/continue or /changes.
+    review: g.status === "review" || job?.status === "review" ? await gameReview(g.id) : null,
     features: featureCountsOf(features),
     job: job ? await jobView(job) : null,
     versions: {

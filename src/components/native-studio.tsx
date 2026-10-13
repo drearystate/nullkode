@@ -1000,6 +1000,7 @@ export function IosProjectCard({
         </div>
       </div>
       <p className="mt-3 text-xs text-surface-500">{t("ios.readme")}</p>
+      <p className="mt-1 text-xs text-surface-500">{t("ios.storeAssets")}</p>
 
       <div className="mt-4 flex flex-wrap items-center gap-3">
         {published ? (

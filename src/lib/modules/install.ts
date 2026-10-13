@@ -1,3 +1,4 @@
+import { AI_MIN_MINUTES, graphUsesAi, MIN_MINUTES, nextRun, parseSchedule } from "../flow/schedule-spec";
 import { hideOwnerLinks, isOwnerOnlyPage, withAdminMarkers } from "./owner-only";
 import { db } from "../db";
 import { ensureInternalTable } from "../datasources/postgres";
@@ -255,15 +256,19 @@ export async function installModule(opts: {
   //    datasource id, interpolate config
   const flowSlugMap = new Map<string, string>(); // local slug → real slug
   const flowIds = new Map<string, string>();
+  // Every real slug first: an AI agent's tools name the feature's other flows by their local slug.
   for (const f of module.flows) {
     const rawSlug = module.bareSlugs ? f.slug : `${module.id}-${f.slug}`;
-    const realSlug = await uniqueFlowSlug(projectId, rawSlug);
-    flowSlugMap.set(f.slug, realSlug);
+    flowSlugMap.set(f.slug, await uniqueFlowSlug(projectId, rawSlug));
+  }
+  for (const f of module.flows) {
+    const realSlug = flowSlugMap.get(f.slug)!;
 
     const nodes = f.nodes.map((n, idx) => ({
       id: n.id,
       type: n.type,
       position: autoPosition(idx),
+      // (tools of an ai_agent step: local flow slugs → the installed ones, below)
       // Resolve {{@capability.X}} references BEFORE config interpolation + table rewriting
       data: resolvePageLinksDeep(
         rewriteNodeData(
@@ -276,12 +281,23 @@ export async function installModule(opts: {
       ) as Record<string, unknown>,
     }));
 
+    for (const n of nodes) {
+      const tools = (n.data as { tools?: unknown }).tools;
+      if (n.type === "ai_agent" && Array.isArray(tools)) {
+        (n.data as { tools: unknown[] }).tools = tools.map((tool) => {
+          const local = (tool as { flow?: unknown })?.flow;
+          return typeof local === "string" && flowSlugMap.has(local) ? { ...(tool as object), flow: flowSlugMap.get(local) } : tool;
+        });
+      }
+    }
+
     const created = await db.flow.create({
       data: {
         projectId,
         name: f.name,
         slug: realSlug,
-        trigger: "HTTP",
+        trigger: f.schedule ? "SCHEDULE" : "HTTP",
+        ...(f.schedule ? { schedule: f.schedule, nextRunAt: scheduledStart(f.schedule, nodes) } : {}),
         httpPath: `/${realSlug}`,
         httpMethod: f.httpMethod ?? "POST",
         graph: { nodes, edges: f.edges } as unknown as object,
@@ -646,4 +662,10 @@ async function seedRows(
   } finally {
     await pool.end();
   }
+}
+
+/** A scheduled feature flow's first run (it waits for the app to be published, like every scheduled flow). */
+function scheduledStart(schedule: string, nodes: Array<{ type: string }>): Date | null {
+  const spec = parseSchedule(schedule);
+  return spec ? nextRun(spec, new Date(), { anchor: null, minMinutes: graphUsesAi({ nodes }) ? AI_MIN_MINUTES : MIN_MINUTES }) : null;
 }

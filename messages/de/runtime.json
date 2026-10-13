@@ -36,6 +36,8 @@
     "typeDelete": "Gib DELETE ein, um zu bestätigen.",
     "typeDeleteLabel": "Gib DELETE ein, um zu bestätigen"
   },
+  "aiBusy": "Diese App erhält gerade zu viele KI-Anfragen. Bitte versuche es später erneut.",
+  "aiNotSetUp": "Die KI dieser App ist noch nicht eingerichtet.",
   "alreadyExists": "Das gibt es bereits.",
   "badInput": "Einige Angaben fehlen oder haben das falsche Format.",
   "cartAdded": "✓ Hinzugefügt",

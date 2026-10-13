@@ -50,7 +50,7 @@
     "buildMobileHelp": "Transforme este app em um app para Android, iPhone e iPad.",
     "buildMobileTitle": "Criar app para celular",
     "buildYourWay": "Do seu jeito.",
-    "buildYourWayIntro": "As mesmas ferramentas poderosas. Um ponto de partida do seu jeito.",
+    "buildYourWayIntro": "Não sabe por onde começar? Comece com o Designer de IA.",
     "clearFilters": "Limpar filtros",
     "clearFiltersHelp": "Limpe a busca e os filtros para mostrar todos os seus apps novamente.",
     "clearSearch": "Limpar busca",
@@ -92,6 +92,8 @@
     "gameKind": "Jogo {engine}",
     "gameLiveHelp": "Publicado: este jogo foi publicado como um app, então qualquer pessoa com o link pode jogar.",
     "gameNoPicture": "Ainda sem imagem",
+    "gameWaiting": "Esperando por você",
+    "gameWaitingHelp": "A primeira parte jogável está pronta. Abra o jogo para testar e diga se quer continuar criando.",
     "gamesEyebrow": "JOGUE O QUE VOCÊ CRIOU",
     "getMoreApps": "Tenha mais apps",
     "headline": "Uma ideia pequena.<br></br><accent>Um mundo de possibilidades.</accent>",
@@ -142,7 +144,7 @@
     "sortName": "Nome, de A a Z",
     "sortRecent": "Atualizados recentemente",
     "versionCount": "{count, plural, =0 {Ainda sem versões} one {# versão} other {# versões}}",
-    "waysEyebrow": "SEIS FORMAS DE COMEÇAR",
+    "waysEyebrow": "FORMAS DE COMEÇAR",
     "welcome": "Boas-vindas, {name}. Conte o que você quer criar e vamos planejar juntos.",
     "welcomeBack": "Que bom ter você de volta, {name}. Continue de onde parou,<br></br> ou dê vida a algo novo.",
     "yourApps": "Seus apps",
@@ -167,10 +169,17 @@
       "description": "Diga o que você quer com suas próprias palavras. Confira o plano e crie páginas, dados e formulários funcionais.",
       "help": "Descreva seu app em poucas palavras. A IA sugere um plano que você pode conferir e alterar; depois, cria as páginas, os formulários e os dados para você.",
       "label": "Da ideia ao app",
-      "title": "Descreva"
+      "title": "Descreva",
+      "demo": {
+        "idea": "Um app de agendamento para meu negócio de passeios com cães",
+        "plan": "Seu plano",
+        "pages": "3 páginas",
+        "table": "Uma tabela de agendamentos",
+        "form": "Um formulário de agendamento"
+      }
     },
     "blank": {
-      "description": "Crie manualmente com blocos de arrastar e soltar e recursos prontos.",
+      "description": "Monte cada página do zero, arrastando e soltando blocos. Ideal se você já sabe o que quer.",
       "help": "Comece com uma página de boas-vindas simples e crie o restante arrastando blocos para ela. Ideal se você gosta de ter controle total.",
       "label": "Seu espaço, suas regras",
       "title": "App em branco"
@@ -182,10 +191,12 @@
       "title": "Copiar um site"
     },
     "designer": {
-      "description": "Dê forma à sua ideia em uma conversa. Crie, refine e explore.",
+      "description": "Conte à IA o que você quer e veja o design pronto ganhar forma. Depois, peça alterações com palavras simples.",
       "help": "Converse com a IA para criar seu app passo a passo. Peça alterações, clique em partes da prévia para comentar e volte a versões anteriores.",
       "label": "Criem juntos",
-      "title": "Designer de IA"
+      "title": "Designer de IA",
+      "badge": "Recomendado",
+      "cta": "Começar a criar"
     },
     "game": {
       "description": "Descreva um jogo e veja a IA criá-lo passo a passo, com arte e som de verdade.",
@@ -237,6 +248,7 @@
     "clearFiltersHelp": "Limpe a busca e a categoria para ver todos os recursos novamente.",
     "clearSearch": "Limpar busca",
     "clearSearchHelp": "Limpa a busca e mostra todos os recursos novamente.",
+    "continue": "Continuar",
     "details": "Detalhes",
     "detailsHelp": "Veja exatamente o que este recurso adiciona ao seu app: quantas páginas, listas de itens salvos e automações.",
     "dialogTitle": "Adicionar {name}",

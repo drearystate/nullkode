@@ -50,7 +50,7 @@
     "buildMobileHelp": "Convierte esta app en una app para Android, iPhone y iPad.",
     "buildMobileTitle": "Crear una app móvil",
     "buildYourWay": "Crea a tu manera.",
-    "buildYourWayIntro": "Las mismas herramientas potentes. El punto de partida que prefieras.",
+    "buildYourWayIntro": "¿No sabes por dónde empezar? Empieza con el Diseñador de IA.",
     "clearFilters": "Borrar filtros",
     "clearFiltersHelp": "Borra la búsqueda y los filtros para volver a mostrar todas tus apps.",
     "clearSearch": "Borrar búsqueda",
@@ -92,6 +92,8 @@
     "gameKind": "Juego en {engine}",
     "gameLiveHelp": "Publicado: este juego está disponible como app, así que cualquiera que tenga el enlace puede jugarlo.",
     "gameNoPicture": "Aún no hay imagen",
+    "gameWaiting": "Te está esperando",
+    "gameWaitingHelp": "La primera parte jugable está lista. Abre el juego para probarlo y dinos si quieres que sigamos desarrollándolo.",
     "gamesEyebrow": "JUEGA A TUS CREACIONES",
     "getMoreApps": "Consigue más apps",
     "headline": "Una pequeña idea.<br></br><accent>Un mundo de posibilidades.</accent>",
@@ -142,7 +144,7 @@
     "sortName": "Nombre A–Z",
     "sortRecent": "Actualizadas recientemente",
     "versionCount": "{count, plural, =0 {Aún no hay versiones} one {# versión} other {# versiones}}",
-    "waysEyebrow": "SEIS FORMAS DE EMPEZAR",
+    "waysEyebrow": "FORMAS DE EMPEZAR",
     "welcome": "Te damos la bienvenida, {name}. Cuéntanos qué quieres crear y lo planificaremos contigo.",
     "welcomeBack": "Qué bueno verte de nuevo, {name}. Retoma donde lo dejaste,<br></br> o dale vida a algo nuevo.",
     "yourApps": "Tus apps",
@@ -167,10 +169,17 @@
       "description": "Cuéntanos con tus propias palabras qué quieres. Revisa el plan y luego crea páginas, datos y formularios funcionales.",
       "help": "Describe tu app en pocas palabras. La IA te sugerirá un plan que puedes revisar y cambiar, y luego creará las páginas, los formularios y los datos por ti.",
       "label": "De una idea a una app",
-      "title": "Descríbela"
+      "title": "Descríbela",
+      "demo": {
+        "idea": "Una app de reservas para mi negocio de paseo de perros",
+        "plan": "Tu plan",
+        "pages": "3 páginas",
+        "table": "Una tabla de reservas",
+        "form": "Un formulario de reservas"
+      }
     },
     "blank": {
-      "description": "Crea a mano con bloques de arrastrar y soltar y funciones listas para usar.",
+      "description": "Crea cada página a mano con bloques que puedes arrastrar y soltar. Ideal si ya sabes lo que quieres.",
       "help": "Empieza con una página de bienvenida sencilla y crea el resto arrastrando bloques. Ideal si quieres tener todo bajo control.",
       "label": "Tu espacio, tus reglas",
       "title": "App en blanco"
@@ -182,10 +191,12 @@
       "title": "Copiar un sitio web"
     },
     "designer": {
-      "description": "Dale forma a tu idea conversando. Diseña, perfecciona y explora.",
+      "description": "Cuéntale a la IA qué quieres y mira cómo toma forma un diseño completo. Después, pide cambios con palabras sencillas.",
       "help": "Chatea con la IA para diseñar tu app paso a paso. Pide cambios, haz clic en partes de la vista previa para dejar comentarios y vuelve a versiones anteriores.",
       "label": "Créala en compañía",
-      "title": "Diseñador con IA"
+      "title": "Diseñador con IA",
+      "badge": "Recomendado",
+      "cta": "Empezar a diseñar"
     },
     "game": {
       "description": "Describe un juego y mira cómo la IA lo crea paso a paso, con arte y sonido reales.",
@@ -237,6 +248,7 @@
     "clearFiltersHelp": "Borra la búsqueda y la categoría para volver a ver todas las funciones.",
     "clearSearch": "Borrar búsqueda",
     "clearSearchHelp": "Borra la búsqueda y vuelve a mostrar todas las funciones.",
+    "continue": "Continuar",
     "details": "Detalles",
     "detailsHelp": "Descubre exactamente qué añade esta función a tu app: cuántas páginas, listas de elementos guardados y automatizaciones.",
     "dialogTitle": "Añadir {name}",

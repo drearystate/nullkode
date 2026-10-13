@@ -1,4 +1,12 @@
 {
+  "aiKey": {
+    "add": "Tambahkan kunci Anda di sini:",
+    "change": "{app} memiliki langkah AI. Aplikasi yang dipublikasikan di {platform} kini menggunakan kunci AI sendiri, bukan AI dari platform, jadi langkah tersebut dijeda sampai Anda menambahkan kunci.",
+    "once": "Ini satu-satunya email tentang hal ini untuk aplikasi ini.",
+    "subject": "{app}: tambahkan kunci AI Anda sendiri",
+    "visitor": "Seseorang baru saja menggunakan bagian AI di {app}, tetapi aplikasi ini tidak memiliki kunci AI sendiri, jadi aplikasi menampilkan pesan: \"AI aplikasi ini belum disiapkan.\"",
+    "why": "Tambahkan kunci dari OpenAI, Google Gemini, xAI (Grok), OpenRouter, atau server apa pun yang kompatibel dengan OpenAI (Ollama atau LM Studio milik Anda juga bisa). Kunci tersimpan terenkripsi di server dan tidak pernah ditampilkan kepada pengunjung. Bagian AI akan langsung berfungsi setelah kunci disimpan."
+  },
   "aiQuota": {
     "body80": "{reseller} telah menggunakan {used} dari {max} tindakan AI bulan ini. Setelah jatah habis, pembuatan dan pengeditan dengan AI akan dijeda untuk Anda dan klien Anda hingga {resets}.",
     "bodyFull": "{reseller} telah menggunakan semua {max} tindakan AI untuk bulan ini. Pembuatan dan pengeditan dengan AI dijeda untuk Anda dan klien Anda hingga {resets}.",

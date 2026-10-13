@@ -112,6 +112,18 @@ that builds and uploads to TestFlight with their own Apple certificates.
 Universal links need the owner's Team ID (Mobile app tab) and Associated
 Domains turned on in Xcode.
 
+The zip's `AppStore/` folder has what App Store Connect asks for besides the
+build: the 1024 x 1024 store icon (no transparency), the logo, a README.txt,
+and screenshots of the app at 1320 x 2868 (iPhone 6.9"), 1206 x 2622
+(iPhone 6.3") and 2064 x 2752 (iPad 13"), landscape for landscape-only apps.
+They are made with headless Chromium (Playwright) from the server's own
+address: the engine's web build when the live version's spec is compiled,
+else the published pages, as a signed-out visitor (home plus up to four menu
+pages). Cached per live version under
+`<NK_NATIVE_DIR>/<projectId>/native/store-shots/`; a download waits up to a
+minute for a new set, then goes without (README.txt says so) while the set
+finishes for the next download. `NK_STORE_SCREENSHOTS=off` turns them off.
+
 ## Android in the browser (optional)
 
 `services/native-emulator/server.mjs` (Node 20+, no dependencies) runs Android

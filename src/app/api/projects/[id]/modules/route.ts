@@ -9,6 +9,9 @@ import { emailEnabled } from "@/lib/mailer";
 import { catalogFor } from "@/lib/catalog-server";
 import type { ModuleCapability, ModuleDefinition } from "@/lib/modules/types";
 import { joinList, localeOf, requestErrorsT, type ErrT } from "@/lib/errors-i18n";
+import { flowsUseAi } from "@/lib/app-ai/detect";
+import { projectAiStatus } from "@/lib/app-ai/status";
+import { translator } from "@/lib/ai/i18n";
 
 const InstallBody = z.object({
   moduleId: z.string().min(1),
@@ -58,8 +61,12 @@ export async function POST(req: Request, ctx: { params: Promise<{ id: string }> 
       orderBy: [{ isHome: "desc" }, { createdAt: "asc" }],
       select: { id: true, title: true, slug: true, isHome: true },
     });
+    // A feature with AI steps: published apps use the person's own AI key (docs/ai-in-apps.md).
+    const ai = module.provides?.includes("ai") || flowsUseAi(module.flows) ? await projectAiStatus(id).catch(() => null) : null;
+    const aiNotice = ai?.needsKey ? translator(localeOf(t), "ai")("aiApps.moduleNotice") : undefined;
     return json({
       ok: true,
+      ...(aiNotice ? { aiNotice } : {}),
       moduleId: module.id,
       name: catalogFor(localeOf(t)).moduleName(module),
       firstPageId: result.firstPageId,

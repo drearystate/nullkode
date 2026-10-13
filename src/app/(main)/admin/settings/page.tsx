@@ -2,6 +2,7 @@ import { BrandSettings } from "@/components/admin/brand-settings";
 import { BusinessSettings } from "@/components/admin/business-settings";
 import { EmailSettings } from "@/components/admin/email-settings";
 import { LanguageSettings } from "@/components/admin/language-settings";
+import { StorePublishSettings } from "@/components/admin/store-publish-settings";
 import { getTranslations } from "next-intl/server";
 import { getSetting } from "@/lib/settings";
 import { isLocale } from "@/i18n/locales";
@@ -23,6 +24,7 @@ export default async function AdminSettingsPage() {
   if (real.role !== "ADMIN") redirect("/dashboard");
 
   const t = await getTranslations("admin.settingsPage");
+  const ts = await getTranslations("storePublish.admin");
   const savedLocale = await getSetting<string>("i18n.defaultLocale").catch(() => null);
   const current = await getAllPlanLimits();
   const defaults = defaultPlanLimits();
@@ -48,7 +50,7 @@ export default async function AdminSettingsPage() {
           <Link href="/admin" className="btn btn-secondary">{t("back")}</Link>
         </div>
         <nav aria-label={t("sections")} className="sticky top-[60px] sm:top-[68px] z-10 -mx-2 mt-6 flex flex-wrap gap-2 bg-surface-950/90 px-2 py-3 backdrop-blur">
-          {[["#brand", t("navBrand")], ["#payments", t("navPayments")], ["#email", t("navEmail")], ["#language", t("navLanguage")], ["#ai", t("navAi")], ["#plans", t("navPlans")]].map(([href, label]) => (
+          {[["#brand", t("navBrand")], ["#payments", t("navPayments")], ["#email", t("navEmail")], ["#language", t("navLanguage")], ["#stores", ts("nav")], ["#ai", t("navAi")], ["#plans", t("navPlans")]].map(([href, label]) => (
             <a key={href} href={href} className="rounded-full border border-surface-700 px-3 py-1.5 text-sm text-surface-300 hover:border-brand-500/60 hover:text-white">{label}</a>
           ))}
           <Link href="/admin/resellers" className="rounded-full border border-surface-700 px-3 py-1.5 text-sm text-surface-300 hover:border-brand-500/60 hover:text-white">{t("navResellers")}</Link>
@@ -58,6 +60,7 @@ export default async function AdminSettingsPage() {
           <BusinessSettings />
           <EmailSettings />
           <LanguageSettings initial={isLocale(savedLocale) ? savedLocale : ""} />
+          <StorePublishSettings />
           <div className="mt-10">
             <SettingsPanel initialPlanLimits={initial} defaultPlanLimits={fallback} />
           </div>

@@ -1,3 +1,4 @@
+import { AI_FLOW_GUIDE, AI_PAGE_GUIDE, looksLikeAiApp } from "./ai-products-guide";
 import { generatedImageContext } from "../assets/generated";
 import { DESIGN_RULES_COMPACT, DESIGN_SYSTEM_RULES } from "./design-system";
 import { replyLanguageRule, translator } from "./i18n";
@@ -595,7 +596,7 @@ ${
 }
 ${otherPagesBlock}${attachmentsBlock}${historyBlock}
 INSTRUCTION:
-${opts.message}${generatedImageContext(`${opts.message} ${opts.pageTitle}`, compact ? 3 : 6)}
+${opts.message}${generatedImageContext(`${opts.message} ${opts.pageTitle}`, compact ? 3 : 6)}${looksLikeAiApp(opts.message) ? `\n\nThis change is about AI. You may also use these flow node types:\n${AI_FLOW_GUIDE}\n\n${AI_PAGE_GUIDE}` : ""}
 
 Return the complete JSON object. Populate newTables / newFlows / pageEdits only when the change genuinely requires them — otherwise use empty arrays.
 ${languageBlock}${contentBlock}

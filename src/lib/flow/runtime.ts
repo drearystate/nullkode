@@ -20,6 +20,8 @@ import { flowAccessDecision } from "./access";
 import { redactForLog, scrubResponseBody } from "./redact";
 import { hitLimit, undoHit } from "../rate-limit";
 import { appRuntimeText, getAppLocale, offeredLocale } from "../app-locale";
+import { AI_BUSY_VISITOR, AI_NOT_SET_UP_VISITOR, runAiNode } from "../app-ai/nodes";
+import { AppAiError } from "../app-ai/providers";
 
 /** What a visitor sees when a step fails. The owner sees the real reason in the flow's activity. */
 export const VISITOR_ERROR = "Sorry, that didn't send. Please try again; the owner has been told.";
@@ -37,6 +39,8 @@ const VISITOR_TEXT_KEYS: Record<string, string> = {
   "Some of the information is missing or in the wrong format.": "badInput",
   "Please sign in first.": "signInFirst",
   "You don't have access to this.": "noAccess",
+  [AI_NOT_SET_UP_VISITOR]: "aiNotSetUp",
+  [AI_BUSY_VISITOR]: "aiBusy",
 };
 
 async function forVisitor(projectId: string, text: string, lang?: string | null): Promise<string> {
@@ -96,7 +100,12 @@ export type RunOptions = {
   source?: RunSource;
   /** The graph to run, when the caller already loaded it with runnableFlow. */
   graph?: FlowGraph;
+  /** How many flows deep this run is (an AI agent's tool runs another flow). */
+  depth?: number;
 };
+
+/** How deep flows may call flows (an agent's tools). */
+const MAX_FLOW_DEPTH = 3;
 
 function normalizeGraph(g: unknown): FlowGraph {
   const graph = (g ?? {}) as Partial<FlowGraph>;
@@ -151,6 +160,9 @@ const BAD_INPUT_CODES = new Set(["22P02", "22007", "22008", "22003", "23502", "2
  * owner and is never sent to visitors.
  */
 function inputProblem(err: unknown): Pick<Failure, "status" | "visitorMessage"> {
+  // The app's AI: no key (never a silent fallback to the platform's AI), or its hourly limit.
+  if (err instanceof AppAiError && err.code === "not_set_up") return { status: 503, visitorMessage: AI_NOT_SET_UP_VISITOR };
+  if (err instanceof AppAiError && err.code === "limit") return { status: 429, visitorMessage: AI_BUSY_VISITOR };
   const code = (err as { code?: unknown } | null)?.code;
   if (code === "23505") return { status: 409, visitorMessage: "That already exists." };
   if (typeof code === "string" && BAD_INPUT_CODES.has(code)) return { status: 400, visitorMessage: "Some of the information is missing or in the wrong format." };
@@ -206,6 +218,8 @@ export async function runFlow(
     warnings: [],
     // The visitor's language among the app's (its default otherwise).
     request: { lang: offeredLocale(await getAppLocale(flow.projectId), opts.lang) },
+    live,
+    depth: opts.depth ?? 0,
   };
   const result: RunResult = {
     status: 200,
@@ -238,6 +252,10 @@ export async function runFlow(
   }
 
   const failure = state.failure;
+  if (failure && failure.visitorMessage === AI_NOT_SET_UP_VISITOR && !trusted) {
+    // The owner hears about it once per app (lib/app-ai/notify.ts).
+    void import("../app-ai/notify").then(({ notifyAiKeyNeeded }) => notifyAiKeyNeeded(flow.projectId, "visitor")).catch(() => {});
+  }
   if (failure) {
     result.status = failure.status ?? 500;
     result.failed = true;
@@ -664,27 +682,26 @@ async function executeNode(
       return;
     }
 
-    case "ai_prompt": {
-      const prompt = interpolate(node.data.prompt, ctx);
-      const system =
-        interpolate(node.data.system, ctx) ||
-        "You are a helpful assistant inside an app's backend workflow. Respond concisely.";
-      if (!prompt) throw new Error("AI prompt node is missing a prompt");
-      // Anyone visiting a published app can trigger this step, so it is both
-      // rate-limited per app and counted against the app owner's AI allowance.
-      if (!hitLimit(`ai-flow:${ctx.projectId}`, Number(process.env.AI_FLOW_HOURLY_LIMIT || 120), 3_600_000).ok) {
-        throw new Error("This app is receiving too many AI requests right now. Please try again later.");
-      }
-      const owner = await db.project.findUnique({ where: { id: ctx.projectId }, select: { owner: { select: { id: true, plan: true, role: true, resellerId: true } } } });
-      const { aiQuotaProblem, recordAiUsage } = await import("../ai-quota");
-      if (owner && (await aiQuotaProblem(owner.owner))) throw new Error("This app has reached its AI limit for the month.");
-      if (owner) await recordAiUsage(owner.owner.id, "flow", ctx.projectId);
-
-      const { providerComplete } = await import("../ai/provider");
-      // Public visitors can trigger this, so bound it like a request, not a build.
-      const text = await providerComplete({ systemPrompt: system, userMessage: prompt, maxTokens: 2000, signal: AbortSignal.timeout(90_000) });
-      if (node.data.output) ctx.vars[node.data.output] = text;
-      else ctx.vars.ai = text;
+    case "ai_prompt":
+    case "ai_chat":
+    case "ai_agent":
+    case "ai_structured":
+    case "ai_vision":
+    case "ai_embed":
+    case "ai_search":
+    case "ai_speech": {
+      // Every AI step uses the app's own AI connection (lib/app-ai/nodes.ts).
+      await runAiNode(node, ctx, {
+        warn: (m) => warn(ctx, m),
+        runFlow: async (slugOrId, input) => {
+          if ((ctx.depth ?? 0) + 1 > MAX_FLOW_DEPTH) return { status: 508, body: { error: "Flows call each other too deeply." } };
+          const target = await db.flow.findFirst({ where: { projectId: ctx.projectId, OR: [{ id: slugOrId }, { slug: slugOrId }] }, select: { id: true, enabled: true } });
+          if (!target || !target.enabled) return { status: 404, body: { error: `There is no flow "${slugOrId}" in this app.` } };
+          // The same person, the same checks: a visitor's agent can only run what the visitor could.
+          const r = await runFlow(target.id, input, ctx.cookies, { trusted: ctx.trusted, live: ctx.live, clientIp: ctx.clientIp, source: ctx.source, lang: ctx.request?.lang, depth: (ctx.depth ?? 0) + 1 });
+          return { status: r.status, body: r.body };
+        },
+      });
       return;
     }
 

@@ -53,9 +53,37 @@
       "help": "Đếm bản ghi hoặc tính tổng một cột trong bảng, chẳng hạn số lượt đăng ký hoặc tổng doanh số. Các bước sau có thể dùng kết quả.",
       "label": "Đếm hoặc tính tổng bản ghi"
     },
+    "ai_agent": {
+      "help": "Từng bước thực hiện mục tiêu bằng các công cụ bạn liệt kê (luồng của ứng dụng này hoặc địa chỉ web). Các công cụ được đánh dấu \"cần phê duyệt\" sẽ chờ người khác phê duyệt. Dùng khóa AI riêng của ứng dụng này.",
+      "label": "Tác nhân AI"
+    },
+    "ai_chat": {
+      "help": "Trả lời tin nhắn trong cuộc trò chuyện, dựa trên vai trò và nội dung trò chuyện từ trước trong một bảng (có thể lưu cả hai). Dành cho chatbot và trợ lý AI. Dùng khóa AI riêng của ứng dụng này.",
+      "label": "Câu trả lời trong đoạn chat với AI"
+    },
+    "ai_embed": {
+      "help": "Chuyển văn bản thành các con số thể hiện ý nghĩa, hoặc chia văn bản dài thành từng phần và tạo số cho mỗi phần để sẵn sàng lưu. Dùng với \"Tìm kiếm theo ý nghĩa\". Dùng khóa AI riêng của ứng dụng này.",
+      "label": "Vector AI"
+    },
     "ai_prompt": {
-      "help": "Giao cho AI một câu hỏi hoặc nhiệm vụ, chẳng hạn tóm tắt tin nhắn. Các bước sau có thể dùng kết quả. Mỗi lần chạy sẽ tính vào hạn mức AI của bạn.",
+      "help": "Đưa cho AI một câu hỏi hoặc nhiệm vụ, chẳng hạn như tóm tắt tin nhắn. Các bước sau có thể dùng câu trả lời. Dùng khóa AI riêng của ứng dụng này (Khóa AI).",
       "label": "Hỏi AI"
+    },
+    "ai_search": {
+      "help": "Tìm các hàng trong bảng có ý nghĩa gần nhất với câu hỏi, dựa trên các vector đã lưu. Mỗi lần tìm kiếm đọc tối đa 1.000 hàng.",
+      "label": "Tìm kiếm theo ý nghĩa"
+    },
+    "ai_speech": {
+      "help": "Dùng khóa AI của ứng dụng để chuyển văn bản thành giọng nói khi có thể; nếu không, trang sẽ đọc bằng giọng nói có sẵn trong trình duyệt.",
+      "label": "Đọc thành tiếng"
+    },
+    "ai_structured": {
+      "help": "Yêu cầu AI trả lời dưới dạng dữ liệu với các trường bạn mô tả (JSON), để các bước sau có thể lưu hoặc kiểm tra từng trường. Dùng khóa AI riêng của ứng dụng này.",
+      "label": "Câu trả lời AI dạng dữ liệu"
+    },
+    "ai_vision": {
+      "help": "Gửi ảnh cùng câu hỏi cho AI (tệp đã tải lên, địa chỉ https hoặc URL dữ liệu). Dùng khóa AI riêng của ứng dụng này.",
+      "label": "AI xem ảnh"
     },
     "branch": {
       "help": "Kiểm tra một điều kiện rồi chia quy trình tự động thành hai hướng: một hướng chạy khi điều kiện đúng, hướng còn lại chạy khi điều kiện không đúng.",
@@ -271,6 +299,29 @@
       "sum": "Tính tổng một cột"
     },
     "aggregateEmptyHint": "Để trống để tính tất cả hàng. Tất cả điều kiện phải khớp.",
+    "aiKeyLink": "Khóa AI",
+    "aiKeyNote": "Các bước AI dùng khóa AI riêng của ứng dụng này.",
+    "aiOptions": {
+      "embedChunks": "Các phần của văn bản dài",
+      "embedSingle": "Một embedding",
+      "safetyNone": "Tắt",
+      "safetyStandard": "Tiêu chuẩn"
+    },
+    "aiTool": {
+      "add": "Thêm công cụ",
+      "description": "Công cụ này làm gì",
+      "flow": "Luồng",
+      "kind": "Dùng",
+      "kindFlow": "Một luồng của ứng dụng này",
+      "kindHttp": "Một địa chỉ web",
+      "method": "Phương thức",
+      "name": "Tên",
+      "needsApproval": "Cần phê duyệt",
+      "none": "Chưa có công cụ nào: tác nhân sẽ tự trả lời.",
+      "params": "Tham số (cách nhau bằng dấu phẩy)",
+      "remove": "Xóa",
+      "url": "Địa chỉ"
+    },
     "biggestFirst": "Kết quả lớn nhất trước",
     "body": "Nội dung",
     "bodyEmpty": "Thêm các trường cần gửi trong nội dung yêu cầu.",
@@ -287,13 +338,109 @@
     "deleteHelp": "Xóa bước này và các kết nối của nó khỏi quy trình tự động. Không thể hoàn tác, nên bạn sẽ phải thêm lại bước này.",
     "deleteNeedsCondition": "Cần có điều kiện để xóa — nếu không, bước này sẽ bị lỗi.",
     "fields": {
+      "aiApprovalsTable": {
+        "help": "Nơi lưu hành động đang chờ phê duyệt (các cột tool, args, note, status, state), dùng cho trang phê duyệt.",
+        "label": "Bảng phê duyệt (không bắt buộc)"
+      },
+      "aiConnection": {
+        "help": "Chọn khóa AI của ứng dụng này theo tên. Để trống: dùng khóa mặc định của ứng dụng.",
+        "label": "Kết nối AI (không bắt buộc)"
+      },
+      "aiContext": {
+        "help": "Thông tin cần biết để trả lời, chẳng hạn như điều AI nhớ về người dùng hoặc tâm trạng của họ.",
+        "label": "Thông tin bổ sung (không bắt buộc)"
+      },
+      "aiDecision": {
+        "help": "Dùng cho lần chạy đang chờ phê duyệt: phê duyệt hoặc từ chối, thường lấy từ yêu cầu.",
+        "label": "Quyết định phê duyệt (không bắt buộc)"
+      },
+      "aiEmbedInput": {
+        "help": "Văn bản cần chuyển thành vector.",
+        "label": "Văn bản"
+      },
+      "aiEmbedMode": {
+        "help": "Một embedding cho toàn bộ văn bản, hoặc chia văn bản dài thành từng phần, mỗi phần một embedding (các hàng sẵn sàng để \"Thêm nhiều hàng\").",
+        "label": "Tạo nội dung gì"
+      },
+      "aiField": {
+        "help": "Cột lưu các embedding.",
+        "label": "Cột embedding"
+      },
+      "aiGoal": {
+        "help": "Việc tác nhân cần hoàn thành hoặc tin nhắn tiếp theo của người dùng.",
+        "label": "Mục tiêu hoặc tin nhắn"
+      },
+      "aiHistoryFilter": {
+        "help": "Giá trị dùng để chọn các hàng của cuộc trò chuyện này, chẳng hạn như conversation_id. Các giá trị này cũng được lưu vào hàng mới.",
+        "label": "Cuộc trò chuyện nào"
+      },
+      "aiHistoryLimit": {
+        "help": "Số tin nhắn mới nhất AI sẽ đọc (từ 1 đến 100).",
+        "label": "Số tin nhắn cần ghi nhớ"
+      },
+      "aiHistoryTable": {
+        "help": "Bảng lưu các tin nhắn trước đó (các cột role và content). Bước này đọc những tin nhắn mới nhất và lưu tin nhắn mới cùng câu trả lời.",
+        "label": "Bảng cuộc trò chuyện (không bắt buộc)"
+      },
+      "aiImage": {
+        "help": "Tệp đã tải lên (/uploads/…), địa chỉ https hoặc URL dữ liệu, thường lấy từ yêu cầu.",
+        "label": "Ảnh"
+      },
+      "aiMaxSteps": {
+        "help": "Tác nhân sẽ dừng sau số lần dùng công cụ này (từ 1 đến 12) và báo tiến độ.",
+        "label": "Số bước tối đa mỗi lần chạy"
+      },
+      "aiMessage": {
+        "help": "Nội dung người dùng vừa viết, thường là '{{'trigger.message'}}'.",
+        "label": "Tin nhắn mới"
+      },
+      "aiModel": {
+        "help": "Dùng mô hình khác với mô hình mặc định của kết nối cho bước này.",
+        "label": "Mô hình (không bắt buộc)"
+      },
+      "aiPersona": {
+        "help": "AI là ai và nên nói chuyện thế nào, chẳng hạn như một huấn luyện viên thân thiện luôn trả lời ngắn gọn.",
+        "label": "Vai trò và hướng dẫn"
+      },
       "aiPrompt": {
         "help": "Câu hỏi hoặc nhiệm vụ dành cho AI. Chèn giá trị để thêm thông tin như tin nhắn của khách hàng.",
         "label": "Lời nhắc"
       },
+      "aiQuery": {
+        "help": "Mô tả bằng lời thường những gì cần tìm.",
+        "label": "Câu hỏi"
+      },
+      "aiSafety": {
+        "help": "Chuẩn giúp câu trả lời phù hợp với mọi đối tượng (không có nội dung tình dục, có hỗ trợ khi khủng hoảng). Tắt: chỉ làm theo hướng dẫn của bạn.",
+        "label": "An toàn"
+      },
+      "aiSchema": {
+        "help": "Ví dụ về câu trả lời dạng JSON, như '{'\"title\":\"\",\"tags\":[]'}', hoặc một JSON schema.",
+        "label": "Các trường cần điền"
+      },
+      "aiSpeechText": {
+        "help": "Thường là câu trả lời của AI.",
+        "label": "Văn bản cần đọc"
+      },
+      "aiState": {
+        "help": "Trạng thái đã lưu từ lần chạy trước (giá trị state) để tiếp tục nhiệm vụ.",
+        "label": "Tiếp tục từ (không bắt buộc)"
+      },
       "aiSystem": {
         "help": "Thông tin nền cho AI, luôn giữ nguyên mỗi lần chạy, chẳng hạn “Trả lời bằng một câu thân thiện” hoặc “Bạn làm việc tại một tiệm bánh”.",
         "label": "Chỉ dẫn hệ thống (không bắt buộc)"
+      },
+      "aiTools": {
+        "help": "Công cụ tác nhân có thể dùng: một luồng khác của ứng dụng này hoặc địa chỉ web. Đánh dấu các công cụ có rủi ro là cần phê duyệt.",
+        "label": "Công cụ"
+      },
+      "aiTopK": {
+        "help": "Số kết quả khớp nhất cần trả về (1 đến 50).",
+        "label": "Số kết quả"
+      },
+      "aiVoice": {
+        "help": "Tên giọng nói mà dịch vụ AI của bạn nhận biết, chẳng hạn như alloy.",
+        "label": "Giọng nói (không bắt buộc)"
       },
       "dataSource": {
         "help": "Nơi lưu dữ liệu của bạn. Hầu hết ứng dụng chỉ có cơ sở dữ liệu tích hợp sẵn; chỉ chọn nguồn khác nếu bạn đã tự kết nối.",
@@ -533,6 +680,9 @@
     "pickTable": "Chọn danh sách bản ghi để thiết lập bước này.",
     "placeholders": {
       "aNumber": "một con số",
+      "aiConnection": "mặc định",
+      "aiGoal": "Tìm email chưa được trả lời trong tuần này và soạn thư trả lời",
+      "aiPersona": "Bạn là Nova, người bạn đồng hành vui vẻ, thích chia sẻ kiến thức về vũ trụ...",
       "aiPrompt": "Tóm tắt tin nhắn này của khách hàng...",
       "aiSystem": "Bạn là một trợ lý hữu ích...",
       "eg10": "ví dụ: 10",
@@ -754,6 +904,14 @@
   },
   "summary": {
     "aggregateFallback": "Đếm hoặc tính tổng bản ghi",
+    "aiAgent": "{count, plural, =0 {Chưa có công cụ} one {# công cụ} other {# công cụ}}",
+    "aiChat": "Trả lời tin nhắn",
+    "aiChatWithHistory": "Trả lời, nhớ nội dung trong {table}",
+    "aiEmbed": "Chuyển văn bản thành vector",
+    "aiEmbedChunks": "Chia văn bản dài thành từng phần",
+    "aiSpeech": "Đọc văn bản thành tiếng",
+    "aiStructured": "Trả lời dạng dữ liệu",
+    "aiVision": "Xem ảnh",
     "askAi": "Đặt câu hỏi cho AI",
     "bulkDeleteFallback": "Xóa nhiều hàng cùng lúc",
     "bulkInsertFallback": "Thêm nhiều hàng cùng lúc",

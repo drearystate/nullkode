@@ -54,9 +54,13 @@ paid core and no license server.
 - **Real backends, visually.** Every app gets its own Postgres database and a
   flow editor for the logic: forms, sign-in, bookings, payments, emails and
   schedules.
-- **135 ready-made features.** Bookings, shops, memberships, CRM, reviews,
+- **138 ready-made features.** Bookings, shops, memberships, CRM, reviews,
   forums, invoices, event tickets and more. Each one adds its own pages, tables
   and admin screens.
+- **Build AI products.** AI companions you chat and talk with, personal agents
+  that work on goals and ask before risky steps, chatbots and knowledge bots,
+  each running on the app's own AI key (OpenAI, Gemini, xAI, OpenRouter or any
+  OpenAI-compatible server). See [docs/ai-in-apps.md](docs/ai-in-apps.md).
 - **Make real games.** The Game Studio builds 2D and 3D games step by step on a
   live canvas, from a library of 66,000+ free (CC0) sprites, models, sounds and
   fonts that the AI has tagged and can search. Chat with it while it builds.
@@ -195,7 +199,7 @@ templates are the easiest way to contribute.
 | | |
 |---|---|
 | **Building** | AI plan-then-build, AI Designer, 18 original templates, website import, blank canvas, drag-and-drop editor, Ask AI edits, themes with dark mode |
-| **Backend** | Postgres per app, visual flows, sign-in and roles, email, webhooks, Google Sheets, scheduled flows, AI steps |
+| **Backend** | Postgres per app, visual flows, sign-in and roles, email, webhooks, Google Sheets, scheduled flows, AI steps (chat, agents with approvals, structured answers, vision, embeddings and search by meaning, speech) on each app's own AI key |
 | **Features** | 135 ready-made: commerce (32), utility (26), community (26), productivity (20), content (17), media (9), communication (5) |
 | **Publishing** | Draft and live versions with rollback, own address per app, custom domains, automatic HTTPS, PWA and offline, push notifications, QR codes |
 | **Mobile** | Real native iOS and Android apps compiled from your pages (React Native), previews in the browser, in Expo Go and in an Android emulator, Android APK and Google Play (AAB) with per-app signing keys, iOS Xcode project and TestFlight workflow |
@@ -223,7 +227,7 @@ Checks: `pnpm typecheck`, `pnpm check:js`, `pnpm check:extensions`,
 `pnpm test:e2e`. More: [architecture](docs/architecture.md),
 [contributing](CONTRIBUTING.md), [local AI](docs/local-ai.md),
 [mobile apps](docs/mobile-apps.md), [native apps](docs/native-apps.md), [games](docs/games.md),
-[partner API](docs/partner-api.md), [deployment](docs/deploy/).
+[partner API](docs/partner-api.md), [AI in apps](docs/ai-in-apps.md), [deployment](docs/deploy/).
 
 ## License
 
