@@ -1,5 +1,7 @@
 {
   "api": {
+    "copyPages": "Diese App hat mehr Seiten, als der Tarif der Person pro App erlaubt.",
+    "copySource": "Sende entweder ein Freigabelink-Token oder kind und id eines Elements in diesem Schlüsselbereich.",
     "emailTaken": "Für diese E-Mail-Adresse gibt es bereits ein Konto, das von diesem Schlüssel nicht verwaltet wird. Sie kann deshalb nicht verwendet werden.",
     "gamesUnavailable": "Auf diesem Server können keine Spiele erstellt werden: Die Spiele-Engines und die Asset-Bibliothek sind nicht installiert.",
     "idemInProgress": "Eine Anfrage mit diesem Idempotency-Key wird noch verarbeitet. Versuche es gleich noch einmal.",
@@ -11,6 +13,7 @@
     "invalidCursor": "„cursor“ ist ungültig. Verwende den nextCursor der vorherigen Seite.",
     "invalidEmail": "Sende unter „email“ eine gültige E-Mail-Adresse.",
     "invalidEngine": "\"engine\" muss \"2d\", \"3d\" oder \"auto\" sein.",
+    "invalidExpiry": "expiresInDays muss eine ganze Zahl zwischen 1 und 365 sein oder null für kein Enddatum.",
     "invalidFeature": "Gib den Namen der Funktion (2 bis 80 Zeichen) und optional unter „Wie“ an, was sie macht (bis zu 400 Zeichen).",
     "invalidGameName": "\"name\" muss Text mit höchstens 120 Zeichen sein.",
     "invalidJson": "Der Anfrageinhalt muss ein JSON-Objekt sein.",
@@ -22,8 +25,11 @@
     "invalidPlan": "„plan“ muss einem dieser Werte entsprechen: {plans}.",
     "invalidPrompt": "Beschreibe das Spiel oder die Änderung in \"prompt\" (bis zu 6000 Zeichen) oder sende Referenzbilder.",
     "invalidRedirect": "„to“ muss ein Pfad auf dieser Website sein, zum Beispiel /dashboard.",
+    "invalidShareKind": "kind muss \"app\", \"design\" oder \"game\" sein.",
     "invalidStopMode": "\"mode\" muss \"after-step\", \"now\" oder \"continue\" sein.",
     "invalidWait": "\"wait\" muss true oder false sein.",
+    "linkGone": "Dieser Freigabelink funktioniert nicht: Er ist unbekannt, widerrufen oder abgelaufen, oder das freigegebene Element wurde gelöscht.",
+    "linkWorkspace": "Dieser Freigabelink gehört zu einem anderen Arbeitsbereich.",
     "missingKey": "Senden Sie Ihren Partnerschlüssel im Authorization-Header, mit „Bearer“, gefolgt von einem Leerzeichen und dem Schlüssel.",
     "network": "Dieser Partner-Schlüssel kann nicht über dieses Netzwerk verwendet werden.",
     "notFound": "Nicht gefunden.",
@@ -33,6 +39,7 @@
     "revokedKey": "Dieser Partner-Schlüssel wurde widerrufen.",
     "seatsFull": "In diesem Arbeitsbereich sind keine Kundenplätze mehr frei (Limit: {max}).",
     "suspended": "Der Arbeitsbereich, zu dem dieser Partner-Schlüssel gehört, ist gesperrt.",
+    "tooManyLinks": "Es gibt bereits {count} aktive Freigabelinks. Widerrufe zuerst einen.",
     "userSuspended": "Dieses Konto ist gesperrt."
   },
   "keys": {

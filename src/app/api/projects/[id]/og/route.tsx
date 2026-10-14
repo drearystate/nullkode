@@ -3,6 +3,7 @@ import { readFile, realpath, stat } from "node:fs/promises";
 import path from "node:path";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
+import { hasProjectAccess } from "@/lib/sharing/access";
 import { liveSnapshot } from "@/lib/deployments";
 import { defaultAppIconPng } from "@/lib/app-icon";
 import { hitLimit } from "@/lib/rate-limit";
@@ -157,10 +158,10 @@ export async function GET(req: Request, ctx: { params: Promise<{ id: string }> }
     select: { id: true, name: true, icon: true, theme: true, published: true, ownerId: true, liveDeploymentId: true },
   });
   if (!project) return new Response("Not found", { status: 404 });
-  // Unpublished apps: only their owner (the Publish screen's preview).
+  // Unpublished apps: only the people working on it (the Publish screen's preview).
   if (!project.published) {
     const user = await getCurrentUser();
-    if (!user || user.id !== project.ownerId) return new Response("Not found", { status: 404 });
+    if (!(await hasProjectAccess(project, user, "view"))) return new Response("Not found", { status: 404 });
   }
   const live = project.liveDeploymentId ? await liveSnapshot(project.id) : null;
   const color = themePrimary(live && live.theme !== undefined ? live.theme : project.theme);

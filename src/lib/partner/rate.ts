@@ -55,4 +55,8 @@ export const ROUTE_LIMITS = {
   exports: { max: 60, windowMs: 60 * 60_000 },
   /** GET /games/assets/search. */
   assets: { max: 600, windowMs: 60 * 60_000 },
+  /** POST /shares ("Share a copy" links, docs/sharing.md). */
+  shares: { max: 300, windowMs: 60 * 60_000 },
+  /** POST /copies (each makes a whole copy of an app, design or game). */
+  copies: { max: 120, windowMs: 60 * 60_000 },
 } as const;

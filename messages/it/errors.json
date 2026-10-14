@@ -58,12 +58,12 @@
     "alreadyRegistered": "Email già registrata",
     "domainNoMail": "Questo dominio email non accetta messaggi. Usa un altro indirizzo.",
     "formExpired": "La registrazione è scaduta. Riprova.",
+    "oneFreeAccount": "È già stato creato un account gratuito da questa rete. Accedi a quell'account.",
     "permanentEmail": "Registrati con un indirizzo email permanente.",
     "tooManyAccounts": "Oggi sono stati creati troppi account da questa rete.",
     "tooManyAttempts": "Ci sono stati troppi tentativi di registrazione da questa rete. Riprova più tardi.",
     "tooQuick": "Hai fatto troppo in fretta: riprova.",
-    "verificationFailed": "Verifica non riuscita. Ricarica la pagina e riprova.",
-    "oneFreeAccount": "Da questa rete è già stato creato un account gratuito. Accedi a quell'account."
+    "verificationFailed": "Verifica non riuscita. Ricarica la pagina e riprova."
   },
   "apk": {
     "alreadyHasKey": "Questa app ha già una chiave di caricamento. Seleziona \"Sostituisci la chiave attuale\" per usare questa.",
@@ -322,6 +322,31 @@
     "published": "{count, plural, one {# app pubblicata} other {# app pubblicate}}",
     "publishedUnlimited": "App pubblicate illimitate",
     "scheduled": "Flussi di lavoro programmati"
+  },
+  "sharing": {
+    "badEmail": "Inserisci un indirizzo email valido.",
+    "badExpiry": "Scegli per quanto tempo sarà valido il link: da 1 a 365 giorni oppure senza scadenza.",
+    "badKind": "Scegli un'app, un design o un gioco.",
+    "badRole": "Scegli Editor o Viewer.",
+    "copyFailed": "Non è stato possibile creare la tua copia. Riprova.",
+    "copyPages": "Quest'app ha più pagine di quelle consentite dal tuo piano.",
+    "inviteExpired": "Questo invito è scaduto. Chiedi di riceverne uno nuovo.",
+    "inviteNotFound": "Questo invito non è più disponibile.",
+    "inviteOwner": "Questo elemento è già tuo.",
+    "inviteWorkspace": "Questo invito proviene da un altro spazio di lavoro, quindi non puoi accettarlo con questo account.",
+    "linkExpired": "Questo link è scaduto. Chiedi a chi te l'ha condiviso di inviartene uno nuovo.",
+    "linkGone": "Questo link non funziona più.",
+    "linkRevoked": "Questo link è stato disattivato. Chiedi a chi te l'ha condiviso di inviartene uno nuovo.",
+    "linkWorkspace": "Questo link appartiene a un altro spazio di lavoro, quindi non puoi usarlo con questo account.",
+    "needsLink": "Apri il link nell'email di invito per accettare l'invito.",
+    "ownerOnly": "Solo il proprietario può farlo.",
+    "self": "Questo è il tuo indirizzo email.",
+    "tooManyCollaborators": "Puoi invitare fino a {count} persone.",
+    "tooManyCopies": "Hai creato molte copie nell'ultima ora. Riprova più tardi.",
+    "tooManyInvites": "Hai inviato molti inviti nell'ultima ora. Riprova più tardi.",
+    "tooManyLinks": "Ci sono già {count} link. Disattivane uno prima.",
+    "viewOnly": "Puoi vedere questo elemento, ma non modificarlo.",
+    "wrongAccount": "Questo invito è stato inviato a un altro indirizzo email. Accedi con quell'indirizzo per accettarlo."
   },
   "templates": {
     "createFailed": "Impossibile creare l'app da questo modello. Riprova.",

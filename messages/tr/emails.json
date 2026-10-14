@@ -32,6 +32,14 @@
     "heldBack": "Gelen kutunuz dolmasın diye ayrı e-postaları göndermedik. Tümünü uygulamanızın verilerinde görebilirsiniz:",
     "subject": "{app} uygulamasında {count, plural, one {# yeni gönderim daha} other {# yeni gönderim daha}}"
   },
+  "collaborate": {
+    "body": "{inviter}, {app} üzerinden {what, select, app {uygulama} design {tasarım} game {oyun} other {proje}} \"{title}\" üzerinde birlikte çalışmanız için seni davet etti.",
+    "cta": "Davetiyeyi kabul etmek için bu e-posta adresiyle oturum aç:",
+    "editor": "Düzenleyici olarak değişiklik yapabilir ve yapay zekâyla geliştirebilirsin. Projenin sahibi onlar olmaya devam eder: projeyi silemez, yayınlayamaz veya anahtarlarını göremezsin.",
+    "expires": "Davetin süresi 14 gün içinde dolar. Bu daveti beklemiyorsan e-postayı yok sayabilirsin.",
+    "subject": "{inviter}, \"{title}\" üzerinde birlikte çalışmanız için seni davet etti",
+    "viewer": "Görüntüleyici olarak projedeki her şeyi görebilir, ancak değiştiremezsin."
+  },
   "hi": "Merhaba,",
   "hiName": "Merhaba {name},",
   "invite": {

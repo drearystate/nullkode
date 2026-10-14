@@ -4,6 +4,7 @@ import { getTranslations } from "next-intl/server";
 import { ArrowRight, GitBranch, Workflow } from "lucide-react";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
+import { hasProjectAccess } from "@/lib/sharing/access";
 import { NewFlowButton } from "@/components/new-flow-button";
 import { FlowEnabledSwitch } from "@/components/flow/flow-enabled-switch";
 
@@ -12,7 +13,7 @@ export default async function FlowsList({ params }: { params: Promise<{ id: stri
   const user = await getCurrentUser();
   if (!user) return null;
   const project = await db.project.findUnique({ where: { id }, include: { flows: { orderBy: { updatedAt: "desc" } } } });
-  if (!project || project.ownerId !== user.id) notFound();
+  if (!project || !(await hasProjectAccess(project, user, "view"))) notFound();
   const t = await getTranslations("flows.list");
   return <div className="mx-auto max-w-6xl px-6 py-10">
     <div className="flex flex-wrap items-end justify-between gap-5"><div><p className="studio-eyebrow mb-3 text-brand-300">{t("eyebrow")}</p><h1 className="text-3xl font-semibold tracking-tight">{t("title")}</h1><p className="mt-3 max-w-xl text-sm leading-relaxed text-surface-400">{t("intro")}</p></div><NewFlowButton projectId={id} /></div>

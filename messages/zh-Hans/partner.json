@@ -1,5 +1,7 @@
 {
   "api": {
+    "copyPages": "此应用的页面数超出对方套餐允许的单个应用页面数。",
+    "copySource": "请发送分享链接令牌，或发送此密钥范围内某项内容的 kind 和 id。",
     "emailTaken": "此邮箱地址已有账号，且此密钥无法管理该账号，因此不能使用。",
     "gamesUnavailable": "此服务器无法创建游戏：未安装游戏引擎和素材库。",
     "idemInProgress": "使用此 Idempotency-Key 的请求仍在处理中。请稍后重试。",
@@ -11,6 +13,7 @@
     "invalidCursor": "\"cursor\" 无效。请使用上一页的 nextCursor。",
     "invalidEmail": "请在 \"email\" 中填写有效的邮箱地址。",
     "invalidEngine": "“engine”必须是“2d”、“3d”或“auto”。",
+    "invalidExpiry": "expiresInDays 必须是 1 到 365 之间的整数；如不设置到期日期，请填写 null。",
     "invalidFeature": "填写功能名称（2 到 80 个字符）；如有需要，也可以在“如何”中说明它的作用（最多 400 个字符）。",
     "invalidGameName": "“name”必须是长度不超过 120 个字符的文本。",
     "invalidJson": "请求内容必须是 JSON 对象。",
@@ -22,8 +25,11 @@
     "invalidPlan": "\"plan\" 必须是以下选项之一：{plans}。",
     "invalidPrompt": "请在“prompt”中描述游戏或要做的更改（最多 6000 个字符），也可以发送参考图片。",
     "invalidRedirect": "\"to\" 必须是此网站上的路径，例如 /dashboard。",
+    "invalidShareKind": "kind 必须是 \"app\"、\"design\" 或 \"game\"。",
     "invalidStopMode": "“mode”必须是“after-step”、“now”或“continue”。",
     "invalidWait": "“wait”必须是 true 或 false。",
+    "linkGone": "此分享链接无法使用：链接不存在、已撤销或已过期，或者分享的内容已被删除。",
+    "linkWorkspace": "此分享链接属于其他工作区。",
     "missingKey": "请在 Authorization 请求头中发送您的合作伙伴密钥，格式为“Bearer”后加一个空格和密钥。",
     "network": "无法从此网络使用此合作伙伴密钥。",
     "notFound": "未找到。",
@@ -33,6 +39,7 @@
     "revokedKey": "此合作伙伴密钥已撤销。",
     "seatsFull": "此工作区没有剩余的客户席位（上限为 {max}）。",
     "suspended": "此合作伙伴密钥所属的工作区已停用。",
+    "tooManyLinks": "此项已有 {count} 个有效分享链接。请先撤销一个。",
     "userSuspended": "此账号已停用。"
   },
   "keys": {

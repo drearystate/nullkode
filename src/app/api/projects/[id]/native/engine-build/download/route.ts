@@ -1,6 +1,7 @@
 import { readFile } from "node:fs/promises";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
+import { hasProjectAccess } from "@/lib/sharing/access";
 import { json } from "@/lib/utils";
 import { getTranslations } from "next-intl/server";
 import { requestLocale } from "@/i18n/request";
@@ -18,8 +19,8 @@ export async function GET(req: Request, ctx: { params: Promise<{ id: string }> }
   const { id } = await ctx.params;
   const user = await getCurrentUser();
   if (!user) return json({ error: (await tr())("unauthorized") }, { status: 401 });
-  const project = await db.project.findUnique({ where: { id }, select: { ownerId: true } });
-  if (!project || project.ownerId !== user.id) return json({ error: (await tr())("notFound") }, { status: 404 });
+  const project = await db.project.findUnique({ where: { id }, select: { id: true, ownerId: true } });
+  if (!project || !(await hasProjectAccess(project, user, "owner"))) return json({ error: (await tr())("notFound") }, { status: 404 });
 
   const params = new URL(req.url).searchParams;
   const buildId = params.get("buildId");

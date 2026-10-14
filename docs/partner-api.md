@@ -29,6 +29,7 @@ The machine-readable description is [`partner-api.openapi.json`](partner-api.ope
 - [Pagination](#pagination)
 - [Endpoints](#endpoints)
 - [Games](#games)
+- [Sharing](#sharing)
 - [Reference images](#reference-images)
 - [The build rule](#the-build-rule)
 - [Webhooks](#webhooks)
@@ -191,6 +192,8 @@ X-RateLimit-Reset: 1790000000      (Unix seconds)
 | `POST /games/clarify` | 300 an hour (and 20 an hour per person) |
 | `GET /games/{id}/export` | 60 an hour (and 20 an hour per person) |
 | `GET /games/assets/search` | 600 an hour |
+| `POST /shares` | 300 an hour |
+| `POST /copies` | 120 an hour |
 
 Over a limit you get `429 rate_limited` with `Retry-After` (seconds). Builds
 are also bounded by each person's monthly AI allowance (`429
@@ -1063,6 +1066,59 @@ steps aren't reported twice) until `game.build.completed`.
 4. Show `game.screenshot` and `game.plan.features` with their status; open
    the workspace with `POST /sso` and `to` = `game.paths.workspace`.
 5. `POST /games/{id}/publish` and share `url`.
+
+## Sharing
+
+"Share a copy" links and copies, the same as the studio's **Share** button
+(docs/sharing.md). Each person gets their own, independent copy in their
+account: it starts unpublished on a fresh address, counts towards their plan,
+and never carries the original's AI or payment keys, outside database
+passwords, signing keys, store data, domains, push credentials, webhook
+secrets or published versions. An app made from a design or a game is shared
+as that design or game. These endpoints need the `build` permission; the
+thing's owner and the person receiving a copy must be in the key's scope.
+
+### POST /shares
+
+```json
+{ "kind": "app", "id": "cmabc…", "includeData": true, "expiresInDays": 30 }
+```
+
+`kind` is `app`, `design` or `game`. `includeData` (apps only): copies get
+sample rows from the tables the app's public pages show (never accounts,
+passwords, visitors' own entries or private tables). `expiresInDays` 1–365, or
+null/absent for no end date. Answers `201 {link: {id, kind, url, token,
+includeData, expiresAt, revokedAt, createdAt, active, copies}, target: {kind,
+id, name}}`. At most 20 active links per thing (`409 too_many_links`).
+Honours `Idempotency-Key`.
+
+### GET /shares?kind=&id=
+
+The thing's links (newest first) and the copies made of it: `{target, links,
+copies: [{id, createdAt, linkId, includeData, user: {name, email}}]}`.
+
+### DELETE /shares/{linkId}
+
+Revokes a link at once (`{ok, id, revoked: true}`). Copies already made stay
+with the people who made them.
+
+### POST /copies
+
+Makes a person's own copy, from a link or straight from something in scope:
+
+```json
+{ "userId": "cmuser…", "token": "<link token>", "name": "Dora's bakery" }
+{ "userId": "cmuser…", "kind": "game", "id": "cmgame…" }
+```
+
+With `kind` and `id`, `includeData` chooses sample rows (apps); a link carries
+its own choice. Answers `201 {copy: {kind, id, path, url}, source: {kind, id,
+name}}`; `path` works as `to` for `POST /sso`. Refusals: `404 not_found` (person
+or thing outside the key's scope), `404 link_unusable` (unknown, revoked or
+expired link, or the shared thing was deleted), `403 workspace` (the link
+belongs to another workspace), `403 plan_limit` (the person's plan has no room
+for another app, or the app has more pages than it allows). Honours
+`Idempotency-Key`.
 
 ## Reference images
 

@@ -1,6 +1,7 @@
 import QRCode from "qrcode";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
+import { hasProjectAccess } from "@/lib/sharing/access";
 import { json } from "@/lib/utils";
 import { getTranslations } from "next-intl/server";
 import { requestLocale } from "@/i18n/request";
@@ -26,7 +27,7 @@ export async function GET(req: Request, ctx: { params: Promise<{ id: string }> }
   const user = await getCurrentUser();
   if (!user) return json({ error: (await tr())("unauthorized") }, { status: 401 });
   const project = await db.project.findUnique({ where: { id }, select: { id: true, ownerId: true, published: true } });
-  if (!project || project.ownerId !== user.id) return json({ error: (await tr())("notFound") }, { status: 404 });
+  if (!project || !(await hasProjectAccess(project, user, "edit"))) return json({ error: (await tr())("notFound") }, { status: 404 });
   if (!project.published) return json({ error: (await tr())("publishFirst") }, { status: 409 });
 
   const url = new URL(req.url);

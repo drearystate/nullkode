@@ -1258,6 +1258,71 @@ const GUIDE_LIST: Guide[] = [
     related: ["getting-started", "publishing"],
   },
 
+  {
+    slug: "sharing",
+    title: "Share your work and build together",
+    summary: "Give people their own copy of an app, design or game to build on, or invite them to work on yours with you.",
+    audience: "everyone",
+    group: "publish",
+    sections: [
+      {
+        heading: "Two ways to share",
+        body: [
+          "Press **Share** on an app (next to **Preview**), in the AI Designer or in the Game Studio. **Share a copy** gives people a link to make their own copy: what they change stays in their copy, and what you change stays in yours. **Edit together** invites people by email to work on this one with you.",
+        ],
+      },
+      {
+        heading: "Share a copy",
+        body: [
+          "Anyone who opens the link signs in, or signs up, sees what you shared and what a copy includes, and presses **Make my copy**. The copy is theirs, in their account, and starts unpublished.",
+        ],
+        steps: [
+          "Press **Share**, then **Share a copy**.",
+          "For an app, tick **Include sample data** if copies should get example rows from the tables your public pages show.",
+          "Choose how long the link works, then press **Create link**. The link is copied for you to send.",
+          "Under **Copies** you see who made a copy, and when. Press **Turn off** to stop a link working; copies already made stay with the people who made them.",
+        ],
+      },
+      {
+        heading: "What a copy never includes",
+        body: [
+          "Copies never get your private things: AI keys, payment and other private keys, connections to outside databases, Android signing keys and app store accounts, your custom domains and web address, push notification subscribers, published versions, analytics and owner-only settings such as alerts. For apps, your visitors' accounts, passwords and their own entries never go along either.",
+          "If an app uses AI, the person adds their own AI key to their copy before they publish it.",
+        ],
+      },
+      {
+        heading: "Edit together",
+        body: [
+          "An **Editor** can change pages, workflows, data and features, and build with the AI, which uses their own AI allowance. They can't delete, publish or transfer it, invite others, or see its keys, domains and billing. A **Viewer** can look at everything but can't change anything.",
+        ],
+        steps: [
+          "Press **Share**, then **Edit together**.",
+          "Type their email address, choose **Editor** or **Viewer**, and press **Invite**.",
+          "They get an email. If email isn't set up, send them the link that appears instead.",
+          "They accept while signed in with that email address, from the email or from **Shared with me** on their dashboard.",
+          "To take someone's access away, press the bin next to their name. It ends straight away.",
+        ],
+      },
+      {
+        heading: "Shared with me",
+        body: [
+          "Apps, designs and games other people invited you to work on are under **Shared with me** on your dashboard, with your invitations. Press **Leave** to stop working on one.",
+        ],
+      },
+      {
+        heading: "Good to know",
+        body: [],
+        bullets: [
+          "Two people can edit the same app at once. If someone else saved a page after you opened it, the editor tells you; the newest save is kept, so reload to see their changes first.",
+          "**Recent changes** in the Share dialog shows who changed what since you shared it.",
+          "A copy counts towards the plan of the person who makes it.",
+          "You can hide the **Copied from** note on a copy you made.",
+        ],
+      },
+    ],
+    related: ["publishing", "game-studio", "ai-designer"],
+  },
+
   // ── Running the platform ──────────────────────────────────────────────
   {
     slug: "running-your-platform",

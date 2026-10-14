@@ -4,6 +4,7 @@ import { db } from "@/lib/db";
 import { getCurrentUser, getImpersonation } from "@/lib/auth";
 import { requestLocale } from "@/i18n/request";
 import { json } from "@/lib/utils";
+import { accessError, checkProjectAccess } from "@/lib/sharing/access";
 import { PlayError } from "./google-play";
 import { FdroidError, repoAddLink, repoAddress } from "./fdroid";
 import { ReleaseError } from "./releases";
@@ -23,12 +24,13 @@ export async function signedIn(opts: { write?: boolean } = {}): Promise<{ respon
   return { user };
 }
 
+/** The app, owner only (lib/sharing/access.ts): store accounts and releases are never a collaborator's. */
 export async function ownedProject(id: string, opts: { write?: boolean } = {}): Promise<{ response: Response } | { user: User; project: Project }> {
   const res = await signedIn(opts);
   if ("response" in res) return res;
-  const project = await db.project.findUnique({ where: { id } });
-  if (!project || project.ownerId !== res.user.id) return { response: json({ error: (await tr())("notFound") }, { status: 404 }) };
-  return { user: res.user, project };
+  const r = await checkProjectAccess(id, "owner");
+  if (!r.ok) return { response: r.status === 404 ? json({ error: (await tr())("notFound") }, { status: 404 }) : await accessError(r.status, r.need) };
+  return { user: r.user, project: r.project };
 }
 
 const KNOWN = new Set([

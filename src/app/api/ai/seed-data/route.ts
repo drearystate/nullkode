@@ -2,6 +2,7 @@ import { z } from "zod";
 import { aiUsageSummary, checkAiQuota, recordAiUsage, refundFailedAi } from "@/lib/ai-quota";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
+import { hasProjectAccess } from "@/lib/sharing/access";
 import { json } from "@/lib/utils";
 import { providerEditPage } from "@/lib/ai/provider";
 import { postgresAdapter } from "@/lib/datasources/postgres";
@@ -41,11 +42,12 @@ export async function POST(req: Request) {
   if (!parsed.success) return json({ error: t("errors.invalidInput") }, { status: 400 });
   const { projectId, message } = parsed.data;
 
-  const project = await db.project.findFirst({
-    where: { id: projectId, ownerId: user.id },
-    select: { id: true },
+  // The owner and editors (lib/sharing/access.ts); the AI action is the person's own.
+  const project = await db.project.findUnique({
+    where: { id: projectId },
+    select: { id: true, ownerId: true },
   });
-  if (!project) return json({ error: t("errors.projectNotFound") }, { status: 404 });
+  if (!project || !(await hasProjectAccess(project, user, "edit"))) return json({ error: t("errors.projectNotFound") }, { status: 404 });
 
   const datasource = await db.dataSource.findFirst({
     where: { projectId, kind: "POSTGRES_INTERNAL" },

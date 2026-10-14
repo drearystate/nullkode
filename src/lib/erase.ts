@@ -185,6 +185,9 @@ export async function eraseProject(projectId: string, slug: string): Promise<Era
   await db.project.deleteMany({ where: { id: projectId } });
   // Per-app records kept in settings: privacy log, deletion requests, alerts…
   await db.setting.deleteMany({ where: { key: { endsWith: `:${projectId}` } } });
+  // Sharing (lib/sharing): its collaborators go, its "Share a copy" links stop working.
+  await db.collaborator.deleteMany({ where: { kind: "app", targetId: projectId } }).catch(() => {});
+  await db.shareLink.updateMany({ where: { kind: "app", targetId: projectId, revokedAt: null }, data: { revokedAt: new Date() } }).catch(() => {});
   return report;
 }
 

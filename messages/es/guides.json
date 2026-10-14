@@ -1360,6 +1360,65 @@
     "summary": "Tu página principal de administración: configura {app}, ayuda a quienes la usan y mantén el servidor en buen estado.",
     "title": "Administra tu plataforma"
   },
+  "sharing": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Pulsa <b>Compartir</b> en una app (junto a <b>Vista previa</b>), en el Diseñador de IA o en el Estudio de juegos. <b>Compartir una copia</b> da a otras personas un enlace para crear su propia copia: los cambios que hagan se quedan en su copia, y los que hagas tú se quedan en la tuya. <b>Editar en equipo</b> invita a otras personas por correo para trabajar contigo en esta misma app."
+        },
+        "heading": "Dos formas de compartir"
+      },
+      "1": {
+        "body": {
+          "0": "Quien abra el enlace inicia sesión o se registra, ve lo que compartiste y qué incluye la copia, y pulsa <b>Crear mi copia</b>. La copia es suya, está en su cuenta y empieza sin publicar."
+        },
+        "heading": "Compartir una copia",
+        "steps": {
+          "0": "Pulsa <b>Compartir</b> y luego <b>Compartir una copia</b>.",
+          "1": "En una app, marca <b>Incluir datos de ejemplo</b> si quieres que las copias incluyan filas de ejemplo de las tablas que muestran tus páginas públicas.",
+          "2": "Elige durante cuánto tiempo funcionará el enlace y pulsa <b>Crear enlace</b>. El enlace se copia para que puedas enviarlo.",
+          "3": "En <b>Copias</b> puedes ver quién hizo una copia y cuándo. Pulsa <b>Desactivar</b> para dejar de compartir un enlace; las copias que ya se hicieron siguen siendo de quienes las crearon."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Las copias nunca incluyen tus datos privados: claves de IA, claves de pago y otras claves privadas, conexiones a bases de datos externas, claves de firma de Android y cuentas de tiendas de apps, tus dominios personalizados y dirección web, suscriptores de notificaciones push, versiones publicadas, analíticas ni ajustes exclusivos para propietarios, como las alertas. En las apps, tampoco se comparten las cuentas, contraseñas ni entradas personales de tus visitantes.",
+          "1": "Si una app usa IA, la persona debe añadir su propia clave de IA a la copia antes de publicarla."
+        },
+        "heading": "Qué nunca incluye una copia"
+      },
+      "3": {
+        "body": {
+          "0": "Un <b>Editor</b> puede cambiar páginas, flujos de trabajo, datos y funciones, y crear con la IA usando su propia cuota de IA. No puede eliminar, publicar ni transferir la app, invitar a otras personas ni ver sus claves, dominios o facturación. Un <b>Espectador</b> puede verlo todo, pero no cambiar nada."
+        },
+        "heading": "Editar en equipo",
+        "steps": {
+          "0": "Pulsa <b>Compartir</b> y luego <b>Editar en equipo</b>.",
+          "1": "Escribe su dirección de correo, elige <b>Editor</b> o <b>Espectador</b> y pulsa <b>Invitar</b>.",
+          "2": "Recibirá un correo. Si no tienes el correo configurado, envíale el enlace que aparece.",
+          "3": "Acepta la invitación mientras tiene la sesión iniciada con esa dirección de correo, desde el correo o desde <b>Compartido conmigo</b> en su panel.",
+          "4": "Para quitarle el acceso a alguien, pulsa la papelera junto a su nombre. El acceso se revoca de inmediato."
+        }
+      },
+      "4": {
+        "body": {
+          "0": "Las apps, los diseños y los juegos en los que otras personas te invitaron a colaborar están en <b>Compartido conmigo</b>, en tu panel, junto con tus invitaciones. Pulsa <b>Salir</b> para dejar de colaborar en uno."
+        },
+        "heading": "Compartido conmigo"
+      },
+      "5": {
+        "bullets": {
+          "0": "Dos personas pueden editar la misma app a la vez. Si alguien más guardó una página después de que la abrieras, el editor te avisará. Se conserva el guardado más reciente, así que vuelve a cargar la página para ver primero los cambios de la otra persona.",
+          "1": "<b>Cambios recientes</b>, en el cuadro de diálogo Compartir, muestra quién cambió qué desde que compartiste la app.",
+          "2": "Las copias cuentan para el plan de quien las crea.",
+          "3": "Puedes ocultar la nota <b>Copiado de</b> en una copia que hayas creado."
+        },
+        "heading": "Información útil"
+      }
+    },
+    "summary": "Dales a otras personas su propia copia de una app, un diseño o un juego para que puedan seguir creando, o invítalas a trabajar contigo en el tuyo.",
+    "title": "Comparte tu trabajo y crea en equipo"
+  },
   "white-label": {
     "sections": {
       "0": {

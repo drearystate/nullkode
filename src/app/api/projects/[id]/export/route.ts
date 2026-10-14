@@ -1,5 +1,6 @@
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
+import { hasProjectAccess } from "@/lib/sharing/access";
 import { json } from "@/lib/utils";
 import { themeToCss, type ProjectTheme } from "@/lib/theme";
 import { Pool } from "pg";
@@ -53,7 +54,7 @@ export async function GET(_req: Request, ctx: { params: Promise<{ id: string }> 
       modules: true,
     },
   });
-  if (!project || project.ownerId !== user.id) {
+  if (!project || !(await hasProjectAccess(project, user, "owner"))) {
     return json({ error: tr("notFound") }, { status: 404 });
   }
 

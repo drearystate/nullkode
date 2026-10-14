@@ -1,5 +1,7 @@
 {
   "api": {
+    "copyPages": "Questa app ha più pagine di quante il piano della persona consenta in una singola app.",
+    "copySource": "Invia un token del link di condivisione, oppure il tipo e l'ID di un elemento incluso nell'ambito di questa chiave.",
     "emailTaken": "Questo indirizzo email ha già un account che non è gestito da questa chiave, quindi non può essere usato.",
     "gamesUnavailable": "Non è possibile creare giochi su questo server: i motori di gioco e la libreria di risorse non sono installati.",
     "idemInProgress": "Una richiesta con questa Idempotency-Key è ancora in corso. Riprova tra poco.",
@@ -11,6 +13,7 @@
     "invalidCursor": "\"cursor\" non è valido. Usa il nextCursor della pagina precedente.",
     "invalidEmail": "Invia un indirizzo email valido in \"email\".",
     "invalidEngine": "\"engine\" deve essere \"2d\", \"3d\" o \"auto\".",
+    "invalidExpiry": "expiresInDays deve essere un numero intero da 1 a 365, oppure null per nessuna data di scadenza.",
     "invalidFeature": "Invia il nome della funzionalità (da 2 a 80 caratteri) e, se vuoi, descrivi cosa fa nel campo \"how\" (fino a 400 caratteri).",
     "invalidGameName": "\"name\" deve essere un testo di massimo 120 caratteri.",
     "invalidJson": "Il corpo della richiesta deve essere un oggetto JSON.",
@@ -22,8 +25,11 @@
     "invalidPlan": "\"plan\" deve essere uno tra: {plans}.",
     "invalidPrompt": "Descrivi il gioco o la modifica in \"prompt\" (fino a 6000 caratteri), oppure invia immagini di riferimento.",
     "invalidRedirect": "\"to\" deve essere un percorso di questo sito, ad esempio /dashboard.",
+    "invalidShareKind": "Il tipo deve essere \"app\", \"design\" o \"game\".",
     "invalidStopMode": "\"mode\" deve essere \"after-step\", \"now\" o \"continue\".",
     "invalidWait": "\"wait\" deve essere true o false.",
+    "linkGone": "Questo link di condivisione non funziona: è sconosciuto, revocato o scaduto, oppure l'elemento condiviso è stato eliminato.",
+    "linkWorkspace": "Questo link di condivisione appartiene a un altro spazio di lavoro.",
     "missingKey": "Invia la chiave partner nell’intestazione Authorization, preceduta da «Bearer» e uno spazio.",
     "network": "Non puoi usare questa chiave partner da questa rete.",
     "notFound": "Non trovato.",
@@ -33,6 +39,7 @@
     "revokedKey": "Questa chiave partner è stata revocata.",
     "seatsFull": "Non ci sono più posti per i clienti in questo spazio di lavoro (il limite è {max}).",
     "suspended": "Lo spazio di lavoro a cui appartiene questa chiave partner è sospeso.",
+    "tooManyLinks": "Questa voce ha già {count} link di condivisione attivi. Revocane uno prima.",
     "userSuspended": "Questo account è sospeso."
   },
   "keys": {

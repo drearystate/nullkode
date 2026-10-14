@@ -22,14 +22,14 @@ async function invalid() {
 
 export async function GET(_req: Request, ctx: { params: Promise<{ id: string }> }) {
   const { id } = await ctx.params;
-  const r = await ownedProject(id);
+  const r = await ownedProject(id, "view");
   if ("error" in r) return r.error;
   return json(await languagesView(id));
 }
 
 export async function POST(req: Request, ctx: { params: Promise<{ id: string }> }) {
   const { id } = await ctx.params;
-  const r = await ownedProject(id);
+  const r = await ownedProject(id, "edit");
   if ("error" in r) return r.error;
   const body = (await req.json().catch(() => null)) as { locale?: unknown; action?: unknown; force?: unknown } | null;
   const locale = body?.locale;
@@ -46,7 +46,7 @@ export async function POST(req: Request, ctx: { params: Promise<{ id: string }> 
 
 export async function DELETE(req: Request, ctx: { params: Promise<{ id: string }> }) {
   const { id } = await ctx.params;
-  const r = await ownedProject(id);
+  const r = await ownedProject(id, "edit");
   if ("error" in r) return r.error;
   const body = (await req.json().catch(() => null)) as { locale?: unknown } | null;
   const locale = body?.locale;

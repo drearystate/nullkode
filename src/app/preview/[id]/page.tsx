@@ -1,5 +1,6 @@
 import { notFound, redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth";
+import { hasProjectAccess } from "@/lib/sharing/access";
 import { db } from "@/lib/db";
 import { appDocumentParts, RUNTIME_JS } from "@/lib/public-page";
 import { documentMarkup } from "@/lib/design-studio/document-split";
@@ -26,9 +27,10 @@ export default async function PreviewPage({
   const isEmbed = embed === "1";
 
   const project = await db.project.findFirst({
-    where: { id, ownerId: user.id },
+    where: { id },
   });
-  if (!project) notFound();
+  // The owner and everyone working on the app (lib/sharing/access.ts).
+  if (!project || !(await hasProjectAccess(project, user, "view"))) notFound();
 
   // Preview always shows the draft (the latest edits). Visitors keep seeing
   // the published version until the owner publishes again.

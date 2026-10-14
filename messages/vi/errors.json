@@ -58,12 +58,12 @@
     "alreadyRegistered": "Email đã được đăng ký",
     "domainNoMail": "Tên miền email này không nhận thư. Vui lòng dùng địa chỉ khác.",
     "formExpired": "Biểu mẫu đăng ký đã hết hạn. Vui lòng thử lại.",
+    "oneFreeAccount": "Đã có tài khoản miễn phí được tạo từ mạng này. Vui lòng đăng nhập vào tài khoản đó.",
     "permanentEmail": "Vui lòng đăng ký bằng địa chỉ email lâu dài.",
     "tooManyAccounts": "Hôm nay đã có quá nhiều tài khoản được tạo từ mạng này.",
     "tooManyAttempts": "Có quá nhiều lần đăng ký từ mạng này. Hãy thử lại sau.",
     "tooQuick": "Bạn thao tác quá nhanh — vui lòng thử lại.",
-    "verificationFailed": "Xác minh không thành công. Vui lòng tải lại trang rồi thử lại.",
-    "oneFreeAccount": "Một tài khoản miễn phí đã được tạo từ mạng này. Vui lòng đăng nhập vào tài khoản đó."
+    "verificationFailed": "Xác minh không thành công. Vui lòng tải lại trang rồi thử lại."
   },
   "apk": {
     "alreadyHasKey": "Ứng dụng này đã có khóa tải lên. Chọn \"Thay thế khóa hiện tại\" để dùng khóa này.",
@@ -322,6 +322,31 @@
     "published": "{count, plural, one {# ứng dụng đã xuất bản} other {# ứng dụng đã xuất bản}}",
     "publishedUnlimited": "Không giới hạn ứng dụng đã xuất bản",
     "scheduled": "Quy trình tự động theo lịch"
+  },
+  "sharing": {
+    "badEmail": "Hãy nhập địa chỉ email hợp lệ.",
+    "badExpiry": "Chọn thời hạn sử dụng liên kết: từ 1 đến 365 ngày hoặc không hết hạn.",
+    "badKind": "Hãy chọn ứng dụng, bản thiết kế hoặc trò chơi.",
+    "badRole": "Hãy chọn Người chỉnh sửa hoặc Người xem.",
+    "copyFailed": "Không thể tạo bản sao. Vui lòng thử lại.",
+    "copyPages": "Ứng dụng này có nhiều trang hơn giới hạn của gói bạn đang dùng.",
+    "inviteExpired": "Lời mời này đã hết hạn. Hãy yêu cầu lời mời mới.",
+    "inviteNotFound": "Không tìm thấy lời mời này nữa.",
+    "inviteOwner": "Ứng dụng này đã thuộc về bạn.",
+    "inviteWorkspace": "Lời mời này đến từ một không gian làm việc khác nên không thể chấp nhận bằng tài khoản này.",
+    "linkExpired": "Liên kết này đã hết hạn. Hãy nhờ người chia sẻ gửi liên kết mới.",
+    "linkGone": "Liên kết này không còn hoạt động.",
+    "linkRevoked": "Liên kết này đã bị tắt. Hãy nhờ người chia sẻ gửi liên kết mới.",
+    "linkWorkspace": "Liên kết này thuộc về một không gian làm việc khác nên không thể dùng với tài khoản này.",
+    "needsLink": "Mở liên kết trong email mời để chấp nhận.",
+    "ownerOnly": "Chỉ chủ sở hữu mới làm được việc này.",
+    "self": "Đó là địa chỉ email của bạn.",
+    "tooManyCollaborators": "Bạn có thể mời tối đa {count} người.",
+    "tooManyCopies": "Bạn đã tạo quá nhiều bản sao trong giờ qua. Hãy thử lại sau.",
+    "tooManyInvites": "Bạn đã gửi quá nhiều lời mời trong giờ qua. Hãy thử lại sau.",
+    "tooManyLinks": "Đã có {count} liên kết. Hãy tắt một liên kết trước.",
+    "viewOnly": "Bạn có thể xem nhưng không chỉnh sửa được.",
+    "wrongAccount": "Lời mời này được gửi đến một địa chỉ email khác. Hãy đăng nhập bằng địa chỉ đó để chấp nhận."
   },
   "templates": {
     "createFailed": "Không thể tạo ứng dụng từ mẫu này. Vui lòng thử lại.",

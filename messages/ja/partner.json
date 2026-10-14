@@ -1,5 +1,7 @@
 {
   "api": {
+    "copyPages": "このアプリのページ数は、相手のプランで1つのアプリに許可されている上限を超えています。",
+    "copySource": "共有リンクトークン、またはこのキーでアクセスできる対象の種類とIDを指定してください。",
     "emailTaken": "このメールアドレスには、このキーで管理されていないアカウントがすでにあるため、使用できません。",
     "gamesUnavailable": "このサーバーではゲームを作成できません。ゲームエンジンと素材ライブラリがインストールされていません。",
     "idemInProgress": "このIdempotency-Keyを使ったリクエストは処理中です。しばらくしてからもう一度お試しください。",
@@ -11,6 +13,7 @@
     "invalidCursor": "「cursor」が無効です。前のページのnextCursorを使ってください。",
     "invalidEmail": "「email」に有効なメールアドレスを指定してください。",
     "invalidEngine": "「engine」は「2d」「3d」「auto」のいずれかにしてください。",
+    "invalidExpiry": "expiresInDays は1〜365の整数、または終了日なしの場合は null を指定してください。",
     "invalidFeature": "機能名（2～80文字）を入力し、必要であれば「how」に機能の説明（400文字以内）を入力してください。",
     "invalidGameName": "「name」は120文字以内のテキストにしてください。",
     "invalidJson": "リクエスト本文はJSONオブジェクトである必要があります。",
@@ -22,8 +25,11 @@
     "invalidPlan": "「plan」は次のいずれかである必要があります：{plans}。",
     "invalidPrompt": "「prompt」にゲームの内容や変更内容を入力してください（最大6000文字）。または参考画像を送信してください。",
     "invalidRedirect": "「to」には、このサイト内のパスを指定してください（例：/dashboard）。",
+    "invalidShareKind": "kind は \"app\"、\"design\"、\"game\" のいずれかである必要があります。",
     "invalidStopMode": "「mode」は「after-step」「now」「continue」のいずれかにしてください。",
     "invalidWait": "「wait」はtrueまたはfalseにしてください。",
+    "linkGone": "この共有リンクは使えません。リンクが存在しない、取り消された、期限切れ、または共有アイテムが削除された可能性があります。",
+    "linkWorkspace": "この共有リンクは別のワークスペースのものです。",
     "missingKey": "Authorization ヘッダーに、\"Bearer\" の後にスペースを入れてパートナーキーを送信してください。",
     "network": "このパートナーキーはこのネットワークからは使えません。",
     "notFound": "見つかりません。",
@@ -33,6 +39,7 @@
     "revokedKey": "このパートナーキーは取り消されています。",
     "seatsFull": "このワークスペースにはクライアント用の空き枠がありません（上限：{max}）。",
     "suspended": "このパートナーキーが属するワークスペースは停止されています。",
+    "tooManyLinks": "有効な共有リンクがすでに {count} 件あります。先に1つ取り消してください。",
     "userSuspended": "このアカウントは停止されています。"
   },
   "keys": {

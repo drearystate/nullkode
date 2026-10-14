@@ -4,23 +4,25 @@ import { ownedProject, checkScheduledFlows } from "@/lib/guard";
 import { json, slugify } from "@/lib/utils";
 import { getTranslations } from "next-intl/server";
 import { requestLocale } from "@/i18n/request";
+import { flowsFor } from "@/lib/sharing/redact";
+import { noteEdit } from "@/lib/sharing/audit";
 
 const CreateBody = z.object({ name: z.string().min(1).max(80) });
 
 export async function GET(_req: Request, ctx: { params: Promise<{ id: string }> }) {
   const { id } = await ctx.params;
-  const r = await ownedProject(id);
+  const r = await ownedProject(id, "view");
   if ("error" in r) return r.error;
   const flows = await db.flow.findMany({
     where: { projectId: id },
     orderBy: { updatedAt: "desc" },
   });
-  return json({ flows });
+  return json({ flows: await flowsFor(r.role, flows) });
 }
 
 export async function POST(req: Request, ctx: { params: Promise<{ id: string }> }) {
   const { id } = await ctx.params;
-  const r = await ownedProject(id);
+  const r = await ownedProject(id, "edit");
   if ("error" in r) return r.error;
 
   const t = await getTranslations({ locale: await requestLocale(), namespace: "flows.api" });
@@ -51,5 +53,6 @@ export async function POST(req: Request, ctx: { params: Promise<{ id: string }> 
     },
   });
 
+  await noteEdit("app", id, r.user.id, "flow.create", { subjectId: flow.id, label: flow.name });
   return json({ flow });
 }

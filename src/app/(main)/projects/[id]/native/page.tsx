@@ -3,6 +3,7 @@ import { headers } from "next/headers";
 import { getTranslations } from "next-intl/server";
 import { db } from "@/lib/db";
 import { getCurrentUser, getImpersonation, getRealUser } from "@/lib/auth";
+import { hasProjectAccess } from "@/lib/sharing/access";
 import { NativeAppPanel } from "@/components/native-app-panel";
 import { nativeConfigFor, normalizeHexColor, publishedAppUrl } from "@/lib/native";
 import { androidToolchainStatus, listBuilds, uploadKeyInfo } from "@/lib/apk-build";
@@ -22,7 +23,8 @@ export default async function NativeAppPage({
   const user = await getCurrentUser();
   if (!user) return null;
   const project = await db.project.findUnique({ where: { id } });
-  if (!project || project.ownerId !== user.id) notFound();
+  // Phone-app builds use the owner's signing key and store accounts: the owner's screen.
+  if (!project || !(await hasProjectAccess(project, user, "owner"))) notFound();
 
   const [t, ts] = await Promise.all([getTranslations("project.nativePage"), getTranslations("nativeStudio.page")]);
   const [toolchain, key, builds, impersonation, realUser, liveUrl, config, engine, engineBuilds, emulator, web, spec, te] = await Promise.all([

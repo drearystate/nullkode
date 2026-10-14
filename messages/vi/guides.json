@@ -1360,6 +1360,65 @@
     "summary": "Trang quản trị chính của bạn: thiết lập {app}, hỗ trợ người dùng và giữ cho máy chủ hoạt động ổn định.",
     "title": "Vận hành nền tảng"
   },
+  "sharing": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Nhấn <b>Chia sẻ</b> trên ứng dụng (bên cạnh <b>Xem trước</b>), trong AI Designer hoặc Game Studio. <b>Chia sẻ bản sao</b> tạo liên kết để mọi người tự tạo bản sao: thay đổi của họ chỉ nằm trong bản sao của họ, còn thay đổi của bạn chỉ nằm trong bản của bạn. <b>Cùng chỉnh sửa</b> mời mọi người qua email để cùng làm trên sản phẩm này."
+        },
+        "heading": "Hai cách chia sẻ"
+      },
+      "1": {
+        "body": {
+          "0": "Ai mở liên kết sẽ đăng nhập hoặc đăng ký, xem nội dung bạn chia sẻ và những gì có trong bản sao, rồi nhấn <b>Tạo bản sao của tôi</b>. Bản sao thuộc về họ, nằm trong tài khoản của họ và chưa được xuất bản."
+        },
+        "heading": "Chia sẻ bản sao",
+        "steps": {
+          "0": "Nhấn <b>Chia sẻ</b>, rồi chọn <b>Chia sẻ bản sao</b>.",
+          "1": "Với ứng dụng, hãy chọn <b>Thêm dữ liệu mẫu</b> nếu bạn muốn các bản sao có các hàng dữ liệu mẫu từ những bảng hiển thị trên trang công khai.",
+          "2": "Chọn thời hạn hiệu lực của liên kết, rồi nhấn <b>Tạo liên kết</b>. Liên kết sẽ được sao chép để bạn gửi đi.",
+          "3": "Trong mục <b>Bản sao</b>, bạn sẽ thấy ai đã tạo bản sao và thời điểm tạo. Nhấn <b>Tắt</b> để ngừng liên kết hoạt động; những bản sao đã tạo vẫn thuộc về người tạo."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Bản sao không bao giờ có thông tin riêng tư của bạn: khóa AI, khóa thanh toán và các khóa riêng tư khác, kết nối với cơ sở dữ liệu bên ngoài, khóa ký Android và tài khoản cửa hàng ứng dụng, tên miền tùy chỉnh và địa chỉ web, người đăng ký nhận thông báo đẩy, phiên bản đã xuất bản, số liệu phân tích và các cài đặt chỉ chủ sở hữu mới thấy như cảnh báo. Với ứng dụng, tài khoản, mật khẩu và dữ liệu riêng của khách truy cập cũng không được sao chép.",
+          "1": "Nếu ứng dụng dùng AI, người tạo bản sao cần thêm khóa AI của riêng họ trước khi xuất bản."
+        },
+        "heading": "Những gì không bao giờ có trong bản sao"
+      },
+      "3": {
+        "body": {
+          "0": "<b>Biên tập viên</b> có thể thay đổi trang, quy trình, dữ liệu và tính năng, cũng như xây dựng bằng AI với hạn mức AI của riêng họ. Họ không thể xóa, xuất bản hoặc chuyển giao sản phẩm, mời người khác, hay xem khóa, tên miền và thông tin thanh toán. <b>Người xem</b> có thể xem mọi thứ nhưng không thể thay đổi."
+        },
+        "heading": "Cùng chỉnh sửa",
+        "steps": {
+          "0": "Nhấn <b>Chia sẻ</b>, rồi chọn <b>Cùng chỉnh sửa</b>.",
+          "1": "Nhập địa chỉ email, chọn <b>Biên tập viên</b> hoặc <b>Người xem</b>, rồi nhấn <b>Mời</b>.",
+          "2": "Họ sẽ nhận được email. Nếu chưa thiết lập email, hãy gửi cho họ liên kết hiện ra.",
+          "3": "Họ chấp nhận lời mời khi đã đăng nhập bằng địa chỉ email đó, từ email hoặc mục <b>Được chia sẻ với tôi</b> trên trang tổng quan.",
+          "4": "Để thu hồi quyền truy cập của ai đó, nhấn biểu tượng thùng rác bên cạnh tên họ. Quyền truy cập sẽ bị thu hồi ngay lập tức."
+        }
+      },
+      "4": {
+        "body": {
+          "0": "Ứng dụng, thiết kế và trò chơi mà người khác mời bạn cùng làm sẽ nằm trong mục <b>Được chia sẻ với tôi</b> trên trang tổng quan, cùng với các lời mời của bạn. Nhấn <b>Rời khỏi</b> để ngừng tham gia."
+        },
+        "heading": "Được chia sẻ với tôi"
+      },
+      "5": {
+        "bullets": {
+          "0": "Hai người có thể cùng chỉnh sửa một ứng dụng. Nếu người khác lưu trang sau khi bạn mở trang đó, trình chỉnh sửa sẽ báo cho bạn biết. Bản lưu mới nhất sẽ được giữ lại, vì vậy hãy tải lại để xem thay đổi của họ trước.",
+          "1": "Mục <b>Thay đổi gần đây</b> trong hộp thoại Chia sẻ cho biết ai đã thay đổi nội dung gì kể từ khi bạn chia sẻ.",
+          "2": "Bản sao được tính vào gói của người tạo bản sao.",
+          "3": "Bạn có thể ẩn ghi chú <b>Được sao chép từ</b> trên bản sao mình đã tạo."
+        },
+        "heading": "Thông tin hữu ích"
+      }
+    },
+    "summary": "Cho mọi người bản sao của ứng dụng, thiết kế hoặc trò chơi để tiếp tục phát triển, hoặc mời họ cùng làm trên sản phẩm của bạn.",
+    "title": "Chia sẻ sản phẩm và cùng nhau xây dựng"
+  },
   "white-label": {
     "sections": {
       "0": {

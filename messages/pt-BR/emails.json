@@ -32,6 +32,14 @@
     "heldBack": "Não enviamos os e-mails separados para evitar lotar sua caixa de entrada. Você pode ver tudo nos dados do seu app:",
     "subject": "{count, plural, one {mais # novo envio} other {mais # novos envios}} no {app}"
   },
+  "collaborate": {
+    "body": "{inviter} convidou você para trabalhar com eles no {what, select, app {app} design {design} game {jogo} other {projeto}} \"{title}\" no {app}.",
+    "cta": "Faça login com este endereço de e-mail e aceite o convite:",
+    "editor": "Como editor, você pode fazer alterações e criar com IA. O projeto continua sendo da outra pessoa: você não pode excluí-lo, publicá-lo nem ver as chaves dele.",
+    "expires": "O convite expira em 14 dias. Se você não estava esperando por ele, pode ignorar este e-mail.",
+    "subject": "{inviter} convidou você para trabalhar em \"{title}\"",
+    "viewer": "Como visualizador, você pode ver tudo no projeto, mas não fazer alterações."
+  },
   "hi": "Olá,",
   "hiName": "Olá, {name},",
   "invite": {

@@ -153,6 +153,10 @@ model User {
   games   GameProject[]
   storeAccounts StoreAccount[]
   fdroidRepo    FdroidRepo?
+  shareLinks          ShareLink[]    @relation("ShareLinkOwner")
+  shareCopies         ShareCopy[]    @relation("ShareCopyUser")
+  collaborations      Collaborator[] @relation("CollaboratorUser")
+  collaboratorInvites Collaborator[] @relation("CollaboratorOwner")
 }
 
 /**
@@ -1048,4 +1052,100 @@ model FdroidRepoApp {
   @@unique([repoId, packageName, versionCode])
   @@index([repoId])
   @@index([projectId])
+}
+
+// ── Sharing (src/lib/sharing, docs/sharing.md) ──────────────────────────
+// "Share a copy" links, the copies people made from them, collaborators
+// (editors and viewers) and the record of who changed what in shared work.
+// kind is "app" (a Project), "design" (a DesignerDesign) or "game" (a
+// GameProject); targetId is its id.
+
+/// A "Share a copy" link (/share/<token>): anyone signed in who opens it (in the sharer's workspace) can make
+/// their own copy. Only a SHA-256 of the token is kept to find the link; tokenEnc (encryptSecret) lets the
+/// owner copy the link again. Revocable, optionally expiring; includeData = the app's sample rows go too.
+model ShareLink {
+  id          String    @id @default(cuid())
+  kind        String
+  targetId    String
+  ownerId     String
+  tokenHash   String    @unique
+  tokenEnc    String
+  includeData Boolean   @default(false)
+  expiresAt   DateTime?
+  revokedAt   DateTime?
+  createdAt   DateTime  @default(now())
+
+  owner  User        @relation("ShareLinkOwner", fields: [ownerId], references: [id], onDelete: Cascade)
+  copies ShareCopy[]
+
+  @@index([kind, targetId])
+  @@index([ownerId])
+}
+
+/// One copy someone made (from a link, or for them through the partner API): what was copied, the new
+/// app/design/game (copyId), who made it and when. sourceName/sourceOwnerName are kept for the credit on
+/// the copy ("Copied from …"), which its new owner can hide (creditHidden).
+model ShareCopy {
+  id              String   @id @default(cuid())
+  linkId          String?
+  kind            String
+  sourceId        String
+  sourceOwnerId   String
+  copyId          String
+  userId          String
+  sourceName      String
+  sourceOwnerName String   @default("")
+  includeData     Boolean  @default(false)
+  creditHidden    Boolean  @default(false)
+  createdAt       DateTime @default(now())
+
+  link ShareLink? @relation(fields: [linkId], references: [id], onDelete: SetNull)
+  user User       @relation("ShareCopyUser", fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([kind, sourceId])
+  @@index([kind, copyId])
+  @@index([userId])
+}
+
+/// A person invited to work on someone's app, design or game: "editor" (edit and build) or "viewer"
+/// (read-only). "pending" until accepted while signed in as the invited email (the emailed link's token, or an
+/// account that already had that email); the owner can remove them at any time. userId is set on accepting.
+model Collaborator {
+  id         String    @id @default(cuid())
+  kind       String
+  targetId   String
+  ownerId    String
+  email      String
+  userId     String?
+  role       String    @default("editor")
+  status     String    @default("pending")
+  tokenHash  String?   @unique
+  invitedAt  DateTime  @default(now())
+  acceptedAt DateTime?
+  expiresAt  DateTime?
+
+  owner User  @relation("CollaboratorOwner", fields: [ownerId], references: [id], onDelete: Cascade)
+  user  User? @relation("CollaboratorUser", fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([kind, targetId, email])
+  @@index([userId, status])
+  @@index([email, status])
+  @@index([kind, targetId])
+}
+
+/// Who changed what in shared work (written while a target has collaborators): page and flow saves, game and
+/// design versions, collaborator changes. Saves by the same person to the same thing within a few minutes
+/// update one row. subjectId = the page, flow or version; label = its name.
+model EditLog {
+  id        String   @id @default(cuid())
+  kind      String
+  targetId  String
+  userId    String?
+  action    String
+  subjectId String?
+  label     String?
+  createdAt DateTime @default(now())
+
+  @@index([kind, targetId, createdAt])
+  @@index([subjectId, createdAt])
 }

@@ -51,6 +51,10 @@
     {
       "name": "ai",
       "description": "Apps' own AI keys (published apps never use the platform's AI)."
+    },
+    {
+      "name": "sharing",
+      "description": "\"Share a copy\" links and copies (each person gets their own, independent copy)."
     }
   ],
   "paths": {
@@ -3311,6 +3315,337 @@
         },
         "description": "The features from a scan the person kept: on the list as built; their tests run with the next change."
       }
+    },
+    "/shares": {
+      "post": {
+        "tags": [
+          "sharing"
+        ],
+        "operationId": "createShareLink",
+        "summary": "Make a \"Share a copy\" link for an app, design or game",
+        "description": "Like the studio's Share dialog. The thing's owner must be in the key's scope. At most 20 active links per thing.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateShareLink"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "The link.",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimitLimit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimitRemaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimitReset"
+              },
+              "X-Request-Id": {
+                "$ref": "#/components/headers/RequestId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "link": {
+                      "$ref": "#/components/schemas/ShareLink"
+                    },
+                    "target": {
+                      "$ref": "#/components/schemas/ShareTarget"
+                    }
+                  },
+                  "required": [
+                    "link",
+                    "target"
+                  ]
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "too_many_links.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/Internal"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "sharing"
+        ],
+        "operationId": "listShareLinks",
+        "summary": "The links and the copies made of an app, design or game",
+        "parameters": [
+          {
+            "name": "kind",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/ShareKind"
+            }
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Links (newest first) and copies.",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimitLimit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimitRemaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimitReset"
+              },
+              "X-Request-Id": {
+                "$ref": "#/components/headers/RequestId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "target": {
+                      "$ref": "#/components/schemas/ShareTarget"
+                    },
+                    "links": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ShareLink"
+                      }
+                    },
+                    "copies": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ShareCopy"
+                      }
+                    }
+                  },
+                  "required": [
+                    "target",
+                    "links",
+                    "copies"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/Internal"
+          }
+        }
+      }
+    },
+    "/shares/{linkId}": {
+      "delete": {
+        "tags": [
+          "sharing"
+        ],
+        "operationId": "revokeShareLink",
+        "summary": "Revoke a \"Share a copy\" link",
+        "description": "The link stops working at once; copies already made stay with the people who made them.",
+        "parameters": [
+          {
+            "name": "linkId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Revoked.",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimitLimit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimitRemaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimitReset"
+              },
+              "X-Request-Id": {
+                "$ref": "#/components/headers/RequestId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "revoked": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "ok",
+                    "id",
+                    "revoked"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/Internal"
+          }
+        }
+      }
+    },
+    "/copies": {
+      "post": {
+        "tags": [
+          "sharing"
+        ],
+        "operationId": "makeCopy",
+        "summary": "Make a person's own copy of an app, design or game",
+        "description": "The copy belongs to `userId`, starts unpublished on a fresh address and never carries the original's AI or payment keys, signing keys, store accounts, domains, push credentials, webhook secrets or published versions. The person's plan limits apply (403 plan_limit).",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCopy"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "The copy.",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimitLimit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimitRemaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimitReset"
+              },
+              "X-Request-Id": {
+                "$ref": "#/components/headers/RequestId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CopyResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/Internal"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -5825,6 +6160,243 @@
             }
           }
         }
+      },
+      "ShareKind": {
+        "type": "string",
+        "enum": [
+          "app",
+          "design",
+          "game"
+        ],
+        "description": "What is shared. An app made from a design or a game is shared as that design or game."
+      },
+      "ShareTarget": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "$ref": "#/components/schemas/ShareKind"
+          },
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "kind",
+          "id",
+          "name"
+        ]
+      },
+      "ShareLink": {
+        "type": "object",
+        "description": "A \"Share a copy\" link. Anyone in the owner's workspace who opens `url` (signed in) can make their own copy.",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "kind": {
+            "$ref": "#/components/schemas/ShareKind"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "token": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The link's token, for POST /copies."
+          },
+          "includeData": {
+            "type": "boolean",
+            "description": "Apps: copies get sample rows from the tables the app's public pages show (never accounts, passwords, visitors' own entries or private tables)."
+          },
+          "expiresAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "revokedAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "copies": {
+            "type": "integer",
+            "description": "Copies made with this link."
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "url",
+          "includeData",
+          "expiresAt",
+          "revokedAt",
+          "createdAt",
+          "active",
+          "copies"
+        ]
+      },
+      "ShareCopy": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "linkId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "includeData": {
+            "type": "boolean"
+          },
+          "user": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name",
+                  "email"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "createdAt",
+          "linkId",
+          "includeData",
+          "user"
+        ]
+      },
+      "CreateShareLink": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "$ref": "#/components/schemas/ShareKind"
+          },
+          "id": {
+            "type": "string"
+          },
+          "includeData": {
+            "type": "boolean",
+            "default": false
+          },
+          "expiresInDays": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1,
+            "maximum": 365,
+            "description": "null or absent: no end date."
+          }
+        },
+        "required": [
+          "kind",
+          "id"
+        ]
+      },
+      "CreateCopy": {
+        "type": "object",
+        "description": "Either `token` (a share link's) or `kind` and `id` (anything in the key's scope).",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "description": "Who gets the copy (in the key's scope)."
+          },
+          "token": {
+            "type": "string"
+          },
+          "kind": {
+            "$ref": "#/components/schemas/ShareKind"
+          },
+          "id": {
+            "type": "string"
+          },
+          "includeData": {
+            "type": "boolean",
+            "default": false,
+            "description": "With kind and id only; a link carries its own choice."
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 120
+          }
+        },
+        "required": [
+          "userId"
+        ]
+      },
+      "CopyResult": {
+        "type": "object",
+        "properties": {
+          "copy": {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "$ref": "#/components/schemas/ShareKind"
+              },
+              "id": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string",
+                "description": "Studio path, usable as `to` for POST /sso."
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              }
+            },
+            "required": [
+              "kind",
+              "id",
+              "path",
+              "url"
+            ]
+          },
+          "source": {
+            "$ref": "#/components/schemas/ShareTarget"
+          }
+        },
+        "required": [
+          "copy",
+          "source"
+        ]
       }
     }
   },

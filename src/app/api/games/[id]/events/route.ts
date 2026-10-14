@@ -1,6 +1,7 @@
 import { getCurrentUser } from "@/lib/auth";
 import { NotFound, ownedGame } from "@/lib/game-studio/store";
 import { subscribeGame } from "@/lib/game-studio/events";
+import { NotAllowed } from "@/lib/sharing/access";
 import { requestTranslator } from "@/lib/ai/i18n";
 
 export const dynamic = "force-dynamic";
@@ -12,9 +13,9 @@ export async function GET(req: Request, ctx: { params: Promise<{ id: string }> }
   const t = await requestTranslator("games");
   if (!user) return new Response(t("server.signIn"), { status: 401 });
   try {
-    await ownedGame(user.id, id);
+    await ownedGame(user.id, id, "view");
   } catch (err) {
-    return new Response(err instanceof NotFound ? t("server.notFound") : t("server.error"), { status: err instanceof NotFound ? 404 : 500 });
+    return new Response(err instanceof NotFound ? t("server.notFound") : t("server.error"), { status: err instanceof NotFound ? 404 : err instanceof NotAllowed ? 403 : 500 });
   }
   const enc = new TextEncoder();
   let stop = () => {};

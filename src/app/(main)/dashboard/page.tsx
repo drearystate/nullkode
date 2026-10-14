@@ -15,6 +15,7 @@ import { getTranslations } from "next-intl/server";
 import { dashboardGames, gamesByProject } from "@/lib/dashboard-games";
 import { appsNeedingKeys } from "@/lib/app-ai/status";
 import { AiKeysNotice } from "@/components/app-ai/ai-keys-notice";
+import { pendingInvites, sharedWithMe } from "@/lib/sharing/collaborators";
 
 export default async function DashboardPage() {
   const user = await getCurrentUser();
@@ -35,6 +36,8 @@ export default async function DashboardPage() {
   const problems = await problemCountsByProject(projects.map((p) => p.id)).catch(() => new Map<string, number>());
   // Apps with AI steps but no AI key of their own (docs/ai-in-apps.md).
   const needKeys = await appsNeedingKeys(user).catch(() => []);
+  // Other people's apps, designs and games the person works on, and invitations (docs/sharing.md).
+  const [shared, invites] = await Promise.all([sharedWithMe(user).catch(() => []), pendingInvites(user).catch(() => [])]);
   return (
     <main className="studio-shell min-h-screen">
       <TopBar user={user} />
@@ -55,7 +58,7 @@ export default async function DashboardPage() {
           problems: problems.get(p.id) ?? 0,
           gameId: gameOf[p.id] ?? null,
         }))}
-        games={games.games} gameTotal={games.total} />
+        games={games.games} gameTotal={games.total} shared={shared} invites={invites} />
     </main>
   );
 }

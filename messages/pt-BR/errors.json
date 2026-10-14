@@ -58,12 +58,12 @@
     "alreadyRegistered": "Este e-mail já está cadastrado",
     "domainNoMail": "Este domínio de e-mail não recebe mensagens. Use outro endereço.",
     "formExpired": "O formulário de cadastro expirou. Tente novamente.",
+    "oneFreeAccount": "Uma conta grátis já foi criada nesta rede. Entre nela.",
     "permanentEmail": "Cadastre-se com um endereço de e-mail permanente.",
     "tooManyAccounts": "Muitas contas foram criadas nesta rede hoje.",
     "tooManyAttempts": "Muitas tentativas de cadastro nesta rede. Tente novamente mais tarde.",
     "tooQuick": "Foi rápido demais. Tente novamente.",
-    "verificationFailed": "Falha na verificação. Atualize a página e tente novamente.",
-    "oneFreeAccount": "Já foi criada uma conta gratuita a partir desta rede. Entre nessa conta."
+    "verificationFailed": "Falha na verificação. Atualize a página e tente novamente."
   },
   "apk": {
     "alreadyHasKey": "Este app já tem uma chave de envio. Marque \"Substituir minha chave atual\" para usar esta no lugar.",
@@ -322,6 +322,31 @@
     "published": "{count, plural, one {# app publicado} other {# apps publicados}}",
     "publishedUnlimited": "Apps publicados ilimitados",
     "scheduled": "Fluxos de trabalho agendados"
+  },
+  "sharing": {
+    "badEmail": "Digite um endereço de e-mail válido.",
+    "badExpiry": "Escolha por quanto tempo o link ficará ativo: de 1 a 365 dias ou sem data de validade.",
+    "badKind": "Escolha um app, um design ou um jogo.",
+    "badRole": "Escolha Editor ou Visualizador.",
+    "copyFailed": "Não foi possível criar sua cópia. Tente novamente.",
+    "copyPages": "Este app tem mais páginas do que seu plano permite em um único app.",
+    "inviteExpired": "Este convite expirou. Peça um novo.",
+    "inviteNotFound": "Este convite não existe mais.",
+    "inviteOwner": "Este item já é seu.",
+    "inviteWorkspace": "Este convite veio de outro espaço de trabalho e não pode ser aceito com esta conta.",
+    "linkExpired": "Este link expirou. Peça um novo para quem compartilhou com você.",
+    "linkGone": "Este link não funciona mais.",
+    "linkRevoked": "Este link foi desativado. Peça um novo para quem compartilhou com você.",
+    "linkWorkspace": "Este link pertence a outro espaço de trabalho e não pode ser usado com esta conta.",
+    "needsLink": "Abra o link no e-mail de convite para aceitar.",
+    "ownerOnly": "Só o proprietário pode fazer isso.",
+    "self": "Esse é o seu próprio endereço de e-mail.",
+    "tooManyCollaborators": "Você pode convidar até {count} pessoas.",
+    "tooManyCopies": "Você criou muitas cópias na última hora. Tente novamente mais tarde.",
+    "tooManyInvites": "Você enviou muitos convites na última hora. Tente novamente mais tarde.",
+    "tooManyLinks": "Este item já tem {count} links. Desative um primeiro.",
+    "viewOnly": "Você pode ver, mas não alterar.",
+    "wrongAccount": "Este convite foi enviado para outro endereço de e-mail. Entre com esse endereço para aceitar."
   },
   "templates": {
     "createFailed": "Não foi possível criar o app com este modelo. Tente novamente.",

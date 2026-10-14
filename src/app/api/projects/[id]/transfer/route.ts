@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { requestLocale } from "@/i18n/request";
 import { db } from "@/lib/db";
 import { getCurrentUser, getRealUser } from "@/lib/auth";
+import { hasProjectAccess } from "@/lib/sharing/access";
 import { json } from "@/lib/utils";
 import { hitLimit } from "@/lib/rate-limit";
 import { canReceiveApps, loadTransferAccount, transferProjectTo, workspaceKey } from "@/lib/project-transfer";
@@ -51,7 +52,7 @@ export async function POST(
     where: { id },
     select: { id: true, name: true, ownerId: true },
   });
-  if (!project || project.ownerId !== user.id) {
+  if (!project || !(await hasProjectAccess(project, user, "owner"))) {
     return json({ error: t("notFound") }, { status: 404 });
   }
 

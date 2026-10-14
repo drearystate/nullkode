@@ -2,10 +2,14 @@ import { Prisma, type DesignerChatKind, type DesignerFileKind } from "@prisma/cl
 import { db } from "../db";
 import { designerProjectState } from "./pages-mirror";
 import { publish } from "./events";
+import { designWithRole, NoAccess, type Need, type Role } from "../sharing/access";
+import { noteEdit } from "../sharing/audit";
 
 /**
  * Designs, their files, versions and chat, for the AI Designer. Everything is
- * scoped to the signed-in user: callers pass userId and every query checks it.
+ * scoped to the people who may work on the design (its owner and the
+ * collaborators they invited, lib/sharing/access.ts): callers pass userId and
+ * every query checks it.
  */
 
 export class NotFound extends Error {
@@ -58,10 +62,23 @@ export function cleanPath(path: string): string | null {
   return /^[\w./-]+$/.test(p) ? p : null;
 }
 
-async function owned(userId: string, designId: string) {
-  const design = await db.designerDesign.findFirst({ where: { id: designId, userId, deletedAt: null } });
-  if (!design) throw new NotFound();
-  return design;
+/**
+ * The design, if `userId` may do `need` with it: "edit" (the default) for its
+ * owner and editors, "view" for viewers too, "owner" for deleting, copying and
+ * moving it to the page builder. NotFound for anyone else; NotAllowed (403)
+ * for a collaborator whose role doesn't cover it.
+ */
+async function owned(userId: string, designId: string, need: Need = "edit") {
+  return (await designAccess(userId, designId, need)).design;
+}
+
+export async function designAccess(userId: string, designId: string, need: Need = "edit"): Promise<{ design: Awaited<ReturnType<typeof designWithRole>>["design"]; role: Role }> {
+  try {
+    return await designWithRole(userId, designId, need);
+  } catch (err) {
+    if (err instanceof NoAccess) throw new NotFound();
+    throw err;
+  }
 }
 
 async function summary(d: { id: string; name: string; projectId: string | null; createdAt: Date; updatedAt: Date }, hasHome: boolean): Promise<DesignSummary> {
@@ -89,12 +106,14 @@ export async function listDesigns(userId: string): Promise<DesignSummary[]> {
   return Promise.all(rows.map((d) => summary(d, d.files.length > 0)));
 }
 
-export async function getDesign(userId: string, designId: string) {
-  const d = await owned(userId, designId);
+export async function getDesign(userId: string, designId: string, need: Need = "view") {
+  const { design: d, role } = await designAccess(userId, designId, need);
   const files = await db.designerFile.findMany({ where: { designId }, select: { path: true, size: true, updatedAt: true }, orderBy: { path: "asc" } });
   return {
     ...(await summary(d, files.some((f) => f.path === "index.html"))),
     files: files.map((f) => ({ path: f.path, size: f.size, updatedAt: f.updatedAt.toISOString() })),
+    role,
+    ownerId: d.userId,
   };
 }
 
@@ -104,7 +123,7 @@ export async function createDesign(userId: string, name?: string): Promise<Desig
 }
 
 export async function renameDesign(userId: string, designId: string, name: string): Promise<DesignSummary> {
-  await owned(userId, designId);
+  await owned(userId, designId, "edit");
   const clean = name.trim().slice(0, 120);
   if (!clean) {
     const { requestTranslator } = await import("../ai/i18n");
@@ -119,8 +138,11 @@ export async function renameDesign(userId: string, designId: string, name: strin
  * builder (then it belongs to the builder) or another live design uses it.
  */
 export async function deleteDesign(userId: string, designId: string): Promise<void> {
-  const d = await owned(userId, designId);
+  const d = await owned(userId, designId, "owner");
   await db.designerDesign.update({ where: { id: designId }, data: { deletedAt: new Date() } });
+  // Sharing (lib/sharing): its collaborators go, its "Share a copy" links stop working.
+  await db.collaborator.deleteMany({ where: { kind: "design", targetId: designId } });
+  await db.shareLink.updateMany({ where: { kind: "design", targetId: designId, revokedAt: null }, data: { revokedAt: new Date() } });
   if (!d.projectId || (await designerProjectState(d.projectId)).moved) return;
   const others = await db.designerDesign.count({ where: { projectId: d.projectId, deletedAt: null, id: { not: designId } } });
   if (others === 0) await db.project.deleteMany({ where: { id: d.projectId, ownerId: userId, kind: "DESIGNER" } });
@@ -128,7 +150,8 @@ export async function deleteDesign(userId: string, designId: string): Promise<vo
 
 /** A copy with the same files and no app yet (it gets its own on the next build). */
 export async function duplicateDesign(userId: string, designId: string): Promise<DesignSummary> {
-  const d = await owned(userId, designId);
+  // The owner's own copy: collaborators get theirs through a "Share a copy" link (docs/sharing.md).
+  const d = await owned(userId, designId, "owner");
   const files = await db.designerFile.findMany({ where: { designId } });
   const copy = await db.designerDesign.create({
     data: {
@@ -143,13 +166,13 @@ export async function duplicateDesign(userId: string, designId: string): Promise
 // ── Files ─────────────────────────────────────────────────────────────
 
 export async function readFiles(userId: string, designId: string): Promise<Array<{ path: string; content: string }>> {
-  await owned(userId, designId);
+  await owned(userId, designId, "view");
   const files = await db.designerFile.findMany({ where: { designId }, select: { path: true, content: true } });
   return files.filter((f) => TEXT_FILE.test(f.path));
 }
 
 export async function readFile(userId: string, designId: string, path: string): Promise<string | null> {
-  await owned(userId, designId);
+  await owned(userId, designId, "view");
   const clean = cleanPath(path);
   if (!clean) return null;
   const f = await db.designerFile.findUnique({ where: { designId_path: { designId, path: clean } }, select: { content: true } });
@@ -175,7 +198,7 @@ export async function writeFiles(designId: string, files: Array<{ path: string; 
 // ── Versions ──────────────────────────────────────────────────────────
 
 export async function listVersions(userId: string, designId: string): Promise<VersionSummary[]> {
-  await owned(userId, designId);
+  await owned(userId, designId, "view");
   const rows = await db.designerSnapshot.findMany({
     where: { designId },
     orderBy: { createdAt: "desc" },
@@ -186,7 +209,7 @@ export async function listVersions(userId: string, designId: string): Promise<Ve
 }
 
 /** Records the design as it is now (every text file), after a build or restore. */
-export async function saveVersion(designId: string, opts: { prompt: string | null; message: string }): Promise<string> {
+export async function saveVersion(designId: string, opts: { prompt: string | null; message: string; by?: string | null }): Promise<string> {
   const files = await db.designerFile.findMany({ where: { designId }, select: { path: true, content: true } });
   const text = files.filter((f) => TEXT_FILE.test(f.path));
   const v = await db.designerSnapshot.create({
@@ -201,12 +224,13 @@ export async function saveVersion(designId: string, opts: { prompt: string | nul
     },
   });
   publish(designId, { type: "versions" });
+  if (opts.by !== undefined) await noteEdit("design", designId, opts.by, "design.version", { subjectId: v.id, label: opts.message.slice(0, 120) });
   return v.id;
 }
 
 /** The files of a version: all of them for new versions, the home page for older ones. */
 export async function versionFiles(userId: string, designId: string, versionId: string): Promise<Record<string, string>> {
-  await owned(userId, designId);
+  await owned(userId, designId, "view");
   const v = await db.designerSnapshot.findFirst({ where: { id: versionId, designId }, select: { files: true, artifactSource: true } });
   if (!v) throw new NotFound();
   const files = v.files && typeof v.files === "object" && !Array.isArray(v.files) ? (v.files as Record<string, unknown>) : null;
@@ -220,6 +244,7 @@ export async function versionFiles(userId: string, designId: string, versionId: 
  * the home page changes).
  */
 export async function restoreVersion(userId: string, designId: string, versionId: string): Promise<{ complete: boolean }> {
+  await owned(userId, designId, "edit");
   const files = await versionFiles(userId, designId, versionId);
   const v = await db.designerSnapshot.findUnique({ where: { id: versionId }, select: { files: true } });
   const complete = v?.files !== null;
@@ -251,7 +276,7 @@ function payloadText(payload: Prisma.JsonValue): string {
 }
 
 export async function listChat(userId: string, designId: string): Promise<ChatMessage[]> {
-  await owned(userId, designId);
+  await owned(userId, designId, "view");
   const rows = await db.designerChatRow.findMany({ where: { designId }, orderBy: { seq: "asc" }, take: 2000 });
   return rows
     .map((r) => ({ seq: r.seq, kind: KIND_OUT[r.kind], text: payloadText(r.payload), versionId: r.snapshotId, createdAt: r.createdAt.toISOString() }))

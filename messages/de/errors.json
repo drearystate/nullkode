@@ -58,12 +58,12 @@
     "alreadyRegistered": "E-Mail-Adresse bereits registriert",
     "domainNoMail": "Diese E-Mail-Domain nimmt keine E-Mails an. Bitte verwende eine andere Adresse.",
     "formExpired": "Dein Registrierungsformular ist abgelaufen. Bitte versuche es erneut.",
+    "oneFreeAccount": "In diesem Netzwerk wurde bereits ein kostenloses Konto erstellt. Bitte melde dich stattdessen dort an.",
     "permanentEmail": "Bitte registriere dich mit einer dauerhaften E-Mail-Adresse.",
     "tooManyAccounts": "Über dieses Netzwerk wurden heute zu viele Konten erstellt.",
     "tooManyAttempts": "Zu viele Registrierungsversuche über dieses Netzwerk. Bitte versuche es später erneut.",
     "tooQuick": "Das ging zu schnell – bitte versuche es erneut.",
-    "verificationFailed": "Die Überprüfung ist fehlgeschlagen. Bitte lade die Seite neu und versuche es erneut.",
-    "oneFreeAccount": "Von diesem Netzwerk aus wurde bereits ein kostenloses Konto erstellt. Bitte melde dich stattdessen dort an."
+    "verificationFailed": "Die Überprüfung ist fehlgeschlagen. Bitte lade die Seite neu und versuche es erneut."
   },
   "apk": {
     "alreadyHasKey": "Diese App hat bereits einen Upload-Schlüssel. Aktiviere „Meinen aktuellen Schlüssel ersetzen“, um stattdessen diesen zu verwenden.",
@@ -322,6 +322,31 @@
     "published": "{count, plural, one {# veröffentlichte App} other {# veröffentlichte Apps}}",
     "publishedUnlimited": "Unbegrenzt viele veröffentlichte Apps",
     "scheduled": "Geplante Workflows"
+  },
+  "sharing": {
+    "badEmail": "Gib eine gültige E-Mail-Adresse ein.",
+    "badExpiry": "Lege fest, wie lange der Link gültig ist: 1 bis 365 Tage oder unbegrenzt.",
+    "badKind": "Wähle eine App, ein Design oder ein Spiel aus.",
+    "badRole": "Wähle „Bearbeiten“ oder „Ansehen“.",
+    "copyFailed": "Deine Kopie konnte nicht erstellt werden. Bitte versuche es erneut.",
+    "copyPages": "Diese App hat mehr Seiten, als dein Tarif pro App erlaubt.",
+    "inviteExpired": "Diese Einladung ist abgelaufen. Bitte um eine neue.",
+    "inviteNotFound": "Diese Einladung gibt es nicht mehr.",
+    "inviteOwner": "Das gehört bereits dir.",
+    "inviteWorkspace": "Diese Einladung stammt aus einem anderen Arbeitsbereich und kann daher nicht mit diesem Konto angenommen werden.",
+    "linkExpired": "Dieser Link ist abgelaufen. Bitte die Person, die ihn geteilt hat, um einen neuen.",
+    "linkGone": "Dieser Link funktioniert nicht mehr.",
+    "linkRevoked": "Dieser Link wurde deaktiviert. Bitte die Person, die ihn geteilt hat, um einen neuen.",
+    "linkWorkspace": "Dieser Link gehört zu einem anderen Arbeitsbereich und kann daher nicht mit diesem Konto verwendet werden.",
+    "needsLink": "Öffne den Link in der Einladungs-E-Mail, um die Einladung anzunehmen.",
+    "ownerOnly": "Nur die Person, der es gehört, kann das tun.",
+    "self": "Das ist deine eigene E-Mail-Adresse.",
+    "tooManyCollaborators": "Du kannst bis zu {count} Personen einladen.",
+    "tooManyCopies": "Du hast in der letzten Stunde viele Kopien erstellt. Bitte versuche es später erneut.",
+    "tooManyInvites": "Du hast in der letzten Stunde viele Einladungen verschickt. Bitte versuche es später erneut.",
+    "tooManyLinks": "Dafür gibt es bereits {count} Links. Deaktiviere zuerst einen davon.",
+    "viewOnly": "Du kannst dir das ansehen, aber nicht ändern.",
+    "wrongAccount": "Diese Einladung wurde an eine andere E-Mail-Adresse geschickt. Melde dich mit dieser Adresse an, um sie anzunehmen."
   },
   "templates": {
     "createFailed": "Die App konnte nicht aus dieser Vorlage erstellt werden. Bitte versuche es erneut.",

@@ -58,12 +58,12 @@
     "alreadyRegistered": "E-posta adresi zaten kayıtlı",
     "domainNoMail": "Bu e-posta alan adı posta kabul etmiyor. Lütfen başka bir adres kullanın.",
     "formExpired": "Kayıt formunuzun süresi doldu. Lütfen tekrar deneyin.",
+    "oneFreeAccount": "Bu ağdan zaten ücretsiz bir hesap oluşturulmuş. Lütfen o hesapta oturum açın.",
     "permanentEmail": "Lütfen kalıcı bir e-posta adresiyle kaydolun.",
     "tooManyAccounts": "Bugün bu ağdan çok fazla hesap oluşturuldu.",
     "tooManyAttempts": "Bu ağdan çok fazla kayıt denemesi yapıldı. Daha sonra tekrar deneyin.",
     "tooQuick": "Çok hızlı oldu — lütfen tekrar deneyin.",
-    "verificationFailed": "Doğrulama başarısız oldu. Lütfen sayfayı yenileyip tekrar deneyin.",
-    "oneFreeAccount": "Bu ağdan zaten ücretsiz bir hesap oluşturulmuş. Lütfen bunun yerine o hesaba giriş yapın."
+    "verificationFailed": "Doğrulama başarısız oldu. Lütfen sayfayı yenileyip tekrar deneyin."
   },
   "apk": {
     "alreadyHasKey": "Bu uygulamanın zaten bir yükleme anahtarı var. Bunun yerine bu anahtarı kullanmak için \"Mevcut anahtarımı değiştir\" seçeneğini işaretleyin.",
@@ -322,6 +322,31 @@
     "published": "{count, plural, one {# yayınlanmış uygulama} other {# yayınlanmış uygulama}}",
     "publishedUnlimited": "Sınırsız yayınlanmış uygulama",
     "scheduled": "Zamanlanmış iş akışları"
+  },
+  "sharing": {
+    "badEmail": "Geçerli bir e-posta adresi girin.",
+    "badExpiry": "Bağlantının ne kadar süre geçerli olacağını seçin: 1 ila 365 gün veya süresiz.",
+    "badKind": "Bir uygulama, tasarım veya oyun seçin.",
+    "badRole": "Düzenleyici veya Görüntüleyici seçin.",
+    "copyFailed": "Kopyanız oluşturulamadı. Lütfen tekrar deneyin.",
+    "copyPages": "Bu uygulamada, planınızın tek bir uygulama için izin verdiğinden daha fazla sayfa var.",
+    "inviteExpired": "Bu davetiyenin süresi dolmuş. Yeni bir tane isteyin.",
+    "inviteNotFound": "Bu davetiye artık mevcut değil.",
+    "inviteOwner": "Bu zaten sizin.",
+    "inviteWorkspace": "Bu davetiye başka bir çalışma alanından geliyor, bu yüzden bu hesapla kabul edilemez.",
+    "linkExpired": "Bu bağlantının süresi dolmuş. Yeni bir bağlantı istemek için paylaşan kişiye ulaşın.",
+    "linkGone": "Bu bağlantı artık çalışmıyor.",
+    "linkRevoked": "Bu bağlantı kapatılmış. Yeni bir bağlantı istemek için paylaşan kişiye ulaşın.",
+    "linkWorkspace": "Bu bağlantı başka bir çalışma alanına ait, bu yüzden bu hesapla kullanılamaz.",
+    "needsLink": "Kabul etmek için davetiye e-postasındaki bağlantıyı açın.",
+    "ownerOnly": "Bunu yalnızca sahibi yapabilir.",
+    "self": "Bu sizin kendi e-posta adresiniz.",
+    "tooManyCollaborators": "En fazla {count} kişiyi davet edebilirsiniz.",
+    "tooManyCopies": "Son bir saat içinde çok fazla kopya oluşturdunuz. Daha sonra tekrar deneyin.",
+    "tooManyInvites": "Son bir saat içinde çok fazla davetiye gönderdiniz. Daha sonra tekrar deneyin.",
+    "tooManyLinks": "Zaten {count} bağlantısı var. Önce birini kapatın.",
+    "viewOnly": "Bunu görüntüleyebilirsiniz ama değiştiremezsiniz.",
+    "wrongAccount": "Bu davetiye başka bir e-posta adresine gönderilmiş. Kabul etmek için o adresle oturum açın."
   },
   "templates": {
     "createFailed": "Bu şablondan uygulama oluşturulamadı. Lütfen tekrar deneyin.",

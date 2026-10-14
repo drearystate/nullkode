@@ -7,6 +7,8 @@ import { getTranslations } from "next-intl/server";
 import { requestLocale } from "@/i18n/request";
 import { AI_MIN_MINUTES, graphUsesAi, serializeSchedule, validateSchedule } from "@/lib/flow/schedule-spec";
 import { flowScheduleState, plannedNextRun } from "@/lib/flow/scheduler";
+import type { Need } from "@/lib/sharing/access";
+import { noteEdit } from "@/lib/sharing/audit";
 
 export const dynamic = "force-dynamic";
 
@@ -31,14 +33,15 @@ async function flowsT() {
   return getTranslations({ locale: await requestLocale(), namespace: "flows" });
 }
 
-type Loaded = { user: User; project: Project; flow: Flow };
+/** `owner`: the app's owner, whose plan decides about schedules; `user`: who is asking. */
+type Loaded = { user: User; owner: User; project: Project; flow: Flow };
 
-async function load(id: string, flowId: string): Promise<Loaded | { error: Response }> {
-  const r = await ownedProject(id);
-  if (r.error) return { error: r.error };
+async function load(id: string, flowId: string, need: Need): Promise<Loaded | { error: Response }> {
+  const r = await ownedProject(id, need);
+  if ("error" in r) return { error: r.error };
   const flow = await db.flow.findFirst({ where: { id: flowId, projectId: id } });
   if (!flow) return { error: json({ error: (await flowsT())("api.notFound") }, { status: 404 }) };
-  return { user: r.user, project: r.project, flow };
+  return { user: r.user, owner: r.owner, project: r.project, flow };
 }
 
 async function stateResponse(flowId: string, project: { published: boolean; liveDeploymentId: string | null }, userId: string) {
@@ -53,15 +56,16 @@ async function stateResponse(flowId: string, project: { published: boolean; live
 
 export async function GET(_req: Request, ctx: Ctx) {
   const { id, flowId } = await ctx.params;
-  const r = await load(id, flowId);
+  const r = await load(id, flowId, "view");
   if ("error" in r) return r.error;
-  return stateResponse(flowId, r.project, r.user.id);
+  return stateResponse(flowId, r.project, r.owner.id);
 }
 
 export async function PUT(req: Request, ctx: Ctx) {
   const { id, flowId } = await ctx.params;
-  const r = await load(id, flowId);
+  const r = await load(id, flowId, "edit");
   if ("error" in r) return r.error;
+  await noteEdit("app", id, r.user.id, "flow.save", { subjectId: flowId, label: r.flow.name });
   const parsed = Body.safeParse(await req.json().catch(() => null));
   if (!parsed.success) return json({ error: (await flowsT())("api.chooseWhen") }, { status: 400 });
   const body = parsed.data;
@@ -73,7 +77,7 @@ export async function PUT(req: Request, ctx: Ctx) {
       where: { id: flow.id },
       data: { pausedReason: null, consecutiveFailures: 0, nextRunAt: next, scheduleDeploymentId: project.liveDeploymentId },
     });
-    return stateResponse(flow.id, project, r.user.id);
+    return stateResponse(flow.id, project, r.owner.id);
   }
 
   if (body.mode === "app") {
@@ -82,10 +86,10 @@ export async function PUT(req: Request, ctx: Ctx) {
       // Keep the chosen times so switching back restores them.
       data: { ...(flow.trigger === "SCHEDULE" ? { trigger: "HTTP" as const } : {}), nextRunAt: null, pausedReason: null, consecutiveFailures: 0 },
     });
-    return stateResponse(flow.id, project, r.user.id);
+    return stateResponse(flow.id, project, r.owner.id);
   }
 
-  const planError = await checkScheduledFlows(r.user);
+  const planError = await checkScheduledFlows(r.owner);
   if (planError) return planError;
   const v = validateSchedule(body.schedule);
   if (!v.ok) return json({ error: (await flowsT())(`schedule.problems.${v.code}`, v.values) }, { status: 400 });
@@ -105,5 +109,5 @@ export async function PUT(req: Request, ctx: Ctx) {
       consecutiveFailures: 0,
     },
   });
-  return stateResponse(flow.id, project, r.user.id);
+  return stateResponse(flow.id, project, r.owner.id);
 }

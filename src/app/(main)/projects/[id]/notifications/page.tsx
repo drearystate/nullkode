@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { getFormatter, getTranslations } from "next-intl/server";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
+import { hasProjectAccess } from "@/lib/sharing/access";
 import { subscriberCount } from "@/lib/push";
 import { NotificationComposer } from "@/components/notification-composer";
 import { EnablePushButton } from "@/components/enable-push-button";
@@ -14,7 +15,7 @@ export default async function NotificationsPage({ params }: { params: Promise<{ 
   const user = await getCurrentUser();
   if (!user) return null;
   const project = await db.project.findUnique({ where: { id }, select: { id: true, ownerId: true, name: true, published: true } });
-  if (!project || project.ownerId !== user.id) notFound();
+  if (!project || !(await hasProjectAccess(project, user, "owner"))) notFound();
   const [installed, subscribers, history] = await Promise.all([
     db.projectModule.findFirst({ where: { projectId: id, moduleId: "push-notifications" }, select: { id: true } }),
     subscriberCount(id).catch(() => 0),

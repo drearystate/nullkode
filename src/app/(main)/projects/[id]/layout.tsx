@@ -9,6 +9,9 @@ import { getTranslations } from "next-intl/server";
 import { ScopedIntl } from "@/i18n/scoped-intl";
 import { AiKeyBanner } from "@/components/app-ai/ai-key-banner";
 import { projectAiStatus } from "@/lib/app-ai/status";
+import { roleOn } from "@/lib/sharing/access";
+import { copyCredit } from "@/lib/sharing/links";
+import { RoleBanner } from "@/components/sharing/role-banner";
 
 export default async function ProjectLayout({
   children,
@@ -22,7 +25,10 @@ export default async function ProjectLayout({
   if (!user) redirect("/login");
 
   const project = await db.project.findUnique({ where: { id } });
-  if (!project || project.ownerId !== user.id) notFound();
+  // The owner and the people they invited (lib/sharing/access.ts).
+  const role = project ? await roleOn("app", project, user.id) : null;
+  if (!project || !role) notFound();
+  const owner = role === "owner" ? null : await db.user.findUnique({ where: { id: project.ownerId }, select: { name: true, email: true } });
 
   // Designer-kind projects send the back link to /designer; editor projects
   // send it to the dashboard. A real "back" arrow makes it obvious where
@@ -30,13 +36,15 @@ export default async function ProjectLayout({
   // editor with no exit).
   // A published game's app goes back to the game in the Game Studio.
   const game = project.kind === "DESIGNER" ? await db.gameProject.findFirst({ where: { projectId: project.id, deletedAt: null }, select: { id: true } }) : null;
-  const backHref = game ? `/games/${game.id}` : project.kind === "DESIGNER" ? "/designer" : "/dashboard";
+  // "Copied from …" on an app made with "Make my copy" (its owner can hide it).
+  const credit = role === "owner" ? await copyCredit("app", project.id).catch(() => null) : null;
+  const backHref = role !== "owner" ? "/dashboard#shared-with-me" : game ? `/games/${game.id}` : project.kind === "DESIGNER" ? "/designer" : "/dashboard";
   const t = await getTranslations("project.layout");
-  const backLabel = game ? t("backToGame") : project.kind === "DESIGNER" ? t("backToDesigner") : t("backToApps");
+  const backLabel = role !== "owner" ? t("backToApps") : game ? t("backToGame") : project.kind === "DESIGNER" ? t("backToDesigner") : t("backToApps");
 
   const hasPush = Boolean(await db.projectModule.findFirst({ where: { projectId: project.id, moduleId: "push-notifications" }, select: { id: true } }));
   // AI steps without the app's own key (never for the platform owner): docs/ai-in-apps.md.
-  const aiStatus = await projectAiStatus(project.id).catch(() => null);
+  const aiStatus = role === "owner" ? await projectAiStatus(project.id).catch(() => null) : null;
   return (
     // Heavier pages below (editor, data, flows, modules) open their own ScopedIntl.
     <ScopedIntl segment="(main)/projects/[id]">
@@ -46,7 +54,7 @@ export default async function ProjectLayout({
           <Link
             href={backHref}
             aria-label={backLabel}
-            data-help={game ? t("backToGameHelp") : project.kind === "DESIGNER" ? t("backToDesignerHelp") : t("backToAppsHelp")}
+            data-help={role === "owner" && game ? t("backToGameHelp") : role === "owner" && project.kind === "DESIGNER" ? t("backToDesignerHelp") : t("backToAppsHelp")}
             className="studio-back-link shrink-0"
           >
             <span aria-hidden className="inline-block rtl:-scale-x-100">←</span>
@@ -65,7 +73,8 @@ export default async function ProjectLayout({
           </div>
         </div>
       </TopBar>
-      <ProjectTabs projectId={project.id} kind={project.kind} hasPush={hasPush} />
+      {role !== "owner" && <RoleBanner kind="app" id={project.id} name={project.name} role={role} owner={owner?.name?.trim() || owner?.email || ""} />}
+      <ProjectTabs projectId={project.id} kind={project.kind} hasPush={hasPush} role={role} name={project.name} credit={credit} />
       {aiStatus?.needsKey && <AiKeyBanner projectId={project.id} />}
       <main id="main">{children}</main>
     </div>

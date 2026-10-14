@@ -1,5 +1,6 @@
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
+import { hasProjectAccess } from "@/lib/sharing/access";
 import { json } from "@/lib/utils";
 import { getTranslations } from "next-intl/server";
 import { requestLocale } from "@/i18n/request";
@@ -54,7 +55,7 @@ async function owned(id: string) {
   const user = await getCurrentUser();
   if (!user) return { error: (await tr())("unauthorized"), status: 401 } as const;
   const project = await db.project.findUnique({ where: { id }, select: { id: true, ownerId: true, published: true } });
-  if (!project || project.ownerId !== user.id) return { error: (await tr())("notFound"), status: 404 } as const;
+  if (!project || !(await hasProjectAccess(project, user, "edit"))) return { error: (await tr())("notFound"), status: 404 } as const;
   return { user, project } as const;
 }
 

@@ -3,6 +3,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useFormatter, useTranslations } from "next-intl";
+import { ShareButton } from "@/components/sharing/share-dialog";
 import { AlertTriangle, ArrowUpRight, Check, CheckCircle2, Circle, CircleDashed, CircleDot, Download, Gamepad2, Hammer, History, Store, Loader2, Maximize2, MessageSquareReply, Monitor, Pause, PencilLine, Play, Rocket, RotateCcw, Send, Shapes, Smartphone, Square, StepForward, X, XCircle } from "lucide-react";
 import { addImageFiles, imagesFromPaste, ReferencePicker, referenceDropProps, type PickedImage } from "@/components/ai/reference-picker";
 import { GameCanvas, type CanvasStatus, type GameCanvasHandle } from "./game-canvas";
@@ -36,7 +37,8 @@ function viewerZone(): string | undefined {
   }
 }
 
-export function GameWorkspace({ id }: { id: string }) {
+/** `role`: the person's role on the game (lib/sharing/access.ts): only its owner shares and publishes it; viewers only look. */
+export function GameWorkspace({ id, role = "owner" }: { id: string; role?: "owner" | "editor" | "viewer" }) {
   const router = useRouter();
   const t = useTranslations("games");
   const ta = useTranslations("ai");
@@ -303,7 +305,7 @@ export function GameWorkspace({ id }: { id: string }) {
             <p className="truncate font-medium" dir="auto">{game.name}</p>
             <p className="text-xs text-surface-400">{t(game.engine === "three-3d" ? "engine.three" : "engine.phaser")} · {t("chat.versionCount", { count: Math.max(0, versions.length - 1) })}</p>
           </div>
-          {game.projectId && <Link href={`/projects/${game.projectId}`} className="btn-ghost shrink-0 px-3 py-1.5 text-xs" data-help={t("chat.openAppHelp")}>{t("chat.openApp")}</Link>}
+          {game.projectId && role === "owner" && <Link href={`/projects/${game.projectId}`} className="btn-ghost shrink-0 px-3 py-1.5 text-xs" data-help={t("chat.openAppHelp")}>{t("chat.openApp")}</Link>}
         </div>
         {/* The feature list: always on screen, so the person sees every feature is still there. */}
         {(features.length > 0 || game.seq > 0) && <FeatureListPanel gameId={id} features={features} log={[...(plan?.featureLog ?? [])].reverse()} built={game.seq > 0} running={running} onChanged={() => void refresh()} onError={setError} />}
@@ -469,7 +471,7 @@ export function GameWorkspace({ id }: { id: string }) {
           <div ref={chatEnd} />
         </div>
 
-        <form
+        {role !== "viewer" && <form
           onSubmit={send}
           className={`border-t border-white/10 p-3 ${dropping ? "outline-dashed outline-2 -outline-offset-4 outline-brand-400/70" : ""}`}
           onDragOver={(e) => {
@@ -536,7 +538,7 @@ export function GameWorkspace({ id }: { id: string }) {
             {images.length === 0 && <ReferencePicker images={images} onChange={setImages} compact id="game-references-add" error={null} onError={setImageError} />}
             <button className="btn-primary shrink-0 p-2" aria-label={running ? t("chat.sendNote") : t("chat.send")} data-help={running ? t("chat.sendNoteHelp") : t("chat.sendHelp")} data-testid="send-message" disabled={starting || sending || (!prompt.trim() && chips.length === 0 && images.length === 0)}>{sending ? <Loader2 size={16} className="animate-spin" /> : running ? <MessageSquareReply size={16} className="rtl:-scale-x-100" /> : <Send size={16} className="rtl:-scale-x-100" />}</button>
           </div>
-        </form>
+        </form>}
       </section>
 
       {/* Canvas */}
@@ -561,10 +563,11 @@ export function GameWorkspace({ id }: { id: string }) {
           </div>
           <div className="ms-auto flex flex-wrap items-center gap-1">
             <button type="button" aria-pressed={side === "assets"} data-help={t("toolbar.assetsHelp")} onClick={() => setSide(side === "assets" ? null : "assets")} className="hidden items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm text-surface-300 hover:bg-white/5 hover:text-white lg:flex"><Shapes size={15} />{t("toolbar.assets")}</button>
-            <button type="button" aria-pressed={side === "brand"} data-help={t("brand.toolbarHelp")} onClick={openBranding} data-testid="brand-open" className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm text-surface-300 hover:bg-white/5 hover:text-white"><Store size={15} /><span className="hidden sm:inline">{t("brand.toolbar")}</span></button>
+            {role !== "viewer" && <button type="button" aria-pressed={side === "brand"} data-help={t("brand.toolbarHelp")} onClick={openBranding} data-testid="brand-open" className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm text-surface-300 hover:bg-white/5 hover:text-white"><Store size={15} /><span className="hidden sm:inline">{t("brand.toolbar")}</span></button>}
             <button type="button" aria-pressed={side === "versions"} data-help={t("toolbar.versionsHelp")} onClick={() => setSide(side === "versions" ? null : "versions")} className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm text-surface-300 hover:bg-white/5 hover:text-white"><History size={15} /><span className="hidden sm:inline">{t("toolbar.versions")}</span></button>
-            {game.seq > 0 && <button type="button" data-help={t("toolbar.exportHelp")} disabled={busy !== null} onClick={exportZip} className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm text-surface-300 hover:bg-white/5 hover:text-white"><Download size={15} /><span className="hidden sm:inline">{t("toolbar.export")}</span></button>}
-            {game.seq > 0 && <button type="button" data-help={t("toolbar.publishHelp")} disabled={busy !== null || running} onClick={publish} className="btn-primary flex items-center gap-1.5 px-3 py-1.5 text-sm" data-testid="publish-game">{busy === "publish" ? <Loader2 size={15} className="animate-spin" /> : <Rocket size={15} />}{game.published ? t("toolbar.republish") : t("toolbar.publish")}</button>}
+            {game.seq > 0 && role !== "viewer" && <button type="button" data-help={t("toolbar.exportHelp")} disabled={busy !== null} onClick={exportZip} className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm text-surface-300 hover:bg-white/5 hover:text-white"><Download size={15} /><span className="hidden sm:inline">{t("toolbar.export")}</span></button>}
+            {role === "owner" && <ShareButton kind="game" id={id} name={game.name} compact className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm text-surface-300 hover:bg-white/5 hover:text-white" />}
+            {game.seq > 0 && role === "owner" && <button type="button" data-help={t("toolbar.publishHelp")} disabled={busy !== null || running} onClick={publish} className="btn-primary flex items-center gap-1.5 px-3 py-1.5 text-sm" data-testid="publish-game">{busy === "publish" ? <Loader2 size={15} className="animate-spin" /> : <Rocket size={15} />}{game.published ? t("toolbar.republish") : t("toolbar.publish")}</button>}
           </div>
         </div>
 

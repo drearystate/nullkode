@@ -58,12 +58,12 @@
     "alreadyRegistered": "Adresse e-mail déjà enregistrée",
     "domainNoMail": "Ce domaine d'adresse e-mail n'accepte pas les e-mails. Veuillez utiliser une autre adresse.",
     "formExpired": "Votre formulaire d'inscription a expiré. Veuillez réessayer.",
+    "oneFreeAccount": "Un compte gratuit a déjà été créé depuis ce réseau. Connectez-vous à ce compte.",
     "permanentEmail": "Veuillez vous inscrire avec une adresse e-mail permanente.",
     "tooManyAccounts": "Trop de comptes ont été créés depuis ce réseau aujourd'hui.",
     "tooManyAttempts": "Trop de tentatives d'inscription depuis ce réseau. Réessayez plus tard.",
     "tooQuick": "C'était trop rapide — veuillez réessayer.",
-    "verificationFailed": "Échec de la vérification. Rechargez la page et réessayez.",
-    "oneFreeAccount": "Un compte gratuit a déjà été créé depuis ce réseau. Connectez-vous plutôt à ce compte."
+    "verificationFailed": "Échec de la vérification. Rechargez la page et réessayez."
   },
   "apk": {
     "alreadyHasKey": "Cette application a déjà une clé d’importation. Cochez « Remplacer ma clé actuelle » pour utiliser celle-ci.",
@@ -322,6 +322,31 @@
     "published": "{count, plural, one {# app publiée} other {# apps publiées}}",
     "publishedUnlimited": "Apps publiées illimitées",
     "scheduled": "Workflows planifiés"
+  },
+  "sharing": {
+    "badEmail": "Saisissez une adresse e-mail valide.",
+    "badExpiry": "Choisissez la durée du lien : de 1 à 365 jours, ou sans date d’expiration.",
+    "badKind": "Choisissez une app, un design ou un jeu.",
+    "badRole": "Choisissez Éditeur ou Lecteur.",
+    "copyFailed": "Impossible de créer votre copie. Réessayez.",
+    "copyPages": "Cette app contient plus de pages que votre forfait ne le permet.",
+    "inviteExpired": "Cette invitation a expiré. Demandez-en une nouvelle.",
+    "inviteNotFound": "Cette invitation n’existe plus.",
+    "inviteOwner": "C’est déjà à vous.",
+    "inviteWorkspace": "Cette invitation vient d’un autre espace de travail. Vous ne pouvez donc pas l’accepter avec ce compte.",
+    "linkExpired": "Ce lien a expiré. Demandez-en un nouveau à la personne qui vous l’a partagé.",
+    "linkGone": "Ce lien ne fonctionne plus.",
+    "linkRevoked": "Ce lien a été désactivé. Demandez-en un nouveau à la personne qui vous l’a partagé.",
+    "linkWorkspace": "Ce lien appartient à un autre espace de travail. Vous ne pouvez donc pas l’utiliser avec ce compte.",
+    "needsLink": "Ouvrez le lien dans l’e-mail d’invitation pour l’accepter.",
+    "ownerOnly": "Seul le propriétaire peut faire ça.",
+    "self": "C’est votre propre adresse e-mail.",
+    "tooManyCollaborators": "Vous pouvez inviter jusqu’à {count} personnes.",
+    "tooManyCopies": "Vous avez créé beaucoup de copies au cours de la dernière heure. Réessayez plus tard.",
+    "tooManyInvites": "Vous avez envoyé beaucoup d’invitations au cours de la dernière heure. Réessayez plus tard.",
+    "tooManyLinks": "Il y a déjà {count} liens. Désactivez-en un d’abord.",
+    "viewOnly": "Vous pouvez consulter cet élément, mais pas le modifier.",
+    "wrongAccount": "Cette invitation a été envoyée à une autre adresse e-mail. Connectez-vous avec cette adresse pour l’accepter."
   },
   "templates": {
     "createFailed": "Impossible de créer l’application à partir de ce modèle. Réessayez.",

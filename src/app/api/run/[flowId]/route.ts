@@ -7,6 +7,7 @@ import { json } from "@/lib/utils";
 import { db } from "@/lib/db";
 import { fromBuilderPage } from "@/lib/deployments";
 import { getCurrentUser } from "@/lib/auth";
+import { hasProjectAccess } from "@/lib/sharing/access";
 import { projectForHost } from "@/lib/app-hosts";
 import { sessionCookieName } from "@/lib/flow/session";
 
@@ -283,12 +284,13 @@ async function handle(req: Request, flowIdOrSlug: string) {
   const flowId = flow.id;
 
   // The published app, webhooks and everyone else run the live version.
-  // Only the project's owner, signed in and working in the builder, runs the
-  // draft; an app that isn't published runs for nobody else.
-  const project = await db.project.findUnique({ where: { id: flow.projectId }, select: { ownerId: true, published: true } });
+  // Only the project's owner (or an editor: lib/sharing/access.ts), signed in
+  // and working in the builder, runs the draft; an app that isn't published
+  // runs for nobody else.
+  const project = await db.project.findUnique({ where: { id: flow.projectId }, select: { id: true, ownerId: true, published: true } });
   const crossSite = isCrossSite(req);
   const viewer = crossSite ? null : await getCurrentUser().catch(() => null);
-  const isOwner = Boolean(viewer && project && viewer.id === project.ownerId);
+  const isOwner = Boolean(viewer && project && (await hasProjectAccess(project, viewer, "edit")));
   if (!project || (!project.published && !isOwner)) return notFound();
   const draft = isOwner && (await fromBuilderPage(req));
   // What visitors are told here is in the app's language (messages/<locale>/runtime.json):

@@ -13,7 +13,7 @@ export async function GET(_req: Request, ctx: Ctx) {
     const design = await getDesign(user.id, id);
     await sweepStaleJobs(user.id);
     const running = await db.designerGenerationJob.findFirst({ where: { designId: id, status: "running", startedAt: { gt: new Date(Date.now() - 15 * 60_000) } }, select: { id: true } });
-    return { design, chat: await listChat(user.id, id), versions: await listVersions(user.id, id), runningJobId: running?.id ?? null, previewPass: previewPass(user.id, id) };
+    return { design, role: design.role, chat: await listChat(user.id, id), versions: await listVersions(user.id, id), runningJobId: running?.id ?? null, previewPass: previewPass(user.id, id) };
   });
 }
 

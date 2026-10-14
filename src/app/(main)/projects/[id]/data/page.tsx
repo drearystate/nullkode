@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
+import { hasProjectAccess } from "@/lib/sharing/access";
 import { deleteAccountUrl } from "@/lib/app-account-data";
 import { DataPanel } from "@/components/data/data-panel";
 import type { TableSummary } from "@/components/data/format";
@@ -21,7 +22,8 @@ export default async function DataPage({
       datasources: { include: { tables: true }, orderBy: { createdAt: "desc" } },
     },
   });
-  if (!project || project.ownerId !== user.id) notFound();
+  // The app's rows are people's data: the owner and editors only.
+  if (!project || !(await hasProjectAccess(project, user, "edit"))) notFound();
 
   let tables: TableSummary[] = [];
   try {

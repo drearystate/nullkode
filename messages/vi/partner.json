@@ -1,5 +1,7 @@
 {
   "api": {
+    "copyPages": "Ứng dụng này có nhiều trang hơn giới hạn cho phép trong một ứng dụng của gói người đó.",
+    "copySource": "Gửi mã thông báo của liên kết chia sẻ hoặc loại và mã định danh của nội dung thuộc phạm vi của khóa này.",
     "emailTaken": "Địa chỉ email này đã có tài khoản mà khóa này không quản lý nên không thể sử dụng.",
     "gamesUnavailable": "Không thể tạo trò chơi trên máy chủ này: chưa cài đặt công cụ tạo trò chơi và thư viện tài nguyên.",
     "idemInProgress": "Yêu cầu có Idempotency-Key này vẫn đang được xử lý. Hãy thử lại sau ít phút.",
@@ -11,6 +13,7 @@
     "invalidCursor": "\"cursor\" không hợp lệ. Hãy dùng nextCursor của trang trước đó.",
     "invalidEmail": "Gửi địa chỉ email hợp lệ trong trường \"email\".",
     "invalidEngine": "\"engine\" phải là \"2d\", \"3d\" hoặc \"auto\".",
+    "invalidExpiry": "expiresInDays phải là số nguyên từ 1 đến 365 hoặc null nếu không có ngày hết hạn.",
     "invalidFeature": "Nhập tên tính năng (2 đến 80 ký tự) và nếu muốn, mô tả cách hoạt động trong \"how\" (tối đa 400 ký tự).",
     "invalidGameName": "\"name\" phải là văn bản có tối đa 120 ký tự.",
     "invalidJson": "Nội dung yêu cầu phải là một đối tượng JSON.",
@@ -22,8 +25,11 @@
     "invalidPlan": "\"plan\" phải là một trong các giá trị sau: {plans}.",
     "invalidPrompt": "Mô tả trò chơi hoặc thay đổi trong \"prompt\" (tối đa 6000 ký tự), hoặc gửi hình ảnh tham khảo.",
     "invalidRedirect": "\"to\" phải là đường dẫn trên trang web này, chẳng hạn như /dashboard.",
+    "invalidShareKind": "Loại phải là \"app\", \"design\" hoặc \"game\".",
     "invalidStopMode": "\"mode\" phải là \"after-step\", \"now\" hoặc \"continue\".",
     "invalidWait": "\"wait\" phải là true hoặc false.",
+    "linkGone": "Liên kết chia sẻ này không hoạt động: không xác định, đã bị thu hồi hoặc hết hạn, hoặc nội dung được chia sẻ đã bị xóa.",
+    "linkWorkspace": "Liên kết chia sẻ này thuộc về một không gian làm việc khác.",
     "missingKey": "Gửi khóa đối tác trong tiêu đề Authorization, theo dạng \"Bearer\" rồi đến dấu cách và khóa.",
     "network": "Không thể dùng khóa đối tác này từ mạng này.",
     "notFound": "Không tìm thấy.",
@@ -33,6 +39,7 @@
     "revokedKey": "Khóa đối tác này đã bị thu hồi.",
     "seatsFull": "Không gian làm việc này đã hết chỗ cho khách hàng (giới hạn là {max}).",
     "suspended": "Không gian làm việc của khóa đối tác này đã bị tạm ngưng.",
+    "tooManyLinks": "Đã có {count} liên kết chia sẻ đang hoạt động. Hãy thu hồi một liên kết trước.",
     "userSuspended": "Tài khoản này đã bị tạm ngưng."
   },
   "keys": {

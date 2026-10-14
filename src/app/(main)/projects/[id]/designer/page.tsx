@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
+import { hasProjectAccess } from "@/lib/sharing/access";
 
 // A Designer app's "Designer" tab opens the design that app came from (or the game, for a published game).
 export default async function ProjectDesignerRedirect({
@@ -12,13 +13,13 @@ export default async function ProjectDesignerRedirect({
   const user = await getCurrentUser();
   if (!user) redirect("/login");
   const project = await db.project.findFirst({
-    where: { id, ownerId: user.id },
-    select: { id: true },
+    where: { id },
+    select: { id: true, ownerId: true },
   });
-  if (!project) redirect("/dashboard");
+  if (!project || !(await hasProjectAccess(project, user, "view"))) redirect("/dashboard");
 
   // A published game's app: its "Designer" tab is the game in the Game Studio.
-  const game = await db.gameProject.findFirst({ where: { projectId: project.id, ownerId: user.id, deletedAt: null }, select: { id: true } });
+  const game = await db.gameProject.findFirst({ where: { projectId: project.id, ownerId: project.ownerId, deletedAt: null }, select: { id: true } });
   if (game) redirect(`/games/${game.id}`);
 
   const design = await db.designerDesign.findFirst({

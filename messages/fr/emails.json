@@ -32,6 +32,14 @@
     "heldBack": "Nous avons retenu les e-mails individuels pour éviter de remplir votre boîte de réception. Vous pouvez tout voir dans les données de votre app :",
     "subject": "{count, plural, one {# nouvelle réponse} other {# nouvelles réponses}} dans {app}"
   },
+  "collaborate": {
+    "body": "{inviter} vous a invité à travailler avec lui sur le {what, select, app {projet} design {design} game {jeu} other {projet}} « {title} » sur {app}.",
+    "cta": "Connectez-vous avec cette adresse e-mail pour accepter l’invitation :",
+    "editor": "En tant qu’éditeur, vous pouvez le modifier et le créer avec l’IA. Il reste à son créateur : vous ne pouvez ni le supprimer, ni le publier, ni voir ses clés.",
+    "expires": "L’invitation expire dans 14 jours. Si vous ne vous y attendiez pas, vous pouvez ignorer cet e-mail.",
+    "subject": "{inviter} vous a invité à travailler sur « {title} »",
+    "viewer": "En tant que lecteur, vous pouvez tout consulter, mais pas apporter de modifications."
+  },
   "hi": "Bonjour,",
   "hiName": "Bonjour {name},",
   "invite": {

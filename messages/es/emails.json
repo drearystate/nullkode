@@ -32,6 +32,14 @@
     "heldBack": "Retuvimos los correos por separado para que no se te llene la bandeja de entrada. Puedes ver todo en los datos de tu app:",
     "subject": "{count, plural, one {# envío nuevo más} other {# envíos nuevos más}} en {app}"
   },
+  "collaborate": {
+    "body": "{inviter} te invitó a colaborar con ellos en {what, select, app {la app} design {el diseño} game {el juego} other {el proyecto}} «{title}» en {app}.",
+    "cta": "Inicia sesión con esta dirección de correo y acepta la invitación:",
+    "editor": "Como editor, puedes hacer cambios y crear con IA. Sigue siendo suyo: no puedes eliminarlo, publicarlo ni ver sus claves.",
+    "expires": "La invitación caduca en 14 días. Si no la esperabas, puedes ignorar este correo.",
+    "subject": "{inviter} te invitó a colaborar en «{title}»",
+    "viewer": "Como espectador, puedes verlo todo, pero no hacer cambios."
+  },
   "hi": "Hola,",
   "hiName": "Hola {name},",
   "invite": {

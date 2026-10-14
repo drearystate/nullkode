@@ -32,7 +32,7 @@ async function language(projectId: string, asked: string | null): Promise<{ lang
 
 export async function GET(req: Request, ctx: { params: Promise<{ id: string }> }) {
   const { id } = await ctx.params;
-  const r = await ownedProject(id);
+  const r = await ownedProject(id, "edit");
   if ("error" in r) return r.error;
   const { project } = r;
   if (!project.published || !project.liveDeploymentId) return json({ error: (await tr())("publishFirst") }, { status: 409 });
@@ -68,7 +68,7 @@ export async function GET(req: Request, ctx: { params: Promise<{ id: string }> }
 
 export async function POST(req: Request, ctx: { params: Promise<{ id: string }> }) {
   const { id } = await ctx.params;
-  const r = await ownedProject(id);
+  const r = await ownedProject(id, "edit");
   if ("error" in r) return r.error;
   const { project } = r;
   if (!project.published || !project.liveDeploymentId) return json({ error: (await tr())("publishFirst") }, { status: 409 });

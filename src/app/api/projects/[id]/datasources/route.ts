@@ -5,6 +5,8 @@ import { json } from "@/lib/utils";
 import { ensureInternalTable } from "@/lib/datasources/postgres";
 import { getTranslations } from "next-intl/server";
 import { requestLocale } from "@/i18n/request";
+import { accessError } from "@/lib/sharing/access";
+import { noteEdit } from "@/lib/sharing/audit";
 
 const CreateBody = z.object({
   name: z.string().min(1).max(80),
@@ -25,19 +27,21 @@ const TableBody = z.object({
 
 export async function GET(_req: Request, ctx: { params: Promise<{ id: string }> }) {
   const { id } = await ctx.params;
-  const r = await ownedProject(id);
+  const r = await ownedProject(id, "view");
   if ("error" in r) return r.error;
   const sources = await db.dataSource.findMany({
     where: { projectId: id },
     include: { tables: true },
     orderBy: { createdAt: "desc" },
   });
+  // An outside database's connection details (its password) are the owner's alone.
+  if (r.role !== "owner") return json({ datasources: sources.map((d) => ({ ...d, config: {} })) });
   return json({ datasources: sources });
 }
 
 export async function POST(req: Request, ctx: { params: Promise<{ id: string }> }) {
   const { id } = await ctx.params;
-  const r = await ownedProject(id);
+  const r = await ownedProject(id, "edit");
   if ("error" in r) return r.error;
   const body = await req.json().catch(() => null);
   const t = await getTranslations({ locale: await requestLocale(), namespace: "data.api" });
@@ -59,11 +63,14 @@ export async function POST(req: Request, ctx: { params: Promise<{ id: string }> 
         schema: { fields: parsed.data.fields },
       },
     });
+    await noteEdit("app", id, r.user.id, "data.change", { subjectId: table.id, label: table.name });
     return json({ table });
   }
 
   const parsed = CreateBody.safeParse(body);
   if (!parsed.success) return json({ error: t("invalidInput") }, { status: 400 });
+  // Connecting an outside database means entering its password: the owner's to do.
+  if (parsed.data.kind !== "POSTGRES_INTERNAL" && r.role !== "owner") return accessError(403, "owner");
   const source = await db.dataSource.create({
     data: {
       projectId: id,

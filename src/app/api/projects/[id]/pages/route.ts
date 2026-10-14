@@ -6,12 +6,13 @@ import { ownedProject, checkPageLimit } from "@/lib/guard";
 import { json, slugify } from "@/lib/utils";
 import { syncProjectNav } from "@/lib/nav-sync";
 import { isLanguageSlug } from "@/lib/app-translations";
+import { noteEdit } from "@/lib/sharing/audit";
 
 const CreateBody = z.object({ title: z.string().min(1).max(80) });
 
 export async function GET(_req: Request, ctx: { params: Promise<{ id: string }> }) {
   const { id } = await ctx.params;
-  const r = await ownedProject(id);
+  const r = await ownedProject(id, "view");
   if ("error" in r) return r.error;
   const pages = await db.page.findMany({
     where: { projectId: id },
@@ -22,10 +23,10 @@ export async function GET(_req: Request, ctx: { params: Promise<{ id: string }> 
 
 export async function POST(req: Request, ctx: { params: Promise<{ id: string }> }) {
   const { id } = await ctx.params;
-  const r = await ownedProject(id);
+  const r = await ownedProject(id, "edit");
   if ("error" in r) return r.error;
 
-  const limitError = await checkPageLimit(r.user, id);
+  const limitError = await checkPageLimit(r.owner, id);
   if (limitError) return limitError;
 
   const parsed = CreateBody.safeParse(await req.json().catch(() => null));
@@ -61,5 +62,6 @@ export async function POST(req: Request, ctx: { params: Promise<{ id: string }> 
     console.error("Nav sync after page create failed:", err);
   }
   const fresh = await db.page.findUnique({ where: { id: page.id } });
+  await noteEdit("app", id, r.user.id, "page.create", { subjectId: page.id, label: page.title });
   return json({ page: fresh ?? page });
 }

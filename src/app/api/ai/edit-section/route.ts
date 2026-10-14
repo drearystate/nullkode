@@ -2,6 +2,7 @@ import { z } from "zod";
 import { heartbeatJson } from "@/lib/heartbeat-json";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
+import { hasProjectAccess } from "@/lib/sharing/access";
 import { json } from "@/lib/utils";
 import { aiUsageSummary, checkAiQuota, recordAiUsage, refundAiUsage, refundFailedAi } from "@/lib/ai-quota";
 import { appSummary, refusalResponse, withBuildPolicy } from "@/lib/ai/build-policy";
@@ -72,8 +73,9 @@ async function handle(req: Request): Promise<Response> {
     return json({ error: key?.startsWith("edit.") ? t(key) : t("errors.invalidRequest") }, { status: 400 });
   }
   const { projectId, pageId, message, sectionHtml, history, lang, pageHasCode } = parsed.data;
-  const page = await db.page.findFirst({ where: { id: pageId, projectId, project: { ownerId: user.id } }, select: { title: true, html: true } });
-  if (!page) return json({ error: t("errors.pageNotFound") }, { status: 404 });
+  // The owner and editors (lib/sharing/access.ts); the AI action is the person's own.
+  const page = await db.page.findFirst({ where: { id: pageId, projectId }, select: { title: true, html: true, project: { select: { ownerId: true } } } });
+  if (!page || !(await hasProjectAccess({ id: projectId, ownerId: page.project.ownerId }, user, "edit"))) return json({ error: t("errors.pageNotFound") }, { status: 404 });
 
   // Charged before the AI runs; every failure below gives it back.
   const chargeId = await recordAiUsage(user.id, "edit", projectId);

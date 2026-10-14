@@ -7,6 +7,8 @@ import { getAppLocale } from "@/lib/app-locale";
 import { pageSourceHash, translationState } from "@/lib/app-translations";
 import { isLocale } from "@/i18n/locales";
 import { requestLocale } from "@/i18n/request";
+import type { Need } from "@/lib/sharing/access";
+import { noteEdit } from "@/lib/sharing/audit";
 
 /**
  * One page in one of a multilingual app's other languages, for the editor's
@@ -17,8 +19,8 @@ import { requestLocale } from "@/i18n/request";
  *           (origin "edited"); styles are shared, so css goes to the page.
  */
 
-async function load(id: string, pageId: string, lang: string) {
-  const r = await ownedProject(id);
+async function load(id: string, pageId: string, lang: string, need: Need) {
+  const r = await ownedProject(id, need);
   if ("error" in r) return { error: r.error };
   const app = await getAppLocale(id);
   if (!isLocale(lang) || lang === app.locale || !app.locales.includes(lang)) {
@@ -28,12 +30,12 @@ async function load(id: string, pageId: string, lang: string) {
   const page = await db.page.findFirst({ where: { id: pageId, projectId: id } });
   if (!page) return { error: json({ error: "Not found" }, { status: 404 }) };
   const translation = await db.pageTranslation.findUnique({ where: { pageId_locale: { pageId, locale: lang } } });
-  return { page, translation, lang };
+  return { page, translation, lang, user: r.user };
 }
 
 export async function GET(_req: Request, ctx: { params: Promise<{ id: string; pageId: string; lang: string }> }) {
   const { id, pageId, lang } = await ctx.params;
-  const r = await load(id, pageId, lang);
+  const r = await load(id, pageId, lang, "view");
   if ("error" in r) return r.error;
   const { page, translation } = r;
   return json({
@@ -54,7 +56,7 @@ export async function GET(_req: Request, ctx: { params: Promise<{ id: string; pa
 
 export async function PATCH(req: Request, ctx: { params: Promise<{ id: string; pageId: string; lang: string }> }) {
   const { id, pageId, lang } = await ctx.params;
-  const r = await load(id, pageId, lang);
+  const r = await load(id, pageId, lang, "edit");
   if ("error" in r) return r.error;
   const { page, translation } = r;
   const body = (await req.json().catch(() => null)) as { html?: unknown; css?: unknown; title?: unknown } | null;
@@ -70,5 +72,6 @@ export async function PATCH(req: Request, ctx: { params: Promise<{ id: string; p
   if (typeof body.css === "string" && body.css !== page.css && body.css.length <= 1_000_000) {
     await db.page.update({ where: { id: pageId }, data: { css: body.css, styles: Prisma.DbNull } });
   }
+  await noteEdit("app", id, r.user.id, "page.translate", { subjectId: pageId, label: `${title} (${lang})` });
   return json({ page: { id: pageId, lang, updatedAt: saved.updatedAt.toISOString() } });
 }

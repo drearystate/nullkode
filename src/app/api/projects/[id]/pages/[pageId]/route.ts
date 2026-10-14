@@ -9,6 +9,7 @@ import { neverInMenu, planMenu, syncProjectNav } from "@/lib/nav-sync";
 import { keepPageSettings, readMenuMarkers, readVisibility, setMenuMarkers, setVisibilityMarkers, type PageSettings } from "@/lib/page-visibility";
 import { OWNER_ONLY_PAGES } from "@/lib/modules/owner-only";
 import { getModule } from "@/lib/modules/registry";
+import { noteEdit, otherSaveSince } from "@/lib/sharing/audit";
 
 const PatchBody = z.object({
   title: z.string().trim().min(1).max(80).optional(),
@@ -25,6 +26,9 @@ const PatchBody = z.object({
   // Autosave bookkeeping from the editor (see isStale below).
   clientSession: z.string().min(1).max(64).optional(),
   clientSeq: z.number().int().min(0).optional(),
+  // When the editor last loaded or saved the page: someone else's save since
+  // then is reported back (otherSave), for the "saved by someone else" warning.
+  baseUpdatedAt: z.string().max(40).optional(),
 });
 
 function texts() {
@@ -41,7 +45,7 @@ export async function GET(
   ctx: { params: Promise<{ id: string; pageId: string }> }
 ) {
   const { id, pageId } = await ctx.params;
-  const r = await ownedProject(id);
+  const r = await ownedProject(id, "view");
   if ("error" in r) return r.error;
   const page = await db.page.findFirst({ where: { id: pageId, projectId: id } });
   if (!page) return json({ error: (await texts())("notFound") }, { status: 404 });
@@ -56,19 +60,19 @@ export async function PATCH(
   ctx: { params: Promise<{ id: string; pageId: string }> }
 ) {
   const { id, pageId } = await ctx.params;
-  const r = await ownedProject(id);
+  const r = await ownedProject(id, "edit");
   if ("error" in r) return r.error;
   const parsed = PatchBody.safeParse(await req.json().catch(() => null));
   if (!parsed.success) return json({ error: (await texts())("invalidInput") }, { status: 400 });
   // One change at a time per page, so saves are applied in the order the
   // editor made them (see isStale).
-  return oneAtATime(pageId, () => applyPatch(id, pageId, parsed.data, r.project.kind === "DESIGNER"));
+  return oneAtATime(pageId, () => applyPatch(id, pageId, parsed.data, r.project.kind === "DESIGNER", r.user.id));
 }
 
-async function applyPatch(projectId: string, pageId: string, body: z.infer<typeof PatchBody>, designer: boolean) {
+async function applyPatch(projectId: string, pageId: string, body: z.infer<typeof PatchBody>, designer: boolean, userId: string) {
   const current = await db.page.findFirst({ where: { id: pageId, projectId } });
   if (!current) return json({ error: (await texts())("notFound") }, { status: 404 });
-  const { clientSession, clientSeq, visibility, hideInMenu, menuOrder, ...fields } = body;
+  const { clientSession, clientSeq, visibility, hideInMenu, menuOrder, baseUpdatedAt, ...fields } = body;
 
   const content = fields.html !== undefined || fields.css !== undefined || fields.components !== undefined || fields.styles !== undefined;
   if (content && clientSession && clientSeq !== undefined && isStale(pageId, clientSession, clientSeq)) {
@@ -117,8 +121,14 @@ async function applyPatch(projectId: string, pageId: string, body: z.infer<typeo
   if (fields.isHome) {
     await db.page.updateMany({ where: { projectId, isHome: true, NOT: { id: pageId } }, data: { isHome: false } });
   }
+  // Shared apps: last save wins, but the editor is told when someone else
+  // saved this page since it was opened (lib/sharing/audit.ts).
+  const otherSave = content && baseUpdatedAt && current.updatedAt.getTime() > Date.parse(baseUpdatedAt)
+    ? await otherSaveSince(pageId, new Date(baseUpdatedAt), userId).catch(() => null)
+    : null;
   let page = await db.page.update({ where: { id: pageId, projectId }, data });
   if (content && clientSession && clientSeq !== undefined) markSaved(pageId, clientSession, clientSeq);
+  if (content || fields.title !== undefined || settingsChange) await noteEdit("app", projectId, userId, "page.save", { subjectId: pageId, label: page.title });
 
   // Showing a page the menu leaves out by default, or moving it, gives
   // every menu page an explicit place.
@@ -136,9 +146,9 @@ async function applyPatch(projectId: string, pageId: string, body: z.infer<typeo
       console.error("Nav sync after page update failed:", err);
     }
   }
-  if (!settingsChange) return json({ page: lean(page) });
+  if (!settingsChange) return json({ page: lean(page), ...(otherSave ? { otherSave } : {}) });
   page = (await db.page.findUnique({ where: { id: pageId } })) ?? page;
-  return json({ page: lean(page), settings: await pageSettings(projectId, pageId, designer) });
+  return json({ page: lean(page), settings: await pageSettings(projectId, pageId, designer), ...(otherSave ? { otherSave } : {}) });
 }
 
 export async function DELETE(
@@ -146,10 +156,12 @@ export async function DELETE(
   ctx: { params: Promise<{ id: string; pageId: string }> }
 ) {
   const { id, pageId } = await ctx.params;
-  const r = await ownedProject(id);
+  const r = await ownedProject(id, "edit");
   if ("error" in r) return r.error;
+  const gone = await db.page.findFirst({ where: { id: pageId, projectId: id }, select: { title: true } });
   const removed = await db.page.deleteMany({ where: { id: pageId, projectId: id } });
   if (!removed.count) return json({ error: (await texts())("notFound") }, { status: 404 });
+  await noteEdit("app", id, r.user.id, "page.delete", { subjectId: pageId, label: gone?.title });
   try {
     await syncProjectNav(id);
   } catch (err) {

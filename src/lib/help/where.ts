@@ -16,6 +16,7 @@ export const GUIDE_SLUGS = [
   "publishing",
   "custom-domains",
   "phone-apps",
+  "sharing",
   "account-and-billing",
   "running-your-platform",
   "white-label",

@@ -1,5 +1,7 @@
 {
   "api": {
+    "copyPages": "Cette app contient plus de pages que le forfait de cette personne n’en autorise pour une app.",
+    "copySource": "Envoyez un jeton de lien de partage, ou le kind et l’id d’un élément autorisé par cette clé.",
     "emailTaken": "Cette adresse e-mail est déjà associée à un compte que cette clé ne gère pas. Elle ne peut donc pas être utilisée.",
     "gamesUnavailable": "Impossible de créer des jeux sur ce serveur : les moteurs de jeu et la bibliothèque de ressources ne sont pas installés.",
     "idemInProgress": "Une requête utilisant cette Idempotency-Key est en cours de traitement. Réessayez dans un instant.",
@@ -11,6 +13,7 @@
     "invalidCursor": "« cursor » n’est pas valide. Utilisez le nextCursor de la page précédente.",
     "invalidEmail": "Envoyez une adresse e-mail valide dans « email ».",
     "invalidEngine": "\"engine\" doit être \"2d\", \"3d\" ou \"auto\".",
+    "invalidExpiry": "expiresInDays doit être un nombre entier entre 1 et 365, ou null pour une date de fin illimitée.",
     "invalidFeature": "Indiquez le nom de la fonctionnalité (2 à 80 caractères) et, si vous le souhaitez, ce qu’elle fait dans « comment » (400 caractères max).",
     "invalidGameName": "\"name\" doit être un texte de 120 caractères maximum.",
     "invalidJson": "Le corps de la requête doit être un objet JSON.",
@@ -22,8 +25,11 @@
     "invalidPlan": "« plan » doit être l’une des valeurs suivantes : {plans}.",
     "invalidPrompt": "Décrivez le jeu ou le changement dans \"prompt\" (6000 caractères maximum), ou envoyez des images de référence.",
     "invalidRedirect": "« to » doit être un chemin sur ce site, par exemple /dashboard.",
+    "invalidShareKind": "kind doit être \"app\", \"design\" ou \"game\".",
     "invalidStopMode": "\"mode\" doit être \"after-step\", \"now\" ou \"continue\".",
     "invalidWait": "\"wait\" doit être true ou false.",
+    "linkGone": "Ce lien de partage ne fonctionne pas : il est inconnu, révoqué ou expiré, ou l’élément partagé a été supprimé.",
+    "linkWorkspace": "Ce lien de partage appartient à un autre espace de travail.",
     "missingKey": "Envoyez votre clé partenaire dans l’en-tête Authorization au format « Bearer », suivi d’une espace et de la clé.",
     "network": "Cette clé partenaire ne peut pas être utilisée depuis ce réseau.",
     "notFound": "Introuvable.",
@@ -33,6 +39,7 @@
     "revokedKey": "Cette clé partenaire a été révoquée.",
     "seatsFull": "Cet espace de travail n’a plus de places client disponibles (la limite est de {max}).",
     "suspended": "L’espace de travail associé à cette clé partenaire est suspendu.",
+    "tooManyLinks": "Ce partage a déjà {count} liens actifs. Révoquez-en un d’abord.",
     "userSuspended": "Ce compte est suspendu."
   },
   "keys": {

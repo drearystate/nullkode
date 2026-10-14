@@ -1,6 +1,7 @@
 import { db } from "@/lib/db";
 import { defaultBundleId, nativeBrandFor, publishedAppUrl } from "@/lib/native";
 import { getCurrentUser } from "@/lib/auth";
+import { hasProjectAccess } from "@/lib/sharing/access";
 import { json } from "@/lib/utils";
 import { getTranslations } from "next-intl/server";
 import { requestLocale } from "@/i18n/request";
@@ -42,7 +43,7 @@ export async function GET(
     where: { id },
     select: { id: true, name: true, slug: true, published: true, ownerId: true, hostLabel: true },
   });
-  if (!project || project.ownerId !== user.id) {
+  if (!project || !(await hasProjectAccess(project, user, "owner"))) {
     return json({ error: (await tr())("installer.projectNotFound") }, { status: 404 });
   }
   if (!project.published) {

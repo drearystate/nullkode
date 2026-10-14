@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
+import { hasProjectAccess } from "@/lib/sharing/access";
 import { listModuleSummaries } from "@/lib/modules/registry";
 import { installedModules } from "@/lib/modules/installed";
 import { ModuleGallery } from "@/components/modules/module-gallery";
@@ -18,9 +19,9 @@ export default async function ModulesPage({
   if (!user) return null;
 
   const project = await db.project.findFirst({
-    where: { id, ownerId: user.id },
+    where: { id },
   });
-  if (!project) notFound();
+  if (!project || !(await hasProjectAccess(project, user, "view"))) notFound();
 
   const modules = listModuleSummaries();
   const installed = await installedModules(id);

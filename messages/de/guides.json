@@ -1360,6 +1360,65 @@
     "summary": "Dein Admin-Bereich: Richte {app} ein, kümmere dich um die Nutzer und halte den Server am Laufen.",
     "title": "Deine Plattform verwalten"
   },
+  "sharing": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Drücke bei einer App (neben <b>Vorschau</b>), im KI-Designer oder im Game Studio auf <b>Teilen</b>. Mit <b>Kopie teilen</b> erhalten andere einen Link, über den sie eine eigene Kopie erstellen können: Änderungen bleiben in ihrer Kopie, deine Änderungen in deiner. Mit <b>Gemeinsam bearbeiten</b> lädst du andere per E-Mail ein, mit dir an diesem Projekt zu arbeiten."
+        },
+        "heading": "Zwei Möglichkeiten zum Teilen"
+      },
+      "1": {
+        "body": {
+          "0": "Wer den Link öffnet, meldet sich an oder registriert sich, sieht, was du geteilt hast und was in der Kopie enthalten ist, und drückt auf <b>Meine Kopie erstellen</b>. Die Kopie gehört der Person, liegt in ihrem Konto und ist zunächst nicht veröffentlicht."
+        },
+        "heading": "Kopie teilen",
+        "steps": {
+          "0": "Drücke auf <b>Teilen</b> und dann auf <b>Kopie teilen</b>.",
+          "1": "Setze bei einer App ein Häkchen bei <b>Beispieldaten einschließen</b>, wenn die Kopien Beispielzeilen aus den Tabellen enthalten sollen, die auf deinen öffentlichen Seiten angezeigt werden.",
+          "2": "Wähle aus, wie lange der Link gültig ist, und drücke auf <b>Link erstellen</b>. Der Link wird kopiert und kann verschickt werden.",
+          "3": "Unter <b>Kopien</b> siehst du, wer wann eine Kopie erstellt hat. Drücke auf <b>Deaktivieren</b>, damit ein Link nicht mehr funktioniert. Bereits erstellte Kopien bleiben bei den Personen, die sie erstellt haben."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Kopien enthalten niemals deine privaten Daten: KI-Schlüssel, Zahlungs- und andere private Schlüssel, Verbindungen zu externen Datenbanken, Android-Signaturschlüssel und App-Store-Konten, deine benutzerdefinierten Domains und Webadressen, Abonnenten von Push-Benachrichtigungen, veröffentlichte Versionen, Analysen und nur für Eigentümer sichtbare Einstellungen wie Benachrichtigungen. Bei Apps werden auch die Konten, Passwörter und eigenen Einträge deiner Besucher nicht übernommen.",
+          "1": "Wenn eine App KI nutzt, muss die Person vor der Veröffentlichung ihrer Kopie einen eigenen KI-Schlüssel hinzufügen."
+        },
+        "heading": "Was niemals in einer Kopie enthalten ist"
+      },
+      "3": {
+        "body": {
+          "0": "Ein <b>Bearbeiter</b> kann Seiten, Abläufe, Daten und Funktionen ändern und mit der KI arbeiten. Dafür wird das eigene KI-Kontingent genutzt. Bearbeiter können das Projekt nicht löschen, veröffentlichen oder übertragen, keine anderen einladen und ihre Schlüssel, Domains und Abrechnungsdaten nicht sehen. Ein <b>Betrachter</b> kann alles ansehen, aber nichts ändern."
+        },
+        "heading": "Gemeinsam bearbeiten",
+        "steps": {
+          "0": "Drücke auf <b>Teilen</b> und dann auf <b>Gemeinsam bearbeiten</b>.",
+          "1": "Gib die E-Mail-Adresse ein, wähle <b>Bearbeiter</b> oder <b>Betrachter</b> und drücke auf <b>Einladen</b>.",
+          "2": "Die Person erhält eine E-Mail. Wenn der E-Mail-Versand nicht eingerichtet ist, schicke ihr stattdessen den angezeigten Link.",
+          "3": "Die Person nimmt die Einladung an, während sie mit dieser E-Mail-Adresse angemeldet ist – über die E-Mail oder unter <b>Mit mir geteilt</b> auf dem Dashboard.",
+          "4": "Um den Zugriff einer Person zu entziehen, drücke auf den Papierkorb neben ihrem Namen. Der Zugriff endet sofort."
+        }
+      },
+      "4": {
+        "body": {
+          "0": "Apps, Designs und Spiele, zu denen dich andere eingeladen haben, findest du zusammen mit deinen Einladungen unter <b>Mit mir geteilt</b> auf deinem Dashboard. Drücke auf <b>Verlassen</b>, wenn du nicht mehr daran mitarbeiten möchtest."
+        },
+        "heading": "Mit mir geteilt"
+      },
+      "5": {
+        "bullets": {
+          "0": "Zwei Personen können dieselbe App gleichzeitig bearbeiten. Wenn jemand eine Seite gespeichert hat, nachdem du sie geöffnet hast, weist dich der Editor darauf hin. Es bleibt die zuletzt gespeicherte Version erhalten. Lade die Seite neu, um zuerst die Änderungen der anderen Person zu sehen.",
+          "1": "Unter <b>Letzte Änderungen</b> im Teilen-Dialog siehst du, wer seit dem Teilen was geändert hat.",
+          "2": "Eine Kopie wird auf den Tarif der Person angerechnet, die sie erstellt.",
+          "3": "Du kannst den Hinweis <b>Kopiert von</b> bei einer erstellten Kopie ausblenden."
+        },
+        "heading": "Gut zu wissen"
+      }
+    },
+    "summary": "Gib anderen eine eigene Kopie einer App, eines Designs oder Spiels, auf der sie aufbauen können, oder lade sie ein, mit dir an deinem Projekt zu arbeiten.",
+    "title": "Teile deine Arbeit und entwickle gemeinsam weiter"
+  },
   "white-label": {
     "sections": {
       "0": {

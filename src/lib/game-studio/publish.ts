@@ -31,7 +31,8 @@ export function publishedGameHtml(opts: { engine: string; title: string; files: 
 
 export async function publishGameAsApp(user: User, gameId: string, locale: Locale): Promise<{ projectId: string; url: string; version: number }> {
   const t = translator(locale, "games");
-  const game = await ownedGame(user.id, gameId);
+  // Publishing is the owner's (lib/sharing/access.ts): the app is theirs and counts against their plan.
+  const game = await ownedGame(user.id, gameId, "owner");
   if (game.seq < 1) throw new GameError("nothing_to_publish", t("server.nothingToPublish"));
   const running = await db.gameJob.findFirst({ where: { gameId, status: "running" }, select: { id: true } });
   if (running) throw new GameError("still_building", t("server.stillBuilding"));

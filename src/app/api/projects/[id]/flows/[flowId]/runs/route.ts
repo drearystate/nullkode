@@ -17,7 +17,7 @@ type Row = { id: string; status: string; input: unknown; output: unknown; error:
  */
 export async function GET(req: Request, ctx: { params: Promise<{ id: string; flowId: string }> }) {
   const { id, flowId } = await ctx.params;
-  const r = await ownedProject(id);
+  const r = await ownedProject(id, "edit");
   if ("error" in r) return r.error;
   const locale = await requestLocale();
   const [t, format] = await Promise.all([getTranslations({ locale, namespace: "flows" }), getFormatter({ locale })]);

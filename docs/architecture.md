@@ -23,7 +23,7 @@ Published apps are served from `/app/[slug]` on the studio's address, from `<lab
 
 AI steps in apps (`ai_prompt`, `ai_chat`, `ai_agent`, `ai_structured`, `ai_vision`, `ai_embed`, `ai_search`, `ai_speech`; `src/lib/app-ai`) run with each app's own AI connection ("AI keys", table `AppAiConnection`, keys encrypted with AUTH_SECRET and never sent to pages), not with the platform's AI, except in the apps of platform admins. The platform's AI only plans, builds and edits apps. See `docs/ai-in-apps.md`.
 
-Builder sessions and published-app visitor sessions are separate. Project routes check builder ownership. Designer routes check design ownership before every file, version and build operation. Administrative settings use the real signed-in administrator, including during impersonation. The app has no Server Actions, so requests carrying a `Next-Action` header are refused with 404 in the middleware (and in the Caddyfile).
+Builder sessions and published-app visitor sessions are separate. Project, Designer and Game Studio routes check access through one helper (`src/lib/sharing/access.ts`): the owner, or a collaborator the owner invited as editor or viewer; owner-only actions (delete, transfer, publish, keys, domains, billing) stay with the owner. Designer and game routes check it before every file, version and build operation. "Share a copy" makes an independent copy in another account without any of the original's secrets. See `docs/sharing.md`. Administrative settings use the real signed-in administrator, including during impersonation. The app has no Server Actions, so requests carrying a `Next-Action` header are refused with 404 in the middleware (and in the Caddyfile).
 
 ## Configuration
 

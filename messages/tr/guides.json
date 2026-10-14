@@ -1360,6 +1360,65 @@
     "summary": "Yönetici ana sayfanız: {app} uygulamasını ayarlayın, kullanıcılarla ilgilenin ve sunucunun sağlıklı çalışmasını sağlayın.",
     "title": "Platformunuzu yönetme"
   },
+  "sharing": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Bir uygulamada (<b>Önizle</b>'nin yanında), AI Tasarımcısı'nda veya Oyun Stüdyosu'nda <b>Paylaş</b>'a bas. <b>Kopya paylaş</b>, başkalarına kendi kopyalarını oluşturmaları için bir bağlantı verir: yaptıkları değişiklikler kendi kopyalarında, senin yaptıkların da seninkinde kalır. <b>Birlikte düzenle</b>, başkalarını e-postayla uygulama üzerinde seninle çalışmaya davet eder."
+        },
+        "heading": "Paylaşmanın iki yolu"
+      },
+      "1": {
+        "body": {
+          "0": "Bağlantıyı açan herkes oturum açar veya kaydolur, paylaştığın şeyi ve kopyaya nelerin dahil olduğunu görür, ardından <b>Kopyamı oluştur</b>'a basar. Kopya kendi hesaplarında olur ve yayımlanmamış olarak başlar."
+        },
+        "heading": "Kopya paylaş",
+        "steps": {
+          "0": "<b>Paylaş</b>'a, ardından <b>Kopya paylaş</b>'a bas.",
+          "1": "Bir uygulama için, kopyalarda herkese açık sayfalarında gösterilen tablolardan örnek satırların da bulunmasını istiyorsan <b>Örnek verileri dahil et</b>'i işaretle.",
+          "2": "Bağlantının ne kadar süre geçerli olacağını seç, ardından <b>Bağlantı oluştur</b>'a bas. Bağlantı, gönderebilmen için kopyalanır.",
+          "3": "<b>Kopyalar</b> bölümünde kimin ne zaman kopya oluşturduğunu görebilirsin. Bağlantının çalışmasını durdurmak için <b>Devre dışı bırak</b>'a bas; oluşturulmuş kopyalar onları oluşturan kişilerde kalır."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Kopyalara özel bilgilerin hiçbir zaman aktarılmaz: AI anahtarları, ödeme ve diğer özel anahtarlar, harici veritabanı bağlantıları, Android imzalama anahtarları ve uygulama mağazası hesapları, özel alan adların ve web adresin, anlık bildirim aboneleri, yayımlanmış sürümler, analiz verileri ve uyarılar gibi yalnızca sahiplere açık ayarlar. Uygulamalar için ziyaretçilerinin hesapları, şifreleri ve kendi kayıtları da aktarılmaz.",
+          "1": "Bir uygulama AI kullanıyorsa, sahibi yayımlamadan önce kendi kopyasına kendi AI anahtarını ekler."
+        },
+        "heading": "Kopyaya hiçbir zaman dahil olmayanlar"
+      },
+      "3": {
+        "body": {
+          "0": "Bir <b>Düzenleyici</b> sayfaları, iş akışlarını, verileri ve özellikleri değiştirebilir, ayrıca kendi AI kullanım hakkını kullanarak AI ile geliştirme yapabilir. Ancak uygulamayı silemez, yayımlayamaz veya devredemez; başkalarını davet edemez ya da uygulamanın anahtarlarını, alan adlarını ve faturalandırma bilgilerini göremez. Bir <b>Görüntüleyici</b> her şeye bakabilir ama hiçbir şeyi değiştiremez."
+        },
+        "heading": "Birlikte düzenle",
+        "steps": {
+          "0": "<b>Paylaş</b>'a, ardından <b>Birlikte düzenle</b>'ye bas.",
+          "1": "E-posta adresini yaz, <b>Düzenleyici</b> veya <b>Görüntüleyici</b>'yi seç ve <b>Davet et</b>'e bas.",
+          "2": "E-posta alırlar. E-posta ayarlanmamışsa bunun yerine görünen bağlantıyı gönder.",
+          "3": "E-postadan veya panolarındaki <b>Benimle paylaşılanlar</b> bölümünden, bu e-posta adresiyle oturum açmış halde daveti kabul ederler.",
+          "4": "Birinin erişimini kaldırmak için adının yanındaki çöp kutusuna bas. Erişim hemen sona erer."
+        }
+      },
+      "4": {
+        "body": {
+          "0": "Başkalarının birlikte çalışman için davet ettiği uygulamalar, tasarımlar ve oyunlar ile davetlerin panondaki <b>Benimle paylaşılanlar</b> bölümünde bulunur. Birinde çalışmayı bırakmak için <b>Ayrıl</b>'a bas."
+        },
+        "heading": "Benimle paylaşılanlar"
+      },
+      "5": {
+        "bullets": {
+          "0": "İki kişi aynı uygulamayı aynı anda düzenleyebilir. Sen açtıktan sonra başka biri bir sayfayı kaydederse düzenleyici sana haber verir. En son kaydedilen sürüm tutulur; bu yüzden önce değişikliklerini görmek için sayfayı yeniden yükle.",
+          "1": "Paylaş iletişim kutusundaki <b>Son değişiklikler</b>, paylaştığından beri kimin neleri değiştirdiğini gösterir.",
+          "2": "Bir kopya, onu oluşturan kişinin planına dahildir.",
+          "3": "Oluşturduğun bir kopyadaki <b>Şuradan kopyalandı</b> notunu gizleyebilirsin."
+        },
+        "heading": "Bilmen gerekenler"
+      }
+    },
+    "summary": "Başkalarının geliştirebileceği bir uygulama, tasarım veya oyunun kopyasını paylaş ya da onları seninle çalışmaya davet et.",
+    "title": "Çalışmalarını paylaş, birlikte geliştirin"
+  },
   "white-label": {
     "sections": {
       "0": {

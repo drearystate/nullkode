@@ -156,6 +156,9 @@ export function GrapesEditor(props: Props) {
   const [advancedOpen, setAdvancedOpen] = useState(false);
   const [hasSettings, setHasSettings] = useState(false);
   const [draftOffer, setDraftOffer] = useState<{ draft: PageDraft; newer: boolean } | null>(null);
+  // Shared apps (docs/sharing.md): someone else saved this page since it was opened here; last save wins.
+  const [otherSave, setOtherSave] = useState<{ name: string; at: string } | null>(null);
+  const ts = useTranslations("sharing");
 
   useEffect(() => {
     let mounted = true;
@@ -561,7 +564,7 @@ export function GrapesEditor(props: Props) {
 
       const send = (copy: ReturnType<typeof takeCopy>, mySeq: number, keepalive: boolean): Promise<boolean> => {
         const takenAt = Date.now();
-        let body = JSON.stringify({ ...copy, clientSession: session, clientSeq: mySeq });
+        let body = JSON.stringify({ ...copy, clientSession: session, clientSeq: mySeq, ...(baseUpdatedAt && !props.lang ? { baseUpdatedAt } : {}) });
         let useKeepalive = false;
         if (keepalive) {
           if (fitsKeepalive(body)) useKeepalive = true;
@@ -580,7 +583,8 @@ export function GrapesEditor(props: Props) {
         return fetch(url, { method: "PATCH", headers: { "content-type": "application/json" }, body, keepalive: useKeepalive })
           .then(async (res) => {
             if (!res.ok) throw new Error("Save failed");
-            const data = (await res.json().catch(() => null)) as { page?: { updatedAt?: string } } | null;
+            const data = (await res.json().catch(() => null)) as { page?: { updatedAt?: string }; otherSave?: { name: string; at: string } } | null;
+            if (data?.otherSave && mounted) setOtherSave(data.otherSave);
             if (mySeq > savedSeq) {
               savedSeq = mySeq;
               if (data?.page?.updatedAt) baseUpdatedAt = data.page.updatedAt;
@@ -986,6 +990,20 @@ export function GrapesEditor(props: Props) {
           </a>
           </div>
         </div>
+        {otherSave && (
+          <div role="alert" className="studio-draft-offer" data-testid="other-save-warning">
+            <History size={15} className="shrink-0 text-amber-300" aria-hidden />
+            <span className="min-w-0 flex-1">
+              {otherSave.name
+                ? ts("editor.otherSave", { name: otherSave.name, time: format.dateTime(new Date(otherSave.at), { timeStyle: "short" }) })
+                : ts("editor.otherSaveSomeone", { time: format.dateTime(new Date(otherSave.at), { timeStyle: "short" }) })}
+            </span>
+            <span className="flex shrink-0 gap-2">
+              <button type="button" className="btn-primary !min-h-0 !px-3 !py-1.5 text-xs" onClick={() => { void flushNow().then(() => window.location.reload()); }}>{ts("editor.reload")}</button>
+              <button type="button" className="btn-ghost !min-h-0 !px-3 !py-1.5 text-xs" onClick={() => setOtherSave(null)}>{ts("editor.dismiss")}</button>
+            </span>
+          </div>
+        )}
         {draftOffer && (
           <div role="alert" className="studio-draft-offer">
             <History size={15} className="shrink-0 text-amber-300" aria-hidden />

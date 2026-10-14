@@ -6,7 +6,8 @@ import { withUser } from "@/lib/design-studio/http";
 export async function POST(_req: Request, ctx: { params: Promise<{ id: string }> }) {
   const { id } = await ctx.params;
   return withUser(async (user) => {
-    await getDesign(user.id, id);
+    // Handing the app to the page builder is the owner's (lib/sharing/access.ts).
+    await getDesign(user.id, id, "owner");
     const r = await switchDesignToBuilder(user.id, id);
     return { url: r.pageId ? `/projects/${r.projectId}/pages/${r.pageId}/edit` : `/projects/${r.projectId}` };
   });

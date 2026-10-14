@@ -2,9 +2,10 @@ import { z } from "zod";
 import { getTranslations } from "next-intl/server";
 import { requestLocale } from "@/i18n/request";
 import { db } from "@/lib/db";
-import { getCurrentUser } from "@/lib/auth";
 import { eraseProject } from "@/lib/erase";
 import { json } from "@/lib/utils";
+import { ownedProject } from "@/lib/guard";
+import { noteEdit } from "@/lib/sharing/audit";
 
 const PatchBody = z.object({
   name: z.string().min(1).max(80).optional(),
@@ -17,28 +18,18 @@ function texts() {
   return requestLocale().then((locale) => getTranslations({ locale, namespace: "project.projectApi" }));
 }
 
-async function requireOwned(id: string) {
-  const user = await getCurrentUser();
-  if (!user) return { error: json({ error: (await texts())("unauthorized") }, { status: 401 }) };
-  const project = await db.project.findUnique({ where: { id } });
-  if (!project || project.ownerId !== user.id) {
-    return { error: json({ error: (await texts())("notFound") }, { status: 404 }) };
-  }
-  return { user, project };
-}
-
 export async function GET(_req: Request, ctx: { params: Promise<{ id: string }> }) {
   const { id } = await ctx.params;
-  const r = await requireOwned(id);
+  const r = await ownedProject(id, "view");
   if ("error" in r) return r.error;
   // hasUploadKey: the delete dialog asks the owner to download it first.
   const key = await db.androidSigningKey.findUnique({ where: { projectId: id }, select: { id: true } });
-  return json({ project: r.project, hasUploadKey: Boolean(key) });
+  return json({ project: r.project, hasUploadKey: Boolean(key), role: r.role });
 }
 
 export async function PATCH(req: Request, ctx: { params: Promise<{ id: string }> }) {
   const { id } = await ctx.params;
-  const r = await requireOwned(id);
+  const r = await ownedProject(id, "edit");
   if ("error" in r) return r.error;
   const parsed = PatchBody.safeParse(await req.json().catch(() => null));
   if (!parsed.success) return json({ error: (await texts())("invalidInput") }, { status: 400 });
@@ -47,6 +38,7 @@ export async function PATCH(req: Request, ctx: { params: Promise<{ id: string }>
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     data: parsed.data as any,
   });
+  await noteEdit("app", id, r.user.id, parsed.data.theme ? "theme.save" : "app.rename", { label: updated.name });
   return json({ project: updated });
 }
 
@@ -60,7 +52,7 @@ const DeleteBody = z.object({ keyBackedUp: z.boolean().optional() });
  */
 export async function DELETE(req: Request, ctx: { params: Promise<{ id: string }> }) {
   const { id } = await ctx.params;
-  const r = await requireOwned(id);
+  const r = await ownedProject(id, "owner");
   if ("error" in r) return r.error;
   const body = DeleteBody.safeParse(await req.json().catch(() => ({})));
   const t = await texts();

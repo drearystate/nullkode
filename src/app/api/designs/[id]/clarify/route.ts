@@ -8,7 +8,7 @@ import { personLocale } from "@/lib/ai/i18n";
 export async function POST(req: Request, ctx: { params: Promise<{ id: string }> }) {
   const { id } = await ctx.params;
   return withUser(async (user) => {
-    await getDesign(user.id, id);
+    await getDesign(user.id, id, "edit");
     const { prompt } = await readJson<{ prompt?: string }>(req);
     if (typeof prompt !== "string" || prompt.trim().length < 3) return { questions: [] };
     // Not charged, so capped: a few per hour is plenty.

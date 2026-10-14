@@ -4,6 +4,7 @@ import { nanoid } from "nanoid";
 import { z } from "zod";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
+import { hasProjectAccess } from "@/lib/sharing/access";
 import { openai } from "@/lib/ai/client";
 import { json } from "@/lib/utils";
 import { getTranslations } from "next-intl/server";
@@ -26,7 +27,7 @@ async function requireOwned(id: string) {
   const user = await getCurrentUser();
   if (!user) return { error: json({ error: (await tr())("unauthorized") }, { status: 401 }) };
   const project = await db.project.findUnique({ where: { id } });
-  if (!project || project.ownerId !== user.id) {
+  if (!project || !(await hasProjectAccess(project, user, "edit"))) {
     return { error: json({ error: (await tr())("notFound") }, { status: 404 }) };
   }
   return { user, project };

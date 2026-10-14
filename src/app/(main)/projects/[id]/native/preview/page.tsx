@@ -3,6 +3,7 @@ import { headers } from "next/headers";
 import { getTranslations } from "next-intl/server";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
+import { hasProjectAccess } from "@/lib/sharing/access";
 import { liveSnapshot } from "@/lib/deployments";
 import { NativePreview } from "@/components/native-preview";
 import { previewAddresses } from "@/lib/native/engine-web";
@@ -18,7 +19,7 @@ export default async function NativePreviewPage({ params }: { params: Promise<{ 
   const user = await getCurrentUser();
   if (!user) return null;
   const project = await db.project.findUnique({ where: { id } });
-  if (!project || project.ownerId !== user.id) notFound();
+  if (!project || !(await hasProjectAccess(project, user, "edit"))) notFound();
   const t = await getTranslations("project.nativePreview");
   const live = project.published ? await liveSnapshot(project.id) : null;
 

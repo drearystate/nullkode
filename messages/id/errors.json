@@ -58,12 +58,12 @@
     "alreadyRegistered": "Email sudah terdaftar",
     "domainNoMail": "Domain email tersebut tidak menerima email. Silakan gunakan alamat lain.",
     "formExpired": "Formulir pendaftaran Anda sudah kedaluwarsa. Silakan coba lagi.",
+    "oneFreeAccount": "Akun gratis sudah dibuat dari jaringan ini. Silakan masuk ke akun tersebut.",
     "permanentEmail": "Silakan daftar menggunakan alamat email permanen.",
     "tooManyAccounts": "Terlalu banyak akun dibuat dari jaringan ini hari ini.",
     "tooManyAttempts": "Terlalu banyak upaya mendaftar dari jaringan ini. Coba lagi nanti.",
     "tooQuick": "Anda mengisi terlalu cepat — silakan coba lagi.",
-    "verificationFailed": "Verifikasi gagal. Muat ulang halaman, lalu coba lagi.",
-    "oneFreeAccount": "Akun gratis sudah dibuat dari jaringan ini. Silakan masuk ke akun tersebut."
+    "verificationFailed": "Verifikasi gagal. Muat ulang halaman, lalu coba lagi."
   },
   "apk": {
     "alreadyHasKey": "Aplikasi ini sudah memiliki kunci upload. Centang \"Ganti kunci saya saat ini\" untuk menggunakan kunci ini.",
@@ -322,6 +322,31 @@
     "published": "{count, plural, one {# aplikasi yang dipublikasikan} other {# aplikasi yang dipublikasikan}}",
     "publishedUnlimited": "Aplikasi yang dipublikasikan tanpa batas",
     "scheduled": "Alur kerja terjadwal"
+  },
+  "sharing": {
+    "badEmail": "Masukkan alamat email yang valid.",
+    "badExpiry": "Pilih masa berlaku tautan: 1 hingga 365 hari, atau tanpa tanggal kedaluwarsa.",
+    "badKind": "Pilih aplikasi, desain, atau game.",
+    "badRole": "Pilih Editor atau Viewer.",
+    "copyFailed": "Salinan tidak bisa dibuat. Silakan coba lagi.",
+    "copyPages": "Aplikasi ini memiliki lebih banyak halaman daripada batas paket Anda untuk satu aplikasi.",
+    "inviteExpired": "Undangan ini sudah kedaluwarsa. Minta undangan baru.",
+    "inviteNotFound": "Undangan ini sudah tidak ada.",
+    "inviteOwner": "Ini sudah menjadi milik Anda.",
+    "inviteWorkspace": "Undangan ini berasal dari ruang kerja lain, jadi tidak bisa diterima dengan akun ini.",
+    "linkExpired": "Tautan ini sudah kedaluwarsa. Minta tautan baru kepada orang yang membagikannya.",
+    "linkGone": "Tautan ini sudah tidak berfungsi.",
+    "linkRevoked": "Tautan ini sudah dinonaktifkan. Minta tautan baru kepada orang yang membagikannya.",
+    "linkWorkspace": "Tautan ini berasal dari ruang kerja lain, jadi tidak bisa digunakan dengan akun ini.",
+    "needsLink": "Buka tautan di email undangan untuk menerimanya.",
+    "ownerOnly": "Hanya pemilik yang bisa melakukan ini.",
+    "self": "Itu alamat email Anda sendiri.",
+    "tooManyCollaborators": "Anda bisa mengundang hingga {count} orang.",
+    "tooManyCopies": "Anda sudah membuat banyak salinan dalam satu jam terakhir. Coba lagi nanti.",
+    "tooManyInvites": "Anda sudah mengirim banyak undangan dalam satu jam terakhir. Coba lagi nanti.",
+    "tooManyLinks": "Sudah ada {count} tautan. Nonaktifkan salah satunya terlebih dahulu.",
+    "viewOnly": "Anda bisa melihat ini, tetapi tidak bisa mengubahnya.",
+    "wrongAccount": "Undangan ini dikirim ke alamat email lain. Masuk dengan alamat tersebut untuk menerimanya."
   },
   "templates": {
     "createFailed": "Tidak dapat membuat aplikasi dari templat ini. Silakan coba lagi.",

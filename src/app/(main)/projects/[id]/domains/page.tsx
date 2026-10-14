@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
+import { hasProjectAccess } from "@/lib/sharing/access";
 import { DomainsPanel } from "@/components/domains-panel";
 import { platformTargetHost, platformTargetIp } from "@/lib/reseller";
 
@@ -17,7 +18,7 @@ export default async function DomainsPage({
     where: { id },
     include: { domains: { orderBy: { createdAt: "desc" } } },
   });
-  if (!project || project.ownerId !== user.id) notFound();
+  if (!project || !(await hasProjectAccess(project, user, "owner"))) notFound();
   const t = await getTranslations("project.domainsPage");
 
   return (

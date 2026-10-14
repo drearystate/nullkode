@@ -9,10 +9,13 @@ import { CONTINUE_COST, phaseCount, phaseOf, phaseViews, type PhaseInfo, type Re
 import { DEFAULT_LOCALE, isLocale } from "@/i18n/locales";
 import { translator } from "../ai/i18n";
 import type { Locale } from "@/i18n/locales";
+import { gameWithRole, NoAccess, type Need, type Role } from "../sharing/access";
+import { noteEdit } from "../sharing/audit";
 
 /**
- * Games, their versions and conversation. Everything is scoped to the owner:
- * callers pass userId and every read checks it.
+ * Games, their versions and conversation. Everything is scoped to the people
+ * who may work on the game (its owner and the collaborators they invited,
+ * lib/sharing/access.ts): callers pass userId and every read checks it.
  */
 
 export class NotFound extends Error {
@@ -55,10 +58,23 @@ export function gameSummary(g: { name: string; engine: string; plan: Prisma.Json
   return [`Game "${g.name}" (${g.engine})`, b.pitch, b.genre, b.coreLoop].filter(Boolean).join(". ").slice(0, 1500);
 }
 
-export async function ownedGame(userId: string, gameId: string) {
-  const g = await db.gameProject.findFirst({ where: { id: gameId, ownerId: userId, deletedAt: null } });
-  if (!g) throw new NotFound();
-  return g;
+/**
+ * The game, if `userId` may do `need` with it: "edit" (the default: builds,
+ * changes, features, branding, restores) for its owner and editors, "view"
+ * for viewers too, "owner" for deleting and publishing. NotFound for anyone
+ * else; NotAllowed (403) for a collaborator whose role doesn't cover it.
+ */
+export async function ownedGame(userId: string, gameId: string, need: Need = "edit") {
+  return (await gameAndRole(userId, gameId, need)).game;
+}
+
+export async function gameAndRole(userId: string, gameId: string, need: Need = "edit"): Promise<{ game: Awaited<ReturnType<typeof gameWithRole>>["game"]; role: Role }> {
+  try {
+    return await gameWithRole(userId, gameId, need);
+  } catch (err) {
+    if (err instanceof NoAccess) throw new NotFound();
+    throw err;
+  }
 }
 
 /** A game as the lists show it (the card): its app, and the newest version with a screenshot. */
@@ -87,8 +103,8 @@ export async function listGames(userId: string): Promise<GameSummary[]> {
 }
 
 export async function getGame(userId: string, gameId: string) {
-  const g = await ownedGame(userId, gameId);
-  return { ...(await summary(g)), plan: g.plan as Record<string, unknown> | null, kitVersion: g.kitVersion, files: Object.keys(asFiles(g.files)).sort() };
+  const { game: g, role } = await gameAndRole(userId, gameId, "view");
+  return { ...(await summary(g)), plan: g.plan as Record<string, unknown> | null, kitVersion: g.kitVersion, files: Object.keys(asFiles(g.files)).sort(), role, ownerId: g.ownerId };
 }
 
 /** A new game with the kit's starter files as version 0 (the empty, running shell). */
@@ -120,12 +136,15 @@ export async function renameGame(userId: string, gameId: string, name: string): 
 
 /** Soft-deletes the game. Its published app goes too (it only shows this game). */
 export async function deleteGame(userId: string, gameId: string): Promise<void> {
-  const g = await ownedGame(userId, gameId);
+  const g = await ownedGame(userId, gameId, "owner");
   await db.gameProject.update({ where: { id: gameId }, data: { deletedAt: new Date() } });
   await db.gameJob.updateMany({ where: { gameId, status: "running" }, data: { cancelRequested: true } });
   // A build waiting at its check-in ends with the game.
   await db.gameJob.updateMany({ where: { gameId, status: "review" }, data: { status: "cancelled", finishedAt: new Date() } });
   if (g.projectId) await db.project.deleteMany({ where: { id: g.projectId, ownerId: userId, kind: "DESIGNER" } });
+  // Sharing (lib/sharing): its collaborators go, its "Share a copy" links stop working.
+  await db.collaborator.deleteMany({ where: { kind: "game", targetId: gameId } });
+  await db.shareLink.updateMany({ where: { kind: "game", targetId: gameId, revokedAt: null }, data: { revokedAt: new Date() } });
 }
 
 /**
@@ -179,6 +198,8 @@ export async function saveVersion(
     shot?: Buffer | null;
     /** The planned features as they stand at this version (features.ts), and the game's plan carrying them; given the new seq. */
     features?: (seq: number) => { features: unknown[]; plan: Record<string, unknown> };
+    /** Who made it (the person who started the build, or restored): recorded for shared games (lib/sharing/audit.ts). */
+    by?: string | null;
   },
 ): Promise<number> {
   const seq = await db.$transaction(async (tx) => {
@@ -204,11 +225,12 @@ export async function saveVersion(
     // A game's files (and a screenshot) are written twice: on a busy server that can pass Prisma's 5 s default.
   }, { timeout: 30_000, maxWait: 15_000 });
   publishGame(gameId, { type: "version", seq, label: opts.label });
+  if (opts.by !== undefined) await noteEdit("game", gameId, opts.by, "game.version", { subjectId: `${gameId}:${seq}`, label: opts.label });
   return seq;
 }
 
 export async function listVersions(userId: string, gameId: string): Promise<VersionSummary[]> {
-  await ownedGame(userId, gameId);
+  await ownedGame(userId, gameId, "view");
   const rows = await db.gameVersion.findMany({
     where: { gameId },
     orderBy: { seq: "desc" },
@@ -235,7 +257,7 @@ export function featureTally(v: Prisma.JsonValue | null): VersionSummary["featur
 }
 
 export async function versionFiles(userId: string, gameId: string, seq: number): Promise<GameFiles> {
-  await ownedGame(userId, gameId);
+  await ownedGame(userId, gameId, "view");
   const v = await db.gameVersion.findUnique({ where: { gameId_seq: { gameId, seq } }, select: { files: true } });
   if (!v) throw new NotFound();
   return asFiles(v.files);
@@ -258,6 +280,7 @@ export async function restoreVersion(userId: string, gameId: string, seq: number
   const kept = asFeatures(v?.features) ?? asFeatures(plan.features)?.map(({ last: _l, ...f }) => ({ ...f, status: "planned" as const })) ?? null;
   const next = await saveVersion(gameId, files, {
     label,
+    by: userId,
     kind: "restore",
     check: (v?.check as Record<string, unknown> | null) ?? null,
     shot: v?.shot ? Buffer.from(v.shot) : null,
@@ -268,7 +291,7 @@ export async function restoreVersion(userId: string, gameId: string, seq: number
 }
 
 export async function versionShot(userId: string, gameId: string, seq: number): Promise<Buffer | null> {
-  await ownedGame(userId, gameId);
+  await ownedGame(userId, gameId, "view");
   const v = await db.gameVersion.findUnique({ where: { gameId_seq: { gameId, seq } }, select: { shot: true } });
   return v?.shot ? Buffer.from(v.shot) : null;
 }
@@ -285,7 +308,7 @@ export async function patchBetween(userId: string, gameId: string, from: number,
 // ── Chat ──────────────────────────────────────────────────────────────
 
 export async function listChat(userId: string, gameId: string): Promise<ChatMessage[]> {
-  await ownedGame(userId, gameId);
+  await ownedGame(userId, gameId, "view");
   const [rows, notes] = await Promise.all([
     db.gameChat.findMany({ where: { gameId }, orderBy: { seq: "asc" }, take: 2000 }),
     db.gameNote.findMany({ where: { gameId, chatSeq: { not: null } }, select: { chatSeq: true, status: true, appliedStep: true, appliedLabel: true, planStep: true, jobId: true }, take: 2000 }),

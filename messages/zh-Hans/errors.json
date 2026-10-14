@@ -58,12 +58,12 @@
     "alreadyRegistered": "此电子邮件地址已注册",
     "domainNoMail": "此电子邮件域名无法接收邮件。请使用其他地址。",
     "formExpired": "注册表单已过期，请重试。",
+    "oneFreeAccount": "此网络已创建过一个免费账号。请改为登录该账号。",
     "permanentEmail": "请使用长期有效的电子邮件地址注册。",
     "tooManyAccounts": "今天已通过此网络创建了太多账号。",
     "tooManyAttempts": "此网络的注册尝试次数过多，请稍后重试。",
     "tooQuick": "操作太快了，请重试。",
-    "verificationFailed": "验证失败。请刷新页面后重试。",
-    "oneFreeAccount": "此网络已创建过一个免费账户。请改为登录该账户。"
+    "verificationFailed": "验证失败。请刷新页面后重试。"
   },
   "apk": {
     "alreadyHasKey": "此应用已有上传密钥。勾选“替换我当前的密钥”以改用此密钥。",
@@ -322,6 +322,31 @@
     "published": "{count, plural, one {# 个已发布的应用} other {# 个已发布的应用}}",
     "publishedUnlimited": "已发布的应用数量不限",
     "scheduled": "定时工作流"
+  },
+  "sharing": {
+    "badEmail": "请输入有效的电子邮件地址。",
+    "badExpiry": "请选择链接的有效期：1 到 365 天，或永不过期。",
+    "badKind": "请选择应用、设计或游戏。",
+    "badRole": "请选择编辑者或查看者。",
+    "copyFailed": "无法创建副本，请重试。",
+    "copyPages": "此应用的页面数超出了你的方案允许的单个应用页面数。",
+    "inviteExpired": "此邀请已过期，请重新获取邀请。",
+    "inviteNotFound": "此邀请已不存在。",
+    "inviteOwner": "这已经是你的了。",
+    "inviteWorkspace": "此邀请来自另一个工作区，无法在此账号下接受。",
+    "linkExpired": "此链接已过期。请联系分享者获取新链接。",
+    "linkGone": "此链接已失效。",
+    "linkRevoked": "此链接已关闭。请联系分享者获取新链接。",
+    "linkWorkspace": "此链接属于另一个工作区，无法在此账号下使用。",
+    "needsLink": "请打开邀请邮件中的链接以接受邀请。",
+    "ownerOnly": "只有所有者可以执行此操作。",
+    "self": "这是你自己的电子邮件地址。",
+    "tooManyCollaborators": "你最多可以邀请 {count} 人。",
+    "tooManyCopies": "你在过去一小时内创建了太多副本，请稍后重试。",
+    "tooManyInvites": "你在过去一小时内发送了太多邀请，请稍后重试。",
+    "tooManyLinks": "此内容已有 {count} 个链接。请先关闭一个。",
+    "viewOnly": "你可以查看，但不能修改。",
+    "wrongAccount": "此邀请发送到了另一个电子邮件地址。请使用该地址登录并接受邀请。"
   },
   "templates": {
     "createFailed": "无法使用此模板创建应用。请重试。",

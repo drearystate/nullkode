@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
+import { hasProjectAccess } from "@/lib/sharing/access";
 import { connectionView, getLimits, listConnections } from "@/lib/app-ai/connections";
 import { projectAiStatus } from "@/lib/app-ai/status";
 import { PROVIDER_IDS, PROVIDERS } from "@/lib/app-ai/providers";
@@ -15,7 +16,7 @@ export default async function AiKeysPage({ params }: { params: Promise<{ id: str
   const user = await getCurrentUser();
   if (!user) return null;
   const project = await db.project.findUnique({ where: { id }, select: { id: true, ownerId: true, name: true } });
-  if (!project || project.ownerId !== user.id) notFound();
+  if (!project || !(await hasProjectAccess(project, user, "owner"))) notFound();
   const [connections, limits, status, t] = await Promise.all([listConnections(id), getLimits(id), projectAiStatus(id), getTranslations("aiKeys")]);
   // Labels come from aiKeys.json; only what the form needs goes to the browser.
   const providers = PROVIDER_IDS.map((pid) => ({ id: pid, baseUrl: PROVIDERS[pid].baseUrl, can: PROVIDERS[pid].can, example: PROVIDERS[pid].example }));

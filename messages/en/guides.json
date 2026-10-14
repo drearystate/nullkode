@@ -956,6 +956,65 @@
       }
     }
   },
+  "sharing": {
+    "title": "Share your work and build together",
+    "summary": "Give people their own copy of an app, design or game to build on, or invite them to work on yours with you.",
+    "sections": {
+      "0": {
+        "heading": "Two ways to share",
+        "body": {
+          "0": "Press <b>Share</b> on an app (next to <b>Preview</b>), in the AI Designer or in the Game Studio. <b>Share a copy</b> gives people a link to make their own copy: what they change stays in their copy, and what you change stays in yours. <b>Edit together</b> invites people by email to work on this one with you."
+        }
+      },
+      "1": {
+        "heading": "Share a copy",
+        "body": {
+          "0": "Anyone who opens the link signs in, or signs up, sees what you shared and what a copy includes, and presses <b>Make my copy</b>. The copy is theirs, in their account, and starts unpublished."
+        },
+        "steps": {
+          "0": "Press <b>Share</b>, then <b>Share a copy</b>.",
+          "1": "For an app, tick <b>Include sample data</b> if copies should get example rows from the tables your public pages show.",
+          "2": "Choose how long the link works, then press <b>Create link</b>. The link is copied for you to send.",
+          "3": "Under <b>Copies</b> you see who made a copy, and when. Press <b>Turn off</b> to stop a link working; copies already made stay with the people who made them."
+        }
+      },
+      "2": {
+        "heading": "What a copy never includes",
+        "body": {
+          "0": "Copies never get your private things: AI keys, payment and other private keys, connections to outside databases, Android signing keys and app store accounts, your custom domains and web address, push notification subscribers, published versions, analytics and owner-only settings such as alerts. For apps, your visitors' accounts, passwords and their own entries never go along either.",
+          "1": "If an app uses AI, the person adds their own AI key to their copy before they publish it."
+        }
+      },
+      "3": {
+        "heading": "Edit together",
+        "body": {
+          "0": "An <b>Editor</b> can change pages, workflows, data and features, and build with the AI, which uses their own AI allowance. They can't delete, publish or transfer it, invite others, or see its keys, domains and billing. A <b>Viewer</b> can look at everything but can't change anything."
+        },
+        "steps": {
+          "0": "Press <b>Share</b>, then <b>Edit together</b>.",
+          "1": "Type their email address, choose <b>Editor</b> or <b>Viewer</b>, and press <b>Invite</b>.",
+          "2": "They get an email. If email isn't set up, send them the link that appears instead.",
+          "3": "They accept while signed in with that email address, from the email or from <b>Shared with me</b> on their dashboard.",
+          "4": "To take someone's access away, press the bin next to their name. It ends straight away."
+        }
+      },
+      "4": {
+        "heading": "Shared with me",
+        "body": {
+          "0": "Apps, designs and games other people invited you to work on are under <b>Shared with me</b> on your dashboard, with your invitations. Press <b>Leave</b> to stop working on one."
+        }
+      },
+      "5": {
+        "heading": "Good to know",
+        "bullets": {
+          "0": "Two people can edit the same app at once. If someone else saved a page after you opened it, the editor tells you; the newest save is kept, so reload to see their changes first.",
+          "1": "<b>Recent changes</b> in the Share dialog shows who changed what since you shared it.",
+          "2": "A copy counts towards the plan of the person who makes it.",
+          "3": "You can hide the <b>Copied from</b> note on a copy you made."
+        }
+      }
+    }
+  },
   "account-and-billing": {
     "title": "Your profile, plan and settings",
     "summary": "Add a photo, change your name and password, choose light or dark, turn help tips on or off, check your plan and AI use, or delete your account.",

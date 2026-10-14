@@ -1,6 +1,7 @@
 import { getCurrentUser } from "@/lib/auth";
 import { getDesign, NotFound } from "@/lib/design-studio/store";
 import { subscribe } from "@/lib/design-studio/events";
+import { NotAllowed } from "@/lib/sharing/access";
 import { requestTranslator } from "@/lib/ai/i18n";
 
 export const dynamic = "force-dynamic";
@@ -14,7 +15,7 @@ export async function GET(req: Request, ctx: { params: Promise<{ id: string }> }
   try {
     await getDesign(user.id, id);
   } catch (err) {
-    return new Response(err instanceof NotFound ? t("server.notFound") : t("server.error"), { status: err instanceof NotFound ? 404 : 500 });
+    return new Response(err instanceof NotFound ? t("server.notFound") : t("server.error"), { status: err instanceof NotFound ? 404 : err instanceof NotAllowed ? 403 : 500 });
   }
   const enc = new TextEncoder();
   let stop = () => {};

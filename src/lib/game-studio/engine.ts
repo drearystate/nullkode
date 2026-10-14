@@ -401,7 +401,7 @@ export async function updateGameBrand(user: QuotaUser, gameId: string, raw: unkn
   const plan = { ...((game.plan ?? {}) as Record<string, unknown>), brand };
   if (!brand) delete (plan as { brand?: unknown }).brand;
   await db.gameProject.update({ where: { id: gameId }, data: { plan: plan as unknown as Prisma.InputJsonValue } });
-  const seq = await saveVersion(gameId, next, { label: t("brand.versionLabel"), kind: "brand" });
+  const seq = await saveVersion(gameId, next, { label: t("brand.versionLabel"), kind: "brand", by: user.id });
   publishGame(gameId, { type: "game" });
   let jobId: string | null = null;
   if (opts.apply !== false && brand && game.seq > 0) {
@@ -416,10 +416,12 @@ export async function updateGameBrand(user: QuotaUser, gameId: string, raw: unkn
  * A full game waiting at its check-in ends there (the game stays as it is).
  */
 export async function cancelGameJob(userId: string, gameId: string): Promise<boolean> {
-  const jobs = await db.gameJob.findMany({ where: { gameId, userId, status: "running" }, select: { id: true } });
+  // The owner and editors can stop the game's build, whoever started it (lib/sharing/access.ts).
+  await ownedGame(userId, gameId, "edit");
+  const jobs = await db.gameJob.findMany({ where: { gameId, status: "running" }, select: { id: true } });
   for (const j of jobs) cancelled.add(j.id);
-  await db.gameJob.updateMany({ where: { gameId, userId, status: "running" }, data: { cancelRequested: true } });
-  const waiting = await db.gameJob.findMany({ where: { gameId, userId, status: "review" }, select: { id: true, meta: true } });
+  await db.gameJob.updateMany({ where: { gameId, status: "running" }, data: { cancelRequested: true } });
+  const waiting = await db.gameJob.findMany({ where: { gameId, status: "review" }, select: { id: true, meta: true } });
   for (const w of waiting) {
     const { count } = await db.gameJob.updateMany({ where: { id: w.id, status: "review" }, data: { status: "cancelled", finishedAt: new Date() } });
     if (!count) continue;
@@ -516,7 +518,8 @@ async function reopenAtReview(
 
 /** "Stop after this step" on (or off again) for the game's running job. */
 export async function setStopAfterStep(userId: string, gameId: string, on: boolean): Promise<boolean> {
-  const jobs = await db.gameJob.findMany({ where: { gameId, userId, status: "running" }, select: { id: true } });
+  await ownedGame(userId, gameId, "edit");
+  const jobs = await db.gameJob.findMany({ where: { gameId, status: "running" }, select: { id: true } });
   if (!jobs.length) return false;
   await db.gameJob.updateMany({ where: { id: { in: jobs.map((j) => j.id) }, status: "running" }, data: { stopAfterStep: on } });
   for (const j of jobs) publishGame(gameId, { type: "job", jobId: j.id, status: "running", stopAfterStep: on });
@@ -759,6 +762,7 @@ export async function runJob(jobId: string, opts: { resumed?: boolean } = {}): P
         const seq = await saveVersion(gameId, result.files, {
           label: step.label,
           note: result.note,
+          by: ctx.userId,
           kind: "step",
           check: checkSummary(result.check),
           shot: result.check?.shot ?? null,
@@ -2168,7 +2172,7 @@ export type FeatureListView = {
 
 /** The game's feature list for the workspace and the partner API: every feature, its status and origin, and the history. */
 export async function gameFeatureList(userId: string, gameId: string): Promise<FeatureListView> {
-  const game = await ownedGame(userId, gameId);
+  const game = await ownedGame(userId, gameId, "view");
   const plan = (game.plan ?? {}) as GamePlan;
   const list = plan.features ?? [];
   return {

@@ -1,18 +1,19 @@
 import { db } from "./db";
-import { getCurrentUser } from "./auth";
 import { json } from "./utils";
+import { projectAccess, type Need } from "./sharing/access";
 import { limitsForUser } from "./plan-limits";
 import type { User } from "@prisma/client";
 import { requestErrorsT, type ErrT } from "./errors-i18n";
 
-export async function ownedProject(projectId: string) {
-  const user = await getCurrentUser();
-  if (!user) return { error: json({ error: (await requestErrorsT())("common.unauthorized") }, { status: 401 }) };
-  const project = await db.project.findUnique({ where: { id: projectId } });
-  if (!project || project.ownerId !== user.id) {
-    return { error: json({ error: (await requestErrorsT(user))("common.notFound") }, { status: 404 }) };
-  }
-  return { user, project };
+/**
+ * The app for a request, through the one access check (lib/sharing/access.ts):
+ * `need` is "owner" (the default: delete, publish, keys, domains…), "edit"
+ * (editors too) or "view" (viewers too). Signed out → 401, not theirs → 404,
+ * a collaborator without the role → 403. `owner` is the app's owner (whose
+ * plan limits apply), `user` the person asking (whose AI actions are used).
+ */
+export async function ownedProject(projectId: string, need: Need = "owner") {
+  return projectAccess(projectId, need);
 }
 
 /* ── Plan-limit enforcement helpers ─────────────────────────── */

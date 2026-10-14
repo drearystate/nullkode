@@ -137,3 +137,19 @@ export function aiKeyNeededEmail(locale: Locale, o: { name?: string | null; app:
     false,
   );
 }
+
+/**
+ * Someone invited them to work on an app, design or game together (docs/sharing.md).
+ * `what`: "app" | "design" | "game"; `role`: "editor" | "viewer".
+ */
+export function collaboratorInviteEmail(locale: Locale, o: { name?: string | null; app: string; inviter: string; what: string; title: string; role: string; link: string }): RenderedEmail {
+  const { t, dir } = translatorFor(locale, "emails");
+  const values = { app: o.app, inviter: o.inviter, title: o.title, what: o.what, role: o.role };
+  return renderEmail(locale, dir, t("collaborate.subject", values), [
+    hi(t, o.name),
+    t("collaborate.body", values),
+    t(o.role === "viewer" ? "collaborate.viewer" : "collaborate.editor", values),
+    { text: t("collaborate.cta", values), link: o.link },
+    t("collaborate.expires"),
+  ]);
+}

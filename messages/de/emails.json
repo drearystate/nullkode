@@ -32,6 +32,14 @@
     "heldBack": "Wir haben die einzelnen E-Mails zurückgehalten, damit dein Posteingang nicht überläuft. Du findest alle Einträge in den Daten deiner App:",
     "subject": "{count, plural, one {# weiterer neuer Eintrag} other {# weitere neue Einträge}} in {app}"
   },
+  "collaborate": {
+    "body": "{inviter} hat dich eingeladen, gemeinsam mit ihnen am {what, select, app {App-Projekt} design {Design} game {Spiel} other {Projekt}} „{title}“ auf {app} zu arbeiten.",
+    "cta": "Melde dich mit dieser E-Mail-Adresse an und nimm die Einladung an:",
+    "editor": "Mit Bearbeitungszugriff kannst du es ändern und mit KI weiterentwickeln. Es bleibt im Besitz der anderen Person: Du kannst es nicht löschen oder veröffentlichen und die Zugriffsschlüssel nicht ansehen.",
+    "expires": "Die Einladung läuft in 14 Tagen ab. Wenn du sie nicht erwartet hast, kannst du diese E-Mail ignorieren.",
+    "subject": "{inviter} hat dich eingeladen, an „{title}“ mitzuarbeiten",
+    "viewer": "Mit Lesezugriff kannst du alles darin ansehen, aber nichts ändern."
+  },
   "hi": "Hallo,",
   "hiName": "Hallo {name},",
   "invite": {

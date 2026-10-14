@@ -1,5 +1,6 @@
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
+import { hasProjectAccess, type Need } from "@/lib/sharing/access";
 import { json } from "@/lib/utils";
 import { getTranslations } from "next-intl/server";
 import { requestLocale } from "@/i18n/request";
@@ -55,11 +56,12 @@ const Body = z.object({
   playSigningSha256: z.string().max(200).optional(),
 });
 
-async function load(id: string) {
+/** The app: everyone working on it can see its phone-app settings; only the owner changes them (store identity). */
+async function load(id: string, need: Need) {
   const user = await getCurrentUser();
   if (!user) return { error: (await tr())("unauthorized"), status: 401 };
   const project = await db.project.findUnique({ where: { id } });
-  if (!project || project.ownerId !== user.id)
+  if (!project || !(await hasProjectAccess(project, user, need)))
     return { error: (await tr())("notFound"), status: 404 };
   return { project };
 }
@@ -77,7 +79,7 @@ function savedNative(native: unknown): Record<string, unknown> {
  */
 export async function GET(_req: Request, ctx: { params: Promise<{ id: string }> }) {
   const { id } = await ctx.params;
-  const res = await load(id);
+  const res = await load(id, "view");
   if ("error" in res) return json({ error: res.error }, { status: res.status });
   const { project } = res;
   const [config, liveUrl, needs] = await Promise.all([
@@ -102,7 +104,7 @@ export async function GET(_req: Request, ctx: { params: Promise<{ id: string }> 
 
 export async function PATCH(req: Request, ctx: { params: Promise<{ id: string }> }) {
   const { id } = await ctx.params;
-  const res = await load(id);
+  const res = await load(id, "owner");
   if ("error" in res) return json({ error: res.error }, { status: res.status });
   const { project } = res;
 

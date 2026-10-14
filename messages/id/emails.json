@@ -32,6 +32,14 @@
     "heldBack": "Kami menahan email terpisah agar kotak masuk Anda tidak penuh. Anda bisa melihat semuanya di data aplikasi:",
     "subject": "{count, plural, one {# kiriman baru lainnya} other {# kiriman baru lainnya}} di {app}"
   },
+  "collaborate": {
+    "body": "{inviter} mengundang Anda untuk mengerjakan {what, select, app {aplikasi} design {desain} game {game} other {proyek}} \"{title}\" bersama mereka di {app}.",
+    "cta": "Login dengan alamat email ini dan terima undangannya:",
+    "editor": "Sebagai editor, Anda bisa mengubahnya dan membuatnya dengan AI. Proyek ini tetap milik mereka: Anda tidak bisa menghapus atau memublikasikannya, maupun melihat kuncinya.",
+    "expires": "Undangan ini kedaluwarsa dalam 14 hari. Jika Anda tidak mengharapkannya, abaikan saja email ini.",
+    "subject": "{inviter} mengundang Anda untuk mengerjakan \"{title}\"",
+    "viewer": "Sebagai peninjau, Anda bisa melihat semua isinya, tetapi tidak bisa mengubahnya."
+  },
   "hi": "Hai,",
   "hiName": "Hai {name},",
   "invite": {

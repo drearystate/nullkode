@@ -32,6 +32,14 @@
     "heldBack": "Abbiamo evitato di inviarti email separate per non riempire la tua casella. Puoi vedere tutto nei dati della tua app:",
     "subject": "{count, plural, one {# nuovo invio} other {# nuovi invii}} in {app}"
   },
+  "collaborate": {
+    "body": "{inviter} ti ha invitato a lavorare con loro su \"{title}\" ({what, select, app {app} design {design} game {gioco} other {progetto}}) su {app}.",
+    "cta": "Accedi con questo indirizzo email e accetta l'invito:",
+    "editor": "Come editor puoi modificarlo e svilupparlo con l'IA. Resta di loro proprietà: non puoi eliminarlo, pubblicarlo o vedere le sue chiavi.",
+    "expires": "L'invito scade tra 14 giorni. Se non te lo aspettavi, puoi ignorare questa email.",
+    "subject": "{inviter} ti ha invitato a collaborare a \"{title}\"",
+    "viewer": "Come visualizzatore puoi vedere tutto, ma non puoi modificarlo."
+  },
   "hi": "Ciao,",
   "hiName": "Ciao {name},",
   "invite": {

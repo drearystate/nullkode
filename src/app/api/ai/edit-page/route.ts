@@ -6,6 +6,7 @@ import { aiUsageSummary, checkAiQuota, recordAiUsage, refundAiUsage, refundFaile
 import { Prisma } from "@prisma/client";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
+import { hasProjectAccess } from "@/lib/sharing/access";
 import {
   editPage,
   findLostWiring,
@@ -143,15 +144,12 @@ async function handle(req: Request): Promise<Response> {
   // Ownership check — we need the page, the project (for theme), and the
   // full project context (tables, flows, other pages) so the AI knows what
   // it's allowed to reuse vs. what it needs to create fresh.
+  // The owner and editors (lib/sharing/access.ts); the AI action is the person's own.
   const page = await db.page.findFirst({
-    where: {
-      id: pageId,
-      projectId,
-      project: { ownerId: user.id },
-    },
-    include: { project: { select: { theme: true } } },
+    where: { id: pageId, projectId },
+    include: { project: { select: { theme: true, ownerId: true } } },
   });
-  if (!page) return json({ error: t("errors.pageNotFound") }, { status: 404 });
+  if (!page || !(await hasProjectAccess({ id: projectId, ownerId: page.project.ownerId }, user, "edit"))) return json({ error: t("errors.pageNotFound") }, { status: 404 });
   // Editing the page in one of a multilingual app's other languages.
   const appLanguages = await getAppLocale(projectId).catch(() => null);
   const variant = isLocale(lang) && appLanguages && lang !== appLanguages.locale && appLanguages.locales.includes(lang) ? lang : null;

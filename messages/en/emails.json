@@ -53,5 +53,13 @@
     "why": "Add a key from OpenAI, Google Gemini, xAI (Grok), OpenRouter or any OpenAI-compatible server (your own Ollama or LM Studio works too). The key stays on the server, encrypted, and is never shown to your visitors. The AI parts start working as soon as it is saved.",
     "add": "Add your key here:",
     "once": "This is the only email about this for this app."
+  },
+  "collaborate": {
+    "subject": "{inviter} invited you to work on \"{title}\"",
+    "body": "{inviter} invited you to work on the {what, select, app {app} design {design} game {game} other {project}} \"{title}\" with them on {app}.",
+    "editor": "As an editor you can change it and build with AI. It stays theirs: you can't delete it, publish it or see its keys.",
+    "viewer": "As a viewer you can look at everything in it, but not change it.",
+    "cta": "Sign in with this email address and accept the invitation:",
+    "expires": "The invitation expires in 14 days. If you weren't expecting it, you can ignore this email."
   }
 }

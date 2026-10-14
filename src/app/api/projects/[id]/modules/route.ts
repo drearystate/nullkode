@@ -12,6 +12,8 @@ import { joinList, localeOf, requestErrorsT, type ErrT } from "@/lib/errors-i18n
 import { flowsUseAi } from "@/lib/app-ai/detect";
 import { projectAiStatus } from "@/lib/app-ai/status";
 import { translator } from "@/lib/ai/i18n";
+import { withoutPrivateSettings } from "@/lib/sharing/redact";
+import { noteEdit } from "@/lib/sharing/audit";
 
 const InstallBody = z.object({
   moduleId: z.string().min(1),
@@ -23,14 +25,14 @@ const InstallBody = z.object({
 
 export async function GET(_req: Request, ctx: { params: Promise<{ id: string }> }) {
   const { id } = await ctx.params;
-  const r = await ownedProject(id);
+  const r = await ownedProject(id, "view");
   if ("error" in r) return r.error;
   return json({ modules: listModuleSummaries(), installed: await installedModules(id) });
 }
 
 export async function POST(req: Request, ctx: { params: Promise<{ id: string }> }) {
   const { id } = await ctx.params;
-  const r = await ownedProject(id);
+  const r = await ownedProject(id, "edit");
   if ("error" in r) return r.error;
 
   const t = await requestErrorsT(r.user);
@@ -47,7 +49,8 @@ export async function POST(req: Request, ctx: { params: Promise<{ id: string }> 
     const result = await installModule({
       projectId: id,
       module,
-      config: parsed.data.config,
+      // Private keys (a Stripe secret, an SMS token…) are the owner's to enter, never an editor's.
+      config: withoutPrivateSettings(r.role, parsed.data.config),
       skipPages: parsed.data.skipPages,
       seed: seedFor(module, parsed.data.seed),
       // Checked above, in plain words, counting the server's email settings
@@ -56,6 +59,7 @@ export async function POST(req: Request, ctx: { params: Promise<{ id: string }> 
     });
     // The page list after the install, in the editor's order, so the editor
     // can show the new pages without a reload.
+    await noteEdit("app", id, r.user.id, "modules.install", { subjectId: module.id, label: module.id });
     const pages = await db.page.findMany({
       where: { projectId: id },
       orderBy: [{ isHome: "desc" }, { createdAt: "asc" }],

@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
+import { roleOn } from "@/lib/sharing/access";
+import { appSecretValues, graphFor } from "@/lib/sharing/redact";
 import { FlowEditor } from "@/components/flow/flow-editor";
 import { SchedulePicker } from "@/components/flow/schedule-picker";
 import { flowProblemCount } from "@/lib/flow-activity";
@@ -21,10 +23,13 @@ export default async function FlowEditorPage({
   if (!user) return null;
 
   const flow = await db.flow.findFirst({
-    where: { id: flowId, projectId: id, project: { ownerId: user.id } },
-    select: { id: true, name: true, httpPath: true, graph: true, enabled: true, trigger: true },
+    where: { id: flowId, projectId: id },
+    select: { id: true, name: true, httpPath: true, graph: true, enabled: true, trigger: true, project: { select: { id: true, ownerId: true } } },
   });
-  if (!flow) notFound();
+  const role = flow ? await roleOn("app", flow.project, user.id) : null;
+  if (!flow || !role) notFound();
+  // Collaborators see the owner's private keys blanked (lib/sharing/redact.ts).
+  const graph = role === "owner" ? flow.graph : graphFor(role, flow.graph, await appSecretValues(id));
 
   const [datasources, problemCount] = await Promise.all([
     db.dataSource.findMany({
@@ -42,7 +47,7 @@ export default async function FlowEditorPage({
       httpPath={flow.httpPath ?? ""}
       enabled={flow.enabled}
       scheduled={flow.trigger === "SCHEDULE"}
-      initialGraph={flow.graph as unknown as FlowGraph}
+      initialGraph={graph as unknown as FlowGraph}
       initialTab={tab === "activity" || tab === "schedule" ? tab : "design"}
       problemCount={problemCount}
       schedulePanel={<SchedulePicker projectId={id} flowId={flow.id} />}

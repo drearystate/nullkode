@@ -2,6 +2,7 @@ import { getTranslations } from "next-intl/server";
 import { requestLocale } from "@/i18n/request";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
+import { hasProjectAccess } from "@/lib/sharing/access";
 import { json } from "@/lib/utils";
 import { themeToCss, type ProjectTheme } from "@/lib/theme";
 import { readPublicAsset, referencedAssets, rewriteAssets } from "@/lib/bundle-assets";
@@ -92,7 +93,7 @@ export async function GET(_req: Request, ctx: { params: Promise<{ id: string }> 
       modules: { select: { config: true } },
     },
   });
-  if (!project || project.ownerId !== user.id) {
+  if (!project || !(await hasProjectAccess(project, user, "owner"))) {
     return json({ error: t("notFound") }, { status: 404 });
   }
 

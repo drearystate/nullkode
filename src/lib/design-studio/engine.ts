@@ -94,7 +94,8 @@ export async function sweepStaleJobs(userId: string): Promise<void> {
  * to the page builder).
  */
 export async function startGeneration(user: QuotaUser, designId: string, prompt: string, notes: ElementNote[] = [], images?: unknown): Promise<{ jobId: string }> {
-  const design = await getDesign(user.id, designId);
+  // The owner and editors build (lib/sharing/access.ts); the AI action is the person's own.
+  const design = await getDesign(user.id, designId, "edit");
   await assertDesignerCanChange(designId);
   const request = prompt.trim().slice(0, 8000);
   // The person's language, captured now: the build carries on after the request ends.
@@ -144,15 +145,17 @@ export async function startGeneration(user: QuotaUser, designId: string, prompt:
   // else the person's studio language (lib/app-locale.ts).
   const app = design.projectId ? await getAppLocale(design.projectId).catch(() => null) : null;
   const contentLocale = app?.explicit ? app.locale : locale;
-  void run({ user, designId, jobId, chargeId, prompt: request, notes, locale, contentLocale, refs, projectId: design.projectId, subject, policy });
+  void run({ user, ownerId: design.ownerId, designId, jobId, chargeId, prompt: request, notes, locale, contentLocale, refs, projectId: design.projectId, subject, policy });
   return { jobId };
 }
 
 /** Asks the running build to stop; it stops before saving anything. */
 export async function cancelGeneration(userId: string, designId: string): Promise<boolean> {
-  const jobs = await db.designerGenerationJob.findMany({ where: { designId, userId, status: "running" }, select: { id: true } });
+  // The owner and editors can stop the design's build, whoever started it.
+  await getDesign(userId, designId, "edit");
+  const jobs = await db.designerGenerationJob.findMany({ where: { designId, status: "running" }, select: { id: true } });
   for (const j of jobs) cancelled.add(j.id);
-  await db.designerGenerationJob.updateMany({ where: { designId, userId, status: "running" }, data: { cancelRequested: true } });
+  await db.designerGenerationJob.updateMany({ where: { designId, status: "running" }, data: { cancelRequested: true } });
   return jobs.length > 0;
 }
 
@@ -167,7 +170,7 @@ function pageImage(refs: DesignReferences | null, path: string, instructions: st
   return screen ? refs.images[screen.imageIndex] ?? null : null;
 }
 
-async function run(opts: { user: QuotaUser; designId: string; jobId: string; chargeId: string | null; prompt: string; notes: ElementNote[]; locale: Locale; contentLocale?: Locale; refs?: ReferenceSet | null; projectId?: string | null; subject: PolicySubject; policy: PolicyContext }) {
+async function run(opts: { user: QuotaUser; /** The design's owner: its app is theirs (pages-mirror.ts). */ ownerId: string; designId: string; jobId: string; chargeId: string | null; prompt: string; notes: ElementNote[]; locale: Locale; contentLocale?: Locale; refs?: ReferenceSet | null; projectId?: string | null; subject: PolicySubject; policy: PolicyContext }) {
   const { user, designId, jobId } = opts;
   const t = translator(opts.locale, "designer");
   const abort = new AbortController();
@@ -258,17 +261,17 @@ async function run(opts: { user: QuotaUser; designId: string; jobId: string; cha
     await writeFiles(designId, [...written].map(([path, content]) => ({ path, content })));
     let appNote = "";
     try {
-      const mirror = await mirrorPrimaryToPage(user.id, designId);
+      const mirror = await mirrorPrimaryToPage(opts.ownerId, designId);
       if (mirror) {
         // A new app takes the language its pages were written in.
         if (opts.contentLocale) await ensureAppLocale(mirror.projectId, opts.contentLocale).catch(() => null);
-        const outcome = await applyScaffoldFromWorkspace(user.id, designId, mirror.projectId);
-        if (outcome.pagesUpdated.length > 0) await mirrorPrimaryToPage(user.id, designId);
+        const outcome = await applyScaffoldFromWorkspace(opts.ownerId, designId, mirror.projectId);
+        if (outcome.pagesUpdated.length > 0) await mirrorPrimaryToPage(opts.ownerId, designId);
       }
     } catch (err) {
       appNote = ` ${t("build.appNotUpdated", { reason: err instanceof Error ? err.message : t("build.appNotUpdatedRetry") })}`;
     }
-    const versionId = await saveVersion(designId, { prompt: request, message: plan.message });
+    const versionId = await saveVersion(designId, { prompt: request, message: plan.message, by: user.id });
     step("save", t("build.saving"), "done");
     await appendChat(designId, "assistant", `${plan.message}${appNote}`, versionId);
     await db.designerGenerationJob.update({ where: { id: jobId }, data: { status: "done", finishedAt: new Date() } });

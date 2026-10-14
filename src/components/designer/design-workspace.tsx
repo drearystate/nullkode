@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useFormatter, useTranslations } from "next-intl";
+import { ShareButton } from "@/components/sharing/share-dialog";
 import { AlertTriangle, ArrowUpRight, Check, Download, History, Loader2, MessageSquarePlus, Monitor, Send, Smartphone, Square, Tablet, X } from "lucide-react";
 import { addImageFiles, imagesFromPaste, ReferencePicker, referenceDropProps, type PickedImage } from "@/components/ai/reference-picker";
 
@@ -25,7 +26,8 @@ function viewerZone(): string | undefined {
   }
 }
 
-export function DesignWorkspace({ id }: { id: string }) {
+/** `role`: the person's role on the design (lib/sharing/access.ts): only its owner shares it or opens its app; viewers only look. */
+export function DesignWorkspace({ id, role = "owner" }: { id: string; role?: "owner" | "editor" | "viewer" }) {
   const router = useRouter();
   const t = useTranslations("designer");
   const tc = useTranslations("common");
@@ -219,7 +221,10 @@ export function DesignWorkspace({ id }: { id: string }) {
             <p className="truncate font-medium" dir="auto">{design.name}</p>
             <p className="text-xs text-surface-400">{t("workspace.versionCount", { count: versions.length })}</p>
           </div>
-          {design.projectId && !readOnly && <Link href={`/projects/${design.projectId}`} className="btn-ghost shrink-0 px-3 py-1.5 text-xs" data-help={t("workspace.openAppHelp")}>{t("workspace.openApp")}</Link>}
+          <div className="flex shrink-0 items-center gap-2">
+            {role === "owner" && <ShareButton kind="design" id={design.id} name={design.name} compact className="btn-ghost px-3 py-1.5 text-xs" />}
+            {design.projectId && !readOnly && role === "owner" && <Link href={`/projects/${design.projectId}`} className="btn-ghost shrink-0 px-3 py-1.5 text-xs" data-help={t("workspace.openAppHelp")}>{t("workspace.openApp")}</Link>}
+          </div>
         </div>
 
         <div className="min-h-0 flex-1 space-y-3 overflow-y-auto px-4 py-4" aria-live="polite">
@@ -266,13 +271,13 @@ export function DesignWorkspace({ id }: { id: string }) {
           <div ref={chatEnd} />
         </div>
 
-        {readOnly ? (
+        {role === "viewer" ? null : readOnly ? (
           <div className="space-y-2 border-t border-white/10 p-4 text-sm">
             <p className="text-surface-300">{t("workspace.movedNotice")}</p>
-            <div className="flex flex-wrap gap-2">
+            {role === "owner" && <div className="flex flex-wrap gap-2">
               {design.projectId && <Link className="btn-primary px-3 py-1.5 text-sm" href={`/designer/open-in-builder/${design.id}`} data-help={t("workspace.openInBuilderHelp")}>{t("workspace.openInBuilder")}</Link>}
               <button type="button" className="btn-ghost px-3 py-1.5 text-sm" data-help={t("workspace.copyToKeepHelp")} onClick={copyDesign}>{t("workspace.copyToKeep")}</button>
-            </div>
+            </div>}
           </div>
         ) : (
           <form onSubmit={submit} className={`border-t border-white/10 p-3 ${dropping ? "outline-dashed outline-2 -outline-offset-4 outline-brand-400/70" : ""}`} {...referenceDropProps((files) => void addImages(files), setDropping)}>

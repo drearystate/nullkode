@@ -32,6 +32,14 @@
     "heldBack": "Chúng tôi đã tạm ngừng gửi từng email riêng để tránh làm đầy hộp thư đến. Bạn có thể xem tất cả trong dữ liệu ứng dụng:",
     "subject": "{count, plural, one {còn # mục gửi mới} other {còn # mục gửi mới}} trong {app}"
   },
+  "collaborate": {
+    "body": "{inviter} đã mời bạn cùng làm việc với họ trên {what, select, app {ứng dụng} design {bản thiết kế} game {trò chơi} other {dự án}} \"{title}\" trên {app}.",
+    "cta": "Đăng nhập bằng địa chỉ email này để chấp nhận lời mời:",
+    "editor": "Với vai trò biên tập viên, bạn có thể chỉnh sửa và tạo nội dung bằng AI. Dự án vẫn thuộc về họ: bạn không thể xóa, xuất bản hoặc xem các khóa.",
+    "expires": "Lời mời sẽ hết hạn sau 14 ngày. Nếu bạn không mong đợi lời mời này, hãy bỏ qua email.",
+    "subject": "{inviter} đã mời bạn cùng làm việc trên \"{title}\"",
+    "viewer": "Với vai trò người xem, bạn có thể xem mọi thứ trong dự án nhưng không thể chỉnh sửa."
+  },
   "hi": "Xin chào,",
   "hiName": "Xin chào {name},",
   "invite": {

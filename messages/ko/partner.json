@@ -1,5 +1,7 @@
 {
   "api": {
+    "copyPages": "이 앱의 페이지 수가 한 앱에서 허용되는 요금제 한도를 초과합니다.",
+    "copySource": "공유 링크 토큰 또는 이 키의 범위에 속하는 항목의 kind와 id를 보내세요.",
     "emailTaken": "이 이메일 주소는 이 키로 관리하지 않는 계정에 이미 사용 중이므로 사용할 수 없습니다.",
     "gamesUnavailable": "이 서버에는 게임 엔진과 에셋 라이브러리가 설치되어 있지 않아 게임을 만들 수 없습니다.",
     "idemInProgress": "이 Idempotency-Key를 사용한 요청을 아직 처리 중입니다. 잠시 후 다시 시도하세요.",
@@ -11,6 +13,7 @@
     "invalidCursor": "\"cursor\"가 유효하지 않습니다. 이전 페이지의 nextCursor를 사용하세요.",
     "invalidEmail": "\"email\"에 유효한 이메일 주소를 보내세요.",
     "invalidEngine": "\"engine\"은 \"2d\", \"3d\" 또는 \"auto\"여야 합니다.",
+    "invalidExpiry": "expiresInDays는 1~365 사이의 정수여야 하며, 종료일이 없으면 null로 설정하세요.",
     "invalidFeature": "기능 이름(2~80자)을 입력하고, 원하면 \"how\"에 기능 설명(최대 400자)을 적어 주세요.",
     "invalidGameName": "\"name\"은 120자 이내의 텍스트여야 합니다.",
     "invalidJson": "요청 본문은 JSON 객체여야 합니다.",
@@ -22,8 +25,11 @@
     "invalidPlan": "\"plan\"은 다음 중 하나여야 합니다: {plans}.",
     "invalidPrompt": "\"prompt\"에 게임이나 변경 사항을 설명하거나(최대 6000자), 참고 이미지를 보내세요.",
     "invalidRedirect": "\"to\"는 /dashboard와 같은 이 사이트의 경로여야 합니다.",
+    "invalidShareKind": "kind는 \"app\", \"design\" 또는 \"game\"이어야 합니다.",
     "invalidStopMode": "\"mode\"는 \"after-step\", \"now\" 또는 \"continue\"여야 합니다.",
     "invalidWait": "\"wait\"는 true 또는 false여야 합니다.",
+    "linkGone": "이 공유 링크는 사용할 수 없습니다. 링크를 찾을 수 없거나 취소 또는 만료되었거나, 공유 항목이 삭제되었습니다.",
+    "linkWorkspace": "이 공유 링크는 다른 워크스페이스에 속합니다.",
     "missingKey": "Authorization 헤더에 파트너 키를 보내세요. \"Bearer\" 뒤에 공백을 넣고 키를 입력하세요.",
     "network": "이 네트워크에서는 이 파트너 키를 사용할 수 없습니다.",
     "notFound": "찾을 수 없습니다.",
@@ -33,6 +39,7 @@
     "revokedKey": "이 파트너 키는 취소되었습니다.",
     "seatsFull": "이 워크스페이스에 남은 고객 좌석이 없습니다(최대 {max}개).",
     "suspended": "이 파트너 키가 속한 워크스페이스는 정지되었습니다.",
+    "tooManyLinks": "활성 공유 링크가 이미 {count}개 있습니다. 먼저 하나를 취소하세요.",
     "userSuspended": "이 계정은 정지되었습니다."
   },
   "keys": {

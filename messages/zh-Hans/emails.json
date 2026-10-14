@@ -32,6 +32,14 @@
     "heldBack": "为避免邮件塞满收件箱，我们没有单独发送这些邮件。你可以在应用数据中查看全部内容：",
     "subject": "{app} 中还有 {count, plural, one {# 条新提交} other {# 条新提交}}"
   },
+  "collaborate": {
+    "body": "{inviter} 邀请你在 {app} 上与他们一起参与 {what, select, app {应用} design {设计} game {游戏} other {项目}}「{title}」。",
+    "cta": "使用此邮箱地址登录并接受邀请：",
+    "editor": "作为编辑者，你可以修改内容并使用 AI 创建内容。内容仍归对方所有：你不能删除或发布，也无法查看密钥。",
+    "expires": "邀请将在 14 天后过期。如果你没想到会收到这封邮件，可以忽略它。",
+    "subject": "{inviter} 邀请你参与「{title}」",
+    "viewer": "作为查看者，你可以查看其中的所有内容，但不能进行修改。"
+  },
   "hi": "你好，",
   "hiName": "你好，{name}",
   "invite": {

@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
+import { hasProjectAccess } from "@/lib/sharing/access";
 import { DEFAULT_THEME, THEME_PRESETS, type ProjectTheme } from "@/lib/theme";
 import { ThemeEditor } from "@/components/theme/theme-editor";
 
@@ -17,10 +18,10 @@ export default async function ThemePage({
   if (!user) return null;
 
   const project = await db.project.findFirst({
-    where: { id, ownerId: user.id },
-    select: { id: true, name: true, theme: true, pages: { where: { isHome: true }, select: { html: true, css: true }, take: 1 } },
+    where: { id },
+    select: { id: true, ownerId: true, name: true, theme: true, pages: { where: { isHome: true }, select: { html: true, css: true }, take: 1 } },
   });
-  if (!project) notFound();
+  if (!project || !(await hasProjectAccess(project, user, "view"))) notFound();
 
   const t = await getTranslations("project.themePage");
   const current = { ...DEFAULT_THEME, ...((project.theme as ProjectTheme) ?? {}) };

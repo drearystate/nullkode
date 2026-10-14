@@ -1360,6 +1360,65 @@
     "summary": "La tua home di amministrazione: configura {app}, gestisci chi la usa e mantieni il server in buono stato.",
     "title": "Gestire la tua piattaforma"
   },
+  "sharing": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Premi <b>Condividi</b> su un'app (accanto a <b>Anteprima</b>), nell'AI Designer o nel Game Studio. <b>Condividi una copia</b> dà alle persone un link per creare una propria copia: le loro modifiche restano nella loro copia e le tue nella tua. <b>Modifica insieme</b> invita le persone via email a lavorare con te su questo progetto."
+        },
+        "heading": "Due modi per condividere"
+      },
+      "1": {
+        "body": {
+          "0": "Chiunque apra il link accede o si iscrive, vede ciò che hai condiviso e cosa include una copia, quindi preme <b>Crea la mia copia</b>. La copia è di sua proprietà, nel suo account, e non viene pubblicata."
+        },
+        "heading": "Condividi una copia",
+        "steps": {
+          "0": "Premi <b>Condividi</b>, poi <b>Condividi una copia</b>.",
+          "1": "Per un'app, seleziona <b>Includi dati di esempio</b> se vuoi che le copie includano righe di esempio dalle tabelle mostrate nelle pagine pubbliche.",
+          "2": "Scegli per quanto tempo sarà valido il link, poi premi <b>Crea link</b>. Il link verrà copiato e potrai inviarlo.",
+          "3": "In <b>Copie</b> puoi vedere chi ha creato una copia e quando. Premi <b>Disattiva</b> per rendere inutilizzabile un link; le copie già create restano a chi le ha fatte."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Le copie non includono mai i tuoi dati privati: chiavi AI, chiavi di pagamento e altre chiavi private, connessioni a database esterni, chiavi di firma Android e account degli app store, i tuoi domini personalizzati e indirizzi web, iscritti alle notifiche push, versioni pubblicate, dati analitici e impostazioni riservate al proprietario, come gli avvisi. Per le app, non vengono trasferiti neanche gli account dei visitatori, le password e i loro dati inseriti.",
+          "1": "Se un'app usa l'AI, chi la copia deve aggiungere la propria chiave AI prima di pubblicarla."
+        },
+        "heading": "Cosa non viene mai incluso in una copia"
+      },
+      "3": {
+        "body": {
+          "0": "Un <b>Editor</b> può modificare pagine, flussi di lavoro, dati e funzionalità e creare con l'AI, usando il proprio credito AI. Non può eliminare, pubblicare o trasferire il progetto, invitare altre persone né vedere chiavi, domini e dati di fatturazione. Un <b>Visualizzatore</b> può vedere tutto, ma non può modificare nulla."
+        },
+        "heading": "Modifica insieme",
+        "steps": {
+          "0": "Premi <b>Condividi</b>, poi <b>Modifica insieme</b>.",
+          "1": "Inserisci il loro indirizzo email, scegli <b>Editor</b> o <b>Visualizzatore</b>, poi premi <b>Invita</b>.",
+          "2": "Riceveranno un'email. Se l'email non è configurata, invia loro il link che appare.",
+          "3": "Accettano mentre hanno effettuato l'accesso con quell'indirizzo email, dall'email o da <b>Condivisi con me</b> nella loro dashboard.",
+          "4": "Per revocare l'accesso a qualcuno, premi il cestino accanto al suo nome. L'accesso termina subito."
+        }
+      },
+      "4": {
+        "body": {
+          "0": "Le app, i design e i giochi a cui altre persone ti hanno invitato a lavorare si trovano in <b>Condivisi con me</b> nella tua dashboard, insieme agli inviti. Premi <b>Abbandona</b> per smettere di lavorare a un progetto."
+        },
+        "heading": "Condivisi con me"
+      },
+      "5": {
+        "bullets": {
+          "0": "Due persone possono modificare la stessa app contemporaneamente. Se qualcun altro ha salvato una pagina dopo che l'hai aperta, l'editor te lo segnala; viene mantenuto il salvataggio più recente, quindi ricarica la pagina per vedere prima le modifiche dell'altra persona.",
+          "1": "<b>Modifiche recenti</b> nella finestra Condividi mostra chi ha modificato cosa da quando hai condiviso il progetto.",
+          "2": "Una copia viene conteggiata nel piano della persona che la crea.",
+          "3": "Puoi nascondere la nota <b>Copiato da</b> su una copia che hai creato."
+        },
+        "heading": "Informazioni utili"
+      }
+    },
+    "summary": "Dai alle persone una copia di un'app, un design o un gioco su cui lavorare, oppure invitali a lavorare insieme a te sul tuo.",
+    "title": "Condividi il tuo lavoro e crea insieme"
+  },
   "white-label": {
     "sections": {
       "0": {

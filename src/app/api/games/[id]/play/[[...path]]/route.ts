@@ -68,7 +68,7 @@ export async function GET(req: Request, ctx: { params: Promise<{ id: string; pat
   let game;
   let files: GameFiles;
   try {
-    game = await ownedGame(userId, id);
+    game = await ownedGame(userId, id, "view");
     files = seq === null ? asFiles((await db.gameProject.findUnique({ where: { id }, select: { files: true } }))?.files) : await versionFiles(userId, id, seq);
   } catch (err) {
     if (err instanceof NotFound) return new Response("Not found", { status: 404, headers: HEADERS });

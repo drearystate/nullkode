@@ -5,6 +5,7 @@ import { AlertTriangle, ArrowRight, Blocks, Check, ExternalLink, Globe2, ImageIc
 import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
+import { roleOn } from "@/lib/sharing/access";
 import { ProjectIconPanel } from "@/components/project-icon-panel";
 import { RenameProjectField } from "@/components/rename-project-field";
 import { TransferProjectCard } from "@/components/transfer-project-card";
@@ -32,7 +33,10 @@ export default async function ProjectOverview({
       _count: { select: { pages: true, flows: true, datasources: true, domains: true } },
     },
   });
-  if (!project || project.ownerId !== user.id) notFound();
+  const role = project ? await roleOn("app", project, user.id) : null;
+  if (!project || !role) notFound();
+  const owner = role === "owner";
+  const viewer = role === "viewer";
 
   // Designer apps are built in the Designer; this page still gives them their
   // alerts, problems, submissions and launch steps. "Continue" opens the Designer.
@@ -46,7 +50,7 @@ export default async function ProjectOverview({
   const [activeDomains, qrDataUrl, appAdmins, formTables, testSent, flows] = await Promise.all([
     db.domain.count({ where: { projectId: project.id, status: "ACTIVE" } }),
     project.published ? QRCode.toDataURL(publicUrl, { margin: 1, width: 132 }).catch(() => null) : Promise.resolve(null),
-    listAppAdmins(project.id).catch(() => null),
+    owner ? listAppAdmins(project.id).catch(() => null) : Promise.resolve(null),
     db.dataTable.count({ where: { datasource: { projectId: project.id, kind: "POSTGRES_INTERNAL" } } }),
     getSetting<{ at?: string }>(`alerts-test:${project.id}`).catch(() => undefined),
     emailOn ? Promise.resolve([]) : db.flow.findMany({ where: { projectId: project.id }, select: { name: true, graph: true } }),
@@ -60,9 +64,12 @@ export default async function ProjectOverview({
     { done: project._count.pages > 0, title: t("launch.build.title"), detail: t("launch.build.detail"), href: editHref, icon: Paintbrush, help: designer ? t("launch.build.helpDesigner") : t("launch.build.help") },
     { done: Boolean(project.icon), title: t("launch.icon.title"), detail: t("launch.icon.detail"), href: "#app-icon", icon: ImageIcon, help: t("launch.icon.help") },
     ...(appAdmins ? [{ done: appAdmins.length > 0, title: t("launch.admin.title"), detail: t("launch.admin.detail"), href: "#app-admin", icon: KeyRound, help: t("launch.admin.help") }] : []),
-    ...(formTables > 0 ? [{ done: Boolean(testSent?.at), title: t("launch.test.title"), detail: "", href: "#alerts", icon: Rocket, test: true }] : []),
+    ...(formTables > 0 && owner ? [{ done: Boolean(testSent?.at), title: t("launch.test.title"), detail: "", href: "#alerts", icon: Rocket, test: true }] : []),
     { done: project.published, title: project.published ? t("launch.publish.titleDone") : t("launch.publish.title"), detail: project.published ? t("launch.publish.detailDone") : t("launch.publish.detail"), href: `/projects/${id}/publish`, icon: Rocket, help: project.published ? t("launch.publish.helpDone") : t("launch.publish.help") },
   ];
+  // Publishing is the owner's (lib/sharing/access.ts).
+  const publishStep = launch.findIndex((s) => s.href === `/projects/${id}/publish`);
+  if (!owner && publishStep >= 0) launch.splice(publishStep, 1);
   const launchDone = launch.filter((s) => s.done).length;
 
   return (
@@ -89,8 +96,8 @@ export default async function ProjectOverview({
       <div className="mt-8 grid gap-4 md:grid-cols-4">
         <StatCard label={t("stats.pages")} value={format.number(project._count.pages)} href={`/projects/${id}/pages`} help={t("stats.pagesHelp")} />
         <StatCard label={t("stats.flows")} value={format.number(project._count.flows)} href={`/projects/${id}/flows`} help={t("stats.flowsHelp")} />
-        <StatCard label={t("stats.data")} value={format.number(project._count.datasources)} href={`/projects/${id}/data`} help={t("stats.dataHelp")} />
-        <StatCard label={t("stats.domains")} value={format.number(project._count.domains)} href={`/projects/${id}/domains`} help={t("stats.domainsHelp")} />
+        <StatCard label={t("stats.data")} value={format.number(project._count.datasources)} href={viewer ? `/projects/${id}` : `/projects/${id}/data`} help={t("stats.dataHelp")} />
+        <StatCard label={t("stats.domains")} value={format.number(project._count.domains)} href={owner ? `/projects/${id}/domains` : `/projects/${id}`} help={t("stats.domainsHelp")} />
       </div>
 
       {unsentEmailFlows.length > 0 && (
@@ -106,15 +113,15 @@ export default async function ProjectOverview({
         </div>
       )}
 
-      <ProblemsCard projectId={project.id} emailOn={emailOn} canSetUpEmail={user.role === "ADMIN"} />
+      {!viewer && <ProblemsCard projectId={project.id} emailOn={emailOn} canSetUpEmail={user.role === "ADMIN"} />}
 
-      <div id="app-icon" className="mt-10 scroll-mt-24">
+      {!viewer && <div id="app-icon" className="mt-10 scroll-mt-24">
         <ProjectIconPanel
           projectId={project.id}
           initialIcon={project.icon}
           projectName={project.name}
         />
-      </div>
+      </div>}
 
       <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
         <section className="card p-6" aria-labelledby="launch-heading">
@@ -149,8 +156,8 @@ export default async function ProjectOverview({
           <p className="mt-5 text-xs font-medium uppercase tracking-wider text-surface-500">{t("optional")}</p>
           <div className="mt-1 space-y-1">
             <Link href={`/projects/${id}/theme`} className="studio-next-step" data-help={t("next.theme.help")}><Paintbrush size={17} className="text-brand-300" aria-hidden /><span className="flex-1"><strong className="block text-sm font-medium">{t("next.theme.title")}</strong><span className="mt-0.5 block text-xs text-surface-400">{t("next.theme.detail")}</span></span><ArrowRight size={14} className="text-surface-500 rtl:-scale-x-100" aria-hidden /></Link>
-            <Link href={`/projects/${id}/domains`} className="studio-next-step" data-help={t("next.domains.help")}><Globe2 size={17} className="text-brand-300" aria-hidden /><span className="flex-1"><strong className="block text-sm font-medium">{activeDomains ? t("next.domains.titleDone") : t("next.domains.title")}</strong><span className="mt-0.5 block text-xs text-surface-400">{activeDomains ? t("next.domains.detailDone") : t("next.domains.detail")}</span></span><ArrowRight size={14} className="text-surface-500 rtl:-scale-x-100" aria-hidden /></Link>
-            <Link href={`/projects/${id}/native`} className="studio-next-step" data-help={t("next.native.help")}><Smartphone size={17} className="text-brand-300" aria-hidden /><span className="flex-1"><strong className="block text-sm font-medium">{t("next.native.title")}</strong><span className="mt-0.5 block text-xs text-surface-400">{t("next.native.detail")}</span></span><ArrowRight size={14} className="text-surface-500 rtl:-scale-x-100" aria-hidden /></Link>
+            {owner && <Link href={`/projects/${id}/domains`} className="studio-next-step" data-help={t("next.domains.help")}><Globe2 size={17} className="text-brand-300" aria-hidden /><span className="flex-1"><strong className="block text-sm font-medium">{activeDomains ? t("next.domains.titleDone") : t("next.domains.title")}</strong><span className="mt-0.5 block text-xs text-surface-400">{activeDomains ? t("next.domains.detailDone") : t("next.domains.detail")}</span></span><ArrowRight size={14} className="text-surface-500 rtl:-scale-x-100" aria-hidden /></Link>}
+            {owner && <Link href={`/projects/${id}/native`} className="studio-next-step" data-help={t("next.native.help")}><Smartphone size={17} className="text-brand-300" aria-hidden /><span className="flex-1"><strong className="block text-sm font-medium">{t("next.native.title")}</strong><span className="mt-0.5 block text-xs text-surface-400">{t("next.native.detail")}</span></span><ArrowRight size={14} className="text-surface-500 rtl:-scale-x-100" aria-hidden /></Link>}
             <Link href={`/projects/${id}/modules`} className="studio-next-step" data-help={t("next.feature.help")}><Blocks size={17} className="text-brand-300" aria-hidden /><span className="flex-1"><strong className="block text-sm font-medium">{t("next.feature.title")}</strong><span className="mt-0.5 block text-xs text-surface-400">{t("next.feature.detail")}</span></span><ArrowRight size={14} className="text-surface-500 rtl:-scale-x-100" aria-hidden /></Link>
             <a href={`/preview/${id}`} target="_blank" rel="noopener noreferrer" className="studio-next-step" data-help={t("next.preview.help")}><ExternalLink size={17} className="text-brand-300" aria-hidden /><span className="flex-1"><strong className="block text-sm font-medium">{t("next.preview.title")}</strong><span className="mt-0.5 block text-xs text-surface-400">{t("next.preview.detail")}</span></span><ArrowRight size={14} className="text-surface-500 rtl:-scale-x-100" aria-hidden /></a>
           </div>
@@ -158,7 +165,7 @@ export default async function ProjectOverview({
         <div className="card p-6">
           <h2 className="font-semibold">{t("settings")}</h2>
           <dl className="mt-3 text-sm">
-            <RenameProjectField projectId={project.id} initialName={project.name} />
+            {!viewer && <RenameProjectField projectId={project.id} initialName={project.name} />}
             <div className="flex justify-between gap-4 py-1 border-b border-surface-800">
               <dt className="text-surface-400">{t("webAddress")}</dt>
               <dd className="truncate text-surface-200">{project.published ? <a href={publicUrl} dir="ltr" target="_blank" rel="noopener" className="hover:underline" data-help={t("webAddressHelp")}>{publicUrl.replace(/^https?:\/\//, "")}</a> : t("afterPublish")}</dd>
@@ -173,14 +180,14 @@ export default async function ProjectOverview({
         </div>
       </div>
 
-      <AppAdminCard projectId={project.id} />
-      <LatestSubmissionsCard projectId={project.id} />
-      <AlertsCard projectId={project.id} />
-      <AppLanguageCard projectId={project.id} />
+      {owner && <AppAdminCard projectId={project.id} />}
+      {!viewer && <LatestSubmissionsCard projectId={project.id} />}
+      {owner && <AlertsCard projectId={project.id} />}
+      {!viewer && <AppLanguageCard projectId={project.id} />}
 
-      <div className="mt-6">
+      {owner && <div className="mt-6">
         <TransferProjectCard projectId={project.id} projectName={project.name} />
-      </div>
+      </div>}
 
     </div>
   );

@@ -11,6 +11,7 @@ import { addImageFiles, imagesFromPaste, ReferencePicker, referenceDropProps, up
 import { BuildMethods } from "./build-methods";
 import { DashboardGames } from "./dashboard-games";
 import type { DashboardGame } from "@/lib/dashboard-games";
+import { SharedWithMe, type PendingInvite, type SharedItem } from "@/components/sharing/shared-with-me";
 
 type Project = {
   id: string; name: string; slug: string; kind: "EDITOR" | "DESIGNER";
@@ -33,7 +34,7 @@ function ProjectPreview({ project, baseCss }: { project: Project; baseCss: strin
   </div>;
 }
 
-export function StudioDashboard({ name, plan, maxProjects, projects, ai, canDescribe = false, aiPaused = null, canUpgrade = false, baseCss = "", games = [], gameTotal = 0 }: { name: string; plan: string; maxProjects: number | null; projects: Project[]; ai?: { used: number; limit: number | null }; canDescribe?: boolean; aiPaused?: string | null; canUpgrade?: boolean; baseCss?: string; games?: DashboardGame[]; gameTotal?: number }) {
+export function StudioDashboard({ name, plan, maxProjects, projects, ai, canDescribe = false, aiPaused = null, canUpgrade = false, baseCss = "", games = [], gameTotal = 0, shared = [], invites = [] }: { name: string; plan: string; maxProjects: number | null; projects: Project[]; ai?: { used: number; limit: number | null }; canDescribe?: boolean; aiPaused?: string | null; canUpgrade?: boolean; baseCss?: string; games?: DashboardGame[]; gameTotal?: number; shared?: SharedItem[]; invites?: PendingInvite[] }) {
   const t = useTranslations("studio.dashboard");
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState<"all" | "live" | "draft">("all");
@@ -60,6 +61,7 @@ export function StudioDashboard({ name, plan, maxProjects, projects, ai, canDesc
       </article>)}</div>}
     </section>
     <DashboardGames games={games} total={gameTotal} />
+    <SharedWithMe items={shared} invites={invites} />
     <section id="build-your-way" className="mt-12 scroll-mt-24 pb-8" aria-labelledby="build-heading"><div className="mb-5 flex flex-wrap items-end justify-between gap-2"><div><p className="studio-eyebrow">{t("waysEyebrow")}</p><h2 id="build-heading" className="mt-2 text-2xl font-semibold tracking-tight">{t("buildYourWay")}</h2></div><p className="text-sm text-surface-400">{t("buildYourWayIntro")}</p></div><BuildMethods compact />{atCap && <p className="mt-3 text-sm text-amber-300">{t("limitReached")}{canUpgrade && <> {t.rich("seePlansToMakeMore", { link: (c) => <Link href="/billing" className="underline">{c}</Link> })}</>}</p>}</section>
   </div>;
 }

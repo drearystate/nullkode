@@ -2,6 +2,7 @@ import type { User } from "@prisma/client";
 import { getCurrentUser } from "../auth";
 import { NotFound } from "./store";
 import { requestTranslator } from "../ai/i18n";
+import { NotAllowed } from "../sharing/access";
 
 type Handler<T> = (user: User) => Promise<T>;
 
@@ -19,6 +20,7 @@ export async function withUser<T>(handler: Handler<T>): Promise<Response> {
     return result instanceof Response ? result : Response.json(result ?? { ok: true });
   } catch (err) {
     if (err instanceof NotFound) return Response.json({ error: t("server.notFound") }, { status: 404 });
+    if (err instanceof NotAllowed) return Response.json({ error: err.message, code: err.code }, { status: 403 });
     const message = err instanceof Error ? err.message : t("server.error");
     return Response.json({ error: message.length > 300 ? t("server.tryAgain") : message }, { status: 400 });
   }

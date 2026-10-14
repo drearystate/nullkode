@@ -1,5 +1,7 @@
 {
   "api": {
+    "copyPages": "Bu uygulamada, kişinin planının tek bir uygulama için izin verdiğinden daha fazla sayfa var.",
+    "copySource": "Bu anahtarın kapsamındaki bir paylaşım bağlantısı jetonu ya da tür ve kimlik gönderin.",
     "emailTaken": "Bu e-posta adresinin zaten bu anahtarın yönetmediği bir hesabı var, bu yüzden kullanılamaz.",
     "gamesUnavailable": "Bu sunucuda oyun oluşturulamıyor: oyun motorları ve varlık kütüphanesi yüklü değil.",
     "idemInProgress": "Bu Idempotency-Key ile gönderilen bir istek hâlâ işleniyor. Kısa süre sonra tekrar deneyin.",
@@ -11,6 +13,7 @@
     "invalidCursor": "\"cursor\" geçerli değil. Önceki sayfanın nextCursor değerini kullanın.",
     "invalidEmail": "\"email\" alanına geçerli bir e-posta adresi gönderin.",
     "invalidEngine": "\"engine\" değeri \"2d\", \"3d\" veya \"auto\" olmalı.",
+    "invalidExpiry": "expiresInDays, 1 ile 365 arasında tam sayı veya bitiş tarihi olmaması için null olmalı.",
     "invalidFeature": "Özelliğin adını (2–80 karakter) ve istersen ne işe yaradığını \"how\" alanında (en fazla 400 karakter) belirtin.",
     "invalidGameName": "\"name\", en fazla 120 karakterlik bir metin olmalı.",
     "invalidJson": "İstek gövdesi bir JSON nesnesi olmalı.",
@@ -22,8 +25,11 @@
     "invalidPlan": "\"plan\" şu seçeneklerden biri olmalı: {plans}.",
     "invalidPrompt": "Oyunu veya değişikliği \"prompt\" içinde açıklayın (en fazla 6000 karakter) ya da referans görseller gönderin.",
     "invalidRedirect": "\"to\" alanı bu sitede bir yol olmalı; örneğin /dashboard.",
+    "invalidShareKind": "Tür \"app\", \"design\" veya \"game\" olmalı.",
     "invalidStopMode": "\"mode\" değeri \"after-step\", \"now\" veya \"continue\" olmalı.",
     "invalidWait": "\"wait\" değeri true veya false olmalı.",
+    "linkGone": "Bu paylaşım bağlantısı çalışmıyor: bağlantı bilinmiyor, iptal edilmiş veya süresi dolmuş olabilir ya da paylaşılan öğe silinmiş olabilir.",
+    "linkWorkspace": "Bu paylaşım bağlantısı başka bir çalışma alanına ait.",
     "missingKey": "İş ortağı anahtarınızı Authorization başlığında, \"Bearer\" yazıp ardından bir boşluk ve anahtarınızı ekleyerek gönderin.",
     "network": "Bu iş ortağı anahtarı bu ağdan kullanılamaz.",
     "notFound": "Bulunamadı.",
@@ -33,6 +39,7 @@
     "revokedKey": "Bu iş ortağı anahtarı iptal edildi.",
     "seatsFull": "Bu çalışma alanında boş müşteri hesabı yeri kalmadı (sınır: {max}).",
     "suspended": "Bu iş ortağı anahtarının bağlı olduğu çalışma alanı askıya alındı.",
+    "tooManyLinks": "Zaten {count} etkin paylaşım bağlantınız var. Önce birini iptal edin.",
     "userSuspended": "Bu hesap askıya alındı."
   },
   "keys": {

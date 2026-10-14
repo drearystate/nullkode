@@ -5,6 +5,7 @@ import { ownedProject, checkPageLimit } from "@/lib/guard";
 import { json, slugify } from "@/lib/utils";
 import { RESERVED_PAGE_SLUGS, syncProjectNav } from "@/lib/nav-sync";
 import { isLanguageSlug } from "@/lib/app-translations";
+import { noteEdit } from "@/lib/sharing/audit";
 
 /**
  * Makes a copy of a page: same content, styles and settings (who can see it,
@@ -16,7 +17,7 @@ export async function POST(
   ctx: { params: Promise<{ id: string; pageId: string }> }
 ) {
   const { id, pageId } = await ctx.params;
-  const r = await ownedProject(id);
+  const r = await ownedProject(id, "edit");
   if ("error" in r) return r.error;
   const t = await getTranslations({ locale: await requestLocale(), namespace: "project.pagesApi" });
   if (r.project.kind === "DESIGNER") {
@@ -25,7 +26,7 @@ export async function POST(
   const source = await db.page.findFirst({ where: { id: pageId, projectId: id } });
   if (!source) return json({ error: t("notFound") }, { status: 404 });
 
-  const limitError = await checkPageLimit(r.user, id);
+  const limitError = await checkPageLimit(r.owner, id);
   if (limitError) return limitError;
 
   const title = `${source.title.slice(0, 73)} (copy)`;
@@ -57,5 +58,6 @@ export async function POST(
     console.error("Nav sync after page duplicate failed:", err);
   }
   const fresh = (await db.page.findUnique({ where: { id: page.id } })) ?? page;
+  await noteEdit("app", id, r.user.id, "page.create", { subjectId: page.id, label: page.title });
   return json({ page: { id: fresh.id, title: fresh.title, slug: fresh.slug, isHome: fresh.isHome, updatedAt: fresh.updatedAt } });
 }

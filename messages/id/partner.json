@@ -1,5 +1,7 @@
 {
   "api": {
+    "copyPages": "Aplikasi ini memiliki lebih banyak halaman daripada yang diizinkan dalam satu aplikasi pada paket orang tersebut.",
+    "copySource": "Kirim token link berbagi, atau kind dan id dari sesuatu yang ada dalam cakupan kunci ini.",
     "emailTaken": "Alamat email ini sudah memiliki akun yang tidak dikelola oleh kunci ini, jadi alamat ini tidak bisa digunakan.",
     "gamesUnavailable": "Game tidak bisa dibuat di server ini: game engine dan pustaka aset belum terpasang.",
     "idemInProgress": "Permintaan dengan Idempotency-Key ini masih diproses. Coba lagi sebentar.",
@@ -11,6 +13,7 @@
     "invalidCursor": "\"cursor\" tidak valid. Gunakan nextCursor dari halaman sebelumnya.",
     "invalidEmail": "Kirim alamat email yang valid di \"email\".",
     "invalidEngine": "\"engine\" harus berupa \"2d\", \"3d\", atau \"auto\".",
+    "invalidExpiry": "expiresInDays harus berupa bilangan bulat dari 1 sampai 365, atau null jika tidak ada tanggal berakhir.",
     "invalidFeature": "Kirim nama fitur (2–80 karakter) dan, jika mau, cara kerjanya di \"how\" (maks. 400 karakter).",
     "invalidGameName": "\"name\" harus berupa teks dengan panjang maksimal 120 karakter.",
     "invalidJson": "Isi permintaan harus berupa objek JSON.",
@@ -22,8 +25,11 @@
     "invalidPlan": "\"plan\" harus berupa salah satu dari: {plans}.",
     "invalidPrompt": "Jelaskan game atau perubahan di \"prompt\" (maksimal 6000 karakter), atau kirim gambar referensi.",
     "invalidRedirect": "\"to\" harus berupa jalur di situs ini, seperti /dashboard.",
+    "invalidShareKind": "kind harus \"app\", \"design\", atau \"game\".",
     "invalidStopMode": "\"mode\" harus berupa \"after-step\", \"now\", atau \"continue\".",
     "invalidWait": "\"wait\" harus berupa true atau false.",
+    "linkGone": "Link berbagi ini tidak berfungsi: tidak dikenal, sudah dicabut atau kedaluwarsa, atau item yang dibagikan telah dihapus.",
+    "linkWorkspace": "Link berbagi ini milik ruang kerja lain.",
     "missingKey": "Kirim kunci partner Anda di header Authorization dengan format \"Bearer\", diikuti spasi dan kunci.",
     "network": "Kunci mitra ini tidak bisa digunakan dari jaringan ini.",
     "notFound": "Tidak ditemukan.",
@@ -33,6 +39,7 @@
     "revokedKey": "Kunci mitra ini telah dicabut.",
     "seatsFull": "Workspace ini kehabisan slot klien (batasnya {max}).",
     "suspended": "Workspace yang terkait dengan kunci mitra ini ditangguhkan.",
+    "tooManyLinks": "Sudah ada {count} link berbagi aktif. Cabut salah satunya terlebih dahulu.",
     "userSuspended": "Akun ini ditangguhkan."
   },
   "keys": {

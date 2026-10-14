@@ -1,6 +1,7 @@
 import { notFound, redirect } from "next/navigation";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
+import { roleOn } from "@/lib/sharing/access";
 import { EditorShell } from "@/components/editor/editor-shell";
 import { getAppLocale } from "@/lib/app-locale";
 import { translationState } from "@/lib/app-translations";
@@ -20,7 +21,7 @@ export default async function EditPage({
   if (!user) return null;
 
   const project = await db.project.findFirst({
-    where: { id, ownerId: user.id },
+    where: { id },
     include: {
       pages: {
         orderBy: [{ isHome: "desc" }, { createdAt: "asc" }],
@@ -28,6 +29,8 @@ export default async function EditPage({
     },
   });
   if (!project) notFound();
+  const role = await roleOn("app", project, user.id);
+  if (!role) notFound();
 
   const current = project.pages.find((p) => p.id === pageId);
   if (!current) {
@@ -35,6 +38,9 @@ export default async function EditPage({
     if (first) redirect(`/projects/${id}/pages/${first.id}/edit`);
     notFound();
   }
+
+  // Viewers look at the page in the preview; the editor is for changing it.
+  if (role === "viewer") redirect(`/preview/${id}?page=${encodeURIComponent(current.slug)}`);
 
   // A multilingual app: language tabs, and the page opened in ?lang= if asked.
   const app = await getAppLocale(id);

@@ -1360,6 +1360,65 @@
     "summary": "Votre espace d’administration : configurez {app}, accompagnez les personnes qui l’utilisent et veillez au bon fonctionnement du serveur.",
     "title": "Gérer votre plateforme"
   },
+  "sharing": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Appuyez sur <b>Partager</b> sur une appli (à côté de <b>Aperçu</b>), dans le Concepteur IA ou dans le Studio de jeux. <b>Partager une copie</b> donne aux autres un lien pour créer leur propre copie : leurs modifications restent dans leur copie, et les vôtres dans la vôtre. <b>Modifier ensemble</b> invite des personnes par e-mail à travailler avec vous sur cette version."
+        },
+        "heading": "Deux façons de partager"
+      },
+      "1": {
+        "body": {
+          "0": "Toute personne qui ouvre le lien se connecte ou crée un compte, voit ce que vous avez partagé et ce qu’inclut une copie, puis appuie sur <b>Créer ma copie</b>. La copie lui appartient, dans son compte, et n’est pas publiée au départ."
+        },
+        "heading": "Partager une copie",
+        "steps": {
+          "0": "Appuyez sur <b>Partager</b>, puis sur <b>Partager une copie</b>.",
+          "1": "Pour une appli, cochez <b>Inclure des données d’exemple</b> si vous voulez que les copies contiennent des exemples de lignes des tableaux affichés sur vos pages publiques.",
+          "2": "Choisissez la durée de validité du lien, puis appuyez sur <b>Créer un lien</b>. Le lien est copié pour que vous puissiez l’envoyer.",
+          "3": "Sous <b>Copies</b>, vous voyez qui a créé une copie et quand. Appuyez sur <b>Désactiver</b> pour rendre un lien inutilisable. Les copies déjà créées restent accessibles aux personnes qui les ont faites."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Les copies ne contiennent jamais vos éléments privés : clés d’IA, clés de paiement et autres clés privées, connexions à des bases de données externes, clés de signature Android et comptes de boutiques d’applications, domaines personnalisés et adresse web, abonnés aux notifications push, versions publiées, statistiques et paramètres réservés au propriétaire, comme les alertes. Pour les applis, les comptes, mots de passe et données personnelles de vos visiteurs ne sont jamais copiés non plus.",
+          "1": "Si une appli utilise l’IA, la personne doit ajouter sa propre clé d’IA à sa copie avant de la publier."
+        },
+        "heading": "Ce qui n’est jamais inclus dans une copie"
+      },
+      "3": {
+        "body": {
+          "0": "Un <b>Éditeur</b> peut modifier les pages, les flux de travail, les données et les fonctionnalités, et créer avec l’IA en utilisant son propre forfait IA. Il ne peut pas supprimer, publier ni transférer l’appli, inviter d’autres personnes ou voir ses clés, domaines et informations de facturation. Un <b>Lecteur</b> peut tout consulter, mais rien modifier."
+        },
+        "heading": "Modifier ensemble",
+        "steps": {
+          "0": "Appuyez sur <b>Partager</b>, puis sur <b>Modifier ensemble</b>.",
+          "1": "Saisissez son adresse e-mail, choisissez <b>Éditeur</b> ou <b>Lecteur</b>, puis appuyez sur <b>Inviter</b>.",
+          "2": "La personne reçoit un e-mail. Si l’envoi d’e-mails n’est pas configuré, envoyez-lui plutôt le lien qui s’affiche.",
+          "3": "Elle accepte l’invitation en étant connectée avec cette adresse e-mail, depuis l’e-mail reçu ou depuis <b>Partagés avec moi</b> sur son tableau de bord.",
+          "4": "Pour retirer l’accès d’une personne, appuyez sur la corbeille à côté de son nom. L’accès est immédiatement révoqué."
+        }
+      },
+      "4": {
+        "body": {
+          "0": "Les applis, designs et jeux auxquels d’autres personnes vous ont invité à collaborer, ainsi que vos invitations, se trouvent dans <b>Partagés avec moi</b> sur votre tableau de bord. Appuyez sur <b>Quitter</b> pour cesser de collaborer sur l’un d’eux."
+        },
+        "heading": "Partagés avec moi"
+      },
+      "5": {
+        "bullets": {
+          "0": "Deux personnes peuvent modifier la même appli en même temps. Si une autre personne a enregistré une page après que vous l’avez ouverte, l’éditeur vous le signale. La version la plus récente est conservée : rechargez la page pour voir d’abord ses modifications.",
+          "1": "<b>Modifications récentes</b> dans la fenêtre de partage indique qui a modifié quoi depuis le partage.",
+          "2": "Une copie est comptabilisée dans le forfait de la personne qui la crée.",
+          "3": "Vous pouvez masquer la mention <b>Copié depuis</b> sur une copie que vous avez créée."
+        },
+        "heading": "Bon à savoir"
+      }
+    },
+    "summary": "Donnez à chacun sa propre copie d’une appli, d’un design ou d’un jeu à faire évoluer, ou invitez des personnes à travailler avec vous sur le vôtre.",
+    "title": "Partagez votre travail et créez ensemble"
+  },
   "white-label": {
     "sections": {
       "0": {

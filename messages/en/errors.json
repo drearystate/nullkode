@@ -326,5 +326,30 @@
   "templates": {
     "notFound": "Template not found",
     "createFailed": "Could not create the app from this template. Please try again."
+  },
+  "sharing": {
+    "ownerOnly": "Only the owner can do this.",
+    "viewOnly": "You can look at this but not change it.",
+    "badKind": "Choose an app, a design or a game.",
+    "tooManyLinks": "This already has {count} links. Turn one off first.",
+    "badExpiry": "Choose how long the link works: 1 to 365 days, or no end date.",
+    "linkGone": "This link doesn't work any more.",
+    "linkExpired": "This link has expired. Ask the person who shared it for a new one.",
+    "linkRevoked": "This link was turned off. Ask the person who shared it for a new one.",
+    "linkWorkspace": "This link belongs to another workspace, so it can't be used with this account.",
+    "copyPages": "This app has more pages than your plan allows in one app.",
+    "copyFailed": "Couldn't make your copy. Please try again.",
+    "tooManyCopies": "You've made a lot of copies in the last hour. Try again later.",
+    "badEmail": "Enter a valid email address.",
+    "self": "That's your own email address.",
+    "tooManyCollaborators": "You can invite up to {count} people.",
+    "badRole": "Choose Editor or Viewer.",
+    "tooManyInvites": "You've sent a lot of invitations in the last hour. Try again later.",
+    "inviteNotFound": "This invitation isn't there any more.",
+    "inviteExpired": "This invitation has expired. Ask for a new one.",
+    "wrongAccount": "This invitation was sent to another email address. Sign in with that address to accept it.",
+    "needsLink": "Open the link in the invitation email to accept it.",
+    "inviteWorkspace": "This invitation comes from another workspace, so it can't be accepted with this account.",
+    "inviteOwner": "This is already yours."
   }
 }

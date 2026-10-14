@@ -1360,6 +1360,65 @@
     "summary": "Beranda admin Anda: siapkan {app}, bantu orang yang menggunakannya, dan jaga server tetap berjalan dengan baik.",
     "title": "Mengelola platform Anda"
   },
+  "sharing": {
+    "sections": {
+      "0": {
+        "body": {
+          "0": "Tekan <b>Bagikan</b> pada aplikasi (di sebelah <b>Pratinjau</b>), di Desainer AI, atau di Studio Game. <b>Bagikan salinan</b> memberi orang lain tautan untuk membuat salinannya sendiri: perubahan yang mereka buat tetap ada di salinan mereka, dan perubahan yang Anda buat tetap ada di salinan Anda. <b>Edit bersama</b> mengundang orang melalui email untuk mengerjakan aplikasi ini bersama Anda."
+        },
+        "heading": "Dua cara berbagi"
+      },
+      "1": {
+        "body": {
+          "0": "Siapa pun yang membuka tautan akan masuk atau mendaftar, melihat apa yang Anda bagikan dan isi salinannya, lalu menekan <b>Buat salinan saya</b>. Salinan itu milik mereka, ada di akun mereka, dan belum dipublikasikan."
+        },
+        "heading": "Bagikan salinan",
+        "steps": {
+          "0": "Tekan <b>Bagikan</b>, lalu <b>Bagikan salinan</b>.",
+          "1": "Untuk aplikasi, centang <b>Sertakan data contoh</b> jika salinan harus menyertakan contoh baris dari tabel yang ditampilkan di halaman publik Anda.",
+          "2": "Pilih berapa lama tautan berlaku, lalu tekan <b>Buat tautan</b>. Tautan akan disalin agar bisa Anda kirim.",
+          "3": "Di bagian <b>Salinan</b>, Anda bisa melihat siapa yang membuat salinan dan kapan. Tekan <b>Nonaktifkan</b> agar tautan tidak bisa digunakan lagi; salinan yang sudah dibuat tetap dimiliki orang yang membuatnya."
+        }
+      },
+      "2": {
+        "body": {
+          "0": "Salinan tidak pernah menyertakan hal-hal pribadi Anda: kunci AI, kunci pembayaran dan kunci pribadi lainnya, koneksi ke database luar, kunci penandatanganan Android dan akun toko aplikasi, domain khusus dan alamat web Anda, pelanggan notifikasi push, versi yang sudah dipublikasikan, analitik, serta setelan khusus pemilik seperti pemberitahuan. Untuk aplikasi, akun, kata sandi, dan entri milik pengunjung Anda juga tidak ikut disalin.",
+          "1": "Jika aplikasi menggunakan AI, orang yang membuat salinan perlu menambahkan kunci AI mereka sendiri sebelum memublikasikannya."
+        },
+        "heading": "Hal yang tidak pernah disertakan dalam salinan"
+      },
+      "3": {
+        "body": {
+          "0": "<b>Editor</b> dapat mengubah halaman, alur kerja, data, dan fitur, serta membuat aplikasi dengan AI menggunakan kuota AI mereka sendiri. Mereka tidak dapat menghapus, memublikasikan, atau memindahkan aplikasi, mengundang orang lain, atau melihat kunci, domain, dan tagihannya. <b>Peninjau</b> dapat melihat semuanya, tetapi tidak dapat mengubah apa pun."
+        },
+        "heading": "Edit bersama",
+        "steps": {
+          "0": "Tekan <b>Bagikan</b>, lalu <b>Edit bersama</b>.",
+          "1": "Masukkan alamat email mereka, pilih <b>Editor</b> atau <b>Peninjau</b>, lalu tekan <b>Undang</b>.",
+          "2": "Mereka akan menerima email. Jika email belum disiapkan, kirimkan tautan yang muncul.",
+          "3": "Mereka harus menerima undangan saat masuk dengan alamat email tersebut, melalui email atau bagian <b>Dibagikan kepada saya</b> di dasbor mereka.",
+          "4": "Untuk mencabut akses seseorang, tekan ikon tempat sampah di samping nama mereka. Akses langsung berakhir."
+        }
+      },
+      "4": {
+        "body": {
+          "0": "Aplikasi, desain, dan game yang mengundang Anda untuk bekerja bersama ada di bagian <b>Dibagikan kepada saya</b> di dasbor, bersama undangan Anda. Tekan <b>Tinggalkan</b> untuk berhenti mengerjakannya."
+        },
+        "heading": "Dibagikan kepada saya"
+      },
+      "5": {
+        "bullets": {
+          "0": "Dua orang dapat mengedit aplikasi yang sama sekaligus. Jika orang lain menyimpan halaman setelah Anda membukanya, editor akan memberi tahu Anda. Simpanan terbaru yang digunakan, jadi muat ulang halaman untuk melihat perubahan mereka terlebih dahulu.",
+          "1": "<b>Perubahan terbaru</b> di dialog Bagikan menampilkan siapa yang mengubah apa sejak Anda membagikannya.",
+          "2": "Salinan dihitung dalam paket orang yang membuatnya.",
+          "3": "Anda dapat menyembunyikan catatan <b>Disalin dari</b> pada salinan yang Anda buat."
+        },
+        "heading": "Perlu diketahui"
+      }
+    },
+    "summary": "Berikan salinan aplikasi, desain, atau game kepada orang lain untuk dikembangkan, atau ajak mereka bekerja bersama Anda.",
+    "title": "Bagikan karya dan buat bersama"
+  },
   "white-label": {
     "sections": {
       "0": {

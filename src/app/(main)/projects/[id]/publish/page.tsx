@@ -4,6 +4,7 @@ import { appPublicUrl, getRequestBrand } from "@/lib/reseller";
 import QRCode from "qrcode";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
+import { hasProjectAccess } from "@/lib/sharing/access";
 import { PublishPanel, CopyAppLink, MakeLiveButton } from "@/components/publish-panel";
 import { SearchSharingCard } from "@/components/search-sharing-card";
 import { hasUnpublishedChanges } from "@/lib/deployments";
@@ -33,7 +34,7 @@ export default async function PublishPage({
       domains: { where: { status: "ACTIVE" } },
     },
   });
-  if (!project || project.ownerId !== user.id) notFound();
+  if (!project || !(await hasProjectAccess(project, user, "owner"))) notFound();
 
   const publicUrl = await appPublicUrl(project);
   const pending = project.published ? await hasUnpublishedChanges(project.id) : true;
