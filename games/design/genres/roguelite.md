@@ -1,4 +1,4 @@
-# Roguelite (lite) — phaser-2d top-down (gravity 0); three-3d top-down possible
+# Roguelite (lite) — phaser-2d top-down (gravity 0, view: "tilted"); three-3d top-down possible
 **Loop:** run → clear room → pick 1 of 3 upgrades → next room → floor boss → die/win → spend meta → new run.
 **Verbs:** move, attack (melee or shot), dash, use item; between rooms: choose.
 

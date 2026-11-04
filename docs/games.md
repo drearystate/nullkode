@@ -13,6 +13,19 @@ models (many rigged and animated), sounds, music and fonts from Kenney, KayKit,
 Quaternius and Pixel Frog, each tagged by AI so the AI builder can search them. It works with any supported model; larger models
 make better games.
 
+Adventure games (top-down 2D, or 2.5D in 3D) are built on a world from the
+world generator (`games/engine/tools/world-gen.mjs`): an overworld of regions
+and at least eight main places, with dungeons, keys, locked doors, gates, tools
+and bosses. Before a world is used, the generator reads every key, door and gate
+back off the drawn maps, the way the game itself reads them, and plays it
+through to the end; a world that can't be finished is thrown away and another
+is made. The Studio writes it to the game's `src/world.js` before the first
+build step and refuses any change to it, so every adventure it builds can be
+completed. In 3D the kit (1.5.0) dresses every screen by the scene rules in
+`games/design/SCENE-DRESSING.md`: closed screens with clear exits, trees and
+rocks by biome, dungeon floors and walls with torches, banners and props, moss,
+pools of light, water with foam, and a minimap and full map.
+
 This page is for people who run their own NullKode server.
 
 ## What it needs

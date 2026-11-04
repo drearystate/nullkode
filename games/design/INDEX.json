@@ -6,8 +6,8 @@
   "genres/*.md": 700
  },
  "files": {
-  "CORE-RULES.md": 1221,
-  "PLAYTEST-CHECKLIST.md": 2274,
+  "CORE-RULES.md": 1295,
+  "PLAYTEST-CHECKLIST.md": 2458,
   "README.md": 1118
  },
  "matching": {
@@ -45,7 +45,7 @@
    "title": "Top-down action/adventure (Zelda-like)",
    "file": "genres/top-down-adventure.md",
    "engine": "phaser-2d",
-   "tokens": 698,
+   "tokens": 696,
    "aliases": [
     "zelda",
     "zelda-like",
@@ -68,7 +68,7 @@
    "title": "Top-down shooter / twin-stick",
    "file": "genres/twin-stick-shooter.md",
    "engine": "phaser-2d",
-   "tokens": 687,
+   "tokens": 691,
    "aliases": [
     "twin-stick",
     "twin stick",
@@ -184,7 +184,7 @@
    "title": "Tower defence",
    "file": "genres/tower-defence.md",
    "engine": "phaser-2d",
-   "tokens": 696,
+   "tokens": 700,
    "aliases": [
     "tower defence",
     "tower defense",
@@ -202,7 +202,7 @@
    "title": "Racing (top-down and 3D arcade)",
    "file": "genres/racing.md",
    "engine": "either",
-   "tokens": 698,
+   "tokens": 702,
    "aliases": [
     "racing",
     "race",
@@ -276,6 +276,29 @@
     "tapper",
     "upgrade game",
     "prestige"
+   ]
+  },
+  {
+   "id": "3d-adventure",
+   "title": "3D top-down adventure (Zelda-like in 3D)",
+   "file": "genres/3d-adventure.md",
+   "engine": "three-3d",
+   "tokens": 486,
+   "aliases": [
+    "3d zelda",
+    "zelda 3d",
+    "3d adventure rpg",
+    "3d top-down",
+    "3d top down",
+    "2.5d",
+    "2.5d adventure",
+    "isometric adventure",
+    "3d dungeon crawler",
+    "3d dungeon",
+    "3d action rpg",
+    "3d rpg",
+    "link's awakening",
+    "3d hero quest"
    ]
   },
   {
@@ -398,7 +421,7 @@
    "title": "Roguelite (lite)",
    "file": "genres/roguelite.md",
    "engine": "phaser-2d",
-   "tokens": 697,
+   "tokens": 701,
    "aliases": [
     "roguelite",
     "roguelike",
@@ -421,7 +444,7 @@
    "title": "Survival / crafting (lite)",
    "file": "genres/survival-crafting.md",
    "engine": "either",
-   "tokens": 699,
+   "tokens": 703,
    "aliases": [
     "survival",
     "crafting",
@@ -444,7 +467,7 @@
    "title": "Fishing / farming / cosy sim (lite)",
    "file": "genres/cosy-sim.md",
    "engine": "phaser-2d",
-   "tokens": 700,
+   "tokens": 704,
    "aliases": [
     "farming",
     "farm",
@@ -689,10 +712,10 @@
   }
  },
  "estimatedTokensPerCall": {
-  "brief": "<= 700",
-  "plan": "<= 700",
-  "step": "<= 1921",
-  "change": "<= 1921",
-  "playtest": "<= 2974 (less when filtered)"
+  "brief": "<= 704",
+  "plan": "<= 704",
+  "step": "<= 1999",
+  "change": "<= 1999",
+  "playtest": "<= 3162 (less when filtered)"
  }
 }

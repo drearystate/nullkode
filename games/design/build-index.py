@@ -27,6 +27,8 @@ G = [
   ["card game","cards","solitaire","klondike","poker","blackjack","uno","deck","board game","chess","checkers","draughts","ludo","snakes and ladders","dominoes","dice game","yahtzee","tic tac toe","tic-tac-toe","connect four","memory cards","mahjong","go game","reversi","othello","backgammon"]),
  ("idle-clicker", "Idle / clicker", "phaser-2d",
   ["idle","idle game","clicker","incremental","cookie clicker","tap tycoon","tycoon","adventure capitalist","tapper","upgrade game","prestige"]),
+ ("3d-adventure", "3D top-down adventure (Zelda-like in 3D)", "three-3d",
+  ["3d zelda","zelda 3d","3d adventure rpg","3d top-down","3d top down","2.5d","2.5d adventure","isometric adventure","3d dungeon crawler","3d dungeon","3d action rpg","3d rpg","link's awakening","3d hero quest"]),
  ("3d-action-collectathon", "3D third-person action / collectathon", "three-3d",
   ["3d platformer","collectathon","third person","third-person","3d adventure","3d action","mario 64","banjo","spyro","crash bandicoot","3d knight","3d explore","open world","3d character","3d hero","fall guys","obby"]),
  ("3d-first-person", "3D first-person (simple)", "three-3d",

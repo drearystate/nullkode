@@ -21,13 +21,23 @@ import { listRefusals } from "@/lib/ai/build-policy";
 
 export const dynamic = "force-dynamic";
 
-async function loadDashboard() {
-  const [users, projects, recentRuns, counts] = await Promise.all([
+/** Accounts per page in the Users list. */
+const USERS_PER_PAGE = 50;
+
+async function loadDashboard(userQuery: string, userPage: number) {
+  // Email or name, any case; an empty search lists everyone, newest first.
+  const userWhere = userQuery
+    ? { OR: [{ email: { contains: userQuery, mode: "insensitive" as const } }, { name: { contains: userQuery, mode: "insensitive" as const } }] }
+    : {};
+  const [users, matchingUsers, projects, recentRuns, counts] = await Promise.all([
     db.user.findMany({
+      where: userWhere,
       orderBy: { createdAt: "desc" },
       include: { _count: { select: { projects: true } } },
-      take: 50,
+      skip: (userPage - 1) * USERS_PER_PAGE,
+      take: USERS_PER_PAGE,
     }),
+    db.user.count({ where: userWhere }),
     db.project.findMany({
       orderBy: { updatedAt: "desc" },
       include: {
@@ -67,10 +77,13 @@ async function loadDashboard() {
     Promise.all((["STARTER", "PRO", "TEAM"] as PaidPlan[]).map((p) => priceFor(p))),
     aiReady(),
   ]);
-  return { users, projects, recentRuns, counts, funnel, brand, resellerCount, resellerClients, stripeSecret, prices, ready };
+  return { users, matchingUsers, projects, recentRuns, counts, funnel, brand, resellerCount, resellerClients, stripeSecret, prices, ready };
 }
 
-export default async function AdminDashboard() {
+export default async function AdminDashboard({ searchParams }: { searchParams: Promise<{ uq?: string | string[]; upage?: string | string[] }> }) {
+  const sp = await searchParams;
+  const userQuery = (Array.isArray(sp.uq) ? sp.uq[0] : sp.uq ?? "").trim().slice(0, 200);
+  const userPage = Math.max(1, Math.floor(Number(Array.isArray(sp.upage) ? sp.upage[0] : sp.upage)) || 1);
   const real = await getRealUser();
   if (!real) redirect("/login");
   if (real.role !== "ADMIN") redirect("/dashboard");
@@ -80,7 +93,7 @@ export default async function AdminDashboard() {
   const schema = await getSchemaStatus();
   let data: Awaited<ReturnType<typeof loadDashboard>> | null = null;
   try {
-    data = await loadDashboard();
+    data = await loadDashboard(userQuery, userPage);
   } catch (err) {
     console.error("[admin] the admin home couldn't load:", err instanceof Error ? err.message.split("\n")[0] : err);
   }
@@ -107,12 +120,20 @@ export default async function AdminDashboard() {
     );
   }
 
-  const { users, projects, recentRuns, funnel, brand, resellerCount, resellerClients, stripeSecret, prices, ready } = data;
+  const { users, matchingUsers, projects, recentRuns, funnel, brand, resellerCount, resellerClients, stripeSecret, prices, ready } = data;
   const [userCount, projectCount, flowCount, runCount, paidCount] = data.counts;
   // Sign-ups that started from the home page's "What should your app do?" box.
   const arrivedWithIdea = (funnel as { arrivedWithIdea?: unknown }).arrivedWithIdea;
   const pct = (n: number) => (funnel.signups ? format.number(Math.round((n / funnel.signups) * 100) / 100, { style: "percent" }) : "—");
   const dateOpts = { year: "numeric", month: "numeric", day: "numeric" } as const;
+  const userPages = Math.max(1, Math.ceil(matchingUsers / USERS_PER_PAGE));
+  const usersHref = (page: number) => {
+    const qs = new URLSearchParams();
+    if (userQuery) qs.set("uq", userQuery);
+    if (page > 1) qs.set("upage", String(page));
+    const s = qs.toString();
+    return `/admin${s ? `?${s}` : ""}#users`;
+  };
 
   return (
     <main className="min-h-screen">
@@ -177,7 +198,23 @@ export default async function AdminDashboard() {
         </section>
 
         <section id="users" className="mt-10 scroll-mt-20">
-          <h2 className="font-semibold text-lg" data-help={t("home.usersHelp")}>{t("home.users")}</h2>
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <h2 className="font-semibold text-lg" data-help={t("home.usersHelp")}>{t("home.users")}</h2>
+            <form action="/admin#users" method="get" role="search" className="flex items-center gap-2">
+              <input
+                type="search"
+                name="uq"
+                defaultValue={userQuery}
+                placeholder={t("home.usersSearchPlaceholder")}
+                aria-label={t("home.usersSearchPlaceholder")}
+                className="input w-64 max-w-full"
+              />
+              <button type="submit" className="btn-secondary">{t("home.usersSearch")}</button>
+              {userQuery && (
+                <Link href="/admin#users" className="text-sm text-surface-400 hover:text-surface-200">{t("home.usersClear")}</Link>
+              )}
+            </form>
+          </div>
           <div className="mt-3 card overflow-hidden">
             <table className="w-full text-sm">
               <thead className="bg-surface-900 text-surface-400 text-xs uppercase tracking-wider">
@@ -191,6 +228,13 @@ export default async function AdminDashboard() {
                 </tr>
               </thead>
               <tbody>
+                {users.length === 0 && (
+                  <tr>
+                    <td colSpan={6} className="px-4 py-6 text-center text-surface-400">
+                      {userQuery ? t("home.usersNoMatch", { query: userQuery }) : t("home.usersNone")}
+                    </td>
+                  </tr>
+                )}
                 {users.map((u) => (
                   <tr key={u.id} className="border-t border-surface-800 hover:bg-surface-900/50">
                     <td className="px-4 py-2">
@@ -221,6 +265,26 @@ export default async function AdminDashboard() {
               </tbody>
             </table>
           </div>
+          {matchingUsers > 0 && (
+            <nav aria-label={t("home.usersPages")} className="mt-3 flex items-center justify-between text-sm text-surface-400">
+              <span>
+                {t("home.usersShowing", {
+                  from: format.number((userPage - 1) * USERS_PER_PAGE + Math.min(1, users.length)),
+                  to: format.number((userPage - 1) * USERS_PER_PAGE + users.length),
+                  total: format.number(matchingUsers),
+                })}
+              </span>
+              <span className="flex items-center gap-2">
+                {userPage > 1 ? (
+                  <Link href={usersHref(Math.min(userPage - 1, userPages))} className="btn-secondary">{t("home.usersPrev")}</Link>
+                ) : null}
+                <span>{t("home.usersPageOf", { page: format.number(userPage), pages: format.number(userPages) })}</span>
+                {userPage < userPages ? (
+                  <Link href={usersHref(userPage + 1)} className="btn-secondary">{t("home.usersNext")}</Link>
+                ) : null}
+              </span>
+            </nav>
+          )}
         </section>
 
         <section className="mt-10">

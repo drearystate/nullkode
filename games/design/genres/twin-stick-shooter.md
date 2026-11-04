@@ -1,4 +1,4 @@
-# Top-down shooter / twin-stick — phaser-2d (gravity 0); 3D top-down possible
+# Top-down shooter / twin-stick — phaser-2d (gravity 0, view: "tilted"); 3D top-down possible
 **Loop:** move + aim + shoot → survive waves → pick upgrades/drops → bigger waves → boss/score.
 **Verbs:** move, aim, fire (auto on touch), dash or bomb.
 

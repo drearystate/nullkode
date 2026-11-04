@@ -1,4 +1,4 @@
-# Survival / crafting (lite) — phaser-2d top-down (gravity 0) or three-3d
+# Survival / crafting (lite) — phaser-2d top-down (gravity 0, view: "tilted") or three-3d
 **Loop:** gather → craft tools/food → build shelter/fire → survive the night → explore further.
 **Verbs:** move, gather/attack (one context button), craft, place/build, eat, inventory.
 

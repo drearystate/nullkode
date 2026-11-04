@@ -282,8 +282,18 @@
     "system": "システム",
     "title": "管理者",
     "users": "ユーザー",
-    "usersHelp": "アカウントを持つすべての人を、新しい順に最大50人表示します。プランの変更、パスワードリンクの送信、ワークスペースを開いてのサポート、ユーザーの削除ができます。",
-    "viaPartnerApi": "（パートナーAPI）"
+    "usersHelp": "アカウントを持つ全員(新しい順、1 ページ 50 件)。メールまたは名前で検索できます。プランの変更、パスワードリンクの送信、サポートのためのワークスペースの表示、削除ができます。",
+    "viaPartnerApi": "（パートナーAPI）",
+    "usersSearchPlaceholder": "メールまたは名前で検索",
+    "usersSearch": "検索",
+    "usersClear": "クリア",
+    "usersNoMatch": "「{query}」に一致するアカウントはありません。",
+    "usersNone": "まだアカウントはありません。",
+    "usersPages": "ユーザー一覧のページ",
+    "usersShowing": "{total} 件中 {from}–{to}",
+    "usersPrev": "前へ",
+    "usersNext": "次へ",
+    "usersPageOf": "{page} / {pages} ページ"
   },
   "impersonate": {
     "confirm": "{email}としてログインしますか？操作はすべてこのユーザーとして行われます。",

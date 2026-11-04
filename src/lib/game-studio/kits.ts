@@ -17,8 +17,8 @@ import path from "node:path";
 
 export const ENGINES = ["phaser-2d", "three-3d"] as const;
 export type Engine = (typeof ENGINES)[number];
-/** The kit new games (and every build or change from now on) use. 1.1.0 = 1.0.0 + the "Reduce motion" setting and uiAssetIds. */
-export const KIT_VERSION = "1.1.0";
+/** The kit new games (and every build or change from now on) use. 1.1.0 = 1.0.0 + the "Reduce motion" setting and uiAssetIds; 1.2.0 = the tilted top-down 2D view (config.view "tilted"); 1.3.0-1.4.0 = 3D spec characters; 1.5.0 = 3D adventure worlds (NK3D.rooms, set dresser, maps). */
+export const KIT_VERSION = "1.5.0";
 
 export function isEngine(v: unknown): v is Engine {
   return typeof v === "string" && (ENGINES as readonly string[]).includes(v);
@@ -124,6 +124,7 @@ export const ENGINE_TYPES: Record<string, string> = {
   ".ttf": "font/ttf",
   ".woff2": "font/woff2",
   ".json": "application/json",
+  ".glb": "model/gltf-binary",
 };
 
 /** An engine file for /nk-engine/<kit>/<version>/<file>, or null. Only files listed in kit.json are served. */

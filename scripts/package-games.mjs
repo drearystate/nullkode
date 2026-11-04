@@ -82,12 +82,18 @@ export async function packageGames(root, output) {
   const unknownNR = libPacks.filter((p) => !cc0(p) && !NR_RE.test(p.pack) && !OTHER_NR.includes(p.pack)).map((p) => p.pack);
   if (unknownNR.length) throw new Error(`games/: packs.json has packs that can't ship and aren't in OTHER_NR yet: ${unknownNR.join(', ')}`);
 
-  // Engine kits: every version (games keep the version they were made with).
-  await tree('engine/kits');
+  // Engine kits: every version (games keep the version they were made with). Model files stay on nullkode.com: the
+  // character bases carry retargeted Mixamo motion (not redistributable as files) and the library is built per install.
+  await tree('engine/kits', 'engine/kits', (r) => !/\.(?:glb|gltf)$/i.test(r));
+
+  // The world generator: adventure worlds that can be finished as drawn (src/lib/game-studio/adventure-world.ts).
+  for (const rel of ['engine/tools/world-gen.mjs', 'engine/tools/lib/nk-node.mjs', 'engine/src/nk-game/nk-game.js']) await tree(rel);
 
   // Design playbook. Genre cards drop the sets that are for nullkode.com only.
   const lineNR = new RegExp(`;\\s*CI only[^\\n]*?\`${NR}-ink/[^\`]*\``, 'g');
   for (const rel of await files(join(src, 'design'))) {
+    // The classics notes (measured from commercial games) stay on nullkode.com.
+    if (rel.startsWith('classics/')) continue;
     const path = `design/${rel}`;
     if (!rel.endsWith('.md')) { await tree(path); continue; }
     await take(path, [

@@ -282,8 +282,18 @@
     "system": "Sistema",
     "title": "Administração",
     "users": "Usuários",
-    "usersHelp": "Todas as pessoas com uma conta, começando pelas 50 mais recentes. Altere o plano de alguém, envie um link de redefinição de senha, abra o espaço de trabalho para ajudar ou exclua a conta.",
-    "viaPartnerApi": "(API de parceiros)"
+    "usersHelp": "Todas as pessoas com conta, as mais novas primeiro, 50 por página. Busque por e-mail ou nome. Mude o plano de alguém, envie um link de senha, abra o espaço de trabalho para ajudar ou exclua a conta.",
+    "viaPartnerApi": "(API de parceiros)",
+    "usersSearchPlaceholder": "Buscar por e-mail ou nome",
+    "usersSearch": "Buscar",
+    "usersClear": "Limpar",
+    "usersNoMatch": "Nenhuma conta corresponde a “{query}”.",
+    "usersNone": "Ainda não há contas.",
+    "usersPages": "Páginas da lista de usuários",
+    "usersShowing": "{from}–{to} de {total}",
+    "usersPrev": "Anterior",
+    "usersNext": "Próxima",
+    "usersPageOf": "Página {page} de {pages}"
   },
   "impersonate": {
     "confirm": "Acessar como {email}? Tudo o que você fizer será feito como essa pessoa.",

@@ -1,0 +1,256 @@
+{
+ "id": "top-down-adventure",
+ "summary": "Overworld of screens + dungeons. Each dungeon holds one tool; each tool opens a kind of obstacle, so the world opens dungeon by dungeon. Hearts grow from bosses and secrets; money buys upgrades.",
+ "sources": "Genre conventions documented for NES/SNES top-down adventures (dungeon-item gating, per-dungeon small keys, boss heart containers, overworld caves/secrets, shops). design/classics/top-down-adventure/ has the per-game notes.",
+ "originality": "Every game gets its own hero, world, names, items, enemies and art. Use the archetypes below, never another game's names, map, story or characters.",
+ "sizes": {
+  "slice": {
+   "overworld": [
+    5,
+    4
+   ],
+   "dungeons": 1,
+   "rooms": [
+    7,
+    9
+   ],
+   "minutes": 8,
+   "note": "phase-1 check-in only, never a finished game"
+  },
+  "standard": {
+   "overworld": [
+    12,
+    8
+   ],
+   "dungeons": 8,
+   "rooms": [
+    10,
+    16
+   ],
+   "minutes": 150,
+   "note": "the minimum for a finished game: 8 main places"
+  },
+  "long": {
+   "overworld": [
+    16,
+    10
+   ],
+   "dungeons": 10,
+   "rooms": [
+    11,
+    18
+   ],
+   "minutes": 240
+  }
+ },
+ "screen": {
+  "tiles": [
+   16,
+   11
+  ],
+  "hud_rows_top": 2,
+  "transition_s": 0.6,
+  "note": "one screen = one room (a ring of wall around a ~14\u00d79 floor); the camera slides a full screen in 0.5\u20130.8 s with enemies frozen and the hero carried ~1 T in; the HUD has its own band and never overlaps play"
+ },
+ "room_entry": "enemies appear through a 0.25\u20130.5 s puff, staggered per enemy, never closer than 2 T to the hero; the first room of the game has none",
+ "overworld": {
+  "regions": "split the grid into 1 region per dungeon (+ the start region); each region has a biome, its own enemy set and a dungeon entrance",
+  "start": "start screen in the lower middle; a cave on or next to it hands out the first weapon (or the player starts with it)",
+  "secrets_share": 0.15,
+  "secret_kinds": [
+   "cave under a burnable bush",
+   "cave behind a cracked wall (bombs)",
+   "stairs under a pushable rock",
+   "money cache",
+   "heart container",
+   "shop",
+   "hint giver"
+  ],
+  "shops": [
+   1,
+   3
+  ],
+  "rest_spots": "1 healing spot per 2 regions"
+ },
+ "gates": {
+  "water": {
+   "opened_by": "crossing",
+   "where": "overworld + dungeons",
+   "look": "water band with a dock/landing on both sides"
+  },
+  "gap": {
+   "opened_by": "crossing",
+   "where": "dungeons",
+   "look": "pit with a target post on the far side"
+  },
+  "boulder": {
+   "opened_by": "lift",
+   "where": "overworld",
+   "look": "heavy rock, darker than pushable blocks"
+  },
+  "thicket": {
+   "opened_by": "fire",
+   "where": "overworld",
+   "look": "dark bush/tree, burn marks nearby"
+  },
+  "cracked-wall": {
+   "opened_by": "bombs",
+   "where": "both",
+   "look": "visible crack (always shown)"
+  },
+  "dark-room": {
+   "opened_by": "fire",
+   "where": "dungeons",
+   "look": "unlit room; torches to light"
+  },
+  "far-switch": {
+   "opened_by": "ranged",
+   "where": "dungeons",
+   "look": "eye/target switch across a gap or high up"
+  },
+  "toll": {
+   "opened_by": "count:money:N",
+   "where": "overworld",
+   "look": "gatekeeper asking a price"
+  },
+  "heart-gate": {
+   "opened_by": "count:hearts_max:N",
+   "where": "overworld",
+   "look": "elder who only lets strong heroes pass (upgraded weapon behind it)"
+  }
+ },
+ "tools": [
+  {
+   "archetype": "ranged",
+   "examples": "bow, slingshot, wand",
+   "opens": [
+    "far-switch"
+   ],
+   "combat": "hits at range; some enemies only vulnerable to it",
+   "ammo": "arrows counter or money per shot"
+  },
+  {
+   "archetype": "bombs",
+   "examples": "bombs, blast seeds",
+   "opens": [
+    "cracked-wall"
+   ],
+   "combat": "area damage",
+   "ammo": "bombs counter, cap 8 \u2192 12 \u2192 16 by upgrades"
+  },
+  {
+   "archetype": "fire",
+   "examples": "lantern, fire rod, candle",
+   "opens": [
+    "thicket",
+    "dark-room"
+   ]
+  },
+  {
+   "archetype": "crossing",
+   "examples": "raft, grappling hook, jump boots, ladder",
+   "opens": [
+    "water",
+    "gap"
+   ]
+  },
+  {
+   "archetype": "lift",
+   "examples": "power gloves, strength bracelet",
+   "opens": [
+    "boulder"
+   ]
+  },
+  {
+   "archetype": "stun",
+   "examples": "boomerang, freeze charm",
+   "opens": [],
+   "combat": "stuns enemies, grabs far pickups; good as the first dungeon's tool"
+  }
+ ],
+ "weapons": {
+  "melee_chain": [
+   "tier 1 (start / first cave)",
+   "tier 2 (secret cave behind a heart-gate, ~5 hearts)",
+   "tier 3 (late secret, ~10 hearts)"
+  ],
+  "damage": [
+   1,
+   2,
+   4
+  ],
+  "defence_chain": [
+   "shield 1 (start)",
+   "shield 2 (shop, blocks projectiles)"
+  ],
+  "armour": "optional: 2 tiers, halve then quarter damage (late dungeon rewards)"
+ },
+ "dungeons": {
+  "rooms": "grid of rooms (random walk), entrance at the bottom, boss at the far end",
+  "per_dungeon": [
+   "1 tool (dungeon item), found 50-70% of the way through, in a guarded room",
+   "small keys = locked doors (keys only work in their own dungeon)",
+   "1 boss door (needs the dungeon's big key or the tool) before the boss",
+   "map + compass are optional helpers",
+   "boss \u2192 heart container + exit + world flag"
+  ],
+  "room_mix": {
+   "fight": 0.45,
+   "puzzle": 0.2,
+   "key/loot": 0.2,
+   "empty/breather": 0.15
+  },
+  "room_rules": [
+   "shutter doors close until the room's enemies are beaten",
+   "a puzzle room uses one push block, switch or torch set",
+   "never a dead end without loot",
+   "the tool is used at least twice before the boss",
+   "the boss is weak to the dungeon's tool or needs it to open the weak point"
+  ],
+  "difficulty": "each dungeon adds 1-2 new enemy types and 1 new hazard; enemy health/damage step up every 2 dungeons"
+ },
+ "progression": {
+  "rule": "dungeon k's tool opens the gate in front of dungeon k+1 (sometimes k+2, so 1-2 dungeons can be done in either order). The final area needs every tool or a flag from every boss.",
+  "hearts": {
+   "start": 3,
+   "per_boss": 1,
+   "hidden": "2-4 in overworld secrets",
+   "max": 16
+  },
+  "money": {
+   "drops": [
+    1,
+    5,
+    20
+   ],
+   "cap": 255,
+   "spend": [
+    "shield 2 (~90)",
+    "bomb cap (~100)",
+    "potion (~40, refills hearts)",
+    "ammo",
+    "map/hint (~10)"
+   ]
+  },
+  "save": "save at every dungeon entrance and on entering a new region; continue starts at the last entrance with full hearts and all items/keys kept"
+ },
+ "enemies": {
+  "tiers": [
+   "walker (wanders, 1 hit)",
+   "charger (wind-up then dash)",
+   "shooter (stops, fires straight)",
+   "tank (armoured front, hit from the side/back)",
+   "flier (ignores walls, erratic)",
+   "splitter (splits on hit)",
+   "trap (fixed, triggers on line of sight)"
+  ],
+  "per_region": "2-3 types; 1 new type per region",
+  "drops": {
+   "money": 0.3,
+   "heart": 0.15,
+   "ammo": 0.1
+  }
+ },
+ "ending": "final boss in the last area \u2192 ending screen; stats = time, hearts found / total, secrets %, deaths",
+ "sites_note": "'dungeons' counts MAIN PLACES: each is a site of its own kind (temple, mine, ruins, tower, keep, cave system, flooded well, lair\u2026), named, with a reason the world needs it \u2014 see design-next/ADVENTURE-QUESTS.md. A finished game has at least 8."
+}

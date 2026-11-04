@@ -282,8 +282,18 @@
     "system": "System",
     "title": "Admin",
     "users": "Nutzer",
-    "usersHelp": "Alle mit einem Konto, die neuesten 50 zuerst. Ändere den Tarif, sende einen Link zum Zurücksetzen des Passworts, öffne den Arbeitsbereich zur Unterstützung oder lösche das Konto.",
-    "viaPartnerApi": "(Partner-API)"
+    "usersHelp": "Alle mit einem Konto, neueste zuerst, 50 pro Seite. Suche nach E-Mail oder Name. Ändere den Tarif, sende einen Passwort-Link, öffne den Arbeitsbereich, um zu helfen, oder lösche das Konto.",
+    "viaPartnerApi": "(Partner-API)",
+    "usersSearchPlaceholder": "Nach E-Mail oder Name suchen",
+    "usersSearch": "Suchen",
+    "usersClear": "Zurücksetzen",
+    "usersNoMatch": "Keine Konten passen zu „{query}“.",
+    "usersNone": "Noch keine Konten.",
+    "usersPages": "Seiten der Benutzerliste",
+    "usersShowing": "{from}–{to} von {total}",
+    "usersPrev": "Zurück",
+    "usersNext": "Weiter",
+    "usersPageOf": "Seite {page} von {pages}"
   },
   "impersonate": {
     "confirm": "Als {email} anmelden? Alles, was du tust, geschieht in diesem Konto.",

@@ -14,6 +14,7 @@ happens, remove the ID from `ignoreGhsas` and fix it properly.
 | Advisory | Package (version) | Reached through | Why it can't be reached |
 |---|---|---|---|
 | [GHSA-ggr8-5vv4-36mx](https://github.com/advisories/GHSA-ggr8-5vv4-36mx) | deepmerge-ts 7.1.5 | `prisma` → `@prisma/config` | Build and start-up tooling only |
+| [GHSA-mrhx-c7xc-m3w5](https://github.com/advisories/GHSA-mrhx-c7xc-m3w5) | zod 3.25.76 | API request validation | **Can be reached** — accepted only until the zod 4 move (below) |
 
 ## deepmerge-ts (stack exhaustion on recursive objects)
 
@@ -50,3 +51,17 @@ pnpm why -r deepmerge-ts qs uuid
 When a new high or critical advisory appears, fix it with an update or a
 `pnpm.overrides` entry first. Add an ID to `ignoreGhsas` only with a section
 here that explains why it can't be reached.
+
+## zod (memory exhaustion on large arrays)
+
+Unlike the other entries, this one can be reached: zod checks API request
+bodies, six API routes validate arrays, and a request body can be large. A
+request with a very large array that fails validation makes zod collect one
+issue per element, which can exhaust the process's memory and restart it
+(denial of service, no data exposure). There is no fixed release on the zod 3
+line; the fix is zod 4.6.6 or later, a major upgrade of every schema.
+
+Until then: keep `.max(n)` on every array schema that reads request data, and
+keep request bodies capped at the proxy. Remove this ID from `ignoreGhsas` as
+soon as the project is on zod ≥ 4.6.6.
+

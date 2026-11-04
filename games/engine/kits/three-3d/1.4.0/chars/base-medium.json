@@ -1,0 +1,232 @@
+{
+ "clips": [
+  {
+   "name": "Idle (great sword)",
+   "yaw": -0.27125217560905734,
+   "frames": 228,
+   "armed": true
+  },
+  {
+   "name": "Walk",
+   "yaw": -0.7026925301241116,
+   "frames": 31,
+   "armed": false
+  },
+  {
+   "name": "Run",
+   "yaw": -0.02070364697272775,
+   "frames": 22,
+   "armed": false
+  },
+  {
+   "name": "Sprint",
+   "yaw": -0.15369287117357655,
+   "frames": 16,
+   "armed": false
+  },
+  {
+   "name": "Combat backpedal (two-handed)",
+   "yaw": -0.3582110944640282,
+   "frames": 22,
+   "armed": true
+  },
+  {
+   "name": "Running jump",
+   "yaw": -0.04938559612716542,
+   "frames": 43,
+   "armed": false
+  },
+  {
+   "name": "Jump up",
+   "yaw": -0.6906836426952525,
+   "frames": 7,
+   "armed": false
+  },
+  {
+   "name": "Fall loop",
+   "yaw": -0.7058746552334068,
+   "frames": 33,
+   "armed": false
+  },
+  {
+   "name": "Hard landing",
+   "yaw": -0.5197392316425207,
+   "frames": 61,
+   "armed": false
+  },
+  {
+   "name": "Dodge left",
+   "yaw": -1.083419519931724,
+   "frames": 30,
+   "armed": false
+  },
+  {
+   "name": "Dodge back",
+   "yaw": -1.0834205326103956,
+   "frames": 49,
+   "armed": false
+  },
+  {
+   "name": "Dive roll",
+   "yaw": -0.6943160564854094,
+   "frames": 72,
+   "armed": false
+  },
+  {
+   "name": "Backflip",
+   "yaw": -0.750345092558864,
+   "frames": 66,
+   "armed": false
+  },
+  {
+   "name": "Running slide",
+   "yaw": 0.05137722760267405,
+   "frames": 46,
+   "armed": false
+  },
+  {
+   "name": "Wall run",
+   "yaw": 0.05137690280274354,
+   "frames": 28,
+   "armed": false
+  },
+  {
+   "name": "Jump from wall",
+   "yaw": -0.10473196694455922,
+   "frames": 39,
+   "armed": false
+  },
+  {
+   "name": "Climb up wall",
+   "yaw": 0.14104717489498442,
+   "frames": 61,
+   "armed": false
+  },
+  {
+   "name": "Jump to hang",
+   "yaw": -0.5197390173152119,
+   "frames": 61,
+   "armed": false
+  },
+  {
+   "name": "Braced hang shimmy",
+   "yaw": 0.023182231558034117,
+   "frames": 43,
+   "armed": false
+  },
+  {
+   "name": "Flying",
+   "yaw": -0.0021207767575759373,
+   "frames": 79,
+   "armed": false
+  },
+  {
+   "name": "Flying kick",
+   "yaw": -0.27068845044791856,
+   "frames": 46,
+   "armed": false
+  },
+  {
+   "name": "Two-handed slash",
+   "yaw": -0.9109813458451246,
+   "frames": 43,
+   "armed": true
+  },
+  {
+   "name": "Two-handed slash 2",
+   "yaw": -0.2712524663821969,
+   "frames": 55,
+   "armed": true
+  },
+  {
+   "name": "Jump attack",
+   "yaw": -0.35820013753172897,
+   "frames": 66,
+   "armed": true
+  },
+  {
+   "name": "Sword slide attack",
+   "yaw": -0.45594609518351925,
+   "frames": 64,
+   "armed": true
+  },
+  {
+   "name": "Jab",
+   "yaw": -0.8021478518488054,
+   "frames": 33,
+   "armed": false
+  },
+  {
+   "name": "Hook punch",
+   "yaw": -0.7354413307469003,
+   "frames": 66,
+   "armed": false
+  },
+  {
+   "name": "MMA kick",
+   "yaw": -0.6141471419852662,
+   "frames": 51,
+   "armed": false
+  },
+  {
+   "name": "Spell cast",
+   "yaw": -0.271252286614869,
+   "frames": 34,
+   "armed": false
+  },
+  {
+   "name": "Two-hand magic",
+   "yaw": -1.018758782924321,
+   "frames": 100,
+   "armed": true
+  },
+  {
+   "name": "Block",
+   "yaw": 0.025018028314626184,
+   "frames": 40,
+   "armed": false
+  },
+  {
+   "name": "Hit reaction (small)",
+   "yaw": -0.7977540054810013,
+   "frames": 73,
+   "armed": false
+  },
+  {
+   "name": "Hit reaction (large)",
+   "yaw": -1.0187579631965265,
+   "frames": 49,
+   "armed": false
+  },
+  {
+   "name": "Knocked down",
+   "yaw": -0.718823449532112,
+   "frames": 85,
+   "armed": false
+  },
+  {
+   "name": "Getting up",
+   "yaw": 0.1938294808756178,
+   "frames": 82,
+   "armed": false
+  },
+  {
+   "name": "Death (forward)",
+   "yaw": -0.9481114395465111,
+   "frames": 78,
+   "armed": false
+  },
+  {
+   "name": "Death (backward)",
+   "yaw": -1.083422598562938,
+   "frames": 94,
+   "armed": false
+  },
+  {
+   "name": "Death (two-handed)",
+   "yaw": -0.27125242233955693,
+   "frames": 73,
+   "armed": true
+  }
+ ]
+}

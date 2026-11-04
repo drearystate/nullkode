@@ -282,8 +282,18 @@
     "system": "系统",
     "title": "管理员",
     "users": "用户",
-    "usersHelp": "所有账户用户，按注册时间从新到旧显示最近 50 位。你可以更改用户方案、发送密码链接、打开他们的工作区来提供帮助，或删除他们。",
-    "viaPartnerApi": "（合作伙伴 API）"
+    "usersHelp": "所有拥有账号的人,最新的在前,每页 50 个。可按邮箱或姓名搜索。可以更改套餐、发送密码链接、打开对方的工作区帮忙,或删除账号。",
+    "viaPartnerApi": "（合作伙伴 API）",
+    "usersSearchPlaceholder": "按邮箱或姓名搜索",
+    "usersSearch": "搜索",
+    "usersClear": "清除",
+    "usersNoMatch": "没有与“{query}”匹配的账号。",
+    "usersNone": "还没有账号。",
+    "usersPages": "用户列表分页",
+    "usersShowing": "第 {from}–{to} 个,共 {total} 个",
+    "usersPrev": "上一页",
+    "usersNext": "下一页",
+    "usersPageOf": "第 {page} / {pages} 页"
   },
   "impersonate": {
     "confirm": "要以 {email} 的身份查看吗？你接下来的所有操作都会以对方的身份进行。",

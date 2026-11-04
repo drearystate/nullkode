@@ -282,8 +282,18 @@
     "system": "Sistem",
     "title": "Yönetici",
     "users": "Kullanıcılar",
-    "usersHelp": "Hesabı olan herkes; en yeni 50 kişi önce gösterilir. Birinin planını değiştirebilir, parola bağlantısı gönderebilir, yardım etmek için çalışma alanını açabilir veya kişiyi silebilirsiniz.",
-    "viaPartnerApi": "(iş ortağı API'si)"
+    "usersHelp": "Hesabı olan herkes, en yeniler önce, sayfa başına 50. E-posta veya ada göre arayın. Birinin planını değiştirin, parola bağlantısı gönderin, yardım için çalışma alanını açın veya silin.",
+    "viaPartnerApi": "(iş ortağı API'si)",
+    "usersSearchPlaceholder": "E-posta veya ada göre ara",
+    "usersSearch": "Ara",
+    "usersClear": "Temizle",
+    "usersNoMatch": "“{query}” ile eşleşen hesap yok.",
+    "usersNone": "Henüz hesap yok.",
+    "usersPages": "Kullanıcı listesi sayfaları",
+    "usersShowing": "{total} içinden {from}–{to}",
+    "usersPrev": "Önceki",
+    "usersNext": "Sonraki",
+    "usersPageOf": "Sayfa {page} / {pages}"
   },
   "impersonate": {
     "confirm": "{email} hesabı gibi mi davranılsın? Yaptığınız her şey bu hesapta gerçekleşir.",

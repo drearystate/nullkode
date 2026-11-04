@@ -87,6 +87,17 @@ def build(packs, prune=False):
         if rec.get('duplicateSources'):
             out['duplicateSources'] = rec['duplicateSources']
         records.append(out)
+    # Our own sheets added through the Game Studio intake API (game-assets/_uploads/index.jsonl) are kept
+    # on every rebuild; an upload with the same id as a pack asset replaces it.
+    up = os.path.join(LIB, '_uploads', 'index.jsonl')
+    if os.path.exists(up):
+        mine = {}
+        for line in open(up):
+            line = line.strip()
+            if line:
+                rec = json.loads(line)
+                mine[rec['id']] = rec
+        records = [r for r in records if r['id'] not in mine] + list(mine.values())
     records.sort(key=lambda r: r['id'])
     # cross-link Kenney character skins <-> models
     by_id = {r['id']: r for r in records}

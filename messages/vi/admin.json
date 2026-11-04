@@ -282,8 +282,18 @@
     "system": "Hệ thống",
     "title": "Quản trị",
     "users": "Người dùng",
-    "usersHelp": "Tất cả người có tài khoản, 50 người mới nhất hiển thị trước. Đổi gói, gửi liên kết đặt lại mật khẩu, mở không gian làm việc để hỗ trợ hoặc xóa tài khoản của họ.",
-    "viaPartnerApi": "(API đối tác)"
+    "usersHelp": "Mọi người có tài khoản, mới nhất trước, 50 mỗi trang. Tìm theo email hoặc tên. Đổi gói của ai đó, gửi liên kết mật khẩu, mở không gian làm việc của họ để hỗ trợ hoặc xóa họ.",
+    "viaPartnerApi": "(API đối tác)",
+    "usersSearchPlaceholder": "Tìm theo email hoặc tên",
+    "usersSearch": "Tìm",
+    "usersClear": "Xóa",
+    "usersNoMatch": "Không có tài khoản nào khớp với “{query}”.",
+    "usersNone": "Chưa có tài khoản nào.",
+    "usersPages": "Các trang danh sách người dùng",
+    "usersShowing": "{from}–{to} trên {total}",
+    "usersPrev": "Trước",
+    "usersNext": "Tiếp",
+    "usersPageOf": "Trang {page} / {pages}"
   },
   "impersonate": {
     "confirm": "Đăng nhập với tư cách {email}? Mọi thao tác bạn thực hiện sẽ được thực hiện dưới tài khoản của họ.",

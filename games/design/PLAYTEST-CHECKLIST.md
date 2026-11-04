@@ -69,3 +69,10 @@ Item tags: `[severity][stages]`, stages = level, enemies, polish (all = every pa
 **A5. Speed ratio.** Enemy speed constant ÷ player run speed (Slime 95 / 430 = 0.22 pass; skeleton chase 4.4 / 8 = 0.55 pass); > 0.6 in level 1 = should-fix, > 1.0 for chasers = blocker.
 **A6. Touch overlap.** Kit layout in CSS px: `size = clamp(0.3·min(viewW, viewH), 110, 170)`; stick: left 18, bottom 18, size×size (arrows: two `0.62·size` squares, 14 px apart); buttons from the right: #1 `0.66·size` at right 18, #2 `0.52·size` at right `18 + 0.72·size`, #3 above #1 at bottom `18 + 0.74·size`. Game → CSS: `k = min(viewW/1280, viewH/720)`, offset = letterbox. Test 844×390, 390×844, 1024×768. Any overlap with HUD/buttons/goal text = should-fix; covering lives, timer or the player = blocker.
 **A7. Contrast.** From the screenshot: mean colour of the player's pixels (atlas alpha mask or bbox minus the background) vs mean of a ring 1× the bbox around it. Linearise sRGB (`c ≤ 0.04045 ? c/12.92 : ((c + 0.055)/1.055)^2.4`), `L = 0.2126R + 0.7152G + 0.0722B`, ratio `(L1 + 0.05)/(L2 + 0.05)`. ≥ 3 pass, 2–3 should-fix, < 2 blocker. Repeat for the main hazard and pickup.
+
+## Added 2026-10-30 (lessons ledger L001–L012)
+- [blocker · level] Walk every screen edge and wall: nothing stops the player that isn't visible. (L001)
+- [blocker · enemies] Leave a room with enemies alive and come back: no frozen or leftover enemies, nothing invisible hits you. (L008)
+- [should-fix · polish] Animation matches equipment and speed: no weapon-carry poses on empty hands, no sliding or waddling feet. (L002, L012)
+- [should-fix · enemies] The boss can be beaten by a careful player without taking a hit, and it punishes a careless one. (L005)
+- [should-fix · level] Outdoor screens: open where the player may go, blocked only by readable barriers (gates, cliffs, water); open ground has life (plants, animals). (L010)

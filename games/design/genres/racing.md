@@ -1,4 +1,4 @@
-# Racing (top-down 2D and 3D arcade) — phaser-2d (gravity 0) or three-3d
+# Racing (top-down 2D and 3D arcade) — phaser-2d (gravity 0, view: "tilted") or three-3d
 **Loop:** countdown → laps through checkpoints → beat AI or the ghost → result + best lap.
 **Verbs:** accelerate, brake/reverse, steer; optional drift, boost.
 

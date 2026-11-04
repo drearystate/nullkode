@@ -282,8 +282,18 @@
     "system": "Sistem",
     "title": "Admin",
     "users": "Pengguna",
-    "usersHelp": "Semua pemilik akun, dengan 50 akun terbaru di urutan pertama. Ubah paket seseorang, kirim tautan kata sandi, buka ruang kerja mereka untuk membantu, atau hapus akun mereka.",
-    "viaPartnerApi": "(API partner)"
+    "usersHelp": "Semua orang yang punya akun, terbaru lebih dulu, 50 per halaman. Cari berdasarkan email atau nama. Ubah paket seseorang, kirim tautan kata sandi, buka ruang kerjanya untuk membantu, atau hapus.",
+    "viaPartnerApi": "(API partner)",
+    "usersSearchPlaceholder": "Cari berdasarkan email atau nama",
+    "usersSearch": "Cari",
+    "usersClear": "Hapus",
+    "usersNoMatch": "Tidak ada akun yang cocok dengan “{query}”.",
+    "usersNone": "Belum ada akun.",
+    "usersPages": "Halaman daftar pengguna",
+    "usersShowing": "{from}–{to} dari {total}",
+    "usersPrev": "Sebelumnya",
+    "usersNext": "Berikutnya",
+    "usersPageOf": "Halaman {page} dari {pages}"
   },
   "impersonate": {
     "confirm": "Masuk sebagai {email}? Semua yang Anda lakukan akan dilakukan atas nama mereka.",

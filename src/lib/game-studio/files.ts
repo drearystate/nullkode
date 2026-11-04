@@ -77,6 +77,11 @@ export function applyFileOps(files: GameFiles, ops: FileOp[]): { files: GameFile
   const changed = new Set<string>();
   const problems: string[] = [];
   for (const op of ops) {
+    // The generated adventure world is the Studio's: never edited, rewritten or deleted by a build step.
+    if (op.path === "src/world.js" && files["src/world.js"] !== undefined) {
+      problems.push("src/world.js is the generated world (finishable as drawn): never edit, rewrite or delete it; build on NK.data(\"world\") instead");
+      continue;
+    }
     if (op.op === "delete") {
       if (op.path === "game.json") {
         problems.push("game.json can't be deleted");

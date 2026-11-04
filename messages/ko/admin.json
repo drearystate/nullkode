@@ -282,8 +282,18 @@
     "system": "시스템",
     "title": "관리자",
     "users": "사용자",
-    "usersHelp": "계정이 있는 모든 사용자예요. 최근 가입한 사용자 50명부터 표시돼요. 요금제를 변경하거나 비밀번호 링크를 보내고, 워크스페이스를 열어 지원하거나 사용자를 삭제할 수 있어요.",
-    "viaPartnerApi": "(파트너 API)"
+    "usersHelp": "계정이 있는 모든 사람, 최신순, 페이지당 50명. 이메일 또는 이름으로 검색하세요. 요금제 변경, 비밀번호 링크 보내기, 도움을 위해 작업 공간 열기, 삭제를 할 수 있습니다.",
+    "viaPartnerApi": "(파트너 API)",
+    "usersSearchPlaceholder": "이메일 또는 이름으로 검색",
+    "usersSearch": "검색",
+    "usersClear": "지우기",
+    "usersNoMatch": "“{query}”와 일치하는 계정이 없습니다.",
+    "usersNone": "아직 계정이 없습니다.",
+    "usersPages": "사용자 목록 페이지",
+    "usersShowing": "{total}개 중 {from}–{to}",
+    "usersPrev": "이전",
+    "usersNext": "다음",
+    "usersPageOf": "{pages}페이지 중 {page}페이지"
   },
   "impersonate": {
     "confirm": "{email} 계정으로 볼까요? 여기서 하는 모든 작업은 해당 사용자로 처리됩니다.",

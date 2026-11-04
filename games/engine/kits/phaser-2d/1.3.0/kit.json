@@ -1,0 +1,73 @@
+{
+  "name": "phaser-2d",
+  "version": "1.3.0",
+  "engine": {
+    "phaser": "4.2.1"
+  },
+  "runtime": {
+    "nk-game": "1.3.0"
+  },
+  "load": [
+    "nk-game.min.js",
+    "phaser.min.js",
+    "nk-game-2d.min.js"
+  ],
+  "cdn": {
+    "phaser.min.js": {
+      "url": "https://cdn.jsdelivr.net/npm/phaser@4.2.1/dist/phaser.min.js",
+      "integrity": "sha384-kyUQ5+cxc6+X89xEG6DhcXLcDU9T3Z+o/45VdT6pgAwtG6gxtAzYTEn0Wwj/BKZd"
+    }
+  },
+  "uiAssets": [
+    "kenney/mobile-controls/joystick-circle-pad-a",
+    "kenney/mobile-controls/joystick-circle-nub-a",
+    "kenney/mobile-controls/button-circle",
+    "kenney/mobile-controls/direction-left",
+    "kenney/mobile-controls/direction-right",
+    "kenney/mobile-controls/icon-jump",
+    "kenney/mobile-controls/icon-pause",
+    "kenney/mobile-controls/icon-sword",
+    "kenney/mobile-controls/icon-hand"
+  ],
+  "uiAssetIds": {
+    "kenney/mobile-controls/joystick-circle-pad-a": "kenney/mobile-controls/sprites/style-a/joystick-circle-pad-a",
+    "kenney/mobile-controls/joystick-circle-nub-a": "kenney/mobile-controls/sprites/style-a/joystick-circle-nub-a",
+    "kenney/mobile-controls/button-circle": "kenney/mobile-controls/sprites/style-a/button-circle",
+    "kenney/mobile-controls/direction-left": "kenney/mobile-controls/sprites/style-a/direction-left",
+    "kenney/mobile-controls/direction-right": "kenney/mobile-controls/sprites/style-a/direction-right",
+    "kenney/mobile-controls/icon-jump": "kenney/mobile-controls/sprites/icons/icon-jump",
+    "kenney/mobile-controls/icon-pause": "kenney/mobile-controls/sprites/icons/icon-pause",
+    "kenney/mobile-controls/icon-sword": "kenney/mobile-controls/sprites/icons/icon-sword",
+    "kenney/mobile-controls/icon-hand": "kenney/mobile-controls/sprites/icons/icon-hand"
+  },
+  "files": {
+    "ENGINE-CARD.md": {
+      "bytes": 7498,
+      "integrity": "sha384-Q1yYb0Lsdnau8IlIiCCv0I2yrgu358wk+TPTGmBX2n0FxJoWTDjQSLu6W1ybaX6R"
+    },
+    "fonts/kenney-future.ttf": {
+      "bytes": 34160,
+      "integrity": "sha384-Q4W5bxhuqFzHm17r0l1sayMzwGwSFFXg1Hs/cVTIic3MzSrk72ClWD0WSC/nnmiu"
+    },
+    "licenses/phaser-LICENSE.md": {
+      "bytes": 1120,
+      "integrity": "sha384-IkZZ+tu6zopISKq0gdvcUm2aJsUydn5uDOT2DQqp1uEZRuB+hp8Cs1NuQtdGEWZu"
+    },
+    "nk-game-2d.min.js": {
+      "bytes": 35420,
+      "integrity": "sha384-6E1VQHWG+RStDL1vKMZB8M2fIHs1ig+ay2j1k0h13jDHKKakaq1KfLSGk+1g6BGr"
+    },
+    "nk-game.min.js": {
+      "bytes": 44819,
+      "integrity": "sha384-+2uwkkj03xp1w58izAALrjZwUiItlCCJG85iZDEciZzasvLsC+aVZkCOuUcbqqyk"
+    },
+    "phaser.min.js": {
+      "bytes": 1375976,
+      "integrity": "sha384-kyUQ5+cxc6+X89xEG6DhcXLcDU9T3Z+o/45VdT6pgAwtG6gxtAzYTEn0Wwj/BKZd"
+    },
+    "src/nk-game-2d.js": {
+      "bytes": 63921,
+      "integrity": "sha384-qOxgjYqdN3lRBbGdL5aa1CizHgM5QWcj8rrjAgunVghkJhdUU82t4VcobBfleb1i"
+    }
+  }
+}

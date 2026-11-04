@@ -19,6 +19,7 @@ import { checkGame, type CheckResult } from "./check";
 import { publishGame, type JobStepView } from "./events";
 import { applyFileOps, parseFileOps, parseSearchRequest } from "./files";
 import { gamesAvailable, isEngine, KIT_VERSION, templateFiles, type Engine } from "./kits";
+import { generateWorldFile, isAdventure, WORLD_FILE, withWorldFile } from "./adventure-world";
 import { briefSystem, changeSystem, CLARIFY_SYSTEM, drawnText, featureTestFixSystem, ownerNotesBlock, planSystem, reviewChangeSystem, reviseSystem, stepSystem, type DrawnCharacter } from "./prompts";
 import { asBrand, BRAND_FILE, brandText, cleanBrandInput, logoFromFiles, withBrandFile, type GameBrand } from "./brand";
 import { cleanContent, cleanPhaseInfo, contentText, phaseCount, phaseOf, phaseViews, segmentEnd, type GameContent, type PhaseInfo } from "./phases";
@@ -1026,6 +1027,16 @@ async function planBuild(ctx: Ctx, request: string, refs: ReferenceSet | null) {
   ctx.engine = engine;
   ctx.genreId = matchGenre(brief.brief.genre) ?? fromIdea ?? matchGenre(brief.brief.pitch);
   await db.gameProject.update({ where: { id: ctx.gameId }, data: { genreId: ctx.genreId } });
+  // Adventures are built on a generated world that can be finished as drawn (adventure-world.ts); the steps never edit it.
+  if (isAdventure(ctx.genreId)) {
+    const curFiles = await readGameFiles(ctx.gameId);
+    if (curFiles[WORLD_FILE] === undefined) {
+      const world = await generateWorldFile(1 + Math.floor(Math.random() * 1_000_000));
+      const files = withWorldFile(curFiles, world);
+      await db.gameProject.update({ where: { id: ctx.gameId }, data: { files } });
+      await db.gameVersion.updateMany({ where: { gameId: ctx.gameId, seq: 0 }, data: { files } });
+    }
+  }
   const title = brief.title.trim() || game.name;
   if (title && (game.name === "Untitled game" || game.name.length < 3 || game.seq === 0)) {
     await db.gameProject.update({ where: { id: ctx.gameId }, data: { name: title.slice(0, 120) } });

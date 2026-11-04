@@ -282,8 +282,18 @@
     "system": "Sistema",
     "title": "Amministrazione",
     "users": "Utenti",
-    "usersHelp": "Tutte le persone con un account, a partire dalle 50 più recenti. Puoi modificare il piano, inviare un link per reimpostare la password, aprire il loro spazio di lavoro per aiutarle o eliminarle.",
-    "viaPartnerApi": "(API partner)"
+    "usersHelp": "Tutte le persone con un account, le più recenti prima, 50 per pagina. Cerca per email o nome. Cambia il piano di qualcuno, invia un link per la password, apri il suo spazio di lavoro per aiutarlo o eliminalo.",
+    "viaPartnerApi": "(API partner)",
+    "usersSearchPlaceholder": "Cerca per email o nome",
+    "usersSearch": "Cerca",
+    "usersClear": "Cancella",
+    "usersNoMatch": "Nessun account corrisponde a “{query}”.",
+    "usersNone": "Ancora nessun account.",
+    "usersPages": "Pagine dell’elenco utenti",
+    "usersShowing": "{from}–{to} di {total}",
+    "usersPrev": "Precedente",
+    "usersNext": "Successiva",
+    "usersPageOf": "Pagina {page} di {pages}"
   },
   "impersonate": {
     "confirm": "Accedere come {email}? Tutto ciò che farai verrà eseguito a suo nome.",

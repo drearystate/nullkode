@@ -29,7 +29,7 @@
     "minutes": "{n} min",
     "hours": "{n} h",
     "users": "Users",
-    "usersHelp": "Everyone with an account, newest 50 first. Change someone's plan, send a password link, open their workspace to help them, or delete them.",
+    "usersHelp": "Everyone with an account, newest first, 50 per page. Search by email or name. Change someone's plan, send a password link, open their workspace to help them, or delete them.",
     "colEmail": "Email",
     "colName": "Name",
     "colPlan": "Plan",
@@ -79,7 +79,17 @@
       "plan": "plan",
       "images": "images",
       "result": "result"
-    }
+    },
+    "usersSearchPlaceholder": "Search by email or name",
+    "usersSearch": "Search",
+    "usersClear": "Clear",
+    "usersNoMatch": "No accounts match “{query}”.",
+    "usersNone": "No accounts yet.",
+    "usersPages": "User list pages",
+    "usersShowing": "{from}–{to} of {total}",
+    "usersPrev": "Previous",
+    "usersNext": "Next",
+    "usersPageOf": "Page {page} of {pages}"
   },
   "schema": {
     "columns": "{count, plural, one {# column} other {# columns}}",

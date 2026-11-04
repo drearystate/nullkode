@@ -282,8 +282,18 @@
     "system": "Système",
     "title": "Administration",
     "users": "Utilisateurs",
-    "usersHelp": "Tous les titulaires d’un compte, les 50 plus récents en premier. Modifiez le forfait d’une personne, envoyez-lui un lien pour réinitialiser son mot de passe, ouvrez son espace de travail pour l’aider ou supprimez son compte.",
-    "viaPartnerApi": "(API partenaire)"
+    "usersHelp": "Toutes les personnes ayant un compte, les plus récentes d’abord, 50 par page. Recherchez par e-mail ou nom. Changez l’offre de quelqu’un, envoyez un lien de mot de passe, ouvrez son espace pour l’aider ou supprimez-le.",
+    "viaPartnerApi": "(API partenaire)",
+    "usersSearchPlaceholder": "Rechercher par e-mail ou nom",
+    "usersSearch": "Rechercher",
+    "usersClear": "Effacer",
+    "usersNoMatch": "Aucun compte ne correspond à « {query} ».",
+    "usersNone": "Aucun compte pour l’instant.",
+    "usersPages": "Pages de la liste des utilisateurs",
+    "usersShowing": "{from}–{to} sur {total}",
+    "usersPrev": "Précédent",
+    "usersNext": "Suivant",
+    "usersPageOf": "Page {page} sur {pages}"
   },
   "impersonate": {
     "confirm": "Se connecter en tant que {email} ? Tout ce que vous ferez sera fait en son nom.",

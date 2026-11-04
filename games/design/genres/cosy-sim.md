@@ -1,4 +1,4 @@
-# Fishing / farming / cosy sim (lite) — phaser-2d top-down or side (gravity 0); three-3d possible
+# Fishing / farming / cosy sim (lite) — phaser-2d top-down (view: "tilted") or side (gravity 0); three-3d possible
 **Loop:** farm: till → plant → water → harvest → sell → buy seeds/upgrades. Fish: cast → bite → hook → reel → sell → better rod/spots.
 **Verbs:** walk, use tool (context), plant, water, harvest, cast, hook, reel, sell, decorate.
 

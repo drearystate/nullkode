@@ -1,0 +1,110 @@
+# Engine card: 2D kit (Phaser 4.2.1 + nk-game 1.2.0)
+
+Plain scripts (no imports, no build step). Globals: `Phaser`, `NK` (runtime), `NK2D` (kit). Never edit index.html; never `new Phaser.Game`.
+
+## Files
+```
+game.json          {"id","title","kit":"phaser-2d@1.2.0","files":[...]}   load order = files order
+assets.lock.json   written by the platform from the ids you use; never hand-edit
+src/config.js      NK.config({...})
+src/assets.js      NK.assets.define({...}) + NK2D.anims({...})
+src/levels.js      NK.def("levels", {...})
+src/entities/*.js  NK.def("Player", class extends Phaser.Physics.Arcade.Sprite {...})
+src/scenes/game.js NK.scene("Game", class extends NK2D.Scene {...})
+levels/*.json      optional Tiled maps (type "tilemap")
+```
+Add every new file to `game.json` (before the files that use it).
+
+## Build-step order (one visible step at a time)
+1 shell (config + empty Game) → 2 assets + backdrop → 3 level → 4 player + camera → 5 pickups + HUD → 6 enemies, hazards, lives, game over → 7 goal, more levels, win → 8 touch controls + polish. Each step must run on its own.
+
+## Rules
+- Kit scenes exist: Boot, Preload (loads the manifest), Menu, Pause, GameOver, NKHud. Register only "Game" unless asked.
+- Flow: `NK.start()` play, `NK.pause()`/`NK.resume()`, `NK.gameOver({win, score})`, `NK.menu()`, next level: `NK.run.level++; NK.state.go("play")`. Esc/P/pad Start pause automatically; the game pauses when the tab hides.
+- Gameplay in `fixedUpdate(dt)` (60 Hz, before physics). Don't override `update()`.
+- Run state (score, lives, level, taken items) lives in `NK.run` (reset from `config.run` on each new game). It survives live edits, so never reset it in `create()`.
+- Keep the player in `this.player` so live edits keep its position. `create(data)`: `data.__snapshot` is set on a live edit (skip intros then).
+- `NK.use("Name")` inside methods, not at file top.
+- Use `NK.rng` (seeded), `this.time.delayedCall` (no setTimeout), `NK.save` (no localStorage), no DOM.
+
+## Config
+```js
+NK.config({ width: 1280, height: 720, background: "#c3e3ff", physics: "arcade" /* or "matter" */, gravity: 1800,
+  pixelArt: false, orientation: "landscape", run: { score: 0, lives: 3, level: 1 }, // top-down: gravity: 0, view: "tilted"
+  touch: { stick: "arrows" /* or "left" joystick */, buttons: [{ action: "jump", icon: "kenney/mobile-controls/icon-jump" }] },
+  menu: { subtitle: "…", music: "music" } });
+```
+Touch icons and pads are the kit's short ids (`kenney/mobile-controls/icon-jump`, `icon-sword`, `icon-hand`, `icon-pause`, `button-circle`, `direction-left/right`, `joystick-circle-pad-a/nub-a`); the platform maps them to the library's `kenney/mobile-controls/sprites/…` files (kit.json `uiAssetIds`).
+Settings: `NK.settings.get("reduceMotion")` is the player's Reduce motion toggle (settings panel). The kit then turns camera `shake`/`flash` into no-ops and freezes `NK2D.parallax`; skip your own screen flashes, big tweens and particle storms too.
+
+## Top-down games: tilted view (always on)
+Every top-down 2D game (camera looking down at the ground: adventure/RPG, twin-stick, farming/cosy sim, survival, top-down roguelite, tower defence, top-down racing) sets `view: "tilted"` in `NK.config` (gravity 0). Side-view games (platformers, runners, metroidvanias, shmups, puzzles, cards) never do.
+- The kit draws the ground through a camera tilted down at it while every sprite stands upright at its own size, anchored at its feet. Drawing only: positions, physics, input and pointer world coords stay plain top-down, so write the game exactly as top-down.
+- Give standing sprites their feet as the anchor: `setOrigin(0.5, 1)` at the foot point, physics body at the feet. Sort by feet every step: `obj.setDepth(obj.y)`.
+- Lie flat on the ground automatically: tile layers, tileSprites, graphics, particles, ellipses/arcs, rotated objects (arrows, spinning blades). Force it: `NK2D.flat(obj)` (floor decals, shadow images, puddles, ground markers); `NK2D.stand(obj)` stands one up.
+- Objects with scrollFactor ≠ 1 (backdrops, in-scene UI) are not tilted. HUD belongs in `NK2D.hud`. `this.nkView = false` in a scene's `create` turns the view off there (e.g. a map screen).
+- `{ view: { tilt: 0.75 } }` = ground squash 0.5–0.95 (0.75 default; `NK2D.tilt()` reads it). The camera shows more ground vertically, so don't hand-clamp the camera to one screen of world.
+
+## Assets (library ids only; check the asset search for ids, frames, tile sizes)
+```js
+NK.assets.define({
+  tiles: "kenney/new-platformer-pack/spritesheet-tiles-default",   // atlas (+ tile grid from the catalog)
+  chars: "kenney/new-platformer-pack/spritesheet-characters-default",
+  coin: "kenney/new-platformer-pack/sfx-coin", music: "kenney/music-loops/flowing-rocks",
+  level2: { url: "levels/level2.json", type: "tilemap" },          // a file of this game
+});
+NK2D.anims({ "hero-walk": { atlas: "chars", frames: ["character_green_walk_a", "character_green_walk_b"], fps: 10 },
+             "hero-idle": { atlas: "chars", frames: ["character_green_idle"] } });
+```
+Frame names come from the catalog (`metrics.frameNames`). Key `"ui-click"` = menu click sound.
+
+## Levels
+ASCII → Tiled map at runtime (autotiles Kenney terrain sets):
+```js
+NK2D.asciiMap(this, "level1", { tileset: "tiles", rows: def.rows, legend: {
+  "#": { auto: "terrain_grass" }, "=": { auto: "terrain_grass_cloud", oneWay: true },
+  "X": { tile: "block_planks", solid: true }, "^": { tile: "spikes", layer: "hazards" }, "h": "bush",
+  "P": { object: "player" }, "c": { object: "coin" }, "s": { object: "slime" }, "F": { object: "flag" } } });
+const lvl = (this.lvl = NK2D.tilemap(this, "level1"));    // or a loaded Tiled key: NK2D.tilemap(this, "level2")
+lvl.find("player")[0]   // {cx, cy, x, y, bottom, props}
+lvl.spawn("coin", (o) => …); lvl.collide(spriteOrArray); lvl.layers.ground / .hazards; lvl.width / .height
+```
+Layers: `ground` (solid), `decor`, `hazards`; world + camera bounds set, bottom open (pits).
+
+## Scene template
+```js
+NK.scene("Game", class extends NK2D.Scene {
+  create(data) {
+    const lvl = (this.lvl = NK2D.tilemap(this, "level" + NK.run.level));
+    const s = lvl.find("player")[0];
+    this.player = new (NK.use("Player"))(this, s.cx, s.bottom - 50);
+    lvl.collide(this.player);
+    NK2D.follow(this, this.player, { lerp: 0.15, deadzone: [160, 120] });
+    this.hud = NK2D.hud(this).counter("coins", { texture: "tiles", frame: "hud_coin", value: NK.run.coins })
+      .hearts("lives", { texture: "tiles", full: "hud_heart", empty: "hud_heart_empty", max: 3, value: NK.run.lives });
+    if (!data.__snapshot) this.hud.flash("Level " + NK.run.level);
+    NK.audio.music("music");
+  }
+  fixedUpdate(dt) { this.player.fixedUpdate(dt); }
+});
+```
+
+## Input / audio / saves / platform
+- `NK.input.axis("moveX")` (-1..1), `down("jump")`, `pressed("jump")` (one step), actions: left right up down jump action run pause fire; `NK.input.bind("dash", ["KeyL", "pad:4", "touch:dash"])` + a touch button `{action:"dash", icon:…}`.
+- `NK.audio.play("coin", { volume, rate })`, `NK.audio.music("music")`; unlock on first tap is automatic.
+- `NK.save.store("main", obj)`, `NK.save.load("main", defaults)`; best score is kept by `NK.gameOver`.
+- `NK.platform.achievements.unlock(id, title)`, `NK.platform.leaderboard.submit(board, score)` (stubs now, accounts later).
+- Backdrop: `NK2D.parallax(this, [{ texture, frame, y, height, factor, scale }])`. Text: `NK2D.text(this, x, y, str, { size })`.
+
+## Room worlds (1.3.0) — top-down adventures (genre card top-down-adventure)
+World data = `src/world.js` (`NK.def("world", {...})`), written by the Studio from the world generator and checked to be finishable as drawn. Listed first in game.json; NEVER edit, rewrite or delete it (edits are refused): build on `NK.use("world")`. Its `legend` says what each map letter is (`#` dungeon wall; overworld borders `F` forest, `A` rock, `^` hedge; `L` locked door, `K` boss door, `S` shutter; gate letters; `k` key, `B` boss key, `T` tool chest, `H` heart; `P` start, `e` enemy, `X` boss, `D` dungeon, `c` cave, `m` push block, `w` switch, `$` shop/money, `Y` keeper).
+```js
+const world = NK2D.world(this, NK.use("world"), { tileset: "tiles", legend: { "#": { tile: "wall" }, ".": { tile: "floor" }, "F": { tile: "tree" }, "A": { tile: "rock" }, "^": { tile: "hedge" }, "L": { tile: "door_locked" }, "k": { tile: "key" } /* … every letter */ },
+  onRoom: (room) => room.find("enemy").map((s) => spawnEnemy(s)), transition: 0.6, shutters: true });
+const at = world.continue(); world.start(this.player);
+fixedUpdate(dt) { if (world.fixedUpdate(this.player)) return; /* game logic */ }
+```
+- `world.current` {area, key, room, find(type)}; `world.bossDefeated()` · `world.save()` · `world.continue()` · `world.mapData()`.
+- Doors, gates, keys and pickups read/write NK.progress, so opened doors, keys and items are kept across rooms and saves.
+- Events: `world:room(area, key, room)` · `world:blocked(gate, req)` · `world:opened(type)` · `world:pickup(give)` · `world:cleared` · `world:secret(gives)`.
+

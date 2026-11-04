@@ -1,4 +1,4 @@
-# Tower defence — phaser-2d (gravity 0) top-down; three-3d with a fixed/top-down camera
+# Tower defence — phaser-2d (gravity 0, view: "tilted") top-down; three-3d with a fixed/top-down camera
 **Loop:** build towers with gold → wave walks the path → towers kill → earn gold → upgrade/build → harder wave.
 **Verbs:** place, upgrade, sell (70% refund), target mode, start next wave early (bonus gold), speed ×2.
 

@@ -6,11 +6,12 @@ Units: 2D = game px at 1280×720; T = tile px (speeds in tiles/s × T). 3D = ass
 - Full speed in 0.08–0.15 s, stop in 0.05–0.12 s, air control 50–80%. Lerp velocity, no 0→max snaps, no ice unless it's the mechanic.
 - Cap fall speed ≈ 1.3× jump speed and < 0.8·T·60 px/s (no tunnelling). Optional fall gravity 1.3–2×.
 - Input acts the same step. Attack startup ≤ 0.1 s unless it's a telegraphed heavy.
-- Camera follow lerp 0.1–0.2 + deadzone; the player and the next landing are always on screen.
+- Camera follow lerp 0.1–0.2 + deadzone; the player and the next landing always on screen; nothing blocks movement unseen.
+- Controls fit the hands: PC = WASD (+Space/Shift/E/Q), main verbs on the mouse aimed at the cursor; pad/touch mirror. Attacks/rolls lock facing. Moves match what's held and the ground speed.
 
 ## Readability
 - Player contrast ≥ 3:1 vs nearby background, unique colour + silhouette, depth above props. Hero on screen = 1/12–1/6 of view height. Pixel art: `pixelArt: true` + camera zoom so a tile shows ≥ 48 px (18 px tiles → zoom 3).
-- Telegraph every enemy attack ≥ 0.4 s (wind-up, flash, marker). Damage hitboxes ≤ 85% of sprite; pickup hitboxes ≥ sprite.
+- Telegraph every enemy attack ≥ 0.4 s (wind-up, flash, marker). Only attacks hurt; boss openings outlast the walk in; give block or evade. Damage hitboxes ≤ 85% of sprite; pickup hitboxes ≥ sprite.
 - One visual language: danger = red/spiky/animated, pickups = bright + spinning/bobbing, interactables = outline or prompt. Decor never looks like danger. Backgrounds darker/desaturated, parallax ≤ 0.5.
 
 ## Feedback

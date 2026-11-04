@@ -1,4 +1,4 @@
-# Top-down action/adventure (Zelda-like) — phaser-2d (gravity 0) or three-3d top-down
+# Top-down action/adventure (Zelda-like) — phaser-2d (gravity 0, view: "tilted") or three-3d top-down
 **Loop:** explore rooms → melee fights → key/item → gated door → boss → treasure.
 **Verbs:** walk 8-way, attack, interact (talk/open/push), items (bow, bomb, dash).
 
@@ -8,7 +8,7 @@
 - Hero 3–6 hearts (half-heart hits), 1 s invulnerable after a hit.
 - Enemies 2–3.5 T/s (≤ 60% of hero), 1–3 hits; wind-up ≥ 0.4 s (flash/crouch) before charging/shooting; projectiles 4–6 T/s.
 - Heart drops 20–30% below half health.
-- 3D (`camera: {mode:"top-down", offset:[0,12,9]}`): sample Crypt Run — speed 4.5, run 8, enemy chase 4.4 within 10 u, swing reach 1.5–1.9.
+- 3D: use `genres/3d-adventure.md` (three-3d ≥ 1.5.0 builds the same world-gen worlds as 3D rooms with `NK3D.rooms`).
 
 **Levels:**
 - Room = one screen (20×11 tiles at 64 px; 16 px at zoom 4); camera slides 0.3 s between rooms (or follows inside).
@@ -19,7 +19,7 @@
 
 **Progression/win-lose:** 0 hearts → room entrance, full hearts, keep keys; `NK.gameOver({win:false})` only in a 3-lives mode; items in `NK.run`.
 
-**Full game:** overworld hub + 3–4 dungeons (levels/*.json), 20–35 min; 5–7 enemy types, 1–2 new per dungeon; each dungeon boss drops an item that opens new overworld paths, or +1 heart. Fight → puzzle → loot/breather. Map screen; `NK.save` per room (Continue); final boss + treasure → ending screen, `NK.gameOver({win:true})`; replay = items %, best time. Slice (phase 1): menu + overworld start + dungeon 1 with its boss.
+**Full game:** overworld hub + at least 8 main places (temples, mines, ruins, towers, keeps… not only dungeons; see ADVENTURE-QUESTS.md), 2–3 h, with a main story in acts and side quests; 5–7 enemy types, 1–2 new per dungeon; each dungeon boss drops an item that opens new overworld paths, or +1 heart. Fight → puzzle → loot/breather. Map screen; `NK.save` per room (Continue); final boss + treasure → ending screen, `NK.gameOver({win:true})`; replay = items %, best time. Slice (phase 1): menu + overworld start + dungeon 1 with its boss.
 
 **Mobile:** `touch: { stick: "left", buttons: [{action:"action"} /* attack */, {action:"fire"} /* item */] }`; attack button = interact near interactables (prompt).
 
